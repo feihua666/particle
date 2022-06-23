@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>global</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>global-tool</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- hutool 工具类集 -->
+        <!-- https://hutool.cn -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <!-- google 强大工具库，常用工具类本地限流等 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <!-- 汉字转拼音 -->
+        <!-- PinyinTool 中有使用 -->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>${pinyin4j.version}</version>
+        </dependency>
+        <!-- 日志门面 版本已在springboot parent中定义 不传递依赖 -->
+        <!-- PojoPropertyDiffTool 中有使用-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- swagger 接口文档工具 不传递依赖 -->
+        <!-- PojoPropertyDiffTool 中有使用 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-boot-starter.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 主要用于图片参数，当前主要是苹果手机图片旋转问题 -->
+        <!-- ImageTool 中有使用 -->
+        <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>${metadata-extractor.version}</version>
+        </dependency>
+
+        <!-- http客户端工具类，使用该类可以保留cookie -->
+        <!-- 版本已在 spring-boot-starter-parent 中定义 -->
+        <!-- HttpClientTool 中有使用 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+        <!-- servlet-api 不传递依赖 版本已在springboot parent 中定义 -->
+        <!-- RequestTool中有使用 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 提供链路日志 traceId 跟踪 不传递依赖-->
+        <!-- 入口简介：利用日志的MDC将日志写入，并替换了 logging.pattern.level-->
+        <!-- 参见日志pattern替换org.springframework.cloud.sleuth.autoconfig.TraceEnvironmentPostProcessor -->
+        <!-- 参见日志MDC处理 org.springframework.cloud.sleuth.log.Slf4jScopeDecorator -->
+        <!-- TraceTool 中有使用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

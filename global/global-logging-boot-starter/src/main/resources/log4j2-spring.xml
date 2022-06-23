@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Doc: http://logging.apache.org/log4j/2.x/manual/configuration.html -->
+<!-- 参考：spring-boot-2.6.6.jar!/org/springframework/boot/logging/log4j2/log4j2-file.xml -->
+<!-- 相关注意事项：https://blog.csdn.net/chuixue24/article/details/107416559 -->
+<!--
+    status: 设置记录到控制台的内部Log4j日志的级别
+            日志级别从低到高分为 [TRACE < DEBUG < INFO < WARN < ERROR < FATAL], 如果设置为WARN, 则低于WARN的信息都不会输出
+            设置系统属性 [log4j2.debug] 也会将Log4j2的内部日志打印到控制台, 包括在找到配置文件之前发生的内部日志
+-->
+<!-- monitorInterval: 检查文件配置是否有变化的间隔时间, 单位为 [秒] -->
+<!-- name: 配置的名称 -->
+<!-- shutdownHook: 设置当JVM关闭后Log4j是否也自动关闭. 默认为启用, 需要禁用则设置为 [disable] -->
+<!--
+    shutdownTimeout: 指定当JVM关闭时, Appender和后台任务超时多久时间来关闭
+                     时间类型请参见 [LoggerContext.stop(long, java.util.concurrent.TimeUnit)]
+                     默认值为0, 不等待后台任务, 并非能应用到所有的应用程序, 设置的时间太短, 会增加丢失最后日志记录的风险
+                     注意: 只有当 [shutdownHook] 启用时该参数才生效
+-->
+<!-- 日志文件根路径 默认 logs 可以使用类似 -DLOG_PATH=logs1 覆盖-->
+
+<Configuration status="WARN" name="log4j2" monitorInterval="60" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <Properties>
+        <!-- ALL日志最大大小 -->
+        <property name="MAX_ALL_LOG_FILE_SIZE" value="12MB"/>
+        <!-- DEBUG日志最大大小 -->
+        <property name="MAX_DEBUG_LOG_FILE_SIZE" value="12MB"/>
+        <!-- INFO日志最大大小 -->
+        <property name="MAX_INFO_LOG_FILE_SIZE" value="2MB"/>
+        <!-- WARN日志最大大小 -->
+        <property name="MAX_WARNING_LOG_FILE_SIZE" value="2MB"/>
+        <!-- ERROR日志最大大小 -->
+        <property name="MAX_ERROR_LOG_FILE_SIZE" value="2MB"/>
+        <!-- 日志保留天数 -->
+        <property name="MAX_HISTORY_DAY" value="35d"/>
+        <!-- 日志滚动间隔小时 -->
+        <property name="ROLLING_INTERVAL" value="1"/>
+        <!-- 日志滚动随机最大延迟秒 -->
+        <property name="MAX_RANDOM_DELAY" value="5"/>
+        <!-- 自定义配置文件 rolling_file_prefix -->
+        <property name="LOG_ROLLING_FILE_PREFIX" value="app"/>
+
+        <!-- 沿用 spring-boot-2.6.6.jar!/org/springframework/boot/logging/log4j2/log4j2-file.xml -->
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+        <!-- pattern只是加了行号 .%L -->
+        <!-- 控制台日志正则表达式 -->
+        <Property name="CONSOLE_LOG_PATTERN">%clr{%d{${sys:LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}:%-5L}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+        <!-- 日志文件正则表达式 -->
+        <Property name="FILE_LOG_PATTERN">%d{${sys:LOG_DATEFORMAT_PATTERN}} ${sys:LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.}:%-5L : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+    </Properties>
+
+    <!-- Doc: http://logging.apache.org/log4j/2.x/manual/appenders.html -->
+    <Appenders>
+        <!-- Console Level -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" charset="${sys:CONSOLE_LOG_CHARSET}" />
+        </Console>
+
+        <!-- RollingFile 如果在这里定义，AppenderRef不添加，也会生成文件，但没有日志 -->
+        <!-- File Level -->
+        <RollingFile name="File"  fileName="${sys:LOG_FILE}" filePattern="${sys:LOG_PATH}/$${date:yyyy-MM}/${sys:LOG_ROLLING_FILE_PREFIX}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <PatternLayout pattern="${sys:FILE_LOG_PATTERN}" charset="${sys:FILE_LOG_CHARSET}"/>
+            <Policies>
+                <!--
+                    设置当重新启动时是否滚动文件(当日志文件比当前JVM启动时间早时)
+                    minSize: 日志文件滚动的最小大小, 为 [0] 时不管文件大小为多大都会滚动, 为 [1] 时将阻止对空文件进行滚动
+                -->
+                <OnStartupTriggeringPolicy minSize="0"/>
+                <!--
+                    设置文件滚动大小策略
+                    size: 设置文件滚动大小
+               -->
+                <SizeBasedTriggeringPolicy size="${MAX_ALL_LOG_FILE_SIZE}"/>
+                <!--
+                    设置文件滚动时间策略
+                    interval: 滚动间隔, 单位以 [filePattern] 中最小可衡量时间单位为准, 默认为小时
+                    modulate: 开始滚动边界(从0点开始重新计算间隔时间)
+                    modulate: 滚动操作随机延时最长秒数, 用于避免某一个时刻由于滚动日志造成高I/O压力
+                -->
+                <TimeBasedTriggeringPolicy interval="${ROLLING_INTERVAL}" modulate="true"
+                                           maxRandomDelay="${MAX_RANDOM_DELAY}"/>
+            </Policies>
+            <!--
+                设置默认策略
+                fileIndex: 为 [max] 时, 具有更大索引文件比具有更小索引未见内容更新, 为 [min] 时则反之
+                min: 计数器的最小值, 默认为 [1]
+                max: 计数器的最大值, 默认为 [7]
+            -->
+            <DefaultRolloverStrategy fileIndex="nomax">
+                <!--
+                    设置删除策略
+                    basePath: 基准目录
+                    maxDepth: 扫描深度, 默认为 [1], 扫描基准目录下的文件, 为 [0] 时则仅能访问基准目录
+                -->
+                <Delete basePath="${sys:LOG_PATH}" maxDepth="3">
+                    <IfFileName glob="**/**/${sys:LOG_ROLLING_FILE_PREFIX}-*.log.gz"/>
+                    <IfLastModified age="${MAX_HISTORY_DAY}"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="org.apache.catalina.startup.DigesterFactory" level="error" />
+        <AsyncLogger name="org.apache.catalina.util.LifecycleBase" level="error" />
+        <AsyncLogger name="org.apache.coyote.http11.Http11NioProtocol" level="warn" />
+        <AsyncLogger name="org.apache.sshd.common.util.SecurityUtils" level="warn"/>
+        <AsyncLogger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn" />
+        <AsyncLogger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error" />
+        <AsyncLogger name="org.hibernate.validator.internal.util.Version" level="warn" />
+        <AsyncLogger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+        <AsyncLogger name="com.particle" level="ALL" includeLocation="true"/>
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

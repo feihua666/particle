@@ -1,0 +1,21 @@
+{
+  "name": "particle-docs",
+  "version": "1.0.0",
+  "description": "particle 技术文档",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "keywords": [
+    "particle",
+    "后台管理",
+    "springboot",
+    "技术文档"
+  ],
+  "author": "yw",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^2.0.0-beta.46"
+  }
+}

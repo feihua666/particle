@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>common</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>common-infrastructure-mybatis</artifactId>
+
+    <properties>
+        <!-- idea 创建 module 自动生成 -->
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+
+        <!-- hutool 工具类集 支持mybatisPlus wrapper自定义注解处理 不传递依赖 -->
+        <!-- https://hutool.cn -->
+        <!-- AnnotationSupportTool 中有使用 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 依赖domain模块 主要不为了编译使用里面annotaion包下的自定义注解 不传递依赖-->
+        <!-- AnnotationSupportTool 中有使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-domain</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

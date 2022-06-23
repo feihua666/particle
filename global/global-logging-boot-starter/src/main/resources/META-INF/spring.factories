@@ -1,0 +1,2 @@
+# Auto Configure
+org.springframework.context.ApplicationListener=com.particle.global.logging.Log4j2ApplicationListener

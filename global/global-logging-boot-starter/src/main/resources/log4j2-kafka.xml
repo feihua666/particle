@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="log4j2" monitorInterval="60" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <Appenders>
+        <!-- 配置文件 particle.logging.kafka.topic -->
+        <Kafka name="Kafka" topic="${sys:LOG_KAFKA_TOPIC}">
+            <Property name="bootstrap.servers">${sys:LOG_KAFKA_SERVER}</Property>
+            <PatternLayout pattern="${sys:FILE_LOG_PATTERN}" charset="${sys:FILE_LOG_CHARSET}"/>
+        </Kafka>
+    </Appenders>
+
+    <Loggers>
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="Kafka"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

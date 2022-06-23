@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>particle</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>global</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>global-dto</module>
+        <module>global-exception</module>
+        <module>global-domain-boot-starter</module>
+        <module>global-catchlog-boot-starter</module>
+        <module>global-tool</module>
+        <module>global-swagger-boot-starter</module>
+        <module>global-exception-handle-boot-starter</module>
+        <module>global-project-info-boot-starter</module>
+        <module>global-logging-boot-starter</module>
+        <module>global-bootstrap-boot-starter</module>
+        <module>global-security-boot-starter</module>
+
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

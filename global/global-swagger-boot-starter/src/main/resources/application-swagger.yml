@@ -1,0 +1,6 @@
+# ========================= swagger config =========================
+spring:
+  mvc:
+    pathmatch:
+      # 解决 spring新版本中，swagger3兼容的问题，但这不是长久问题，不加这个接口在doc.html页面显示不出来
+      matching-strategy: ant_path_matcher

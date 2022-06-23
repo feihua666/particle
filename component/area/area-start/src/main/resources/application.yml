@@ -1,0 +1,18 @@
+spring:
+  application:
+    # 应用名称
+    name: area-start
+  profiles:
+    include:
+      - knife4j
+      - swagger
+      - log4j2
+      - sleuth
+server:
+  servlet:
+    encoding:
+      force: true
+particle:
+  project-info:
+    version: @project.version@
+    builddate: @maven.build.timestamp@

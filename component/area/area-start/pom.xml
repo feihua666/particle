@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>area</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>area-start</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>area-adapter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- spring starter web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 项目信息 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-logging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

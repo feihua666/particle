@@ -1,0 +1,13 @@
+# ========================= Logging Setting =========================
+# 如果在开启kafka参照下面配置
+logging:
+  log4j2:
+    config:
+      override: classpath:log4j2-kafka.xml
+# 自定义配置
+particle:
+  logging:
+    kafka:
+      topic: ${spring.application.name:app}
+      # 请在启动文件中配置
+      #server:
