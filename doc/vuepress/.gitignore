@@ -1,3 +1,5 @@
 node_modules
 .temp
 .cache
+# project目录是自动生成的，不需要版本控制
+project

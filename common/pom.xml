@@ -11,8 +11,6 @@
     <artifactId>common</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-infrastructure-mybatis</module>
-        <module>common-infrastructure-redis</module>
         <module>common-constant</module>
         <module>common-domain</module>
         <module>common-adapter</module>
