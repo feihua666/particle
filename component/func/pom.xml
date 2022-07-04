@@ -6,14 +6,19 @@
         <artifactId>particle</artifactId>
         <groupId>com.particle</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>component</artifactId>
     <packaging>pom</packaging>
+    <artifactId>func</artifactId>
+
     <modules>
-        <module>area</module>
-        <module>func</module>
+        <module>func-adapter</module>
+        <module>func-app</module>
+        <module>func-client</module>
+        <module>func-domain</module>
+        <module>func-start</module>
+        <module>func-infrastructure</module>
     </modules>
 
     <properties>
