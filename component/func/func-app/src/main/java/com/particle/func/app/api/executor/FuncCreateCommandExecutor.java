@@ -19,12 +19,11 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
 /**
- * <p>
- * 区域创建指令执行器
- * </p>
- *
- * @author yangwei
- * @since 2022-04-30 19:12
+ * 菜单创建指令执行器
+ * @program: particle
+ * @description:
+ * @author: 许宝华
+ * @create: 2022-07-4 14:48
  */
 @Component
 @Validated
@@ -33,7 +32,7 @@ public class FuncCreateCommandExecutor extends AbstractBaseExecutor {
 	private FuncGateway funcGateway;
 
 	/**
-	 * 执行区域添加指令
+	 * 执行菜单添加指令
 	 * @param createAreaCommand
 	 * @return
 	 */
@@ -47,7 +46,7 @@ public class FuncCreateCommandExecutor extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据菜单创建指令创建菜单模型
 	 * @param createAreaCommand
 	 * @return
 	 */

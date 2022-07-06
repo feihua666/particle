@@ -7,12 +7,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
- * <p>
- * 区域各种转换
- * </p>
- *
- * @author yangwei
- * @since 2022-05-17 17:29
+ * 菜单实体类转换
+ * @program: particle
+ * @description:
+ * @author: 许宝华
+ * @create: 2022-07-04 14:58
  */
 @Mapper
 public abstract class FuncWrapper {

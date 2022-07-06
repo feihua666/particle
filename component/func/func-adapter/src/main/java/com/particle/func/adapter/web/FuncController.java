@@ -5,6 +5,8 @@ import com.particle.func.client.api.FuncApplicationService;
 import com.particle.func.client.dto.command.CreateFuncCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.security.login.LoginUserTool;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,16 +26,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "菜单相关接口")
 @RestController
-@RequestMapping("/func")
+@RequestMapping("/admin/func")
 public class FuncController extends AbstractBaseWebAdapter {
 
     @Autowired
     private FuncApplicationService funcApplicationService;
 
 
-//    @PreAuthorize("hasAuthority('admin:area:create')")
+    /**
+     * 创建菜单请求
+     * @param createFuncCommand
+     * @return
+     */
+    @PreAuthorize("hasAuthority('admin:func:create')")
     @PostMapping("/create")
     public SingleResponse<FuncVO> create(@RequestBody CreateFuncCommand createFuncCommand){
+        LoginUser loginUser = LoginUserTool.getLoginUser();
         return funcApplicationService.create(createFuncCommand);
     }
 }
