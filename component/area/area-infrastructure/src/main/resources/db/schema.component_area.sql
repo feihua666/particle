@@ -49,4 +49,4 @@ CREATE TABLE `component_area` (
   KEY `seq` (`seq`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='区域表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='区域表';

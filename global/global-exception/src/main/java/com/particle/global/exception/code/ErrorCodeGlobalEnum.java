@@ -34,6 +34,9 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	UPDATE_DATA_VERSION_ERROR(50000000011L,"数据版本错误"),
 
+	/**
+	 * 删除失败，系统内部错误
+	 */
 	DELETE_ERROR(50000000012L,"删除失败"),
 	/**
 	 * 常用的400 错误
@@ -57,6 +60,11 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	// 一般用在用户匿名登录，没有权限，登录后尝试的场景
 	NO_PRIVILEGE_ANONYMOUS_ERROR(40300000003L,"没有权限,请尝试登录"),
 
+	/**
+	 * 不存在
+	 */
+	DATA_NOT_FOUND(40400000001L,"数据不存在"),
+
 
 	METHOD_NOT_SUPPORTED_ERROR(40500000002L,"不支持的方法"),
 
@@ -68,9 +76,8 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 		this.errCode = this.name();
 		this.errMessage = errMessage;
 	}
-
 	/**
-	 * 状态码
+	 * 状态业务码码
 	 */
 	private long status;
 	/**

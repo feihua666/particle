@@ -13,6 +13,14 @@ import java.util.Optional;
 public interface IErrorCode {
 
 	/**
+	 * http状态码
+	 * @return
+	 */
+	default Integer httpStatus(){
+		return Integer.parseInt(String.valueOf(getStatus()).substring(0,3));
+	}
+
+	/**
 	 * 错误状态编码
 	 * 规则：总共10位，xxx xxxx xxxxx,一般分为三部分
 	 * 前三位,和http状态码保持一致

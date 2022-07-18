@@ -2,6 +2,7 @@ package com.particle.global.mybatis.plus.dto;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.particle.global.dto.basic.DO;
+import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import lombok.Data;
 
@@ -65,22 +66,28 @@ public class BaseDO extends DO {
 	/**
 	 * 在调用特定更新方法时使用，可以用来作为额外参数处理
 	 * @see IBaseServiceImpl#update(com.particle.global.mybatis.plus.dto.BaseDO)
+	 * @see IBaseService#annotationSupportUpdateWrapper(com.baomidou.mybatisplus.core.conditions.update.Update, java.lang.Object)
 	 */
+	@TableField(exist = false)
 	private Object updateControl;
 	/**
 	 * 在调用特定添加方法时使用，可以用来作为额外参数处理
 	 * @see 暂未用到
 	 */
+	@TableField(exist = false)
 	private Object addControl;
 	/**
 	 * 在调用特写删除方法时使用，可以用来作为额外参数处理
 	 * @see 暂未用到
 	 */
+	@TableField(exist = false)
 	private Object deleteControl;
 	/**
 	 * 在调用特写查询方法时使用，可以用来作为额外参数处理
-	 * @see 暂未用到
+	 * @see IBaseService#getQueryWrapper(com.particle.global.dto.basic.QueryCommand)
+	 * @see IBaseService#annotationSupportUpdateWrapper(com.baomidou.mybatisplus.core.conditions.update.Update, java.lang.Object)
 	 */
+	@TableField(exist = false)
 	private Object queryControl;
 
 

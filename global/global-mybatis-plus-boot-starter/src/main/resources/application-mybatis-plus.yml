@@ -1,6 +1,10 @@
 particle:
   mybatis-plus:
       tenant:
-        enable: false
+        enable: true
 mybatis-plus:
-  mapper-locations: classpath:mapper/*/*.xml
+  # classpath*:/mapper/**/*.xml 为默认值
+  mapper-locations: classpath*:/mapper/**/*.xml
+  db-config:
+    # 在查询时使用不为空字符串
+    where-strategy: NOT_EMPTY

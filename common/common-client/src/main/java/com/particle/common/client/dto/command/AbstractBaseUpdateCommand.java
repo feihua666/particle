@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public abstract class AbstractBaseUpdateCommand extends AbstractBaseCommand {
 	private static final long serialVersionUID = 1L;
 
-	@Min(1)
+	@Min(value = 1,message = "数据版本不能小于1")
 	@NotNull(message = "数据版本不能为空")
 	@ApiModelProperty(value = "数据版本",notes = "数据版本用来充当数据乐观锁字段，验证数据是否已经修改")
 	private Integer version;

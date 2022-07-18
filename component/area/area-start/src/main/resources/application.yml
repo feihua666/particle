@@ -9,6 +9,7 @@ spring:
       - log4j2
       - sleuth
       - datasource
+      - mybatis-plus
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master

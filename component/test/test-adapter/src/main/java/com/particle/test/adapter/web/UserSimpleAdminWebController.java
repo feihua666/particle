@@ -63,28 +63,28 @@ public class UserSimpleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userSimple:update')")
 	@ApiOperation("简单用户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserSimpleVO> queryDetailForUpdate(@RequestBody UserSimpleQueryDetailForUpdateCommand userSimpleQueryDetailForUpdateCommand){
+	public SingleResponse<UserSimpleVO> queryDetailForUpdate(UserSimpleQueryDetailForUpdateCommand userSimpleQueryDetailForUpdateCommand){
 		return iUserSimpleApplicationService.queryDetailForUpdate(userSimpleQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userSimple:detail')")
 	@ApiOperation("简单用户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserSimpleVO> queryDetail(@RequestBody UserSimpleQueryDetailCommand userSimpleQueryDetailCommand){
+	public SingleResponse<UserSimpleVO> queryDetail(UserSimpleQueryDetailCommand userSimpleQueryDetailCommand){
 		return iUserSimpleApplicationService.queryDetail(userSimpleQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userSimple:queryList')")
 	@ApiOperation("列表查询简单用户")
 	@GetMapping("/list")
-	public MultiResponse<UserSimpleVO> queryList(@RequestBody UserSimpleQueryListCommand userSimpleQueryListCommand){
+	public MultiResponse<UserSimpleVO> queryList(UserSimpleQueryListCommand userSimpleQueryListCommand){
 		return iUserSimpleApplicationService.queryList(userSimpleQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userSimple:pageQuery')")
 	@ApiOperation("分页查询简单用户")
 	@GetMapping("/page")
-	public PageResponse<UserSimpleVO> pageQueryList(@RequestBody UserSimplePageQueryCommand userSimplePageQueryCommand){
+	public PageResponse<UserSimpleVO> pageQueryList(UserSimplePageQueryCommand userSimplePageQueryCommand){
 		return iUserSimpleApplicationService.pageQuery(userSimplePageQueryCommand);
 	}
 

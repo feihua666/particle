@@ -17,6 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
@@ -76,9 +77,11 @@ public class GlobalExceptionAdvice {
      * @return
      */
     @ExceptionHandler(BizException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Response handleBizException(HttpServletRequest request, BizException ex) {
-        return createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Response> handleBizException(HttpServletRequest request, BizException ex) {
+        Response rm = createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
+        return ResponseEntity.status(Optional.ofNullable(ex.getError().getHttpStatus()).orElse(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+        .body(rm);
     }
     /**
      * 业务系统 异常

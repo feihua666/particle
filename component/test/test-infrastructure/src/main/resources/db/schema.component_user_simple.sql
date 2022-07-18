@@ -9,6 +9,7 @@ CREATE TABLE `component_user_simple` (
   `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',
   `source_from_dict_id` bigint DEFAULT NULL COMMENT '用户来源，字典id',
   `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint NULL DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
   `create_by` bigint DEFAULT NULL COMMENT '创建人',
   `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',

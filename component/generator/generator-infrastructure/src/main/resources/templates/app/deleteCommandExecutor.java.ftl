@@ -41,7 +41,7 @@ public class ${injection.className}  extends AbstractBaseExecutor {
 	public SingleResponse<${injection.vo.className}> execute(@Valid ${injection.deleteCommand.className} ${injection.deleteCommand.classNameVar}) {
 		${injection.idObject.className} ${injection.idObject.classNameVar} = ${injection.idObject.className}.of(${injection.deleteCommand.classNameVar}.getId());
 		${injection.domainObject.className} byId = ${injection.gateway.classNameVar}.getById(${injection.idObject.classNameVar});
-		Assert.notNull(byId,"删除失败，${injection.tableComment}数据不存在");
+		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = ${injection.gateway.classNameVar}.delete(${injection.idObject.classNameVar});
 		if (delete) {
 			return SingleResponse.of(${injection.appStructMapping.className}.instance.to${injection.vo.className}(byId));

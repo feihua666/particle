@@ -41,7 +41,7 @@ public class UserSimpleDeleteCommandExecutor  extends AbstractBaseExecutor {
 	public SingleResponse<UserSimpleVO> execute(@Valid UserSimpleDeleteCommand userSimpleDeleteCommand) {
 		UserSimpleId userSimpleId = UserSimpleId.of(userSimpleDeleteCommand.getId());
 		UserSimple byId = userSimpleGateway.getById(userSimpleId);
-		Assert.notNull(byId,"删除失败，简单用户数据不存在");
+		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = userSimpleGateway.delete(userSimpleId);
 		if (delete) {
 			return SingleResponse.of(UserSimpleAppStructMapping.instance.toUserSimpleVO(byId));

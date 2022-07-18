@@ -201,7 +201,7 @@ public interface IBaseService<DO> extends IService<DO> {
      * @return
      */
     default Page<DO> listPage(PageQueryCommand pageQueryForm) {
-        Page pageQuery = new Page(((PageQueryCommand) pageQueryForm).getCurrent(), ((PageQueryCommand) pageQueryForm).getSize());
+        Page pageQuery = new Page((pageQueryForm).getCurrent(), (pageQueryForm).getSize());
         return page(pageQuery,getQueryWrapper(pageQueryForm));
     }
     /**
