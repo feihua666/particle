@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Component
 public class AreaGatewayImpl extends AbstractBaseGatewayImpl implements AreaGateway {
@@ -35,7 +35,7 @@ public class AreaGatewayImpl extends AbstractBaseGatewayImpl implements AreaGate
 	@Override
 	public boolean save(Area area) {
 		AreaDO areaDO = AreaInfrastructureStructMapping.instance.areaToAreaDO(area);
-		if (areaDO.getId() != null) {
+		if (areaDO.getId() == null) {
 			AreaDO add = iAreaService.add(areaDO);
 			area.setId(AreaId.of(add.getId()));
 			return add != null;
@@ -49,8 +49,9 @@ public class AreaGatewayImpl extends AbstractBaseGatewayImpl implements AreaGate
 		return iAreaService.deleteById(areaId.getId());
 	}
 
+
 	@Autowired
-	public void setAreaService(IAreaService iAreaService) {
+	public void setIAreaService(IAreaService iAreaService) {
 		this.iAreaService = iAreaService;
 	}
 }

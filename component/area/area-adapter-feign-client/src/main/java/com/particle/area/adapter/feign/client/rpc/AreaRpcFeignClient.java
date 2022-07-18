@@ -7,9 +7,17 @@ import org.springframework.cloud.openfeign.FeignClient;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @FeignClient(name = "${particle.feign-client.name.area:area}",path = "/rpc")
 public interface AreaRpcFeignClient {
+
+
+
+
+
+
+
+
 
 }

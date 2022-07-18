@@ -19,11 +19,11 @@ import javax.validation.Valid;
 
 /**
  * <p>
- * 区域 创建指令执行器
+ * 区域 更新指令执行器
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Component
 @Validated
@@ -32,12 +32,12 @@ public class AreaUpdateCommandExecutor  extends AbstractBaseExecutor {
 	private AreaGateway areaGateway;
 
 	/**
-	 * 执行区域添加指令
+	 * 执行 区域 更新指令
 	 * @param areaUpdateCommand
 	 * @return
 	 */
 	public SingleResponse<AreaVO> execute(@Valid AreaUpdateCommand areaUpdateCommand) {
-		Area area = updateByAreaUpdateCommand(areaUpdateCommand);
+		Area area = createByAreaUpdateCommand(areaUpdateCommand);
 		boolean save = areaGateway.save(area);
 		if (save) {
 			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(area));
@@ -50,15 +50,15 @@ public class AreaUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 * @param areaUpdateCommand
 	 * @return
 	 */
-	private Area updateByAreaUpdateCommand(AreaUpdateCommand areaUpdateCommand){
+	private Area createByAreaUpdateCommand(AreaUpdateCommand areaUpdateCommand){
 		Area area = Area.create();
 		AreaUpdateCommandToAreaMapping.instance.fillAreaByAreaUpdateCommand(area, areaUpdateCommand);
 		return area;
 	}
 
 	@Mapper
-	interface  AreaUpdateCommandToAreaMapping{
-		AreaUpdateCommandToAreaMapping instance = Mappers.getMapper( AreaUpdateCommandToAreaMapping.class );
+	interface AreaUpdateCommandToAreaMapping{
+		AreaUpdateCommandToAreaMapping instance = Mappers.getMapper(AreaUpdateCommandToAreaMapping.class );
 
 		/**
 		 * 同名属性会自动映射，包括枚举

@@ -11,7 +11,7 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Data
 @ApiModel(value="区域 通用分页查询指令对象")
@@ -27,10 +27,29 @@ public class AreaPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty("区域名称,模糊查询")
     private String nameSimple;
 
+    @ApiModelProperty("第一个字的首字母")
+    private String spellFirst;
+
+    @ApiModelProperty("每个字的首字母")
+    private String spellSimple;
+
+    @ApiModelProperty("全拼")
+    private String spell;
+
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @ApiModelProperty("父级id")
-    private Long parentId;
+    @ApiModelProperty("经度")
+    private String longitude;
+
+    @ApiModelProperty("纬度")
+    private String latitude;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
+    @ApiModelProperty("排序,默认按该字段升序排序")
+    private Integer seq;
+
 
 }

@@ -1,29 +1,30 @@
 package com.particle.area.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.area.infrastructure.dos.AreaDO;
-import com.particle.global.dto.response.PageResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
-
 /**
  * <p>
  * 区域 app应用层数据实体映射转换
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Mapper
 public abstract class AreaAppStructMapping {
 	public static AreaAppStructMapping instance = Mappers.getMapper( AreaAppStructMapping.class );
 
 	protected Long map(AreaId areaId){
+		if (areaId == null) {
+			return null;
+		}
 		return areaId.getId();
 	}
 	/**
@@ -33,6 +34,7 @@ public abstract class AreaAppStructMapping {
 	 * @return
 	 */
 	public abstract AreaVO toAreaVO(Area area);
+
 
 	/**
 	 * 数据对象转视图对象

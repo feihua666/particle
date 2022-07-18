@@ -9,7 +9,7 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 public interface IAreaService extends IBaseService<AreaDO> {
 

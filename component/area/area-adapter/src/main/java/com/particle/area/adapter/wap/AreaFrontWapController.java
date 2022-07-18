@@ -3,6 +3,7 @@ package com.particle.area.adapter.wap;
 import com.particle.area.client.api.IAreaApplicationService;
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Api(tags = "区域wap端前台应用相关接口")
 @RestController
@@ -22,6 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AreaFrontWapController extends AbstractBaseWapAdapter {
 
 	@Autowired
-	private IAreaApplicationService areaApplicationService;
+	private IAreaApplicationService iAreaApplicationService;
+
+
+
+
+
+
+
+
 
 }

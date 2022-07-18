@@ -3,7 +3,6 @@ package com.particle.area.infrastructure.structmapping;
 import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
-import com.particle.global.dto.response.MultiResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -14,16 +13,22 @@ import org.mapstruct.factory.Mappers;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Mapper
 public abstract class AreaInfrastructureStructMapping {
 	public static AreaInfrastructureStructMapping instance = Mappers.getMapper( AreaInfrastructureStructMapping.class );
 
 	protected AreaId map(Long id){
+		if (id == null) {
+			return null;
+		}
 		return AreaId.of(id);
 	}
 	protected Long map(AreaId areaId){
+		if (areaId == null) {
+			return null;
+		}
 		return areaId.getId();
 	}
 
@@ -42,6 +47,5 @@ public abstract class AreaInfrastructureStructMapping {
 	 * @return
 	 */
 	public abstract AreaDO areaToAreaDO(Area area);
-
 
 }

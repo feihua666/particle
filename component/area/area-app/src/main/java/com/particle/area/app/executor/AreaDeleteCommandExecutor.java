@@ -25,7 +25,7 @@ import javax.validation.Valid;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Component
 @Validated
@@ -34,14 +34,14 @@ public class AreaDeleteCommandExecutor  extends AbstractBaseExecutor {
 	private AreaGateway areaGateway;
 
 	/**
-	 * 执行区域添加指令
+	 * 执行 区域 删除指令
 	 * @param areaDeleteCommand
 	 * @return
 	 */
 	public SingleResponse<AreaVO> execute(@Valid AreaDeleteCommand areaDeleteCommand) {
 		AreaId areaId = AreaId.of(areaDeleteCommand.getId());
 		Area byId = areaGateway.getById(areaId);
-		Assert.notNull(byId,"删除失败，区域数据不存在");
+		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = areaGateway.delete(areaId);
 		if (delete) {
 			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(byId));

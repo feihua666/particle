@@ -3,7 +3,6 @@ package com.particle.area.domain.gateway;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.common.domain.gateway.IBaseGateway;
-import com.particle.global.dto.response.MultiResponse;
 
 /**
  * <p>
@@ -11,7 +10,7 @@ import com.particle.global.dto.response.MultiResponse;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 public interface AreaGateway extends IBaseGateway {
 
@@ -32,11 +31,11 @@ public interface AreaGateway extends IBaseGateway {
 	 */
 	boolean save(Area area);
 
+
 	/**
-	 * 删除领域模板对应的数据
+	 * 删除 区域 领域对象
 	 * @param areaId
 	 * @return
 	 */
 	boolean delete(AreaId areaId);
-
 }

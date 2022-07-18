@@ -8,7 +8,7 @@ import com.particle.common.domain.id.Id;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 public class AreaId extends Id {
 

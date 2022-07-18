@@ -40,10 +40,10 @@ public class TableGeneratorTest {
 	@Test
 	public void tableGeneratorTest() {
 
-		String componentModuleName = "test";
-		TableType tableType = TableType.NORMAL;
+		String componentModuleName = "area";
+		TableType tableType = TableType.TREE;
 		String author = "yw";
-		String tableName = "component_user_simple";
+		String tableName = "component_area";
 		String tablePrefix = "component";
 		// 如果表多，建议添加，如果只有一张表，建议留空
 		String packageModuleName = "";

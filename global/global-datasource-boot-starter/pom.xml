@@ -27,5 +27,10 @@
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>${dynamic-datasource.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-tool</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

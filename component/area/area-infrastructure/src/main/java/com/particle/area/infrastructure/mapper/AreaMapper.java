@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author yw
- * @since 2022-07-14
+ * @since 2022-07-18
  */
 @Mapper
 public interface AreaMapper extends IBaseMapper<AreaDO> {
