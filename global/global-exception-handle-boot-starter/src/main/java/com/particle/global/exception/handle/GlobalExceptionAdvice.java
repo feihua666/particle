@@ -321,7 +321,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response handleException(HttpServletRequest request, Exception ex) {
-        log.error("系统内容异常：{}",ex.getMessage(),ex);
+        log.error("系统内部异常：{}",ex.getMessage(),ex);
         return createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
     }
 }

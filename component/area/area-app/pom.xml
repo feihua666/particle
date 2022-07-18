@@ -24,7 +24,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 区域 门面层依赖 -->
+        <!-- 门面层依赖 -->
         <!-- 应用层依赖应用客户端门面 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -32,7 +32,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 区域 领域层依赖 -->
+        <!-- 领域层依赖 -->
         <!-- 应用层依赖领导层 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -40,7 +40,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 区域 基础设施层依赖 -->
+        <!-- 基础设施层依赖 -->
         <!-- 应用层可以直接依赖基础设施层，一般用于展示数据 -->
         <dependency>
             <groupId>com.particle</groupId>

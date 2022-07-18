@@ -15,7 +15,6 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
     <dependencies>
         <!-- 通用基础设施 依赖 -->
         <dependency>
@@ -23,7 +22,7 @@
             <artifactId>common-infrastructure</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 区域领域模型 依赖 -->
+        <!-- 领域模型 依赖 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>area-domain</artifactId>

@@ -81,18 +81,20 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        log.info("请求开始 url={}",request.getRequestURL().toString());
+        String requestUrl = request.getRequestURL().toString();
+        log.info("请求开始 url={}",requestUrl);
         boolean isFirstRequest = !isAsyncDispatch(request);
         HttpServletRequest requestToUse = request;
 
         HttpServletResponse responseToUse = response;
 
-        boolean matchReponse = response.getContentType()== null || isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET);
+        boolean matchResponse = (response.getContentType()== null || isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl);
 
-        if(isLogResponse && matchReponse && !(response instanceof ContentCachingResponseWrapper)){
+
+        if(isLogResponse && matchResponse && !(response instanceof ContentCachingResponseWrapper)){
             responseToUse = new ContentCachingResponseWrapper(response);
         }
-        boolean matchRequest = request.getContentType() == null ||isMatchContentType(request.getContentType(),REQUEST_CONTENT_TYPE_WHITE_SET);
+        boolean matchRequest = (request.getContentType() == null ||isMatchContentType(request.getContentType(),REQUEST_CONTENT_TYPE_WHITE_SET)) && !mathRequestExtensionBlack(requestUrl);
 
 
         if (isLogRequest && matchRequest && isFirstRequest) {
@@ -109,7 +111,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         finally {
             boolean isAsyncStarted = isAsyncStarted(requestToUse);
 
-            if(isLogResponse && matchReponse ){
+            if(isLogResponse && matchResponse ){
                 if(!isAsyncStarted){
                     // 自定义打印请求响应日志
                     String responseMessagePayload = getResponseMessagePayload(responseToUse);
@@ -224,5 +226,12 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
     @Override
     protected boolean shouldLog(HttpServletRequest request) {
         return true;
+    }
+
+    private static boolean mathRequestExtensionBlack(String url) {
+        return REQUEST_EXTENSION_BLACK_SET.stream().anyMatch(e -> url.endsWith(e));
+    }
+    private static boolean matchResponseExtensionBlack(String url) {
+        return RESPONSE_EXTENSION_BLACK_SET.stream().anyMatch(e -> url.endsWith(e));
     }
 }

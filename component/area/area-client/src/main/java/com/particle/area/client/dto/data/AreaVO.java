@@ -1,46 +1,55 @@
 package com.particle.area.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
  * <p>
- * 区域默认数据传输对象
+ * 区域 数据通用响应对象
  * </p>
  *
- * @author yangwei
- * @since 2022-05-17 16:39
+ * @author yw
+ * @since 2022-07-14
  */
 @Data
+@ApiModel(value="区域 数据通用响应对象")
 public class AreaVO extends AbstractBaseIdVO {
 
 
-	@ApiModelProperty(value = "编码，编码全局唯一")
-	private String code;
+    @ApiModelProperty("编码，唯一,模糊查询")
+    private String code;
 
-	@ApiModelProperty(value = "区域名称")
-	private String name;
+    @ApiModelProperty("区域名称,模糊查询")
+    private String name;
 
-	/**
-	 * 对应 area-domain中 {@code AreaType }
-	 */
-	@ApiModelProperty(value = "类型")
-	private String type;
+    @ApiModelProperty("区域名称,模糊查询")
+    private String nameSimple;
 
-	@ApiModelProperty(value = "经度，百度地图")
-	private String longitude;
+    @ApiModelProperty("第一个字的首字母")
+    private String spellFirst;
 
-	@ApiModelProperty(value = "纬度，百度地图")
-	private String latitude;
+    @ApiModelProperty("每个字的首字母")
+    private String spellSimple;
 
-	@ApiModelProperty(value = "备注")
-	private String remark;
+    @ApiModelProperty("全拼")
+    private String spell;
 
-	@ApiModelProperty(value = "排序,默认按该字段升序排序")
-	private Integer seq = 10;
+    @ApiModelProperty("类型，字典id")
+    private Long typeDictId;
 
-	@ApiModelProperty(value = "父级id")
-	private Long parentId;
+    @ApiModelProperty("经度")
+    private String longitude;
+
+    @ApiModelProperty("纬度")
+    private String latitude;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
+    @ApiModelProperty("排序,默认按该字段升序排序")
+    private Integer seq;
+
 
 }

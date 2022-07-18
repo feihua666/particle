@@ -34,6 +34,7 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	UPDATE_DATA_VERSION_ERROR(50000000011L,"数据版本错误"),
 
+	DELETE_ERROR(50000000012L,"删除失败"),
 	/**
 	 * 常用的400 错误
 	 */
@@ -53,6 +54,7 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 
 	NO_PRIVILEGE_ERROR(40300000001L,"没有权限"),
 	NO_DATA_PRIVILEGE_ERROR(40300000002L,"没有数据权限"),
+	// 一般用在用户匿名登录，没有权限，登录后尝试的场景
 	NO_PRIVILEGE_ANONYMOUS_ERROR(40300000003L,"没有权限,请尝试登录"),
 
 

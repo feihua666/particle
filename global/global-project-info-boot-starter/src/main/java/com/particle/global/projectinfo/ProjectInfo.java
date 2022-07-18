@@ -1,8 +1,12 @@
 package com.particle.global.projectinfo;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.info.BuildProperties;
+import org.springframework.boot.info.GitProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -24,6 +28,9 @@ public class ProjectInfo implements InitializingBean {
 
 	private List<ProjectInfoInitializeListener> projectInfoInitializeListeners;
 
+	private GitProperties gitProperties;
+	private BuildProperties buildProperties;
+
 	public ProjectInfo( List<ProjectInfoInitializeListener> projectInfoInitializeListeners){
 		this.projectInfoInitializeListeners = projectInfoInitializeListeners;
 	}
@@ -41,6 +48,8 @@ public class ProjectInfo implements InitializingBean {
 	public static String BRANCH;
 	// 构建日志
 	public static String BUILDDATE;
+	// 最后提交信息
+	public static String LASTCOMMINTMESSAGE;
 
 
 	public void setName(String name) {
@@ -63,6 +72,7 @@ public class ProjectInfo implements InitializingBean {
 		ProjectInfo.BUILDDATE = builddate;
 	}
 
+
 	/**
 	 * 将项目信息转为一个map
 	 * @return
@@ -75,13 +85,58 @@ public class ProjectInfo implements InitializingBean {
 		map.put("version", VERSION);
 		map.put("branch", BRANCH);
 		map.put("builddate", BUILDDATE);
+		map.put("lastcommintmessage", LASTCOMMINTMESSAGE);
 
 		return map;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		fill();
 		log.debug("project info initialized");
 		projectInfoInitializeListeners.forEach(projectInfoInitializeListener -> projectInfoInitializeListener.onInitialize(this));
+	}
+
+	private void fill() {
+		if (StrUtil.isEmpty(NAME) && buildProperties != null) {
+			NAME = buildProperties.getName();
+		}
+		if (StrUtil.isEmpty(AUTHOR) && gitProperties != null) {
+			AUTHOR = gitProperties.get("commit.user.name");
+		}
+
+		if (StrUtil.isEmpty(VERSION) && buildProperties != null) {
+			VERSION = buildProperties.getVersion();
+		}
+		if (StrUtil.isEmpty(BRANCH) && gitProperties != null) {
+			BRANCH = gitProperties.getBranch();
+		}
+		if (StrUtil.isEmpty(BUILDDATE) && buildProperties != null) {
+			BUILDDATE = buildProperties.getTime().toString();
+		}
+		if (StrUtil.isEmpty(BUILDDATE) && gitProperties != null) {
+			BUILDDATE = gitProperties.getInstant("build.time").toString();
+		}
+		if (gitProperties != null) {
+			LASTCOMMINTMESSAGE = gitProperties.get("commit.message.full");
+		}
+
+	}
+
+	public GitProperties getGitProperties() {
+		return gitProperties;
+	}
+
+	@Autowired(required = false)
+	public void setGitProperties(GitProperties gitProperties) {
+		this.gitProperties = gitProperties;
+	}
+
+	public BuildProperties getBuildProperties() {
+		return buildProperties;
+	}
+	@Autowired(required = false)
+	public void setBuildProperties(BuildProperties buildProperties) {
+		this.buildProperties = buildProperties;
 	}
 }

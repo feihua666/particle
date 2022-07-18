@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>particle</artifactId>
+        <artifactId>global</artifactId>
         <groupId>com.particle</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,7 +22,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- 依赖全局安全，主要是用户注入 -->
+        <!-- 依赖全局安全，主要是在controller中参数用户注入 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-security-boot-starter</artifactId>

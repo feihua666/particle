@@ -15,8 +15,6 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-
     <dependencies>
         <!-- 通用 适配层依赖 -->
         <dependency>
@@ -25,13 +23,20 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 区域 应用层依赖 -->
+        <!-- 应用层依赖 -->
         <!-- 适配层依赖应用层 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>area-app</artifactId>
             <version>${particle.version}</version>
         </dependency>
-    </dependencies>
 
+        <!-- 实现feign-client接口 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>area-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+    </dependencies>
 </project>

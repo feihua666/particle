@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>generator</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>generator-infrastructure</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- 通用基础设施 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-infrastructure</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 领域模型 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>generator-domain</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 适配层 依赖 -->
+        <!-- 仅用于table表代码生成，引用了其它的基类 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-boot-starter.version}</version>
+        </dependency>
+        <!-- freemarker 用于代码生成，版本已在 spring 父级指定 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

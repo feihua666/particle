@@ -23,7 +23,13 @@
         <module>global-logging-boot-starter</module>
         <module>global-bootstrap-boot-starter</module>
         <module>global-security-boot-starter</module>
-
+        <module>global-sleuth-boot-starter</module>
+        <module>global-web-filter-boot-starter</module>
+        <module>global-web-mvc-boot-starter</module>
+        <module>global-mybatis-plus-boot-starter</module>
+        <module>global-data-permission-boot-starter</module>
+        <module>global-datasource-boot-starter</module>
+        <module>global-test</module>
     </modules>
 
     <properties>

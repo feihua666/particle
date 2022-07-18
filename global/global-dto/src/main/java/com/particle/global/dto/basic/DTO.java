@@ -12,4 +12,6 @@ import java.io.Serializable;
  */
 public class DTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public static final String PROPERTY_SERIALVERSIONUID = "serialVersionUID";
 }

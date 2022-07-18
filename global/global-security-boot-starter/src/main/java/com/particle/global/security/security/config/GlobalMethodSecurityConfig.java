@@ -24,6 +24,7 @@ public class GlobalMethodSecurityConfig extends GlobalMethodSecurityConfiguratio
     protected AccessDecisionManager accessDecisionManager() {
         AbstractAccessDecisionManager accessDecisionManager = (AbstractAccessDecisionManager) super.accessDecisionManager();
         accessDecisionManager.getDecisionVoters().add(new SuperAdminRoleVoter());
+        // 确保开启 @Configuration(proxyBeanMethods = true)，这样在调用配置类内部方法时
         accessDecisionManager.getDecisionVoters().add(noAuthenticationAuthorityStrConfigVoter());
         return accessDecisionManager;
     }

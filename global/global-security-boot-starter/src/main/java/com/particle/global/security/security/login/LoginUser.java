@@ -26,7 +26,7 @@ public class LoginUser implements UserDetails {
     public static String super_admin_role = "superadmin";
     
     @ApiModelProperty(value = "用户id")
-    private String id;
+    private Long id;
 
     /**
      * 是否超级管理员

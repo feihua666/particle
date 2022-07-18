@@ -18,7 +18,7 @@ public class LoginUserTool {
     public static final String LOGIN_USER_SESSION_KEY = "login_user_session_key";
     public static final String LOGIN_USER_ANONYMOUS_KEY = "login_user_anonymous_key";
     
-    public static String getLoginUserId(){
+    public static Long getLoginUserId(){
         return Optional.ofNullable(getLoginUser()).map(LoginUser::getId).orElse(null);
     }
     /**

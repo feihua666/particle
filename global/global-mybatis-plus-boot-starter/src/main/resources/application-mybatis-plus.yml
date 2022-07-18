@@ -1,0 +1,6 @@
+particle:
+  mybatis-plus:
+      tenant:
+        enable: false
+mybatis-plus:
+  mapper-locations: classpath:mapper/*/*.xml

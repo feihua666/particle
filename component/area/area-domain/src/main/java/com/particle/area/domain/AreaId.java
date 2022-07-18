@@ -4,11 +4,11 @@ import com.particle.common.domain.id.Id;
 
 /**
  * <p>
- * 区域领域模型id
+ * 区域 领域模型id
  * </p>
  *
- * @author yangwei
- * @since 2022-04-30 17:43
+ * @author yw
+ * @since 2022-07-14
  */
 public class AreaId extends Id {
 
@@ -17,7 +17,7 @@ public class AreaId extends Id {
 	}
 
 	/**
-	 * 基本数据类型 id 转区域id
+	 * 基本数据类型 id 转 区域 领域模型id
 	 * @param id
 	 * @return
 	 */

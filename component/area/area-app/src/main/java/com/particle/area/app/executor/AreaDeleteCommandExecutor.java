@@ -1,0 +1,60 @@
+package com.particle.area.app.executor;
+
+import com.particle.area.app.structmapping.AreaAppStructMapping;
+import com.particle.area.client.dto.command.AreaDeleteCommand;
+import com.particle.area.client.dto.data.AreaVO;
+import com.particle.area.domain.Area;
+import com.particle.area.domain.AreaId;
+import com.particle.area.domain.gateway.AreaGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+
+/**
+ * <p>
+ * 区域 创建指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2022-07-14
+ */
+@Component
+@Validated
+public class AreaDeleteCommandExecutor  extends AbstractBaseExecutor {
+
+	private AreaGateway areaGateway;
+
+	/**
+	 * 执行区域添加指令
+	 * @param areaDeleteCommand
+	 * @return
+	 */
+	public SingleResponse<AreaVO> execute(@Valid AreaDeleteCommand areaDeleteCommand) {
+		AreaId areaId = AreaId.of(areaDeleteCommand.getId());
+		Area byId = areaGateway.getById(areaId);
+		Assert.notNull(byId,"删除失败，区域数据不存在");
+		boolean delete = areaGateway.delete(areaId);
+		if (delete) {
+			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(byId));
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);
+	}
+
+	/**
+	 * 注入使用set方法
+	 * @param areaGateway
+	 */
+	@Autowired
+	public void setAreaGateway(AreaGateway areaGateway) {
+		this.areaGateway = areaGateway;
+	}
+}

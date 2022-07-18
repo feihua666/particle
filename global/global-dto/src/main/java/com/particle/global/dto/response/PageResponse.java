@@ -19,11 +19,14 @@ public class PageResponse<T> extends Response {
 
 	private static final long serialVersionUID = 1L;
 
+	private static int defaultPageSize = 10;
+	private static int defaultPageIndex = 1;
+
 	private int totalCount = 0;
 
-	private int pageSize = 1;
+	private int pageSize = defaultPageSize;
 
-	private int pageIndex = 1;
+	private int pageIndex = defaultPageIndex;
 
 	private Collection<T> data;
 
@@ -37,29 +40,29 @@ public class PageResponse<T> extends Response {
 
 	public int getPageSize() {
 		if (pageSize < 1) {
-			return 1;
+			return 10;
 		}
 		return pageSize;
 	}
 
 	public void setPageSize(int pageSize) {
 		if (pageSize < 1) {
-			this.pageSize = 1;
+			this.pageSize = defaultPageSize;
 		} else {
 			this.pageSize = pageSize;
 		}
 	}
 
 	public int getPageIndex() {
-		if (pageIndex < 1) {
-			return 1;
+		if (pageIndex < defaultPageIndex) {
+			return defaultPageIndex;
 		}
 		return pageIndex;
 	}
 
 	public void setPageIndex(int pageIndex) {
-		if (pageIndex < 1) {
-			this.pageIndex = 1;
+		if (pageIndex < defaultPageIndex) {
+			this.pageIndex = defaultPageIndex;
 		} else {
 			this.pageIndex = pageIndex;
 		}

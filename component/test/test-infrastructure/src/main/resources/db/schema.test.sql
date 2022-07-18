@@ -1,0 +1,1 @@
+-- import classpath:db/schema.component_user_simple.sql

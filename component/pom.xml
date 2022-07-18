@@ -13,6 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>area</module>
+        <module>generator</module>
+        <module>componenttemplate</module>
+        <module>test</module>
     </modules>
 
     <properties>

@@ -1,7 +1,7 @@
 package com.particle.area.app.executor;
 
-import com.particle.area.app.wrapper.AreaWrapper;
-import com.particle.area.client.dto.command.CreateAreaCommand;
+import com.particle.area.app.structmapping.AreaAppStructMapping;
+import com.particle.area.client.dto.command.AreaCreateCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.gateway.AreaGateway;
@@ -19,40 +19,40 @@ import javax.validation.Valid;
 
 /**
  * <p>
- * 区域创建指令执行器
+ * 区域 创建指令执行器
  * </p>
  *
- * @author yangwei
- * @since 2022-04-30 19:12
+ * @author yw
+ * @since 2022-07-14
  */
 @Component
 @Validated
-public class AreaCreateCommandExecutor extends AbstractBaseExecutor {
+public class AreaCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private AreaGateway areaGateway;
 
 	/**
 	 * 执行区域添加指令
-	 * @param createAreaCommand
+	 * @param areaCreateCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> execute(@Valid CreateAreaCommand createAreaCommand) {
-		Area area = createByAreaCreateCommand(createAreaCommand);
+	public SingleResponse<AreaVO> execute(@Valid AreaCreateCommand areaCreateCommand) {
+		Area area = createByAreaCreateCommand(areaCreateCommand);
 		boolean save = areaGateway.save(area);
 		if (save) {
-			return SingleResponse.of(AreaWrapper.instance.toAreaVO(area));
+			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(area));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
 
 	/**
 	 * 根据区域创建指令创建区域模型
-	 * @param createAreaCommand
+	 * @param areaCreateCommand
 	 * @return
 	 */
-	private Area createByAreaCreateCommand(CreateAreaCommand createAreaCommand){
+	private Area createByAreaCreateCommand(AreaCreateCommand areaCreateCommand){
 		Area area = Area.create();
-		AreaCreateCommandToAreaMapping.instance.fillAreaByAreaCreateCommand(area, createAreaCommand);
+		AreaCreateCommandToAreaMapping.instance.fillAreaByAreaCreateCommand(area, areaCreateCommand);
 		return area;
 	}
 
@@ -63,9 +63,9 @@ public class AreaCreateCommandExecutor extends AbstractBaseExecutor {
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param area
-		 * @param createAreaCommand
+		 * @param areaCreateCommand
 		 */
-		void fillAreaByAreaCreateCommand(@MappingTarget Area area, CreateAreaCommand createAreaCommand);
+		void fillAreaByAreaCreateCommand(@MappingTarget Area area, AreaCreateCommand areaCreateCommand);
 	}
 
 	/**

@@ -24,5 +24,20 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-data-permission-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-mybatis-plus-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-datasource-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>
