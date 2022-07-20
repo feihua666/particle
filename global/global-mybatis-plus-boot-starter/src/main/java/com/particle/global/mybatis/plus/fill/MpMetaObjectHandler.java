@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * mybatisplus 字段填充插件实现
  * 填充表的默认值
- * Created by yangwei
- * Created at 2019/7/27 13:38
+ * @author yangwei
+ * @since 2019/7/27 13:38
  */
 @Slf4j
 public class MpMetaObjectHandler implements MetaObjectHandler {

@@ -1,12 +1,12 @@
-package com.particle.componenttemplate;
+package com.particle.dict;
 
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -16,22 +16,16 @@ import java.util.List;
 
 /**
  * <p>
- * 启动类
+ * 字典自动配置类
  * </p>
  *
  * @author yangwei
- * @since 2022-07-04 17:46
+ * @since 2022-07-19 17:13
  */
-@Slf4j
-@SpringBootApplication
-public class ComponenttemplateApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(ComponenttemplateApplication.class, args);
-
-		log.info("===============================================");
-		log.info("{} stated",ComponenttemplateApplication.class.getSimpleName());
-		log.info("===============================================");
-	}
+@ComponentScan
+@Configuration
+@MapperScan("com.particle.dict.infrastructure.mapper")
+public class DictAutoConfiguration {
 
 
 	/**
@@ -40,12 +34,12 @@ public class ComponenttemplateApplication {
 	 * @return
 	 */
 	@Bean
-	public Docket createAreaAdminRestApi(ProjectInfo projectInfo) {
+	public Docket createDictAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
 		parameters.add(new ApiKey("Token", "token", "header"));
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
-				.groupName("componenttemplate接口")
-				.basePackage("com.particle.componenttemplate.adapter")
+				.groupName("dict接口")
+				.basePackage("com.particle.dict.adapter")
 				//  SwaggerInfo 已自动处理
 				.openApiExtensionResolver(null)
 				.parameters(parameters)

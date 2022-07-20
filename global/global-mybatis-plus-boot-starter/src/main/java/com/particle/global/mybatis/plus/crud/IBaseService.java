@@ -37,8 +37,8 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 
 /**
  * 所有service接口的父接口，以实现通用功能
- * Created by yangwei
- * Created at 2019/7/23 14:30
+ * @author yangwei
+ * @since 2019/7/23 14:30
  */
 public interface IBaseService<DO> extends IService<DO> {
 

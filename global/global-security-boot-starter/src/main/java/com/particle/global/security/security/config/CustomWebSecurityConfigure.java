@@ -6,8 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Created by yangwei
- * Created at 2020/7/29 14:57
+ * @author yangwei
+ * @since 2020/7/29 14:57
  */
 public interface CustomWebSecurityConfigure {
 

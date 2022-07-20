@@ -1,5 +1,5 @@
--- import classpath:db/schema.component_dict.sql condition on class com.particle.dict.infrastructure.dos.Dict
--- import classpath:db/schema.component_func.sql condition on class com.particle.func.infrastructure.dos.Func
+-- import classpath:db/data.dict.sql condition on class com.particle.dict.infrastructure.dos.DictDO
+-- import classpath:db/data.func.sql condition on class com.particle.func.infrastructure.dos.FuncDO
 -- 区域数据
 INSERT INTO `component_area` VALUES (1329628323749486593, '1', '中华人民共和国', NULL, 'z', 'zhrmghg', 'zhonghuarenmingongheguo', 1189838938333253633, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-20 11:31:10', NULL, NULL, NULL);
 INSERT INTO `component_area` VALUES (1329628325221687298, '110100', '北京市', NULL, 'b', 'bjs', 'beijingshi', 1189838482257219585, '116.4133836971231', '39.910924547299568', NULL, 0, 2, 1329628323749486593, 1329628323749486593, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-20 11:31:11', NULL, NULL, NULL);

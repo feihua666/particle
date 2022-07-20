@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * 拼音结果
- * Created by yangwei
- * Created at 2019/11/1 9:24
+ * @author yangwei
+ * @since 2019/11/1 9:24
  */
 @Getter
 @Setter

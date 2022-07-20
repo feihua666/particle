@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 /**
  * particle 默认的登录失败处理器，写入json响应数据
  * @Author yangwei
- * Created at 2020/12/11 13:32
+ * @since 2020/12/11 13:32
  */
 public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenticationHandler implements AuthenticationFailureHandler {
     @Override

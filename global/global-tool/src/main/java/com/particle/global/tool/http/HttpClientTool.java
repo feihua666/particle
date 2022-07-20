@@ -26,8 +26,8 @@ import java.util.Map;
 
 /**
  * http Client工具类
- * Created by yangwei
- * Created at 2018/4/28 10:19
+ * @author yangwei
+ * @since 2018/4/28 10:19
  */
 public class HttpClientTool{
     // 建立链接超时时间,毫秒

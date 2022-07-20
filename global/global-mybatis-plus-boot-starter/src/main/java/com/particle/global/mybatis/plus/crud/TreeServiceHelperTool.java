@@ -4,8 +4,8 @@ import cn.hutool.core.util.ReflectUtil;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 
 /**
- * Created by yangwei
- * Created at 2020/11/9 17:24
+ * @author yangwei
+ * @since 2020/11/9 17:24
  */
 public class TreeServiceHelperTool {
 

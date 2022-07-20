@@ -5,8 +5,8 @@ import com.particle.global.dto.basic.QueryCommand;
 
 /**
  * 查询对象转DO基础类
- * Created by yangwei
- * Created at 2020/10/27 14:43
+ * @author yangwei
+ * @since 2020/10/27 14:43
  */
 public interface IBaseQueryCommandMapStruct<DO,Query extends QueryCommand,PageQuery extends PageQueryCommand> {
 

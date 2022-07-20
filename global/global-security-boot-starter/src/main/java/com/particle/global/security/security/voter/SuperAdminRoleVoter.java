@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * 超级管理员投票器，如果是超级管理员角色则通过
  * @Author yangwei
- * Created at 2020/1/14 9:52
+ * @since 2020/1/14 9:52
  */
 public class SuperAdminRoleVoter extends RoleVoter {
 

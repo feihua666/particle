@@ -30,6 +30,7 @@
         <module>global-data-permission-boot-starter</module>
         <module>global-datasource-boot-starter</module>
         <module>global-test</module>
+        <module>global-validation-boot-starter</module>
     </modules>
 
     <properties>

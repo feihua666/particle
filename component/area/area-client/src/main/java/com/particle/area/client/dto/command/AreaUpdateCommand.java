@@ -39,15 +39,6 @@ public class AreaUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @ApiModelProperty("经度")
-    private String longitude;
-
-    @ApiModelProperty("纬度")
-    private String latitude;
-
-    @ApiModelProperty("备注")
-    private String remark;
-
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 

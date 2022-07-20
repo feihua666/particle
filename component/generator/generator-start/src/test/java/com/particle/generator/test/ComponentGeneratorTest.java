@@ -29,14 +29,22 @@ public class ComponentGeneratorTest {
 
 	@Test
 	public void componentGeneratorTest() {
+		/**
+		 * 注意，如果在生成前父级pom中没有
+		 * <modules>
+		 * </modules>
+		 * 那么需要手动添加
+		 */
 		ComponentGenerateConf componentGenerateConf = ComponentGenerateConf.create(
 				//System.getProperty("user.dir"),
 				// particle 项目的根目录
 				FileUtil.getParent(System.getProperty("user.dir"),3),
-				"test",
+				"user",
 				Arrays.stream(SubModule.values()).collect(Collectors.toList()),
 				true,
-				"yw"
+				"yw",
+				"component",
+				"component"
 
 		);
 		componentGenerator.componentGenerate(componentGenerateConf);

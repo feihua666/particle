@@ -21,6 +21,7 @@
         <module>component/generator/generator-domain</module>
         <module>component/generator/generator-infrastructure</module>
         <module>component/generator/generator-start</module>
+        <module>project</module>
     </modules>
     <!-- 全局属性 -->
     <properties>

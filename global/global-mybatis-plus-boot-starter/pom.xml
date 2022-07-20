@@ -47,13 +47,7 @@
             <artifactId>global-dto</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 安全组件，使用里面登录相关，以填充当前登录用户字段 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-security-boot-starter</artifactId>
-            <version>${particle.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
         <!-- 工具类依赖 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -68,6 +62,7 @@
             <scope>provided</scope>
         </dependency>
         <!-- 依赖安全模块，主要是使用 LoginUserTool 定义默认的 LoginUserIdResolver实现，否则默认用户id为1-->
+        <!-- 安全组件，使用里面登录相关，以填充当前登录用户字段 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-security-boot-starter</artifactId>

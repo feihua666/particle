@@ -32,10 +32,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 参数验证使用 版本已在spring父级定义 -->
+        <!-- 参数验证 依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>com.particle</groupId>
+            <artifactId>global-validation-boot-starter</artifactId>
+            <version>${particle.version}</version>
         </dependency>
         <!-- 全局异常日志并打印 依赖 -->
         <dependency>

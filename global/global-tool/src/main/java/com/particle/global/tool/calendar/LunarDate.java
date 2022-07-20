@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 /**
  * java.utils.Date 在闰年的时候表示不了农历，这里新建一个农历日期
- * Created by yangwei
- * Created at 2018/9/20 20:48
+ * @author yangwei
+ * @since 2018/9/20 20:48
  */
 @Getter
 @Setter

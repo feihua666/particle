@@ -7,8 +7,8 @@ import com.particle.global.tool.str.StringTool;
 
 /**
  * mybatis plus 工具类
- * Created by yangwei
- * Created at 2020/11/9 18:08
+ * @author yangwei
+ * @since 2020/11/9 18:08
  */
 public class SFunctionHelperTool {
     private static EmptyLambda emptyLambda = new EmptyLambda();

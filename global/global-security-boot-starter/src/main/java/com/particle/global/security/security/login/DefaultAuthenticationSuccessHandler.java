@@ -12,8 +12,8 @@ import java.io.PrintWriter;
 
 /**
  * scatter默认认证成功处理器，直接写入json的响应数据
- * Created by yangwei
- * Created at 2020/12/11 13:30
+ * @author yangwei
+ * @since 2020/12/11 13:30
  */
 public class DefaultAuthenticationSuccessHandler extends DefaultAbstractAuthenticationHandler implements AuthenticationSuccessHandler {
 

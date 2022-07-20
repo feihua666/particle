@@ -9,6 +9,7 @@ package com.particle.area.domain;
  * @since 2022-04-30 17:20
  */
 public enum AreaTypeEnum {
+
 	/**
 	 * 国家
 	 */

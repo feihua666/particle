@@ -1,2 +1,3 @@
-
+-- import classpath:db/schema.dict.sql condition on class com.particle.dict.infrastructure.dos.DictDO
+-- import classpath:db/schema.func.sql condition on class com.particle.func.infrastructure.dos.FuncDO
 -- import classpath:db/schema.component_area.sql

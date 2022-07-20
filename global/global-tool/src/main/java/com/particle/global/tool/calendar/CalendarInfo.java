@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * 日历节日信息
- * Created by yangwei
- * Created at 2018/9/20 15:17
+ * @author yangwei
+ * @since 2018/9/20 15:17
  */
 @Getter
 @Setter

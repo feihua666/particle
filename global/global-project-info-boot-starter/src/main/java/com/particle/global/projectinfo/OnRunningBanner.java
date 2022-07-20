@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 
 /**
  * 有意思的banner
- * Created by yangwei
- * Created at 2021/4/14 18:00
+ * @author yangwei
+ * @since 2021/4/14 18:00
  */
 @Slf4j
 public class OnRunningBanner {

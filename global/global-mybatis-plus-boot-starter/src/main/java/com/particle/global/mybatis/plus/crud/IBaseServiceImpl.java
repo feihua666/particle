@@ -31,8 +31,8 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 
 /**
  * 基础能用服务类，提供最常用的服务逻辑
- * Created by yangwei
- * Created at 2020/10/27 15:49
+ * @author yangwei
+ * @since 2020/10/27 15:49
  */
 @Slf4j()
 public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO> extends ServiceImpl<Mapper, DO> implements IBaseService<DO> {

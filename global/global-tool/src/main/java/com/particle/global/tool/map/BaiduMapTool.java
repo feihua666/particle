@@ -9,8 +9,8 @@ import java.util.Map;
 /**
  * 查询地图工具
  * 目前主要用来获取经伟度
- * Created by yangwei
- * Created at 2019/11/1 15:55
+ * @author yangwei
+ * @since 2019/11/1 15:55
  */
 public class BaiduMapTool {
 

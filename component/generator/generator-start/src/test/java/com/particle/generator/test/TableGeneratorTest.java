@@ -40,10 +40,10 @@ public class TableGeneratorTest {
 	@Test
 	public void tableGeneratorTest() {
 
-		String componentModuleName = "area";
-		TableType tableType = TableType.TREE;
+		String componentModuleName = "user";
+		TableType tableType = TableType.NORMAL;
 		String author = "yw";
-		String tableName = "component_area";
+		String tableName = "component_user";
 		String tablePrefix = "component";
 		// 如果表多，建议添加，如果只有一张表，建议留空
 		String packageModuleName = "";
@@ -56,7 +56,10 @@ public class TableGeneratorTest {
 				// rel关系表类型只生成INFRASTRUCTURE
 				tableType == TableType.REL ? Lists.newArrayList(SubModule.INFRASTRUCTURE) : Arrays.stream(SubModule.values()).collect(Collectors.toList()),
 				true,
-				author);
+				author,
+				"component",
+				"component"
+		);
 
 		List<SubModule> subModules = componentGenerateConf.getSubModules();
 		for (SubModule subModule : subModules) {

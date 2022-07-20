@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>area-adapter</artifactId>
+            <artifactId>area-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
 
@@ -35,12 +35,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 项目信息 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-project-info-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-bootstrap-boot-starter</artifactId>

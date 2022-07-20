@@ -8,8 +8,8 @@ import lombok.experimental.Accessors;
 
 /**
  * 一个关系实体，主要用于关系分配
- * Created by yangwei
- * Created at 2021/2/7 16:12
+ * @author yangwei
+ * @since 2021/2/7 16:12
  */
 @Data
 @NoArgsConstructor

@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 /**
  * 自定义注解扩展,开启controller注解权限配置
  * @author yangwei
- * Created at 2020/1/14 11:42
+ * @since 2020/1/14 11:42
  */
 @Configuration(proxyBeanMethods = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true,order = Ordered.HIGHEST_PRECEDENCE)

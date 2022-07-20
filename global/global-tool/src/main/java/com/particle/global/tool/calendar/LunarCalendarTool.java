@@ -8,8 +8,8 @@ import java.util.Map;
  * 农历日历工具类
  * 该工具类支持的最早日期为 1900-01-31
  * 该工具类支持的最晚日期为 2049-12-31
- * Created by yangwei
- * Created at 2018/9/12 10:21
+ * @author yangwei
+ * @since 2018/9/12 10:21
  */
 public class LunarCalendarTool {
 

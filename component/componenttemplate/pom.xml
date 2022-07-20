@@ -15,6 +15,7 @@
         <module>componenttemplate-adapter</module>
         <module>componenttemplate-adapter-feign-client</module>
         <module>componenttemplate-app</module>
+        <module>componenttemplate-boot-starter</module>
         <module>componenttemplate-client</module>
         <module>componenttemplate-domain</module>
         <module>componenttemplate-infrastructure</module>

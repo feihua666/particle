@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by yangwei
- * Created at 2018/10/31 20:00
+ * @author yangwei
+ * @since 2018/10/31 20:00
  */
 public class IoStreamTool {
 

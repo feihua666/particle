@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * 该执行早于 {@link CommonCommandLineRunner} 执行
- * Created by yangwei
- * Created at 2021/4/1 10:42
+ * @author yangwei
+ * @since 2021/4/1 10:42
  */
 @Component
 @Slf4j

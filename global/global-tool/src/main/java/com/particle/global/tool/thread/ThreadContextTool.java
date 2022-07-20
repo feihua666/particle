@@ -9,8 +9,8 @@ import java.util.Map;
 
 /**
  * 线程变量工具类
- * Created by yangwei
- * Created at 2017/9/25 20:19
+ * @author yangwei
+ * @since 2017/9/25 20:19
  */
 @Slf4j
 public class ThreadContextTool {

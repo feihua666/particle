@@ -16,6 +16,7 @@
         <module>generator-app</module>
         <module>generator-client</module>
         <module>generator-adapter-feign-client</module>
+        <module>generator-boot-starter</module>
     </modules>
 
     <properties>

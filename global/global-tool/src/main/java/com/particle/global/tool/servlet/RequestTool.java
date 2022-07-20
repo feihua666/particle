@@ -30,7 +30,7 @@ import java.util.Map;
  * <p>
  *     推荐使用 {@link ServletUtil}
  * <p>
- * Created by yw on 2016/2/21.
+ * @author yw on 2016/2/21.
  */
 @Slf4j
 public class RequestTool {

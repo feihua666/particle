@@ -56,7 +56,7 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 异常处理使用 -->
+        <!-- 异常处理使用，引用了 里面的异常类 -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>

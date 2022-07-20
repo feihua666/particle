@@ -2,6 +2,7 @@ package com.particle.generator.infrastructure.generator.component;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.generator.domain.SubModule;
 import com.particle.generator.domain.component.ComponentGenerateConf;
@@ -35,18 +36,21 @@ public class ComponentGenerator {
 	/**
 	 * 模板根组件名称
 	 */
-	private static String templateName = "componenttemplate";
+	private static String templatename = "componenttemplate";
+
+	private static String templateName = "componentTemplate";
+	private static String TemplateName = "ComponentTemplate";
 	/**
 	 * 第一个字母大写
 	 */
-	private static String templateNameFirstUpper = "Componenttemplate";
+	private static String Templatename = "Componenttemplate";
 
 
 	/**
 	 * 所有子模块名称
 	 */
 	private static List<String> subModuleNames = Arrays.stream(SubModule.values())
-			.map(subModule -> StrUtil.format("{}-{}",templateName,subModule.name().toLowerCase()))
+			.map(subModule -> StrUtil.format("{}-{}", templatename,subModule.name().toLowerCase()))
 			.collect(Collectors.toList());
 
 
@@ -54,7 +58,7 @@ public class ComponentGenerator {
 		String componentModuleName = componentGenerateConf.getComponentModuleName();
 		String projectAbsolutePath = componentGenerateConf.getProjectAbsolutePath();
 		log.info("开始生成组件 moduleName={}", componentModuleName);
-		String templateAbsolutePath = PathTool.concat(projectAbsolutePath,componentGenerateConf.getTemplateRelativePath(),templateName);
+		String templateAbsolutePath = PathTool.concat(projectAbsolutePath,componentGenerateConf.getTemplateRelativePath(), templatename);
 		String templateTempAbsolutePath = copyTemplateToTemp(templateAbsolutePath);
 		handle(templateTempAbsolutePath, componentGenerateConf);
 
@@ -103,8 +107,8 @@ public class ComponentGenerator {
 	 * @return newTempPath 以目标组件名称结尾的绝对路径
 	 */
 	private String copyTemplateToTemp(String templateAbsolutePath) {
-		if (!templateAbsolutePath.endsWith(templateName)) {
-			String format = StrUtil.format("templateAbsolutePath should end with {},provided is {} ", templateName, templateAbsolutePath);
+		if (!templateAbsolutePath.endsWith(templatename)) {
+			String format = StrUtil.format("templateAbsolutePath should end with {},provided is {} ", templatename, templateAbsolutePath);
 			throw new IllegalArgumentException(format);
 		}
 		if (!FileUtil.isDirectory(templateAbsolutePath)) {
@@ -114,7 +118,7 @@ public class ComponentGenerator {
 		String tempPath = FileUtil.getTmpDirPath();
 		log.info("tempPath={}",tempPath);
 
-		String newTempPath = tempPath + templateName;
+		String newTempPath = tempPath + templatename;
 		// 先删除临时目录，以防以前生成过，存在冲突
 		boolean del = FileUtil.del(newTempPath);
 		File copy = FileUtil.copy(templateAbsolutePath, tempPath, true);
@@ -148,14 +152,14 @@ public class ComponentGenerator {
 		// 子模块处理
 		if (subModuleNames.contains(file.getName())) {
 			List<String> subModules = componentGenerateConf.getSubModules().stream()
-					.map(subModule -> StrUtil.format("{}-{}",templateName,subModule.name().toLowerCase()))
+					.map(subModule -> StrUtil.format("{}-{}", templatename,subModule.name().toLowerCase()))
 					.collect(Collectors.toList());
 
 			// 不生成直接返回
 			if (!subModules.contains(file.getName())) {
 				return;
 			}
-			File rename = FileUtil.rename(file, file.getName().replace(templateName, componentGenerateConf.getComponentModuleName()), true);
+			File rename = FileUtil.rename(file, file.getName().replace(templatename, componentGenerateConf.getComponentModuleName()), true);
 			handle(rename.getAbsolutePath(),componentGenerateConf);
 			return;
 		}
@@ -166,7 +170,7 @@ public class ComponentGenerator {
 		}
 		// package 处理
 		if (file.getParentFile().getAbsolutePath().contains("/src/main/java") || file.getParentFile().getAbsolutePath().contains("/src/test/java")) {
-			if (templateName.equals(file.getName())) {
+			if (templatename.equals(file.getName())) {
 				String newPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
 				File rename = FileUtil.rename(file, newPackageName, true);
 				handle(rename.getAbsolutePath(),componentGenerateConf);
@@ -174,9 +178,9 @@ public class ComponentGenerator {
 			}
 		}
 		// 其它目录处理
-		if (file.getName().contains(templateName)) {
+		if (file.getName().contains(templatename)) {
 			String replace = componentGenerateConf.getComponentModuleName().toLowerCase();
-			File rename = FileUtil.rename(file, file.getName().replace(templateName,replace), true);
+			File rename = FileUtil.rename(file, file.getName().replace(templatename,replace), true);
 			handle(rename.getAbsolutePath(),componentGenerateConf);
 			return;
 		}
@@ -195,33 +199,46 @@ public class ComponentGenerator {
 			FileUtil.del(file);
 			return;
 		}
-		// 内容替换
-		List<String> contentLines = FileUtil.readUtf8Lines(file);
+		String moduleNameToPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
+		String moduleNameToCamelCase = StrUtil.toCamelCase(componentGenerateConf.getComponentModuleName().replace("-", CharUtil.UNDERLINE + ""));
+				// 内容替换
+				List < String > contentLines = FileUtil.readUtf8Lines(file);
 		List<String> newContentLines = new ArrayList<>(contentLines.size());
 		String newContentLine = null;
 		for (String contentLine : contentLines) {
 			newContentLine = contentLine;
-			// 关键字符替换
-			if (contentLine.contains(templateName)) {
-				newContentLine = contentLine.replace(templateName, componentGenerateConf.getComponentModuleName());
-			}
-			// 文件内容替换，这里主要是替换java类名
-			if (contentLine.contains(templateNameFirstUpper)) {
-				String moduleNameToPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
-				newContentLine = contentLine.replace(templateNameFirstUpper, StrUtil.upperFirst(moduleNameToPackageName));
-			}
+
 			// java文件处理
 			if (file.getName().endsWith(".java")) {
-
 				String authorSymbol = "@author";
 				String sinceSymbol = "@since";
 				// author 过滤
 				if (contentLine.contains(authorSymbol)) {
-					newContentLine = contentLine.substring(0,contentLine.indexOf(authorSymbol) + authorSymbol.length()) + " " + componentGenerateConf.getAuthor();
+					newContentLine = newContentLine.substring(0,newContentLine.indexOf(authorSymbol) + authorSymbol.length()) + " " + componentGenerateConf.getAuthor();
 				}
 				if (contentLine.contains(sinceSymbol)) {
-					newContentLine = contentLine.substring(0,contentLine.indexOf(sinceSymbol) + sinceSymbol.length()) + " " + LocalDateTimeUtil.formatNormal(LocalDateTime.now());
+					newContentLine = newContentLine.substring(0,newContentLine.indexOf(sinceSymbol) + sinceSymbol.length()) + " " + LocalDateTimeUtil.formatNormal(LocalDateTime.now());
 				}
+				if (contentLine.equals("spring.factories ")) {
+					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
+				}
+			}
+			if (file.getName().endsWith(".java")) {
+
+			}
+			// 关键字符替换
+			if (contentLine.contains(templatename)) {
+				newContentLine = newContentLine.replace(templatename, componentGenerateConf.getComponentModuleName());
+			}
+			// 文件内容替换，这里主要是替换java类名
+			if (contentLine.contains(Templatename)) {
+				newContentLine = newContentLine.replace(Templatename, StrUtil.upperFirst(moduleNameToPackageName));
+			}
+			if (contentLine.contains(templateName)) {
+				newContentLine = newContentLine.replace(templateName, moduleNameToCamelCase);
+			}
+			if (contentLine.contains(TemplateName)) {
+				newContentLine = newContentLine.replace(TemplateName, StrUtil.upperFirst(moduleNameToCamelCase));
 			}
 
 			newContentLines.add(newContentLine);
@@ -230,15 +247,24 @@ public class ComponentGenerator {
 
 
 		// 文件名处理
-		if (file.getName().contains(templateName)) {
+		if (file.getName().contains(templatename)) {
 			String moduleNameToFileName = moduleNameToFileName(componentGenerateConf.getComponentModuleName());
-			FileUtil.rename(file, file.getName().replace(templateName, moduleNameToFileName)
+			FileUtil.rename(file, file.getName().replace(templatename, moduleNameToFileName)
 					, false, true);
 		}
 		// 首字母大写的一般为java文件，文件名规则和package类似
-		if (file.getName().contains(templateNameFirstUpper)) {
-			String moduleNameToPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
-			FileUtil.rename(file, file.getName().replace(templateNameFirstUpper, StrUtil.upperFirst(moduleNameToPackageName))
+		if (file.getName().contains(Templatename)) {
+			FileUtil.rename(file, file.getName().replace(Templatename, StrUtil.upperFirst(moduleNameToPackageName))
+					, false, true);
+
+		}
+		if (file.getName().contains(TemplateName)) {
+			FileUtil.rename(file, file.getName().replace(TemplateName, StrUtil.upperFirst(moduleNameToCamelCase))
+					, false, true);
+
+		}
+		if (file.getName().contains(templateName)) {
+			FileUtil.rename(file, file.getName().replace(templateName, moduleNameToCamelCase)
 					, false, true);
 
 		}

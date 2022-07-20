@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * 密码复杂度工具
  * 密码复杂度
- * Created by yangwei
- * Created at 2021/3/29 16:10
+ * @author yangwei
+ * @since 2021/3/29 16:10
  */
 public class PasswordComplexityTool {
 

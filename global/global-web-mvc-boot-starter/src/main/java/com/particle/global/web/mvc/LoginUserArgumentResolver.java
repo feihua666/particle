@@ -15,8 +15,8 @@ import java.util.Optional;
 /**
  * controller中注入当前登录用户参数
  * 只要controller方法中含有 LoginUser 类型的参数即可注入，这里没有自定义注解标识
- * Created by yangwei
- * Created at 2020/4/9 12:57
+ * @author yangwei
+ * @since 2020/4/9 12:57
  */
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
 

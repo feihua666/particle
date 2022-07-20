@@ -18,8 +18,8 @@ import java.util.List;
 
 /**
  * webSecurity config
- * Created by yangwei
- * Created at 2020/12/10 20:20
+ * @author yangwei
+ * @since 2020/12/10 20:20
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
