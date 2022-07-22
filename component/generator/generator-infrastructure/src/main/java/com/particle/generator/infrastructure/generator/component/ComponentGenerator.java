@@ -221,14 +221,14 @@ public class ComponentGenerator {
 				if (contentLine.contains(sinceSymbol)) {
 					newContentLine = newContentLine.substring(0,newContentLine.indexOf(sinceSymbol) + sinceSymbol.length()) + " " + LocalDateTimeUtil.formatNormal(LocalDateTime.now());
 				}
-				if (contentLine.startsWith("package ") || contentLine.startsWith("import ")) {
+				if (contentLine.startsWith("package ") || contentLine.startsWith("import ") || contentLine.startsWith("@MapperScan ")) {
 					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
 				}
-				if (file.getName().equals("spring.factories ")) {
-					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
-				}
-			}
 
+			}
+			if (file.getName().equals("spring.factories ")) {
+				newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
+			}
 			// 关键字符替换
 			if (contentLine.contains(templatename)) {
 				newContentLine = newContentLine.replace(templatename, componentGenerateConf.getComponentModuleName());
