@@ -80,7 +80,7 @@ public class ComponentGenerateConf extends Value {
 	 * @return
 	 */
 	public static String componentModuleNameToPkg(String componentModuleName) {
-		return componentModuleName.toLowerCase().replace("-", ".");
+		return componentModuleName.toLowerCase().replace("-", "");
 	}
 
 	/**

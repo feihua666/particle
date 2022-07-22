@@ -171,7 +171,7 @@ public class ComponentGenerator {
 		// package 处理
 		if (file.getParentFile().getAbsolutePath().contains("/src/main/java") || file.getParentFile().getAbsolutePath().contains("/src/test/java")) {
 			if (templatename.equals(file.getName())) {
-				String newPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
+				String newPackageName = ComponentGenerateConf.componentModuleNameToPkg(componentGenerateConf.getComponentModuleName());
 				File rename = FileUtil.rename(file, newPackageName, true);
 				handle(rename.getAbsolutePath(),componentGenerateConf);
 				return;
@@ -199,7 +199,7 @@ public class ComponentGenerator {
 			FileUtil.del(file);
 			return;
 		}
-		String moduleNameToPackageName = moduleNameToPackageName(componentGenerateConf.getComponentModuleName());
+		String moduleNameToPackageName = ComponentGenerateConf.componentModuleNameToPkg(componentGenerateConf.getComponentModuleName());
 		String moduleNameToCamelCase = StrUtil.toCamelCase(componentGenerateConf.getComponentModuleName().replace("-", CharUtil.UNDERLINE + ""));
 				// 内容替换
 				List < String > contentLines = FileUtil.readUtf8Lines(file);
@@ -270,15 +270,6 @@ public class ComponentGenerator {
 		}
 	}
 
-	/**
-	 * 模块名称转包名
-	 * 主要是改为小写，去除连字符
-	 * @param moduleName
-	 * @return
-	 */
-	private String moduleNameToPackageName(String moduleName){
-		return moduleName.toLowerCase().replace("-", "");
-	}
 
 	/**
 	 * 模块名称转文件名
