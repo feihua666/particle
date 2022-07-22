@@ -170,7 +170,8 @@ public class ComponentGenerator {
 		}
 		// package 处理
 		String absolutePath1 = file.getParentFile().getAbsolutePath();
-		if (absolutePath1.contains(StrUtil.format("{}src{}main{}java",File.separator)) || absolutePath1.contains(StrUtil.format("{}src{}test{}java",File.separator))) {
+		if (absolutePath1.contains(StrUtil.format("{}src{}main{}java",File.separator,File.separator,File.separator))
+				|| absolutePath1.contains(StrUtil.format("{}src{}test{}java",File.separator,File.separator,File.separator))) {
 			if (templatename.equals(file.getName())) {
 				String newPackageName = ComponentGenerateConf.componentModuleNameToPkg(componentGenerateConf.getComponentModuleName());
 				File rename = FileUtil.rename(file, newPackageName, true);
