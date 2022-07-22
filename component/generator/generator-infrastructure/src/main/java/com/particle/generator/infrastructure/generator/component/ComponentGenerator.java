@@ -169,7 +169,8 @@ public class ComponentGenerator {
 			return;
 		}
 		// package 处理
-		if (file.getParentFile().getAbsolutePath().contains("/src/main/java") || file.getParentFile().getAbsolutePath().contains("/src/test/java")) {
+		String absolutePath1 = file.getParentFile().getAbsolutePath();
+		if (absolutePath1.contains(StrUtil.format("{}src{}main{}java",File.separator)) || absolutePath1.contains(StrUtil.format("{}src{}test{}java",File.separator))) {
 			if (templatename.equals(file.getName())) {
 				String newPackageName = ComponentGenerateConf.componentModuleNameToPkg(componentGenerateConf.getComponentModuleName());
 				File rename = FileUtil.rename(file, newPackageName, true);
@@ -219,13 +220,14 @@ public class ComponentGenerator {
 				if (contentLine.contains(sinceSymbol)) {
 					newContentLine = newContentLine.substring(0,newContentLine.indexOf(sinceSymbol) + sinceSymbol.length()) + " " + LocalDateTimeUtil.formatNormal(LocalDateTime.now());
 				}
-				if (contentLine.equals("spring.factories ")) {
+				if (contentLine.startsWith("package ") || contentLine.startsWith("import ")) {
+					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
+				}
+				if (file.getName().equals("spring.factories ")) {
 					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
 				}
 			}
-			if (file.getName().endsWith(".java")) {
 
-			}
 			// 关键字符替换
 			if (contentLine.contains(templatename)) {
 				newContentLine = newContentLine.replace(templatename, componentGenerateConf.getComponentModuleName());
