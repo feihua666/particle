@@ -46,5 +46,8 @@ public enum SubModule {
 	public String realSubModuleName(){
 		return this.name().toLowerCase().replace("_", "-");
 	}
+	public String subModuleNameToPkg(){
+		return realSubModuleName().toLowerCase().replace("-", ".");
 
+	}
 }

@@ -146,12 +146,12 @@ public class InjectionConfigLogic {
 			List<String> pkgSegmentList = new ArrayList<>();
 			if (!templateAndFileName.getIgnoreParentPackage()) {
 				pkgSegmentList.add(StrUtil.nullToEmpty(tableGenerateConf.getPackageParent()));
-				pkgSegmentList.add(StrUtil.nullToEmpty(ComponentGenerateConf.componentModuleNameToPkg(subModule.realSubModuleName())));
+				pkgSegmentList.add(StrUtil.nullToEmpty(Optional.ofNullable(subModule).map(SubModule::subModuleNameToPkg).orElse(null)));
 			}
 			pkgSegmentList.add(StrUtil.nullToEmpty(tableGenerateConf.getPackageModuleName()));
 			pkgSegmentList.add(StrUtil.nullToEmpty(templateAndFileName.getPackageName()));
 			// 为空的过滤掉
-			pkgSegmentList = pkgSegmentList.stream().filter(s -> StrUtil.isNotEmpty(s)).collect(Collectors.toList());
+			pkgSegmentList = pkgSegmentList.stream().filter(StrUtil::isNotEmpty).collect(Collectors.toList());
 			// 转一下实体，主要是去掉DO
 			String entityName = tableInfo.getEntityName();
 			entityName = StrategyConfigLogic.removeEntitySuffix(entityName);
@@ -164,7 +164,7 @@ public class InjectionConfigLogic {
 			}
 			// 注入数据
 			InjectionData injectionData = InjectionData.create(
-					pkgSegmentList.stream().collect(Collectors.joining(StringPool.DOT)),
+					String.join(StringPool.DOT, pkgSegmentList),
 					Lists.newArrayList(),
 					// 暂时为空，这在模板里写死了
 					null,
