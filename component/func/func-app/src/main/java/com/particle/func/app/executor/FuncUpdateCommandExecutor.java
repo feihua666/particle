@@ -4,6 +4,7 @@ import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.Func;
+import com.particle.func.domain.FuncId;
 import com.particle.func.domain.gateway.FuncGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -60,6 +61,12 @@ public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface FuncUpdateCommandToFuncMapping{
 		FuncUpdateCommandToFuncMapping instance = Mappers.getMapper(FuncUpdateCommandToFuncMapping.class );
 
+		default FuncId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return FuncId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param func

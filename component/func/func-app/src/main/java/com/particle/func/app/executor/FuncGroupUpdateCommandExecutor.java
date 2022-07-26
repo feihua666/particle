@@ -4,6 +4,8 @@ import com.particle.func.app.structmapping.FuncGroupAppStructMapping;
 import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.domain.FuncGroup;
+import com.particle.func.domain.FuncGroupId;
+import com.particle.func.domain.FuncId;
 import com.particle.func.domain.gateway.FuncGroupGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -60,6 +62,13 @@ public class FuncGroupUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface FuncGroupUpdateCommandToFuncGroupMapping{
 		FuncGroupUpdateCommandToFuncGroupMapping instance = Mappers.getMapper(FuncGroupUpdateCommandToFuncGroupMapping.class );
 
+
+		default FuncGroupId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return FuncGroupId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param funcGroup

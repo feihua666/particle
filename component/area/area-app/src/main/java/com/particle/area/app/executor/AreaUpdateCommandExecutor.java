@@ -4,6 +4,7 @@ import com.particle.area.app.structmapping.AreaAppStructMapping;
 import com.particle.area.client.dto.command.AreaUpdateCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.domain.Area;
+import com.particle.area.domain.AreaId;
 import com.particle.area.domain.gateway.AreaGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -60,6 +61,12 @@ public class AreaUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface AreaUpdateCommandToAreaMapping{
 		AreaUpdateCommandToAreaMapping instance = Mappers.getMapper(AreaUpdateCommandToAreaMapping.class );
 
+		default AreaId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return AreaId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param area

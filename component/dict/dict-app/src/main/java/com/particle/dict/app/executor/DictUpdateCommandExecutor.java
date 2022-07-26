@@ -4,6 +4,7 @@ import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.domain.Dict;
+import com.particle.dict.domain.DictId;
 import com.particle.dict.domain.gateway.DictGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -60,6 +61,12 @@ public class DictUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface DictUpdateCommandToDictMapping{
 		DictUpdateCommandToDictMapping instance = Mappers.getMapper(DictUpdateCommandToDictMapping.class );
 
+		default DictId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return DictId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param dict

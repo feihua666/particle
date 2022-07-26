@@ -4,6 +4,7 @@ import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
+import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -60,6 +61,12 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface UserUpdateCommandToUserMapping{
 		UserUpdateCommandToUserMapping instance = Mappers.getMapper(UserUpdateCommandToUserMapping.class );
 
+		default UserId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return UserId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param user

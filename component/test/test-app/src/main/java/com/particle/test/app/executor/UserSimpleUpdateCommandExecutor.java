@@ -1,13 +1,14 @@
 package com.particle.test.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.test.app.structmapping.UserSimpleAppStructMapping;
 import com.particle.test.client.dto.command.UserSimpleUpdateCommand;
 import com.particle.test.client.dto.data.UserSimpleVO;
 import com.particle.test.domain.UserSimple;
+import com.particle.test.domain.UserSimpleId;
 import com.particle.test.domain.gateway.UserSimpleGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -60,6 +61,12 @@ public class UserSimpleUpdateCommandExecutor  extends AbstractBaseExecutor {
 	interface UserSimpleUpdateCommandToUserSimpleMapping{
 		UserSimpleUpdateCommandToUserSimpleMapping instance = Mappers.getMapper(UserSimpleUpdateCommandToUserSimpleMapping.class );
 
+		default UserSimpleId map(Long id){
+			if (id == null) {
+				return null;
+			}
+			return UserSimpleId.of(id);
+		}
 		/**
 		 * 同名属性会自动映射，包括枚举
 		 * @param userSimple

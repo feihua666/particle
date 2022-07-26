@@ -1,6 +1,7 @@
 package com.particle.common.client.dto.command;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,20 +16,17 @@ import javax.validation.constraints.NotNull;
  * @author yangwei
  * @since 2022-04-20 09:24
  */
-
+@Data
 public abstract class AbstractBaseUpdateCommand extends AbstractBaseCommand {
 	private static final long serialVersionUID = 1L;
+
+	@Min(value = 1,message = "id 不能小于1")
+	@NotNull(message = "id 不能为空")
+	@ApiModelProperty(value = "id",notes = "修改的数据主键")
+	private Long id;
 
 	@Min(value = 1,message = "数据版本不能小于1")
 	@NotNull(message = "数据版本不能为空")
 	@ApiModelProperty(value = "数据版本",notes = "数据版本用来充当数据乐观锁字段，验证数据是否已经修改")
 	private Integer version;
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
 }
