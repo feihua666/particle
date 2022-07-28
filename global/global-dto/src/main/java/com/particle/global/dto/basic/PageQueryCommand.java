@@ -19,11 +19,11 @@ public class PageQueryCommand extends QueryCommand{
 	 * 请求页码
 	 */
 	@ApiModelProperty(value = "请求页码，从1开始，不传默认为1")
-	private Long current = 1L;
+	private Long pageNo = 1L;
 	/**
 	 * 每页条数
 	 */
 	@ApiModelProperty(value = "请求每页条数，不传默认为10")
-	private Long size = 10L;
+	private Long pageSize = 10L;
 
 }

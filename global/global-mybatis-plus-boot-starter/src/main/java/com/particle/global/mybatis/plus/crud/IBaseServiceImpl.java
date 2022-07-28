@@ -15,11 +15,11 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.particle.global.data.permission.DataPermissionService;
-import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -261,6 +261,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         if (po instanceof BaseTreeDO) {
             // 判断父级是否修改
             DO poDb = getById(po.getId());
+            if (poDb == null) {
+                throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+            }
             //父级不相等，则有修改父级
             if(!Objects.equals(((BaseTreeDO) poDb).getParentId(), ((BaseTreeDO) po).getParentId())){
                 // 判断该节点下是否有子节点，如果有，不允许修改

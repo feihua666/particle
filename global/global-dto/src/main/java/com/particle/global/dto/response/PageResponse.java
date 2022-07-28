@@ -19,15 +19,33 @@ public class PageResponse<T> extends Response {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 默认分页条数
+	 */
 	private static int defaultPageSize = 10;
-	private static int defaultPageIndex = 1;
+	/**
+	 * 默认当前页数
+	 */
+	private static int defaultPageNo = 1;
 
+	/**
+	 * 总条数
+	 */
 	private int totalCount = 0;
 
+	/**
+	 * 每页分页条数
+	 */
 	private int pageSize = defaultPageSize;
 
-	private int pageIndex = defaultPageIndex;
+	/**
+	 * 当前页数
+	 */
+	private int pageNo = defaultPageNo;
 
+	/**
+	 * 数据
+	 */
 	private Collection<T> data;
 
 	public int getTotalCount() {
@@ -53,18 +71,18 @@ public class PageResponse<T> extends Response {
 		}
 	}
 
-	public int getPageIndex() {
-		if (pageIndex < defaultPageIndex) {
-			return defaultPageIndex;
+	public int getPageNo() {
+		if (pageNo < defaultPageNo) {
+			return defaultPageNo;
 		}
-		return pageIndex;
+		return pageNo;
 	}
 
-	public void setPageIndex(int pageIndex) {
-		if (pageIndex < defaultPageIndex) {
-			this.pageIndex = defaultPageIndex;
+	public void setPageNo(int pageNo) {
+		if (pageNo < defaultPageNo) {
+			this.pageNo = defaultPageNo;
 		} else {
-			this.pageIndex = pageIndex;
+			this.pageNo = pageNo;
 		}
 	}
 
@@ -112,7 +130,7 @@ public class PageResponse<T> extends Response {
 		response.setData(Collections.emptyList());
 		response.setTotalCount(0);
 		response.setPageSize(pageSize);
-		response.setPageIndex(pageIndex);
+		response.setPageNo(pageIndex);
 		return response;
 	}
 
@@ -122,7 +140,7 @@ public class PageResponse<T> extends Response {
 		response.setData(data);
 		response.setTotalCount(totalCount);
 		response.setPageSize(pageSize);
-		response.setPageIndex(pageIndex);
+		response.setPageNo(pageIndex);
 		return response;
 	}
 

@@ -1,11 +1,13 @@
 package com.particle.particledemo;
 
 import com.particle.global.projectinfo.ProjectInfo;
+import com.particle.global.security.GlobalSecurityAutoConfiguration;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
@@ -23,7 +25,7 @@ import java.util.List;
  * @since 2022-07-19 17:39:46
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(exclude = {GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class ParticleDemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ParticleDemoApplication.class, args);

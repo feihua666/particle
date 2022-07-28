@@ -12,6 +12,7 @@ import lombok.Data;
  * @since 2022-06-29 17:05
  */
 @Data
+
 public class DemoDO extends BaseDO {
 	private String test;
 }

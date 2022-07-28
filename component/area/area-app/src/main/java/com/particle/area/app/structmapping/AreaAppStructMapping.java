@@ -1,12 +1,17 @@
 package com.particle.area.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.area.client.dto.command.AreaPageQueryCommand;
+import com.particle.area.client.dto.command.AreaQueryListCommand;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.area.infrastructure.dos.AreaDO;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 /**
@@ -17,8 +22,8 @@ import java.util.List;
  * @author yw
  * @since 2022-07-18
  */
-@Mapper
-public abstract class AreaAppStructMapping {
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public abstract class AreaAppStructMapping implements IBaseQueryCommandMapStruct<AreaDO> {
 	public static AreaAppStructMapping instance = Mappers.getMapper( AreaAppStructMapping.class );
 
 	protected Long map(AreaId areaId){
@@ -58,4 +63,19 @@ public abstract class AreaAppStructMapping {
 	public PageResponse<AreaVO> infrastructurePageToPageResponse(Page<AreaDO> page) {
 		return PageResponse.of(areaDOsToAreaVOs(page.getRecords()), (int) page.getTotal(), (int) page.getSize(), (int) page.getCurrent());
 	}
+
+	@Override
+	public AreaDO queryCommandToDO(QueryCommand queryCommand) {
+		if (queryCommand instanceof AreaPageQueryCommand) {
+			return pageQueryCommandToDO((AreaPageQueryCommand) queryCommand);
+		}
+		if (queryCommand instanceof AreaQueryListCommand) {
+			return QueryListCommandToDO(((AreaQueryListCommand) queryCommand));
+		}
+		return null;
+	}
+
+	public abstract AreaDO pageQueryCommandToDO(AreaPageQueryCommand AreaPageQueryCommand);
+
+	public abstract AreaDO QueryListCommandToDO(AreaQueryListCommand AreaQueryCommand);
 }

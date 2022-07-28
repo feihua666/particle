@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * <p>
  * 区域 通用创建指令对象
@@ -52,4 +55,6 @@ public class AreaCreateCommand extends AbstractBaseCommand {
     private Integer seq;
 
 
+    private java.time.LocalDateTime LocalDateTime;
+    private Date date;
 }

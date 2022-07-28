@@ -1,12 +1,17 @@
 package com.particle.user.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.user.client.dto.command.UserPageQueryCommand;
+import com.particle.user.client.dto.command.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.infrastructure.dos.UserDO;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 /**
@@ -17,8 +22,8 @@ import java.util.List;
  * @author yw
  * @since 2022-07-19
  */
-@Mapper
-public abstract class UserAppStructMapping {
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public abstract class UserAppStructMapping  implements IBaseQueryCommandMapStruct<UserDO> {
 	public static UserAppStructMapping instance = Mappers.getMapper( UserAppStructMapping.class );
 
 	protected Long map(UserId userId){
@@ -58,4 +63,18 @@ public abstract class UserAppStructMapping {
 	public PageResponse<UserVO> infrastructurePageToPageResponse(Page<UserDO> page) {
 		return PageResponse.of(userDOsToUserVOs(page.getRecords()), (int) page.getTotal(), (int) page.getSize(), (int) page.getCurrent());
 	}
+	@Override
+	public UserDO queryCommandToDO(QueryCommand queryCommand) {
+		if (queryCommand instanceof UserPageQueryCommand) {
+			return pageQueryCommandToDO((UserPageQueryCommand) queryCommand);
+		}
+		if (queryCommand instanceof UserQueryListCommand) {
+			return QueryListCommandToDO(((UserQueryListCommand) queryCommand));
+		}
+		return null;
+	}
+
+	public abstract UserDO pageQueryCommandToDO(UserPageQueryCommand UserPageQueryCommand);
+
+	public abstract UserDO QueryListCommandToDO(UserQueryListCommand UserQueryCommand);
 }

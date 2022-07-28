@@ -8,20 +8,13 @@ import com.particle.global.dto.basic.QueryCommand;
  * @author yangwei
  * @since 2020/10/27 14:43
  */
-public interface IBaseQueryCommandMapStruct<DO,Query extends QueryCommand,PageQuery extends PageQueryCommand> {
+public interface IBaseQueryCommandMapStruct<DO> {
 
     /**
      * 查询表单转 do
-     * @param queryForm
+     * @param queryCommand
      * @return
      */
-    DO queryFormToPo(Query queryForm);
-
-    /**
-     * 分布查询静音转 do
-     * @param pageQueryForm
-     * @return
-     */
-    DO pageQueryFormToPo(PageQuery pageQueryForm);
+    DO queryCommandToDO(QueryCommand queryCommand);
 
 }
