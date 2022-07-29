@@ -19,7 +19,10 @@ import java.io.IOException;
  * @since 2021-08-02 14:02
  */
 public class ResponseTraceIdFilter extends OncePerRequestFilter {
-	private static String RESPONSE_TRACE_ID_KEY = "trace-id";
+	/**
+	 * 遵循header名称大写惯例
+	 */
+	private static String RESPONSE_TRACE_ID_KEY = "Trace-Id";
 
 
 	private Tracer tracer;

@@ -2,6 +2,7 @@ package com.particle.particledemo;
 
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.security.GlobalSecurityAutoConfiguration;
+import com.particle.global.session.MapSessionRepositoryConfig;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -25,7 +27,8 @@ import java.util.List;
  * @since 2022-07-19 17:39:46
  */
 @Slf4j
-@SpringBootApplication(exclude = {GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+@SpringBootApplication(exclude = {/*GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class*/})
+@Import(MapSessionRepositoryConfig.class)
 public class ParticleDemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ParticleDemoApplication.class, args);

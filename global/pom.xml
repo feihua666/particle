@@ -31,6 +31,7 @@
         <module>global-datasource-boot-starter</module>
         <module>global-test</module>
         <module>global-validation-boot-starter</module>
+        <module>global-session-boot-starter</module>
     </modules>
 
     <properties>

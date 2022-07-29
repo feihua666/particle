@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * <p>
@@ -53,7 +51,5 @@ public class AreaPageQueryCommand extends AbstractBasePageQueryCommand {
 
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
-
-
 
 }

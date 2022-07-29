@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * <p>
@@ -54,7 +52,4 @@ public class AreaCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
-
-    private java.time.LocalDateTime LocalDateTime;
-    private Date date;
 }

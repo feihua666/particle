@@ -1,0 +1,26 @@
+package com.particle.global.session.auto;
+
+import org.springframework.session.web.http.DefaultCookieSerializer;
+
+/**
+ * <p>
+ * 自定义默认cookie序列化器，主要是解决cookieName默认值的问题
+ * </p>
+ *
+ * @author yangwei
+ * @since 2022-07-29 14:56
+ */
+public class CustomDefaultCookieSerializer extends DefaultCookieSerializer {
+
+	private String cookieName = "SESSION";
+
+	@Override
+	public void setCookieName(String cookieName) {
+		super.setCookieName(cookieName);
+		this.cookieName = cookieName;
+	}
+
+	public String getCookieName() {
+		return cookieName;
+	}
+}
