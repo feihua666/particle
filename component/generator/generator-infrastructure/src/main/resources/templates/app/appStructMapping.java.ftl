@@ -8,8 +8,10 @@ import ${injection.idObject.pkg}.${injection.idObject.className};
 import ${injection.entity.pkg}.${injection.entity.className};
 import ${injection.pageQueryCommand.pkg}.${injection.pageQueryCommand.className};
 import ${injection.queryListCommand.pkg}.${injection.queryListCommand.className};
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 /**
@@ -65,11 +67,11 @@ public abstract class ${injection.className}  implements IBaseQueryCommandMapStr
 
 	@Override
 	public ${injection.entity.className} queryCommandToDO(QueryCommand queryCommand) {
-		if (queryCommand instanceof AreaPageQueryCommand) {
-			return pageQueryCommandToDO((AreaPageQueryCommand) queryCommand);
+		if (queryCommand instanceof ${injection.pageQueryCommand.className}) {
+			return pageQueryCommandToDO((${injection.pageQueryCommand.className}) queryCommand);
 		}
-		if (queryCommand instanceof AreaQueryListCommand) {
-			return queryListCommandToDO(((AreaQueryListCommand) queryCommand));
+		if (queryCommand instanceof ${injection.queryListCommand.className}) {
+			return queryListCommandToDO(((${injection.queryListCommand.className}) queryCommand));
 		}
 		return null;
 	}

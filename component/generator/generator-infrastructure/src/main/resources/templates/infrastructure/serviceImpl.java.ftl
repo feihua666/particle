@@ -4,6 +4,7 @@ import ${injection.entity.pkg}.${injection.entity.className};
 import ${injection.mapper.pkg}.${injection.mapper.className};
 import ${injection.service.pkg}.${injection.service.className};
 import ${superServiceImplClassPackage};
+import com.particle.global.dto.basic.QueryCommand;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
