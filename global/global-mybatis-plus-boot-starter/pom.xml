@@ -69,5 +69,25 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-actuator-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 并发包，主要用于翻译线程池 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-concurrency-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

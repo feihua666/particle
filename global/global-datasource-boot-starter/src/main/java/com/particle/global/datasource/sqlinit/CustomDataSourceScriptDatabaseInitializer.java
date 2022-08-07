@@ -109,7 +109,7 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 					String importDbSql = line.substring(IMPORT_PREFIX.length()).trim();
 					if (importDbSql.contains(IMPORT_CONDITION_ON_CLASS_PREFIX)) {
 						// -- import classpath:db/schema.component_dict.sql condition on class com.particle.dict.infrastructure.dos.Dict
-						String clazz = importDbSql.substring(importDbSql.indexOf(IMPORT_CONDITION_ON_CLASS_PREFIX)).trim();
+						String clazz = importDbSql.substring(importDbSql.indexOf(IMPORT_CONDITION_ON_CLASS_PREFIX)  + IMPORT_CONDITION_ON_CLASS_PREFIX.length()).trim();
 						boolean present = ClassLoaderUtil.isPresent(clazz);
 						if (!present) {
 							line = lineNumberReader.readLine();

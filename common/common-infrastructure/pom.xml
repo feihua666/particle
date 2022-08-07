@@ -39,5 +39,22 @@
             <artifactId>global-datasource-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 并发包依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-concurrency-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-trans-boot-stater</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

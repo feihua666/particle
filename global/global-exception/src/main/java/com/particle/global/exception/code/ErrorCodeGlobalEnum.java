@@ -59,6 +59,7 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	NO_DATA_PRIVILEGE_ERROR(40300000002L,"没有数据权限"),
 	// 一般用在用户匿名登录，没有权限，登录后尝试的场景
 	NO_PRIVILEGE_ANONYMOUS_ERROR(40300000003L,"没有权限,请尝试登录"),
+	NO_PRIVILEGE_RATELIMIT_ERROR(40300000004L,"超过限流速率"),
 
 	/**
 	 * 不存在

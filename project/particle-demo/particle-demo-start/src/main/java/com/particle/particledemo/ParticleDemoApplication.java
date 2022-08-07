@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2022-07-19 17:39:46
  */
 @Slf4j
-@SpringBootApplication(exclude = {/*GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class*/})
+@SpringBootApplication(exclude = {GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 @Import(MapSessionRepositoryConfig.class)
 public class ParticleDemoApplication {
 	public static void main(String[] args) {

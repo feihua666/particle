@@ -1,6 +1,8 @@
 package com.particle.global.mybatis.plus;
 
+import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.mybatis.plus.config.GlobalMybatisPlusConfig;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Import;
  * @since 2022-06-29 17:36
  */
 @Configuration
-@Import(GlobalMybatisPlusConfig.class)
+@Import({GlobalMybatisPlusConfig.class, GlobalMybatisExecutorsConfig.class})
+@MapperScan("com.particle.global.mybatis.plus.mapper")
 public class GlobalMybatisPlusAutoConfiguration {
 }

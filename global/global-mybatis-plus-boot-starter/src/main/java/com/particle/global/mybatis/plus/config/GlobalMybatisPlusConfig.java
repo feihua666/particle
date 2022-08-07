@@ -1,22 +1,20 @@
 package com.particle.global.mybatis.plus.config;
 
-import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.data.permission.DataPermissionService;
+import com.particle.global.mybatis.plus.crud.MetricsAndSlowSqlMybatisInterceptor;
 import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
-import com.particle.global.mybatis.plus.tenant.TenantTool;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUserTool;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Data;
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.LongValue;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -25,6 +23,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <p>
@@ -73,9 +74,18 @@ public class GlobalMybatisPlusConfig {
 		mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 		// 分布插件
 		mybatisPlusInterceptor.addInnerInterceptor( new PaginationInnerInterceptor());
+
 		return mybatisPlusInterceptor;
 	}
-
+	/**
+	 * 监控通知 mybatis 拦截器
+	 * 不依赖于mybatis plus
+	 * @return
+	 */
+	@Bean
+	public MetricsAndSlowSqlMybatisInterceptor MetricsAndSlowSqlMybatisPlusInterceptor(){
+		return new MetricsAndSlowSqlMybatisInterceptor();
+	}
 	/**
 	 * 租户处理
 	 * @return

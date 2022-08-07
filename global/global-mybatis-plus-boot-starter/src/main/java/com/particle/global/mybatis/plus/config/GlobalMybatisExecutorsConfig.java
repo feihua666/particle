@@ -1,0 +1,58 @@
+package com.particle.global.mybatis.plus.config;
+
+import cn.hutool.core.util.ClassLoaderUtil;
+import com.particle.global.concurrency.threadpool.CustomExecutors;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+
+/**
+ * <p>
+ * 线程池配置
+ * </p>
+ *
+ * @author yangwei
+ * @since 2022-08-05 17:16
+ */
+@Configuration
+public class GlobalMybatisExecutorsConfig {
+	/**
+	 * 通用数据库查询线程池
+	 * @param beanFactory
+	 * @return
+	 */
+	@Bean(name = "commonDbTaskExecutor", destroyMethod = "shutdown")
+	public ExecutorService commonDbTaskExecutor(BeanFactory beanFactory) {
+		if (ClassLoaderUtil.isPresent("io.micrometer.core.instrument.MeterRegistry")) {
+			return CustomExecutors.newExecutorService(beanFactory,
+					"commonDbTaskExecutor",
+					5,
+					100,
+					1000,
+					new LinkedBlockingQueue<>(1000),
+					// 如果拒绝自己执行
+					new ThreadPoolExecutor.CallerRunsPolicy(),
+					true,beanFactory.getBean(MeterRegistry.class));
+		}
+		return CustomExecutors.newExecutorService(beanFactory,
+				"commonDbTaskExecutor",
+				5,
+				100,
+				1000,
+				new LinkedBlockingQueue<>(1000),
+				// 如果拒绝自己执行
+				new ThreadPoolExecutor.CallerRunsPolicy(),
+				true,null);
+	}
+
+
+}

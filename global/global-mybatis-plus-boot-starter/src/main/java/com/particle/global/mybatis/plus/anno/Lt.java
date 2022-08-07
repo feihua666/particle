@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 定义一个查询条件的关键字
  * 仅限调用IBaseService中的重载方法有效
  * 小于
- * 详细用法参见{@link scatter.common.pojo.form.Gt}
+ * 详细用法参见{@link Gt}
  */
 @Target({ FIELD})
 @Retention(RUNTIME)

@@ -1,6 +1,8 @@
 package com.particle.area.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.global.trans.anno.TransBy;
+import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -38,6 +40,10 @@ public class AreaVO extends AbstractBaseIdVO {
 
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
+
+    @TransBy(type = TableNameTransServiceImpl.TRANS_BY_TABLE_NAME,tableName = "component_dict",byFieldName = "typeDictId",mapValueField = "name")
+    @ApiModelProperty("类型，字典名称")
+    private String typeDictName;
 
     @ApiModelProperty("经度")
     private String longitude;

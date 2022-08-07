@@ -5,7 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 /**
  * 服务启动完成调用
  * @see OnCommandLineListener
- * 为了统一服务启动完成调用，请实现 scatter.common.boot.CommonApplicationRunner 接口来回调
+ * 为了统一服务启动完成调用，请实现 {@link CommonApplicationListener} 接口来回调
  * 注：添加该服务启动后调用当前是为了添加数据对象使用
  * @author yangwei
  * @since 2021/4/1 10:39

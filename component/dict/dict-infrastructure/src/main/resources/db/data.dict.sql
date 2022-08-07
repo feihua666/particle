@@ -1,0 +1,1 @@
+-- import classpath:db/data.dict.func.sql condition on class com.particle.func.infrastructure.dos.FuncDO
