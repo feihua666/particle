@@ -41,7 +41,7 @@ public class AreaVO extends AbstractBaseIdVO {
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @TransBy(tableName = Constants.trans_table_name_placeholder_dict,byFieldName = "typeDictId")
+    @TransBy(tableName = Constants.trans_table_name_placeholder_dict,byFieldName = "typeDictId",mapValueField = "name")
     @ApiModelProperty("类型，字典名称")
     private String typeDictName;
 

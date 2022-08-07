@@ -1,10 +1,12 @@
 package com.particle.global.trans;
 
 import cn.hutool.core.annotation.AnnotationUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
 import com.particle.global.tool.str.StringTool;
@@ -19,9 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -94,7 +94,7 @@ public class GlobalTransAutoConfiguration {
 		return new DataObtainForTableNameTrans() {
 			@Override
 			public List<Map<String, Object>> dataObtain(String tableName, String selectColumn, String whereColumn, Collection<Object> keys) {
-				List<Map<String, Object>> list = null;
+				List<Map<String, Object>> list = Collections.EMPTY_LIST;
 				try {
 					list = nativeSqlMapper.selectListByMyWrapper(tableName, Wrappers.query().select(selectColumn, whereColumn).in(whereColumn, keys));
 				}catch (Exception e){
