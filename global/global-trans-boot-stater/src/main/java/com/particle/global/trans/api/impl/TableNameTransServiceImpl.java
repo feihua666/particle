@@ -1,9 +1,7 @@
 package com.particle.global.trans.api.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
-import com.particle.global.tool.collection.CollectionTool;
+import com.particle.global.light.share.trans.Contants;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.ITransService;
@@ -31,7 +29,7 @@ public class TableNameTransServiceImpl implements ITransService<Object,Object> {
     @Autowired
     private DataObtainForTableNameTrans dataObtainForTableNameTrans;
 
-    public static final String TRANS_BY_TABLE_NAME = "trans_by_table_name";
+    public static final String TRANS_BY_TABLE_NAME = Contants.defaultTransType;
 
     @Override
     public boolean support(String type) {

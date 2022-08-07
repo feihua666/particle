@@ -2,6 +2,7 @@ package com.particle.global.trans;
 
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
@@ -10,8 +11,10 @@ import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.TableNameResolver;
 import io.micrometer.core.instrument.MeterRegistry;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +34,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2022-08-07 10:35
  */
+@Slf4j
 @Configuration
 @ComponentScan
 public class GlobalTransAutoConfiguration {
@@ -42,16 +46,39 @@ public class GlobalTransAutoConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+	@ConfigurationProperties(prefix = "particle.trans")
 	public TableNameResolver defaultTableNameResolver() {
 		return new TableNameResolver() {
+			private Map<String,String> table;
 			@Override
-			public String resolve(Class tableClass) {
+			public String resolve(Class tableClass,String tableName) {
+				if (StrUtil.isNotEmpty(tableName)) {
+					if (table != null) {
+						//
+						String tn = table.get(tableName);
+						if (!StrUtil.isEmpty(tn)) {
+							return tn;
+						}
+					}
+					return tableName;
+				}
+				if (tableClass == Void.class) {
+					return null;
+				}
 				TableName annotation = AnnotationUtil.getAnnotation(tableClass, TableName.class);
 				if (annotation != null) {
 					return annotation.value();
 				}
 				String simpleName = tableClass.getSimpleName();
 				return StringTool.humpToLine(simpleName);
+			}
+
+			public Map<String, String> getTable() {
+				return table;
+			}
+
+			public void setTable(Map<String, String> table) {
+				this.table = table;
 			}
 		};
 	}
@@ -67,7 +94,12 @@ public class GlobalTransAutoConfiguration {
 		return new DataObtainForTableNameTrans() {
 			@Override
 			public List<Map<String, Object>> dataObtain(String tableName, String selectColumn, String whereColumn, Collection<Object> keys) {
-				List<Map<String, Object>> list = nativeSqlMapper.selectListByMyWrapper(tableName, Wrappers.query().select(selectColumn, whereColumn).in(whereColumn, keys));
+				List<Map<String, Object>> list = null;
+				try {
+					list = nativeSqlMapper.selectListByMyWrapper(tableName, Wrappers.query().select(selectColumn, whereColumn).in(whereColumn, keys));
+				}catch (Exception e){
+					log.error("翻译获取数据异常",e);
+				}
 				return list;
 			}
 		};

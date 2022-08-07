@@ -1,7 +1,6 @@
-package com.particle.global.trans.anno;
+package com.particle.global.light.share.trans.anno;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
+import com.particle.global.light.share.trans.Contants;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,10 +23,10 @@ public @interface TransFor {
      * TransService 的support方法参数
      * @return
      */
-    String type();
+    String type() default Contants.defaultTransType;
 
     /**
-     * 表名字符串，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
+     * 表名字符串，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
      * 优先级高于 scatter.common.rest.trans.TransFor#tableNameClass()
      * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
      * @return
@@ -35,8 +34,8 @@ public @interface TransFor {
     String tableName() default "";
 
     /**
-     * 表名实体类，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
-     * 如果该类存在mybatis_plus的注解{@link TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
+     * 表名实体类，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
+     * 如果该类存在mybatis_plus的注解{@link com.baomidou.mybatisplus.annotation.TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
      * 优先经低于 scatter.common.rest.trans.TransFor#tableName()
      * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
      * @return

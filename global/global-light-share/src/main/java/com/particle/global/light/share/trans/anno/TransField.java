@@ -1,4 +1,4 @@
-package com.particle.global.trans.anno;
+package com.particle.global.light.share.trans.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

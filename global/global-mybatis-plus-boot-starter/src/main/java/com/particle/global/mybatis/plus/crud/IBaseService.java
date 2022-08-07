@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.basic.TreeDO;
-import com.particle.global.mybatis.plus.anno.*;
+import com.particle.global.light.share.mybatis.anno.*;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 import com.particle.global.mybatis.plus.dto.RelDTO;

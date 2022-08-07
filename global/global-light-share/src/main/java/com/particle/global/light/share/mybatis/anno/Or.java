@@ -1,4 +1,4 @@
-package com.particle.global.mybatis.plus.anno;
+package com.particle.global.light.share.mybatis.anno;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

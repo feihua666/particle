@@ -1,8 +1,8 @@
 package com.particle.area.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import com.particle.global.trans.anno.TransBy;
-import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
+import com.particle.component.light.share.trans.Constants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -41,7 +41,7 @@ public class AreaVO extends AbstractBaseIdVO {
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @TransBy(type = TableNameTransServiceImpl.TRANS_BY_TABLE_NAME,tableName = "component_dict",byFieldName = "typeDictId",mapValueField = "name")
+    @TransBy(tableName = Constants.trans_table_name_placeholder_dict,byFieldName = "typeDictId")
     @ApiModelProperty("类型，字典名称")
     private String typeDictName;
 

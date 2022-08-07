@@ -11,7 +11,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
 import com.particle.global.tool.collection.CollectionTool;
-import com.particle.global.trans.anno.*;
+import com.particle.global.light.share.trans.anno.*;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.api.TableNameResolver;
 import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
@@ -318,14 +318,7 @@ public class TransHelper {
      * @return
      */
     private String tableNameResolve(TransMeta transMeta) {
-        if (!StrUtil.isEmpty(transMeta.getTableName())) {
-            return transMeta.getTableName();
-        }
-        if(transMeta.getTableNameClass() == Void.class){
-            return null;
-        }else {
-            return tableNameResolver.resolve(transMeta.getTableNameClass());
-        }
+        return tableNameResolver.resolve(transMeta.getTableNameClass(),transMeta.getTableName());
     }
     /**
      * 目前以support的type为key，

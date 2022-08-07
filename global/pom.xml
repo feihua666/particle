@@ -38,6 +38,7 @@
         <module>global-ratelimit-boot-starter</module>
         <module>global-trans-boot-stater</module>
         <module>global-boot-starter</module>
+        <module>global-light-share</module>
     </modules>
 
     <properties>

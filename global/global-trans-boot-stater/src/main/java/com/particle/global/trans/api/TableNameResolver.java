@@ -2,7 +2,7 @@ package com.particle.global.trans.api;
 
 /**
  * <p>
- * 表名获取
+ * 表名获取，主要是根据tableNameClass获取表名
  * </p>
  *
  * @author yangwei
@@ -10,5 +10,5 @@ package com.particle.global.trans.api;
  */
 public interface TableNameResolver {
 
-	String resolve(Class tableClass);
+	String resolve(Class tableClass,String tableName);
 }

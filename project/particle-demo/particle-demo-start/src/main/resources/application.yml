@@ -39,3 +39,7 @@ server:
   servlet:
     encoding:
       force: true
+particle:
+  trans:
+    table:
+      dict: component_dict

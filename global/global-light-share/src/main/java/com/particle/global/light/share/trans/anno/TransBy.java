@@ -1,8 +1,7 @@
-package com.particle.global.trans.anno;
+package com.particle.global.light.share.trans.anno;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.particle.global.light.share.trans.Contants;
 
-import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,24 +9,24 @@ import java.lang.annotation.Target;
 
 /**
  * 一般为vo层使用
- * 标注到类上
- * 可以单独使用或结合grape.common.service.trans.Trans使用
+ * 需要翻译的字段注解
+ * 标注到需要翻译的字段上
  * Created by yangwei
  * Created at 2019/10/9 9:59
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE })
-public @interface TransItem {
+@Target({ ElementType.FIELD })
+public @interface TransBy {
 
     /**
      * 类型
      * TransService 的support方法参数
      * @return
      */
-    String type();
+    String type() default Contants.defaultTransType;
 
     /**
-     * 表名字符串，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
+     * 表名字符串，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
      * 优先级高于 scatter.common.rest.trans.TransFor#tableNameClass()
      * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
      * @return
@@ -35,8 +34,8 @@ public @interface TransItem {
     String tableName() default "";
 
     /**
-     * 表名实体类，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
-     * 如果该类存在mybatis_plus的注解{@link TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
+     * 表名实体类，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
+     * 如果该类存在mybatis_plus的注解{@link import com.baomidou.mybatisplus.annotation.TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
      * 优先经低于 scatter.common.rest.trans.TransFor#tableName()
      * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
      * @return
@@ -56,13 +55,6 @@ public @interface TransItem {
      * @return
      */
     String byFieldName();
-    /**
-     * 需要被翻译的字段名称
-     * 翻译进行时会到标注于字段名称的get方法的值作为TransService的key
-     * forFieldName 是目标字段名
-     * @return
-     */
-    String forFieldName();
 
     /**
      * 当翻译结果是一个对象时，可以使用该字段取对象的一个属性值

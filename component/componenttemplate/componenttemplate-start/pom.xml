@@ -54,6 +54,12 @@
             <version>${particle.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>component-adapter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
