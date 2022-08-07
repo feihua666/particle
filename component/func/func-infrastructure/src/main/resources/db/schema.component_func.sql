@@ -10,6 +10,8 @@ CREATE TABLE `component_func` (
   `url` varchar(300) DEFAULT NULL COMMENT '地址',
   `permissions` varchar(2000) DEFAULT NULL COMMENT 'shiro权限串，多个以逗号分隔',
   `type_dict_id` bigint NOT NULL COMMENT '类型,字典id',
+  `active_name` varchar(100) DEFAULT NULL COMMENT '激活菜单标识',
+  `is_show` tinyint(1) NOT NULL COMMENT '是否显示',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',
   `level` int NOT NULL COMMENT '层级、深度',
