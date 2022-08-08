@@ -33,7 +33,7 @@ import java.util.List;
 
 public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScriptDatabaseInitializer {
 
-	public static String IMPORT_PREFIX = "-- import ";
+	public static String IMPORT_PREFIX = "-- import";
 
 	@Autowired
 	private SqlInitializationProperties initializationProperties;
@@ -114,10 +114,10 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 							line = lineNumberReader.readLine();
 							continue;
 						}else {
-							result.add(conditionalOnClassResult.getExpression());
+							result.add(conditionalOnClassResult.getExpression().replace(IMPORT_PREFIX,"").trim());
 						}
 					}else {
-						result.add(conditionalOnClassResult.getExpression());
+						result.add(conditionalOnClassResult.getExpression().replace(IMPORT_PREFIX,"").trim());
 					}
 
 				}
