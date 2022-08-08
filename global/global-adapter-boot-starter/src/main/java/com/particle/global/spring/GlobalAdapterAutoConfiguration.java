@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-08-07 14:59
  */
 @Configuration
-public class GlobalSpringAutoConfiguration {
+public class GlobalAdapterAutoConfiguration {
 
 	@Bean
 	@ConditionalOnClass(SpringContextHolder.class)

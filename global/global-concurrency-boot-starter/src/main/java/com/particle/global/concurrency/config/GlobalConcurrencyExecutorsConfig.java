@@ -2,6 +2,7 @@ package com.particle.global.concurrency.config;
 
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class GlobalConcurrencyExecutorsConfig {
 	 */
 	@Bean(name = "asynSlotTaskExecutor", destroyMethod = "shutdown")
 	public ExecutorService asynSlotTaskExecutor(BeanFactory beanFactory) {
-		if (ClassLoaderUtil.isPresent("io.micrometer.core.instrument.MeterRegistry")) {
+		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
 			return CustomExecutors.newExecutorService(beanFactory,
 					"asynSlotTaskExecutor",
 					5,

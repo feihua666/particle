@@ -3,6 +3,7 @@ package com.particle.global.mybatis.plus.crud;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.actuator.monitor.MonitorTool;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,7 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 			MappedStatement ms = (MappedStatement) args[0];
 			Object parameter = args[1];
 
-			if (ClassLoaderUtil.isPresent("com.particle.global.notification.notify.NotifyTool")) {
+			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
 
 				// 超过阈值通知
 				if (duration > slowSqlNotifyThreshold) {
@@ -84,7 +85,7 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 					}
 
 			}
-			if (ClassLoaderUtil.isPresent("com.particle.global.notification.notify.NotifyTool")) {
+			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
 				String commandType = ms.getSqlCommandType().name();
 				// sql监控
 				MonitorTool.timer(

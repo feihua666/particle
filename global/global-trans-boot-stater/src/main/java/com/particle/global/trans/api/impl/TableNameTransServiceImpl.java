@@ -1,11 +1,13 @@
 package com.particle.global.trans.api.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.light.share.trans.Contants;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
  * @author yangwei
  * @since 2021-01-23 17:25
  */
+@Slf4j
 @Component
 @Order
 public class TableNameTransServiceImpl implements ITransService<Object,Object> {
@@ -48,6 +51,14 @@ public class TableNameTransServiceImpl implements ITransService<Object,Object> {
         String selectColumn = StringTool.humpToLine(metas[0]);
         String tableName = metas[1];
         String whereColumn = StringTool.humpToLine(metas[2]);
+        if (StrUtil.isEmpty(tableName)) {
+            log.error("table name trans. but table name is null,type={}",type);
+            return Collections.emptyList();
+        }
+        if (StrUtil.isEmpty(tableName)) {
+            log.error("table name trans. but selectColumn is null,type={}",type);
+            return Collections.emptyList();
+        }
         // 如果查询的中字段名是下划线格式，下面需要转一下
         List<Map<String, Object>> list = dataObtainForTableNameTrans.dataObtain(tableName, selectColumn, whereColumn, keys);
         list = list.stream().map(item -> {

@@ -1,6 +1,7 @@
 package com.particle.global.datasource.sqlinit;
 
 import cn.hutool.core.util.ClassLoaderUtil;
+import com.particle.global.tool.condition.ConditionalOnClassTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer;
 import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
@@ -33,7 +34,6 @@ import java.util.List;
 public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScriptDatabaseInitializer {
 
 	public static String IMPORT_PREFIX = "-- import ";
-	public static String IMPORT_CONDITION_ON_CLASS_PREFIX = "condition on class ";
 
 	@Autowired
 	private SqlInitializationProperties initializationProperties;
@@ -106,19 +106,20 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 			while (line != null){
 
 				if (line.startsWith(IMPORT_PREFIX)) {
-					String importDbSql = line.substring(IMPORT_PREFIX.length()).trim();
-					if (importDbSql.contains(IMPORT_CONDITION_ON_CLASS_PREFIX)) {
+					ConditionalOnClassTool.ConditionalOnClassResult conditionalOnClassResult = ConditionalOnClassTool.checkResult(line);
+					if (conditionalOnClassResult.getHasCondition()) {
 						// -- import classpath:db/schema.component_dict.sql condition on class com.particle.dict.infrastructure.dos.Dict
-						String clazz = importDbSql.substring(importDbSql.indexOf(IMPORT_CONDITION_ON_CLASS_PREFIX)  + IMPORT_CONDITION_ON_CLASS_PREFIX.length()).trim();
-						boolean present = ClassLoaderUtil.isPresent(clazz);
+						boolean present = conditionalOnClassResult.getClassPresent();
 						if (!present) {
 							line = lineNumberReader.readLine();
 							continue;
 						}else {
-							importDbSql = importDbSql.substring(0, importDbSql.indexOf(IMPORT_CONDITION_ON_CLASS_PREFIX)).trim();
+							result.add(conditionalOnClassResult.getExpression());
 						}
+					}else {
+						result.add(conditionalOnClassResult.getExpression());
 					}
-					result.add(importDbSql);
+
 				}
 				line = lineNumberReader.readLine();
 			}

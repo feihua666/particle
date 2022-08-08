@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
 import com.particle.global.tool.collection.CollectionTool;
@@ -50,7 +51,6 @@ public class TransHelper {
 
     private static final String transNotifyThresholdPlaceholder = "particle.notify.trans.threshold";
 
-    private static final String notifyToolClassName = "com.particle.global.notification.notify.NotifyTool";
 
     /**
      * 注解缓存
@@ -109,7 +109,7 @@ public class TransHelper {
         long transDuration = System.currentTimeMillis() - start;
         log.debug("翻译结束:duration={}ms",transDuration);
         if (transDuration > transNotifyThreshold) {
-            if (ClassLoaderUtil.isPresent(notifyToolClassName)) {
+            if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
                 NotifyParam notifyParam = NotifyParam.system();
                 notifyParam.setContentType("trans.duration");
                 notifyParam.setTitle("trans 翻译执行时长超过阈值");

@@ -37,7 +37,7 @@
         <module>global-notification-boot-starter</module>
         <module>global-ratelimit-boot-starter</module>
         <module>global-trans-boot-stater</module>
-        <module>global-boot-starter</module>
+        <module>global-adapter-boot-starter</module>
         <module>global-light-share</module>
     </modules>
 

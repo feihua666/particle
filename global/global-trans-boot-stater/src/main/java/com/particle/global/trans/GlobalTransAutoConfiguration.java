@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
+import com.particle.global.tool.condition.ConditionalOnClassTool;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.TableNameResolver;
@@ -53,14 +55,26 @@ public class GlobalTransAutoConfiguration {
 			@Override
 			public String resolve(Class tableClass,String tableName) {
 				if (StrUtil.isNotEmpty(tableName)) {
+
+					ConditionalOnClassTool.ConditionalOnClassResult conditionalOnClassResult = ConditionalOnClassTool.checkResult(tableName);
+
+					String tn = conditionalOnClassResult.getExpression();
 					if (table != null) {
 						//
-						String tn = table.get(tableName);
+						tn = table.get(tn);
 						if (!StrUtil.isEmpty(tn)) {
-							return tn;
+							conditionalOnClassResult = ConditionalOnClassTool.checkResult(tn);
 						}
 					}
-					return tableName;
+					if (conditionalOnClassResult.getHasCondition()) {
+						if (conditionalOnClassResult.getClassPresent()) {
+							return conditionalOnClassResult.getExpression();
+						}else {
+							return null;
+						}
+					}else {
+						return conditionalOnClassResult.getExpression();
+					}
 				}
 				if (tableClass == Void.class) {
 					return null;
@@ -115,7 +129,7 @@ public class GlobalTransAutoConfiguration {
 	 */
 	@Bean(name = "transTaskExecutor", destroyMethod = "shutdown")
 	public ExecutorService transTaskExecutor(BeanFactory beanFactory) {
-		if (ClassLoaderUtil.isPresent("io.micrometer.core.instrument.MeterRegistry")) {
+		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
 			return CustomExecutors.newExecutorService(beanFactory,
 					"transTaskExecutor",
 					1,

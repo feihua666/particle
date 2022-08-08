@@ -44,5 +44,10 @@
             <artifactId>global-dto</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-light-share</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

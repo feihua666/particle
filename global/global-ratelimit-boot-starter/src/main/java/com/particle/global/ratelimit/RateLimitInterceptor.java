@@ -11,6 +11,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.particle.global.actuator.monitor.MonitorTool;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
 import lombok.extern.slf4j.Slf4j;
@@ -60,12 +61,12 @@ public class RateLimitInterceptor implements AsyncHandlerInterceptor {
 						log.warn("超过限流速率，name={}，code={},rate={},url={}",limiterNamedWrapper.getName(),limiterNamedWrapper.getCode(),rateLimiter.getRate(),request.getRequestURI());
 
 
-						if (ClassLoaderUtil.isPresent("com.particle.global.actuator.monitor.MonitorTool")) {
+						if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
 							MonitorTool.count("interceptor.ratelimit","限流","code",limiterNamedWrapper.getCode());
 						}
 
 
-						if (ClassLoaderUtil.isPresent("com.particle.global.notification.notify.NotifyTool")) {
+						if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
 							// 通知
 							NotifyParam notifyParam = NotifyParam.system()
 									.setTitle("interceptor.ratelimit 超过限流速率")
