@@ -1,4 +1,4 @@
-package com.particle.component.light.share.dict;
+package com.particle.component.light.share.dict.api;
 
 /**
  * 所有字典的空接口，用来标识是字典

@@ -1,4 +1,4 @@
-package com.particle.component.light.share.dict;
+package com.particle.component.light.share.dict.api;
 
 /**
  * 一个标识字典组的接口
