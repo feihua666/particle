@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-boot-starter</artifactId>
+            <artifactId>global-adapter-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>
