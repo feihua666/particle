@@ -10,6 +10,9 @@ import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * 策略配置逻辑
@@ -26,7 +29,7 @@ public class StrategyConfigLogic {
 	private static String ENTITY_SUFFIX = "DO";
 
 	public static void config(StrategyConfig.Builder builder, TableGenerateConf tableGenerateConf) {
-		builder.addInclude(tableGenerateConf.getTableName()) // 设置需要生成的表名
+		builder.addInclude(Arrays.stream(tableGenerateConf.getTableName().split(",")).collect(Collectors.toList())) // 设置需要生成的表名
 				.addTablePrefix(tableGenerateConf.getTablePrefix()); // 设置过滤表前缀
 		builder.entityBuilder()
 				.naming(NamingStrategy.underline_to_camel)
