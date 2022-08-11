@@ -19,6 +19,9 @@ public class ExceptionFactory {
 	public static BizException bizException(IErrorCode errorCode) {
 		return new BizException(errorCode);
 	}
+	public static BizException bizException(IErrorCode errorCode,String userTip) {
+		return new BizException(errorCode,userTip);
+	}
 	public static BizException bizException(IErrorCode errorCode, Map<String,Object> data) {
 		return new BizException(errorCode,data);
 	}

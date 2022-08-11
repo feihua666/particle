@@ -22,6 +22,10 @@ public class BizException extends BaseException {
 		super(userTip,DEFAULT_ERR_CODE);
 	}
 
+	public BizException(IErrorCode error,String userTip) {
+		super(userTip,error);
+	}
+
 	public BizException(IErrorCode error, Throwable cause) {
 		super(error, cause);
 	}
