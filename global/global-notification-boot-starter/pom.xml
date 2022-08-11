@@ -49,5 +49,10 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-light-share</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

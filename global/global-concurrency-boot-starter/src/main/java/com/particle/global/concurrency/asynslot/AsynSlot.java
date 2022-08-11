@@ -1,11 +1,13 @@
 package com.particle.global.concurrency.asynslot;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.global.tool.state.StateDepend;
 import lombok.Getter;
@@ -191,27 +193,31 @@ public abstract class AsynSlot<R> {
 
 				log.info("asynSlot {} execute complete cost {} ms", name, executeDuration);
 
-				// 监控
-				// 立即返回的不需要监控，因为其没有意义
-				if (!immediate) {
-					String evaluateKey = "asynSlot.evaluate";
-					String executeKey = "asynSlot.execute";
-					com.particle.global.actuator.monitor.MonitorTool.timer(evaluateKey,evaluateDuration,evaluateKey + "耗时监控",name);
-					com.particle.global.actuator.monitor.MonitorTool.timer(executeKey,evaluateDuration,executeKey + "耗时监控",name);
+				if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
+					// 监控
+					// 立即返回的不需要监控，因为其没有意义
+					if (!immediate) {
+						String evaluateKey = "asynSlot.evaluate";
+						String executeKey = "asynSlot.execute";
+						com.particle.global.actuator.monitor.MonitorTool.timer(evaluateKey,evaluateDuration,evaluateKey + "耗时监控",name);
+						com.particle.global.actuator.monitor.MonitorTool.timer(executeKey,evaluateDuration,executeKey + "耗时监控",name);
+					}
 				}
-				if(evaluateDuration > evaluateNotifyThreshold){
-					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
-					notifyParam.setContentType("asynSlot.duration");
-					notifyParam.setTitle("evaluate 执行时间超过阈值");
-					notifyParam.setContent(StrUtil.format("evaluate 执行时间{}ms超过阈值{}ms,name={}",evaluateDuration,evaluateNotifyThreshold,getName()));
-					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
-				}
-				if (executeDuration > executeNotifyThreshold) {
-					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
-					notifyParam.setContentType("asynSlot.duration");
-					notifyParam.setTitle("execute 执行时间超过阈值");
-					notifyParam.setContent(StrUtil.format("execute 执行时间{}ms超过阈值{}ms,name={}",executeDuration,executeNotifyThreshold,getName()));
-					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
+				if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
+					if(evaluateDuration > evaluateNotifyThreshold){
+						com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
+						notifyParam.setContentType("asynSlot.duration");
+						notifyParam.setTitle("evaluate 执行时间超过阈值");
+						notifyParam.setContent(StrUtil.format("evaluate 执行时间{}ms超过阈值{}ms,name={}",evaluateDuration,evaluateNotifyThreshold,getName()));
+						com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
+					}
+					if (executeDuration > executeNotifyThreshold) {
+						com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
+						notifyParam.setContentType("asynSlot.duration");
+						notifyParam.setTitle("execute 执行时间超过阈值");
+						notifyParam.setContent(StrUtil.format("execute 执行时间{}ms超过阈值{}ms,name={}",executeDuration,executeNotifyThreshold,getName()));
+						com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
+					}
 				}
 
 			}

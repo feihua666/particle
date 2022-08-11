@@ -2,8 +2,9 @@ package com.particle.global.notification.notify;
 
 import brave.Tracer;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.actuator.monitor.MonitorTool;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,7 +54,10 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 				doNotify(notifyParam);
 			}catch (Exception e){
 				log.error("通知异常,type={}",supportType(),e);
-				MonitorTool.count("notify.exception","通知异常","supportType",supportType());
+				if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
+					com.particle.global.actuator.monitor.MonitorTool.count("notify.exception","通知异常","supportType",supportType());
+
+				}
 			}
 		}
 	}
