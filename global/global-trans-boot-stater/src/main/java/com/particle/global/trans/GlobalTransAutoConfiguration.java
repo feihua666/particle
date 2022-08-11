@@ -1,12 +1,10 @@
 package com.particle.global.trans;
 
 import cn.hutool.core.annotation.AnnotationUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.google.common.collect.Lists;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
@@ -14,7 +12,6 @@ import com.particle.global.tool.condition.ConditionalOnClassTool;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.TableNameResolver;
-import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,7 +20,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -138,7 +138,7 @@ public class GlobalTransAutoConfiguration {
 					new LinkedBlockingQueue<>(100),
 					// 如果拒绝自己执行
 					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(MeterRegistry.class));
+					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
 		}
 		return CustomExecutors.newExecutorService(beanFactory,
 				"transTaskExecutor",

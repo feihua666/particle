@@ -3,12 +3,7 @@ package com.particle.global.mybatis.plus.config;
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
-import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -42,7 +37,7 @@ public class GlobalMybatisExecutorsConfig {
 					new LinkedBlockingQueue<>(1000),
 					// 如果拒绝自己执行
 					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(MeterRegistry.class));
+					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
 		}
 		return CustomExecutors.newExecutorService(beanFactory,
 				"commonDbTaskExecutor",

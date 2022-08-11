@@ -4,9 +4,7 @@ import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService;
 
 import java.util.concurrent.*;
 
@@ -58,11 +56,11 @@ public class CustomExecutors{
 		}
 		ExecutorService executorService = threadPoolExecutor;
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
-			executorService = ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
+			executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
 		}
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.TRACEABLE_EXECUTOR_SERVICE_CLASS_NAME)) {
 			// 异步链路追踪
-			executorService = new TraceableExecutorService(beanFactory,
+			executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService(beanFactory,
 					// 线程池监控
 					executorService, threadPoolName);
 		}

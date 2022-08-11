@@ -3,7 +3,6 @@ package com.particle.global.concurrency.config;
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
-import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +39,7 @@ public class GlobalConcurrencyExecutorsConfig {
 					new LinkedBlockingQueue<>(1000),
 					// 如果拒绝自己执行
 					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(MeterRegistry.class));
+					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
 		}
 		return CustomExecutors.newExecutorService(beanFactory,
 				"asynSlotTaskExecutor",

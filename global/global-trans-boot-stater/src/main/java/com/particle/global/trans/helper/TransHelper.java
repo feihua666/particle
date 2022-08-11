@@ -9,8 +9,6 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
-import com.particle.global.notification.notify.NotifyParam;
-import com.particle.global.notification.notify.NotifyTool;
 import com.particle.global.tool.collection.CollectionTool;
 import com.particle.global.light.share.trans.anno.*;
 import com.particle.global.trans.api.ITransService;
@@ -110,7 +108,7 @@ public class TransHelper {
         log.debug("翻译结束:duration={}ms",transDuration);
         if (transDuration > transNotifyThreshold) {
             if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
-                NotifyParam notifyParam = NotifyParam.system();
+                com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
                 notifyParam.setContentType("trans.duration");
                 notifyParam.setTitle("trans 翻译执行时长超过阈值");
                 notifyParam.setSuggest("您可以通过 "+ transNotifyThresholdPlaceholder +" 配置改变阈值");
@@ -122,7 +120,7 @@ public class TransHelper {
                         ,body.getClass().getName()
                         ,url
                 ));
-                NotifyTool.notify(notifyParam);
+                com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
             }
 
         }

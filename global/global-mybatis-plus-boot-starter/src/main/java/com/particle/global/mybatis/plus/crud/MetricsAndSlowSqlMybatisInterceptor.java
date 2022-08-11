@@ -2,10 +2,7 @@ package com.particle.global.mybatis.plus.crud;
 
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.actuator.monitor.MonitorTool;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
-import com.particle.global.notification.notify.NotifyParam;
-import com.particle.global.notification.notify.NotifyTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -76,19 +73,19 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 				// 超过阈值通知
 				if (duration > slowSqlNotifyThreshold) {
-						NotifyParam notifyParam = NotifyParam.system()
+					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system()
 								.setTitle("慢sql")
 								.setContentType("mybatis.interceptor.slowSql")
 								.setSuggest("您可以修改配置 scatter.notify.slowSql.threshold 来改变阈值")
 								.setContent(StrUtil.format("sql执行时间{}ms,超过阈值{}ms，sql={}", duration, slowSqlNotifyThreshold, finalSql(ms,parameter)));
-						NotifyTool.notify(notifyParam);
+					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
 					}
 
 			}
 			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
 				String commandType = ms.getSqlCommandType().name();
 				// sql监控
-				MonitorTool.timer(
+				com.particle.global.actuator.monitor.MonitorTool.timer(
 						"mybatis.interceptor.request",
 						end - start,
 						"dao层监控",

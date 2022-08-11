@@ -15,7 +15,7 @@ public class NumberIdTool {
 	 * @param id
 	 * @return
 	 */
-	public boolean isValid(Long id) {
+	public static boolean isValid(Long id) {
 		return id != null && id > 0;
 	}
 }
