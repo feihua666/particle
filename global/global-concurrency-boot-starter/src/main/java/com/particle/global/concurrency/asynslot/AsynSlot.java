@@ -6,9 +6,6 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.particle.global.actuator.monitor.MonitorTool;
-import com.particle.global.notification.notify.NotifyParam;
-import com.particle.global.notification.notify.NotifyTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.global.tool.state.StateDepend;
 import lombok.Getter;
@@ -199,22 +196,22 @@ public abstract class AsynSlot<R> {
 				if (!immediate) {
 					String evaluateKey = "asynSlot.evaluate";
 					String executeKey = "asynSlot.execute";
-					MonitorTool.timer(evaluateKey,evaluateDuration,evaluateKey + "耗时监控",name);
-					MonitorTool.timer(executeKey,evaluateDuration,executeKey + "耗时监控",name);
+					com.particle.global.actuator.monitor.MonitorTool.timer(evaluateKey,evaluateDuration,evaluateKey + "耗时监控",name);
+					com.particle.global.actuator.monitor.MonitorTool.timer(executeKey,evaluateDuration,executeKey + "耗时监控",name);
 				}
 				if(evaluateDuration > evaluateNotifyThreshold){
-					NotifyParam notifyParam = NotifyParam.system();
+					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
 					notifyParam.setContentType("asynSlot.duration");
 					notifyParam.setTitle("evaluate 执行时间超过阈值");
 					notifyParam.setContent(StrUtil.format("evaluate 执行时间{}ms超过阈值{}ms,name={}",evaluateDuration,evaluateNotifyThreshold,getName()));
-					NotifyTool.notify(notifyParam);
+					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
 				}
 				if (executeDuration > executeNotifyThreshold) {
-					NotifyParam notifyParam = NotifyParam.system();
+					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
 					notifyParam.setContentType("asynSlot.duration");
 					notifyParam.setTitle("execute 执行时间超过阈值");
 					notifyParam.setContent(StrUtil.format("execute 执行时间{}ms超过阈值{}ms,name={}",executeDuration,executeNotifyThreshold,getName()));
-					NotifyTool.notify(notifyParam);
+					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
 				}
 
 			}
