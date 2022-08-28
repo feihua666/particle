@@ -1,5 +1,9 @@
 package com.particle.global.mybatis.plus.crud;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.date.TemporalAccessorUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
@@ -21,6 +25,9 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -129,10 +136,14 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 		if (obj instanceof String) {
 			value = "'" + obj.toString() + "'";
 		} else if (obj instanceof Date) {
-			DateFormat formatter = DateFormat.getDateTimeInstance(
-					DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
-			value = "'" + formatter.format(new Date()) + "'";
-		} else {
+			value = "'" + DateUtil.format(((Date) obj), DatePattern.NORM_DATETIME_PATTERN) + "'";
+		} else if (obj instanceof LocalDateTime) {
+			value = "'" + LocalDateTimeUtil.format(((LocalDateTime) obj), DatePattern.NORM_DATETIME_PATTERN) + "'";
+		} else if (obj instanceof LocalDate) {
+			value = "'" + LocalDateTimeUtil.format(((LocalDate) obj), DatePattern.NORM_DATE_PATTERN) + "'";
+		} else if (obj instanceof LocalTime) {
+			value = "'" + TemporalAccessorUtil.format(((LocalTime) obj), DatePattern.NORM_TIME_PATTERN) + "'";
+		}else {
 			if (obj != null) {
 				value = obj.toString();
 			} else {

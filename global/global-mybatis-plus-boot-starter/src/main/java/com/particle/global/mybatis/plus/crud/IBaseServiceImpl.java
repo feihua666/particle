@@ -313,6 +313,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         boolean r = update(po,updateWrapper);
         if (r) {
             postUpdate(po,null);
+        }else {
+            DO dbDo = getById(po.getId());
+            if (!Objects.equals(po.getVersion(), dbDo.getVersion())) {
+                throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.UPDATE_DATA_VERSION_ERROR);
+            }
         }
         return po;
     }

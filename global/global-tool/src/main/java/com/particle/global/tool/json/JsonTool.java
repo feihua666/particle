@@ -4,6 +4,8 @@ import cn.hutool.json.JSONConfig;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.tool.calendar.CalendarTool;
 
+import java.util.Collection;
+
 /**
  * <p>
  * json工具
@@ -14,6 +16,8 @@ import com.particle.global.tool.calendar.CalendarTool;
  */
 public class JsonTool {
 
+
+	public static JSONConfig jsonConfig = JSONConfig.create().setDateFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()).setIgnoreNullValue(false);
 	/**
 	 * 转化为json
 	 * @param object
@@ -23,8 +27,12 @@ public class JsonTool {
 		if (object == null) {
 			return null;
 		}
+		if (object instanceof Collection) {
+
+			return JSONUtil.parseArray(object,
+					jsonConfig).toString();
+		}
 		return JSONUtil.parseObj(object,
-				JSONConfig.create().setDateFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()
-				).setIgnoreNullValue(false)).toString();
+				jsonConfig).toString();
 	}
 }
