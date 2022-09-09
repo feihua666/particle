@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-15
  */
 @Data
-@ApiModel(value="简单用户 通用更新查询指令对象")
+@ApiModel
 public class UserSimpleUpdateCommand extends AbstractBaseUpdateCommand {
 
 

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-15
  */
 @Data
-@ApiModel(value="简单用户 通用删除指令对象")
+@ApiModel
 public class UserSimpleDeleteCommand extends AbstractBaseCommand {
 
     @NotNull

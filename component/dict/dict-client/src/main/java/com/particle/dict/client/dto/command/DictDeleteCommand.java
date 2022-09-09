@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="字典 通用删除指令对象")
+@ApiModel
 public class DictDeleteCommand extends AbstractBaseCommand {
 
     @NotNull

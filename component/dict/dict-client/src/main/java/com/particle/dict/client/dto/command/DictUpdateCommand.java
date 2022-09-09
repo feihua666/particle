@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="字典 通用更新查询指令对象")
+@ApiModel
 public class DictUpdateCommand extends AbstractBaseUpdateCommand {
 
 

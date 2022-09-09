@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * @since ${date}
  */
 @Data
-@ApiModel(value="${injection.tableComment} 通用更新时查询详情指令对象")
+@ApiModel
 public class ${injection.className} extends AbstractBaseCommand {
 
     @NotNull

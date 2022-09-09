@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="功能组 通用删除指令对象")
+@ApiModel
 public class FuncGroupDeleteCommand extends AbstractBaseCommand {
 
     @NotNull

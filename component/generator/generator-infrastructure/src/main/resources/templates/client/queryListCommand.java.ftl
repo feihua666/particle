@@ -17,7 +17,7 @@ import lombok.Data;
  * @since ${date}
  */
 @Data
-@ApiModel(value="${injection.tableComment} 通用列表查询指令对象")
+@ApiModel
 public class ${injection.className} extends AbstractBaseQueryCommand {
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->

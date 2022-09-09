@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="字典 数据通用响应对象")
+@ApiModel
 public class DictVO extends AbstractBaseIdVO {
 
 

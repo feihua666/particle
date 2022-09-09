@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="菜单功能 通用创建指令对象")
+@ApiModel
 public class FuncCreateCommand extends AbstractBaseCommand {
 
 

@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-18
  */
 @Data
-@ApiModel(value="区域 通用列表查询指令对象")
+@ApiModel
 public class AreaQueryListCommand extends AbstractBaseQueryCommand {
 
 

@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="字典 通用创建指令对象")
+@ApiModel
 public class DictCreateCommand extends AbstractBaseCommand {
 
 

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-19
  */
 @Data
-@ApiModel(value="功能组 通用更新时查询详情指令对象")
+@ApiModel
 public class FuncGroupQueryDetailForUpdateCommand extends AbstractBaseCommand {
 
     @NotNull

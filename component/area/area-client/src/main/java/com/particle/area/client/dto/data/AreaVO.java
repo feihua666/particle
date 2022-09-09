@@ -16,7 +16,7 @@ import lombok.Data;
  * @since 2022-07-18
  */
 @Data
-@ApiModel(value="区域 数据通用响应对象")
+@ApiModel
 public class AreaVO extends AbstractBaseIdVO {
 
 

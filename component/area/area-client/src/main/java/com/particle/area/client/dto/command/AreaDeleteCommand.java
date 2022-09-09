@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-18
  */
 @Data
-@ApiModel(value="区域 通用删除指令对象")
+@ApiModel
 public class AreaDeleteCommand extends AbstractBaseCommand {
 
     @NotNull

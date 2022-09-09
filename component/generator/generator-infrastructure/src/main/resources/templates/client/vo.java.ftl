@@ -17,7 +17,7 @@ import lombok.Data;
  * @since ${date}
  */
 @Data
-@ApiModel(value="${injection.tableComment} 数据通用响应对象")
+@ApiModel
 public class ${injection.className} extends AbstractBaseIdVO {
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->

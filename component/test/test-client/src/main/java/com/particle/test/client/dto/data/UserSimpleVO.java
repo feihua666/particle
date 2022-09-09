@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2022-07-15
  */
 @Data
-@ApiModel(value="简单用户 数据通用响应对象")
+@ApiModel
 public class UserSimpleVO extends AbstractBaseIdVO {
 
 
