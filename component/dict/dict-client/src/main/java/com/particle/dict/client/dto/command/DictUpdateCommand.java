@@ -27,6 +27,9 @@ public class DictUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("字典值,模糊查询")
     private String value;
 
+    @ApiModelProperty("字典值,单位")
+    private String valueUnit;
+
     @ApiModelProperty("是否为系统字典，一般系统字典代码中会做判断，不能修改或删除")
     private Boolean isSystem;
 

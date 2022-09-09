@@ -7,6 +7,11 @@ import org.springframework.cloud.sleuth.autoconfig.TraceConfiguration;
 import org.springframework.cloud.sleuth.autoconfig.instrument.web.SleuthWebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 /**
  * <p>
@@ -39,6 +44,19 @@ public class GlobalWebFilterAutoConfiguration {
 	public RequestResponseLogFilter requestResponseLogFilterBean() {
 		return new RequestResponseLogFilter();
 	}
+
+	@Bean
+	public CorsFilter corsFilterBean() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowCredentials(true);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return new CorsFilter(source);
+	}
+
 	/**
 	 * 响应头添加traceid过滤器
 	 * @return
@@ -84,6 +102,14 @@ public class GlobalWebFilterAutoConfiguration {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(requestResponseLogFilterBean());
 		registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span * 4);
+		return registrationBean;
+	}
+
+	@Bean
+	public FilterRegistrationBean CorsFilter() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(corsFilterBean());
+		registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span +2);
 		return registrationBean;
 	}
 }

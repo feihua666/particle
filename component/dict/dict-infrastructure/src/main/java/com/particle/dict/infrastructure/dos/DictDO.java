@@ -31,6 +31,10 @@ public class DictDO extends BaseTreeDO {
     */
     private String value;
     /**
+     * 字典值单位
+     */
+    private String valueUnit;
+    /**
     * 是否为系统字典，一般系统字典代码中会做判断，不能修改或删除
     */
     private Boolean isSystem;

@@ -4,6 +4,7 @@ CREATE TABLE `component_dict` (
   `code` varchar(100) DEFAULT NULL COMMENT '字典编码,模糊查询，字典组时必填',
   `name` varchar(100) NOT NULL COMMENT '字典名称,模糊查询',
   `value` varchar(255) DEFAULT NULL COMMENT '字典值,模糊查询',
+  `value_unit` varchar(255) DEFAULT NULL COMMENT '字典值,单位',
   `is_system` tinyint(1) NOT NULL COMMENT '是否为系统字典，一般系统字典代码中会做判断，不能修改或删除',
   `is_public` tinyint(1) NOT NULL COMMENT '是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询',
   `is_group` tinyint(1) NOT NULL COMMENT '是否为字典组，不是字典组就是字典项目，没有其它的',
