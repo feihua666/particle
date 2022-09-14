@@ -11,8 +11,13 @@ import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
+
+import static java.time.ZoneId.of;
+import static java.util.TimeZone.getTimeZone;
 
 /**
  * <p>
@@ -32,5 +37,8 @@ public class UserApplication {
 		log.info("{} stated", UserApplication.class.getSimpleName());
 		log.info("===============================================");
 	}
-
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(getTimeZone(of("Asia/Shanghai")));
+	}
 }

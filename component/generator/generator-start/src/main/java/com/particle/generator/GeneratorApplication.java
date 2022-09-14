@@ -4,6 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
+import static java.time.ZoneId.of;
+import static java.util.TimeZone.getTimeZone;
+
 /**
  * <p>
  * 代码生成器项目启动类
@@ -22,6 +28,9 @@ public class GeneratorApplication {
 		log.info("{} stated", GeneratorApplication.class.getSimpleName());
 		log.info("===============================================");
 	}
-
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(getTimeZone(of("Asia/Shanghai")));
+	}
 
 }
