@@ -1,2 +1,4 @@
 # 全局过滤器模块
-封装了常用的过滤器，日志打印，traceId响应等
+封装了常用的过滤器，日志打印，traceId响应等  
+注意：在forward情况下，在tomcat中会再走一遍请求，同时也会过filter（就像重新请求一样），但是继承了OncePerRequestFilter的过滤器默认在forward情况下不会再执行了。
+一般目前前后端分离情况下，不会用到forward，但有一些错误情况，比如404，找不到路径，会forward重定向到/error,这时OncePerRequestFilter可以继承并重写方法shouldNotFilterErrorDispatch返回false，

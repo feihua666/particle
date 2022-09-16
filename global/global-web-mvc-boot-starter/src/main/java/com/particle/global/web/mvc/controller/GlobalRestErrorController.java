@@ -34,8 +34,6 @@ public class GlobalRestErrorController  extends BasicErrorController {
         super(errorAttributes, serverProperties.getError(), errorViewResolvers);
     }
 
-
-
     @Override
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);

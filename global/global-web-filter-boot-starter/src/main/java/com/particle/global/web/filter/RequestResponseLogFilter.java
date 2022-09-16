@@ -223,6 +223,14 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         return null;
     }
 
+    /**
+     * 在错误情况下，比如404页面，
+     * @return
+     */
+    @Override
+    protected boolean shouldNotFilterErrorDispatch() {
+        return false;
+    }
     @Override
     protected boolean shouldLog(HttpServletRequest request) {
         return true;
