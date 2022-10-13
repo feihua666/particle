@@ -1,0 +1,30 @@
+version: '3'
+services:
+  jenkins:
+    image: 'jenkins/jenkins:lts'
+    container_name: 'particle-jenkins'
+    networks:
+      - particle-jenkins-net
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    extra_hosts:
+      # 配合nginx 使jenkins插件安装加速
+      - 'mirrors.jenkins-ci.org:127.0.0.1'
+    volumes:
+      - # 数据
+      - particle-jenkins-data:/var/jenkins_home
+      # 挂载数据目录到主机上
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
+      # 仓库地址
+      - ~/.m2/repository:~/.m2/repository
+
+networks:
+  particle-jenkins-net:
+    driver: bridge
+
+volumes:
+  particle-jenkins-data:
+    driver: local

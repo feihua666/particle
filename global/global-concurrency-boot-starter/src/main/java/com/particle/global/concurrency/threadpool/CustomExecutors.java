@@ -40,15 +40,59 @@ public class CustomExecutors{
 													 RejectedExecutionHandler handler,
 													 boolean preStartCoreThread, MeterRegistry meterRegistry) {
 
-		// 线程工厂
-		ThreadFactory threadFactory = ThreadFactoryBuilder.create()
-				.setNamePrefix(threadPoolName)
-				.setUncaughtExceptionHandler(new CustomDefaultUncaughtExceptionHandler()).build();
+		ExecutorService executorService = doNewExecutorService(beanFactory,
+				threadPoolName,
+				corePoolSize,
+				maximumPoolSize,
+				keepAliveTime,
+				workQueue,
+				handler,
+				preStartCoreThread,
+				meterRegistry, false);
+		return executorService;
+	}
 
-		// 线程池，自定义
-		ThreadPoolExecutor threadPoolExecutor =
-				new CustomThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, workQueue,
-						threadFactory, handler);
+	/**
+	 * 任务计划线程池
+	 * @param beanFactory
+	 * @param threadPoolName
+	 * @param corePoolSize
+	 * @param handler
+	 * @param preStartCoreThread
+	 * @param meterRegistry
+	 * @return
+	 */
+	public static ScheduledExecutorService newScheduledExecutorService(BeanFactory beanFactory,
+																String threadPoolName,
+																int corePoolSize,
+																RejectedExecutionHandler handler,
+																boolean preStartCoreThread, MeterRegistry meterRegistry) {
+		ExecutorService executorService = doNewExecutorService(beanFactory,
+				threadPoolName,
+				corePoolSize,
+				0,
+				0,
+				null,
+				handler,
+				preStartCoreThread,
+				meterRegistry, true);
+		return ((ScheduledExecutorService) executorService);
+	}
+
+	private static ExecutorService doNewExecutorService(BeanFactory beanFactory,
+													 String threadPoolName,
+													 int corePoolSize,
+													 int maximumPoolSize,
+													 long keepAliveTime,
+													 BlockingQueue<Runnable> workQueue,
+													 RejectedExecutionHandler handler,
+													 boolean preStartCoreThread, MeterRegistry meterRegistry,boolean scheduled) {
+
+		// 线程工厂
+		ThreadFactory threadFactory = ThreadFactoryBuilder.create().setNamePrefix(threadPoolName).setUncaughtExceptionHandler(new CustomDefaultUncaughtExceptionHandler()).build();
+
+		ThreadPoolExecutor threadPoolExecutor = newThreadPoolExecutor( threadFactory , corePoolSize, maximumPoolSize, keepAliveTime, workQueue, handler, scheduled);
+
 
 		// 预启动核心线程
 		if (preStartCoreThread) {
@@ -56,14 +100,49 @@ public class CustomExecutors{
 		}
 		ExecutorService executorService = threadPoolExecutor;
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
-			executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
+			if (scheduled) {
+				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((CustomScheduledThreadPoolExecutor) threadPoolExecutor), threadPoolName);
+			}else{
+				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
+			}
 		}
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.TRACEABLE_EXECUTOR_SERVICE_CLASS_NAME)) {
-			// 异步链路追踪
-			executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService(beanFactory,
-					// 线程池监控
-					executorService, threadPoolName);
+			if (scheduled) {
+				// 异步链路追踪
+				executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableScheduledExecutorService(beanFactory, executorService, threadPoolName);
+			}else {
+				// 异步链路追踪
+				executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService(beanFactory, executorService, threadPoolName);
+			}
+			
 		}
 		return executorService;
 	}
+
+	/**
+	 * 创建threadPool
+	 * @param threadFactory
+	 * @param corePoolSize
+	 * @param maximumPoolSize
+	 * @param keepAliveTime
+	 * @param workQueue
+	 * @param handler
+	 * @param scheduled
+	 * @return
+	 */
+	private static ThreadPoolExecutor newThreadPoolExecutor(ThreadFactory threadFactory ,
+													 int corePoolSize,
+													 int maximumPoolSize,
+													 long keepAliveTime,
+													 BlockingQueue<Runnable> workQueue,
+													 RejectedExecutionHandler handler,
+													 boolean scheduled){
+		// 线程池，自定义
+		if (scheduled) {
+			return new CustomScheduledThreadPoolExecutor(corePoolSize, threadFactory, handler);
+		}
+		// 线程池，自定义
+		return new CustomThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, workQueue, threadFactory, handler);
+	}
+
 }

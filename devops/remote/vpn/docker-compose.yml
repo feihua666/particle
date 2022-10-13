@@ -1,0 +1,26 @@
+# 运行前执行一下这个modprobe af_key
+# https://github.com/hwdsl2/docker-ipsec-vpn-server/blob/master/README-zh.md
+# 本人遇到的问题window10连接前下载注册表并重启
+# https://static.ls20.com/reg-files/v1/Fix_VPN_Error_809_Windows_Vista_7_8_10_Reboot_Required.reg
+version: '3'
+services:
+  vpn:
+    image: 'hwdsl2/ipsec-vpn-server'
+    container_name: 'particle-ipsec-vpn-server'
+    network_mode: 'host'
+    privileged: true
+    env_file:
+      - vpn.env
+    ports:
+      - '500:500/udp'
+      - '4500:4500/udp'
+    volumes:
+      # 挂载数据目录到主机上
+      - particle-vpn-data:/lib/modules:ro
+networks:
+  particle-vpn-net:
+    driver: bridge
+
+volumes:
+  particle-vpn-data:
+    driver: local

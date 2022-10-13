@@ -107,6 +107,8 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 			if (logSqlEnable) {
 				log.info("sql={}",finalSql(ms,parameter));
 			}
+			log.debug("mapperMethod={},duration={}ms",ms.getId(),duration);
+
 		}
 
 	}

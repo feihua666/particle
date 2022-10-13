@@ -1,0 +1,18 @@
+version: "3"
+services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: particle-zipkin
+    restart: always
+    networks:
+      - particle-zipkin-net
+    ports:
+      - "9411:9411"
+
+networks:
+  particle-zipkin-net:
+    driver: bridge
+
+volumes:
+  particle-zipkin-data:
+    driver: local

@@ -2,7 +2,7 @@ package com.particle.global.trans.api.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.light.share.trans.Contants;
+import com.particle.global.light.share.trans.TransConstants;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.trans.api.DataObtainForTableNameTrans;
 import com.particle.global.trans.api.ITransService;
@@ -32,7 +32,7 @@ public class TableNameTransServiceImpl implements ITransService<Object,Object> {
     @Autowired
     private DataObtainForTableNameTrans dataObtainForTableNameTrans;
 
-    public static final String TRANS_BY_TABLE_NAME = Contants.defaultTransType;
+    public static final String TRANS_BY_TABLE_NAME = TransConstants.defaultTransType;
 
     @Override
     public boolean support(String type) {

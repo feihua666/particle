@@ -39,6 +39,7 @@
         <module>global-trans-boot-stater</module>
         <module>global-adapter-boot-starter</module>
         <module>global-light-share</module>
+        <module>global-messaging-boot-starter</module>
     </modules>
 
     <properties>

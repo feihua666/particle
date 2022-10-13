@@ -1,3 +1,6 @@
 # 异常捕获并打印日志
 该模块依据spring aop功能，结合 CatchAndLog 注解，实现了在service层全局捕获并打印日志的功能
 该模块参考cola架构而来，该模块应该被service层依赖或cola架构的app层依赖
+
+默认日志记录不开启，可以通过配置
+particle.catchlog.enableCatchLog=true

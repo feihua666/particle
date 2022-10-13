@@ -1,0 +1,75 @@
+spring:
+  application:
+    # 应用名称
+    name: global-message-test
+  profiles:
+    include:
+      - knife4j
+      - swagger
+      - log4j2
+      - datasource
+      - mybatis-plus
+  # 定义 rabbit 连接，多个请使用 address
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq-user
+    password: rabbitmq-password
+  # 定义 kafka 连接多个以逗号分隔
+  kafka:
+    bootstrap-servers: localhost:9092
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为 master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://localhost/particle_test?${particle.datasource.mysql.url-query}
+          username: root
+          password: rootroot
+          driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+  cloud:
+    stream:
+      # binder 们
+      binders:
+        rabbit:
+          type: rabbit
+        kafka:
+          type: kafka
+      # 通道与binder绑定关系
+      bindings:
+        test1RabbitConsumer-in-0:
+          binder: rabbit
+          # 目标，在rabbit中会自动创建名称 test1RabbitMq 交换器 类型为 topic
+          destination: test1RabbitMq
+          # 分组 在rabbit中会自动创建名为 test1RabbitMq.group 的队列
+          group: group
+        test1RabbitProducer-out-0:
+          binder: rabbit
+          destination: test1RabbitMq
+        test1KafkaConsumer-in-0:
+          binder: kafka
+          # 目标，在kafka中会自动创建名称 test1RabbitMq 的 topic
+          destination: test1KafkaMq
+          group: group
+        test1KafkaProducer-out-0:
+          binder: kafka
+          destination: test1KafkaMq
+      # 配置多个 binder 时，必需指定的一个默认binder
+      default-binder: test
+    # 声名的函数式编程定义，如果使用交互式编程发送消息，可以不指定生产者
+    function:
+      definition: test1RabbitConsumer;test1RabbitProducer;test1KafkaConsumer;test1KafkaProducer
+  sql:
+    init:
+      schema-locations:
+        - classpath:db/schema.global_message_event.sql
+        - classpath:db/schema.global_message_event_consume_record.sql
+        - classpath:db/schema.global_concurrency_shedlock.sql
+      mode: always
+server:
+  servlet:
+    encoding:
+      force: true
+logging:
+  level: info

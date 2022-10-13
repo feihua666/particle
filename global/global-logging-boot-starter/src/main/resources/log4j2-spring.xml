@@ -22,18 +22,18 @@
 
     <Properties>
         <!-- ALL日志最大大小 -->
-        <property name="MAX_ALL_LOG_FILE_SIZE" value="12MB"/>
-        <!-- DEBUG日志最大大小 -->
-        <property name="MAX_DEBUG_LOG_FILE_SIZE" value="12MB"/>
-        <!-- INFO日志最大大小 -->
-        <property name="MAX_INFO_LOG_FILE_SIZE" value="2MB"/>
-        <!-- WARN日志最大大小 -->
-        <property name="MAX_WARNING_LOG_FILE_SIZE" value="2MB"/>
-        <!-- ERROR日志最大大小 -->
-        <property name="MAX_ERROR_LOG_FILE_SIZE" value="2MB"/>
+        <property name="MAX_ALL_LOG_FILE_SIZE" value="200MB"/>
+        <!-- DEBUG日志最大大小 保留-->
+        <property name="MAX_DEBUG_LOG_FILE_SIZE" value="200MB"/>
+        <!-- INFO日志最大大小 保留 -->
+        <property name="MAX_INFO_LOG_FILE_SIZE" value="200MB"/>
+        <!-- WARN日志最大大小 保留 -->
+        <property name="MAX_WARNING_LOG_FILE_SIZE" value="200MB"/>
+        <!-- ERROR日志最大大小 保留 -->
+        <property name="MAX_ERROR_LOG_FILE_SIZE" value="200MB"/>
         <!-- 日志保留天数 -->
         <property name="MAX_HISTORY_DAY" value="35d"/>
-        <!-- 日志滚动间隔小时 -->
+        <!-- 日志滚动间隔 单位小时 -->
         <property name="ROLLING_INTERVAL" value="1"/>
         <!-- 日志滚动随机最大延迟秒 -->
         <property name="MAX_RANDOM_DELAY" value="5"/>
@@ -77,7 +77,7 @@
                     设置文件滚动时间策略
                     interval: 滚动间隔, 单位以 [filePattern] 中最小可衡量时间单位为准, 默认为小时
                     modulate: 开始滚动边界(从0点开始重新计算间隔时间)
-                    modulate: 滚动操作随机延时最长秒数, 用于避免某一个时刻由于滚动日志造成高I/O压力
+                    maxRandomDelay: 滚动操作随机延时最长秒数, 用于避免某一个时刻由于滚动日志造成高I/O压力
                 -->
                 <TimeBasedTriggeringPolicy interval="${ROLLING_INTERVAL}" modulate="true"
                                            maxRandomDelay="${MAX_RANDOM_DELAY}"/>
@@ -113,7 +113,7 @@
         <AsyncLogger name="org.hibernate.validator.internal.util.Version" level="warn" />
         <AsyncLogger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
         <AsyncLogger name="com.particle" level="ALL" includeLocation="true"/>
-        <AsyncRoot level="INFO" includeLocation="true">
+        <AsyncRoot level="info" includeLocation="true">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </AsyncRoot>

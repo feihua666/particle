@@ -2,14 +2,15 @@ package com.particle.global.concurrency.config;
 
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
+import com.particle.global.light.share.concurrency.ConcurrencyConstants;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -28,11 +29,11 @@ public class GlobalConcurrencyExecutorsConfig {
 	 * @param beanFactory
 	 * @return
 	 */
-	@Bean(name = "asynSlotTaskExecutor", destroyMethod = "shutdown")
+	@Bean(name = ConcurrencyConstants.default_global_asyn_slot_task_executor, destroyMethod = "shutdown")
 	public ExecutorService asynSlotTaskExecutor(BeanFactory beanFactory) {
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
 			return CustomExecutors.newExecutorService(beanFactory,
-					"asynSlotTaskExecutor",
+					ConcurrencyConstants.default_global_asyn_slot_task_executor,
 					5,
 					100,
 					1000,
@@ -42,11 +43,35 @@ public class GlobalConcurrencyExecutorsConfig {
 					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
 		}
 		return CustomExecutors.newExecutorService(beanFactory,
-				"asynSlotTaskExecutor",
+				ConcurrencyConstants.default_global_asyn_slot_task_executor,
 				5,
 				100,
 				1000,
 				new LinkedBlockingQueue<>(1000),
+				// 如果拒绝自己执行
+				new ThreadPoolExecutor.CallerRunsPolicy(),
+				true,null);
+
+	}
+
+	/**
+	 * 延迟执行线程池
+	 * @param beanFactory
+	 * @return
+	 */
+	@Bean(name = ConcurrencyConstants.default_global_scheduled_task_executor, destroyMethod = "shutdown")
+	public ScheduledExecutorService globalScheduledTaskExecutor(BeanFactory beanFactory) {
+		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
+			return CustomExecutors.newScheduledExecutorService(beanFactory,
+					ConcurrencyConstants.default_global_scheduled_task_executor,
+					5,
+					// 如果拒绝自己执行
+					new ThreadPoolExecutor.CallerRunsPolicy(),
+					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
+		}
+		return CustomExecutors.newScheduledExecutorService(beanFactory,
+				ConcurrencyConstants.default_global_scheduled_task_executor,
+				5,
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
 				true,null);

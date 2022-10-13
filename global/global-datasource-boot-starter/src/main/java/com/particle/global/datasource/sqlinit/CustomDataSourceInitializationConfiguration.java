@@ -33,7 +33,8 @@ public class CustomDataSourceInitializationConfiguration {
 	@Bean
 	SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource datasource,
 																			   SqlInitializationProperties initializationProperties) {
-		log.info("自定义增强sql脚本初始化已生效，这将导 spring 原生 {} 自动配置失效！", "org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration");
+		log.info("自定义增强sql脚本初始化已生效，这将导 spring 原生 {} 自动配置失效！",
+				"org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration");
 
 		DatabaseInitializationSettings settings = createFrom(initializationProperties);
 		return new CustomDataSourceScriptDatabaseInitializer(determineDataSource(datasource,

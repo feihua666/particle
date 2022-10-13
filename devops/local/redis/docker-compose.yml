@@ -1,0 +1,21 @@
+version: "3"
+services:
+  redis:
+    image: redis:latest
+    container_name: particle-redis
+    restart: always
+    networks:
+      - particle-redis-net
+    volumes:
+      - particle-redis-data:/data
+      - particle-redis-logs:/logs
+    ports:
+      - "6379:6379"
+    command: redis-server
+networks:
+  particle-redis-net:
+    driver: bridge
+
+volumes:
+  particle-redis-data:
+    driver: local

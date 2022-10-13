@@ -1,6 +1,6 @@
 package com.particle.global.light.share.trans.anno;
 
-import com.particle.global.light.share.trans.Contants;
+import com.particle.global.light.share.trans.TransConstants;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,7 +23,7 @@ public @interface TransFor {
      * TransService 的support方法参数
      * @return
      */
-    String type() default Contants.defaultTransType;
+    String type() default TransConstants.defaultTransType;
 
     /**
      * 表名字符串，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}

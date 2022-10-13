@@ -310,12 +310,14 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         if (dataPermissionServiceWrapper !=null && getUpdateDataPermissionService() != null) {
             getUpdateDataPermissionService().dataConstraint(updateWrapper);
         }
+        Integer versionOrigin = po.getVersion();
         boolean r = update(po,updateWrapper);
         if (r) {
             postUpdate(po,null);
+            return po;
         }else {
             DO dbDo = getById(po.getId());
-            if (!Objects.equals(po.getVersion(), dbDo.getVersion())) {
+            if (!Objects.equals(versionOrigin, dbDo.getVersion())) {
                 throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.UPDATE_DATA_VERSION_ERROR);
             }
         }

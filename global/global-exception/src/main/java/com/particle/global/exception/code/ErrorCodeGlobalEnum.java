@@ -33,6 +33,11 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 * 更新数据版本错误，需要重新刷新数据
 	 */
 	UPDATE_DATA_VERSION_ERROR(50000000011L,"数据版本错误"),
+	/**
+	 * 锁已经被占用异常
+	 * [ˈɒkjupaɪd]
+	 */
+	LOCK_ALREADY_OCCUPIED_ERROR(50000000012L,"锁已经被占用"),
 
 	/**
 	 * 删除失败，系统内部错误

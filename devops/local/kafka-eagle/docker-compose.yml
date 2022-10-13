@@ -1,0 +1,44 @@
+version: "3"
+services:
+  kafka:
+    image: wurstmeister/kafka
+    container_name: particle-kafka
+    restart: always
+    networks:
+      - particle-kafka-net
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=127.0.0.1
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    volumes:
+      - particle-kafka-data:/data/kafka-data
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: particle-kafka-zookeeper
+    networks:
+      - particle-kafka-net
+    volumes:
+      - particle-kafka-zookeeper-data:/data
+      - particle-kafka-zookeeper-datalog:/datalog
+      - particle-kafka-zookeeper-logs:/logs
+    ports:
+      - "2181:2181"
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=zookeeper
+networks:
+  particle-kafka-net:
+    driver: bridge
+
+volumes:
+  particle-kafka-data:
+    driver: local
+  particle-kafka-zookeeper-data:
+    driver: local
+  particle-kafka-zookeeper-datalog:
+    driver: local
+  particle-kafka-zookeeper-logs:
+    driver: local

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.6</version>
+        <version>2.7.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
@@ -28,7 +28,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <!-- spring cloud 版本 -->
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 -->
@@ -57,6 +57,7 @@
 
         <!-- 测试数据用 可以将实体填充数据 测试用例使用-->
         <jmockdata.version>4.2.0</jmockdata.version>
+        <shedlock.version>4.41.0</shedlock.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>
@@ -95,6 +96,14 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- shedlock 分布式锁 一般用于定时任务-->
+            <dependency>
+                <groupId>net.javacrumbs.shedlock</groupId>
+                <artifactId>shedlock-bom</artifactId>
+                <version>${shedlock.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

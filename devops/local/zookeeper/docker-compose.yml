@@ -1,0 +1,24 @@
+version: "3"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: particle-zookeeper
+    networks:
+      - particle-zookeeper-net
+    volumes:
+      - particle-zookeeper-data:/data
+      - particle-zookeeper-datalog:/datalog
+      - particle-zookeeper-logs:/logs
+    ports:
+      - "2181:2181"
+networks:
+  particle-zookeeper-net:
+    driver: bridge
+
+volumes:
+  particle-zookeeper-data:
+    driver: local
+  particle-zookeeper-datalog:
+    driver: local
+  particle-zookeeper-logs:
+    driver: local

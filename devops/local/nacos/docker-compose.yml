@@ -1,0 +1,31 @@
+#https://github.com/nacos-group/nacos-docker
+version: '3'
+services:
+  nacos:
+    image: 'nacos/nacos-server:latest'
+    container_name: 'particle-nacos'
+    networks:
+      - particle-nacos-net
+    env_file:
+      - nacos.env
+    environment:
+      MODE: 'standalone'
+      SPRING_DATASOURCE_PLATFORM: 'mysql'
+      MYSQL_SERVICE_HOST: 'db.grape.com'
+      MYSQL_SERVICE_DB_NAME: 'grape_nacos'
+      MYSQL_SERVICE_PORT: '3306'
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    volumes:
+      # 挂载数据目录到主机上
+      # 主要是添加mysql8jar包
+      - .:/home/nacos/plugins/mysql/
+      - ./custom.properties:/home/nacos/init.d/custom.properties
+networks:
+  particle-nacos-net:
+    driver: bridge
+
+volumes:
+  particle-nacos-data:
+    driver: local

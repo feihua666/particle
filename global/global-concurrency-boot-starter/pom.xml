@@ -53,5 +53,38 @@
             <artifactId>global-light-share</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- shedlock 分布式锁 shedlock主要用于定时任务分布式执行-->
+        <!-- 在该模块中仅提供功能，不传递依赖 -->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-spring</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 分布式锁 默认添加内存存储 -->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-inmemory</artifactId>
+        </dependency>
+        <!-- 分布式锁 shedlock jdbc支持 -->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- jdbc shedlockjdbc支持时可以依赖使用，这里不传递依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-exception</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

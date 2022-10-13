@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:8.0.18'
+    container_name: 'particle-mysql'
+    networks:
+      - particle-mysql-net
+    env_file:
+      - mysql.env
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      # 挂载数据目录到主机上
+      - particle-jenkins-data:/var/lib/mysql
+networks:
+  particle-jenkins-net:
+    driver: bridge
+
+volumes:
+  particle-jenkins-data:
+    driver: local

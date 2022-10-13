@@ -41,6 +41,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-mybatis-plus-boot-starter</artifactId>
             <version>${particle.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

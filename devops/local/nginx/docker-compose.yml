@@ -1,0 +1,21 @@
+version: '3'
+services:
+  nginx:
+    image: 'nginx'
+    container_name: 'particle-nginx'
+    networks:
+      - particle-nginx-net
+    ports:
+      - '80:80'
+    volumes:
+      # 挂载数据目录到主机上
+      # nginx 配置
+      - ./conf:/etc/nginx/conf.d
+
+networks:
+  particle-nginx-net:
+    driver: bridge
+
+volumes:
+  particle-nginx-data:
+    driver: local

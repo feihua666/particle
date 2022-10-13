@@ -5,7 +5,6 @@ import com.github.jsonzou.jmockdata.MockConfig;
 import com.particle.global.dto.basic.DTO;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 

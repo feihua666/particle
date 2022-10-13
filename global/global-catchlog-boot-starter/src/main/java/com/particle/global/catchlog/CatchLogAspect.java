@@ -1,5 +1,6 @@
 package com.particle.global.catchlog;
 
+import cn.hutool.core.util.ClassUtil;
 import com.particle.global.exception.BaseException;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.system.SystemException;
@@ -127,7 +128,7 @@ public class CatchLogAspect {
 			log.debug("start processing: ()" , joinPoint.getSignature().toShortString());
 			Object[] args = joinPoint.getArgs();
 			for (Object arg : args) {
-				log.debug("request : {}" , JsonTool.toJsonStr(arg));
+				log.debug("request : {}" , ClassUtil.isSimpleValueType(arg.getClass())? arg:  JsonTool.toJsonStr(arg));
 			}
 		}
 		catch (Exception e){
