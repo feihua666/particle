@@ -18,7 +18,20 @@ import static java.time.Instant.now;
  * @since 2022-09-16 11:30
  */
 @Data
-public abstract class AbstractMessageEvent<T> extends DTO {
+public class AbstractMessageEvent<T> extends DTO {
+
+	/**
+	 * 状态
+	 */
+	public enum Status{
+		// 发送失败
+		send_failed,
+		// 后台发送，定时发送
+		send_back,
+		// 发送失败后，后台发送
+		send_failed_back,
+	}
+
 
 	/**
 	 * 标识发往哪个队列
@@ -27,6 +40,13 @@ public abstract class AbstractMessageEvent<T> extends DTO {
 	 * 在kafka或rocketMq中应该是一个topic
 	 */
 	private String mq;
+
+	/**
+	 * 消息状态
+	 */
+	private String status;
+
+
 
 	public AbstractMessageEvent() {
 	}

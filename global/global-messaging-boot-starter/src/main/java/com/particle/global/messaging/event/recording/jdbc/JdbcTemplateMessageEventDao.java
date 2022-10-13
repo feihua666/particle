@@ -7,16 +7,21 @@ import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.particle.global.dto.messaging.event.AbstractMessageEvent.Status.send_failed;
+import static com.particle.global.dto.messaging.event.AbstractMessageEvent.Status.send_failed_back;
 
 /**
  * <p>
@@ -42,13 +47,17 @@ public class JdbcTemplateMessageEventDao implements MessageEventRepository {
 
     @Override
     public void save(List<AbstractMessageEvent> events) {
-        String sql = "INSERT INTO DOMAIN_EVENT (ID, CONTENT) VALUES (:id, :json);";
+        String sql = "INSERT INTO "+ tableName +" (ID,MQ, CONTENT,STATUS,CREATE_AT) VALUES (:id,:mq, :json,:status,:createAt);";
 
         SqlParameterSource[] parameters = events.stream()
                 .map((Function<AbstractMessageEvent, SqlParameterSource>) messageEvent ->
                         new MapSqlParameterSource()
                                 .addValue("id", messageEvent.getMessageId())
-                                .addValue("json", toJson(messageEvent)))
+                                .addValue("mq", messageEvent.getMq())
+                                .addValue("json", toJson(messageEvent))
+                                .addValue("status", messageEvent.getStatus())
+                                .addValue("createAt", LocalDateTime.now())
+                )
                 .toArray(SqlParameterSource[]::new);
 
         jdbcTemplate.batchUpdate(sql, parameters);
@@ -64,12 +73,17 @@ public class JdbcTemplateMessageEventDao implements MessageEventRepository {
     @Override
     public AbstractMessageEvent get(String eventId) {
         String sql = "SELECT CONTENT FROM "+ tableName +" WHERE ID = :id;";
-        return jdbcTemplate.queryForObject(sql, of("id", eventId), mapper);
+        try {
+            return jdbcTemplate.queryForObject(sql, of("id", eventId), mapper);
+        } catch (EmptyResultDataAccessException e) {
+            log.error("get by eventId.return null instead",e);
+            return null;
+        }
     }
 
     @Override
     public List<AbstractMessageEvent> nextPublishBatch(int size) {
-        String sql = "SELECT CONTENT FROM "+ tableName +" WHERE STATUS != 'FAILED' ORDER BY CREATE_AT LIMIT :limit;";
+        String sql = "SELECT CONTENT FROM "+ tableName +" WHERE STATUS != '"+ send_failed +"' ORDER BY CREATE_AT LIMIT :limit;";
         return jdbcTemplate.query(sql, of("limit", size), mapper);
     }
 
@@ -80,7 +94,7 @@ public class JdbcTemplateMessageEventDao implements MessageEventRepository {
 
     @Override
     public void markAsPublishFailed(String eventId) {
-        String sql = "UPDATE "+ tableName +" SET STATUS = 'FAILED' WHERE ID = :id;";
+        String sql = "UPDATE "+ tableName +" SET STATUS = '"+ send_failed +"' WHERE ID = :id;";
         jdbcTemplate.update(sql, of("id", eventId));
     }
 

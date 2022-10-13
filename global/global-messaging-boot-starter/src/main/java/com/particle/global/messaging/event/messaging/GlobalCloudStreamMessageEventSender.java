@@ -40,6 +40,7 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 			if (messageEventRepository != null) {
 				AbstractMessageEvent abstractMessageEvent = messageEventRepository.get(event.getMessageId());
 				if (abstractMessageEvent == null) {
+					event.setStatus(AbstractMessageEvent.Status.send_failed_back.name());
 					messageEventRepository.save(Lists.newArrayList(event));
 				}else {
 					messageEventRepository.markAsPublishFailed(event.getMessageId());
@@ -47,6 +48,7 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 			}else {
 				log.error("message send failed! config messageEventRepository or else you see the log. event={} ", JsonTool.toJsonStr(event));
 			}
+			throw e;
 		}
 	}
 
