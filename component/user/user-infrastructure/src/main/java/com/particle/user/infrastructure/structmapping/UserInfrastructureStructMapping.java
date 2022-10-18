@@ -1,8 +1,8 @@
 package com.particle.user.infrastructure.structmapping;
 
-import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
+import com.particle.user.infrastructure.dos.UserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

@@ -3,7 +3,6 @@ package com.particle.global.notification.notify;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
-import com.particle.global.bootstrap.boot.OnApplicationShutdownListener;
 import org.springframework.boot.ApplicationArguments;
 
 /**

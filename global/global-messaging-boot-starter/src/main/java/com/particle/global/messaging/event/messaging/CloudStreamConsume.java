@@ -1,7 +1,5 @@
 package com.particle.global.messaging.event.messaging;
 
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -1,13 +1,13 @@
 package com.particle.func.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
 import com.particle.func.domain.gateway.FuncGroupGateway;
-import com.particle.func.infrastructure.service.IFuncGroupService;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
+import com.particle.func.infrastructure.service.IFuncGroupService;
 import com.particle.func.infrastructure.structmapping.FuncGroupInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-19
  */
 @Component
-public class FuncGroupGatewayImpl extends AbstractBaseGatewayImpl implements FuncGroupGateway {
+public class FuncGroupGatewayImpl extends AbstractBaseGatewayImpl<FuncGroupId,FuncGroup> implements FuncGroupGateway {
 
 	private IFuncGroupService iFuncGroupService;
 
@@ -33,7 +33,7 @@ public class FuncGroupGatewayImpl extends AbstractBaseGatewayImpl implements Fun
 	}
 
 	@Override
-	public boolean save(FuncGroup funcGroup) {
+	public boolean doSave(FuncGroup funcGroup) {
 		FuncGroupDO funcGroupDO = FuncGroupInfrastructureStructMapping.instance.funcGroupToFuncGroupDO(funcGroup);
 		if (funcGroupDO.getId() == null) {
 			FuncGroupDO add = iFuncGroupService.add(funcGroupDO);

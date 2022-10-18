@@ -1,12 +1,6 @@
 package com.particle.global.projectinfo;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * 有意思的banner

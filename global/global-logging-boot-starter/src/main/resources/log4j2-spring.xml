@@ -18,7 +18,7 @@
 -->
 <!-- 日志文件根路径 默认 logs 可以使用类似 -DLOG_PATH=logs1 覆盖-->
 
-<Configuration status="WARN" name="log4j2" monitorInterval="60" xmlns:xi="http://www.w3.org/2001/XInclude">
+<Configuration status="WARN" name="log4j2" monitorInterval="60">
 
     <Properties>
         <!-- ALL日志最大大小 -->
@@ -113,7 +113,7 @@
         <AsyncLogger name="org.hibernate.validator.internal.util.Version" level="warn" />
         <AsyncLogger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
         <AsyncLogger name="com.particle" level="ALL" includeLocation="true"/>
-        <AsyncRoot level="info" includeLocation="true">
+        <AsyncRoot level="INFO" includeLocation="true">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </AsyncRoot>

@@ -1,20 +1,14 @@
 package com.particle.generator.infrastructure.gateway.impl;
 
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.common.infrastructure.gateway.AbstractGatewayImpl;
 import com.particle.generator.domain.Generator;
-import com.particle.generator.domain.SubModule;
-import com.particle.generator.domain.TableType;
 import com.particle.generator.domain.component.ComponentGenerateConf;
-import com.particle.generator.domain.component.DatasourceConf;
-import com.particle.generator.domain.component.OutputFileConf;
 import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.generator.domain.gateway.GeneratorGateway;
 import com.particle.generator.infrastructure.generator.component.ComponentGenerator;
 import com.particle.generator.infrastructure.generator.table.TableGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * <p>
@@ -25,7 +19,7 @@ import java.util.List;
  * @since 2022-07-05 23:39
  */
 @Component
-public class GeneratorGatewayImpl extends AbstractBaseGatewayImpl implements GeneratorGateway {
+public class GeneratorGatewayImpl extends AbstractGatewayImpl implements GeneratorGateway {
 
 	private ComponentGenerator componentGenerator;
 	private TableGenerator tableGenerator;

@@ -7,18 +7,18 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
-import com.particle.generator.domain.MethodEnum;
 import com.particle.generator.domain.OutputFileEnum;
-import com.particle.generator.domain.component.OutputFileConf;
 import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.global.datasource.sqlinit.CustomDataSourceScriptDatabaseInitializer;
-import com.particle.global.exception.Assert;
 import com.particle.global.tool.str.PathTool;
 
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>

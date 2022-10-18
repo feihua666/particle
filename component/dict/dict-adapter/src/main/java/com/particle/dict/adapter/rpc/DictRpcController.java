@@ -1,15 +1,10 @@
 package com.particle.dict.adapter.rpc;
 
-import com.particle.dict.client.api.IDictApplicationService;
-import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
+import com.particle.dict.client.api.IDictApplicationService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

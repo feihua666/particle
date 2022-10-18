@@ -16,7 +16,7 @@ public class AbstractBaseIdVO extends AbstractBaseVO{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 *
+	 * 主键id
 	 */
 	@ApiModelProperty("主键id")
 	private Long id;

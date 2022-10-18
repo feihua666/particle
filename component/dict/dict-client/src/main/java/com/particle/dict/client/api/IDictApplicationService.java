@@ -1,17 +1,11 @@
 package com.particle.dict.client.api;
 
+import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.dict.client.dto.command.DictCreateCommand;
-import com.particle.dict.client.dto.command.DictQueryDetailForUpdateCommand;
-import com.particle.dict.client.dto.command.DictQueryDetailCommand;
 import com.particle.dict.client.dto.command.DictDeleteCommand;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
-import com.particle.dict.client.dto.command.DictPageQueryCommand;
-import com.particle.dict.client.dto.command.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
@@ -42,33 +36,4 @@ public interface IDictApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<DictVO> update(DictUpdateCommand dictUpdateCommand);
-
-	/**
-	 * 查询详情，仅更新时使用
-	 * @param dictQueryDetailForUpdateCommand
-	 * @return
-	 */
-	SingleResponse<DictVO> queryDetailForUpdate(DictQueryDetailForUpdateCommand dictQueryDetailForUpdateCommand);
-
-	/**
-	 * 查询详情，仅展示详情使用
-	 * @param dictQueryDetailCommand
-	 * @return
-	 */
-	SingleResponse<DictVO> queryDetail(DictQueryDetailCommand dictQueryDetailCommand);
-
-	/**
-	 * 列表查询
-	 * @param dictQueryListCommand
-	 * @return
-	 */
-	MultiResponse<DictVO> queryList(DictQueryListCommand dictQueryListCommand);
-
-	/**
-	 * 分页查询
-	 * @param dictPageQueryCommand
-	 * @return
-	 */
-	PageResponse<DictVO> pageQuery(DictPageQueryCommand dictPageQueryCommand);
-
 }

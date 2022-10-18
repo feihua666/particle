@@ -3,8 +3,8 @@ package com.particle.global.catchlog;
 import cn.hutool.core.util.ClassUtil;
 import com.particle.global.exception.BaseException;
 import com.particle.global.exception.biz.BizException;
-import com.particle.global.exception.system.SystemException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.exception.system.SystemException;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 
 /**
  * <p>

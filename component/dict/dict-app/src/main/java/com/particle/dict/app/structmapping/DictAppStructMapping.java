@@ -1,18 +1,19 @@
 package com.particle.dict.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.dict.client.dto.command.DictPageQueryCommand;
-import com.particle.dict.client.dto.command.DictQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
+import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.domain.Dict;
 import com.particle.dict.domain.DictId;
 import com.particle.dict.infrastructure.dos.DictDO;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

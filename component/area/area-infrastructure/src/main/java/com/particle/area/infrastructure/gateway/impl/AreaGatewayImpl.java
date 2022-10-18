@@ -3,11 +3,11 @@ package com.particle.area.infrastructure.gateway.impl;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.area.domain.gateway.AreaGateway;
-import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.area.infrastructure.dos.AreaDO;
+import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.area.infrastructure.structmapping.AreaInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-18
  */
 @Component
-public class AreaGatewayImpl extends AbstractBaseGatewayImpl implements AreaGateway {
+public class AreaGatewayImpl extends AbstractBaseGatewayImpl<AreaId,Area> implements AreaGateway {
 
 	private IAreaService iAreaService;
 
@@ -33,7 +33,7 @@ public class AreaGatewayImpl extends AbstractBaseGatewayImpl implements AreaGate
 	}
 
 	@Override
-	public boolean save(Area area) {
+	public boolean doSave(Area area) {
 		AreaDO areaDO = AreaInfrastructureStructMapping.instance.areaToAreaDO(area);
 		if (areaDO.getId() == null) {
 			AreaDO add = iAreaService.add(areaDO);

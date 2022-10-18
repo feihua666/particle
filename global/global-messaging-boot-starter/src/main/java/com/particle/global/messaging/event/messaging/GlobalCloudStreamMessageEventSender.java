@@ -11,7 +11,6 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -32,9 +31,10 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 	private MessageEventRepository messageEventRepository;
 
 	@Override
-	public void send(AbstractMessageEvent event) {
+	public boolean send(AbstractMessageEvent event) {
 		try {
 			streamBridge.send(event.getMq(), event);
+			return true;
 		} catch (Throwable e) {
 			// 消息发送失败，启动备用重发
 			if (messageEventRepository != null) {
@@ -46,14 +46,9 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 					messageEventRepository.markAsPublishFailed(event.getMessageId());
 				}
 			}else {
-				log.error("message send failed! config messageEventRepository or else you see the log. event={} ", JsonTool.toJsonStr(event));
+				log.error("message send failed! config messageEventRepository or else you see the log. event={} ", JsonTool.toJsonStr(event),e);
 			}
-			throw e;
+			return false;
 		}
-	}
-
-	@Override
-	public void sendBatch(List<AbstractMessageEvent> events) {
-		events.forEach(this::send);
 	}
 }

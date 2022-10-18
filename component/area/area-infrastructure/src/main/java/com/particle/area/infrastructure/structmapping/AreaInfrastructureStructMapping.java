@@ -1,8 +1,8 @@
 package com.particle.area.infrastructure.structmapping;
 
-import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
+import com.particle.area.infrastructure.dos.AreaDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

@@ -16,12 +16,15 @@ public interface MessageEventSender {
     /**
      * 发送消息
      * @param event
+     * @return true=发送成功，false=发送失败，发送失败可以 使用 {@link MessageEventPublisher#forcePublish(java.lang.String)} 重发
      */
-    void send(AbstractMessageEvent event);
+    boolean send(AbstractMessageEvent event);
 
     /**
-     * 指发送
-     * @param events
+     * 批量发送
+     * @param events 发送结束后，可以通过查看 events status 来获取发送状态
      */
-    void sendBatch(List<AbstractMessageEvent> events);
+    default void sendBatch(List<AbstractMessageEvent> events){
+        events.forEach(this::send);
+    }
 }

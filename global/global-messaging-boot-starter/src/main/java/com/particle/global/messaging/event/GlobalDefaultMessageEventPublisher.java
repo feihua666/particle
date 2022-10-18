@@ -10,7 +10,6 @@ import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
-import java.time.Instant;
 import java.util.List;
 
 /**
@@ -74,9 +73,15 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
         List<AbstractMessageEvent> newestEvents = eventDao.nextPublishBatch(size);
         newestEvents.forEach(event -> {
             try {
-                sender.send(event);
-                log.info("Published {}.", event);
-                eventDao.markAsPublished(event.getMessageId());
+               boolean flag = sender.send(event);
+                if (flag) {
+                    log.info("Published success {}.", event);
+                    eventDao.markAsPublished(event.getMessageId());
+                }else {
+                    log.info("Published failed.you should forcePublish this event for retry {}.", event);
+                    eventDao.markAsPublishFailed(event.getMessageId());
+                }
+
             } catch (Throwable t) {
                 log.error("Error while publish message event {}.", event, t);
                 eventDao.markAsPublishFailed(event.getMessageId());

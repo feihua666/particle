@@ -2,11 +2,11 @@ package com.particle.global.validation.props.propvalidator;
 
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import org.springframework.stereotype.Component;
 import com.particle.global.validation.form.ValidContext;
 import com.particle.global.validation.form.ValidResult;
 import com.particle.global.validation.props.IPropValidator;
 import com.particle.global.validation.props.PropValid;
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

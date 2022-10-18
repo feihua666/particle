@@ -30,6 +30,10 @@ public enum OutputFileEnum {
 	 * app
 	 */
 	applicationServiceImpl,
+	/**
+	 * 展示
+	 */
+	representationApplicationServiceImpl,
 	createCommandExecutor,
 	updateCommandExecutor,
 	deleteCommandExecutor,
@@ -40,6 +44,7 @@ public enum OutputFileEnum {
 	 * client
 	 */
 	applicationService,
+	representationApplicationService,
 	createCommand,
 	updateCommand,
 	queryDetailForUpdateCommand,

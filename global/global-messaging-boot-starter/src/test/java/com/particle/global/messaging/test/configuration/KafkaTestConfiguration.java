@@ -1,14 +1,11 @@
 package com.particle.global.messaging.test.configuration;
 
-import cn.hutool.core.util.StrUtil;
-import com.particle.global.messaging.event.messaging.GlobalCloudSteamMessageUtil;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * <p>

@@ -1,7 +1,6 @@
 package com.particle.generator.test;
 
 import cn.hutool.core.io.FileUtil;
-import com.particle.generator.domain.Generator;
 import com.particle.generator.domain.SubModule;
 import com.particle.generator.domain.component.ComponentGenerateConf;
 import com.particle.generator.infrastructure.generator.component.ComponentGenerator;

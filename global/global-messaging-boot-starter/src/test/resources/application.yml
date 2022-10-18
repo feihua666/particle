@@ -70,6 +70,8 @@ spring:
 server:
   servlet:
     encoding:
+      # 在接收请求和返回数据，强制 utf-8 编码
+      # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
       force: true
 logging:
   level: info

@@ -1,25 +1,20 @@
 package com.particle.func.app.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.func.app.executor.FuncCreateCommandExecutor;
 import com.particle.func.app.executor.FuncDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncUpdateCommandExecutor;
-import com.particle.func.app.executor.FuncQueryCommandExecutor;
-import com.particle.func.client.dto.command.FuncDeleteCommand;
-import com.particle.func.client.dto.command.FuncUpdateCommand;
-import com.particle.func.client.dto.command.FuncQueryDetailCommand;
-import com.particle.func.client.dto.command.FuncQueryDetailForUpdateCommand;
-import com.particle.func.client.dto.command.FuncPageQueryCommand;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
-import com.particle.func.client.dto.command.FuncQueryListCommand;
+import com.particle.func.client.dto.command.FuncDeleteCommand;
+import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * <p>
  * 菜单功能 门面服务实现类
@@ -28,6 +23,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2022-07-19
  */
+@Transactional
 @Service
 @CatchAndLog
 public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceImpl implements IFuncApplicationService {
@@ -38,41 +34,23 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 
 	private FuncUpdateCommandExecutor funcUpdateCommandExecutor;
 
-	private FuncQueryCommandExecutor funcQueryCommandExecutor;
 
+	@Transactional
 	@Override
 	public SingleResponse<FuncVO> create(FuncCreateCommand funcCreateCommand) {
 		return funcCreateCommandExecutor.execute(funcCreateCommand);
 	}
 
+	@Transactional
 	@Override
 	public SingleResponse<FuncVO> delete(FuncDeleteCommand funcDeleteCommand) {
 		return funcDeleteCommandExecutor.execute(funcDeleteCommand);
 	}
 
+	@Transactional
 	@Override
 	public SingleResponse<FuncVO> update(FuncUpdateCommand funcUpdateCommand) {
 		return funcUpdateCommandExecutor.execute(funcUpdateCommand);
-	}
-
-	@Override
-	public SingleResponse<FuncVO> queryDetail(FuncQueryDetailCommand funcQueryDetailCommand) {
-		return funcQueryCommandExecutor.execute(funcQueryDetailCommand);
-	}
-
-	@Override
-	public SingleResponse<FuncVO> queryDetailForUpdate(FuncQueryDetailForUpdateCommand funcQueryDetailForUpdateCommand) {
-		return funcQueryCommandExecutor.execute(funcQueryDetailForUpdateCommand);
-	}
-
-	@Override
-	public PageResponse<FuncVO> pageQuery(FuncPageQueryCommand funcPageQueryCommand) {
-		return funcQueryCommandExecutor.execute(funcPageQueryCommand);
-	}
-
-	@Override
-	public MultiResponse<FuncVO> queryList(FuncQueryListCommand funcQueryListCommand) {
-		return funcQueryCommandExecutor.execute(funcQueryListCommand);
 	}
 
 	@Autowired
@@ -88,8 +66,5 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	public void setFuncUpdateCommandExecutor(FuncUpdateCommandExecutor funcUpdateCommandExecutor) {
 		this.funcUpdateCommandExecutor = funcUpdateCommandExecutor;
 	}
-	@Autowired
-	public void setFuncQueryCommandExecutor(FuncQueryCommandExecutor funcQueryCommandExecutor) {
-		this.funcQueryCommandExecutor = funcQueryCommandExecutor;
-	}
+
 }

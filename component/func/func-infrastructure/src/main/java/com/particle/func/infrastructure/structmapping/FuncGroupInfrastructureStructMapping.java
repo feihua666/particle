@@ -1,8 +1,8 @@
 package com.particle.func.infrastructure.structmapping;
 
-import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
+import com.particle.func.infrastructure.dos.FuncGroupDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

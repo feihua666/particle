@@ -1,5 +1,8 @@
 package com.particle.common.domain.gateway;
 
+import com.particle.common.domain.AggreateRoot;
+import com.particle.common.domain.id.Id;
+
 /**
  * <p>
  * 防腐层基础接口类
@@ -8,5 +11,29 @@ package com.particle.common.domain.gateway;
  * @author yangwei
  * @since 2022-04-20 11:49
  */
-public interface IBaseGateway {
+public interface IBaseGateway<ID extends Id,AR extends AggreateRoot> extends IGateway {
+
+	/**
+	 * 根据 id 获取  领域对象
+	 * @param id
+	 * @return 必须包括全部可用属性
+	 */
+	AR getById(ID id);
+
+	/**
+	 * 保存 领域对象
+	 * 如果不存在应该新增,新增时需要将参数 areaId 设置成功，如果存在应该更新
+	 * @param aggreateRoot  领域对象
+	 * @return true=保存成功，false=保存失败，注意只要持久化了应该为 {@code true}
+	 *         注意在有些 orm 或数据库下数据库中已经存在，更新时影响结果为0，但应该返回 {@code true}
+	 */
+	boolean save(AR aggreateRoot);
+
+
+	/**
+	 * 删除 领域对象
+	 * @param id
+	 * @return
+	 */
+	boolean delete(ID id);
 }

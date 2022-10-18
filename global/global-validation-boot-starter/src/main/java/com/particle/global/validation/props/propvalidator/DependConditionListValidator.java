@@ -1,12 +1,12 @@
 package com.particle.global.validation.props.propvalidator;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import com.particle.global.validation.form.ValidContext;
 import com.particle.global.validation.form.ValidResult;
 import com.particle.global.validation.props.IPropValidator;
 import com.particle.global.validation.props.PropValid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

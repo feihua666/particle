@@ -1,27 +1,24 @@
 package com.particle.func.adapter.web;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.func.client.api.IFuncGroupApplicationService;
+import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncGroupCreateCommand;
-import com.particle.func.client.dto.data.FuncGroupVO;
-import com.particle.func.client.dto.command.FuncGroupQueryDetailForUpdateCommand;
-import com.particle.func.client.dto.command.FuncGroupQueryDetailCommand;
 import com.particle.func.client.dto.command.FuncGroupDeleteCommand;
 import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
-import com.particle.func.client.dto.command.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.FuncGroupQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
+import com.particle.func.client.dto.data.FuncGroupVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 功能组后台管理pc或平板端前端适配器
@@ -38,6 +35,8 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 
 	@Autowired
 	private IFuncGroupApplicationService iFuncGroupApplicationService;
+	@Autowired
+	private IFuncGroupRepresentationApplicationService iFuncGroupRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:create')")
 	@ApiOperation("添加功能组")
@@ -64,28 +63,28 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("功能组更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<FuncGroupVO> queryDetailForUpdate(FuncGroupQueryDetailForUpdateCommand funcGroupQueryDetailForUpdateCommand){
-		return iFuncGroupApplicationService.queryDetailForUpdate(funcGroupQueryDetailForUpdateCommand);
+		return iFuncGroupRepresentationApplicationService.queryDetailForUpdate(funcGroupQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:detail')")
 	@ApiOperation("功能组详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<FuncGroupVO> queryDetail(FuncGroupQueryDetailCommand funcGroupQueryDetailCommand){
-		return iFuncGroupApplicationService.queryDetail(funcGroupQueryDetailCommand);
+		return iFuncGroupRepresentationApplicationService.queryDetail(funcGroupQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:queryList')")
 	@ApiOperation("列表查询功能组")
 	@GetMapping("/list")
 	public MultiResponse<FuncGroupVO> queryList(FuncGroupQueryListCommand funcGroupQueryListCommand){
-		return iFuncGroupApplicationService.queryList(funcGroupQueryListCommand);
+		return iFuncGroupRepresentationApplicationService.queryList(funcGroupQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:pageQuery')")
 	@ApiOperation("分页查询功能组")
 	@GetMapping("/page")
 	public PageResponse<FuncGroupVO> pageQueryList(FuncGroupPageQueryCommand funcGroupPageQueryCommand){
-		return iFuncGroupApplicationService.pageQuery(funcGroupPageQueryCommand);
+		return iFuncGroupRepresentationApplicationService.pageQuery(funcGroupPageQueryCommand);
 	}
 
 }

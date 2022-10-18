@@ -7,7 +7,6 @@ import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -21,7 +20,6 @@ import java.util.function.Function;
 import static com.google.common.collect.ImmutableMap.of;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.particle.global.dto.messaging.event.AbstractMessageEvent.Status.send_failed;
-import static com.particle.global.dto.messaging.event.AbstractMessageEvent.Status.send_failed_back;
 
 /**
  * <p>

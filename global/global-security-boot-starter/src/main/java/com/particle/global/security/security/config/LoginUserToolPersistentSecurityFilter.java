@@ -1,16 +1,12 @@
 package com.particle.global.security.security.config;
 
-import cn.hutool.core.annotation.AnnotationUtil;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.json.JsonTool;
-import com.particle.global.tool.thread.ThreadContextTool;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.filter.GenericFilterBean;
-import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

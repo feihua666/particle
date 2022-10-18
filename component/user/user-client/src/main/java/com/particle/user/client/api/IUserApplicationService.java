@@ -1,17 +1,11 @@
 package com.particle.user.client.api;
 
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.dto.command.UserCreateCommand;
-import com.particle.user.client.dto.command.UserQueryDetailForUpdateCommand;
-import com.particle.user.client.dto.command.UserQueryDetailCommand;
 import com.particle.user.client.dto.command.UserDeleteCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
-import com.particle.user.client.dto.command.UserPageQueryCommand;
-import com.particle.user.client.dto.command.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
@@ -42,33 +36,5 @@ public interface IUserApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<UserVO> update(UserUpdateCommand userUpdateCommand);
-
-	/**
-	 * 查询详情，仅更新时使用
-	 * @param userQueryDetailForUpdateCommand
-	 * @return
-	 */
-	SingleResponse<UserVO> queryDetailForUpdate(UserQueryDetailForUpdateCommand userQueryDetailForUpdateCommand);
-
-	/**
-	 * 查询详情，仅展示详情使用
-	 * @param userQueryDetailCommand
-	 * @return
-	 */
-	SingleResponse<UserVO> queryDetail(UserQueryDetailCommand userQueryDetailCommand);
-
-	/**
-	 * 列表查询
-	 * @param userQueryListCommand
-	 * @return
-	 */
-	MultiResponse<UserVO> queryList(UserQueryListCommand userQueryListCommand);
-
-	/**
-	 * 分页查询
-	 * @param userPageQueryCommand
-	 * @return
-	 */
-	PageResponse<UserVO> pageQuery(UserPageQueryCommand userPageQueryCommand);
 
 }

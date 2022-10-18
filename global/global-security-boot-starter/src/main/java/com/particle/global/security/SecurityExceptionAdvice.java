@@ -3,7 +3,6 @@ package com.particle.global.security;
 
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.security.security.login.LoginUserTool;

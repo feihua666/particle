@@ -1,13 +1,13 @@
 package com.particle.dict.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dict.domain.Dict;
 import com.particle.dict.domain.DictId;
 import com.particle.dict.domain.gateway.DictGateway;
-import com.particle.dict.infrastructure.service.IDictService;
 import com.particle.dict.infrastructure.dos.DictDO;
+import com.particle.dict.infrastructure.service.IDictService;
 import com.particle.dict.infrastructure.structmapping.DictInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-19
  */
 @Component
-public class DictGatewayImpl extends AbstractBaseGatewayImpl implements DictGateway {
+public class DictGatewayImpl extends AbstractBaseGatewayImpl<DictId,Dict> implements DictGateway {
 
 	private IDictService iDictService;
 
@@ -33,7 +33,7 @@ public class DictGatewayImpl extends AbstractBaseGatewayImpl implements DictGate
 	}
 
 	@Override
-	public boolean save(Dict dict) {
+	public boolean doSave(Dict dict) {
 		DictDO dictDO = DictInfrastructureStructMapping.instance.dictToDictDO(dict);
 		if (dictDO.getId() == null) {
 			DictDO add = iDictService.add(dictDO);

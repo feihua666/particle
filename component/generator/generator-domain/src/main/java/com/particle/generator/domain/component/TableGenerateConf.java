@@ -1,6 +1,7 @@
 package com.particle.generator.domain.component;
 
-import com.particle.generator.domain.*;
+import com.particle.generator.domain.SubModule;
+import com.particle.generator.domain.TableType;
 import com.particle.global.dto.basic.Value;
 import lombok.Builder;
 import lombok.Data;

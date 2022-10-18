@@ -1,8 +1,8 @@
 package com.particle.dict.infrastructure.structmapping;
 
-import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.domain.Dict;
 import com.particle.dict.domain.DictId;
+import com.particle.dict.infrastructure.dos.DictDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

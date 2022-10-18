@@ -1,6 +1,5 @@
 package com.particle.global.datasource.sqlinit;
 
-import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.tool.condition.ConditionalOnClassTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer;

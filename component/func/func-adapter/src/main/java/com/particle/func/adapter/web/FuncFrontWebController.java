@@ -1,9 +1,8 @@
 package com.particle.func.adapter.web;
 
-import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.func.client.api.IFuncApplicationService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

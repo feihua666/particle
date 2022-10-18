@@ -1,14 +1,13 @@
 package com.particle.user.infrastructure.service.impl;
 
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.mapper.UserMapper;
 import com.particle.user.infrastructure.service.IUserService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>

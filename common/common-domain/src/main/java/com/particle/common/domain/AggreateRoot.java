@@ -1,7 +1,12 @@
 package com.particle.common.domain;
 
+import com.particle.common.domain.event.DomainEvent;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
+
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * <p>
@@ -13,9 +18,34 @@ import lombok.Data;
  */
 @Data
 public abstract class AggreateRoot extends DTO {
+	/**
+	 * 领域事件
+	 */
+	private List<DomainEvent> domainEvents;
 
 	/**
-	 * 单表时可用，数据版本
+	 * 发布领域事件
+	 * @param event
 	 */
-	private Integer version;
+	protected final void raiseEvent(DomainEvent event) {
+		getDomainEvents().add(event);
+	}
+
+	/**
+	 * 清空领域事件
+	 */
+	public final void clearEvents() {
+		getDomainEvents().clear();
+	}
+
+	/**
+	 * 获取所有领域事件
+	 * @return
+	 */
+	public final List<DomainEvent> getDomainEvents() {
+		if (domainEvents == null) {
+			domainEvents = newArrayList();
+		}
+		return domainEvents;
+	}
 }

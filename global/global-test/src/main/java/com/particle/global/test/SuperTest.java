@@ -1,11 +1,7 @@
 package com.particle.global.test;
 
-import com.github.jsonzou.jmockdata.DataConfig;
 import com.github.jsonzou.jmockdata.JMockData;
 import com.github.jsonzou.jmockdata.MockConfig;
-import com.github.jsonzou.jmockdata.mocker.BaseMocker;
-
-import java.lang.reflect.Type;
 
 /**
  * <p>

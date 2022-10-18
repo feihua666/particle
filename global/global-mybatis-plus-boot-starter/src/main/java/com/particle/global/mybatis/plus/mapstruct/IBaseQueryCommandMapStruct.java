@@ -1,6 +1,5 @@
 package com.particle.global.mybatis.plus.mapstruct;
 
-import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.basic.QueryCommand;
 
 /**

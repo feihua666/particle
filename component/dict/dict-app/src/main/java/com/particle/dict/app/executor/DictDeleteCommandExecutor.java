@@ -1,5 +1,6 @@
 package com.particle.dict.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.dto.command.DictDeleteCommand;
 import com.particle.dict.client.dto.data.DictVO;
@@ -9,10 +10,6 @@ import com.particle.dict.domain.gateway.DictGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;

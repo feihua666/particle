@@ -1,7 +1,6 @@
 package com.particle.particledemo.test.adapter.feign.client;
 
 import com.particle.global.test.FeignClientTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**

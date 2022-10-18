@@ -1,13 +1,13 @@
 package com.particle.user.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
-import com.particle.user.infrastructure.service.IUserService;
 import com.particle.user.infrastructure.dos.UserDO;
+import com.particle.user.infrastructure.service.IUserService;
 import com.particle.user.infrastructure.structmapping.UserInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-19
  */
 @Component
-public class UserGatewayImpl extends AbstractBaseGatewayImpl implements UserGateway {
+public class UserGatewayImpl extends AbstractBaseGatewayImpl<UserId,User> implements UserGateway {
 
 	private IUserService iUserService;
 
@@ -33,7 +33,7 @@ public class UserGatewayImpl extends AbstractBaseGatewayImpl implements UserGate
 	}
 
 	@Override
-	public boolean save(User user) {
+	public boolean doSave(User user) {
 		UserDO userDO = UserInfrastructureStructMapping.instance.userToUserDO(user);
 		if (userDO.getId() == null) {
 			UserDO add = iUserService.add(userDO);

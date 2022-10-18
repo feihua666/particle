@@ -9,7 +9,10 @@ import org.springframework.boot.web.server.Cookie;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.web.http.*;
+import org.springframework.session.web.http.CookieHttpSessionIdResolver;
+import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
+import org.springframework.session.web.http.HttpSessionIdResolver;
+import org.springframework.session.web.http.SessionRepositoryFilter;
 
 import java.time.Duration;
 import java.util.Arrays;

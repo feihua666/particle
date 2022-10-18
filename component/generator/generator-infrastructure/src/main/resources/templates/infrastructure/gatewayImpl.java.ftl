@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  * @since ${date}
  */
 @Component
-public class ${injection.className} extends AbstractBaseGatewayImpl implements ${injection.gateway.className} {
+public class ${injection.className} extends AbstractBaseGatewayImpl<${injection.idObject.className},${injection.domainObject.className}> implements ${injection.gateway.className} {
 
 	private ${injection.service.className} ${injection.service.classNameVar};
 
@@ -36,7 +36,7 @@ public class ${injection.className} extends AbstractBaseGatewayImpl implements $
 	}
 
 	@Override
-	public boolean save(${injection.domainObject.className} ${injection.domainObject.classNameVar}) {
+	public boolean doSave(${injection.domainObject.className} ${injection.domainObject.classNameVar}) {
 		${injection.entity.className} ${injection.entity.classNameVar} = ${injection.infrastructureStructMapping.className}.instance.${injection.domainObject.classNameVar}To${injection.entity.className}(${injection.domainObject.classNameVar});
 		if (${injection.entity.classNameVar}.getId() == null) {
 			${injection.entity.className} add = ${injection.service.classNameVar}.add(${injection.entity.classNameVar});

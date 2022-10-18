@@ -1,8 +1,8 @@
 package com.particle.func.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.func.domain.Func;
 import com.particle.func.domain.FuncId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import com.particle.common.domain.gateway.IBaseGateway;
  * @author yw
  * @since 2022-07-19
  */
-public interface FuncGateway extends IBaseGateway {
+public interface FuncGateway extends IBaseGateway<FuncId,Func> {
 
 
 	/**

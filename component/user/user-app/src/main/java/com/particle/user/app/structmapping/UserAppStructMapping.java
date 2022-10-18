@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
-import com.particle.user.client.dto.command.UserPageQueryCommand;
-import com.particle.user.client.dto.command.UserQueryListCommand;
+import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
+import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
@@ -13,6 +13,7 @@ import com.particle.user.infrastructure.dos.UserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

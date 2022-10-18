@@ -12,7 +12,6 @@ import com.particle.generator.domain.MethodEnum;
 import com.particle.generator.domain.OutputFileEnum;
 import com.particle.generator.domain.RelationConstants;
 import com.particle.generator.domain.SubModule;
-import com.particle.generator.domain.component.ComponentGenerateConf;
 import com.particle.generator.domain.component.OutputFileConf;
 import com.particle.generator.domain.component.TableGenerateConf;
 import lombok.Builder;
@@ -224,27 +223,27 @@ public class InjectionConfigLogic {
 		injectionTemplateConfigMap.put(OutputFileEnum.adminWebController,
 				TemplateAndFileName.create("/templates/adapter/adminWebController.java",
 						entityFirstUpper + "AdminWebController.java",
-						"web","/admin/web","/src/main/java","admin:web",false));
+						"web.admin","/admin/web","/src/main/java","admin:web",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.adminWapController,
 				TemplateAndFileName.create("/templates/adapter/adminWapController.java",
 						entityFirstUpper + "AdminWapController.java",
-						"wap","/admin/wap","/src/main/java","admin:wap",false));
+						"wap.admin","/admin/wap","/src/main/java","admin:wap",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.adminMobileController,
 				TemplateAndFileName.create("/templates/adapter/adminMobileController.java",
 						entityFirstUpper + "AdminMobileController.java",
-						"mobile","/admin/mobile","/src/main/java","admin:mobile",false));
+						"mobile.admin","/admin/mobile","/src/main/java","admin:mobile",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.frontWebController,
 				TemplateAndFileName.create("/templates/adapter/frontWebController.java",
 						entityFirstUpper + "FrontWebController.java",
-						"web","/front/web","/src/main/java","front:web",false));
+						"web.front","/front/web","/src/main/java","front:web",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.frontWapController,
 				TemplateAndFileName.create("/templates/adapter/frontWapController.java",
 						entityFirstUpper + "FrontWapController.java",
-						"wap","/front/wap","/src/main/java","front:wap",false));
+						"wap.front","/front/wap","/src/main/java","front:wap",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.frontMobileController,
 				TemplateAndFileName.create("/templates/adapter/frontMobileController.java",
 						entityFirstUpper + "FrontMobileController.java",
-						"mobile","/front/mobile","/src/main/java","front:mobile",false));
+						"mobile.front","/front/mobile","/src/main/java","front:mobile",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.rpcController,
 				TemplateAndFileName.create("/templates/adapter/rpcController.java",
 						entityFirstUpper + "RpcController.java",
@@ -264,6 +263,10 @@ public class InjectionConfigLogic {
 				TemplateAndFileName.create("/templates/app/applicationServiceImpl.java",
 						entityFirstUpper + "ApplicationServiceImpl.java"
 						,"api.impl",null,"/src/main/java","",false));
+		injectionTemplateConfigMap.put(OutputFileEnum.representationApplicationServiceImpl,
+				TemplateAndFileName.create("/templates/app/representationApplicationServiceImpl.java",
+						entityFirstUpper + "RepresentationApplicationServiceImpl.java"
+						,"api.impl.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.createCommandExecutor,
 				TemplateAndFileName.create("/templates/app/createCommandExecutor.java",
 						entityFirstUpper + "CreateCommandExecutor.java",
@@ -279,7 +282,7 @@ public class InjectionConfigLogic {
 		injectionTemplateConfigMap.put(OutputFileEnum.queryCommandExecutor,
 				TemplateAndFileName.create("/templates/app/queryCommandExecutor.java",
 						entityFirstUpper + "QueryCommandExecutor.java",
-						"executor",null,"/src/main/java","",false));
+						"executor.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.appStructMapping,
 				TemplateAndFileName.create("/templates/app/appStructMapping.java",
 						entityFirstUpper + "AppStructMapping.java",
@@ -291,6 +294,10 @@ public class InjectionConfigLogic {
 				TemplateAndFileName.create("/templates/client/applicationService.java",
 						"I" + entityFirstUpper + "ApplicationService.java",
 						"api",null,"/src/main/java","",false));
+		injectionTemplateConfigMap.put(OutputFileEnum.representationApplicationService,
+				TemplateAndFileName.create("/templates/client/representationApplicationService.java",
+						"I" + entityFirstUpper + "RepersentationApplicationService.java",
+						"api.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.createCommand,
 				TemplateAndFileName.create("/templates/client/createCommand.java",
 						entityFirstUpper + "CreateCommand.java",
@@ -302,11 +309,11 @@ public class InjectionConfigLogic {
 		injectionTemplateConfigMap.put(OutputFileEnum.queryDetailForUpdateCommand,
 				TemplateAndFileName.create("/templates/client/queryDetailForUpdateCommand.java",
 						entityFirstUpper + "QueryDetailForUpdateCommand.java",
-						"dto.command",null,"/src/main/java","",false));
+						"dto.command.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.queryDetailCommand,
 				TemplateAndFileName.create("/templates/client/queryDetailCommand.java",
 						entityFirstUpper + "QueryDetailCommand.java",
-						"dto.command",null,"/src/main/java","",false));
+						"dto.command.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.deleteCommand,
 				TemplateAndFileName.create("/templates/client/deleteCommand.java",
 						entityFirstUpper + "DeleteCommand.java",
@@ -314,11 +321,11 @@ public class InjectionConfigLogic {
 		injectionTemplateConfigMap.put(OutputFileEnum.queryListCommand,
 				TemplateAndFileName.create("/templates/client/queryListCommand.java",
 						entityFirstUpper + "QueryListCommand.java",
-						"dto.command",null,"/src/main/java","",false));
+						"dto.command.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.pageQueryCommand,
 				TemplateAndFileName.create("/templates/client/pageQueryCommand.java",
 						entityFirstUpper + "PageQueryCommand.java",
-						"dto.command",null,"/src/main/java","",false));
+						"dto.command.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.vo,
 				TemplateAndFileName.create("/templates/client/vo.java",
 						entityFirstUpper + "VO.java",
