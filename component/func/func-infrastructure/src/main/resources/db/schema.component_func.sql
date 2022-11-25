@@ -51,4 +51,4 @@ CREATE TABLE `component_func` (
   KEY `level` (`level`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE,
   KEY `application_id` (`func_group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='菜单功能表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单功能表';

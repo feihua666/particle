@@ -53,5 +53,5 @@ CREATE TABLE `component_dict` (
   KEY `level` (`level`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE,
   KEY `private_flag` (`private_flag`) USING BTREE,
-  KEY `is_group_2` (`is_group`,`value`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='字典表';
+  KEY `is_group__value` (`is_group`,`value`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';

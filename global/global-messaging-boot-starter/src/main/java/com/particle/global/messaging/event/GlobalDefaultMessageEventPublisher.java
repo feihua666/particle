@@ -11,6 +11,7 @@ import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -71,6 +72,12 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
 
     private Void doPublish(int size) {
         List<AbstractMessageEvent> newestEvents = eventDao.nextPublishBatch(size);
+        int toBePublishedSize = newestEvents.size();
+        log.info("to be Published message event size is {}.", toBePublishedSize);
+        if (toBePublishedSize > 0) {
+            log.debug("to be Published messageId is {}.", newestEvents.stream().map(item -> item.getMessageId()).collect(Collectors.toList()));
+        }
+
         newestEvents.forEach(event -> {
             try {
                boolean flag = sender.send(event);

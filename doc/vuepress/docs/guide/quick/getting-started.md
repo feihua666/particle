@@ -141,13 +141,13 @@ public class ScatterhelloServerApplication {
 
 1.直接使用相对路径方式import即可，相对路径idea插件可以试试[copy-raletive-path](https://gitee.com/feihua666/copy-relative-path)  
   
-2. 在components/common/web/components/pc下的组件可以使用其vue插件安装方式，一次性安装，如：components/common/web/components/pc/element/ElementPlugin.js  
+2. 在components/common/web/components/pc下的组件可以使用其vue插件安装方式，一次性安装，如：components/common/web/components/pc/element/ElementPlusPlugin.js  
 示例如下：
 ``` javascript
 import Vue from 'vue'
 ...
-import ToolsPlugin from '../../../../../components/common/web/tools/ToolsPlugin.js'
-import ElementPlugin from '../../../../../components/common/web/components/pc/element/ElementPlugin.js'
+import ToolsPlugin from '../../../../../components/common/web/tools/AllToolsPlugin.js'
+import ElementPlugin from '../../../../../components/common/web/components/pc/element/ElementPlusPlugin.js'
 import CommonPlugin from '../../../../../components/common/web/components/pc/common/CommonPlugin.js'
 // 自定义工具插件
 Vue.use(ToolsPlugin)

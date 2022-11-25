@@ -21,17 +21,17 @@ import java.util.stream.Stream;
  */
 public class CollectionTool {
 	/**
-	 * 深度获取map属性值,仅支付key为字符串
-	 * @param map
+	 * 深度获取 obj 属性值,仅支付key为字符串
+	 * @param obj
 	 * @param deepKey 如：a.b.c 支持集合如：a.0.b
 	 * @param <T>
 	 * @return
 	 */
-	public static <T> T getDeep(Map<String, ?> map, String deepKey){
-		if (map == null) {
+	public static <T> T getDeep(Object obj, String deepKey){
+		if (obj == null) {
 			return null;
 		}
-		Object value = map;
+		Object value = obj;
 		for (String key : deepKey.split(".")) {
 			if(value instanceof Map){
 				value = ((Map) value).get(key);

@@ -19,4 +19,4 @@ CREATE TABLE `component_test` (
   KEY `is_lock` (`is_lock`) USING BTREE,
   KEY `nickname` (`nickname`) USING BTREE,
   KEY `group_flag` (`group_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='测试表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='测试表';

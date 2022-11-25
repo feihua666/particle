@@ -1,5 +1,16 @@
 # 全局并发模块
 线程池，多线程相关公共可用方法
+
+实现了shedlock依赖数据库的分布式锁封装，默认是内存锁，如果在分布式环境下需要添加以下依赖(依赖版本已在particle pom中全局添加)：
+```xml
+        <!-- jdbc shedlockjdbc支持时可以依赖使用，这里不传递依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+```
+
 shedlock建表语句 参见：https://github.com/lukas-krecan/ShedLock#jdbctemplate
 ```sql
 # MySQL, MariaDB

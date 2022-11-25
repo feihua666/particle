@@ -13,4 +13,4 @@ CREATE TABLE `component_func_group` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `code` (`code`) USING BTREE,
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='功能组表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='功能组表';

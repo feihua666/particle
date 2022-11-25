@@ -6,4 +6,4 @@ CREATE TABLE global_concurrency_shedlock  (
   `locked_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `locked_by` varchar(255) NOT NULL,
   PRIMARY KEY (`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = 'global_concurrency_shedlock' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = 'global_concurrency_shedlock';

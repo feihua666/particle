@@ -1,0 +1,8 @@
+/* 样式覆盖 */
+/* 垂直滚动 */
+.pt-el-scroll-vertical.el-scrollbar .el-scrollbar__wrap{
+    overflow-x: hidden;
+}
+.pt-el-scroll-vertical.el-scrollbar .el-scrollbar__bar.is-horizontal{
+    display: none;
+}

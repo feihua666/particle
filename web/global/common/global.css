@@ -1,0 +1,181 @@
+/* 全局样式 */
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+/* 通用样式 */
+
+/* flex 布局 */
+.pt-flex{
+    display: flex;
+}
+/* flex 主轴纵向排列 */
+.pt-flex-direction-c{
+    display: flex;
+    flex-direction:column;
+}
+/* flex 主轴居中 */
+.pt-flex-align-center{
+    display: flex;
+    justify-content:center;
+}
+/* flex 交叉轴居中 */
+.pt-flex-align-cross-center{
+    display: flex;
+    align-items:center;
+}
+.pt-flex-center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* flex 主轴结尾对齐 */
+.pt-flex-align-end{
+    display: flex;
+    justify-content:flex-end;
+}
+/* flex 主轴两端对齐 */
+.pt-flex-align-between{
+    display: flex;
+    justify-content:space-between;
+}
+.pt-flex-item-1{
+    flex: 1;
+}
+
+/* 宽高相关 *******************************************/
+.pt-height-100-pc {
+    height: 100%;
+}
+
+.pt-width-100-pc {
+    width: 100%;
+}
+.pt-width-max-50-pc {
+    max-width: 50%;
+}
+.pt-width-max-70-pc {
+    max-width: 70%;
+}
+/* 边距相关 *******************************************/
+.pt-padding-0{
+    padding: 0 !important;
+}
+.pt-padding-15-px{
+    padding: 15px !important;
+}
+
+.pt-margin-0{
+    margin: 0 !important;
+}
+.pt-margin-top-30-px{
+    margin-top: 30px !important;
+}
+
+/* 边框相关 *******************************************/
+.pt-border-none{
+    border: none;
+}
+.pt-border-circle{
+    border-radius: 50%;
+}
+/* 布局相关 *******************************************/
+.pt-fixed{
+    position: fixed;
+}
+.pt-relative{
+    position: relative;
+}
+.pt-absolute{
+    position: absolute;
+}
+.pt-left-0{
+    left: 0;
+}
+.pt-right-0{
+    right: 0;
+}
+.pt-top-0{
+    top: 0;
+}
+.pt-bottom-0{
+    bottom: 0;
+}
+.pt-center{
+    text-align: center;
+}
+/* 字体相关 *******************************************/
+.pt-font-size-esm{
+    font-size: 12px;
+}
+.pt-font-size-sm{
+    font-size: 13px;
+}
+.pt-font-size-base{
+    font-size: 14px;
+}
+.pt-font-size-md{
+    font-size: 16px;
+}
+.pt-font-size-lg{
+    font-size: 18px;
+}
+.pt-font-size-elg{
+    font-size: 20px;
+}
+.pt-font-size-30-px{
+    font-size: 30px;
+}
+/* 行间距 *****************************************************/
+.pt-line-height-1{
+    line-height: 1;
+}
+
+
+/* 鼠标 *****************************************************/
+.pt-pointer:hover{
+    cursor: pointer;
+}
+/* 颜色相关 *******************************************/
+.pt-color-fff,.pt-color-white{
+    color:#fff !important;
+}
+/* 主要 */
+.pt-color-primary{
+    color:#303133;
+}
+/* 常规 */
+.pt-color-normal{
+    color:#606266;
+}
+/* 次要 */
+.pt-color-less{
+    color:#909399;
+}
+/* 占位 */
+.pt-color-position{
+    color:#909399;
+}
+/* 背景相关 *******************************************/
+/* 图片点位背景 */
+.pt-bg-color-image{
+    background-color: #f5f7fa;
+}
+.pt-bg-color-white{
+    background-color: #ffffff;
+}
+/* 其它 */
+.pt-pointer:hover{
+    cursor: pointer;
+}
+.pt-overflow-hidden{
+    overflow: hidden !important;
+}
+.pt-overflow-x-hidden {
+    overflow-x: hidden !important;
+}
+.pt-overflow-y-hidden {
+    overflow-y: hidden !important;
+}

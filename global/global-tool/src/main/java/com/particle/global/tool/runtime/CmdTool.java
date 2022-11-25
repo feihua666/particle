@@ -1,0 +1,60 @@
+package com.particle.global.tool.runtime;
+
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.RuntimeUtil;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+/**
+ * <p>
+ * 执行系统命令工具
+ * </p>
+ *
+ * @author yangwei
+ * @since 2022-10-26 17:41
+ */
+@Slf4j
+public class CmdTool {
+
+	/**
+	 * 直接执行并打印日志
+	 *
+	 * @param cmd
+	 */
+	public static void execForStringSimple(String cmd) {
+		Process process = execForString(cmd);
+		List<String> resultLines = RuntimeUtil.getResultLines(process, CharsetUtil.CHARSET_UTF_8);
+		resultLines.forEach(item -> log.info(item));
+	}
+
+	/**
+	 * 直接执行完整命令
+	 * 可以结合 {@link RuntimeUtil} 做额外的处理
+	 * 最后必须销毁进程 {@link Process#destroy()}
+	 * 注意： {@link RuntimeUtil} 中的执行命令会按空格拆分，如：{@link RuntimeUtil#execForStr(java.lang.String...)} 会导致命令可能解析参数错误，造成不可预知的错误
+	 * @param cmd
+	 */
+	public static Process execForString(String cmd) {
+		InputStream ins;
+		//获取当前操作系统名称
+		String os = System.getProperty("os.name");
+		String[] cmds;
+		//如果是windows系统
+		if (os.toLowerCase().startsWith("win")) {
+			// 创建命令
+			cmds = new String[]{"cmd.exe", "/C", "start " + cmd};
+		} else {
+			cmds = new String[]{"/bin/sh", "-c", cmd};
+		}
+		Process process = null;
+		try {
+			process = Runtime.getRuntime().exec(cmds);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return process;
+	}
+}

@@ -28,4 +28,4 @@ CREATE TABLE `component_user` (
   KEY `nickname` (`nickname`) USING BTREE,
   KEY `comp_id` (`comp_id`) USING BTREE,
   KEY `group_flag` (`group_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='后台管理用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台管理用户表';
