@@ -1,6 +1,7 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.particle.global.dto.response.Response;
 import com.particle.global.security.ApplicationContextForSecurityHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -54,11 +55,11 @@ public abstract class DefaultAbstractAuthenticationHandler {
 	 * @param authentication
 	 * @throws IOException
 	 */
-	public void tryNotifyIAuthenticationResultServicesOnSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+	public void tryNotifyIAuthenticationResultServicesOnSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication, Response response) throws IOException {
 		autowiredIAuthenticationResultServicesIfNecessary();
 		if (CollectionUtil.isNotEmpty(iAuthenticationResultServices)) {
 			for (IAuthenticationResultService iAuthenticationResultService : iAuthenticationResultServices) {
-				iAuthenticationResultService.onAuthenticationSuccess(httpServletRequest,httpServletResponse,authentication);
+				iAuthenticationResultService.onAuthenticationSuccess(httpServletRequest,httpServletResponse,authentication,response);
 			}
 		}
 	}
@@ -70,11 +71,11 @@ public abstract class DefaultAbstractAuthenticationHandler {
 	 * @param e
 	 * @throws IOException
 	 */
-	public void tryNotifyIAuthenticationResultServicesOnFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
+	public void tryNotifyIAuthenticationResultServicesOnFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e, Response response) throws IOException {
 		autowiredIAuthenticationResultServicesIfNecessary();
 		if (CollectionUtil.isNotEmpty(iAuthenticationResultServices)) {
 			for (IAuthenticationResultService iAuthenticationResultService : iAuthenticationResultServices) {
-				iAuthenticationResultService.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
+				iAuthenticationResultService.onAuthenticationFailure(httpServletRequest,httpServletResponse,e,response);
 			}
 		}
 	}

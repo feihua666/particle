@@ -1,19 +1,21 @@
 package com.particle.user.client.api;
 
-import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.command.UserDeleteCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
- * 后台管理用户 应用门面服务类
+ * 用户 应用门面服务类
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 public interface IUserApplicationService extends IBaseApplicationService {
 	/**

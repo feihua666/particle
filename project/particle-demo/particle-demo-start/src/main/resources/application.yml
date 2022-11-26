@@ -29,6 +29,8 @@ spring:
         - classpath:db/schema.dict.sql
         - classpath:db/schema.func.sql
         - classpath:db/schema.generator.sql
+        - classpath:db/schema.user.sql
+        - classpath:db/schema.role.sql
         - classpath:db/schema.global_message_event.sql
         - classpath:db/schema.global_message_event_consume_record.sql
       data-locations:
@@ -36,6 +38,8 @@ spring:
         - classpath:db/data.area.sql
         - classpath:db/data.func.sql
         - classpath:db/data.generator.sql
+        - classpath:db/data.user.sql
+        - classpath:db/data.role.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
   servlet:

@@ -2,8 +2,11 @@ package com.particle.global.security.security.config;
 
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
 import com.particle.global.tool.json.JsonTool;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.filter.GenericFilterBean;
@@ -14,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,6 +36,8 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 	 */
 	private static String ANONYMOUS_USER_PRINCIPAL = "anonymousUser";
 
+	@Setter
+	private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
@@ -57,7 +63,11 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 				}
 			}
 			log.info("当前登录用户: loginUser={}",userInfo);
-
+			if (securityFilterPersistentLoginUserReadyListenerList != null) {
+				for (SecurityFilterPersistentLoginUserReadyListener securityFilterPersistentLoginUserReadyListener : securityFilterPersistentLoginUserReadyListenerList) {
+					securityFilterPersistentLoginUserReadyListener.onLoginUserReady(request);
+				}
+			}
 			chain.doFilter(request,response);
 		}finally {
 			LoginUserTool.clear();

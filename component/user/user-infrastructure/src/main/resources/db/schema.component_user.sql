@@ -13,7 +13,9 @@ CREATE TABLE `component_user` (
   `category_dict_id` bigint DEFAULT NULL COMMENT '用户分类字典，标识是哪一类用户，比如后台用户等',
   `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',
   `source_from_dict_id` bigint DEFAULT NULL COMMENT '用户来源，字典id',
-  `password` varchar(255) DEFAULT NULL,
+  `is_expired` tinyint(1) NOT NULL COMMENT '是否过期，过期后该密码不能登录',
+  `expired_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '过期原因',
+  `expire_at` datetime DEFAULT NULL COMMENT '到期时间，为空永不到期',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
@@ -28,4 +30,4 @@ CREATE TABLE `component_user` (
   KEY `nickname` (`nickname`) USING BTREE,
   KEY `comp_id` (`comp_id`) USING BTREE,
   KEY `group_flag` (`group_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台管理用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';

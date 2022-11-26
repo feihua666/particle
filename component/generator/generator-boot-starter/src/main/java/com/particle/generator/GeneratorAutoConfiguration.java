@@ -7,7 +7,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -36,13 +35,13 @@ public class GeneratorAutoConfiguration {
 	@Bean
 	public Docket createGeneratorAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
-		parameters.add(new ApiKey("Token", "token", "header"));
+		
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("generator接口")
 				.basePackage("com.particle.generator.adapter")
 				//  SwaggerInfo 已自动处理
 				.openApiExtensionResolver(null)
-				.parameters(parameters)
+				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")
 				.description(ProjectInfo.NAME + " Swagger Apis Description")

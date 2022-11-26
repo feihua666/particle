@@ -5,13 +5,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 后台管理用户 数据通用响应对象
+ * 用户 数据通用响应对象
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Data
 @ApiModel
@@ -54,7 +56,14 @@ public class UserVO extends AbstractBaseIdVO {
     @ApiModelProperty("用户来源，字典id")
     private Long sourceFromDictId;
 
-    private String password;
+    @ApiModelProperty("是否过期，过期后该密码不能登录")
+    private Boolean isExpired;
+
+    @ApiModelProperty("过期原因")
+    private String expiredReason;
+
+    @ApiModelProperty("到期时间，为空永不到期")
+    private LocalDateTime expireAt;
 
 
 }

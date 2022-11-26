@@ -30,6 +30,6 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
 
         out.flush();
         IoUtil.close(out);
-        super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e);
+        super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,response);
     }
 }

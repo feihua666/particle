@@ -41,10 +41,12 @@ public class TableGeneratorTest {
 		String componentModuleName = "user";
 		TableType tableType = TableType.NORMAL;
 		String author = "yw";
-		String tableName = "component_user";
+		String tableName = "component_user_login_record";
 		String tablePrefix = "component";
+		boolean fileOverride = true;
+		boolean fileDelete = false;
 		// 如果表多，建议添加，如果只有一张表，建议留空
-		String packageModuleName = "";
+		String packageModuleName = "login";
 
 		ComponentGenerateConf componentGenerateConf = ComponentGenerateConf.create(
 				//System.getProperty("user.dir"),
@@ -52,7 +54,7 @@ public class TableGeneratorTest {
 				FileUtil.getParent(System.getProperty("user.dir"),3),
 				componentModuleName,
 				// rel关系表类型只生成INFRASTRUCTURE
-				tableType == TableType.REL ? Lists.newArrayList(SubModule.INFRASTRUCTURE) : Arrays.stream(SubModule.values()).collect(Collectors.toList()),
+				Arrays.stream(SubModule.values()).collect(Collectors.toList()),
 				true,
 				author,
 				"component",
@@ -67,8 +69,8 @@ public class TableGeneratorTest {
 							//该配置不要动
 							ComponentGenerateConf.componentModuleNameToPkg(componentGenerateConf.getComponentModuleName())),
 					packageModuleName,
-					true,
-					false,
+					fileOverride,
+					fileDelete,
 					author,
 					tableType,
 					componentGenerateConf.subModuleAbsolutePath(subModule),

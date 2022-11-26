@@ -1,15 +1,18 @@
 package com.particle.user.app.executor;
 
-import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserDeleteCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -18,11 +21,11 @@ import javax.validation.Valid;
 
 /**
  * <p>
- * 后台管理用户 创建指令执行器
+ * 用户 创建指令执行器
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Component
 @Validated
@@ -31,7 +34,7 @@ public class UserDeleteCommandExecutor  extends AbstractBaseExecutor {
 	private UserGateway userGateway;
 
 	/**
-	 * 执行 后台管理用户 删除指令
+	 * 执行 用户 删除指令
 	 * @param userDeleteCommand
 	 * @return
 	 */

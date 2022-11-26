@@ -77,7 +77,7 @@ public class SwaggerFactory {
      */
     public static Docket createRestApi(SwaggerInfo infoDTO) {
         Docket docket = new Docket(DocumentationType.OAS_30);
-        Optional.ofNullable(infoDTO.getParameters())
+        Optional.ofNullable(infoDTO.getSecuritySchemes())
                 .ifPresent(p -> docket.securitySchemes(p).securityContexts(Arrays.asList(securityContext(p))));
 
         String groupName = Optional.ofNullable(infoDTO.getGroupName())
@@ -93,7 +93,9 @@ public class SwaggerFactory {
                 .apis(predicate)
                 .paths(PathSelectors.any())
                 .build()
-                .extensions(infoDTO.getOpenApiExtensionResolver().buildExtensions(groupName));
+                .extensions(infoDTO.getOpenApiExtensionResolver()
+                        .buildExtensions(groupName)).globalRequestParameters(infoDTO.getRequestParameters())
+                ;
     }
 
     /**

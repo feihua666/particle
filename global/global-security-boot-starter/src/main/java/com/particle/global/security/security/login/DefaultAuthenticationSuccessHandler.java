@@ -1,7 +1,9 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.io.IoUtil;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.tool.json.JsonTool;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -19,17 +21,18 @@ public class DefaultAuthenticationSuccessHandler extends DefaultAbstractAuthenti
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
-        httpServletResponse.setContentType("application/json;charset=utf-8");
+        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter out = httpServletResponse.getWriter();
         Object principal = authentication.getPrincipal();
         if (principal instanceof LoginUser) {
             ((LoginUser) principal).setPassword(null);
             LoginUserTool.saveToSession((LoginUser) principal,httpServletRequest);
         }
-        out.write(JsonTool.toJsonStr(principal));
+        SingleResponse<Object> singleResponse = SingleResponse.of(principal);
+        out.write(JsonTool.toJsonStr(singleResponse));
         out.flush();
         IoUtil.close(out);
         // 通知自定义认证结果调用
-        super.tryNotifyIAuthenticationResultServicesOnSuccess(httpServletRequest,httpServletResponse,authentication);
+        super.tryNotifyIAuthenticationResultServicesOnSuccess(httpServletRequest,httpServletResponse,authentication,singleResponse);
     }
 }

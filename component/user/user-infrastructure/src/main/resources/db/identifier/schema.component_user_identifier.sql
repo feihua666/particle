@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS component_user_identifier;
+CREATE TABLE `component_user_identifier` (
+  `id` bigint NOT NULL COMMENT '表主键',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `identifier` varchar(255) NOT NULL COMMENT '登录标识',
+  `identity_type_dict_id` bigint NOT NULL COMMENT '授权类型,字典id',
+  `is_lock` tinyint(1) NOT NULL COMMENT '锁定状态，0=未锁定；1=锁定',
+  `lock_reason` varchar(255) DEFAULT NULL COMMENT '锁定原因',
+  `union_id` varchar(100) DEFAULT NULL COMMENT 'unionId，支持第三方登录unionId',
+  `is_expired` tinyint(1) NOT NULL COMMENT '是否过期',
+  `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',
+  `disabled_reason` varchar(255) DEFAULT NULL COMMENT '禁用原因',
+  `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',
+  `last_login_at` datetime DEFAULT NULL COMMENT '最后一次登录时间',
+  `last_login_ip` varchar(255) DEFAULT NULL COMMENT '最后一次登录ip',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` varchar(20) DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` varchar(20) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `identifier` (`identifier`) USING BTREE,
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `identity_type` (`identity_type_dict_id`) USING BTREE,
+  KEY `group_flag` (`group_flag`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户登录标识表';

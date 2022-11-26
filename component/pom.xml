@@ -21,6 +21,7 @@
         <module>user</module>
         <module>component-light-share</module>
         <module>component-adapter-boot-starter</module>
+        <module>role</module>
     </modules>
 
     <properties>

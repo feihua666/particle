@@ -1,5 +1,6 @@
 package com.particle.global.security.security.login;
 
+import com.particle.global.dto.response.Response;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -28,7 +29,7 @@ public interface IAuthenticationResultService {
 	 * @param authentication
 	 * @throws IOException
 	 */
-	public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException;
+	public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication, Response response) throws IOException;
 
 	/**
 	 * 认证失败调用
@@ -38,5 +39,5 @@ public interface IAuthenticationResultService {
 	 * @param e
 	 * @throws IOException
 	 */
-	public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException;
+	public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e, Response response) throws IOException;
 }

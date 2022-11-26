@@ -28,5 +28,11 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
         </dependency>
+        <!-- swagger 定义全局请求头文档与 session 保持一致 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

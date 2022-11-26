@@ -33,6 +33,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- loginUser 使用了 swagger 注解 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-swagger-boot-starter</artifactId>

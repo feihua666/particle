@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 该执行早于 {@link CommonCommandLineRunner} 执行
@@ -22,12 +23,12 @@ public class CommonApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.debug("开始执行：" + this.getClass().getName());
+        log.debug("app line runner start，listener count={}", Optional.ofNullable(listeners).map(List::size).orElse(0));
         if (listeners != null) {
             for (OnApplicationRunnerListener listener : listeners) {
                 listener.run(args);
             }
         }
-        log.debug("执行完成：" + this.getClass().getName());
+        log.debug("app line runner finished.");
     }
 }

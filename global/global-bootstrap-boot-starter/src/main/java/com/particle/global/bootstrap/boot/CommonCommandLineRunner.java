@@ -22,12 +22,12 @@ public class CommonCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.debug("应用启动命令行参数处理，开始执行，count={}", Optional.ofNullable(listeners).map(List::size).orElse(0));
+        log.debug("app command line runner start，listener count={}", Optional.ofNullable(listeners).map(List::size).orElse(0));
         if (listeners != null) {
             for (OnCommandLineListener listener : listeners) {
                 listener.run(args);
             }
         }
-        log.debug("应用启动命令行参数处理，执行完成");
+        log.debug("app command line runner finished.");
     }
 }

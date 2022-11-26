@@ -21,16 +21,19 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Configuration
 public class GlobalMybatisExecutorsConfig {
+
+	public static final String commonDbTaskExecutor = "commonDbTaskExecutor";
+
 	/**
 	 * 通用数据库查询线程池
 	 * @param beanFactory
 	 * @return
 	 */
-	@Bean(name = "commonDbTaskExecutor", destroyMethod = "shutdown")
+	@Bean(name = commonDbTaskExecutor, destroyMethod = "shutdown")
 	public ExecutorService commonDbTaskExecutor(BeanFactory beanFactory) {
 		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
 			return CustomExecutors.newExecutorService(beanFactory,
-					"commonDbTaskExecutor",
+					commonDbTaskExecutor,
 					5,
 					100,
 					1000,

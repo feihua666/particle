@@ -5,13 +5,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 后台管理用户 通用列表查询指令对象
+ * 用户 通用列表查询指令对象
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Data
 @ApiModel
@@ -53,5 +55,15 @@ public class UserQueryListCommand extends AbstractBaseQueryCommand {
 
     @ApiModelProperty("用户来源，字典id")
     private Long sourceFromDictId;
+
+    @ApiModelProperty("是否过期，过期后该密码不能登录")
+    private Boolean isExpired;
+
+    @ApiModelProperty("过期原因")
+    private String expiredReason;
+
+    @ApiModelProperty("到期时间，为空永不到期")
+    private LocalDateTime expireAt;
+
 
 }

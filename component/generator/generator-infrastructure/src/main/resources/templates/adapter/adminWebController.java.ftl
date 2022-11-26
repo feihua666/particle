@@ -1,6 +1,7 @@
 package ${injection.pkg};
 
 import ${injection.applicationService.pkg}.${injection.applicationService.className};
+import ${injection.representationApplicationService.pkg}.${injection.representationApplicationService.className};
 import ${injection.createCommand.pkg}.${injection.createCommand.className};
 import ${injection.vo.pkg}.${injection.vo.className};
 import ${injection.queryDetailForUpdateCommand.pkg}.${injection.queryDetailForUpdateCommand.className};
@@ -41,6 +42,8 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	@Autowired
 	private ${injection.applicationService.className} ${injection.applicationService.classNameVar};
+	@Autowired
+	private ${injection.representationApplicationService.className} ${injection.representationApplicationService.classNameVar};
 
 	<#if injection.method.create>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:create')")
@@ -74,7 +77,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@ApiOperation("${injection.tableComment}更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(${injection.queryDetailForUpdateCommand.className} ${injection.queryDetailForUpdateCommand.classNameVar}){
-		return ${injection.applicationService.classNameVar}.queryDetailForUpdate(${injection.queryDetailForUpdateCommand.classNameVar});
+		return ${injection.representationApplicationService.classNameVar}.queryDetailForUpdate(${injection.queryDetailForUpdateCommand.classNameVar});
 	}
 	</#if>
 
@@ -83,7 +86,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@ApiOperation("${injection.tableComment}详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<${injection.vo.className}> queryDetail(${injection.queryDetailCommand.className} ${injection.queryDetailCommand.classNameVar}){
-		return ${injection.applicationService.classNameVar}.queryDetail(${injection.queryDetailCommand.classNameVar});
+		return ${injection.representationApplicationService.classNameVar}.queryDetail(${injection.queryDetailCommand.classNameVar});
 	}
 	</#if>
 
@@ -92,7 +95,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@ApiOperation("列表查询${injection.tableComment}")
 	@GetMapping("/list")
 	public MultiResponse<${injection.vo.className}> queryList(${injection.queryListCommand.className} ${injection.queryListCommand.classNameVar}){
-		return ${injection.applicationService.classNameVar}.queryList(${injection.queryListCommand.classNameVar});
+		return ${injection.representationApplicationService.classNameVar}.queryList(${injection.queryListCommand.classNameVar});
 	}
 	</#if>
 
@@ -101,7 +104,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@ApiOperation("分页查询${injection.tableComment}")
 	@GetMapping("/page")
 	public PageResponse<${injection.vo.className}> pageQueryList(${injection.pageQueryCommand.className} ${injection.pageQueryCommand.classNameVar}){
-		return ${injection.applicationService.classNameVar}.pageQuery(${injection.pageQueryCommand.classNameVar});
+		return ${injection.representationApplicationService.classNameVar}.pageQuery(${injection.pageQueryCommand.classNameVar});
 	}
 	</#if>
 

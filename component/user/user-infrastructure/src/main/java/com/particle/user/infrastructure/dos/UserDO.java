@@ -2,15 +2,19 @@ package com.particle.user.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
 /**
  * <p>
- * 后台管理用户表
+ * 用户表
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Data
 @TableName("component_user")
@@ -63,5 +67,17 @@ public class UserDO extends BaseDO {
     * 用户来源，字典id
     */
     private Long sourceFromDictId;
+    /**
+    * 是否过期，过期后该密码不能登录
+    */
+    private Boolean isExpired;
+    /**
+    * 过期原因
+    */
+    private String expiredReason;
+    /**
+    * 到期时间，为空永不到期
+    */
+    private LocalDateTime expireAt;
 
 }

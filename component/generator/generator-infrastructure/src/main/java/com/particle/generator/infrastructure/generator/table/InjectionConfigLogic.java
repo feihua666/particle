@@ -296,7 +296,7 @@ public class InjectionConfigLogic {
 						"api",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.representationApplicationService,
 				TemplateAndFileName.create("/templates/client/representationApplicationService.java",
-						"I" + entityFirstUpper + "RepersentationApplicationService.java",
+						"I" + entityFirstUpper + "RepresentationApplicationService.java",
 						"api.representation",null,"/src/main/java","",false));
 		injectionTemplateConfigMap.put(OutputFileEnum.createCommand,
 				TemplateAndFileName.create("/templates/client/createCommand.java",

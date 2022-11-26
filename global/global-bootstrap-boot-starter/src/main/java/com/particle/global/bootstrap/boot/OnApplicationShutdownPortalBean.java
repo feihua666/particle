@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -28,14 +29,13 @@ public class OnApplicationShutdownPortalBean implements DisposableBean {
 	 */
 	@Override
 	public void destroy() throws Exception {
-		log.info("应用关闭，调用关闭监听");
+		log.debug("app shutdown，listener count={}", Optional.ofNullable(onApplicationShutdownListenerList).map(List::size).orElse(0));
 		if (onApplicationShutdownListenerList != null) {
-			log.info("应用关闭，调用关闭监听，监听数量={}",onApplicationShutdownListenerList.size());
 			for (OnApplicationShutdownListener onApplicationShutdownListener : onApplicationShutdownListenerList) {
 				onApplicationShutdownListener.shutdown();
 			}
-		}else {
-			log.info("应用关闭，调用关闭监听，无可用监听");
 		}
+		log.debug("app shutdown destroy finished.");
+
 	}
 }

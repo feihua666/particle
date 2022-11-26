@@ -1,11 +1,13 @@
 package com.particle.global.session.auto;
 
+import cn.hutool.core.util.StrUtil;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -27,6 +29,7 @@ public class CustomDelegateHttpSessionIdResolver implements HttpSessionIdResolve
 	public List<String> resolveSessionIds(HttpServletRequest httpServletRequest) {
 		for (HttpSessionIdResolver httpSessionIdResolver : list) {
 			List<String> strings = httpSessionIdResolver.resolveSessionIds(httpServletRequest);
+			strings = strings.stream().filter(StrUtil::isNotBlank).collect(Collectors.toList());
 			if (!strings.isEmpty()) {
 				return strings;
 			}

@@ -1,23 +1,23 @@
 package com.particle.user.infrastructure.gateway.impl;
 
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
-import com.particle.global.domain.DomainFactory;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
-import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.service.IUserService;
+import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.structmapping.UserInfrastructureStructMapping;
+import com.particle.global.domain.DomainFactory;
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * 后台管理用户 防腐层网关实现
+ * 用户 防腐层网关实现
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Component
 public class UserGatewayImpl extends AbstractBaseGatewayImpl<UserId,User> implements UserGateway {

@@ -1,5 +1,6 @@
 package com.particle.global.session.auto;
 
+import com.particle.global.swagger.SwaggerInfo;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
  */
 public class CustomDefaultCookieSerializer extends DefaultCookieSerializer {
 
-	private String cookieName = "SESSION";
+	private String cookieName = SwaggerInfo.token;
 
 	@Override
 	public void setCookieName(String cookieName) {

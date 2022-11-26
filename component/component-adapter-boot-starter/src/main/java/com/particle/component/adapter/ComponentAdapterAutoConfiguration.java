@@ -1,5 +1,11 @@
 package com.particle.component.adapter;
 
+import com.particle.component.adapter.func.login.UserFuncServiceImpl;
+import com.particle.component.adapter.user.login.UserAuthorityServiceImpl;
+import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.role.infrastructure.service.IRoleService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,4 +20,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan
 public class ComponentAdapterAutoConfiguration {
+
+	@Bean
+	@ConditionalOnBean(IRoleService.class)
+	public UserAuthorityServiceImpl userAuthorityServiceImpl(){
+		return new UserAuthorityServiceImpl();
+	}
+	@Bean
+	@ConditionalOnBean({IRoleService.class, IFuncService.class})
+	public UserFuncServiceImpl userFuncServiceImpl(){
+		return new UserFuncServiceImpl();
+	}
 }

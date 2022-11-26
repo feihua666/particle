@@ -4,11 +4,11 @@ import com.particle.common.domain.id.Id;
 
 /**
  * <p>
- * 后台管理用户 领域模型id
+ * 用户 领域模型id
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 public class UserId extends Id {
 
@@ -17,7 +17,7 @@ public class UserId extends Id {
 	}
 
 	/**
-	 * 基本数据类型 id 转 后台管理用户 领域模型id
+	 * 基本数据类型 id 转 用户 领域模型id
 	 * @param id
 	 * @return
 	 */

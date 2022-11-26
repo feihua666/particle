@@ -75,20 +75,50 @@ public interface IBaseService<DO> extends IService<DO> {
     /**
      * 根据主键增加一个字段的值，
      * @param id
-     * @param column
-     * @param num
+     * @param plusColumn
+     * @param plusNum
      * @return
      */
-    default boolean plusForColumnById(Long id, SFunction<DO, ?> column, Object num){
-        Assert.notNull(column,"column 不能为空");
-        Assert.notNull(id,"columnId 不能为空");
+    default boolean plusForColumnById(Long id, SFunction<DO, ?> plusColumn, Object plusNum){
+        Assert.notNull(plusColumn,"plusColumn 不能为空");
+        Assert.notNull(id,"id 不能为空");
 
-        String columnName  = SFunctionHelperTool.columnToString(column);
-        String sql = StrUtil.format(" {} = {} + {} ",columnName,columnName,num);
+        String columnName  = SFunctionHelperTool.columnToString(plusColumn);
+        String sql = StrUtil.format(" {} = {} + {} ",columnName,columnName,plusNum);
         return update(Wrappers.<DO>update().setSql(sql).eq(com.particle.global.dto.basic.DO.COLUMN_ID,id));
     }
+    /**
+     * 根据主键增加一个字段的值，
+     * @param columnValue
+     * @param column
+     * @param plusColumn
+     * @param plusNum
+     * @return
+     */
+    default boolean plusForColumnByColumn(Object columnValue,SFunction<DO, ?> column, SFunction<DO, ?> plusColumn, Object plusNum){
+        Assert.notNull(column,"column 不能为空");
+        Assert.notNull(columnValue,"columnValue 不能为空");
+        Assert.notNull(plusColumn,"plusColumn 不能为空");
 
-
+        String columnName  = SFunctionHelperTool.columnToString(column);
+        String plusColumnName  = SFunctionHelperTool.columnToString(plusColumn);
+        String sql = StrUtil.format(" {} = {} + {} ",plusColumnName,plusColumnName,plusNum);
+        return update(Wrappers.<DO>update().setSql(sql).eq(columnName,columnValue));
+    }
+    /**
+     * 根据一列更新一个字段的值，
+     * @param columnValue
+     * @param column
+     * @param updateColumn
+     * @param updateValue
+     * @return
+     */
+    default boolean updateColumnByColumn(Object columnValue,SFunction<DO, ?> column, SFunction<DO, ?> updateColumn, Object updateValue){
+        Assert.notNull(updateColumn,"column 不能为空");
+        Assert.notNull(columnValue,"columnValue 不能为空");
+        Assert.notNull(updateColumn,"updateColumn 不能为空");
+        return update(Wrappers.<DO>lambdaUpdate().set(updateColumn,updateValue).eq(column,columnValue));
+    }
     /**
      * 可以根据任务唯一字段进行指更新
      * 对{@link  IService#saveOrUpdateBatch(Collection)}  的一个补充，其只能根据主键id更新
@@ -163,7 +193,39 @@ public interface IBaseService<DO> extends IService<DO> {
         return count( Wrappers.<DO>query().lambda().eq(column,columnId)) > 0;
     }
 
-
+    /**
+     * 根据一个外键查询
+     * @param columnId
+     * @param column
+     * @return
+     */
+    default List<DO> listByColumn(Long columnId, SFunction<DO, ?> column){
+        Assert.notNull(column,"column 不能为空");
+        Assert.notNull(columnId,"columnId 不能为空");
+        return list( Wrappers.<DO>query().lambda().eq(column,columnId));
+    }
+    /**
+     * 根据多个外键查询
+     * @param columnIds
+     * @param column
+     * @return
+     */
+    default List<DO> listByColumns(List<Long> columnIds, SFunction<DO, ?> column){
+        Assert.notNull(column,"column 不能为空");
+        Assert.notEmpty(columnIds,"columnIds 不能为空");
+        return list( Wrappers.<DO>query().lambda().in(column,columnIds));
+    }
+    /**
+     * 根据一个外键查询
+     * @param columnId
+     * @param column
+     * @return
+     */
+    default DO getOneByColumn(Long columnId, SFunction<DO, ?> column){
+        Assert.notNull(column,"column 不能为空");
+        Assert.notNull(columnId,"columnId 不能为空");
+        return getOne( Wrappers.<DO>query().lambda().eq(column,columnId));
+    }
     /**
      * baomidou不支持 or连接，这里手动转一下
      * issue https://github.com/baomidou/mybatis-plus/issues/3418

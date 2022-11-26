@@ -1,5 +1,6 @@
 package ${injection.pkg};
 
+import java.time.LocalDateTime;
 <#list injection.imports as im>
 import ${im};
 </#list>

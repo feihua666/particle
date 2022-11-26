@@ -43,7 +43,16 @@
             <artifactId>generator-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>role-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
 
         <!-- spring starter web -->
         <dependency>

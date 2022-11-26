@@ -36,6 +36,7 @@ public class RelationConstants {
 		));
 		subModuleAndOutputFileRelation.put(SubModule.APP, Lists.newArrayList(
 				OutputFileEnum.applicationServiceImpl,
+				OutputFileEnum.representationApplicationServiceImpl,
 				OutputFileEnum.createCommandExecutor,
 				OutputFileEnum.updateCommandExecutor,
 				OutputFileEnum.deleteCommandExecutor,
@@ -44,6 +45,7 @@ public class RelationConstants {
 		));
 		subModuleAndOutputFileRelation.put(SubModule.CLIENT, Lists.newArrayList(
 				OutputFileEnum.applicationService,
+				OutputFileEnum.representationApplicationService,
 				OutputFileEnum.createCommand,
 				OutputFileEnum.updateCommand,
 				OutputFileEnum.queryDetailForUpdateCommand,

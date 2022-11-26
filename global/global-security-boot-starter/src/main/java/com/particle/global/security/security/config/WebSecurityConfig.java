@@ -1,7 +1,10 @@
 package com.particle.global.security.security.config;
 
+import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.DefaultAuthenticationFailureHandler;
 import com.particle.global.security.security.login.DefaultAuthenticationSuccessHandler;
+import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
+import com.particle.global.security.security.logout.DefaultLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +14,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.session.SessionManagementFilter;
 
 import java.util.List;
@@ -23,6 +28,10 @@ import java.util.List;
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public static final String login_processing_url = "/login";
+    public static final String logout_processing_url = "/logout";
+
     /**
      * 密码加解密处理，用户添加的时候也会用到
      * @return
@@ -30,15 +39,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired(required = false)
     private List<CustomWebSecurityConfigure> customWebSecurityConfigureList;
+    @Autowired(required = false)
+    private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
+
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncryptEnum.passwordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+        securityContextLogoutHandler.setInvalidateHttpSession(true);
+        securityContextLogoutHandler.setClearAuthentication(true);
         http.authorizeRequests()
                 // 已启动 EnableGlobalMethodSecurity，这里全部放开，根据权限动态配置
                 .antMatchers("/**")
@@ -47,17 +62,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .successHandler(new DefaultAuthenticationSuccessHandler())
                 .failureHandler(new DefaultAuthenticationFailureHandler())
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl(login_processing_url)
                 .permitAll()
                 .and()
-                .logout().permitAll()
+                .logout()
+                .invalidateHttpSession(false)
+                .clearAuthentication(false)
+                // SecurityContextLogoutHandler 会清空session，导致 在 logout success handler 中获取不到，上面设置为 false
+                .logoutSuccessHandler(new DefaultLogoutSuccessHandler(securityContextLogoutHandler))
+                .logoutUrl(logout_processing_url).permitAll()
                 .and().csrf().disable()
                 //cookie，默认保存两周
                 .rememberMe().rememberMeParameter("remember");
-        AuthenticationManager authenticationManager = super.authenticationManager();
+        AuthenticationManager authenticationManager = super.authenticationManagerBean();
 
         // 自定义当前登录用户工具类
-        http.addFilterAfter(new LoginUserToolPersistentSecurityFilter(), SessionManagementFilter.class);
+        LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
+        loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
+        http.addFilterAfter(loginUserToolPersistentSecurityFilter, SessionManagementFilter.class);
 
         if (customWebSecurityConfigureList != null) {
             for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {

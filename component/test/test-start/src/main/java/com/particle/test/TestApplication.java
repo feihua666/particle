@@ -9,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -52,13 +51,13 @@ public class TestApplication {
 	@Bean
 	public Docket createAreaAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
-		parameters.add(new ApiKey("Token", "token", "header"));
+		
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("test接口")
 				.basePackage("com.particle.test.adapter")
 				//  SwaggerInfo 已自动处理
 				.openApiExtensionResolver(null)
-				.parameters(parameters)
+				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")
 				.description(ProjectInfo.NAME + " Swagger Apis Description")

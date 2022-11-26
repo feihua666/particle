@@ -4,16 +4,15 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
 import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 后台管理用户 通用仅展示用查询详情指令对象
+ * 用户 通用仅展示用查询详情指令对象
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Data
 @ApiModel

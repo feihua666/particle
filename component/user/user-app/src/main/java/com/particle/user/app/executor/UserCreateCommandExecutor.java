@@ -1,13 +1,13 @@
 package com.particle.user.app.executor;
 
-import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.gateway.UserGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -19,11 +19,11 @@ import javax.validation.Valid;
 
 /**
  * <p>
- * 后台管理用户 创建指令执行器
+ * 用户 创建指令执行器
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Component
 @Validated
@@ -32,7 +32,7 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	private UserGateway userGateway;
 
 	/**
-	 * 执行后台管理用户添加指令
+	 * 执行用户添加指令
 	 * @param userCreateCommand
 	 * @return
 	 */
@@ -46,7 +46,7 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据后台管理用户创建指令创建后台管理用户模型
+	 * 根据用户创建指令创建用户模型
 	 * @param userCreateCommand
 	 * @return
 	 */

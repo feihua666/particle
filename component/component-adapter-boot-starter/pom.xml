@@ -29,6 +29,27 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 用户登录适配，主要是为了获取权限 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 获取用户权限实现 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>func-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 获取用户权限实现 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>role-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-light-share</artifactId>

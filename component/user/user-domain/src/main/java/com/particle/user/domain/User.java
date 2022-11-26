@@ -5,13 +5,15 @@ import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 后台管理用户 领域模型
+ * 用户 领域模型
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-11-25
  */
 @Data
 @Entity
@@ -67,14 +69,22 @@ public class User extends AggreateRoot {
      */
     private Long sourceFromDictId;
     /**
-     * 
+     * 是否过期，过期后该密码不能登录
      */
-    private String password;
+    private Boolean isExpired;
+    /**
+     * 过期原因
+     */
+    private String expiredReason;
+    /**
+     * 到期时间，为空永不到期
+     */
+    private LocalDateTime expireAt;
 
 
 	/**
-	 * 创建后台管理用户领域模型对象
-	 * @return 后台管理用户领域模型对象，该对应所有属性为空，需要进行初始化操作
+	 * 创建用户领域模型对象
+	 * @return 用户领域模型对象，该对应所有属性为空，需要进行初始化操作
 	 */
 	public static User create(){
 		return DomainFactory.create(User.class);

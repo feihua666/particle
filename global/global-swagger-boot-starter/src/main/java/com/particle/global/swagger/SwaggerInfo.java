@@ -2,9 +2,14 @@ package com.particle.global.swagger;
 
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import springfox.documentation.builders.RequestParameterBuilder;
+import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
 import springfox.documentation.service.SecurityScheme;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +25,11 @@ import java.util.Optional;
  * @since 2022-05-19 09:29:36
  */
 public class SwaggerInfo {
+
+    /**
+     * 自定义请求头 token
+     */
+    public static String token = "c-token-id";
 
     /**
      * 分组名称
@@ -76,11 +86,13 @@ public class SwaggerInfo {
      *     <li>TODO OAuth</li>
      * </ul>
      */
-    private final List<SecurityScheme> parameters;
+    private final List<SecurityScheme> securitySchemes;
+
+    private final List<RequestParameter> requestParameters;
 
     public SwaggerInfo(String groupName, String title, String description, String termsOfServiceUrl,
                        Contact contact, String version, String basePackage,
-                       OpenApiExtensionResolver openApiExtensionResolver, List<SecurityScheme> parameters) {
+                       OpenApiExtensionResolver openApiExtensionResolver, List<SecurityScheme> securitySchemes,List<RequestParameter> requestParameters) {
         this.groupName = groupName;
         this.title = title;
         this.description = description;
@@ -90,7 +102,8 @@ public class SwaggerInfo {
         this.basePackage = basePackage;
         this.openApiExtensionResolver = Optional.ofNullable(openApiExtensionResolver)
                 .orElse(ApplicationContexSwaggertHelper.getBean(OpenApiExtensionResolver.class));
-        this.parameters = parameters;
+        this.securitySchemes = securitySchemes;
+        this.requestParameters = requestParameters;
     }
 
     public static SwaggerInfoDtoBuilder builder() {
@@ -129,8 +142,12 @@ public class SwaggerInfo {
         return openApiExtensionResolver;
     }
 
-    public List<SecurityScheme> getParameters() {
-        return parameters;
+    public List<SecurityScheme> getSecuritySchemes() {
+        return securitySchemes;
+    }
+
+    public List<RequestParameter> getRequestParameters() {
+        return requestParameters;
     }
 
     @Override
@@ -144,7 +161,8 @@ public class SwaggerInfo {
                 ", version='" + version + '\'' +
                 ", basePackage='" + basePackage + '\'' +
                 ", openApiExtensionResolver=" + openApiExtensionResolver +
-                ", parameters=" + parameters +
+                ", securitySchemes=" + securitySchemes +
+                ", requestParameter=" + requestParameters +
                 '}';
     }
 
@@ -158,10 +176,26 @@ public class SwaggerInfo {
         private String version;
         private String basePackage;
         private OpenApiExtensionResolver openApiExtensionResolver;
-        private List<SecurityScheme> parameters;
-
+        private List<SecurityScheme> securitySchemes;
+        // 全局请求参数
+        private List<RequestParameter> requestParameter;
         public SwaggerInfo build() {
-            return new SwaggerInfo(this.groupName, this.title, this.description, this.termsOfServiceUrl, this.contact, this.version, this.basePackage, this.openApiExtensionResolver, this.parameters);
+            if (requestParameter == null) {
+                requestParameter = new ArrayList<>();
+            }
+            if (!requestParameter.stream().filter(item -> token.equals(item.getName())).findFirst().isPresent()) {
+                requestParameter.add(
+                        new RequestParameterBuilder()
+                                .name(token)
+                                .description("自定义token")
+                                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                                .required(false)
+                                .in(ParameterType.HEADER)
+                                .build()
+                );
+            }
+
+            return new SwaggerInfo(this.groupName, this.title, this.description, this.termsOfServiceUrl, this.contact, this.version, this.basePackage, this.openApiExtensionResolver, this.securitySchemes,this.requestParameter);
         }
 
         public SwaggerInfoDtoBuilder groupName(final String groupName) {
@@ -204,11 +238,14 @@ public class SwaggerInfo {
             return this;
         }
 
-        public SwaggerInfoDtoBuilder parameters(final List<SecurityScheme> parameters) {
-            this.parameters = parameters;
+        public SwaggerInfoDtoBuilder securitySchemes(final List<SecurityScheme> securitySchemes) {
+            this.securitySchemes = securitySchemes;
             return this;
         }
-
+        public SwaggerInfoDtoBuilder requestParameter(final List<RequestParameter> requestParameter) {
+            this.requestParameter = requestParameter;
+            return this;
+        }
         @Override
         public String toString() {
             return "SwaggerInfoDtoBuilder{" +
@@ -220,7 +257,8 @@ public class SwaggerInfo {
                     ", version='" + version + '\'' +
                     ", basePackage='" + basePackage + '\'' +
                     ", openApiExtensionResolver=" + openApiExtensionResolver +
-                    ", parameters=" + parameters +
+                    ", securitySchemes=" + securitySchemes +
+                    ", requestParameter=" + requestParameter +
                     '}';
         }
     }

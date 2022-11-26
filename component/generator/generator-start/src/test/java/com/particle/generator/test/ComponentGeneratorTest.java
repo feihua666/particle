@@ -38,7 +38,7 @@ public class ComponentGeneratorTest {
 				//System.getProperty("user.dir"),
 				// particle 项目的根目录
 				FileUtil.getParent(System.getProperty("user.dir"),3),
-				"user",
+				"role",
 				Arrays.stream(SubModule.values()).collect(Collectors.toList()),
 				true,
 				"yw",

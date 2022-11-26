@@ -31,6 +31,13 @@
             <version>${particle.version}</version>
         </dependency>
 
+        <!-- 只能做查询用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-infrastructure</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
         <!-- 实现feign-client接口 -->
         <dependency>
             <groupId>com.particle</groupId>

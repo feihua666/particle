@@ -46,6 +46,11 @@ public enum SubModule {
 	public String realSubModuleName(){
 		return this.name().toLowerCase().replace("_", "-");
 	}
+
+	/**
+	 * 将子模块名称转为 java 包路径片段
+	 * @return
+	 */
 	public String subModuleNameToPkg(){
 		return realSubModuleName().toLowerCase().replace("-", ".");
 
