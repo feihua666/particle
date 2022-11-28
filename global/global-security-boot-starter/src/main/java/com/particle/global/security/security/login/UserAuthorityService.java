@@ -1,4 +1,4 @@
-package com.particle.user.adapter.login;
+package com.particle.global.security.security.login;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface UserAuthorityService {
      * @param userId
      * @return
      */
-    List<String> retrieveUserAuthoritiesByUserId(Long userId);
+    List<UserGrantedAuthority> retrieveUserAuthoritiesByUserId(Long userId);
 }

@@ -2,6 +2,7 @@ package com.particle.user.adapter.login;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.security.security.PasswordEncryptEnum;
+import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserExtPutService;
 import com.particle.global.tool.thread.ThreadContextTool;
@@ -23,11 +24,9 @@ import java.util.List;
  * Created at 2020/12/10 20:59
  */
 @Service
-public class IdentifierUserDetailsServiceImpl implements UserDetailsService {
+public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService {
 
     public static String user_ext_identifier_key ="userIdentifier";
-    public static String login_loaded_user_in_threadcontext_key ="loginLoadedUser";
-
 
     @Autowired
     private IUserIdentifierService iIdentifierService;
@@ -35,19 +34,12 @@ public class IdentifierUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private IUserIdentifierPwdService iIdentifierPwdService;
 
-    @Autowired(required = false)
-    private UserAuthorityService userAuthorityService;
-
-    @Autowired(required = false)
-    private List<LoginUserExtPutService> loginUserExtPutServices;
-
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public LoginUser doLoadUserByUsername(String username) throws UsernameNotFoundException {
 
         UserIdentifierDO byIdentifier = iIdentifierService.getByIdentifier(username);
         if (byIdentifier == null) {
-            throw new UsernameNotFoundException("用户不存在");
+           return null;
         }
         UserIdentifierPwdDO byIdentifierId = iIdentifierPwdService.getByIdentifierId(byIdentifier.getId());
         LoginUser loginUser = new LoginUser();
@@ -64,24 +56,6 @@ public class IdentifierUserDetailsServiceImpl implements UserDetailsService {
         loginUser.setIsCredentialsExpired(byIdentifierId.getIsExpired());
 
         loginUser.addExt(user_ext_identifier_key, byIdentifier);
-
-        // 默认添加用户权限
-        loginUser.addAuthority("user");
-        if (userAuthorityService != null) {
-            List<String> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser.getId());
-            loginUser.addAuthority(list);
-            if (list != null && list.stream().filter(item -> StrUtil.equals(LoginUser.super_admin_role, item)).count() > 0) {
-                loginUser.setIsSuperAdmin(true);
-            }
-        }
-
-        if (loginUserExtPutServices != null) {
-            for (LoginUserExtPutService loginUserExtPutService : loginUserExtPutServices) {
-                loginUserExtPutService.addExt(loginUser);
-            }
-        }
-        // 在线程中放置一个用户，不管用户密码对不对，都可以在后期获取到，主要用来记录用户登录日志
-        ThreadContextTool.put(login_loaded_user_in_threadcontext_key,loginUser);
         return loginUser;
     }
 }

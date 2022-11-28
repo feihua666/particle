@@ -74,6 +74,16 @@ public class FuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 		return SingleResponse.of(funcVO);
 	}
 
+	/**
+	 * 根据id获取
+	 * @param ids
+	 * @return
+	 */
+	public MultiResponse<FuncVO> queryListByIds(List<Long> ids){
+		List<FuncDO> funcDO = iFuncService.listByIds(ids);
+		List<FuncVO> funcVOs = FuncAppStructMapping.instance.funcDOsToFuncVOs(funcDO);
+		return MultiResponse.of(funcVOs);
+	}
 	@Autowired
 	public void setIFuncService(IFuncService iFuncService) {
 		this.iFuncService = iFuncService;

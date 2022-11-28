@@ -15,6 +15,8 @@ import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 菜单功能 门面服务实现类
@@ -43,6 +45,11 @@ public class FuncRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	@Override
 	public PageResponse<FuncVO> pageQuery(FuncPageQueryCommand funcPageQueryCommand) {
 		return funcQueryCommandExecutor.execute(funcPageQueryCommand);
+	}
+
+	@Override
+	public MultiResponse<FuncVO> queryListByIds(List<Long> ids) {
+		return null;
 	}
 
 	@Override

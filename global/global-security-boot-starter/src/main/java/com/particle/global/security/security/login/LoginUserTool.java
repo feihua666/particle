@@ -1,10 +1,13 @@
 package com.particle.global.security.security.login;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.tool.thread.ThreadContextTool;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 当前登录用户工具类，方便在任何地方直接获取当前登录用户
@@ -67,5 +70,52 @@ public class LoginUserTool {
     public static void clear(){
         ThreadContextTool.remove(LOGIN_USER_ANONYMOUS_KEY);
         ThreadContextTool.remove(LOGIN_USER_SESSION_KEY);
+    }
+
+    /**
+     * 获取登录用户的角色id
+     * @return
+     */
+    public static List<Long> getLoginUserRoleIds(){
+        LoginUser loginUser = getLoginUser();
+        if (loginUser == null) {
+            return Collections.emptyList();
+        }
+        Collection<? extends GrantedAuthority> authorities = loginUser.getAuthorities();
+        if (CollectionUtil.isEmpty(authorities)) {
+            return Collections.emptyList();
+        }
+        Set<Long> result = new HashSet<>();
+        for (GrantedAuthority authority : authorities) {
+            if (authority instanceof UserGrantedAuthority) {
+                Optional.ofNullable(((UserGrantedAuthority) authority).getGrantedPermissionRole()).ifPresent(grantedRole -> {
+                    result.add(grantedRole.getId());
+                });
+            }
+        }
+        return result.stream().collect(Collectors.toList());
+    }
+    /**
+     * 获取登录用户的权限id
+     * @return
+     */
+    public static List<Long> getLoginUserPermissionIds(){
+        LoginUser loginUser = getLoginUser();
+        if (loginUser == null) {
+            return Collections.emptyList();
+        }
+        Collection<? extends GrantedAuthority> authorities = loginUser.getAuthorities();
+        if (CollectionUtil.isEmpty(authorities)) {
+            return Collections.emptyList();
+        }
+        Set<Long> result = new HashSet<>();
+        for (GrantedAuthority authority : authorities) {
+            if (authority instanceof UserGrantedAuthority) {
+                Optional.ofNullable(((UserGrantedAuthority) authority).getGrantedPermission()).ifPresent(grantedPermission -> {
+                    result.add(grantedPermission.getId());
+                });
+            }
+        }
+        return result.stream().collect(Collectors.toList());
     }
 }

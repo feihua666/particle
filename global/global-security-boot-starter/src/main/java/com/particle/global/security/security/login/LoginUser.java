@@ -1,7 +1,9 @@
 package com.particle.global.security.security.login;
 
+import cn.hutool.core.collection.CollectionUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author yangwei
@@ -61,8 +64,27 @@ public class LoginUser implements UserDetails {
     @ApiModelProperty(value = "用户登录密码是否过期")
     private Boolean isCredentialsExpired = false;
 
-    @ApiModelProperty(value = "权限字符串信息")
-    private List<String> stringAuthorities;
+    /**
+     * 前端直接返回了，这里不生成，不显示到前端
+     */
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    @ApiModelProperty(value = "权限信息")
+    private List<UserGrantedAuthority> userGrantedAuthorities;
+
+    /**
+     * 角色信息
+     * 通过 {@link LoginUser#userGrantedAuthorities} 获取
+     */
+    @Setter(AccessLevel.NONE)
+    private List<GrantedRole> roles;
+
+    /**
+     * 权限码信息
+     * 通过 {@link LoginUser#userGrantedAuthorities} 获取
+     */
+    @Setter(AccessLevel.NONE)
+    private List<String> permissions;
 
     @ApiModelProperty(value = "扩展信息")
     private Map<String, Object> ext;
@@ -72,10 +94,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (stringAuthorities == null) {
-            return null;
-        }
-        return AuthorityUtils.createAuthorityList(stringAuthorities.toArray(new String[0]));
+        return userGrantedAuthorities;
     }
 
 
@@ -99,26 +118,44 @@ public class LoginUser implements UserDetails {
         return getIsEnabled();
     }
 
+    public List<GrantedRole> getRoles() {
+        if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
+            return null;
+        }
+        return userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+    public List<String> getPermissions() {
+        if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
+            return null;
+        }
+        return userGrantedAuthorities.stream()
+                .map(UserGrantedAuthority::getGrantedPermission)
+                .filter(Objects::nonNull).map(GrantedPermission::getPermission)
+                .collect(Collectors.toList());
+
+    }
+
     /**
      * 添加权限信息
      * @param authority
      */
-    public void addAuthority(String authority) {
-        if (stringAuthorities == null) {
-            stringAuthorities = new ArrayList<>();
+    public void addAuthority(UserGrantedAuthority authority) {
+        if (userGrantedAuthorities == null) {
+            userGrantedAuthorities = new ArrayList<>();
         }
-        stringAuthorities.add(authority);
+        userGrantedAuthorities.add(authority);
     }
 
     /**
      * 添加多个权限信息
      * @param stringAuthorities
      */
-    public void addAuthority(List<String> stringAuthorities) {
-        if (this.stringAuthorities == null) {
-            this.stringAuthorities = new ArrayList<>();
+    public void addAuthority(List<UserGrantedAuthority> stringAuthorities) {
+        if (this.userGrantedAuthorities == null) {
+            this.userGrantedAuthorities = new ArrayList<>();
         }
-        this.stringAuthorities.addAll(stringAuthorities);
+        this.userGrantedAuthorities.addAll(stringAuthorities);
     }
 
     public void addExt(String key, Object obj) {

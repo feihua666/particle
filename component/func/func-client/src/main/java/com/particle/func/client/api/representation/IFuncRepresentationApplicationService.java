@@ -10,6 +10,8 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 
+import java.util.List;
+
 /**
  * <p>
  * 菜单功能 应用门面服务类
@@ -47,5 +49,13 @@ public interface IFuncRepresentationApplicationService extends IBaseApplicationS
 	 * @return
 	 */
 	PageResponse<FuncVO> pageQuery(FuncPageQueryCommand funcPageQueryCommand);
+
+
+	/**
+	 * 根据id获取，主要用于登录用户获取自己的功能使用
+	 * @param ids
+	 * @return
+	 */
+	MultiResponse<FuncVO> queryListByIds(List<Long> ids);
 
 }
