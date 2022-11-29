@@ -82,7 +82,7 @@ public class Response extends DTO {
 		return response;
 	}
 	protected static String handleUserTip(IErrorCode errorCode, String userTip) {
-		return Optional.ofNullable(userTip).map(ut -> StrUtil.format(userTip,errorCode.getErrMessage())).orElse(errorCode.getErrMessage());
+		return Optional.ofNullable(StrUtil.emptyToNull(userTip)).map(ut -> StrUtil.format(userTip,errorCode.getErrMessage())).orElse(errorCode.getErrMessage());
 
 	}
 }
