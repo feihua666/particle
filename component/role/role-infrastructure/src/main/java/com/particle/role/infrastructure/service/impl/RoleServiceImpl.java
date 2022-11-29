@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,22 +50,19 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 
 	@Override
 	public List<RoleDO> getByUserId(Long userId, Boolean isDisabled) {
-		List<RoleUserRelDO> byUserId = iRoleUserRelService.listByColumn(userId,RoleUserRelDO::getUserId);
-		if (CollectionUtil.isEmpty(byUserId)) {
-			return new ArrayList<>();
+		List<Long> roleIds = (List<Long>)iRoleUserRelService.listSingleColumnFieldByColumn(RoleUserRelDO::getRoleId,userId,RoleUserRelDO::getUserId);
+		if (CollectionUtil.isEmpty(roleIds)) {
+			return Collections.emptyList();
 		}
-		return list(Wrappers.<RoleDO>lambdaQuery().in(RoleDO::getId,byUserId.stream().map(RoleUserRelDO::getRoleId).collect(Collectors.toList()))
-				.eq(isDisabled != null,RoleDO::getIsDisabled,isDisabled));
-
+		return getByRoleIds(roleIds,isDisabled);
 	}
 
 	@Override
 	public List<RoleDO> getByFuncId(Long funcId,Boolean isDisabled) {
-		List<RoleFuncRelDO> byFuncId = iRoleFuncRelService.listByColumn(funcId,RoleFuncRelDO::getFuncId);
-		if (CollectionUtil.isEmpty(byFuncId)) {
-			return new ArrayList<>();
+		List<Long> roleIds = (List<Long>)iRoleFuncRelService.listSingleColumnFieldByColumn(RoleFuncRelDO::getRoleId,funcId,RoleFuncRelDO::getFuncId);
+		if (CollectionUtil.isEmpty(roleIds)) {
+			return Collections.emptyList();
 		}
-		return list(Wrappers.<RoleDO>lambdaQuery().in(RoleDO::getId,byFuncId.stream().map(RoleFuncRelDO::getRoleId).collect(Collectors.toList()))
-				.eq(isDisabled != null,RoleDO::getIsDisabled,isDisabled));
+		return getByRoleIds(roleIds,isDisabled);
 	}
 }

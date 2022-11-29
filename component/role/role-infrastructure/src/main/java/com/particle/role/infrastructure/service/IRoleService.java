@@ -6,6 +6,7 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -39,4 +40,19 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @return
 	 */
 	List<RoleDO> getByFuncId(Long funcId,Boolean isDisabled);
+
+	/**
+	 * 根据 roleIds 查询
+	 * @param roleIds
+	 * @param isDisabled
+	 * @return
+	 */
+	default List<RoleDO> getByRoleIds(List<Long> roleIds,Boolean isDisabled){
+		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().in(RoleDO::getId, roleIds));
+
+		if (isDisabled == null) {
+			return list;
+		}
+		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
+	}
 }

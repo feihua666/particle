@@ -39,5 +39,12 @@
             <artifactId>global-swagger-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 使用异步线程池，加快登录速度 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-concurrency-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

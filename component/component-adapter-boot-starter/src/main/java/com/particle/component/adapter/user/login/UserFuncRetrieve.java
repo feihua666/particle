@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.global.light.share.concurrency.ConcurrencyConstants;
 import com.particle.global.security.security.login.GrantedPermission;
 import com.particle.global.security.security.login.GrantedRole;
 import com.particle.global.security.security.login.UserGrantedAuthority;
@@ -12,8 +13,10 @@ import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,7 +35,9 @@ public class UserFuncRetrieve {
 
 	@Autowired
 	private IRoleFuncRelService iRoleFuncRelService;
-
+	@Qualifier(ConcurrencyConstants.default_global_asyn_slot_task_executor)
+	@Autowired
+	private ExecutorService asynSlotTaskExecutor;
 	/**
 	 * 根据角色获取
 	 * @param roleDOS
@@ -41,6 +46,7 @@ public class UserFuncRetrieve {
 	List<UserGrantedAuthority> retrieveRoleUserGrantedAuthorityByRoles(List<RoleDO> roleDOS) {
 		List<UserGrantedAuthority> result = new ArrayList<>();
 		Map<Long, List<GrantedPermission>> roleGrantedPermissions = getRoleFuncs(roleDOS);
+
 		for (RoleDO roleDO : roleDOS) {
 			GrantedRole grantedRole = GrantedRole.builder().id(roleDO.getId())
 					.code(roleDO.getCode())
@@ -87,7 +93,7 @@ public class UserFuncRetrieve {
 			return Collections.EMPTY_MAP;
 		}
 
-		List<FuncDO> funcDOS = iFuncService.list(Wrappers.<FuncDO>lambdaQuery().in(FuncDO::getId, funcIds).eq(FuncDO::getIsDisabled, false));
+		List<FuncDO> funcDOS = iFuncService.listByFuncIds(funcIds,false);
 
 		if (CollectionUtil.isEmpty(funcDOS)) {
 			return Collections.EMPTY_MAP;

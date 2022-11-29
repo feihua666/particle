@@ -226,6 +226,33 @@ public interface IBaseService<DO> extends IService<DO> {
         Assert.notNull(columnId,"columnId 不能为空");
         return getOne( Wrappers.<DO>query().lambda().eq(column,columnId));
     }
+
+    /**
+     * 查询单个字段，并返回property
+     * @param selectColumn
+     * @param columnId
+     * @param column
+     * @return
+     */
+    default List<?> listSingleColumnFieldByColumn(SFunction<DO, ?> selectColumn, Long columnId, SFunction<DO, ?> column){
+        List<DO> list = listSingleColumnByColumn(selectColumn,columnId,column);
+        return list.stream().map(selectColumn).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询单个字段
+     * @param selectColumn
+     * @param columnId
+     * @param column
+     * @return 只有查询的字段有值
+     */
+    default List<DO> listSingleColumnByColumn(SFunction<DO, ?> selectColumn, Long columnId, SFunction<DO, ?> column){
+        Assert.notNull(selectColumn,"selectColumn 不能为空");
+        Assert.notNull(column,"column 不能为空");
+        Assert.notNull(columnId,"columnId 不能为空");
+        List<DO> list = list(Wrappers.<DO>query().lambda().select(selectColumn).eq(column, columnId));
+        return list;
+    }
     /**
      * baomidou不支持 or连接，这里手动转一下
      * issue https://github.com/baomidou/mybatis-plus/issues/3418

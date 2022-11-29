@@ -39,15 +39,13 @@ public class UserGrantedAuthority implements GrantedAuthority {
 		return grantedPermission.getPermission();
 	}
 
-
 	/**
 	 * 单纯user权限
 	 * @return
 	 */
-	public static UserGrantedAuthority userOnlyGrantedAuthority(){
-		return UserGrantedAuthority.builder()
-				.grantedPermission(
-						GrantedPermission.create(GrantedPermission.Source.sys).permission(GrantedPermission.userGrantedPermissionCode).build()
-				).build();
-	}
+	public static UserGrantedAuthority userGrantedAuthority = UserGrantedAuthority.builder()
+			.grantedPermission(
+					GrantedPermission.create(GrantedPermission.Source.sys).permission(GrantedPermission.userGrantedPermissionCode).build()
+			).build();
+
 }

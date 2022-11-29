@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.json.JsonTool;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -18,6 +19,7 @@ import java.io.PrintWriter;
  * @Author yangwei
  * @since 2020/12/11 13:32
  */
+@Slf4j
 public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenticationHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
@@ -30,6 +32,7 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
 
         out.flush();
         IoUtil.close(out);
+        log.error("登录出错",e);
         super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,response);
     }
 }

@@ -1,7 +1,11 @@
 package com.particle.func.infrastructure.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -13,4 +17,19 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  */
 public interface IFuncService extends IBaseService<FuncDO> {
 
+
+	/**
+	 * 根据 funcIds 查询
+	 * @param funcIds
+	 * @param isDisabled
+	 * @return
+	 */
+	default List<FuncDO> listByFuncIds(List<Long> funcIds, Boolean isDisabled){
+		List<FuncDO> list = list(Wrappers.<FuncDO>lambdaQuery().in(FuncDO::getId, funcIds));
+
+		if (isDisabled == null) {
+			return list;
+		}
+		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
+	}
 }
