@@ -6,7 +6,7 @@
  *          3. 自带加载数据 dataLoading 功能效果
  */
 import {reactive ,computed,onMounted,watchEffect} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
 import PtTableColumn from './TableColumn.vue'
 import PtPagination from './Pagination.vue'
 // 声明属性

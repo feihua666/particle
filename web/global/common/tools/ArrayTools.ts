@@ -2,7 +2,7 @@
  * 是否为数组
  * @param array 数组
  */
-export function isArray(array) {
+export function isArray(array : any):boolean {
     if (typeof Array.isArray === "function") {
         return Array.isArray(array);
     }else{
@@ -16,11 +16,11 @@ export function isArray(array) {
  * @param array
  * @returns {boolean|*}
  */
-export function exist(item,array) {
+export function exist(item: any,array: Array<any>):boolean {
     if (!array || !item) {
         return false
     }
-    return array.includes(item)
+    return array.indexOf(item) >= 0
 }
 /**
  * 数据转为树结构
@@ -28,7 +28,7 @@ export function exist(item,array) {
  * @param parentId 从哪个parentId开始，不传入包括所有的
  * @return {*}
  */
-export function listToTree(list, parentId) {
+export function listToTree(list:Array<any>, parentId:number|string):Array<any> {
     let cacheObj = {}
     list.forEach(item => {
         cacheObj[item.id] = item
@@ -50,7 +50,7 @@ export function listToTree(list, parentId) {
  * @param tree
  * @return {Array}
  */
-export function treeToList(tree) {
+export function treeToList(tree:Array<any>):Array<any> {
     let r = []
     let flat = function (tree) {
         tree.forEach(item => {

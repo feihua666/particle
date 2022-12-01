@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { ElMessage ,ElNotification} from 'element-plus'
-import {isFunction} from '../../../common/tools/FunctionTools.js'
+import {isFunction} from '../../../common/tools/FunctionTools'
 // 用户未登录时使用
 import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
+import {anyObj} from "../../../common/tools/ObjectTools";
 // store 变量缓存
 let loginUserStoreCache = null
 /**
@@ -18,7 +19,7 @@ const pendingMap = new Map()
 /*
  * 根据运行环境获取基础请求URL
  */
-export const getUrl = () => {
+export const getUrl = (): string => {
     const value = import.meta.env.VITE_AXIOS_BASE_URL
     return value == 'getCurrentDomain' ? window.location.protocol + '//' + window.location.host : value
 }
@@ -26,14 +27,26 @@ export const getUrl = () => {
 /*
  * 根据运行环境获取基础请求URL的端口
  */
-export const getUrlPort = () => {
+export const getUrlPort = (): string => {
     const url = getUrl()
     return new URL(url).port
+}
+export interface Config{
+    userDefaultInstance?: boolean,// 使用默认axios实例，否则创建新的实例
+    baseURI?: string, // 基础url
+    timeout?: number,// timeout 单位毫秒 默认 10s
+    cancelDuplicateRequest?: boolean, // 是否开启取消重复请求, 默认为 true
+    loading?: boolean, // 是否开启loading层效果, 默认为false
+    reductDataFormat?: boolean, // 是否开启简洁的数据结构响应, 默认为true
+    showErrorMessage?: boolean, // 是否开启接口错误信息展示,默认为true
+    showErrorMessageView?: ((message: string)=> void)|'alert'|'notification', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
+    alertCallback?: (message: string) => void,
+    notificationCallback?: (message: string) => void
 }
 /**
  * 默认的创建 axios 实例的配置
  */
-const defaultConfig = {
+const defaultConfig: Config = {
     userDefaultInstance: true,// 使用默认axios实例，否则创建新的实例
     baseURI: getUrl(), // 基础url
     timeout: 10000,// timeout 单位毫秒 默认 10s
@@ -63,7 +76,7 @@ const defaultConfig = {
  * 处理异常
  * @param {*} error
  */
-function httpErrorStatusHandle(error,config) {
+function httpErrorStatusHandle(error,config: Config) {
     // 处理被取消的请求
     if (axios.isCancel(error)) return console.error(('axios.Automatic cancellation due to duplicate request:') + error.message)
     let message = ''
@@ -129,8 +142,8 @@ function getPendingKey(config) {
 /**
  * 根据请求方法组装请求数据/参数
  */
-export function requestPayload(method, data) {
-    if (method == 'GET') {
+export function requestPayload(method: string, data: anyObj): anyObj {
+    if (method == 'GET' || method == 'get') {
         return {
             params: data,
         }
@@ -142,7 +155,7 @@ export function requestPayload(method, data) {
 }
 
 // 请求拦截
-export const interceptRequest = (axiosInstance,configOptions) => {
+export const interceptRequest = (axiosInstance,configOptions: Config) => {
     axiosInstance.interceptors.request.use(
         (config) => {
             removePending(config)
@@ -161,7 +174,7 @@ export const interceptRequest = (axiosInstance,configOptions) => {
 }
 
 // 响应拦截
-export const interceptResponse = (axiosInstance, configOptions) => {
+export const interceptResponse = (axiosInstance, configOptions: Config) => {
     axiosInstance.interceptors.response.use(
         (response) => {
             removePending(response.config)
@@ -190,7 +203,7 @@ export const interceptResponse = (axiosInstance, configOptions) => {
  * @param config
  * @returns {AxiosInstance}
  */
-export const createAxios = (config={}) => {
+export const createAxios = (config: Config={}) => {
 
     // 默认配置覆盖
     let configOptions = Object.assign(defaultConfig,config)

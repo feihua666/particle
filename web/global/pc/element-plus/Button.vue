@@ -7,11 +7,11 @@
  */
 import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject} from 'vue'
 import { ElLoading } from 'element-plus'
-import {aiButtonStyle} from './ElStyleTools.js'
-import {permissionProps,hasPermissionConfig} from './permission.js'
-import {disabledProps,disabledConfig} from './disabled.js'
-import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method.js'
-import {isFunction} from '../../common/tools/FunctionTools.js'
+import {aiButtonStyle} from './ElStyleTools'
+import {permissionProps,hasPermissionConfig} from './permission'
+import {disabledProps,disabledConfig} from './disabled'
+import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method'
+import {isFunction} from '../../common/tools/FunctionTools'
 
 const { proxy,appContext } = getCurrentInstance()
 // 路由

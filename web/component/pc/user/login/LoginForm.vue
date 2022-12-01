@@ -1,22 +1,22 @@
-<script setup name="LoginForm">
+<script setup name="LoginForm"  lang="ts">
 import {getCurrentInstance,reactive ,ref} from 'vue'
-import {login} from '../api/userApi.js'
-import {useLoginUserStore} from '../../../../global/common/security/loginUserStore.js'
-import {isString} from '../../../../global/common/tools/StringTools.js'
-import {isFunction} from '../../../../global/common/tools/FunctionTools.js'
+import {login} from '../api/userApi'
+import {useLoginUserStore} from '../../../../global/common/security/loginUserStore'
+import {isString} from '../../../../global/common/tools/StringTools'
+import {isFunction} from '../../../../global/common/tools/FunctionTools'
 
 const { appContext } = getCurrentInstance()
 // 路由
 const router = appContext.config.globalProperties.$router
 const loginUserStore = useLoginUserStore()
+
+interface Props {
+  // 登录成功后，执行，如果为 String，就会被当作路由跳转 replace
+  loginSuccess?: Function | string
+}
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
-const props = defineProps({
-  // 登录成功后，执行，如果为 String，就会被当作路由跳转 replace
-  loginSuccess:{
-    type: [Function,String]
-  }
-})
+const props = defineProps<Props>()
 
 // 属性
 const reactiveData = reactive({
@@ -63,7 +63,7 @@ const submitAttrs = ref({
   buttonText: '登录',
 })
 // 登录成功后获取登录用户
-const loginResult = (result) => {
+const loginResult = (result):void => {
   result.then(res => {
     loginUserStore.changeLoginUser(res.data)
     if(props.loginSuccess){

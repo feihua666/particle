@@ -4,7 +4,7 @@
  * @param ignoreEmpty 是否忽略空字符串
  * @return {boolean}
  */
-export function isValExist (val,ignoreEmpty) {
+export function isValExist (val: any, ignoreEmpty: boolean) {
     if (val === null || val === undefined) {
         return false
     }

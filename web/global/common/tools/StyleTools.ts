@@ -1,7 +1,10 @@
 import {isArray} from './ArrayTools'
-
+export interface StylePattern{
+    pattern?: string|string[],
+    text: string
+}
 // 定义索引
-const d = [
+const d: StylePattern[] = [
     {
         pattern:['post'],
         text: '添加'
@@ -25,7 +28,7 @@ const d = [
  * @param pattern 如：post,get,put,delete
  * @return {*}
  */
-export function aiStyle(pattern) {
+export function aiStyle(pattern: string): StylePattern {
 
     let r = {text: '操作'}
     if(pattern){
@@ -40,7 +43,7 @@ export function aiStyle(pattern) {
                     }
                 }
             }else {
-                if(item.pattern.indexOf(pattern) >= 0 || pattern.indexOf(item.pattern) >= 0){
+                if(item.pattern.indexOf(pattern) >= 0 || pattern.indexOf(<string>item.pattern) >= 0){
                     r = item
                     break
                 }

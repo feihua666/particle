@@ -1,4 +1,4 @@
-import {isArray} from '../../common/tools/ArrayTools.js'
+import {isArray} from '../../common/tools/ArrayTools'
 
 // 定义索引
 const d = [

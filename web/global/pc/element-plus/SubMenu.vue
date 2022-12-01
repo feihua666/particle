@@ -1,7 +1,7 @@
 <script setup name="SubMenu">
 import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
-import {menuProps,menuConfig} from './menu.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {menuProps,menuConfig} from './menu'
 
 import PtSubMenu from './SubMenu.vue'
 import PtMenuItem from './MenuItem.vue'

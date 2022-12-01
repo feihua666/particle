@@ -2,9 +2,18 @@
  * 数据加载相关
  */
 
-import {isPromise} from "../../common/tools/PromiseTools.js"
-import {isObject} from "../../common/tools/ObjectTools.js"
+import {isPromise} from "../../common/tools/PromiseTools"
+import {isObject} from "../../common/tools/ObjectTools"
 
+export interface DataMethodPage{
+    isPage: boolean,
+    pageNo?: number
+    pageSize?: number,
+    totalCount?: number,
+    empty?: boolean,
+    totalPages?: number,
+    data: any|[]|{}
+}
 /**
  * 数据加载相关，封装组件时用
  */
@@ -36,9 +45,10 @@ export const dataMethodProps = {
     // 分页处理，对分页进行判断
     dataMethodResultPageHandle: {
         type: Function,
-        default: (data) => {
-            let r = {
-                isPage: false
+        default: (data): DataMethodPage => {
+            let r: DataMethodPage = {
+                isPage: false,
+                data: null
             }
             if (isObject(data) && data.pageNo !== undefined && data.pageSize !== undefined && data.totalCount !== undefined) {
                 r.isPage = true

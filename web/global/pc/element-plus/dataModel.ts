@@ -1,7 +1,7 @@
 /**
  * 数据相关，主要是 v-model 封装相关
  */
-import {reactive ,computed,onMounted,inject,nextTick} from 'vue'
+import {nextTick} from 'vue'
 
 /**
  * 数据相关，封装组件时用

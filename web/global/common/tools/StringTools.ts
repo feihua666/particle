@@ -1,11 +1,12 @@
 import {isArray} from './ArrayTools'
+import {anyObj} from "./ObjectTools";
 
 /**
  * 判断是否为字符串
  * @param obj
  * @returns {boolean}
  */
-export function isString(obj) {
+export function isString(obj: any):boolean {
     return (typeof obj == 'string')
 }
 
@@ -14,7 +15,7 @@ export function isString(obj) {
  * @param str
  * @return {string}
  */
-export function trim(str) {
+export function trim(str: string): string {
     let reg = /(^\s+)|(\s+$)/g; // 匹配首尾空格
     if (typeof(str) === 'string') {
         return str.replace(reg,'')
@@ -25,7 +26,7 @@ export function trim(str) {
  * @param str
  * @returns {string}
  */
-export function upperFirst(str) {
+export function upperFirst(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
@@ -35,7 +36,7 @@ export function upperFirst(str) {
  * @param suffix Sring | 数组
  * @returns {boolean}
  */
-export function endWithAny(str,suffix,ignoreCase) {
+export function endWithAny(str: string,suffix: string|string[],ignoreCase: boolean) {
 
     let r = false
     let array = []
@@ -55,12 +56,12 @@ export function endWithAny(str,suffix,ignoreCase) {
 }
 
 /**
- * 字符串替换，方法名以b结尾表示带括号
+ * 字符串替换，方法名以 b 结尾表示带括号(变量以大括号包裹)
  * @param tempStr fsdfsdsf{id}sdfsdsd
  * @param obj {id: 222}
  * @return 替换好的字符串
  */
-export function replaceb(tempStr,obj) {
+export function replaceb(tempStr: string,obj: anyObj): string {
     let r = tempStr
     for(let key in obj){
         r = r.replace('{'+ key +'}',obj[key])
@@ -68,12 +69,12 @@ export function replaceb(tempStr,obj) {
     return r
 }
 /**
- * 字符串替换，方法名以c结尾表示带冒号
+ * 字符串替换，方法名以 c 结尾表示带冒号
  * @param tempStr fsdfsdsf:idsdfsdsd
  * @param obj {id: 222}
  * @return 替换好的字符串
  */
-export function replacec(tempStr,obj) {
+export function replacec(tempStr: string,obj: anyObj): string {
     let r = tempStr
     for(let key in obj){
         r = r.replace(':'+ key,obj[key])

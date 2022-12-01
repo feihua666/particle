@@ -8,9 +8,9 @@
 import {reactive ,inject,ref,watch} from 'vue'
 import PtButton from './Button.vue'
 import { ElMessage } from 'element-plus'
-import {permissionProps,hasPermissionConfig} from './permission.js'
-import {disabledProps,disabledConfig} from './disabled.js'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel.js'
+import {permissionProps,hasPermissionConfig} from './permission'
+import {disabledProps,disabledConfig} from './disabled'
+import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
 const uploadRef = ref(null)
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)

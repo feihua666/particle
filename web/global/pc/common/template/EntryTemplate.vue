@@ -4,8 +4,8 @@
  * 主要应用场景是完成用户进入首页或登录页面的一个过渡页面，就是说用户输入浏览器地址，会先进到这个页面，判断用户是否登录，如果登录进入首页，如果未登录，进入登录页面
  */
 import {getCurrentInstance,onMounted} from 'vue'
-import {promiseBoolValue} from "../../../common/tools/PromiseTools.js"
-import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
+import {promiseBoolValue} from "../../../common/tools/PromiseTools"
+import {useLoginUserStore} from '../../../common/security/loginUserStore'
 
 const loginUserStore = useLoginUserStore()
 const { appContext } = getCurrentInstance()

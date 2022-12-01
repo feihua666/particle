@@ -1,10 +1,13 @@
+export interface anyObj {
+    [key: string]: any
+}
 /**
  * 判断是否为对象
  * promis array map等都是对象
  * @param obj
  * @returns {boolean}
  */
-export function isObject(obj) {
+export function isObject(obj: any):boolean {
     return obj !== null && typeof obj === 'object'
 }
 /**
@@ -12,7 +15,7 @@ export function isObject(obj) {
  * @param obj
  * @returns {boolean}
  */
-export function isPlainObject(obj) {
+export function isPlainObject(obj: any):boolean  {
     return Object.prototype.toString.call(obj) === '[object Object]'
 }
 /**
@@ -20,14 +23,14 @@ export function isPlainObject(obj) {
  * @param obj
  * @return {boolean}
  */
-export function isEmpty(obj) {
+export function isEmpty(obj: anyObj):boolean  {
     return Object.keys(obj).length <= 0
 }
 /**
  * 对象克隆
  * @param obj
  */
-export function clone(obj) {
+export function clone(obj: anyObj):anyObj {
     return JSON.parse(JSON.stringify(obj))
 }
 
@@ -36,7 +39,7 @@ export function clone(obj) {
  * 主要是为了查询时空串也查询问题
  * @param obj
  */
-export function emptyToNull(obj){
+export function emptyToNull(obj: anyObj): anyObj{
     if(obj){
         for (let key in obj) {
             if(obj[key] === ''){
@@ -50,7 +53,7 @@ export function emptyToNull(obj){
  * 对象合并
  * @param obj
  */
-export function extend(...sources) {
+export function extend(...sources: anyObj[]): anyObj {
     return Object.assign(...sources)
 }
 
@@ -58,7 +61,7 @@ export function extend(...sources) {
  * 深度合并
  * @param sources
  */
-export function extendDeep(...sources) {
+export function extendDeep(...sources: anyObj[]): anyObj {
 
     let extendD = function(obj1,obj2){
 
@@ -106,7 +109,7 @@ export function extendDeep(...sources) {
  * @param prop 字符串 属性名称 如：a.b.c
  * @returns {*}
  */
-export function getValue(obj, prop) {
+export function getValue(obj: anyObj, prop: string):any {
     if (obj && prop) {
         let value = obj
         let key = prop.split('.')
@@ -128,7 +131,7 @@ export function getValue(obj, prop) {
  * @param param 如果值为方法，该参数为方法的参数
  * @returns {null|*}
  */
-export function getVal(obj, prop,param) {
+export function getVal(obj: anyObj, prop: string,param: any):any {
     if (obj && prop) {
         let value = obj[prop]
         if(typeof value == 'function'){
@@ -143,7 +146,7 @@ export function getVal(obj, prop,param) {
  * @param obj 对象
  * @param prop 属性名
  */
-export function hasProp(obj,prop) {
+export function hasProp(obj: anyObj,prop: string):boolean {
     if (obj && prop) {
         let value = obj
         let key = prop.split('.')

@@ -15,5 +15,17 @@ public class TestTemp {
 	public static void main(String[] args) {
 		System.out.println(new BCryptPasswordEncoder().encode("123456"));
 		System.out.println(DigestUtils.md5Hex("123456"));
+
+		String serverName = "escrow-data.idfactory.cn";
+		boolean isIp = true;
+		for (String s : serverName.split("\\.")) {
+			try {
+				Integer.parseInt(s);
+			} catch (NumberFormatException e) {
+				isIp = false;
+				break;
+			}
+		}
+		System.out.println(isIp);
 	}
 }

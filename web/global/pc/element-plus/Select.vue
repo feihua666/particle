@@ -6,10 +6,10 @@
  *          3. 自带加载数据 dataLoading 功能效果
  */
 import {reactive ,computed,onMounted,inject} from 'vue'
-import {permissionProps,hasPermissionConfig} from './permission.js'
-import {disabledProps,disabledConfig} from './disabled.js'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel.js'
+import {permissionProps,hasPermissionConfig} from './permission'
+import {disabledProps,disabledConfig} from './disabled'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
 import {isPromise} from "../../common/tools/PromiseTools";
 import {isArray} from "../../common/tools/ArrayTools";
 

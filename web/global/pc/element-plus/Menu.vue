@@ -7,8 +7,8 @@
  *          4. 自动加载数据，可结合后台接口更方便使用
  */
 import {reactive ,computed,watch,onMounted} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
-import {menuProps,menuConfig} from './menu.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {menuProps,menuConfig} from './menu'
 import PtSubMenu from './SubMenu.vue'
 import PtMenuItem from './MenuItem.vue'
 import PtMenuItemGroup from './MenuItemGroup.vue'

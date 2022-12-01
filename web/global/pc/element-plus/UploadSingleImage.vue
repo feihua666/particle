@@ -6,7 +6,7 @@
  *          3. 默认自带上传 dataLoading 功能效果
  */
 import {reactive,computed} from 'vue'
-import {emitDataModelEvent,} from './dataModel.js'
+import {emitDataModelEvent,} from './dataModel'
 import PtUpload from './Upload.vue'
 
 // 声明属性

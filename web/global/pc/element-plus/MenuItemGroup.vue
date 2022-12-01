@@ -1,6 +1,6 @@
 <script setup name="MenuItemGroup">
 import {reactive ,computed,watch,onMounted} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
 import PtMenuItem from './MenuItem.vue'
 
 

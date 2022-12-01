@@ -5,9 +5,9 @@
  */
 import { reactive ,inject} from 'vue'
 
-import {permissionProps,hasPermissionConfig} from './permission.js'
-import {disabledProps,disabledConfig} from './disabled.js'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel.js'
+import {permissionProps,hasPermissionConfig} from './permission'
+import {disabledProps,disabledConfig} from './disabled'
+import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
 
 
 // 声明属性

@@ -6,7 +6,7 @@
  *          3. 增加名称为 item的插槽，方便直接写内容
  */
 import {reactive ,computed,onMounted,inject,ref} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
 const carouselRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

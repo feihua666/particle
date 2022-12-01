@@ -1,4 +1,6 @@
-export function getUrlParam (name, url) {
+import {anyObj} from "./ObjectTools";
+
+export function getUrlParam (name: string, url: string): string {
     //构造一个含有目标参数的正则表达式对象
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)")
     let r;
@@ -22,7 +24,7 @@ export function getUrlParam (name, url) {
  * @param params
  * @return {string}
  */
-export function appendParam (url,params={}) {
+export function appendParam (url: string,params: anyObj={}): string {
     let r = url
     let p = []
     for (let key in params) {
@@ -37,7 +39,7 @@ export function appendParam (url,params={}) {
  * 获取当前地址栏的域名
  * @param withProtocl true = 包括协议全路径
  */
-export function getCurrentDomain(withProtocl = true) {
+export function getCurrentDomain(withProtocl: boolean = true) {
     let r = window.location.host
     let split = '//'
     if(withProtocl){

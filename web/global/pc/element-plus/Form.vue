@@ -7,12 +7,12 @@
  *          4. 自动布局功能
  */
 import {reactive ,inject,ref,computed,onMounted,watch} from 'vue'
-import {isObject,clone} from "../../common/tools/ObjectTools.js"
-import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method.js'
-import {layoutProps,layoutIndex,layoutCompute} from './Layout.js'
+import {isObject,clone} from "../../common/tools/ObjectTools"
+import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method'
+import {layoutProps,layoutIndex,layoutCompute} from './Layout'
 // 主要用于修改场景，加载要修改的数据
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
-import {dataMethodForFormProps} from './dataMethodForForm.js'
+import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {dataMethodForFormProps} from './dataMethodForForm'
 import PtFormItem from './FormItem.vue'
 import PtButton from './Button.vue'
 import {isFunction} from "../../common/tools/FunctionTools";

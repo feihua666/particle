@@ -6,7 +6,7 @@
  */
 import {reactive ,inject,ref,computed} from 'vue'
 import PtFormItemDetail from './FormItemDetail.vue'
-import {getVal} from "../../common/tools/ObjectTools.js"
+import {getVal} from "../../common/tools/ObjectTools"
 
 
 // 声明属性

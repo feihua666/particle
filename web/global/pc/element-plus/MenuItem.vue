@@ -4,8 +4,8 @@
  */
 import {useSlots,reactive,inject} from 'vue'
 
-import {permissionProps,hasPermissionConfig} from './permission.js'
-import {disabledProps,disabledConfig} from './disabled.js'
+import {permissionProps,hasPermissionConfig} from './permission'
+import {disabledProps,disabledConfig} from './disabled'
 const slots = useSlots()
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

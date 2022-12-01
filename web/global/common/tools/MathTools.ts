@@ -4,7 +4,7 @@
  * @param y
  * @return {*}
  */
-export function min(x,y) {
+export function min(x: number,y: number):number {
     return Math.min(x,y)
 }
 /**
@@ -13,7 +13,7 @@ export function min(x,y) {
  * @param y
  * @return {*}
  */
-export function max(x,y) {
+export function max(x: number,y: number): number {
     return Math.max(x,y)
 }
 
@@ -22,6 +22,6 @@ export function max(x,y) {
  * @param x
  * @return {number}
  */
-export function floor(x) {
+export function floor(x: number): number {
     return Math.floor(x)
 }

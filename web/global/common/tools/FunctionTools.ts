@@ -2,7 +2,7 @@
  * 是否函数
  * @param fun 函数定义
  */
-export function isFunction(fun) {
+export function isFunction(fun: any):boolean {
     return typeof fun === "function"
 }
 
@@ -13,7 +13,7 @@ export function isFunction(fun) {
  * @param immediate
  * @return {function(): *}
  */
-export function debounce(func, wait, immediate) {
+export function debounce(func: ()=>any, wait:number, immediate:boolean):()=>any {
     let args,
         result,
         thisArg,

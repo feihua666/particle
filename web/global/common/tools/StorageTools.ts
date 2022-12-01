@@ -1,9 +1,11 @@
+import type {anyObj} from "./ObjectTools"
+
 /**
  * 设置本地存储
  * @param key key
  * @param value js对象，会被转为json字符串
  */
-export function set(key, value) {
+export function set(key: string, value: anyObj): void {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
@@ -12,7 +14,7 @@ export function set(key, value) {
  * @param key
  * @param value
  */
-export function setRaw(key, value) {
+export function setRaw(key: string, value: string) {
     localStorage.setItem(key, (value))
 }
 
@@ -21,7 +23,7 @@ export function setRaw(key, value) {
  * @param key
  * @returns json对象
  */
-export function get(key) {
+export function get(key: string): anyObj {
     return JSON.parse(localStorage.getItem(key))
 }
 
@@ -30,7 +32,7 @@ export function get(key) {
  * @param key
  * @returns {string}
  */
-export function getRaw(key) {
+export function getRaw(key: string):string {
     return (localStorage.getItem(key))
 }
 
@@ -38,14 +40,14 @@ export function getRaw(key) {
  * 清除一个key数据
  * @param key
  */
-export function remove(key) {
+export function remove(key: string): void {
     localStorage.removeItem(key)
 }
 
 /**
  * 清除所有本地存储数据
  */
-export function clear() {
+export function clear(): void {
     localStorage.clear()
 }
 
@@ -57,7 +59,7 @@ export function clear() {
  * @param key key
  * @param value js对象，会被转为json字符串
  */
-export function sessionSet(key, value) {
+export function sessionSet(key: string, value: string):void {
     sessionStorage.setItem(key, JSON.stringify(value))
 }
 
@@ -66,7 +68,7 @@ export function sessionSet(key, value) {
  * @param key
  * @param value
  */
-export function sessionSetRaw(key, value) {
+export function sessionSetRaw(key: string, value: string):void {
     sessionStorage.setItem(key, (value))
 }
 
@@ -75,7 +77,7 @@ export function sessionSetRaw(key, value) {
  * @param key
  * @returns {any}
  */
-export function sessionGet(key) {
+export function sessionGet(key: string): anyObj {
     return JSON.parse(sessionStorage.getItem(key))
 }
 
@@ -84,7 +86,7 @@ export function sessionGet(key) {
  * @param key
  * @returns {string}
  */
-export function sessionGetRaw(key) {
+export function sessionGetRaw(key: string): string {
     return (sessionStorage.getItem(key))
 }
 
@@ -92,14 +94,14 @@ export function sessionGetRaw(key) {
  * session 移除数据
  * @param key
  */
-export function sessionRemove(key) {
+export function sessionRemove(key: string): void {
     sessionStorage.removeItem(key)
 }
 
 /**
  * session 清空数据
  */
-export function sessionClear() {
+export function sessionClear():void {
     sessionStorage.clear()
 }
 
@@ -107,7 +109,7 @@ export function sessionClear() {
  * session 根据 key 清空数据
  * @param array 数组，如：['abc','xyz']
  */
-export function sessionClearKeys(array) {
+export function sessionClearKeys(array: string[]) {
     if (array) {
         array.forEach(itemKey => {
             sessionStorage.removeItem(itemKey)

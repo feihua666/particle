@@ -3,7 +3,7 @@
  */
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import {isEmpty} from '../tools/ObjectTools.js'
+import {isEmpty} from '../tools/ObjectTools'
 
 export const useLoginUserStore = defineStore('loginUser', () => {
     // 强制登录
@@ -15,14 +15,14 @@ export const useLoginUserStore = defineStore('loginUser', () => {
     const loginUser = ref({})
 
     // 改变是否登录的方法
-    function changeHasLogin(value) {
+    function changeHasLogin(value):void {
         hasLogin.value = value || false
         if(hasLogin.value == false){
             loginUser.value = {}
         }
     }
     // 改变是否登录的方法
-    function changeLoginUser(user) {
+    function changeLoginUser(user):void {
         loginUser.value = user || {}
         if(isEmpty(loginUser.value)){
             hasLogin.value = false

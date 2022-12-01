@@ -3,7 +3,7 @@
  * @param url 可访问的url地址
  * @return {Promise}
  */
-export function imageToDataUrl (url) {
+export function imageToDataUrl (url:string):Promise<string> {
     return new Promise((resolve, reject) => {
         let canvas = document.createElement('canvas')
         let ctx = canvas.getContext('2d')
