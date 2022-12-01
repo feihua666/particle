@@ -4,12 +4,16 @@ import Frame from './Frame.vue'
 // import PtTinymceEditor from './tinymceEditor/PtTinymceEditor.vue'
 import SlideVerify from './slideVerify/SlideVerify.vue'
 import Logo from './Logo.vue'
+import LoginTemplate from './template/login/LoginTemplate.vue'
+import EntryTemplate from './template/EntryTemplate.vue'
 let prefix = "Pt"
 let map = {
     BaiduMap,
     Frame,
     SlideVerify,
     Logo,
+    LoginTemplate,
+    EntryTemplate,
 }
 export default {
     install: function (app, options) {

@@ -7,14 +7,23 @@
  *          4. 自动布局功能
  */
 import {reactive ,inject,ref,computed,onMounted,watch} from 'vue'
-import {isObject} from "../../common/tools/ObjectTools.js"
-
+import {isObject,clone} from "../../common/tools/ObjectTools.js"
+import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method.js'
 import {layoutProps,layoutIndex,layoutCompute} from './Layout.js'
 // 主要用于修改场景，加载要修改的数据
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod.js'
 import {dataMethodForFormProps} from './dataMethodForForm.js'
 import PtFormItem from './FormItem.vue'
+import PtButton from './Button.vue'
+import {isFunction} from "../../common/tools/FunctionTools";
+// form 引用
+const formRef = ref(null)
 
+const defaultButtonsShow = {
+  submit: true,
+  reset: true,
+  back: true,
+}
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -46,10 +55,39 @@ const props = defineProps({
       return []
     }
   },
+  // 默认按钮是否显示
+  // String时按index计算
+  defaultButtonsShow: {
+    type: [Object,String],
+    default: () => {
+      return {
+        submit: true,
+        reset: true,
+        back: true,
+      }
+    }
+  },
+  // 提交按钮的绑定属性
+  submitAttrs: {
+    type: Object,
+    default: () => ({})
+  },
+  // 可以传一个空的 form，其属性可以会通过 comps[i].field.name 生成，方便父组件拿到引用
+  form: {
+    type: Object,
+    default: () => ({})
+  },
+  // formData和form有关联关系，原则上的form属性key一致，但值为绑定的数据对象而不是简单数据类型的值，这可以方便根据表单填写的（如选择了一个字典）值找对对应的数据对象
+  formData: {
+    type: Object,
+    default: () => ({})
+  },
+  // 事件相关
+  ...methodProps,
 })
 /*********** form 初始化属性 开始***************/
-const form = {}
-const formData = {}
+const form = props.form
+const formData = props.formData
 // 初始化 comps
 const initForm = (comps) =>{
   if(!comps) {
@@ -75,24 +113,37 @@ initForm(props.comps)
 /*********** form 初始化属性 结束***************/
 // 属性
 const reactiveData = reactive({
+  // 数据与加载
+  ...reactiveMethodData,
   ...reactiveDataMethodData,
   // 表单初始数据，用来在重置时使用
-  initForm: {},
+  initForm: clone(form),
   // 表单数据
   form: form,
   // 表单数据,区别于 form，该表单主要存储选中的数据对象
-  formData: {}
+  formData: formData
 })
 // 计算属性
-let layoutComputeFn = layoutCompute({props})
+const layoutComputeFn = layoutCompute({props})
 const layoutComputedLayout = computed(()=> {
   return layoutComputeFn(props.comps.length)
 })
-
+const defaultButtonsShowComputed = computed(()=> {
+  if (isObject(props.defaultButtonsShow)) {
+    return props.defaultButtonsShow
+  }
+  // 字符串
+  let r  = {}
+  for (let defaultButtonsShowKey in defaultButtonsShow) {
+    r[defaultButtonsShowKey] = props.defaultButtonsShow.indexOf(defaultButtonsShowKey) >= 0
+  }
+  return r
+})
 // 事件
 const emit = defineEmits([
   emitDataMethodEvent.dataMethodResult,
   emitDataMethodEvent.dataMethodData,
+  emitMethodEvent.methodResult,
 ])
 
 // 挂载
@@ -100,16 +151,28 @@ onMounted(() => {
   // 加载初始数据
   doDataMethod({props,reactiveData,emit})
 })
-watch(
-    () => reactiveData.form,
-    (val) => {
-      console.log('reactiveData.form',val)
-    },
-    { deep: true }
-)
+
+// 表单提交
+const submitForm = ()=> {
+  formRef.value.validate((valid, fields) => {
+    if (valid) {
+      doSubmitForm()
+    }
+  })
+}
+const tempDoSubmit = doMethod({props,reactiveData,emit})
+
+const doSubmitForm = () => {
+  tempDoSubmit(reactiveData.form)
+}
+// 重置表单
+const resetForm = () => {
+  formRef.value.resetFields()
+}
+
 </script>
 <template>
-  <el-form v-bind="$attrs" :model="reactiveData.form"
+  <el-form ref="formRef" v-bind="$attrs" :model="reactiveData.form"
            :validate="(prop,isValid,message) => {$emit('validate',prop,isValid,message)}" @submit.native.prevent>
 
     <template #default v-if="$slots.default">
@@ -128,10 +191,29 @@ watch(
           </template>
         </el-row>
       </template>
+      <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item">
+        <PtButton v-if="defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
+        <el-button v-if="defaultButtonsShowComputed.reset" @click="resetForm">重置</el-button>
+        <PtButton v-if="defaultButtonsShowComputed.back" :route="(router) => { router.back() }">返回</PtButton>
+
+        <!--  自定义插槽 默认添加提交按钮 -->
+        <slot name="buttons"  v-bind:form="reactiveData.form">
+        </slot>
+      </el-form-item>
     </template>
+
+
+    <!--  自定义插槽 可以用来添加按钮 -->
+    <slot name="append"  v-bind:form="reactiveData.form"></slot>
   </el-form>
 </template>
 
 <style scoped>
 
+</style>
+<style>
+/* element plus 本身就是 flex 布局 */
+.pt-button-form-item .el-form-item__content{
+  justify-content: center;
+}
 </style>

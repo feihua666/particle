@@ -12,14 +12,14 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 // axios
-import axios from 'axios'
+import axios from '../../../global/pc/common/axios/axiosRequest.js'
 
 /****************************** 自定义 开始 *********************************/
 // 自定义 element plus 组件
 import ElementPlusPlugin from  '../../../global/pc/element-plus/ElementPlusPlugin.js'
 import CommonPlugin from  '../../../global/pc/common/CommonPlugin.js'
 
-/****************************** 自定义 开始 *********************************/
+/****************************** 自定义 结束 *********************************/
 async function start() {
     const app = createApp(App)
 

@@ -15,6 +15,10 @@ export const methodProps = {
     method: {
         type: Function
     },
+    // method 回调时的参数
+    methodParam: {
+        type: Object
+    },
     // 点击按钮弹层确认文本，如果不传值将不会弹窗确认
     methodConfirmText: {
         type: String
@@ -62,14 +66,20 @@ export const method = ({props,reactiveData,emit,hasPermission,doMethod: doMethod
         }
     }
 }
-// 加载数据
+// 发起调用
 export const doMethod = ({props,reactiveData,emit}) =>{
 
     return function () {
         let args = arguments
         reactiveData.methodLocalLoading = true
         if (props.method) {
-            const result =  props.method()
+
+            let result =  null
+            if(props.methodParam){
+                result = props.method(props.methodParam,...args)
+            }else {
+                result = props.method(...args)
+            }
             if (isPromise(result)) {
                 const promiseResult = result.then(res =>{
                     return Promise.resolve(res)

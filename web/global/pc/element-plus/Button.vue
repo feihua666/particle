@@ -11,9 +11,11 @@ import {aiButtonStyle} from './ElStyleTools.js'
 import {permissionProps,hasPermissionConfig} from './permission.js'
 import {disabledProps,disabledConfig} from './disabled.js'
 import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method.js'
+import {isFunction} from '../../common/tools/FunctionTools.js'
 
-const { proxy } = getCurrentInstance()
-
+const { proxy,appContext } = getCurrentInstance()
+// 路由
+const router = appContext.config.globalProperties.$router
 const slots = useSlots()
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -52,6 +54,14 @@ const props = defineProps({
   enableLoadingFullScreen: {
     type: Boolean,
     default: false
+  },
+  // 路由，按钮点击时优先路由，会调用push方法，如果是一个函数 则 router为回调参数
+  route: {
+    default: null
+  },
+  // 按钮文本,如果没有默认slot时，生效
+  buttonText: {
+    type: String
   }
 })
 // 属性
@@ -60,7 +70,7 @@ const reactiveData = reactive({
   ...reactiveMethodData,
   // 根据默认插槽文件计算按钮样式
   buttonStyle: slots.default ? aiButtonStyle(slots.default()[0].children) : {},
-  buttonText: slots.default ? slots.default()[0].children : '',
+  buttonText: slots.default ? slots.default()[0].children : props.buttonText || '',
   // 全屏加载状态实例对象保持变量
   loadingService: null
 })
@@ -123,6 +133,14 @@ const fullScreenLoading = (loading) =>{
 const tempDoSubmit = doMethod({props,reactiveData,emit})
 const doSubmit = ($event) => {
   emit('click',$event)
+  if(router && props.route){
+    if (isFunction(props.route)) {
+      props.route(router)
+    }else {
+      router.push(props.route)
+    }
+    return
+  }
   tempDoSubmit($event)
 }
 // click 按钮事件
@@ -139,7 +157,7 @@ const submit = method({props,reactiveData,emit,hasPermission,doMethod: doSubmit}
              :title="hasDisabled.disabledReason || title"
              @click="submit" >
       <el-icon v-if="loading" class="is-loading"><Loading /></el-icon>
-      <slot></slot>
+      <slot>{{reactiveData.buttonText}}</slot>
     </el-link>
     <el-button v-else-if="view == 'button' && hasPermission.render"
                v-bind="$attrs"
@@ -149,7 +167,7 @@ const submit = method({props,reactiveData,emit,hasPermission,doMethod: doSubmit}
                :disabled="hasDisabled.disabled"
                :title="hasDisabled.disabledReason || title"
                @click="submit">
-      <slot></slot>
+      <slot>{{reactiveData.buttonText}}</slot>
     </el-button>
 </template>
 <style scoped>
