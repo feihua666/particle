@@ -148,7 +148,7 @@ import Vue from 'vue'
 ...
 import ToolsPlugin from '../../../../../components/common/web/tools/AllToolsPlugin.ts'
 import ElementPlugin from '../../../../../components/common/web/components/pc/element/ElementPlusPlugin.ts'
-import CommonPlugin from '../../../../../components/common/web/components/pc/common/CommonPlugin.js'
+import CommonPlugin from '../../../../../components/common/web/components/pc/common/CommonPlugin.ts'
 // 自定义工具插件
 Vue.use(ToolsPlugin)
 // 自定义基于element组件
