@@ -66,5 +66,13 @@
             <artifactId>global-light-share</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 使用 swagger 注解标注翻译  ITransService 接口-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

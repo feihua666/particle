@@ -69,7 +69,7 @@ const reactiveData = reactive({
   // 数据与加载
   ...reactiveMethodData,
   // 根据默认插槽文件计算按钮样式
-  buttonStyle: slots.default ? aiButtonStyle(slots.default()[0].children) : {},
+  buttonStyle: slots.default ? aiButtonStyle(slots.default()[0].children) : aiButtonStyle(props.buttonText) || {},
   buttonText: slots.default ? slots.default()[0].children : props.buttonText || '',
   // 全屏加载状态实例对象保持变量
   loadingService: null

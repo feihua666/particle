@@ -3,7 +3,7 @@
  */
 
 import {isPromise} from "../../common/tools/PromiseTools"
-import {isObject} from "../../common/tools/ObjectTools"
+import {anyObj, isObject} from "../../common/tools/ObjectTools"
 
 export interface DataMethodPage{
     isPage: boolean,
@@ -14,10 +14,21 @@ export interface DataMethodPage{
     totalPages?: number,
     data: any|[]|{}
 }
+export interface DataMethodPageQuery{
+    pageNo: number,
+    pageSize: number
+}
+
+export interface DataMethodProps{
+    // 添加类型为 anyObj 是因为 vue props 属性表示是一个对象，
+    dataMethod?: ((param: DataMethodPageQuery) => Promise<any>|any) | anyObj,
+    [key: string]: any
+}
+
 /**
  * 数据加载相关，封装组件时用
  */
-export const dataMethodProps = {
+export const dataMethodProps: DataMethodProps = {
     // 加载数据处理方法，一般为http请求获取数据，会自动处理 dataLoading 效果，一般返回 promise，也可以直接返回数据本身
     dataMethod: {
         type: Function,
@@ -35,7 +46,7 @@ export const dataMethodProps = {
         default: ({success,error,emptyData}) => {
             // success 为 res
             if (success) {
-                return success.data
+                return success.data.data
             }
             if (error) {
                 return emptyData
@@ -45,6 +56,7 @@ export const dataMethodProps = {
     // 分页处理，对分页进行判断
     dataMethodResultPageHandle: {
         type: Function,
+        // 参数 data 为 dataMethodResultHandle 返回的结果
         default: (data): DataMethodPage => {
             let r: DataMethodPage = {
                 isPage: false,
@@ -67,16 +79,24 @@ export const dataMethodProps = {
         }
     },
 }
+export interface ReactiveDataMethodData{
+    // 输入的数据
+    dataMethodData: Array<any>,
+    // 加载数据时loading
+    dataMethodLocalLoading: boolean
+    dataMethodPage: DataMethodPage,
+    dataMethodPageQuery: DataMethodPageQuery
+}
 // 属性
-export const reactiveDataMethodData = {
+export const reactiveDataMethodData: ReactiveDataMethodData = {
     // 输入的数据
     dataMethodData: [],
     dataMethodLocalLoading: false,
     // 分页时可用，值为 属性方法 dataMethodResultPageHandle 返回的数据
     dataMethodPage: null,
-    // 分页查询参数，props.dataMethod()中参数
+    // 分页查询参数，props.dataMethod()中分布参数参数
     dataMethodPageQuery: {
-        pageNo: 1,
+        pageNo: null, // 0时不回调传参
         pageSize: 10
     }
 }
@@ -84,43 +104,60 @@ export const emitDataMethodEvent = {
     // 原生数据结果
     dataMethodResult: 'dataMethodResult',
     // 经过dataMethodResultHandle处理后的结果
-    dataMethodData: 'dataMethodData'
+    dataMethodData: 'dataMethodData',
+    dataMethodDataLoading: 'dataMethodDataLoading'
+}
+const handleAdapter = (pageAdapter: DataMethodPage,reactiveData):void => {
+    reactiveData.dataMethodData = pageAdapter.data
+    reactiveData.dataMethodPage = pageAdapter
+    if (pageAdapter.isPage) {
+        reactiveData.dataMethodPageQuery.pageNo = pageAdapter.pageNo
+        reactiveData.dataMethodPageQuery.pageSize = pageAdapter.pageSize
+    }
+}
+const handleLoading = (loading: boolean,{reactiveData,emit}):void => {
+
+    reactiveData.dataMethodLocalLoading = loading
+    emit(emitDataMethodEvent.dataMethodDataLoading,reactiveData.dataMethodLocalLoading)
 }
 // 加载数据
 export const doDataMethod = ({props,reactiveData,emit}) =>{
     if (reactiveData.dataMethodLocalLoading) {
         return
     }
-    reactiveData.dataMethodLocalLoading = true
+    handleLoading(true,{reactiveData,emit})
     if (props.dataMethod) {
-        const result =  props.dataMethod(reactiveData.dataMethodPageQuery)
+        let result =  null
+        // 页码为0说明为初始加载，不需要加载分页参数
+        if(reactiveData.dataMethodPageQuery.pageNo > 0){
+            result = props.dataMethod(reactiveData.dataMethodPageQuery)
+        }else {
+            result = props.dataMethod()
+        }
         if (isPromise(result)) {
             const promiseResult = result.then(res =>{
                 let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: res}))
-                reactiveData.dataMethodData = pageAdapter.data
-                reactiveData.dataMethodPage = pageAdapter
+                handleAdapter(pageAdapter,reactiveData)
                 emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)
 
                 return Promise.resolve(res)
             }).catch(error => {
                 let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({error: error,emptyData: props.emptyData}) || props.emptyData)
-                reactiveData.dataMethodData = pageAdapter.data
-                reactiveData.dataMethodPage = pageAdapter
+                handleAdapter(pageAdapter,reactiveData)
                 emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)
                 return Promise.reject(error)
             }).finally(()=>{
-                reactiveData.dataMethodLocalLoading = false
+                handleLoading(false,{reactiveData,emit})
             })
             emit(emitDataMethodEvent.dataMethodResult,promiseResult)
         }else {
             let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result}))
-            reactiveData.dataMethodData = pageAdapter.data
-            reactiveData.dataMethodPage = pageAdapter
+            handleAdapter(pageAdapter,reactiveData)
             emit(emitDataMethodEvent.dataMethodResult,result)
             emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)
-            reactiveData.dataMethodLocalLoading = false
+            handleLoading(false,{reactiveData,emit})
         }
     }else {
-        reactiveData.dataMethodLocalLoading = false
+        handleLoading(false,{reactiveData,emit})
     }
 }

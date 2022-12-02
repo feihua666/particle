@@ -7,7 +7,7 @@
  */
 import {computed} from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import PtRouteView from './RouteView.vue'
+import PtRouteView from '../common/RouteView.vue'
 
 const router = useRouter()
 const route = useRoute()

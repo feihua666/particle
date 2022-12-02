@@ -60,7 +60,7 @@ const hasDisabled = disabledConfig({props,hasPermission})
     <template #title v-if="$slots.title">
       <slot name="title" :hasPermission="hasPermission" />
     </template>
-    <template #title v-else>
+    <template #title v-if="!$slots.title">
       {{titleText}}
     </template>
   </el-menu-item>

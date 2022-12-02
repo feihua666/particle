@@ -9,7 +9,7 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 public interface IFuncGroupService extends IBaseService<FuncGroupDO> {
 

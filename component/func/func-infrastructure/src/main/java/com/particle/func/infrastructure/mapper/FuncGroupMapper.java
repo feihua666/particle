@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Mapper
 public interface FuncGroupMapper extends IBaseMapper<FuncGroupDO> {

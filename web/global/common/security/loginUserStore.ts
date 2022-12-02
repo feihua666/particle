@@ -4,7 +4,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import {anyObj, isEmpty} from '../tools/ObjectTools'
-import {get,set} from '../tools/StorageTools.ts'
+import {get, getRaw, set, setRaw} from '../tools/StorageTools.ts'
 
 export interface LoginUserStore{
     // 是否强制登录
@@ -24,6 +24,8 @@ export interface LoginUserStore{
 export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => {
 
     const loginUserLocalKey = 'loginUserLocalKey'
+    const loginUserTokenKey = 'loginUserTokenKey'
+    const loginUserRefreshTokenKey = 'loginUserRefreshTokenKey'
 
     // 强制登录
     const forceLogin = ref(true)
@@ -32,6 +34,11 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
 
     // 登录用户信息，
     const loginUser = ref({})
+
+    // 登录后的 token
+    const token = ref('')
+    // 用来刷新用的 token
+    const refreshToken = ref('')
 
     // 改变是否登录的方法
     function changeHasLogin(value):void {
@@ -52,6 +59,30 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
     function loadFromLocal(){
         let loginUserLocal = get(loginUserLocalKey)
         changeLoginUser(loginUserLocal)
+        let loginUserToken = getRaw(loginUserTokenKey)
+        let loginUserRefreshToken = getRaw(loginUserRefreshTokenKey)
+        changeToken(loginUserToken)
+        changeRefreshToken(loginUserRefreshToken)
     }
-    return { forceLogin, hasLogin, changeHasLogin, changeLoginUser,loadFromLocal}
+
+
+    function changeToken(tk: string): void{
+
+        token.value = tk
+        let loginUserToken = getRaw(loginUserTokenKey)
+        if (tk == loginUserToken) {
+            return
+        }
+        setRaw(loginUserTokenKey,token.value)
+    }
+    function changeRefreshToken(rtk: string): void{
+
+        refreshToken.value = rtk
+        let loginUserRefreshToken = getRaw(loginUserRefreshTokenKey)
+        if (rtk == loginUserRefreshToken) {
+            return
+        }
+        setRaw(loginUserRefreshTokenKey,refreshToken.value)
+    }
+    return { forceLogin, hasLogin, changeHasLogin, changeLoginUser,loadFromLocal,token,refreshToken,changeToken,changeRefreshToken}
 })

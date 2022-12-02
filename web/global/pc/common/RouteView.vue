@@ -35,8 +35,10 @@ const isKeepAlive = computed(() => {
 })
 </script>
 <template>
-  <keep-alive v-if="isKeepAlive">
-    <router-view></router-view>
-  </keep-alive>
-  <router-view v-else></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive  v-if="isKeepAlive">
+      <component :is="Component" />
+    </keep-alive>
+    <component v-else :is="Component" />
+  </router-view>
 </template>

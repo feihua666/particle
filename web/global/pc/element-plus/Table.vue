@@ -1,4 +1,4 @@
-<script setup name="Table">
+<script setup name="Table" lang="ts">
 /**
  * 自定义封装 Table 表格
  * 封装理由：1. 可以自助获取数据，更方便
@@ -110,6 +110,8 @@ const emit = defineEmits([
   'expand-change',
   emitDataMethodEvent.dataMethodResult,
   emitDataMethodEvent.dataMethodData,
+  emitDataMethodEvent.dataMethodDataLoading,
+  emitDataMethodEvent.dataMethodDataLoading,
   'sizeChange',
   'currentChange'
 ])
@@ -129,6 +131,23 @@ const paginationSizeChange = (val) => {
   doDataMethod({props,reactiveData,emit})
   emit('sizeChange', val)
 }
+// 刷新数据
+const refreshData = ():void => {
+  if (reactiveData.dataMethodPage && reactiveData.dataMethodPage.isPage) {
+    // 重新查询
+    reactiveData.dataMethodPageQuery.pageNo = 1
+  }else {
+    // page
+    reactiveData.dataMethodPageQuery.pageNo = null
+  }
+
+  doDataMethod({props,reactiveData,emit})
+}
+// 暴露刷新方法
+defineExpose({
+  refreshData,
+  dataMethodLocalLoading: reactiveData.dataMethodLocalLoading
+})
 </script>
 <template>
   <el-table  class="pt-table pt-width-100-pc"

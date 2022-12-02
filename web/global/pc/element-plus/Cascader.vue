@@ -120,6 +120,7 @@ const emit = defineEmits([
   'remove-tag',
   emitDataMethodEvent.dataMethodResult,
   emitDataMethodEvent.dataMethodData,
+  emitDataMethodEvent.dataMethodDataLoading,
 ])
 // 挂载
 onMounted(() => {

@@ -1,6 +1,7 @@
 import '../../common/global.css'
 import BaiduMap from './BaiduMap.vue'
 import Frame from './Frame.vue'
+import RouteView from './RouteView.vue'
 // import PtTinymceEditor from './tinymceEditor/PtTinymceEditor.vue'
 import SlideVerify from './slideVerify/SlideVerify.vue'
 import Logo from './Logo.vue'
@@ -14,6 +15,7 @@ let map = {
     Logo,
     LoginTemplate,
     EntryTemplate,
+    RouteView,
 }
 export default {
     install: function (app, options) {

@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @FeignClient(name = "${particle.feign-client.name.funcGroup:funcGroup}",path = "/rpc")
 public interface FuncGroupRpcFeignClient {

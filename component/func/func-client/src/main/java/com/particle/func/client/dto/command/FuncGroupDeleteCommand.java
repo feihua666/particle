@@ -4,7 +4,6 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
 import javax.validation.constraints.NotNull;
 /**
  * <p>
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Data
 @ApiModel

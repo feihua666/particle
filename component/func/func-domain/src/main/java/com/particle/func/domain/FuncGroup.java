@@ -1,5 +1,6 @@
 package com.particle.func.domain;
 
+import java.time.LocalDateTime;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -11,7 +12,7 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Data
 @Entity

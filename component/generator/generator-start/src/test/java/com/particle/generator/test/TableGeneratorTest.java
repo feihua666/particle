@@ -38,15 +38,15 @@ public class TableGeneratorTest {
 	@Test
 	public void tableGeneratorTest() {
 
-		String componentModuleName = "user";
+		String componentModuleName = "func";
 		TableType tableType = TableType.NORMAL;
 		String author = "yw";
-		String tableName = "component_user_login_record";
+		String tableName = "component_func_group";
 		String tablePrefix = "component";
 		boolean fileOverride = true;
 		boolean fileDelete = false;
 		// 如果表多，建议添加，如果只有一张表，建议留空
-		String packageModuleName = "login";
+		String packageModuleName = "";
 
 		ComponentGenerateConf componentGenerateConf = ComponentGenerateConf.create(
 				//System.getProperty("user.dir"),

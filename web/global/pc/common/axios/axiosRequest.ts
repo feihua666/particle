@@ -32,6 +32,7 @@ export const getUrlPort = (): string => {
     return new URL(url).port
 }
 export interface Config{
+    tokenKey?: string, // tokenKey
     userDefaultInstance?: boolean,// 使用默认axios实例，否则创建新的实例
     baseURI?: string, // 基础url
     timeout?: number,// timeout 单位毫秒 默认 10s
@@ -47,6 +48,7 @@ export interface Config{
  * 默认的创建 axios 实例的配置
  */
 const defaultConfig: Config = {
+    tokenKey: 'c-token-id',
     userDefaultInstance: true,// 使用默认axios实例，否则创建新的实例
     baseURI: getUrl(), // 基础url
     timeout: 10000,// timeout 单位毫秒 默认 10s
@@ -163,7 +165,15 @@ export const interceptRequest = (axiosInstance,configOptions: Config) => {
             configOptions.cancelDuplicateRequest && addPending(config)
 
             // 携带 token
-            // todo
+            if (config.headers && configOptions.tokenKey) {
+                loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
+                const token = loginUserStoreCache.token
+                if (token){
+                    config.headers[configOptions.tokenKey] = token
+                }
+
+            }
+
 
             return config
         },
@@ -182,15 +192,22 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
             if (response.config.responseType == 'json') {
                 // todo 接口正常返回额外处理
             }// end if response.config.responseType == 'json'
-
+            loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
+            let token = response.headers[configOptions.tokenKey] || ''
+            if (token){
+                loginUserStoreCache.changeToken(token)
+            }
             return configOptions.reductDataFormat ? response.data : response
         },
         (error) => {
             error.config && removePending(error.config)
 
-            if (error && error.response && error.response.status == 401) {
-                loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
-                loginUserStoreCache.changeHasLogin(false)
+            if (error && error.response) {
+                // 40300000003 为后端匿名登录返回的状态码
+                if (error.response.status == 401 || error.response.data.status == 40300000003) {
+                    loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
+                    loginUserStoreCache.changeHasLogin(false)
+                }
             }
             configOptions.showErrorMessage && httpErrorStatusHandle(error, configOptions) // 处理错误状态码
             return Promise.reject(error) // 错误继续返回给到具体页面

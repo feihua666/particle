@@ -477,7 +477,15 @@ public interface IBaseService<DO> extends IService<DO> {
             // like 处理
             Like like = AnnotationUtil.getAnnotation(field, Like.class);
             if(like != null){
-                ((AbstractWrapper) queryWrapper).like( StringTool.humpToLine(field.getName()), fieldValue);
+                if (like.left() && like.right()) {
+                    ((AbstractWrapper) queryWrapper).like( StringTool.humpToLine(field.getName()), fieldValue);
+                }else if (like.left()){
+                    ((AbstractWrapper) queryWrapper).likeLeft( StringTool.humpToLine(field.getName()), fieldValue);
+                }else if (like.right()){
+                    ((AbstractWrapper) queryWrapper).likeRight( StringTool.humpToLine(field.getName()), fieldValue);
+                }else {
+                    ((AbstractWrapper) queryWrapper).likeLeft( StringTool.humpToLine(field.getName()), fieldValue);
+                }
                 setObjectValueNull(queryWrapper.getEntity(), field.getName());
                 continue;
             }

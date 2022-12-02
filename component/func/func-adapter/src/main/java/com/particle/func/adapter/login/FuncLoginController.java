@@ -39,9 +39,6 @@ public class FuncLoginController {
     @Autowired
     private IFuncRepresentationApplicationService iFuncRepresentationApplicationService;
 
-    @Autowired
-    private IFuncService iFuncService;
-
     @ApiOperation("当前登录用户的功能")
     @PreAuthorize("hasAuthority('user')")
     @GetMapping("/getList")

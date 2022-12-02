@@ -13,3 +13,15 @@ export const login = ({username,password}:{username: string,password: string}): 
 export const logout = (): AxiosPromise => {
     return axios.post('/logout')
 }
+/**
+ * 判断用户是否登录
+ */
+export const hasLogin = (): AxiosPromise => {
+    return axios.get('/hasLogin')
+}
+/**
+ * 获取当前登录用户的信息
+ */
+export const userinfo = (): AxiosPromise => {
+    return axios.get('/userinfo')
+}

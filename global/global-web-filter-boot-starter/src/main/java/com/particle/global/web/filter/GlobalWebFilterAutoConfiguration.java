@@ -48,9 +48,10 @@ public class GlobalWebFilterAutoConfiguration {
 	@Bean
 	public CorsFilter corsFilterBean() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("*"));
-		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowedOriginPatterns(Arrays.asList(CorsConfiguration.ALL));
+		configuration.setAllowedMethods(Arrays.asList(CorsConfiguration.ALL));
+		configuration.setAllowedHeaders(Arrays.asList(CorsConfiguration.ALL));
+		configuration.setExposedHeaders(Arrays.asList(CorsConfiguration.ALL));
 		configuration.setAllowCredentials(true);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
@@ -106,7 +107,7 @@ public class GlobalWebFilterAutoConfiguration {
 	}
 
 	@Bean
-	public FilterRegistrationBean CorsFilter() {
+	public FilterRegistrationBean corsFilter() {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(corsFilterBean());
 		registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span +2);

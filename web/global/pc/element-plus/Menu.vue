@@ -49,7 +49,7 @@ const {
   isMenu,
   isPage,
   isGroup,
-} = menuConfig(props)
+} = menuConfig({props})
 // 侦听
 watch(
     () => loading.value,
@@ -58,11 +58,12 @@ watch(
     }
 )
 // 事件
-const emit = defineEmits(['open','close','select',emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodResult])
+const emit = defineEmits(['open','close','select',emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodDataLoading,emitDataMethodEvent.dataMethodResult])
 
 // 挂载
 onMounted(() => {
   doDataMethod({props,reactiveData,emit})
+
 })
 
 // 方法
@@ -81,10 +82,10 @@ onMounted(() => {
       <template v-for="(menuItem,index) in options" :key="index">
 
         <template v-if="isMenu(menuItem)">
-          <PtSubMenu :index="menuItem[propsOptions.index]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
+          <PtSubMenu :index="menuItem[propsOptions.index]||''" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtSubMenu>
         </template>
         <template v-else-if="isPage(menuItem)">
-          <PtMenuItem  :index="menuItem[propsOptions.index]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
+          <PtMenuItem  :index="menuItem[propsOptions.index]||''"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
           <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>

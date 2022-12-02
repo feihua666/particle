@@ -113,6 +113,7 @@ const emit = defineEmits([
   emitDataModelEvent.change,
   emitDataMethodEvent.dataMethodResult,
   emitDataMethodEvent.dataMethodData,
+  emitDataMethodEvent.dataMethodDataLoading,
 ])
 // 挂载
 onMounted(() => {

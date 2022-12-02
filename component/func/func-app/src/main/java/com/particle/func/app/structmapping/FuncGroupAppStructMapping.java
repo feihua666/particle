@@ -1,19 +1,18 @@
 package com.particle.func.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 /**
  * <p>
@@ -21,10 +20,10 @@ import java.util.List;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public abstract class FuncGroupAppStructMapping implements IBaseQueryCommandMapStruct<FuncGroupDO> {
+public abstract class FuncGroupAppStructMapping  implements IBaseQueryCommandMapStruct<FuncGroupDO>{
 	public static FuncGroupAppStructMapping instance = Mappers.getMapper( FuncGroupAppStructMapping.class );
 
 	protected Long map(FuncGroupId funcGroupId){
@@ -64,18 +63,20 @@ public abstract class FuncGroupAppStructMapping implements IBaseQueryCommandMapS
 	public PageResponse<FuncGroupVO> infrastructurePageToPageResponse(Page<FuncGroupDO> page) {
 		return PageResponse.of(funcGroupDOsToFuncGroupVOs(page.getRecords()), (int) page.getTotal(), (int) page.getSize(), (int) page.getCurrent());
 	}
+
+
 	@Override
 	public FuncGroupDO queryCommandToDO(QueryCommand queryCommand) {
 		if (queryCommand instanceof FuncGroupPageQueryCommand) {
 			return pageQueryCommandToDO((FuncGroupPageQueryCommand) queryCommand);
 		}
 		if (queryCommand instanceof FuncGroupQueryListCommand) {
-			return QueryListCommandToDO(((FuncGroupQueryListCommand) queryCommand));
+			return queryListCommandToDO(((FuncGroupQueryListCommand) queryCommand));
 		}
 		return null;
 	}
 
-	public abstract FuncGroupDO pageQueryCommandToDO(FuncGroupPageQueryCommand FuncGroupPageQueryCommand);
+	public abstract FuncGroupDO pageQueryCommandToDO(FuncGroupPageQueryCommand funcGroupPageQueryCommand);
 
-	public abstract FuncGroupDO QueryListCommandToDO(FuncGroupQueryListCommand FuncGroupQueryCommand);
+	public abstract FuncGroupDO queryListCommandToDO(FuncGroupQueryListCommand funcGroupQueryListCommand);
 }

@@ -3,11 +3,11 @@ package com.particle.func.infrastructure.service.impl;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.infrastructure.mapper.FuncGroupMapper;
 import com.particle.func.infrastructure.service.IFuncGroupService;
-import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.dto.basic.QueryCommand;
+import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -15,11 +15,10 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
-@Service
+@Component
 public class FuncGroupServiceImpl extends IBaseServiceImpl<FuncGroupMapper, FuncGroupDO> implements IFuncGroupService {
-
 	private IBaseQueryCommandMapStruct<FuncGroupDO> queryCommandMapStruct;
 
 	@Override

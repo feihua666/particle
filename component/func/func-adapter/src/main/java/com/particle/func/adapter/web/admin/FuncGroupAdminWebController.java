@@ -1,24 +1,28 @@
-package com.particle.func.adapter.web;
+package com.particle.func.adapter.web.admin;
 
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.func.client.api.IFuncGroupApplicationService;
 import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncGroupCreateCommand;
+import com.particle.func.client.dto.data.FuncGroupVO;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
 import com.particle.func.client.dto.command.FuncGroupDeleteCommand;
 import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
-import com.particle.func.client.dto.data.FuncGroupVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 功能组后台管理pc或平板端前端适配器
@@ -26,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Api(tags = "功能组pc或平板端后台管理相关接口")
 @RestController

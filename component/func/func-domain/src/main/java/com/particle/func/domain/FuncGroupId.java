@@ -8,7 +8,7 @@ import com.particle.common.domain.id.Id;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 public class FuncGroupId extends Id {
 

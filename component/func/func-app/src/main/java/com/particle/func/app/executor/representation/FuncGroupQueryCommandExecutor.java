@@ -1,31 +1,31 @@
 package com.particle.func.app.executor.representation;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.func.app.structmapping.FuncGroupAppStructMapping;
-import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.infrastructure.service.IFuncGroupService;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
 import javax.validation.Valid;
 import java.util.List;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
  * 功能组 列表查询指令执行器
  * </p>
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Component
 @Validated

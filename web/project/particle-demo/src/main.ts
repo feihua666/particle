@@ -12,12 +12,13 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 // axios
-import axios from '../../../global/pc/common/axios/axiosRequest.js'
+import axios from '../../../global/pc/common/axios/axiosRequest'
 
 /****************************** 自定义 开始 *********************************/
 // 自定义 element plus 组件
-import ElementPlusPlugin from  '../../../global/pc/element-plus/ElementPlusPlugin.js'
-import CommonPlugin from  '../../../global/pc/common/CommonPlugin.js'
+import ElementPlusPlugin from  '../../../global/pc/element-plus/ElementPlusPlugin'
+import CommonPlugin from  '../../../global/pc/common/CommonPlugin'
+import ComponentPlugin from  '../../../component/pc/ComponentPlugin'
 
 /****************************** 自定义 结束 *********************************/
 async function start() {
@@ -38,6 +39,7 @@ async function start() {
     // 自定义
     app.use(ElementPlusPlugin, {})
     app.use(CommonPlugin, {})
+    app.use(ComponentPlugin, {})
 
 
     app.mount('#app')

@@ -1,8 +1,9 @@
-package com.particle.func.adapter.web;
+package com.particle.func.adapter.web.front;
 
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.func.client.api.IFuncGroupApplicationService;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Api(tags = "功能组pc或平板端前台应用相关接口")
 @RestController

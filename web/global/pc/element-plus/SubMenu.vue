@@ -1,5 +1,5 @@
 <script setup name="SubMenu">
-import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject} from 'vue'
+import {reactive ,computed,watch,onMounted} from 'vue'
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
 import {menuProps,menuConfig} from './menu'
 
@@ -54,7 +54,7 @@ const {
   isMenu,
   isPage,
   isGroup,
-} = menuConfig(props)
+} = menuConfig({props})
 // 侦听
 watch(
     () => loading.value,
@@ -63,7 +63,7 @@ watch(
     }
 )
 // 事件
-const emit = defineEmits([emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodResult])
+const emit = defineEmits([emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodDataLoading,emitDataMethodEvent.dataMethodResult])
 
 // 挂载
 onMounted(() => {
@@ -81,21 +81,21 @@ onMounted(() => {
     <template #title v-if="$slots.title">
       <slot name="title" />
     </template>
-    <template #title v-else>
+    <template #title v-if="!$slots.title">
       {{titleText}}
     </template>
 
     <template #default v-if="$slots.default">
       <slot name="default" :options="options" />
     </template>
-    <template #default v-else>
+    <template #default  v-if="!$slots.default">
       <template v-for="(menuItem,index) in options" :key="index">
 
         <template v-if="isMenu(menuItem)">
-          <PtSubMenu :index="menuItem[propsOptions.index]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
+          <PtSubMenu :index="menuItem[propsOptions.index]||''" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
         </template>
         <template v-else-if="isPage(menuItem)">
-          <PtMenuItem  :index="menuItem[propsOptions.index]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
+          <PtMenuItem  :index="menuItem[propsOptions.index]||''"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
           <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>

@@ -1,6 +1,6 @@
 <script setup name="LoginForm"  lang="ts">
 import {getCurrentInstance,reactive ,ref} from 'vue'
-import {login} from '../api/userApi'
+import {login} from '../api/userLoginApi'
 import {useLoginUserStore} from '../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../global/common/tools/StringTools'
 import {isFunction} from '../../../../global/common/tools/FunctionTools'
@@ -65,7 +65,7 @@ const submitAttrs = ref({
 // 登录成功后获取登录用户
 const loginResult = (result):void => {
   result.then(res => {
-    loginUserStore.changeLoginUser(res.data)
+    loginUserStore.changeLoginUser(res.data.data)
     if(props.loginSuccess){
       if(isString(props.loginSuccess) && router){
         router.replace(props.loginSuccess)

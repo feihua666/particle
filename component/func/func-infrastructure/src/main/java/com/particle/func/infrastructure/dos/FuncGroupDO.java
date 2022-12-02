@@ -1,7 +1,10 @@
 package com.particle.func.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.particle.global.mybatis.plus.dto.BaseTreeDO;
+import com.particle.global.mybatis.plus.dto.BaseDO;
+import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 
 /**
@@ -10,11 +13,11 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2022-07-19
+ * @since 2022-12-02
  */
 @Data
 @TableName("component_func_group")
-public class FuncGroupDO extends BaseTreeDO {
+public class FuncGroupDO extends BaseDO {
     /**
     * 编码，模糊查询
     */

@@ -48,7 +48,7 @@ watch(
     }
 )
 // 事件
-const emit = defineEmits([emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodResult])
+const emit = defineEmits([emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodDataLoading,emitDataMethodEvent.dataMethodResult])
 
 // 挂载
 onMounted(() => {
@@ -66,14 +66,14 @@ onMounted(() => {
     <template #title v-if="$slots.title">
       <slot name="title" />
     </template>
-    <template #title v-else>
+    <template #title  v-if="!$slots.title">
       {{titleText}}
     </template>
 
     <template #default v-if="$slots.default">
       <slot name="default" :options="options" />
     </template>
-    <template #default v-else>
+    <template #default  v-if="!$slots.default">
       <template v-for="(menuItem,index) in options" :key="index">
         <PtMenuItem :icon="menuItem.icon" :titleText="menuItem.name"></PtMenuItem>
       </template>

@@ -28,7 +28,7 @@ export function exist(item: any,array: Array<any>):boolean {
  * @param parentId 从哪个parentId开始，不传入包括所有的
  * @return {*}
  */
-export function listToTree(list:Array<any>, parentId:number|string):Array<any> {
+export function listToTree(list:Array<any>, parentId?:number|string):Array<any> {
     let cacheObj = {}
     list.forEach(item => {
         cacheObj[item.id] = item

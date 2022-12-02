@@ -143,6 +143,7 @@ const defaultButtonsShowComputed = computed(()=> {
 const emit = defineEmits([
   emitDataMethodEvent.dataMethodResult,
   emitDataMethodEvent.dataMethodData,
+  emitDataMethodEvent.dataMethodDataLoading,
   emitMethodEvent.methodResult,
 ])
 
@@ -193,7 +194,7 @@ const resetForm = () => {
       </template>
       <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item">
         <PtButton v-if="defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
-        <el-button v-if="defaultButtonsShowComputed.reset" @click="resetForm">重置</el-button>
+        <PtButton v-if="defaultButtonsShowComputed.reset" @click="resetForm">重置</PtButton>
         <PtButton v-if="defaultButtonsShowComputed.back" :route="(router) => { router.back() }">返回</PtButton>
 
         <!--  自定义插槽 默认添加提交按钮 -->
@@ -215,5 +216,9 @@ const resetForm = () => {
 /* element plus 本身就是 flex 布局 */
 .pt-button-form-item .el-form-item__content{
   justify-content: center;
+
+}
+.el-form--inline .pt-button-form-item{
+  display: flex;
 }
 </style>

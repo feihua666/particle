@@ -1,6 +1,10 @@
 package com.particle.func.client.dto.data;
 
+import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.global.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.Trans;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +19,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class FuncVO extends AbstractBaseIdVO {
+public class FuncVO extends AbstractBaseIdTreeVO {
 
 
     @ApiModelProperty("编码，模糊查询")
@@ -44,6 +48,10 @@ public class FuncVO extends AbstractBaseIdVO {
 
     @ApiModelProperty("类型,字典id")
     private Long typeDictId;
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
+    private String typeDictName;
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
+    private String typeDictValue;
 
     @ApiModelProperty("描述")
     private String remark;

@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 /**
  * 一般为vo层使用
  * 标注到类上
- * 可以单独使用或结合grape.common.service.trans.Trans使用
- * Created by yangwei
+ * 可以单独使用或结合 {@link Trans} 使用
+ * @author  yangwei
  * Created at 2019/10/9 9:59
  */
 @Retention(RetentionPolicy.RUNTIME)

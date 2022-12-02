@@ -3,10 +3,16 @@ package com.particle.dict.adapter.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
 import com.particle.dict.client.api.IDictApplicationService;
+import com.particle.global.trans.result.TransResult;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -25,12 +31,17 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 	@Autowired
 	private IDictApplicationService iDictApplicationService;
 
+	@Autowired
+	private DictTransServiceImpl dictTransService;
+
+	@Override
+	public boolean supportBatch(String type) {
+		return dictTransService.supportBatch(type);
+	}
 
 
-
-
-
-
-
-
+	@Override
+	public List<TransResult<Object, Long>> transBatch(String type, Set<Long> keys) {
+		return dictTransService.transBatch(type, keys);
+	}
 }

@@ -2,6 +2,8 @@ package com.particle.global.trans.api;
 
 
 import com.particle.global.trans.result.TransResult;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
  * 目前主要用于controller提供字典、机构等根据id翻译成名称
  * 该接口放在这意在也可以在纯service层提供翻译，但得加aop来处理相关逻辑
  * R 返回值尽量用String 以保证feign client的可用性，如果单机模式下则不限制，因为feign client远程调用时会有httpMessageConverter的转换，默认情况下有一些返回类型没有配置转换器
- * Created by yangwei
+ * @author yangwei
  * Created at 2019/10/9 9:24
  */
 public interface ITransService<R, K> {
@@ -20,13 +22,18 @@ public interface ITransService<R, K> {
      * @param type 一个翻译的标识
      * @return
      */
-    boolean support(String type);
+    @ApiOperation("判断是否支持单个翻译")
+    @GetMapping("/trans/support")
+    default boolean support(String type){return false;}
 
     /**
      * 是否支持批量翻译
      * @param type
      * @return
      */
+
+    @ApiOperation("判断是否支持批量翻译")
+    @GetMapping("/trans/supportBatch")
     default boolean supportBatch(String type){
         return false;
     }
@@ -37,6 +44,8 @@ public interface ITransService<R, K> {
      * @param keys
      * @return
      */
+    @ApiOperation("批量翻译")
+    @GetMapping("/trans/transBatch")
     default List<TransResult<R,K>> transBatch(String type, Set<K> keys){
         return null;
     }
@@ -46,5 +55,9 @@ public interface ITransService<R, K> {
      * @param key
      * @return
      */
-    TransResult<R,K> trans(String type, K key);
+    @ApiOperation("单个翻译")
+    @GetMapping("/trans/trans")
+    default TransResult<R,K> trans(String type, K key){
+        return null;
+    }
 }

@@ -1,4 +1,4 @@
-package com.particle.func.adapter.web;
+package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.func.client.api.IFuncApplicationService;

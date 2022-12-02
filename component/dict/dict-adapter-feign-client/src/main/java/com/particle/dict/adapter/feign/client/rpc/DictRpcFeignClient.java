@@ -1,5 +1,6 @@
 package com.particle.dict.adapter.feign.client.rpc;
 
+import com.particle.global.trans.api.ITransService;
 import org.springframework.cloud.openfeign.FeignClient;
 /**
  * <p>
@@ -9,8 +10,8 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2022-07-19
  */
-@FeignClient(name = "${particle.feign-client.name.dict:dict}",path = "/rpc")
-public interface DictRpcFeignClient {
+@FeignClient(name = "${particle.feign-client.name.dict:dict}",path = "/rpc/dict")
+public interface DictRpcFeignClient extends ITransService<Object,Long> {
 
 
 
