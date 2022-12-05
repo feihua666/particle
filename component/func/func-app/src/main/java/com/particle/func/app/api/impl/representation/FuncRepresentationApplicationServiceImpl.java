@@ -3,10 +3,13 @@ package com.particle.func.app.api.impl.representation;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.executor.representation.FuncQueryCommandExecutor;
+import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
+import com.particle.func.infrastructure.dos.FuncDO;
+import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -30,6 +33,7 @@ public class FuncRepresentationApplicationServiceImpl extends AbstractBaseApplic
 
 	private FuncQueryCommandExecutor funcQueryCommandExecutor;
 
+	private IFuncService iFuncService;
 
 	@Override
 	public SingleResponse<FuncVO> queryDetail(IdCommand funcQueryDetailCommand) {
@@ -47,8 +51,10 @@ public class FuncRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	}
 
 	@Override
-	public MultiResponse<FuncVO> queryListByIds(List<Long> ids) {
-		return null;
+	public MultiResponse<FuncVO> queryListByIds(List<Long> ids, Boolean isDisabled) {
+		List<FuncDO> funcDOS = iFuncService.listByFuncIds(ids, isDisabled);
+		List<FuncVO> funcVOs = FuncAppStructMapping.instance.funcDOsToFuncVOs(funcDOS);
+		return MultiResponse.of(funcVOs);
 	}
 
 	@Override
@@ -59,5 +65,10 @@ public class FuncRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	@Autowired
 	public void setFuncQueryCommandExecutor(FuncQueryCommandExecutor funcQueryCommandExecutor) {
 		this.funcQueryCommandExecutor = funcQueryCommandExecutor;
+	}
+
+	@Autowired
+	public void setiFuncService(IFuncService iFuncService) {
+		this.iFuncService = iFuncService;
 	}
 }

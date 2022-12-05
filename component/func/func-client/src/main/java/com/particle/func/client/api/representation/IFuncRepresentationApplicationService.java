@@ -53,8 +53,9 @@ public interface IFuncRepresentationApplicationService extends IBaseApplicationS
 	/**
 	 * 根据id获取，主要用于登录用户获取自己的功能使用
 	 * @param ids
+	 * @param isDisabled 禁用状态，为null不考虑
 	 * @return
 	 */
-	MultiResponse<FuncVO> queryListByIds(List<Long> ids);
+	MultiResponse<FuncVO> queryListByIds(List<Long> ids, Boolean isDisabled);
 
 }

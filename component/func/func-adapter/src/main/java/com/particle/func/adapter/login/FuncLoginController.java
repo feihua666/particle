@@ -55,7 +55,7 @@ public class FuncLoginController {
         if (CollectionUtil.isEmpty(loginUserPermissionIds)) {
             return MultiResponse.buildSuccess();
         }
-        MultiResponse<FuncVO> list = iFuncRepresentationApplicationService.queryListByIds(loginUserPermissionIds);
+        MultiResponse<FuncVO> list = iFuncRepresentationApplicationService.queryListByIds(loginUserPermissionIds,false);
         return list;
     }
 
