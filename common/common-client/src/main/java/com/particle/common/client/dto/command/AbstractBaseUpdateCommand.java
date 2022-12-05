@@ -17,13 +17,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-04-20 09:24
  */
 @Data
-public abstract class AbstractBaseUpdateCommand extends AbstractBaseCommand {
-	private static final long serialVersionUID = 1L;
-
-	@Min(value = 1,message = "id 不能小于1")
-	@NotNull(message = "id 不能为空")
-	@ApiModelProperty(value = "id",notes = "修改的数据主键")
-	private Long id;
+public abstract class AbstractBaseUpdateCommand extends IdCommand {
 
 	@Min(value = 1,message = "数据版本不能小于1")
 	@NotNull(message = "数据版本不能为空")

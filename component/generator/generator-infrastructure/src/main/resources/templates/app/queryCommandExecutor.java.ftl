@@ -6,8 +6,8 @@ import ${injection.vo.pkg}.${injection.vo.className};
 import ${injection.entity.pkg}.${injection.entity.className};
 import ${injection.service.pkg}.${injection.service.className};
 import ${injection.pageQueryCommand.pkg}.${injection.pageQueryCommand.className};
-import ${injection.queryDetailCommand.pkg}.${injection.queryDetailCommand.className};
-import ${injection.queryDetailForUpdateCommand.pkg}.${injection.queryDetailForUpdateCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,21 +55,21 @@ public class ${injection.className}  extends AbstractBaseQueryExecutor {
 
 	/**
 	 * 执行 ${injection.tableComment} 展示用详情查询指令
-	 * @param ${injection.queryDetailCommand.classNameVar}
+	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<${injection.vo.className}> execute(${injection.queryDetailCommand.className} ${injection.queryDetailCommand.classNameVar}) {
-		${injection.entity.className} byId = ${injection.service.classNameVar}.getById(${injection.queryDetailCommand.classNameVar}.getId());
+	public SingleResponse<${injection.vo.className}> executeDetail(IdCommand detailCommand) {
+		${injection.entity.className} byId = ${injection.service.classNameVar}.getById(detailCommand.getId());
 		${injection.vo.className} ${injection.vo.classNameVar} = ${injection.appStructMapping.className}.instance.${injection.entity.classNameVar}To${injection.vo.className}(byId);
 		return SingleResponse.of(${injection.vo.classNameVar});
 	}
 	/**
 	 * 执行 ${injection.tableComment} 更新用详情查询指令
-	 * @param ${injection.queryDetailForUpdateCommand.classNameVar}
+	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<${injection.vo.className}> execute(${injection.queryDetailForUpdateCommand.className} ${injection.queryDetailForUpdateCommand.classNameVar}) {
-		${injection.entity.className} byId = ${injection.service.classNameVar}.getById(${injection.queryDetailForUpdateCommand.classNameVar}.getId());
+	public SingleResponse<${injection.vo.className}> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+		${injection.entity.className} byId = ${injection.service.classNameVar}.getById(detailForUpdateCommand.getId());
 		${injection.vo.className} ${injection.vo.classNameVar} = ${injection.appStructMapping.className}.instance.${injection.entity.classNameVar}To${injection.vo.className}(byId);
 		return SingleResponse.of(${injection.vo.classNameVar});
 	}

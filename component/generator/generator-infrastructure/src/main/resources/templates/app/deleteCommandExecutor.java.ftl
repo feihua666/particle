@@ -1,7 +1,7 @@
 package ${injection.pkg};
 
 import ${injection.appStructMapping.pkg}.${injection.appStructMapping.className};
-import ${injection.deleteCommand.pkg}.${injection.deleteCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.vo.pkg}.${injection.vo.className};
 import ${injection.domainObject.pkg}.${injection.domainObject.className};
 import ${injection.idObject.pkg}.${injection.idObject.className};
@@ -38,7 +38,7 @@ public class ${injection.className}  extends AbstractBaseExecutor {
 	 * @param ${injection.deleteCommand.classNameVar}
 	 * @return
 	 */
-	public SingleResponse<${injection.vo.className}> execute(@Valid ${injection.deleteCommand.className} ${injection.deleteCommand.classNameVar}) {
+	public SingleResponse<${injection.vo.className}> execute(@Valid IdCommand deleteCommand) {
 		${injection.idObject.className} ${injection.idObject.classNameVar} = ${injection.idObject.className}.of(${injection.deleteCommand.classNameVar}.getId());
 		${injection.domainObject.className} byId = ${injection.gateway.classNameVar}.getById(${injection.idObject.classNameVar});
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

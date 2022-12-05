@@ -1,7 +1,7 @@
 package ${injection.pkg};
 
 import ${injection.createCommand.pkg}.${injection.createCommand.className};
-import ${injection.deleteCommand.pkg}.${injection.deleteCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.updateCommand.pkg}.${injection.updateCommand.className};
 import ${injection.vo.pkg}.${injection.vo.className};
 <#list injection.imports as im>
@@ -36,7 +36,7 @@ public interface ${injection.className} extends IBaseApplicationService {
 	 * @param ${injection.deleteCommand.classNameVar}
 	 * @return
 	 */
-	SingleResponse<${injection.vo.className}> delete(${injection.deleteCommand.className} ${injection.deleteCommand.classNameVar});
+	SingleResponse<${injection.vo.className}> delete(IdCommand deleteCommand);
 	</#if>
 
 	<#if injection.method.update>

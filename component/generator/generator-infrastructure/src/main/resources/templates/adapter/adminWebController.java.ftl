@@ -4,9 +4,7 @@ import ${injection.applicationService.pkg}.${injection.applicationService.classN
 import ${injection.representationApplicationService.pkg}.${injection.representationApplicationService.className};
 import ${injection.createCommand.pkg}.${injection.createCommand.className};
 import ${injection.vo.pkg}.${injection.vo.className};
-import ${injection.queryDetailForUpdateCommand.pkg}.${injection.queryDetailForUpdateCommand.className};
-import ${injection.queryDetailCommand.pkg}.${injection.queryDetailCommand.className};
-import ${injection.deleteCommand.pkg}.${injection.deleteCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.updateCommand.pkg}.${injection.updateCommand.className};
 import ${injection.pageQueryCommand.pkg}.${injection.pageQueryCommand.className};
 import ${injection.queryListCommand.pkg}.${injection.queryListCommand.className};
@@ -58,8 +56,8 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:delete')")
 	@ApiOperation("删除${injection.tableComment}")
 	@DeleteMapping("/delete")
-	public SingleResponse<${injection.vo.className}> delete(@RequestBody ${injection.deleteCommand.className} ${injection.deleteCommand.classNameVar}){
-		return ${injection.applicationService.classNameVar}.delete(${injection.deleteCommand.classNameVar});
+	public SingleResponse<${injection.vo.className}> delete(@RequestBody IdCommand deleteCommand){
+		return ${injection.applicationService.classNameVar}.delete(deleteCommand);
 	}
 	</#if>
 
@@ -76,8 +74,8 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:update')")
 	@ApiOperation("${injection.tableComment}更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(${injection.queryDetailForUpdateCommand.className} ${injection.queryDetailForUpdateCommand.classNameVar}){
-		return ${injection.representationApplicationService.classNameVar}.queryDetailForUpdate(${injection.queryDetailForUpdateCommand.classNameVar});
+	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+		return ${injection.representationApplicationService.classNameVar}.queryDetailForUpdate(detailForUpdateCommand);
 	}
 	</#if>
 
@@ -85,8 +83,8 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:detail')")
 	@ApiOperation("${injection.tableComment}详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<${injection.vo.className}> queryDetail(${injection.queryDetailCommand.className} ${injection.queryDetailCommand.classNameVar}){
-		return ${injection.representationApplicationService.classNameVar}.queryDetail(${injection.queryDetailCommand.classNameVar});
+	public SingleResponse<${injection.vo.className}> queryDetail(IdCommand detailCommand){
+		return ${injection.representationApplicationService.classNameVar}.queryDetail(detailCommand);
 	}
 	</#if>
 

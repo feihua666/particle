@@ -1,10 +1,9 @@
 package ${injection.pkg};
 
 import ${injection.queryCommandExecutor.pkg}.${injection.queryCommandExecutor.className};
-import ${injection.deleteCommand.pkg}.${injection.deleteCommand.className};
 import ${injection.updateCommand.pkg}.${injection.updateCommand.className};
-import ${injection.queryDetailCommand.pkg}.${injection.queryDetailCommand.className};
-import ${injection.queryDetailForUpdateCommand.pkg}.${injection.queryDetailForUpdateCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.pageQueryCommand.pkg}.${injection.pageQueryCommand.className};
 import ${injection.representationApplicationService.pkg}.${injection.representationApplicationService.className};
 import ${injection.createCommand.pkg}.${injection.createCommand.className};
@@ -36,13 +35,13 @@ public class ${injection.className} extends AbstractBaseApplicationServiceImpl i
 	private ${injection.queryCommandExecutor.className} ${injection.queryCommandExecutor.classNameVar};
 
 	@Override
-	public SingleResponse<${injection.vo.className}> queryDetail(${injection.queryDetailCommand.className} ${injection.queryDetailCommand.classNameVar}) {
-		return ${injection.queryCommandExecutor.classNameVar}.execute(${injection.queryDetailCommand.classNameVar});
+	public SingleResponse<${injection.vo.className}> queryDetail(IdCommand detailCommand) {
+		return ${injection.queryCommandExecutor.classNameVar}.executeDetail(detailCommand);
 	}
 
 	@Override
-	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(${injection.queryDetailForUpdateCommand.className} ${injection.queryDetailForUpdateCommand.classNameVar}) {
-		return ${injection.queryCommandExecutor.classNameVar}.execute(${injection.queryDetailForUpdateCommand.classNameVar});
+	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+		return ${injection.queryCommandExecutor.classNameVar}.executeDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@Override

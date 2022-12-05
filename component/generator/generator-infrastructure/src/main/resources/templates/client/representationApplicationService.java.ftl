@@ -1,7 +1,7 @@
 package ${injection.pkg};
 
-import ${injection.queryDetailForUpdateCommand.pkg}.${injection.queryDetailForUpdateCommand.className};
-import ${injection.queryDetailCommand.pkg}.${injection.queryDetailCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.pageQueryCommand.pkg}.${injection.pageQueryCommand.className};
 import ${injection.queryListCommand.pkg}.${injection.queryListCommand.className};
 import ${injection.vo.pkg}.${injection.vo.className};
@@ -26,19 +26,19 @@ public interface ${injection.className} extends IBaseApplicationService {
 	<#if injection.method.queryDetailForUpdate>
 	/**
 	 * 查询详情，仅更新时使用
-	 * @param ${injection.queryDetailForUpdateCommand.classNameVar}
+	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<${injection.vo.className}> queryDetailForUpdate(${injection.queryDetailForUpdateCommand.className} ${injection.queryDetailForUpdateCommand.classNameVar});
+	SingleResponse<${injection.vo.className}> queryDetailForUpdate(IdCommand detailForUpdateCommand);
 	</#if>
 
 	<#if injection.method.queryDetail>
 	/**
 	 * 查询详情，仅展示详情使用
-	 * @param ${injection.queryDetailCommand.classNameVar}
+	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<${injection.vo.className}> queryDetail(${injection.queryDetailCommand.className} ${injection.queryDetailCommand.classNameVar});
+	SingleResponse<${injection.vo.className}> queryDetail(IdCommand detailCommand);
 	</#if>
 
 	<#if injection.method.queryList>

@@ -3,7 +3,7 @@ package ${injection.pkg};
 import ${injection.createCommandExecutor.pkg}.${injection.createCommandExecutor.className};
 import ${injection.deleteCommandExecutor.pkg}.${injection.deleteCommandExecutor.className};
 import ${injection.updateCommandExecutor.pkg}.${injection.updateCommandExecutor.className};
-import ${injection.deleteCommand.pkg}.${injection.deleteCommand.className};
+import com.particle.common.client.dto.command.IdCommand;
 import ${injection.updateCommand.pkg}.${injection.updateCommand.className};
 import ${injection.applicationService.pkg}.${injection.applicationService.className};
 import ${injection.createCommand.pkg}.${injection.createCommand.className};
@@ -45,7 +45,7 @@ public class ${injection.className} extends AbstractBaseApplicationServiceImpl i
 	}
 
 	@Override
-	public SingleResponse<${injection.vo.className}> delete(${injection.deleteCommand.className} ${injection.deleteCommand.classNameVar}) {
+	public SingleResponse<${injection.vo.className}> delete(IdCommand deleteCommand) {
 		return ${injection.deleteCommandExecutor.classNameVar}.execute(${injection.deleteCommand.classNameVar});
 	}
 
