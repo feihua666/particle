@@ -3,7 +3,7 @@ package com.particle.user.app.identifier.api.impl;
 import com.particle.user.app.identifier.executor.UserIdentifierPwdCreateCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierPwdDeleteCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierPwdUpdateCommandExecutor;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdUpdateCommand;
 import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCreateCommand;
@@ -42,7 +42,7 @@ public class UserIdentifierPwdApplicationServiceImpl extends AbstractBaseApplica
 	}
 
 	@Override
-	public SingleResponse<UserIdentifierPwdVO> delete(UserIdentifierPwdDeleteCommand userIdentifierPwdDeleteCommand) {
+	public SingleResponse<UserIdentifierPwdVO> delete(IdCommand userIdentifierPwdDeleteCommand) {
 		return userIdentifierPwdDeleteCommandExecutor.execute(userIdentifierPwdDeleteCommand);
 	}
 

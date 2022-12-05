@@ -2,10 +2,9 @@ package com.particle.dict.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailForUpdateCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.infrastructure.dos.DictDO;
@@ -58,7 +57,7 @@ public class DictQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param dictQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<DictVO> execute(DictQueryDetailCommand dictQueryDetailCommand) {
+	public SingleResponse<DictVO> executeDetail(IdCommand dictQueryDetailCommand) {
 		DictDO byId = iDictService.getById(dictQueryDetailCommand.getId());
 		DictVO dictVO = DictAppStructMapping.instance.dictDOToDictVO(byId);
 		return SingleResponse.of(dictVO);
@@ -68,7 +67,7 @@ public class DictQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param dictQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DictVO> execute(DictQueryDetailForUpdateCommand dictQueryDetailForUpdateCommand) {
+	public SingleResponse<DictVO> executeDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand) {
 		DictDO byId = iDictService.getById(dictQueryDetailForUpdateCommand.getId());
 		DictVO dictVO = DictAppStructMapping.instance.dictDOToDictVO(byId);
 		return SingleResponse.of(dictVO);

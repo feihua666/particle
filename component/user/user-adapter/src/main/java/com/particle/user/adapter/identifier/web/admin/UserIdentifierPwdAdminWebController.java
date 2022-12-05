@@ -4,9 +4,8 @@ import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationServ
 import com.particle.user.client.identifier.api.representation.IUserIdentifierPwdRepresentationApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCreateCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailForUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdUpdateCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryListCommand;
@@ -52,7 +51,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:delete')")
 	@ApiOperation("删除用户密码")
 	@DeleteMapping("/delete")
-	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody UserIdentifierPwdDeleteCommand userIdentifierPwdDeleteCommand){
+	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody IdCommand userIdentifierPwdDeleteCommand){
 		return iUserIdentifierPwdApplicationService.delete(userIdentifierPwdDeleteCommand);
 	}
 
@@ -66,14 +65,14 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:update')")
 	@ApiOperation("用户密码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(UserIdentifierPwdQueryDetailForUpdateCommand userIdentifierPwdQueryDetailForUpdateCommand){
+	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand){
 		return iUserIdentifierPwdRepresentationApplicationService.queryDetailForUpdate(userIdentifierPwdQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:detail')")
 	@ApiOperation("用户密码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserIdentifierPwdVO> queryDetail(UserIdentifierPwdQueryDetailCommand userIdentifierPwdQueryDetailCommand){
+	public SingleResponse<UserIdentifierPwdVO> queryDetail(IdCommand userIdentifierPwdQueryDetailCommand){
 		return iUserIdentifierPwdRepresentationApplicationService.queryDetail(userIdentifierPwdQueryDetailCommand);
 	}
 

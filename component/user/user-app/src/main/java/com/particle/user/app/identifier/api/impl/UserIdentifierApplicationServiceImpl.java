@@ -3,7 +3,7 @@ package com.particle.user.app.identifier.api.impl;
 import com.particle.user.app.identifier.executor.UserIdentifierCreateCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierDeleteCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierUpdateCommandExecutor;
-import com.particle.user.client.identifier.dto.command.UserIdentifierDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
@@ -42,7 +42,7 @@ public class UserIdentifierApplicationServiceImpl extends AbstractBaseApplicatio
 	}
 
 	@Override
-	public SingleResponse<UserIdentifierVO> delete(UserIdentifierDeleteCommand userIdentifierDeleteCommand) {
+	public SingleResponse<UserIdentifierVO> delete(IdCommand userIdentifierDeleteCommand) {
 		return userIdentifierDeleteCommandExecutor.execute(userIdentifierDeleteCommand);
 	}
 

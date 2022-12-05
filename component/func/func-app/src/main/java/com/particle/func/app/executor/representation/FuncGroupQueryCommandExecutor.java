@@ -1,24 +1,23 @@
 package com.particle.func.app.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.structmapping.FuncGroupAppStructMapping;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.infrastructure.service.IFuncGroupService;
-import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 import javax.validation.Valid;
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -38,7 +37,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupQueryListCommand
 	 * @return
 	 */
-	public MultiResponse<FuncGroupVO> execute(@Valid FuncGroupQueryListCommand funcGroupQueryListCommand) {
+	public MultiResponse<FuncGroupVO> executeDetail(@Valid FuncGroupQueryListCommand funcGroupQueryListCommand) {
 		List<FuncGroupDO> funcGroupDO = iFuncGroupService.list(funcGroupQueryListCommand);
 		List<FuncGroupVO> funcGroupVOs = FuncGroupAppStructMapping.instance.funcGroupDOsToFuncGroupVOs(funcGroupDO);
 		return MultiResponse.of(funcGroupVOs);
@@ -48,7 +47,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupPageQueryCommand
 	 * @return
 	 */
-	public PageResponse<FuncGroupVO> execute(@Valid FuncGroupPageQueryCommand funcGroupPageQueryCommand) {
+	public PageResponse<FuncGroupVO> executeDetail(@Valid FuncGroupPageQueryCommand funcGroupPageQueryCommand) {
 		Page<FuncGroupDO> page = iFuncGroupService.listPage(funcGroupPageQueryCommand);
 		return FuncGroupAppStructMapping.instance.infrastructurePageToPageResponse(page);
 	}
@@ -58,7 +57,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<FuncGroupVO> execute(FuncGroupQueryDetailCommand funcGroupQueryDetailCommand) {
+	public SingleResponse<FuncGroupVO> executeDetail(IdCommand funcGroupQueryDetailCommand) {
 		FuncGroupDO byId = iFuncGroupService.getById(funcGroupQueryDetailCommand.getId());
 		FuncGroupVO funcGroupVO = FuncGroupAppStructMapping.instance.funcGroupDOToFuncGroupVO(byId);
 		return SingleResponse.of(funcGroupVO);
@@ -68,7 +67,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FuncGroupVO> execute(FuncGroupQueryDetailForUpdateCommand funcGroupQueryDetailForUpdateCommand) {
+	public SingleResponse<FuncGroupVO> executeDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand) {
 		FuncGroupDO byId = iFuncGroupService.getById(funcGroupQueryDetailForUpdateCommand.getId());
 		FuncGroupVO funcGroupVO = FuncGroupAppStructMapping.instance.funcGroupDOToFuncGroupVO(byId);
 		return SingleResponse.of(funcGroupVO);

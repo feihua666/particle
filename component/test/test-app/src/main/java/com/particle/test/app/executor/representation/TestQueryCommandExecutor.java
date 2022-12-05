@@ -2,13 +2,12 @@ package com.particle.test.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.test.app.structmapping.TestAppStructMapping;
 import com.particle.test.client.dto.command.representation.TestPageQueryCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailForUpdateCommand;
 import com.particle.test.client.dto.command.representation.TestQueryListCommand;
 import com.particle.test.client.dto.data.TestVO;
 import com.particle.test.infrastructure.dos.TestDO;
@@ -58,7 +57,7 @@ public class TestQueryCommandExecutor extends AbstractBaseQueryExecutor {
 	 * @param testQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<TestVO> execute(TestQueryDetailCommand testQueryDetailCommand) {
+	public SingleResponse<TestVO> executeDetail(IdCommand testQueryDetailCommand) {
 		TestDO byId = iTestService.getById(testQueryDetailCommand.getId());
 		TestVO testVO = TestAppStructMapping.instance.testDOToTestVO(byId);
 		return SingleResponse.of(testVO);
@@ -68,7 +67,7 @@ public class TestQueryCommandExecutor extends AbstractBaseQueryExecutor {
 	 * @param testQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TestVO> execute(TestQueryDetailForUpdateCommand testQueryDetailForUpdateCommand) {
+	public SingleResponse<TestVO> executeDetailForUpdate(IdCommand testQueryDetailForUpdateCommand) {
 		TestDO byId = iTestService.getById(testQueryDetailForUpdateCommand.getId());
 		TestVO testVO = TestAppStructMapping.instance.testDOToTestVO(byId);
 		return SingleResponse.of(testVO);

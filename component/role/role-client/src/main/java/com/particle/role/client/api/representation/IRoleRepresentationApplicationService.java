@@ -1,14 +1,13 @@
 package com.particle.role.client.api.representation;
 
-import com.particle.role.client.dto.command.representation.RoleQueryDetailForUpdateCommand;
-import com.particle.role.client.dto.command.representation.RoleQueryDetailCommand;
-import com.particle.role.client.dto.command.representation.RolePageQueryCommand;
-import com.particle.role.client.dto.command.representation.RoleQueryListCommand;
-import com.particle.role.client.dto.data.RoleVO;
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.role.client.dto.command.representation.RolePageQueryCommand;
+import com.particle.role.client.dto.command.representation.RoleQueryListCommand;
+import com.particle.role.client.dto.data.RoleVO;
 
 /**
  * <p>
@@ -25,14 +24,14 @@ public interface IRoleRepresentationApplicationService extends IBaseApplicationS
 	 * @param roleQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<RoleVO> queryDetailForUpdate(RoleQueryDetailForUpdateCommand roleQueryDetailForUpdateCommand);
+	SingleResponse<RoleVO> queryDetailForUpdate(IdCommand roleQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param roleQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<RoleVO> queryDetail(RoleQueryDetailCommand roleQueryDetailCommand);
+	SingleResponse<RoleVO> queryDetail(IdCommand roleQueryDetailCommand);
 
 	/**
 	 * 列表查询

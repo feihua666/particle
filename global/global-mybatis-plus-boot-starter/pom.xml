@@ -48,6 +48,7 @@
             <version>${particle.version}</version>
         </dependency>
 
+        <!-- 全局共享依赖，主要是使用 自定义注解，如：like -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-light-share</artifactId>
@@ -95,10 +96,6 @@
             <artifactId>global-concurrency-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
+
     </dependencies>
 </project>

@@ -1,23 +1,18 @@
 package com.particle.func.app.api.impl.representation;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.executor.representation.FuncGroupQueryCommandExecutor;
-import com.particle.func.client.dto.command.FuncGroupDeleteCommand;
-import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
-import com.particle.func.client.dto.command.FuncGroupCreateCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import org.springframework.transaction.annotation.Transactional;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
  * <p>
  * 功能组 门面服务实现类
@@ -33,23 +28,23 @@ public class FuncGroupRepresentationApplicationServiceImpl extends AbstractBaseA
 	private FuncGroupQueryCommandExecutor funcGroupQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<FuncGroupVO> queryDetail(FuncGroupQueryDetailCommand funcGroupQueryDetailCommand) {
-		return funcGroupQueryCommandExecutor.execute(funcGroupQueryDetailCommand);
+	public SingleResponse<FuncGroupVO> queryDetail(IdCommand funcGroupQueryDetailCommand) {
+		return funcGroupQueryCommandExecutor.executeDetail(funcGroupQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<FuncGroupVO> queryDetailForUpdate(FuncGroupQueryDetailForUpdateCommand funcGroupQueryDetailForUpdateCommand) {
-		return funcGroupQueryCommandExecutor.execute(funcGroupQueryDetailForUpdateCommand);
+	public SingleResponse<FuncGroupVO> queryDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand) {
+		return funcGroupQueryCommandExecutor.executeDetailForUpdate(funcGroupQueryDetailForUpdateCommand);
 	}
 
 	@Override
 	public PageResponse<FuncGroupVO> pageQuery(FuncGroupPageQueryCommand funcGroupPageQueryCommand) {
-		return funcGroupQueryCommandExecutor.execute(funcGroupPageQueryCommand);
+		return funcGroupQueryCommandExecutor.executeDetail(funcGroupPageQueryCommand);
 	}
 
 	@Override
 	public MultiResponse<FuncGroupVO> queryList(FuncGroupQueryListCommand funcGroupQueryListCommand) {
-		return funcGroupQueryCommandExecutor.execute(funcGroupQueryListCommand);
+		return funcGroupQueryCommandExecutor.executeDetail(funcGroupQueryListCommand);
 	}
 
 	@Autowired

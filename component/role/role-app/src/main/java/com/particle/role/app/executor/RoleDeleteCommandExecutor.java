@@ -1,7 +1,7 @@
 package com.particle.role.app.executor;
 
 import com.particle.role.app.structmapping.RoleAppStructMapping;
-import com.particle.role.client.dto.command.RoleDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.domain.Role;
 import com.particle.role.domain.RoleId;
@@ -38,7 +38,7 @@ public class RoleDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param roleDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleVO> execute(@Valid RoleDeleteCommand roleDeleteCommand) {
+	public SingleResponse<RoleVO> execute(@Valid IdCommand roleDeleteCommand) {
 		RoleId roleId = RoleId.of(roleDeleteCommand.getId());
 		Role byId = roleGateway.getById(roleId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

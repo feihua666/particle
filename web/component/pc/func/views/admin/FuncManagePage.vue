@@ -25,7 +25,7 @@ const reactiveData = reactive({
         },
         compProps: {
           clearable: true,
-          placeholder: '左模糊查询'
+          placeholder: '左前缀匹配'
         }
       }
     },
@@ -40,7 +40,7 @@ const reactiveData = reactive({
         },
         compProps: {
           clearable: true,
-          placeholder: '左模糊查询'
+          placeholder: '左前缀匹配'
         }
       }
     },
@@ -71,6 +71,12 @@ const reactiveData = reactive({
       label: '名称'
     },
     {
+      prop: 'icon',
+      label: '图标',
+      // elementPlus 图标
+      columnView: 'elIcon'
+    },
+    {
       prop: 'isDisabled',
       label: '是否禁用'
     },
@@ -85,6 +91,10 @@ const reactiveData = reactive({
     {
       prop: 'seq',
       label: '排序'
+    },
+    {
+      prop: 'remark',
+      label: '描述'
     }
   ]
 })

@@ -1,11 +1,10 @@
 package com.particle.func.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.executor.representation.FuncQueryCommandExecutor;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailForUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.catchlog.CatchAndLog;
@@ -33,13 +32,13 @@ public class FuncRepresentationApplicationServiceImpl extends AbstractBaseApplic
 
 
 	@Override
-	public SingleResponse<FuncVO> queryDetail(FuncQueryDetailCommand funcQueryDetailCommand) {
-		return funcQueryCommandExecutor.execute(funcQueryDetailCommand);
+	public SingleResponse<FuncVO> queryDetail(IdCommand funcQueryDetailCommand) {
+		return funcQueryCommandExecutor.executeDetail(funcQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<FuncVO> queryDetailForUpdate(FuncQueryDetailForUpdateCommand funcQueryDetailForUpdateCommand) {
-		return funcQueryCommandExecutor.execute(funcQueryDetailForUpdateCommand);
+	public SingleResponse<FuncVO> queryDetailForUpdate(IdCommand funcQueryDetailForUpdateCommand) {
+		return funcQueryCommandExecutor.executeDetailForUpdate(funcQueryDetailForUpdateCommand);
 	}
 
 	@Override

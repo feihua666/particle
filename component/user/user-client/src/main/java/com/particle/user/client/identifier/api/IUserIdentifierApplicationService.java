@@ -1,13 +1,11 @@
 package com.particle.user.client.identifier.api;
 
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierDeleteCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
@@ -30,7 +28,7 @@ public interface IUserIdentifierApplicationService extends IBaseApplicationServi
 	 * @param userIdentifierDeleteCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierVO> delete(UserIdentifierDeleteCommand userIdentifierDeleteCommand);
+	SingleResponse<UserIdentifierVO> delete(IdCommand userIdentifierDeleteCommand);
 
 	/**
 	 * 更新领域对象

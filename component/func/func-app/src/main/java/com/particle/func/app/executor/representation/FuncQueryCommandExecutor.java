@@ -2,10 +2,9 @@ package com.particle.func.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailForUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.infrastructure.dos.FuncDO;
@@ -58,7 +57,7 @@ public class FuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<FuncVO> execute(FuncQueryDetailCommand funcQueryDetailCommand) {
+	public SingleResponse<FuncVO> executeDetail(IdCommand funcQueryDetailCommand) {
 		FuncDO byId = iFuncService.getById(funcQueryDetailCommand.getId());
 		FuncVO funcVO = FuncAppStructMapping.instance.funcDOToFuncVO(byId);
 		return SingleResponse.of(funcVO);
@@ -68,7 +67,7 @@ public class FuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FuncVO> execute(FuncQueryDetailForUpdateCommand funcQueryDetailForUpdateCommand) {
+	public SingleResponse<FuncVO> executeDetailForUpdate(IdCommand funcQueryDetailForUpdateCommand) {
 		FuncDO byId = iFuncService.getById(funcQueryDetailForUpdateCommand.getId());
 		FuncVO funcVO = FuncAppStructMapping.instance.funcDOToFuncVO(byId);
 		return SingleResponse.of(funcVO);

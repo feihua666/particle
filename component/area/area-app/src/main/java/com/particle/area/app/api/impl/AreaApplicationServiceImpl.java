@@ -5,10 +5,10 @@ import com.particle.area.app.executor.AreaDeleteCommandExecutor;
 import com.particle.area.app.executor.AreaUpdateCommandExecutor;
 import com.particle.area.client.api.IAreaApplicationService;
 import com.particle.area.client.dto.command.AreaCreateCommand;
-import com.particle.area.client.dto.command.AreaDeleteCommand;
 import com.particle.area.client.dto.command.AreaUpdateCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class AreaApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<AreaVO> delete(AreaDeleteCommand areaDeleteCommand) {
+	public SingleResponse<AreaVO> delete(IdCommand areaDeleteCommand) {
 		return areaDeleteCommandExecutor.execute(areaDeleteCommand);
 	}
 

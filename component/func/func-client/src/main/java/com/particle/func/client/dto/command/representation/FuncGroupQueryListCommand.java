@@ -3,6 +3,7 @@ package com.particle.func.client.dto.command.representation;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,15 +20,11 @@ import lombok.Data;
 @ApiModel
 public class FuncGroupQueryListCommand extends AbstractBaseQueryCommand {
 
-
-    @ApiModelProperty("编码，模糊查询")
+    @Like
+    @ApiModelProperty("编码，左前缀匹配")
     private String code;
 
-    @ApiModelProperty("名称，模糊查询")
+    @Like
+    @ApiModelProperty("名称，左前缀匹配")
     private String name;
-
-    @ApiModelProperty("描述")
-    private String remark;
-
-
 }

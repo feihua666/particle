@@ -3,11 +3,10 @@ package com.particle.area.app.api.impl.representation;
 import com.particle.area.app.executor.representation.AreaQueryCommandExecutor;
 import com.particle.area.client.api.representation.IAreaRepresentationApplicationService;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailForUpdateCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -30,13 +29,13 @@ public class AreaRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	private AreaQueryCommandExecutor areaQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<AreaVO> queryDetail(AreaQueryDetailCommand areaQueryDetailCommand) {
-		return areaQueryCommandExecutor.execute(areaQueryDetailCommand);
+	public SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand) {
+		return areaQueryCommandExecutor.executeDetail(areaQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<AreaVO> queryDetailForUpdate(AreaQueryDetailForUpdateCommand areaQueryDetailForUpdateCommand) {
-		return areaQueryCommandExecutor.execute(areaQueryDetailForUpdateCommand);
+	public SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand) {
+		return areaQueryCommandExecutor.executeDetailForUpdate(areaQueryDetailForUpdateCommand);
 	}
 
 	@Override

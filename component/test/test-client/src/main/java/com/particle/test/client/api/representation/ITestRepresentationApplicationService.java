@@ -1,12 +1,11 @@
 package com.particle.test.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.test.client.dto.command.representation.TestPageQueryCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailForUpdateCommand;
 import com.particle.test.client.dto.command.representation.TestQueryListCommand;
 import com.particle.test.client.dto.data.TestVO;
 
@@ -25,14 +24,14 @@ public interface ITestRepresentationApplicationService extends IBaseApplicationS
 	 * @param testQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<TestVO> queryDetailForUpdate(TestQueryDetailForUpdateCommand testQueryDetailForUpdateCommand);
+	SingleResponse<TestVO> queryDetailForUpdate(IdCommand testQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param testQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<TestVO> queryDetail(TestQueryDetailCommand testQueryDetailCommand);
+	SingleResponse<TestVO> queryDetail(IdCommand testQueryDetailCommand);
 
 	/**
 	 * 列表查询

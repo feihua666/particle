@@ -1,7 +1,7 @@
 package com.particle.role.client.api;
 
 import com.particle.role.client.dto.command.RoleCreateCommand;
-import com.particle.role.client.dto.command.RoleDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.global.dto.response.MultiResponse;
@@ -30,7 +30,7 @@ public interface IRoleApplicationService extends IBaseApplicationService {
 	 * @param roleDeleteCommand
 	 * @return
 	 */
-	SingleResponse<RoleVO> delete(RoleDeleteCommand roleDeleteCommand);
+	SingleResponse<RoleVO> delete(IdCommand roleDeleteCommand);
 
 	/**
 	 * 更新领域对象

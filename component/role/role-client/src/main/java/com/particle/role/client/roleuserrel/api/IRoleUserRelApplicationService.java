@@ -1,13 +1,11 @@
 package com.particle.role.client.roleuserrel.api;
 
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelDeleteCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelUpdateCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
@@ -30,7 +28,7 @@ public interface IRoleUserRelApplicationService extends IBaseApplicationService 
 	 * @param roleUserRelDeleteCommand
 	 * @return
 	 */
-	SingleResponse<RoleUserRelVO> delete(RoleUserRelDeleteCommand roleUserRelDeleteCommand);
+	SingleResponse<RoleUserRelVO> delete(IdCommand roleUserRelDeleteCommand);
 
 	/**
 	 * 更新领域对象

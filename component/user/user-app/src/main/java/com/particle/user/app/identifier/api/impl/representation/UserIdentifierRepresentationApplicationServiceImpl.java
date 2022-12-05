@@ -1,23 +1,18 @@
 package com.particle.user.app.identifier.api.impl.representation;
 
-import com.particle.user.app.identifier.executor.representation.UserIdentifierQueryCommandExecutor;
-import com.particle.user.client.identifier.dto.command.UserIdentifierDeleteCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailForUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
-import com.particle.user.client.identifier.api.representation.IUserIdentifierRepresentationApplicationService;
-import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
-import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import org.springframework.transaction.annotation.Transactional;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.app.identifier.executor.representation.UserIdentifierQueryCommandExecutor;
+import com.particle.user.client.identifier.api.representation.IUserIdentifierRepresentationApplicationService;
+import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
+import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
+import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
  * <p>
  * 用户登录标识 门面服务实现类
@@ -33,13 +28,13 @@ public class UserIdentifierRepresentationApplicationServiceImpl extends Abstract
 	private UserIdentifierQueryCommandExecutor userIdentifierQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<UserIdentifierVO> queryDetail(UserIdentifierQueryDetailCommand userIdentifierQueryDetailCommand) {
-		return userIdentifierQueryCommandExecutor.execute(userIdentifierQueryDetailCommand);
+	public SingleResponse<UserIdentifierVO> queryDetail(IdCommand userIdentifierQueryDetailCommand) {
+		return userIdentifierQueryCommandExecutor.executeDetail(userIdentifierQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(UserIdentifierQueryDetailForUpdateCommand userIdentifierQueryDetailForUpdateCommand) {
-		return userIdentifierQueryCommandExecutor.execute(userIdentifierQueryDetailForUpdateCommand);
+	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(IdCommand userIdentifierQueryDetailForUpdateCommand) {
+		return userIdentifierQueryCommandExecutor.executeDetailForUpdate(userIdentifierQueryDetailForUpdateCommand);
 	}
 
 	@Override

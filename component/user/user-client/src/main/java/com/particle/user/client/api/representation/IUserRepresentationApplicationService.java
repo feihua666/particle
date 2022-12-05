@@ -1,7 +1,6 @@
 package com.particle.user.client.api.representation;
 
-import com.particle.user.client.dto.command.representation.UserQueryDetailForUpdateCommand;
-import com.particle.user.client.dto.command.representation.UserQueryDetailCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
@@ -25,14 +24,14 @@ public interface IUserRepresentationApplicationService extends IBaseApplicationS
 	 * @param userQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<UserVO> queryDetailForUpdate(UserQueryDetailForUpdateCommand userQueryDetailForUpdateCommand);
+	SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param userQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<UserVO> queryDetail(UserQueryDetailCommand userQueryDetailCommand);
+	SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand);
 
 	/**
 	 * 列表查询

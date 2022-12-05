@@ -1,12 +1,12 @@
 package com.particle.func.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.executor.FuncCreateCommandExecutor;
 import com.particle.func.app.executor.FuncDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncUpdateCommandExecutor;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
-import com.particle.func.client.dto.command.FuncDeleteCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.catchlog.CatchAndLog;
@@ -43,7 +43,7 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 
 	@Transactional
 	@Override
-	public SingleResponse<FuncVO> delete(FuncDeleteCommand funcDeleteCommand) {
+	public SingleResponse<FuncVO> delete(IdCommand funcDeleteCommand) {
 		return funcDeleteCommandExecutor.execute(funcDeleteCommand);
 	}
 

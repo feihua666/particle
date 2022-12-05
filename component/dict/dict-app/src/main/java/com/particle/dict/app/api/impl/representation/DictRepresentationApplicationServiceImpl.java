@@ -1,11 +1,10 @@
 package com.particle.dict.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.app.executor.representation.DictQueryCommandExecutor;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailForUpdateCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.catchlog.CatchAndLog;
@@ -33,13 +32,13 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 
 
 	@Override
-	public SingleResponse<DictVO> queryDetail(DictQueryDetailCommand dictQueryDetailCommand) {
-		return dictQueryCommandExecutor.execute(dictQueryDetailCommand);
+	public SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand) {
+		return dictQueryCommandExecutor.executeDetail(dictQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<DictVO> queryDetailForUpdate(DictQueryDetailForUpdateCommand dictQueryDetailForUpdateCommand) {
-		return dictQueryCommandExecutor.execute(dictQueryDetailForUpdateCommand);
+	public SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand) {
+		return dictQueryCommandExecutor.executeDetailForUpdate(dictQueryDetailForUpdateCommand);
 	}
 
 	@Override

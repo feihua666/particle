@@ -1,14 +1,12 @@
 package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
-import com.particle.func.client.dto.command.FuncDeleteCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailCommand;
-import com.particle.func.client.dto.command.representation.FuncQueryDetailForUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.MultiResponse;
@@ -48,7 +46,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:delete')")
 	@ApiOperation("删除菜单功能")
 	@DeleteMapping("/delete")
-	public SingleResponse<FuncVO> delete(@RequestBody FuncDeleteCommand funcDeleteCommand){
+	public SingleResponse<FuncVO> delete(@RequestBody IdCommand funcDeleteCommand){
 		return iFuncApplicationService.delete(funcDeleteCommand);
 	}
 
@@ -62,14 +60,14 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:update')")
 	@ApiOperation("菜单功能更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<FuncVO> queryDetailForUpdate(FuncQueryDetailForUpdateCommand funcQueryDetailForUpdateCommand){
+	public SingleResponse<FuncVO> queryDetailForUpdate(IdCommand funcQueryDetailForUpdateCommand){
 		return iFuncRepresentationApplicationService.queryDetailForUpdate(funcQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:func:detail')")
 	@ApiOperation("菜单功能详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncVO> queryDetail(FuncQueryDetailCommand funcQueryDetailCommand){
+	public SingleResponse<FuncVO> queryDetail(IdCommand funcQueryDetailCommand){
 		return iFuncRepresentationApplicationService.queryDetail(funcQueryDetailCommand);
 	}
 

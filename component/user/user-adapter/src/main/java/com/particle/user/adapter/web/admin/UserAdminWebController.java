@@ -4,9 +4,7 @@ import com.particle.user.client.api.IUserApplicationService;
 import com.particle.user.client.api.representation.IUserRepresentationApplicationService;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.user.client.dto.command.representation.UserQueryDetailForUpdateCommand;
-import com.particle.user.client.dto.command.representation.UserQueryDetailCommand;
-import com.particle.user.client.dto.command.UserDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
@@ -52,7 +50,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:delete')")
 	@ApiOperation("删除用户")
 	@DeleteMapping("/delete")
-	public SingleResponse<UserVO> delete(@RequestBody UserDeleteCommand userDeleteCommand){
+	public SingleResponse<UserVO> delete(@RequestBody IdCommand userDeleteCommand){
 		return iUserApplicationService.delete(userDeleteCommand);
 	}
 
@@ -66,14 +64,14 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
 	@ApiOperation("用户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserVO> queryDetailForUpdate(UserQueryDetailForUpdateCommand userQueryDetailForUpdateCommand){
+	public SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand){
 		return iUserRepresentationApplicationService.queryDetailForUpdate(userQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:detail')")
 	@ApiOperation("用户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserVO> queryDetail(UserQueryDetailCommand userQueryDetailCommand){
+	public SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand){
 		return iUserRepresentationApplicationService.queryDetail(userQueryDetailCommand);
 	}
 

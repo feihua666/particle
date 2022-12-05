@@ -1,8 +1,8 @@
 package com.particle.dict.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.client.dto.command.DictCreateCommand;
-import com.particle.dict.client.dto.command.DictDeleteCommand;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.SingleResponse;
@@ -28,7 +28,7 @@ public interface IDictApplicationService extends IBaseApplicationService {
 	 * @param dictDeleteCommand
 	 * @return
 	 */
-	SingleResponse<DictVO> delete(DictDeleteCommand dictDeleteCommand);
+	SingleResponse<DictVO> delete(IdCommand dictDeleteCommand);
 
 	/**
 	 * 更新领域对象

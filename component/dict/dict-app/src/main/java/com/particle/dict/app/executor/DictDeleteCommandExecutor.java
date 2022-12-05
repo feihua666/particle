@@ -1,8 +1,8 @@
 package com.particle.dict.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
-import com.particle.dict.client.dto.command.DictDeleteCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.domain.Dict;
 import com.particle.dict.domain.DictId;
@@ -35,7 +35,7 @@ public class DictDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param dictDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<DictVO> execute(@Valid DictDeleteCommand dictDeleteCommand) {
+	public SingleResponse<DictVO> execute(@Valid IdCommand dictDeleteCommand) {
 		DictId dictId = DictId.of(dictDeleteCommand.getId());
 		Dict byId = dictGateway.getById(dictId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

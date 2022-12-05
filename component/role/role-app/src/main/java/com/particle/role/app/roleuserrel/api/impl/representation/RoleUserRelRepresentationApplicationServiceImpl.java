@@ -1,23 +1,18 @@
 package com.particle.role.app.roleuserrel.api.impl.representation;
 
-import com.particle.role.app.roleuserrel.executor.representation.RoleUserRelQueryCommandExecutor;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelDeleteCommand;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelUpdateCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryDetailCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryDetailForUpdateCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
-import com.particle.role.client.roleuserrel.api.representation.IRoleUserRelRepresentationApplicationService;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
-import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import org.springframework.transaction.annotation.Transactional;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.app.roleuserrel.executor.representation.RoleUserRelQueryCommandExecutor;
+import com.particle.role.client.roleuserrel.api.representation.IRoleUserRelRepresentationApplicationService;
+import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
+import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
+import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
  * <p>
  * 角色用户关系 门面服务实现类
@@ -33,13 +28,13 @@ public class RoleUserRelRepresentationApplicationServiceImpl extends AbstractBas
 	private RoleUserRelQueryCommandExecutor roleUserRelQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<RoleUserRelVO> queryDetail(RoleUserRelQueryDetailCommand roleUserRelQueryDetailCommand) {
-		return roleUserRelQueryCommandExecutor.execute(roleUserRelQueryDetailCommand);
+	public SingleResponse<RoleUserRelVO> queryDetail(IdCommand roleUserRelQueryDetailCommand) {
+		return roleUserRelQueryCommandExecutor.executeDetail(roleUserRelQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<RoleUserRelVO> queryDetailForUpdate(RoleUserRelQueryDetailForUpdateCommand roleUserRelQueryDetailForUpdateCommand) {
-		return roleUserRelQueryCommandExecutor.execute(roleUserRelQueryDetailForUpdateCommand);
+	public SingleResponse<RoleUserRelVO> queryDetailForUpdate(IdCommand roleUserRelQueryDetailForUpdateCommand) {
+		return roleUserRelQueryCommandExecutor.executeDetailForUpdate(roleUserRelQueryDetailForUpdateCommand);
 	}
 
 	@Override

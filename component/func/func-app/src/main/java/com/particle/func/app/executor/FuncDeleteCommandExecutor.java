@@ -1,8 +1,8 @@
 package com.particle.func.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
-import com.particle.func.client.dto.command.FuncDeleteCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.Func;
 import com.particle.func.domain.FuncId;
@@ -35,7 +35,7 @@ public class FuncDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param funcDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<FuncVO> execute(@Valid FuncDeleteCommand funcDeleteCommand) {
+	public SingleResponse<FuncVO> execute(@Valid IdCommand funcDeleteCommand) {
 		FuncId funcId = FuncId.of(funcDeleteCommand.getId());
 		Func byId = funcGateway.getById(funcId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

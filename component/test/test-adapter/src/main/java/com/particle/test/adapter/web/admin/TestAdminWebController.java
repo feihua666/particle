@@ -1,15 +1,15 @@
 package com.particle.test.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.test.client.api.ITestApplicationService;
 import com.particle.test.client.api.representation.ITestRepresentationApplicationService;
-import com.particle.test.client.dto.command.*;
+import com.particle.test.client.dto.command.TestCreateCommand;
+import com.particle.test.client.dto.command.TestUpdateCommand;
 import com.particle.test.client.dto.command.representation.TestPageQueryCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailCommand;
-import com.particle.test.client.dto.command.representation.TestQueryDetailForUpdateCommand;
 import com.particle.test.client.dto.command.representation.TestQueryListCommand;
 import com.particle.test.client.dto.data.TestVO;
 import io.swagger.annotations.Api;
@@ -46,7 +46,7 @@ public class TestAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:test:delete')")
 	@ApiOperation("删除测试")
 	@DeleteMapping("/delete")
-	public SingleResponse<TestVO> delete(@RequestBody TestDeleteCommand testDeleteCommand){
+	public SingleResponse<TestVO> delete(@RequestBody IdCommand testDeleteCommand){
 		return iTestApplicationService.delete(testDeleteCommand);
 	}
 
@@ -60,14 +60,14 @@ public class TestAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:test:update')")
 	@ApiOperation("测试更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TestVO> queryDetailForUpdate(TestQueryDetailForUpdateCommand testQueryDetailForUpdateCommand){
+	public SingleResponse<TestVO> queryDetailForUpdate(IdCommand testQueryDetailForUpdateCommand){
 		return iTestRepresentationApplicationService.queryDetailForUpdate(testQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:test:detail')")
 	@ApiOperation("测试详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TestVO> queryDetail(TestQueryDetailCommand testQueryDetailCommand){
+	public SingleResponse<TestVO> queryDetail(IdCommand testQueryDetailCommand){
 		return iTestRepresentationApplicationService.queryDetail(testQueryDetailCommand);
 	}
 

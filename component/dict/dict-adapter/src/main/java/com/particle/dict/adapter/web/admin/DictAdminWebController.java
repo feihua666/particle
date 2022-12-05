@@ -1,12 +1,12 @@
 package com.particle.dict.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
-import com.particle.dict.client.dto.command.*;
+import com.particle.dict.client.dto.command.DictCreateCommand;
+import com.particle.dict.client.dto.command.DictUpdateCommand;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailCommand;
-import com.particle.dict.client.dto.command.representation.DictQueryDetailForUpdateCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.MultiResponse;
@@ -46,7 +46,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:delete')")
 	@ApiOperation("删除字典")
 	@DeleteMapping("/delete")
-	public SingleResponse<DictVO> delete(@RequestBody DictDeleteCommand dictDeleteCommand){
+	public SingleResponse<DictVO> delete(@RequestBody IdCommand dictDeleteCommand){
 		return iDictApplicationService.delete(dictDeleteCommand);
 	}
 
@@ -60,14 +60,14 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
 	@ApiOperation("字典更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DictVO> queryDetailForUpdate(DictQueryDetailForUpdateCommand dictQueryDetailForUpdateCommand){
+	public SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand){
 		return iDictRepresentationApplicationService.queryDetailForUpdate(dictQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:detail')")
 	@ApiOperation("字典详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DictVO> queryDetail(DictQueryDetailCommand dictQueryDetailCommand){
+	public SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand){
 		return iDictRepresentationApplicationService.queryDetail(dictQueryDetailCommand);
 	}
 

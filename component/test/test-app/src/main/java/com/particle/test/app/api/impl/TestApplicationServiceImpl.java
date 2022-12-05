@@ -1,6 +1,7 @@
 package com.particle.test.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.test.app.executor.TestCreateCommandExecutor;
@@ -8,7 +9,6 @@ import com.particle.test.app.executor.TestDeleteCommandExecutor;
 import com.particle.test.app.executor.TestUpdateCommandExecutor;
 import com.particle.test.client.api.ITestApplicationService;
 import com.particle.test.client.dto.command.TestCreateCommand;
-import com.particle.test.client.dto.command.TestDeleteCommand;
 import com.particle.test.client.dto.command.TestUpdateCommand;
 import com.particle.test.client.dto.data.TestVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class TestApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 	
 	@Override
-	public SingleResponse<TestVO> delete(TestDeleteCommand testDeleteCommand) {
+	public SingleResponse<TestVO> delete(IdCommand testDeleteCommand) {
 		return testDeleteCommandExecutor.execute(testDeleteCommand);
 	}
 	

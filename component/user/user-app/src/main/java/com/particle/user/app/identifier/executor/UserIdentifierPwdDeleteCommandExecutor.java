@@ -1,7 +1,7 @@
 package com.particle.user.app.identifier.executor;
 
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
@@ -38,7 +38,7 @@ public class UserIdentifierPwdDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param userIdentifierPwdDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> execute(@Valid UserIdentifierPwdDeleteCommand userIdentifierPwdDeleteCommand) {
+	public SingleResponse<UserIdentifierPwdVO> execute(@Valid IdCommand userIdentifierPwdDeleteCommand) {
 		UserIdentifierPwdId userIdentifierPwdId = UserIdentifierPwdId.of(userIdentifierPwdDeleteCommand.getId());
 		UserIdentifierPwd byId = userIdentifierPwdGateway.getById(userIdentifierPwdId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

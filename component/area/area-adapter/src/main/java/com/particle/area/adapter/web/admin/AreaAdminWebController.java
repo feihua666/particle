@@ -3,14 +3,12 @@ package com.particle.area.adapter.web.admin;
 import com.particle.area.client.api.IAreaApplicationService;
 import com.particle.area.client.api.representation.IAreaRepresentationApplicationService;
 import com.particle.area.client.dto.command.AreaCreateCommand;
-import com.particle.area.client.dto.command.AreaDeleteCommand;
 import com.particle.area.client.dto.command.AreaUpdateCommand;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailForUpdateCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -48,7 +46,7 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:area:delete')")
 	@ApiOperation("删除区域")
 	@DeleteMapping("/delete")
-	public SingleResponse<AreaVO> delete(@RequestBody AreaDeleteCommand areaDeleteCommand){
+	public SingleResponse<AreaVO> delete(@RequestBody IdCommand areaDeleteCommand){
 		return iAreaApplicationService.delete(areaDeleteCommand);
 	}
 
@@ -62,14 +60,14 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:area:update')")
 	@ApiOperation("区域更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<AreaVO> queryDetailForUpdate(AreaQueryDetailForUpdateCommand areaQueryDetailForUpdateCommand){
+	public SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand){
 		return iAreaRepresentationApplicationService.queryDetailForUpdate(areaQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:detail')")
 	@ApiOperation("区域详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<AreaVO> queryDetail(AreaQueryDetailCommand areaQueryDetailCommand){
+	public SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand){
 		return iAreaRepresentationApplicationService.queryDetail(areaQueryDetailCommand);
 	}
 

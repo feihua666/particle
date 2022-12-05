@@ -1,7 +1,7 @@
 package com.particle.role.client.rolefuncrel.api.representation;
 
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailForUpdateCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailCommand;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
@@ -25,14 +25,14 @@ public interface IRoleFuncRelRepresentationApplicationService extends IBaseAppli
 	 * @param roleFuncRelQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<RoleFuncRelVO> queryDetailForUpdate(RoleFuncRelQueryDetailForUpdateCommand roleFuncRelQueryDetailForUpdateCommand);
+	SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param roleFuncRelQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<RoleFuncRelVO> queryDetail(RoleFuncRelQueryDetailCommand roleFuncRelQueryDetailCommand);
+	SingleResponse<RoleFuncRelVO> queryDetail(IdCommand roleFuncRelQueryDetailCommand);
 
 	/**
 	 * 列表查询

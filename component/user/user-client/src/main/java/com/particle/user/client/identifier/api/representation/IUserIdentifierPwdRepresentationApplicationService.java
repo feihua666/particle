@@ -1,7 +1,6 @@
 package com.particle.user.client.identifier.api.representation;
 
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailForUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryListCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
@@ -25,14 +24,14 @@ public interface IUserIdentifierPwdRepresentationApplicationService extends IBas
 	 * @param userIdentifierPwdQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(UserIdentifierPwdQueryDetailForUpdateCommand userIdentifierPwdQueryDetailForUpdateCommand);
+	SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param userIdentifierPwdQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> queryDetail(UserIdentifierPwdQueryDetailCommand userIdentifierPwdQueryDetailCommand);
+	SingleResponse<UserIdentifierPwdVO> queryDetail(IdCommand userIdentifierPwdQueryDetailCommand);
 
 	/**
 	 * 列表查询

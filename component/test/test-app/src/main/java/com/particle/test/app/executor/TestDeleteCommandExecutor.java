@@ -5,7 +5,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.test.app.structmapping.TestAppStructMapping;
-import com.particle.test.client.dto.command.TestDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.test.client.dto.data.TestVO;
 import com.particle.test.domain.Test;
 import com.particle.test.domain.TestId;
@@ -35,7 +35,7 @@ public class TestDeleteCommandExecutor extends AbstractBaseExecutor {
 	 * @param testDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<TestVO> execute(@Valid TestDeleteCommand testDeleteCommand) {
+	public SingleResponse<TestVO> execute(@Valid IdCommand testDeleteCommand) {
 		TestId testId = TestId.of(testDeleteCommand.getId());
 		Test byId = testGateway.getById(testId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

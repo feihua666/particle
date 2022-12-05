@@ -1,20 +1,18 @@
 package com.particle.func.app.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.executor.FuncGroupCreateCommandExecutor;
 import com.particle.func.app.executor.FuncGroupDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncGroupUpdateCommandExecutor;
-import com.particle.func.client.dto.command.FuncGroupDeleteCommand;
-import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
 import com.particle.func.client.api.IFuncGroupApplicationService;
 import com.particle.func.client.dto.command.FuncGroupCreateCommand;
+import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -42,7 +40,7 @@ public class FuncGroupApplicationServiceImpl extends AbstractBaseApplicationServ
 	}
 
 	@Override
-	public SingleResponse<FuncGroupVO> delete(FuncGroupDeleteCommand funcGroupDeleteCommand) {
+	public SingleResponse<FuncGroupVO> delete(IdCommand funcGroupDeleteCommand) {
 		return funcGroupDeleteCommandExecutor.execute(funcGroupDeleteCommand);
 	}
 

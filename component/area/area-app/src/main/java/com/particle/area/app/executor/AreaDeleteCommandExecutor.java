@@ -1,12 +1,12 @@
 package com.particle.area.app.executor;
 
 import com.particle.area.app.structmapping.AreaAppStructMapping;
-import com.particle.area.client.dto.command.AreaDeleteCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.area.domain.gateway.AreaGateway;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -35,7 +35,7 @@ public class AreaDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param areaDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> execute(@Valid AreaDeleteCommand areaDeleteCommand) {
+	public SingleResponse<AreaVO> execute(@Valid IdCommand areaDeleteCommand) {
 		AreaId areaId = AreaId.of(areaDeleteCommand.getId());
 		Area byId = areaGateway.getById(areaId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

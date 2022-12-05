@@ -1,24 +1,23 @@
 package com.particle.user.app.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.app.structmapping.UserAppStructMapping;
+import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.service.IUserService;
-import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
-import com.particle.user.client.dto.command.representation.UserQueryDetailCommand;
-import com.particle.user.client.dto.command.representation.UserQueryDetailForUpdateCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 import javax.validation.Valid;
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -58,7 +57,7 @@ public class UserQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param userQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> execute(UserQueryDetailCommand userQueryDetailCommand) {
+	public SingleResponse<UserVO> executeDetail(IdCommand userQueryDetailCommand) {
 		UserDO byId = iUserService.getById(userQueryDetailCommand.getId());
 		UserVO userVO = UserAppStructMapping.instance.userDOToUserVO(byId);
 		return SingleResponse.of(userVO);
@@ -68,7 +67,7 @@ public class UserQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param userQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> execute(UserQueryDetailForUpdateCommand userQueryDetailForUpdateCommand) {
+	public SingleResponse<UserVO> executeDetailForUpdate(IdCommand userQueryDetailForUpdateCommand) {
 		UserDO byId = iUserService.getById(userQueryDetailForUpdateCommand.getId());
 		UserVO userVO = UserAppStructMapping.instance.userDOToUserVO(byId);
 		return SingleResponse.of(userVO);

@@ -3,7 +3,7 @@ package com.particle.role.app.rolefuncrel.api.impl;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCreateCommandExecutor;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelDeleteCommandExecutor;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelUpdateCommandExecutor;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelUpdateCommand;
 import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
@@ -42,7 +42,7 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> delete(RoleFuncRelDeleteCommand roleFuncRelDeleteCommand) {
+	public SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand) {
 		return roleFuncRelDeleteCommandExecutor.execute(roleFuncRelDeleteCommand);
 	}
 

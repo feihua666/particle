@@ -1,9 +1,9 @@
 package com.particle.test.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.test.client.dto.command.TestCreateCommand;
-import com.particle.test.client.dto.command.TestDeleteCommand;
 import com.particle.test.client.dto.command.TestUpdateCommand;
 import com.particle.test.client.dto.data.TestVO;
 
@@ -28,7 +28,7 @@ public interface ITestApplicationService extends IBaseApplicationService {
 	 * @param testDeleteCommand
 	 * @return
 	 */
-	SingleResponse<TestVO> delete(TestDeleteCommand testDeleteCommand);
+	SingleResponse<TestVO> delete(IdCommand testDeleteCommand);
 
 	/**
 	 * 更新领域对象

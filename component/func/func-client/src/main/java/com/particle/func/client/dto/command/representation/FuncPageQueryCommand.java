@@ -20,7 +20,7 @@ public class FuncPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
     @Like
-    @ApiModelProperty("编码，左模糊查询")
+    @ApiModelProperty("编码，左前缀匹配")
     private String code;
 
     @Like

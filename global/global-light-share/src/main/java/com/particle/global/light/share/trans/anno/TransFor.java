@@ -27,8 +27,8 @@ public @interface TransFor {
 
     /**
      * 表名字符串，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
-     * 优先级高于 scatter.common.rest.trans.TransFor#tableNameClass()
-     * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+     * 优先级高于 {@link TransFor#tableNameClass()}
+     * 仅type={@link com.particle.global.trans.api.impl.TableNameTransServiceImpl#TRANS_BY_TABLE_NAME} 即 {@link TransConstants#defaultTransType}有效
      * @return
      */
     String tableName() default "";
@@ -36,15 +36,15 @@ public @interface TransFor {
     /**
      * 表名实体类，仅支持{@link com.particle.global.trans.api.impl.TableNameTransServiceImpl 实现的特殊定义}
      * 如果该类存在mybatis_plus的注解{@link com.baomidou.mybatisplus.annotation.TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
-     * 优先经低于 scatter.common.rest.trans.TransFor#tableName()
-     * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+     * 优先经低于 {@link TransFor#tableName()}
+     * 仅type={@link com.particle.global.trans.api.impl.TableNameTransServiceImpl#TRANS_BY_TABLE_NAME} 即 {@link TransConstants#defaultTransType}有效
      * @return
      */
     Class tableNameClass() default Void.class;
 
     /**
      * 根据哪一列翻译，可以写表列名或实体属性名（实体属性名会转为下划线作为列名）
-     * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+     * 仅type={@link com.particle.global.trans.api.impl.TableNameTransServiceImpl#TRANS_BY_TABLE_NAME} 即 {@link TransConstants#defaultTransType}有效
      *
      * @return
      */
@@ -61,7 +61,7 @@ public @interface TransFor {
     /**
      * 当翻译结果是一个对象时，可以使用该字段取对象的一个属性值
      * 当翻译结果是一个集合时，可以使用集合中该字段取对象的一个属性值 仅支持List集合
-     * type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name必填
+     * type={@link com.particle.global.trans.api.impl.TableNameTransServiceImpl#TRANS_BY_TABLE_NAME} 即 {@link TransConstants#defaultTransType}必填
      * @return
      */
     String mapValueField() default "";

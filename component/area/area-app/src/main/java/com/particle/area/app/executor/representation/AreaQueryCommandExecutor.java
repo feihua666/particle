@@ -3,13 +3,12 @@ package com.particle.area.app.executor.representation;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.area.app.structmapping.AreaAppStructMapping;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailCommand;
-import com.particle.area.client.dto.command.representation.AreaQueryDetailForUpdateCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +57,7 @@ public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param areaQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> execute(AreaQueryDetailCommand areaQueryDetailCommand) {
+	public SingleResponse<AreaVO> executeDetail(IdCommand areaQueryDetailCommand) {
 		AreaDO byId = iAreaService.getById(areaQueryDetailCommand.getId());
 		AreaVO areaVO = AreaAppStructMapping.instance.areaDOToAreaVO(byId);
 		return SingleResponse.of(areaVO);
@@ -68,7 +67,7 @@ public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param areaQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> execute(AreaQueryDetailForUpdateCommand areaQueryDetailForUpdateCommand) {
+	public SingleResponse<AreaVO> executeDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand) {
 		AreaDO byId = iAreaService.getById(areaQueryDetailForUpdateCommand.getId());
 		AreaVO areaVO = AreaAppStructMapping.instance.areaDOToAreaVO(byId);
 		return SingleResponse.of(areaVO);

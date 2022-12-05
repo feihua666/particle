@@ -1,14 +1,13 @@
 package com.particle.func.client.api.representation;
 
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailForUpdateCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryDetailCommand;
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>
@@ -25,14 +24,14 @@ public interface IFuncGroupRepresentationApplicationService extends IBaseApplica
 	 * @param funcGroupQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<FuncGroupVO> queryDetailForUpdate(FuncGroupQueryDetailForUpdateCommand funcGroupQueryDetailForUpdateCommand);
+	SingleResponse<FuncGroupVO> queryDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param funcGroupQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<FuncGroupVO> queryDetail(FuncGroupQueryDetailCommand funcGroupQueryDetailCommand);
+	SingleResponse<FuncGroupVO> queryDetail(IdCommand funcGroupQueryDetailCommand);
 
 	/**
 	 * 列表查询

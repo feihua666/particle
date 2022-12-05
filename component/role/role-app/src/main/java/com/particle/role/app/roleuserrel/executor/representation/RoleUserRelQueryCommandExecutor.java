@@ -1,24 +1,23 @@
 package com.particle.role.app.roleuserrel.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
+import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryDetailCommand;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryDetailForUpdateCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 import javax.validation.Valid;
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -58,7 +57,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param roleUserRelQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> execute(RoleUserRelQueryDetailCommand roleUserRelQueryDetailCommand) {
+	public SingleResponse<RoleUserRelVO> executeDetail(IdCommand roleUserRelQueryDetailCommand) {
 		RoleUserRelDO byId = iRoleUserRelService.getById(roleUserRelQueryDetailCommand.getId());
 		RoleUserRelVO roleUserRelVO = RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(byId);
 		return SingleResponse.of(roleUserRelVO);
@@ -68,7 +67,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param roleUserRelQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> execute(RoleUserRelQueryDetailForUpdateCommand roleUserRelQueryDetailForUpdateCommand) {
+	public SingleResponse<RoleUserRelVO> executeDetailForUpdate(IdCommand roleUserRelQueryDetailForUpdateCommand) {
 		RoleUserRelDO byId = iRoleUserRelService.getById(roleUserRelQueryDetailForUpdateCommand.getId());
 		RoleUserRelVO roleUserRelVO = RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(byId);
 		return SingleResponse.of(roleUserRelVO);

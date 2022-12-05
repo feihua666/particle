@@ -3,7 +3,7 @@ package com.particle.role.app.api.impl;
 import com.particle.role.app.executor.RoleCreateCommandExecutor;
 import com.particle.role.app.executor.RoleDeleteCommandExecutor;
 import com.particle.role.app.executor.RoleUpdateCommandExecutor;
-import com.particle.role.client.dto.command.RoleDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.api.IRoleApplicationService;
 import com.particle.role.client.dto.command.RoleCreateCommand;
@@ -42,7 +42,7 @@ public class RoleApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<RoleVO> delete(RoleDeleteCommand roleDeleteCommand) {
+	public SingleResponse<RoleVO> delete(IdCommand roleDeleteCommand) {
 		return roleDeleteCommandExecutor.execute(roleDeleteCommand);
 	}
 

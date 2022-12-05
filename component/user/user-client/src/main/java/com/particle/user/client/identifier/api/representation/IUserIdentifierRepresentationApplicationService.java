@@ -1,7 +1,6 @@
 package com.particle.user.client.identifier.api.representation;
 
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailForUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
@@ -25,14 +24,14 @@ public interface IUserIdentifierRepresentationApplicationService extends IBaseAp
 	 * @param userIdentifierQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierVO> queryDetailForUpdate(UserIdentifierQueryDetailForUpdateCommand userIdentifierQueryDetailForUpdateCommand);
+	SingleResponse<UserIdentifierVO> queryDetailForUpdate(IdCommand userIdentifierQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param userIdentifierQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierVO> queryDetail(UserIdentifierQueryDetailCommand userIdentifierQueryDetailCommand);
+	SingleResponse<UserIdentifierVO> queryDetail(IdCommand userIdentifierQueryDetailCommand);
 
 	/**
 	 * 列表查询

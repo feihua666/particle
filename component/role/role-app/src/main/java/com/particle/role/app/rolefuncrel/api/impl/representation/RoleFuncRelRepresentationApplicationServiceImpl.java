@@ -1,23 +1,18 @@
 package com.particle.role.app.rolefuncrel.api.impl.representation;
 
-import com.particle.role.app.rolefuncrel.executor.representation.RoleFuncRelQueryCommandExecutor;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteCommand;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelUpdateCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailForUpdateCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
-import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepresentationApplicationService;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
-import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import org.springframework.transaction.annotation.Transactional;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.app.rolefuncrel.executor.representation.RoleFuncRelQueryCommandExecutor;
+import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepresentationApplicationService;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
+import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
  * <p>
  * 角色菜单功能关系 门面服务实现类
@@ -33,13 +28,13 @@ public class RoleFuncRelRepresentationApplicationServiceImpl extends AbstractBas
 	private RoleFuncRelQueryCommandExecutor roleFuncRelQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> queryDetail(RoleFuncRelQueryDetailCommand roleFuncRelQueryDetailCommand) {
-		return roleFuncRelQueryCommandExecutor.execute(roleFuncRelQueryDetailCommand);
+	public SingleResponse<RoleFuncRelVO> queryDetail(IdCommand roleFuncRelQueryDetailCommand) {
+		return roleFuncRelQueryCommandExecutor.executeDetail(roleFuncRelQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(RoleFuncRelQueryDetailForUpdateCommand roleFuncRelQueryDetailForUpdateCommand) {
-		return roleFuncRelQueryCommandExecutor.execute(roleFuncRelQueryDetailForUpdateCommand);
+	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand) {
+		return roleFuncRelQueryCommandExecutor.executeDetailForUpdate(roleFuncRelQueryDetailForUpdateCommand);
 	}
 
 	@Override

@@ -46,15 +46,19 @@ const propsOptions = computed(() => {
     </template>
 
     <template v-if="!$slots.default && (columnView || (nestColumns && nestColumns.length > 0))" #default="scope">
+      <!--  图片  -->
       <template v-if="columnView == 'image'">
         <PtImage class="pt-table-column-image" :dialogProps="{appendToBody: true}"  previewView="default" style="height: 1.5rem;width: 1.5rem;" :src="scope.row[scope.column.property]" :preview-teleported="true">
           <template #error>
             <div class="image-slot">
               <el-icon><Picture /></el-icon>
             </div>
-
           </template>
         </PtImage>
+      </template>
+      <!--  图标  -->
+      <template  v-else-if="columnView == 'elIcon'">
+        <el-icon v-if="scope.row[scope.column.property]"><component :is="scope.row[scope.column.property]"></component></el-icon>
       </template>
       <template v-if="nestColumns && nestColumns.length > 0">
         <template v-for="(item,index) in nestColumns" :key="index">

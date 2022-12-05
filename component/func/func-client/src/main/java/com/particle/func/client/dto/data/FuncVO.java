@@ -3,6 +3,7 @@ package com.particle.func.client.dto.data;
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.global.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.Trans;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
@@ -30,6 +31,9 @@ public class FuncVO extends AbstractBaseIdTreeVO {
 
     @ApiModelProperty("功能分组id")
     private Long funcGroupId;
+    @ApiModelProperty("功能分组名称")
+    @TransBy(tableName = TransTableNameConstants.component_func_group, byFieldName = "funcGroupId", mapValueField = "name")
+    private String funcGroupName;
 
     @ApiModelProperty("图标")
     private String icon;
@@ -48,8 +52,10 @@ public class FuncVO extends AbstractBaseIdTreeVO {
 
     @ApiModelProperty("类型,字典id")
     private Long typeDictId;
+    @ApiModelProperty("类型,字典名称")
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     private String typeDictName;
+    @ApiModelProperty("类型,字典值")
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
     private String typeDictValue;
 

@@ -1,7 +1,7 @@
 package com.particle.role.app.roleuserrel.executor;
 
 import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
 import com.particle.role.domain.roleuserrel.RoleUserRelId;
@@ -38,7 +38,7 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param roleUserRelDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> execute(@Valid RoleUserRelDeleteCommand roleUserRelDeleteCommand) {
+	public SingleResponse<RoleUserRelVO> execute(@Valid IdCommand roleUserRelDeleteCommand) {
 		RoleUserRelId roleUserRelId = RoleUserRelId.of(roleUserRelDeleteCommand.getId());
 		RoleUserRel byId = roleUserRelGateway.getById(roleUserRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

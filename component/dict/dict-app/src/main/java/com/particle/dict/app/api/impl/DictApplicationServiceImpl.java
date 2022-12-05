@@ -1,12 +1,12 @@
 package com.particle.dict.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dict.app.executor.DictCreateCommandExecutor;
 import com.particle.dict.app.executor.DictDeleteCommandExecutor;
 import com.particle.dict.app.executor.DictUpdateCommandExecutor;
 import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.dto.command.DictCreateCommand;
-import com.particle.dict.client.dto.command.DictDeleteCommand;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.catchlog.CatchAndLog;
@@ -40,7 +40,7 @@ public class DictApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<DictVO> delete(DictDeleteCommand dictDeleteCommand) {
+	public SingleResponse<DictVO> delete(IdCommand dictDeleteCommand) {
 		return dictDeleteCommandExecutor.execute(dictDeleteCommand);
 	}
 	@Override

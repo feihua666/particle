@@ -1,28 +1,22 @@
 package com.particle.user.adapter.identifier.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.api.representation.IUserIdentifierRepresentationApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
-import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailForUpdateCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryDetailCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierDeleteCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 用户登录标识后台管理pc或平板端前端适配器
@@ -52,7 +46,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")
 	@ApiOperation("删除用户登录标识")
 	@DeleteMapping("/delete")
-	public SingleResponse<UserIdentifierVO> delete(@RequestBody UserIdentifierDeleteCommand userIdentifierDeleteCommand){
+	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand userIdentifierDeleteCommand){
 		return iUserIdentifierApplicationService.delete(userIdentifierDeleteCommand);
 	}
 
@@ -66,14 +60,14 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
 	@ApiOperation("用户登录标识更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(UserIdentifierQueryDetailForUpdateCommand userIdentifierQueryDetailForUpdateCommand){
+	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(IdCommand userIdentifierQueryDetailForUpdateCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetailForUpdate(userIdentifierQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:detail')")
 	@ApiOperation("用户登录标识详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserIdentifierVO> queryDetail(UserIdentifierQueryDetailCommand userIdentifierQueryDetailCommand){
+	public SingleResponse<UserIdentifierVO> queryDetail(IdCommand userIdentifierQueryDetailCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetail(userIdentifierQueryDetailCommand);
 	}
 

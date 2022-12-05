@@ -4,9 +4,9 @@ import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepresentationApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailForUpdateCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryDetailCommand;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteCommand;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelUpdateCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
@@ -52,7 +52,7 @@ public class RoleFuncRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:delete')")
 	@ApiOperation("删除角色菜单功能关系")
 	@DeleteMapping("/delete")
-	public SingleResponse<RoleFuncRelVO> delete(@RequestBody RoleFuncRelDeleteCommand roleFuncRelDeleteCommand){
+	public SingleResponse<RoleFuncRelVO> delete(@RequestBody IdCommand roleFuncRelDeleteCommand){
 		return iRoleFuncRelApplicationService.delete(roleFuncRelDeleteCommand);
 	}
 
@@ -66,14 +66,14 @@ public class RoleFuncRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:update')")
 	@ApiOperation("角色菜单功能关系更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(RoleFuncRelQueryDetailForUpdateCommand roleFuncRelQueryDetailForUpdateCommand){
+	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand){
 		return iRoleFuncRelRepresentationApplicationService.queryDetailForUpdate(roleFuncRelQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:detail')")
 	@ApiOperation("角色菜单功能关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<RoleFuncRelVO> queryDetail(RoleFuncRelQueryDetailCommand roleFuncRelQueryDetailCommand){
+	public SingleResponse<RoleFuncRelVO> queryDetail(IdCommand roleFuncRelQueryDetailCommand){
 		return iRoleFuncRelRepresentationApplicationService.queryDetail(roleFuncRelQueryDetailCommand);
 	}
 

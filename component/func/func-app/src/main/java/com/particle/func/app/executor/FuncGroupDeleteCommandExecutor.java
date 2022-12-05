@@ -1,7 +1,8 @@
 package com.particle.func.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.structmapping.FuncGroupAppStructMapping;
-import com.particle.func.client.dto.command.FuncGroupDeleteCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
@@ -9,10 +10,6 @@ import com.particle.func.domain.gateway.FuncGroupGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -38,7 +35,7 @@ public class FuncGroupDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param funcGroupDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<FuncGroupVO> execute(@Valid FuncGroupDeleteCommand funcGroupDeleteCommand) {
+	public SingleResponse<FuncGroupVO> execute(@Valid IdCommand funcGroupDeleteCommand) {
 		FuncGroupId funcGroupId = FuncGroupId.of(funcGroupDeleteCommand.getId());
 		FuncGroup byId = funcGroupGateway.getById(funcGroupId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

@@ -1,24 +1,23 @@
 package com.particle.user.app.identifier.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
+import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryListCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdPageQueryCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailCommand;
-import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryDetailForUpdateCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 import javax.validation.Valid;
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -58,7 +57,7 @@ public class UserIdentifierPwdQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param userIdentifierPwdQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> execute(UserIdentifierPwdQueryDetailCommand userIdentifierPwdQueryDetailCommand) {
+	public SingleResponse<UserIdentifierPwdVO> executeDetail(IdCommand userIdentifierPwdQueryDetailCommand) {
 		UserIdentifierPwdDO byId = iUserIdentifierPwdService.getById(userIdentifierPwdQueryDetailCommand.getId());
 		UserIdentifierPwdVO userIdentifierPwdVO = UserIdentifierPwdAppStructMapping.instance.userIdentifierPwdDOToUserIdentifierPwdVO(byId);
 		return SingleResponse.of(userIdentifierPwdVO);
@@ -68,7 +67,7 @@ public class UserIdentifierPwdQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param userIdentifierPwdQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> execute(UserIdentifierPwdQueryDetailForUpdateCommand userIdentifierPwdQueryDetailForUpdateCommand) {
+	public SingleResponse<UserIdentifierPwdVO> executeDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand) {
 		UserIdentifierPwdDO byId = iUserIdentifierPwdService.getById(userIdentifierPwdQueryDetailForUpdateCommand.getId());
 		UserIdentifierPwdVO userIdentifierPwdVO = UserIdentifierPwdAppStructMapping.instance.userIdentifierPwdDOToUserIdentifierPwdVO(byId);
 		return SingleResponse.of(userIdentifierPwdVO);
