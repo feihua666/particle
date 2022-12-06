@@ -22,7 +22,7 @@ import Menu from './Menu.vue'
 import SubMenu from './SubMenu.vue'
 import MenuItem from './MenuItem.vue'
 import MenuItemGroup from './MenuItemGroup.vue'
-import RouteViewDrawer from './RouteViewDrawer.vue'
+import RouteViewPopover from './RouteViewPopover.vue'
 import Pagination from './Pagination.vue'
 import Table from './Table.vue'
 import TableColumn from './TableColumn.vue'
@@ -58,7 +58,7 @@ let map = {
     SubMenu,
     MenuItem,
     MenuItemGroup,
-    RouteViewDrawer,
+    RouteViewPopover,
     Pagination,
     Table,
     TableColumn,

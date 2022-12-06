@@ -1,4 +1,4 @@
-<script setup name="ButtonGroup">
+<script setup name="ButtonGroup" lang="ts">
 /**
  * 自定义封装按钮组
  * 封装理由：1. 通过数据配置的方式生成按钮更方便
@@ -15,7 +15,7 @@ const props = defineProps({
    *    ... // 其它属性同自定义 pt-button
    *  }
    */
-  buttons: {
+  options: {
     type: Array,
     default: () => []
   },
@@ -40,13 +40,13 @@ const reactiveData = reactive({
 })
 // 计算属性
 
-// 这里和 props.buttons 重名了，但在模板是使用 buttons 变量是这个计算值，也就是说这里会覆盖在模板中的值
-const buttons = computed(() => {
-  return props.buttons.filter(item => item.position == undefined || item.position == 'default')
+// 这里和 props.options 重名了，但在模板是使用 options 变量是这个计算值，也就是说这里会覆盖在模板中的值
+const options = computed(() => {
+  return props.options.filter(item => item.position == undefined || item.position == 'default')
 })
 // 更多按钮
 const moreButtons = computed(() => {
-  return props.buttons.filter(item => item.position == 'more')
+  return props.options.filter(item => item.position == 'more')
 })
 // 下拉组件原始选项
 const dropdownOptions = computed(() => {
@@ -72,8 +72,12 @@ const dropdownVisible = (visible) => {
 </script>
 <template>
   <el-button-group v-bind="$attrs">
-    <template v-for="(button,index) in buttons" :key="index">
-      <PtButton v-bind="button">{{button.txt}}</PtButton>
+    <template v-for="(button,index) in options" :key="index">
+      <PtButton v-bind="button">
+        <template #default v-if="button.txt">
+          {{button.txt}}
+        </template>
+      </PtButton>
     </template>
 
     <el-dropdown v-if="moreButtons.length > 0" ref="dropdown" @visible-change="dropdownVisible" v-bind="dropdownOptions">
@@ -81,7 +85,13 @@ const dropdownVisible = (visible) => {
       <template #dropdown>
         <el-dropdown-menu>
           <template v-for="(button,index) in moreButtons" :key="index">
-            <el-dropdown-item><PtButton v-bind="button">{{button.txt}}</PtButton></el-dropdown-item>
+            <el-dropdown-item>
+              <PtButton v-bind="button">
+                <template #default v-if="button.txt">
+                  {{button.txt}}
+                </template>
+              </PtButton>
+            </el-dropdown-item>
           </template>
         </el-dropdown-menu>
       </template>

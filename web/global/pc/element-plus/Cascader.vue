@@ -5,7 +5,7 @@
  *          2. 后端使用时支持权限控制
  *          3. 自带加载数据 dataLoading 功能效果
  */
-import {reactive ,computed,onMounted,inject} from 'vue'
+import {reactive ,computed,onMounted,inject, watch} from 'vue'
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
@@ -107,7 +107,14 @@ const hasPermission = hasPermissionConfig({
 })
 // 是否禁用
 const hasDisabled = disabledConfig({props,dataLoading,hasPermission})
-
+// 侦听
+watch(
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue

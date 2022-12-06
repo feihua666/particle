@@ -48,6 +48,10 @@ export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit
 
     return function (value) {
         if (hasPermission.value.enable && !hasPermission.value.hasPm) {
+            // 没有权限时，在下一次更新将原来值重置回来，不能编辑
+            nextTick(() => {
+                reactiveData.currentModelValue = reactiveData.oldModelValue
+            })
             return true
         }
         let params = [eventName ? eventName: emitDataModelEvent.updateModelValue]

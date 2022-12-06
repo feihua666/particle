@@ -106,6 +106,14 @@ watch(
 
     }
 )
+// 侦听
+watch(
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue

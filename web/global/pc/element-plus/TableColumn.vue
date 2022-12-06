@@ -25,9 +25,6 @@ const props = defineProps({
   }
 })
 
-// element plus 绑定的插槽属性为 $index，但报错，这时改成 index，暂先这样
-const scope$index = ref('index')
-
 // 计算属性
 // propsOptions
 const propsOptions = computed(() => {

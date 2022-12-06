@@ -17,6 +17,11 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  // 重写 rowKey
+  rowKey: {
+    type: String,
+    default: 'id'
+  },
   // 默认情况下，Table 组件是不具有竖直方向的边框的， 如果需要，可以使用 border 属性，把该属性设置为 true 即可启用。
   border: {
     type: Boolean,
@@ -43,12 +48,7 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  // 选项
-  props: {
-    type: Object,
-    // 默认值在计算属性那里设置
-    default: () => ({})
-  },
+
   // 数据初始化时，加载初始数据 loading 效果
   dataLoading: {
     type: Boolean,
@@ -65,22 +65,7 @@ const reactiveData = reactive({
 const options = computed(() => {
   return props.options.length > 0 ? props.options : props.data.length > 0 ? props.data : reactiveData.dataMethodData
 })
-// propsOptions
-const propsOptions = computed(() => {
-  let defaultProps = {
-    // 指定选项的值为选项对象的某个属性值
-    value: 'id',
-    // 指定选项标签为选项对象的某个属性值
-    label: 'name',
-    // 指定选项的叶子节点的标志位为选项对象的某个属性值
-    leaf: 'isLeaf',
-    // 在选中节点改变时，是否返回由该节点所在的各级菜单的值所组成的数组，若设置 false，则只返回该节点的值
-    emitPath: false,
-    // 选择任意一级选项
-    checkStrictly: true
-  }
-  return Object.assign(defaultProps, props.props)
-})
+
 // 这里和 props.dataLoading 重名了，但在模板是使用 dataLoading 变量是这个值，也就是说这里会覆盖在模板中的值
 const dataLoading = computed(() => {
   return props.dataLoading || reactiveData.dataMethodLocalLoading
@@ -153,6 +138,7 @@ defineExpose({
   <el-table  class="pt-table pt-width-100-pc"
              :userGroupHeaderView="userGroupHeaderView"
              v-bind="$attrs"
+             :rowKey="rowKey"
              v-loading="dataLoading"
              :data="options"
              :stripe="stripe"
@@ -185,6 +171,8 @@ defineExpose({
       <template  v-for="(item,index) in columns" :key="index">
         <PtTableColumn v-bind="item" :nestColumns="item.nestColumns || []"></PtTableColumn>
       </template>
+      <!-- 可用来添加操作等按钮  -->
+      <slot name="defaultAppend"></slot>
     </template>
     <!--  保留原始功能 append 插槽  -->
     <template #append v-if="$slots.append">

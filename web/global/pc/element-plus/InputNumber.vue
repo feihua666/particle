@@ -3,7 +3,7 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,inject} from 'vue'
+import { reactive ,inject, watch} from 'vue'
 
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
@@ -40,7 +40,14 @@ const hasPermission = hasPermissionConfig({
 })
 // 是否禁用
 const hasDisabled = disabledConfig({props,hasPermission})
-
+// 侦听
+watch(
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue

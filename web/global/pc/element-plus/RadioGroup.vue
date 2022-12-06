@@ -89,10 +89,11 @@ const hasPermission = hasPermissionConfig({
 // 是否禁用
 const hasDisabled = disabledConfig({props,dataLoading,hasPermission})
 // 侦听
-
 watch(
-    () => options.value,
-    (opt,oldOpt) => {
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
     }
 )
 // 事件

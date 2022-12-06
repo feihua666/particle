@@ -89,7 +89,14 @@ const hasPermission = hasPermissionConfig({
 })
 // 是否禁用
 const hasDisabled = disabledConfig({props,hasPermission})
-
+// 侦听
+watch(
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
+    }
+)
 // 侦听
 watch(
     () => reactiveData.uploading,

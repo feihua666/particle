@@ -1,9 +1,9 @@
 <script setup name="Carousel">
 /**
- * 自定义封装 Carousel 级联选择
+ * 自定义封装 Carousel 走马灯
  * 封装理由：1. 可以自助获取数据，更方便
  *          2. 自带加载数据 dataLoading 功能效果
- *          3. 增加名称为 item的插槽，方便直接写内容
+ *          3. 增加名称为 item 的插槽，方便直接写内容
  */
 import {reactive ,computed,onMounted,inject,ref} from 'vue'
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'

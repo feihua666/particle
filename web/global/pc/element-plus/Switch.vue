@@ -3,7 +3,7 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,computed,inject} from 'vue'
+import { reactive ,computed,inject, watch} from 'vue'
 import { ElMessageBox } from 'element-plus'
 
 import {permissionProps,hasPermissionConfig} from './permission'
@@ -55,7 +55,14 @@ const hasPermission = hasPermissionConfig({
 
 // 是否禁用
 const hasDisabled = disabledConfig({props,hasPermission})
-
+// 侦听
+watch(
+    () => props.modelValue,
+    (val) => {
+      reactiveData.oldModelValue = val
+      reactiveData.currentModelValue = val
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue

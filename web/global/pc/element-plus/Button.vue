@@ -125,6 +125,7 @@ const fullScreenLoading = (loading) =>{
       // 关闭全屏loading
       if (reactiveData.loadingService != null) {
         reactiveData.loadingService.close()
+        // 重置 loadingService
         reactiveData.loadingService = null
       }
     }
