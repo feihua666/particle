@@ -3,7 +3,18 @@
  */
 
 import {isPromise} from "../../common/tools/PromiseTools"
-import { ElMessageBox } from 'element-plus'
+import {isFunction} from "../../common/tools/FunctionTools"
+import {isString} from "../../common/tools/StringTools"
+import { ElMessageBox, ElMessage } from 'element-plus'
+let alert = (message)=>{
+    ElMessage({
+        showClose: true,
+        message: message,
+        type: 'success',
+        showIcon: true,
+        grouping: true
+    })
+}
 
 /**
  * 数据加载相关，封装组件时用
@@ -22,6 +33,10 @@ export const methodProps = {
     // 点击按钮弹层确认文本，如果不传值将不会弹窗确认
     methodConfirmText: {
         type: String
+    },
+    // 成功提示或操作
+    methodSuccess: {
+        type: [String,Function]
     },
     // 启动全屏 loading 效果
     methodLoadingFullScreen: {
@@ -66,6 +81,17 @@ export const method = ({props,reactiveData,emit,hasPermission,doMethod: doMethod
         }
     }
 }
+const methodSuccess = (methodSuccess)=>{
+    if(methodSuccess){
+        let message = methodSuccess
+        if (isFunction(methodSuccess)) {
+            message = methodSuccess()
+        }
+        if (isString(message) ) {
+            alert(message)
+        }
+    }
+}
 // 发起调用
 export const doMethod = ({props,reactiveData,emit}) =>{
 
@@ -82,6 +108,7 @@ export const doMethod = ({props,reactiveData,emit}) =>{
             }
             if (isPromise(result)) {
                 const promiseResult = result.then(res =>{
+                    methodSuccess(props.methodSuccess)
                     return Promise.resolve(res)
                 }).catch(error => {
                     return Promise.reject(error)
@@ -90,6 +117,7 @@ export const doMethod = ({props,reactiveData,emit}) =>{
                 })
                 emit(emitMethodEvent.methodResult,promiseResult)
             }else {
+                methodSuccess(props.methodSuccess)
                 emit(emitMethodEvent.methodResult,result)
                 reactiveData.methodLocalLoading = false
             }

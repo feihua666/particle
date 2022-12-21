@@ -1,6 +1,5 @@
 <script setup name="index">
 import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject,ref} from 'vue'
-import {aiButtonStyle} from "../../../../../../global/pc/element-plus/ElStyleTools";
 const reactiveData = reactive({
   // loading状态
   cascaderModelValue: ['consistency'],
@@ -1169,7 +1168,7 @@ const menuSelect = (index,indexPath) => {
 
   <div>
     <div>PtSelect 基本使用</div>
-    <PtSelect v-model="reactiveData.selectModelValue"  noPermissionView="alert" :dataMethod="ptSelectHttpApi" :dataMethodResultHandle="directDataMethodResultHandle">
+    <PtSelect v-model="reactiveData.selectModelValue" permission="ss"  noPermissionView="alert" :dataMethod="ptSelectHttpApi" :dataMethodResultHandle="directDataMethodResultHandle">
     </PtSelect>
   </div>
 
@@ -1309,19 +1308,29 @@ const menuSelect = (index,indexPath) => {
 
   <div>
     <div>FormItemDetail 表单项详情，名字容易误解，</div>
-    <PtFormItemDetail :form="reactiveData.formItemDetailForm" prop="input" comp="txt">
+    <PtFormItemDetail :form="reactiveData.formItemDetailForm" :formData="{}" prop="input" comp="txt">
     </PtFormItemDetail>
-    <PtFormItemDetail :form="reactiveData.formItemDetailForm" prop="input" placeholder="xxxx" comp="el-input">
+    <PtFormItemDetail :form="reactiveData.formItemDetailForm"  :formData="{}" prop="input" placeholder="xxxx" comp="el-input">
     </PtFormItemDetail>
-    <el-input v-model="reactiveData.formItemDetailForm['elInput']" placeholder="xxxx" clearable></el-input>
     <input/>
   </div>
 
   <div>
     <div>form 表单</div>
-<!-- :dataMethod="formMethodPromise"   -->
     <PtForm :layout="2"  :comps="reactiveData.formComps">
     </PtForm>
+  </div>
+  <div>
+    <div>百度地图</div>
+<!--  一定要设置一个高度  -->
+    <PtBaiduMap style="height:500px;">
+    </PtBaiduMap>
+  </div>
+  <div>
+    <div>百度地图地址解析</div>
+    <!--  一定要设置一个高度  -->
+    <PtLocationGeoMap>
+    </PtLocationGeoMap>
   </div>
 </PtBackendManagementLayout>
 

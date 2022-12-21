@@ -36,6 +36,7 @@ spring:
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
+        - classpath:db/data.dict.sql
         - classpath:db/data.func.sql
         - classpath:db/data.generator.sql
         - classpath:db/data.user.sql

@@ -39,10 +39,12 @@ public class ${injection.className} extends AbstractBaseGatewayImpl<${injection.
 	public boolean doSave(${injection.domainObject.className} ${injection.domainObject.classNameVar}) {
 		${injection.entity.className} ${injection.entity.classNameVar} = ${injection.infrastructureStructMapping.className}.instance.${injection.domainObject.classNameVar}To${injection.entity.className}(${injection.domainObject.classNameVar});
 		if (${injection.entity.classNameVar}.getId() == null) {
+			${injection.entity.classNameVar}.setAddControl(${injection.domainObject.classNameVar}.getAddControl());
 			${injection.entity.className} add = ${injection.service.classNameVar}.add(${injection.entity.classNameVar});
 			${injection.domainObject.classNameVar}.setId(${injection.idObject.className}.of(add.getId()));
 			return add != null;
 		}
+		${injection.entity.classNameVar}.setUpdateControl(${injection.domainObject.classNameVar}.getUpdateControl());
 		${injection.entity.className} update = ${injection.service.classNameVar}.update(${injection.entity.classNameVar});
 		return update != null;
 	}

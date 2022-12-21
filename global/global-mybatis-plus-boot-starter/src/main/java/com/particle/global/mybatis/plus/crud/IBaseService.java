@@ -183,14 +183,14 @@ public interface IBaseService<DO> extends IService<DO> {
 
     /**
      * 判断数据是否存在
-     * @param columnId
+     * @param columnValue
      * @param column DO::getId
      * @return
      */
-    default boolean existByColumn(Long columnId, SFunction<DO, ?> column) {
+    default boolean existByColumn(Object columnValue, SFunction<DO, ?> column) {
         Assert.notNull(column,"column 不能为空");
-        Assert.notNull(columnId,"columnId 不能为空");
-        return count( Wrappers.<DO>query().lambda().eq(column,columnId)) > 0;
+        Assert.notNull(columnValue,"columnValue 不能为空");
+        return count( Wrappers.<DO>query().lambda().eq(column,columnValue)) > 0;
     }
 
     /**
@@ -302,17 +302,27 @@ public interface IBaseService<DO> extends IService<DO> {
     
     /*************************** 查 结束 *************************************/
     /*************************** 其它 开始 *************************************/
+    /**
+     * 断言根据该列查询是否存在或不存在
+     * 参见：{@link IBaseService#assertByColumn(java.lang.Object, com.baomidou.mybatisplus.core.toolkit.support.SFunction, boolean, java.lang.String)}
+     * @param columnValue
+     * @param column
+     * @param exist
+     */
+    default void assertByColumn(Object columnValue, SFunction<DO, ?> column, boolean exist) {
+        assertByColumn(columnValue, column, exist, null);
+    }
 
     /**
      * 断言根据该列查询是否存在或不存在
-     * @param columnId
+     * @param columnValue
      * @param column
      * @param exist true=断言存在，false=断言不存在
      */
-    default void assertByColumn(Long columnId, SFunction<DO, ?> column, boolean exist) {
+    default void assertByColumn(Object columnValue, SFunction<DO, ?> column, boolean exist,String message) {
         Assert.notNull(column,"column 不能为空");
-        Assert.notNull(columnId,"columnId 不能为空");
-        boolean existByColumn = existByColumn(columnId, column);
+        Assert.notNull(columnValue,"columnValue 不能为空");
+        boolean existByColumn = existByColumn(columnValue, column);
         if(exist == existByColumn){
             return;
         }
@@ -330,9 +340,9 @@ public interface IBaseService<DO> extends IService<DO> {
             }
         }
         if (exist) {
-            Assert.isTrue(existByColumn,columnLabel + " " + columnId + " " +  "不存在");
+            Assert.isTrue(existByColumn,message != null ? message:  columnLabel + " " + columnValue + " " +  "不存在");
         }else {
-            Assert.isTrue(!existByColumn,columnLabel + " " + columnId + " " +  "已存在");
+            Assert.isTrue(!existByColumn,message != null ? message: columnLabel + " " + columnValue + " " +  "已存在");
         }
     }
 

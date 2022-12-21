@@ -27,6 +27,11 @@ const props = defineProps({
     type: Object,
     required: true
   },
+  // 表单额外数据对象
+  formData: {
+    type: Object,
+    required: true
+  },
   // 表单数据项的键值
   prop: {
     type: String,
@@ -129,6 +134,7 @@ const txtValue = () => {
                  :noPermissionText="noPermissionText"
                  :disabled="disabled"
                  :disabledReason="disabledReason"
+                 @update:modelData="(data) => { props.formData[props.prop] = data }"
       >
         <!--  插槽  -->
         <template #default v-if="$slots.default">
@@ -139,6 +145,7 @@ const txtValue = () => {
                  :disabled="hasDisabled.disabled"
                  @update:modelValue="updateModelValueEvent"
                  @change="changeModelValueEvent"
+                 @update:modelData="(data) => { props.formData[props.prop] = data }"
                  :title="hasDisabled.disabledReason || title">
         <!--  插槽  -->
         <template #default v-if="$slots.default">

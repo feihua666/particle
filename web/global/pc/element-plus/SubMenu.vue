@@ -16,6 +16,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  // 图标名字
+  icon: {
+    type: String,
+  },
   // 数据
   options: {
     type: Array,
@@ -82,7 +86,11 @@ onMounted(() => {
       <slot name="title" />
     </template>
     <template #title v-if="!$slots.title">
-      {{titleText}}
+      <el-icon v-if="icon || $slots.icon">
+        <component :is="icon" v-if="icon" />
+        <slot v-else name="icon" />
+      </el-icon>
+      <span>{{titleText}}</span>
     </template>
 
     <template #default v-if="$slots.default">
@@ -92,10 +100,10 @@ onMounted(() => {
       <template v-for="(menuItem,index) in options" :key="index">
 
         <template v-if="isMenu(menuItem)">
-          <PtSubMenu :index="menuItem[propsOptions.index]||''" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
+          <PtSubMenu :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
         </template>
         <template v-else-if="isPage(menuItem)">
-          <PtMenuItem  :index="menuItem[propsOptions.index]||''"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
+          <PtMenuItem  :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
           <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>

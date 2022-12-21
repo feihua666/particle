@@ -52,6 +52,10 @@ public class FuncDO extends BaseTreeDO {
     */
     private Long typeDictId;
     /**
+     * 是否展示
+     */
+    private Boolean isShow;
+    /**
     * 描述
     */
     private String remark;

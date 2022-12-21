@@ -85,6 +85,7 @@ const loginResult = (result):void => {
           :submitAttrs="submitAttrs"
           class="login-form"
           :layout="1"
+          size="default"
           @methodResult="loginResult"
           :comps="reactiveData.formComps">
   </PtForm>

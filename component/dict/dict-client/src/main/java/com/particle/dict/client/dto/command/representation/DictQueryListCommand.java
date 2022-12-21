@@ -1,6 +1,7 @@
 package com.particle.dict.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,14 +19,14 @@ import lombok.Data;
 public class DictQueryListCommand extends AbstractBaseQueryCommand {
 
 
-    @ApiModelProperty("字典编码,模糊查询，字典组时必填")
+
+    @Like
+    @ApiModelProperty("字典编码,左前缀匹配")
     private String code;
 
-    @ApiModelProperty("字典名称,模糊查询")
+    @Like
+    @ApiModelProperty("字典名称,左前缀匹配")
     private String name;
-
-    @ApiModelProperty("字典值,模糊查询")
-    private String value;
 
     @ApiModelProperty("是否为系统字典，一般系统字典代码中会做判断，不能修改或删除")
     private Boolean isSystem;
@@ -39,29 +40,18 @@ public class DictQueryListCommand extends AbstractBaseQueryCommand {
     @ApiModelProperty("是否禁用")
     private Boolean isDisabled;
 
-    @ApiModelProperty("禁用原因")
-    private String disabledReason;
-
-    @ApiModelProperty("私有标识,模糊查询")
+    @Like
+    @ApiModelProperty("私有标识，左前缀匹配")
     private String privateFlag;
 
-    @ApiModelProperty("私有标识备忘")
-    private String privateFlagMemo;
-
-    @ApiModelProperty("分组标识")
+    @Like
+    @ApiModelProperty("分组标识，左前缀匹配")
     private String groupFlag;
 
-    @ApiModelProperty("分组标识备忘")
-    private String groupFlagMemo;
-
-    @ApiModelProperty("标签，多个以逗号分隔，用来区分字典项")
+    @Like
+    @ApiModelProperty("标签，左前缀匹配")
     private String tags;
 
-    @ApiModelProperty("描述")
-    private String remark;
-
-    @ApiModelProperty("排序,默认按该字段升序排序")
-    private Integer seq;
-
-
+    @ApiModelProperty("父级id")
+    private Long parentId;
 }

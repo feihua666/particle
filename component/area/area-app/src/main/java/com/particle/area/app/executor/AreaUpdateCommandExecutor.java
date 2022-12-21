@@ -39,6 +39,8 @@ public class AreaUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<AreaVO> execute(@Valid AreaUpdateCommand areaUpdateCommand) {
 		Area area = createByAreaUpdateCommand(areaUpdateCommand);
+		area.setUpdateControl(areaUpdateCommand);
+		area.fillSpell();
 		boolean save = areaGateway.save(area);
 		if (save) {
 			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(area));

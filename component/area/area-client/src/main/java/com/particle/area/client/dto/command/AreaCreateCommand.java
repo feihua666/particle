@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * <p>
@@ -19,23 +22,16 @@ import lombok.Data;
 public class AreaCreateCommand extends AbstractBaseCommand {
 
 
-    @ApiModelProperty("编码，唯一,模糊查询")
+    @NotEmpty(message = "编码不能为空")
+    @ApiModelProperty(value = "编码，唯一",required = true)
     private String code;
 
-    @ApiModelProperty("区域名称,模糊查询")
+    @NotEmpty(message = "编码不能为空")
+    @ApiModelProperty(value = "区域名称",required = true)
     private String name;
 
-    @ApiModelProperty("区域名称,模糊查询")
+    @ApiModelProperty("区域简称")
     private String nameSimple;
-
-    @ApiModelProperty("第一个字的首字母")
-    private String spellFirst;
-
-    @ApiModelProperty("每个字的首字母")
-    private String spellSimple;
-
-    @ApiModelProperty("全拼")
-    private String spell;
 
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
@@ -49,6 +45,7 @@ public class AreaCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("备注")
     private String remark;
 
+    @NotNull(message = "排序不能为空")
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 

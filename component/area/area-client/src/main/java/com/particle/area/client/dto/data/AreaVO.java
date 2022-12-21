@@ -1,7 +1,10 @@
 package com.particle.area.client.dto.data;
 
+import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.Constants;
+import com.particle.global.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +20,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class AreaVO extends AbstractBaseIdVO {
+public class AreaVO extends AbstractBaseIdTreeVO {
 
 
     @ApiModelProperty("编码，唯一,模糊查询")
@@ -41,7 +44,7 @@ public class AreaVO extends AbstractBaseIdVO {
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @TransBy(tableName = Constants.trans_table_name_placeholder_dict,byFieldName = "typeDictId",mapValueField = "name")
+    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     @ApiModelProperty("类型，字典名称")
     private String typeDictName;
 
@@ -57,5 +60,7 @@ public class AreaVO extends AbstractBaseIdVO {
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
-
+    @ApiModelProperty("父级名称")
+    @TransBy(tableName = TransTableNameConstants.component_dict, byFieldName = "parentId", mapValueField = "name")
+    private String parentName;
 }

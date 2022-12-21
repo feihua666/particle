@@ -13,6 +13,14 @@ const props = defineProps({
   total: {
     type: Number,
     default: 0
+  },
+  small: {
+    type: Boolean,
+    default: true
+  },
+  background: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -23,7 +31,8 @@ const emit = defineEmits(['sizeChange','currentChange'])
 </script>
 <template>
   <el-pagination
-      background
+      :background="background"
+      :small="small"
       @size-change="(val)=>{$emit('sizeChange', val)}"
       @current-change="(val) => {$emit('currentChange', val)}"
       :current-page="currentPage"

@@ -4,6 +4,7 @@
 
 import {isPromise} from "../../common/tools/PromiseTools"
 import {anyObj, isObject} from "../../common/tools/ObjectTools"
+import {listToTree} from "../../common/tools/ArrayTools"
 
 export interface DataMethodPage{
     isPage: boolean,
@@ -43,15 +44,24 @@ export const dataMethodProps: DataMethodProps = {
     dataMethodResultHandle: {
         type: Function,
         // emptyData 参数和 emptyData 属性是一个值
-        default: ({success,error,emptyData}) => {
+        default: ({success,error,emptyData,convertToTree}) => {
             // success 为 res
             if (success) {
-                return success.data.data
+                let data = success.data
+                if(convertToTree && data.data){
+                    data.data = listToTree(data.data)
+                }
+                return data
             }
             if (error) {
                 return emptyData
             }
         }
+    },
+    // 将数据转为 tree,仅限数据加载成功时有效，参见： dataMethodResultHandle中的 convertToTree 参数
+    dataMethodResultHandleConvertToTree: {
+        type: Boolean,
+        default: false,
     },
     // 分页处理，对分页进行判断
     dataMethodResultPageHandle: {
@@ -73,7 +83,12 @@ export const dataMethodProps: DataMethodProps = {
                 // 分布数据
                 r.data = data.data
             }else {
-                r.data = data
+                if (data.data == undefined) {
+                    r.data = data
+                }else {
+                    r.data = data.data
+                }
+
             }
             return r
         }
@@ -136,7 +151,7 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
         }
         if (isPromise(result)) {
             const promiseResult = result.then(res =>{
-                let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: res}))
+                let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: res,convertToTree: props.dataMethodResultHandleConvertToTree}))
                 handleAdapter(pageAdapter,reactiveData)
                 emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)
 
@@ -151,7 +166,7 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
             })
             emit(emitDataMethodEvent.dataMethodResult,promiseResult)
         }else {
-            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result}))
+            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result,convertToTree: props.dataMethodResultHandleConvertToTree}))
             handleAdapter(pageAdapter,reactiveData)
             emit(emitDataMethodEvent.dataMethodResult,result)
             emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)

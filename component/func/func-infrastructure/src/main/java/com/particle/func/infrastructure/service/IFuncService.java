@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  */
 public interface IFuncService extends IBaseService<FuncDO> {
 
-
 	/**
 	 * 根据 funcIds 查询
 	 * @param funcIds
@@ -32,4 +31,6 @@ public interface IFuncService extends IBaseService<FuncDO> {
 		}
 		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
 	}
+
+
 }

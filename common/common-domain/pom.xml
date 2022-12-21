@@ -35,5 +35,12 @@
             <artifactId>global-messaging-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 业务组件共享数据依赖，用到了字典项共享接口 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>component-light-share</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

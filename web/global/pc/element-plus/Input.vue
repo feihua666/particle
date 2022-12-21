@@ -28,6 +28,8 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  // 默认的 append slot组件
+  appendComp: Object
 })
 
 // 属性
@@ -96,6 +98,10 @@ const inputModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPe
     </template>
     <template #append v-if="$slots.append">
       <slot name="append" :hasPermission="hasPermission"></slot>
+    </template>
+<!--  通过属性配置 append  -->
+    <template #append v-if="!$slots.append && appendComp">
+      <component :is="appendComp.comp" v-bind="appendComp.compProps"></component>
     </template>
   </el-input>
 </template>

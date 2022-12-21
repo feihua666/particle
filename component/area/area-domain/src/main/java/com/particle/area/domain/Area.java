@@ -3,7 +3,11 @@ package com.particle.area.domain;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.global.tool.pinyin.Pinyin;
+import com.particle.global.tool.pinyin.PinyinTool;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 /**
  * <p>
@@ -13,6 +17,7 @@ import lombok.Data;
  * @author yw
  * @since 2022-07-18
  */
+@Slf4j
 @Data
 @Entity
 public class Area extends AggreateRoot {
@@ -63,6 +68,25 @@ public class Area extends AggreateRoot {
      */
     private Integer seq;
 
+	/**
+	 * 父级id
+	 */
+	private Long parentId;
+
+
+	/**
+	 * 填充拼音
+	 */
+	public void fillSpell(){
+		try {
+			Pinyin pinyin = PinyinTool.getPinyin(name);
+			this.spell = pinyin.getFull();
+			this.spellFirst = pinyin.getFirst();
+			this.spellSimple = pinyin.getSimple();
+		} catch (BadHanyuPinyinOutputFormatCombination e) {
+			log.error("获取拼音失败",e);
+		}
+	}
 
 	/**
 	 * 创建区域领域模型对象

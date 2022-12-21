@@ -4,6 +4,8 @@ import com.particle.common.domain.event.DomainEvent;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -18,6 +20,13 @@ import static com.google.common.collect.Lists.newArrayList;
  */
 @Data
 public abstract class AggreateRoot extends DTO {
+
+	/**
+	 * 数据版本
+	 */
+	private Integer version;
+
+
 	/**
 	 * 领域事件
 	 */
@@ -48,4 +57,13 @@ public abstract class AggreateRoot extends DTO {
 		}
 		return domainEvents;
 	}
+
+	/**
+	 * 同 {@link com.particle.global.mybatis.plus.dto.BaseDO#updateControl} 透传
+	 */
+	private Object updateControl;
+	/**
+	 * 同 {@link com.particle.global.mybatis.plus.dto.BaseDO#addControl} 透传
+	 */
+	private Object addControl;
 }

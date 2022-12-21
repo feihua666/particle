@@ -9,7 +9,8 @@ import {reactive ,computed,onMounted,inject, watch} from 'vue'
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle,pushCurrentModelData} from './dataModel'
+import {isArray} from "../../common/tools/ArrayTools";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -87,10 +88,16 @@ const propsOptions = computed(() => {
     label: 'name',
     // 指定选项的叶子节点的标志位为选项对象的某个属性值
     leaf: 'isLeaf',
+    // 指定选项的子选项为选项对象的某个属性值
+    children: 'children',
+    // 指定选项的禁用为选项对象的某个属性值
+    disabled: 'isDisabled',
     // 在选中节点改变时，是否返回由该节点所在的各级菜单的值所组成的数组，若设置 false，则只返回该节点的值
     emitPath: false,
     // 选择任意一级选项
-    checkStrictly: true
+    checkStrictly: true,
+    // 是否多选
+    multiple: false
   }
   return Object.assign(defaultProps, props.props)
 })
@@ -115,11 +122,23 @@ watch(
       reactiveData.currentModelValue = val
     }
 )
+watch(
+    () => reactiveData.currentModelValue,
+    (val) => {
+      // 如果没有数据
+      let r = []
+      let param = {data: options.value,value: val,result: r,childrenKey: propsOptions.value.children,valueKey: propsOptions.value.value}
+      pushCurrentModelData(param)
+      // 事件派发
+      emit(emitDataModelEvent.updateModelData,propsOptions.value.multiple ? r : r[0])
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue
   emitDataModelEvent.updateModelValue,
   emitDataModelEvent.change,
+  emitDataModelEvent.updateModelData,
   'focus',
   'blur',
   'visible-change',
@@ -170,5 +189,8 @@ const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasP
 <style >
 .pt-cascader .el-loading-spinner {
   --el-loading-spinner-size: 20px !important;
+}
+.pt-cascader{
+  display: inherit;
 }
 </style>

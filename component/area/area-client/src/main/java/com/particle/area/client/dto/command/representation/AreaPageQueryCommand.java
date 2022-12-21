@@ -1,6 +1,7 @@
 package com.particle.area.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,37 +20,32 @@ import lombok.Data;
 public class AreaPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
-    @ApiModelProperty("编码，唯一,模糊查询")
+    @Like
+    @ApiModelProperty("编码，左前缀匹配")
     private String code;
 
-    @ApiModelProperty("区域名称,模糊查询")
+    @Like
+    @ApiModelProperty("区域名称,左前缀匹配")
     private String name;
 
-    @ApiModelProperty("区域名称,模糊查询")
+    @Like
+    @ApiModelProperty("区域名称,左前缀匹配")
     private String nameSimple;
 
     @ApiModelProperty("第一个字的首字母")
     private String spellFirst;
 
-    @ApiModelProperty("每个字的首字母")
+    @Like
+    @ApiModelProperty("每个字的首字母,左前缀匹配")
     private String spellSimple;
 
-    @ApiModelProperty("全拼")
+    @Like
+    @ApiModelProperty("全拼,左前缀匹配")
     private String spell;
 
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @ApiModelProperty("经度")
-    private String longitude;
-
-    @ApiModelProperty("纬度")
-    private String latitude;
-
-    @ApiModelProperty("备注")
-    private String remark;
-
-    @ApiModelProperty("排序,默认按该字段升序排序")
-    private Integer seq;
-
+    @ApiModelProperty("父级id")
+    private Long parentId;
 }

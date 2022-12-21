@@ -8,6 +8,8 @@ export interface MenuProps{
     type?: string,
     // 指定选项的索引的某个属性值
     index?: string,
+    // 指定选项的索引的某个属性值,index 不存在时使用
+    backIndex?: string,
     // 指定选项的图标的某个属性值
     icon?: string,
     // 指定选项的图标的某个属性值
@@ -35,6 +37,8 @@ export const menuConfig = ({props}) => {
             type: 'type',
             // 指定选项的索引的某个属性值
             index: 'id',
+            // 指定选项的索引的某个属性值，index 对应值不存在时使用
+            backIndex: 'id',
             // 指定选项的图标的某个属性值
             icon: 'icon',
             // 指定选项的图标的某个属性值

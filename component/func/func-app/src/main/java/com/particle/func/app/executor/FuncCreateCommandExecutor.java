@@ -38,6 +38,8 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<FuncVO> execute(@Valid FuncCreateCommand funcCreateCommand) {
 		Func func = createByFuncCreateCommand(funcCreateCommand);
+		func.setAddControl(funcCreateCommand);
+		func.assertUrlNotEmptyIfNeccessary();
 		boolean save = funcGateway.save(func);
 		if (save) {
 			return SingleResponse.of(FuncAppStructMapping.instance.toFuncVO(func));
@@ -53,6 +55,10 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 	private Func createByFuncCreateCommand(FuncCreateCommand funcCreateCommand){
 		Func func = Func.create();
 		FuncCreateCommandToFuncMapping.instance.fillFuncByFuncCreateCommand(func, funcCreateCommand);
+		if (!funcCreateCommand.getIsDisabled()) {
+			funcCreateCommand.setDisabledReason(null);
+			func.setDisabledReason(null);
+		}
 		return func;
 	}
 

@@ -15,14 +15,14 @@ export const create = (data: anyObj): AxiosPromise => {
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(funcPrefix + '/delete',data)
+    return axios.delete(funcPrefix + '/delete',{data: data})
 }
 /**
  * 更新功能组
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.update(funcPrefix + '/update',data)
+    return axios.put(funcPrefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据

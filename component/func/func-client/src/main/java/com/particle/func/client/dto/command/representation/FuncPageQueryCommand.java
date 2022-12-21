@@ -36,4 +36,6 @@ public class FuncPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty("类型,字典id")
     private Long typeDictId;
 
+    @ApiModelProperty("父级id")
+    private Long parentId;
 }

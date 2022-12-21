@@ -1,10 +1,11 @@
 package com.particle.func.client.dto.command;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
@@ -18,11 +19,12 @@ import lombok.Data;
 @ApiModel
 public class FuncGroupCreateCommand extends AbstractBaseCommand {
 
-
-    @ApiModelProperty("编码，模糊查询")
+    @NotEmpty(message = "编码不能为空")
+    @ApiModelProperty(value = "编码",required = true)
     private String code;
 
-    @ApiModelProperty("名称，模糊查询")
+    @NotEmpty(message = "名称不能为空")
+    @ApiModelProperty(value = "名称",required = true)
     private String name;
 
     @ApiModelProperty("描述")

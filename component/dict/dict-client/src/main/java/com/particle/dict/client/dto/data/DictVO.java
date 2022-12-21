@@ -1,6 +1,9 @@
 package com.particle.dict.client.dto.data;
 
+import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.global.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class DictVO extends AbstractBaseIdVO {
+public class DictVO extends AbstractBaseIdTreeVO {
 
 
     @ApiModelProperty("字典编码,模糊查询，字典组时必填")
@@ -63,5 +66,7 @@ public class DictVO extends AbstractBaseIdVO {
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
-
+    @ApiModelProperty("父级名称")
+    @TransBy(tableName = TransTableNameConstants.component_dict, byFieldName = "parentId", mapValueField = "name")
+    private String parentName;
 }

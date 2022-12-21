@@ -3,7 +3,7 @@
  * 功能菜单管理页面
  */
 import {reactive ,ref} from 'vue'
-import {page as funcPageApi} from "../../api/admin/funcAdminApi"
+import {list as funcListApi, page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
 
 const tableRef = ref(null)
@@ -44,6 +44,24 @@ const reactiveData = reactive({
         }
       }
     },
+
+    {
+      field: {
+        name: 'parentId'
+      },
+      element: {
+        comp: 'PtCascader',
+        formItemProps: {
+          label: '父级',
+        },
+        compProps: {
+          clearable: true,
+          // 加载数据
+          dataMethod: () => { return funcListApi({})},
+          dataMethodResultHandleConvertToTree: true,
+        }
+      }
+    },
     {
       field: {
         name: 'funcGroupId'
@@ -58,27 +76,49 @@ const reactiveData = reactive({
           dataMethod: funcGroupListApi
         }
       }
-    }
+    },
   ],
-  tableOptions: [],
   tableColumns: [
+    {
+      prop: 'name',
+      label: '名称',
+      width: 150,
+      showOverflowTooltip: true
+    },
     {
       prop: 'code',
       label: '编码'
     },
     {
-      prop: 'name',
-      label: '名称'
+      prop: 'parentName',
+      label: '父级'
+    },
+    {
+      prop: 'funcGroupName',
+      label: '功能分组'
     },
     {
       prop: 'icon',
       label: '图标',
       // elementPlus 图标
-      columnView: 'elIcon'
+      columnView: 'elIcon',
+      width: 100,
     },
     {
       prop: 'isDisabled',
-      label: '是否禁用'
+      label: '是否禁用',
+      width: 100,
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '禁用' : '启用'
+      }
+    },
+    {
+      prop: 'isShow',
+      label: '是否展示',
+      width: 100,
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '展示' : '隐藏'
+      }
     },
     {
       prop: 'url',
@@ -86,17 +126,24 @@ const reactiveData = reactive({
     },
     {
       prop: 'typeDictName',
-      label: '类型'
+      label: '类型',
+      width: 100,
+    },
+    {
+      prop: 'permissions',
+      label: '权限码'
     },
     {
       prop: 'seq',
-      label: '排序'
+      label: '排序',
+      width: 50,
     },
     {
       prop: 'remark',
       label: '描述'
     }
-  ]
+  ],
+
 })
 
 // 提交按钮属性
@@ -112,6 +159,35 @@ const submitMethod = ():void => {
 const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
   return funcPageApi({...reactiveData.form,...pageQuery})
 }
+// 表格操作按钮
+const getTableRowButtons = ({row, column, $index}) => {
+  if($index < 0){
+    return []
+  }
+  let idData = {id: row.id}
+  let tableRowButtons = [
+    {
+      txt: '编辑',
+      text: true,
+      // 跳转到编辑
+      route: {path: '/admin/funcManageUpdate',query: idData}
+    },
+    {
+      txt: '删除',
+      text: true,
+      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      // 删除操作
+      method(){
+        return funcRemoveApi({id: row.id}).then(res => {
+          // 删除成功后刷新一下表格
+          submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    }
+  ]
+  return tableRowButtons
+}
 </script>
 <template>
   <!-- 查询表单 -->
@@ -120,13 +196,32 @@ const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
+    <template #buttons>
+      <PtButton route="/admin/funcManageAdd">添加</PtButton>
+    </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
-  <PtTable ref="tableRef" :dataMethod="doFuncPageApi" @dataMethodDataLoading="(loading) => submitAttrs.loading=loading" :columns="reactiveData.tableColumns">
+  <PtTable ref="tableRef"
+           default-expand-all
+           :dataMethod="doFuncPageApi"
+           @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
+           :dataMethodResultHandleConvertToTree="true"
+           :columns="reactiveData.tableColumns">
 
+    <!--  操作按钮  -->
+    <template #defaultAppend>
+      <el-table-column label="操作" width="180">
+        <template #default="{row, column, $index}">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          </PtButtonGroup>
+        </template>
+      </el-table-column>
+    </template>
   </PtTable>
-
+<!-- 子级路由 -->
+  <PtRouteViewPopover :level="3"></PtRouteViewPopover>
 </template>
 
 

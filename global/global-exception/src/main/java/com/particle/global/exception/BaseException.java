@@ -63,7 +63,10 @@ public class BaseException extends RuntimeException {
 		});
 	}
 	private static String format(String code, String message, Map<String, Object> data) {
-		return String.format("[%s]%s:%s.", code, message, data == null ? "" : data.toString());
+		if (data == null) {
+			return message;
+		}
+		return String.format("%s:%s", message, data == null ? "" : data.toString());
 	}
 
 	public IErrorCode getError() {

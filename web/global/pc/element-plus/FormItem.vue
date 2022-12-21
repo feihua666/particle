@@ -1,4 +1,4 @@
-<script setup name="FormItem">
+<script setup name="FormItem" lang="ts">
 /**
  * 自定义封装 FormItem 表单项功能
  * 封装理由：1. 集成多各表单输入于一体，省去烦琐的手动模板，只需要指定
@@ -21,6 +21,12 @@ const props = defineProps({
     type: Object,
     required: true
   },
+  required: [Boolean,Function],
+  // 表单额外数据对象
+  formData: {
+    type: Object,
+    required: true
+  },
   // 表单数据项的键值
   prop: {
     type: String,
@@ -28,32 +34,55 @@ const props = defineProps({
   },
   // 组件的属性
   compProps: {
-    type: Object,
+    type: [Object,Function],
     default: () => ({})
   },
   // 验证如：mobile，email等
   validate: {
     type: Object
-  }
+  },
+  // 表单提示文本
+  tips: [String,Function]
+})
+const required = computed(() => {
+  return getVal({required: props.required},'required',{form: props.form,formData: props.formData})
+})
+const compProps = computed(() => {
+  return getVal({compProps: props.compProps},'compProps',{form: props.form,formData: props.formData})
 })
 
+const tips = computed(() => {
+  return getVal({tips: props.tips},'tips',{form: props.form,formData: props.formData})
+})
+export interface ValidateObj{
+  // 是否必填
+  required: boolean,
+  // 详情详见 elementPlus 表单验证
+  // 表单验证 同 validate
+  rules: any[],
+  // 表单验证 其中 rules 属性同上面rules
+  validate: { mobile?: boolean,email?: boolean,rules?: any[] },
+  // 表单的 label 名称
+  label: string
+}
 
-
-const getFormItemRules = (validateObj) => {
+const getFormItemRules = (validateObj:ValidateObj) => {
   let r = []
-  if(getVal(validateObj,'required',props.form)){
+  if(validateObj.required){
     r.push({required: true, message: `${validateObj.label}不能为空`, trigger: 'blur'})
   }
 
   // 验证规则
   if(validateObj.rules){
-    validateObj.rules.forEach(item =>  {
+    let rules = getVal(validateObj,'rules',{form: props.form,formData: props.formData})
+    rules.forEach(item =>  {
       r.push(item)
     })
   }
   let v = validateObj.validate
 
   if(v){
+    v = getVal(validateObj,'validate',{form: props.form,formData: props.formData})
     if (v.mobile === true) {
       r.push({ pattern:/^[1][0-9]{10}$/, message: '请输入正确的手机号', trigger: ['blur'] })
     }
@@ -70,14 +99,15 @@ const getFormItemRules = (validateObj) => {
 
   return r
 }
+
 </script>
 <template>
-<el-form-item v-bind="$attrs" :prop="prop" :rules="getFormItemRules({required: $attrs.required,rules: $attrs.rules,validate: $attrs.validate,label: $attrs.label})">
+<el-form-item v-bind="$attrs" :prop="prop" :required="required" :rules="getFormItemRules({required: required,rules: $attrs.rules,validate: $attrs.validate,label: $attrs.label})">
   <template v-if="$slots.default">
     <slot v-bind="{form}"></slot>
   </template>
   <template v-if="!$slots.default">
-    <PtFormItemDetail v-bind="compProps" :form="form" :prop="prop" :comp="comp">
+    <PtFormItemDetail v-bind="compProps" :form="form" :formData="formData" :prop="prop" :comp="comp">
     </PtFormItemDetail>
   </template>
   <template #label="scope" v-if="$slots.label">
@@ -86,6 +116,7 @@ const getFormItemRules = (validateObj) => {
   <template #error="scope" v-if="$slots.error">
     <slot v-bind="scope"></slot>
   </template>
+  <span style="color: #acafb4;" v-if="tips" v-html="tips"></span>
 </el-form-item>
 </template>
 

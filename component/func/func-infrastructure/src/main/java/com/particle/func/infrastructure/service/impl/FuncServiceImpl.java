@@ -1,5 +1,6 @@
 package com.particle.func.infrastructure.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.func.infrastructure.mapper.FuncMapper;
 import com.particle.func.infrastructure.service.IFuncService;
@@ -29,5 +30,23 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 	@Autowired
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<FuncDO> queryCommandMapStruct) {
 		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+
+	@Override
+	protected void preAdd(FuncDO po) {
+		// 编码已存在不能添加
+		assertByColumn(po.getCode(),FuncDO::getCode,false);
+	}
+
+	@Override
+	protected void preUpdate(FuncDO po) {
+		if (StrUtil.isNotEmpty(po.getCode())) {
+			FuncDO byId = getById(po.getId());
+			// 如果编码有改动
+			if (!StrUtil.equals(po.getCode(), byId.getCode())) {
+				// 编码已存在不能修改
+				assertByColumn(po.getCode(),FuncDO::getCode,false);
+			}
+		}
 	}
 }

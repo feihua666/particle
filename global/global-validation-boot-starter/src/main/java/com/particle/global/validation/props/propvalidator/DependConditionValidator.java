@@ -44,7 +44,7 @@ public class DependConditionValidator implements IPropValidator<PropValid.Depend
                     if (!StrUtil.isEmpty(pattern)) {
                         r = ReUtil.isMatch(pattern,fieldValue.toString());
                     }else {
-                        throw new RuntimeException("不支持的正则别名" + annotation.patternAlias()+",请参考grape.common.rest.validation.ValidHelper.patternAliasMap");
+                        throw new RuntimeException("不支持的正则别名" + annotation.patternAlias()+",请参考 "+ ValidHelper.class.getName() + ".patternAliasMap");
                     }
                 }
                 if (StrUtil.isEmpty(pattern)) {

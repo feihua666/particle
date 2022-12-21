@@ -20,6 +20,7 @@ public interface FuncGateway extends IBaseGateway<FuncId,Func> {
 	 * @param funcId
 	 * @return 必须包括全部可用属性
 	 */
+	@Override
 	Func getById(FuncId funcId);
 
 	/**
@@ -29,6 +30,7 @@ public interface FuncGateway extends IBaseGateway<FuncId,Func> {
 	 * @return true=保存成功，false=保存失败，注意只要持久化了应该为 {@code true}
 	 *         注意在有些 orm 或数据库下数据库中已经存在，更新时影响结果为0，但应该返回 {@code true}
 	 */
+	@Override
 	boolean save(Func func);
 
 
@@ -37,5 +39,6 @@ public interface FuncGateway extends IBaseGateway<FuncId,Func> {
 	 * @param funcId
 	 * @return
 	 */
+	@Override
 	boolean delete(FuncId funcId);
 }

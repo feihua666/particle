@@ -10,7 +10,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 感觉使用脚本验证器需要拼接大量字字符串脚本，不够优雅
+ * 感觉使用脚本验证器需要拼接大量字符串脚本，不够优雅
  * 所以添加了表单验证器，旨在表单内问完成校验，可以访问表单本身的所有字段
  * 只能标注在一个form表单对象上，暂时没有考虑其它情况
  * @author yangwei

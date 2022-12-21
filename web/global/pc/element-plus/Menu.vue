@@ -82,10 +82,10 @@ onMounted(() => {
       <template v-for="(menuItem,index) in options" :key="index">
 
         <template v-if="isMenu(menuItem)">
-          <PtSubMenu :index="menuItem[propsOptions.index]||''" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtSubMenu>
+          <PtSubMenu :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtSubMenu>
         </template>
         <template v-else-if="isPage(menuItem)">
-          <PtMenuItem  :index="menuItem[propsOptions.index]||''"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
+          <PtMenuItem  :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
           <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>

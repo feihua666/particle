@@ -12,4 +12,7 @@ package com.particle.global.light.share.trans;
 public class TransTableNameConstants {
 
 	public static final String component_func_group = "component_func_group";
+	public static final String component_func = "component_func";
+	public static final String component_dict = "component_dict";
+	public static final String component_area = "component_area";
 }

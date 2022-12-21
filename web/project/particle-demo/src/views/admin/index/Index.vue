@@ -13,7 +13,7 @@ const reactiveData = reactive({
     <PtLogo></PtLogo>
   </template>
   <template #aside>
-    <PtFuncLoginMenu></PtFuncLoginMenu>
+    <PtFuncLoginMenu class="pt-height-100-pc"></PtFuncLoginMenu>
   </template>
 <!-- 默认主工作区为二级路由 -->
   <PtRouteView :level="1"/>

@@ -11,7 +11,6 @@ import com.particle.global.tool.str.StringTool;
  * @since 2020/11/9 18:08
  */
 public class SFunctionHelperTool {
-    private static EmptyLambda emptyLambda = new EmptyLambda();
 
     private static class EmptyLambda extends LambdaQueryWrapper{
         @Override
@@ -26,7 +25,7 @@ public class SFunctionHelperTool {
      * @return 数据库字段名
      */
     public static String columnToString(SFunction column) {
-        return emptyLambda.columnToString(column);
+        return new EmptyLambda().columnToString(column);
     }
 
     /**

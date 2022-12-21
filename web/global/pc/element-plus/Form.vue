@@ -1,4 +1,4 @@
-<script setup name="Form">
+<script setup name="Form" lang="ts">
 /**
  * 自定义封装 Form 表单功能
  * 封装理由：1. 兼容添加和修改数据表单初始化功能
@@ -6,9 +6,9 @@
  *          3. 集成字段权限判断功能，方便实现权限
  *          4. 自动布局功能
  */
-import {reactive ,inject,ref,computed,onMounted,watch} from 'vue'
+import {reactive, ref, computed, onMounted, watch} from 'vue'
 import {isObject,clone} from "../../common/tools/ObjectTools"
-import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method'
+import {methodProps,reactiveMethodData,emitMethodEvent,doMethod} from './method'
 import {layoutProps,layoutIndex,layoutCompute} from './Layout'
 // 主要用于修改场景，加载要修改的数据
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
@@ -19,10 +19,11 @@ import {isFunction} from "../../common/tools/FunctionTools";
 // form 引用
 const formRef = ref(null)
 
+// form 表单默认提交按钮，共有三个
 const defaultButtonsShow = {
-  submit: true,
-  reset: true,
-  back: true,
+  submit: true,// 提交按钮
+  reset: true, // 重置按钮
+  back: true, // 返回按钮
 }
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -35,12 +36,13 @@ const props = defineProps({
    * {
    * field:{
    *     name: String, // 属性名称
-   *     value: String|Number|Boolean, // 默认值
+   *     value: String|Number|Boolean|Array, // 默认值
    * },
    * element:{
    *     comp: String, // 组件注册名如：el-input; txt=自定义文本显示
    *     formItemProps: { // form-item 属性
-   *       required: true,//
+   *       required: boolean|({form,formData})=>boolean, 是否必填，会在label左侧添加小红点
+   *       rules: any[] |({form,formData})=>any[], 表单项验证规划
    *     },
    *     compProps: { // 组件 属性
    *
@@ -128,6 +130,7 @@ const layoutComputeFn = layoutCompute({props})
 const layoutComputedLayout = computed(()=> {
   return layoutComputeFn(props.comps.length)
 })
+// 默认按钮显示计算结果
 const defaultButtonsShowComputed = computed(()=> {
   if (isObject(props.defaultButtonsShow)) {
     return props.defaultButtonsShow
@@ -138,6 +141,11 @@ const defaultButtonsShowComputed = computed(()=> {
     r[defaultButtonsShowKey] = props.defaultButtonsShow.indexOf(defaultButtonsShowKey) >= 0
   }
   return r
+})
+watch(()=> reactiveData.dataMethodData,(val) => {
+  for (let formKey in props.form) {
+    props.form[formKey] = val[formKey]
+  }
 })
 // 事件
 const emit = defineEmits([
@@ -185,7 +193,7 @@ const resetForm = () => {
           <template  v-for="(colItem,colIndex) in rowItem"  :key="colIndex">
             <el-col :span="colItem">
               <template v-for="(elementItem,elementItemIndex) in [comps[layoutIndex(rowIndex,colIndex,layoutComputedLayout)]]" :key="elementItemIndex">
-                <PtFormItem v-bind="elementItem.element.formItemProps" :compProps="elementItem.element.compProps" :form="reactiveData.form" :prop="elementItem.field.name" :comp="elementItem.element.comp">
+                <PtFormItem v-bind="elementItem.element.formItemProps" :compProps="elementItem.element.compProps" :form="reactiveData.form" :formData="reactiveData.formData" :prop="elementItem.field.name" :comp="elementItem.element.comp">
                 </PtFormItem>
               </template>
             </el-col>

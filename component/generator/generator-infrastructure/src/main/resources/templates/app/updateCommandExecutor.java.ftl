@@ -39,6 +39,7 @@ public class ${injection.className}  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<${injection.vo.className}> execute(@Valid ${injection.updateCommand.className} ${injection.updateCommand.classNameVar}) {
 		${injection.domainObject.className} ${injection.domainObject.classNameVar} = createBy${injection.updateCommand.className}(${injection.updateCommand.classNameVar});
+		${injection.domainObject.classNameVar}.setUpdateControl(${injection.updateCommand.classNameVar});
 		boolean save = ${injection.gateway.classNameVar}.save(${injection.domainObject.classNameVar});
 		if (save) {
 			return SingleResponse.of(${injection.appStructMapping.className}.instance.to${injection.vo.className}(${injection.domainObject.classNameVar}));

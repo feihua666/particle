@@ -1,9 +1,13 @@
 package com.particle.func.domain;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
+import com.particle.func.domain.gateway.FuncDictGateway;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * <p>
@@ -54,6 +58,10 @@ public class Func extends AggreateRoot {
      * 类型,字典id
      */
     private Long typeDictId;
+	/**
+	 * 是否展示
+	 */
+	private Boolean isShow;
     /**
      * 描述
      */
@@ -62,6 +70,25 @@ public class Func extends AggreateRoot {
      * 排序,默认按该字段升序排序
      */
     private Integer seq;
+	/**
+	 * 父级id
+	 */
+	private Long parentId;
+
+
+    @Autowired
+	private FuncDictGateway funcDictGateway;
+
+	/**
+	 * 确保 url 正常
+	 */
+	public void assertUrlNotEmptyIfNeccessary(){
+		String typeValue = funcDictGateway.getDictValueById(typeDictId);
+		// 如果是页面 url 必填
+		if (StrUtil.equals(FuncTypeEnum.page.itemValue(),typeValue)) {
+			Assert.hasText(url,"url地址路由不能为空，在指定类型为页面时必填");
+		}
+	}
 
 
 	/**

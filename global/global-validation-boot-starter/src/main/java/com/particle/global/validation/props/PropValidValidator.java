@@ -29,7 +29,7 @@ public class PropValidValidator implements ConstraintValidator<PropValid, Object
     private ValidHelper validHelper;
     
     private String message;
-    private String[] dictIdProp;
+
     @Autowired
     private List<IPropValidator> iPropValidators;
 
@@ -37,7 +37,6 @@ public class PropValidValidator implements ConstraintValidator<PropValid, Object
     @Override
     public void initialize(PropValid constraintAnnotation) {
         this.message = constraintAnnotation.message();
-        this.dictIdProp = constraintAnnotation.dictIdProp();
     }
 
     @Override

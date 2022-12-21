@@ -21,15 +21,12 @@ public class FormValidator implements ConstraintValidator<Form, Object> {
 
     @Autowired
     private ValidHelper validHelper;
-
-    private String[] dictIdProp;
     private String message;
     private String reportOn;
 
     @Override
     public void initialize(Form constraintAnnotation) {
 
-        this.dictIdProp = constraintAnnotation.dictIdProp();
         this.message = constraintAnnotation.message();
         this.reportOn = constraintAnnotation.reportOn();
     }

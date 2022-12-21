@@ -82,6 +82,10 @@ public class Dict extends AggreateRoot {
      * 排序,默认按该字段升序排序
      */
     private Integer seq;
+	/**
+	 * 父级id
+	 */
+	private Long parentId;
 
 
 	/**

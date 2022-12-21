@@ -52,16 +52,17 @@ const hasDisabled = disabledConfig({props,hasPermission})
                 :title="hasDisabled.disabledReason || title"
                 :disabled="hasDisabled.disabled"
                 v-bind="$attrs">
-    <el-icon v-if="icon || $slots.icon">
-      <component :is="icon" v-if="icon" />
-      <slot v-else name="icon" />
-    </el-icon>
+
 
     <template #title v-if="$slots.title">
       <slot name="title" :hasPermission="hasPermission" />
     </template>
     <template #title v-if="!$slots.title">
-      {{titleText}}
+      <el-icon v-if="icon || $slots.icon">
+        <component :is="icon" v-if="icon" />
+        <slot v-else name="icon" />
+      </el-icon>
+      <span>{{titleText}}</span>
     </template>
   </el-menu-item>
 </template>

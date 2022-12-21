@@ -3,6 +3,7 @@ package com.particle.dict.app.structmapping;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
+import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.domain.Dict;
 import com.particle.dict.domain.DictId;
@@ -80,4 +81,6 @@ public abstract class DictAppStructMapping  implements IBaseQueryCommandMapStruc
 	public abstract DictDO pageQueryCommandToDO(DictPageQueryCommand DictPageQueryCommand);
 
 	public abstract DictDO QueryListCommandToDO(DictQueryListCommand DictQueryCommand);
+
+	public abstract DictGroupItemsVO voToDictGroupItemsVO(DictVO dict);
 }

@@ -28,8 +28,7 @@ public @interface PropValid {
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };
-    // 如果需要字典转code请指定字典的属性
-    String[] dictIdProp() default {};
+
     /**
      * 标注在字段上，表示依赖另一个字段，如果另一个字段有值，那么该字段也得有值
      */
@@ -66,9 +65,8 @@ public @interface PropValid {
 
         // 依赖的属性名
         String dependProp();
-        // 依赖的字段是否为字典id
-        boolean dependDict() default false;
-        // 依赖的字段是否等于该值
+
+        // 依赖的字段是否等于该值, 支持 boolean 字符串，true或false
         String ifEqual() default "";
         // 支持正则，如果没有指定则判断不为空
         String thenPattern() default "";

@@ -191,11 +191,15 @@ defineExpose({
                 :total="reactiveData.dataMethodPage.totalCount"
                 @size-change="paginationSizeChange"
                 @current-change="paginationCurrentChange"
+                class="pt-table-pagenation"
   >
 
   </PtPagination>
 </template>
 <style scoped>
+.pt-table-pagenation{
+  margin-top: 1rem;
+}
 </style>
 <style>
 /* 将表头背景设置一个颜色，和表头分组显示方式一致 */

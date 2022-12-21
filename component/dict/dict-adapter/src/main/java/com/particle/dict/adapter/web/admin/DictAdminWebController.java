@@ -6,8 +6,10 @@ import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
 import com.particle.dict.client.dto.command.DictCreateCommand;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
+import com.particle.dict.client.dto.command.representation.DictItemsQueryListCommand;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
+import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -15,8 +17,13 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
 /**
  * <p>
  * 字典后台管理pc或平板端前端适配器

@@ -178,7 +178,13 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     @Override
     public boolean deleteById(Long id) {
         Assert.notNull(id,"id 不能为空");
+
         DO byId = getById(id);
+        // 如果为树，删除时不能删除还有子级的数据
+        if (byId instanceof BaseTreeDO) {
+            long childrenCount = getChildrenCount(id);
+            Assert.isTrue(childrenCount == 0,"当前节点下还有子节点，不允许删除父节点");
+        }
         preDeleteById(id,byId,null);
         QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, id);
 

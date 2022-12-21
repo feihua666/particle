@@ -59,11 +59,16 @@ public class FuncVO extends AbstractBaseIdTreeVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
     private String typeDictValue;
 
+    @ApiModelProperty("是否展示")
+    private Boolean isShow;
+
     @ApiModelProperty("描述")
     private String remark;
 
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
-
+    @ApiModelProperty("父级名称")
+    @TransBy(tableName = TransTableNameConstants.component_func, byFieldName = "parentId", mapValueField = "name")
+    private String parentName;
 }

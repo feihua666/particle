@@ -36,10 +36,12 @@ public class DictGatewayImpl extends AbstractBaseGatewayImpl<DictId,Dict> implem
 	public boolean doSave(Dict dict) {
 		DictDO dictDO = DictInfrastructureStructMapping.instance.dictToDictDO(dict);
 		if (dictDO.getId() == null) {
+			dictDO.setAddControl(dict.getAddControl());
 			DictDO add = iDictService.add(dictDO);
 			dict.setId(DictId.of(add.getId()));
 			return add != null;
 		}
+		dictDO.setUpdateControl(dict.getUpdateControl());
 		DictDO update = iDictService.update(dictDO);
 		return update != null;
 	}

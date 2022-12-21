@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * <p>
  * 功能组 通用更新指令对象
@@ -19,10 +21,12 @@ import lombok.Data;
 public class FuncGroupUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-    @ApiModelProperty("编码，模糊查询")
+    @NotEmpty(message = "编码不能为空")
+    @ApiModelProperty(value = "编码",required = true)
     private String code;
 
-    @ApiModelProperty("名称，模糊查询")
+    @NotEmpty(message = "名称不能为空")
+    @ApiModelProperty(value = "名称",required = true)
     private String name;
 
     @ApiModelProperty("描述")

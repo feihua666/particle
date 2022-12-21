@@ -5,7 +5,7 @@
  *          2. 支持动态 keepAlive,路由 meta 元信息
  *          3. 其它 PtRouteView 支持的特性
  */
-import {computed, ref, watch} from 'vue'
+import {computed, ref, watch, onMounted} from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import PtRouteView from '../common/RouteView.vue'
 import {doDataMethod} from "./dataMethod";
@@ -50,6 +50,10 @@ watch(() => route.meta,(val) => {
   drawer.value = showInDrawer.value
   dialog.value = showInDialog.value
 })
+onMounted(()=> {
+  drawer.value = showInDrawer.value
+  dialog.value = showInDialog.value
+})
 const drawer = ref(false)
 const dialog = ref(false)
 // 计算属性
@@ -63,7 +67,7 @@ const showInDialog = computed(() => {
 const drawerProps = computed(() => {
   let defaultDrawerProps = {
     appendToBody: true,
-    destroyOnClose: true,
+    // destroyOnClose: true,
     size: '50%'
   }
   let routeMetaDrawerProps = Object.assign(defaultDrawerProps, props.drawerProps, route.meta.drawerProps || {})
@@ -73,7 +77,7 @@ const drawerProps = computed(() => {
 const dialogProps = computed(() => {
   let defaultDialogProps = {
     appendToBody: true,
-    destroyOnClose: true
+    // destroyOnClose: true
   }
   let routeMetaDialogProps = Object.assign(defaultDialogProps, props.dialogProps, route.meta.dialogProps || {})
   return routeMetaDialogProps

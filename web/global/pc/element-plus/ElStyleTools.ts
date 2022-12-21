@@ -32,13 +32,18 @@ const d = [
         icon: 'Refresh'
     },
     {
-        pattern:['确认'],
+        pattern:['确认','提交'],
         icon: 'Check',
         type:'primary',
     },
     {
         pattern:'详情',
         icon: 'View'
+    },
+    {
+        pattern:'地图',
+        icon: 'MapLocation',
+        type:'primary'
     }
 ]
 

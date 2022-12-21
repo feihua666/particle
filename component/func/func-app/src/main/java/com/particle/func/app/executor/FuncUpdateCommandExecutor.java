@@ -39,6 +39,8 @@ public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<FuncVO> execute(@Valid FuncUpdateCommand funcUpdateCommand) {
 		Func func = createByFuncUpdateCommand(funcUpdateCommand);
+		func.setUpdateControl(funcUpdateCommand);
+		func.assertUrlNotEmptyIfNeccessary();
 		boolean save = funcGateway.save(func);
 		if (save) {
 			return SingleResponse.of(FuncAppStructMapping.instance.toFuncVO(func));
@@ -54,6 +56,10 @@ public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	private Func createByFuncUpdateCommand(FuncUpdateCommand funcUpdateCommand){
 		Func func = Func.create();
 		FuncUpdateCommandToFuncMapping.instance.fillFuncByFuncUpdateCommand(func, funcUpdateCommand);
+		if (!funcUpdateCommand.getIsDisabled()) {
+			funcUpdateCommand.setDisabledReason(null);
+			func.setDisabledReason(null);
+		}
 		return func;
 	}
 

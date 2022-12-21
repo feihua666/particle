@@ -9,7 +9,7 @@ import {reactive ,computed,onMounted,inject,watch} from 'vue'
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle,pushCurrentModelData} from './dataModel'
 import {isPromise} from "../../common/tools/PromiseTools";
 import {isArray} from "../../common/tools/ArrayTools";
 
@@ -22,6 +22,11 @@ const props = defineProps({
   clearable: {
     type: Boolean,
     default: true
+  },
+  // 是否多选
+  multiple: {
+    type: Boolean,
+    default: false
   },
   // 多选模式下是否折叠Tag
   collapseTags: {
@@ -143,7 +148,7 @@ const groupProps = computed(() => {
   }
   return Object.assign(defaultProps, props.groupProps)
 })
-// 这里和 props.dataLoading 重名了，但在模板是使用 dataLoading 变量是这个值，也就是说这里会覆盖在模板中的值
+// 这里和 props.groupView 重名了，但在模板是使用 groupView 变量是这个值，也就是说这里会覆盖在模板中的值
 const groupView = computed(() => {
   return props.groupView || options.value?.some(item => item[groupProps.value.label] !== undefined && item[groupProps.value.options] !== undefined)
 })
@@ -177,11 +182,24 @@ watch(
       reactiveData.currentModelValue = val
     }
 )
+watch(
+    () => reactiveData.currentModelValue,
+    (val) => {
+      // 如果没有数据
+      let r = []
+      let param = {data: options.value,value: val,result: r,childrenKey: groupProps.value.options,valueKey: propsOptions.value.value}
+      pushCurrentModelData(param)
+      // 事件派发
+      emit(emitDataModelEvent.updateModelData,props.multiple ? r : r[0])
+    }
+)
+
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue
   emitDataModelEvent.updateModelValue,
   emitDataModelEvent.change,
+  emitDataModelEvent.updateModelData,
   'focus',
   'blur',
   'visible-change',
@@ -236,6 +254,7 @@ const doRemoteMethod = (query) =>{
         v-model="reactiveData.currentModelValue"
         v-bind="$attrs"
         :clearable="clearable"
+        :multiple="multiple"
         :filterable="filterable"
         :remote="remote"
         :placeholder="placeholder"

@@ -52,9 +52,9 @@ const defaultConfig: Config = {
     userDefaultInstance: true,// 使用默认axios实例，否则创建新的实例
     baseURI: getUrl(), // 基础url
     timeout: 10000,// timeout 单位毫秒 默认 10s
-    cancelDuplicateRequest: true, // 是否开启取消重复请求, 默认为 true
+    cancelDuplicateRequest: false, // 是否开启取消重复请求, 默认为 false
     loading: false, // 是否开启loading层效果, 默认为false
-    reductDataFormat: false, // 是否开启简洁的数据结构响应, 默认为true
+    reductDataFormat: false, // 是否开启简洁的数据结构响应, 默认为 false
     showErrorMessage: true, // 是否开启接口错误信息展示,默认为true
     showErrorMessageView: 'alert', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
     alertCallback: (message) => {
