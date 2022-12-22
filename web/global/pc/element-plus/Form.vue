@@ -9,10 +9,12 @@
 import {computed, onMounted, reactive, ref, watch} from 'vue'
 import {clone, isObject} from "../../common/tools/ObjectTools"
 import {doMethod, emitMethodEvent, methodProps, reactiveMethodData} from './method'
-import {layoutCompute, layoutProps} from './Layout'
+import {layoutCompute, layoutIndex, layoutProps} from './Layout'
 // 主要用于修改场景，加载要修改的数据
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
 import {dataMethodForFormProps} from './dataMethodForForm'
+import PtFormItem from './FormItem.vue'
+import PtButton from './Button.vue'
 // form 引用
 const formRef = ref(null)
 
