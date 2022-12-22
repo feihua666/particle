@@ -5,11 +5,17 @@
  *          2. 后端使用时支持权限控制
  *          3. 自带加载数据 dataLoading 功能效果
  */
-import {reactive ,getCurrentInstance,computed,onMounted,inject,watch} from 'vue'
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {computed, getCurrentInstance, inject, onMounted, reactive, watch} from 'vue'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
+
 const { proxy } = getCurrentInstance()
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -64,7 +70,7 @@ const props = defineProps({
 })
 // 属性
 const reactiveData = reactive({
-  ...reactiveDataMethodData,
+  ...reactiveDataMethodData(),
   ...reactiveDataModelData(props),
   checkAll: false,
   isIndeterminate: false,

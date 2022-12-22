@@ -38,6 +38,7 @@ public class DictCreateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<DictVO> execute(@Valid DictCreateCommand dictCreateCommand) {
 		Dict dict = createByDictCreateCommand(dictCreateCommand);
+		dict.setCodeNullIfEmpty();
 		dict.setAddControl(dictCreateCommand);
 		boolean save = dictGateway.save(dict);
 		if (save) {

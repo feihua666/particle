@@ -1,6 +1,6 @@
 package com.particle.func.domain;
 
-import java.time.LocalDateTime;
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -32,6 +32,14 @@ public class FuncGroup extends AggreateRoot {
      */
     private String remark;
 
+	/**
+	 * 将 code 设置为null，如果为空
+	 */
+	public void setCodeNullIfEmpty() {
+		if (StrUtil.isEmpty(code)) {
+			code = null;
+		}
+	}
 
 	/**
 	 * 创建功能组领域模型对象

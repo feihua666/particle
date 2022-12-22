@@ -1,6 +1,6 @@
 package com.particle.area.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class AreaPageQueryCommand extends AbstractBasePageQueryCommand {
+public class AreaPageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
     @Like
@@ -46,6 +46,4 @@ public class AreaPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty("类型，字典id")
     private Long typeDictId;
 
-    @ApiModelProperty("父级id")
-    private Long parentId;
 }

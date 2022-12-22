@@ -1,8 +1,6 @@
 package com.particle.area.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
-import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import com.particle.component.light.share.trans.Constants;
 import com.particle.global.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
@@ -61,6 +59,6 @@ public class AreaVO extends AbstractBaseIdTreeVO {
     private Integer seq;
 
     @ApiModelProperty("父级名称")
-    @TransBy(tableName = TransTableNameConstants.component_dict, byFieldName = "parentId", mapValueField = "name")
+    @TransBy(tableName = TransTableNameConstants.component_area, byFieldName = "parentId", mapValueField = "name")
     private String parentName;
 }

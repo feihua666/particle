@@ -4,9 +4,9 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as funcUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as funcListApi
+  list as funcListApi,
+  update as funcUpdateApi
 } from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -216,7 +216,7 @@ const formComps = ref(
       },
       {
         field: {
-          name: 'permissins'
+          name: 'permissions'
         },
         element: {
           comp: 'el-input',

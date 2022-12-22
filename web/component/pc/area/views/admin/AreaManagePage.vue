@@ -2,8 +2,9 @@
 /**
  * 区域管理页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {list as areaListApi, page as areaPageApi, remove as areaRemoveApi} from "../../api/admin/areaAdminApi"
+import {treeQueryComps} from '../../../treeQueryComps'
 
 const tableRef = ref(null)
 
@@ -60,6 +61,7 @@ const reactiveData = reactive({
         }
       }
     },
+      ...treeQueryComps
   ],
   tableColumns: [
     {
@@ -70,7 +72,8 @@ const reactiveData = reactive({
     },
     {
       prop: 'code',
-      label: '编码'
+      label: '编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'nameSimple',
@@ -78,28 +81,38 @@ const reactiveData = reactive({
     },
     {
       prop: 'spellFirst',
-      label: '首字母'
+      label: '首字母',
+      width: 60,
     },
     {
       prop: 'spellSimple',
-      label: '简拼'
+      label: '简拼',
+      width: 50,
     },
 
     {
       prop: 'spell',
-      label: '全拼'
+      label: '全拼',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'parentName',
+      label: '父级'
     },
     {
       prop: 'typeDictName',
-      label: '类型'
+      label: '类型',
+      width: 50,
     },
     {
       prop: 'longitude',
-      label: '经度'
+      label: '经度',
+      showOverflowTooltip: true
     },
     {
       prop: 'latitude',
-      label: '纬度'
+      label: '纬度',
+      showOverflowTooltip: true
     },
     {
       prop: 'seq',

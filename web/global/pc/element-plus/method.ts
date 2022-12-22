@@ -5,7 +5,8 @@
 import {isPromise} from "../../common/tools/PromiseTools"
 import {isFunction} from "../../common/tools/FunctionTools"
 import {isString} from "../../common/tools/StringTools"
-import { ElMessageBox, ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
+
 let alert = (message)=>{
     ElMessage({
         showClose: true,
@@ -44,10 +45,10 @@ export const methodProps = {
         default: false
     }
 }
-// 属性
-export const reactiveMethodData = {
+// 属性,不能直接导出对象使用，导出意味着单例，会有状态，导致数据共享造成数据不一致
+export const reactiveMethodData = () => ({
     methodLocalLoading: false,
-}
+})
 export const emitMethodEvent = {
     methodResult: 'methodResult'
 }

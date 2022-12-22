@@ -39,6 +39,7 @@ public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<FuncVO> execute(@Valid FuncUpdateCommand funcUpdateCommand) {
 		Func func = createByFuncUpdateCommand(funcUpdateCommand);
+		func.setCodeNullIfEmpty();
 		func.setUpdateControl(funcUpdateCommand);
 		func.assertUrlNotEmptyIfNeccessary();
 		boolean save = funcGateway.save(func);

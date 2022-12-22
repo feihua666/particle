@@ -42,6 +42,8 @@
         <!-- swagger ui-接口文档 -->
         <knife4j-spring-boot-starter>3.0.3</knife4j-spring-boot-starter>
         <!-- mybatis-plus-boot-starter -->
+        <!-- 注意在升级时，因为自定义了部分逻辑，需要同步修改是否兼容 参见：global-mybatis-plus-boot-starter -->
+        <!-- 注意在升级时详情查看 com.baomidou.mybatisplus.core.conditions.segments.README.md -->
         <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
 
         <!-- 动态多数据源，见 global-datasource-boot-starter 引入提供统一依赖 -->

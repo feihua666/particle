@@ -2,8 +2,9 @@
 /**
  * 字典管理页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {list as dictListApi, page as dictPageApi, remove as dictRemoveApi} from "../../api/admin/dictAdminApi"
+import {treeQueryComps} from "../../../treeQueryComps";
 
 const tableRef = ref(null)
 
@@ -60,6 +61,7 @@ const reactiveData = reactive({
         }
       }
     },
+    ...treeQueryComps
   ],
   tableColumns: [
     {
@@ -70,7 +72,8 @@ const reactiveData = reactive({
     },
     {
       prop: 'code',
-      label: '编码'
+      label: '编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'value',
@@ -88,7 +91,7 @@ const reactiveData = reactive({
     {
       prop: 'isDisabled',
       label: '是否系统',
-      width: 100,
+      width: 80,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '系统字典' : '自定义字典'
       }
@@ -96,7 +99,7 @@ const reactiveData = reactive({
     {
       prop: 'isPublic',
       label: '是否公共',
-      width: 100,
+      width: 70,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '公共字典' : '私有字典'
       }
@@ -104,7 +107,7 @@ const reactiveData = reactive({
     {
       prop: 'isGroup',
       label: '是否字典组',
-      width: 100,
+      width: 80,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '字典组' : '字典项'
       }
@@ -112,7 +115,7 @@ const reactiveData = reactive({
     {
       prop: 'isDisabled',
       label: '是否禁用',
-      width: 100,
+      width: 70,
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? '禁用' : '启用'
         if(cellValue && row.disabledReason){
@@ -130,7 +133,8 @@ const reactiveData = reactive({
           r = r + `(${row.privateFlagMemo})`
         }
         return r
-      }
+      },
+      showOverflowTooltip: true
     },
     {
       prop: 'groupFlag',
@@ -141,7 +145,8 @@ const reactiveData = reactive({
           r = r + `(${row.groupFlagMemo})`
         }
         return r
-      }
+      },
+      showOverflowTooltip: true
     },
     {
       prop: 'tags',

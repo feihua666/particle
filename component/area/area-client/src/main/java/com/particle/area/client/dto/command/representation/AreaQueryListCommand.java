@@ -1,6 +1,6 @@
 package com.particle.area.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreeQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class AreaQueryListCommand extends AbstractBaseQueryCommand {
+public class AreaQueryListCommand extends AbstractBaseTreeQueryCommand {
 
 
     @Like

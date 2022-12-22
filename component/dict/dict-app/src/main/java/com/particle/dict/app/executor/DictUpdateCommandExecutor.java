@@ -39,6 +39,7 @@ public class DictUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<DictVO> execute(@Valid DictUpdateCommand dictUpdateCommand) {
 		Dict dict = createByDictUpdateCommand(dictUpdateCommand);
+		dict.setCodeNullIfEmpty();
 		dict.setUpdateControl(dictUpdateCommand);
 		boolean save = dictGateway.save(dict);
 		if (save) {

@@ -75,6 +75,14 @@ public class Func extends AggreateRoot {
 	 */
 	private Long parentId;
 
+	/**
+	 * 将 code 设置为null，如果为空
+	 */
+	public void setCodeNullIfEmpty() {
+		if (StrUtil.isEmpty(code)) {
+			code = null;
+		}
+	}
 
     @Autowired
 	private FuncDictGateway funcDictGateway;

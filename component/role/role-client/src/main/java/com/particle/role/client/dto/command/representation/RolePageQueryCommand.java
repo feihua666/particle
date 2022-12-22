@@ -1,6 +1,6 @@
 package com.particle.role.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class RolePageQueryCommand extends AbstractBasePageQueryCommand {
+public class RolePageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
     @ApiModelProperty("角色编码,模糊查询")

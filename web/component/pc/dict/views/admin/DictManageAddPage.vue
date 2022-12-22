@@ -2,8 +2,8 @@
 /**
  * 字典管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as dictCreateApi,list as dictListApi} from "../../api/admin/dictAdminApi"
+import {reactive, ref} from 'vue'
+import {create as dictCreateApi, list as dictListApi} from "../../api/admin/dictAdminApi"
 
 // 属性
 const reactiveData = reactive({
@@ -110,7 +110,7 @@ const formComps = ref(
       {
         field: {
           name: 'isSystem',
-          value: false
+          value: true
         },
         element: {
           comp: 'el-switch',
@@ -127,7 +127,7 @@ const formComps = ref(
       {
         field: {
           name: 'isPublic',
-          value: false
+          value: true
         },
         element: {
           comp: 'el-switch',

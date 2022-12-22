@@ -102,8 +102,8 @@ export interface ReactiveDataMethodData{
     dataMethodPage: DataMethodPage,
     dataMethodPageQuery: DataMethodPageQuery
 }
-// 属性
-export const reactiveDataMethodData: ReactiveDataMethodData = {
+// 属性,不能直接导出对象使用，导出意味着单例，会有状态，导致数据共享造成数据不一致
+export const reactiveDataMethodData = ():ReactiveDataMethodData => ({
     // 输入的数据
     dataMethodData: [],
     dataMethodLocalLoading: false,
@@ -114,7 +114,7 @@ export const reactiveDataMethodData: ReactiveDataMethodData = {
         pageNo: null, // 0时不回调传参
         pageSize: 10
     }
-}
+})
 export const emitDataMethodEvent = {
     // 原生数据结果
     dataMethodResult: 'dataMethodResult',

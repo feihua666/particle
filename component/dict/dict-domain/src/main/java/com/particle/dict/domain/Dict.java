@@ -1,5 +1,6 @@
 package com.particle.dict.domain;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -87,6 +88,15 @@ public class Dict extends AggreateRoot {
 	 */
 	private Long parentId;
 
+
+	/**
+	 * 将 code 设置为null，如果为空
+	 */
+	public void setCodeNullIfEmpty() {
+		if (StrUtil.isEmpty(code)) {
+			code = null;
+		}
+	}
 
 	/**
 	 * 创建字典领域模型对象

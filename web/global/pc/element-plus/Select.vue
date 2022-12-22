@@ -5,11 +5,17 @@
  *          2. 后端使用时支持权限控制
  *          3. 自带加载数据 dataLoading 功能效果
  */
-import {reactive ,computed,onMounted,inject,watch} from 'vue'
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle,pushCurrentModelData} from './dataModel'
+import {computed, inject, onMounted, reactive, watch} from 'vue'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  pushCurrentModelData,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
 import {isPromise} from "../../common/tools/PromiseTools";
 import {isArray} from "../../common/tools/ArrayTools";
 
@@ -119,7 +125,7 @@ const props = defineProps({
 })
 // 属性
 const reactiveData = reactive({
-  ...reactiveDataMethodData,
+  ...reactiveDataMethodData(),
   ...reactiveDataModelData(props),
   remoteLoading: props.loading
 })

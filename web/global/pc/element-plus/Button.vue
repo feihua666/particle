@@ -5,12 +5,12 @@
  *          2. 使按钮自带 loading 自动处理效果，无需额外处理
  *          3. 后端使用时支持权限控制
  */
-import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject} from 'vue'
-import { ElLoading } from 'element-plus'
+import {computed, getCurrentInstance, inject, onMounted, reactive, useSlots, watch} from 'vue'
+import {ElLoading} from 'element-plus'
 import {aiButtonStyle} from './ElStyleTools'
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {methodProps,reactiveMethodData,emitMethodEvent,method,doMethod} from './method'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {doMethod, emitMethodEvent, method, methodProps, reactiveMethodData} from './method'
 import {isFunction} from '../../common/tools/FunctionTools'
 
 const { proxy,appContext } = getCurrentInstance()
@@ -67,7 +67,7 @@ const props = defineProps({
 // 属性
 const reactiveData = reactive({
   // 数据与加载
-  ...reactiveMethodData,
+  ...reactiveMethodData(),
   // 根据默认插槽文件计算按钮样式
   buttonStyle: slots.default ? aiButtonStyle(slots.default()[0].children) : aiButtonStyle(props.buttonText) || {},
   buttonText: slots.default ? slots.default()[0].children : props.buttonText || '',

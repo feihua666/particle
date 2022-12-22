@@ -1,6 +1,6 @@
 package com.particle.func.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class FuncPageQueryCommand extends AbstractBasePageQueryCommand {
+public class FuncPageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
     @Like

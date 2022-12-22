@@ -6,12 +6,9 @@
  *          3. 后端使用时支持权限控制
  *          4. 自动加载数据，可结合后台接口更方便使用
  */
-import {reactive ,computed,watch,onMounted} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import {menuProps,menuConfig} from './menu'
-import PtSubMenu from './SubMenu.vue'
-import PtMenuItem from './MenuItem.vue'
-import PtMenuItemGroup from './MenuItemGroup.vue'
+import {computed, onMounted, reactive, watch} from 'vue'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+import {menuConfig, menuProps} from './menu'
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -32,7 +29,7 @@ const props = defineProps({
 // 属性
 const reactiveData = reactive({
   // 数据与加载
-  ...reactiveDataMethodData,
+  ...reactiveDataMethodData(),
 })
 // 计算属性
 

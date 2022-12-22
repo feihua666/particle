@@ -1,5 +1,6 @@
 package com.particle.global.mybatis.plus.crud;
 
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -16,6 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.basic.TreeDO;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.dto.BaseDO;
@@ -120,7 +122,29 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
             log.error("DO is null,you should override method queryCommandToDO to return a DO object. for {}",getClass().getName());
         }
         QueryWrapper<DO> queryWrapper = Wrappers.query(po);
+
         annotationSupportQueryWrapper(queryWrapper, queryForm);
+
+        if(po instanceof BaseTreeDO && ((BaseTreeDO) po).getParentId() != null){
+            boolean isIncludeParent = ReflectUtil.hasField(queryForm.getClass(), "isIncludeParent");
+            if (isIncludeParent) {
+                Object isIncludeParentValue = ReflectUtil.getFieldValue(queryForm, "isIncludeParent");
+                if (BooleanUtil.isTrue(((Boolean) isIncludeParentValue))) {
+                    queryWrapper.or(i -> i.eq(TreeDO.COLUMN_ID , ((BaseTreeDO) po).getParentId()));
+                }
+            }
+            boolean isIncludeAllChildren = ReflectUtil.hasField(queryForm.getClass(), "isIncludeAllChildren");
+            if (isIncludeAllChildren) {
+                Object isIncludeAllChildrenValue = ReflectUtil.getFieldValue(queryForm, "isIncludeAllChildren");
+                if (BooleanUtil.isTrue(((Boolean) isIncludeAllChildrenValue))) {
+                    DO parent = getById(((BaseTreeDO) po).getParentId());
+                    if (parent != null) {
+                        queryWrapper.or(i -> i.eq(TreeDO.COLUMN_PARENT_ID + ((BaseTreeDO)parent).getLevel(), ((BaseTreeDO) po).getParentId()));
+                    }
+                }
+            }
+        }
+
         // 数据范围约束
         if (dataPermissionServiceWrapper !=null && getQueryDataPermissionService() != null) {
             getQueryDataPermissionService().dataConstraint(queryWrapper);

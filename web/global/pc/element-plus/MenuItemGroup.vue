@@ -1,7 +1,6 @@
 <script setup name="MenuItemGroup">
-import {reactive ,computed,watch,onMounted} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
-import PtMenuItem from './MenuItem.vue'
+import {computed, onMounted, reactive, watch} from 'vue'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
 
 
 // 声明属性
@@ -27,7 +26,7 @@ const props = defineProps({
 // 属性
 const reactiveData = reactive({
   // 数据与加载
-  ...reactiveDataMethodData,
+  ...reactiveDataMethodData(),
 })
 // 计算属性
 

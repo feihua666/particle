@@ -2,8 +2,8 @@
 /**
  * 功能菜单管理添加页面
  */
-import {reactive ,ref,watch} from 'vue'
-import {create as funcCreateApi,list as funcListApi} from "../../api/admin/funcAdminApi"
+import {reactive, ref} from 'vue'
+import {create as funcCreateApi, list as funcListApi} from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -200,7 +200,7 @@ const formComps = ref(
       },
       {
         field: {
-          name: 'permissins'
+          name: 'permissions'
         },
         element: {
           comp: 'el-input',

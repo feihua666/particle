@@ -38,6 +38,7 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<FuncVO> execute(@Valid FuncCreateCommand funcCreateCommand) {
 		Func func = createByFuncCreateCommand(funcCreateCommand);
+		func.setCodeNullIfEmpty();
 		func.setAddControl(funcCreateCommand);
 		func.assertUrlNotEmptyIfNeccessary();
 		boolean save = funcGateway.save(func);

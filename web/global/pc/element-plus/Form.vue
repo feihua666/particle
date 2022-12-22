@@ -6,16 +6,13 @@
  *          3. 集成字段权限判断功能，方便实现权限
  *          4. 自动布局功能
  */
-import {reactive, ref, computed, onMounted, watch} from 'vue'
-import {isObject,clone} from "../../common/tools/ObjectTools"
-import {methodProps,reactiveMethodData,emitMethodEvent,doMethod} from './method'
-import {layoutProps,layoutIndex,layoutCompute} from './Layout'
+import {computed, onMounted, reactive, ref, watch} from 'vue'
+import {clone, isObject} from "../../common/tools/ObjectTools"
+import {doMethod, emitMethodEvent, methodProps, reactiveMethodData} from './method'
+import {layoutCompute, layoutProps} from './Layout'
 // 主要用于修改场景，加载要修改的数据
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
 import {dataMethodForFormProps} from './dataMethodForForm'
-import PtFormItem from './FormItem.vue'
-import PtButton from './Button.vue'
-import {isFunction} from "../../common/tools/FunctionTools";
 // form 引用
 const formRef = ref(null)
 
@@ -116,8 +113,8 @@ initForm(props.comps)
 // 属性
 const reactiveData = reactive({
   // 数据与加载
-  ...reactiveMethodData,
-  ...reactiveDataMethodData,
+  ...reactiveMethodData(),
+  ...reactiveDataMethodData(),
   // 表单初始数据，用来在重置时使用
   initForm: clone(form),
   // 表单数据

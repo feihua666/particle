@@ -5,8 +5,9 @@
  *          2. 自带加载数据 dataLoading 功能效果
  *          3. 增加名称为 item 的插槽，方便直接写内容
  */
-import {reactive ,computed,onMounted,inject,ref} from 'vue'
-import {dataMethodProps,reactiveDataMethodData,doDataMethod,emitDataMethodEvent} from './dataMethod'
+import {computed, inject, onMounted, reactive, ref} from 'vue'
+import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+
 const carouselRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -51,7 +52,7 @@ const props = defineProps({
 })
 // 属性
 const reactiveData = reactive({
-  ...reactiveDataMethodData,
+  ...reactiveDataMethodData(),
 })
 // 计算属性
 // 这里和 props.options 重名了，但在模板是使用 options 变量是这个值，也就是说这里会覆盖在模板中的值

@@ -2,9 +2,10 @@
 /**
  * 功能菜单管理页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {list as funcListApi, page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
+import {treeQueryComps} from "../../../treeQueryComps";
 
 const tableRef = ref(null)
 
@@ -47,6 +48,22 @@ const reactiveData = reactive({
 
     {
       field: {
+        name: 'funcGroupId'
+      },
+      element: {
+        comp: 'PtSelect',
+        formItemProps: {
+          label: '功能分组'
+        },
+        compProps: {
+          clearable: true,
+          dataMethod: funcGroupListApi
+        }
+      }
+    },
+
+    {
+      field: {
         name: 'parentId'
       },
       element: {
@@ -62,21 +79,7 @@ const reactiveData = reactive({
         }
       }
     },
-    {
-      field: {
-        name: 'funcGroupId'
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '功能分组'
-        },
-        compProps: {
-          clearable: true,
-          dataMethod: funcGroupListApi
-        }
-      }
-    },
+    ...treeQueryComps
   ],
   tableColumns: [
     {
@@ -87,7 +90,8 @@ const reactiveData = reactive({
     },
     {
       prop: 'code',
-      label: '编码'
+      label: '编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'parentName',
@@ -95,19 +99,20 @@ const reactiveData = reactive({
     },
     {
       prop: 'funcGroupName',
-      label: '功能分组'
+      label: '功能分组',
+      showOverflowTooltip: true
     },
     {
       prop: 'icon',
       label: '图标',
       // elementPlus 图标
       columnView: 'elIcon',
-      width: 100,
+      width: 50,
     },
     {
       prop: 'isDisabled',
       label: '是否禁用',
-      width: 100,
+      width: 70,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '禁用' : '启用'
       }
@@ -115,23 +120,25 @@ const reactiveData = reactive({
     {
       prop: 'isShow',
       label: '是否展示',
-      width: 100,
+      width: 70,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '展示' : '隐藏'
       }
     },
     {
       prop: 'url',
-      label: '路由'
+      label: '路由',
+      showOverflowTooltip: true
     },
     {
       prop: 'typeDictName',
       label: '类型',
-      width: 100,
+      width: 50,
     },
     {
       prop: 'permissions',
-      label: '权限码'
+      label: '权限码',
+      showOverflowTooltip: true
     },
     {
       prop: 'seq',
