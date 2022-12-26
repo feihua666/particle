@@ -17,7 +17,8 @@ import PtFormItem from './FormItem.vue'
 import PtButton from './Button.vue'
 // form 引用
 const formRef = ref(null)
-
+// 没有什么用，只是引用一下，否则开发工具自动优化会删除，因为在模板中直接引用提示不出来
+const notUselayoutIndex = ref(layoutIndex)
 // form 表单默认提交按钮，共有三个
 const defaultButtonsShow = {
   submit: true,// 提交按钮
@@ -126,6 +127,9 @@ const reactiveData = reactive({
 })
 // 计算属性
 const layoutComputeFn = layoutCompute({props})
+/**
+ * 布局计算
+ */
 const layoutComputedLayout = computed(()=> {
   return layoutComputeFn(props.comps.length)
 })
