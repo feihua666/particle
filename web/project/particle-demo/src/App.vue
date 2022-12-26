@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {provide} from 'vue'
+
 import { useRouter } from 'vue-router'
 import {useLoginUserStore} from '../../../global/common/security/loginUserStore.ts'
 
@@ -10,6 +12,8 @@ loginUserStore.loadFromLocal()
 if (!loginUserStore.hasLogin && loginUserStore.forceLogin) {
   const router = useRouter()
   router.replace('/login')
+}else {
+  provide('permissions',loginUserStore.loginUser.isSuperAdmin? ['*']: loginUserStore.loginUser.permissions)
 }
 </script>
 

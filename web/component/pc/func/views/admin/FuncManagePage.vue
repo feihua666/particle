@@ -156,7 +156,8 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  loading: false
+  loading: false,
+  permission: 'admin:web:func:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -176,12 +177,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      permission: 'admin:web:func:update',
       // 跳转到编辑
       route: {path: '/admin/funcManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
+      permission: 'admin:web:func:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -206,8 +209,8 @@ const getTableRowButtons = ({row, column, $index}) => {
           labelWidth="80"
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton route="/admin/funcManageAdd">添加</PtButton>
-      <PtButton route="/admin/funcManageCrudAdd">添加Crud</PtButton>
+      <PtButton permission="admin:web:func:create" route="/admin/funcManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:func:create" route="/admin/funcManageCrudAdd">添加Crud</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

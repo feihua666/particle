@@ -41,6 +41,28 @@ export const permissionProps = {
         default: undefined
     }
 }
+/**
+ * 检查是否有权限
+ * @param permission
+ * @param permissions
+ */
+const hasPermissionCheck = (permission: string,permissions: Array<string>):boolean =>{
+    // 匹配任何权限
+    let any = '*';
+    let r = permission == any
+    // 可用权限 包含是否包括 *
+    if(r == false){
+        r = exist(any,permissions)
+    }
+    if(r == false){
+        r = exist(permission,permissions)
+    }
+
+    if(r == false){
+        r = permissions.some(item => exist(permission,item.split(',')))
+    }
+    return r
+}
 // 返回是否有权限，及权限其它常用属性
 export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleText}) => {
 
@@ -52,7 +74,7 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
             // 传了权限表示开启
             enable = true
             if (isString(props.permission)) {
-                hasPm = exist(props.permission,props.permissions) || exist(props.permission,injectPermissions)
+                hasPm = hasPermissionCheck(props.permission,props.permissions) || hasPermissionCheck(props.permission,injectPermissions)
             }else if(isFunction(props.permission)){
                 hasPm = props.permission()
             }else {

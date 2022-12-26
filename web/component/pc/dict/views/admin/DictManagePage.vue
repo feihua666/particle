@@ -168,7 +168,8 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  loading: false
+  loading: false,
+  permission: 'admin:web:dict:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -188,12 +189,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      permission: 'admin:web:dict:update',
       // 跳转到编辑
       route: {path: '/admin/dictManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
+      permission: 'admin:web:dict:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -217,7 +220,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton route="/admin/dictManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:dict:create" route="/admin/dictManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

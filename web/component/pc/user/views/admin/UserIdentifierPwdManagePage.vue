@@ -105,7 +105,8 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  loading: false
+  loading: false,
+  permission: 'admin:web:userIdentifierPwd:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -126,12 +127,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      permission: 'admin:web:userIdentifierPwd:update',
       // 跳转到编辑
       route: {path: '/admin/userIdentifierPwdManageUpdate',query: routeQuery}
     },
     {
       txt: '删除',
       text: true,
+      permission: 'admin:web:userIdentifierPwd:delete',
       methodConfirmText: `删除用户密码会造成用户当前账号无法登录，但不影响其它账号登录。确定要删除 ${row.userIdentifier} 的密码吗？`,
       // 删除操作
       method(){
@@ -155,7 +158,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton route="/admin/userIdentifierPwdManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:userIdentifierPwd:create" route="/admin/userIdentifierPwdManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

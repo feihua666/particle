@@ -187,7 +187,8 @@ const formComps = ref(
 
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '确认修改'
+  buttonText: '确认修改',
+  permission: 'admin:web:area:update',
 })
 // 提交按钮
 const submitMethod = () => {

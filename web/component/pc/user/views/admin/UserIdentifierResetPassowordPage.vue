@@ -30,7 +30,8 @@ const formComps = ref(
 
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '确认重置'
+  buttonText: '确认重置',
+  permission: 'admin:web:userIdentifierPwd:identifier:resetPassword',
 })
 // 提交按钮
 const submitMethod = () => {

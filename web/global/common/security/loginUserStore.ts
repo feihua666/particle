@@ -84,5 +84,5 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
         }
         setRaw(loginUserRefreshTokenKey,refreshToken.value)
     }
-    return { forceLogin, hasLogin, changeHasLogin, changeLoginUser,loadFromLocal,token,refreshToken,changeToken,changeRefreshToken}
+    return {loginUser, forceLogin, hasLogin, changeHasLogin, changeLoginUser,loadFromLocal,token,refreshToken,changeToken,changeRefreshToken}
 })

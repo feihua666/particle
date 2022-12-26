@@ -187,7 +187,8 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  loading: false
+  loading: false,
+  permission: 'admin:web:user:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -208,13 +209,15 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      permission: 'admin:web:user:update',
       // 跳转到编辑
       route: {path: '/admin/userManageUpdate',query: routeQuery}
     },
     {
       txt: '删除',
       text: true,
-      methodConfirmText: `删除用户将可能造成不可预知的后果，一般不建议删除，可以将用户禁用处理，如果是新用户可以放心删除。确定要删除 ${row.nickname} 吗？`,
+      permission: 'admin:web:user:delete',
+      methodConfirmText: `删除用户将可能造成不可预知的后果，一般不建议删除，可以将用户锁定处理，如果是新用户可以放心删除。确定要删除 ${row.nickname} 吗？`,
       // 删除操作
       method(){
         return userRemoveApi(idData).then(res => {
@@ -229,6 +232,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       txt: '重置密码',
       text: true,
       position: 'more',
+      permission: 'admin:web:userIdentifierPwd:user:resetPassword',
       methodConfirmText: `此操作会影响用户所有账号密码，确定要重置密码吗？`,
       // 跳转到编辑
       route: {path: '/admin/userPwdManageResetPassword',query: routeQuery},
@@ -236,6 +240,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '添加登录标识',
       text: true,
+      permission: 'admin:web:userIdentifier:create',
       position: 'more',
       // 跳转到编辑
       route: {path: '/admin/userIdentifierManageAddFixed',query: routeQuery},
@@ -243,6 +248,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '登录标识',
       text: true,
+      permission: 'admin:web:userIdentifier:pageQuery',
       position: 'more',
       icon: 'UserFilled',
       type: 'primary',
@@ -252,6 +258,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '用户密码',
       text: true,
+      permission: 'admin:web:userIdentifierPwd:pageQuery',
       position: 'more',
       icon: 'View',
       type: 'primary',
@@ -275,7 +282,7 @@ const dropdownTriggerButtonOptions = {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton route="/admin/userManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:user:create" route="/admin/userManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

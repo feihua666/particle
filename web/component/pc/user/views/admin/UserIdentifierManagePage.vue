@@ -132,7 +132,8 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  loading: false
+  loading: false,
+  permission: 'admin:web:userIdentifier:pageQuery',
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -154,12 +155,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      permission: 'admin:web:userIdentifier:update',
       // 跳转到编辑
       route: {path: '/admin/userIdentifierManageUpdate',query: routeQuery}
     },
     {
       txt: '删除',
       text: true,
+      permission: 'admin:web:userIdentifier:delete',
       methodConfirmText: `删除用户账号会造成用户当前账号不能登录，同时会删除当前账号的密码数据。确定要删除 ${row.identifier} 吗？`,
       // 删除操作
       method(){
@@ -173,6 +176,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '重置密码',
       text: true,
+      permission: 'admin:web:userIdentifierPwd:identifier:resetPassword',
       position: 'more',
       methodConfirmText: `此操作只影响当前账号密码，确定要重置密码吗？`,
       // 跳转到编辑
@@ -181,6 +185,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '用户密码',
       text: true,
+      permission: 'admin:web:userIdentifierPwd:pageQuery',
       position: 'more',
       icon: 'View',
       type: 'primary',
@@ -205,7 +210,7 @@ const dropdownTriggerButtonOptions = {
           labelWidth="80"
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton route="/admin/userIdentifierManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:userIdentifier:create" route="/admin/userIdentifierManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
