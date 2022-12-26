@@ -3,6 +3,7 @@ package com.particle.user.infrastructure.identifier.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
+import com.particle.user.infrastructure.identifier.mapper.UserIdentifierMapper;
 import com.particle.user.infrastructure.identifier.mapper.UserIdentifierPwdMapper;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class UserIdentifierPwdServiceImpl extends IBaseServiceImpl<UserIdentifierPwdMapper, UserIdentifierPwdDO> implements IUserIdentifierPwdService {
 
 	@Autowired
-	private IUserIdentifierService iUserIdentifierService;
+	private UserIdentifierMapper userIdentifierMapper;
 
 	private IBaseQueryCommandMapStruct<UserIdentifierPwdDO> queryCommandMapStruct;
 
@@ -46,7 +47,7 @@ public class UserIdentifierPwdServiceImpl extends IBaseServiceImpl<UserIdentifie
 	@Override
 	public List<UserIdentifierPwdDO> getByUserId(Long userId) {
 		Assert.notNull(userId,"userId不能为空");
-		List<UserIdentifierDO> byUserId = iUserIdentifierService.getByUserId(userId);
+		List<UserIdentifierDO> byUserId = userIdentifierMapper.getByUserId(userId);
 		if (!CollectionUtil.isEmpty(byUserId)) {
 			List<UserIdentifierPwdDO> byIdentifierIds = getByIdentifierIds(byUserId.stream().map(UserIdentifierDO::getId).collect(Collectors.toList()));
 			return byIdentifierIds;
@@ -80,4 +81,5 @@ public class UserIdentifierPwdServiceImpl extends IBaseServiceImpl<UserIdentifie
 		}
 		return false;
 	}
+
 }

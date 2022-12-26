@@ -48,14 +48,15 @@ public class UserIdentifier extends AggreateRoot {
      * 是否过期
      */
     private Boolean isExpired;
-    /**
-     * 是否禁用
-     */
-    private Boolean isDisabled;
-    /**
-     * 禁用原因
-     */
-    private String disabledReason;
+	/**
+	 * 过期原因
+	 */
+	private String expiredReason;
+	/**
+	 * 到期时间，为空永不到期
+	 */
+	private LocalDateTime expireAt;
+
     /**
      * 分组标识
      */
@@ -76,5 +77,20 @@ public class UserIdentifier extends AggreateRoot {
 	 */
 	public static UserIdentifier create(){
 		return DomainFactory.create(UserIdentifier.class);
+	}
+
+	public static UserIdentifier create(Long userId,String identifier,Long identityTypeDictId,String groupFlag){
+		UserIdentifier userIdentifier = UserIdentifier.create();
+		userIdentifier.setUserId(userId);
+		userIdentifier.setIdentifier(identifier);
+		userIdentifier.setIdentityTypeDictId(identityTypeDictId);
+		userIdentifier.setGroupFlag(groupFlag);
+
+		userIdentifier.setIsLock(false);
+		userIdentifier.setIsExpired(false);
+		userIdentifier.setIsExpired(false);
+
+
+		return userIdentifier;
 	}
 }

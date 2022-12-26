@@ -1,6 +1,8 @@
 package com.particle.user.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.global.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,12 +21,19 @@ import java.time.LocalDateTime;
 @ApiModel
 public class UserVO extends AbstractBaseIdVO {
 
-
-    @ApiModelProperty("昵称，姓名，模糊查询")
+    @ApiModelProperty("姓名，真实姓名")
+    private String name;
+    
+    @ApiModelProperty("昵称，模糊查询")
     private String nickname;
+
 
     @ApiModelProperty("性别，字典id")
     private Long genderDictId;
+
+    @ApiModelProperty("性别，字典名称")
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "genderDictId",mapValueField = "name")
+    private String genderDictName;
 
     @ApiModelProperty("头像，图片绝对路径")
     private String avatar;
@@ -50,11 +59,19 @@ public class UserVO extends AbstractBaseIdVO {
     @ApiModelProperty("用户分类字典，标识是哪一类用户，比如后台用户等")
     private Long categoryDictId;
 
+    @ApiModelProperty("用户分类，字典名称")
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "categoryDictId",mapValueField = "name")
+    private String categoryDictName;
+
     @ApiModelProperty("分组标识")
     private String groupFlag;
 
     @ApiModelProperty("用户来源，字典id")
     private Long sourceFromDictId;
+
+    @ApiModelProperty("用户来源，字典名称")
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "sourceFromDictId",mapValueField = "name")
+    private String sourceFromDictName;
 
     @ApiModelProperty("是否过期，过期后该密码不能登录")
     private Boolean isExpired;

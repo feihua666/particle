@@ -8,6 +8,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public interface IUserApplicationService extends IBaseApplicationService {
 	 * @param userCreateCommand
 	 * @return
 	 */
-	SingleResponse<UserVO> create(UserCreateCommand userCreateCommand);
+	SingleResponse<UserVO> create(UserCreateCommand userCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand);
 
 	/**
 	 * 删除领域对象

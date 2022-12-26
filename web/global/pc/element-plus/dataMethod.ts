@@ -56,6 +56,7 @@ export const dataMethodProps: DataMethodProps = {
             if (error) {
                 return emptyData
             }
+            return emptyData
         }
     },
     // 将数据转为 tree,仅限数据加载成功时有效，参见： dataMethodResultHandle中的 convertToTree 参数
@@ -166,7 +167,7 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
             })
             emit(emitDataMethodEvent.dataMethodResult,promiseResult)
         }else {
-            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result,convertToTree: props.dataMethodResultHandleConvertToTree}))
+            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result,convertToTree: props.dataMethodResultHandleConvertToTree,emptyData: props.emptyData}))
             handleAdapter(pageAdapter,reactiveData)
             emit(emitDataMethodEvent.dataMethodResult,result)
             emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)

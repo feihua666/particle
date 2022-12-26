@@ -1,4 +1,4 @@
-<script setup name="Select">
+<script setup name="Select" lang="ts">
 /**
  * 自定义封装 select 选择
  * 封装理由：1. 可以自助获取数据，更方便
@@ -9,6 +9,8 @@ import {computed, inject, onMounted, reactive, watch} from 'vue'
 import {hasPermissionConfig, permissionProps} from './permission'
 import {disabledConfig, disabledProps} from './disabled'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+import {dataMethodRemoteProps, doDataMethodRemote, reactiveDataMethodRemoteData} from './dataMethodRemote'
+
 import {
   changeDataModelValueEventHandle,
   emitDataModelEvent,
@@ -69,7 +71,13 @@ const props = defineProps({
     default: ({success,error}) => {
       // success 为 res
       if (success) {
-        return success.data
+        let data = success.data
+        if(data.data == undefined){
+          return data
+        }
+        if(isArray(data.data)){
+          return data.data
+        }
       }
       if (error) {
         return []
@@ -78,8 +86,7 @@ const props = defineProps({
   },
   // 是否分组展示，会智能判断是否需要分组展示
   groupView: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   // option 的样式
   optionProps: {
@@ -121,13 +128,19 @@ const props = defineProps({
   title: {
     type: String
   },
-  ...dataMethodProps
+  // 默认匹配的 item,数组的 filter 参数
+  // 例：(item)=>item.name == '33'
+  defaultValueItem: {
+    type: Function
+  },
+  ...dataMethodProps,
+  ...dataMethodRemoteProps
 })
 // 属性
 const reactiveData = reactive({
   ...reactiveDataMethodData(),
+  ...reactiveDataMethodRemoteData(),
   ...reactiveDataModelData(props),
-  remoteLoading: props.loading
 })
 // 计算属性
 // 这里和 props.options 重名了，但在模板是使用 options 变量是这个值，也就是说这里会覆盖在模板中的值
@@ -156,7 +169,10 @@ const groupProps = computed(() => {
 })
 // 这里和 props.groupView 重名了，但在模板是使用 groupView 变量是这个值，也就是说这里会覆盖在模板中的值
 const groupView = computed(() => {
-  return props.groupView || options.value?.some(item => item[groupProps.value.label] !== undefined && item[groupProps.value.options] !== undefined)
+  if(props.groupView === true || props.groupView === false){
+    return props.groupView
+  }
+  return options.value?.some(item => item[groupProps.value.label] !== undefined && item[groupProps.value.options] !== undefined)
 })
 
 // 这里和 props.dataLoading 重名了，但在模板是使用 dataLoading 变量是这个值，也就是说这里会覆盖在模板中的值
@@ -165,11 +181,11 @@ const dataLoading = computed(() => {
 })
 // 这里和 props.loading 重名了，但在模板是使用 loading 变量是这个值，也就是说这里会覆盖在模板中的值
 const loading = computed(() => {
-  return props.loading || reactiveData.remoteLoading
+  return props.loading || reactiveData.dataMethodRemoteLocalLoading
 })
 // 这里和 props.placeholder 重名了，但在模板是使用 placeholder 变量是这个值，也就是说这里会覆盖在模板中的值
 const placeholder = computed(() => {
-  return props.placeholder || props.filterable && props.remote ? '输入关键字远程搜索': null
+  return props.placeholder || (props.filterable && props.remote ? '输入关键字远程搜索': null)
 })
 const injectPermissions = inject('permissions', [])
 // 是否有权限
@@ -199,7 +215,26 @@ watch(
       emit(emitDataModelEvent.updateModelData,props.multiple ? r : r[0])
     }
 )
-
+// 数据加载完成初始化一个默认值
+watch(()=> reactiveData.dataMethodData,(val: any[]) => {
+  // 没有指定默认值时，匹配一个默认值
+  if(props.defaultValueItem && (props.modelValue == null || props.modelValue == undefined || props.modelValue == '' || props.modelValue.length == 0 /* 数组情况 */)){
+    let r = val.filter(props.defaultValueItem)
+    let value = props.multiple ? null : []
+    if (props.multiple) {
+      value = r.map(i => i[propsOptions.value.value])
+    }else {
+      value = r[0][propsOptions.value.value]
+    }
+    // 同时赋值，防止没有权限时阻挡
+    reactiveData.oldModelValue = value
+    reactiveData.currentModelValue = value
+  }
+})
+// 远程搜索处理
+watch(()=> reactiveData.dataMethodRemoteData,(val: any[]) => {
+  reactiveData.dataMethodData = val
+})
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue
@@ -230,28 +265,19 @@ const getOptionProps = (optionsOptionProps={})=> {
 }
 
 // 加载数据
-const doRemoteMethod = (query) =>{
-  reactiveData.remoteLoading = true
-  if (props.remoteMethod) {
-    const result =  props.remoteMethod(query)
-    if (isPromise(result)) {
-      const promiseResult = result.then(res =>{
-        reactiveData.dataMethodData = props.remoteMethodResultHandle({success: res})
-      }).catch(error => {
-        reactiveData.dataMethodData = props.remoteMethodResultHandle({error: error})||[]
-      }).finally(()=>{
-        reactiveData.remoteLoading = false
-      })
-    }else if(isArray(result)) {
-      reactiveData.dataMethodData = result
-      reactiveData.remoteLoading = false
-    }else {
-      reactiveData.remoteLoading = false
-    }
-  }else {
-    reactiveData.remoteLoading = false
+const doRemoteMethod = (query: string) =>{
+  if (!props.remoteMethod) {
+    return
   }
+  let remoteMethod = (page)=> {
+    if (props.remoteMethod) {
+      const result = props.remoteMethod(query,{page,props})
+      return result
+    }
+  }
+  doDataMethodRemote({props,reactiveData,remoteMethod})
 }
+
 </script>
 <template>
 

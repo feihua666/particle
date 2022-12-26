@@ -40,7 +40,10 @@ export interface Config{
     loading?: boolean, // 是否开启loading层效果, 默认为false
     reductDataFormat?: boolean, // 是否开启简洁的数据结构响应, 默认为true
     showErrorMessage?: boolean, // 是否开启接口错误信息展示,默认为true
+    showNoneSuccessMessage?: boolean, // 是否开启接口非错误但未成功信息展示,默认为true
+    noneSuccessMessage?: (response)=> string, // 未成功时，返回消息
     showErrorMessageView?: ((message: string)=> void)|'alert'|'notification', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
+    showNoneSuccessMessageView?: ((message: string)=> void)|'alert'|'notification', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
     alertCallback?: (message: string) => void,
     notificationCallback?: (message: string) => void
 }
@@ -56,7 +59,15 @@ const defaultConfig: Config = {
     loading: false, // 是否开启loading层效果, 默认为false
     reductDataFormat: false, // 是否开启简洁的数据结构响应, 默认为 false
     showErrorMessage: true, // 是否开启接口错误信息展示,默认为true
+    showNoneSuccessMessage: true, // 是否开启接口错误信息展示,默认为true
+    noneSuccessMessage: (response) => {
+        if(response.data && response.data.isSuccess !== undefined && response.data.isSuccess == false){
+            return response.data.errMessage
+        }
+        return ''
+    }, // 是否开启接口错误信息展示,默认为true
     showErrorMessageView: 'alert', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
+    showNoneSuccessMessageView: 'alert', // 开启接口错误信息展示的视觉方式，alert=顶部提示，notification=通知提示,函数，直接调用
     alertCallback: (message) => {
         ElMessage({
             showClose: true,
@@ -95,6 +106,18 @@ function httpErrorStatusHandle(error,config: Config) {
         } else if ('alert' == config.showErrorMessageView) {
            config.alertCallback(message)
         }else if('notification' == config.showErrorMessageView){
+            config.notificationCallback(message)
+        }
+    }
+}
+function httpNoneSuccessHandle(response,config: Config){
+    let message = config.noneSuccessMessage(response)
+    if(message){
+        if(isFunction(config.showNoneSuccessMessageView)){
+            config.showNoneSuccessMessageView(message)
+        } else if ('alert' == config.showNoneSuccessMessageView) {
+            config.alertCallback(message)
+        }else if('notification' == config.showNoneSuccessMessageView){
             config.notificationCallback(message)
         }
     }
@@ -197,6 +220,8 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
             if (token){
                 loginUserStoreCache.changeToken(token)
             }
+
+            configOptions.showNoneSuccessMessage && httpNoneSuccessHandle(response,configOptions)
             return configOptions.reductDataFormat ? response.data : response
         },
         (error) => {

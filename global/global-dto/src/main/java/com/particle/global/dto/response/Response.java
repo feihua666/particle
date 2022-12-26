@@ -83,6 +83,24 @@ public class Response extends DTO {
 	}
 	protected static String handleUserTip(IErrorCode errorCode, String userTip) {
 		return Optional.ofNullable(StrUtil.emptyToNull(userTip)).map(ut -> StrUtil.format(userTip,errorCode.getErrMessage())).orElse(errorCode.getErrMessage());
+	}
 
+	public IErrorCode iErrorCode(){
+		return new IErrorCode() {
+			@Override
+			public long getStatus() {
+				return status;
+			}
+
+			@Override
+			public String getErrCode() {
+				return errCode;
+			}
+
+			@Override
+			public String getErrMessage() {
+				return errMessage;
+			}
+		};
 	}
 }

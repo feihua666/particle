@@ -2,8 +2,8 @@
 /**
  * 登录用户自己的功能菜单组件
  */
-import PtMenu from '../../../../global/pc/element-plus/Menu.vue'
-import {loginGetList} from "../api/funcLoginApi";
+import PtMenu from '../../../../../global/pc/element-plus/Menu.vue'
+import {loginGetList} from "../../api/funcLoginApi";
 import { useRoute } from 'vue-router'
 const route = useRoute()
 </script>

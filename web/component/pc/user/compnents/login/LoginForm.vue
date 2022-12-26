@@ -1,9 +1,9 @@
 <script setup name="LoginForm"  lang="ts">
 import {getCurrentInstance,reactive ,ref} from 'vue'
-import {login} from '../api/userLoginApi'
-import {useLoginUserStore} from '../../../../global/common/security/loginUserStore'
-import {isString} from '../../../../global/common/tools/StringTools'
-import {isFunction} from '../../../../global/common/tools/FunctionTools'
+import {login} from '../../api/userLoginApi'
+import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
+import {isString} from '../../../../../global/common/tools/StringTools'
+import {isFunction} from '../../../../../global/common/tools/FunctionTools'
 
 const { appContext } = getCurrentInstance()
 // 路由

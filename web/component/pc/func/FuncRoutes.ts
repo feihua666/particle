@@ -19,7 +19,15 @@ const FuncRoutes = [
                     name: '菜单功能添加'
                 }
             },
-
+            {
+                path: '/admin/funcManageCrudAdd',
+                component: () => import('./views/admin/FuncManageCrudAddPage.vue'),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminFuncManageCrudAdd',
+                    name: '菜单功能添加Crud'
+                }
+            },
             {
                 path: '/admin/funcManageUpdate',
                 component: () => import('./views/admin/FuncManageUpdatePage.vue'),

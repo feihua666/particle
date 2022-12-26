@@ -55,4 +55,8 @@ public interface IUserIdentifierPwdService extends IBaseService<UserIdentifierPw
 	 * @return
 	 */
 	boolean updatePasswordByIdentifierId(Long identifierId,String encodedPassword);
+
+	default boolean deleteByIdentifierId(Long identifierId){
+		return deleteByColumn(identifierId, UserIdentifierPwdDO::getIdentifierId);
+	}
 }

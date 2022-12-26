@@ -6,10 +6,12 @@ import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserExtPutService;
 import com.particle.global.tool.thread.ThreadContextTool;
+import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
+import com.particle.user.infrastructure.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 这个bean如果放到配置文件中通过bean注解方式会导致其依赖的注入为空
@@ -34,28 +37,41 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
     @Autowired
     private IUserIdentifierPwdService iIdentifierPwdService;
 
+    @Autowired
+    private IUserService iUserService;
+
     @Override
     public LoginUser doLoadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserIdentifierDO byIdentifier = iIdentifierService.getByIdentifier(username);
-        if (byIdentifier == null) {
+        UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(username);
+        if (userIdentifierDO == null) {
            return null;
         }
-        UserIdentifierPwdDO byIdentifierId = iIdentifierPwdService.getByIdentifierId(byIdentifier.getId());
+        UserDO userDO = iUserService.getById(userIdentifierDO.getUserId());
+        UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
         LoginUser loginUser = new LoginUser();
 
         // 帐号信息
-        loginUser.setId(byIdentifier.getUserId());
+        loginUser.setNickname(userDO.getNickname());
+        loginUser.setAvatar(userDO.getAvatar());
+        loginUser.setGender(Optional.ofNullable(userDO.getGenderDictId()).map(String::valueOf).orElse(null));
+
+
+        loginUser.setId(userIdentifierDO.getUserId());
         loginUser.setUsername(username);
-        loginUser.setIsEnabled(!byIdentifier.getIsDisabled());
-        loginUser.setIsLocked(byIdentifier.getIsLock());
-        loginUser.setIsExpired(byIdentifier.getIsExpired());
+        // 账号是否可用
+        loginUser.setIsEnabled(true);
+        loginUser.setIsLocked(userDO.getIsLock()||userIdentifierDO.getIsLock());
+        // 账号是否过期
+        loginUser.setIsExpired(userDO.getIsExpired() || userIdentifierDO.getIsExpired());
+
+        loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired());
 
         // 密码信息
-        loginUser.setPassword(PasswordEncryptEnum.prefixEncodePassword(byIdentifierId.getPwdEncryptFlag(),byIdentifierId.getPwd()));
-        loginUser.setIsCredentialsExpired(byIdentifierId.getIsExpired());
+        loginUser.setPassword(PasswordEncryptEnum.prefixEncodePassword(userIdentifierPwdDO.getPwdEncryptFlag(),userIdentifierPwdDO.getPwd()));
+        loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired());
 
-        loginUser.addExt(user_ext_identifier_key, byIdentifier);
+        loginUser.addExt(user_ext_identifier_key, userIdentifierDO);
         return loginUser;
     }
 }

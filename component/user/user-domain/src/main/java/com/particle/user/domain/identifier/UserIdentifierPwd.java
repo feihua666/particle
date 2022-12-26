@@ -3,6 +3,7 @@ package com.particle.user.domain.identifier;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.global.tool.security.PasswordComplexityTool;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -52,6 +53,10 @@ public class UserIdentifierPwd extends AggreateRoot {
      * 是否需要提示修改密码
      */
     private Boolean isNeedUpdate;
+	/**
+	 * 提示修改密码消息内容
+	 */
+	private String needUpdateMessage;
     /**
      * 密码的修改时间
      */
@@ -72,5 +77,22 @@ public class UserIdentifierPwd extends AggreateRoot {
 	 */
 	public static UserIdentifierPwd create(){
 		return DomainFactory.create(UserIdentifierPwd.class);
+	}
+
+
+	public static UserIdentifierPwd create(Long userId,Long identifierId,String pwd,String pwdEncryptFlag,Integer complexity,Boolean isExpired,Boolean isNeedUpdate,String needUpdateMessage){
+		UserIdentifierPwd userIdentifierPwd = create();
+		userIdentifierPwd.setUserId(userId);
+		userIdentifierPwd.setIdentifierId(identifierId);
+		userIdentifierPwd.setPwd(pwd);
+
+		userIdentifierPwd.setComplexity(complexity);
+		userIdentifierPwd.setPwdEncryptFlag(pwdEncryptFlag);
+		userIdentifierPwd.setIsNeedUpdate(isNeedUpdate);
+		userIdentifierPwd.setNeedUpdateMessage(needUpdateMessage);
+		userIdentifierPwd.setIsExpired(isExpired);
+		userIdentifierPwd.setPwdModifiedAt(LocalDateTime.now());
+
+		return userIdentifierPwd;
 	}
 }

@@ -183,6 +183,7 @@ const getCheckboxProps = (optionsCheckboxProps={})=> {
 </script>
 <template>
     <el-checkbox
+        style="margin-right: 1rem;"
         v-if="checkAllView"
         v-model="reactiveData.checkAll"
         :indeterminate="reactiveData.isIndeterminate"

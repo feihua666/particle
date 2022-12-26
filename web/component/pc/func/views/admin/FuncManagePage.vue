@@ -207,6 +207,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton route="/admin/funcManageAdd">添加</PtButton>
+      <PtButton route="/admin/funcManageCrudAdd">添加Crud</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

@@ -4,6 +4,7 @@ import com.particle.user.app.identifier.executor.UserIdentifierCreateCommandExec
 import com.particle.user.app.identifier.executor.UserIdentifierDeleteCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
@@ -37,8 +38,8 @@ public class UserIdentifierApplicationServiceImpl extends AbstractBaseApplicatio
 
 
 	@Override
-	public SingleResponse<UserIdentifierVO> create(UserIdentifierCreateCommand userIdentifierCreateCommand) {
-		return userIdentifierCreateCommandExecutor.execute(userIdentifierCreateCommand);
+	public SingleResponse<UserIdentifierVO> create(UserIdentifierCreateCommand userIdentifierCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
+		return userIdentifierCreateCommandExecutor.execute(userIdentifierCreateCommand,userIdentifierPasswordCommand);
 	}
 
 	@Override

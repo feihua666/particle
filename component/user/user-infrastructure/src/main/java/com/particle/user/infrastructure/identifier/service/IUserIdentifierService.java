@@ -73,4 +73,13 @@ public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 				.eq(UserIdentifierDO::getIdentityTypeDictId,identifierTypeDictId)
 				.eq(UserIdentifierDO::getGroupFlag,groupFlag));
 	}
+
+	/**
+	 * 根据用户id删除
+	 * @param userId
+	 * @return
+	 */
+	default boolean deleteByUserId(Long userId) {
+		return deleteByColumn(userId, UserIdentifierDO::getUserId);
+	}
 }

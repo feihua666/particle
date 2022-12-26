@@ -13,4 +13,6 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  */
 public interface IUserService extends IBaseService<UserDO> {
 
+
+
 }

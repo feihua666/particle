@@ -1,27 +1,27 @@
 package com.particle.user.adapter.identifier.web.admin;
 
+import cn.hutool.core.util.StrUtil;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationService;
 import com.particle.user.client.identifier.api.representation.IUserIdentifierPwdRepresentationApplicationService;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCreateCommand;
-import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdUpdateCommand;
+import com.particle.user.client.identifier.dto.command.*;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPwdQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 用户密码后台管理pc或平板端前端适配器
@@ -44,7 +44,18 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:create')")
 	@ApiOperation("添加用户密码")
 	@PostMapping("/create")
-	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand){
+	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
+		PasswordTool.encodePassword(userIdentifierPasswordCommand);
+
+		userIdentifierPwdCreateCommand.setPwd(userIdentifierPasswordCommand.getEncodedPassword());
+		userIdentifierPwdCreateCommand.setComplexity(userIdentifierPasswordCommand.getComplexity());
+		userIdentifierPwdCreateCommand.setPwdEncryptFlag(userIdentifierPasswordCommand.getPwdEncryptFlag());
+		if (userIdentifierPwdCreateCommand.getIsExpired() == null) {
+			userIdentifierPwdCreateCommand.setIsExpired(false);
+		}
+		if (userIdentifierPwdCreateCommand.getPwdModifiedAt() == null) {
+			userIdentifierPwdCreateCommand.setPwdModifiedAt(LocalDateTime.now());
+		}
 		return iUserIdentifierPwdApplicationService.create(userIdentifierPwdCreateCommand);
 	}
 
@@ -59,6 +70,24 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@ApiOperation("更新用户密码")
 	@PutMapping("/update")
 	public SingleResponse<UserIdentifierPwdVO> update(@RequestBody UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand){
+		if (StrUtil.isNotEmpty(userIdentifierPwdUpdateCommand.getPwd())) {
+
+			UserIdentifierPasswordCommand userIdentifierPasswordCommand = new UserIdentifierPasswordCommand();
+			userIdentifierPasswordCommand.setPassword(userIdentifierPwdUpdateCommand.getPwd());
+			PasswordTool.encodePassword(userIdentifierPasswordCommand);
+
+			userIdentifierPwdUpdateCommand.setPwd(userIdentifierPasswordCommand.getEncodedPassword());
+			userIdentifierPwdUpdateCommand.setComplexity(userIdentifierPasswordCommand.getComplexity());
+			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(userIdentifierPasswordCommand.getPwdEncryptFlag());
+
+		}else {
+
+			userIdentifierPwdUpdateCommand.setPwd(null);
+			userIdentifierPwdUpdateCommand.setComplexity(null);
+			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(null);
+
+		}
+
 		return iUserIdentifierPwdApplicationService.update(userIdentifierPwdUpdateCommand);
 	}
 
@@ -88,6 +117,21 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@GetMapping("/page")
 	public PageResponse<UserIdentifierPwdVO> pageQueryList(UserIdentifierPwdPageQueryCommand userIdentifierPwdPageQueryCommand){
 		return iUserIdentifierPwdRepresentationApplicationService.pageQuery(userIdentifierPwdPageQueryCommand);
+	}
+	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:identifier:resetPassword')")
+	@ApiOperation("重置用户登录标识密码")
+	@PostMapping("/identifier/resetPassword")
+	public Response identifierResetPassword(@RequestBody UserIdentifierResetPasswordCommand userIdentifierResetPasswordCommand){
+		PasswordTool.encodePassword(userIdentifierResetPasswordCommand);
+		return iUserIdentifierPwdApplicationService.identifierResetPassword(userIdentifierResetPasswordCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:user:resetPassword')")
+	@ApiOperation("重置用户密码")
+	@PostMapping("/user/resetPassword")
+	public Response userResetPassword(@RequestBody UserResetPasswordCommand userResetPasswordCommand){
+		PasswordTool.encodePassword(userResetPasswordCommand);
+		return iUserIdentifierPwdApplicationService.userResetPassword(userResetPasswordCommand);
 	}
 
 }

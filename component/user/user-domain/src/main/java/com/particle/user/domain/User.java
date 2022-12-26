@@ -20,8 +20,13 @@ import java.time.LocalDateTime;
 public class User extends AggreateRoot {
 
 	private UserId id;
+
+	/**
+	 * 姓名，真实姓名
+	 */
+	private String name;
     /**
-     * 昵称，姓名，模糊查询
+     * 昵称，模糊查询
      */
     private String nickname;
     /**

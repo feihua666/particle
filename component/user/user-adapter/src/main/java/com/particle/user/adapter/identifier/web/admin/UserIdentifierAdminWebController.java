@@ -5,9 +5,13 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.security.security.PasswordEncryptEnum;
+import com.particle.global.tool.security.PasswordComplexityTool;
+import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.api.representation.IUserIdentifierRepresentationApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
@@ -39,8 +43,9 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
 	@ApiOperation("添加用户登录标识")
 	@PostMapping("/create")
-	public SingleResponse<UserIdentifierVO> create(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand){
-		return iUserIdentifierApplicationService.create(userIdentifierCreateCommand);
+	public SingleResponse<UserIdentifierVO> create(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
+		PasswordTool.encodePassword(userIdentifierPasswordCommand);
+		return iUserIdentifierApplicationService.create(userIdentifierCreateCommand,userIdentifierPasswordCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")

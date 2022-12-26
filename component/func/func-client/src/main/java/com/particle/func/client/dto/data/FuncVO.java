@@ -31,6 +31,7 @@ public class FuncVO extends AbstractBaseIdTreeVO {
 
     @ApiModelProperty("功能分组id")
     private Long funcGroupId;
+
     @ApiModelProperty("功能分组名称")
     @TransBy(tableName = TransTableNameConstants.component_func_group, byFieldName = "funcGroupId", mapValueField = "name")
     private String funcGroupName;

@@ -175,7 +175,7 @@ const submitMethod = ():void => {
   tableRef.value.refreshData()
 }
 // 分页数据查询
-const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
+const doDictPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
   return dictPageApi({...reactiveData.form,...pageQuery})
 }
 // 表格操作按钮
@@ -223,7 +223,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 <!-- 指定 dataMethod，默认加载数据 -->
   <PtTable ref="tableRef"
            default-expand-all
-           :dataMethod="doFuncPageApi"
+           :dataMethod="doDictPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
            :dataMethodResultHandleConvertToTree="true"
            :columns="reactiveData.tableColumns">

@@ -52,6 +52,10 @@ public class UserIdentifierPwdDO extends BaseDO {
     */
     private Boolean isNeedUpdate;
     /**
+     * 提示修改密码消息内容
+     */
+    private String needUpdateMessage;
+    /**
     * 密码的修改时间
     */
     private LocalDateTime pwdModifiedAt;

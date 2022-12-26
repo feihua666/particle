@@ -1,6 +1,9 @@
 package com.particle.user.infrastructure.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.particle.user.infrastructure.dos.UserDO;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import com.particle.user.infrastructure.mapper.UserMapper;
 import com.particle.user.infrastructure.service.IUserService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
@@ -8,6 +11,8 @@ import com.particle.global.dto.basic.QueryCommand;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceImpl extends IBaseServiceImpl<UserMapper, UserDO> implements IUserService {
 	private IBaseQueryCommandMapStruct<UserDO> queryCommandMapStruct;
 
+	@Autowired
+	private IUserIdentifierService iUserIdentifierService;
 	@Override
 	protected UserDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
@@ -29,4 +36,29 @@ public class UserServiceImpl extends IBaseServiceImpl<UserMapper, UserDO> implem
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<UserDO> queryCommandMapStruct) {
 		this.queryCommandMapStruct = queryCommandMapStruct;
 	}
+
+	/**
+	 * 删除后，删除 identifier
+	 * @param id
+	 * @param DO
+	 */
+	@Override
+	protected void postDeleteById(Long id, UserDO DO) {
+		iUserIdentifierService.deleteByUserId(id);
+	}
+
+	/**
+	 * 删除后，删除 identifier
+	 * @param columnId
+	 * @param column
+	 * @param DOS
+	 */
+	@Override
+	protected void postDeleteByColumn(Object columnId, SFunction<UserDO, ?> column, List<UserDO> DOS) {
+		for (UserDO aDo : DOS) {
+			iUserIdentifierService.deleteByUserId(aDo.getId());
+		}
+	}
+
+
 }

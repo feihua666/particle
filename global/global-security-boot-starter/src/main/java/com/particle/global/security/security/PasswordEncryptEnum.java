@@ -67,6 +67,26 @@ public enum PasswordEncryptEnum {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
+	/**
+	 * 加密密码
+	 * @param rawPassword 原始密码
+	 * @return
+	 */
+	public static PrefixEncodedPassword encode(String rawPassword) {
+		String encode = passwordEncoder().encode(rawPassword);
+		return new PrefixEncodedPassword(encode);
+	}
+
+	/**
+	 * 是否匹配密码
+	 * @param rawPassword 原始密码
+	 * @param encrypt 加密密码 前缀，不带括号
+	 * @param password 加密密码
+	 * @return
+	 */
+	public static boolean matchPassword(String rawPassword, String encrypt, String password) {
+		return passwordEncoder().matches(rawPassword, prefixEncodePassword(encrypt, password));
+	}
 
 	private static String idPrefix = "{";
 	private static String idSuffix = "}";

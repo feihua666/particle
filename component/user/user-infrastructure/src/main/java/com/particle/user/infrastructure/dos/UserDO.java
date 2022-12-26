@@ -19,8 +19,13 @@ import lombok.Data;
 @Data
 @TableName("component_user")
 public class UserDO extends BaseDO {
+
     /**
-    * 昵称，姓名，模糊查询
+     * 姓名，真实姓名
+     */
+    private String name;
+    /**
+    * 昵称，模糊查询
     */
     private String nickname;
     /**

@@ -9,6 +9,7 @@ CREATE TABLE `component_user_identifier_pwd` (
   `expired_reason` varchar(255) DEFAULT NULL COMMENT '过期原因',
   `expire_at` datetime DEFAULT NULL COMMENT '到期时间，为空永不到期',
   `is_need_update` tinyint(1) NOT NULL COMMENT '是否需要提示修改密码',
+  `need_update_message` varchar(255) DEFAULT NULL COMMENT '提示修改密码消息内容',
   `pwd_modified_at` datetime NOT NULL COMMENT '密码的修改时间',
   `complexity` int NOT NULL COMMENT '复杂度，数字越高越复杂，取值 1-100',
   `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',

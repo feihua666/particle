@@ -5,7 +5,7 @@
  *          2. 提供了默认的上传表示形式
  *          3. 默认自带上传 dataLoading 功能效果
  */
-import {reactive,computed} from 'vue'
+import {reactive,computed,watch} from 'vue'
 import {emitDataModelEvent,} from './dataModel'
 import PtUpload from './Upload.vue'
 
@@ -37,7 +37,11 @@ const propsOptions = computed(() => {
     url: 'url'
   }
   return Object.assign(defaultProps, props.props)
-})// 事件
+})
+watch(()=>props.modelValue,(val)=>{
+  reactiveData.currentModelValue = val
+})
+// 事件
 const emit = defineEmits([
   // 用来更新 modelValue
   emitDataModelEvent.updateModelValue,

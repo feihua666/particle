@@ -46,13 +46,14 @@ public class UserIdentifierDO extends BaseDO {
     */
     private Boolean isExpired;
     /**
-    * 是否禁用
-    */
-    private Boolean isDisabled;
+     * 过期原因
+     */
+    private String expiredReason;
     /**
-    * 禁用原因
-    */
-    private String disabledReason;
+     * 到期时间，为空永不到期
+     */
+    private LocalDateTime expireAt;
+
     /**
     * 分组标识
     */

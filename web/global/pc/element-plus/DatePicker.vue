@@ -3,7 +3,7 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,inject, watch} from 'vue'
+import { reactive ,inject, watch, computed} from 'vue'
 
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
@@ -28,6 +28,15 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  // 值格式
+  valueFormat: String,
+  // 自定义 valueFormat，true=不计算默认情况
+  customValueFormat: {
+    type: Boolean,
+    default: false
+  },
+  // 类型
+  type: String
 })
 
 // 属性
@@ -44,6 +53,17 @@ const hasPermission = hasPermissionConfig({
 })
 // 是否禁用
 const hasDisabled = disabledConfig({props,hasPermission})
+const valueFormat = computed(()=>{
+  if(props.type && !props.valueFormat && !props.customValueFormat){
+    if('date' == props.type){
+      return 'YYYY-MM-DD'
+    }else if('datetime' == props.type){
+      return 'YYYY-MM-DD HH:mm:ss'
+    }
+  }
+  return props.valueFormat
+
+})
 // 侦听
 watch(
     () => props.modelValue,
@@ -76,6 +96,8 @@ const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasP
             v-model="reactiveData.currentModelValue"
             :title="hasDisabled.disabledReason || title"
             v-bind="$attrs"
+                  :valueFormat="valueFormat"
+                  :type="type"
             :disabled="hasDisabled.disabled"
             :clearable="clearable"
             @update:modelValue="updateModelValueEvent"

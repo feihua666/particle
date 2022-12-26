@@ -1,6 +1,7 @@
 package com.particle.user.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,15 +20,16 @@ import java.time.LocalDateTime;
 @ApiModel
 public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
 
+    @Like
+    @ApiModelProperty("姓名，左前缀匹配")
+    private String name;
 
-    @ApiModelProperty("昵称，姓名，模糊查询")
+    @Like
+    @ApiModelProperty("昵称，左前缀匹配")
     private String nickname;
 
     @ApiModelProperty("性别，字典id")
     private Long genderDictId;
-
-    @ApiModelProperty("头像，图片绝对路径")
-    private String avatar;
 
     @ApiModelProperty("用户编号，可以做为员工编号")
     private String serialNo;
@@ -44,9 +46,6 @@ public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
     private Boolean isLock;
 
-    @ApiModelProperty("锁定原因")
-    private String lockReason;
-
     @ApiModelProperty("用户分类字典，标识是哪一类用户，比如后台用户等")
     private Long categoryDictId;
 
@@ -58,12 +57,5 @@ public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
 
     @ApiModelProperty("是否过期，过期后该密码不能登录")
     private Boolean isExpired;
-
-    @ApiModelProperty("过期原因")
-    private String expiredReason;
-
-    @ApiModelProperty("到期时间，为空永不到期")
-    private LocalDateTime expireAt;
-
 
 }

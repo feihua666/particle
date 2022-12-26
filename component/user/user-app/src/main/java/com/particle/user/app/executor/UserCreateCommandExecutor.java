@@ -3,11 +3,16 @@ package com.particle.user.app.executor;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.gateway.UserGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.user.domain.identifier.UserIdentifier;
+import com.particle.user.domain.identifier.UserIdentifierPwd;
+import com.particle.user.domain.identifier.gateway.UserIdentifierGateway;
+import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -30,16 +35,35 @@ import javax.validation.Valid;
 public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private UserGateway userGateway;
+	private UserIdentifierGateway userIdentifierGateway;
+	private UserIdentifierPwdGateway userIdentifierPwdGateway;
 
 	/**
 	 * 执行用户添加指令
 	 * @param userCreateCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> execute(@Valid UserCreateCommand userCreateCommand) {
+	public SingleResponse<UserVO> execute(@Valid UserCreateCommand userCreateCommand,@Valid UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
 		User user = createByUserCreateCommand(userCreateCommand);
+		user.setAddControl(userCreateCommand);
 		boolean save = userGateway.save(user);
 		if (save) {
+			// 添加成功添加账号
+			UserIdentifier userIdentifier = UserIdentifier.create(
+					user.getId().getId(),
+					userCreateCommand.getIdentifier(),
+					userCreateCommand.getIdentityTypeDictId(),
+					userCreateCommand.getGroupFlag()
+			);
+			boolean save1 = userIdentifierGateway.save(userIdentifier);
+			if (save1) {
+				// 添加密码
+				UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(user.getId().getId(), userIdentifier.getId().getId(),
+						userIdentifierPasswordCommand.getEncodedPassword(),
+						userIdentifierPasswordCommand.getPwdEncryptFlag(),
+						userIdentifierPasswordCommand.getComplexity(),false,userIdentifierPasswordCommand.getIsNeedUpdate(),userIdentifierPasswordCommand.getNeedUpdateMessage());
+				userIdentifierPwdGateway.save(userIdentifierPwd);
+			}
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -75,5 +99,14 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setUserGateway(UserGateway userGateway) {
 		this.userGateway = userGateway;
+	}
+
+	@Autowired
+	public void setUserIdentifierGateway(UserIdentifierGateway userIdentifierGateway) {
+		this.userIdentifierGateway = userIdentifierGateway;
+	}
+	@Autowired
+	public void setUserIdentifierPwdGateway(UserIdentifierPwdGateway userIdentifierPwdGateway) {
+		this.userIdentifierPwdGateway = userIdentifierPwdGateway;
 	}
 }

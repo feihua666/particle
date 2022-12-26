@@ -274,6 +274,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response handleHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException ex) {
+        ex.printStackTrace();
         return createRM(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, "没有可用参数或参数格式不正确", request.getRequestURI(), ex);
     }
 

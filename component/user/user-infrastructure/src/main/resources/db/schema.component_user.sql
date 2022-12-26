@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS component_user;
 CREATE TABLE `component_user` (
   `id` bigint NOT NULL COMMENT '用户ID',
-  `nickname` varchar(50) NOT NULL COMMENT '昵称，姓名，模糊查询',
+  `name` varchar(50) NULL COMMENT '姓名，真实姓名',
+  `nickname` varchar(50) NOT NULL COMMENT '昵称，模糊查询',
   `gender_dict_id` bigint DEFAULT NULL COMMENT '性别，字典id',
   `avatar` varchar(500) DEFAULT NULL COMMENT '头像，图片绝对路径',
   `serial_no` varchar(50) DEFAULT NULL COMMENT '用户编号，可以做为员工编号',

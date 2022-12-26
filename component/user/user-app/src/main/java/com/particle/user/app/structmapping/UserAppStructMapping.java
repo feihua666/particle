@@ -3,6 +3,8 @@ package com.particle.user.app.structmapping;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.user.client.identifier.dto.command.UserIdentifierResetPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserResetPasswordCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.infrastructure.dos.UserDO;
@@ -79,4 +81,7 @@ public abstract class UserAppStructMapping  implements IBaseQueryCommandMapStruc
 	public abstract UserDO pageQueryCommandToDO(UserPageQueryCommand userPageQueryCommand);
 
 	public abstract UserDO queryListCommandToDO(UserQueryListCommand userQueryListCommand);
+
+
+	public abstract UserIdentifierResetPasswordCommand userResetPasswordCommandToUserIdentifierResetPasswordCommand(UserResetPasswordCommand userResetPasswordCommand);
 }

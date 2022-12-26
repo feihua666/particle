@@ -15,4 +15,6 @@ public class TransTableNameConstants {
 	public static final String component_func = "component_func";
 	public static final String component_dict = "component_dict";
 	public static final String component_area = "component_area";
+	public static final String component_user = "component_user";
+	public static final String component_user_identifier = "component_user_identifier";
 }

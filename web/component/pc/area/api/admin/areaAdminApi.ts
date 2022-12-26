@@ -4,21 +4,21 @@ import {IdParam, updateParam} from "../../../../../common/api/api";
 
 let areaPrefix = '/admin/web/area'
 /**
- * 添加功能
+ * 添加区域
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
     return axios.post(areaPrefix + '/create',data)
 }
 /**
- * 删除功能
+ * 删除区域
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
     return axios.delete(areaPrefix + '/delete',{data: data})
 }
 /**
- * 更新功能
+ * 更新区域
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {

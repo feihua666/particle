@@ -2,12 +2,15 @@ package com.particle.user.app.identifier.executor;
 
 import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.domain.identifier.UserIdentifier;
+import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.gateway.UserIdentifierGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -31,15 +34,22 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private UserIdentifierGateway userIdentifierGateway;
 
+	private UserIdentifierPwdGateway userIdentifierPwdGateway;
 	/**
 	 * 执行用户登录标识添加指令
 	 * @param userIdentifierCreateCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierVO> execute(@Valid UserIdentifierCreateCommand userIdentifierCreateCommand) {
+	public SingleResponse<UserIdentifierVO> execute(@Valid UserIdentifierCreateCommand userIdentifierCreateCommand,@Valid UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
 		UserIdentifier userIdentifier = createByUserIdentifierCreateCommand(userIdentifierCreateCommand);
 		boolean save = userIdentifierGateway.save(userIdentifier);
 		if (save) {
+			// 添加密码
+			UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(userIdentifier.getUserId(), userIdentifier.getId().getId(),
+					userIdentifierPasswordCommand.getEncodedPassword(),
+					userIdentifierPasswordCommand.getPwdEncryptFlag(),
+					userIdentifierPasswordCommand.getComplexity(),false,userIdentifierPasswordCommand.getIsNeedUpdate(),userIdentifierPasswordCommand.getNeedUpdateMessage());
+			userIdentifierPwdGateway.save(userIdentifierPwd);
 			return SingleResponse.of(UserIdentifierAppStructMapping.instance.toUserIdentifierVO(userIdentifier));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -75,5 +85,9 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setUserIdentifierGateway(UserIdentifierGateway userIdentifierGateway) {
 		this.userIdentifierGateway = userIdentifierGateway;
+	}
+	@Autowired
+	public void setUserIdentifierPwdGateway(UserIdentifierPwdGateway userIdentifierPwdGateway) {
+		this.userIdentifierPwdGateway = userIdentifierPwdGateway;
 	}
 }
