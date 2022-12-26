@@ -132,16 +132,6 @@ const UserRoutes = [
                     name: '用户登录标识密码修改'
                 }
             },
-            {
-                path: '/admin/userIdentifierPwdPwdManageResetPassword',
-                component: () => import('./views/admin/UserIdentifierPwdResetPassowordPage.vue'),
-                props: route => ({ userIdentifierPwdId: route.query.id }),
-                meta: {
-                    showInDialog: true,
-                    code:'userIdentifierPwdPwdManageResetPassword',
-                    name: '用户登录标识密码重置密码'
-                }
-            },
         ]
     },
 ]

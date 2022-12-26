@@ -46,20 +46,24 @@ export const permissionProps = {
  * @param permission
  * @param permissions
  */
-const hasPermissionCheck = (permission: string,permissions: Array<string>):boolean =>{
+const hasPermissionCheck = (permission: string,permissions: Array<string>| { }):boolean =>{
+    let permissionsTemp = permissions
+    if(permissionsTemp.value){
+        permissionsTemp = permissionsTemp.value
+    }
     // 匹配任何权限
     let any = '*';
     let r = permission == any
     // 可用权限 包含是否包括 *
     if(r == false){
-        r = exist(any,permissions)
+        r = exist(any,permissionsTemp)
     }
     if(r == false){
-        r = exist(permission,permissions)
+        r = exist(permission,permissionsTemp)
     }
 
     if(r == false){
-        r = permissions.some(item => exist(permission,item.split(',')))
+        r = permissionsTemp.some(item => exist(permission,item.split(',')))
     }
     return r
 }

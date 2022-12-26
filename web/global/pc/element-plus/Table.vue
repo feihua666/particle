@@ -52,7 +52,11 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  ...dataMethodProps
+  ...dataMethodProps,
+  // 分页组件属性
+  paginationProps: {
+    type: Object
+  }
 })
 // 属性
 const reactiveData = reactive({
@@ -69,7 +73,6 @@ const dataLoading = computed(() => {
   return props.dataLoading || reactiveData.dataMethodLocalLoading
 })
 
-//watchEffect(() => doDataMethod({props,reactiveData,emit}))
 // 事件
 const emit = defineEmits([
   'select',
@@ -190,6 +193,7 @@ defineExpose({
                 @size-change="paginationSizeChange"
                 @current-change="paginationCurrentChange"
                 class="pt-table-pagenation"
+                v-bind="paginationProps"
   >
 
   </PtPagination>

@@ -138,8 +138,11 @@ const submitMethod = ():void => {
   tableRef.value.refreshData()
 }
 // 分页数据查询
-const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
+const doAreaPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
   return areaPageApi({...reactiveData.form,...pageQuery})
+}
+const tablePaginationProps = {
+  permission: submitAttrs.value.permission
 }
 // 表格操作按钮
 const getTableRowButtons = ({row, column, $index}) => {
@@ -188,9 +191,10 @@ const getTableRowButtons = ({row, column, $index}) => {
 <!-- 指定 dataMethod，默认加载数据 -->
   <PtTable ref="tableRef"
            default-expand-all
-           :dataMethod="doFuncPageApi"
+           :dataMethod="doAreaPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
            :dataMethodResultHandleConvertToTree="true"
+           :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->

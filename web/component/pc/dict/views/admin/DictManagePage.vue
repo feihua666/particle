@@ -179,6 +179,9 @@ const submitMethod = ():void => {
 const doDictPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
   return dictPageApi({...reactiveData.form,...pageQuery})
 }
+const tablePaginationProps = {
+  permission: submitAttrs.value.permission
+}
 // 表格操作按钮
 const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
@@ -229,6 +232,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            :dataMethod="doDictPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
            :dataMethodResultHandleConvertToTree="true"
+           :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->

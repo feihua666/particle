@@ -167,6 +167,9 @@ const submitMethod = ():void => {
 const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
   return funcPageApi({...reactiveData.form,...pageQuery})
 }
+const tablePaginationProps = {
+  permission: submitAttrs.value.permission
+}
 // 表格操作按钮
 const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
@@ -219,6 +222,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            :dataMethod="doFuncPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
            :dataMethodResultHandleConvertToTree="true"
+           :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->
