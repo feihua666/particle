@@ -41,7 +41,8 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "密码加密方式标识",hidden = true)
     private String pwdEncryptFlag;
 
-    @ApiModelProperty("是否过期，过期后该密码不能登录")
+    @NotNull(message = "是否过期不能为空")
+    @ApiModelProperty(value = "是否过期，过期后该密码不能登录",required = true)
     private Boolean isExpired;
 
     @SetNullWhenNull
@@ -52,7 +53,8 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("到期时间，为空永不到期")
     private LocalDateTime expireAt;
 
-    @ApiModelProperty("是否需要提示修改密码")
+    @NotNull(message = "是否需要提示修改密码不能为空")
+    @ApiModelProperty(value = "是否需要提示修改密码",required = true)
     private Boolean isNeedUpdate;
 
     @PropValid.DependCondition(message = "提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")

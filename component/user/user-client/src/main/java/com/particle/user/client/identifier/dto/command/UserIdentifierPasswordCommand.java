@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -30,7 +31,8 @@ public class UserIdentifierPasswordCommand extends AbstractBaseCommand {
 	@ApiModelProperty("到期时间，为空永不到期")
 	private LocalDateTime expireAt;
 
-	@ApiModelProperty("是否需要提示修改密码")
+	@NotNull(message = "是否需要提示修改密码不能为空")
+	@ApiModelProperty(value = "是否需要提示修改密码",required = true)
 	private Boolean isNeedUpdate;
 
 	@PropValid.DependCondition(message = "提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")

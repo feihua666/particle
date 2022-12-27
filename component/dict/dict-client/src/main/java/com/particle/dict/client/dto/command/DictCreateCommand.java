@@ -44,17 +44,20 @@ public class DictCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("字典值,单位")
     private String valueUnit;
 
-    @ApiModelProperty("是否为系统字典，一般系统字典代码中会做判断，不能修改或删除")
+    @NotNull(message = "是否为系统字典不能为空")
+    @ApiModelProperty(value = "是否为系统字典，一般系统字典代码中会做判断，不能修改或删除",required = true)
     private Boolean isSystem;
 
-    @ApiModelProperty("是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询")
+    @NotNull(message = "是否为公共字典不能为空")
+    @ApiModelProperty(value = "是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询",required = true)
     private Boolean isPublic;
 
-    @NotNull(message = "是否为字典组不以为空")
-    @ApiModelProperty("是否为字典组，不是字典组就是字典项目，没有其它的")
+    @NotNull(message = "是否为字典组不能为空")
+    @ApiModelProperty(value = "是否为字典组，不是字典组就是字典项目，没有其它的",required = true)
     private Boolean isGroup;
 
-    @ApiModelProperty("是否禁用")
+    @NotNull(message = "是否禁用不能为空")
+    @ApiModelProperty(value = "是否禁用",required = true)
     private Boolean isDisabled;
 
     /**

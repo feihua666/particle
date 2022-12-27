@@ -1,6 +1,9 @@
 package com.particle.role.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.Constants;
+import com.particle.global.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,41 +36,10 @@ public class RoleVO extends AbstractBaseIdVO {
     @ApiModelProperty("描述")
     private String remark;
 
-    @ApiModelProperty("层级、深度")
-    private Integer level;
-
     @ApiModelProperty("父级")
     private Long parentId;
 
-    @ApiModelProperty("LEVEL为1的父id")
-    private Long parentId1;
-
-    @ApiModelProperty("LEVEL为2的父id")
-    private Long parentId2;
-
-    @ApiModelProperty("LEVEL为3的父id")
-    private Long parentId3;
-
-    @ApiModelProperty("LEVEL为4的父id")
-    private Long parentId4;
-
-    @ApiModelProperty("LEVEL为5的父id")
-    private Long parentId5;
-
-    @ApiModelProperty("LEVEL为6的父id")
-    private Long parentId6;
-
-    @ApiModelProperty("LEVEL为7的父id")
-    private Long parentId7;
-
-    @ApiModelProperty("LEVEL为8的父id")
-    private Long parentId8;
-
-    @ApiModelProperty("LEVEL为9的父id")
-    private Long parentId9;
-
-    @ApiModelProperty("LEVEL为10的父id")
-    private Long parentId10;
-
-
+    @ApiModelProperty("父级名称")
+    @TransBy(tableName = TransTableNameConstants.component_role, byFieldName = "parentId", mapValueField = "name")
+    private String parentName;
 }

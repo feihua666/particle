@@ -9,4 +9,5 @@ package com.particle.component.light.share.trans;
  * @since 2022-08-07 18:08
  */
 public class Constants {
+	public static String xxx = "";
 }

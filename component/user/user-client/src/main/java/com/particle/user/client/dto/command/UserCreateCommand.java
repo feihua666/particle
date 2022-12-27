@@ -50,9 +50,11 @@ public class UserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("部门id")
     private Long deptId;
 
+    @NotNull(message = "是否虚拟用户不能为空")
     @ApiModelProperty("是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
     private Boolean isVirtual;
 
+    @NotNull(message = "是否锁定不能为空")
     @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
     private Boolean isLock;
 
@@ -71,6 +73,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "用户来源，字典id",required = true)
     private Long sourceFromDictId;
 
+    @NotNull(message = "是否过期不能为空")
     @ApiModelProperty("是否过期，过期后该密码不能登录")
     private Boolean isExpired;
 

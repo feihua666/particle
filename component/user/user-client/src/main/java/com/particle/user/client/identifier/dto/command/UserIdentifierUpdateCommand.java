@@ -38,6 +38,7 @@ public class UserIdentifierUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "授权类型,字典id",required = true)
     private Long identityTypeDictId;
 
+    @NotNull(message = "是否锁定不能为空")
     @ApiModelProperty(value = "锁定状态，0=未锁定；1=锁定",required = true)
     private Boolean isLock;
 
@@ -48,6 +49,7 @@ public class UserIdentifierUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("unionId，支持第三方登录unionId")
     private String unionId;
 
+    @NotNull(message = "是否过期不能为空")
     @ApiModelProperty(value = "是否过期",required = true)
     private Boolean isExpired;
 
