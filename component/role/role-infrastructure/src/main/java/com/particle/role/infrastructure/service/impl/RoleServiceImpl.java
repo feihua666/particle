@@ -1,7 +1,7 @@
 package com.particle.role.infrastructure.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
@@ -15,10 +15,8 @@ import com.particle.role.infrastructure.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,6 +45,23 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 		this.queryCommandMapStruct = queryCommandMapStruct;
 	}
 
+	@Override
+	protected void preAdd(RoleDO po) {
+		// 编码已存在不能添加
+		assertByColumn(po.getCode(),RoleDO::getCode,false);
+	}
+
+	@Override
+	protected void preUpdate(RoleDO po) {
+		if (StrUtil.isNotEmpty(po.getCode())) {
+			RoleDO byId = getById(po.getId());
+			// 如果编码有改动
+			if (!StrUtil.equals(po.getCode(), byId.getCode())) {
+				// 编码已存在不能修改
+				assertByColumn(po.getCode(),RoleDO::getCode,false);
+			}
+		}
+	}
 
 	@Override
 	public List<RoleDO> getByUserId(Long userId, Boolean isDisabled) {

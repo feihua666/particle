@@ -1,6 +1,7 @@
 package com.particle.user.infrastructure.identifier.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.mapper.UserIdentifierMapper;
@@ -42,7 +43,23 @@ public class UserIdentifierPwdServiceImpl extends IBaseServiceImpl<UserIdentifie
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<UserIdentifierPwdDO> queryCommandMapStruct) {
 		this.queryCommandMapStruct = queryCommandMapStruct;
 	}
+	@Override
+	protected void preAdd(UserIdentifierPwdDO po) {
+		// identifierId 已存在不能添加
+		assertByColumn(po.getIdentifierId(),UserIdentifierPwdDO::getIdentifierId,false);
+	}
 
+	@Override
+	protected void preUpdate(UserIdentifierPwdDO po) {
+		if (po.getIdentifierId() != null) {
+			UserIdentifierPwdDO byId = getById(po.getId());
+			// 如果 identifierId 有改动
+			if (!po.getIdentifierId().equals(byId.getIdentifierId())) {
+				// identifierId 已存在不能修改
+				assertByColumn(po.getIdentifierId(),UserIdentifierPwdDO::getIdentifierId,false);
+			}
+		}
+	}
 
 	@Override
 	public List<UserIdentifierPwdDO> getByUserId(Long userId) {

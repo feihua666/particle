@@ -326,23 +326,33 @@ public interface IBaseService<DO> extends IService<DO> {
         if(exist == existByColumn){
             return;
         }
-        String realDbColumn = SFunctionHelperTool.columnToString(column);
-        // 获取swagger注解
-        LambdaMeta resolve = LambdaUtils.extract(column);
-        String propertyName = StringTool.lineToHump(realDbColumn);
-        String columnLabel = propertyName;
-        Field field = ReflectUtil.getField(resolve.getInstantiatedClass(), propertyName);
-        if (field != null) {
-            ApiModelProperty apiModelProperty = AnnotationUtil.getAnnotation(field, ApiModelProperty.class);
-            if (apiModelProperty != null && StrUtil.isNotEmpty(apiModelProperty.value())) {
-                // 取第一个逗号逗号分隔的字符作为提示标签
-                columnLabel = apiModelProperty.value().split(",")[0].split("，")[0];
+
+        String messageTemp = message;
+        if (messageTemp == null) {
+            String realDbColumn = SFunctionHelperTool.columnToString(column);
+            // 获取swagger注解
+            LambdaMeta resolve = LambdaUtils.extract(column);
+            String propertyName = StringTool.lineToHump(realDbColumn);
+            String columnLabel = propertyName;
+            Field field = ReflectUtil.getField(resolve.getInstantiatedClass(), propertyName);
+            if (field != null) {
+                ApiModelProperty apiModelProperty = AnnotationUtil.getAnnotation(field, ApiModelProperty.class);
+                if (apiModelProperty != null && StrUtil.isNotEmpty(apiModelProperty.value())) {
+                    // 取第一个逗号逗号分隔的字符作为提示标签
+                    columnLabel = apiModelProperty.value().split(",")[0].split("，")[0];
+                }
+            }
+            if (exist) {
+                messageTemp = columnLabel + " " + columnValue + " " +  "不存在";
+            }else {
+                messageTemp = columnLabel + " " + columnValue + " " + "已存在";
             }
         }
+
         if (exist) {
-            Assert.isTrue(existByColumn,message != null ? message:  columnLabel + " " + columnValue + " " +  "不存在");
+            Assert.isTrue(existByColumn,messageTemp);
         }else {
-            Assert.isTrue(!existByColumn,message != null ? message: columnLabel + " " + columnValue + " " +  "已存在");
+            Assert.isTrue(!existByColumn,messageTemp);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.particle.dict.infrastructure.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.mapper.DictMapper;
 import com.particle.dict.infrastructure.service.IDictService;
@@ -30,5 +31,23 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 	@Autowired
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<DictDO> queryCommandMapStruct) {
 		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+
+	@Override
+	protected void preAdd(DictDO po) {
+		// 编码已存在不能添加
+		assertByColumn(po.getCode(),DictDO::getCode,false);
+	}
+
+	@Override
+	protected void preUpdate(DictDO po) {
+		if (StrUtil.isNotEmpty(po.getCode())) {
+			DictDO byId = getById(po.getId());
+			// 如果编码有改动
+			if (!StrUtil.equals(po.getCode(), byId.getCode())) {
+				// 编码已存在不能修改
+				assertByColumn(po.getCode(),DictDO::getCode,false);
+			}
+		}
 	}
 }
