@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2022-07-19
  */
 @FeignClient(name = "${particle.feign-client.name.dict:dict}",path = "/rpc/dict")
-public interface DictRpcFeignClient extends ITransService<Object,Long> {
+public interface DictRpcFeignClient{
 
 	/**
 	 * 根据字典编码查询子级

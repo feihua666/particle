@@ -12,7 +12,7 @@ import ${im};
  * @author ${author}
  * @since ${date}
  */
-@FeignClient(name = "${r'${particle.feign-client.name.'}${injection.feignClientConfigName}:${injection.feignClientDefaultName}${r'}'}",path = "${injection.urlPrefix}")
+@FeignClient(name = "${r'${particle.feign-client.name.'}${injection.feignClientConfigName}:${injection.feignClientDefaultName}${r'}'}",path = "${injection.urlPrefix}/${injection.entityUrlPath}")
 public interface ${injection.className} {
 
 

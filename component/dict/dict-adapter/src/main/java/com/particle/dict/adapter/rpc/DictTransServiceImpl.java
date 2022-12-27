@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 @Primary
 @Component
-public class DictTransServiceImpl implements ITransService<Object,Long> {
+public class DictTransServiceImpl implements ITransService<DictTransVO,Long> {
 
     @Autowired
     private IDictService iDictService;
@@ -33,10 +33,10 @@ public class DictTransServiceImpl implements ITransService<Object,Long> {
     }
 
     @Override
-    public TransResult<Object, Long> trans(String type, Long key) {
+    public TransResult<DictTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_DICT_BY_ID)) {
             DictDO byId = iDictService.getById(key);
-            return new TransResult(byId,key);
+            return new TransResult(newDictTransVO(byId),key);
         }
         return null;
     }
@@ -47,9 +47,9 @@ public class DictTransServiceImpl implements ITransService<Object,Long> {
     }
 
     @Override
-    public List<TransResult<Object, Long>> transBatch(String type, Set<Long> keys) {
+    public List<TransResult<DictTransVO, Long>> transBatch(String type, Set<Long> keys) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_DICT_BY_ID)) {
-            return iDictService.listByIds(keys).stream().map(item->new TransResult<Object, Long>(newDictTransVO(item),item.getId())).collect(Collectors.toList());
+            return iDictService.listByIds(keys).stream().map(item->new TransResult<DictTransVO, Long>(newDictTransVO(item),item.getId())).collect(Collectors.toList());
         }
         return null;
     }

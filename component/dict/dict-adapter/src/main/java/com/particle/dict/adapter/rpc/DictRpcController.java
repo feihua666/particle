@@ -3,8 +3,10 @@ package com.particle.dict.adapter.rpc;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
+import com.particle.dict.adapter.feign.client.rpc.DictTransRpcFeignClient;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.api.IDictApplicationService;
+import com.particle.dict.client.dto.data.DictTransVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
@@ -35,7 +37,7 @@ import java.util.Set;
 @Api(tags = "字典远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dict")
-public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpcFeignClient {
+public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpcFeignClient, DictTransRpcFeignClient {
 
 	@Autowired
 	private IDictApplicationService iDictApplicationService;
@@ -53,7 +55,7 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 
 
 	@Override
-	public List<TransResult<Object, Long>> transBatch(String type, Set<Long> keys) {
+	public List<TransResult<DictTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dictTransService.transBatch(type, keys);
 	}
 

@@ -175,8 +175,8 @@ public class InjectionConfigLogic {
 					StringUtils.camelToHyphen(entityName),
 					StrUtil.lowerFirst(entityName),
 					method,
-					StrUtil.lowerFirst(entityName),
-					StrUtil.lowerFirst(entityName),
+					tableGenerateConf.getComponentModuleName(),
+					tableGenerateConf.getComponentModuleName(),
 					tableSql
 			);
 
