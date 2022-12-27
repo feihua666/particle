@@ -2,6 +2,7 @@ package com.particle.dict.app.api.impl.representation;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
@@ -80,14 +81,16 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 			return MultiResponse.of(Collections.EMPTY_LIST);
 		}
 
-		List<DictDO> result = iDictService.list(Wrappers.<DictDO>lambdaQuery()
-				.eq(DictDO::getParentId,groupDict.getId())
-				.eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getGroupFlag()),DictDO::getGroupFlag,dictItemsQueryListCommand.getGroupFlag())
-				.eq(DictDO::getIsDisabled,false)
-				.eq(DictDO::getIsGroup,isGroup)
-				.and(wp->{
-					wp.eq(DictDO::getIsPublic,true).or().eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getPrivateFlag()),DictDO::getPrivateFlag,dictItemsQueryListCommand.getPrivateFlag());
-				})
+		LambdaQueryWrapper<DictDO> queryWrapper = Wrappers.<DictDO>lambdaQuery()
+				.eq(DictDO::getParentId, groupDict.getId())
+				.eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getGroupFlag()), DictDO::getGroupFlag, dictItemsQueryListCommand.getGroupFlag())
+				.eq(DictDO::getIsDisabled, false)
+				.eq(DictDO::getIsGroup, isGroup)
+				.and(wp -> {
+					wp.eq(DictDO::getIsPublic, true).or().eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getPrivateFlag()), DictDO::getPrivateFlag, dictItemsQueryListCommand.getPrivateFlag());
+				}).orderByAsc(DictDO::getSeq).orderByAsc(DictDO::getId);
+		List<DictDO> result = iDictService.list(
+				queryWrapper
 		);
 		if (CollectionUtil.isEmpty(result)) {
 			return MultiResponse.of(Collections.EMPTY_LIST);

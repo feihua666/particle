@@ -1,6 +1,7 @@
 package com.particle.role.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,17 +33,19 @@ public class RoleUpdateCommand extends AbstractBaseUpdateCommand {
     @NotNull(message = "是否禁用不能为空")
     @ApiModelProperty(value = "是否禁用",required = true)
     private Boolean isDisabled;
-
-
     /**
      * 禁用时，禁用原因必填
      */
+    @SetNullWhenNull
     @PropValid.DependCondition(message = "禁用原因不能为空",dependProp = "isDisabled",ifEqual = "true")
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
     @ApiModelProperty("描述")
     private String remark;
+
+    @ApiModelProperty("排序,默认按该字段升序排序")
+    private Integer seq = 10;
 
     @ApiModelProperty("父级")
     private Long parentId;

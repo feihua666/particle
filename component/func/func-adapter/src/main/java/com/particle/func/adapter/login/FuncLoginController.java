@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -56,6 +58,12 @@ public class FuncLoginController {
             return MultiResponse.buildSuccess();
         }
         MultiResponse<FuncVO> list = iFuncRepresentationApplicationService.queryListByIds(loginUserPermissionIds,false);
+        // 排序
+        if (CollectionUtil.isNotEmpty(list.getData())) {
+            List<FuncVO> collect = list.getData().stream()
+                    .sorted(Comparator.comparing(FuncVO::getSeq).thenComparing(FuncVO::getId)).collect(Collectors.toList());
+            list.setData(collect);
+        }
         return list;
     }
 

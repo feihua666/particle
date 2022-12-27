@@ -20,22 +20,22 @@ const data = [
   {
     codeSuffix: 'query',
     nameSuffix: '查询',
-    permissionSuffix: ':pageQuery',
+    permissionSuffix: 'pageQuery',
   },
   {
     codeSuffix: 'create',
     nameSuffix: '添加',
-    permissionSuffix: ':create',
+    permissionSuffix: 'create',
   },
   {
     codeSuffix: 'delete',
     nameSuffix: '删除',
-    permissionSuffix: ':delete',
+    permissionSuffix: 'delete',
   },
   {
     codeSuffix: 'update',
     nameSuffix: '修改',
-    permissionSuffix: ':update',
+    permissionSuffix: 'update',
   }
 ]
 // 表单项
@@ -109,7 +109,7 @@ const formComps = ref(
           },
           compProps: {
             clearable: true,
-            placeholder: '如：admin:web:user'
+            placeholder: '如：admin:web:user:'
           }
         }
       },

@@ -46,6 +46,9 @@ public class RoleCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("描述")
     private String remark;
 
+    @ApiModelProperty("排序,默认按该字段升序排序")
+    private Integer seq = 10;
+
     @ApiModelProperty("父级")
     private Long parentId;
 }

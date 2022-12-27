@@ -35,58 +35,18 @@ public class Role extends AggreateRoot {
      */
     private String disabledReason;
     /**
+     * 排序,默认按该字段升序排序
+     */
+    private Integer seq;
+    /**
      * 描述
      */
     private String remark;
+
     /**
-     * 层级、深度
-     */
-    private Integer level;
-    /**
-     * 父级
+     * 父级id
      */
     private Long parentId;
-    /**
-     * LEVEL为1的父id
-     */
-    private Long parentId1;
-    /**
-     * LEVEL为2的父id
-     */
-    private Long parentId2;
-    /**
-     * LEVEL为3的父id
-     */
-    private Long parentId3;
-    /**
-     * LEVEL为4的父id
-     */
-    private Long parentId4;
-    /**
-     * LEVEL为5的父id
-     */
-    private Long parentId5;
-    /**
-     * LEVEL为6的父id
-     */
-    private Long parentId6;
-    /**
-     * LEVEL为7的父id
-     */
-    private Long parentId7;
-    /**
-     * LEVEL为8的父id
-     */
-    private Long parentId8;
-    /**
-     * LEVEL为9的父id
-     */
-    private Long parentId9;
-    /**
-     * LEVEL为10的父id
-     */
-    private Long parentId10;
-
 
 	/**
 	 * 创建角色领域模型对象

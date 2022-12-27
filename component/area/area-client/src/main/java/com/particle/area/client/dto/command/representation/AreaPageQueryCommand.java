@@ -2,6 +2,7 @@ package com.particle.area.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
+import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.Data;
  * @author yw
  * @since 2022-07-18
  */
+@OrderBy("seq")
 @Data
 @ApiModel
 public class AreaPageQueryCommand extends AbstractBaseTreePageQueryCommand {

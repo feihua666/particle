@@ -33,6 +33,9 @@ public class RoleVO extends AbstractBaseIdVO {
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
+    @ApiModelProperty("排序,默认按该字段升序排序")
+    private Integer seq;
+
     @ApiModelProperty("描述")
     private String remark;
 

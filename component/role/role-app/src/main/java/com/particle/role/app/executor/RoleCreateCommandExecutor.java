@@ -38,6 +38,7 @@ public class RoleCreateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<RoleVO> execute(@Valid RoleCreateCommand roleCreateCommand) {
 		Role role = createByRoleCreateCommand(roleCreateCommand);
+		role.setAddControl(roleCreateCommand);
 		boolean save = roleGateway.save(role);
 		if (save) {
 			return SingleResponse.of(RoleAppStructMapping.instance.toRoleVO(role));

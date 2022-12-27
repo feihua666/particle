@@ -1,6 +1,7 @@
 package com.particle.dict.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
  * @author yw
  * @since 2022-07-19
  */
+@OrderBy("seq")
 @Data
 @ApiModel
 public class DictItemsQueryListCommand extends AbstractBaseQueryCommand {

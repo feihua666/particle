@@ -2,6 +2,7 @@ package com.particle.role.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
+import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,10 +15,10 @@ import lombok.Data;
  * @author yw
  * @since 2022-11-25
  */
+@OrderBy("seq")
 @Data
 @ApiModel
 public class RolePageQueryCommand extends AbstractBaseTreePageQueryCommand {
-
 
     @Like
     @ApiModelProperty("角色编码,左匹配查询")
