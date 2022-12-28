@@ -61,3 +61,43 @@ export function treeToList(tree:Array<any>):Array<any> {
     flat([].concat(tree))
     return r
 }
+
+/**
+ * 获取树的叶子节点
+ * @param tree
+ */
+export function getTreeLeafItem(tree:Array<any>):Array<any>{
+    let r = []
+    let flat = function (tree) {
+        tree.forEach(item => {
+            if(!item.children || item.children.length == 0 || item.isLeaf){
+                r.push(item)
+            }else {
+                if(item.children && item.children.length > 0){
+                    flat(item.children)
+                }
+            }
+        })
+    }
+    flat([].concat(tree))
+    return r
+}
+
+/**
+ * 去重，注意如果数组中有 NaN ，则不会对其去重
+ * @param arr
+ */
+export function removeDuplicate(arr: Array<any>):Array<any> {
+    return arr.filter((item, index) => {
+        return arr.indexOf(item) === index
+    })
+}
+
+/**
+ * 两个数组是否相同，兼容顺序不同
+ * @param a
+ * @param b
+ */
+export function isEqual(a: Array<any>,b: Array<any>): boolean{
+    return a.length==0 && b.length==0 || a.length === b.length && a.some(t => b.includes(t))
+}
