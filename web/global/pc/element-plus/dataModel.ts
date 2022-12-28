@@ -26,7 +26,7 @@ export const emitDataModelEvent = {
 
 
 // 值更新事件
-export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}) => {
+export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}:{}) => {
     return function (value){
         if(hasPermission !== undefined ){
             let doAlertOrCustomFnIfNeccessaryResult = hasPermission.value.doAlertOrCustomFnIfNeccessary()
@@ -41,7 +41,7 @@ export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit
 
         reactiveData.currentModelValue = value
         reactiveData.oldModelValue = value
-        let params = [eventName ? eventName: emitDataModelEvent.change]
+        let params = [eventName ? eventName: emitDataModelEvent.updateModelValue]
         for (let i = 0; i < arguments.length; i++) {
             params.push(arguments[i])
         }
@@ -60,7 +60,7 @@ export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit
             })
             return true
         }
-        let params = [eventName ? eventName: emitDataModelEvent.updateModelValue]
+        let params = [eventName ? eventName: emitDataModelEvent.change]
         for (let i = 0; i < arguments.length; i++) {
             params.push(arguments[i])
         }

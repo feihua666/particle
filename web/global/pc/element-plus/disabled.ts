@@ -22,8 +22,12 @@ export const disabledProps = {
         default: '已禁用'
     },
 }
+export interface DisabledConfigResult{
+    disabled: boolean,
+    disabledReason: string
+}
 // 是否禁用
-export const disabledConfig = ({props,dataLoading,hasPermission}) => {
+export const disabledConfig = ({props,dataLoading,hasPermission}):DisabledConfigResult => {
 
     return computed(() => {
         let disabled = false

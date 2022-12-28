@@ -169,10 +169,8 @@ const groupProps = computed(() => {
 })
 // 这里和 props.groupView 重名了，但在模板是使用 groupView 变量是这个值，也就是说这里会覆盖在模板中的值
 const groupView = computed(() => {
-  if(props.groupView === true || props.groupView === false){
-    return props.groupView
-  }
-  return options.value?.some(item => item[groupProps.value.label] !== undefined && item[groupProps.value.options] !== undefined)
+  let hasGroupViewAttr = options.value.some(item => item[groupProps.value.label] !== undefined && item[groupProps.value.options] !== undefined)
+  return props.groupView || hasGroupViewAttr
 })
 
 // 这里和 props.dataLoading 重名了，但在模板是使用 dataLoading 变量是这个值，也就是说这里会覆盖在模板中的值
@@ -321,7 +319,7 @@ const doRemoteMethod = (query: string) =>{
         <el-option
             v-for="(itemData,index) in options"
             :key="index"
-            v-bind="getOptionProps(itemData.optionProps)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]">
+            v-bind="getOptionProps(itemData.optionProps)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]|| ''">
         </el-option>
       </template>
 

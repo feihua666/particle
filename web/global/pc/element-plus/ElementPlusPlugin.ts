@@ -31,6 +31,7 @@ import Image from './Image.vue'
 import FormItemDetail from './FormItemDetail.vue'
 import FormItem from './FormItem.vue'
 import Form from './Form.vue'
+import Tree from './Tree.vue'
 import * as ElStyleTools from './ElStyleTools'
 
 let prefix = 'Pt'
@@ -67,6 +68,7 @@ let map = {
     FormItemDetail,
     FormItem,
     Form,
+    Tree,
 }
 export default {
     install: function (app, options) {

@@ -5,6 +5,7 @@
 import {isPromise} from "../../common/tools/PromiseTools"
 import {anyObj, isObject} from "../../common/tools/ObjectTools"
 import {listToTree} from "../../common/tools/ArrayTools"
+import funcAdminApi from "../../../component/pc/func/api/admin/funcAdminApi";
 
 export interface DataMethodPage{
     isPage: boolean,
@@ -101,7 +102,8 @@ export interface ReactiveDataMethodData{
     // 加载数据时loading
     dataMethodLocalLoading: boolean
     dataMethodPage: DataMethodPage,
-    dataMethodPageQuery: DataMethodPageQuery
+    dataMethodPageQuery: DataMethodPageQuery,
+    dataMethodLoaded: boolean
 }
 // 属性,不能直接导出对象使用，导出意味着单例，会有状态，导致数据共享造成数据不一致
 export const reactiveDataMethodData = ():ReactiveDataMethodData => ({
@@ -114,7 +116,8 @@ export const reactiveDataMethodData = ():ReactiveDataMethodData => ({
     dataMethodPageQuery: {
         pageNo: null, // 0时不回调传参
         pageSize: 10
-    }
+    },
+    dataMethodLoaded: false
 })
 export const emitDataMethodEvent = {
     // 原生数据结果
@@ -132,6 +135,8 @@ const handleAdapter = (pageAdapter: DataMethodPage,reactiveData):void => {
     }
 }
 const handleLoading = (loading: boolean,{reactiveData,emit}):void => {
+
+    reactiveData.dataMethodLoaded = !loading
 
     reactiveData.dataMethodLocalLoading = loading
     emit(emitDataMethodEvent.dataMethodDataLoading,reactiveData.dataMethodLocalLoading)

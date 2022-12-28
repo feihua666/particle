@@ -32,7 +32,8 @@ export interface ReactiveDataMethodRemoteData{
     // 加载数据时loading
     dataMethodRemoteLocalLoading: boolean
     dataMethodRemotePage: DataMethodPage,
-    dataMethodRemotePageQuery: DataMethodPageQuery
+    dataMethodRemotePageQuery: DataMethodPageQuery,
+    dataMethodRemoteLoaded: boolean
 }
 // 属性,不能直接导出对象使用，导出意味着单例，会有状态，导致数据共享造成数据不一致
 export const reactiveDataMethodRemoteData = ():ReactiveDataMethodRemoteData => ({
@@ -42,7 +43,8 @@ export const reactiveDataMethodRemoteData = ():ReactiveDataMethodRemoteData => (
     // 分页时可用，值为 属性方法 dataMethodRemoteResultPageHandle 返回的数据
     dataMethodRemotePage: null,
     // 分页查询参数，remoteMethod 中分页参数参数
-    dataMethodRemotePageQuery: reactiveDataMethodData().dataMethodPageQuery
+    dataMethodRemotePageQuery: reactiveDataMethodData().dataMethodPageQuery,
+    dataMethodRemoteLoaded: false
 })
 export const emitDataMethodRemoteEvent = {
     // 原生数据结果
@@ -61,6 +63,7 @@ const handleAdapter = (pageAdapter: DataMethodPage,reactiveData):void => {
 }
 const handleLoading = (loading: boolean,{reactiveData,emit}):void => {
 
+    reactiveData.dataMethodRemoteLoaded = !loading
     reactiveData.dataMethodRemoteLocalLoading = loading
     if(emit){
         emit(emitDataMethodRemoteEvent.dataMethodRemoteDataLoading,reactiveData.dataMethodRemoteLocalLoading)
