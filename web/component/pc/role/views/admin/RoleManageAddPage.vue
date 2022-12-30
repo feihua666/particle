@@ -154,6 +154,7 @@ const submitMethodSuccess = () => {
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
+          :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
           :comps="formComps">
   </PtForm>

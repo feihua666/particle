@@ -106,9 +106,17 @@ const getRouteMetaName = () => {
       v-model="drawer"
       v-bind="drawerProps" :title="$attrs.title || getRouteMetaName()" :beforeClose="beforeClose">
     <PtRouteView key="pt-router-view" :level="level"></PtRouteView>
+    <template #footer v-if="!$slots.footer || drawerProps.footer === false">
+      <!--   该 class 在 form组件中有使用，修改请注意   -->
+      <div class="pt-route-view-popover-drawer-footer" :id="drawerProps.footerBoxId"></div>
+    </template>
   </el-drawer>
   <el-dialog v-model="dialog"
              v-bind="dialogProps" :title="$attrs.title || getRouteMetaName()" :beforeClose="beforeClose">
     <PtRouteView key="pt-router-view" :level="level"></PtRouteView>
+    <template #footer v-if="!$slots.footer || dialogProps.footer === false">
+      <!--   该 class 在 form组件中有使用，修改请注意   -->
+      <div class="pt-route-view-popover-dialog-footer" :id="dialogProps.footerBoxId"></div>
+    </template>
   </el-dialog>
 </template>

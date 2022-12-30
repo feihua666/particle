@@ -49,6 +49,7 @@ const submitMethodSuccess = () => {
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
+          :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
           :layout="1"
           :comps="formComps">

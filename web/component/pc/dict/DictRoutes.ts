@@ -16,7 +16,15 @@ const DictRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminDictManageAdd',
-                    name: '字典添加'
+                    name: '字典添加',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminDictManageAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminDictManageAdd'
+                    }
                 }
             },
 
@@ -27,7 +35,15 @@ const DictRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminDictManageUpdate',
-                    name: '字典修改'
+                    name: '字典修改',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminDictManageUpdate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminDictManageUpdate'
+                    }
                 }
             },
         ]

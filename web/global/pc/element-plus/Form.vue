@@ -6,7 +6,7 @@
  *          3. 集成字段权限判断功能，方便实现权限
  *          4. 自动布局功能
  */
-import {computed, onMounted, reactive, ref, watch} from 'vue'
+import {computed, onMounted, reactive, ref, watch,getCurrentInstance,nextTick} from 'vue'
 import {clone, isObject} from "../../common/tools/ObjectTools"
 import {doMethod, emitMethodEvent, methodProps, reactiveMethodData} from './method'
 import {layoutCompute, layoutIndex, layoutProps} from './Layout'
@@ -15,6 +15,9 @@ import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodDa
 import {dataMethodForFormProps} from './dataMethodForForm'
 import PtFormItem from './FormItem.vue'
 import PtButton from './Button.vue'
+const { appContext,proxy } = getCurrentInstance()
+// 路由
+const route = proxy.$route
 // form 引用
 const formRef = ref(null)
 // 没有什么用，只是引用一下，否则开发工具自动优化会删除，因为在模板中直接引用提示不出来
@@ -86,6 +89,11 @@ const props = defineProps({
   },
   // 事件相关
   ...methodProps,
+  // 按钮组传送配置
+  buttonsTeleportProps: {
+    type: Object,
+    default: ()=>({})
+  },
 })
 /*********** form 初始化属性 开始***************/
 const form = props.form
@@ -123,7 +131,7 @@ const reactiveData = reactive({
   // 表单数据
   form: form,
   // 表单数据,区别于 form，该表单主要存储选中的数据对象
-  formData: formData
+  formData: formData,
 })
 // 计算属性
 const layoutComputeFn = layoutCompute({props})
@@ -143,6 +151,29 @@ const defaultButtonsShowComputed = computed(()=> {
   for (let defaultButtonsShowKey in defaultButtonsShow) {
     r[defaultButtonsShowKey] = props.defaultButtonsShow.indexOf(defaultButtonsShowKey) >= 0
   }
+  return r
+})
+interface TeleportProps {
+  /**
+   * 必填项。指定目标容器。
+   * 可以是选择器或实际元素。
+   */
+  to?: string | HTMLElement
+  /**
+   * 当值为 `true` 时，内容将保留在其原始位置
+   * 而不是移动到目标容器中。
+   * 可以动态更改。
+   */
+  disabled: boolean
+}
+// 按钮组传送配置计算
+const buttonsTeleportProps = computed(() => {
+  let defaultProps:TeleportProps = {
+    disabled: true,
+  }
+  let r = defaultProps
+  r = Object.assign(r, props.buttonsTeleportProps)
+
   return r
 })
 watch(()=> reactiveData.dataMethodData,(val) => {
@@ -204,6 +235,10 @@ const resetForm = () => {
         </el-row>
       </template>
       <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item">
+        <!--    一个空的提交按钮占位，在传送开启时保证可以回车提交    -->
+        <PtButton style="visibility: hidden;" v-if="buttonsTeleportProps.disabled == false && defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
+
+        <Teleport v-bind="buttonsTeleportProps">
         <PtButton v-if="defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
         <PtButton v-if="defaultButtonsShowComputed.reset" @click="resetForm">重置</PtButton>
         <PtButton v-if="defaultButtonsShowComputed.back" :route="(router) => { router.back() }">返回</PtButton>
@@ -211,6 +246,7 @@ const resetForm = () => {
         <!--  自定义插槽 默认添加提交按钮 -->
         <slot name="buttons"  v-bind:form="reactiveData.form">
         </slot>
+        </Teleport>
       </el-form-item>
     </template>
 

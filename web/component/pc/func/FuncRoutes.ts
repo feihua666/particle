@@ -16,7 +16,11 @@ const FuncRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncManageAdd',
-                    name: '菜单功能添加'
+                    name: '菜单功能添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -25,7 +29,11 @@ const FuncRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncManageCrudAdd',
-                    name: '菜单功能添加Crud'
+                    name: '菜单功能添加Crud',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -35,7 +43,11 @@ const FuncRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncManageUpdate',
-                    name: '菜单功能修改'
+                    name: '菜单功能修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
@@ -56,7 +68,11 @@ const FuncRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncGroupManageAdd',
-                    name: '菜单功能组添加'
+                    name: '菜单功能组添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
 
@@ -67,7 +83,11 @@ const FuncRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncGroupManageUpdate',
-                    name: '菜单功能组修改'
+                    name: '菜单功能组修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]

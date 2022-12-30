@@ -16,7 +16,15 @@ const AreaRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminAreaManageAdd',
-                    name: '区域添加'
+                    name: '区域添加',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminAreaManageAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminAreaManageAdd'
+                    }
                 }
             },
 
@@ -27,7 +35,15 @@ const AreaRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminAreaManageUpdate',
-                    name: '区域修改'
+                    name: '区域修改',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminAreaManageUpdate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminAreaManageUpdate'
+                    }
                 }
             },
         ]

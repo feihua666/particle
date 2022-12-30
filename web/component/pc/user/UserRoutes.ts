@@ -16,7 +16,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserManageAdd',
-                    name: '用户添加'
+                    name: '用户添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
 
@@ -27,7 +31,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserManageUpdate',
-                    name: '用户修改'
+                    name: '用户修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -38,7 +46,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserIdentifierManageAdd',
-                    name: '用户登录标识添加'
+                    name: '用户登录标识添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -48,7 +60,11 @@ const UserRoutes = [
                 meta: {
                     showInDialog: true,
                     code:'userPwdManageResetPassword',
-                    name: '用户重置密码'
+                    name: '用户重置密码',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
@@ -72,7 +88,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserIdentifierManageAdd',
-                    name: '用户登录标识添加'
+                    name: '用户登录标识添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
 
@@ -83,7 +103,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserIdentifierManageUpdate',
-                    name: '用户登录标识修改'
+                    name: '用户登录标识修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -93,7 +117,11 @@ const UserRoutes = [
                 meta: {
                     showInDialog: true,
                     code:'userIdentifierPwdManageResetPassword',
-                    name: '用户登录标识重置密码'
+                    name: '用户登录标识重置密码',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
@@ -118,7 +146,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserIdentifierPwdManageAdd',
-                    name: '用户登录标识密码添加'
+                    name: '用户登录标识密码添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
 
@@ -129,7 +161,11 @@ const UserRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminUserIdentifierPwdManageUpdate',
-                    name: '用户登录标识密码修改'
+                    name: '用户登录标识密码修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]

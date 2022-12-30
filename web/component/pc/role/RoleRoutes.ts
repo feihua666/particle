@@ -16,7 +16,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminRoleManageAdd',
-                    name: '角色添加'
+                    name: '角色添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
 
@@ -27,7 +31,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'adminRoleManageUpdate',
-                    name: '角色修改'
+                    name: '角色修改',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
@@ -48,7 +56,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleUserRelManageAdd',
-                    name: '用户角色权限添加'
+                    name: '用户角色权限添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -58,7 +70,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleUserRelManageUserAssignRole',
-                    name: '用户分配角色'
+                    name: '用户分配角色',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -68,7 +84,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleUserRelManageRoleAssignUser',
-                    name: '角色分配用户'
+                    name: '角色分配用户',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -78,7 +98,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleUserRelManageDeleteByUserId',
-                    name: '清空用户角色'
+                    name: '清空用户角色',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -88,7 +112,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleUserRelManageDeleteByRoleId',
-                    name: '清空角色用户'
+                    name: '清空角色用户',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
@@ -109,7 +137,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleFuncRelManageAdd',
-                    name: '功能菜单角色权限添加'
+                    name: '功能菜单角色权限添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -119,7 +151,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleFuncRelManageFuncAssignRole',
-                    name: '功能菜单分配角色'
+                    name: '功能菜单分配角色',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -129,7 +165,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleFuncRelManageRoleAssignFunc',
-                    name: '角色分配功能菜单'
+                    name: '角色分配功能菜单',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -139,7 +179,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleFuncRelManageDeleteByFuncId',
-                    name: '清空功能菜单角色'
+                    name: '清空功能菜单角色',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
             {
@@ -149,7 +193,11 @@ const RoleRoutes = [
                 meta: {
                     showInDrawer: true,
                     code:'roleFuncRelManageDeleteByRoleId',
-                    name: '清空角色功能菜单'
+                    name: '清空角色功能菜单',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
                 }
             },
         ]
