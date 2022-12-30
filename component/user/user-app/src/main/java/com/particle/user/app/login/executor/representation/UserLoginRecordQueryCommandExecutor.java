@@ -7,7 +7,6 @@ import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.user.infrastructure.login.service.IUserLoginRecordService;
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordPageQueryCommand;
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryDetailCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryDetailForUpdateCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,16 +62,7 @@ public class UserLoginRecordQueryCommandExecutor  extends AbstractBaseQueryExecu
 		UserLoginRecordVO userLoginRecordVO = UserLoginRecordAppStructMapping.instance.userLoginRecordDOToUserLoginRecordVO(byId);
 		return SingleResponse.of(userLoginRecordVO);
 	}
-	/**
-	 * 执行 用户登录记录 更新用详情查询指令
-	 * @param userLoginRecordQueryDetailForUpdateCommand
-	 * @return
-	 */
-	public SingleResponse<UserLoginRecordVO> execute(UserLoginRecordQueryDetailForUpdateCommand userLoginRecordQueryDetailForUpdateCommand) {
-		UserLoginRecordDO byId = iUserLoginRecordService.getById(userLoginRecordQueryDetailForUpdateCommand.getId());
-		UserLoginRecordVO userLoginRecordVO = UserLoginRecordAppStructMapping.instance.userLoginRecordDOToUserLoginRecordVO(byId);
-		return SingleResponse.of(userLoginRecordVO);
-	}
+
 
 	@Autowired
 	public void setIUserLoginRecordService(IUserLoginRecordService iUserLoginRecordService) {

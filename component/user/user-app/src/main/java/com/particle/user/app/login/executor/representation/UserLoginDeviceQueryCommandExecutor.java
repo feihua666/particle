@@ -1,24 +1,23 @@
 package com.particle.user.app.login.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
+import com.particle.user.client.login.dto.command.representation.UserLoginDevicePageQueryCommand;
+import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailCommand;
 import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryListCommand;
 import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
 import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
 import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
-import com.particle.user.client.login.dto.command.representation.UserLoginDevicePageQueryCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailForUpdateCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 import javax.validation.Valid;
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -63,16 +62,7 @@ public class UserLoginDeviceQueryCommandExecutor  extends AbstractBaseQueryExecu
 		UserLoginDeviceVO userLoginDeviceVO = UserLoginDeviceAppStructMapping.instance.userLoginDeviceDOToUserLoginDeviceVO(byId);
 		return SingleResponse.of(userLoginDeviceVO);
 	}
-	/**
-	 * 执行 用户登录设备 更新用详情查询指令
-	 * @param userLoginDeviceQueryDetailForUpdateCommand
-	 * @return
-	 */
-	public SingleResponse<UserLoginDeviceVO> execute(UserLoginDeviceQueryDetailForUpdateCommand userLoginDeviceQueryDetailForUpdateCommand) {
-		UserLoginDeviceDO byId = iUserLoginDeviceService.getById(userLoginDeviceQueryDetailForUpdateCommand.getId());
-		UserLoginDeviceVO userLoginDeviceVO = UserLoginDeviceAppStructMapping.instance.userLoginDeviceDOToUserLoginDeviceVO(byId);
-		return SingleResponse.of(userLoginDeviceVO);
-	}
+
 
 	@Autowired
 	public void setIUserLoginDeviceService(IUserLoginDeviceService iUserLoginDeviceService) {
