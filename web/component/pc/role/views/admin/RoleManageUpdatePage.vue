@@ -47,7 +47,22 @@ const formComps = ref(
           }
         }
       },
-
+      {
+        field: {
+          name: 'name',
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '名称',
+            required: true,
+          },
+          compProps: {
+            clearable: true,
+            placeholder: '如：管理员',
+          }
+        }
+      },
       {
         field: {
           name: 'isDisabled',
@@ -59,7 +74,6 @@ const formComps = ref(
             label: '是否禁用'
           },
           compProps: {
-            clearable: true,
             activeText: '禁用',
             inactiveText: '启用',
           }

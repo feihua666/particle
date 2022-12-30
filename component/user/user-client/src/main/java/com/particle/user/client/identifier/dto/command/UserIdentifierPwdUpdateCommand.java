@@ -60,11 +60,6 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
     @PropValid.DependCondition(message = "提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")
     @ApiModelProperty("提示修改密码消息内容")
     private String needUpdateMessage;
-    /**
-     * 后台处理，传参无效
-     */
-    @ApiModelProperty(value = "密码的修改时间",hidden = true)
-    private LocalDateTime pwdModifiedAt;
 
     /**
      * 后台处理，传参无效

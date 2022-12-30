@@ -1,28 +1,26 @@
 package com.particle.role.adapter.rolefuncrel.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepresentationApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
-import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelUpdateCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
+import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
+import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
 /**
  * <p>
  * 角色菜单功能关系后台管理pc或平板端前端适配器
@@ -56,20 +54,6 @@ public class RoleFuncRelAdminWebController extends AbstractBaseWebAdapter {
 		return iRoleFuncRelApplicationService.delete(roleFuncRelDeleteCommand);
 	}
 
-	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:update')")
-	@ApiOperation("更新角色菜单功能关系")
-	@PutMapping("/update")
-	public SingleResponse<RoleFuncRelVO> update(@RequestBody RoleFuncRelUpdateCommand roleFuncRelUpdateCommand){
-		return iRoleFuncRelApplicationService.update(roleFuncRelUpdateCommand);
-	}
-
-	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:update')")
-	@ApiOperation("角色菜单功能关系更新详情")
-	@GetMapping("/detail-for-update")
-	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand){
-		return iRoleFuncRelRepresentationApplicationService.queryDetailForUpdate(roleFuncRelQueryDetailForUpdateCommand);
-	}
-
 	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:detail')")
 	@ApiOperation("角色菜单功能关系详情展示")
 	@GetMapping("/detail")
@@ -91,4 +75,53 @@ public class RoleFuncRelAdminWebController extends AbstractBaseWebAdapter {
 		return iRoleFuncRelRepresentationApplicationService.pageQuery(roleFuncRelPageQueryCommand);
 	}
 
+	@ApiOperation("角色分配功能")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:roleAssignFunc')")
+	@PostMapping("/role/assign/func")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Response roleAssignFunc(@RequestBody RoleAssignFuncCommand cf) {
+		return iRoleFuncRelApplicationService.roleAssignFunc(cf);
+	}
+
+	@ApiOperation("根据角色ID查询已分配的功能id")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:queryFuncIdsByRoleId')")
+	@GetMapping("/queryFuncIdsByRoleId")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<Long> queryFuncIdsByRoleId(IdCommand roleIdCommand) {
+		return iRoleFuncRelRepresentationApplicationService.queryFuncIdsByRoleId( roleIdCommand);
+	}
+
+	@ApiOperation("清空角色下的所有功能")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:deleteByRoleId')")
+	@DeleteMapping("/deleteByRoleId")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Response deleteByRoleId(@RequestBody IdCommand roleIdCommand) {
+		return iRoleFuncRelApplicationService.deleteByRoleId(roleIdCommand);
+	}
+
+
+	@ApiOperation("功能分配角色")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:funcAssignRole')")
+	@PostMapping("/func/assign/role")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Response funcAssignRole(@RequestBody FuncAssignRoleCommand cf) {
+		return iRoleFuncRelApplicationService.funcAssignRole(cf);
+	}
+
+	@ApiOperation("根据功能ID查询已分配的角色id")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:queryRoleIdsByFuncId')")
+	@GetMapping("/queryRoleIdsByFuncId")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<Long> queryByFuncId(IdCommand funcIdCommand) {
+		return iRoleFuncRelRepresentationApplicationService.queryRoleIdsByFuncId( funcIdCommand);
+
+	}
+
+	@ApiOperation("清空功能下的所有角色")
+	@PreAuthorize("hasAuthority('admin:web:roleFuncRel:deleteByFuncId')")
+	@DeleteMapping("/deleteByFuncId")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Response deleteByFuncId(@RequestBody IdCommand roleIdCommand) {
+		return iRoleFuncRelApplicationService.deleteByFuncId(roleIdCommand);
+	}
 }

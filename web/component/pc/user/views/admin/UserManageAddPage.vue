@@ -4,6 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {create as userCreateApi, list as userListApi} from "../../api/admin/userAdminApi"
+import {resetPasswordCompItems} from "../../compnents/userCompItem";
 
 // 属性
 const reactiveData = reactive({
@@ -86,7 +87,6 @@ const formComps = ref(
             label: '虚拟用户'
           },
           compProps: {
-            clearable: true,
             activeText: '虚拟用户',
             inactiveText: '真实用户',
           }
@@ -120,7 +120,6 @@ const formComps = ref(
             label: '是否锁定'
           },
           compProps: {
-            clearable: true,
             activeText: '锁定',
             inactiveText: '正常',
           }
@@ -205,7 +204,6 @@ const formComps = ref(
             label: '是否过期'
           },
           compProps: {
-            clearable: true,
             activeText: '已过期',
             inactiveText: '正常',
           }
@@ -279,22 +277,6 @@ const formComps = ref(
           }
         }
       },
-
-      {
-        field: {
-          name: 'password',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '账号密码',
-            required: true,
-          },
-          compProps:  {
-            clearable: true,
-          }
-        }
-      },
       {
         field: {
           name: 'identifierGroupFlag',
@@ -309,6 +291,7 @@ const formComps = ref(
           }
         }
       },
+      ...resetPasswordCompItems
     ]
 )
 

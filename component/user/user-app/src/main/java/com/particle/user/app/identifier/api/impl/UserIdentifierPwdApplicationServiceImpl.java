@@ -9,10 +9,7 @@ import com.particle.user.app.identifier.executor.UserIdentifierPwdCreateCommandE
 import com.particle.user.app.identifier.executor.UserIdentifierPwdDeleteCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierPwdUpdateCommandExecutor;
 import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationService;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCreateCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPwdUpdateCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierResetPasswordCommand;
-import com.particle.user.client.identifier.dto.command.UserResetPasswordCommand;
+import com.particle.user.client.identifier.dto.command.*;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +39,8 @@ public class UserIdentifierPwdApplicationServiceImpl extends AbstractBaseApplica
 	private UserIdentifierPwdUpdateCommandExecutor userIdentifierPwdUpdateCommandExecutor;
 
 	@Override
-	public SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand) {
-		return userIdentifierPwdCreateCommandExecutor.execute(userIdentifierPwdCreateCommand);
+	public SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
+		return userIdentifierPwdCreateCommandExecutor.execute(userIdentifierPwdCreateCommand,userIdentifierPasswordCommand);
 	}
 
 	@Override

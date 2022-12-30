@@ -73,7 +73,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '锁定',
             inactiveText: '正常',
           }
@@ -108,7 +107,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '已过期',
             inactiveText: '正常',
           }

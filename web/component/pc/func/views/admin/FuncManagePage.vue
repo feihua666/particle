@@ -164,7 +164,7 @@ const submitMethod = ():void => {
   tableRef.value.refreshData()
 }
 // 分页数据查询
-const doFuncPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
+const doFuncPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
   return funcPageApi({...reactiveData.form,...pageQuery})
 }
 const tablePaginationProps = {

@@ -999,7 +999,9 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param other
      * @param mapper
      */
-    default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad, SFunction<DO,?> main, SFunction<DO,?> other, Function<RelDTO, ? extends DO> mapper){
+    default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad,
+                                       SFunction<DO,?> main, SFunction<DO,?> other,
+                                       Function<RelDTO, ? extends DO> mapper){
         List<Long> realCheckedIds = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other);
         return assignRel(mainId, realCheckedIds, mapper);
     }
@@ -1011,7 +1013,6 @@ public interface IBaseService<DO> extends IService<DO> {
      */
     default boolean assignRel(Long mainId, List<Long> checkedIds, Function<RelDTO, ? extends DO> mapper){
         if (!isEmpty(checkedIds)) {
-            List<DO> insert = new ArrayList<>(checkedIds.size());
             return saveBatch(checkedIds.stream().map(checkedId-> mapper.apply(new RelDTO(mainId,checkedId))).collect(Collectors.toList()));
         }
         return false;

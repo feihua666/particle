@@ -1,5 +1,6 @@
 package com.particle.user.domain.identifier;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -70,6 +71,14 @@ public class UserIdentifierPwd extends AggreateRoot {
      */
     private String groupFlag;
 
+	/**
+	 * 如果密码不为空表示要修改密码，将修改时间设置为当前时间
+	 */
+	public void changePwdModifiedAtForUpdate(){
+		if (StrUtil.isNotEmpty(pwd)) {
+			pwdModifiedAt = LocalDateTime.now();
+		}
+	}
 
 	/**
 	 * 创建用户密码领域模型对象
@@ -80,7 +89,13 @@ public class UserIdentifierPwd extends AggreateRoot {
 	}
 
 
-	public static UserIdentifierPwd create(Long userId,Long identifierId,String pwd,String pwdEncryptFlag,Integer complexity,Boolean isExpired,Boolean isNeedUpdate,String needUpdateMessage){
+	public static UserIdentifierPwd create(Long userId,
+										   Long identifierId,
+										   String pwd,
+										   String pwdEncryptFlag,
+										   Integer complexity,
+										   Boolean isExpired,String expiredReason,LocalDateTime expireAt,
+										   Boolean isNeedUpdate,String needUpdateMessage){
 		UserIdentifierPwd userIdentifierPwd = create();
 		userIdentifierPwd.setUserId(userId);
 		userIdentifierPwd.setIdentifierId(identifierId);
@@ -91,6 +106,10 @@ public class UserIdentifierPwd extends AggreateRoot {
 		userIdentifierPwd.setIsNeedUpdate(isNeedUpdate);
 		userIdentifierPwd.setNeedUpdateMessage(needUpdateMessage);
 		userIdentifierPwd.setIsExpired(isExpired);
+		userIdentifierPwd.setExpiredReason(expiredReason);
+		userIdentifierPwd.setExpireAt(expireAt);
+
+
 		userIdentifierPwd.setPwdModifiedAt(LocalDateTime.now());
 
 		return userIdentifierPwd;

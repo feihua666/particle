@@ -72,7 +72,7 @@ const submitMethod = ():void => {
   tableRef.value.refreshData()
 }
 // 分页数据查询
-const doFuncGroupPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
+const doFuncGroupPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
   return funcGroupPageApi({...reactiveData.form,...pageQuery})
 }
 const tablePaginationProps = {

@@ -18,6 +18,12 @@ const d = [
         type:'danger',
     },
     {
+        pattern:'清空',
+        icon: 'DeleteFilled',
+        type:'danger',
+    },
+
+    {
         pattern:['添加','新增'],
         icon: 'Plus',
         type:'primary',
@@ -43,6 +49,11 @@ const d = [
     {
         pattern:'地图',
         icon: 'MapLocation',
+        type:'primary'
+    },
+    {
+        pattern:['分配','配置'],
+        icon: 'Tools',
         type:'primary'
     }
 ]

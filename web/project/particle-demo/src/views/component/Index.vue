@@ -8,7 +8,7 @@ const reactiveData = reactive({
   radioGroupModelValue: 'consistency',
   selectModelValue: 'consistency',
   selectGroupModelValue: ['chengdu'],
-  selectRemoteModelValue: null,
+  selectRemoteModelValue: '',
   uploadModelValue: [
     {
       name: 'element-plus-logo.svg',
@@ -28,6 +28,10 @@ const reactiveData = reactive({
   colorPickerModelValue: '',
   datePickerModelValue: '',
   timeSelectModelValue: '11:20',
+  treeModelValue: [9],
+  treeSyncModelValue: [9],
+  treeSyncInitModelValue: [9],
+  treeDefaultCheckedKeys: [1],
   cascaderOptions: [
     {
       id: 'guide',
@@ -908,7 +912,57 @@ const reactiveData = reactive({
         }
       }
     },
-  ]
+  ],
+  treeOptions: [
+    {
+      id: 1,
+      label: 'Level one 1',
+      children: [
+        {
+          id: 4,
+          label: 'Level two 1-1',
+          children: [
+            {
+              id: 9,
+              label: 'Level three 1-1-1',
+            },
+            {
+              id: 10,
+              label: 'Level three 1-1-2',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 2,
+      label: 'Level one 2',
+      children: [
+        {
+          id: 5,
+          label: 'Level two 2-1',
+        },
+        {
+          id: 6,
+          label: 'Level two 2-2',
+        },
+      ],
+    },
+    {
+      id: 3,
+      label: 'Level one 3',
+      children: [
+        {
+          id: 7,
+          label: 'Level two 3-1',
+        },
+        {
+          id: 8,
+          label: 'Level two 3-2',
+        },
+      ],
+    },
+  ],
 })
 watch(
 () => reactiveData.cascaderModelValue,
@@ -976,7 +1030,24 @@ watch(
       console.log('timeSelectModelValue',val)
     }
 )
-
+watch(
+    () => reactiveData.treeModelValue,
+    (val) => {
+      console.log('treeModelValue',val)
+    }
+)
+watch(
+    () => reactiveData.treeSyncModelValue,
+    (val) => {
+      console.log('treeSyncModelValue',val)
+    }
+)
+watch(
+    () => reactiveData.treeSyncInitModelValue,
+    (val) => {
+      console.log('treeSyncInitModelValue',val)
+    }
+)
 // 挂载
 onMounted(() => {
 
@@ -1014,28 +1085,28 @@ function ptCheckboxGroupHttpApi(){
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
       resolve(reactiveData.checkboxGroupOptions)
-    },10110)
+    },1011)
   })
 }
 function ptRadioGroupHttpApi(){
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
       resolve(reactiveData.radioGroupOptions)
-    },11000)
+    },1100)
   })
 }
 function ptSelectHttpApi(){
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
       resolve(reactiveData.selectOptions)
-    },11100)
+    },1110)
   })
 }
 function ptSelectGroupHttpApi(){
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
       resolve(reactiveData.selectGroupOptions)
-    },11000)
+    },1100)
   })
 }
 
@@ -1123,6 +1194,41 @@ const formMethodPromise = () => {
 const menuSelect = (index,indexPath) => {
   console.log(index,indexPath)
 }
+//treeOptions
+const treeRemoteMethodPromise = (query) => {
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let data = reactiveData.treeOptions
+      resolve({data})
+    }, 2000)
+
+  })
+}
+const treeRemoteMethodInitPromise = (query) => {
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let data = [10,9]
+      resolve({data})
+    }, 1000)
+
+  })
+}
+const treeChange = function (a){
+  console.log('treeChange',a)
+}
+const treeCheck = function (a,b){
+  console.log('treeCheck',a,b)
+}
+const treeCheckChange = function (){
+  console.log('treeCheckChange',arguments)
+
+}
+const treeCurrentChange = function (){
+  console.log('treeCurrentChange',arguments)
+
+}
 </script>
 
 <template>
@@ -1175,7 +1281,7 @@ const menuSelect = (index,indexPath) => {
 
   <div>
     <div>PtSelect 多选</div>
-    <PtSelect v-model="reactiveData.selectGroupModelValue" multiple noPermissionView="alert" :dataMethod="ptSelectGroupHttpApi" :dataMethodResultHandle="directDataMethodResultHandle">
+    <PtSelect v-model="reactiveData.selectGroupModelValue"  multiple noPermissionView="alert" :dataMethod="ptSelectGroupHttpApi" :dataMethodResultHandle="directDataMethodResultHandle">
   </PtSelect>
   </div>
 
@@ -1205,109 +1311,109 @@ const menuSelect = (index,indexPath) => {
     </PtUpload>
   </div>
   <div>
-    <div>上传头像</div>
+    <div>PtUploadAvatar 上传头像</div>
     <PtUploadAvatar v-model="reactiveData.uploadAvatarModelValue"  noPermissionView="alert" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15">
     </PtUploadAvatar>
   </div>
   <div>
-    <div>上传单个图片</div>
+    <div>PtUploadSingleImage 上传单个图片</div>
     <PtUploadSingleImage v-model="reactiveData.uploadSingleImageModelValue"  noPermissionView="alert" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15">
     </PtUploadSingleImage>
   </div>
   <div>
-    <div>input 输入框</div>
+    <div>PtInput 输入框</div>
     <PtInput v-model="reactiveData.inputModelValue" permission="ss" >
       <template #prepend>Http://</template>
     </PtInput>
   </div>
 
   <div>
-    <div>input 输入框</div>
+    <div>PtInputNumber 输入框</div>
     <PtInputNumber v-model="reactiveData.inputNumberModelValue" permission="ss" noPermissionView="alert">
     </PtInputNumber>
   </div>
 
 
   <div>
-    <div>switch 开关</div>
+    <div>PtSwitch 开关</div>
     <PtSwitch v-model="reactiveData.switchModelValue"  permission="ss" noPermissionView="alert" methodConfirmText="确认要切换吗">
     </PtSwitch>
   </div>
 
   <div>
-    <div>Autocomplete 自动补全输入框</div>
+    <div>PtAutocomplete 自动补全输入框</div>
     <PtAutocomplete v-model="reactiveData.autocompleteModelValue"  noPermissionView="alert">
     </PtAutocomplete>
   </div>
 
   <div>
-    <div>colorPicker 颜色选择器</div>
+    <div>PtColorPicker 颜色选择器</div>
     <PtColorPicker v-model="reactiveData.colorPickerModelValue" permission="ss"  noPermissionView="alert">
     </PtColorPicker>
   </div>
 
   <div>
-    <div>datePicker 日期选择器</div>
+    <div>PtDatePicker 日期选择器</div>
     <PtDatePicker v-model="reactiveData.datePickerModelValue"  noPermissionView="alert">
     </PtDatePicker>
   </div>
 
   <div>
-    <div>datePicker 日期时间选择器</div>
+    <div>PtDatePicker 日期时间选择器</div>
     <PtDatePicker v-model="reactiveData.datePickerModelValue" type="datetime"  noPermissionView="alert">
     </PtDatePicker>
   </div>
 
   <div>
-    <div>timePicker 时间选择器</div>
+    <div>PtTimePicker 时间选择器</div>
     <PtTimePicker v-model="reactiveData.datePickerModelValue"  noPermissionView="alert">
     </PtTimePicker>
   </div>
 
   <div>
-    <div>timeSelect 时间选择器</div>
+    <div>PtTimeSelect 时间选择器</div>
     <PtTimeSelect v-model="reactiveData.timeSelectModelValue" permission="ss" noPermissionView="alert">
     </PtTimeSelect>
   </div>
   <div>
-    <div>menu 菜单</div>
+    <div>PtMenu 菜单</div>
     <PtMenu :options="reactiveData.menuOptions" @select="menuSelect">
     </PtMenu>
   </div>
 
   <div>
-    <div>Carousel 跑马灯</div>
+    <div>PtCarousel 跑马灯</div>
     <PtCarousel :options="reactiveData.carouselOptions">
     </PtCarousel>
   </div>
   <div>
-    <div>Image 基本图片，默认</div>
+    <div>PtImage 基本图片，默认</div>
     <PtImage style="width: 300px;height:300px;" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg">
     </PtImage>
   </div>
   <div>
-    <div>Image 图片，全屏预览</div>
+    <div>PtImage 图片，全屏预览</div>
     <PtImage style="width: 300px;height:300px;" previewView="default" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg">
     </PtImage>
   </div>
   <div>
-    <div>Image 图片，跑马灯预览</div>
+    <div>PtImage 图片，跑马灯预览</div>
     <PtImage style="width: 300px;height:300px;" previewView="dialog" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg">
     </PtImage>
   </div>
   <div>
-    <div>table 表格，支持自定义表头组合</div>
+    <div>PtTable 表格，支持自定义表头组合</div>
     <PtTable :options="reactiveData.tableOptions" :columns="reactiveData.tableColumns">
     </PtTable>
   </div>
   <div>
-    <div>table 表格，分页</div>
+    <div>PtTable 表格，分页</div>
     <PtTable :dataMethod="tablePageMethodPromise" :columns="reactiveData.tableColumns">
     </PtTable>
   </div>
 
   <div>
-    <div>FormItemDetail 表单项详情，名字容易误解，</div>
+    <div>PtFormItemDetail 表单项详情，名字容易误解，</div>
     <PtFormItemDetail :form="reactiveData.formItemDetailForm" :formData="{}" prop="input" comp="txt">
     </PtFormItemDetail>
     <PtFormItemDetail :form="reactiveData.formItemDetailForm"  :formData="{}" prop="input" placeholder="xxxx" comp="el-input">
@@ -1316,9 +1422,49 @@ const menuSelect = (index,indexPath) => {
   </div>
 
   <div>
-    <div>form 表单</div>
+    <div>PtForm 表单</div>
     <PtForm :layout="2"  :comps="reactiveData.formComps">
     </PtForm>
+  </div>
+
+  <div>
+    <div>PtTree 树</div>
+    <el-button @click="reactiveData.treeDefaultCheckedKeys = [2]">选中2</el-button>
+    <PtTree show-checkbox v-model="reactiveData.treeModelValue"
+            :defaultCheckedKeys="reactiveData.treeDefaultCheckedKeys"
+            enableFilter
+            @change="treeChange"
+            @check="treeCheck"
+            permission="sss"
+            @treeCheckChange="treeCheckChange"
+            @treeCurrentChange="treeCurrentChange"
+            :data="reactiveData.treeOptions" :props="{label: 'label'}">
+    </PtTree>
+  </div>
+  <div>
+    <div>PtTree 异步加载数据</div>
+    <PtTree show-checkbox v-model="reactiveData.treeSyncModelValue"
+
+            @change="treeChange"
+            @check="treeCheck"
+            @treeCheckChange="treeCheckChange"
+            @treeCurrentChange="treeCurrentChange"
+            :dataMethod="treeRemoteMethodPromise"
+            :props="{label: 'label'}">
+    </PtTree>
+  </div>
+  <div>
+    <div>PtTree 异步加载数据，并异步加载选中数据</div>
+    <PtTree show-checkbox v-model="reactiveData.treeSyncInitModelValue"
+
+            @change="treeChange"
+            @check="treeCheck"
+            @treeCheckChange="treeCheckChange"
+            @treeCurrentChange="treeCurrentChange"
+            :dataMethod="treeRemoteMethodPromise"
+            :dataInitMethod="treeRemoteMethodInitPromise"
+            :props="{label: 'label'}">
+    </PtTree>
   </div>
   <div>
     <div>百度地图</div>

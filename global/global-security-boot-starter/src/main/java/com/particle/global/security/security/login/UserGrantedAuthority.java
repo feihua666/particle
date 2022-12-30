@@ -18,7 +18,7 @@ public class UserGrantedAuthority implements GrantedAuthority {
 
 
 	/**
-	 * 授权的授权的权限
+	 * 授权的权限 {@link UserGrantedAuthority#grantedPermission} 对应的角色
 	 */
 	private GrantedRole grantedPermissionRole;
 

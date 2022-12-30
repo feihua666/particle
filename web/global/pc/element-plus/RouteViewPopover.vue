@@ -93,16 +93,22 @@ const beforeClose = (done):void => {
   }
 
 }
-
+const getRouteMetaName = () => {
+  let r = ''
+  if (route.meta) {
+    r = route.meta.name
+  }
+  return r
+}
 </script>
 <template>
   <el-drawer
       v-model="drawer"
-      v-bind="drawerProps" :beforeClose="beforeClose">
+      v-bind="drawerProps" :title="$attrs.title || getRouteMetaName()" :beforeClose="beforeClose">
     <PtRouteView key="pt-router-view" :level="level"></PtRouteView>
   </el-drawer>
   <el-dialog v-model="dialog"
-             v-bind="dialogProps" :beforeClose="beforeClose">
+             v-bind="dialogProps" :title="$attrs.title || getRouteMetaName()" :beforeClose="beforeClose">
     <PtRouteView key="pt-router-view" :level="level"></PtRouteView>
   </el-dialog>
 </template>

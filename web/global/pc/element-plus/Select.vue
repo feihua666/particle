@@ -64,26 +64,6 @@ const props = defineProps({
   remoteMethod: {
     type: Function
   },
-  // 处理远程搜索加载后的数据，仅限 remoteMethod 返回 promise 时有效
-  // 主要是给 remoteMethod 获取的数据一个处理数据的机会
-  remoteMethodResultHandle: {
-    type: Function,
-    default: ({success,error}) => {
-      // success 为 res
-      if (success) {
-        let data = success.data
-        if(data.data == undefined){
-          return data
-        }
-        if(isArray(data.data)){
-          return data.data
-        }
-      }
-      if (error) {
-        return []
-      }
-    }
-  },
   // 是否分组展示，会智能判断是否需要分组展示
   groupView: {
     type: Boolean
@@ -227,6 +207,8 @@ watch(()=> reactiveData.dataMethodData,(val: any[]) => {
     // 同时赋值，防止没有权限时阻挡
     reactiveData.oldModelValue = value
     reactiveData.currentModelValue = value
+    emit(emitDataModelEvent.updateModelValue,value)
+    emit(emitDataModelEvent.change,value)
   }
 })
 // 远程搜索处理

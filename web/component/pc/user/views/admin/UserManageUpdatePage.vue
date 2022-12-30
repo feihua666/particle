@@ -100,7 +100,6 @@ const formComps = ref(
             label: '虚拟用户'
           },
           compProps: {
-            clearable: true,
             activeText: '虚拟用户',
             inactiveText: '真实用户',
           }
@@ -134,7 +133,6 @@ const formComps = ref(
             label: '是否锁定'
           },
           compProps: {
-            clearable: true,
             activeText: '锁定',
             inactiveText: '正常',
           }
@@ -216,7 +214,6 @@ const formComps = ref(
             label: '是否过期'
           },
           compProps: {
-            clearable: true,
             activeText: '已过期',
             inactiveText: '正常',
           }

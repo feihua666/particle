@@ -55,7 +55,10 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 	 */
 	public SingleResponse<UserIdentifierPwdVO> execute(@Valid UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand) {
 		UserIdentifierPwd userIdentifierPwd = createByUserIdentifierPwdUpdateCommand(userIdentifierPwdUpdateCommand);
+
+		userIdentifierPwd.changePwdModifiedAtForUpdate();
 		userIdentifierPwd.setUpdateControl(userIdentifierPwdUpdateCommand);
+
 		boolean save = userIdentifierPwdGateway.save(userIdentifierPwd);
 		if (save) {
 			return SingleResponse.of(UserIdentifierPwdAppStructMapping.instance.toUserIdentifierPwdVO(userIdentifierPwd));
@@ -73,15 +76,14 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 		UserIdentifierDO userIdentifierDO = iUserIdentifierService.getById(userIdentifierResetPasswordCommand.getUserIdentifierId());
 		userIdentifierPwdUpdateCommand.setUserId(userIdentifierDO.getUserId());
 		userIdentifierPwdUpdateCommand.setIdentifierId(userIdentifierResetPasswordCommand.getUserIdentifierId());
-		userIdentifierPwdUpdateCommand.setPwd(userIdentifierResetPasswordCommand.getEncodedPassword());
+		userIdentifierPwdUpdateCommand.setPwd(userIdentifierResetPasswordCommand.getPwdEncoded());
 		userIdentifierPwdUpdateCommand.setPwdEncryptFlag(userIdentifierResetPasswordCommand.getPwdEncryptFlag());
-		userIdentifierPwdUpdateCommand.setComplexity(userIdentifierResetPasswordCommand.getComplexity());
-		userIdentifierPwdUpdateCommand.setIsExpired(false);
-		userIdentifierPwdUpdateCommand.setExpiredReason(null);
-		userIdentifierPwdUpdateCommand.setExpireAt(userIdentifierResetPasswordCommand.getExpireAt());
-		userIdentifierPwdUpdateCommand.setPwdModifiedAt(LocalDateTime.now());
+		userIdentifierPwdUpdateCommand.setComplexity(userIdentifierResetPasswordCommand.getPwdComplexity());
+		userIdentifierPwdUpdateCommand.setIsExpired(userIdentifierResetPasswordCommand.getIsPwdExpired());
+		userIdentifierPwdUpdateCommand.setExpiredReason(userIdentifierResetPasswordCommand.getPwdExpiredReason());
+		userIdentifierPwdUpdateCommand.setExpireAt(userIdentifierResetPasswordCommand.getPwdExpireAt());
 
-		userIdentifierPwdUpdateCommand.setIsNeedUpdate(userIdentifierResetPasswordCommand.getIsNeedUpdate());
+		userIdentifierPwdUpdateCommand.setIsNeedUpdate(userIdentifierResetPasswordCommand.getIsPwdNeedUpdate());
 
 		UserIdentifierPwdDO userIdentifierPwdDO = iUserIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
 

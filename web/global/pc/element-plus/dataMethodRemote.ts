@@ -15,9 +15,21 @@ import {
  * 数据加载相关，封装组件时用
  */
 export const dataMethodRemoteProps = {
+
+    dataRemoteMethod: dataMethodProps.dataMethod,
     // 处理加载后的数据，仅限 remoteMethod 返回 promise 时有效
     // 主要是给 remoteMethod 获取的数据一个处理数据的机会
     dataMethodRemoteResultHandle: dataMethodProps.dataMethodResultHandle,
+    // dataRemoteMethod 请求参数
+    dataRemoteMethodParam: {
+        type: [Object],
+        default: () => ({})
+    },
+    // 空数据
+    dataMethodRemoteEmptyData: {
+        type: [Object,Array],
+        default: () => []
+    },
     // 将数据转为 tree,仅限数据加载成功时有效，参见： dataMethodRemoteResultHandle中的 convertToTree 参数
     dataMethodRemoteResultHandleConvertToTree: {
         type: Boolean,
@@ -75,13 +87,17 @@ export const doDataMethodRemote = ({props,reactiveData,emit,remoteMethod}:{}) =>
         return
     }
     handleLoading(true,{reactiveData,emit})
-    if (remoteMethod) {
+    let remoteMethodTemp = remoteMethod
+    if(!remoteMethodTemp){
+        remoteMethodTemp = props.dataRemoteMethod()
+    }
+    if (remoteMethodTemp) {
         let result =  null
         // 页码为0说明为初始加载，不需要加载分页参数
         if(reactiveData.dataMethodRemotePageQuery.pageNo > 0){
-            result = remoteMethod(reactiveData.dataMethodRemotePageQuery)
+            result = remoteMethodTemp({param: props.dataRemoteMethodParam, pageQuery: reactiveData.dataMethodRemotePageQuery})
         }else {
-            result = remoteMethod()
+            result = remoteMethodTemp({param: props.dataRemoteMethodParam})
         }
         if (isPromise(result)) {
             const promiseResult = result.then(res =>{
@@ -93,7 +109,7 @@ export const doDataMethodRemote = ({props,reactiveData,emit,remoteMethod}:{}) =>
 
                 return Promise.resolve(res)
             }).catch(error => {
-                let pageAdapter = props.dataMethodRemoteResultPageHandle(props.dataMethodRemoteResultHandle({error: error,emptyData: props.emptyData}) || props.emptyData)
+                let pageAdapter = props.dataMethodRemoteResultPageHandle(props.dataMethodRemoteResultHandle({error: error,dataMethodRemoteEmptyData: props.dataMethodRemoteEmptyData}) || props.dataMethodRemoteEmptyData)
                 handleAdapter(pageAdapter,reactiveData)
                 if(emit){
                     emit(emitDataMethodRemoteEvent.dataMethodRemoteData,reactiveData.dataMethodRemoteData,pageAdapter)
@@ -106,7 +122,7 @@ export const doDataMethodRemote = ({props,reactiveData,emit,remoteMethod}:{}) =>
                 emit(emitDataMethodRemoteEvent.dataMethodRemoteResult,promiseResult)
             }
         }else {
-            let pageAdapter = props.dataMethodRemoteResultPageHandle(props.dataMethodRemoteResultHandle({success: result,convertToTree: props.dataMethodRemoteResultHandleConvertToTree,emptyData: props.emptyData}))
+            let pageAdapter = props.dataMethodRemoteResultPageHandle(props.dataMethodRemoteResultHandle({success: result,convertToTree: props.dataMethodRemoteResultHandleConvertToTree,dataMethodRemoteEmptyData: props.dataMethodRemoteEmptyData}))
             handleAdapter(pageAdapter,reactiveData)
             if(emit){
                 emit(emitDataMethodRemoteEvent.dataMethodRemoteResult,result)

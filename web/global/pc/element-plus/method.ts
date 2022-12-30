@@ -94,7 +94,7 @@ const methodSuccess = (methodSuccess)=>{
     }
 }
 // 发起调用
-export const doMethod = ({props,reactiveData,emit}) =>{
+export const doMethod = ({props,reactiveData,emit}: {}) =>{
 
     return function () {
         let args = arguments

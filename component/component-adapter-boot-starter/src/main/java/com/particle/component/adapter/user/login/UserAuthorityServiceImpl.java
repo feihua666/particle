@@ -50,9 +50,6 @@ public class UserAuthorityServiceImpl implements UserAuthorityService {
         if (CollectionUtil.isEmpty(roleDOS)) {
             return Collections.emptyList();
         }
-        if (CollectionUtil.isEmpty(roleDOS)) {
-            return Collections.emptyList();
-        }
         if (userFuncRetrieve == null) {
             return Collections.emptyList();
         }

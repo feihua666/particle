@@ -1,20 +1,20 @@
 package com.particle.role.app.rolefuncrel.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCommandExecutor;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCreateCommandExecutor;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelDeleteCommandExecutor;
-import com.particle.role.app.rolefuncrel.executor.RoleFuncRelUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelUpdateCommand;
 import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
+import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
+import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -33,8 +33,7 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 
 	private RoleFuncRelDeleteCommandExecutor roleFuncRelDeleteCommandExecutor;
 
-	private RoleFuncRelUpdateCommandExecutor roleFuncRelUpdateCommandExecutor;
-
+	private RoleFuncRelCommandExecutor roleFuncRelCommandExecutor;
 
 	@Override
 	public SingleResponse<RoleFuncRelVO> create(RoleFuncRelCreateCommand roleFuncRelCreateCommand) {
@@ -47,8 +46,23 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> update(RoleFuncRelUpdateCommand roleFuncRelUpdateCommand) {
-		return roleFuncRelUpdateCommandExecutor.execute(roleFuncRelUpdateCommand);
+	public Response roleAssignFunc(RoleAssignFuncCommand cf) {
+		return roleFuncRelCommandExecutor.roleAssignFunc(cf);
+	}
+
+	@Override
+	public Response funcAssignRole(FuncAssignRoleCommand cf) {
+		return roleFuncRelCommandExecutor.funcAssignRole(cf);
+	}
+
+	@Override
+	public Response deleteByRoleId(IdCommand roleIdCommand) {
+		return roleFuncRelDeleteCommandExecutor.deleteByRoleId(roleIdCommand);
+	}
+
+	@Override
+	public Response deleteByFuncId(IdCommand funcIdCommand) {
+		return roleFuncRelDeleteCommandExecutor.deleteByFuncId(funcIdCommand);
 	}
 
 	@Autowired
@@ -60,9 +74,9 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	public void setRoleFuncRelDeleteCommandExecutor(RoleFuncRelDeleteCommandExecutor roleFuncRelDeleteCommandExecutor) {
 		this.roleFuncRelDeleteCommandExecutor = roleFuncRelDeleteCommandExecutor;
 	}
-	@Autowired
-	public void setRoleFuncRelUpdateCommandExecutor(RoleFuncRelUpdateCommandExecutor roleFuncRelUpdateCommandExecutor) {
-		this.roleFuncRelUpdateCommandExecutor = roleFuncRelUpdateCommandExecutor;
-	}
 
+	@Autowired
+	public void setRoleFuncRelCommandExecutor(RoleFuncRelCommandExecutor roleFuncRelCommandExecutor) {
+		this.roleFuncRelCommandExecutor = roleFuncRelCommandExecutor;
+	}
 }

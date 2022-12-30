@@ -117,7 +117,6 @@ const formComps = ref(
             label: '是否禁用'
           },
           compProps: {
-            clearable: true,
             activeText: '禁用',
             inactiveText: '启用',
           }
@@ -149,7 +148,6 @@ const formComps = ref(
             label: '是否展示'
           },
           compProps: {
-            clearable: true,
             activeText: '展示',
             inactiveText: '隐藏',
           }

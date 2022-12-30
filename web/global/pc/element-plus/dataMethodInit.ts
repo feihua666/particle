@@ -20,6 +20,16 @@ export const dataMethodInitProps = {
     // 处理加载后的数据，仅限 initMethod 返回 promise 时有效
     // 主要是给 initMethod 获取的数据一个处理数据的机会
     dataMethodInitResultHandle: dataMethodProps.dataMethodResultHandle,
+    // dataInitMethod 请求参数
+    dataInitMethodParam: {
+        type: [Object],
+        default: () => ({})
+    },
+    // 空数据
+    dataMethodInitEmptyData: {
+        type: [Object,Array],
+        default: () => []
+    },
     // 将数据转为 tree,仅限数据加载成功时有效，参见： dataMethodInitResultHandle中的 convertToTree 参数
     dataMethodInitResultHandleConvertToTree: {
         type: Boolean,
@@ -86,9 +96,9 @@ export const doDataMethodInit = ({props,reactiveData,emit,initMethod}:{}) =>{
         let result =  null
         // 页码为0说明为初始加载，不需要加载分页参数
         if(reactiveData.dataMethodInitPageQuery.pageNo > 0){
-            result = initMethodTemp(reactiveData.dataMethodInitPageQuery)
+            result = initMethodTemp({param: props.dataInitMethodParam, pageQuery: reactiveData.dataMethodInitPageQuery})
         }else {
-            result = initMethodTemp()
+            result = initMethodTemp({param: props.dataInitMethodParam})
         }
         if (isPromise(result)) {
             const promiseResult = result.then(res =>{
@@ -100,7 +110,7 @@ export const doDataMethodInit = ({props,reactiveData,emit,initMethod}:{}) =>{
 
                 return Promise.resolve(res)
             }).catch(error => {
-                let pageAdapter = props.dataMethodInitResultPageHandle(props.dataMethodInitResultHandle({error: error,emptyData: props.emptyData}) || props.emptyData)
+                let pageAdapter = props.dataMethodInitResultPageHandle(props.dataMethodInitResultHandle({error: error,dataMethodInitEmptyData: props.dataMethodInitEmptyData}) || props.dataMethodInitEmptyData)
                 handleAdapter(pageAdapter,reactiveData)
                 if(emit){
                     emit(emitDataMethodInitEvent.dataMethodInitData,reactiveData.dataMethodInitData,pageAdapter)
@@ -113,7 +123,7 @@ export const doDataMethodInit = ({props,reactiveData,emit,initMethod}:{}) =>{
                 emit(emitDataMethodInitEvent.dataMethodInitResult,promiseResult)
             }
         }else {
-            let pageAdapter = props.dataMethodInitResultPageHandle(props.dataMethodInitResultHandle({success: result,convertToTree: props.dataMethodInitResultHandleConvertToTree,emptyData: props.emptyData}))
+            let pageAdapter = props.dataMethodInitResultPageHandle(props.dataMethodInitResultHandle({success: result,convertToTree: props.dataMethodInitResultHandleConvertToTree,dataMethodInitEmptyData: props.dataMethodInitEmptyData}))
             handleAdapter(pageAdapter,reactiveData)
             if(emit){
                 emit(emitDataMethodInitEvent.dataMethodInitResult,result)

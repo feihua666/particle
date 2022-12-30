@@ -1,18 +1,18 @@
 package com.particle.role.app.roleuserrel.executor;
 
-import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
 import com.particle.role.domain.roleuserrel.RoleUserRelId;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
+import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
+import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +33,8 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	private RoleUserRelGateway roleUserRelGateway;
 
+	private IRoleUserRelService iRoleUserRelService;
+
 	/**
 	 * 执行 角色用户关系 删除指令
 	 * @param roleUserRelDeleteCommand
@@ -48,7 +50,24 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);
 	}
-
+	/**
+	 * 根据 roleId 删除
+	 * @param roleIdCommand
+	 * @return
+	 */
+	public Response deleteByRoleId(@Valid IdCommand roleIdCommand) {
+		boolean result = iRoleUserRelService.deleteByColumn(roleIdCommand.getId(), RoleUserRelDO::getRoleId);
+		return Response.buildSuccess();
+	}
+	/**
+	 * 根据 userId 删除
+	 * @param userIdCommand
+	 * @return
+	 */
+	public Response deleteByUserId(@Valid IdCommand userIdCommand) {
+		boolean result = iRoleUserRelService.deleteByColumn(userIdCommand.getId(), RoleUserRelDO::getUserId);
+		return Response.buildSuccess();
+	}
 	/**
 	 * 注入使用set方法
 	 * @param roleUserRelGateway
@@ -56,5 +75,10 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setRoleUserRelGateway(RoleUserRelGateway roleUserRelGateway) {
 		this.roleUserRelGateway = roleUserRelGateway;
+	}
+
+	@Autowired
+	public void setiRoleUserRelService(IRoleUserRelService iRoleUserRelService) {
+		this.iRoleUserRelService = iRoleUserRelService;
 	}
 }

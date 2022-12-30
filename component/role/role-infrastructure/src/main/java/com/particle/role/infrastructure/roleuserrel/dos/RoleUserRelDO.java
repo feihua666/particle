@@ -6,6 +6,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import lombok.Data;
  * @author yw
  * @since 2022-11-25
  */
+@Accessors(chain = true)
 @Data
 @TableName("component_role_user_rel")
 public class RoleUserRelDO extends BaseDO {

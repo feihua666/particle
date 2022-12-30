@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 角色用户关系 通用创建指令对象
@@ -18,10 +20,12 @@ import lombok.Data;
 public class RoleUserRelCreateCommand extends AbstractBaseCommand {
 
 
-    @ApiModelProperty("用户id")
+    @NotNull(message = "用户id不能为空")
+    @ApiModelProperty(value = "用户id",required = true)
     private Long userId;
 
-    @ApiModelProperty("角色id")
+    @NotNull(message = "角色id不能为空")
+    @ApiModelProperty(value = "角色id",required = true)
     private Long roleId;
 
 

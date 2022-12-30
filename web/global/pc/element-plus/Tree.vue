@@ -10,7 +10,7 @@
  *
  * 注意：modelValue 不能传同一个引用值，否则会出现不可预知问题（可能死循环）
  */
-import {computed, inject, onMounted, reactive, watch, ref,nextTick} from 'vue'
+import {computed, inject, onMounted, reactive, watch, ref,nextTick,watchEffect} from 'vue'
 import {hasPermissionConfig, permissionProps} from './permission'
 import {disabledConfig, disabledProps} from './disabled'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
@@ -152,11 +152,11 @@ const getDefaultCheckedKeys = () => {
     r = r.concat(props.defaultCheckedKeys)
     getDefaultCheckedKeysOnceControl.defaultCheckedKeys = true
   }
-  if(!getDefaultCheckedKeysOnceControl.dataMethodInitData && reactiveData.dataMethodInitData && reactiveData.dataMethodInitData.length > 0){
+/*  if(!getDefaultCheckedKeysOnceControl.dataMethodInitData && reactiveData.dataMethodInitData && reactiveData.dataMethodInitData.length > 0){
     r = r.concat(reactiveData.dataMethodInitData)
     getDefaultCheckedKeysOnceControl.dataMethodInitData = true
 
-  }
+  }*/
   // 去重处理
   r = removeDuplicate(r)
   if(r.length !== 0){
@@ -169,6 +169,8 @@ const getDefaultCheckedKeys = () => {
       }
     }
   }
+
+
   return r
 }
 // 这里不能使用计算属性，否则会动态响应，就改变了初始值的初衷
@@ -192,15 +194,24 @@ watch(
     }
 )
 
+watch(
+    () => defaultCheckedKeys.value,
+    (val) => {
+
+      // 清空一下，重新选中
+      clearCheckedAll()
+    }
+)
 // 数据加载完成，重新计算
 watch(
     () => reactiveData.dataMethodInitData,
     (val) => {
+
       getDefaultCheckedKeysOnceControl.dataMethodInitData = true
+
       // 加载完初始化选中数据，emit 处理
-      nextTick(()=>{
-        emitCheckedKeys(val,[])
-      })
+      emitCheckedKeys(val||[],[])
+
     }
 )
 // 如果有变动，重新加载一遍
@@ -225,6 +236,13 @@ watch(
       pushCurrentModelData(param)
       // 事件派发
       emit(emitDataModelEvent.updateModelData,r)
+    }
+)
+// 监听参数变化，重新初始化
+watch(
+    () => props.dataInitMethodParam,
+    (newParam)=> {
+      doDataMethodInit({props,reactiveData})
     }
 )
 // 事件
@@ -351,7 +369,7 @@ const filterNode = (value: string, data: Tree) => {
 </script>
 <template>
   <el-input v-if="hasPermission.render && enableFilter" v-model="filterText" :placeholder="filterInputProps.placeholder || '输入名称过滤关键字'" v-bind="filterInputProps" />
-  <el-tree ref="treeRef" v-if="hasPermission.render"  v-loading="dataLoading" class="pt-tree"
+  <el-tree ref="treeRef" v-if="hasPermission.render"  v-loading="dataLoading" class="pt-tree pt-width-100-pc"
            :title="hasDisabled.disabledReason || title"
                v-model="reactiveData.currentModelValue"
                v-bind="$attrs"
@@ -377,9 +395,14 @@ const filterNode = (value: string, data: Tree) => {
                @node-drag-end="events['node-drag-end']"
                @node-drop="events['node-drop']">
 
-    <slot></slot>
+    <template #default=" { node, data }" v-if="$slots.default">
+      <slot v-bind="{ node, data }"></slot>
+    </template>
   </el-tree>
 
 </template>
-<style >
+<style scoped>
+.pt-tree{
+  min-width: 10rem;
+}
 </style>

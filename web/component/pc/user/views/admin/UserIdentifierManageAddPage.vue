@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {create as userIdentifierCreateApi} from "../../api/admin/userIdentifierAdminApi"
-import {remoteSelectUserCompItem, remoteSelectUserProps} from "../../compnents/userCompItem";
+import {remoteSelectUserCompItem, remoteSelectUserProps, resetPasswordCompItems} from "../../compnents/userCompItem";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -38,21 +38,6 @@ const formComps = ref(
       },
       {
         field: {
-          name: 'password',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '账号密码',
-            required: true,
-          },
-          compProps:  {
-            clearable: true,
-          }
-        }
-      },
-      {
-        field: {
           name: 'identityTypeDictId'
         },
         element: {
@@ -80,7 +65,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '锁定',
             inactiveText: '正常',
           }
@@ -115,7 +99,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '已过期',
             inactiveText: '正常',
           }
@@ -167,6 +150,7 @@ const formComps = ref(
         }
       },
 
+      ...resetPasswordCompItems
     ]
 )
 

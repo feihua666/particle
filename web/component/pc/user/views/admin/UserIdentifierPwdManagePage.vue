@@ -113,7 +113,7 @@ const submitMethod = ():void => {
   tableRef.value.refreshData()
 }
 // 分页数据查询
-const doUserIdentifierPwdPageApi = (pageQuery: {pageNo: number,pageSize: number}) => {
+const doUserIdentifierPwdPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
   return userIdentifierPwdPageApi({...reactiveData.form,...pageQuery})
 }
 const tablePaginationProps = {

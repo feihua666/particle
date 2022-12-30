@@ -21,9 +21,9 @@ public class PasswordTool {
 	 */
 	public static void encodePassword(UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
 		PasswordComplexityTool.PasswordComplexityResult complexityLevel = PasswordComplexityTool.getComplexityLevel(userIdentifierPasswordCommand.getPassword());
-		userIdentifierPasswordCommand.setComplexity(complexityLevel.getComplexityLevel());
+		userIdentifierPasswordCommand.setPwdComplexity(complexityLevel.getComplexityLevel());
 		PasswordEncryptEnum.PrefixEncodedPassword encode = PasswordEncryptEnum.encode(userIdentifierPasswordCommand.getPassword());
-		userIdentifierPasswordCommand.setEncodedPassword(encode.getRawEncodePassword());
+		userIdentifierPasswordCommand.setPwdEncoded(encode.getRawEncodePassword());
 		userIdentifierPasswordCommand.setPwdEncryptFlag(encode.getEncrypt());
 	}
 }

@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 角色菜单功能关系 通用创建指令对象
@@ -18,10 +20,12 @@ import lombok.Data;
 public class RoleFuncRelCreateCommand extends AbstractBaseCommand {
 
 
-    @ApiModelProperty("角色id")
+    @NotNull(message = "角色id不能为空")
+    @ApiModelProperty(value = "角色id",required = true)
     private Long roleId;
 
-    @ApiModelProperty("功能id")
+    @NotNull(message = "功能id不能为空")
+    @ApiModelProperty(value = "功能id",required = true)
     private Long funcId;
 
 

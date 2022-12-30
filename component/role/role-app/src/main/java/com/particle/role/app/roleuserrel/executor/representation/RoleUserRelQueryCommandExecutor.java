@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -62,17 +63,39 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 		RoleUserRelVO roleUserRelVO = RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(byId);
 		return SingleResponse.of(roleUserRelVO);
 	}
+
 	/**
-	 * 执行 角色用户关系 更新用详情查询指令
-	 * @param roleUserRelQueryDetailForUpdateCommand
+	 * 查询角色已分配的用户菜单ids
+	 * @param roleIdCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> executeDetailForUpdate(IdCommand roleUserRelQueryDetailForUpdateCommand) {
-		RoleUserRelDO byId = iRoleUserRelService.getById(roleUserRelQueryDetailForUpdateCommand.getId());
-		RoleUserRelVO roleUserRelVO = RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(byId);
-		return SingleResponse.of(roleUserRelVO);
-	}
+	public MultiResponse<Long> queryUserIdsByRoleId(@Valid IdCommand roleIdCommand) {
 
+		RoleUserRelQueryListCommand roleUserRelQueryListCommand = new RoleUserRelQueryListCommand();
+		roleUserRelQueryListCommand.setRoleId(roleIdCommand.getId());
+		MultiResponse<RoleUserRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
+		if(roleUserRelVOMultiResponse.isNotEmpty()){
+			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getUserId).collect(Collectors.toList());
+			return MultiResponse.of(collect);
+		}
+		return MultiResponse.buildSuccess();
+	}
+	/**
+	 * 查询用户已分配的角色ids
+	 * @param userIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryRoleIdsByUserId(@Valid IdCommand userIdCommand) {
+
+		RoleUserRelQueryListCommand roleUserRelQueryListCommand = new RoleUserRelQueryListCommand();
+		roleUserRelQueryListCommand.setRoleId(userIdCommand.getId());
+		MultiResponse<RoleUserRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
+		if(roleUserRelVOMultiResponse.isNotEmpty()){
+			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getRoleId).collect(Collectors.toList());
+			return MultiResponse.of(collect);
+		}
+		return MultiResponse.buildSuccess();
+	}
 	@Autowired
 	public void setIRoleUserRelService(IRoleUserRelService iRoleUserRelService) {
 		this.iRoleUserRelService = iRoleUserRelService;

@@ -87,7 +87,7 @@ public class UserFuncRetrieve {
 		if (CollectionUtil.isEmpty(byRoleIds)) {
 			return Collections.EMPTY_MAP;
 		}
-		List<Long> funcIds = byRoleIds.stream().map(RoleFuncRelDO::getRoleId).collect(Collectors.toList());
+		List<Long> funcIds = byRoleIds.stream().map(RoleFuncRelDO::getFuncId).collect(Collectors.toList());
 
 		if (CollectionUtil.isEmpty(funcIds)) {
 			return Collections.EMPTY_MAP;
@@ -105,16 +105,18 @@ public class UserFuncRetrieve {
 
 		Map<Long, List<GrantedPermission>> result = new HashMap<>();
 		for (FuncDO funcDO : funcDOS) {
+			RoleDO roleDO = longRoleDOMap.get(longLongMap.get(funcDO.getId()));
+
+			List<GrantedPermission> grantedPermissions = result.get(roleDO.getId());
+			if (grantedPermissions == null) {
+				grantedPermissions = new ArrayList<>();
+				result.put(roleDO.getId(), grantedPermissions);
+			}
 			if (StrUtil.isNotEmpty(funcDO.getPermissions())) {
 				// 将权限以逗号分隔处理，建议在添加权限时不到添加逗号，在 controller中手动指定，更明确
 				for (String permission : funcDO.getPermissions().split(",")) {
 
-					RoleDO roleDO = longRoleDOMap.get(longLongMap.get(funcDO.getId()));
-					List<GrantedPermission> grantedPermissions = result.get(roleDO.getId());
-					if (grantedPermissions == null) {
-						grantedPermissions = new ArrayList<>();
-						result.put(roleDO.getId(), grantedPermissions);
-					}
+
 					grantedPermissions.add(
 							GrantedPermission.create(GrantedPermission.Source.role)
 									.sourceId(roleDO.getId())
@@ -126,6 +128,18 @@ public class UserFuncRetrieve {
 							.build()
 					);
 				}// end inner for
+			}else {
+				// 将空的权限也添加上，保证角色的分配功能授权完整
+				grantedPermissions.add(
+						GrantedPermission.create(GrantedPermission.Source.role)
+								.sourceId(roleDO.getId())
+								.id(funcDO.getId())
+								.permission(funcDO.getPermissions())
+								.name(funcDO.getName())
+								//	类型暂不添加
+								.type(null)
+								.build()
+				);
 			}
 		}
 

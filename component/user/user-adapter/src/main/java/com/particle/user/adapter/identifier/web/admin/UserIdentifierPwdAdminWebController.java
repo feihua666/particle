@@ -47,16 +47,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
 		PasswordTool.encodePassword(userIdentifierPasswordCommand);
 
-		userIdentifierPwdCreateCommand.setPwd(userIdentifierPasswordCommand.getEncodedPassword());
-		userIdentifierPwdCreateCommand.setComplexity(userIdentifierPasswordCommand.getComplexity());
-		userIdentifierPwdCreateCommand.setPwdEncryptFlag(userIdentifierPasswordCommand.getPwdEncryptFlag());
-		if (userIdentifierPwdCreateCommand.getIsExpired() == null) {
-			userIdentifierPwdCreateCommand.setIsExpired(false);
-		}
-		if (userIdentifierPwdCreateCommand.getPwdModifiedAt() == null) {
-			userIdentifierPwdCreateCommand.setPwdModifiedAt(LocalDateTime.now());
-		}
-		return iUserIdentifierPwdApplicationService.create(userIdentifierPwdCreateCommand);
+		return iUserIdentifierPwdApplicationService.create(userIdentifierPwdCreateCommand,userIdentifierPasswordCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:delete')")
@@ -76,8 +67,8 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 			userIdentifierPasswordCommand.setPassword(userIdentifierPwdUpdateCommand.getPwd());
 			PasswordTool.encodePassword(userIdentifierPasswordCommand);
 
-			userIdentifierPwdUpdateCommand.setPwd(userIdentifierPasswordCommand.getEncodedPassword());
-			userIdentifierPwdUpdateCommand.setComplexity(userIdentifierPasswordCommand.getComplexity());
+			userIdentifierPwdUpdateCommand.setPwd(userIdentifierPasswordCommand.getPwdEncoded());
+			userIdentifierPwdUpdateCommand.setComplexity(userIdentifierPasswordCommand.getPwdComplexity());
 			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(userIdentifierPasswordCommand.getPwdEncryptFlag());
 
 		}else {

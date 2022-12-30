@@ -29,7 +29,14 @@ export function trim(str: string): string {
 export function upperFirst(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
-
+/**
+ * 首字母小写
+ * @param str
+ * @returns {string}
+ */
+export function lowerFirst(str: string): string {
+    return str.charAt(0).toLowerCase() + str.slice(1)
+}
 /**
  * 判断字符器是否以任何一个suffix结尾
  * @param str
@@ -80,4 +87,18 @@ export function replacec(tempStr: string,obj: anyObj): string {
         r = r.replace(':'+ key,obj[key])
     }
     return r
+}
+
+/**
+ * 文本
+ * @param text 文本
+ * @param from 待替换文本
+ * @param to 替换的文本
+ * @param global 是否全部，否则只匹配第一个
+ */
+export function replace(text: string,from: string,to: string,golbal?: boolean): string{
+    if (golbal) {
+        return text.replace(new RegExp(from,'g'),to)
+    }
+    return text.replace(from,to)
 }

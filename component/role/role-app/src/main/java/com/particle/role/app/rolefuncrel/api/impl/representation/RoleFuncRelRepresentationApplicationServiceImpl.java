@@ -11,8 +11,14 @@ import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepre
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
+import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
+import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * 角色菜单功能关系 门面服务实现类
@@ -33,13 +39,19 @@ public class RoleFuncRelRepresentationApplicationServiceImpl extends AbstractBas
 	}
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand) {
-		return roleFuncRelQueryCommandExecutor.executeDetailForUpdate(roleFuncRelQueryDetailForUpdateCommand);
+	public PageResponse<RoleFuncRelVO> pageQuery(RoleFuncRelPageQueryCommand roleFuncRelPageQueryCommand) {
+		return roleFuncRelQueryCommandExecutor.execute(roleFuncRelPageQueryCommand);
 	}
 
 	@Override
-	public PageResponse<RoleFuncRelVO> pageQuery(RoleFuncRelPageQueryCommand roleFuncRelPageQueryCommand) {
-		return roleFuncRelQueryCommandExecutor.execute(roleFuncRelPageQueryCommand);
+	public MultiResponse<Long> queryFuncIdsByRoleId(IdCommand roleIdCommand) {
+
+		return roleFuncRelQueryCommandExecutor.queryFuncIdsByRoleId(roleIdCommand);
+	}
+
+	@Override
+	public MultiResponse<Long> queryRoleIdsByFuncId(IdCommand funcIdCommand) {
+		return roleFuncRelQueryCommandExecutor.queryRoleIdsByFuncId(funcIdCommand);
 	}
 
 	@Override

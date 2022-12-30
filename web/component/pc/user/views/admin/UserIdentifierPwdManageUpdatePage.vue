@@ -21,6 +21,7 @@ const reactiveData = reactive({
   // 表单
   form: {
     id: props.userIdentifierPwdId,
+    identifierId: '',
     userId: '',
     version: 1
   },
@@ -59,7 +60,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '已过期',
             inactiveText: '正常',
           }
@@ -109,7 +109,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             activeText: '提示',
             inactiveText: '不提示',
           }

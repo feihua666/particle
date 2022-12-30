@@ -40,7 +40,6 @@ const formComps = ref(
             label: '是否字典组'
           },
           compProps: {
-            clearable: true,
             activeText: '字典组',
             inactiveText: '字典项',
           }
@@ -132,7 +131,6 @@ const formComps = ref(
             label: '是否系统'
           },
           compProps: {
-            clearable: true,
             activeText: '系统字典',
             inactiveText: '自定义字典',
           }
@@ -149,7 +147,6 @@ const formComps = ref(
             label: '是否公共'
           },
           compProps: {
-            clearable: true,
             activeText: '公共字典',
             inactiveText: '私有字典',
           }
@@ -167,7 +164,6 @@ const formComps = ref(
             label: '是否禁用'
           },
           compProps: {
-            clearable: true,
             activeText: '禁用',
             inactiveText: '启用',
           }

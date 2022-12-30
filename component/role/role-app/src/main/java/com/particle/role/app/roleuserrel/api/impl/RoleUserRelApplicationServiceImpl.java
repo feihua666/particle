@@ -1,21 +1,22 @@
 package com.particle.role.app.roleuserrel.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.app.roleuserrel.executor.RoleUserRelCommandExecutor;
 import com.particle.role.app.roleuserrel.executor.RoleUserRelCreateCommandExecutor;
 import com.particle.role.app.roleuserrel.executor.RoleUserRelDeleteCommandExecutor;
-import com.particle.role.app.roleuserrel.executor.RoleUserRelUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelUpdateCommand;
 import com.particle.role.client.roleuserrel.api.IRoleUserRelApplicationService;
+import com.particle.role.client.roleuserrel.dto.command.RoleAssignUserCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  * <p>
  * 角色用户关系 门面服务实现类
@@ -33,8 +34,7 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 
 	private RoleUserRelDeleteCommandExecutor roleUserRelDeleteCommandExecutor;
 
-	private RoleUserRelUpdateCommandExecutor roleUserRelUpdateCommandExecutor;
-
+	private RoleUserRelCommandExecutor roleUserRelCommandExecutor;
 
 	@Override
 	public SingleResponse<RoleUserRelVO> create(RoleUserRelCreateCommand roleUserRelCreateCommand) {
@@ -46,10 +46,27 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 		return roleUserRelDeleteCommandExecutor.execute(roleUserRelDeleteCommand);
 	}
 
+
 	@Override
-	public SingleResponse<RoleUserRelVO> update(RoleUserRelUpdateCommand roleUserRelUpdateCommand) {
-		return roleUserRelUpdateCommandExecutor.execute(roleUserRelUpdateCommand);
+	public Response roleAssignUser(RoleAssignUserCommand cf) {
+		return roleUserRelCommandExecutor.roleAssignUser(cf);
 	}
+
+	@Override
+	public Response userAssignRole(UserAssignRoleCommand cf) {
+		return roleUserRelCommandExecutor.userAssignRole(cf);
+	}
+
+	@Override
+	public Response deleteByRoleId(IdCommand roleIdCommand) {
+		return roleUserRelDeleteCommandExecutor.deleteByRoleId(roleIdCommand);
+	}
+
+	@Override
+	public Response deleteByUserId(IdCommand userIdCommand) {
+		return roleUserRelDeleteCommandExecutor.deleteByUserId(userIdCommand);
+	}
+
 
 	@Autowired
 	public void setRoleUserRelCreateCommandExecutor(RoleUserRelCreateCommandExecutor roleUserRelCreateCommandExecutor) {
@@ -60,9 +77,9 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	public void setRoleUserRelDeleteCommandExecutor(RoleUserRelDeleteCommandExecutor roleUserRelDeleteCommandExecutor) {
 		this.roleUserRelDeleteCommandExecutor = roleUserRelDeleteCommandExecutor;
 	}
-	@Autowired
-	public void setRoleUserRelUpdateCommandExecutor(RoleUserRelUpdateCommandExecutor roleUserRelUpdateCommandExecutor) {
-		this.roleUserRelUpdateCommandExecutor = roleUserRelUpdateCommandExecutor;
-	}
 
+	@Autowired
+	public void setRoleUserRelCommandExecutor(RoleUserRelCommandExecutor roleUserRelCommandExecutor) {
+		this.roleUserRelCommandExecutor = roleUserRelCommandExecutor;
+	}
 }

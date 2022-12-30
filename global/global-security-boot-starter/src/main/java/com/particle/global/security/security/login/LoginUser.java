@@ -120,18 +120,18 @@ public class LoginUser implements UserDetails {
 
     public List<GrantedRole> getRoles() {
         if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
-            return null;
+            return Collections.emptyList();
         }
         return userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public List<String> getPermissions() {
         if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
-            return null;
+            return Collections.emptyList();
         }
         return userGrantedAuthorities.stream()
                 .map(UserGrantedAuthority::getGrantedPermission)
-                .filter(Objects::nonNull).map(GrantedPermission::getPermission)
+                .filter(Objects::nonNull).map(GrantedPermission::getPermission).filter(Objects::nonNull).distinct()
                 .collect(Collectors.toList());
 
     }

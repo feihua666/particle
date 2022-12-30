@@ -4,8 +4,7 @@
 
 import {isPromise} from "../../common/tools/PromiseTools"
 import {anyObj, isObject} from "../../common/tools/ObjectTools"
-import {listToTree} from "../../common/tools/ArrayTools"
-import funcAdminApi from "../../../component/pc/func/api/admin/funcAdminApi";
+import {listToTree,isArray} from "../../common/tools/ArrayTools"
 
 export interface DataMethodPage{
     isPage: boolean,
@@ -35,8 +34,13 @@ export const dataMethodProps: DataMethodProps = {
     dataMethod: {
         type: Function,
     },
+    // dataMethod 请求参数
+    dataMethodParam: {
+        type: [Object],
+        default: () => ({})
+    },
     // 空数据
-    emptyData: {
+    dataMethodEmptyData: {
         type: [Object,Array],
         default: () => []
     },
@@ -44,20 +48,42 @@ export const dataMethodProps: DataMethodProps = {
     // 主要是给 dataMethod 获取的数据一个处理数据的机会
     dataMethodResultHandle: {
         type: Function,
-        // emptyData 参数和 emptyData 属性是一个值
-        default: ({success,error,emptyData,convertToTree}) => {
+        // dataMethodEmptyData 参数和 dataMethodEmptyData 属性是一个值
+        default: ({success,error,dataMethodEmptyData,convertToTree}) => {
             // success 为 res
             if (success) {
-                let data = success.data
-                if(convertToTree && data.data){
-                    data.data = listToTree(data.data)
+                let p = null
+                let data = success
+                if(!data){
+                    return dataMethodEmptyData
+                }
+                // 自定义数据情形，或直接数据情形
+                // 取一层 data
+                if(data.data !== undefined){
+                    p = data
+                    data = data.data
+
+                }
+                // response.data.data 情形
+                // 再取一层 data
+                if(data.data !== undefined){
+                    p = data
+                    data = data.data
+                }
+                if(convertToTree && isArray(data)){
+                    if(p){
+                        p.data = listToTree(data)
+                        return p
+                    }else {
+                        data = listToTree(data)
+                    }
                 }
                 return data
             }
             if (error) {
-                return emptyData
+                return dataMethodEmptyData
             }
-            return emptyData
+            return dataMethodEmptyData
         }
     },
     // 将数据转为 tree,仅限数据加载成功时有效，参见： dataMethodResultHandle中的 convertToTree 参数
@@ -74,6 +100,10 @@ export const dataMethodProps: DataMethodProps = {
                 isPage: false,
                 data: null
             }
+            if(!data){
+                return r
+            }
+            // 数据分页情形
             if (isObject(data) && data.pageNo !== undefined && data.pageSize !== undefined && data.totalCount !== undefined) {
                 r.isPage = true
 
@@ -86,8 +116,10 @@ export const dataMethodProps: DataMethodProps = {
                 r.data = data.data
             }else {
                 if (data.data == undefined) {
+                    // 一般为自定义数据，直接数据情形
                     r.data = data
                 }else {
+                    // // 一般为自定义数据或后台返回，带一层 data 的数据情形
                     r.data = data.data
                 }
 
@@ -151,9 +183,9 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
         let result =  null
         // 页码为0说明为初始加载，不需要加载分页参数
         if(reactiveData.dataMethodPageQuery.pageNo > 0){
-            result = props.dataMethod(reactiveData.dataMethodPageQuery)
+            result = props.dataMethod({param: props.dataMethodParam, pageQuery: reactiveData.dataMethodPageQuery})
         }else {
-            result = props.dataMethod()
+            result = props.dataMethod({param: props.dataMethodParam})
         }
         if (isPromise(result)) {
             const promiseResult = result.then(res =>{
@@ -163,7 +195,7 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
 
                 return Promise.resolve(res)
             }).catch(error => {
-                let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({error: error,emptyData: props.emptyData}) || props.emptyData)
+                let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({error: error,dataMethodEmptyData: props.dataMethodEmptyData}) || props.dataMethodEmptyData)
                 handleAdapter(pageAdapter,reactiveData)
                 emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)
                 return Promise.reject(error)
@@ -172,7 +204,7 @@ export const doDataMethod = ({props,reactiveData,emit}) =>{
             })
             emit(emitDataMethodEvent.dataMethodResult,promiseResult)
         }else {
-            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result,convertToTree: props.dataMethodResultHandleConvertToTree,emptyData: props.emptyData}))
+            let pageAdapter = props.dataMethodResultPageHandle(props.dataMethodResultHandle({success: result,convertToTree: props.dataMethodResultHandleConvertToTree,dataMethodEmptyData: props.dataMethodEmptyData}))
             handleAdapter(pageAdapter,reactiveData)
             emit(emitDataMethodEvent.dataMethodResult,result)
             emit(emitDataMethodEvent.dataMethodData,reactiveData.dataMethodData,pageAdapter)

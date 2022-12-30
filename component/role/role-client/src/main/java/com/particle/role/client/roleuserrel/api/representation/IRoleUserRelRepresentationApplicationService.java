@@ -9,6 +9,8 @@ import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserR
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色用户关系 应用门面展示服务类
@@ -18,13 +20,6 @@ import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
  * @since 2022-11-25
  */
 public interface IRoleUserRelRepresentationApplicationService extends IBaseApplicationService {
-
-	/**
-	 * 查询详情，仅更新时使用
-	 * @param roleUserRelQueryDetailForUpdateCommand
-	 * @return
-	 */
-	SingleResponse<RoleUserRelVO> queryDetailForUpdate(IdCommand roleUserRelQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
@@ -47,4 +42,18 @@ public interface IRoleUserRelRepresentationApplicationService extends IBaseAppli
 	 */
 	PageResponse<RoleUserRelVO> pageQuery(RoleUserRelPageQueryCommand roleUserRelPageQueryCommand);
 
+
+	/**
+	 * 查询角色已分配的用户id
+	 * @param roleIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand);
+
+	/**
+	 * 查询用户已分配的角色id
+	 * @param userIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryRoleIdsByUserId(IdCommand userIdCommand);
 }

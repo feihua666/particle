@@ -1,5 +1,6 @@
 package com.particle.role.app.rolefuncrel.executor;
 
+import com.particle.global.dto.response.Response;
 import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
@@ -10,6 +11,8 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
+import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -33,6 +36,7 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	private RoleFuncRelGateway roleFuncRelGateway;
 
+	private IRoleFuncRelService iRoleFuncRelService;
 	/**
 	 * 执行 角色菜单功能关系 删除指令
 	 * @param roleFuncRelDeleteCommand
@@ -50,11 +54,34 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
+	 * 根据 roleId 删除
+	 * @param roleIdCommand
+	 * @return
+	 */
+	public Response deleteByRoleId(@Valid IdCommand roleIdCommand) {
+		boolean result = iRoleFuncRelService.deleteByColumn(roleIdCommand.getId(), RoleFuncRelDO::getRoleId);
+		return Response.buildSuccess();
+	}
+	/**
+	 * 根据 funcId 删除
+	 * @param funcIdCommand
+	 * @return
+	 */
+	public Response deleteByFuncId(@Valid IdCommand funcIdCommand) {
+		boolean result = iRoleFuncRelService.deleteByColumn(funcIdCommand.getId(), RoleFuncRelDO::getFuncId);
+		return Response.buildSuccess();
+	}
+	/**
 	 * 注入使用set方法
 	 * @param roleFuncRelGateway
 	 */
 	@Autowired
 	public void setRoleFuncRelGateway(RoleFuncRelGateway roleFuncRelGateway) {
 		this.roleFuncRelGateway = roleFuncRelGateway;
+	}
+
+	@Autowired
+	public void setiRoleFuncRelService(IRoleFuncRelService iRoleFuncRelService) {
+		this.iRoleFuncRelService = iRoleFuncRelService;
 	}
 }

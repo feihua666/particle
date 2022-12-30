@@ -50,7 +50,7 @@ export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit
     }
 }
 // 值改变事件,
-export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}) => {
+export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}:{}) => {
 
     return function (value) {
         if (hasPermission !== undefined && hasPermission.value.enable && !hasPermission.value.hasPm) {

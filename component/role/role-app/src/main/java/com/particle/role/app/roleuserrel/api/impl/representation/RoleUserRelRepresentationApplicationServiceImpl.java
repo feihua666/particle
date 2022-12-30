@@ -13,6 +13,7 @@ import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserR
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 /**
  * <p>
  * 角色用户关系 门面服务实现类
@@ -33,13 +34,19 @@ public class RoleUserRelRepresentationApplicationServiceImpl extends AbstractBas
 	}
 
 	@Override
-	public SingleResponse<RoleUserRelVO> queryDetailForUpdate(IdCommand roleUserRelQueryDetailForUpdateCommand) {
-		return roleUserRelQueryCommandExecutor.executeDetailForUpdate(roleUserRelQueryDetailForUpdateCommand);
+	public PageResponse<RoleUserRelVO> pageQuery(RoleUserRelPageQueryCommand roleUserRelPageQueryCommand) {
+		return roleUserRelQueryCommandExecutor.execute(roleUserRelPageQueryCommand);
 	}
 
 	@Override
-	public PageResponse<RoleUserRelVO> pageQuery(RoleUserRelPageQueryCommand roleUserRelPageQueryCommand) {
-		return roleUserRelQueryCommandExecutor.execute(roleUserRelPageQueryCommand);
+	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand) {
+
+		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleId(roleIdCommand);
+	}
+
+	@Override
+	public MultiResponse<Long> queryRoleIdsByUserId(IdCommand userIdCommand) {
+		return roleUserRelQueryCommandExecutor.queryRoleIdsByUserId(userIdCommand);
 	}
 
 	@Override

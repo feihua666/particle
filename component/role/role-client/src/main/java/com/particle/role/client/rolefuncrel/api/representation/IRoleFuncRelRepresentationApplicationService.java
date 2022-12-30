@@ -10,6 +10,8 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.client.api.IBaseApplicationService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色菜单功能关系 应用门面展示服务类
@@ -19,13 +21,6 @@ import com.particle.common.client.api.IBaseApplicationService;
  * @since 2022-11-25
  */
 public interface IRoleFuncRelRepresentationApplicationService extends IBaseApplicationService {
-
-	/**
-	 * 查询详情，仅更新时使用
-	 * @param roleFuncRelQueryDetailForUpdateCommand
-	 * @return
-	 */
-	SingleResponse<RoleFuncRelVO> queryDetailForUpdate(IdCommand roleFuncRelQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
@@ -48,4 +43,17 @@ public interface IRoleFuncRelRepresentationApplicationService extends IBaseAppli
 	 */
 	PageResponse<RoleFuncRelVO> pageQuery(RoleFuncRelPageQueryCommand roleFuncRelPageQueryCommand);
 
+	/**
+	 * 查询角色已分配的功能id
+	 * @param roleIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryFuncIdsByRoleId(IdCommand roleIdCommand);
+
+	/**
+	 * 查询功能已分配的角色id
+	 * @param funcIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryRoleIdsByFuncId(IdCommand funcIdCommand);
 }

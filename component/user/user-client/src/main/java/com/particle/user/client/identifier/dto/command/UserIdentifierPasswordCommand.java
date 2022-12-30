@@ -28,22 +28,30 @@ public class UserIdentifierPasswordCommand extends AbstractBaseCommand {
 	@ApiModelProperty(value = "密码",required = true)
 	private String password;
 
-	@ApiModelProperty("到期时间，为空永不到期")
-	private LocalDateTime expireAt;
+	@NotNull(message = "密码是否过期不能为空")
+	@ApiModelProperty(value = "密码是否过期，过期后该密码不能登录",required = true)
+	private Boolean isPwdExpired = false;
 
-	@NotNull(message = "是否需要提示修改密码不能为空")
-	@ApiModelProperty(value = "是否需要提示修改密码",required = true)
-	private Boolean isNeedUpdate;
+	@PropValid.DependCondition(message = "密码过期原因不能为空",dependProp = "isExpired",ifEqual = "true")
+	@ApiModelProperty("密码过期原因")
+	private String pwdExpiredReason;
 
-	@PropValid.DependCondition(message = "提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")
-	@ApiModelProperty("提示修改密码消息内容")
-	private String needUpdateMessage;
+	@ApiModelProperty("密码到期时间，为空永不到期")
+	private LocalDateTime pwdExpireAt;
+
+	@NotNull(message = "密码是否需要提示修改密码不能为空")
+	@ApiModelProperty(value = "密码是否需要提示修改密码",required = true)
+	private Boolean isPwdNeedUpdate = false;
+
+	@PropValid.DependCondition(message = "密码提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")
+	@ApiModelProperty("密码提示修改密码消息内容")
+	private String pwdNeedUpdateMessage;
 
 	/**
 	 * 后台处理，传参无效
 	 */
 	@ApiModelProperty(value = "加密后的密码",hidden = true)
-	private String encodedPassword;
+	private String pwdEncoded;
 	/**
 	 * 后台处理，传参无效
 	 */
@@ -53,6 +61,6 @@ public class UserIdentifierPasswordCommand extends AbstractBaseCommand {
 	 * 后台处理，传参无效
 	 */
 	@ApiModelProperty(value = "密码复杂度",hidden = true)
-	private Integer complexity;
+	private Integer pwdComplexity;
 
 }

@@ -27,7 +27,7 @@ export const remoteSelectUserCompItem = ({props,required})=>{
                 required: required
             },
             compProps: ()=> {
-                let paramsExist = props.userId && props.userNickname
+                let paramsExist = !!(props.userId && props.userNickname)
                 let r = {
                     clearable: true,
                     placeholder: '输入用户昵称搜索',
@@ -87,7 +87,7 @@ export const remoteSelectUserIdentifierCompItem = ({props,required})=>{
                 required: required
             },
             compProps: ()=> {
-                let paramsExist = props.identifierId && props.identifier
+                let paramsExist = !!(props.identifierId && props.identifier)
                 let r = {
                     clearable: true,
                     placeholder: '输入登录标识搜索',
@@ -138,14 +138,47 @@ export const resetPasswordCompItems = [
             }
         }
     },
+
     {
         field: {
-            name: 'expireAt',
+            name: 'isPwdExpired',
+            value: false
+        },
+        element: {
+            comp: 'el-switch',
+            formItemProps: {
+                label: '密码是否过期'
+            },
+            compProps: {
+                activeText: '已过期',
+                inactiveText: '正常',
+            }
+        }
+    },
+    {
+        field: {
+            name: 'pwdExpiredReason'
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '密码过期原因',
+                required: ({form}) => form.isExpired == true
+            },
+            compProps: {
+                clearable: true,
+                placeholder: '如：手动过期|系统自动达到过期时间'
+            }
+        }
+    },
+    {
+        field: {
+            name: 'pwdExpireAt',
         },
         element: {
             comp: 'PtDatePicker',
             formItemProps: {
-                label: '过期时间'
+                label: '密码过期时间'
             },
             compProps:  {
                 clearable: true,
@@ -156,17 +189,16 @@ export const resetPasswordCompItems = [
     },
     {
         field: {
-            name: 'isNeedUpdate',
+            name: 'isPwdNeedUpdate',
             value: false
         },
         element: {
             comp: 'el-switch',
             formItemProps: {
-                label: '提示修改',
+                label: '密码提示修改',
                 required: true
             },
             compProps: {
-                clearable: true,
                 activeText: '提示',
                 inactiveText: '不提示',
             }
@@ -174,12 +206,12 @@ export const resetPasswordCompItems = [
     },
     {
         field: {
-            name: 'needUpdateMessage'
+            name: 'pwdNeedUpdateMessage'
         },
         element: {
             comp: 'el-input',
             formItemProps: {
-                label: '提示修改消息内容',
+                label: '密码提示修改消息内容',
                 required: ({form})=> form.isNeedUpdate
             },
             compProps: {

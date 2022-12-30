@@ -44,11 +44,14 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 		UserIdentifier userIdentifier = createByUserIdentifierCreateCommand(userIdentifierCreateCommand);
 		boolean save = userIdentifierGateway.save(userIdentifier);
 		if (save) {
+
 			// 添加密码
 			UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(userIdentifier.getUserId(), userIdentifier.getId().getId(),
-					userIdentifierPasswordCommand.getEncodedPassword(),
+					userIdentifierPasswordCommand.getPwdEncoded(),
 					userIdentifierPasswordCommand.getPwdEncryptFlag(),
-					userIdentifierPasswordCommand.getComplexity(),false,userIdentifierPasswordCommand.getIsNeedUpdate(),userIdentifierPasswordCommand.getNeedUpdateMessage());
+					userIdentifierPasswordCommand.getPwdComplexity(),
+					userIdentifierPasswordCommand.getIsPwdExpired(),userIdentifierPasswordCommand.getPwdExpiredReason(),userIdentifierPasswordCommand.getPwdExpireAt(),
+					userIdentifierPasswordCommand.getIsPwdNeedUpdate(),userIdentifierPasswordCommand.getPwdNeedUpdateMessage());
 			userIdentifierPwdGateway.save(userIdentifierPwd);
 			return SingleResponse.of(UserIdentifierAppStructMapping.instance.toUserIdentifierVO(userIdentifier));
 		}
