@@ -1,14 +1,13 @@
 package com.particle.user.client.login.api.representation;
 
-import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailForUpdateCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginDevicePageQueryCommand;
-import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryListCommand;
-import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
+import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.user.client.login.dto.command.representation.UserLoginDevicePageQueryCommand;
+import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailCommand;
+import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryListCommand;
+import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
 
 /**
  * <p>
@@ -19,13 +18,6 @@ import com.particle.common.client.api.IBaseApplicationService;
  * @since 2022-11-26
  */
 public interface IUserLoginDeviceRepresentationApplicationService extends IBaseApplicationService {
-
-	/**
-	 * 查询详情，仅更新时使用
-	 * @param userLoginDeviceQueryDetailForUpdateCommand
-	 * @return
-	 */
-	SingleResponse<UserLoginDeviceVO> queryDetailForUpdate(UserLoginDeviceQueryDetailForUpdateCommand userLoginDeviceQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用

@@ -74,10 +74,10 @@ export const remoteSelectUserIdentifierProps = {
  * 属性中必须有 identifierId 和 identifier 两个属性
  * @param props
  */
-export const remoteSelectUserIdentifierCompItem = ({props,required})=>{
+export const remoteSelectUserIdentifierCompItem = ({props,required,fieldName})=>{
     return   {
         field: {
-            name: 'identifierId',
+            name: fieldName || 'identifierId',
             value: props.identifierId
         },
         element: {

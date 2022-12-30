@@ -170,5 +170,16 @@ const UserRoutes = [
             },
         ]
     },
+    {
+        path: '/admin/userLoginRecordManagePage',
+        component: () => import('./views/admin/UserLoginRecordManagePage.vue'),
+        props: route => ({userId: route.query.userId, userNickname: route.query.userNickname}),
+        meta: {
+            root: true,
+            code: 'adminUserLoginRecordManagePage',
+            name: '用户登录记录管理',
+            keepAlive: true
+        },
+    }
 ]
 export default UserRoutes
