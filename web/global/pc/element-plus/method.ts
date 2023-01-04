@@ -7,11 +7,11 @@ import {isFunction} from "../../common/tools/FunctionTools"
 import {isString} from "../../common/tools/StringTools"
 import {ElMessage, ElMessageBox} from 'element-plus'
 
-let alert = (message)=>{
+let alert = (message,type='success')=>{
     ElMessage({
         showClose: true,
         message: message,
-        type: 'success',
+        type: type,
         showIcon: true,
         grouping: true
     })
@@ -27,6 +27,12 @@ export const methodProps = {
     method: {
         type: Function
     },
+    // 在调用method之前判断是否要调用，返回 true表示要调用，false不调用，如果返回非空字符串，提示alert
+    beforeMethod: {
+        type: Function,
+        default: () => true
+    }
+    ,
     // method 回调时的参数
     methodParam: {
         type: Object
@@ -61,7 +67,14 @@ export const method = ({props,reactiveData,emit,hasPermission,doMethod: doMethod
         if (doAlertOrCustomFnIfNeccessaryResult) {
             return
         }
+        let beforeResult = props.beforeMethod()
+        if(beforeResult !== true){
+            if (isString(beforeResult)) {
+                alert(beforeResult,'error')
+            }
 
+            return
+        }
         if(props.methodConfirmText){
             ElMessageBox.confirm(
                 props.methodConfirmText,

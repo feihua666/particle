@@ -77,7 +77,6 @@ onMounted(() => {
 
     <slot>
       <template v-for="(menuItem,index) in options" :key="index">
-
         <template v-if="isMenu(menuItem)">
           <PtSubMenu :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtSubMenu>
         </template>
@@ -89,6 +88,7 @@ onMounted(() => {
         </template>
 
       </template>
+      <el-empty v-if="options.length == 0" :image-size="50" class="pt-height-100-pc"></el-empty>
     </slot>
   </el-menu>
 </template>

@@ -53,6 +53,13 @@ html, body {
 .pt-width-100-pc {
     width: 100%;
 }
+.pt-height-90-pc {
+    height: 90%;
+}
+
+.pt-width-90-pc {
+    width: 90%;
+}
 .pt-width-max-50-pc {
     max-width: 50%;
 }
