@@ -32,6 +32,7 @@ import FormItemDetail from './FormItemDetail.vue'
 import FormItem from './FormItem.vue'
 import Form from './Form.vue'
 import Tree from './Tree.vue'
+import SecretText from './SecretText.vue'
 import * as ElStyleTools from './ElStyleTools'
 
 let prefix = 'Pt'
@@ -69,6 +70,7 @@ let map = {
     FormItem,
     Form,
     Tree,
+    SecretText,
 }
 export default {
     install: function (app, options) {

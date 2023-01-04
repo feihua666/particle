@@ -116,10 +116,14 @@ export const doMethod = ({props,reactiveData,emit}: {}) =>{
                 }).finally(()=>{
                     reactiveData.methodLocalLoading = false
                 })
-                emit(emitMethodEvent.methodResult,promiseResult)
+                if(emit){
+                    emit(emitMethodEvent.methodResult,promiseResult)
+                }
             }else {
                 methodSuccess(props.methodSuccess)
-                emit(emitMethodEvent.methodResult,result)
+                if(emit){
+                    emit(emitMethodEvent.methodResult,result)
+                }
                 reactiveData.methodLocalLoading = false
             }
         }else {

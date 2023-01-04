@@ -2,6 +2,7 @@
 import {reactive ,computed,onMounted,inject,ref} from 'vue'
 import PtTableColumn from './TableColumn.vue'
 import PtImage from './Image.vue'
+import SecretText from './SecretText.vue'
 /**
  * 自定义封装 Table column 表格
  * 封装理由：1. 可以配合 table 表格显示数据，更方便
@@ -57,6 +58,12 @@ const propsOptions = computed(() => {
       <template  v-else-if="columnView == 'elIcon'">
         <el-icon v-if="scope.row[scope.column.property]"><component :is="scope.row[scope.column.property]"></component></el-icon>
       </template>
+      <!--  敏感文本信息  -->
+      <template  v-else-if="columnView == 'PtSecretText'">
+        <PtSecretText :modelValue="scope.row[scope.column.property]"></PtSecretText>
+      </template>
+
+
       <template v-if="nestColumns && nestColumns.length > 0">
         <template v-for="(item,index) in nestColumns" :key="index">
           <PtTableColumn v-bind="item"

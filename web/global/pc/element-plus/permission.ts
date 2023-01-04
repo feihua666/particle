@@ -128,7 +128,7 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
                         props.noPermissionFn()
                         return true
                     }
-                    
+                    return true
                 } 
                 return false
             }

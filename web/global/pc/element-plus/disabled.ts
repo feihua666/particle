@@ -27,7 +27,7 @@ export interface DisabledConfigResult{
     disabledReason: string
 }
 // 是否禁用
-export const disabledConfig = ({props,dataLoading,hasPermission}):DisabledConfigResult => {
+export const disabledConfig = ({props,dataLoading,hasPermission}: {}):DisabledConfigResult => {
 
     return computed(() => {
         let disabled = false
