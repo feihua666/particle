@@ -34,7 +34,7 @@ public class ParticleDemoAutoConfiguration {
 		
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("particle-demo接口")
-				.basePackage("com.particle.particle-demo.adapter")
+				.basePackage("com.particle.particledemo.adapter")
 				//  SwaggerInfo 已自动处理
 				.openApiExtensionResolver(null)
 				.securitySchemes(parameters)

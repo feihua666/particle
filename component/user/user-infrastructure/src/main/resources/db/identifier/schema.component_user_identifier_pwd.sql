@@ -22,4 +22,4 @@ CREATE TABLE `component_user_identifier_pwd` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `identifier_id` (`identifier_id`) USING BTREE,
   KEY `group_flag` (`group_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户密码表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户密码表';

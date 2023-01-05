@@ -18,6 +18,15 @@ public enum MethodEnum {
 	queryDetail,
 	queryList,
 	queryPage,
-	delete
+	delete,
+
+	// A 分配 B
+	aAssignB,
+	queryBIdsByAId,
+	deleteByAId,
+	// B 分配 A
+	bBssignA,
+	queryAIdsAyBId,
+	deleteAyBId,
 
 }

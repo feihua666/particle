@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>data-constraint</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>data-constraint-client</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- 通用 门面层依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- swagger 接口文档工具 不传递依赖 仅使用注解-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-boot-starter.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 表单验证使用 不传递依赖 仅使用注解 版本已在spring父级定义 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 仅使用注解-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-trans-boot-stater</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

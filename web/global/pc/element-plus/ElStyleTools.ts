@@ -55,6 +55,11 @@ const d = [
         pattern:['分配','配置'],
         icon: 'Tools',
         type:'primary'
+    },
+    {
+        pattern:['装载'],
+        icon: 'Cpu',
+        type:'primary'
     }
 ]
 

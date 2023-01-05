@@ -48,9 +48,9 @@ public class RelationConstants {
 				OutputFileEnum.representationApplicationService,
 				OutputFileEnum.createCommand,
 				OutputFileEnum.updateCommand,
-				OutputFileEnum.queryDetailForUpdateCommand,
-				OutputFileEnum.queryDetailCommand,
-				OutputFileEnum.deleteCommand,
+				//OutputFileEnum.queryDetailForUpdateCommand,
+				//OutputFileEnum.queryDetailCommand,
+				//OutputFileEnum.deleteCommand,
 				OutputFileEnum.queryListCommand,
 				OutputFileEnum.pageQueryCommand,
 				OutputFileEnum.vo

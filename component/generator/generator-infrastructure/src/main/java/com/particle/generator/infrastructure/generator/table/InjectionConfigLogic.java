@@ -306,7 +306,8 @@ public class InjectionConfigLogic {
 				TemplateAndFileName.create("/templates/client/updateCommand.java",
 						entityFirstUpper + "UpdateCommand.java",
 						"dto.command",null,"/src/main/java","",false));
-		injectionTemplateConfigMap.put(OutputFileEnum.queryDetailForUpdateCommand,
+
+/*		injectionTemplateConfigMap.put(OutputFileEnum.queryDetailForUpdateCommand,
 				TemplateAndFileName.create("/templates/client/queryDetailForUpdateCommand.java",
 						entityFirstUpper + "QueryDetailForUpdateCommand.java",
 						"dto.command.representation",null,"/src/main/java","",false));
@@ -318,6 +319,7 @@ public class InjectionConfigLogic {
 				TemplateAndFileName.create("/templates/client/deleteCommand.java",
 						entityFirstUpper + "DeleteCommand.java",
 						"dto.command",null,"/src/main/java","",false));
+		*/
 		injectionTemplateConfigMap.put(OutputFileEnum.queryListCommand,
 				TemplateAndFileName.create("/templates/client/queryListCommand.java",
 						entityFirstUpper + "QueryListCommand.java",

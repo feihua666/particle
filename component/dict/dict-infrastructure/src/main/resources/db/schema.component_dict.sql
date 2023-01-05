@@ -54,4 +54,4 @@ CREATE TABLE `component_dict` (
   KEY `parent_id` (`parent_id`) USING BTREE,
   KEY `private_flag` (`private_flag`) USING BTREE,
   KEY `is_group__value` (`is_group`,`value`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';

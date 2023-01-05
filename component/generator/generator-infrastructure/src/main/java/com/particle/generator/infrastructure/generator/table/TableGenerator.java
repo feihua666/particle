@@ -17,9 +17,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class TableGenerator {
 
+	/**
+	 * 根据表生成
+	 * @param tableGenerateConf
+	 * @return
+	 */
 	public boolean tableGenerate(TableGenerateConf tableGenerateConf) {
 		return doTableGenerate(tableGenerateConf);
 	}
+
+	/**
+	 * 实际根据表生成代码
+	 * @param tableGenerateConf
+	 * @return
+	 */
 	private boolean doTableGenerate(TableGenerateConf tableGenerateConf) {
 		FastAutoGenerator.create(tableGenerateConf.getDatasourceConf().getUrl(),
 				tableGenerateConf.getDatasourceConf().getUsername(),

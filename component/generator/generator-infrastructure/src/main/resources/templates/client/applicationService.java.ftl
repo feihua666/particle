@@ -33,7 +33,7 @@ public interface ${injection.className} extends IBaseApplicationService {
 	<#if injection.method.delete>
 	/**
 	 * 删除领域对象
-	 * @param ${injection.deleteCommand.classNameVar}
+	 * @param deleteCommand
 	 * @return
 	 */
 	SingleResponse<${injection.vo.className}> delete(IdCommand deleteCommand);

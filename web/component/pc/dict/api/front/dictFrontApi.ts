@@ -32,4 +32,3 @@ export const getGroups = (data: DictItemsParam): AxiosPromise => {
     return axios.get(dictPrefix + '/groups',{params: data})
 }
 
-export default {getItems,getGroupItems,getGroups}

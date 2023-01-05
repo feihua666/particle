@@ -22,6 +22,8 @@
         <module>component-light-share</module>
         <module>component-adapter-boot-starter</module>
         <module>role</module>
+        <module>data-constraint</module>
+        <module>low-code</module>
     </modules>
 
     <properties>

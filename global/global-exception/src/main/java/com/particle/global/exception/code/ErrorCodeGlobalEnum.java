@@ -71,9 +71,13 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	NO_PRIVILEGE_RATELIMIT_ERROR(40300000004L,"超过限流速率"),
 
 	/**
-	 * 不存在
+	 * 数据不存在
 	 */
 	DATA_NOT_FOUND(40400000001L,"数据不存在"),
+	/**
+	 * 地址不存在
+	 */
+	URL_NOT_FOUND(40400000002L,"地址不存在"),
 
 
 	METHOD_NOT_SUPPORTED_ERROR(40500000002L,"不支持的方法"),

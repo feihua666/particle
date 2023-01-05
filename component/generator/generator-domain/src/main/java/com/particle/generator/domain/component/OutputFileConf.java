@@ -33,6 +33,12 @@ public class OutputFileConf extends Value {
 	private List<MethodEnum> methodEnums;
 
 
+	/**
+	 * 要生成的文件及对应的方法
+	 * @param outputFileEnum
+	 * @param methodEnums
+	 * @return
+	 */
 	public static OutputFileConf create(OutputFileEnum outputFileEnum, List<MethodEnum> methodEnums) {
 		return OutputFileConf.builder()
 				.outputFileEnum(outputFileEnum)
@@ -41,7 +47,7 @@ public class OutputFileConf extends Value {
 	}
 
 	/**
-	 * 所有的
+	 * 所有的要生成的文件及对应的所有方法
 	 * @return
 	 */
 	public static List<OutputFileConf> createAll(){

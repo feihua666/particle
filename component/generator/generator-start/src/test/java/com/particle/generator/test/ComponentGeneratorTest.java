@@ -28,6 +28,21 @@ public class ComponentGeneratorTest {
 
 	@Test
 	public void componentGeneratorTest() {
+
+		// 模块名称，支持中划线
+		String componentModuleName = "low-code";
+		// 模块输出位置，相对路径，相对于 particle相对路径
+		String outputRelativePath = "component";
+		// 作者
+		String author = "yw";
+
+
+
+
+		// 模块模板 相对路径，相对于 particle相对路径，如果在这里执行，基本不用改
+		String templateRelativePath = "component";
+
+
 		/**
 		 * 注意，如果在生成前父级pom中没有
 		 * <modules>
@@ -36,14 +51,14 @@ public class ComponentGeneratorTest {
 		 */
 		ComponentGenerateConf componentGenerateConf = ComponentGenerateConf.create(
 				//System.getProperty("user.dir"),
-				// particle 项目的根目录
+				// particle 项目的根目录,如：/Users/yw/fh/git-source/particle
 				FileUtil.getParent(System.getProperty("user.dir"),3),
-				"role",
+				componentModuleName,
 				Arrays.stream(SubModule.values()).collect(Collectors.toList()),
 				true,
-				"yw",
-				"component",
-				"component"
+				author,
+				templateRelativePath,
+				outputRelativePath
 
 		);
 		componentGenerator.componentGenerate(componentGenerateConf);

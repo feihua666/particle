@@ -61,4 +61,3 @@ export const userResetPassword = (data: anyObj): AxiosPromise => {
     return axios.post(prefix + '/user/resetPassword',data)
 }
 
-export default {create,remove,update,detailForUpdate,list,page}

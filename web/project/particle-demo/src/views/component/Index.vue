@@ -1478,6 +1478,12 @@ const treeCurrentChange = function (){
     <PtLocationGeoMap>
     </PtLocationGeoMap>
   </div>
+  <div>
+    <div>PtSecretText 敏感信息 </div>
+    <!--  一定要设置一个高度  -->
+    <PtSecretText modelValue="sdsdsdsfsd" :permission="()=>false" :permissions="['www']">
+    </PtSecretText>
+  </div>
 </PtBackendManagementLayout>
 
 </template>

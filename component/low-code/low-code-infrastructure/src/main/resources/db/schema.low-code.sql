@@ -1,0 +1,3 @@
+-- import classpath:db/generator/schema.component_lowcode_datasource.sql
+-- import classpath:db/generator/schema.component_lowcode_model.sql
+-- import classpath:db/generator/schema.component_lowcode_model_item.sql

@@ -85,4 +85,3 @@ export const queryRoleIdsByUserId = (data: IdParam): AxiosPromise => {
 export const deleteByUserId = (data: IdParam): AxiosPromise => {
     return axios.delete(prefix + '/deleteByUserId',{data: data})
 }
-export default {create,remove,list,page,roleAssignUser}

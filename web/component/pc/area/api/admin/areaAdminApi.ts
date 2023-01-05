@@ -46,4 +46,3 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(areaPrefix + '/page',{params: data})
 }
 
-export default {create,remove,update,detailForUpdate,list,page}

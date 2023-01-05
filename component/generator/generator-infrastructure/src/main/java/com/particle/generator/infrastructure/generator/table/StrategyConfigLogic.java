@@ -34,14 +34,11 @@ public class StrategyConfigLogic {
 		builder.entityBuilder()
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
-				.superClass(BaseDO.class)
+				.superClass(tableGenerateConf.getTableType() == TableType.TREE ? BaseTreeDO.class : BaseDO.class)
 				.versionColumnName(BaseDO.COLUMN_VERSION)
 				.versionPropertyName(BaseDO.PROPERTY_VERSION)
 				.formatFileName("%s" + ENTITY_SUFFIX)
 				.enableLombok();
-		if (tableGenerateConf.getTableType() == TableType.TREE) {
-			builder.entityBuilder().superClass(BaseTreeDO.class);
-		}
 
 		builder.mapperBuilder()
 				.superClass(IBaseMapper.class)

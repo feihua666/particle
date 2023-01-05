@@ -1,4 +1,4 @@
-package com.particle.global.light.share.trans;
+package com.particle.component.light.share.trans;
 
 /**
  * <p>
@@ -18,4 +18,5 @@ public class TransTableNameConstants {
 	public static final String component_user = "component_user";
 	public static final String component_user_identifier = "component_user_identifier";
 	public static final String component_role = "component_role";
+	public static final String component_lowcode_model = "component_lowcode_model";
 }

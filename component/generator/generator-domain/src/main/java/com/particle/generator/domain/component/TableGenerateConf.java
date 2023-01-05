@@ -62,7 +62,7 @@ public class TableGenerateConf extends Value {
 	 */
 	private SubModule subModule;
 	/**
-	 * 表名
+	 * 表名，不支持逗号分隔
 	 */
 	private String tableName;
 	/**
@@ -88,8 +88,8 @@ public class TableGenerateConf extends Value {
 
 	/**
 	 * 将pkg转为路径分隔符
-	 * @param pkg
-	 * @return
+	 * @param pkg 如：com.example.test
+	 * @return 如：com/example/test
 	 */
 	public static String pkgPath(String pkg) {
 		if (pkg == null) {
@@ -111,6 +111,23 @@ public class TableGenerateConf extends Value {
 	}
 
 
+	/**
+	 * 创建对象
+	 * @param packageParent
+	 * @param packageModuleName
+	 * @param fileOverride
+	 * @param fileDelete
+	 * @param author
+	 * @param tableType
+	 * @param outputAbsoluteDir
+	 * @param subModule
+	 * @param tableName
+	 * @param tablePrefix
+	 * @param outputFileConfs
+	 * @param datasourceConf
+	 * @param componentModuleName
+	 * @return
+	 */
 	public static TableGenerateConf create(String packageParent,
 										   String packageModuleName,
 										   Boolean fileOverride,

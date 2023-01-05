@@ -46,7 +46,7 @@ public class ${injection.className} extends AbstractBaseApplicationServiceImpl i
 
 	@Override
 	public SingleResponse<${injection.vo.className}> delete(IdCommand deleteCommand) {
-		return ${injection.deleteCommandExecutor.classNameVar}.execute(${injection.deleteCommand.classNameVar});
+		return ${injection.deleteCommandExecutor.classNameVar}.execute(deleteCommand);
 	}
 
 	@Override

@@ -23,6 +23,7 @@ public class ComponentGenerateConf extends Value {
 	/**
 	 * 项目根路径，不要以斜杠结尾
 	 * 获取模板组件和生成目标组件的基础目录
+	 * 如：/Users/yw/fh/git-source/particle
 	 */
 	private String projectAbsolutePath;
 	/**
@@ -106,6 +107,18 @@ public class ComponentGenerateConf extends Value {
 				.outputRelativePath("component")
 				.build();
 	}
+
+	/**
+	 * 创建对象
+	 * @param projectAbsolutePath
+	 * @param componentModuleName
+	 * @param subModules
+	 * @param fileOverride
+	 * @param author
+	 * @param templateRelativePath
+	 * @param outputRelativePath
+	 * @return
+	 */
 	public static ComponentGenerateConf create(String projectAbsolutePath,
 											   String componentModuleName,
 											   List<SubModule> subModules,

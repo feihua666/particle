@@ -35,11 +35,11 @@ public class ${injection.className}  extends AbstractBaseExecutor {
 
 	/**
 	 * 执行 ${injection.tableComment} 删除指令
-	 * @param ${injection.deleteCommand.classNameVar}
+	 * @param deleteCommand
 	 * @return
 	 */
 	public SingleResponse<${injection.vo.className}> execute(@Valid IdCommand deleteCommand) {
-		${injection.idObject.className} ${injection.idObject.classNameVar} = ${injection.idObject.className}.of(${injection.deleteCommand.classNameVar}.getId());
+		${injection.idObject.className} ${injection.idObject.classNameVar} = ${injection.idObject.className}.of(deleteCommand.getId());
 		${injection.domainObject.className} byId = ${injection.gateway.classNameVar}.getById(${injection.idObject.classNameVar});
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = ${injection.gateway.classNameVar}.delete(${injection.idObject.classNameVar});

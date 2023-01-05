@@ -8,7 +8,7 @@ CREATE TABLE `component_user_identifier` (
   `lock_reason` varchar(255) DEFAULT NULL COMMENT '锁定原因',
   `union_id` varchar(100) DEFAULT NULL COMMENT 'unionId，支持第三方登录unionId',
   `is_expired` tinyint(1) NOT NULL COMMENT '是否过期',
-  `expired_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '过期原因',
+  `expired_reason` varchar(255) DEFAULT NULL COMMENT '过期原因',
   `expire_at` datetime DEFAULT NULL COMMENT '到期时间，为空永不到期',
   `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',
   `last_login_at` datetime DEFAULT NULL COMMENT '最后一次登录时间',
@@ -24,4 +24,4 @@ CREATE TABLE `component_user_identifier` (
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `identity_type` (`identity_type_dict_id`) USING BTREE,
   KEY `group_flag` (`group_flag`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户登录标识表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户登录标识表';

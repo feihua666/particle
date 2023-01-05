@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>component</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>low-code</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>low-code-adapter</module>
+        <module>low-code-adapter-feign-client</module>
+        <module>low-code-app</module>
+        <module>low-code-boot-starter</module>
+        <module>low-code-client</module>
+        <module>low-code-domain</module>
+        <module>low-code-infrastructure</module>
+        <module>low-code-start</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

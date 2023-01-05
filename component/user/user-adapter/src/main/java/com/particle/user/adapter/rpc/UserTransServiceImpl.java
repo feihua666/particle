@@ -1,7 +1,7 @@
 package com.particle.user.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.light.share.trans.TransConstants;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import com.particle.user.client.dto.data.UserTransVO;

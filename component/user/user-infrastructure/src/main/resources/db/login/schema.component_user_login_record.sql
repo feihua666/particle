@@ -3,9 +3,9 @@ CREATE TABLE `component_user_login_record` (
   `id` bigint NOT NULL COMMENT '用户ID',
   `user_id` bigint NOT NULL COMMENT '用户id',
   `login_at` datetime NOT NULL COMMENT '登录时间',
-  `login_ip` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '登录ip',
-  `device_id` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备id，可以用来唯一标识一个设备',
-  `device_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称，如：xxx的Iphone',
+  `login_ip` varchar(500) NOT NULL COMMENT '登录ip',
+  `device_id` varchar(500) NOT NULL COMMENT '设备id，可以用来唯一标识一个设备',
+  `device_name` varchar(255) NOT NULL COMMENT '设备名称，如：xxx的Iphone',
   `user_identifier_id` bigint NOT NULL COMMENT '登录标识id',
   `operating_system` varchar(255) NOT NULL COMMENT '操作系统及版本',
   `session` varchar(500) NOT NULL COMMENT '会话标识，登录成功后的会话',
@@ -27,4 +27,4 @@ CREATE TABLE `component_user_login_record` (
   KEY `user_id__user_identifier_id` (`user_id`,`user_identifier_id`),
   KEY `session` (`session`),
   KEY `session_md5` (`session_md5`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='用户登录记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户登录记录表';

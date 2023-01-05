@@ -27,4 +27,3 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(prefix + '/page',{params: data})
 }
 
-export default {remove,list,page}

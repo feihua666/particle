@@ -53,7 +53,11 @@
             <artifactId>role-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>low-code-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
         <!-- spring starter web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,6 +88,7 @@
             <version>${particle.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>component-adapter-boot-starter</artifactId>

@@ -54,6 +54,11 @@ public class ComponentGenerator {
 			.collect(Collectors.toList());
 
 
+	/**
+	 * 组件生成入口
+	 * @param componentGenerateConf
+	 * @return
+	 */
 	public boolean componentGenerate(ComponentGenerateConf componentGenerateConf) {
 		String componentModuleName = componentGenerateConf.getComponentModuleName();
 		String projectAbsolutePath = componentGenerateConf.getProjectAbsolutePath();
@@ -221,12 +226,17 @@ public class ComponentGenerator {
 				if (contentLine.contains(sinceSymbol)) {
 					newContentLine = newContentLine.substring(0,newContentLine.indexOf(sinceSymbol) + sinceSymbol.length()) + " " + LocalDateTimeUtil.formatNormal(LocalDateTime.now());
 				}
-				if (contentLine.startsWith("package ") || contentLine.startsWith("import ") || contentLine.startsWith("@MapperScan ")) {
+
+				if (contentLine.startsWith("package ")
+						|| contentLine.startsWith("import ")
+						|| contentLine.startsWith("@MapperScan(") // ComponentTemplateAutoConfiguration MapperScan 注解
+						|| contentLine.startsWith("basePackage(") // MapperScan swagger basePackage
+				) {
 					newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
 				}
 
 			}
-			if (file.getName().equals("spring.factories ")) {
+			if (file.getName().equals("spring.factories")) {
 				newContentLine = newContentLine.replace(templatename, moduleNameToPackageName);
 			}
 			// 关键字符替换
