@@ -58,7 +58,7 @@ export const reactiveMethodData = () => ({
 export const emitMethodEvent = {
     methodResult: 'methodResult'
 }
-export const method = ({props,reactiveData,emit,hasPermission,doMethod: doMethodFn}) => {
+export const method = ({props,reactiveData,emit,hasPermission,confirmCancelFn,doMethod: doMethodFn}) => {
 
     let doMethodFun = doMethodFn || doMethod({props,reactiveData,emit})
     return function () {
@@ -89,6 +89,9 @@ export const method = ({props,reactiveData,emit,hasPermission,doMethod: doMethod
                 doMethodFun.apply(null,args)
             }).catch(() => {
                 // 确认框取消事件
+                if(confirmCancelFn){
+                    confirmCancelFn()
+                }
             })
         }else {
             doMethodFun.apply(null,args)

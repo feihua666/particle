@@ -51,6 +51,10 @@ const reactiveData = reactive({
       label: '名称',
     },
     {
+      prop: 'nameEn',
+      label: '英文',
+    },
+    {
       prop: 'tableName',
       label: '表名称',
     },

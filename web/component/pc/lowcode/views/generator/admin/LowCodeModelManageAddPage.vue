@@ -25,7 +25,24 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '名称',
-            required: true
+            required: true,
+            tips: '将作为模型的原始名称变量输出'
+          },
+          compProps: {
+            clearable: true,
+          }
+        }
+      },
+      {
+        field: {
+          name: 'nameEn'
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '英文名称',
+            required: true,
+            tips: '将作为模型的原始英文名称变量输出'
           },
           compProps: {
             clearable: true,
@@ -40,6 +57,7 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '表名称',
+            tips: '可以根据表名加载模型项，比手动录入更方便'
           },
           compProps: {
             clearable: true,

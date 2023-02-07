@@ -28,7 +28,6 @@ export const remoteSelectFuncCompItem = ({props,required})=>{
             compProps: ()=> {
                 let paramsExist = !!(props.funcId && props.funcName)
                 let r = {
-                    clearable: true,
                     placeholder: '输入功能菜单名称搜索',
                     disabled: paramsExist,
                     // 给定默认数据

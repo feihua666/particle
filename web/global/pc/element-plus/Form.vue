@@ -7,7 +7,7 @@
  *          4. 自动布局功能
  */
 import {computed, onMounted, reactive, ref, watch,getCurrentInstance,nextTick} from 'vue'
-import {clone, isObject} from "../../common/tools/ObjectTools"
+import {clone, hasOwnProps, isObject} from "../../common/tools/ObjectTools"
 import {doMethod, emitMethodEvent, methodProps, reactiveMethodData} from './method'
 import {layoutCompute, layoutIndex, layoutProps} from './Layout'
 // 主要用于修改场景，加载要修改的数据
@@ -15,6 +15,7 @@ import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodDa
 import {dataMethodForFormProps} from './dataMethodForForm'
 import PtFormItem from './FormItem.vue'
 import PtButton from './Button.vue'
+import {isFunction} from "../../common/tools/FunctionTools";
 const { appContext,proxy } = getCurrentInstance()
 // 路由
 const route = proxy.$route
@@ -110,7 +111,16 @@ const initForm = (comps) =>{
 const initFormItem = (elementItem) =>{
   if(isObject(elementItem)){
     let value = elementItem.field.value
-    form[elementItem.field.name] = value
+    if(isFunction(value)) {
+      value = value()
+    }
+    // 如果在form 中未指定属性，按配置的优先，如果指定了不处理
+    let originValue = form[elementItem.field.name]
+    if(originValue == undefined){
+      let hasValueProps = hasOwnProps(elementItem.field,'value')
+
+      form[elementItem.field.name] = hasValueProps ? value : null
+    }
     formData[elementItem.field.name] = null
   }else{
     // 不是对象，就是数据，这里处理数组
@@ -223,11 +233,11 @@ const resetForm = () => {
     </template>
     <template #default v-if="!$slots.default">
       <template v-for="(rowItem,rowIndex) in layoutComputedLayout" :key="rowIndex">
-        <el-row type="flex" >
+        <el-row type="flex" class="pt-width-100-pc">
           <template  v-for="(colItem,colIndex) in rowItem"  :key="colIndex">
             <el-col :span="colItem">
               <template v-for="(elementItem,elementItemIndex) in [comps[layoutIndex(rowIndex,colIndex,layoutComputedLayout)]]" :key="elementItemIndex">
-                <PtFormItem v-bind="elementItem.element.formItemProps" :compProps="elementItem.element.compProps" :form="reactiveData.form" :formData="reactiveData.formData" :prop="elementItem.field.name" :comp="elementItem.element.comp">
+                <PtFormItem v-bind="elementItem.element.formItemProps" :compProps="elementItem.element.compProps" :form="reactiveData.form" :formData="reactiveData.formData" :prop="elementItem.field.name" :comp="elementItem.element.comp" :valueChange="elementItem.field.valueChange" >
                 </PtFormItem>
               </template>
             </el-col>

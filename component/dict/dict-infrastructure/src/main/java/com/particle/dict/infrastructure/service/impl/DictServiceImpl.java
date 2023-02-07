@@ -35,6 +35,10 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 
 	@Override
 	protected void preAdd(DictDO po) {
+		// 如果为字典项，不需要添加编码code，如果字典项编辑code为空，不校验唯一
+		if (StrUtil.isEmpty(po.getCode()) && !po.getIsGroup()) {
+			return;
+		}
 		// 编码已存在不能添加
 		assertByColumn(po.getCode(),DictDO::getCode,false);
 	}

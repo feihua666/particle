@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.exception.biz.BizException;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.gateway.LowcodeDbTableInfoGateway;
 import org.springframework.stereotype.Component;
@@ -57,6 +60,9 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 				null);
 
 		List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(configBuilder).queryTables();
+		if (tableInfos.isEmpty()) {
+			throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.DATA_NOT_FOUND,tableName + " 表不存在");
+		}
 		TableInfo tableInfo = tableInfos.iterator().next();
 		return tableInfo;
 	}

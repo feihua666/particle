@@ -35,7 +35,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  // 类型
+  // 类型 el-date-picker 原生属性如：date
   type: String
 })
 

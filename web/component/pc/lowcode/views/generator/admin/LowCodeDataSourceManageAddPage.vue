@@ -57,7 +57,8 @@ const formComps = ref(
           formItemProps: {
             label: '驱动类名',
             required: true,
-            class: 'pt-width-90-pc'
+            displayBlock: true,
+            tips: 'com.mysql.cj.jdbc.Driver'
           },
           compProps: {
             clearable: true,
@@ -75,7 +76,7 @@ const formComps = ref(
             label: '地址',
             required: true,
             tips: '例：jdbc:mysql://localhost/particle_test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8',
-            class: 'pt-width-90-pc'
+            displayBlock: true
           },
           compProps: {
             clearable: true,

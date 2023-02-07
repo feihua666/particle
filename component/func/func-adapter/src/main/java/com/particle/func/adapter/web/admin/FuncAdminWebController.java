@@ -5,6 +5,7 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
+import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
@@ -85,4 +86,11 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 		return iFuncRepresentationApplicationService.pageQuery(funcPageQueryCommand);
 	}
 
+
+	@PreAuthorize("hasAuthority('admin:web:func:moveNode')")
+	@ApiOperation("移动菜单功能")
+	@DeleteMapping("/moveNode")
+	public SingleResponse<FuncVO> delete(@RequestBody FuncMoveCommand funcMoveNodeCommand){
+		return iFuncApplicationService.moveNode(funcMoveNodeCommand);
+	}
 }

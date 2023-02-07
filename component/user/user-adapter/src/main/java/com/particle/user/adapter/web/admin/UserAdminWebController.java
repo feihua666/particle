@@ -1,30 +1,24 @@
 package com.particle.user.adapter.web.admin;
 
-import com.particle.global.security.security.PasswordEncryptEnum;
-import com.particle.global.tool.security.PasswordComplexityTool;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.client.api.IUserApplicationService;
 import com.particle.user.client.api.representation.IUserRepresentationApplicationService;
 import com.particle.user.client.dto.command.UserCreateCommand;
-import com.particle.user.client.dto.data.UserVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 用户后台管理pc或平板端前端适配器

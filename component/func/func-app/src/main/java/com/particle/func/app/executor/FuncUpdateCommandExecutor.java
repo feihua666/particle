@@ -2,11 +2,13 @@ package com.particle.func.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
+import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.Func;
 import com.particle.func.domain.FuncId;
 import com.particle.func.domain.gateway.FuncGateway;
+import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import org.mapstruct.Mapper;
@@ -31,6 +33,21 @@ import javax.validation.Valid;
 public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private FuncGateway funcGateway;
+
+	@Autowired
+	private IFuncService iFuncService;
+	/**
+	 * 移动节点
+	 * @param funcMoveNodeCommand
+	 * @return
+	 */
+	public SingleResponse<FuncVO> moveNode(@Valid FuncMoveCommand funcMoveNodeCommand){
+		int moveNode = iFuncService.moveNode(funcMoveNodeCommand.getId(), funcMoveNodeCommand.getParentId());
+
+		Func func = funcGateway.getById(FuncId.of(funcMoveNodeCommand.getId()));
+		return SingleResponse.of(FuncAppStructMapping.instance.toFuncVO(func));
+	}
+
 
 	/**
 	 * 执行 菜单功能 更新指令

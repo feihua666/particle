@@ -18,7 +18,7 @@ import java.util.*;
 public class CreateCommandFieldsToTFormItemsTest {
 
 	public static void main(String[] args) {
-		String filePath = "/Users/yw/fh/git-source/particle/component/low-code/low-code-client/src/main/java/com/particle/lowcode/client/generator/dto/command/LowcodeModelItemCreateCommand.java";
+		String filePath = "/Users/yw/fh/git-source/particle/component/low-code/low-code-client/src/main/java/com/particle/lowcode/client/generator/dto/command/LowcodeSegmentTemplateCreateCommand.java";
 		convert(filePath);
 	}
 
@@ -53,7 +53,7 @@ public class CreateCommandFieldsToTFormItemsTest {
 		return VoFieldsToTableColumnsTest.matchProp(rawText);
 	}
 	private static String item(String label,String prop){
-		return "      {\n" +
+		return "       \n{\n" +
 				"        field: {\n" +
 				"          name: '"+ prop +"'\n" +
 				"        },\n" +

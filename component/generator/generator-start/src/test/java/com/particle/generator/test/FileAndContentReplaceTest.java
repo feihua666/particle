@@ -24,13 +24,12 @@ public class FileAndContentReplaceTest {
 
 	public static void main(String[] args) {
 		String originStr = "Model";
-		String newStr = "ModelItem";
+		String newStr = "SegmentTemplate";
 		String originStrName = "模型";
-		String newStrName = "模型项";
+		String newStrName = "片段模板";
 
 		Map<String, String> replaceContent = new HashMap<>();
 
-		//replaceContent.put(originStr,newStr);
 		replaceContent.put(StrUtil.upperFirst(originStr),StrUtil.upperFirst(newStr));
 		replaceContent.put(StrUtil.lowerFirst(originStr),StrUtil.lowerFirst(newStr));
 		replaceContent.put(originStrName,newStrName);
@@ -40,7 +39,9 @@ public class FileAndContentReplaceTest {
 		//pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin");
 		//pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/LowCodeRoutes.ts");
 		pathList.add("");
-		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/api/generator/admin/lowCodeModelAdminApi.ts");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManageAddPage.vue");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManagePage.vue");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManageUpdatePage.vue");
 
 		for (String path : pathList) {
 			if (StrUtil.isEmpty(path)) {

@@ -47,6 +47,11 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  // 显示切换按钮
+  showSwitchButton: {
+    type: Boolean,
+    default: true
+  },
   // 禁用相关属性
   ...disabledProps,
   // 权限相关
@@ -82,7 +87,12 @@ watch(
       reactiveData.currentModelValue = val
     }
 )
-
+watch(
+    () => props.defaultShowSecretText,
+    (val) => {
+      reactiveData.showSecretText = val
+    }
+)
 // 切换
 const doSubmit = () => {
   // 从明文切换到隐藏不需要判断权限
@@ -102,7 +112,7 @@ const doSubmit = () => {
     :title="hasDisabled.disabledReason || title"
     v-bind="$attrs"
 >
-  <el-icon class="pt-secret-text-bt" :class="{disabled: hasDisabled.disabled}"  @click="doSubmit">
+  <el-icon v-if="showSwitchButton" class="pt-secret-text-bt" :class="{disabled: hasDisabled.disabled}"  @click="doSubmit">
     <Hide v-if="reactiveData.showSecretText" ></Hide>
     <View v-else ></View>
   </el-icon>

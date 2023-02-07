@@ -6,3 +6,10 @@ const dateReg = new RegExp("-","gm")
 export function getDateObj(str: string): Date{
     return new Date(str.replace(dateReg,"/"))
 }
+
+/**
+ * 获取当前毫秒时间戳
+ */
+export function getCurrentTimestamps():number{
+    return new Date().getTime()
+}

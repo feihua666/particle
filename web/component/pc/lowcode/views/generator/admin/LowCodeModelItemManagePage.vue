@@ -3,10 +3,38 @@
  * 低代码模型项管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as lowCodeModelItemPageApi, remove as lowCodeModelItemRemoveApi} from "../../../api/generator/admin/lowCodeModelItemAdminApi"
+import {
+  page as lowCodeModelItemPageApi,
+  remove as lowCodeModelItemRemoveApi,
+  update as lowCodeModelItemUpdateApi
+} from "../../../api/generator/admin/lowCodeModelItemAdminApi"
+import {list as lowCodeModelListApi} from "../../../api/generator/admin/lowCodeModelAdminApi";
 
 const tableRef = ref(null)
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 可通过路由传参
+  lowcodeModelId:{
+    type: String
+  }
+})
+const getBooleanColumnView = (scope,prop,propName)=>{
+  return {
+    is: 'PtSwitch',
+    modelValue: scope.row[prop],
+    methodConfirmText: `确定要修改字段名称为 ${scope.row.columnName} ${propName}吗？`,
+    method: (value)=> {
+      scope.row[prop] = value;
+      return lowCodeModelItemUpdateApi(scope.row).then(res => {
+        // 修改成功，处理数据版本，否则会报数据版本错误，省一次数据刷新
+        scope.row.version++
+        return Promise.resolve(res)
+      })
+    },
+    methodSuccess: '修改成功'
+  }
+}
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
@@ -16,12 +44,12 @@ const reactiveData = reactive({
 
     {
       field: {
-        name: 'name'
+        name: 'columnName'
       },
       element: {
         comp: 'el-input',
         formItemProps: {
-          label: '名称'
+          label: '字段名称'
         },
         compProps: {
           clearable: true,
@@ -31,16 +59,31 @@ const reactiveData = reactive({
     },
     {
       field: {
-        name: 'tableName'
+        name: 'propertyName'
       },
       element: {
         comp: 'el-input',
         formItemProps: {
-          label: '表名称'
+          label: '实体属性名称'
         },
         compProps: {
           clearable: true,
           placeholder: '左前缀匹配'
+        }
+      }
+    },
+    {
+      field: {
+        name: 'lowcodeModelId',
+        value: props.lowcodeModelId
+      },
+      element: {
+        comp: 'PtSelect',
+        formItemProps: {
+          label: '模型',
+        },
+        compProps: {
+          dataMethod: lowCodeModelListApi
         }
       }
     },
@@ -78,11 +121,17 @@ const reactiveData = reactive({
     },
     {
       label: "是否唯一",
-      prop: "isUnique"
+      prop: "isUnique",
+      columnView: (scope)=>{
+        return getBooleanColumnView(scope,'isUnique','是否唯一')
+      }
     },
     {
       label: "是否必填",
-      prop: "isRequired"
+      prop: "isRequired",
+      columnView: (scope)=>{
+        return getBooleanColumnView(scope,'isRequired','是否必填')
+      }
     },
     {
       label: "是否主键",

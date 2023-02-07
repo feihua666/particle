@@ -55,7 +55,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             // 字典查询
             dictParam: {groupCode: 'user_account_type'},
           }
@@ -138,7 +137,6 @@ const formComps = ref(
             label: '过期时间'
           },
           compProps:  {
-            clearable: true,
             type: "datetime"
           }
         }

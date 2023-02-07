@@ -7,8 +7,10 @@ import com.particle.func.app.executor.FuncDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncUpdateCommandExecutor;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
+import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
+import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,6 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 
 	private FuncUpdateCommandExecutor funcUpdateCommandExecutor;
 
-
 	@Transactional
 	@Override
 	public SingleResponse<FuncVO> create(FuncCreateCommand funcCreateCommand) {
@@ -51,6 +52,11 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	@Override
 	public SingleResponse<FuncVO> update(FuncUpdateCommand funcUpdateCommand) {
 		return funcUpdateCommandExecutor.execute(funcUpdateCommand);
+	}
+
+	@Override
+	public SingleResponse<FuncVO> moveNode(FuncMoveCommand funcMoveNodeCommand) {
+		return funcUpdateCommandExecutor.moveNode(funcMoveNodeCommand);
 	}
 
 	@Autowired

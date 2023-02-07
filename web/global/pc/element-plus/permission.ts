@@ -52,11 +52,11 @@ const hasPermissionCheck = (permission: string,permissions: Array<string>| { }):
         permissionsTemp = permissionsTemp.value
     }
     // 匹配任何权限
-    let any = '*';
-    let r = permission == any
+    let star = '*';
+    let r = permission == star
     // 可用权限 包含是否包括 *
     if(r == false){
-        r = exist(any,permissionsTemp)
+        r = exist(star,permissionsTemp)
     }
     if(r == false){
         r = exist(permission,permissionsTemp)
@@ -74,7 +74,7 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
         // 是否开启权限判断
         let enable = false
         let hasPm = false
-        if (props.permission !== undefined) {
+        if (props.permission) {
             // 传了权限表示开启
             enable = true
             if (isString(props.permission)) {
@@ -89,8 +89,8 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
         let disabled = false
 
         let noPermissionText = props.noPermissionText
-        if(noPermissionText == undefined){
-            noPermissionText = `您没有${props.noPermissionSimpleText != undefined ? props.noPermissionSimpleText : (noPermissionSimpleText ? noPermissionSimpleText : '')}权限`
+        if(!noPermissionText){
+            noPermissionText = `您没有${props.noPermissionSimpleText ? props.noPermissionSimpleText : (noPermissionSimpleText ? noPermissionSimpleText : '')}权限`
         }
         if (enable && !hasPm) {
             if('notRender' == props.noPermissionView || 'hide' == props.noPermissionView){

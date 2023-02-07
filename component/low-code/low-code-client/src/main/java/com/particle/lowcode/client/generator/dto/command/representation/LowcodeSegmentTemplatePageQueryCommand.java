@@ -1,0 +1,41 @@
+package com.particle.lowcode.client.generator.dto.command.representation;
+
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
+import com.particle.common.client.dto.command.tree.AbstractBaseTreeQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * <p>
+ * 低代码片段模板 通用分页查询指令对象
+ * </p>
+ *
+ * @author yw
+ * @since 2023-01-06
+ */
+@Data
+@ApiModel
+public class LowcodeSegmentTemplatePageQueryCommand extends AbstractBaseTreePageQueryCommand {
+
+
+    @Like
+    @ApiModelProperty("编码，唯一")
+    private String code;
+
+    @Like
+    @ApiModelProperty("模板名称，仅做展示")
+    private String name;
+
+    @ApiModelProperty("输出类型，file=文件，dir=目录，segment=片段")
+    private String outputType;
+
+    @ApiModelProperty("输出变量名")
+    private String outputVariable;
+
+    @ApiModelProperty("引用模板id")
+    private Long referenceSegmentTemplateId;
+
+}

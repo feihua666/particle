@@ -1,13 +1,13 @@
 DROP TABLE IF EXISTS component_lowcode_model_item;
 CREATE TABLE `component_lowcode_model_item` (
   `id` bigint NOT NULL COMMENT 'ID',
-  `column_name` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '字段名称',
-  `property_name` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '实体属性名称',
-  `jdbc_type` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '数据库类型',
-  `property_type` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '实体属性类型',
-  `comment_full` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '字段注释,完整的注释',
-  `comment_simple` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '字段注释,简洁注释，提取列注释的第一个逗号前面的，常用于swagger',
-  `default_value` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '默认值',
+  `column_name` varchar(100) NOT NULL COMMENT '字段名称',
+  `property_name` varchar(100) NOT NULL COMMENT '实体属性名称',
+  `jdbc_type` varchar(255) NOT NULL COMMENT '数据库类型',
+  `property_type` varchar(255) NOT NULL COMMENT '实体属性类型',
+  `comment_full` varchar(255) NOT NULL COMMENT '字段注释,完整的注释',
+  `comment_simple` varchar(255) NOT NULL COMMENT '字段注释,简洁注释，提取列注释的第一个逗号前面的，常用于swagger',
+  `default_value` varchar(255) DEFAULT NULL COMMENT '默认值',
   `is_unique` tinyint(1) NOT NULL COMMENT '是否唯一，一般有唯一索引就是唯一，不算主键',
   `is_required` tinyint(1) NOT NULL COMMENT '是否必填',
   `is_key` tinyint(1) NOT NULL COMMENT '是否主键',
@@ -17,7 +17,7 @@ CREATE TABLE `component_lowcode_model_item` (
   `fraction_length` int DEFAULT NULL COMMENT '字段小数位长度',
   `is_foreign_key` tinyint(1) NOT NULL COMMENT '字段是否外键',
   `lowcode_model_id` bigint NOT NULL COMMENT '模型id',
-  `remark` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '描述,注意事项等',
+  `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
@@ -26,5 +26,5 @@ CREATE TABLE `component_lowcode_model_item` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `version` (`version`) USING BTREE,
-  KEY `lowcode_model_id` (`lowcode_model_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='低代码模型项目表';
+  KEY `lowcode_model_id` (`lowcode_model_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='低代码模型项目表';

@@ -23,6 +23,10 @@ public class LowcodeModelDO extends BaseDO {
     */
     private String name;
     /**
+     * 名称
+     */
+    private String nameEn;
+    /**
     * 表名称
     */
     private String tableName;

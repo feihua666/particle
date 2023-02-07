@@ -15,10 +15,6 @@ logging:
     path: logs/${spring.application.name:app}
     # 请设置 spring.application.name
     name: ${logging.file.path}/${spring.application.name:app}.log
-# 如果在开启kafka参照下面配置
-#  log4j2:
-#    config:
-#      override: classpath:log4j2-kafka.xml
 # log4j2 线程上下文
 log4j2:
   threadContextMap: com.alibaba.ttl.log4j2.TtlThreadContextMap

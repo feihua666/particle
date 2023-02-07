@@ -1,0 +1,51 @@
+package com.particle.lowcode.infrastructure.generator.structmapping;
+
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentTemplateDO;
+import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
+import com.particle.lowcode.domain.generator.LowcodeSegmentTemplateId;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
+
+/**
+ * <p>
+ * 低代码片段模板 基础设施层数据实体映射转换
+ * </p>
+ *
+ * @author yw
+ * @since 2023-01-06
+ */
+@Mapper
+public abstract class LowcodeSegmentTemplateInfrastructureStructMapping {
+	public static LowcodeSegmentTemplateInfrastructureStructMapping instance = Mappers.getMapper( LowcodeSegmentTemplateInfrastructureStructMapping.class );
+
+	protected LowcodeSegmentTemplateId map(Long id){
+		if (id == null) {
+			return null;
+		}
+		return LowcodeSegmentTemplateId.of(id);
+	}
+	protected Long map(LowcodeSegmentTemplateId lowcodeSegmentTemplateId){
+		if (lowcodeSegmentTemplateId == null) {
+			return null;
+		}
+		return lowcodeSegmentTemplateId.getId();
+	}
+
+	/**
+	 * 数据实体转领域模型
+	 * MapStruct自动映射,其中枚举也会自动映射，id转换会自动使用{@link LowcodeSegmentTemplateInfrastructureStructMapping#map(java.lang.Long)}
+	 * @param lowcodeSegmentTemplateDO
+	 * @return
+	 */
+	public abstract LowcodeSegmentTemplate lowcodeSegmentTemplateDOToLowcodeSegmentTemplate(@MappingTarget LowcodeSegmentTemplate lowcodeSegmentTemplate,LowcodeSegmentTemplateDO lowcodeSegmentTemplateDO);
+
+	/**
+	 * 领域模型转数据实体
+	 * MapStruct自动映射,其中枚举也会自动映射，id转换会自动使用{@link LowcodeSegmentTemplateInfrastructureStructMapping#map(LowcodeSegmentTemplateId)}
+	 * @param lowcodeSegmentTemplate
+	 * @return
+	 */
+	public abstract LowcodeSegmentTemplateDO lowcodeSegmentTemplateToLowcodeSegmentTemplateDO(LowcodeSegmentTemplate lowcodeSegmentTemplate);
+
+}

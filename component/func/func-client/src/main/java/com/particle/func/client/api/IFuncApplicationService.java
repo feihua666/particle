@@ -3,6 +3,7 @@ package com.particle.func.client.api;
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.client.dto.command.FuncCreateCommand;
+import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.SingleResponse;
@@ -36,5 +37,13 @@ public interface IFuncApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<FuncVO> update(FuncUpdateCommand funcUpdateCommand);
+
+	/**
+	 * 移动菜单功能
+	 * @param funcMoveNodeCommand
+	 * @return
+	 */
+	SingleResponse<FuncVO> moveNode(FuncMoveCommand funcMoveNodeCommand);
+
 
 }

@@ -84,7 +84,7 @@ onMounted(() => {
           <PtMenuItem  :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
-          <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>
+          <PtMenuItemGroup :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtMenuItemGroup>
         </template>
 
       </template>

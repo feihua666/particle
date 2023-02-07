@@ -29,7 +29,6 @@ export const remoteSelectUserCompItem = ({props,required})=>{
             compProps: ()=> {
                 let paramsExist = !!(props.userId && props.userNickname)
                 let r = {
-                    clearable: true,
                     placeholder: '输入用户昵称搜索',
                     disabled: paramsExist,
                     // 给定默认数据
@@ -89,7 +88,6 @@ export const remoteSelectUserIdentifierCompItem = ({props,required,fieldName})=>
             compProps: ()=> {
                 let paramsExist = !!(props.identifierId && props.identifier)
                 let r = {
-                    clearable: true,
                     placeholder: '输入登录标识搜索',
                     disabled: paramsExist,
                     // 给定默认数据
@@ -181,7 +179,6 @@ export const resetPasswordCompItems = [
                 label: '密码过期时间'
             },
             compProps:  {
-                clearable: true,
                 type: "datetime",
                 placeholder: '不填写永不过期'
             }

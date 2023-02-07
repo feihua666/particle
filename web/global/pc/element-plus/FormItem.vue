@@ -41,8 +41,15 @@ const props = defineProps({
   validate: {
     type: Object
   },
+  // 数据变化事件
+  valueChange: {
+    type: Function,
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
+  },
   // 表单提示文本
-  tips: [String,Function]
+  tips: [String,Function],
+  // 该提示将在label右边添加图标，鼠标移入提示
+  labelTips:[String,Function],
 })
 const required = computed(() => {
   return getVal({required: props.required},'required',{form: props.form,formData: props.formData})
@@ -54,6 +61,10 @@ const compProps = computed(() => {
 const tips = computed(() => {
   return getVal({tips: props.tips},'tips',{form: props.form,formData: props.formData})
 })
+const labelTipsComputed = computed(() => {
+  return getVal({labelTips: props.labelTips},'labelTips',{form: props.form,formData: props.formData})
+})
+
 export interface ValidateObj{
   // 是否必填
   required: boolean,
@@ -107,11 +118,19 @@ const getFormItemRules = (validateObj:ValidateObj) => {
     <slot v-bind="{form}"></slot>
   </template>
   <template v-if="!$slots.default">
-    <PtFormItemDetail v-bind="compProps" :form="form" :formData="formData" :prop="prop" :comp="comp">
+    <PtFormItemDetail v-bind="compProps" :form="form" :valueChange="valueChange" :formData="formData" :prop="prop" :comp="comp">
     </PtFormItemDetail>
   </template>
   <template #label="scope" v-if="$slots.label">
     <slot v-bind="scope"></slot>
+  </template>
+  <template #label="scope" v-if="!$slots.label && labelTips">
+    <span>
+      {{scope.label}}
+        <el-tooltip :content="labelTipsComputed" raw-content placement="top" effect="light">
+      <el-icon class="pt-form-item-labelTips"><InfoFilled /></el-icon>
+        </el-tooltip>
+    </span>
   </template>
   <template #error="scope" v-if="$slots.error">
     <slot v-bind="scope"></slot>
@@ -121,5 +140,16 @@ const getFormItemRules = (validateObj:ValidateObj) => {
 </template>
 
 <style scoped>
-
+.el-form-item[displayBlock=true]{
+  display: flex;
+}
+.pt-form-item-labelTips{
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: .35em;
+  margin-right: .35em;
+  vertical-align: -.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 </style>

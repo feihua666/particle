@@ -35,4 +35,6 @@ public class DictItemsQueryListCommand extends AbstractBaseQueryCommand {
     private String tags;
 
 
+    @ApiModelProperty("使用id数据对应的value作为tag，可以根据标签过滤，如果tag有值，该字段不生效")
+    private Long valueAsTagId;
 }

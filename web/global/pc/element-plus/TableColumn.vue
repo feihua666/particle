@@ -3,6 +3,10 @@ import {reactive ,computed,onMounted,inject,ref} from 'vue'
 import PtTableColumn from './TableColumn.vue'
 import PtImage from './Image.vue'
 import SecretText from './SecretText.vue'
+import PtCompAdapter from '../../common/CompAdapter.vue'
+import {isObject} from "../../common/tools/ObjectTools";
+import {isFunction} from "../../common/tools/FunctionTools";
+
 /**
  * 自定义封装 Table column 表格
  * 封装理由：1. 可以配合 table 表格显示数据，更方便
@@ -16,8 +20,10 @@ const props = defineProps({
     default: () => ({})
   },
   // 列展示 表现 值可选 image
+  // Object类型时为 PtCompAdapter属性
+  // Function类型时为 返回值为 PtCompAdapter属性
   columnView: {
-    type: String,
+    type: [String,Object,Function],
   },
   // 属性配置
   props: {
@@ -62,7 +68,12 @@ const propsOptions = computed(() => {
       <template  v-else-if="columnView == 'PtSecretText'">
         <PtSecretText :modelValue="scope.row[scope.column.property]"></PtSecretText>
       </template>
-
+      <template v-else-if="isObject(columnView)">
+        <PtCompAdapter v-bind="columnView"></PtCompAdapter>
+      </template>
+      <template v-else-if="isFunction(columnView)">
+        <PtCompAdapter v-bind="columnView(scope)"></PtCompAdapter>
+      </template>
 
       <template v-if="nestColumns && nestColumns.length > 0">
         <template v-for="(item,index) in nestColumns" :key="index">

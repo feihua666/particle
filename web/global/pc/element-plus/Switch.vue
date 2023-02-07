@@ -3,12 +3,13 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,computed,inject, watch} from 'vue'
+import { reactive ,computed,inject, watch, ref} from 'vue'
 import { ElMessageBox } from 'element-plus'
 
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import { emitMethodEvent, method, methodProps, reactiveMethodData} from './method'
 
 
 // 声明属性
@@ -33,17 +34,21 @@ const props = defineProps({
   beforeChange: {
     type: Function,
     default: () => true
-  }
+  },
+  // 事件相关
+  ...methodProps,
 })
 
 // 属性
 const reactiveData = reactive({
+  // 数据与加载
+  ...reactiveMethodData(),
   ...reactiveDataModelData(props)
 })
 // 计算属性
 // 这里和 props.loading 重名了，但在模板是使用 loading 变量是这个值，也就是说这里会覆盖在模板中的值
 const loading = computed(() => {
-  return props.loading
+  return props.loading || reactiveData.methodLocalLoading
 })
 const injectPermissions = inject('permissions', [])
 // 是否有权限
@@ -68,6 +73,7 @@ const emit = defineEmits([
   // 用来更新 modelValue
   emitDataModelEvent.updateModelValue,
   emitDataModelEvent.change,
+  emitMethodEvent.methodResult,
 ])
 
 // 方法
@@ -76,9 +82,23 @@ const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasP
 // 值改变事件
 const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPermission,emit})
 
+const beformChangeValue = ref()
 const beforeChangeHandle = () => {
+  beformChangeValue.value = reactiveData.currentModelValue
   return props.beforeChange()
 }
+const change = (value) => {
+  if(changeModelValueEvent(value)){
+    return
+  }
+  submit(value)
+}
+const confirmCancelFn = ()=>{
+  reactiveData.oldModelValue = beformChangeValue.value
+  reactiveData.currentModelValue = beformChangeValue.value
+}
+// click 按钮事件
+const submit = method({props,reactiveData,emit,hasPermission,confirmCancelFn})
 
 </script>
 <template>
@@ -90,7 +110,7 @@ const beforeChangeHandle = () => {
              :loading="loading"
              :before-change="beforeChangeHandle"
              @update:modelValue="updateModelValueEvent"
-             @change="changeModelValueEvent"
+             @change="change"
   >
   </el-switch>
 </template>

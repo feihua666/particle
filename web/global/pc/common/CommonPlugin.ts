@@ -3,6 +3,7 @@ import BaiduMap from './map/BaiduMap.vue'
 import LocationGeoMap from './map/LocationGeoMap.vue'
 import Frame from './Frame.vue'
 import RouteView from './RouteView.vue'
+import AceEditor from './aceEditor/AceEditor.vue'
 // import PtTinymceEditor from './tinymceEditor/PtTinymceEditor.vue'
 import SlideVerify from './slideVerify/SlideVerify.vue'
 import Logo from './Logo.vue'
@@ -18,6 +19,7 @@ let map = {
     LoginTemplate,
     EntryTemplate,
     RouteView,
+    AceEditor,
 }
 export default {
     install: function (app, options) {

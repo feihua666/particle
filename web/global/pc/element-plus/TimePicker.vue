@@ -2,6 +2,7 @@
 /**
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
+ * 注意：由于elementplus picker使用 tooltip包裹，未传递 title，所以要禁用时不能提示禁用原因
  */
 import { reactive ,inject, watch} from 'vue'
 

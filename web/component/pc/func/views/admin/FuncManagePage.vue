@@ -56,7 +56,6 @@ const reactiveData = reactive({
           label: '功能分组'
         },
         compProps: {
-          clearable: true,
           dataMethod: funcGroupListApi
         }
       }
@@ -72,7 +71,6 @@ const reactiveData = reactive({
           label: '父级',
         },
         compProps: {
-          clearable: true,
           // 加载数据
           dataMethod: () => { return funcListApi({})},
           dataMethodResultHandleConvertToTree: true,

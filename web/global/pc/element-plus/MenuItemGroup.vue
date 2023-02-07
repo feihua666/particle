@@ -1,6 +1,7 @@
 <script setup name="MenuItemGroup">
 import {computed, onMounted, reactive, watch} from 'vue'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
+import {menuConfig, menuProps} from "./menu";
 
 
 // 声明属性
@@ -10,6 +11,10 @@ const props = defineProps({
   dataLoading: {
     type: Boolean,
     default: false
+  },
+  // 图标名字
+  icon: {
+    type: String,
   },
   // 数据
   options: {
@@ -22,6 +27,8 @@ const props = defineProps({
   titleText: {
     type: String
   },
+  ...menuProps
+
 })
 // 属性
 const reactiveData = reactive({
@@ -38,7 +45,12 @@ const loading = computed(() => {
 const options = computed(() => {
   return props.options.length > 0 ? props.options : reactiveData.dataMethodData
 })
-
+const {
+  propsOptions,
+  isMenu,
+  isPage,
+  isGroup,
+} = menuConfig({props})
 // 侦听
 watch(
     () => loading.value,
@@ -66,7 +78,11 @@ onMounted(() => {
       <slot name="title" />
     </template>
     <template #title  v-if="!$slots.title">
-      {{titleText}}
+      <el-icon v-if="icon || $slots.icon">
+        <component :is="icon" v-if="icon" />
+        <slot v-else name="icon" />
+      </el-icon>
+      <span>{{titleText}}</span>
     </template>
 
     <template #default v-if="$slots.default">
@@ -74,7 +90,7 @@ onMounted(() => {
     </template>
     <template #default  v-if="!$slots.default">
       <template v-for="(menuItem,index) in options" :key="index">
-        <PtMenuItem :icon="menuItem.icon" :titleText="menuItem.name"></PtMenuItem>
+        <PtMenuItem  :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
       </template>
     </template>
 

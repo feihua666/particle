@@ -93,7 +93,8 @@ const LowCodeRoutes = [
                         to: '#adminLowCodeModelManageUpdate'
                     }
                 }
-            },            {
+            },
+            {
                 path: '/admin/lowCodeModelManageLoadModelItemByModelAndDataSource',
                 component: () => import('./views/generator/admin/LowCodeModelItemLoadByModelAndDataSourcePage.vue'),
                 props: route => ({ lowCodeModelId: route.query.id }),
@@ -157,6 +158,54 @@ const LowCodeRoutes = [
                     formButtonsTeleportProps: {
                         disabled: false,
                         to: '#adminLowCodeModelItemManageUpdate'
+                    }
+                }
+            },
+        ]
+    },
+    {
+        path: '/admin/lowCodeSegmentTemplateManagePage',
+        component: () => import('./views/generator/admin/LowCodeSegmentTemplateManagePage.vue'),
+        meta: {
+            root: true,
+            code:'adminLowCodeSegmentTemplateManagePage',
+            name: '低代码片段模板管理',
+            keepAlive: true
+        },
+        children: [
+            {
+                path: '/admin/lowCodeSegmentTemplateManageAdd',
+                component: () => import('./views/generator/admin/LowCodeSegmentTemplateManageAddPage.vue'),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowCodeSegmentTemplateManageAdd',
+                    name: '低代码片段模板添加',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowCodeSegmentTemplateManageAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowCodeSegmentTemplateManageAdd'
+                    }
+                }
+            },
+
+            {
+                path: '/admin/lowCodeSegmentTemplateManageUpdate',
+                component: () => import('./views/generator/admin/LowCodeSegmentTemplateManageUpdatePage.vue'),
+                props: route => ({ lowCodeSegmentTemplateId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowCodeSegmentTemplateManageUpdate',
+                    name: '低代码片段模板修改',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowCodeSegmentTemplateManageUpdate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowCodeSegmentTemplateManageUpdate'
                     }
                 }
             },

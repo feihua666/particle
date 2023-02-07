@@ -42,7 +42,6 @@ const reactiveData = reactive({
           label: '账号类型',
         },
         compProps: {
-          clearable: true,
           // 字典查询
           dictParam: {groupCode: 'user_account_type'},
         }

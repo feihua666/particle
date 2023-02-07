@@ -19,4 +19,5 @@ public class TransTableNameConstants {
 	public static final String component_user_identifier = "component_user_identifier";
 	public static final String component_role = "component_role";
 	public static final String component_lowcode_model = "component_lowcode_model";
+	public static final String component_lowcode_segment_template = "component_lowcode_segment_template";
 }

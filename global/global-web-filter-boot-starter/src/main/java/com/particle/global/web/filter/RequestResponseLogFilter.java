@@ -4,8 +4,10 @@
 
 package com.particle.global.web.filter;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 记录http请求的参数/响应结果/耗时
@@ -70,7 +73,8 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
     /**
      * 打印响应请求后缀的黑名单
      */
-    private static final List<String> RESPONSE_EXTENSION_BLACK_SET = REQUEST_EXTENSION_BLACK_SET;
+    private static final List<String> RESPONSE_EXTENSION_BLACK_SET =
+            Arrays.asList(".js", ".css","html","png","jpg","jpeg","gif");
 
 
     @Override
@@ -84,7 +88,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
 
         HttpServletResponse responseToUse = response;
 
-        boolean matchResponse = (response.getContentType()== null || isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl);
+        boolean matchResponse = (isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl);
 
 
         if(isLogResponse && matchResponse && !(response instanceof ContentCachingResponseWrapper)){
@@ -111,9 +115,10 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
                 if(!isAsyncStarted){
                     // 自定义打印请求响应日志
                     String responseMessagePayload = getResponseMessagePayload(responseToUse);
+                    String responseHeaders = getResponseHeaders(responseToUse);
                     if (!StrUtil.isEmpty(responseMessagePayload)) {
                         // 不要空行，日志一行打印，查日志时多行麻烦
-                        log.info("请求响应：status={},payload={}" ,responseToUse.getStatus(), responseMessagePayload.replace(SEP,""));
+                        log.info("请求响应：status={},payload={},headers={}" ,responseToUse.getStatus(), responseMessagePayload.replace(SEP,""),responseHeaders);
                     }
                 }
             }
@@ -178,6 +183,20 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         return null;
     }
 
+	/**
+	 * 获取响应头
+     * @param response
+	 * @return
+	 */
+    private String getResponseHeaders(HttpServletResponse response){
+        Map<String, String> headerMapResult = Collections.emptyMap();
+        Collection<String> headerNames = response.getHeaderNames();
+        if (CollectionUtil.isNotEmpty(headerNames)) {
+            headerMapResult = headerNames.stream().collect(Collectors.toMap(Function.identity(), (item) -> response.getHeader(item)));
+        }
+        return JsonTool.toJsonStr(headerMapResult);
+    }
+
     @Override
     protected void beforeRequest(HttpServletRequest request, String message) {
         // 已失效
@@ -219,14 +238,6 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         return null;
     }
 
-    /**
-     * 在错误情况下，比如404页面，
-     * @return
-     */
-    @Override
-    protected boolean shouldNotFilterErrorDispatch() {
-        return false;
-    }
     @Override
     protected boolean shouldLog(HttpServletRequest request) {
         return true;

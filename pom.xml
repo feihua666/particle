@@ -60,6 +60,9 @@
         <!-- 测试数据用 可以将实体填充数据 测试用例使用-->
         <jmockdata.version>4.2.0</jmockdata.version>
         <shedlock.version>4.41.0</shedlock.version>
+
+        <!-- 类似于freeMarker的模板引擎 -->
+        <com.jfinal.enjoy>5.0.3</com.jfinal.enjoy>
     </properties>
     <!-- 依赖 -->
     <dependencies>

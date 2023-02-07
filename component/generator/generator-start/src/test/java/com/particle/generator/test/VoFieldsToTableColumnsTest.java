@@ -19,7 +19,7 @@ import java.util.*;
 public class VoFieldsToTableColumnsTest {
 
 	public static void main(String[] args) {
-		String filePath = "/Users/yw/fh/git-source/particle/component/low-code/low-code-client/src/main/java/com/particle/lowcode/client/generator/dto/data/LowcodeModelItemVO.java";
+		String filePath = "/Users/yw/fh/git-source/particle/component/low-code/low-code-client/src/main/java/com/particle/lowcode/client/generator/dto/data/LowcodeSegmentTemplateVO.java";
 		convert(filePath);
 	}
 
@@ -40,6 +40,7 @@ public class VoFieldsToTableColumnsTest {
 			}
 		}
 		String resultStr = JSONUtil.toJsonPrettyStr(result);
+		resultStr = resultStr.replace("\"label\"", "label").replace("\"prop\"", "prop");
 		System.out.println(resultStr);
 		ClipboardUtil.setStr(resultStr);
 		System.out.println("已复制到剪切板");

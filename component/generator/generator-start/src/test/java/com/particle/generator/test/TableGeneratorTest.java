@@ -42,9 +42,9 @@ public class TableGeneratorTest {
 	public void tableGeneratorTest() {
 
 		String componentModuleName = "low-code";
-		TableType tableType = TableType.NORMAL;
+		TableType tableType = TableType.TREE;
 		String author = "yw";
-		String tableName = "component_lowcode_model_item";
+		String tableName = "component_lowcode_segment_template";
 		String tablePrefix = "component";
 		boolean fileOverride = true;
 		boolean fileDelete = false;

@@ -23,6 +23,10 @@ public class LowcodeModel extends AggreateRoot {
      * 名称
      */
     private String name;
+	/**
+	 * 名称
+	 */
+	private String nameEn;
     /**
      * 表名称
      */
@@ -31,7 +35,7 @@ public class LowcodeModel extends AggreateRoot {
      * 模型类型，rel,tree,normal
      */
     private String tableType;
-    /**
+	/**
      * 描述,注意事项等
      */
     private String remark;

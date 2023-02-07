@@ -26,6 +26,10 @@ public class LowcodeModelQueryListCommand extends AbstractBaseQueryCommand {
     private String name;
 
     @Like
+    @ApiModelProperty("英文名称")
+    private String nameEn;
+
+    @Like
     @ApiModelProperty("表名称")
     private String tableName;
 

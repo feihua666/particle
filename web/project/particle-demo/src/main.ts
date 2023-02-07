@@ -1,5 +1,13 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { v4 as uuidv4 } from 'uuid';
+import ace from "ace-builds"
+import "ace-builds/src-min-noconflict/theme-eclipse"
+import 'ace-builds/src-min-noconflict/mode-javascript'
+import 'ace-builds/src-min-noconflict/mode-json'
+import 'ace-builds/src-min-noconflict/mode-css'
+import 'ace-builds/src-min-noconflict/mode-html'
+
 
 import App from './App.vue'
 import router from './router'

@@ -33,6 +33,8 @@ import FormItem from './FormItem.vue'
 import Form from './Form.vue'
 import Tree from './Tree.vue'
 import SecretText from './SecretText.vue'
+import FormDesign from './form-design/FormDesign.vue'
+import Divider from './Divider.vue'
 import * as ElStyleTools from './ElStyleTools'
 
 let prefix = 'Pt'
@@ -71,6 +73,8 @@ let map = {
     Form,
     Tree,
     SecretText,
+    FormDesign,
+    Divider,
 }
 export default {
     install: function (app, options) {

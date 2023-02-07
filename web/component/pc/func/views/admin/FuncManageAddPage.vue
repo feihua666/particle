@@ -60,7 +60,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             dataMethod: funcGroupListApi,
           }
         }
@@ -147,7 +146,6 @@ const formComps = ref(
             label: '父级',
           },
           compProps: {
-            clearable: true,
             // 加载数据
             dataMethod: () => { return funcListApi({})},
             dataMethodResultHandleConvertToTree: true,
@@ -165,7 +163,6 @@ const formComps = ref(
             required: true
           },
           compProps: {
-            clearable: true,
             // 字典查询
             dictParam: {groupCode: 'func_type'}
           }

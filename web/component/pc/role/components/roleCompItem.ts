@@ -28,7 +28,6 @@ export const remoteSelectRoleCompItem = ({props,required})=>{
             compProps: ()=> {
                 let paramsExist = !!(props.roleId && props.roleName)
                 let r = {
-                    clearable: true,
                     placeholder: '输入角色名称搜索',
                     disabled: paramsExist,
                     // 给定默认数据

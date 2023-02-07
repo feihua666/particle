@@ -22,6 +22,9 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
     @ApiModelProperty("名称")
     private String name;
 
+    @ApiModelProperty("英文名称")
+    private String nameEn;
+
     @ApiModelProperty("表名称")
     private String tableName;
 

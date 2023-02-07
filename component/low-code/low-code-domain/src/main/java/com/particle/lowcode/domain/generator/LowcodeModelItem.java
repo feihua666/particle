@@ -89,6 +89,9 @@ public class LowcodeModelItem extends AggreateRoot {
     private String remark;
 
 
+    /**
+     * 根据全注释截取简洁注释
+     */
     public void fillCommentSimpleByCommentFull(){
         if (commentFull == null) {
             return;

@@ -101,3 +101,45 @@ export function removeDuplicate(arr: Array<any>):Array<any> {
 export function isEqual(a: Array<any>,b: Array<any>): boolean{
     return a.length==0 && b.length==0 || a.length === b.length && a.some(t => b.includes(t))
 }
+
+/**
+ * 将 index位置的元素前移
+ * @param array
+ * @param index
+ */
+export function frontMove(array: Array<any>,index){
+    // 如果数组中只有一个元素不处理
+    if(!array || array.length == 1){
+        return
+    }
+    let temp = array[index]
+    array.splice(index, 1)
+    array.splice(index - 1, 0, temp)
+
+}
+/**
+ * 将 index位置的元素前移
+ * @param array
+ * @param index
+ */
+export function backMove(array: Array<any>,index){
+    // 如果数组中只有一个元素不处理
+    if(!array || array.length == 1){
+        return
+    }
+    let temp = array[index]
+    array.splice(index, 1)
+    array.splice(index + 1, 0, temp)
+}
+
+/**
+ * 移除 index 位置的元素
+ * @param array
+ * @param index
+ */
+export function remove(array: Array<any>,index){
+    if(!array){
+        return
+    }
+    array.splice(index, 1)
+}

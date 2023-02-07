@@ -118,6 +118,8 @@ watch(
     (val) => {
       reactiveData.oldModelValue = val
       reactiveData.currentModelValue = val
+      checkAllCheck(reactiveData.currentModelValue,options)
+
     }
 )
 // 事件

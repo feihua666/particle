@@ -95,9 +95,17 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 		if (CollectionUtil.isEmpty(result)) {
 			return MultiResponse.of(Collections.EMPTY_LIST);
 		}
-
-		if (!StrUtil.isEmpty(dictItemsQueryListCommand.getTags())) {
-			List<String> paramTags = Lists.newArrayList(dictItemsQueryListCommand.getTags().split(","));
+		String tags = dictItemsQueryListCommand.getTags();
+		if (StrUtil.isEmpty(tags)) {
+			if (dictItemsQueryListCommand.getValueAsTagId() != null) {
+				DictDO valueAsTagId = iDictService.getById(dictItemsQueryListCommand.getValueAsTagId());
+				if (valueAsTagId != null) {
+					tags = valueAsTagId.getValue();
+				}
+			}
+		}
+		if (!StrUtil.isEmpty(tags)) {
+			List<String> paramTags = Lists.newArrayList(tags.split(","));
 			// 过滤标签
 			result = result.stream().filter(dict ->
 					{

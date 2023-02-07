@@ -10,6 +10,7 @@ import {getVal} from "../../common/tools/ObjectTools"
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import PtCompAdapter from '../../common/CompAdapter.vue'
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -42,6 +43,11 @@ const props = defineProps({
   // 鼠标 hover 提示语
   title: {
     type: String
+  },
+  // 数据变化事件
+  valueChange: {
+    type: Function,
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
   },
   // 权限相关
   ...permissionProps,
@@ -83,7 +89,7 @@ const emit = defineEmits([
   emitDataModelEvent.change,
 ])
 
-watch(() => props.form[props.prop],(val)=> {
+watch(() => props.form[props.prop],(val,oldVal)=> {
   if (hasPermission.value.enable && !hasPermission.value.hasPm) {
     // 没有权限时，在下一次更新将原来值重置回来，不能编辑
     nextTick(() => {
@@ -92,6 +98,7 @@ watch(() => props.form[props.prop],(val)=> {
   }else {
     reactiveData.currentModelValue = val
     reactiveData.oldModelValue = val
+    props.valueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: val,oldValue: oldVal})
   }
 
 })
@@ -124,7 +131,7 @@ const txtValue = () => {
       <span>{{txtValue()}}</span>
     </template>
     <template v-else>
-      <component v-if="permissionSupport" :is="comp" v-model="props.form[props.prop]"
+      <PtCompAdapter v-if="permissionSupport" :is="comp" v-model="props.form[props.prop]"
                  v-bind="$attrs"
                  :permission="permission"
                  :permissions="permissions"
@@ -140,8 +147,8 @@ const txtValue = () => {
         <template #default v-if="$slots.default">
           <slot></slot>
         </template>
-      </component>
-      <component v-else :is="comp" v-model="props.form[props.prop]" v-bind="$attrs"
+      </PtCompAdapter>
+      <PtCompAdapter v-else :is="comp" v-model="props.form[props.prop]" v-bind="$attrs"
                  :disabled="hasDisabled.disabled"
                  @update:modelValue="updateModelValueEvent"
                  @change="changeModelValueEvent"
@@ -151,7 +158,7 @@ const txtValue = () => {
         <template #default v-if="$slots.default">
           <slot></slot>
         </template>
-      </component>
+      </PtCompAdapter>
     </template>
   </template>
 </template>

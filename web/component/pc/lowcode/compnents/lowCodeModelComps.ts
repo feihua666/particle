@@ -1,14 +1,15 @@
+// 与后端的 com.particle.generator.domain.TableType 一致
 export const radioGroupData = [
     {
-        id: 'normal',
-        name: '常规'
+        id: 'NORMAL',
+        name: 'NORMAL'
     },
     {
-        id: 'tree',
-        name: '树'
+        id: 'TREE',
+        name: 'TREE'
     },
     {
-        id: 'rel',
-        name: '关系'
+        id: 'REL',
+        name: 'REL'
     },
 ]

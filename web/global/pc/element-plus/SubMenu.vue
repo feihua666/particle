@@ -90,19 +90,19 @@ onMounted(() => {
     </template>
 
     <template #default v-if="$slots.default">
-      <slot name="default" :options="options" />
+      <slot name="default" :options="options" >sss</slot>
     </template>
     <template #default  v-if="!$slots.default">
       <template v-for="(menuItem,index) in options" :key="index">
 
         <template v-if="isMenu(menuItem)">
-          <PtSubMenu :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]"></PtSubMenu>
+          <PtSubMenu :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtSubMenu>
         </template>
         <template v-else-if="isPage(menuItem)">
           <PtMenuItem  :index="menuItem[propsOptions.index]|| menuItem[propsOptions.backIndex]"  :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" ></PtMenuItem>
         </template>
         <template v-else-if="isGroup(menuItem)">
-          <PtMenuItemGroup  :titleText="menuItem[propsOptions.name]" :options="menuItem[propsOptions.children]"></PtMenuItemGroup>
+          <PtMenuItemGroup   :index="menuItem[propsOptions.index] || menuItem[propsOptions.backIndex]" :titleText="menuItem[propsOptions.name]" :icon="menuItem[propsOptions.icon]" :options="menuItem[propsOptions.children]" :props="propsOptions"></PtMenuItemGroup>
         </template>
 
       </template>

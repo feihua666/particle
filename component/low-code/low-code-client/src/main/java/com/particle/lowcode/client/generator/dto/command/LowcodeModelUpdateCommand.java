@@ -25,6 +25,10 @@ public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "名称",required = true)
     private String name;
 
+    @NotEmpty(message = "英文名称不能为空")
+    @ApiModelProperty(value = "英文名称",required = true)
+    private String nameEn;
+
     @ApiModelProperty("表名称")
     private String tableName;
 

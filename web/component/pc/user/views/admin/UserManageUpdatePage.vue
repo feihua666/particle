@@ -116,7 +116,6 @@ const formComps = ref(
             required: ({form})=> !form.isVirtual,
           },
           compProps: {
-            clearable: true,
             // 字典查询
             dictParam: {groupCode: 'gender'}
           }
@@ -179,7 +178,6 @@ const formComps = ref(
             required:true,
           },
           compProps: {
-            clearable: true,
             // 字典查询
             dictParam: {groupCode: 'user_category'}
           }
@@ -196,7 +194,6 @@ const formComps = ref(
             required:true,
           },
           compProps: {
-            clearable: true,
             // 字典查询
             dictParam: {groupCode: 'user_source_from'}
           }
@@ -245,7 +242,6 @@ const formComps = ref(
             label: '过期时间'
           },
           compProps:  {
-            clearable: true,
             type: "datetime"
           }
         }
