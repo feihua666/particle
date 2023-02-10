@@ -64,7 +64,6 @@ const formComps = ref(
             return {
               clearable: true,
               placeholder: '编码唯一如：user_code',
-              disabled: disabled
             }
           }
         }
@@ -101,7 +100,6 @@ const formComps = ref(
             }
             return {
               clearable: true,
-              disabled: disabled
             }
           }
         }
