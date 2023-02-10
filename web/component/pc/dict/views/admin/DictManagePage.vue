@@ -89,7 +89,7 @@ const reactiveData = reactive({
     },
 
     {
-      prop: 'isDisabled',
+      prop: 'isSystem',
       label: '是否系统',
       width: 80,
       formatter: (row, column, cellValue, index) => {
