@@ -2,7 +2,9 @@ package com.particle.lowcode.client.generator.api;
 
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -24,6 +26,13 @@ public interface ILowcodeSegmentTemplateApplicationService extends IBaseApplicat
 	 * @return
 	 */
 	SingleResponse<LowcodeSegmentTemplateVO> create(LowcodeSegmentTemplateCreateCommand lowcodeSegmentTemplateCreateCommand);
+
+	/**
+	 * 片段模板渲染测试
+	 * @param lowcodeSegmentTemplateRenderCommand
+	 * @return
+	 */
+	SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand);
 
 	/**
 	 * 删除领域对象

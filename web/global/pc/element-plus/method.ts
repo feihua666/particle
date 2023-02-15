@@ -67,7 +67,7 @@ export const method = ({props,reactiveData,emit,hasPermission,confirmCancelFn,do
         if (doAlertOrCustomFnIfNeccessaryResult) {
             return
         }
-        let beforeResult = props.beforeMethod()
+        let beforeResult = props.beforeMethod.apply(null,args)
         if(beforeResult !== true){
             if (isString(beforeResult)) {
                 alert(beforeResult,'error')
@@ -98,11 +98,11 @@ export const method = ({props,reactiveData,emit,hasPermission,confirmCancelFn,do
         }
     }
 }
-const methodSuccess = (methodSuccess)=>{
+const methodSuccess = (methodSuccess,result)=>{
     if(methodSuccess){
         let message = methodSuccess
         if (isFunction(methodSuccess)) {
-            message = methodSuccess()
+            message = methodSuccess(result)
         }
         if (isString(message) ) {
             alert(message)
@@ -125,7 +125,7 @@ export const doMethod = ({props,reactiveData,emit}: {}) =>{
             }
             if (isPromise(result)) {
                 const promiseResult = result.then(res =>{
-                    methodSuccess(props.methodSuccess)
+                    methodSuccess(props.methodSuccess,res)
                     return Promise.resolve(res)
                 }).catch(error => {
                     return Promise.reject(error)
@@ -136,7 +136,7 @@ export const doMethod = ({props,reactiveData,emit}: {}) =>{
                     emit(emitMethodEvent.methodResult,promiseResult)
                 }
             }else {
-                methodSuccess(props.methodSuccess)
+                methodSuccess(props.methodSuccess,result)
                 if(emit){
                     emit(emitMethodEvent.methodResult,result)
                 }

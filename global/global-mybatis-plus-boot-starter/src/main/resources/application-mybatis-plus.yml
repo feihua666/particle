@@ -7,7 +7,9 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   global-config:
     db-config:
-      # 在查询时使用不为空字符串
+      # 在查询时使用不为空字符串，如果字典为空将不拼接，即：查询空字符串不起作用
       where-strategy: NOT_EMPTY
+      # 在插入时，字段为null将不拼接该字段，即：null字段不插入
       insert-strategy: NOT_NULL
+      # 在更新时，字段为null将不拼接该字段，即：null字段不更新，一般前端在输入框中输入了内容又清空后会是空字段串，这时将会更新为空字段串
       update-strategy: NOT_NULL

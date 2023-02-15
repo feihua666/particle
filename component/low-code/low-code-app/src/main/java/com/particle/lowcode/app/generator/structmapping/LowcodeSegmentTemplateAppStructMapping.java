@@ -2,6 +2,8 @@ package com.particle.lowcode.app.generator.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplateId;
@@ -10,10 +12,16 @@ import com.particle.lowcode.client.generator.dto.command.representation.LowcodeS
 import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentTemplateQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderParam;
+import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderResult;
+import org.mapstruct.MapMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
+import java.util.Optional;
+
 /**
  * <p>
  * 低代码片段模板 app应用层数据实体映射转换
@@ -22,7 +30,8 @@ import java.util.List;
  * @author yw
  * @since 2023-01-06
  */
-@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
+
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,imports = Optional.class)
 public abstract class LowcodeSegmentTemplateAppStructMapping  implements IBaseQueryCommandMapStruct<LowcodeSegmentTemplateDO>{
 	public static LowcodeSegmentTemplateAppStructMapping instance = Mappers.getMapper( LowcodeSegmentTemplateAppStructMapping.class );
 
@@ -79,4 +88,10 @@ public abstract class LowcodeSegmentTemplateAppStructMapping  implements IBaseQu
 	public abstract LowcodeSegmentTemplateDO pageQueryCommandToDO(LowcodeSegmentTemplatePageQueryCommand lowcodeSegmentTemplatePageQueryCommand);
 
 	public abstract LowcodeSegmentTemplateDO queryListCommandToDO(LowcodeSegmentTemplateQueryListCommand lowcodeSegmentTemplateQueryListCommand);
+
+	public abstract LowcodeSegmentTemplateRenderParam lowcodeSegmentTemplateRenderCommandToLowcodeSegmentTemplateRenderParam(LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand);
+
+	@Mapping(target = "templateNameContentResultFile",expression = "java(Optional.ofNullable(lowcodeSegmentTemplateRenderResult.getTemplateNameContentResultFile()).map(i->i.getAbsolutePath()).orElse(null))")
+	public abstract LowcodeSegmentTemplateRenderVO lowcodeSegmentTemplateRenderResultToLowcodeSegmentTemplateRenderVO(LowcodeSegmentTemplateRenderResult lowcodeSegmentTemplateRenderResult);
+
 }

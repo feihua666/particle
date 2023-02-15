@@ -3,7 +3,7 @@ import {isArray} from '../../common/tools/ArrayTools'
 // 定义索引
 const d = [
     {
-        pattern:['查询','搜索','获取','预览'],
+        pattern:['查询','搜索','获取'],
         icon: 'Search',
         type:'primary',
     },
@@ -43,8 +43,9 @@ const d = [
         type:'primary',
     },
     {
-        pattern:'详情',
-        icon: 'View'
+        pattern:['预览','查看','详情'],
+        icon: 'View',
+        type:'primary',
     },
     {
         pattern:'地图',
@@ -57,8 +58,13 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['装载'],
+        pattern:['装载','加载'],
         icon: 'Cpu',
+        type:'primary'
+    },
+    {
+        pattern:['测试'],
+        icon: 'SetUp',
         type:'primary'
     }
 ]

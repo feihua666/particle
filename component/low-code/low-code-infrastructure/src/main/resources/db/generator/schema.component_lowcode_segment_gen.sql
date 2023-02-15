@@ -1,0 +1,23 @@
+DROP TABLE IF EXISTS component_lowcode_segment_gen;
+CREATE TABLE `component_lowcode_segment_gen` (
+  `id` bigint NOT NULL COMMENT 'ID',
+  `name` varchar(100) NOT NULL COMMENT '生成名称，一般用于显示标识',
+  `lowcode_segment_template_id` bigint NOT NULL COMMENT '低代码片段模板id',
+  `lowcode_model_id` bigint DEFAULT NULL COMMENT '低代码模型id',
+  `lowcode_model_json` text DEFAULT NULL COMMENT '低代码模型数据包括模型项数据',
+  `global_json` text DEFAULT NULL COMMENT '全局可用变量json数据',
+  `is_generated` tinyint(1) NOT NULL COMMENT '是否已生成',
+  `generate_type_dict_id` bigint NOT NULL COMMENT '生成类型字典id',
+  `refrence_segment_gen_id` bigint DEFAULT NULL COMMENT '引用生成id，主要用来获取引用的相关变量',
+  `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `version` (`version`) USING BTREE,
+  KEY `lowcode_segment_template_id` (`lowcode_segment_template_id`),
+  KEY `lowcode_model_id` (`lowcode_model_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='低代码生成表';

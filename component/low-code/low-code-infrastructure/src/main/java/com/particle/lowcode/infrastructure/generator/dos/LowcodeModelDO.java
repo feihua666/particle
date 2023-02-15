@@ -31,9 +31,9 @@ public class LowcodeModelDO extends BaseDO {
     */
     private String tableName;
     /**
-    * 模型类型，rel,tree,normal
+    * 模型表类型字典id，rel,tree,normal
     */
-    private String tableType;
+    private Long tableTypeDictId;
     /**
     * 描述,注意事项等
     */

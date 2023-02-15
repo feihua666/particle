@@ -4,7 +4,7 @@ import DictPlugin from './dict/DictPlugin'
 import AreaPlugin from './area/AreaPlugin'
 import RolePlugin from './role/RolePlugin'
 import ToolsPlugin from './tools/ToolsPlugin'
-import LowCodePlugin from './lowcode/LowCodePlugin'
+import LowcodePlugin from './lowcode/LowcodePlugin'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -13,6 +13,6 @@ export default {
         AreaPlugin.install(app,options)
         RolePlugin.install(app,options)
         ToolsPlugin.install(app,options)
-        LowCodePlugin.install(app,options)
+        LowcodePlugin.install(app,options)
     }
 }

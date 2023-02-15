@@ -89,9 +89,10 @@ onBeforeUnmount(()=>{
   aceEcitorInstance.container.remove();
 })
 // 值变化变更
-watch(()=> props.modelValue,(value)=>{
+// 是输入时，由于不断输入导致不断设置值，光标不移动，这里先注释，唯一影响是除了初始化，如果主动设置值无变化
+/*watch(()=> props.modelValue,(value)=>{
   setValue(value)
-})
+})*/
 watch(()=> props.mode,(value)=>{
   setMode(value)
 })
@@ -110,7 +111,6 @@ const setMode = (value) => {
 }
 // 你可以通过setTheme来设置主题，需要注意的是主题文件要存在，并且需要与ace.js同级，命名规则为theme-主题名.js
 const setTheme = (value) => {
-  console.log("settheme",value)
   aceEcitorInstance?.setTheme(value)
 }
 </script>
@@ -122,6 +122,7 @@ const setTheme = (value) => {
 <style scoped>
 .pt-ace-editor {
   min-height: 350px;
+  min-width: 350px;
 }
 
 </style>

@@ -3,6 +3,7 @@ package com.particle.generator.domain.component;
 import cn.hutool.core.util.StrUtil;
 import com.particle.generator.domain.SubModule;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.str.NetPathTool;
 import com.particle.global.tool.str.PathTool;
 import lombok.Builder;
 import lombok.Data;
@@ -60,7 +61,7 @@ public class ComponentGenerateConf extends Value {
 	 * @return
 	 */
 	public String outputAbsolutePath() {
-		return PathTool.concat(projectAbsolutePath, outputRelativePath);
+		return NetPathTool.concat(projectAbsolutePath, outputRelativePath);
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class ComponentGenerateConf extends Value {
 	 */
 	public String subModuleAbsolutePath(SubModule subModule) {
 		String subModuleName = StrUtil.join("-", componentModuleName, subModule.realSubModuleName());
-		return PathTool.concat(projectAbsolutePath, outputRelativePath, componentModuleName, subModuleName);
+		return NetPathTool.concat(projectAbsolutePath, outputRelativePath, componentModuleName, subModuleName);
 
 	}
 

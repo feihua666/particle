@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -32,9 +33,9 @@ public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("表名称")
     private String tableName;
 
-    @NotEmpty(message = "模型类型不能为空")
-    @ApiModelProperty(value = "模型类型，rel,tree,normal",required = true)
-    private String tableType;
+    @NotNull(message = "模型表类型字典id 不能为空")
+    @ApiModelProperty(value = "模型表类型字典id，rel,tree,normal",required = true)
+    private Long tableTypeDictId;
 
     @ApiModelProperty("描述,注意事项等")
     private String remark;

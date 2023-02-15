@@ -91,5 +91,13 @@
             <artifactId>spring-cloud-starter-sleuth</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 仅模板树测试 -->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>enjoy</artifactId>
+            <version>${com.jfinal.enjoy}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

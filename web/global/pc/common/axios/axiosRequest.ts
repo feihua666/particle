@@ -61,7 +61,7 @@ const defaultConfig: Config = {
     showErrorMessage: true, // 是否开启接口错误信息展示,默认为true
     showNoneSuccessMessage: true, // 是否开启接口错误信息展示,默认为true
     noneSuccessMessage: (response) => {
-        if(response.data && response.data.isSuccess !== undefined && response.data.isSuccess == false){
+        if(response.data && response.data.success !== undefined && response.data.success == false){
             return response.data.errMessage
         }
         return ''

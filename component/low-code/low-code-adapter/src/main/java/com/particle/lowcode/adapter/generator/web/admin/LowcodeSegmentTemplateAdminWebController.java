@@ -3,6 +3,8 @@ package com.particle.lowcode.adapter.generator.web.admin;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeSegmentTemplateRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
@@ -87,6 +89,13 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@GetMapping("/page")
 	public PageResponse<LowcodeSegmentTemplateVO> pageQueryList(LowcodeSegmentTemplatePageQueryCommand lowcodeSegmentTemplatePageQueryCommand){
 		return iLowcodeSegmentTemplateRepresentationApplicationService.pageQuery(lowcodeSegmentTemplatePageQueryCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:renderTest')")
+	@ApiOperation("片段模板渲染测试")
+	@PostMapping("/renderTest")
+	public SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(@RequestBody LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand){
+		return iLowcodeSegmentTemplateApplicationService.renderTest(lowcodeSegmentTemplateRenderCommand);
 	}
 
 }

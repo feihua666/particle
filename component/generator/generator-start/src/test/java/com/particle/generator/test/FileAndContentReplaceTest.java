@@ -37,11 +37,11 @@ public class FileAndContentReplaceTest {
 		List<String> pathList = new ArrayList<>();
 
 		//pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin");
-		//pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/LowCodeRoutes.ts");
+		//pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/LowcodeRoutes.ts");
 		pathList.add("");
-		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManageAddPage.vue");
-		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManagePage.vue");
-		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowCodeModelManageUpdatePage.vue");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowcodeModelManageAddPage.vue");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowcodeModelManagePage.vue");
+		pathList.add("/Users/yw/fh/git-source/particle/web/component/pc/lowcode/views/generator/admin/LowcodeModelManageUpdatePage.vue");
 
 		for (String path : pathList) {
 			if (StrUtil.isEmpty(path)) {

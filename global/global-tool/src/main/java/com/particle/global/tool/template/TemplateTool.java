@@ -1,5 +1,6 @@
 package com.particle.global.tool.template;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
@@ -29,10 +30,24 @@ public class TemplateTool {
 	 * @return
 	 */
 	public static String render(String template, Map<String,Object> data){
+		return render(template,data,defaultTemplateEngine);
+	}
+
+	/**
+	 * 渲染字符串模板和数据
+	 * @param template
+	 * @param data
+	 * @param engine 自定义引擎
+	 * @return
+	 */
+	public static String render(String template, Map<String,Object> data,TemplateEngine engine){
 		if (data == null || data.isEmpty()) {
 			return template;
 		}
-		Template template1 = defaultTemplateEngine.getTemplate(template);
+		if (StrUtil.isEmpty(template)) {
+			return template;
+		}
+		Template template1 = engine.getTemplate(template);
 		return template1.render(data);
 	}
 }

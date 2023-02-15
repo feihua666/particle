@@ -4,7 +4,7 @@ CREATE TABLE `component_lowcode_model` (
   `name` varchar(100) NOT NULL COMMENT '名称',
   `name_en` varchar(100) NOT NULL COMMENT '英文名称',
   `table_name` varchar(255) DEFAULT NULL COMMENT '表名称',
-  `table_type` varchar(255) NOT NULL COMMENT '模型类型，rel,tree,normal',
+  `table_type_dict_id` bigint NOT NULL COMMENT '模型表类型字典id，rel,tree,normal',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

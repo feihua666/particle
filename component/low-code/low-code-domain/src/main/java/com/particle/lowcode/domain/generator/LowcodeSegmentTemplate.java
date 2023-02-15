@@ -30,6 +30,10 @@ public class LowcodeSegmentTemplate extends AggreateRoot {
      * 名称模板
      */
     private String nameTemplate;
+	/**
+	 * 名称输出变量名
+	 */
+	private String nameOutputVariable;
     /**
      * 内容模板
      */
@@ -39,15 +43,15 @@ public class LowcodeSegmentTemplate extends AggreateRoot {
      */
     private Long referenceSegmentTemplateId;
     /**
-     * 输出类型，file=文件，dir=目录，segment=片段
+     * 输出类型字典id，file=文件，dir=目录，segment=片段
      */
-    private String outputType;
+    private Long outputTypeDictId;
     /**
-     * 输出变量名
+     * 内容输出变量名
      */
     private String outputVariable;
 	/**
-	 * 共享变量名，多个以逗号分隔，变量类型为List<String>
+	 * 共享变量名，多个以逗号分隔，变量类型为Set<String>
 	 */
 	private String shareVariables;
     /**

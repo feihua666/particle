@@ -94,7 +94,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:loadByModelAndDatasource')")
-	@ApiOperation("根据模型装载模型项")
+	@ApiOperation("加载载模型项")
 	@PostMapping("/loadByModelAndDatasource")
 	public Response loadByModelAndDatasource(@RequestBody LowcodeModelItemCreateByModelIdCommand idCommand){
 		return iLowcodeModelApplicationService.loadByModelAndDatasource(idCommand);

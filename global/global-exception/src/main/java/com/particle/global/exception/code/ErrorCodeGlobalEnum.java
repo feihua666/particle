@@ -75,9 +75,9 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	DATA_NOT_FOUND(40400000001L,"数据不存在"),
 	/**
-	 * 地址不存在
+	 * 接口地址不存在
 	 */
-	URL_NOT_FOUND(40400000002L,"地址不存在"),
+	URL_NOT_FOUND(40400000002L,"接口地址不存在"),
 
 
 	METHOD_NOT_SUPPORTED_ERROR(40500000002L,"不支持的方法"),

@@ -48,6 +48,8 @@ public class LowcodeSegmentTemplateGatewayImpl extends AbstractBaseGatewayImpl<L
 
 	@Override
 	public boolean delete(LowcodeSegmentTemplateId lowcodeSegmentTemplateId) {
+
+		iLowcodeSegmentTemplateService.assertByColumn(lowcodeSegmentTemplateId.getId(),LowcodeSegmentTemplateDO::getReferenceSegmentTemplateId,false,"要删除的片段模板还有其它片段模板引用，不能删除");
 		return iLowcodeSegmentTemplateService.deleteById(lowcodeSegmentTemplateId.getId());
 	}
 

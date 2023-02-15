@@ -3,23 +3,21 @@ package com.particle.global.tool.str;
 import cn.hutool.core.util.StrUtil;
 
 /**
- * 路径工具
+ * 网络路径工具
  * @author yangwei
  * @since 2022-04-13 19:52
  */
 public class PathTool {
-
-    public static final String SLASH = "/";
-
+    
     /**
      * 确保开始以/开头
      * @param str
      * @return
      */
-    public static String ensureBeginSlash(String str){
+    public static String ensureBeginSeparator(String str,String separator){
         if (str != null) {
-            if (!str.startsWith(SLASH)) {
-                return SLASH + str;
+            if (!str.startsWith(separator)) {
+                return separator + str;
             }
         }
         return str;
@@ -29,9 +27,9 @@ public class PathTool {
      * @param str
      * @return
      */
-    public static String ensureNotBeginSlash(String str){
+    public static String ensureNotBeginSeparator(String str,String separator){
         if (str != null) {
-            if (str.startsWith(SLASH)) {
+            if (str.startsWith(separator)) {
                 return str.substring(1);
             }
         }
@@ -42,10 +40,10 @@ public class PathTool {
      * @param str
      * @return
      */
-    public static String ensureEndSlash(String str){
+    public static String ensureEndSeparator(String str,String separator){
         if (str != null) {
-            if (!str.endsWith(SLASH)) {
-                return str + SLASH;
+            if (!str.endsWith(separator)) {
+                return str + separator;
             }
         }
         return str;
@@ -55,9 +53,9 @@ public class PathTool {
      * @param str
      * @return
      */
-    public static String ensureNotEndSlash(String str){
+    public static String ensureNotEndSeparator(String str,String separator){
         if (str != null) {
-            if (str.endsWith(SLASH)) {
+            if (str.endsWith(separator)) {
                 return str.substring(0, str.length() - 1);
             }
         }
@@ -81,7 +79,7 @@ public class PathTool {
      * @param str
      * @return
      */
-    public static String concat(String ...str){
+    public static String concat(String separator,String ...str){
         if (str == null) {
             return null;
         }
@@ -89,16 +87,16 @@ public class PathTool {
         if (str.length == 1) {
             sb.append(StrUtil.nullToEmpty(str[0]));
         }else if (str.length == 2) {
-            sb.append(StrUtil.nullToEmpty(ensureNotEndSlash(str[0])));
-            sb.append(StrUtil.nullToEmpty(ensureBeginSlash(str[1])));
+            sb.append(StrUtil.nullToEmpty(ensureNotEndSeparator(str[0],separator)));
+            sb.append(StrUtil.nullToEmpty(ensureBeginSeparator(str[1],separator)));
         }else {
             for (int i = 0; i < str.length; i++) {
                 if(i == 0){
-                    sb.append(StrUtil.nullToEmpty(ensureNotEndSlash(str[i])));
+                    sb.append(StrUtil.nullToEmpty(ensureNotEndSeparator(str[i],separator)));
                 }else if(i == str.length - 1){
-                    sb.append(StrUtil.nullToEmpty(ensureBeginSlash(str[i])));
+                    sb.append(StrUtil.nullToEmpty(ensureBeginSeparator(str[i],separator)));
                 }else {
-                    sb.append(StrUtil.nullToEmpty(ensureNotEndSlash(ensureBeginSlash(str[i]))));
+                    sb.append(StrUtil.nullToEmpty(ensureNotEndSeparator(ensureBeginSeparator(str[i],separator),separator)));
                 }
             }
         }

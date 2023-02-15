@@ -2,11 +2,14 @@ package com.particle.lowcode.app.generator.api.impl;
 
 import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateCreateCommandExecutor;
 import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateDeleteCommandExecutor;
+import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateRenderCommandExecutor;
 import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
@@ -35,10 +38,16 @@ public class LowcodeSegmentTemplateApplicationServiceImpl extends AbstractBaseAp
 
 	private LowcodeSegmentTemplateUpdateCommandExecutor lowcodeSegmentTemplateUpdateCommandExecutor;
 
+	private LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor;
 
 	@Override
 	public SingleResponse<LowcodeSegmentTemplateVO> create(LowcodeSegmentTemplateCreateCommand lowcodeSegmentTemplateCreateCommand) {
 		return lowcodeSegmentTemplateCreateCommandExecutor.execute(lowcodeSegmentTemplateCreateCommand);
+	}
+
+	@Override
+	public SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand) {
+		return lowcodeSegmentTemplateRenderCommandExecutor.renderTest(lowcodeSegmentTemplateRenderCommand);
 	}
 
 	@Override
@@ -64,5 +73,8 @@ public class LowcodeSegmentTemplateApplicationServiceImpl extends AbstractBaseAp
 	public void setLowcodeSegmentTemplateUpdateCommandExecutor(LowcodeSegmentTemplateUpdateCommandExecutor lowcodeSegmentTemplateUpdateCommandExecutor) {
 		this.lowcodeSegmentTemplateUpdateCommandExecutor = lowcodeSegmentTemplateUpdateCommandExecutor;
 	}
-
+	@Autowired
+	public void setLowcodeSegmentTemplateRenderCommandExecutor(LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor) {
+		this.lowcodeSegmentTemplateRenderCommandExecutor = lowcodeSegmentTemplateRenderCommandExecutor;
+	}
 }

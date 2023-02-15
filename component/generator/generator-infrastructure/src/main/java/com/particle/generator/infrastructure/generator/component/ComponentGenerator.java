@@ -6,6 +6,7 @@ import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.generator.domain.SubModule;
 import com.particle.generator.domain.component.ComponentGenerateConf;
+import com.particle.global.tool.str.NetPathTool;
 import com.particle.global.tool.str.PathTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -63,12 +64,12 @@ public class ComponentGenerator {
 		String componentModuleName = componentGenerateConf.getComponentModuleName();
 		String projectAbsolutePath = componentGenerateConf.getProjectAbsolutePath();
 		log.info("开始生成组件 moduleName={}", componentModuleName);
-		String templateAbsolutePath = PathTool.concat(projectAbsolutePath,componentGenerateConf.getTemplateRelativePath(), templatename);
+		String templateAbsolutePath = NetPathTool.concat(projectAbsolutePath,componentGenerateConf.getTemplateRelativePath(), templatename);
 		String templateTempAbsolutePath = copyTemplateToTemp(templateAbsolutePath);
 		handle(templateTempAbsolutePath, componentGenerateConf);
 
 		// 重命名前先删除重命名后的根组件名称，防止冲突
-		FileUtil.del(PathTool.concat(FileUtil.getParent(templateTempAbsolutePath,1),componentModuleName));
+		FileUtil.del(NetPathTool.concat(FileUtil.getParent(templateTempAbsolutePath,1),componentModuleName));
 		// 重命名根组件,将模板名称重命名目标组件名称
 		File rename = FileUtil.rename(new File(templateTempAbsolutePath), componentModuleName, false, true);
 
@@ -77,7 +78,7 @@ public class ComponentGenerator {
 		File copy = FileUtil.copy(rename.getAbsolutePath(), outputParentAbsolutePath, componentGenerateConf.getFileOverride());
 
 		// 处理parent pom 以添加 module
-		String parentPomAbsolutePath = PathTool.concat(outputParentAbsolutePath, "pom.xml");
+		String parentPomAbsolutePath = NetPathTool.concat(outputParentAbsolutePath, "pom.xml");
 		if (FileUtil.exist(parentPomAbsolutePath)) {
 			List<String> parentPomLines = FileUtil.readUtf8Lines(parentPomAbsolutePath);
 			String parentModuleSegment = StrUtil.format("        <module>{}</module>", componentModuleName);
@@ -100,7 +101,7 @@ public class ComponentGenerator {
 
 		log.info("组件生成结束 moduleName={},absolutePath={}",
 				componentModuleName,
-				PathTool.concat(copy.getAbsolutePath(), componentModuleName));
+				NetPathTool.concat(copy.getAbsolutePath(), componentModuleName));
 
 
 		return true;

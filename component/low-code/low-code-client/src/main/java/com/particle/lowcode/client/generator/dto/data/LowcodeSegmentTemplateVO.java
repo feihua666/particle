@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
@@ -42,13 +43,17 @@ public class LowcodeSegmentTemplateVO extends AbstractBaseIdTreeVO {
     @ApiModelProperty("引用模板名称")
     private String referenceSegmentTemplateName;
 
-    @ApiModelProperty("输出类型，file=文件，dir=目录，segment=片段")
-    private String outputType;
+    @ApiModelProperty("输出类型字典id，file=文件，dir=目录，segment=片段")
+    private Long outputTypeDictId;
 
-    @ApiModelProperty("输出变量名")
+    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "outputTypeDictId",mapValueField = "name")
+    @ApiModelProperty("模型表类型字典名称")
+    private String outputTypeDictName;
+
+    @ApiModelProperty("内容输出变量名")
     private String outputVariable;
 
-    @ApiModelProperty("共享变量名，多个以逗号分隔，变量类型为List<String>")
+    @ApiModelProperty("共享变量名，多个以逗号分隔，变量类型为Set<String>")
     private String shareVariables;
 
     @ApiModelProperty("描述")

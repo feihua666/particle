@@ -31,20 +31,23 @@ public class LowcodeSegmentTemplateCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("名称模板")
     private String nameTemplate;
 
+    @ApiModelProperty("名称输出变量名")
+    private String nameOutputVariable;
+
     @ApiModelProperty("内容模板")
     private String contentTemplate;
 
     @ApiModelProperty("引用模板id")
     private Long referenceSegmentTemplateId;
 
-    @NotEmpty(message = "输出类型不能为空")
-    @ApiModelProperty("输出类型，file=文件，dir=目录，segment=片段")
-    private String outputType;
+    @NotEmpty(message = "输出类型字典id不能为空")
+    @ApiModelProperty("输出类型字典id，file=文件，dir=目录，segment=片段")
+    private Long outputTypeDictId;
 
-    @ApiModelProperty("输出变量名")
+    @ApiModelProperty("内容输出变量名")
     private String outputVariable;
 
-    @ApiModelProperty("共享变量名，多个以逗号分隔，变量类型为List<String>")
+    @ApiModelProperty("共享变量名，多个以逗号分隔，变量类型为Set<String>")
     private String shareVariables;
 
     @ApiModelProperty("描述")

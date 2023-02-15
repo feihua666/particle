@@ -2,6 +2,8 @@ package com.particle.lowcode.client.generator.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,8 +30,12 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
     @ApiModelProperty("表名称")
     private String tableName;
 
-    @ApiModelProperty("模型类型，rel,tree,normal")
-    private String tableType;
+    @ApiModelProperty("模型表类型字典id，rel,tree,normal")
+    private Long tableTypeDictId;
+
+    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "tableTypeDictId",mapValueField = "name")
+    @ApiModelProperty("模型表类型字典名称")
+    private String tableTypeDictName;
 
     @ApiModelProperty("描述,注意事项等")
     private String remark;

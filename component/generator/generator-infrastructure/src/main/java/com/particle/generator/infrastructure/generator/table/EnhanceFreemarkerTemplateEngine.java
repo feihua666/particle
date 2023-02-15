@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.generator.util.FileUtils;
 import com.particle.generator.domain.OutputFileEnum;
 import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.global.datasource.sqlinit.CustomDataSourceScriptDatabaseInitializer;
+import com.particle.global.tool.str.NetPathTool;
 import com.particle.global.tool.str.PathTool;
 
 import java.io.File;
@@ -63,7 +64,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 					// 子模板的绝对路径不能为空，如果为空可能生成的路径不正确，这里没有做校验
 					fileAbsolutePath = segment;
 				}else {
-					fileAbsolutePath = PathTool.concat(fileAbsolutePath,segment);
+					fileAbsolutePath = NetPathTool.concat(fileAbsolutePath,segment);
 				}
 			}
 
@@ -84,7 +85,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 					// 命名需要和 component/componenttemplate/componenttemplate-infrastructure/src/main/resources/db/schema.componenttemplate.sql 一致
 					String schemaSqlFileName = StrUtil.format("schema.{}.sql",tableGenerateConf.getComponentModuleName());
 					String parent = FileUtil.getParent(fileAbsolutePath, 1);
-					String schemaPath = PathTool.concat(parent,schemaSqlFileName);
+					String schemaPath = NetPathTool.concat(parent,schemaSqlFileName);
 
 					String singleSqlName = templateAndFileName.getFileName();
 					String importLocation = CustomDataSourceScriptDatabaseInitializer.IMPORT_PREFIX + "classpath:"+ InjectionConfigLogic.tableDdlClassPath +"/" + singleSqlName;

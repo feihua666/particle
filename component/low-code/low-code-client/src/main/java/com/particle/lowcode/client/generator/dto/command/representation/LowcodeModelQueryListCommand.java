@@ -33,7 +33,7 @@ public class LowcodeModelQueryListCommand extends AbstractBaseQueryCommand {
     @ApiModelProperty("表名称")
     private String tableName;
 
-    @ApiModelProperty("模型类型，rel,tree,normal")
-    private String tableType;
+    @ApiModelProperty("模型表类型字典id，rel,tree,normal")
+    private Long tableTypeDictId;
 
 }

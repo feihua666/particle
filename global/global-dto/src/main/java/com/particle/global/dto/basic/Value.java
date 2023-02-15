@@ -3,6 +3,7 @@ package com.particle.global.dto.basic;
 /**
  * <p>
  * 领域驱动设计，值对象基类，继承该类代表是一个值对象
+ * 值对象不可变，只能新创建
  * </p>
  *
  * @author yangwei

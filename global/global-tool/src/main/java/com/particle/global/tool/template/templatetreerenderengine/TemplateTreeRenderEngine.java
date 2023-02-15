@@ -1,0 +1,322 @@
+package com.particle.global.tool.template.templatetreerenderengine;
+
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.template.TemplateConfig;
+import cn.hutool.extra.template.TemplateEngine;
+import cn.hutool.extra.template.TemplateUtil;
+import cn.hutool.extra.template.engine.enjoy.EnjoyEngine;
+import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.str.FilePathTool;
+import com.particle.global.tool.template.TemplateTool;
+import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
+import com.particle.global.tool.template.templatetreerenderengine.render.RenderContext;
+import com.particle.global.tool.template.templatetreerenderengine.render.SegmentTemplateData;
+import com.particle.global.tool.template.templatetreerenderengine.render.TemplateRenderContext;
+import com.particle.global.tool.template.templatetreerenderengine.template.ISegmentTemplateRenderDataResolver;
+import com.particle.global.tool.template.templatetreerenderengine.template.SegmentTemplate;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * <p>
+ * 模板树渲染引擎
+ * 支持模板带有子级渲染规则如下：
+ * 1. 模板支持名称渲染和内容渲染
+ * 2. 优先渲染模板名称，模板名称一般用户输出文件或目录，其输出变量可在直接子级（子一级中）中使用，需添加 parent 前缀，如：#(parent.outputVariable)
+ * 3. 内容模板用来生成模板片段或文件内容，其可以使用直接子级中定义的输出变量
+ * 4. 在父级中可使用的子级输出变量为 child.[输出自定义变量],在子级中可使用的父级输出变量为 parent.[输出自定义变量]，parents.share.[共享自定义变量] ，parents.shareAct([共享自定义变量],[变量值])
+ * 5. 可以模板中处理模板获取的数据 前缀：trd.[获取的数据]，通过 {@link SegmentTemplate#segmentTemplateRenderDataResolver} 获取的数据
+ * </p>
+ *
+ * @author yangwei
+ * @since 2023-02-10 16:53
+ */
+@Data
+@Slf4j
+public class TemplateTreeRenderEngine {
+
+	/**
+	 * 使用 enjoyTemplateEngine 来渲染字符串模板
+	 */
+	public static final TemplateEngine enjoyTemplateEngine = TemplateUtil.createEngine(new TemplateConfig().setCustomEngine(EnjoyEngine.class));
+
+	/**
+	 * 渲染逻辑
+	 * @param configData 要渲染的数据配置
+	 * @param segmentTemplate 要渲染的模板配置
+	 * @return
+	 */
+	public RenderContext renderWithRenderContext(ConfigData configData, SegmentTemplate segmentTemplate) {
+		log.info("start render configData={},segmentTemplate={}", JsonTool.toJsonStr(configData),JsonTool.toJsonStr(segmentTemplate));
+		long start = System.currentTimeMillis();
+		// 渲染上下文
+		RenderContext renderContext = new RenderContext();
+		renderContext.setConfigData(configData);
+
+		// 执行渲染
+		String result =  doRender(segmentTemplate,null, renderContext);
+
+		log.info("end render,duration={}ms",System.currentTimeMillis() - start);
+		return renderContext;
+	}
+
+	/**
+	 * 渲染返回根模板渲染内容
+	 * @param configData
+	 * @param segmentTemplate
+	 * @return
+	 */
+	public String render(ConfigData configData, SegmentTemplate segmentTemplate) {
+		RenderContext renderContext = renderWithRenderContext(configData, segmentTemplate);
+		List<TemplateRenderContext> templateRenderContexts = renderContext.getTemplateRenderContexts();
+		if (!templateRenderContexts.isEmpty()) {
+			TemplateRenderContext next = templateRenderContexts.iterator().next();
+			return next.getSegmentTemplateData().getTemplateContentResult();
+		}
+		return "";
+	}
+	/**
+	 * 渲染
+	 * @param segmentTemplate 要渲染的模板
+	 * @param renderContext 要渲染的数据上下文
+	 * @param parentTemplateRenderContext 上一级渲染上下文 如果为根，可以为 null
+	 * @return
+	 */
+	private String doRender(SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext) {
+
+		TemplateRenderContext templateRenderContext = preDoRender(segmentTemplate, parentTemplateRenderContext, renderContext);
+
+		/*************************** 渲染名称*********************************************************/
+		doRenderTemplateNameContent(templateRenderContext,segmentTemplate, parentTemplateRenderContext, renderContext);
+		/*************************** 渲染名称 结束*********************************************************/
+
+		/*************************** 渲染子模板*********************************************************/
+
+		// 渲染子模板,子模板可以使用 父级的名称变量
+		List<SegmentTemplate> subSegmentTemplates = segmentTemplate.getSubSegmentTemplates();
+		if (CollectionUtil.isNotEmpty(subSegmentTemplates)) {
+			renderSubSegmentTemplate(subSegmentTemplates,templateRenderContext,renderContext);
+		}
+		/*************************** 渲染子模板 结束*********************************************************/
+
+
+		/*************************** 渲染模板*********************************************************/
+
+		String render = doRenderTemplateContent(templateRenderContext,segmentTemplate, parentTemplateRenderContext, renderContext);
+		/*************************** 渲染模板 结束*********************************************************/
+
+
+		return render;
+	}
+
+
+	/**
+	 * 渲染之前处理，主是要组件渲染数据上下文
+	 * @param segmentTemplate
+	 * @param parentTemplateRenderContext
+	 * @param renderContext
+	 * @return
+	 */
+	private TemplateRenderContext preDoRender(SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext){
+
+		// 渲染数据上下文
+		TemplateRenderContext templateRenderContext = new TemplateRenderContext();
+		// 父级
+		templateRenderContext.setParentTemplateRenderContext(parentTemplateRenderContext);
+		// 待渲染的数据,如果父级存在，将父级数据加入
+		Map<String, Object> objectMap = renderContext.getConfigData().toMap();
+
+
+		// 将父级输出变量可引用
+		if (parentTemplateRenderContext != null) {
+			objectMap.put("parent", parentTemplateRenderContext.getSegmentTemplateData().outputVariableMap());
+		}
+		templateRenderContext.setRenderData(objectMap);
+
+		// 片段模板与渲染数据
+		SegmentTemplateData segmentTemplateData = new SegmentTemplateData();
+		segmentTemplateData.setSegmentTemplate(segmentTemplate);
+		templateRenderContext.setSegmentTemplateData(segmentTemplateData);
+
+
+		// 共享数据输出
+		Map<String, Object> shareMap = templateRenderContext.shareToMap();
+		// 这里返回null代表没有设置共享变量，不再设置
+		if (shareMap != null) {
+			objectMap.putAll(shareMap);
+		}
+		if (parentTemplateRenderContext != null) {
+			Map<String, Object> parentsShareData = parentShareDataMap(templateRenderContext);
+			objectMap.put("parents", parentsShareData);
+		}
+
+		// 获取模板私有数据
+		ISegmentTemplateRenderDataResolver segmentTemplateRenderDataResolver = segmentTemplate.getSegmentTemplateRenderDataResolver();
+		if (segmentTemplateRenderDataResolver != null) {
+			Object resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(segmentTemplate);
+			objectMap.put("trd", resolveRenderData);
+		}
+
+
+		// 添加到全局上下文中
+		renderContext.addTemplateRenderContext(templateRenderContext);
+
+		return templateRenderContext;
+	}
+
+	/**
+	 * 获取最近的父一级共享变量数据
+	 * @param templateRenderContext
+	 * @return
+	 */
+	private Map<String,Object> parentShareDataMap(TemplateRenderContext templateRenderContext){
+		TemplateRenderContext parentTemplateRenderContext = templateRenderContext.getParentTemplateRenderContext();
+		if (parentTemplateRenderContext != null) {
+			Map<String, Object> objectMap = parentTemplateRenderContext.shareToMap();
+			if (objectMap != null) {
+				return objectMap;
+			}else {
+				return parentShareDataMap(parentTemplateRenderContext);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 渲染模板名称
+	 * @param templateRenderContext
+	 * @param segmentTemplate
+	 * @param parentTemplateRenderContext
+	 * @param renderContext
+	 */
+	private void doRenderTemplateNameContent(TemplateRenderContext templateRenderContext,SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext){
+
+		SegmentTemplateData segmentTemplateData = templateRenderContext.getSegmentTemplateData();
+
+		// 先渲染名称
+		String renderName = TemplateTool.render(segmentTemplate.getTemplateNameContent(), templateRenderContext.getRenderData(), enjoyTemplateEngine);
+		segmentTemplateData.setTemplateNameContentResult(renderName);
+
+		// 渲染完成后置处理
+		postDoRenderTemplateNameContent(templateRenderContext, segmentTemplate, renderContext, renderName);
+	}
+
+	/**
+	 * 模板名称渲染结果后置处理
+	 * @param templateRenderContext
+	 * @param segmentTemplate
+	 * @param renderContext
+	 * @param renderName 模板名称渲染结果
+	 */
+	private void postDoRenderTemplateNameContent(TemplateRenderContext templateRenderContext,SegmentTemplate segmentTemplate,RenderContext renderContext,String renderName){
+		SegmentTemplateData segmentTemplateData = templateRenderContext.getSegmentTemplateData();
+		// 输出类型
+		OutputType outputType = segmentTemplate.getOutputType();
+
+		// 处理渲染结果文件句柄
+		if (outputType != null) {
+			// 渲染结果不为空
+			if (StrUtil.isNotEmpty(renderName)) {
+				boolean absolutePath = FileUtil.isAbsolutePath(renderName);
+				String path = renderName;
+				String outputFileParentAbsoluteDir = renderContext.getConfigData().getOutputFileParentAbsoluteDir();
+				if (!absolutePath && StrUtil.isNotEmpty(outputFileParentAbsoluteDir)) {
+					path = FilePathTool.concat(outputFileParentAbsoluteDir, renderName);
+				}
+				if (outputType == OutputType.DIR) {
+					File mkdir = FileUtil.mkdir(path);
+					log.info("mkdir, path={}",mkdir.getAbsolutePath());
+					segmentTemplateData.setTemplateNameContentResultFile(mkdir);
+				}else if (outputType == OutputType.FILE) {
+					File file = FileUtil.newFile(path);
+					log.info("new file, path={}",file.getAbsolutePath());
+					segmentTemplateData.setTemplateNameContentResultFile(file);
+				}
+			}else {
+				if (outputType == OutputType.DIR || outputType == OutputType.FILE){
+					log.warn("templateName render result is empty! so can not output dir or file!!");
+				}
+			}
+
+		}
+	}
+
+	/**
+	 * 模板渲染
+	 * @param templateRenderContext
+	 * @param segmentTemplate
+	 * @param parentTemplateRenderContext
+	 * @param renderContext
+	 * @return
+	 */
+	private String doRenderTemplateContent(TemplateRenderContext templateRenderContext,SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext){
+		SegmentTemplateData segmentTemplateData = templateRenderContext.getSegmentTemplateData();
+
+		// 模板渲染
+		String render = TemplateTool.render(segmentTemplate.getTemplateContent(), templateRenderContext.getRenderData(), enjoyTemplateEngine);
+
+		// 渲染结果保存
+		segmentTemplateData.setTemplateContentResult(render);
+
+
+		// 渲染完成后置处理
+		postDoRenderTemplateContent(segmentTemplateData, segmentTemplate, parentTemplateRenderContext, render);
+
+		return render;
+	}
+
+	/**
+	 * 模板内容渲染完成后置处理
+	 * @param segmentTemplateData
+	 * @param segmentTemplate
+	 * @param parentTemplateRenderContext
+	 * @param render 模板渲染结果
+	 */
+	private void postDoRenderTemplateContent(SegmentTemplateData segmentTemplateData,SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,String render){
+		// 输出类型
+		OutputType outputType = segmentTemplate.getOutputType();
+
+		// 将渲染完的结果变量给到上一级使用
+		if (parentTemplateRenderContext != null) {
+			Object child = parentTemplateRenderContext.getRenderData().get("child");
+			if (child == null) {
+				child = new HashMap<>();
+				parentTemplateRenderContext.getRenderData().put("child", child);
+			}
+			((Map) child).putAll(segmentTemplateData.outputVariableMap());
+		}
+
+		// 将数据写入文件
+		if (outputType != null) {
+			if (outputType == OutputType.FILE) {
+				if (segmentTemplateData.getTemplateNameContentResultFile() != null) {
+					File file = FileUtil.writeUtf8String(render, segmentTemplateData.getTemplateNameContentResultFile());
+					log.info("write file content completed, path={}",file.getAbsolutePath());
+
+				}
+
+			}
+		}
+	}
+	
+	/**
+	 * 渲染子模板
+	 * @param subSegmentTemplates
+	 * @param parentTemplateRenderContext
+	 * @param renderContex
+	 * @return 子模板不返回
+	 */
+	private void renderSubSegmentTemplate(List<SegmentTemplate> subSegmentTemplates,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContex) {
+		for (SegmentTemplate subSegmentTemplate : subSegmentTemplates) {
+			doRender(subSegmentTemplate, parentTemplateRenderContext, renderContex);
+		}
+
+	}
+}
