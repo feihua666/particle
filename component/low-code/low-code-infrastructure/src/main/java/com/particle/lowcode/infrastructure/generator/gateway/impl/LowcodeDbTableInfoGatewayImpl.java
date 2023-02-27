@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -14,6 +15,7 @@ import com.particle.lowcode.domain.generator.gateway.LowcodeDbTableInfoGateway;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -87,6 +89,7 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 		lowcodeModelItem.setPropertyName(field.getPropertyName());
 		lowcodeModelItem.setJdbcType(field.getType());
 		lowcodeModelItem.setPropertyType(field.getPropertyType());
+		lowcodeModelItem.setPropertyFullType(Optional.ofNullable(field.getColumnType()).map(i->i.getPkg()).orElse(null));
 		lowcodeModelItem.setCommentFull(field.getComment());
 		lowcodeModelItem.fillCommentSimpleByCommentFull();
 

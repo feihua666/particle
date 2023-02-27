@@ -27,6 +27,15 @@ public class LowcodeModel extends AggreateRoot {
 	 * 名称
 	 */
 	private String nameEn;
+	/**
+	 * 实体名称，首字母大写，符合java类名规范
+	 */
+	private String nameEnEntity;
+
+	/**
+	 * 实体变量名称，name_en_entity的首字母小写
+	 */
+	private String nameEnEntityVar;
     /**
      * 表名称
      */
@@ -35,6 +44,10 @@ public class LowcodeModel extends AggreateRoot {
      * 模型表类型字典id，rel,tree,normal
      */
     private Long tableTypeDictId;
+	/**
+	 * 请求路径，不要以斜杠开关如：user
+	 */
+	private String requestPath;
 	/**
      * 描述,注意事项等
      */

@@ -1,5 +1,6 @@
 package com.particle.global.mybatis.plus.crud;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -100,6 +102,58 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }else {
             return null;
         }
+    }
+
+    @Override
+    public DO copy(Long id, Function<DO, DO> doHandle) {
+        DO byId = getById(id);
+
+        return copy(byId,doHandle,false);
+    }
+
+    @Override
+    public DO copyAndCopyChildren(Long id, Function<DO, DO> doHandle, Boolean isIncludeAllChildren) {
+        DO byId = getById(id);
+
+        return copy(byId,doHandle,isIncludeAllChildren);
+    }
+
+    /**
+     *
+     * @param dos
+     * @param doHandle
+     * @return
+     */
+    protected DO copy(DO dos, Function<DO, DO> doHandle, Boolean isIncludeAllChildren){
+        if (dos == null) {
+            return null;
+        }
+        Long id = dos.getId();
+        DO handledDO = doHandle.apply(dos);
+        if (handledDO == null) {
+            return null;
+        }
+        ServiceHelperTool.emptyBaseDOFields(handledDO);
+
+        handledDO = add(handledDO);
+
+        if(BooleanUtil.isTrue(isIncludeAllChildren) && dos instanceof BaseTreeDO){
+            List<DO> children = getChildren(id);
+            if (CollectionUtil.isNotEmpty(children)) {
+                for (DO child : children) {
+                    DO finalHandledDO = handledDO;
+                    copy(child, (handleDO)->{
+                        DO r = doHandle.apply(handleDO);
+                        if (r instanceof BaseTreeDO) {
+                            ((BaseTreeDO) r).setParentId(finalHandledDO.getId());
+                        }
+                        return r;
+                    }, isIncludeAllChildren);
+                }
+            }
+        }
+
+        return handledDO;
     }
 
     @Override

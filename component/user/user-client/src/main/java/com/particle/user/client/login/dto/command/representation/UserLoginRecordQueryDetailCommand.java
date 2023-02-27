@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class UserLoginRecordQueryDetailCommand extends AbstractBaseCommand {
 
     @NotNull
-	@ApiModelProperty(value = "id",notes = "")
+	@ApiModelProperty(value = "id")
 	private Long id;
 
 }

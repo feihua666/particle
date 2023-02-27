@@ -1,6 +1,7 @@
 package com.particle.global.tool.template.templatetreerenderengine.template;
 
 import cn.hutool.core.lang.UUID;
+import com.particle.global.tool.template.templatetreerenderengine.OutputFileHandleType;
 import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.TemplateTreeRenderEngine;
 import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
@@ -31,6 +32,11 @@ public class SegmentTemplate {
 	 * 唯一id
 	 */
 	private String uniqueId;
+
+	/**
+	 * 计算模板内容，不参与输出，只负责处理一部分逻辑
+	 */
+	private String templateComputeContent;
 
 	/**
 	 * 模板名称模板，可用于输出文件或目录
@@ -64,6 +70,11 @@ public class SegmentTemplate {
 	private OutputType outputType;
 
 	/**
+	 * 输出类型为文件时，文件的处理方式
+	 */
+	private OutputFileHandleType outputFileHandleType = OutputFileHandleType.OVERRIDE;
+
+	/**
 	 * 共享变量
 	 * 共享变量旨在 {@link SegmentTemplate#subSegmentTemplates} 子级中可以直接访问并追加数据
 	 * 主要应用场景是：比如要生成一个 java 类，其中有import语句，但该语句在依赖其定义的方法或属性来决定的，只有知道了其属性是如日期类型才会import一个java.util.Date
@@ -76,6 +87,7 @@ public class SegmentTemplate {
 
 	/**
 	 * 字段数据配置，预留
+	 * 可以用来设置获取数据的配置，比如请求接口参数等
 	 */
 	private Object extConfig;
 

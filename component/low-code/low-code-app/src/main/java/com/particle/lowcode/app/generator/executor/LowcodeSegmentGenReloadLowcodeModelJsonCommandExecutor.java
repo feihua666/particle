@@ -1,11 +1,13 @@
 package com.particle.lowcode.app.generator.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.trans.helper.TransHelper;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelAppStructMapping;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelItemAppStructMapping;
 import com.particle.lowcode.app.generator.structmapping.LowcodeSegmentGenAppStructMapping;
@@ -53,6 +55,7 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 
 	private ILowcodeModelItemService lowcodeModelItemService;
 
+	private TransHelper transHelper;
 
 	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@Valid IdCommand reloadCommand) {
 		LowcodeSegmentGen lowcodeSegmentGen = lowcodeSegmentGenGateway.getById(LowcodeSegmentGenId.of(reloadCommand.getId()));
@@ -77,12 +80,19 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 		LowcodeModel lowcodeModel = lowcodeModelGateway.getById(lowcodeModelId);
 
 		LowcodeModelVO lowcodeModelVO = LowcodeModelAppStructMapping.instance.toLowcodeModelVO(lowcodeModel);
-
+		// 翻译一下字典
+		transHelper.trans(lowcodeModelVO);
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("model", lowcodeModelVO);
 
 		List<LowcodeModelItemDO> lowcodeModelItemDOS = lowcodeModelItemService.listByColumn(lowcodeModelVO.getId(), LowcodeModelItemDO::getLowcodeModelId);
 		List<LowcodeModelItemVO> modelItemVOS = LowcodeModelItemAppStructMapping.instance.lowcodeModelItemDOsToLowcodeModelItemVOs(lowcodeModelItemDOS);
+		if (CollectionUtil.isNotEmpty(modelItemVOS)) {
+			modelItemVOS.forEach(item->{
+				item.initDesignJsonMap();
+				item.clearDesignJson();
+			});
+		}
 		resultMap.put("modelItems", modelItemVOS);
 
 		return JsonTool.toJsonStr(resultMap);
@@ -113,5 +123,10 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 	@Autowired
 	public void setLowcodeModelItemService(ILowcodeModelItemService lowcodeModelItemService) {
 		this.lowcodeModelItemService = lowcodeModelItemService;
+	}
+
+	@Autowired
+	public void setTransHelper(TransHelper transHelper) {
+		this.transHelper = transHelper;
 	}
 }

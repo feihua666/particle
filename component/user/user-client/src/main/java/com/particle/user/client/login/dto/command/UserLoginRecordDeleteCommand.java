@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class UserLoginRecordDeleteCommand extends AbstractBaseCommand {
 
     @NotNull
-	@ApiModelProperty(value = "id",notes = "")
+	@ApiModelProperty(value = "id")
 	private Long id;
 
 }

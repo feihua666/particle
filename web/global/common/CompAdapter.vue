@@ -38,10 +38,18 @@ export default {
       default: ()=>({})
     }
   },
-  setup(props, {attrs,emit,expose,slots}) {
+  setup(props, context) {
+    const {attrs,emit,expose,slots} = context
+    const setValue = (value)=>{
+      console.log(value,233)
+    }
+
+    expose(setValue)
     // 返回渲染函数
     return () =>{
       let comp = isString(props.is) ? resolveComponent(props.is) : props.is
+
+
       // 发现不需要手动指定vmodel处理，会自动添加
       let attrModelValue = {
         //   modelValue: attrs.modelValue,
@@ -52,7 +60,7 @@ export default {
       for (const slotsKey in props.slots) {
         let val = props.slots[slotsKey]
         if (isObject(val)) {
-          slotsTemp[slotsKey] = h(val.is,val.attrs)
+          slotsTemp[slotsKey] = h(isString(val.is) ? resolveComponent(val.is) : val.is,val.attrs)
         }else {
           slotsTemp[slotsKey] = val
         }

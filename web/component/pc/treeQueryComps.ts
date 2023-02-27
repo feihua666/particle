@@ -10,7 +10,8 @@ export const treeQueryComps = [
         element: {
             comp: 'el-checkbox',
             formItemProps: {
-                label: '包括父节点'
+                label: '包括父节点',
+                labelTips: '仅选择父级有效'
             },
             compProps: {
             }
@@ -19,12 +20,13 @@ export const treeQueryComps = [
     {
         field: {
             name: 'isIncludeAllChildren',
-            value: false
+            value: true
         },
         element: {
             comp: 'el-checkbox',
             formItemProps: {
-                label: '包括孙节点'
+                label: '包括孙节点',
+                labelTips: '仅选择父级有效'
             },
             compProps: {
             }

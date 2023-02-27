@@ -7,3 +7,6 @@
 不能完成的任务：
 1. 前端未生成
 2. 需要二开进行少量完善  
+
+
+注意：代码生成器 generator 和 componenttemplate 已过时，请移步 low-code 组件

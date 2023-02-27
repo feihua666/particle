@@ -1,11 +1,15 @@
 package com.particle.lowcode.client.generator.dto.data;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +35,9 @@ public class LowcodeModelItemVO extends AbstractBaseIdVO {
 
     @ApiModelProperty("实体属性类型")
     private String propertyType;
+
+    @ApiModelProperty("实体属性类型全路径")
+    private String propertyFullType;
 
     @ApiModelProperty("字段注释,完整的注释")
     private String commentFull;
@@ -72,8 +79,22 @@ public class LowcodeModelItemVO extends AbstractBaseIdVO {
     @ApiModelProperty("模型名称")
     private String lowcodeModelName;
 
+    @ApiModelProperty(value = "设计json数据",example = "包括一般CRUD相关配置信息")
+    private String designJson;
+
+    @ApiModelProperty(value = "设计json数据map",hidden = true)
+    private Map designJsonMap;
+
     @ApiModelProperty("描述,注意事项等")
     private String remark;
 
+    public void initDesignJsonMap() {
+        if (StrUtil.isNotEmpty(designJson)) {
+            designJsonMap = JSONUtil.toBean(designJson, Map.class);
+        }
+    }
 
+    public void clearDesignJson() {
+        this.designJson = null;
+    }
 }

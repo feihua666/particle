@@ -52,7 +52,15 @@ const reactiveData = reactive({
     },
     {
       prop: 'nameEn',
-      label: '英文',
+      label: '英文名称',
+    },
+    {
+      prop: 'nameEnEntity',
+      label: '实体名称',
+    },
+    {
+      prop: 'nameEnEntityVar',
+      label: '实体变量名称',
     },
     {
       prop: 'tableName',
@@ -61,6 +69,10 @@ const reactiveData = reactive({
     {
       prop: 'tableTypeDictName',
       label: '模型表类型',
+    },
+    {
+      prop: 'requestPath',
+      label: '请求路径'
     },
     {
       prop: 'remark',

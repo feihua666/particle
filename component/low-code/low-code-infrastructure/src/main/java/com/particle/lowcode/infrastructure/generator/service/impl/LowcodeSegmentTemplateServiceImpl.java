@@ -33,7 +33,9 @@ public class LowcodeSegmentTemplateServiceImpl extends IBaseServiceImpl<LowcodeS
 	@Override
 	protected void preAdd(LowcodeSegmentTemplateDO po) {
 		// 编码已存在不能添加
-		assertByColumn(po.getCode(),LowcodeSegmentTemplateDO::getCode,false);
+		if (StrUtil.isNotEmpty(po.getCode())) {
+			assertByColumn(po.getCode(), LowcodeSegmentTemplateDO::getCode, false);
+		}
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import {
 } from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
 import {list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi";
 import {list as lowcodeModelListApi} from "../../../api/generator/admin/lowcodeModelAdminApi";
+import {exist} from "../../../../../../global/common/tools/ArrayTools";
 
 const tableRef = ref(null)
 
@@ -113,8 +114,23 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
-      label: "全局数据",
+      label: "全局数据(渲染后有值)",
       prop: "globalJson",
+      showOverflowTooltip: true
+    },
+    {
+      label: "扩展数据(渲染后有值)",
+      prop: "extJson",
+      showOverflowTooltip: true
+    },
+    {
+      label: "输出绝对位置(渲染后有值)",
+      prop: "outputFileParentAbsoluteDir",
+      showOverflowTooltip: true
+    },
+    {
+      label: "java包key(渲染后有值)",
+      prop: "javaPackageKeys",
       showOverflowTooltip: true
     },
     {
@@ -131,7 +147,8 @@ const reactiveData = reactive({
     },
     {
       label: "描述",
-      prop: "remark"
+      prop: "remark",
+      showOverflowTooltip: true
     }
   ],
 
@@ -160,7 +177,9 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let tableRowButtons = [
+  let idDataWithRefrenceSegmentGenId = {id: row.id,refrenceSegmentGenId: row.refrenceSegmentGenId}
+
+  let tableRowButtons: Array<any> = [
     {
       txt: '编辑',
       text: true,
@@ -198,6 +217,45 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     },
   ]
+  const moduleExist = exist(row.generateTypeDictValue,['backend_module','frontend_module','backend_and_frontend_module'])
+
+  moduleExist && tableRowButtons.push(
+      {
+        txt: '模块设计和渲染',
+        text: true,
+        position: 'more',
+        permission: 'admin:web:lowcodeSegmentGen:renderGen',
+        // 跳转到设计和渲染
+        route: {path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',query: idData}
+      },
+  )
+  const modelServiceExist = exist(row.generateTypeDictValue,['backend_model_service','frontend_model_service','backend_and_frontend_model_service'])
+  modelServiceExist && tableRowButtons.push(
+      {
+        txt: '模型服务设计和渲染',
+        text: true,
+        position: 'more',
+        beforeMethod: ()=> {
+          if(row.lowcodeModelId > 0){
+            return true
+          }
+          return '模型服务设计与渲染需要设置模型'
+        },
+        permission: 'admin:web:lowcodeSegmentGen:renderGen',
+        // 跳转到设计和渲染
+        route: {path: '/admin/lowcodeSegmentGenModelServiceDesignAndGenerate',query: idDataWithRefrenceSegmentGenId}
+      },
+  )
+  !moduleExist && !modelServiceExist && tableRowButtons.push(
+      {
+        txt: '通用设计和渲染',
+        text: true,
+        position: 'more',
+        permission: 'admin:web:lowcodeSegmentGen:renderGen',
+        // 跳转到设计和渲染
+        route: {path: '/admin/lowcodeSegmentGenGenericDesignAndGenerate',query: idDataWithRefrenceSegmentGenId}
+      },
+  )
   return tableRowButtons
 }
 </script>

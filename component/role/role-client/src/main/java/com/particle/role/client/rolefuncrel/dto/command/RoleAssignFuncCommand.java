@@ -36,7 +36,7 @@ public class RoleAssignFuncCommand extends AbstractBaseCommand {
     private List<Long> checkedFuncIds;
 
     @PropValid.DependCondition(message = "未选择的功能id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @ApiModelProperty(value = "未选择的功能id",notes = "如果为懒加载请传该值")
+    @ApiModelProperty(value = "未选择的功能id",example = "如果为懒加载请传该值")
     private List<Long> uncheckedFuncIds;
 
     @ApiModelProperty(value = "页面可选择的数据是否为懒加载")

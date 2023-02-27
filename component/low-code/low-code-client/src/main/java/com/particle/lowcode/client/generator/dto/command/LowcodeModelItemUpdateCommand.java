@@ -31,6 +31,9 @@ public class LowcodeModelItemUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("实体属性类型")
     private String propertyType;
 
+    @ApiModelProperty("实体属性类型全路径")
+    private String propertyFullType;
+
     @ApiModelProperty("字段注释,完整的注释")
     private String commentFull;
 
@@ -66,6 +69,9 @@ public class LowcodeModelItemUpdateCommand extends AbstractBaseUpdateCommand {
 
     @ApiModelProperty("模型id")
     private Long lowcodeModelId;
+
+    @ApiModelProperty(value = "设计json数据",example = "包括一般CRUD相关配置信息")
+    private String designJson;
 
     @ApiModelProperty("描述,注意事项等")
     private String remark;

@@ -30,12 +30,24 @@ public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "英文名称",required = true)
     private String nameEn;
 
+    @NotEmpty(message = "实体名称")
+    @ApiModelProperty(value = "实体名称",example = "首字母大写，符合java类名规范",required = true)
+    private String nameEnEntity;
+
+    @NotEmpty(message = "实体变量名称")
+    @ApiModelProperty(value = "实体变量名称",example = "nameEnEntity 的首字母小写",required = true)
+    private String nameEnEntityVar;
+
     @ApiModelProperty("表名称")
     private String tableName;
 
     @NotNull(message = "模型表类型字典id 不能为空")
     @ApiModelProperty(value = "模型表类型字典id，rel,tree,normal",required = true)
     private Long tableTypeDictId;
+
+    @NotEmpty(message = "请求路径不能为空")
+    @ApiModelProperty("请求路径")
+    private String requestPath;
 
     @ApiModelProperty("描述,注意事项等")
     private String remark;

@@ -39,6 +39,18 @@ public class LowcodeSegmentGenDO extends BaseDO {
     */
     private String globalJson;
     /**
+     * 扩展可用变量json数据
+     */
+    private String extJson;
+    /**
+     * 输出文件的父目录绝对路径
+     */
+    private String outputFileParentAbsoluteDir;
+    /**
+     * java包名的key，根据key可以自动将对应的值转为后缀javaPath路径
+     */
+    private String javaPackageKeys;
+    /**
     * 是否已生成
     */
     private Boolean isGenerated;

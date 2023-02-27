@@ -1,5 +1,6 @@
 package com.particle.lowcode.infrastructure.generator.gateway.impl;
 
+import com.particle.lowcode.domain.generator.LowcodeModelId;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.LowcodeModelItemId;
 import com.particle.lowcode.domain.generator.gateway.LowcodeModelItemGateway;
@@ -55,5 +56,10 @@ public class LowcodeModelItemGatewayImpl extends AbstractBaseGatewayImpl<Lowcode
 	@Autowired
 	public void setILowcodeModelItemService(ILowcodeModelItemService iLowcodeModelItemService) {
 		this.iLowcodeModelItemService = iLowcodeModelItemService;
+	}
+
+	@Override
+	public boolean clearByLowcodeModelId(LowcodeModelId lowcodeModelId) {
+		return iLowcodeModelItemService.deleteByColumn(lowcodeModelId.getId(), LowcodeModelItemDO::getLowcodeModelId);
 	}
 }

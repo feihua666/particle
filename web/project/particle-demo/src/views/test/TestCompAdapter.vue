@@ -20,7 +20,14 @@ watch(()=> modelValue.value,(val)=>{
 })
 
 const slots = {
-  prepend: ()=> 'sssss'
+  prepend: ()=> 'sssss',
+  append: {
+    is: 'PtButton',
+    attrs: {
+      icon: 'Search',
+      buttonText: '加载引用生成数据'
+    }
+  }
 }
 
 

@@ -93,6 +93,21 @@ const formComps = ref(
       },
       {
         field: {
+          name: 'propertyFullType'
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '实体属性类型全路径',
+            required: true
+          },
+          compProps: {
+            clearable: true,
+          }
+        }
+      },
+      {
+        field: {
           name: 'commentFull'
         },
         element: {

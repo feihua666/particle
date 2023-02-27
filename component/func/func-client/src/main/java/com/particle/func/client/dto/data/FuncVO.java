@@ -51,9 +51,11 @@ public class FuncVO extends AbstractBaseIdTreeVO {
 
     @ApiModelProperty("类型,字典id")
     private Long typeDictId;
+
     @ApiModelProperty("类型,字典名称")
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     private String typeDictName;
+
     @ApiModelProperty("类型,字典值")
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
     private String typeDictValue;

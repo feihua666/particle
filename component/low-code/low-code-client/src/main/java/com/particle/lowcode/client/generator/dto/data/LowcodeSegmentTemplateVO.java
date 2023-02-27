@@ -30,8 +30,14 @@ public class LowcodeSegmentTemplateVO extends AbstractBaseIdTreeVO {
     @ApiModelProperty("模板名称，仅做展示")
     private String name;
 
+    @ApiModelProperty("计算模板")
+    private String computeTemplate;
+
     @ApiModelProperty("名称模板")
     private String nameTemplate;
+
+    @ApiModelProperty("名称输出变量名")
+    private String nameOutputVariable;
 
     @ApiModelProperty("内容模板")
     private String contentTemplate;

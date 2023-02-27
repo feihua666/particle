@@ -3,7 +3,7 @@
  * 代码编辑器
  * 随便找了一个说明：https://cloud.tencent.com/developer/article/2115307
  */
-import { watch, onMounted, onBeforeUnmount, ref} from "vue";
+import {watch, onMounted, onBeforeUnmount, ref, reactive} from "vue";
 import ace from "ace-builds";
 /*
 * 需要自行引入需要的模块，一般为主题和支持语法
@@ -61,7 +61,10 @@ const props = defineProps({
   tabSize: {
     type: Number,
     default: 2
-  }
+  },
+})
+// 属性
+const reactiveData = reactive({
 })
 // 事件
 const emit = defineEmits(['change','update:modelValue'])
@@ -83,6 +86,10 @@ onMounted(()=>{
     emit("update:modelValue", aceEcitorInstance.getValue());
     emit("change", aceEcitorInstance.getValue());
   });
+  aceEcitorInstance.on("blur", () => {
+  });
+  aceEcitorInstance.on("input", () => {
+  });
 })
 onBeforeUnmount(()=>{
   aceEcitorInstance.destroy();
@@ -90,9 +97,11 @@ onBeforeUnmount(()=>{
 })
 // 值变化变更
 // 是输入时，由于不断输入导致不断设置值，光标不移动，这里先注释，唯一影响是除了初始化，如果主动设置值无变化
-/*watch(()=> props.modelValue,(value)=>{
-  setValue(value)
-})*/
+watch(()=> props.modelValue,(value)=>{
+  if (value !== aceEcitorInstance.getValue()){
+    setValue(value)
+  }
+})
 watch(()=> props.mode,(value)=>{
   setMode(value)
 })
@@ -113,6 +122,12 @@ const setMode = (value) => {
 const setTheme = (value) => {
   aceEcitorInstance?.setTheme(value)
 }
+// 暴露方法
+defineExpose({
+  setValue,
+  setMode,
+  setTheme,
+})
 </script>
 <template>
   <div ref="aceEditorRef" style="height: 300px" class="pt-ace-editor pt-height-100-pc"></div>

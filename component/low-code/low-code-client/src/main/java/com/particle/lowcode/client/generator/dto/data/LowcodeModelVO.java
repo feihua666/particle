@@ -27,15 +27,28 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
     @ApiModelProperty("英文名称")
     private String nameEn;
 
+    @ApiModelProperty(value = "实体名称",example = "首字母大写，符合java类名规范")
+    private String nameEnEntity;
+
+    @ApiModelProperty(value = "实体变量名称",example = "nameEnEntity 的首字母小写")
+    private String nameEnEntityVar;
+
     @ApiModelProperty("表名称")
     private String tableName;
 
     @ApiModelProperty("模型表类型字典id，rel,tree,normal")
     private Long tableTypeDictId;
 
+    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "tableTypeDictId",mapValueField = "value")
+    @ApiModelProperty("模型表类型字典值")
+    private String tableTypeDictValue;
+
     @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "tableTypeDictId",mapValueField = "name")
     @ApiModelProperty("模型表类型字典名称")
     private String tableTypeDictName;
+
+    @ApiModelProperty("请求路径")
+    private String requestPath;
 
     @ApiModelProperty("描述,注意事项等")
     private String remark;

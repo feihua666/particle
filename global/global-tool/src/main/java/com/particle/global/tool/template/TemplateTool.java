@@ -44,7 +44,7 @@ public class TemplateTool {
 		if (data == null || data.isEmpty()) {
 			return template;
 		}
-		if (StrUtil.isEmpty(template)) {
+		if (StrUtil.isBlank(template)) {
 			return template;
 		}
 		Template template1 = engine.getTemplate(template);

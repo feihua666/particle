@@ -177,6 +177,7 @@ const LowcodeRoutes = [
             {
                 path: '/admin/lowcodeSegmentTemplateManageAdd',
                 component: () => import('./views/generator/admin/LowcodeSegmentTemplateManageAddPage.vue'),
+                props: route => ({ parentLowcodeSegmentTemplateId: route.query.id }),
                 meta: {
                     showInDrawer: true,
                     code:'adminLowcodeSegmentTemplateManageAdd',
@@ -228,6 +229,24 @@ const LowcodeRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/lowcodeSegmentTemplateManageCopy',
+                component: () => import('./views/generator/admin/LowcodeSegmentTemplateManageCopyPage.vue'),
+                props: route => ({ lowcodeSegmentTemplateId: route.query.id, parentLowcodeSegmentTemplateId: route.query.parentId }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowcodeSegmentTemplateManageCopy',
+                    name: '低代码片段模板复制',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowcodeSegmentTemplateManageCopy'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowcodeSegmentTemplateManageCopy'
+                    }
+                }
+            },
         ]
     },
     {
@@ -276,7 +295,72 @@ const LowcodeRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',
+                component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenModuleDesignAndGeneratePage.vue'),
+                props: route => ({ lowcodeSegmentGenId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowcodeSegmentGenModuleDesignAndGenerate',
+                    name: '模块设计与生成',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowcodeSegmentGenModuleDesignAndGenerate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowcodeSegmentGenModuleDesignAndGenerate'
+                    }
+                }
+            },
+            {
+                path: '/admin/lowcodeSegmentGenModelServiceDesignAndGenerate',
+                component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenModelServiceDesignAndGeneratePage.vue'),
+                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId}),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowcodeSegmentGenModelServiceDesignAndGenerate',
+                    name: '模型服务设计与生成',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowcodeSegmentGenModelServiceDesignAndGenerate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowcodeSegmentGenModelServiceDesignAndGenerate'
+                    }
+                }
+            },
+            {
+                path: '/admin/lowcodeSegmentGenGenericDesignAndGenerate',
+                component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGeneratePage.vue'),
+                props: route => ({ lowcodeSegmentGenId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminLowcodeSegmentGenGenericDesignAndGenerate',
+                    name: '一般性通用设计与生成',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminLowcodeSegmentGenGenericDesignAndGenerate'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminLowcodeSegmentGenGenericDesignAndGenerate'
+                    }
+                }
+            },
         ]
+    },
+    {
+        path: '/admin/lowcodeModelItemDesignManagePage',
+        component: () => import('./views/generator/admin/LowcodeModelItemDesignManagePage.vue'),
+        props: route => ({ lowcodeModelId: route.query.lowcodeModelId }),
+        meta: {
+            root: true,
+            code:'adminLowcodeModelItemDesignManagePage',
+            name: '低代码模型项设计',
+            keepAlive: true
+        },
     },
 ]
 export default LowcodeRoutes

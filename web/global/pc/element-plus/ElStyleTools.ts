@@ -66,7 +66,17 @@ const d = [
         pattern:['测试'],
         icon: 'SetUp',
         type:'primary'
-    }
+    },
+    {
+        pattern:['设计'],
+        icon: 'MagicStick',
+        type:'primary'
+    },
+    {
+        pattern:['复制'],
+        icon: 'DocumentCopy',
+        type:'primary'
+    },
 ]
 
 /**

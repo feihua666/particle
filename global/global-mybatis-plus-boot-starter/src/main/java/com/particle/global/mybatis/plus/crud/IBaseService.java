@@ -50,6 +50,23 @@ public interface IBaseService<DO> extends IService<DO> {
      */
     DO add(DO dos);
 
+    /**
+     * 复制实体
+     * @param id
+     * @param doHandle 可以对实体数据做一些处理,返回null不复制
+     * @return
+     */
+    DO copy(Long id, Function<DO,DO> doHandle);
+
+    /**
+     * 复制实体树
+     * @param id
+     * @param doHandle
+     * @param isIncludeAllChildren
+     * @return
+     */
+    DO copyAndCopyChildren(Long id, Function<DO,DO> doHandle,Boolean isIncludeAllChildren);
+
     /*************************** 增 结束 *************************************/
     /*************************** 删 开始 *************************************/
 

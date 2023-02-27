@@ -42,6 +42,18 @@ public class LowcodeSegmentGen extends AggreateRoot {
      * 全局可用变量json数据
      */
     private String globalJson;
+	/**
+	 * 扩展可用变量json数据
+	 */
+	private String extJson;
+	/**
+	 * 输出文件的父目录绝对路径
+	 */
+	private String outputFileParentAbsoluteDir;
+	/**
+	 * java包名的key，根据key可以自动将对应的值转为后缀javaPath路径
+	 */
+	private String javaPackageKeys;
     /**
      * 是否已生成
      */
@@ -68,6 +80,12 @@ public class LowcodeSegmentGen extends AggreateRoot {
 	}
 
 	/**
+	 * 变更为已生成
+	 */
+	public void changeToGenerated(){
+		isGenerated = false;
+	}
+	/**
 	 * 是否可以初始化模型 json 数据
 	 */
 	public boolean canInitLowcodeModelJson(){
@@ -93,6 +111,22 @@ public class LowcodeSegmentGen extends AggreateRoot {
 
 	public void changeLowcodeModelJson(String newLowcodeModelJson) {
 		lowcodeModelJson = newLowcodeModelJson;
+	}
+
+
+	/**
+	 * 变更渲染参数
+	 * 一般用于在渲染时传的参数记录下来
+	 * @param globalJson
+	 * @param extJson
+	 * @param outputFileParentAbsoluteDir
+	 * @param javaPackageKeys
+	 */
+	public void changeRenderParam(String globalJson, String extJson, String outputFileParentAbsoluteDir, String javaPackageKeys) {
+		this.globalJson = globalJson;
+		this.extJson = extJson;
+		this.outputFileParentAbsoluteDir = outputFileParentAbsoluteDir;
+		this.javaPackageKeys = javaPackageKeys;
 	}
 
 	/**

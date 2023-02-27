@@ -1,10 +1,8 @@
 package com.particle.lowcode.app.generator.api.impl;
 
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateCreateCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateDeleteCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateRenderCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentTemplateUpdateCommandExecutor;
+import com.particle.lowcode.app.generator.executor.*;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
@@ -40,6 +38,8 @@ public class LowcodeSegmentTemplateApplicationServiceImpl extends AbstractBaseAp
 
 	private LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor;
 
+	private LowcodeSegmentTemplateCopyCommandExecutor lowcodeSegmentTemplateCopyCommandExecutor;
+
 	@Override
 	public SingleResponse<LowcodeSegmentTemplateVO> create(LowcodeSegmentTemplateCreateCommand lowcodeSegmentTemplateCreateCommand) {
 		return lowcodeSegmentTemplateCreateCommandExecutor.execute(lowcodeSegmentTemplateCreateCommand);
@@ -48,6 +48,11 @@ public class LowcodeSegmentTemplateApplicationServiceImpl extends AbstractBaseAp
 	@Override
 	public SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand) {
 		return lowcodeSegmentTemplateRenderCommandExecutor.renderTest(lowcodeSegmentTemplateRenderCommand);
+	}
+
+	@Override
+	public SingleResponse<LowcodeSegmentTemplateVO> copy(LowcodeSegmentTemplateCopyCommand lowcodeSegmentTemplateCopyCommand) {
+		return lowcodeSegmentTemplateCopyCommandExecutor.copy(lowcodeSegmentTemplateCopyCommand);
 	}
 
 	@Override
@@ -76,5 +81,10 @@ public class LowcodeSegmentTemplateApplicationServiceImpl extends AbstractBaseAp
 	@Autowired
 	public void setLowcodeSegmentTemplateRenderCommandExecutor(LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor) {
 		this.lowcodeSegmentTemplateRenderCommandExecutor = lowcodeSegmentTemplateRenderCommandExecutor;
+	}
+
+	@Autowired
+	public void setLowcodeSegmentTemplateCopyCommandExecutor(LowcodeSegmentTemplateCopyCommandExecutor lowcodeSegmentTemplateCopyCommandExecutor) {
+		this.lowcodeSegmentTemplateCopyCommandExecutor = lowcodeSegmentTemplateCopyCommandExecutor;
 	}
 }

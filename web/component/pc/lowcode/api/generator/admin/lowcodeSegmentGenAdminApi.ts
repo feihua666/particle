@@ -32,6 +32,13 @@ export const detailForUpdate = (data: IdParam): AxiosPromise => {
     return axios.get(dataSourcePrefix + '/detail-for-update',{params: data})
 }
 /**
+ * 数据详情
+ * @param data
+ */
+export const detail = (data: IdParam): AxiosPromise => {
+    return axios.get(dataSourcePrefix + '/detail',{params: data})
+}
+/**
  * 列表，没有分页，查询全部数据
  * @param data
  */
@@ -51,4 +58,11 @@ export const page = (data: anyObj): AxiosPromise => {
  */
 export const reloadLowcodeModelJson = (data: IdParam): AxiosPromise => {
     return axios.put(dataSourcePrefix + '/reloadLowcodeModelJson',data)
+}
+/**
+ * 低代码生成设计和渲染
+ * @param data
+ */
+export const renderGen = (data: anyObj): AxiosPromise => {
+    return axios.post(dataSourcePrefix + '/renderGen',data)
 }

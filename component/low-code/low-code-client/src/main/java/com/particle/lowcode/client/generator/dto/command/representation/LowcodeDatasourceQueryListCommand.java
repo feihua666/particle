@@ -1,7 +1,6 @@
 package com.particle.lowcode.client.generator.dto.command.representation;
 
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;

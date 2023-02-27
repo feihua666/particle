@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -44,4 +45,8 @@ public class LowcodeSegmentTemplateRenderCommand extends AbstractBaseCommand {
 	 */
 	@ApiModelProperty("输出文件的父目录绝对路径如：/user/yw/test")
 	private String outputFileParentAbsoluteDir;
+
+
+	@ApiModelProperty("java包名的key")
+	private Set<String> javaPackageKeys;
 }

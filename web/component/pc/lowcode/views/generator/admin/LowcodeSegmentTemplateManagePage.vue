@@ -84,17 +84,35 @@ const reactiveData = reactive({
     {
       label: "模板名称",
       prop: "name",
-      showOverflowTooltip: true
+      showOverflowTooltip: true,
+      width: 250
     },
     {
       label: "编码",
       prop: "code",
       showOverflowTooltip: true
     },
-
+    {
+      label: "输出类型",
+      prop: "outputTypeDictName"
+    },
+    {
+      label: "父级",
+      prop: "parentName"
+    },
+    {
+      label: "计算模板",
+      prop: "computeTemplate",
+      showOverflowTooltip: true
+    },
     {
       label: "名称模板",
       prop: "nameTemplate",
+      showOverflowTooltip: true
+    },
+    {
+      label: "名称输出变量名",
+      prop: "nameOutputVariable",
       showOverflowTooltip: true
     },
     {
@@ -103,28 +121,25 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      label: "内容输出变量名",
+      prop: "outputVariable",
+      showOverflowTooltip: true
+    },
+    {
       label: "引用模板",
       prop: "referenceSegmentTemplateName"
     },
-    {
-      label: "输出类型",
-      prop: "outputTypeDictName"
-    },
-    {
-      label: "内容输出变量名",
-      prop: "outputVariable"
-    },
+
+
     {
       label: "共享变量名",
       prop: "shareVariables"
     },
-    {
-      label: "父级",
-      prop: "parentName"
-    },
+
     {
       label: "描述",
-      prop: "remark"
+      prop: "remark",
+      showOverflowTooltip: true
     }
   ],
 
@@ -153,6 +168,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+  let idAndParentIdData = {id: row.id,parentId: row.parentId}
   let tableRowButtons = [
     {
       txt: '编辑',
@@ -177,10 +193,27 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
     {
       txt: '渲染测试',
+      position: 'more',
       text: true,
       permission: 'admin:web:lowcodeSegmentTemplate:renderTest',
       // 跳转到渲染测试
       route: {path: '/admin/lowcodeSegmentTemplateManageRenderTest',query: idData}
+    },
+    {
+      txt: '添加子级',
+      position: 'more',
+      text: true,
+      permission: 'admin:web:lowcodeSegmentTemplate:create',
+      // 跳转到添加
+      route: {path: '/admin/lowcodeSegmentTemplateManageAdd',query: idData}
+    },
+    {
+      txt: '复制节点',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:lowcodeSegmentTemplate:copy',
+      // 跳转到添加
+      route: {path: '/admin/lowcodeSegmentTemplateManageCopy',query: idAndParentIdData}
     },
   ]
   return tableRowButtons
@@ -209,9 +242,9 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

@@ -97,7 +97,7 @@
             <groupId>com.jfinal</groupId>
             <artifactId>enjoy</artifactId>
             <version>${com.jfinal.enjoy}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

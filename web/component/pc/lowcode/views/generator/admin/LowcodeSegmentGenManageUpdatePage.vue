@@ -83,20 +83,6 @@ const formComps = ref(
       },
       {
         field: {
-          name: 'refrenceSegmentGenId'
-        },
-        element: {
-          comp: 'PtSelect',
-          formItemProps: {
-            label: '引用生成',
-          },
-          compProps: {
-            dataMethod: lowcodeSegmentGenListApi,
-          }
-        }
-      },
-      {
-        field: {
           name: 'generateTypeDictId'
         },
         element: {
@@ -108,6 +94,20 @@ const formComps = ref(
           compProps: {
             // 字典查询
             dictParam: {groupCode: 'lowcode_segment_gen_type'},
+          }
+        }
+      },
+      {
+        field: {
+          name: 'refrenceSegmentGenId'
+        },
+        element: {
+          comp: 'PtSelect',
+          formItemProps: {
+            label: '引用生成',
+          },
+          compProps: {
+            dataMethod: lowcodeSegmentGenListApi,
           }
         }
       },

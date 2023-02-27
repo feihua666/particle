@@ -61,7 +61,7 @@ const currentChange = (val)=>{
       @size-change="sizeChange"
       @current-change="currentChange"
       :current-page="currentPage"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[10, 20, 50, 100, 200, 500]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"

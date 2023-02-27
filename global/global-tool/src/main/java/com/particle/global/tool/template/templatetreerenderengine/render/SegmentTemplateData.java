@@ -1,6 +1,7 @@
 package com.particle.global.tool.template.templatetreerenderengine.render;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.template.SegmentTemplate;
 import lombok.Data;
 
@@ -50,6 +51,12 @@ public class SegmentTemplateData {
 		if (segmentTemplate != null) {
 			if (StrUtil.isNotEmpty(segmentTemplate.getOutputNameVariableName())) {
 				result.put(segmentTemplate.getOutputNameVariableName(), templateNameContentResult);
+				String javaExtentionSuffix = ".java";
+				//	java package 处理
+				if (segmentTemplate.getOutputType() == OutputType.FILE && StrUtil.isNotEmpty(templateNameContentResult) && templateNameContentResult.endsWith(javaExtentionSuffix)) {
+					String substring = templateNameContentResult.substring(0, templateNameContentResult.lastIndexOf(File.separator));
+					result.put(segmentTemplate.getOutputNameVariableName() + "JavaPackage", substring.replace(File.separator, "."));
+				}
 			}
 			if (StrUtil.isNotEmpty(segmentTemplate.getOutputVariableName())) {
 				result.put(segmentTemplate.getOutputVariableName(), templateContentResult);

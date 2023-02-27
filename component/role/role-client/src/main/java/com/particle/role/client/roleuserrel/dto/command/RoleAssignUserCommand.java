@@ -36,7 +36,7 @@ public class RoleAssignUserCommand extends AbstractBaseCommand {
     private List<Long> checkedUserIds;
 
     @PropValid.DependCondition(message = "未选择的用户id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @ApiModelProperty(value = "未选择的用户id",notes = "如果为懒加载请传该值")
+    @ApiModelProperty(value = "未选择的用户id",example = "如果为懒加载请传该值")
     private List<Long> uncheckedUserIds;
 
     @ApiModelProperty(value = "页面可选择的数据是否为懒加载")

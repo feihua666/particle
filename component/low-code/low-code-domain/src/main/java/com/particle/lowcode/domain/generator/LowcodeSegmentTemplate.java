@@ -26,6 +26,10 @@ public class LowcodeSegmentTemplate extends AggreateRoot {
      * 模板名称，仅做展示
      */
     private String name;
+	/**
+	 * 计算模板
+	 */
+	private String computeTemplate;
     /**
      * 名称模板
      */

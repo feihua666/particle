@@ -1,13 +1,12 @@
 package com.particle.lowcode.app.generator.api.impl;
 
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentGenCreateCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentGenDeleteCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor;
-import com.particle.lowcode.app.generator.executor.LowcodeSegmentGenUpdateCommandExecutor;
+import com.particle.lowcode.app.generator.executor.*;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenRenderGenCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenUpdateCommand;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentGenApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenCreateCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenRenderGenVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenVO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
@@ -38,9 +37,17 @@ public class LowcodeSegmentGenApplicationServiceImpl extends AbstractBaseApplica
 
 	private LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor lowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor;
 
+	private LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor;
+
+
 	@Override
 	public SingleResponse<LowcodeSegmentGenVO> create(LowcodeSegmentGenCreateCommand lowcodeSegmentGenCreateCommand) {
 		return lowcodeSegmentGenCreateCommandExecutor.execute(lowcodeSegmentGenCreateCommand);
+	}
+
+	@Override
+	public SingleResponse<LowcodeSegmentGenRenderGenVO> renderGen(LowcodeSegmentGenRenderGenCommand lowcodeSegmentGenRenderGenCommand) {
+		return lowcodeSegmentTemplateRenderCommandExecutor.renderGen(lowcodeSegmentGenRenderGenCommand);
 	}
 
 	@Override
@@ -75,5 +82,9 @@ public class LowcodeSegmentGenApplicationServiceImpl extends AbstractBaseApplica
 	@Autowired
 	public void setLowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor(LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor lowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor) {
 		this.lowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor = lowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor;
+	}
+	@Autowired
+	public void setLowcodeSegmentTemplateRenderCommandExecutor(LowcodeSegmentTemplateRenderCommandExecutor lowcodeSegmentTemplateRenderCommandExecutor) {
+		this.lowcodeSegmentTemplateRenderCommandExecutor = lowcodeSegmentTemplateRenderCommandExecutor;
 	}
 }

@@ -2,6 +2,7 @@ package com.particle.lowcode.adapter.generator.web.admin;
 
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeSegmentTemplateRepresentationApplicationService;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
@@ -98,4 +99,10 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 		return iLowcodeSegmentTemplateApplicationService.renderTest(lowcodeSegmentTemplateRenderCommand);
 	}
 
+	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:copy')")
+	@ApiOperation("片段模板复制")
+	@PostMapping("/copy")
+	public SingleResponse<LowcodeSegmentTemplateVO> copy(@RequestBody LowcodeSegmentTemplateCopyCommand lowcodeSegmentTemplateCopyCommand){
+		return iLowcodeSegmentTemplateApplicationService.copy(lowcodeSegmentTemplateCopyCommand);
+	}
 }

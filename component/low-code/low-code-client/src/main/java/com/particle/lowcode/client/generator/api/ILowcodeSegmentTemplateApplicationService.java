@@ -1,5 +1,6 @@
 package com.particle.lowcode.client.generator.api;
 
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
@@ -34,6 +35,12 @@ public interface ILowcodeSegmentTemplateApplicationService extends IBaseApplicat
 	 */
 	SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand);
 
+	/**
+	 * 复制
+	 * @param lowcodeSegmentTemplateCopyCommand
+	 * @return
+	 */
+	public SingleResponse<LowcodeSegmentTemplateVO> copy(LowcodeSegmentTemplateCopyCommand lowcodeSegmentTemplateCopyCommand);
 	/**
 	 * 删除领域对象
 	 * @param deleteCommand

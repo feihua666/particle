@@ -3,6 +3,8 @@ package com.particle.global.tool.template.templatetreerenderengine.config;
 import cn.hutool.core.date.DateUtil;
 import lombok.Data;
 
+import java.io.File;
+
 /**
  * <p>
  * 配置内置系统数据
@@ -24,5 +26,9 @@ public class SystemData {
 	 */
 	private String currentDateTime = DateUtil.now();
 
+	/**
+	 * 文件系统分隔符
+	 */
+	private String fileSeparator = File.separator;
 
 }

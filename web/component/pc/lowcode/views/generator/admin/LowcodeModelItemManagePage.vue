@@ -19,22 +19,7 @@ const props = defineProps({
     type: String
   }
 })
-const getBooleanColumnView = (scope,prop,propName)=>{
-  return {
-    is: 'PtSwitch',
-    modelValue: scope.row[prop],
-    methodConfirmText: `确定要修改字段名称为 ${scope.row.columnName} ${propName}吗？`,
-    method: (value)=> {
-      scope.row[prop] = value;
-      return lowcodeModelItemUpdateApi(scope.row).then(res => {
-        // 修改成功，处理数据版本，否则会报数据版本错误，省一次数据刷新
-        scope.row.version++
-        return Promise.resolve(res)
-      })
-    },
-    methodSuccess: '修改成功'
-  }
-}
+
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
@@ -106,6 +91,11 @@ const reactiveData = reactive({
       prop: "propertyType"
     },
     {
+      label: "实体属性类型全路径",
+      prop: "propertyFullType",
+      showOverflowTooltip: true
+    },
+    {
       label: "全注释",
       prop: "commentFull",
       showOverflowTooltip: true
@@ -122,16 +112,10 @@ const reactiveData = reactive({
     {
       label: "是否唯一",
       prop: "isUnique",
-      columnView: (scope)=>{
-        return getBooleanColumnView(scope,'isUnique','是否唯一')
-      }
     },
     {
       label: "是否必填",
       prop: "isRequired",
-      columnView: (scope)=>{
-        return getBooleanColumnView(scope,'isRequired','是否必填')
-      }
     },
     {
       label: "是否主键",
@@ -160,6 +144,12 @@ const reactiveData = reactive({
     {
       label: "模型",
       prop: "lowcodeModelName"
+    },
+    {
+      label: "设计数据",
+      prop: "designJson",
+      showOverflowTooltip: true
+
     },
     {
       label: "描述",

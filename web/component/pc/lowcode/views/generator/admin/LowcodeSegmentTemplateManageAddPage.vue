@@ -4,9 +4,15 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeSegmentTemplateCreateApi,list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
-import {radioGroupData} from "../../../compnents/lowcodeSementTemplateComps";
 
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 加载数据初始化参数,路由传参
+  parentLowcodeSegmentTemplateId: {
+    type: String
+  }
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
@@ -25,7 +31,6 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '编码',
-            required: true,
             tips: '编码仅用来唯一标识一个模板，不可重复'
           },
           compProps: {
@@ -68,7 +73,8 @@ const formComps = ref(
       },
       {
         field: {
-          name: 'parentId'
+          name: 'parentId',
+          value: props.parentLowcodeSegmentTemplateId
         },
         element: {
           comp: 'PtCascader',
@@ -78,6 +84,25 @@ const formComps = ref(
           compProps: {
             dataMethod: lowcodeSegmentTemplateListApi,
             dataMethodResultHandleConvertToTree: true,
+          }
+        }
+      },
+      {
+        field: {
+          name: 'computeTemplate'
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '计算模板',
+            tips: '仅支持 enjoy 语法。模板内数据引用支持global,sys,ext,parent前缀的数据，不支持渲染结果',
+            displayBlock: true
+          },
+          compProps: {
+            type: 'textarea',
+            clearable: true,
+            rows: 5,
+            placeholder: '与名称模板使用变量一致，但不输出任何渲染结果，只适用于处理逻辑'
           }
         }
       },
@@ -232,7 +257,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[2,2,1,1,1,1,1,1,1]"
+          :layout="[2,2,1,1,1,1,1,1,1,1]"
           :comps="formComps">
   </PtForm>
 </template>

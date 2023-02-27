@@ -3,6 +3,9 @@ package com.particle.lowcode.adapter.generator.web.admin;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentGenApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeSegmentGenRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenCreateCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenRenderGenCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenRenderGenVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenUpdateCommand;
@@ -10,6 +13,7 @@ import com.particle.lowcode.client.generator.dto.command.representation.LowcodeS
 import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentGenQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +98,12 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PutMapping("/reloadLowcodeModelJson")
 	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@RequestBody IdCommand reloadCommand){
 		return iLowcodeSegmentGenApplicationService.reloadLowcodeModelJson(reloadCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:renderGen')")
+	@ApiOperation("低代码生成设计和渲染")
+	@PostMapping("/renderGen")
+	public SingleResponse<LowcodeSegmentGenRenderGenVO> renderGen(@RequestBody LowcodeSegmentGenRenderGenCommand lowcodeSegmentGenRenderGenCommand){
+		return iLowcodeSegmentGenApplicationService.renderGen(lowcodeSegmentGenRenderGenCommand);
 	}
 }

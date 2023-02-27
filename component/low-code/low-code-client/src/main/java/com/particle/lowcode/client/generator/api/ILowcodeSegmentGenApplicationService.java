@@ -2,7 +2,9 @@ package com.particle.lowcode.client.generator.api;
 
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenCreateCommand;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenRenderGenCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenUpdateCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenRenderGenVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -25,6 +27,12 @@ public interface ILowcodeSegmentGenApplicationService extends IBaseApplicationSe
 	 */
 	SingleResponse<LowcodeSegmentGenVO> create(LowcodeSegmentGenCreateCommand lowcodeSegmentGenCreateCommand);
 
+	/**
+	 * 设计和渲染
+	 * @param lowcodeSegmentGenRenderGenCommand
+	 * @return
+	 */
+	SingleResponse<LowcodeSegmentGenRenderGenVO> renderGen(LowcodeSegmentGenRenderGenCommand lowcodeSegmentGenRenderGenCommand);
 	/**
 	 * 删除领域对象
 	 * @param deleteCommand

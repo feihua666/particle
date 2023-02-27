@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -21,13 +22,15 @@ import javax.validation.constraints.NotEmpty;
 public class LowcodeSegmentTemplateUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-    @NotEmpty(message = "编码不能为空")
     @ApiModelProperty("编码，唯一")
     private String code;
 
     @NotEmpty(message = "模板名称不能为空")
-    @ApiModelProperty("模板名称，仅做展示")
+    @ApiModelProperty(value = "模板名称，仅做展示",required = true)
     private String name;
+
+    @ApiModelProperty("计算模板")
+    private String computeTemplate;
 
     @ApiModelProperty("名称模板")
     private String nameTemplate;
@@ -41,8 +44,8 @@ public class LowcodeSegmentTemplateUpdateCommand extends AbstractBaseUpdateComma
     @ApiModelProperty("引用模板id")
     private Long referenceSegmentTemplateId;
 
-    @NotEmpty(message = "输出类型字典id不能为空")
-    @ApiModelProperty("输出类型字典id，file=文件，dir=目录，segment=片段")
+    @NotNull(message = "输出类型字典id不能为空")
+    @ApiModelProperty(value = "输出类型字典id，file=文件，dir=目录，segment=片段",required = true)
     private Long outputTypeDictId;
 
     @ApiModelProperty("内容输出变量名")

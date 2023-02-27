@@ -52,7 +52,8 @@ const moreButtons = computed(() => {
 const dropdownOptions = computed(() => {
   let dft = {
     trigger: 'click',
-    hideOnClick: false
+    hideOnClick: false,
+    teleported: true,
   }
   return Object.assign(dft,props.dropdownOptions)
 })

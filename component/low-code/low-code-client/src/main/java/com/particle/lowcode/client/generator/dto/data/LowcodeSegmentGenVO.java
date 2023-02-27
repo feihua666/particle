@@ -45,11 +45,25 @@ public class LowcodeSegmentGenVO extends AbstractBaseIdVO {
     @ApiModelProperty("全局可用变量json数据")
     private String globalJson;
 
+    @ApiModelProperty("扩展可用变量json数据")
+    private String extJson;
+
+    @ApiModelProperty("输出文件的父目录绝对路径")
+    private String outputFileParentAbsoluteDir;
+
+    @ApiModelProperty("java包名的key，根据key可以自动将对应的值转为后缀javaPath路径")
+    private String javaPackageKeys;
+
     @ApiModelProperty("是否已生成")
     private Boolean isGenerated;
 
     @ApiModelProperty("生成类型字典id")
     private Long generateTypeDictId;
+
+
+    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "generateTypeDictId",mapValueField = "value")
+    @ApiModelProperty("生成类型，字典值")
+    private String generateTypeDictValue;
 
     @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "generateTypeDictId",mapValueField = "name")
     @ApiModelProperty("生成类型，字典名称")

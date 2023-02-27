@@ -31,6 +31,10 @@ public class LowcodeSegmentTemplateDO extends BaseTreeDO {
     */
     private String nameTemplate;
     /**
+     * 计算模板
+     */
+    private String computeTemplate;
+    /**
      * 名称输出变量名
      */
     private String nameOutputVariable;

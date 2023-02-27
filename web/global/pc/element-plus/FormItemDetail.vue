@@ -4,14 +4,14 @@
  * 封装理由：1. 集成多各表单输入于一体，省去烦琐的手动模板，只需要指定使用的组件
  *          2. 一致的使用方式
  */
-import {reactive, watch, nextTick, inject,computed} from 'vue'
+import {reactive, watch, nextTick, inject,computed,ref,onMounted} from 'vue'
 import {getVal} from "../../common/tools/ObjectTools"
 
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
 import PtCompAdapter from '../../common/CompAdapter.vue'
-
+const adapterRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -75,7 +75,13 @@ const permissionSupport = computed(() => {
 // 初始值
 reactiveData.currentModelValue = props.form[props.prop]
 reactiveData.oldModelValue = props.form[props.prop]
+props.formData[props.prop + 'Ref'] = adapterRef
+onMounted(()=>{
+  if (adapterRef.value?.setValue) {
 
+    adapterRef.value?.setValue('sdfsdsf')
+  }
+})
 const injectPermissions = inject('permissions', [])
 
 // 是否有权限
@@ -131,7 +137,7 @@ const txtValue = () => {
       <span>{{txtValue()}}</span>
     </template>
     <template v-else>
-      <PtCompAdapter v-if="permissionSupport" :is="comp" v-model="props.form[props.prop]"
+      <PtCompAdapter ref="adapterRef" v-if="permissionSupport" :is="comp" v-model="props.form[props.prop]"
                  v-bind="$attrs"
                  :permission="permission"
                  :permissions="permissions"
@@ -148,7 +154,7 @@ const txtValue = () => {
           <slot></slot>
         </template>
       </PtCompAdapter>
-      <PtCompAdapter v-else :is="comp" v-model="props.form[props.prop]" v-bind="$attrs"
+      <PtCompAdapter  ref="adapterRef" v-else :is="comp" v-model="props.form[props.prop]" v-bind="$attrs"
                  :disabled="hasDisabled.disabled"
                  @update:modelValue="updateModelValueEvent"
                  @change="changeModelValueEvent"

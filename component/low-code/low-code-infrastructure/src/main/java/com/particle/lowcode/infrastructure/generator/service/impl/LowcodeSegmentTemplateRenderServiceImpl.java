@@ -2,7 +2,6 @@ package com.particle.lowcode.infrastructure.generator.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.tool.str.StringTool;
 import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.TemplateTreeRenderEngine;
 import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
@@ -18,7 +17,9 @@ import com.particle.lowcode.infrastructure.generator.service.ILowcodeSegmentTemp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -41,6 +42,10 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 
 	@Override
 	public LowcodeSegmentTemplateRenderResult render(LowcodeSegmentTemplateRenderParam lowcodeSegmentTemplateRenderParam) {
+		// package键值处理
+		lowcodeSegmentTemplateRenderParam = lowcodeSegmentTemplateRenderParam.javaPackageHandle();
+
+
 		ConfigData configData = configData(lowcodeSegmentTemplateRenderParam);
 		SegmentTemplate segmentTemplate = getSegmentTemplate(lowcodeSegmentTemplateRenderParam.getRootSegmentTemplateId());
 		if (segmentTemplate == null) {
@@ -60,6 +65,7 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 
 		return null;
 	}
+
 	/**
 	 * 配置数据
 	 * @return
@@ -70,6 +76,8 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 		configData.setExt(lowcodeSegmentTemplateRenderParam.getExt());
 
 		configData.setOutputFileParentAbsoluteDir(lowcodeSegmentTemplateRenderParam.getOutputFileParentAbsoluteDir());
+
+		configData.setJavaPackageKeys(lowcodeSegmentTemplateRenderParam.getJavaPackageKeys());
 		return configData;
 	}
 	/**
@@ -135,6 +143,7 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 	private SegmentTemplate lowcodeSegmentTemplateDOToSegmentTemplate(LowcodeSegmentTemplateDO lowcodeSegmentTemplateDO,LowcodeSegmentTemplateDO referenceSegmentTemplateDO){
 		SegmentTemplate segmentTemplate = new SegmentTemplate(lowcodeSegmentTemplateDO.getId().toString());
 
+		segmentTemplate.setTemplateComputeContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getComputeTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getComputeTemplate).orElse(null)));
 		segmentTemplate.setTemplateNameContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getNameTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getNameTemplate).orElse(null)));
 		segmentTemplate.setOutputNameVariableName(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getNameOutputVariable())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getNameOutputVariable).orElse(null)));
 		segmentTemplate.setTemplateContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getContentTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getContentTemplate).orElse(null)));

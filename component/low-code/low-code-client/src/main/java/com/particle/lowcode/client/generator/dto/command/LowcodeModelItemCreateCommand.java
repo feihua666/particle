@@ -31,6 +31,9 @@ public class LowcodeModelItemCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("实体属性类型")
     private String propertyType;
 
+    @ApiModelProperty("实体属性类型全路径")
+    private String propertyFullType;
+
     @ApiModelProperty("字段注释,完整的注释")
     private String commentFull;
 

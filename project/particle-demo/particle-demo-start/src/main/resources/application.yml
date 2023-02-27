@@ -43,7 +43,7 @@ spring:
         - classpath:db/data.user.sql
         - classpath:db/data.role.sql
         - classpath:db/data.low-code.sql
-        - classpath:db/low-code/data.low-code.demo.sql
+        - classpath:db/data.low-code.demo.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
   servlet:

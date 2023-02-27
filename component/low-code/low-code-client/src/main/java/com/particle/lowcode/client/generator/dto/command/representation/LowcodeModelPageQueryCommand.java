@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * <p>
  * 低代码模型 通用分页查询指令对象
@@ -27,6 +29,14 @@ public class LowcodeModelPageQueryCommand extends AbstractBasePageQueryCommand {
     @Like
     @ApiModelProperty("英文名称")
     private String nameEn;
+
+    @Like
+    @ApiModelProperty(value = "实体名称",example = "首字母大写，符合java类名规范")
+    private String nameEnEntity;
+
+    @Like
+    @ApiModelProperty(value = "实体变量名称",example = "nameEnEntity 的首字母小写")
+    private String nameEnEntityVar;
 
     @Like
     @ApiModelProperty("表名称")

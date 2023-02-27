@@ -53,3 +53,11 @@ export const page = (data: anyObj): AxiosPromise => {
 export const renderTest = (data: anyObj): AxiosPromise => {
     return axios.post(dataSourcePrefix + '/renderTest',data)
 }
+
+/**
+ * 复制片段模板
+ * @param data
+ */
+export const copy = (data: anyObj): AxiosPromise => {
+    return axios.post(dataSourcePrefix + '/copy',data)
+}

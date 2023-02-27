@@ -35,6 +35,10 @@ public class LowcodeModelItemDO extends BaseDO {
     */
     private String propertyType;
     /**
+     * 实体属性类型全路径
+     */
+    private String propertyFullType;
+    /**
     * 字段注释,完整的注释
     */
     private String commentFull;
@@ -82,6 +86,10 @@ public class LowcodeModelItemDO extends BaseDO {
     * 模型id
     */
     private Long lowcodeModelId;
+    /**
+     * 设计json数据，包括一般CRUD相关配置信息
+     */
+    private String designJson;
     /**
     * 描述,注意事项等
     */
