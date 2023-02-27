@@ -1,12 +1,32 @@
 
 const UserRoutes = [
     {
-        path: '/front/stringReplacePage',
-        component: () => import('./views/front/StringReplacePage.vue'),
+        path: '/front/stringReplaceToolPage',
+        component: () => import('./views/front/StringReplaceToolPage.vue'),
         meta: {
             root: true,
-            code:'stringReplacePage',
+            code:'stringReplaceToolPage',
             name: '字符串替换',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/front/cronToolPage',
+        component: () => import('./components/front/Cron.vue'),
+        meta: {
+            root: true,
+            code:'cronToolPage',
+            name: 'cron表达式生成器',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/front/formDesignerPage',
+        component: () => import('./views/front/FormDesignerPage.vue'),
+        meta: {
+            root: true,
+            code:'formDesignerPage',
+            name: '表单设计器',
             keepAlive: true
         },
     },

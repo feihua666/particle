@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>particle-demo</artifactId>
+        <artifactId>tools</artifactId>
         <groupId>com.particle</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>particle-demo-start</artifactId>
+    <artifactId>tools-start</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,44 +20,10 @@
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>particle-demo-boot-starter</artifactId>
+            <artifactId>tools-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>area-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>dict-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>func-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>generator-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>user-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>role-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>low-code-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
+
         <!-- spring starter web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,16 +54,10 @@
             <version>${particle.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>component-adapter-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>tools-boot-starter</artifactId>
+            <artifactId>component-adapter-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>
@@ -109,15 +69,17 @@
                 <executions>
                     <execution>
                         <goals>
+                            <!-- 构建 build-info 这可以实现构建信息，参见 projectInfo 对象的引用 -->
                             <goal>build-info</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+                <!-- git提交信息，在多个模块构建时比较慢注释了，在启动项目上添加即可 -->
+<!--            <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>

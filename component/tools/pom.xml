@@ -3,28 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>particle</artifactId>
+        <artifactId>component</artifactId>
         <groupId>com.particle</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>component</artifactId>
+    <artifactId>tools</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>area</module>
-        <module>generator</module>
-        <module>componenttemplate</module>
-        <module>test</module>
-        <module>dict</module>
-        <module>func</module>
-        <module>user</module>
-        <module>component-light-share</module>
-        <module>component-adapter-boot-starter</module>
-        <module>role</module>
-        <module>data-constraint</module>
-        <module>low-code</module>
-        <module>tools</module>
+        <module>tools-adapter</module>
+        <module>tools-adapter-feign-client</module>
+        <module>tools-app</module>
+        <module>tools-boot-starter</module>
+        <module>tools-client</module>
+        <module>tools-domain</module>
+        <module>tools-infrastructure</module>
+        <module>tools-start</module>
     </modules>
 
     <properties>

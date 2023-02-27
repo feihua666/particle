@@ -73,7 +73,8 @@ const formComps = ref(
         element: {
           comp: 'el-checkbox',
           formItemProps: {
-            label: '首字母转换后再次替换'
+            label: '首字母转换后再次替换',
+            tips: '会将待替换文本和替换文本对应首字母转换成大写和小写再替换'
           },
           compProps: {
           }
@@ -87,7 +88,8 @@ const formComps = ref(
         element: {
           comp: 'el-checkbox',
           formItemProps: {
-            label: '交换替换'
+            label: '交换替换',
+            tips: '这意味着将使用中间文本来进行替换，这对替换文本已存在原文本中时非常有用'
           },
           compProps: {
           }
@@ -102,7 +104,8 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '中间文本',
-            required: ({form})=> form.exchangeReplace
+            required: ({form})=> form.exchangeReplace,
+            tips: '交换替换时使用的中间文本，请确保该文本不在待替换文本中，否则可能替换不正确'
           },
           compProps: {
             clearable: true,

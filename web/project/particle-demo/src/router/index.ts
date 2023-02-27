@@ -4,7 +4,6 @@ import Index from '../views/admin/index/Index.vue'
 import Login from '../views/admin/login/Login.vue'
 
 import TestIndex from '../views/component/Index.vue'
-import FormDesign from '../views/component/FormDesign.vue'
 import TestMap from '../views/test/TestMap.vue'
 import TestDraggable from '../views/test/TestDraggable.vue'
 import TestTimePicker from '../views/test/TestTimePicker.vue'
@@ -35,11 +34,6 @@ const options = {
       path: '/testIndex',
       name: 'testIndex',
       component: TestIndex
-    },
-    {
-      path: '/testFormDesign',
-      name: 'testFormDesign',
-      component: FormDesign
     },
     {
       path: '/testMap',

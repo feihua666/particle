@@ -1,7 +1,7 @@
 spring:
   application:
     # 应用名称
-    name: particle-demo-start
+    name: tools-start
   profiles:
     include:
       - knife4j
@@ -24,26 +24,8 @@ spring:
   sql:
     init:
       schema-locations:
-        - classpath:db/schema.particle-demo.sql
-        - classpath:db/schema.area.sql
-        - classpath:db/schema.dict.sql
-        - classpath:db/schema.func.sql
-        - classpath:db/schema.generator.sql
-        - classpath:db/schema.user.sql
-        - classpath:db/schema.role.sql
-        - classpath:db/schema.global_message_event.sql
-        - classpath:db/schema.global_message_event_consume_record.sql
-        - classpath:db/schema.low-code.sql
+        - classpath:db/schema.tools.sql
       data-locations:
-        - classpath:db/data.particle-demo.sql
-        - classpath:db/data.area.sql
-        - classpath:db/data.dict.sql
-        - classpath:db/data.func.sql
-        - classpath:db/data.generator.sql
-        - classpath:db/data.user.sql
-        - classpath:db/data.role.sql
-        - classpath:db/data.low-code.sql
-        - classpath:db/data.low-code.demo.sql
         - classpath:db/data.tools.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
@@ -52,7 +34,3 @@ server:
       # 在接收请求和返回数据，强制 utf-8 编码
       # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
       force: true
-particle:
-  trans:
-    table:
-      dict: component_dict
