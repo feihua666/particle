@@ -1,4 +1,4 @@
-<script setup name="BackendManagementLayout">
+<script setup name="BackendManagementLayout" lang="ts">
 // 声明属性
 defineProps({
   header: {
@@ -56,10 +56,21 @@ defineProps({
       return { show: true, attr: {} }
     }
   },
+  work: {
+    type: Object,
+    // 对象或数组的默认值
+    // 必须从一个工厂函数返回。
+    // 该函数接收组件所接收到的原始 prop 作为参数。
+    default(rawProps) {
+      return { show: true, attr: {} }
+    }
+  },
 })
+
+
 </script>
 <template>
-  <el-container class="pt-height-100-pc">
+  <el-container class="pt-height-100-pc pt-backend-management-layout">
     <!--  头  -->
     <el-header v-if="header.show" v-bind="header.attr">
       <slot name="header">
@@ -78,7 +89,7 @@ defineProps({
       </slot>
     </el-header>
     <!--  工作区  -->
-    <el-container>
+    <el-container class="pt-height-100-pc" v-if="work.show" v-bind="work.attr">
       <!--  左侧    -->
       <el-aside v-if="aside.show" v-bind="aside.attr">
         <slot name="aside"></slot>
@@ -98,8 +109,7 @@ defineProps({
   </el-container>
 </template>
 <style scoped>
-/* 重写头 padding 为0 */
-.el-header{
-  /*--el-header-padding: 0*/
+.pt-backend-management-layout{
+  overflow: hidden;
 }
 </style>

@@ -35,6 +35,7 @@ import Tree from './Tree.vue'
 import SecretText from './SecretText.vue'
 import FormDesign from './form-design/FormDesign.vue'
 import Divider from './Divider.vue'
+import Breadcrumb from './backend/Breadcrumb.vue'
 import * as ElStyleTools from './ElStyleTools'
 
 let prefix = 'Pt'
@@ -75,6 +76,7 @@ let map = {
     SecretText,
     FormDesign,
     Divider,
+    Breadcrumb,
 }
 export default {
     install: function (app, options) {
