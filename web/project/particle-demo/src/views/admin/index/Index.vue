@@ -45,6 +45,7 @@ watch(()=> isCollapse.value,(val)=>{
     :aside="reactiveData.aside"
     :header="{ show: true, attr: {class: 'pt-padding-0'} }"
     :headerMain="{ show: true, attr: {style: 'padding-top: 0;padding-bottom:0'} }"
+    :footer="{ show: false, attr: {} }"
 >
   <template #headerAside>
     <PtLogo v-bind="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].headerAsideLogo"></PtLogo>

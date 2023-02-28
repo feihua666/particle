@@ -89,7 +89,7 @@ defineProps({
       </slot>
     </el-header>
     <!--  工作区  -->
-    <el-container class="pt-height-100-pc" v-if="work.show" v-bind="work.attr">
+    <el-container class="pt-height-100-pc" :style="{height: `calc(100% - ${header.show ? (header.attr.height ? header.attr.height : '60px'): '0px'})`}"  v-if="work.show" v-bind="work.attr">
       <!--  左侧    -->
       <el-aside v-if="aside.show" v-bind="aside.attr">
         <slot name="aside"></slot>
@@ -109,7 +109,4 @@ defineProps({
   </el-container>
 </template>
 <style scoped>
-.pt-backend-management-layout{
-  overflow: hidden;
-}
 </style>
