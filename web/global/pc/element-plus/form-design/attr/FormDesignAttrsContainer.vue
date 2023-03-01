@@ -35,7 +35,6 @@ onUnmounted(()=>{
 })
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event)
 }
 // 在组件属性表单变化时，联动组件内容
 watch(()=> currentFormDesignItemData.value?.attrs.compForm,(compForm,oldCompForm)=>{

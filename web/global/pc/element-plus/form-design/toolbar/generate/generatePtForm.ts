@@ -33,7 +33,7 @@ const submitAttrs = ref({
 // 提交按钮
 const submitMethod = () => {
     // 可以在方法体内直接写逻辑，或返回一个promise
-    console.log('表单提交成功')
+    console.info('表单提交成功')
   return
 }
 // 成功提示语

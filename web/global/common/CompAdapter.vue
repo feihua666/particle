@@ -40,11 +40,6 @@ export default {
   },
   setup(props, context) {
     const {attrs,emit,expose,slots} = context
-    const setValue = (value)=>{
-      console.log(value,233)
-    }
-
-    expose(setValue)
     // 返回渲染函数
     return () =>{
       let comp = isString(props.is) ? resolveComponent(props.is) : props.is
