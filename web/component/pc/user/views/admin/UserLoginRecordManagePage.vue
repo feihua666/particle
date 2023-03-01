@@ -5,7 +5,7 @@
 import {reactive, ref} from 'vue'
 import { page as userLoginRecordPageApi, remove as userLoginRecordRemoveApi} from "../../api/admin/userLoginRecordAdminApi"
 import {
-  remoteSelectUserCompItem, remoteSelectUserIdentifierCompItem,
+  useRemoteSelectUserCompItem, useRemoteSelectUserIdentifierCompItem,
   remoteSelectUserIdentifierProps,
   remoteSelectUserProps
 } from "../../compnents/userCompItem";
@@ -23,8 +23,8 @@ const reactiveData = reactive({
   form: {
   },
   formComps: [
-    remoteSelectUserCompItem({props,required: false}),
-    remoteSelectUserIdentifierCompItem({props,required: false,fieldName: 'userIdentifierId'}),
+    useRemoteSelectUserCompItem({props,required: false}),
+    useRemoteSelectUserIdentifierCompItem({props,required: false,fieldName: 'userIdentifierId'}),
 
     {
       field: {
@@ -72,11 +72,11 @@ const reactiveData = reactive({
     },
     {
       prop: 'isSuccess',
-      label: '登录是否成功',
+      label: '登录是否成功(失败原因)',
       width: 70,
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? '成功' : '失败'
-        if(cellValue && row.failedReason){
+        if(!cellValue && row.failedReason){
           r = r + `(${row.failedReason})`
         }
         return r
@@ -175,7 +175,7 @@ const dropdownTriggerButtonOptions = {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="220">
+      <el-table-column label="操作">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})"  :dropdownTriggerButtonOptions="dropdownTriggerButtonOptions">
           </PtButtonGroup>

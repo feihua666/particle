@@ -5,10 +5,10 @@
 import {reactive, ref} from 'vue'
 import { page as userIdentifierPwdPageApi, remove as userIdentifierPwdRemoveApi} from "../../api/admin/userIdentifierPwdAdminApi"
 import {
-  remoteSelectUserCompItem,
-  remoteSelectUserIdentifierCompItem, remoteSelectUserIdentifierProps,
+  remoteSelectUserIdentifierProps,
   remoteSelectUserProps
 } from "../../compnents/userCompItem";
+import {usePageFormItems} from "../../compnents/admin/userIdentifierPwdManage";
 
 const tableRef = ref(null)
 // 声明属性
@@ -22,25 +22,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    remoteSelectUserCompItem({props,required: false}),
-    remoteSelectUserIdentifierCompItem({props,required: false}),
-    {
-      field: {
-        name: 'groupFlag'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '分组标识'
-        },
-        compProps: {
-          clearable: true,
-        }
-      }
-    },
-
-  ],
+  formComps: usePageFormItems({props}),
   tableColumns: [
     {
       prop: 'userNickname',

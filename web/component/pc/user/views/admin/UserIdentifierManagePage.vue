@@ -4,7 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import { page as userIdentifierPageApi, remove as userIdentifierRemoveApi} from "../../api/admin/userIdentifierAdminApi"
-import {remoteSelectUserCompItem, remoteSelectUserProps} from "../../compnents/userCompItem";
+import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../compnents/userCompItem";
+import {usePageFormItems} from "../../compnents/admin/userIdentifierManage";
 
 const tableRef = ref(null)
 // 声明属性
@@ -17,52 +18,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    {
-      field: {
-        name: 'identifier'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '登录标识'
-        },
-        compProps: {
-          clearable: true,
-        }
-      }
-    },
-    {
-      field: {
-        name: 'identityTypeDictId'
-      },
-      element: {
-        comp: 'PtDictFrontSelect',
-        formItemProps: {
-          label: '账号类型',
-        },
-        compProps: {
-          // 字典查询
-          dictParam: {groupCode: 'user_account_type'},
-        }
-      }
-    },
-    {
-      field: {
-        name: 'groupFlag'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '分组标识'
-        },
-        compProps: {
-          clearable: true,
-        }
-      }
-    },
-    remoteSelectUserCompItem({props,required: false}),
-  ],
+  formComps: usePageFormItems({props}),
   tableColumns: [
     {
       prop: 'userNickname',

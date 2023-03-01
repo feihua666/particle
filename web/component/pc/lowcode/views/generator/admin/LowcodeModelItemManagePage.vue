@@ -6,9 +6,8 @@ import {reactive, ref} from 'vue'
 import {
   page as lowcodeModelItemPageApi,
   remove as lowcodeModelItemRemoveApi,
-  update as lowcodeModelItemUpdateApi
 } from "../../../api/generator/admin/lowcodeModelItemAdminApi"
-import {list as lowcodeModelListApi} from "../../../api/generator/admin/lowcodeModelAdminApi";
+import {pageFormItems} from "../../../compnents/admin/lowcodeModelItemManage";
 
 const tableRef = ref(null)
 // 声明属性
@@ -24,55 +23,9 @@ const props = defineProps({
 const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
+    lowcodeModelId: props.lowcodeModelId
   },
-  formComps: [
-
-    {
-      field: {
-        name: 'columnName'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '字段名称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'propertyName'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '实体属性名称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'lowcodeModelId',
-        value: props.lowcodeModelId
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '模型',
-        },
-        compProps: {
-          dataMethod: lowcodeModelListApi
-        }
-      }
-    },
-  ],
+  formComps: pageFormItems,
   tableColumns: [
     {
       label: "字段名称",

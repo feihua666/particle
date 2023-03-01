@@ -7,6 +7,7 @@ import {
   update as userIdentifierUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../api/admin/userIdentifierAdminApi"
+import {updatePageFormItems} from "../../compnents/admin/userIdentifierManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -28,135 +29,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      {
-        field: {
-          name: 'identifier'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '登录标识',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'identityTypeDictId'
-        },
-        element: {
-          comp: 'PtDictFrontSelect',
-          formItemProps: {
-            label: '账号类型',
-            required: true
-          },
-          compProps: {
-            // 字典查询
-            dictParam: {groupCode: 'user_account_type'},
-          }
-        }
-      },
-      {
-        field: {
-          name: 'isLock',
-          value: false
-        },
-        element: {
-          comp: 'el-switch',
-          formItemProps: {
-            label: '是否锁定',
-            required: true
-          },
-          compProps: {
-            activeText: '锁定',
-            inactiveText: '正常',
-          }
-        }
-      },
-      {
-        field: {
-          name: 'lockReason'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '锁定原因',
-            required: ({form}) => form.isLock == true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-
-      {
-        field: {
-          name: 'isExpired',
-          value: false
-        },
-        element: {
-          comp: 'el-switch',
-          formItemProps: {
-            label: '是否过期',
-            required: true
-          },
-          compProps: {
-            activeText: '已过期',
-            inactiveText: '正常',
-          }
-        }
-      },
-      {
-        field: {
-          name: 'expiredReason'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '过期原因',
-            required: ({form}) => form.isExpired == true
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：手动过期|系统自动达到过期时间'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'expireAt',
-        },
-        element: {
-          comp: 'PtDatePicker',
-          formItemProps: {
-            label: '过期时间'
-          },
-          compProps:  {
-            type: "datetime"
-          }
-        }
-      },
-      {
-        field: {
-          name: 'groupFlag'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '分组标识'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-    ]
+    updatePageFormItems
 )
 
 // 提交按钮属性

@@ -4,11 +4,10 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  list as lowcodeSegmentTemplateListApi,
   page as lowcodeSegmentTemplatePageApi,
   remove as lowcodeSegmentTemplateRemoveApi
 } from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
-import {treeQueryComps} from "../../../../treeQueryComps";
+import {pageFormItems} from "../../../compnents/admin/lowcodeSegmentTemplateManage";
 
 const tableRef = ref(null)
 
@@ -17,69 +16,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    {
-      field: {
-        name: 'code'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '编码'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'name'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '名称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'referenceSegmentTemplateId'
-      },
-      element: {
-        comp: 'PtCascader',
-        formItemProps: {
-          label: '引用模板',
-        },
-        compProps: {
-          dataMethod: lowcodeSegmentTemplateListApi,
-          dataMethodResultHandleConvertToTree: true,
-        }
-      }
-    },
-    {
-      field: {
-        name: 'parentId'
-      },
-      element: {
-        comp: 'PtCascader',
-        formItemProps: {
-          label: '父级',
-        },
-        compProps: {
-          dataMethod: lowcodeSegmentTemplateListApi,
-          dataMethodResultHandleConvertToTree: true,
-        }
-      }
-    },
-    ...treeQueryComps
-  ],
+  formComps: pageFormItems,
   tableColumns: [
     {
       label: "模板名称",

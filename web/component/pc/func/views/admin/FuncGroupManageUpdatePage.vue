@@ -7,6 +7,7 @@ import {
   update as funcGroupUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../api/admin/funcGroupAdminApi"
+import {updatePageFormItems} from "../../compnents/admin/funcGroupManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -27,56 +28,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      {
-        field: {
-          name: 'code',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '编码',
-            required: true,
-            title: '编码全局唯一，用来唯一标识一个功能项'
-          },
-          compProps: {
-            clearable: true,
-            disabled: true,
-            disabledReason: '编码不能修改'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'name'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '名称',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-      {
-        field: {
-          name: 'remark'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '描述'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-    ]
+    updatePageFormItems
 )
 
 // 提交按钮属性

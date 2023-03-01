@@ -5,10 +5,10 @@
 import {reactive, ref} from 'vue'
 import {create as userIdentifierPwdCreateApi} from "../../api/admin/userIdentifierPwdAdminApi"
 import {
-  remoteSelectUserCompItem,
-  remoteSelectUserIdentifierCompItem, remoteSelectUserIdentifierProps,
-  remoteSelectUserProps, resetPasswordCompItems
+  remoteSelectUserIdentifierProps,
+  remoteSelectUserProps
 } from "../../compnents/userCompItem";
+import {useAddPageFormItems} from "../../compnents/admin/userIdentifierPwdManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -24,26 +24,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      remoteSelectUserCompItem({props,required: true}),
-      remoteSelectUserIdentifierCompItem({props,required: true}),
-        ...resetPasswordCompItems,
-      {
-        field: {
-          name: 'groupFlag'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '分组标识'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-    ]
+    useAddPageFormItems({props})
 )
 
 // 提交按钮属性

@@ -4,13 +4,11 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  list as lowcodeSegmentGenListApi,
   page as lowcodeSegmentGenPageApi, reloadLowcodeModelJson,
   remove as lowcodeSegmentGenRemoveApi
 } from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
-import {list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi";
-import {list as lowcodeModelListApi} from "../../../api/generator/admin/lowcodeModelAdminApi";
 import {exist} from "../../../../../../global/common/tools/ArrayTools";
+import {pageFormItems} from "../../../compnents/admin/lowcodeSegmentGenManage";
 
 const tableRef = ref(null)
 
@@ -19,81 +17,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    {
-      field: {
-        name: 'name'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '生成名称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'lowcodeSegmentTemplateId'
-      },
-      element: {
-        comp: 'PtCascader',
-        formItemProps: {
-          label: '片段模板',
-        },
-        compProps: {
-          dataMethod: lowcodeSegmentTemplateListApi,
-          dataMethodResultHandleConvertToTree: true,
-        }
-      }
-    },
-    {
-      field: {
-        name: 'lowcodeModelId'
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '低代码模型',
-        },
-        compProps: {
-          dataMethod: lowcodeModelListApi,
-        }
-      }
-    },
-    {
-      field: {
-        name: 'generateTypeDictId'
-      },
-      element: {
-        comp: 'PtDictFrontSelect',
-        formItemProps: {
-          label: '生成类型',
-        },
-        compProps: {
-          // 字典查询
-          dictParam: {groupCode: 'lowcode_segment_gen_type'},
-        }
-      }
-    },
-    {
-      field: {
-        name: 'refrenceSegmentGenId'
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '引用生成',
-        },
-        compProps: {
-          dataMethod: lowcodeSegmentGenListApi,
-        }
-      }
-    },
-  ],
+  formComps: pageFormItems,
   tableColumns: [
     {
       label: "生成名称",

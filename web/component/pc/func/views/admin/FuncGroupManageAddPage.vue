@@ -4,6 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as funcGroupCreateApi} from "../../api/admin/funcGroupAdminApi"
+import {addPageFormItems} from "../../compnents/admin/funcGroupManage";
 
 // 属性
 const reactiveData = reactive({
@@ -14,54 +15,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      {
-        field: {
-          name: 'code',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '编码',
-            required: true,
-            title: '编码全局唯一，用来唯一标识一个功能项'
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：user_code'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'name'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '名称',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'remark'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '描述'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-    ]
+    addPageFormItems
 )
 
 // 提交按钮属性

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {page as roleUserRelPageApi, remove as roleUserRelRemoveApi} from "../../api/admin/roleUserRelAdminApi"
-import {remoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/compnents/userCompItem";
+import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/compnents/userCompItem";
 import {remoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
 
 const tableRef = ref(null)
@@ -20,7 +20,7 @@ const reactiveData = reactive({
   form: {
   },
   formComps: [
-    remoteSelectUserCompItem({props,required: false}),
+    useRemoteSelectUserCompItem({props,required: false}),
     remoteSelectRoleCompItem({props,required: false}),
   ],
   tableColumns: [

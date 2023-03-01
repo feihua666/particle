@@ -4,6 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {page as funcGroupPageApi,remove as funcGroupRemoveApi} from "../../api/admin/funcGroupAdminApi"
+import {pageFormItems} from "../../compnents/admin/funcGroupManage";
 
 const tableRef = ref(null)
 
@@ -12,38 +13,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    {
-      field: {
-        name: 'code'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '编码'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'name'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '名称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-  ],
+  formComps: pageFormItems,
   tableColumns: [
     {
       prop: 'name',

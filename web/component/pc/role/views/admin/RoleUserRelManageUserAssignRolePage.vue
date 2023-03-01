@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {queryRoleIdsByUserId, userAssignRole as userAssignRoleApi} from "../../api/admin/roleUserRelAdminApi"
-import {remoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/compnents/userCompItem";
+import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/compnents/userCompItem";
 import {list as roleListApi} from "../../api/admin/roleAdminApi";
 
 // 声明属性
@@ -22,7 +22,7 @@ const reactiveData = reactive({
 // 表单项
 const formComps = ref(
     [
-      remoteSelectUserCompItem({props,required: true}),
+      useRemoteSelectUserCompItem({props,required: true}),
       {
         field: {
           name: 'checkedRoleIds',

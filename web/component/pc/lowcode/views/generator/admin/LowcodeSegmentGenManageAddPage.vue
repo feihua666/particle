@@ -4,8 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeSegmentGenCreateApi,list as lowcodeSegmentGenListApi} from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
-import {list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi";
-import {list as lowcodeModelListApi} from "../../../api/generator/admin/lowcodeModelAdminApi";
+import {addPageFormItems} from "../../../compnents/admin/lowcodeSegmentGenManage";
 
 
 // 属性
@@ -17,98 +16,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      {
-        field: {
-          name: 'name'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '生成名称',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-      {
-        field: {
-          name: 'lowcodeSegmentTemplateId'
-        },
-        element: {
-          comp: 'PtCascader',
-          formItemProps: {
-            label: '低代码片段模板',
-            required: true
-          },
-          compProps: {
-            dataMethod: lowcodeSegmentTemplateListApi,
-            dataMethodResultHandleConvertToTree: true,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'lowcodeModelId',
-        },
-        element: {
-          comp: 'PtSelect',
-          formItemProps: {
-            label: '低代码模型',
-          },
-          compProps: {
-            dataMethod: lowcodeModelListApi,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'generateTypeDictId'
-        },
-        element: {
-          comp: 'PtDictFrontSelect',
-          formItemProps: {
-            label: '生成类型',
-            required: true
-          },
-          compProps: {
-            // 字典查询
-            dictParam: {groupCode: 'lowcode_segment_gen_type'},
-          }
-        }
-      },
-      {
-        field: {
-          name: 'refrenceSegmentGenId'
-        },
-        element: {
-          comp: 'PtSelect',
-          formItemProps: {
-            label: '引用生成',
-          },
-          compProps: {
-            dataMethod: lowcodeSegmentGenListApi,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'remark'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '描述'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-    ]
+    addPageFormItems
 )
 
 // 提交按钮属性
@@ -137,6 +45,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
+          :layout="2"
           :comps="formComps">
   </PtForm>
 </template>

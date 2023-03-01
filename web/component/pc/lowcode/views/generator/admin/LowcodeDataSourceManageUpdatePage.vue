@@ -6,9 +6,8 @@ import {reactive, ref} from 'vue'
 import {
   update as lowcodeDataSourceUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as lowcodeDataSourceListApi
 } from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
-
+import {updatePageFormItems} from "../../../compnents/admin/lowcodeDataSourceManage";
 
 
 // 声明属性
@@ -31,122 +30,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    [
-      {
-        field: {
-          name: 'code',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '编码',
-            required: true,
-            title: '编码全局唯一，用来唯一标识一个数据源'
-          },
-          compProps: {
-            placeholder: '编码唯一如：110',
-          }
-        }
-      },
-      {
-        field: {
-          name: 'name'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '名称',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-      {
-        field: {
-          name: 'driverClassName'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '驱动类名',
-            required: true,
-            displayBlock: true,
-            tips: 'com.mysql.cj.jdbc.Driver'
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：com.mysql.cj.jdbc.Driver'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'url'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '地址',
-            required: true,
-            tips: '例：jdbc:mysql://localhost/particle_test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8',
-            displayBlock: true
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：jdbc:mysql://localhost/particle_test',
-
-          }
-        }
-      },
-      {
-        field: {
-          name: 'username'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '用户',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：root'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'password'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '密码',
-            required: true
-          },
-          compProps: {
-            clearable: true,
-            placeholder: '如：xxxx'
-          }
-        }
-      },
-      {
-        field: {
-          name: 'remark'
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '描述'
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-    ]
+    updatePageFormItems
 )
 
 // 提交按钮属性

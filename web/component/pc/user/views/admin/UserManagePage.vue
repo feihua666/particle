@@ -5,6 +5,7 @@
 import {reactive, ref} from 'vue'
 import {page as userPageApi, remove as userRemoveApi} from "../../api/admin/userAdminApi"
 import { useRoute } from 'vue-router'
+import {pageFormItems} from "../../compnents/admin/userManage";
 const route = useRoute()
 const tableRef = ref(null)
 
@@ -13,100 +14,7 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: [
-    {
-      field: {
-        name: 'name'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '姓名'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'nickname'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '昵称'
-        },
-        compProps: {
-          clearable: true,
-          placeholder: '左前缀匹配'
-        }
-      }
-    },
-    {
-      field: {
-        name: 'serialNo'
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '编号'
-        },
-        compProps: {
-          clearable: true,
-        }
-      }
-    },
-    {
-      field: {
-        name: 'genderDictId'
-      },
-      element: {
-        comp: 'PtDictFrontSelect',
-        formItemProps: {
-          label: '性别',
-        },
-        compProps: {
-          clearable: true,
-          // 字典查询
-          dictParam: {groupCode: 'gender'}
-        }
-      }
-    },
-    {
-      field: {
-        name: 'categoryDictId'
-      },
-      element: {
-        comp: 'PtDictFrontSelect',
-        formItemProps: {
-          label: '分类',
-        },
-        compProps: {
-          clearable: true,
-          // 字典查询
-          dictParam: {groupCode: 'user_category'}
-        }
-      }
-    },
-    {
-      field: {
-        name: 'sourceFromDictId'
-      },
-      element: {
-        comp: 'PtDictFrontSelect',
-        formItemProps: {
-          label: '来源',
-        },
-        compProps: {
-          clearable: true,
-          // 字典查询
-          dictParam: {groupCode: 'user_source_from'}
-        }
-      }
-    },
-  ],
+  formComps: pageFormItems,
   tableColumns: [
     {
       prop: 'nickname',
