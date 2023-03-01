@@ -3,7 +3,7 @@
  */
 import { computed} from 'vue'
 import {isString} from "../../common/tools/StringTools"
-import {exist} from "../../common/tools/ArrayTools"
+import {exist, isArray} from "../../common/tools/ArrayTools"
 import {isFunction} from "../../common/tools/FunctionTools"
 import { ElMessage } from 'element-plus'
 
@@ -48,8 +48,12 @@ export const permissionProps = {
  */
 const hasPermissionCheck = (permission: string,permissions: Array<string>| { }):boolean =>{
     let permissionsTemp = permissions
+    // 兼容响应式value取值
     if(permissionsTemp.value){
         permissionsTemp = permissionsTemp.value
+    }
+    if (!isArray(permissionsTemp)) {
+        permissionsTemp = []
     }
     // 匹配任何权限
     let star = '*';
