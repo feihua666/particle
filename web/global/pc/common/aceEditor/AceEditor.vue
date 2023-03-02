@@ -1,23 +1,33 @@
 <script setup name="AceEditor" lang="ts">
 /**
  * 代码编辑器
+ * 官方：https://ace.c9.io/
+ * github地址：https://github.com/ajaxorg/ace-builds/
+ * gitee地址：https://gitee.com/mirrors/ace-builds?_from=gitee_search
  * 随便找了一个说明：https://cloud.tencent.com/developer/article/2115307
+ *                https://blog.51cto.com/u_5650011/5394927
+ *
+ * 安装说明：
+ * 1. 安装 ace-builds
+ * 2. 将 node_modules 下的 ace-builds/src-min-noconflict/worker-json.js 拷贝到 public目录下，否则语法检查会失效，其它方式参考 https://github.com/CarterLi/vue3-ace-editor
+ * 3. const worker_json_url = import.meta.env.BASE_URL + 'worker-json.js'
+ *    配置路径 ace.config.setModuleUrl('ace/mode/json_worker', worker_json_url);
  */
 import {watch, onMounted, onBeforeUnmount, ref, reactive} from "vue";
-import ace from "ace-builds";
 /*
 * 需要自行引入需要的模块，一般为主题和支持语法
 * 如：引用主题 一般在 ace-builds/src-noconflict/theme-xxxx.js,然后设置主题属性 ace/theme/xxxx
 * 如：引用语法 一般在 ace-builds/src-noconflict/mode-xxxx.js,然后设置主题属性 ace/mode/xxxx
-*
-* */
-/*import "ace-builds/src-noconflict/ext-language_tools"
+*/
+import ace from 'ace-builds'
+import "ace-builds/src-noconflict/ext-language_tools"
 import "ace-builds/src-noconflict/ext-emmet"
 import "ace-builds/src-noconflict/snippets/yaml"
 import "ace-builds/src-noconflict/mode-yaml"
-import 'ace-builds/src-min-noconflict/mode-javascript'
-import 'ace-builds/src-min-noconflict/mode-json'
-import 'ace-builds/src-min-noconflict/mode-css'*/
+import 'ace-builds/src-noconflict/mode-javascript'
+import 'ace-builds/src-noconflict/mode-json'
+import 'ace-builds/src-noconflict/mode-css'
+
 
 const aceEditorRef = ref(null)
 let aceEcitorInstance = null
@@ -68,8 +78,10 @@ const reactiveData = reactive({
 })
 // 事件
 const emit = defineEmits(['change','update:modelValue'])
+const worker_json_url = import.meta.env.BASE_URL + 'worker-json.js'
 
 onMounted(()=>{
+  ace.config.setModuleUrl('ace/mode/json_worker', worker_json_url);
   aceEcitorInstance = ace.edit(aceEditorRef.value, {
     maxLines: props.maxLines,
     minLines: props.minLines,

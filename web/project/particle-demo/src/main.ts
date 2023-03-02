@@ -1,14 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { v4 as uuidv4 } from 'uuid';
-import ace from "ace-builds"
-import "ace-builds/src-min-noconflict/theme-eclipse"
-import 'ace-builds/src-min-noconflict/mode-javascript'
-import 'ace-builds/src-min-noconflict/mode-json'
-import 'ace-builds/src-min-noconflict/mode-css'
-import 'ace-builds/src-min-noconflict/mode-html'
-
-
+import './thirdPart.ts'
 import App from './App.vue'
 import router from './router'
 
@@ -19,8 +11,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-// 这里得引入一下，否则在 axiosRequest中报错
-import axios from 'axios'
+
 // axios
 import axiosInstance from '../../../global/pc/common/axios/axiosRequest'
 

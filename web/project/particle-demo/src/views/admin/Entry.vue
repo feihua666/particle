@@ -1,4 +1,4 @@
-<script setup name="Entry">
+<script setup name="Entry"  lang="ts">
 
 </script>
 <template>

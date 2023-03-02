@@ -1,4 +1,4 @@
-<script setup name="Login">
+<script setup name="Login"  lang="ts">
 </script>
 <template>
 <PtLoginTemplate>

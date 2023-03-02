@@ -4,7 +4,7 @@ import LocationGeoMap from './map/LocationGeoMap.vue'
 import Frame from './Frame.vue'
 import RouteView from './RouteView.vue'
 import AceEditor from './aceEditor/AceEditor.vue'
-// import PtTinymceEditor from './tinymceEditor/PtTinymceEditor.vue'
+import TinymceEditor from './tinymceEditor/TinymceEditor.vue'
 import SlideVerify from './slideVerify/SlideVerify.vue'
 import Logo from './Logo.vue'
 import LoginTemplate from './template/login/LoginTemplate.vue'
@@ -20,6 +20,7 @@ let map = {
     EntryTemplate,
     RouteView,
     AceEditor,
+    TinymceEditor,
 }
 export default {
     install: function (app, options) {

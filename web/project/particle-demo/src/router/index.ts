@@ -9,6 +9,7 @@ import TestDraggable from '../views/test/TestDraggable.vue'
 import TestTimePicker from '../views/test/TestTimePicker.vue'
 import TestAceEditor from '../views/test/TestAceEditor.vue'
 import TestCompAdapter from '../views/test/TestCompAdapter.vue'
+import TestTinymceEditor from '../views/test/TestTinymceEditor.vue'
 
 import routes from "./routes";
 const options = {
@@ -59,6 +60,11 @@ const options = {
       path: '/testCompAdapter',
       name: 'testCompAdapter',
       component: TestCompAdapter
+    },
+    {
+      path: '/testTinymceEditor',
+      name: 'testTinymceEditor',
+      component: TestTinymceEditor
     },
   ]
 }

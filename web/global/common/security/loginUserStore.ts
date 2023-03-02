@@ -1,8 +1,8 @@
 /**
  * 登录用户
  */
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import { ref } from '@nm/vue'
+import { defineStore } from '@nm/pinia'
 import {anyObj, isEmpty} from '../tools/ObjectTools'
 import {get, getRaw, set, setRaw} from '../tools/StorageTools.ts'
 

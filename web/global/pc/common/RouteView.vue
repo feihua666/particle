@@ -5,8 +5,8 @@
  *          2. 支持动态 keepAlive,路由 meta 元信息
  *          3. 后端使用时支持权限控制
  */
-import {computed,inject} from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {computed,inject} from '@nm/vue'
+import { useRouter, useRoute } from '@nm/vue-router'
 const router = useRouter()
 const route = useRoute()
 

@@ -1,4 +1,4 @@
-<script setup name="index">
+<script setup name="index" lang="ts">
 import { reactive,ref,watch} from 'vue'
 // 左侧菜单展示/折叠控制变量
 const isCollapse = ref(false)

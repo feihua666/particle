@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { ElMessage ,ElNotification} from 'element-plus'
+import axios from '@nm/axios'
+import { ElMessage ,ElNotification} from '@nm/element-plus'
 import {isFunction} from '../../../common/tools/FunctionTools'
 // 用户未登录时使用
 import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
