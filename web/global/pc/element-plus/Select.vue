@@ -183,12 +183,7 @@ watch(
 watch(
     () => reactiveData.currentModelValue,
     (val) => {
-      // 如果没有数据
-      let r = []
-      let param = {data: options.value,value: val,result: r,childrenKey: groupProps.value.options,valueKey: propsOptions.value.value}
-      pushCurrentModelData(param)
-      // 事件派发
-      emit(emitDataModelEvent.updateModelData,props.multiple ? r : r[0])
+      emitModelData({data: options.value,value: val})
     }
 )
 // 数据加载完成初始化一个默认值
@@ -208,6 +203,8 @@ watch(()=> reactiveData.dataMethodData,(val: any[]) => {
     emit(emitDataModelEvent.updateModelValue,value)
     emit(emitDataModelEvent.change,value)
   }
+  emitModelData({data: val,value: reactiveData.currentModelValue})
+
 })
 // 远程搜索处理
 watch(()=> reactiveData.dataMethodRemoteData,(val: any[]) => {
@@ -256,6 +253,16 @@ const doRemoteMethod = (query: string) =>{
   doDataMethodRemote({props,reactiveData,remoteMethod})
 }
 
+// 触发 updateModelData
+const emitModelData = ({data,value})=>{
+
+  // 如果没有数据
+  let r = []
+  let param = {data,value,result: r,childrenKey: groupProps.value.options,valueKey: propsOptions.value.value}
+  pushCurrentModelData(param)
+  // 事件派发
+  emit(emitDataModelEvent.updateModelData,props.multiple ? r : r[0])
+}
 </script>
 <template>
 

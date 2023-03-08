@@ -1,0 +1,2 @@
+-- import classpath:db/data.data-query.func.sql
+-- import classpath:db/data.data-query.dict.sql

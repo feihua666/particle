@@ -50,6 +50,9 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
     @ApiModelProperty("请求路径")
     private String requestPath;
 
+    @ApiModelProperty("建表语句，加载模型项后有值")
+    private String tableCreateSql;
+
     @ApiModelProperty("描述,注意事项等")
     private String remark;
 

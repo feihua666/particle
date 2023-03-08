@@ -25,6 +25,7 @@
         <module>data-constraint</module>
         <module>low-code</module>
         <module>tools</module>
+        <module>data-query</module>
     </modules>
 
     <properties>

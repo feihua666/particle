@@ -2,12 +2,24 @@
 /**
  * 功能菜单crud 批量添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as funcCreateApi, list as funcListApi} from "../../api/admin/funcAdminApi"
+import {onMounted, reactive, ref} from 'vue'
+import {
+  create as funcCreateApi,
+  detailForUpdate as detailForUpdateApi,
+  list as funcListApi
+} from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import {clone} from "../../../../../global/common/tools/ObjectTools"
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 加载数据初始化参数,路由传参
+  // 父级，主要用来自动填充表单
+  parentId: {
+    type: String
+  }
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
@@ -233,7 +245,8 @@ const formComps = ref(
           compProps: {
             clearable: true,
             // 字典查询
-            dictParam: {groupCode: 'func_type'}
+            dictParam: {groupCode: 'func_type'},
+            defaultValueItem: (item) => item.value == 'button'
           }
         }
       },
@@ -324,6 +337,21 @@ const submitMethod = async (form) => {
   }
 
 }
+// 初始化加载更新的数据
+const parentInit = () => {
+  if(!props.parentId){
+    return
+  }
+
+  detailForUpdateApi({id: props.parentId}).then(res => {
+    let data = res.data.data
+    reactiveData.form.funcGroupId = data.funcGroupId
+    reactiveData.form.parentId = data.id
+    reactiveData.form.codePrefix = data.code + '_'
+    reactiveData.form.namePrefix = data.name
+  })
+}
+
 // 成功提示语
 const submitMethodSuccess = () => {
   return '添加成功，请刷新数据查看'
@@ -332,6 +360,10 @@ const submitMethodSuccess = () => {
 function directDataMethodResultHandle({success}){
   return success
 }
+
+onMounted(()=>{
+  parentInit()
+})
 </script>
 <template>
   <!-- 添加表单 -->

@@ -130,12 +130,7 @@ watch(
 watch(
     () => reactiveData.currentModelValue,
     (val) => {
-      // 如果没有数据
-      let r = []
-      let param = {data: options.value,value: val,result: r,childrenKey: propsOptions.value.children,valueKey: propsOptions.value.value}
-      pushCurrentModelData(param)
-      // 事件派发
-      emit(emitDataModelEvent.updateModelData,propsOptions.value.multiple ? r : r[0])
+      emitModelData({data: options.value,value: val})
     }
 )
 // 事件
@@ -162,6 +157,17 @@ onMounted(() => {
 const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit})
 // 值改变事件
 const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPermission,emit})
+
+
+// 触发 updateModelData
+const emitModelData = ({data,value})=>{
+  // 如果没有数据
+  let r = []
+  let param = {data,value,result: r,childrenKey: propsOptions.value.children,valueKey: propsOptions.value.value}
+  pushCurrentModelData(param)
+  // 事件派发
+  emit(emitDataModelEvent.updateModelData,propsOptions.value.multiple ? r : r[0])
+}
 </script>
 <template>
 <!-- 添加 el-cascader 类，主要是使用其默认css设置 如：内联显示 -->

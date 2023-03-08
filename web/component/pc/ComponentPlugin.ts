@@ -5,6 +5,7 @@ import AreaPlugin from './area/AreaPlugin'
 import RolePlugin from './role/RolePlugin'
 import ToolsPlugin from './tools/ToolsPlugin'
 import LowcodePlugin from './lowcode/LowcodePlugin'
+import DataQueryPlugin from './dataquery/DataQueryPlugin.ts'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -14,5 +15,6 @@ export default {
         RolePlugin.install(app,options)
         ToolsPlugin.install(app,options)
         LowcodePlugin.install(app,options)
+        DataQueryPlugin.install(app,options)
     }
 }

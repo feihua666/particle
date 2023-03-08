@@ -1,4 +1,4 @@
-import {lowerFirst, upperFirst} from "../../../../../global/common/tools/StringTools";
+import {lowerFirst, underlineToHump, upperFirst} from "../../../../../global/common/tools/StringTools";
 
 export const pageFormItems = [
 
@@ -44,7 +44,7 @@ export const addPageFormItems =  [
             formItemProps: {
                 label: '名称',
                 required: true,
-                tips: '将作为模型的原始名称变量输出'
+                tips: '将作为模型的原始名称变量输出,一般填写中文做为注释'
             },
             compProps: {
                 clearable: true,
@@ -56,7 +56,7 @@ export const addPageFormItems =  [
             name: 'nameEn',
             valueChange:({form,formData,newValue})=>{
                 if(newValue){
-                    let newValueTemp = newValue.toLowerCase().replace('-','').replace('_','')
+                    let newValueTemp = underlineToHump(newValue.toLowerCase(),['-'])
                     form.nameEnEntity = upperFirst(newValueTemp)
                     form.requestPath = newValue.toLowerCase()
                 }else {
@@ -82,8 +82,7 @@ export const addPageFormItems =  [
             name: 'nameEnEntity',
             valueChange:({form,formData,newValue})=>{
                 if(newValue){
-                    let newValueTemp = newValue.toLowerCase().replace('-','').replace('_','')
-                    form.nameEnEntityVar = lowerFirst(newValueTemp)
+                    form.nameEnEntityVar = lowerFirst(newValue)
                 }else {
                     form.nameEnEntityVar = ''
                 }

@@ -172,6 +172,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          :layout="[[8,8],3]"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:dict:create" route="/admin/dictManageAdd">添加</PtButton>

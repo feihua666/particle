@@ -12,8 +12,13 @@ import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.gateway.LowcodeDbTableInfoGateway;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +31,7 @@ import java.util.stream.Collectors;
  * @author yangwei
  * @since 2023-01-04 17:18
  */
+@Slf4j
 @Component
 public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway {
 	@Override
@@ -33,6 +39,40 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 		TableInfo tableInfo = loadTableInfo(tableName, url, username, password);
 		List<LowcodeModelItem> lowcodeModelItems = tableInfoToLowcodeModelItems(tableInfo);
 		return lowcodeModelItems;
+	}
+
+	@Override
+	public String loadCreateTableSql(String tableName ,String url,String username,String password) {
+
+		return mysqlLoadCreateTableSql(tableName, url, username, password);
+	}
+
+
+	private String mysqlLoadCreateTableSql(String tableName ,String url,String username,String password) {
+		// dataSourceConfig
+		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
+		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
+		try (
+				Connection conn = dataSourceConfig.getConn();
+				PreparedStatement preparedStatement = conn.prepareStatement("show create table " + tableName);
+				ResultSet results = preparedStatement.executeQuery()) {
+			while (results.next()) {
+				String createTableSql = results.getString("Create Table");
+				return "DROP TABLE IF EXISTS "+ tableName +";"
+						+ System.getProperty("line.separator")
+						+ createTableSql + ";"
+						+ System.getProperty("line.separator");
+			}
+		} catch (SQLException e) {
+			log.error("SQL Exception：" + e.getMessage(),e);
+		}finally {
+			try {
+				dataSourceConfig.getConn().close();
+			} catch (SQLException throwables) {
+				log.error(throwables.getMessage(),throwables);
+			}
+		}
+		return "仅支持mysql";
 	}
 
 	/**
@@ -44,28 +84,38 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 	 * @return
 	 */
 	private TableInfo loadTableInfo(String tableName,String url,String username,String password){
+		TableInfo tableInfo;
 
 		// dataSourceConfig
 		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
 		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
-		// strategyConfig
-		StrategyConfig.Builder strategyConfigBuilder = new StrategyConfig.Builder();
-		StrategyConfig strategyConfig = strategyConfigBuilder.addInclude(tableName).build();
+		try {
+			// strategyConfig
+			StrategyConfig.Builder strategyConfigBuilder = new StrategyConfig.Builder();
+			StrategyConfig strategyConfig = strategyConfigBuilder.addInclude(tableName).build();
 
-		// 只用到了数据源和策略配置
-		ConfigBuilder configBuilder = new ConfigBuilder(
-				null,
-				dataSourceConfig,
-				strategyConfig,
-				null,
-				null,
-				null);
+			// 只用到了数据源和策略配置
+			ConfigBuilder configBuilder = new ConfigBuilder(
+					null,
+					dataSourceConfig,
+					strategyConfig,
+					null,
+					null,
+					null);
 
-		List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(configBuilder).queryTables();
-		if (tableInfos.isEmpty()) {
-			throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.DATA_NOT_FOUND,tableName + " 表不存在");
+			List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(configBuilder).queryTables();
+			if (tableInfos.isEmpty()) {
+				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.DATA_NOT_FOUND,tableName + " 表不存在");
+			}
+			tableInfo = tableInfos.iterator().next();
+		} finally {
+			try {
+				dataSourceConfig.getConn().close();
+			} catch (SQLException throwables) {
+				log.error(throwables.getMessage(),throwables);
+			}
 		}
-		TableInfo tableInfo = tableInfos.iterator().next();
+
 		return tableInfo;
 	}
 

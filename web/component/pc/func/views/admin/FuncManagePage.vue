@@ -130,8 +130,18 @@ const getTableRowButtons = ({row, column, $index}) => {
           return Promise.resolve(res)
         })
       }
-    }
+    },
   ]
+  let isPage = row.typeDictValue == 'page'
+  isPage && tableRowButtons.push(
+      {
+        txt: '添加Crud',
+        text: true,
+        permission: 'admin:web:func:create',
+        // 跳转到编辑
+        route: {path: '/admin/funcManageCrudAdd',query: idData}
+      },
+  )
   return tableRowButtons
 }
 </script>

@@ -62,6 +62,17 @@ public class LowcodeModelItemCreateByModelIdCommandExecutor extends AbstractBase
 		LowcodeDatasource lowcodeDatasource = lowcodeDatasourceGateway.getById(LowcodeDatasourceId.of(idCommand.getLowcodeDatasourceId()));
 		Assert.isTrue(StrUtil.isNotEmpty(lowcodeModel.getTableName()),"表名不存在");
 
+		// 保存建表语句
+		String createTableSql = lowcodeDbTableInfoGateway.loadCreateTableSql(
+				lowcodeModel.getTableName(),
+				lowcodeDatasource.getUrl(),
+				lowcodeDatasource.getUsername(),
+				lowcodeDatasource.getPassword()
+		);
+		lowcodeModel.changeTableCreateSql(createTableSql);
+
+		lowcodeModelGateway.save(lowcodeModel);
+
 		List<LowcodeModelItem> lowcodeModelItems = lowcodeDbTableInfoGateway.loadByTableName(
 				lowcodeModel.getTableName(),
 				lowcodeDatasource.getUrl(),

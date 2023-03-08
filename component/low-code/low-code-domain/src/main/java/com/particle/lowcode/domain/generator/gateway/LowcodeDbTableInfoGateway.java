@@ -3,6 +3,10 @@ package com.particle.lowcode.domain.generator.gateway;
 import com.particle.lowcode.domain.generator.LowcodeDatasource;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,4 +25,11 @@ public interface LowcodeDbTableInfoGateway {
 	 * @return
 	 */
 	List<LowcodeModelItem> loadByTableName(String tableName,String url,String username,String password);
+
+	/**
+	 * 获取建表语句
+	 * @param tableName
+	 * @return
+	 */
+	public String loadCreateTableSql(String tableName ,String url,String username,String password) ;
 }

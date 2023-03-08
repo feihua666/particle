@@ -119,9 +119,6 @@ public class GlobalTransAutoConfiguration {
 		};
 	}
 
-
-
-
 	/**
 	 * 翻译线程池
 	 * @param beanFactory

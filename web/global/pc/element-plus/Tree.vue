@@ -152,11 +152,6 @@ const getDefaultCheckedKeys = () => {
     r = r.concat(props.defaultCheckedKeys)
     getDefaultCheckedKeysOnceControl.defaultCheckedKeys = true
   }
-/*  if(!getDefaultCheckedKeysOnceControl.dataMethodInitData && reactiveData.dataMethodInitData && reactiveData.dataMethodInitData.length > 0){
-    r = r.concat(reactiveData.dataMethodInitData)
-    getDefaultCheckedKeysOnceControl.dataMethodInitData = true
-
-  }*/
   // 去重处理
   r = removeDuplicate(r)
   if(r.length !== 0){
@@ -225,17 +220,7 @@ watch(
     () => reactiveData.currentModelValue,
     (val) => {
 
-      // 如果没有数据
-      let r = []
-      let param = {
-        data: options.value,
-        value: val,
-        result: r,
-        childrenKey: propsOptions.value.children,
-        valueKey: propsOptions.value.value}
-      pushCurrentModelData(param)
-      // 事件派发
-      emit(emitDataModelEvent.updateModelData,r)
+      emitModelData({data: options.value,value: val})
     }
 )
 // 监听参数变化，重新初始化
@@ -366,6 +351,24 @@ const filterNode = (value: string, data: Tree) => {
   if (!value) return true
   return data[propsOptions.value.label].includes(value)
 }
+
+
+// 触发 updateModelData
+const emitModelData = ({data,value})=>{
+
+  // 如果没有数据
+  let r = []
+  let param = {
+    data,
+    value,
+    result: r,
+    childrenKey: propsOptions.value.children,
+    valueKey: propsOptions.value.value}
+  pushCurrentModelData(param)
+  // 事件派发
+  emit(emitDataModelEvent.updateModelData,r)
+}
+
 </script>
 <template>
   <el-input v-if="hasPermission.render && enableFilter" v-model="filterText" :placeholder="filterInputProps.placeholder || '输入名称过滤关键字'" v-bind="filterInputProps" />

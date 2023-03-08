@@ -49,11 +49,18 @@ public class LowcodeModel extends AggreateRoot {
 	 */
 	private String requestPath;
 	/**
+	 * 建表语句
+	 */
+	private String tableCreateSql;
+	/**
      * 描述,注意事项等
      */
     private String remark;
 
 
+    public void changeTableCreateSql( String tableCreateSql){
+    	this.tableCreateSql = tableCreateSql;
+	}
 	/**
 	 * 创建低代码模型领域模型对象
 	 * @return 低代码模型领域模型对象，该对应所有属性为空，需要进行初始化操作

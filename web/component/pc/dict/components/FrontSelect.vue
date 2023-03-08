@@ -37,6 +37,7 @@ const emit = defineEmits([
   // 用来更新 modelValue
   emitDataModelEvent.updateModelValue,
   emitDataModelEvent.change,
+  emitDataModelEvent.updateModelData,
 ])
 
 // 方法
@@ -44,6 +45,7 @@ const emit = defineEmits([
 const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData, emit})
 // 值改变事件
 const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData, emit})
+const changeModelDataEvent = changeDataModelValueEventHandle({reactiveData, emit,eventName: emitDataModelEvent.updateModelData})
 // 请求方法
 const dataMethod = () => {
   let methods = {getItems,getGroupItems,getGroups}
@@ -57,6 +59,7 @@ const dataMethod = () => {
       v-bind="$attrs"
       :dataMethod="dataMethod"
       @update:modelValue="updateModelValueEvent"
+      @update:modelData="changeModelDataEvent"
       @change="changeModelValueEvent"
   ></PtSelect>
 </template>

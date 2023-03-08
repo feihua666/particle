@@ -50,6 +50,10 @@ public class LowcodeModelDO extends BaseDO {
      */
     private String requestPath;
     /**
+     * 建表语句
+     */
+    private String tableCreateSql;
+    /**
     * 描述,注意事项等
     */
     private String remark;

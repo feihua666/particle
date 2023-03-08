@@ -76,12 +76,7 @@ const permissionSupport = computed(() => {
 reactiveData.currentModelValue = props.form[props.prop]
 reactiveData.oldModelValue = props.form[props.prop]
 props.formData[props.prop + 'Ref'] = adapterRef
-onMounted(()=>{
-  if (adapterRef.value?.setValue) {
 
-    adapterRef.value?.setValue('sdfsdsf')
-  }
-})
 const injectPermissions = inject('permissions', [])
 
 // 是否有权限

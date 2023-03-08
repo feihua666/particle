@@ -34,6 +34,7 @@ spring:
         - classpath:db/schema.global_message_event.sql
         - classpath:db/schema.global_message_event_consume_record.sql
         - classpath:db/schema.low-code.sql
+        - classpath:db/schema.data-query.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -45,6 +46,7 @@ spring:
         - classpath:db/data.low-code.sql
         - classpath:db/data.low-code.demo.sql
         - classpath:db/data.tools.sql
+        - classpath:db/data.data-query.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
   servlet:

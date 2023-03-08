@@ -102,3 +102,34 @@ export function replace(text: string,from: string,to: string,golbal?: boolean): 
     }
     return text.replace(from,to)
 }
+
+
+/**
+ * 下划线转驼峰
+ * @param str 带有下划线的字符串
+ * @param addtionalSplitStr 将额外的分隔符也转为驼峰，如：['-']
+ */
+export function underlineToHump(str: string,addtionalSplitStr=[]): string{
+    if(!str){
+        return str
+    }
+    addtionalSplitStr.forEach(item => {
+        str = str.replaceAll(item,'_')
+    })
+    let a = str.split("_");
+    let result = a[0];
+    for(let i=1;i<a.length;i++){
+        result = result + a[i].slice(0,1).toUpperCase() + a[i].slice(1);
+    }
+    return result
+}
+
+
+/**
+ * 驼峰转下划线
+ * @param str
+ */
+export function humpToUnderline(str: string): string{
+    return str.replace(/([A-Z])/g,"_$1").toLowerCase()
+}
+

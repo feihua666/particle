@@ -8,6 +8,7 @@ CREATE TABLE `component_lowcode_model` (
   `table_name` varchar(255) DEFAULT NULL COMMENT '表名称',
   `table_type_dict_id` bigint NOT NULL COMMENT '模型表类型字典id，rel,tree,normal',
   `request_path` varchar(255) NOT NULL COMMENT '请求路径，不要以斜杠开关如：user',
+  `table_create_sql` mediumtext DEFAULT NULL COMMENT '建表语句',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

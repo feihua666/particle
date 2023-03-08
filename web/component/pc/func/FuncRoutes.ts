@@ -26,6 +26,7 @@ const FuncRoutes = [
             {
                 path: '/admin/funcManageCrudAdd',
                 component: () => import('./views/admin/FuncManageCrudAddPage.vue'),
+                props: route => ({ parentId: route.query.id }),
                 meta: {
                     showInDrawer: true,
                     code:'adminFuncManageCrudAdd',

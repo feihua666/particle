@@ -85,9 +85,9 @@ const frontendWebCommonPc = copyFile(projectPath+ '/web/common/pc',docRootPath+ 
 // 前端uniapp基础
 const frontendWebCommonUniapp = copyFile(projectPath+ '/web/common/uniapp',docRootPath+ '/web/common/uniapp',readme,3)
 // 前端pc业务
-const frontendWebPc = copyFile(projectPath+ '/web/pc',docRootPath+ '/web/pc',readme,3)
+const frontendWebPc = copyFile(projectPath+ '/web/component/pc',docRootPath+ '/web/component/pc',readme,3)
 // 前端uniapp移动业务
-const frontendWebUniapp = copyFile(projectPath+ '/web/uniapp',docRootPath+ '/web/uniapp',readme,3)
+const frontendWebUniapp = copyFile(projectPath+ '/web/component/uniapp',docRootPath+ '/web/component/uniapp',readme,3)
 
 
 // 工具相关

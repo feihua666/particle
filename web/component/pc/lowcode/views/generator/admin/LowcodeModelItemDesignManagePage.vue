@@ -221,7 +221,7 @@ const reactiveData = reactive({
       ]
     },
     {
-      label: '分页列表查询(列表查询)',
+      label: '分页列表查询(联动列表查询)',
       nestColumns:[
         {
           label: '是否使用',
@@ -249,26 +249,16 @@ const reactiveData = reactive({
           columnView: (scope)=>{
             return getBooleanColumnView(scope,'DO','isUse','是否使用',['DOMAIN'])
           }
-        },{
-          label: '是否必填',
-          columnView: (scope)=>{
-            return getBooleanColumnView(scope,'DO','isRequired','是否必填',['DOMAIN'])
-          }
         }
       ]
     },
     {
-      label: '领域模型(数据实体)',
+      label: '领域模型(联动数据实体)',
       nestColumns:[
         {
           label: '是否使用',
           columnView: (scope)=>{
             return getBooleanColumnView(scope,'DOMAIN','isUse','是否使用')
-          }
-        },{
-          label: '是否必填',
-          columnView: (scope)=>{
-            return getBooleanColumnView(scope,'DOMAIN','isRequired','是否必填')
           }
         }
       ]
@@ -352,7 +342,7 @@ const doLowcodeModelItemPageApi = ({pageQuery}: {param: object,pageQuery: {pageN
 const tablePaginationProps = {
   permission: submitAttrs.value.permission
 }
-const styleColmunIndex = [7,8,11,12,16,17,18,21,22]
+const styleColmunIndex = [7,8, 11,12, 16,17,18, 20]
 const cellStyle=({ row, column, rowIndex, columnIndex })=>{
   return styleColmunIndex.indexOf(columnIndex) >= 0 ? {background: '#F2F3F5'} : {}
 }

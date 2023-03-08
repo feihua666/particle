@@ -12,7 +12,7 @@ const aliasItem = (find) =>{
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/test/',
+  base: '/',
   plugins: [vue(), vueJsx(),vueSetupExtend()],
   resolve: {
     alias: [

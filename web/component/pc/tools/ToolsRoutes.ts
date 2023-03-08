@@ -30,5 +30,15 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/jsonObjToJsonString',
+        component: () => import('./views/front/JsonObjToJsonStringPage.vue'),
+        meta: {
+            root: true,
+            code:'jsonObjToJsonString',
+            name: 'json对象转json字符串',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes
