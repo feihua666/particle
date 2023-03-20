@@ -42,7 +42,16 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	/**
 	 * 删除失败，系统内部错误
 	 */
-	DELETE_ERROR(50000000012L,"删除失败"),
+	DELETE_ERROR(50000000013L,"删除失败"),
+
+	/**
+	 * 读取超时
+	 */
+	READ_TIMEOUT(50000000014L, "读取超时"),
+	/**
+	 * 连接超时
+	 */
+	CONNECT_TIMEOUT(50000000015L, "连接超时"),
 	/**
 	 * 常用的400 错误
 	 */

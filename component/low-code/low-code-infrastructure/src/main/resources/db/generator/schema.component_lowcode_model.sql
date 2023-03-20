@@ -19,4 +19,4 @@ CREATE TABLE `component_lowcode_model` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `version` (`version`) USING BTREE,
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='低代码模型表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='低代码模型表';

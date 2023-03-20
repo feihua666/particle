@@ -143,17 +143,20 @@ export const useAddPageFormItems = ({reactiveData,configJsonDialogVisible}) => {
           required: true,
           displayBlock: true
         },
-        compProps: {
-          text: true,
-          buttonText: '点击配置',
-          beforeMethod: ()=>{
-            if(!reactiveData.form.typeDictId){
-              return '请先选择数据源类型'
+        compProps: ({form})=>{
+          return {
+            text: true,
+            type: form.configJson ? 'primary' : 'default',
+            buttonText: '点击配置',
+            beforeMethod: ()=>{
+              if(!reactiveData.form.typeDictId){
+                return '请先选择数据源类型'
+              }
+              return true
+            },
+            method: ()=>{
+              configJsonDialogVisible.value = true
             }
-            return true
-          },
-          method: ()=>{
-            configJsonDialogVisible.value = true
           }
         }
       }
@@ -235,7 +238,7 @@ export const useUpdatePageFormItems = useAddPageFormItems
 const datasource_jdbc = [
   {
     field: {
-      name: 'driver_class_name',
+      name: 'driverClassName',
       // 设置mysql默认驱动名
       value: 'com.mysql.cj.jdbc.Driver'
     },

@@ -72,7 +72,7 @@ public class LowcodeSegmentGenVO extends AbstractBaseIdVO {
     @ApiModelProperty("引用生成id，主要用来获取引用的相关变量")
     private Long refrenceSegmentGenId;
 
-    @TransBy(tableName = TransTableNameConstants.component_lowcode_model, byFieldName = "refrenceSegmentGenId", mapValueField = "name")
+    @TransBy(tableName = TransTableNameConstants.component_lowcode_segment_gen, byFieldName = "refrenceSegmentGenId", mapValueField = "name")
     @ApiModelProperty("引用生成名称")
     private String refrenceSegmentGenName;
 

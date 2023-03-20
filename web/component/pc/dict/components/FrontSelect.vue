@@ -17,6 +17,10 @@ const props = defineProps({
   dictApi: {
     type: String,
     default: 'getItems' //合法值 getItems,getGroupItems,getGroups
+  },
+  resultDataHandler: {
+    type: Function,
+    default: (res)=>{}
   }
 })
 // 属性
@@ -50,7 +54,10 @@ const changeModelDataEvent = changeDataModelValueEventHandle({reactiveData, emit
 const dataMethod = () => {
   let methods = {getItems,getGroupItems,getGroups}
 
-  return methods[props.dictApi](props.dictParam)
+  return methods[props.dictApi](props.dictParam).then(res => {
+    props.resultDataHandler(res)
+    return Promise.resolve(res)
+  })
 }
 </script>
 <template>

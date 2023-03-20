@@ -1,3 +1,4 @@
 -- 建表语句sql
 -- import classpath:db/provider/schema.component_data_query_provider.sql
 -- import classpath:db/datasource/schema.component_data_query_datasource.sql
+-- import classpath:db/datasource/schema.component_data_query_datasource_api.sql

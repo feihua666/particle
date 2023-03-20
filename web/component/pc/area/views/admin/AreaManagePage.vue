@@ -123,7 +123,14 @@ const getTableRowButtons = ({row, column, $index}) => {
           return Promise.resolve(res)
         })
       }
-    }
+    },
+    {
+      txt: '添加子级',
+      text: true,
+      permission: 'admin:web:area:create',
+      // 跳转到编辑
+      route: {path: '/admin/areaManageAdd',query: idData}
+    },
   ]
   return tableRowButtons
 }

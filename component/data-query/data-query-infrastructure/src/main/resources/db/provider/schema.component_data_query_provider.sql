@@ -19,4 +19,4 @@ CREATE TABLE `component_data_query_provider` (
   KEY `name` (`name`) USING BTREE,
   KEY `data_object_id` (`is_disabled`) USING BTREE,
   KEY `version` (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='数据查询供应商表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='数据查询供应商表';

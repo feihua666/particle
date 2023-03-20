@@ -50,7 +50,7 @@ public class TemplateTreeRenderEngine {
 	/**
 	 * 使用 enjoyTemplateEngine 来渲染字符串模板
 	 */
-	public static final TemplateEngine enjoyTemplateEngine = TemplateUtil.createEngine(new TemplateConfig().setCustomEngine(CustomEnjoyEngine.class));
+	public static final TemplateEngine enjoyTemplateEngine = TemplateTool.defaultTemplateEngine;
 
 	/**
 	 * 渲染逻辑

@@ -22,6 +22,7 @@ const props = defineProps({
   // 组件是否支持权限，如果支持权限，不再封装，将使用组合的权限逻辑
   permissionSupport: {
     type: Boolean,
+    default: undefined
   },
   // 表单数据对象
   form: {
@@ -62,6 +63,7 @@ const permissionSupport = computed(() => {
     return props.permissionSupport
   }
   if(props.comp){
+
     // 如果是原生 elementPlus 组件，不支持权限，如果指定了权限码，使用内置权限封装
     if (props.comp.indexOf('el-') == 0) {
       return false

@@ -12,14 +12,42 @@ import java.util.Optional;
  */
 public interface IErrorCode {
 
+
 	/**
-	 * http状态码
+	 * 对应httpStatus,一般取 {@link IErrorCode#getStatus()} 的前三位即为http状态码
 	 * @return
 	 */
-	default Integer httpStatus(){
-		return Integer.parseInt(String.valueOf(getStatus()).substring(0,3));
+	default int getHttpStatus(){
+		return Optional.of(getStatus())
+				.map(String::valueOf)
+				.map(status->status.substring(0,3))
+				.map(Integer::valueOf)
+				.get();
 	}
 
+	/**
+	 * 业务编码
+	 * @return
+	 */
+	default Integer bizStatus(){
+		return Optional.of(getStatus())
+				.map(String::valueOf)
+				.map(status->status.substring(3,7))
+				.map(Integer::valueOf)
+				.get();
+	}
+
+	/**
+	 * 错误编码
+	 * @return
+	 */
+	default Integer errorStatus(){
+		return Optional.of(getStatus())
+				.map(String::valueOf)
+				.map(status->status.substring(7))
+				.map(Integer::valueOf)
+				.get();
+	}
 	/**
 	 * 错误状态编码
 	 * 规则：总共10位，xxx xxxx xxxxx,一般分为三部分
@@ -46,15 +74,4 @@ public interface IErrorCode {
 	 */
 	String getErrMessage();
 
-	/**
-	 * 对应httpStatus,一般取 {@link IErrorCode#getStatus()} 的前三位即为http状态码
-	 * @return
-	 */
-	default int getHttpStatus(){
-		return Optional.of(getStatus())
-				.map(String::valueOf)
-				.map(status->status.substring(0,3))
-				.map(Integer::valueOf)
-				.get();
-	}
 }

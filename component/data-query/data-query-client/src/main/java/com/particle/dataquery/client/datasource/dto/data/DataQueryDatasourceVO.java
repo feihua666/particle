@@ -31,6 +31,10 @@ public class DataQueryDatasourceVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     @ApiModelProperty("类型对应字典名称")
     private String typeDictName;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
+    @ApiModelProperty("类型对应字典值")
+    private String typeDictValue;
         
     @ApiModelProperty("json配置")
     private String configJson;

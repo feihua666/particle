@@ -18,6 +18,7 @@ import {
   reactiveDataModelData,
   updateDataModelValueEventHandle
 } from './dataModel'
+import {sceneDataHanderProps} from "./sceneDataHander";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -112,7 +113,8 @@ const props = defineProps({
     type: Function
   },
   ...dataMethodProps,
-  ...dataMethodRemoteProps
+  ...dataMethodRemoteProps,
+  ...sceneDataHanderProps
 })
 // 属性
 const reactiveData = reactive({
@@ -123,7 +125,7 @@ const reactiveData = reactive({
 // 计算属性
 // 这里和 props.options 重名了，但在模板是使用 options 变量是这个值，也就是说这里会覆盖在模板中的值
 const options = computed(() => {
-  return props.options.length > 0 ? props.options : reactiveData.dataMethodData
+  return props.sceneDataHander(props.options.length > 0 ? props.options : reactiveData.dataMethodData)
 })
 // propsOptions
 const propsOptions = computed(() => {
@@ -132,6 +134,9 @@ const propsOptions = computed(() => {
     value: 'id',
     // 指定选项标签为选项对象的某个属性值
     label: 'name',
+    // 指定选项的禁用为选项对象的某个属性值
+    disabled: 'isDisabled',
+    disabledReason: 'disabledReason',
   }
   return Object.assign(defaultProps, props.props)
 })
@@ -235,8 +240,18 @@ const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasP
 // 值改变事件
 const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPermission,emit})
 
-const getOptionProps = (optionsOptionProps={})=> {
-  return Object.assign(props.optionProps,optionsOptionProps)
+const getOptionProps = (itemData)=> {
+  let optionsOptionProps =  itemData.optionProps||{}
+  let disabled = itemData[propsOptions.value.disabled]
+  let disabledReason = itemData[propsOptions.value.disabledReason]
+  let r = Object.assign({},props.optionProps,optionsOptionProps)
+  if (disabled === true) {
+
+    r.disabled = true
+    r.title = disabledReason
+  }
+
+  return r
 }
 
 // 加载数据
@@ -290,23 +305,23 @@ const emitModelData = ({data,value})=>{
         @remove-tag="(valueByOption) => $emit('remove-tag', valueByOption)">
       <template v-if="groupView">
         <el-option-group
-            v-for="(groupData,groupIndex) in options"
+            v-for="(groupData,groupIndex) in (options)"
             :key="groupIndex"
             :label="groupData[groupProps.label]"
         >
           <el-option
               v-for="(itemData,index) in groupData[groupProps.options]"
               :key="index"
-              v-bind="getOptionProps(itemData.optionProps)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]">
+              v-bind="getOptionProps(itemData)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]|| ''">
           </el-option>
         </el-option-group>
       </template>
 
       <template v-else>
         <el-option
-            v-for="(itemData,index) in options"
+            v-for="(itemData,index) in (options)"
             :key="index"
-            v-bind="getOptionProps(itemData.optionProps)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]|| ''">
+            v-bind="getOptionProps(itemData)" :label="itemData[propsOptions.label]" :value="itemData[propsOptions.value]|| ''">
         </el-option>
       </template>
 

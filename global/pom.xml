@@ -40,6 +40,8 @@
         <module>global-adapter-boot-starter</module>
         <module>global-light-share</module>
         <module>global-messaging-boot-starter</module>
+        <module>global-big-datasource-boot-starter</module>
+
     </modules>
 
     <properties>

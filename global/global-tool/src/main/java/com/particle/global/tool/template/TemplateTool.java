@@ -21,7 +21,7 @@ public class TemplateTool {
 	/**
 	 * 默认的全局模版引擎
 	 */
-	public static final TemplateEngine defaultTemplateEngine = TemplateUtil.createEngine(new TemplateConfig());
+	public static final TemplateEngine defaultTemplateEngine = TemplateUtil.createEngine(new TemplateConfig().setCustomEngine(CustomEnjoyEngine.class));
 
 	/**
 	 * 渲染字符串模板和数据
@@ -33,6 +33,10 @@ public class TemplateTool {
 		return render(template,data,defaultTemplateEngine);
 	}
 
+	public static String render(String template, TemplateRenderDataWrap data) {
+		return render(template,data.toRenderMap(),defaultTemplateEngine);
+
+	}
 	/**
 	 * 渲染字符串模板和数据
 	 * @param template

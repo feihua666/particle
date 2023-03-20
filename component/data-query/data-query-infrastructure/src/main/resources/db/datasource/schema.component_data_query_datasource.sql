@@ -2,14 +2,14 @@
 DROP TABLE IF EXISTS component_data_query_datasource;
 CREATE TABLE `component_data_query_datasource` (
   `id` bigint NOT NULL COMMENT 'ID',
-  `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '编码',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `code` varchar(50) DEFAULT NULL COMMENT '编码',
+  `name` varchar(100) NOT NULL COMMENT '名称',
   `type_dict_id` bigint NOT NULL COMMENT '类型，字典id',
-  `config_json` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'json配置，根据数据源类型对应不同的配置信息',
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
-  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `config_json` text NOT NULL COMMENT 'json配置，根据数据源类型对应不同的配置信息',
+  `username` varchar(50) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(200) DEFAULT NULL COMMENT '密码',
   `data_query_provider_id` bigint NOT NULL COMMENT '数据查询供应商id',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述,注意事项等',
+  `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
@@ -20,4 +20,4 @@ CREATE TABLE `component_data_query_datasource` (
   UNIQUE KEY `code` (`code`),
   KEY `version` (`version`) USING BTREE,
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='数据查询数据源表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='数据查询数据源表';

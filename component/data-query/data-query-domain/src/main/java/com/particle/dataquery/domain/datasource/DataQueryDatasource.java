@@ -1,6 +1,8 @@
 package com.particle.dataquery.domain.datasource;
 
 import com.particle.common.domain.AggreateRoot;
+import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceJdbcConfig;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
@@ -58,6 +60,18 @@ public class DataQueryDatasource extends AggreateRoot {
     */
     private String remark;
 
+
+    /**
+     * 调用方法之前请确保 typeDictId 对应的字典值为 jdbc类型 参见 {@link DataQueryDatasourceType#datasource_jdbc}
+     * @return
+     */
+    public DataQueryDatasourceJdbcConfig jdbcConfig(){
+
+        DataQueryDatasourceJdbcConfig fromJsonStr = DataQueryDatasourceJdbcConfig.createFromJsonStr(configJson);
+        fromJsonStr.setUsername(username);
+        fromJsonStr.setPassword(password);
+        return fromJsonStr;
+    }
 
 
     /**

@@ -1,0 +1,17 @@
+particle:
+  bigdatasource:
+    # dynamic 及以上为前缀
+    dynamic:
+      datasource:
+        # jdbc 为大数据源路由名称
+        jdbc:
+          name: 本地数据库
+          type: datasource_jdbc
+          # 根据类型不同，请配置对应的项
+          jdbc:
+            # jdbc 大数据内部使用多数据源模式,提供了对 dynamic-dataSource yml配置的全部支持，但只支持手动切换数据源，不支持aop等方式自动注解切换
+            master:
+              url: jdbc:mysql://localhost/particle_test?${particle.datasource.mysql.url-query}
+              username: root
+              password: rootroot
+              driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置

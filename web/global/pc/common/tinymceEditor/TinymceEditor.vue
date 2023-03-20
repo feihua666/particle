@@ -35,7 +35,6 @@ const props = defineProps({
 // 本地部署默认根路径
 // BASE_URL 默认为 / ，如果指定了就是 /xxx/,总之以/结尾
 const base_url = import.meta.env.BASE_URL + 'tinymce'
-console.log('base_url',base_url)
 // 默认初始化配置
 const initDefault = {
   base_url: base_url,

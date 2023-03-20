@@ -13,8 +13,13 @@ import org.springframework.stereotype.Component;
  * @author yangwei
  * @since 2022-04-20 17:38
  */
-@Component
+@Component(ApplicationContextHelper.applicationContextHelperName)
 public class ApplicationContextHelper implements ApplicationContextAware {
+
+	/**
+	 * 定义当前类bean名称，因为有可能会被依赖
+	 */
+	public static final String applicationContextHelperName = "applicationContextHelper";
 	private static ApplicationContext applicationContext;
 
 	@Override

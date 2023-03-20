@@ -34,6 +34,7 @@ export default defineConfig({
       aliasItem('axios'),
       aliasItem('vuedraggable'),
       aliasItem('@element-plus/icons-vue'),
+      aliasItem('dayjs'),
     ]
   },
   server: {

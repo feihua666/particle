@@ -1,5 +1,6 @@
 package com.particle.lowcode.domain.generator;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
@@ -131,9 +132,14 @@ public class LowcodeModelItem extends AggreateRoot {
     public void initDesignJson( Set<String> ignorePropertyNames) {
         Map<LowcodeModelItemDesignJsonScope, LowcodeModelItem.DesignJsonItem> designJsonItemMap = Arrays.stream(LowcodeModelItemDesignJsonScope.values()).collect(Collectors.toMap(Function.identity(), (scope) -> {
 
+            boolean isRequired = getIsRequired();
+            // 默认查询不必填
+            if(scope == LowcodeModelItemDesignJsonScope.QUERY_LIST || scope == LowcodeModelItemDesignJsonScope.QUERY_PAGE){
+                isRequired = false;
+            }
             LowcodeModelItem.DesignJsonItem designJsonItem = LowcodeModelItem.DesignJsonItem.create(
                     !ignorePropertyNames.contains(getPropertyName()),
-                    getIsRequired(),
+                    isRequired,
                     false,
                     false
             );

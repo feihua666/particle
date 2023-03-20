@@ -13,6 +13,8 @@ const AreaRoutes = [
             {
                 path: '/admin/areaManageAdd',
                 component: () => import('./views/admin/AreaManageAddPage.vue'),
+                props: route => ({ parentId: route.query.id }),
+
                 meta: {
                     showInDrawer: true,
                     code:'adminAreaManageAdd',

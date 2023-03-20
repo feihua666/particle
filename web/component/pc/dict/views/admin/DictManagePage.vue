@@ -160,7 +160,14 @@ const getTableRowButtons = ({row, column, $index}) => {
           return Promise.resolve(res)
         })
       }
-    }
+    },
+    {
+      txt: '添加子级',
+      text: true,
+      permission: 'admin:web:dict:create',
+      // 跳转到编辑
+      route: {path: '/admin/dictManageAdd',query: idData}
+    },
   ]
   return tableRowButtons
 }

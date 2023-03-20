@@ -78,6 +78,11 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   },
+  // 提交按钮所在form item的绑定属性
+  submitFormItemAttrs: {
+    type: Object,
+    default: () => ({})
+  },
   // 可以传一个空的 form，其属性可以会通过 comps[i].field.name 生成，方便父组件拿到引用
   form: {
     type: Object,
@@ -95,6 +100,11 @@ const props = defineProps({
     type: Object,
     default: ()=>({})
   },
+  // 表单重置回调，限内置reset按钮使用时有效
+  onResetForm: {
+    type: Function,
+    default: (form)=>{}
+  }
 })
 /*********** form 初始化属性 开始***************/
 const form = props.form
@@ -220,9 +230,13 @@ const doSubmitForm = () => {
 }
 // 重置表单
 const resetForm = () => {
+  props.onResetForm()
   formRef.value.resetFields()
 }
-
+defineExpose({
+  formRef,
+  resetForm
+})
 </script>
 <template>
   <el-form ref="formRef" v-bind="$attrs" :model="reactiveData.form"
@@ -244,7 +258,7 @@ const resetForm = () => {
           </template>
         </el-row>
       </template>
-      <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item">
+      <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item" v-bind="submitFormItemAttrs">
         <!--    一个空的提交按钮占位，在传送开启时保证可以回车提交    -->
         <PtButton style="visibility: hidden;" v-if="buttonsTeleportProps.disabled == false && defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
 

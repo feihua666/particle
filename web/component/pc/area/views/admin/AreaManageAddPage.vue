@@ -8,11 +8,20 @@ import LocationGeoMapDialog from '../../compnents/LocationGeoMapDialog.vue'
 import {userAddPageFormItems} from "../../compnents/admin/areaManage";
 
 const locationGeoMapDialogRef = ref(null)
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 加载数据初始化参数,路由传参
+  parentId: {
+    type: String
+  }
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
-  form: {},
+  form: {
+    parentId: props.parentId
+  },
   // 表单数据对象
   formData: {},
 })

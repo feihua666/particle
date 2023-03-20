@@ -47,6 +47,7 @@ spring:
         - classpath:db/data.low-code.demo.sql
         - classpath:db/data.tools.sql
         - classpath:db/data.data-query.sql
+        - classpath:db/data.data-query.demo.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
   servlet:

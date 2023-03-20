@@ -61,6 +61,11 @@ const submitMethodSuccess = () => {
 
   <el-dialog v-model="configJsonDialogVisible" width="70%" title="配置Json" append-to-body destroy-on-close>
     <DataQueryDatasourceManageConfigJsonPage :initData="reactiveData.form.configJson" :success="(result) => {reactiveData.form.configJson = result;configJsonDialogVisible = false;}" :typeDictValue="typeDictValue"></DataQueryDatasourceManageConfigJsonPage>
+    <template #footer>
+      <span>
+
+      </span>
+    </template>
   </el-dialog>
 </template>
 

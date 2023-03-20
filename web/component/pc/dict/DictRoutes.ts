@@ -13,6 +13,7 @@ const DictRoutes = [
             {
                 path: '/admin/dictManageAdd',
                 component: () => import('./views/admin/DictManageAddPage.vue'),
+                props: route => ({ parentId: route.query.id }),
                 meta: {
                     showInDrawer: true,
                     code:'adminDictManageAdd',

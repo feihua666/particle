@@ -40,5 +40,15 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/dictEnumGen',
+        component: () => import('./views/front/DictEnumGenPage.vue'),
+        meta: {
+            root: true,
+            code:'dictEnumGen',
+            name: '根据字典生成枚举类',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

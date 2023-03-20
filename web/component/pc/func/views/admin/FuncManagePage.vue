@@ -131,11 +131,21 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
+    {
+      txt: '添加子级',
+      position: 'more',
+      text: true,
+      permission: 'admin:web:func:create',
+      // 跳转到编辑
+      route: {path: '/admin/funcManageAdd',query: idData}
+    },
   ]
   let isPage = row.typeDictValue == 'page'
   isPage && tableRowButtons.push(
       {
         txt: '添加Crud',
+
+        position: 'more',
         text: true,
         permission: 'admin:web:func:create',
         // 跳转到编辑
@@ -170,9 +180,9 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})"  :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

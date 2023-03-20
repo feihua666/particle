@@ -95,7 +95,7 @@ public class TransHelper {
             } if (body instanceof SingleResponse) {
                 Object obj = ((SingleResponse) body).getData();
                 if (obj != null) {
-                    transCollection(CollectionTool.newArrayList(body));
+                    transCollection(CollectionTool.newArrayList(obj));
                 }
             }else if(body instanceof Collection) {
                 transCollection((Collection)body);

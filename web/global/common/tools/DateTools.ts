@@ -1,3 +1,5 @@
+// 如果使用element plus已经依赖安装，无需再安装
+import * as dayjs from 'dayjs'
 const dateReg = new RegExp("-","gm")
 /**
  * 获取日期对象
@@ -12,4 +14,11 @@ export function getDateObj(str: string): Date{
  */
 export function getCurrentTimestamps():number{
     return new Date().getTime()
+}
+
+/**
+ * 获取当前的日期时间
+ */
+export function getCurrentDataTime() {
+    return dayjs().format('YYYY-MM-DD HH:mm:ss')
 }

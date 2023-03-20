@@ -49,4 +49,4 @@ public class SingleResponse<T> extends Response {
 		return buildFailure(errCodeGlobal, null);
 	}
 
-	}
+}
