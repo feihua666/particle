@@ -107,7 +107,7 @@ const outParamExampleSubmit = ()=>{
 }
 // 出参成功配置确认提交
 const outParamSuccessSubmit = ()=>{
-  if (outParamSuccessConfigRef.value.getInitJson().outParamSuccesses.length > 0) {
+  if (outParamSuccessConfigRef.value.getInitJson().outParamValidateItems.length > 0) {
     props.form.outParamSuccessConfigJson = toJsonStr(outParamSuccessConfigRef.value.getInitJson());
   }
   reactiveData.outParamSuccess.dialogVisible=false;

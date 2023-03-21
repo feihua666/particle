@@ -519,7 +519,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     },
     {
       field: {
-        name: 'outParamConfigJson',
+        name: 'outParamTransConfigJson',
       },
       element: {
         comp: 'el-input',
@@ -534,7 +534,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     },
     {
       field: {
-        name: 'outParamConfigJson',
+        name: 'outParamExtConfigJson',
       },
       element: {
         comp: 'el-input',

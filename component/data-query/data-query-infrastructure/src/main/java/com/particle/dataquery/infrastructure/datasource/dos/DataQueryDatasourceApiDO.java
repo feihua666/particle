@@ -87,14 +87,22 @@ public class DataQueryDatasourceApiDO extends BaseDO {
     private String outParamExampleConfigJson;
 
     /**
-    * 出参配置json
+    * 出参文档配置json
     */
-    private String outParamConfigJson;
+    private String outParamDocConfigJson;
 
     /**
     * 出参成功或失败配置json
     */
     private String outParamSuccessConfigJson;
+    /**
+     * 出参翻译配置json
+     */
+    private String outParamTransConfigJson;
+    /**
+     * 出参扩展配置json
+     */
+    private String outParamExtConfigJson;
 
     /**
     * 类型，字典id，用来定义响应数据格式

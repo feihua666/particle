@@ -79,12 +79,18 @@ public class DataQueryDatasourceApiUpdateCommand extends AbstractBaseUpdateComma
     private String outParamExampleConfigJson;
 
 
-    @ApiModelProperty(value = "出参配置json")
-    private String outParamConfigJson;
+    @ApiModelProperty(value = "出参文档配置json")
+    private String outParamDocConfigJson;
 
 
     @ApiModelProperty(value = "出参成功或失败配置json")
     private String outParamSuccessConfigJson;
+
+    @ApiModelProperty(value = "出参翻译配置json")
+    private String outParamTransConfigJson;
+
+    @ApiModelProperty(value = "出参扩展配置json")
+    private String outParamExtConfigJson;
 
     @NotNull(message = "输出类型 不能为空")
     @ApiModelProperty(value = "输出类型",required = true)

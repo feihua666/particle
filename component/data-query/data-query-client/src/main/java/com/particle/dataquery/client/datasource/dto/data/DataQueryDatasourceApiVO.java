@@ -89,12 +89,19 @@ public class DataQueryDatasourceApiVO extends AbstractBaseIdVO {
     @ApiModelProperty("出参示例")
     private String outParamExampleConfigJson;
     
-    @ApiModelProperty("出参配置json")
-    private String outParamConfigJson;
+    @ApiModelProperty("出参文档配置json")
+    private String outParamDocConfigJson;
     
     @ApiModelProperty("出参成功或失败配置json")
     private String outParamSuccessConfigJson;
-    
+
+
+    @ApiModelProperty(value = "出参翻译配置json")
+    private String outParamTransConfigJson;
+
+    @ApiModelProperty(value = "出参扩展配置json")
+    private String outParamExtConfigJson;
+
     @ApiModelProperty("输出类型")
     private Long responseTypeDictId;
 
