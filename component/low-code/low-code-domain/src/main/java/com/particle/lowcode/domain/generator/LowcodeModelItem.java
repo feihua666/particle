@@ -133,15 +133,20 @@ public class LowcodeModelItem extends AggreateRoot {
         Map<LowcodeModelItemDesignJsonScope, LowcodeModelItem.DesignJsonItem> designJsonItemMap = Arrays.stream(LowcodeModelItemDesignJsonScope.values()).collect(Collectors.toMap(Function.identity(), (scope) -> {
 
             boolean isRequired = getIsRequired();
+            boolean isTransDictId = false;
             // 默认查询不必填
             if(scope == LowcodeModelItemDesignJsonScope.QUERY_LIST || scope == LowcodeModelItemDesignJsonScope.QUERY_PAGE){
                 isRequired = false;
+            }
+            // vo 匹配是否为字典，如果是字典，默认翻译
+            if(scope == LowcodeModelItemDesignJsonScope.VO && getColumnName().endsWith("_dict_id")){
+                isTransDictId = true;
             }
             LowcodeModelItem.DesignJsonItem designJsonItem = LowcodeModelItem.DesignJsonItem.create(
                     !ignorePropertyNames.contains(getPropertyName()),
                     isRequired,
                     false,
-                    false
+                    isTransDictId
             );
             return designJsonItem;
         }));

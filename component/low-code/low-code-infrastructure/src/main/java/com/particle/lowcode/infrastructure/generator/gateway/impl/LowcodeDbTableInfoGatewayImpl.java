@@ -146,7 +146,7 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 		TableField.MetaInfo metaInfo = field.getMetaInfo();
 
 		lowcodeModelItem.setDefaultValue(metaInfo.getDefaultValue());
-		// 目前mybatis plus generator不支持，如果自己写的话也是可以的，但要兼容多种数据库也很费劲，暂不添加，放到前端设置
+		// 是否唯一字段判断，目前mybatis plus generator不支持，如果自己写的话也是可以的，但要兼容多种数据库也很费劲，暂不添加，放到前端设置
 		lowcodeModelItem.setIsUnique(false);
 		lowcodeModelItem.setIsRequired(!metaInfo.isNullable());
 		lowcodeModelItem.setIsKey(field.isKeyFlag());

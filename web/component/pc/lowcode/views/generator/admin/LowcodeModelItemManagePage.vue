@@ -172,6 +172,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:lowcodeModelItem:create" route="/admin/lowcodeModelItemManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:lowcodeModelItem:pageQuery" :route="{path: '/admin/lowcodeModelItemDesignManagePage',query: {lowcodeModelId: lowcodeModelId}}">去设计</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

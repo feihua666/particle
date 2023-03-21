@@ -44,7 +44,7 @@ export const addPageFormItems =  [
             formItemProps: {
                 label: '名称',
                 required: true,
-                tips: '将作为模型的原始名称变量输出,一般填写中文做为注释'
+                tips: '将作为模型的原始名称变量输出,一般填写中文做为注释，正常情况下填写表注释即可如：用户表 就填写 用户'
             },
             compProps: {
                 clearable: true,
@@ -70,7 +70,7 @@ export const addPageFormItems =  [
             formItemProps: {
                 label: '英文名称',
                 required: true,
-                tips: '将作为模型的原始英文名称变量输出'
+                tips: '将作为模型的原始英文名称变量输出，正常情况下填写不带前缀的表名即可如：component_user 就填写 user'
             },
             compProps: {
                 clearable: true,
@@ -126,7 +126,7 @@ export const addPageFormItems =  [
             comp: 'el-input',
             formItemProps: {
                 label: '表名称',
-                tips: '可以根据表名加载模型项，比手动录入更方便'
+                tips: '可以根据数据库表名加载模型项，比手动录入更方便'
             },
             compProps: {
                 clearable: true,
