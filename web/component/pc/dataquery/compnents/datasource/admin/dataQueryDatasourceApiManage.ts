@@ -12,7 +12,7 @@ const alert = (message,type='success')=>{
     grouping: true
   })
 }
-// 参数类型
+// 参数类型,与后端字典组编码 dataquery_datasource_api_param_type 下的字典项一致
 export const paramType = {
   object: 'object',
   array: 'array',
@@ -20,7 +20,226 @@ export const paramType = {
   number: 'number',
   float: 'float',
   boolean: 'boolean',
-  none: 'none',
+}
+export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'inParamExampleConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '入参示例',
+        tips: '对接口的请求示例，仅做参考，不做为逻辑处理依据'
+      },
+      compProps: ({form})=>{
+        return {
+          text: true,
+          type: form.inParamExampleConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamExampleConfigJson.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const inParamTestCaseDataConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'inParamTestCaseDataConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '入参测试用例数据',
+        tips: '对接口的请求标识数据，为做接口测试时，提供准确的依据'
+      },
+      compProps: ({form,formData})=>{
+        return {
+          text: true,
+          type: form.inParamTestCaseDataConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamTestCaseDataConfigJson.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const inParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return {
+    field: {
+      name: 'inParamDocConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '入参文档配置',
+        tips: '对接口的参数字段说明'
+      },
+      compProps: ({form,formData})=>{
+        return {
+          text: true,
+          type: form.inParamDocConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          beforeMethod: ()=>{
+            if(!form.inParamTypeDictId){
+              return '请先选择入参类型'
+            }
+            return true
+          },
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamDoc.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const outParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'outParamExampleConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '出参示例',
+        tips: '对接口的响应示例，仅做参考，不做为逻辑处理依据'
+      },
+      compProps:  ({form})=>{
+        return {
+          text: true,
+          type: form.outParamExampleConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamExampleConfigJson.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return {
+    field: {
+      name: 'outParamDocConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '出参文档配置',
+        tips: '对接口的参数字段说明'
+      },
+      compProps: ({form,formData})=>{
+        return {
+          text: true,
+          type: form.outParamDocConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          beforeMethod: ()=>{
+            if(!form.outParamTypeDictId){
+              return '请先选择出参类型'
+            }
+            return true
+          },
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamDoc.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const outParamSuccessConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return {
+    field: {
+      name: 'outParamSuccessConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '出参结果配置',
+        tips: '可以用来标识出参成功或失败，以处理告警等逻辑，不配置代表都成功'
+      },
+      compProps: ({form})=>{
+        return {
+          text: true,
+          type: form.outParamSuccessConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamSuccess.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'dictConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '字典配置',
+        tips: '接口用到的字典数据配置'
+      },
+      compProps:  ({form})=>{
+        return {
+          text: true,
+          type: form.dictConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.dictConfig.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
+export const pageableAdapterConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'pageableAdapterConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '分页信息配置',
+        tips: '用来解析分页请求和响应数据转换'
+      },
+      compProps:  ({form})=>{
+        return {
+          text: true,
+          type: form.pageableAdapterConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.pageableAdapterConfig.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
 }
 export const pageFormItems = [
   {
@@ -303,30 +522,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-    {
-      field: {
-        name: 'inParamExampleConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '入参示例',
-          tips: '对接口的请求示例，仅做参考，不做为逻辑处理依据'
-        },
-        compProps: ({form})=>{
-          return {
-            text: true,
-            type: form.inParamExampleConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamExampleConfigJson.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    inParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
 
     {
@@ -353,36 +549,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-    {
-      field: {
-        name: 'inParamDocConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '入参文档配置',
-          tips: '对接口的参数字段说明'
-        },
-        compProps: ({form,formData})=>{
-          return {
-            text: true,
-            type: form.inParamDocConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            beforeMethod: ()=>{
-              if(!form.inParamTypeDictId){
-                return '请先选择入参类型'
-              }
-              return true
-            },
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamDoc.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'inParamValidateConfigJson',
@@ -439,84 +606,9 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-    {
-      field: {
-        name: 'outParamExampleConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '出参示例',
-          tips: '对接口的响应示例，仅做参考，不做为逻辑处理依据'
-        },
-        compProps:  ({form})=>{
-          return {
-            text: true,
-            type: form.outParamExampleConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamExampleConfigJson.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      field: {
-        name: 'outParamDocConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '出参文档配置',
-          tips: '对接口的参数字段说明'
-        },
-        compProps: ({form,formData})=>{
-          return {
-            text: true,
-            type: form.outParamDocConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            beforeMethod: ()=>{
-              if(!form.outParamTypeDictId){
-                return '请先选择出参类型'
-              }
-              return true
-            },
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamDoc.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      field: {
-        name: 'outParamSuccessConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '出参结果配置',
-          tips: '可以用来标识出参成功或失败，以处理告警等逻辑，不配置代表都成功'
-        },
-        compProps: ({form})=>{
-          return {
-            text: true,
-            type: form.outParamSuccessConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamSuccess.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    outParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'outParamTransConfigJson',
@@ -589,54 +681,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-    {
-      field: {
-        name: 'dictConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '字典配置',
-          tips: '接口用到的字典数据配置'
-        },
-        compProps:  ({form})=>{
-          return {
-            text: true,
-            type: form.dictConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.dictConfig.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      field: {
-        name: 'pageableAdapterConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '分页信息配置',
-          tips: '用来解析分页请求和响应数据转换'
-        },
-        compProps:  ({form})=>{
-          return {
-            text: true,
-            type: form.pageableAdapterConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.pageableAdapterConfig.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'rateLimitControlConfigJson',

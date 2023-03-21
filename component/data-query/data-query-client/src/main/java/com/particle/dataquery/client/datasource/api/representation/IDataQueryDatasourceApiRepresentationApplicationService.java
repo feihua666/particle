@@ -2,7 +2,7 @@ package com.particle.dataquery.client.datasource.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiTestCommand;
+import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -50,8 +50,8 @@ public interface IDataQueryDatasourceApiRepresentationApplicationService extends
 
 	/**
 	 * 接口测试
-	 * @param dataQueryDatasourceApiTestCommand
+	 * @param dataQueryDatasourceApiQueryCommand
 	 * @return
 	 */
-	Object test(DataQueryDatasourceApiTestCommand dataQueryDatasourceApiTestCommand);
+	Object test(DataQueryDatasourceApiQueryCommand dataQueryDatasourceApiQueryCommand);
 }

@@ -151,23 +151,6 @@ const formComps = [
         defaultValueItem: (item) => item.value == props.rootInParamType,
         // 选取value为选重值
         props: {value: 'value'},
-        sceneDataHander(data){
-          if(data){
-            let r = []
-            data.forEach(item =>{
-              let itemTemp = clone(item)
-              if(item.value == paramType.none){
-                itemTemp.isDisabled = true
-                itemTemp.disabledReason = `这里不需要该选项，因为参数必须有类型`
-                r.push(itemTemp)
-              }else {
-                r.push(itemTemp)
-              }
-            })
-            return r
-          }
-          return data
-        }
       }
     }
   },

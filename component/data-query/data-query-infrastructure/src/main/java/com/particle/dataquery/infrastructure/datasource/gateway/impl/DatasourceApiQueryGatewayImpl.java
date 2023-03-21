@@ -46,7 +46,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	private DataQueryDictGateway dataQueryDictGateway;
 
 	@Override
-	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
+	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
 		String datasourceTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasource.getTypeDictId());
 		DataQueryDatasourceType dataQueryDatasourceType = DataQueryDatasourceType.valueOf(datasourceTypeDictIdValue);
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_jdbc) {
@@ -54,6 +54,12 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 		}
 
 		return new RuntimeException("can not support datasource type of " + dataQueryDatasourceType.itemValue());
+	}
+
+	@Override
+	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
+		// todo 缓存性能
+		return queryRealtime(datasource,datasourceApi,param);
 	}
 
 	/**

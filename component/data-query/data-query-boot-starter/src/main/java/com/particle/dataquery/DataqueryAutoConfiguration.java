@@ -23,7 +23,11 @@ import java.util.List;
  */
 @ComponentScan
 @Configuration
-@MapperScan({"com.particle.dataquery.infrastructure.provider.mapper","com.particle.dataquery.infrastructure.datasource.mapper"})
+@MapperScan({
+        "com.particle.dataquery.infrastructure.provider.mapper",
+        "com.particle.dataquery.infrastructure.datasource.mapper",
+        "com.particle.dataquery.infrastructure.dataapi.mapper",
+})
 public class DataqueryAutoConfiguration {
 
 

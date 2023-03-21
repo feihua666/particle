@@ -1,7 +1,5 @@
 <script setup name="OutParamSuccessConfig" lang="ts">
 import {onMounted, reactive, ref} from 'vue'
-import {clone} from "../../../../../../../global/common/tools/ObjectTools";
-import {paramType} from "../dataQueryDatasourceApiManage";
 
 /**
  * 验证项

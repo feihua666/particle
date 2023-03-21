@@ -2,7 +2,7 @@ package com.particle.common.adapter.rpc;
 
 /**
  * <p>
- * 远程调用接口其他类
+ * 远程调用接口基类
  * </p>
  *
  * @author yangwei

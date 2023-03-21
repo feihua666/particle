@@ -83,7 +83,7 @@ public class LowcodeSegmentGen extends AggreateRoot {
 	 * 变更为已生成
 	 */
 	public void changeToGenerated(){
-		isGenerated = false;
+		isGenerated = true;
 	}
 	/**
 	 * 是否可以初始化模型 json 数据

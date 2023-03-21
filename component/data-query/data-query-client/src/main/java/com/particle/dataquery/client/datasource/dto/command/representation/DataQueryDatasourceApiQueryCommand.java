@@ -1,4 +1,4 @@
-package com.particle.dataquery.client.datasource.dto.command;
+package com.particle.dataquery.client.datasource.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.annotations.ApiModel;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 数据查询数据源接口 测试指令对象
+ * 数据查询数据源接口 查询指令对象
  * </p>
  *
  * @author yw
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel
-public class DataQueryDatasourceApiTestCommand extends AbstractBaseCommand {
+public class DataQueryDatasourceApiQueryCommand extends AbstractBaseCommand {
 
     @NotNull(message = "数据源接口id 不能为空")
     @ApiModelProperty(value = "数据源接口id",required = true)

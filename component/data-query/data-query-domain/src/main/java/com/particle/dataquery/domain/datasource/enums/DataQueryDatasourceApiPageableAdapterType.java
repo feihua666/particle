@@ -6,7 +6,7 @@ import com.particle.component.light.share.dict.api.IDictItem;
 
 /**
  * <p>
- * 分页信息适配实现类型 字典项
+ * 分页信息适配适配类型 字典项
  * </p>
  *
  * @author yw
@@ -31,7 +31,7 @@ public enum DataQueryDatasourceApiPageableAdapterType implements IDictItem {
 	}
 
 	/**
-	 * 分页信息适配实现类型 字典组
+	 * 分页信息适配适配类型 字典组
 	 */
 	public enum Group implements IDictGroup {
 		dataquery_datasource_api_pageable_adapter_type;

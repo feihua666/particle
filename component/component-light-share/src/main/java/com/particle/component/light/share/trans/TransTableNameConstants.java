@@ -23,4 +23,5 @@ public class TransTableNameConstants {
 	public static final String component_lowcode_segment_gen = "component_lowcode_segment_gen";
 	public static final String component_data_query_datasource = "component_data_query_datasource";
 	public static final String component_data_query_provider = "component_data_query_provider";
+	public static final String component_data_query_datasource_api = "component_data_query_datasource_api";
 }

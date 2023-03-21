@@ -238,7 +238,7 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param column
      * @return
      */
-    default DO getOneByColumn(Long columnId, SFunction<DO, ?> column){
+    default DO getOneByColumn(Object columnId, SFunction<DO, ?> column){
         Assert.notNull(column,"column 不能为空");
         Assert.notNull(columnId,"columnId 不能为空");
         return getOne( Wrappers.<DO>query().lambda().eq(column,columnId));

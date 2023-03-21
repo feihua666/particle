@@ -3,7 +3,7 @@ package com.particle.dataquery.app.datasource.api.impl.representation;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceApiTestCommandExecutor;
-import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiTestCommand;
+import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -46,8 +46,8 @@ public class DataQueryDatasourceApiRepresentationApplicationServiceImpl extends 
     }
 
     @Override
-    public Object test(DataQueryDatasourceApiTestCommand dataQueryDatasourceApiTestCommand) {
-        return dataQueryDatasourceApiTestCommandExecutor.test(dataQueryDatasourceApiTestCommand);
+    public Object test(DataQueryDatasourceApiQueryCommand dataQueryDatasourceApiQueryCommand) {
+        return dataQueryDatasourceApiTestCommandExecutor.test(dataQueryDatasourceApiQueryCommand);
     }
 
     @Override
