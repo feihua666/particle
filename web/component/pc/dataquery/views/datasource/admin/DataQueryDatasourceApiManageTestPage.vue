@@ -8,6 +8,7 @@ import {
 } from "../../../api/datasource/admin/DataQueryDatasourceApiAdminApi"
 
 import {ElMessage} from 'element-plus'
+import {inParamTypeHandler} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
 
 let alert = (message,type='success')=>{
   ElMessage({
@@ -120,14 +121,7 @@ const submitAttrs = ref({
     return true
   }
 })
-const inParamTypeHandler = {
-  "object": (rawParam) => JSON.parse(rawParam),
-  "array": (rawParam) => JSON.parse(rawParam),
-  "number": (rawParam) => parseInt(rawParam),
-  "float": (rawParam) => parseFloat(rawParam),
-  "boolean": (rawParam) => JSON.parse(rawParam),
 
-}
 // 查询按钮
 const submitMethod = (form) => {
   let param = form.param

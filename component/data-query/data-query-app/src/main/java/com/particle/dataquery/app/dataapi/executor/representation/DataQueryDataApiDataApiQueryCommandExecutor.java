@@ -2,6 +2,7 @@ package com.particle.dataquery.app.dataapi.executor.representation;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.WeakCache;
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
@@ -10,6 +11,7 @@ import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
 import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
+import com.particle.global.exception.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -42,7 +44,9 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @return
 	 */
 	public Object dataApiQuery(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
+		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
 		DataQueryDataApi dataQueryDataApi = dataApiQueryCache.get(dataQueryDataApiQueryCommand.getUrl(), () -> dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl()));
+		Assert.notNull(dataQueryDataApi,"数据接口地址不存在");
 
 		return dataApiQueryGateway.query(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam());
 	}
@@ -53,7 +57,9 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @return
 	 */
 	public Object dataApiQueryTest(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
+		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl());
+		Assert.notNull(dataQueryDataApi,"数据接口地址不存在");
 
 		return dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam());
 	}
@@ -66,6 +72,9 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	private DataQueryDataApi dataQueryDataApi(String url) {
 
 		DataQueryDataApiDO serviceByUrl = iDataQueryDataApiService.getByUrl(url);
+		if (serviceByUrl == null) {
+			return null;
+		}
 		return dataQueryDataApiGateway.getById(DataQueryDataApiId.of(serviceByUrl.getId()));
 	}
 

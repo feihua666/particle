@@ -21,6 +21,16 @@ export const paramType = {
   float: 'float',
   boolean: 'boolean',
 }
+/**
+ * 根据不同的参数类型转换对象
+ */
+export const inParamTypeHandler = {
+  [paramType.object]: (rawParam) => JSON.parse(rawParam),
+  [paramType.array]: (rawParam) => JSON.parse(rawParam),
+  [paramType.number]: (rawParam) => parseInt(rawParam),
+  [paramType.float]: (rawParam) => parseFloat(rawParam),
+  [paramType.boolean]: (rawParam) => JSON.parse(rawParam),
+}
 export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
   return     {
     field: {

@@ -40,6 +40,12 @@ public class DataQueryDataApiUpdateCommandExecutor  extends AbstractBaseExecutor
 	public SingleResponse<DataQueryDataApiVO> execute(@Valid DataQueryDataApiUpdateCommand dataQueryDataApiUpdateCommand) {
 		DataQueryDataApi dataQueryDataApi = createByDataQueryDataApiUpdateCommand(dataQueryDataApiUpdateCommand);
 		dataQueryDataApi.setUpdateControl(dataQueryDataApiUpdateCommand);
+
+		/**
+		 * 验证一些字段
+		 */
+		dataQueryDataApi.validateOnFullUpdate();
+
 		boolean save = dataQueryDataApiGateway.save(dataQueryDataApi);
 		if (save) {
 			return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.toDataQueryDataApiVO(dataQueryDataApi));

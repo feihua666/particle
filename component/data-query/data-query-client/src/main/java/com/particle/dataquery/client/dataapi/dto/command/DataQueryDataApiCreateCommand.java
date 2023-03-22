@@ -31,13 +31,14 @@ public class DataQueryDataApiCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "数据查询数据源接口id")
     private Long dataQueryDatasourceApiId;
 
-    @ApiModelProperty(value = "适配类型")
+    @NotNull(message = "适配类型 不能为空")
+    @ApiModelProperty(value = "适配类型",required = true)
     private Long adaptTypeDictId;
 
     @ApiModelProperty(value = "接口适配配置json")
     private String adaptConfigJson;
 
-    @ApiModelProperty(value = "入参类型")
+    @ApiModelProperty(value = "入参类型,非一对一直连必填")
     private Long inParamTypeDictId;
 
     @ApiModelProperty(value = "入参示例")
@@ -49,8 +50,7 @@ public class DataQueryDataApiCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "入参文档配置json")
     private String inParamDocConfigJson;
 
-    @NotNull(message = "出参类型 不能为空")
-    @ApiModelProperty(value = "出参类型",required = true)
+    @ApiModelProperty(value = "出参类型,非一对一直连必填")
     private Long outParamTypeDictId;
 
     @ApiModelProperty(value = "出参示例")
@@ -62,8 +62,7 @@ public class DataQueryDataApiCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "出参成功或失败配置json")
     private String outParamSuccessConfigJson;
 
-    @NotNull(message = "输出类型 不能为空")
-    @ApiModelProperty(value = "输出类型",required = true)
+    @ApiModelProperty(value = "输出类型,非一对一直连必填")
     private Long responseTypeDictId;
 
     @ApiModelProperty(value = "分页适配信息配置json")

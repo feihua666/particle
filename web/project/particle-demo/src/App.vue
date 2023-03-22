@@ -30,7 +30,6 @@ onMounted(()=>{
   window.addEventListener('resize', () => {
     // We execute the same script as before
     let vh = window.innerHeight * 0.01
-    console.log(vh);
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   })
 

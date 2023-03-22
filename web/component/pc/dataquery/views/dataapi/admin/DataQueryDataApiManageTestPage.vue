@@ -8,6 +8,8 @@ import {
 } from "../../../api/dataapi/admin/dataQueryDataApiAdminApi.ts"
 
 import {ElMessage} from 'element-plus'
+import {inParamTypeHandler} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
+import {detail as dataQueryDatasourceApiDetailApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
 
 let alert = (message,type='success')=>{
   ElMessage({
@@ -65,15 +67,20 @@ const reactiveData = reactive({
             return dataQueryDataApiDetailApi({id: props.dataQueryDataApiId})
             .then(res=>{
               let detail = res.data.data
-              // 利用一下返回值，在测试接口时根据入参类型
-              inParamType.value = detail.inParamTypeDictValue
               url.value = detail.url
-              let r = []
-              if(detail.inParamTestCaseDataConfigJson){
-                let inParamTestCaseDataConfigJsonObj = JSON.parse(detail.inParamTestCaseDataConfigJson)
-                r = inParamTestCaseDataConfigJsonObj.inParamTestCases
+              // 如果是一对一直连，直接使用数据源接口数据
+              let adaptTypeDictValue = detail.adaptTypeDictValue
+              if ('single_direct' != adaptTypeDictValue) {
+                let r = handleTestCasesData(detail)
+                return Promise.resolve(r)
+              }else {
+                return dataQueryDatasourceApiDetailApi({id: detail.dataQueryDatasourceApiId}).then(response =>{
+                  let detail = response.data.data
+                  let r = handleTestCasesData(detail)
+                  return Promise.resolve(r)
+                })
               }
-              return Promise.resolve(r)
+
             })
           }
         }
@@ -121,17 +128,9 @@ const submitAttrs = ref({
     return true
   }
 })
-const inParamTypeHandler = {
-  "object": (rawParam) => JSON.parse(rawParam),
-  "array": (rawParam) => JSON.parse(rawParam),
-  "number": (rawParam) => parseInt(rawParam),
-  "float": (rawParam) => parseFloat(rawParam),
-  "boolean": (rawParam) => JSON.parse(rawParam),
 
-}
 // 查询按钮
 const submitMethod = (form) => {
-  console.log(form)
   let param = form.param
   if (inParamType.value) {
     param = inParamTypeHandler[inParamType.value](param)
@@ -154,6 +153,18 @@ const submitMethodSuccess = (res) => {
 }
 const onResetForm = ()=>{
   reactiveData.testResult.value = ''
+}
+
+const handleTestCasesData = (detail)=>{
+  // 利用一下返回值，在测试接口时根据入参类型
+  inParamType.value = detail.inParamTypeDictValue
+
+  let r = []
+  if(detail.inParamTestCaseDataConfigJson){
+    let inParamTestCaseDataConfigJsonObj = JSON.parse(detail.inParamTestCaseDataConfigJson)
+    r = inParamTestCaseDataConfigJsonObj.inParamTestCases
+  }
+  return r
 }
 </script>
 <template>

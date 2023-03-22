@@ -40,6 +40,9 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @ApiModelProperty("适配类型对应字典名称")
     private String adaptTypeDictName;
 
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "adaptTypeDictId",mapValueField = "value")
+    @ApiModelProperty("适配类型对应字典值")
+    private String adaptTypeDictValue;
     
     @ApiModelProperty("入参类型")
     private Long inParamTypeDictId;

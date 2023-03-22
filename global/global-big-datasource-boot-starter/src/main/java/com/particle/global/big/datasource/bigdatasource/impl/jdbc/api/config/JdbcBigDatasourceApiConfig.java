@@ -57,9 +57,9 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	 * 返回渲染的sql
 	 * @return
 	 */
-	public String render(Object data){
+	public String render(Object command){
 		if (sqlTemplateType == JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template) {
-			return TemplateTool.render(sqlTemplate, TemplateRenderDataWrap.create(data));
+			return TemplateTool.render(sqlTemplate, TemplateRenderDataWrap.create(command));
 		}
 		/**
 		 * 原生支持，无需渲染 得益于 {@link DynamicSqlSourceHelperTool}

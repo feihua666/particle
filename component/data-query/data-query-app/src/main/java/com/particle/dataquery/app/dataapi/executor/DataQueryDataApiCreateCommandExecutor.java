@@ -39,6 +39,9 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 	public SingleResponse<DataQueryDataApiVO> execute(@Valid DataQueryDataApiCreateCommand dataQueryDataApiCreateCommand) {
 		DataQueryDataApi dataQueryDataApi = createByDataQueryDataApiCreateCommand(dataQueryDataApiCreateCommand);
 		dataQueryDataApi.setAddControl(dataQueryDataApiCreateCommand);
+		// 添加参数校验
+		dataQueryDataApi.validateOnCreate();
+
 		boolean save = dataQueryDataApiGateway.save(dataQueryDataApi);
 		if (save) {
 			return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.toDataQueryDataApiVO(dataQueryDataApi));
