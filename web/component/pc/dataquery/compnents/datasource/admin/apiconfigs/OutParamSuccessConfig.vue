@@ -81,7 +81,9 @@ const reactiveData = reactive({
           label: '验证内容',
           required: true,
           displayBlock: true,
-          tips: `enjoy示例：#(validateResult.setIsSuccess(data.name == 1)) validateResult变量为固定值，可调用方法设置成功与失败，data变量为参数句柄。<br/>javascript示例：data.name == 1，data变量为参数句柄`
+          tips: "enjoy示例：#(validateResult.setIsSuccess(data.name == 1)) validateResult变量为固定值，可调用方法设置成功与失败，data变量为参数句柄。<br/>" +
+              "javascript示例：data.name == 1，data变量为参数句柄<br/>" +
+              "groovy示例：data.name == 1，data变量为参数句柄 "
         },
         compProps: {
           type: 'textarea',

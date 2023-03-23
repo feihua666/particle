@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface DynamicBigDatasourceProvider {
 	/**
-	 * 加载接口
+	 * 加载接口，在动态多数据源启动时触发，这依赖于spring环境
 	 * @return
 	 */
 	Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources();

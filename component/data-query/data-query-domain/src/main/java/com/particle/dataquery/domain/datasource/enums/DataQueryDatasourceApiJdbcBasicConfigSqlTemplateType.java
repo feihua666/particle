@@ -27,7 +27,11 @@ public enum DataQueryDatasourceApiJdbcBasicConfigSqlTemplateType implements IDic
 	/**
 	 * 无需处理，原生保留
 	 */
-	raw
+	raw,
+	/**
+	 * groovy脚本，使用groovy脚本请指定返回值
+	 */
+	groovy_script_template
 	;
 
 	@Override

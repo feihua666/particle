@@ -10,9 +10,9 @@ import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
  * @author yangwei
  * @since 2023-03-10 10:39
  */
-public interface DynamicBigDatasourceRoutingSubKey {
+public interface JdbcBigDatasourceRoutingKey<K> extends DynamicBigDatasourceRoutingKey<K> {
 	/**
-	 * 子路由键
+	 * 子路由键,该值应该是 {@link DynamicRoutingDataSource} 的 dataSourceName
 	 * 主要是为支持动态多数据源 {@link DynamicRoutingDataSource}
 	 * @return
 	 */

@@ -6,7 +6,7 @@ import com.particle.component.light.share.dict.api.IDictItem;
 
 /**
  * <p>
- * 数据源接口参数校验类型 字典项
+ * 数据源接口参数校验类型 字典项 应该与 {@link com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType} 保持一致
  * </p>
  *
  * @author yw
@@ -22,7 +22,11 @@ public enum DataQueryDatasourceApiParamValidateType implements IDictItem {
 	/**
 	 * enjoy模板
 	 */
-	enjoy_template
+	enjoy_template,
+	/**
+	 * groovy脚本支持
+	 */
+	groovy_template
 	;
 
 	@Override

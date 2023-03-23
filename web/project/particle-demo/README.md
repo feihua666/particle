@@ -39,7 +39,7 @@ export default defineConfig({
 })
 ```
 3. src/main.ts 依赖一个自定义的 src/thirdPart.ts 以解决别名也解决不了的问题，主要是提前导入一下
-
+4. 安装依赖尽量使用 npm install，否则可能少包
 
 This template should help get you started developing with Vue 3 in Vite.
 

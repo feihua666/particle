@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.particle</groupId>
     <artifactId>particle</artifactId>
-    <version>0.0.1-beta</version>
+    <version>0.0.2-beta-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>particle</name>
     <description>particle project for Spring Boot</description>
@@ -63,6 +63,8 @@
 
         <!-- 类似于freeMarker的模板引擎 -->
         <com.jfinal.enjoy>5.0.3</com.jfinal.enjoy>
+        <!-- groovy脚本，添加主要是为了数据查询支持groovy脚本 -->
+        <groovy-all.version>2.4.21</groovy-all.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

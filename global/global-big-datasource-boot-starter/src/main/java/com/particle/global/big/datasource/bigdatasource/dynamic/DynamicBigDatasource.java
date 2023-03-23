@@ -40,7 +40,6 @@ public class DynamicBigDatasource implements BigDatasource , InitializingBean, D
 	protected Map<DynamicBigDatasourceRoutingKey, BigDatasource> bigDatasourceMap = new HashMap<>();
 
 	protected List<DynamicBigDatasourceProvider> providers;
-
 	/**
 	 * 默认大数据源路由器
 	 */
@@ -83,12 +82,16 @@ public class DynamicBigDatasource implements BigDatasource , InitializingBean, D
 	 * @param routingKey
 	 */
 	public void addBigDatasource(DynamicBigDatasourceRoutingKey routingKey, BigDatasource bigDatasource) {
-		bigDatasourceMap.put(routingKey, bigDatasource);
+		synchronized(DynamicBigDatasource.class) {
+			bigDatasourceMap.put(routingKey, bigDatasource);
+		}
 	}
 
 	public void addBigDatasource(Map<DynamicBigDatasourceRoutingKey, BigDatasource> map) {
 		if (map != null) {
-			bigDatasourceMap.putAll(map);
+			synchronized(DynamicBigDatasource.class) {
+				bigDatasourceMap.putAll(map);
+			}
 		}
 	}
 
@@ -110,6 +113,10 @@ public class DynamicBigDatasource implements BigDatasource , InitializingBean, D
 		 */
 	public void setDynamicBigDatasourceRouter(DynamicBigDatasourceRouter dynamicBigDatasourceRouter) {
 		this.dynamicBigDatasourceRouter = dynamicBigDatasourceRouter;
+	}
+
+	public DynamicBigDatasourceRouter getDynamicBigDatasourceRouter() {
+		return dynamicBigDatasourceRouter;
 	}
 
 	/**

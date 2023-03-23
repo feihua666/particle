@@ -19,4 +19,8 @@ public enum ParamValidateType {
 	 * enjoy模板
 	 */
 	enjoy_template,
+	/**
+	 * groovy脚本支持
+	 */
+	groovy_template,
 }

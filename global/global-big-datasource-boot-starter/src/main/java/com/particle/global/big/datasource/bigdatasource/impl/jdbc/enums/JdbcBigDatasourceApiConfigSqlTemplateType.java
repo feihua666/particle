@@ -21,5 +21,9 @@ public enum JdbcBigDatasourceApiConfigSqlTemplateType {
 	/**
 	 * 无需处理，原生保留
 	 */
-	raw
+	raw,
+	/**
+	 * groovy脚本支持
+	 */
+	groovy_script_template
 }

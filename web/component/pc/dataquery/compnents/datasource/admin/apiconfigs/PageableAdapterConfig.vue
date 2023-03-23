@@ -63,7 +63,8 @@ const formComps = [
       formItemProps: {
         label: '入参请求参数解析脚本',
         required: true,
-        tips: 'enjoy示例：#(pageQueryCommand.setPageNo(data.pageNo)) #(pageQueryCommand.setPageSize(data.pageSize)) 其中 pageQueryCommand 为固定变量可以设置页码和页大小，data变量为请求参数句柄'
+        tips: 'enjoy示例：#(pageQueryCommand.setPageNo(data.pageNo)) #(pageQueryCommand.setPageSize(data.pageSize)) 其中 pageQueryCommand 为固定变量可以设置页码和页大小，data变量为请求参数句柄<br/>' +
+            'groovy示例：pageQueryCommand.setPageNo(data.pageNo); pageQueryCommand.setPageSize(data.pageSize);pageQueryCommand; 其中 pageQueryCommand 为固定变量可以设置页码和页大小，data变量为请求参数句柄,最后需要返回 pageQueryCommand'
       },
       compProps: {
         type: 'textarea',
@@ -99,7 +100,8 @@ const formComps = [
       formItemProps: {
         label: '出参响应参数解析脚本',
         required: true,
-        tips: 'enjoy示例：#(pageResponse.setPageNo(data.pageNo)) #(pageResponse.setPageSize(data.pageSize)) #(pageResponse.setTotalCount(data.totalCount)) 其中 pageResponse 为固定变量可以设置页码和页大小和总数量，data变量为响应数据参数句柄'
+        tips: 'enjoy示例：#(pageResponse.setPageNo(data.pageNo)) #(pageResponse.setPageSize(data.pageSize)) #(pageResponse.setTotalCount(data.totalCount)) 其中 pageResponse 为固定变量可以设置页码和页大小和总数量，data变量为响应数据参数句柄<br/>' +
+            'groovy示例：pageResponse.setPageNo(data.pageNo); pageResponse.setPageSize(data.pageSize); pageResponse.setTotalCount(data.totalCount); 其中 pageResponse 为固定变量可以设置页码和页大小和总数量，data变量为响应数据参数句柄,最后需要返回pageResponse'
       },
       compProps: {
         type: 'textarea',

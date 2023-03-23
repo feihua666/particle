@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Lists;
 import com.particle.global.big.datasource.bigdatasource.api.validate.ParamValidator;
 import com.particle.global.big.datasource.bigdatasource.api.validate.impl.EnjoyTemplateParamValidator;
+import com.particle.global.big.datasource.bigdatasource.api.validate.impl.GroovyParamValidator;
 import com.particle.global.big.datasource.bigdatasource.api.validate.impl.JavaScriptAssertParamValidator;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
 import com.particle.global.exception.Assert;
@@ -46,7 +47,7 @@ public class BigDatasourceApiSuccessValidateConfig {
 
 	public static List<ParamValidator> initDefaultParamValidators(){
 		if (defaultParamValidators == null) {
-			defaultParamValidators = Lists.newArrayList(EnjoyTemplateParamValidator.create(), JavaScriptAssertParamValidator.create());
+			defaultParamValidators = Lists.newArrayList(EnjoyTemplateParamValidator.create(), JavaScriptAssertParamValidator.create(), GroovyParamValidator.create());
 		}
 		return defaultParamValidators;
 	}

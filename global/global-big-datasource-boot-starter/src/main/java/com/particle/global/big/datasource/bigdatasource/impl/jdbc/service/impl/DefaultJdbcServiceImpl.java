@@ -1,5 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
@@ -30,18 +31,17 @@ public class DefaultJdbcServiceImpl implements IJdbcService<Map<String,Object>> 
 
 	/**
 	 * 列表查询
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
 	 * @return
 	 */
 	@Override
-	public List<Map<String, Object>> selectList(BigDatasourceApi bigDatasourceApi, Object command) {
+	public List<Map<String, Object>> selectList(String sqlTemplate, Object command) {
 		SqlSession sqlSession = openSession();
 		NativeSqlMapper nativeSqlMapper = sqlSession.getMapper(NativeSqlMapper.class);
-		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
 		List<Map<String, Object>> maps;
 		try {
-			maps = nativeSqlMapper.selectList(config.render(command),TemplateRenderDataWrap.create(command));
+			maps = nativeSqlMapper.selectList(sqlTemplate,TemplateRenderDataWrap.create(command));
 		} finally {
 			sqlSession.close();
 		}
@@ -50,18 +50,17 @@ public class DefaultJdbcServiceImpl implements IJdbcService<Map<String,Object>> 
 
 	/**
 	 * 查询单条
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
 	 * @return
 	 */
 	@Override
-	public Map<String, Object> selectOne(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Map<String, Object> selectOne(String sqlTemplate, Object command) {
 		SqlSession sqlSession = openSession();
 		NativeSqlMapper nativeSqlMapper = sqlSession.getMapper(NativeSqlMapper.class);
-		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
 		Map<String, Object> maps;
 		try {
-			maps = nativeSqlMapper.selectOne(config.render(command),TemplateRenderDataWrap.create(command));
+			maps = nativeSqlMapper.selectOne(sqlTemplate,TemplateRenderDataWrap.create(command));
 		} finally {
 			sqlSession.close();
 		}
@@ -69,46 +68,20 @@ public class DefaultJdbcServiceImpl implements IJdbcService<Map<String,Object>> 
 	}
 	/**
 	 * 分页查询
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
+	 * @param pageQuery 该对象用来设置请求页码和每页大小
 	 * @return
 	 */
 	@Override
-	public Page<Map<String, Object>> selectPage(BigDatasourceApi bigDatasourceApi, Object command) {
-		// 默认从第一页开始
-		Long pageNo = 1L;
-		// 默认每页10条
-		Long pageSize = 10L;
-		boolean hasPageableAdapterConfig = false;
-		PageableAdapterConfig pageableAdapterConfig = bigDatasourceApi.pageableAdapterConfig();
-		if (pageableAdapterConfig != null) {
-			PageQueryCommand pageQueryCommand = pageableAdapterConfig.obtainCommandPageInfo(command);
-			if (pageQueryCommand != null) {
-				pageNo = pageQueryCommand.getPageNo();
-				pageSize = pageQueryCommand.getPageSize();
-				hasPageableAdapterConfig = true;
-			}
-		}
-		if (!hasPageableAdapterConfig) {
-			if(command instanceof PageQueryCommand){
-				pageNo = ((PageQueryCommand) command).getPageNo();
-				pageSize = ((PageQueryCommand) command).getPageSize();
-			} else if(command instanceof Map){
-				Object pageNoInMap = ((Map<?, ?>) command).get("pageNo");
-				Object pageSizeInMap = ((Map<?, ?>) command).get("pageSize");
-				pageNo = Optional.ofNullable(pageNoInMap).map(String::valueOf).map(Long::valueOf).orElse(pageNo);
-				pageSize = Optional.ofNullable(pageSizeInMap).map(String::valueOf).map(Long::valueOf).orElse(pageSize);
-			}
-		}
+	public Page<Map<String, Object>> selectPage(String sqlTemplate, Object command, Page pageQuery) {
 
 		SqlSession sqlSession = openSession();
 		NativeSqlMapper nativeSqlMapper = sqlSession.getMapper(NativeSqlMapper.class);
-		Page pageQuery = new Page(pageNo, pageSize);
-		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
 
 		Page<Map<String, Object>> maps;
 		try {
-			maps = nativeSqlMapper.selectPage(pageQuery,config.render(command),TemplateRenderDataWrap.create(command));
+			maps = nativeSqlMapper.selectPage(pageQuery,sqlTemplate,TemplateRenderDataWrap.create(command));
 		} finally {
 			sqlSession.close();
 		}

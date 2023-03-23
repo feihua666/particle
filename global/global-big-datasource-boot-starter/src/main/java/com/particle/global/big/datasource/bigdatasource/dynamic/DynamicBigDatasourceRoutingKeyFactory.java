@@ -1,7 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.dynamic;
 
 import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRoutingKeyImpl;
-import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRoutingSubKeyImpl;
+import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultJdbcBigDatasourceRoutingKeyImpl;
 
 /**
  * <p>
@@ -24,6 +24,6 @@ public class DynamicBigDatasourceRoutingKeyFactory {
 	}
 
 	public static DynamicBigDatasourceRoutingKey of(String key,String subKey) {
-		return DefaultDynamicBigDatasourceRoutingSubKeyImpl.create(key, subKey);
+		return DefaultJdbcBigDatasourceRoutingKeyImpl.create(key, subKey);
 	}
 }

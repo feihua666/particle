@@ -12,5 +12,10 @@ public enum BigDatasourceApiPageableAdapterType {
 	/**
 	 * enjoy模板方式
 	 */
-	enjoy_template;
+	enjoy_template,
+	/**
+	 * groovy脚本
+	 */
+	groovy_template,
+
 }

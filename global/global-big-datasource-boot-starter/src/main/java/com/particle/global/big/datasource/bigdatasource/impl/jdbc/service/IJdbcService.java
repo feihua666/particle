@@ -21,27 +21,28 @@ import java.util.Map;
 public interface IJdbcService<T> {
 	/**
 	 * 列表查询
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
 	 * @return
 	 */
-	List<T> selectList(BigDatasourceApi bigDatasourceApi, Object command);
+	List<T> selectList(String sqlTemplate, Object command);
 
 	/**
 	 * 查询单条
 	 *
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
 	 * @return
 	 */
-	T selectOne(BigDatasourceApi bigDatasourceApi, Object command);
+	T selectOne(String sqlTemplate, Object command);
 
 	/**
 	 * 分页查询
 	 *
-	 * @param bigDatasourceApi
+	 * @param sqlTemplate
 	 * @param command
+	 * @param pageQuery 该参数用来设置请求页码和每页大小
 	 * @return
 	 */
-	Page<T> selectPage(BigDatasourceApi bigDatasourceApi, Object command);
+	Page<T> selectPage(String sqlTemplate, Object command, Page pageQuery);
 }

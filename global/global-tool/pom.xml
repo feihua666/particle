@@ -5,7 +5,7 @@
     <parent>
         <artifactId>global</artifactId>
         <groupId>com.particle</groupId>
-        <version>0.0.1-beta</version>
+        <version>0.0.2-beta-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -97,6 +97,14 @@
             <groupId>com.jfinal</groupId>
             <artifactId>enjoy</artifactId>
             <version>${com.jfinal.enjoy}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 仅测试 正式使用请自行引用 主要是为了数据查询动态配置支持 groovy脚本而添加-->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy-all.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

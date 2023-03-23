@@ -13,11 +13,20 @@ JAVA_HOME=$JAVA_HOME
 CUSTOM_JAVA_HOME=""
 
 # 应用名称
-AAP_NAME=wwd-server-1.0.0-SNAPSHOT.jar
+APP_NAME=wwd-server-1.0.0-SNAPSHOT.jar
 # 应用所在目录
 APP_HOME=/Users/yw/fh/git-source/scatter/modules/wwd/wwd-server/target
 # 应用全路径
-APP_PATH=$APP_HOME/$AAP_NAME
+APP_PATH=$APP_HOME/APP_NAME
+
+# 日志
+#日志文件名称
+APP_LOG_NAME=
+# log所在目录
+APP_LOG_HOME=
+# 日志全路径
+APP_LOG_PATH=
+
 
 #应用参数定义
 APP_PARAMS=""
@@ -76,6 +85,19 @@ user_exists(){
     echo "0"
   fi
 }
+# tail -f 日志
+taillog(){
+  if [ -n "$APP_LOG_PATH" ];then
+    echo "3s后自动打开tail日志"
+    sleep 3
+    if test -f "$APP_LOG_PATH"; then
+        tail -f $APP_LOG_PATH
+    else
+      echo -e "日志文件不存在：$APP_LOG_PATH"
+    fi
+  fi
+}
+# 应用是否存在
 status(){
   pid=$(checkpid)
   if [ -n "$pid" ];then
@@ -87,13 +109,14 @@ status(){
 # 真正启动
 dorun(){
 	nohup  $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_PATH $APP_PARAMS >/dev/null 2>&1 &
+	taillog
 }
 # 真正停止 参数为pid
 dostop(){
   echo "优雅结束应用"
 	kill -15 $1
 }
-# 强制结束应用
+# 强制结束应用 参数为pid
 dostopForce(){
   echo "强制结束应用"
 	kill -9 $1

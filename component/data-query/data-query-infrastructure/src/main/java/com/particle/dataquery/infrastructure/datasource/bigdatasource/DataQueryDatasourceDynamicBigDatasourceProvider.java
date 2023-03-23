@@ -20,6 +20,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBig
 import com.particle.global.domain.ApplicationContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -44,23 +45,53 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 
 	public static final String dataQueryGlobalBigDatasourceRoutingKey = "dataQueryGlobalBigDatasource";
 
+	private static final String enableConfigKey = "particle.dataquery.dynamic-big-datasource.init.enable";
 	private IDataQueryDatasourceService iDataQueryDatasourceService;
 	private IDataQueryProviderService iDataQueryProviderService;
 	private DataQueryDictGateway dataQueryDictGateway;
 
+	@Value("${"+ enableConfigKey +":false}")
+	private Boolean enable = false;
+
 	@Override
 	public Map<DynamicBigDatasourceRoutingKey, BigDatasource> doLoadDataSources() {
+
+		// 可以通过配置文件控制是否开启，默认不开启
+		// 因为如果配置了数据源，换了其它环境由于网络不通等问题导致项目启动不了
+		if (enable == null || enable == false) {
+			log.info("dataquery datasource provider has bean disabled default. to enable use {}=true",enableConfigKey);
+			return MapUtil.empty();
+		}
+
 		List<DataQueryDatasourceDO> list = iDataQueryDatasourceService.list();
 		if (list.isEmpty()) {
 			return MapUtil.empty();
 		}
+		return loadDataSources(list);
+	}
+
+	/**
+	 * 根据名单加载
+	 * @param list
+	 * @return
+	 */
+	public Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources(List<DataQueryDatasourceDO> list) {
 
 		// 已经禁用的供应商下面的数据源都不加载
 		List<Long> providerIds = list.stream().map(DataQueryDatasourceDO::getDataQueryProviderId).distinct().collect(Collectors.toList());
 		List<DataQueryProviderDO> dataQueryProviderDOS = iDataQueryProviderService.listByIds(providerIds);
 		Map<Long, DataQueryProviderDO> providerIdMap = dataQueryProviderDOS.stream().collect(Collectors.toMap(DataQueryProviderDO::getId, Function.identity()));
 
-		List<DataQueryDatasource> dataQueryDatasources = list.stream().filter(item->!providerIdMap.get(item.getDataQueryProviderId()).getIsDisabled()).map(item -> DataQueryDatasourceInfrastructureStructMapping.instance.dataQueryDatasourceDOToDataQueryDatasource(DataQueryDatasource.create(), item)).collect(Collectors.toList());
+		List<DataQueryDatasource> dataQueryDatasources = list.stream()
+				.filter(item->{
+					DataQueryProviderDO dataQueryProviderDO = providerIdMap.get(item.getDataQueryProviderId());
+					if (dataQueryProviderDO.getIsDisabled()) {
+						log.warn("数据源名称 {} 对应的供应商 {} 已禁用，已过滤",item.getName(),dataQueryProviderDO.getName());
+					}
+					return !dataQueryProviderDO.getIsDisabled();
+				})
+				.map(item -> DataQueryDatasourceInfrastructureStructMapping.instance.dataQueryDatasourceDOToDataQueryDatasource(DataQueryDatasource.create(), item))
+				.collect(Collectors.toList());
 
 		Map<DynamicBigDatasourceRoutingKey, BigDatasource> map = new HashMap<>();
 
@@ -81,7 +112,8 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					DataQueryDatasourceJdbcConfig dataQueryDatasourceJdbcConfig = dataQueryDatasource.jdbcConfig();
 					// 以 id 做为路由key
 					jdbcBigDatasource.addDataSourceByJdbcBigDatasourceConfig(
-							dataQueryDatasource.getId().toString(),
+							// String dataSourceName
+							dataQueryDatasource.getId().getId().toString(),
 
 							JdbcBigDatasourceConfig.create(dataQueryDatasourceJdbcConfig.getDriverClassName(),
 									dataQueryDatasourceJdbcConfig.getUrl(),
@@ -100,6 +132,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 
 		return map;
 	}
+
 
 	@Autowired
 	public void setiDataQueryDatasourceService(IDataQueryDatasourceService iDataQueryDatasourceService) {

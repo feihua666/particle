@@ -2,10 +2,12 @@ package com.particle.global.big.datasource;
 
 import com.particle.global.big.datasource.bigdatasource.creator.BigDatasourceCreator;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasource;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingFallback;
+import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRouterImpl;
 import com.particle.global.big.datasource.bigdatasource.dynamic.properties.DynamicBigDatasourceProperties;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.DynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.YmlDynamicBigDatasourceProvider;
-import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,7 +29,9 @@ import java.util.List;
 @ConditionalOnProperty(prefix = DynamicBigDatasourceProperties.prefix, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalBigDatasourceAutoConfiguration {
 
-	/**DynamicBigDatasourceProperties dynamicBigDatasourceProperties
+	@Autowired(required = false)
+	private List<DynamicBigDatasourceRoutingFallback> routingFallbackList;
+	/**
 	 * 默认的动态多大数据源
 	 * @return
 	 */
@@ -36,6 +40,8 @@ public class GlobalBigDatasourceAutoConfiguration {
 	public DynamicBigDatasource dynamicBigDatasource(List<DynamicBigDatasourceProvider> providers){
 		DynamicBigDatasource dynamicBigDatasource = new DynamicBigDatasource();
 		dynamicBigDatasource.setProviders(providers);
+		DefaultDynamicBigDatasourceRouterImpl defaultDynamicBigDatasourceRouter = new DefaultDynamicBigDatasourceRouterImpl(dynamicBigDatasource.getBigDatasourceMap(), routingFallbackList);
+		dynamicBigDatasource.setDynamicBigDatasourceRouter(defaultDynamicBigDatasourceRouter);
 		return dynamicBigDatasource;
 	}
 

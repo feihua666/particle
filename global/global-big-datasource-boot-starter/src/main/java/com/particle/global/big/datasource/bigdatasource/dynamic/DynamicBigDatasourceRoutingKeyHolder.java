@@ -20,7 +20,7 @@ public class DynamicBigDatasourceRoutingKeyHolder {
 	 */
 	public static DynamicBigDatasourceRoutingKey get(){
 		DynamicBigDatasourceRoutingKey dynamicBigDatasourceRoutingKey = (DynamicBigDatasourceRoutingKey) ThreadContextTool.get(dynamicBigDatasourceRoutingKeyHolderThreadLocalKey);
-		if(dynamicBigDatasourceRoutingKey instanceof DynamicBigDatasourceRoutingSubKey){
+		if(dynamicBigDatasourceRoutingKey instanceof JdbcBigDatasourceRoutingKey){
 			DynamicDataSourceContextHolder.peek();
 		}
 		return dynamicBigDatasourceRoutingKey;
@@ -40,8 +40,8 @@ public class DynamicBigDatasourceRoutingKeyHolder {
 	 */
 	public static void set(DynamicBigDatasourceRoutingKey routingKey) {
 		ThreadContextTool.put(dynamicBigDatasourceRoutingKeyHolderThreadLocalKey,routingKey);
-		if(routingKey instanceof DynamicBigDatasourceRoutingSubKey){
-			DynamicDataSourceContextHolder.push(((DynamicBigDatasourceRoutingSubKey) routingKey).subKey());
+		if(routingKey instanceof JdbcBigDatasourceRoutingKey){
+			DynamicDataSourceContextHolder.push(((JdbcBigDatasourceRoutingKey) routingKey).subKey());
 		}
 	}
 

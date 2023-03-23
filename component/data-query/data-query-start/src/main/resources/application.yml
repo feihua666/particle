@@ -34,3 +34,9 @@ server:
       # 在接收请求和返回数据，强制 utf-8 编码
       # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
       force: true
+particle:
+  dataquery:
+    dynamic-big-datasource:
+      init:
+        # 是否在系统启动的初始化大数据源，默认false
+        enable: false
