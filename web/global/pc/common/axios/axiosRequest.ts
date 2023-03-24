@@ -20,8 +20,9 @@ const pendingMap = new Map()
  * 根据运行环境获取基础请求URL
  */
 export const getUrl = (): string => {
-    const value = import.meta.env.VITE_AXIOS_BASE_URL
-    return value == 'getCurrentDomain' ? window.location.protocol + '//' + window.location.host : value
+    const baseUrl = import.meta.env.VITE_AXIOS_BASE_URL
+    const context = import.meta.env.VITE_AXIOS_CONTEXT || ''
+    return baseUrl == 'getCurrentDomain' ? window.location.protocol + '//' + window.location.host + context : baseUrl + context
 }
 
 /*
