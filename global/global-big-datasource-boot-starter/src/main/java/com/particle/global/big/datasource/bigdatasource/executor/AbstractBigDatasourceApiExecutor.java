@@ -68,16 +68,6 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	}
 
 	/**
-	 * 参数转换
-	 * 将参数转换为可被执行器被别的数据对象，包括数据字符映射等
-	 * @param command 远端调用的标识文档数据对象
-	 * @return
-	 */
-	//protected QueryCommand commandConvert(Object command) {
-	//	return command;
-	//}
-
-	/**
 	 * 返回结果数据
 	 * 一般可能会有获取的数据带有包装，如：带有{code: 200,msg: '成功',data: xxx}这里只取最终要的数据
 	 * @param bigDatasourceApi

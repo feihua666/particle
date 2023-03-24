@@ -173,6 +173,32 @@ export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
     }
   }
 }
+export const inParamValidateConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+  return     {
+    field: {
+      name: 'inParamValidateConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '入参校验配置',
+        tips: '入参的校验规则，逻辑处理,支持多个配置，有一个校验失败表示失败，不配置代表不校验'
+      },
+      compProps: ({form,formData})=>{
+        return {
+          text: true,
+          type: form.inParamValidateConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamValidate.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
 export const outParamSuccessConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
   return {
     field: {
@@ -560,30 +586,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       }
     },
     inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-    {
-      field: {
-        name: 'inParamValidateConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '入参校验配置',
-          tips: '入参的校验规则，逻辑处理,支持多个配置，有一个校验失败表示失败，不配置代表不校验'
-        },
-        compProps: ({form,formData})=>{
-          return {
-            text: true,
-            type: form.inParamValidateConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamValidate.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    inParamValidateConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'inParamExtConfigJson',

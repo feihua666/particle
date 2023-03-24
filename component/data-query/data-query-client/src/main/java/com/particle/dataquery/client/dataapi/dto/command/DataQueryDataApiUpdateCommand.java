@@ -51,6 +51,9 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "入参文档配置json")
     private String inParamDocConfigJson;
 
+    @ApiModelProperty(value = "入参校验配置json")
+    private String inParamValidateConfigJson;
+
     @ApiModelProperty(value = "出参类型,非一对一直连必填")
     private Long outParamTypeDictId;
 

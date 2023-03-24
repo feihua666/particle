@@ -133,7 +133,7 @@ const submitMethod = (form) => {
     param = null
   }
   let data:ApiTestParam = {
-    datasourceApiId: props.dataQueryDatasourceApiId,
+    dataQueryDatasourceApiId: props.dataQueryDatasourceApiId,
     param: param
   }
   return dataQueryDatasourceApiTestApi(data)

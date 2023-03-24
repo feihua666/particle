@@ -31,17 +31,6 @@ public class GlobalConcurrencyExecutorsConfig {
 	 */
 	@Bean(name = ConcurrencyConstants.default_global_asyn_slot_task_executor, destroyMethod = "shutdown")
 	public ExecutorService asynSlotTaskExecutor(BeanFactory beanFactory) {
-		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
-			return CustomExecutors.newExecutorService(beanFactory,
-					ConcurrencyConstants.default_global_asyn_slot_task_executor,
-					5,
-					100,
-					1000,
-					new LinkedBlockingQueue<>(1000),
-					// 如果拒绝自己执行
-					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
-		}
 		return CustomExecutors.newExecutorService(beanFactory,
 				ConcurrencyConstants.default_global_asyn_slot_task_executor,
 				5,
@@ -50,7 +39,7 @@ public class GlobalConcurrencyExecutorsConfig {
 				new LinkedBlockingQueue<>(1000),
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
-				true,null);
+				true);
 
 	}
 
@@ -61,20 +50,12 @@ public class GlobalConcurrencyExecutorsConfig {
 	 */
 	@Bean(name = ConcurrencyConstants.default_global_scheduled_task_executor, destroyMethod = "shutdown")
 	public ScheduledExecutorService globalScheduledTaskExecutor(BeanFactory beanFactory) {
-		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
-			return CustomExecutors.newScheduledExecutorService(beanFactory,
-					ConcurrencyConstants.default_global_scheduled_task_executor,
-					5,
-					// 如果拒绝自己执行
-					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
-		}
 		return CustomExecutors.newScheduledExecutorService(beanFactory,
 				ConcurrencyConstants.default_global_scheduled_task_executor,
 				5,
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
-				true,null);
+				true);
 
 	}
 }

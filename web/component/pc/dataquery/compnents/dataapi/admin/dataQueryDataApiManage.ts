@@ -3,13 +3,23 @@ import {
   dictConfigJson,
   inParamDocConfigJson,
   inParamExampleConfigJson,
-  inParamTestCaseDataConfigJson,
+  inParamTestCaseDataConfigJson, inParamValidateConfigJson,
   outParamDocConfigJson,
   outParamExampleConfigJson,
   outParamSuccessConfigJson,
   pageableAdapterConfigJson
 } from "../../datasource/admin/dataQueryDatasourceApiManage";
+import {ElMessage} from 'element-plus'
 
+const alert = (message,type='success')=>{
+  ElMessage({
+    showClose: true,
+    message: message,
+    type: type,
+    showIcon: true,
+    grouping: true
+  })
+}
 
 export const pageFormItems = [
   {
@@ -122,7 +132,7 @@ export const pageFormItems = [
     }
   },
 ]
-export const useAddPageFormItems = ({form,formData,dataQueryDataApiFormItemConfigsRef}) => {
+export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDataApiFormItemConfigsRef}) => {
   return [
     {
       field: {
@@ -198,14 +208,12 @@ export const useAddPageFormItems = ({form,formData,dataQueryDataApiFormItemConfi
       }
     },
 
-
-
     {
       field: {
         name: 'adaptConfigJson',
       },
       element: {
-        comp: 'el-input',
+        comp: 'PtButton',
         formItemProps: {
           label: '接口适配',
           required: ({formData})=>{
@@ -215,8 +223,40 @@ export const useAddPageFormItems = ({form,formData,dataQueryDataApiFormItemConfi
             return formData.adaptTypeDictId?.value !== 'single_direct'
           }
         },
-        compProps: {
-          clearable: true,
+        compProps: ({form,formData})=>{
+          return {
+            text: true,
+            type: form.adaptConfigJson ? 'primary' : 'default',
+            buttonText: '点击配置',
+            beforeMethod: ()=>{
+              if(!form.adaptTypeDictId){
+                return '请先选择适配类型'
+              }
+              if (formData.adaptTypeDictId.value == 'single_direct') {
+                return '一对一直连不支持该配置'
+              }
+              return true
+            },
+            method: ()=>{
+              if(dataQueryDataApiFormItemConfigsRef.value){
+                let dialogShow = false
+                let map = {
+                  multiple_aggregation: ()=>{
+                    dialogShow = true
+                    dataQueryDataApiFormItemConfigsRef.value.reactiveData.adaptMultipleAggregationConfigJson.dialogVisible = true
+                  },
+                  custom_script: ()=>{
+                    dialogShow = true
+                    dataQueryDataApiFormItemConfigsRef.value.reactiveData.adaptCustomScriptConfig.dialogVisible = true
+                  }
+                }
+                map[formData.adaptTypeDictId.value]()
+                if (!dialogShow) {
+                  alert('暂不支持配置的适配类型 ' + formData.adaptTypeDictId.name)
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -264,12 +304,11 @@ export const useAddPageFormItems = ({form,formData,dataQueryDataApiFormItemConfi
       }
     },
 
-    inParamExampleConfigJson(dataQueryDataApiFormItemConfigsRef),
+    inParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
-    inParamDocConfigJson(dataQueryDataApiFormItemConfigsRef),
-
-    inParamTestCaseDataConfigJson(dataQueryDataApiFormItemConfigsRef),
-
+    inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    inParamValidateConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    inParamTestCaseDataConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
     {
       field: {
@@ -293,13 +332,13 @@ export const useAddPageFormItems = ({form,formData,dataQueryDataApiFormItemConfi
       }
     },
 
-    outParamExampleConfigJson(dataQueryDataApiFormItemConfigsRef),
+    outParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
-    outParamDocConfigJson(dataQueryDataApiFormItemConfigsRef),
+    outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
-    outParamSuccessConfigJson(dataQueryDataApiFormItemConfigsRef),
-    pageableAdapterConfigJson(dataQueryDataApiFormItemConfigsRef),
-    dictConfigJson(dataQueryDataApiFormItemConfigsRef),
+    outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
     {
       field: {

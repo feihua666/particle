@@ -71,6 +71,8 @@ const toJsonStr = (json)=>{
 const inParamExampleSubmit = ()=>{
   if (inParamExampleConfigRef.value.getInitJson().inParamExamples.length > 0) {
     props.form.inParamExampleConfigJson = toJsonStr(inParamExampleConfigRef.value.getInitJson());
+  }else {
+    props.form.inParamExampleConfigJson = ''
   }
   reactiveData.inParamExampleConfigJson.dialogVisible=false;
 }
@@ -78,6 +80,8 @@ const inParamExampleSubmit = ()=>{
 const inParamTestCaseDataSubmit = ()=>{
   if (inParamTestCaseDataConfigRef.value.getInitJson().inParamTestCases.length > 0) {
     props.form.inParamTestCaseDataConfigJson = toJsonStr(inParamTestCaseDataConfigRef.value.getInitJson())
+  }else {
+    props.form.inParamTestCaseDataConfigJson = ''
   }
 
   reactiveData.inParamTestCaseDataConfigJson.dialogVisible=false;
@@ -86,6 +90,8 @@ const inParamTestCaseDataSubmit = ()=>{
 const inParamDocSubmit = ()=>{
   if (inParamDocConfigRef.value.getInitJson().inParamDocs.length > 0) {
     props.form.inParamDocConfigJson = toJsonStr(inParamDocConfigRef.value.getInitJson());
+  }else {
+    props.form.inParamDocConfigJson = ''
   }
   reactiveData.inParamDoc.dialogVisible=false;
 }
@@ -93,6 +99,8 @@ const inParamDocSubmit = ()=>{
 const inParamValidateSubmit = ()=>{
   if (inParamValidateConfigRef.value.getInitJson().inParamValidateItems.length > 0) {
     props.form.inParamValidateConfigJson = toJsonStr(inParamValidateConfigRef.value.getInitJson());
+  }else {
+    props.form.inParamValidateConfigJson = ''
   }
   reactiveData.inParamValidate.dialogVisible=false;
 }
@@ -102,6 +110,8 @@ const inParamValidateSubmit = ()=>{
 const outParamExampleSubmit = ()=>{
   if (outParamExampleConfigRef.value.getInitJson().outParamExamples.length > 0) {
     props.form.outParamExampleConfigJson = toJsonStr(outParamExampleConfigRef.value.getInitJson());
+  }else {
+    props.form.outParamExampleConfigJson = ''
   }
   reactiveData.outParamExampleConfigJson.dialogVisible=false;
 }
@@ -109,6 +119,8 @@ const outParamExampleSubmit = ()=>{
 const outParamSuccessSubmit = ()=>{
   if (outParamSuccessConfigRef.value.getInitJson().outParamValidateItems.length > 0) {
     props.form.outParamSuccessConfigJson = toJsonStr(outParamSuccessConfigRef.value.getInitJson());
+  }else {
+    props.form.outParamSuccessConfigJson = ''
   }
   reactiveData.outParamSuccess.dialogVisible=false;
 }
@@ -117,6 +129,8 @@ const outParamSuccessSubmit = ()=>{
 const outParamDocSubmit = ()=>{
   if (outParamDocConfigRef.value.getInitJson().outParamDocs.length > 0) {
     props.form.outParamDocConfigJson = toJsonStr(outParamDocConfigRef.value.getInitJson());
+  }else {
+    props.form.outParamDocConfigJson = ''
   }
   reactiveData.outParamDoc.dialogVisible=false;
 }
@@ -125,19 +139,19 @@ const outParamDocSubmit = ()=>{
 const dictConfigSubmit = ()=>{
   if (dictConfigRef.value.getInitJson().dictItems.length > 0) {
     props.form.dictConfigJson = toJsonStr(dictConfigRef.value.getInitJson());
+  }else {
+    props.form.dictConfigJson = ''
   }
   reactiveData.dictConfig.dialogVisible=false;
 }
 
 // 分页信息解析配置确认提交
-
-// 入参示例确认提交
 const pageableAdapterConfigSubmit = ()=>{
   props.form.pageableAdapterConfigJson = toJsonStr(pageableAdapterConfigConfigRef.value.form)
   reactiveData.pageableAdapterConfig.dialogVisible=false;
 }
 
-// [Vue warn]: Failed to locate Teleport target with selector "#dataqueryDatasourceApiJdbcBasicConfigDialogFooter". Note the target element must exist before the component is mounted - i.e. the target cannot be rendered by the component itself, and ideally should be outside of the entire Vue component tree.
+// [Vue warn]: Failed to locate Teleport target with selector "#dataqueryDatasourceApipageableAdapterConfigDialogFooter". Note the target element must exist before the component is mounted - i.e. the target cannot be rendered by the component itself, and ideally should be outside of the entire Vue component tree.
 // 如上异常信息，如果不加控制表单中传送的按钮找不到目标位置，先让dialog渲染完成，再渲染内部表单即可
 const pageableAdapterConfigRender = ref(false)
 const pageableAdapterConfigDialogOpen = ()=>{

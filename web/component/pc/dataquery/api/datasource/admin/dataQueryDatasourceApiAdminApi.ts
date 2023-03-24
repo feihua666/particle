@@ -56,7 +56,7 @@ const dataQueryDatasourceApiTestPrefix = dataQueryDatasourceApiPrefix + '/test'
 
 export interface ApiTestParam{
     // 接口id
-    datasourceApiId: string,
+    dataQueryDatasourceApiId: string,
     // 数据
     param: any
 }

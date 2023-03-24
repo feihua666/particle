@@ -35,7 +35,7 @@ public class DataQueryDatasourceApiTestCommandExecutor extends AbstractBaseQuery
 	 * @return
 	 */
 	public Object test(DataQueryDatasourceApiQueryCommand dataQueryDatasourceApiQueryCommand) {
-		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDatasourceApiQueryCommand.getDatasourceApiId()));
+		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDatasourceApiQueryCommand.getDataQueryDatasourceApiId()));
 		Assert.notNull(dataQueryDatasourceApi,"接口不存在");
 		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId()));
 		Object query = datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, dataQueryDatasourceApiQueryCommand.getParam());

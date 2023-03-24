@@ -43,7 +43,10 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "adaptTypeDictId",mapValueField = "value")
     @ApiModelProperty("适配类型对应字典值")
     private String adaptTypeDictValue;
-    
+
+    @ApiModelProperty(value = "接口适配配置json")
+    private String adaptConfigJson;
+
     @ApiModelProperty("入参类型")
     private Long inParamTypeDictId;
 
@@ -54,7 +57,19 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "inParamTypeDictId",mapValueField = "value")
     @ApiModelProperty("入参类型字典值")
     private String inParamTypeDictValue;
-    
+
+    @ApiModelProperty(value = "入参示例")
+    private String inParamExampleConfigJson;
+
+    @ApiModelProperty(value = "入参测试用例数据")
+    private String inParamTestCaseDataConfigJson;
+
+    @ApiModelProperty(value = "入参文档配置json")
+    private String inParamDocConfigJson;
+
+    @ApiModelProperty(value = "入参校验配置json")
+    private String inParamValidateConfigJson;
+
     @ApiModelProperty("出参类型")
     private Long outParamTypeDictId;
 
@@ -62,11 +77,19 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @ApiModelProperty("出参类型对应字典名称")
     private String outParamTypeDictName;
 
-
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "outParamTypeDictId",mapValueField = "value")
     @ApiModelProperty("出参类型字典值")
     private String outParamTypeDictValue;
-    
+
+    @ApiModelProperty(value = "出参示例")
+    private String outParamExampleConfigJson;
+
+    @ApiModelProperty(value = "出参文档配置json")
+    private String outParamDocConfigJson;
+
+    @ApiModelProperty(value = "出参成功或失败配置json")
+    private String outParamSuccessConfigJson;
+
     @ApiModelProperty("输出类型")
     private Long responseTypeDictId;
 
@@ -77,6 +100,12 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "responseTypeDictId",mapValueField = "value")
     @ApiModelProperty("输出类型对应字典值")
     private String responseTypeDictValue;
+
+    @ApiModelProperty(value = "分页适配信息配置json")
+    private String pageableAdapterConfigJson;
+
+    @ApiModelProperty(value = "字典配置json")
+    private String dictConfigJson;
 
     @ApiModelProperty("描述")
     private String remark;

@@ -1,8 +1,10 @@
 package com.particle.dataquery.infrastructure.dataapi.structmapping;
 
+import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
+import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -48,4 +50,6 @@ public abstract class DataQueryDataApiInfrastructureStructMapping {
 	 */
 	public abstract DataQueryDataApiDO dataQueryDataApiToDataQueryDataApiDO(DataQueryDataApi dataQueryDataApi);
 
+
+	public abstract DataQueryDatasourceApi dataQueryDataApiToDataQueryDatasourceApi(DataQueryDataApi dataQueryDataApi);
 }

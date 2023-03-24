@@ -4,6 +4,8 @@ import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import io.micrometer.core.instrument.MeterRegistry;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 
 import java.util.concurrent.*;
@@ -16,6 +18,7 @@ import java.util.concurrent.*;
  * @author yangwei
  * @since 2021-06-13 18:55
  */
+@Slf4j
 public class CustomExecutors{
 
 
@@ -38,7 +41,7 @@ public class CustomExecutors{
 													 long keepAliveTime,
 													 BlockingQueue<Runnable> workQueue,
 													 RejectedExecutionHandler handler,
-													 boolean preStartCoreThread, MeterRegistry meterRegistry) {
+													 boolean preStartCoreThread) {
 
 		ExecutorService executorService = doNewExecutorService(beanFactory,
 				threadPoolName,
@@ -47,8 +50,7 @@ public class CustomExecutors{
 				keepAliveTime,
 				workQueue,
 				handler,
-				preStartCoreThread,
-				meterRegistry, false);
+				preStartCoreThread,false);
 		return executorService;
 	}
 
@@ -59,14 +61,13 @@ public class CustomExecutors{
 	 * @param corePoolSize
 	 * @param handler
 	 * @param preStartCoreThread
-	 * @param meterRegistry
 	 * @return
 	 */
 	public static ScheduledExecutorService newScheduledExecutorService(BeanFactory beanFactory,
 																String threadPoolName,
 																int corePoolSize,
 																RejectedExecutionHandler handler,
-																boolean preStartCoreThread, MeterRegistry meterRegistry) {
+																boolean preStartCoreThread) {
 		ExecutorService executorService = doNewExecutorService(beanFactory,
 				threadPoolName,
 				corePoolSize,
@@ -74,8 +75,7 @@ public class CustomExecutors{
 				0,
 				null,
 				handler,
-				preStartCoreThread,
-				meterRegistry, true);
+				preStartCoreThread,true);
 		return ((ScheduledExecutorService) executorService);
 	}
 
@@ -86,7 +86,17 @@ public class CustomExecutors{
 													 long keepAliveTime,
 													 BlockingQueue<Runnable> workQueue,
 													 RejectedExecutionHandler handler,
-													 boolean preStartCoreThread, MeterRegistry meterRegistry,boolean scheduled) {
+													 boolean preStartCoreThread,boolean scheduled) {
+
+
+		MeterRegistry meterRegistry = null;
+		try {
+			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
+				meterRegistry = beanFactory.getBean(MeterRegistry.class);
+			}
+		} catch (BeansException e) {
+			log.warn("MeterRegistry bean not found in spring ignored when creating executorService named " + threadPoolName);
+		}
 
 		// 线程工厂
 		ThreadFactory threadFactory = ThreadFactoryBuilder.create().setNamePrefix(threadPoolName).setUncaughtExceptionHandler(new CustomDefaultUncaughtExceptionHandler()).build();

@@ -1,12 +1,10 @@
 package com.particle.global.trans;
 
 import cn.hutool.core.annotation.AnnotationUtil;
-import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
-import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
 import com.particle.global.tool.condition.ConditionalOnClassTool;
 import com.particle.global.tool.str.StringTool;
@@ -41,6 +39,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @ComponentScan
 public class GlobalTransAutoConfiguration {
 
+	public static final String transTaskExecutor = "transTaskExecutor";
 
 	/**
 	 * 默认表名实现
@@ -124,27 +123,16 @@ public class GlobalTransAutoConfiguration {
 	 * @param beanFactory
 	 * @return
 	 */
-	@Bean(name = "transTaskExecutor", destroyMethod = "shutdown")
+	@Bean(name = transTaskExecutor, destroyMethod = "shutdown")
 	public ExecutorService transTaskExecutor(BeanFactory beanFactory) {
-		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
-			return CustomExecutors.newExecutorService(beanFactory,
-					"transTaskExecutor",
-					1,
-					100,
-					100,
-					new LinkedBlockingQueue<>(100),
-					// 如果拒绝自己执行
-					new ThreadPoolExecutor.CallerRunsPolicy(),
-					true,beanFactory.getBean(io.micrometer.core.instrument.MeterRegistry.class));
-		}
 		return CustomExecutors.newExecutorService(beanFactory,
-				"transTaskExecutor",
-				1,
+				transTaskExecutor,
+				10,
 				100,
 				100,
 				new LinkedBlockingQueue<>(100),
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
-				true,null);
+				true);
 	}
 }

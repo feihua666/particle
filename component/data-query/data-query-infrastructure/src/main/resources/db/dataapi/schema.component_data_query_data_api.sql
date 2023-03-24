@@ -11,6 +11,7 @@ CREATE TABLE `component_data_query_data_api` (
   `in_param_example_config_json` mediumtext COMMENT '入参示例，纯文本展示',
   `in_param_test_case_data_config_json` mediumtext COMMENT '入参测试用例数据，该数据应该配合入参配置json或json配置识别',
   `in_param_doc_config_json` mediumtext COMMENT '入参文档配置json',
+  `in_param_validate_config_json` mediumtext COMMENT '入参校验配置json',
   `out_param_type_dict_id` bigint DEFAULT NULL COMMENT '出参类型，字典id',
   `out_param_example_config_json` mediumtext COMMENT '出参示例，纯文本展示',
   `out_param_doc_config_json` mediumtext COMMENT '出参文档配置json',

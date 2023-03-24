@@ -3,12 +3,21 @@ package com.particle.dataquery.domain.dataapi;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
+import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
+import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiMultipleAggregationAdaptConfig;
+import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamValidateConfig;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiPageableAdapterConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import com.particle.global.exception.Assert;
+import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -68,7 +77,10 @@ public class DataQueryDataApi extends AggreateRoot {
     * 入参文档配置json
     */
     private String inParamDocConfigJson;
-
+    /**
+     * 入参校验配置json
+     */
+    private String inParamValidateConfigJson;
     /**
     * 出参类型，字典id
     */
@@ -109,6 +121,61 @@ public class DataQueryDataApi extends AggreateRoot {
     */
     private String remark;
 
+    /**
+     * 调用该方法，确保 {@link DataQueryDataApi#adaptTypeDictId} 为多接口聚合类型
+     * 注意：{@link DataQueryDataApiMultipleAggregationAdaptConfig.AggregationItem#dataQueryDatasourceApiId} 类型为 Long，但{@link DataQueryDataApi#adaptConfigJson}中数据为字符串
+     * json字符串转对象能自动转换类型，千万不要使用 {@link DataQueryDataApiMultipleAggregationAdaptConfig}对象转字符串保存到数据库中，否则前端解析时会丢失精度，前端没有Long类型
+     * @return
+     */
+    public DataQueryDataApiMultipleAggregationAdaptConfig multipleAggregationAdaptConfig(){
+
+        if (StrUtil.isEmpty(adaptConfigJson)) {
+            return null;
+        }
+        DataQueryDataApiMultipleAggregationAdaptConfig fromJsonStr = DataQueryDataApiMultipleAggregationAdaptConfig.createFromJsonStr(pageableAdapterConfigJson);
+        return fromJsonStr;
+    }
+
+    /**
+     * 调用该方法，确保 {@link DataQueryDataApi#adaptTypeDictId} 为多自定义脚本类型
+     * @return
+     */
+    public DataQueryDataApiCustomScriptAdaptConfig customScriptAdaptConfig(){
+        if (StrUtil.isEmpty(adaptConfigJson)) {
+            return null;
+        }
+        DataQueryDataApiCustomScriptAdaptConfig fromJsonStr = DataQueryDataApiCustomScriptAdaptConfig.createFromJsonStr(pageableAdapterConfigJson);
+        return fromJsonStr;
+    }
+
+
+    public DataQueryDatasourceApiPageableAdapterConfig pageableAdapterConfig() {
+        if (StrUtil.isEmpty(pageableAdapterConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiPageableAdapterConfig fromJsonStr = DataQueryDatasourceApiPageableAdapterConfig.createFromJsonStr(pageableAdapterConfigJson);
+        return fromJsonStr;
+    }
+
+    /**
+     * 入参校验配置
+     * @return
+     */
+    public DataQueryDatasourceApiInParamValidateConfig inParamValidateConfig(){
+        if (StrUtil.isEmpty(inParamValidateConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiInParamValidateConfig fromJsonStr = DataQueryDatasourceApiInParamValidateConfig.createFromJsonStr(inParamValidateConfigJson);
+        return fromJsonStr;
+    }
+
+    public DataQueryDatasourceApiInSuccessValidateConfig outParamSuccessConfigJson(){
+        if (StrUtil.isEmpty(outParamSuccessConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiInSuccessValidateConfig fromJsonStr = DataQueryDatasourceApiInSuccessValidateConfig.createFromJsonStr(outParamSuccessConfigJson);
+        return fromJsonStr;
+    }
 
     /**
      * 在创建时校验参数

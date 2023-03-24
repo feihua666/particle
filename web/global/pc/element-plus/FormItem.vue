@@ -41,7 +41,7 @@ const props = defineProps({
   validate: {
     type: Object
   },
-  // 数据变化事件
+  // 数据变化事件,如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
   valueChange: {
     type: Function,
     default: ({form,formData,prop,newValue,oldValue}) =>({})

@@ -51,6 +51,8 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	private DynamicBigDatasource dynamicBigDatasource;
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
+	@Autowired
+	private DatasourceApiQueryGatewayHelper datasourceApiQueryGatewayHelper;
 
 	@Override
 	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
@@ -87,17 +89,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			// 手动设置，数据源
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
-			String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasourceApi.getResponseTypeDictId());
-
-			DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
-					// 响应包装
-					BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),
-					jdbcBigDatasourceApiConfig(datasourceApi),
-					null,
-					pageableAdapterConfig(datasourceApi),
-					commandValidateConfig(datasourceApi),
-					successValidateConfig(datasourceApi)
-			);
+			DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi);
 
 			return apiExecutor.execute(defaultBigDatasourceApi, param);
 		} catch (PersistenceException | CannotFindDataSourceException e) {
@@ -162,72 +154,4 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 		}
 	}
 
-
-	/**
-	 * jdbc基础配置
-	 * @param datasourceApi
-	 * @return
-	 */
-	private JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
-		DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = datasourceApi.jdbcBasicConfig();
-
-		return JdbcBigDatasourceApiConfig.create(
-				JdbcBigDatasourceApiConfigSqlTemplateType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplateType().itemValue()),
-				JdbcBigDatasourceApiConfigDataType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getDataType().itemValue()),
-				dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplate());
-	}
-
-	/**
-	 * 分页解析信息配置
-	 * @param datasourceApi
-	 * @return
-	 */
-	private BigDatasourceApiPageableAdapterConfig pageableAdapterConfig(DataQueryDatasourceApi datasourceApi) {
-		return Optional.ofNullable(datasourceApi.pageableAdapterConfig()).map(
-				pageableAdapterConfig -> BigDatasourceApiPageableAdapterConfig.create(
-						BigDatasourceApiPageableAdapterType.valueOf(pageableAdapterConfig.getInParamTemplateType().itemValue()),
-						pageableAdapterConfig.getInParamTemplate(),
-						BigDatasourceApiPageableAdapterType.valueOf(pageableAdapterConfig.getOutParamTemplateType().itemValue()),
-						pageableAdapterConfig.getOutParamTemplate()
-				)
-		).orElse(null);
-	}
-
-	private BigDatasourceApiCommandValidateConfig commandValidateConfig(DataQueryDatasourceApi datasourceApi) {
-		DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = datasourceApi.inParamValidateConfig();
-		if (dataQueryDatasourceApiInParamValidateConfig != null) {
-			BigDatasourceApiCommandValidateConfig bigDatasourceApiCommandValidateConfig = BigDatasourceApiCommandValidateConfig.create();
-
-			for (DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem inParamValidateItem : dataQueryDatasourceApiInParamValidateConfig.getInParamValidateItems()) {
-				BigDatasourceApiCommandValidateConfig.ValidateItem validateItem = BigDatasourceApiCommandValidateConfig.ValidateItem.create(
-						inParamValidateItem.getName(),
-						ParamValidateType.valueOf(inParamValidateItem.getType().itemValue()),
-						inParamValidateItem.getContentTemplate(),
-						inParamValidateItem.getErrorMessage()
-				);
-				bigDatasourceApiCommandValidateConfig.addValidateItem(validateItem);
-			}
-			return bigDatasourceApiCommandValidateConfig;
-		}
-		return null;
-	}
-
-	private BigDatasourceApiSuccessValidateConfig successValidateConfig(DataQueryDatasourceApi datasourceApi) {
-		DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = datasourceApi.outParamSuccessConfigJson();
-		if (dataQueryDatasourceApiInSuccessValidateConfig != null) {
-			BigDatasourceApiSuccessValidateConfig bigDatasourceApiSuccessValidateConfig = BigDatasourceApiSuccessValidateConfig.create();
-
-			for (DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem outParamValidateItem : dataQueryDatasourceApiInSuccessValidateConfig.getOutParamValidateItems()) {
-				BigDatasourceApiSuccessValidateConfig.ValidateItem validateItem = BigDatasourceApiSuccessValidateConfig.ValidateItem.create(
-						outParamValidateItem.getName(),
-						ParamValidateType.valueOf(outParamValidateItem.getType().itemValue()),
-						outParamValidateItem.getContentTemplate(),
-						outParamValidateItem.getErrorMessage()
-				);
-				bigDatasourceApiSuccessValidateConfig.addValidateItem(validateItem);
-			}
-			return bigDatasourceApiSuccessValidateConfig;
-		}
-		return null;
-	}
 }

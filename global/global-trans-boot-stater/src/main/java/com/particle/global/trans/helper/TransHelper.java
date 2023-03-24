@@ -11,6 +11,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.light.share.trans.anno.*;
 import com.particle.global.tool.collection.CollectionTool;
+import com.particle.global.trans.GlobalTransAutoConfiguration;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.api.TableNameResolver;
 import com.particle.global.trans.api.impl.TableNameTransServiceImpl;
@@ -60,7 +61,7 @@ public class TransHelper {
     private List<ITransService<?,?>> transServices;
 
     @Autowired
-    @Qualifier("transTaskExecutor")
+    @Qualifier(GlobalTransAutoConfiguration.transTaskExecutor)
     private ExecutorService transTaskExecutor;
     /**
      * 翻译时长通知阈值单位ms

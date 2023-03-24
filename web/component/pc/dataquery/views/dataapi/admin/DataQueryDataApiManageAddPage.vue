@@ -6,6 +6,8 @@ import {reactive ,ref} from 'vue'
 import {create as DataQueryDataApiCreateApi} from "../../../api/dataapi/admin/DataQueryDataApiAdminApi"
 import {useAddPageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
 import DataQueryDatasourceApiFormItemConfigs from '../../../compnents/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
+import DataQueryDatasApiFormItemConfigs from '../../../compnents/dataapi/admin/DataQueryDatasApiFormItemConfigs.vue'
+ const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
  const dataQueryDataApiFormItemConfigsRef = ref(null)
 
 // 属性
@@ -17,7 +19,12 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    useAddPageFormItems({form: reactiveData.form,formData: reactiveData.formData,dataQueryDataApiFormItemConfigsRef})
+    useAddPageFormItems(
+        {form: reactiveData.form,
+          formData: reactiveData.formData,
+          dataQueryDatasourceApiFormItemConfigsRef,
+          dataQueryDataApiFormItemConfigsRef
+        })
 )
 
 // 提交按钮属性
@@ -46,10 +53,11 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[[8,8],3,[8],3,[8],3,[8]]"
+          :layout="[[8,8],3,[8],3,[8,8],3,[8]]"
           :comps="formComps">
   </PtForm>
-  <DataQueryDatasourceApiFormItemConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDataApiFormItemConfigsRef"></DataQueryDatasourceApiFormItemConfigs>
+  <DataQueryDatasourceApiFormItemConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDatasourceApiFormItemConfigsRef"></DataQueryDatasourceApiFormItemConfigs>
+  <DataQueryDatasApiFormItemConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDataApiFormItemConfigsRef"></DataQueryDatasApiFormItemConfigs>
 
 </template>
 

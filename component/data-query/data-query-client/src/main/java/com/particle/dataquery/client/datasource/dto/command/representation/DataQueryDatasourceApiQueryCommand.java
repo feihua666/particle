@@ -22,7 +22,7 @@ public class DataQueryDatasourceApiQueryCommand extends AbstractBaseCommand {
 
     @NotNull(message = "数据源接口id 不能为空")
     @ApiModelProperty(value = "数据源接口id",required = true)
-    private Long datasourceApiId;
+    private Long dataQueryDatasourceApiId;
 
     /**
      * 参数对象

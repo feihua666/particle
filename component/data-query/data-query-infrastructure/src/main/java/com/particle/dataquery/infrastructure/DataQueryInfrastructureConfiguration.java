@@ -1,4 +1,4 @@
-package com.particle.global.mybatis.plus.config;
+package com.particle.dataquery.infrastructure;
 
 import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
@@ -13,27 +13,25 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <p>
- * 线程池配置
+ *
  * </p>
  *
  * @author yangwei
- * @since 2022-08-05 17:16
+ * @since 2023-03-24 00:13
  */
 @Configuration
-public class GlobalMybatisExecutorsConfig {
+public class DataQueryInfrastructureConfiguration {
 
-	public static final String commonDbTaskExecutor = "commonDbTaskExecutor";
-
+	public static final String dataQueryDataApiExecutor = "dataQueryDataApiExecutor";
 	/**
 	 * 通用数据库查询线程池
 	 * @param beanFactory
 	 * @return
 	 */
-	@Bean(name = commonDbTaskExecutor, destroyMethod = "shutdown")
-	public ExecutorService commonDbTaskExecutor(BeanFactory beanFactory) {
-
+	@Bean(name = dataQueryDataApiExecutor, destroyMethod = "shutdown")
+	public ExecutorService dataQueryDataApiExecutor(BeanFactory beanFactory) {
 		return CustomExecutors.newExecutorService(beanFactory,
-				commonDbTaskExecutor,
+				dataQueryDataApiExecutor,
 				5,
 				100,
 				1000,
@@ -42,6 +40,4 @@ public class GlobalMybatisExecutorsConfig {
 				new ThreadPoolExecutor.CallerRunsPolicy(),
 				true);
 	}
-
-
 }

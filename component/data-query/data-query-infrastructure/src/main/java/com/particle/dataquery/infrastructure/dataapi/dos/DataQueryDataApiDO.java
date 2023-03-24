@@ -62,7 +62,10 @@ public class DataQueryDataApiDO extends BaseTreeDO {
     * 入参文档配置json
     */
     private String inParamDocConfigJson;
-
+    /**
+     * 入参校验配置json
+     */
+    private String inParamValidateConfigJson;
     /**
     * 出参类型，字典id
     */
