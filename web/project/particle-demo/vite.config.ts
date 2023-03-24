@@ -12,7 +12,7 @@ const aliasItem = (find) =>{
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/',
+  base: './',
   plugins: [vue(), vueJsx(),vueSetupExtend()],
   resolve: {
     alias: [
@@ -44,6 +44,7 @@ export default defineConfig({
     }
   },
   build:{
+    outDir: '../../../project/particle-demo/particle-demo-start/src/main/resources/static',
     rollupOptions:{
       external:[]
     }
