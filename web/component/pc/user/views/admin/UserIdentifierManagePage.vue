@@ -136,7 +136,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       text: true,
       permission: 'admin:web:userIdentifierPwd:identifier:resetPassword',
       position: 'more',
-      methodConfirmText: `此操作只影响当前账号密码，确定要重置密码吗？`,
+      methodConfirmText: `此操作只影响当前登录标识密码，如果用户还有其它登录标识（其密码不受响应），确定要重置密码吗？`,
       // 跳转到编辑
       route: {path: '/admin/userIdentifierPwdManageResetPassword',query: routeQuery}
     },

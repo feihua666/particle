@@ -67,7 +67,7 @@ const showInDialog = computed(() => {
 const drawerProps = computed(() => {
   let defaultDrawerProps = {
     appendToBody: true,
-    // destroyOnClose: true,
+    destroyOnClose: true,
     size: '50%'
   }
   let routeMetaDrawerProps = Object.assign(defaultDrawerProps, props.drawerProps, route.meta.drawerProps || {})
@@ -77,7 +77,7 @@ const drawerProps = computed(() => {
 const dialogProps = computed(() => {
   let defaultDialogProps = {
     appendToBody: true,
-    // destroyOnClose: true
+    destroyOnClose: true
   }
   let routeMetaDialogProps = Object.assign(defaultDialogProps, props.dialogProps, route.meta.dialogProps || {})
   return routeMetaDialogProps

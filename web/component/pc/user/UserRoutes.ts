@@ -58,7 +58,7 @@ const UserRoutes = [
                 component: () => import('./views/admin/UserResetPassowordPage.vue'),
                 props: route => ({ userId: route.query.userId }),
                 meta: {
-                    showInDialog: true,
+                    showInDrawer: true,
                     code:'userPwdManageResetPassword',
                     name: '用户重置密码',
                     formButtonsTeleportProps: {
@@ -115,7 +115,7 @@ const UserRoutes = [
                 component: () => import('./views/admin/UserIdentifierResetPassowordPage.vue'),
                 props: route => ({ identifierId: route.query.identifierId }),
                 meta: {
-                    showInDialog: true,
+                    showInDrawer: true,
                     code:'userIdentifierPwdManageResetPassword',
                     name: '用户登录标识重置密码',
                     formButtonsTeleportProps: {

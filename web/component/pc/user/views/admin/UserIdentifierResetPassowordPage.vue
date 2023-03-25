@@ -18,7 +18,7 @@ const props = defineProps({
 const reactiveData = reactive({
   // 表单
   form: {
-    identifierId: props.identifierId
+    userIdentifierId: props.identifierId
   },
   // 表单数据对象
   formData: {},

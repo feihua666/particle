@@ -53,7 +53,7 @@ export const useAddPageFormItems = ({props}) => {
 export const updatePageFormItems = [
     {
         field: {
-            name: 'password'
+            name: 'pwd'
         },
         element: {
             comp: 'el-input',

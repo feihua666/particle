@@ -17,6 +17,7 @@ public class PasswordTool {
 
 	/**
 	 * 加密密码
+	 * 注意：原始密码不能包含 & 字符，由于本框架原因，使用 form登录，在登录时会截取 & 前面的字符导致登录失败
 	 * @param userIdentifierPasswordCommand
 	 */
 	public static void encodePassword(UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
