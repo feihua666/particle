@@ -36,13 +36,13 @@ public class ProjectInfo implements InitializingBean {
 	}
 
 	// 项目名称
-	public static String NAME = "Particle";
+	public static String NAME;
 
 	// 项目作者
-	public static String AUTHOR = "飞华";
+	public static String AUTHOR;
 
 	// 项目版本
-	public static String VERSION = "1.0.0";
+	public static String VERSION;
 
 	// 分支，如：git的分支
 	public static String BRANCH;
@@ -101,6 +101,7 @@ public class ProjectInfo implements InitializingBean {
 		if (StrUtil.isEmpty(NAME) && buildProperties != null) {
 			NAME = buildProperties.getName();
 		}
+
 		if (StrUtil.isEmpty(AUTHOR) && gitProperties != null) {
 			AUTHOR = gitProperties.get("commit.user.name");
 		}
@@ -120,7 +121,17 @@ public class ProjectInfo implements InitializingBean {
 		if (gitProperties != null) {
 			LASTCOMMINTMESSAGE = gitProperties.get("commit.message.full");
 		}
+		// 填充默认值
+		fillDefault();
+	}
 
+	public void fillDefault(){
+		if (StrUtil.isEmpty(NAME)) {
+			NAME = "Particle";
+		}
+		if (StrUtil.isEmpty(AUTHOR)) {
+			AUTHOR = "飞华";
+		}
 	}
 
 	public GitProperties getGitProperties() {
