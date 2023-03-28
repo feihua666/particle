@@ -31,8 +31,8 @@ public class DelegateBigDatasourceApiExecutor extends AbstractDelegateBigDatasou
 		return Optional.of(routing(bigDatasourceApi.routingKey())).map(BigDatasource::getApiExecutor).get();
 	}
 	@Override
-	public Object execute(BigDatasourceApi bigDatasourceApi, Object command) {
-		return getApiExecutor(bigDatasourceApi).execute(bigDatasourceApi,command);
+	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		return getApiExecutor(bigDatasourceApi).execute(bigDatasourceApi,command,queryString);
 	}
 
 }

@@ -16,8 +16,9 @@ public interface BigDatasourceApiExecutor<R>{
 	 * 执行最原生的数据响应
 	 * @param bigDatasourceApi
 	 * @param command
+	 * @param queryString 为兼容http请求地址上的路径参数
 	 * @return
 	 */
-	Object execute(BigDatasourceApi bigDatasourceApi, Object command);
+	Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 }

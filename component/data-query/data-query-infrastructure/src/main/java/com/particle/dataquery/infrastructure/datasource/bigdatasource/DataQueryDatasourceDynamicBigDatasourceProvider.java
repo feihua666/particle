@@ -3,6 +3,7 @@ package com.particle.dataquery.infrastructure.datasource.bigdatasource;
 import cn.hutool.core.map.MapUtil;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceHttpConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceJdbcConfig;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
@@ -15,6 +16,9 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDataso
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKeyFactory;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.AbstractDynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
+import com.particle.global.big.datasource.bigdatasource.impl.http.HttpBigDatasource;
+import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBigDatasourceConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceAuthScriptType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBigDatasourceConfig;
 import com.particle.global.domain.ApplicationContextHelper;
@@ -124,6 +128,24 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 				}
 
 			}// end jdbc 数据源
+			if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_http) {
+				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					DataQueryDatasourceHttpConfig config = dataQueryDatasource.httpConfig();
+					HttpBigDatasourceConfig httpBigDatasourceConfig = HttpBigDatasourceConfig.create(config.getDomainUrl(),
+							config.getAuthScriptType() == null ? null : HttpBigDatasourceAuthScriptType.valueOf(config.getAuthScriptType().itemValue()),
+							config.getAuthScriptTemplate(),
+							config.getUsername(),
+							config.getPassword(),
+							config.getProxyAddress(),
+							config.getProxyPort(),
+							config.getProxyUsername(),
+							config.getProxyPassword());
+					HttpBigDatasource httpBigDatasource = HttpBigDatasource.create(dataQueryDatasource.getName(),
+							BigDatasourceType.datasource_http,httpBigDatasourceConfig);
+
+					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), httpBigDatasource);
+				}
+			}
 			else {
 				log.warn("datasource type for {} ignored. that not support now",dataQueryDatasourceType.itemValue());
 			}

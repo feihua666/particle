@@ -1,6 +1,8 @@
 package com.particle.dataquery.infrastructure.datasource.gateway.impl;
 
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
+import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiHttpBasicConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamValidateConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiJdbcBasicConfig;
@@ -9,9 +11,16 @@ import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasource
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiSuccessValidateConfig;
+import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
+import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBigDatasourceConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
+import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigRequestMethod;
+import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigRequestUrlRenderType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigSqlTemplateType;
@@ -33,13 +42,19 @@ public class DatasourceApiQueryGatewayHelper {
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
 
-	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDatasourceApi(DataQueryDatasourceApi datasourceApi){
+	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDatasourceApi(DataQueryDatasourceApi datasourceApi, DataQueryDatasourceType dataQueryDatasourceType){
 		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasourceApi.getResponseTypeDictId());
+		IBigDatasourceApiConfig  iBigDatasourceApiConfig = null;
+		if (DataQueryDatasourceType.datasource_jdbc == dataQueryDatasourceType) {
+			iBigDatasourceApiConfig = jdbcBigDatasourceApiConfig(datasourceApi);
+		}else if (DataQueryDatasourceType.datasource_http == dataQueryDatasourceType) {
+			iBigDatasourceApiConfig = httpBigDatasourceApiConfig(datasourceApi);
+		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
 				// 响应包装
 				BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),
-				jdbcBigDatasourceApiConfig(datasourceApi),
+				iBigDatasourceApiConfig,
 				null,
 				pageableAdapterConfig(datasourceApi),
 				commandValidateConfig(datasourceApi),
@@ -61,6 +76,22 @@ public class DatasourceApiQueryGatewayHelper {
 				JdbcBigDatasourceApiConfigSqlTemplateType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplateType().itemValue()),
 				JdbcBigDatasourceApiConfigDataType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getDataType().itemValue()),
 				dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplate());
+	}
+
+	/**
+	 * http基础配置
+	 * @param datasourceApi
+	 * @return
+	 */
+	private HttpBigDatasourceApiConfig httpBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+		DataQueryDatasourceApiHttpBasicConfig config = datasourceApi.httpBasicConfig();
+		return HttpBigDatasourceApiConfig.create(
+				HttpBigDatasourceApiConfigRequestMethod.valueOf(config.getRequestMethod().itemValue()),
+				HttpBigDatasourceApiConfigContentType.valueOf(config.getRequestContentType().itemValue()),
+				HttpBigDatasourceApiConfigContentType.valueOf(config.getResponseContentType().itemValue()),
+				HttpBigDatasourceApiConfigRequestUrlRenderType.valueOf(config.getRequestUrlRenderType().itemValue()),
+				config.getRequestUrlTemplate()
+		);
 	}
 
 	/**

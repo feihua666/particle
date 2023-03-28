@@ -20,7 +20,7 @@ public interface DatasourceApiQueryGateway extends IGateway {
 	 * @param param
 	 * @return
 	 */
-	Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param);
+	Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString);
 
 	/**
 	 * 执行查询，带有缓存逻辑，提高性能
@@ -29,5 +29,5 @@ public interface DatasourceApiQueryGateway extends IGateway {
 	 * @param param
 	 * @return
 	 */
-	Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param);
+	Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString);
 }

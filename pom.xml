@@ -65,6 +65,8 @@
         <com.jfinal.enjoy>5.0.3</com.jfinal.enjoy>
         <!-- groovy脚本，添加主要是为了数据查询支持groovy脚本 -->
         <groovy-all.version>2.4.21</groovy-all.version>
+        <!-- http简单客户端使用 jodd是一个java工具包，添加统一版本目前只是为了使用 大数据源的jodd http实现 -->
+        <jodd.version>6.3.0</jodd.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

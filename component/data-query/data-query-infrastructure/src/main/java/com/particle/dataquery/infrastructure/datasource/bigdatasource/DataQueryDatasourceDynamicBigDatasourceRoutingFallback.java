@@ -44,15 +44,29 @@ public class DataQueryDatasourceDynamicBigDatasourceRoutingFallback implements D
 			if (dataQueryGlobalBigDatasourceRoutingKey.equals(key)) {
 				// subKey 到这里就是一个数据查询数据源id
 				Long dataQueryDatasourceId = Long.parseLong(subKey);
-				DataQueryDatasourceDO byId = iDataQueryDatasourceService.getById(dataQueryDatasourceId);
-				Map<DynamicBigDatasourceRoutingKey, BigDatasource> dynamicBigDatasourceRoutingKeyBigDatasourceMap = dataQueryDatasourceDynamicBigDatasourceProvider.loadDataSources(Lists.newArrayList(byId));
-				if (dynamicBigDatasourceRoutingKeyBigDatasourceMap != null && !dynamicBigDatasourceRoutingKeyBigDatasourceMap.isEmpty()) {
-					// 如果不为空，肯定是加载了一个数据源
-					BigDatasource bigDatasource = dynamicBigDatasourceRoutingKeyBigDatasourceMap.entrySet().iterator().next().getValue();
-					log.info("dataquery routing fallback added a bigDatasource name is {} type is {}",bigDatasource.getName(),bigDatasource.getType().name());
-					return bigDatasource;
+				BigDatasource bigDatasourceByDataQueryDatasourceId = getBigDatasourceByDataQueryDatasourceId(dataQueryDatasourceId);
+				if (bigDatasourceByDataQueryDatasourceId != null) {
+					return bigDatasourceByDataQueryDatasourceId;
 				}
 			}
+		}
+		// 这里的key就是数据源id
+		String key = routingKey.toStringKey();
+		Long dataQueryDatasourceId = Long.parseLong(key);
+		BigDatasource bigDatasourceByDataQueryDatasourceId = getBigDatasourceByDataQueryDatasourceId(dataQueryDatasourceId);
+		if (bigDatasourceByDataQueryDatasourceId != null) {
+			return bigDatasourceByDataQueryDatasourceId;
+		}
+		return null;
+	}
+	private BigDatasource getBigDatasourceByDataQueryDatasourceId(Long dataQueryDatasourceId){
+		DataQueryDatasourceDO byId = iDataQueryDatasourceService.getById(dataQueryDatasourceId);
+		Map<DynamicBigDatasourceRoutingKey, BigDatasource> dynamicBigDatasourceRoutingKeyBigDatasourceMap = dataQueryDatasourceDynamicBigDatasourceProvider.loadDataSources(Lists.newArrayList(byId));
+		if (dynamicBigDatasourceRoutingKeyBigDatasourceMap != null && !dynamicBigDatasourceRoutingKeyBigDatasourceMap.isEmpty()) {
+			// 如果不为空，肯定是加载了一个数据源
+			BigDatasource bigDatasource = dynamicBigDatasourceRoutingKeyBigDatasourceMap.entrySet().iterator().next().getValue();
+			log.info("dataquery routing fallback added a bigDatasource name is {} type is {}",bigDatasource.getName(),bigDatasource.getType().name());
+			return bigDatasource;
 		}
 		return null;
 	}

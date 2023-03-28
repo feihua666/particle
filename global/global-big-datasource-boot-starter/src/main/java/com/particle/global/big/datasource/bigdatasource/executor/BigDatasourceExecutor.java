@@ -14,6 +14,6 @@ public interface BigDatasourceExecutor<R> {
 	 * @param command
 	 * @return
 	 */
-	Object execute(Object command);
+	Object execute(Object command,String queryString);
 
 }

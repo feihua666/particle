@@ -7,6 +7,7 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDyna
 import com.particle.global.big.datasource.bigdatasource.dynamic.properties.DynamicBigDatasourceProperties;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.DynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.YmlDynamicBigDatasourceProvider;
+import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.feign.BigDatasourceFeignClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -52,5 +53,9 @@ public class GlobalBigDatasourceAutoConfiguration {
 		ymlDynamicBigDatasourceProvider.setBigDatasourcePropertyMap(dynamicBigDatasourceProperties.getBigDatasource());
 		ymlDynamicBigDatasourceProvider.setBigDatasourceCreatorList(bigDatasourceCreatorList);
 		return ymlDynamicBigDatasourceProvider;
+	}
+	@Bean
+	public BigDatasourceFeignClientBuilder bigDatasourceFeignClientBuilder(){
+		return new BigDatasourceFeignClientBuilder();
 	}
 }

@@ -63,19 +63,27 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	private IDataQueryDatasourceApiService iDataQueryDatasourceApiService;
 
 	@Override
-	public Object query(DataQueryDataApi dataQueryDataApi, Object param) {
+	public Object query(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
 		// todo 缓存性能
-		return queryRealtime(dataQueryDataApi,param);
+		return queryRealtime(dataQueryDataApi,param,queryString);
 	}
 
 	@Override
-	public Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param) {
+	public Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
 		DataQueryDatasourceApi dataQueryDatasourceApi = DataQueryDataApiInfrastructureStructMapping.instance.dataQueryDataApiToDataQueryDatasourceApi(dataQueryDataApi);
-		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(dataQueryDatasourceApi);
-		// 不需要config
+		// 一对一直连时判断直接取数据查询数据源接口配置
+		Long adaptTypeDictId = dataQueryDataApi.getAdaptTypeDictId();
+		String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
+		DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
+		if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
+			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId()));
+			dataQueryDatasourceApi = singleDirectDataQueryDatasourceApi;
+		}
+		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(dataQueryDatasourceApi,null);
+		// 不需要config,因为这里只需要实现自己的逻辑，并不根据config配置进行逻辑处理
 		defaultBigDatasourceApi.setConfig(null);
 
-		return new DataApiQueryExecutor((command) -> doExecute(dataQueryDataApi,command)).doExecute(defaultBigDatasourceApi, param);
+		return new DataApiQueryExecutor((command) -> doExecute(dataQueryDataApi,command,queryString)).execute(defaultBigDatasourceApi, param,queryString);
 	}
 
 	/**
@@ -85,12 +93,12 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	 * @return
 	 */
 	@SneakyThrows
-	public Object doExecute(DataQueryDataApi dataQueryDataApi, Object param) {
+	public Object doExecute(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
 		Long adaptTypeDictId = dataQueryDataApi.getAdaptTypeDictId();
 		String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
 		DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
 		if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
-			return doExecuteByDatasourceApiId(dataQueryDataApi.getDataQueryDatasourceApiId(), param);
+			return doExecuteByDatasourceApiId(dataQueryDataApi.getDataQueryDatasourceApiId(), param,queryString);
 		}
 		if (DataQueryDataApiAdaptType.multiple_aggregation == dataQueryDataApiAdaptType) {
 			DataQueryDataApiMultipleAggregationAdaptConfig config = dataQueryDataApi.multipleAggregationAdaptConfig();
@@ -101,7 +109,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 			for (DataQueryDataApiMultipleAggregationAdaptConfig.AggregationItem aggregationItem : config.getAggregationItems()) {
 				dataQueryDataApiExecutor.submit(()->{
 					try {
-						Object o = doExecuteByDatasourceApiId(aggregationItem.getDataQueryDatasourceApiId(), param);
+						Object o = doExecuteByDatasourceApiId(aggregationItem.getDataQueryDatasourceApiId(), param,queryString);
 						result.put(aggregationItem.getOutputKey(), o);
 					} finally {
 						countDownLatch.countDown();
@@ -137,16 +145,16 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		throw new RuntimeException("adaptType " + dataQueryDataApiAdaptType.itemValue() + " not support currently");
 	}
 
-	public Object doExecuteByDatasourceApiId(Long datasourceApiId,Object param){
+	public Object doExecuteByDatasourceApiId(Long datasourceApiId,Object param,String queryString){
 		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId));
 		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId()));
-		return datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, param);
+		return datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, param,queryString);
 	}
 
-	public Object doExecuteByDatasourceApiCode(String code, Object param) {
+	public Object doExecuteByDatasourceApiCode(String code, Object param,String queryString) {
 		DataQueryDatasourceApiDO byCode = iDataQueryDatasourceApiService.getByCode(code);
 		Assert.notNull(byCode,"数据查询数据源接口编码 "+ code +" 不存在");
-		return doExecuteByDatasourceApiId(byCode.getId(),param);
+		return doExecuteByDatasourceApiId(byCode.getId(),param,queryString);
 	}
 
 	/**
@@ -160,8 +168,8 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 			this.dataApiQueryGateway = dataApiQueryGateway;
 		}
 
-		public Object invoke(String datasourceApiCode, Object param) {
-			return dataApiQueryGateway.doExecuteByDatasourceApiCode(datasourceApiCode, param);
+		public Object invoke(String datasourceApiCode, Object param,String queryString) {
+			return dataApiQueryGateway.doExecuteByDatasourceApiCode(datasourceApiCode, param,queryString);
 		}
 	}
 }

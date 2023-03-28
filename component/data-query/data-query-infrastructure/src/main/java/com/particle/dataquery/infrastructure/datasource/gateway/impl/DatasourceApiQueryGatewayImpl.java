@@ -55,24 +55,49 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	private DatasourceApiQueryGatewayHelper datasourceApiQueryGatewayHelper;
 
 	@Override
-	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
+	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
 		String datasourceTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasource.getTypeDictId());
 		DataQueryDatasourceType dataQueryDatasourceType = DataQueryDatasourceType.valueOf(datasourceTypeDictIdValue);
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_jdbc) {
-
-				return doJdbcQuery(datasource, datasourceApi, param,true);
-
+			return doJdbcQuery(datasource, datasourceApi, param,queryString,true);
+		}
+		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_http) {
+			return doHttpQuery(datasource, datasourceApi, param,queryString);
 		}
 
 		return new RuntimeException("can not support datasource type of " + dataQueryDatasourceType.itemValue());
 	}
 
 	@Override
-	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param) {
+	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
 		// todo 缓存性能
-		return queryRealtime(datasource,datasourceApi,param);
+		return queryRealtime(datasource,datasourceApi,param,queryString);
 	}
 
+	/**
+	 * 执行http查询
+	 * @param datasource
+	 * @param datasourceApi
+	 * @param param
+	 * @param queryString
+	 * @return
+	 */
+	Object doHttpQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString){
+		try {
+			// 路由数据源
+			DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(datasource.getId().getId().toString());
+
+			// 手动设置，数据源
+			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
+			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
+			DefaultBigDatasourceApi defaultBigDatasourceApi =
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_http);
+
+			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
+		}finally {
+			DynamicBigDatasourceRoutingKeyHolder.clear();
+		}
+	}
 	/**
 	 * 执行jdbc查询
 	 * @param datasource
@@ -81,7 +106,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	 * @param tryLoadJdbcInnerDataSource 是否尝试动态重新加载数据源
 	 * @return
 	 */
-	Object doJdbcQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,boolean tryLoadJdbcInnerDataSource) {
+	Object doJdbcQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean tryLoadJdbcInnerDataSource) {
 		try {
 			// 路由数据源
 			DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(jdbc, datasource.getId().getId().toString());
@@ -89,9 +114,10 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			// 手动设置，数据源
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
-			DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi);
+			DefaultBigDatasourceApi defaultBigDatasourceApi =
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_jdbc);
 
-			return apiExecutor.execute(defaultBigDatasourceApi, param);
+			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
 		} catch (PersistenceException | CannotFindDataSourceException e) {
 			if(!tryLoadJdbcInnerDataSource){
 				throw e;
@@ -147,7 +173,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			if (!datasourceLoaded) {
 				throw e;
 			}
-			return doJdbcQuery(datasource, datasourceApi, param,false);
+			return doJdbcQuery(datasource, datasourceApi, param,queryString,false);
 		}
 		finally {
 			DynamicBigDatasourceRoutingKeyHolder.clear();

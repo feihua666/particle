@@ -33,7 +33,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 	}
 
 	@Override
-	public Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		// 默认从第一页开始
 		Long pageNo = 1L;
 		// 默认每页10条
@@ -41,7 +41,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 		boolean hasPageableAdapterConfig = false;
 		PageableAdapterConfig pageableAdapterConfig = bigDatasourceApi.pageableAdapterConfig();
 		if (pageableAdapterConfig != null) {
-			PageQueryCommand pageQueryCommand = pageableAdapterConfig.obtainCommandPageInfo(command);
+			PageQueryCommand pageQueryCommand = pageableAdapterConfig.obtainCommandPageInfo(command,queryString);
 			if (pageQueryCommand != null) {
 				pageNo = pageQueryCommand.getPageNo();
 				pageSize = pageQueryCommand.getPageSize();
@@ -61,7 +61,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 		}
 		Page pageQuery = new Page(pageNo, pageSize);
 		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
-		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command);
+		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command,queryString);
 		if (renderResult.getResult() != null) {
 			boolean b = renderResult.getResult() instanceof Page;
 			if (b) {
@@ -76,9 +76,9 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 	}
 
 	@Override
-	public Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
-		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command);
+		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command,queryString);
 		if (renderResult.getResult() != null) {
 			boolean b = renderResult.getResult() instanceof Collection;
 			if (b) {
@@ -92,9 +92,9 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 	}
 
 	@Override
-	public Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
-		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command);
+		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command,queryString);
 		if (renderResult.getResult() != null) {
 			return renderResult.getResult();
 		}

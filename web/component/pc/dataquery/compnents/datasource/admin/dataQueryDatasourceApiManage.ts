@@ -682,11 +682,17 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
                     dataQueryDatasourceApiFormItemBasicConfigsRef.value.reactiveData.jdbc.dialogVisible = true
                   }
                 },
+                datasource_http(){
+                  if(dataQueryDatasourceApiFormItemBasicConfigsRef.value){
+                    dataQueryDatasourceApiFormItemBasicConfigsRef.value.reactiveData.http.dialogVisible = true
+                  }
+                },
               }// end map
               let datasourceTypeDictValue = formData.dataQueryDatasourceId.typeDictValue
               let method = map[datasourceTypeDictValue] || (()=>{
+                let datasourceName = formData.dataQueryDatasourceId.name
                 let datasourceTypeDictName = formData.dataQueryDatasourceId.typeDictName
-                alert(`选择的数据源 ${datasourceTypeDictValue.name} 类型为 ${datasourceTypeDictName} 暂不支持配置`)
+                alert(`选择的数据源 ${datasourceName} 类型为 ${datasourceTypeDictName} 暂不支持配置`,'error')
               })
               method()
             }

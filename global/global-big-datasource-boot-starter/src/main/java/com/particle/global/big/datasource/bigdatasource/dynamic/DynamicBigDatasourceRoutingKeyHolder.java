@@ -45,10 +45,19 @@ public class DynamicBigDatasourceRoutingKeyHolder {
 		}
 	}
 
+	/**
+	 * 大数据源路由从线程变量中取
+	 * @param routingKey
+	 */
 	public static void set(String routingKey) {
 		set(DynamicBigDatasourceRoutingKeyFactory.of(routingKey));
 	}
 
+	/**
+	 * 双建路由，主要是支持jdbc动态内部数据源
+	 * @param routingKey
+	 * @param subRoutingKey
+	 */
 	public static void set(String routingKey,String subRoutingKey) {
 		set(DynamicBigDatasourceRoutingKeyFactory.of(routingKey,subRoutingKey));
 	}

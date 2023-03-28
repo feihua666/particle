@@ -3,10 +3,7 @@ package com.particle.dataquery.domain.datasource;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiJdbcBasicConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiPageableAdapterConfig;
+import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
@@ -165,6 +162,10 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         return fromJsonStr;
     }
 
+    public DataQueryDatasourceApiHttpBasicConfig httpBasicConfig() {
+        DataQueryDatasourceApiHttpBasicConfig fromJsonStr = DataQueryDatasourceApiHttpBasicConfig.createFromJsonStr(configJson);
+        return fromJsonStr;
+    }
     /**
      * 除了数据源类型为 {@link DataQueryDatasourceType#datasource_jdbc}时可以不用配置（大数据源已经兼容），其它情形一般都需要配置
      * @return

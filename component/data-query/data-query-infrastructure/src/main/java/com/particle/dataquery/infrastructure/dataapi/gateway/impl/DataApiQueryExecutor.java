@@ -24,7 +24,7 @@ public class DataApiQueryExecutor extends AbstractBigDatasourceApiExecutor {
 
 
 	@Override
-	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		return executorFunction.apply(command);
 	}
 

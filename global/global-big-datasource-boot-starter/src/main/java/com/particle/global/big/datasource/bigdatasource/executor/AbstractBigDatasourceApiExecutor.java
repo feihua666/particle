@@ -23,16 +23,16 @@ import java.util.Collection;
 public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceApiExecutor{
 
 	@Override
-	public Object execute(BigDatasourceApi bigDatasourceApi, Object command) {
-		preExe(bigDatasourceApi, command);
-		Object o = doExecute(bigDatasourceApi, command);
-		postExe(bigDatasourceApi, command, o);
+	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		preExe(bigDatasourceApi, command, queryString);
+		Object o = doExecute(bigDatasourceApi, command,queryString);
+		postExe(bigDatasourceApi, command,queryString, o);
 		boolean success = isSuccess(bigDatasourceApi,o);
-		Object resultData = resultData(bigDatasourceApi, command, o);
-		Object resultDataConverted = resultDataConvert(bigDatasourceApi, command,resultData, o);
+		Object resultData = resultData(bigDatasourceApi, command,queryString, o);
+		Object resultDataConverted = resultDataConvert(bigDatasourceApi, command,queryString,resultData, o);
 		return resultDataConverted;
 	}
-	public abstract Object doExecute(BigDatasourceApi bigDatasourceApi, Object command);
+	public abstract Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 	/**
 	 * 执行前调用，做一些参数处理
@@ -40,8 +40,8 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param command
 	 * @return
 	 */
-	protected void preExe(BigDatasourceApi bigDatasourceApi, Object command) {
-		commandValidate(bigDatasourceApi,command);
+	protected void preExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		commandValidate(bigDatasourceApi,command,queryString);
 	}
 	/**
 	 * 执行前调用，做一些参数处理
@@ -50,7 +50,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param o
 	 * @return
 	 */
-	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,Object o) {
+	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object o) {
 
 	}
 	/**
@@ -60,7 +60,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param bigDatasourceApi
 	 * @param command
 	 */
-	protected void commandValidate(BigDatasourceApi bigDatasourceApi,Object command) {
+	protected void commandValidate(BigDatasourceApi bigDatasourceApi,Object command,String queryString) {
 		BigDatasourceApiCommandValidateConfig bigDatasourceApiCommandValidateConfig = bigDatasourceApi.commandValidateConfig();
 		if (bigDatasourceApiCommandValidateConfig != null) {
 			bigDatasourceApiCommandValidateConfig.doValidate(command, true);
@@ -75,7 +75,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param rawResultData
 	 * @return 这里只取data的数据
 	 */
-	protected Object resultData(BigDatasourceApi bigDatasourceApi, Object command,Object rawResultData) {
+	protected Object resultData(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object rawResultData) {
 		return rawResultData;
 	}
 
@@ -83,11 +83,11 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * 结果数据转换
 	 * @param bigDatasourceApi
 	 * @param command
-	 * @param resultData 原生经历过处理的数据 参见 {@link AbstractBigDatasourceApiExecutor#resultData(com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi, java.lang.Object, java.lang.Object)}
+	 * @param resultData 原生经历过处理的数据 参见 {@link AbstractBigDatasourceApiExecutor#resultData(com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi, java.lang.Object, java.lang.String, java.lang.Object)}
 	 * @param rawResultData 原生返回的数据
 	 * @return 按文档说明返回的数据结构数据
 	 */
-	protected Object resultDataConvert(BigDatasourceApi bigDatasourceApi, Object command,Object resultData,Object rawResultData) {
+	protected Object resultDataConvert(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object resultData,Object rawResultData) {
 		if (bigDatasourceApi.responseWrapType() != null) {
 			if (bigDatasourceApi.responseWrapType() == BigDatasourceApiResponseWrapType.single) {
 				if (resultData instanceof SingleResponse) {

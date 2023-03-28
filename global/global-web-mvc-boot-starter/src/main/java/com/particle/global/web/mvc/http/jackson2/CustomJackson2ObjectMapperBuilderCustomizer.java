@@ -1,9 +1,12 @@
 package com.particle.global.web.mvc.http.jackson2;
 
+import cn.hutool.json.JSONNull;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.deser.std.NullifyingDeserializer;
+import com.fasterxml.jackson.databind.ser.std.NullSerializer;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -83,6 +86,8 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 		 */
 		jacksonObjectMapperBuilder.serializerByType(Long.class, ToStringSerializer.instance);
 		jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
+		// hutool在将json字符串转为map时，如果有空值会转为JSONNull，这里直接转为null
+		jacksonObjectMapperBuilder.serializerByType(JSONNull.class, NullSerializer.instance);
 	}
 
 

@@ -59,5 +59,18 @@
             <artifactId>groovy-all</artifactId>
             <version>${groovy-all.version}</version>
         </dependency>
+
+        <!-- 主要用于 大数据源http的实现 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- 主要用于大数据源http的实现 -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-http</artifactId>
+            <version>${jodd.version}</version>
+        </dependency>
     </dependencies>
 </project>

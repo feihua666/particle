@@ -13,21 +13,13 @@ import lombok.Data;
  * @since 2023-03-17 23:24
  */
 @Data
-public class DataQueryDatasourceJdbcConfig extends Value {
+public class DataQueryDatasourceJdbcConfig extends DataQueryDatasourceAccountConfig {
 
 	private String driverClassName;
 	/**
 	 * 地址
 	 */
 	private String url;
-	/**
-	 * 用户名
-	 */
-	private String username;
-	/**
-	 * 密码
-	 */
-	private String password;
 
 	public static DataQueryDatasourceJdbcConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceJdbcConfig dataQueryDatasourceJdbcConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceJdbcConfig.class);

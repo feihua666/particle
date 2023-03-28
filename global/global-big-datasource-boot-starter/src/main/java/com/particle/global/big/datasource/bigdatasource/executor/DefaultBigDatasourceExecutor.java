@@ -22,8 +22,8 @@ public class DefaultBigDatasourceExecutor implements BigDatasourceExecutor{
 	}
 
 	@Override
-	public Object execute(Object command) {
-		return bigDatasourceApiExecutor.execute(bigDatasourceApi,command);
+	public Object execute(Object command,String queryString) {
+		return bigDatasourceApiExecutor.execute(bigDatasourceApi,command,queryString);
 	}
 
 }

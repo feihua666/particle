@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "aes相关接口")
 @RestController
-@RequestMapping("front/web/aes")
+@RequestMapping("/front/web/aes")
 public class AESController extends AbstractBaseWebAdapter {
 
     @ApiOperation("生成 16 位随机 AES 密钥")

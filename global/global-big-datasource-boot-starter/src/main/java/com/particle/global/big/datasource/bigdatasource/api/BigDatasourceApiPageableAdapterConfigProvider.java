@@ -26,7 +26,7 @@ public interface BigDatasourceApiPageableAdapterConfigProvider {
 	 * @param command
 	 * @return
 	 */
-	PageQueryCommand obtainCommandPageInfo(Object command,String template);
+	PageQueryCommand obtainCommandPageInfo(Object command,String queryString,String template);
 
 	/**
 	 * 配合 {@link BigDatasourceApiPageableAdapterConfigProvider#obtainResponsePageInfo(java.lang.Object,java.lang.String)} 使用

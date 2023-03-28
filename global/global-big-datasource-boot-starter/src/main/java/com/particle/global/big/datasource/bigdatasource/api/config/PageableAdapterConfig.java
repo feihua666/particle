@@ -18,7 +18,7 @@ public interface PageableAdapterConfig {
 	 * @param command
 	 * @return
 	 */
-	PageQueryCommand obtainCommandPageInfo(Object command);
+	PageQueryCommand obtainCommandPageInfo(Object command,String queryString);
 
 	/**
 	 * 提取分页响应参数信息

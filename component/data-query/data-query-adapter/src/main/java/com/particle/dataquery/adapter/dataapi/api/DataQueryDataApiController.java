@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,9 +41,11 @@ public class DataQueryDataApiController extends AbstractBaseApiAdapter {
 	@ApiOperation("数据查询数据服务接口入口")
 	@PostMapping(API_ENTRY  + "/**")
 	public Object dataQueryDataApiEntry(@RequestBody Object param,HttpServletRequest request){
+
 		DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();
 		dataQueryDataApiQueryCommand.setUrl(getDataApiUrl(request));
 		dataQueryDataApiQueryCommand.setParam(param);
+		dataQueryDataApiQueryCommand.setQueryString(request.getQueryString());
 
 		return iDataQueryDataApiRepresentationApplicationService.dataApiQuery(dataQueryDataApiQueryCommand);
 	}

@@ -234,6 +234,65 @@ export const useAddPageFormItems = ({reactiveData,configJsonDialogVisible}) => {
 
 // 更新和添加一致
 export const useUpdatePageFormItems = useAddPageFormItems
+// 代理相关配置
+export const proxyFormItems = [
+  {
+    field: {
+      name: 'proxyAddress',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '代理地址',
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'proxyPort',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '代理地址端口',
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'proxyUsername',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '代理用户',
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'proxyPassword',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '代理用户密码',
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+]
 
 const datasource_jdbc = [
   {
@@ -285,6 +344,36 @@ const datasource_http = [
       compProps: {
         clearable: true,
         placeholder: '如：http://example.com'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'authScriptType',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '认证脚本类型',
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '如：http://example.com'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'authScriptTemplate',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '认证脚本',
+      },
+      compProps: {
+        type: 'textarea',
+        rows: '10'
       }
     }
   },

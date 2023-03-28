@@ -29,4 +29,11 @@ public class DataQueryDatasourceApiQueryCommand extends AbstractBaseCommand {
      */
     @ApiModelProperty(value = "参数对象",required = true)
     private Object param;
+
+
+    /**
+     * 查询参数一般在 url后面以 & 分隔
+     */
+    @ApiModelProperty(value = "查询参数")
+    private String queryString;
 }

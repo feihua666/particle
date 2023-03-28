@@ -34,10 +34,10 @@ public class BigDatasourceApiPageableAdapterConfig implements PageableAdapterCon
 	protected List<BigDatasourceApiPageableAdapterConfigProvider> pageableAdapterConfigProviderList;
 
 	@Override
-	public PageQueryCommand obtainCommandPageInfo(Object command) {
+	public PageQueryCommand obtainCommandPageInfo(Object command,String queryString) {
 		for (BigDatasourceApiPageableAdapterConfigProvider bigDatasourceApiPageableAdapterConfigProvider : pageableAdapterConfigProviderList) {
 			if (bigDatasourceApiPageableAdapterConfigProvider.commandPageSupport(commandPageType)) {
-				return bigDatasourceApiPageableAdapterConfigProvider.obtainCommandPageInfo(command,commandPageTemplate);
+				return bigDatasourceApiPageableAdapterConfigProvider.obtainCommandPageInfo(command,queryString,commandPageTemplate);
 			}
 		}
 		return null;

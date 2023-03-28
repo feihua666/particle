@@ -22,11 +22,11 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 	 * @param command
 	 * @return
 	 */
-	public Object executePage(BigDatasourceApi bigDatasourceApi, Object command) {
-		return doExecutePage(bigDatasourceApi,command);
+	public Object executePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		return doExecutePage(bigDatasourceApi,command,queryString);
 	}
 
-	public abstract Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command);
+	public abstract Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 	/**
 	 * 多条查询
@@ -34,11 +34,11 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 	 * @param command
 	 * @return
 	 */
-	public Object executeMulti(BigDatasourceApi bigDatasourceApi, Object command) {
-		return doExecuteMulti(bigDatasourceApi,command);
+	public Object executeMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		return doExecuteMulti(bigDatasourceApi,command,queryString);
 	}
 
-	public abstract Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command);
+	public abstract Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 	/**
 	 * 单条查询
@@ -46,15 +46,15 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 	 * @param command
 	 * @return
 	 */
-	public Object executeSingle(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object executeSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 
-		return doExecuteSingle(bigDatasourceApi,command);
+		return doExecuteSingle(bigDatasourceApi,command,queryString);
 	}
 
-	public abstract Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command);
+	public abstract Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 	@Override
-	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command) {
+	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig = (JdbcBigDatasourceApiConfig) config;
 
@@ -64,13 +64,13 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 		}
 
 		if (dataType == JdbcBigDatasourceApiConfigDataType.single) {
-			return executeSingle(bigDatasourceApi, command);
+			return executeSingle(bigDatasourceApi, command,queryString);
 		}
 		if (dataType == JdbcBigDatasourceApiConfigDataType.multiple) {
-			return executeMulti(bigDatasourceApi, command);
+			return executeMulti(bigDatasourceApi, command,queryString);
 		}
 		if (dataType == JdbcBigDatasourceApiConfigDataType.page) {
-			return executePage(bigDatasourceApi, command);
+			return executePage(bigDatasourceApi, command,queryString);
 		}
 
 		throw new RuntimeException("this is like a bug,because here is unreachable");

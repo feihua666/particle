@@ -30,7 +30,7 @@ public class EnjoyBigDatasourceApiPageableAdapterConfigProvider implements BigDa
 	}
 
 	@Override
-	public PageQueryCommand obtainCommandPageInfo(Object command,String commandPageEnjoyTemplate) {
+	public PageQueryCommand obtainCommandPageInfo(Object command,String queryString,String commandPageEnjoyTemplate) {
 		PageQueryCommand pageQueryCommand = new PageQueryCommand();
 		TemplateRenderDataWrap<Object> objectTemplateRenderDataWrap = TemplateRenderDataWrap.create(command);
 		Map<String, Object> objectMap = objectTemplateRenderDataWrap.toRenderMap();

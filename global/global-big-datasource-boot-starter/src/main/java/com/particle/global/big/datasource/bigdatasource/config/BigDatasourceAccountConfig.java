@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 2023-03-10 13:47
  */
 @Data
-public class BigDatasourceAccountConfig extends DTO {
+public class BigDatasourceAccountConfig extends BigDatasourceProxyConfig {
 
 	/**
 	 * 用户名

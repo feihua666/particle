@@ -65,7 +65,7 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	 * @return
 	 */
 	@SneakyThrows
-	public RenderResult render(IJdbcService jdbcService, Object command){
+	public RenderResult render(IJdbcService jdbcService, Object command,String queryString){
 
 		if(sqlTemplateType == JdbcBigDatasourceApiConfigSqlTemplateType.groovy_script_template){
 

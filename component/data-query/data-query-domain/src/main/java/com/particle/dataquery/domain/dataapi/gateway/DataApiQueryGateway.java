@@ -18,7 +18,7 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @param param
 	 * @return
 	 */
-	Object query(DataQueryDataApi dataQueryDataApi, Object param);
+	Object query(DataQueryDataApi dataQueryDataApi, Object param,String queryString);
 
 	/**
 	 * 实时查询
@@ -26,5 +26,5 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @param param
 	 * @return
 	 */
-	Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param);
+	Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param,String queryString);
 }
