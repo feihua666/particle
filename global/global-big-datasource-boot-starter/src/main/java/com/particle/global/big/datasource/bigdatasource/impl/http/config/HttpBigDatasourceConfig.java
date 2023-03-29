@@ -63,11 +63,12 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 	public static HttpBigDatasourceConfig create(String domainUrl,
 												 HttpBigDatasourceAuthScriptType authScriptType,
 												 String authScriptTemplate,
+												 String username,
+												 String password,
 												 String proxyAddress,
 												 String proxyPort,
 												 String proxyUsername,
-												 String proxyPassword,
-												 String username, String password){
+												 String proxyPassword){
 		HttpBigDatasourceConfig httpBigDatasourceConfig = create(domainUrl,authScriptType,authScriptTemplate, username, password);
 		httpBigDatasourceConfig.setProxyAddress(proxyAddress);
 		httpBigDatasourceConfig.setProxyPort(proxyPort);

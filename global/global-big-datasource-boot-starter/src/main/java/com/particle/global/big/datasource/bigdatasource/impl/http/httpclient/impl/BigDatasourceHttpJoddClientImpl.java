@@ -26,7 +26,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 				.bodyText(JsonTool.toJsonStr(command), "application/json")
 				.header(headers)
 				.send();
-		String result = httpResponse.bodyText();
+		String result = httpResponse.charset("utf-8").bodyText();
 		return adapteResult(httpResponse.contentType(), result);
 
 	}
@@ -34,11 +34,12 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	@Override
 	public Object postFormData(String url,Map<String,String> headers, Object command,String queryString) {
 		HttpResponse httpResponse = HttpRequest.post(url)
-				.bodyText(JsonTool.toJsonStr(command), "multipart/form-data")
+				//.form(JsonTool.toJsonStr(command), "multipart/form-data")
+				.form(((Map) command))
 				.header(headers)
 				.send();
 
-		String result = httpResponse.bodyText();
+		String result = httpResponse.charset("utf-8").bodyText();
 		return adapteResult(httpResponse.contentType(), result);
 
 	}
@@ -46,10 +47,11 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	@Override
 	public Object postXWwwFormUrlencoded(String url, Map<String,String> headers,Object command,String queryString) {
 		HttpResponse httpResponse = HttpRequest.post(url)
-				.bodyText(JsonTool.toJsonStr(command), "application/x-www-form-urlencoded")
+				//.bodyText(JsonTool.toJsonStr(command), "application/x-www-form-urlencoded")
+				.form(((Map) command))
 				.header(headers)
 				.send();
-		String result = httpResponse.bodyText();
+		String result = httpResponse.charset("utf-8").bodyText();
 		return adapteResult(httpResponse.contentType(), result);
 
 	}
@@ -71,11 +73,11 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		if (b) {
 			queryMap = ((Map<String, String>) command);
 		}
-				HttpResponse httpResponse = HttpRequest.get(url)
+		HttpResponse httpResponse = HttpRequest.get(url)
 				.query(queryMap)
 				.header(headers)
 				.send();
-		String result = httpResponse.bodyText();
+		String result = httpResponse.charset("utf-8").bodyText();
 		return adapteResult(httpResponse.contentType(), result);
 	}
 
