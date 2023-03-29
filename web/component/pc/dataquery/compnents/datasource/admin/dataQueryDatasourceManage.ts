@@ -352,13 +352,15 @@ const datasource_http = [
       name: 'authScriptType',
     },
     element: {
-      comp: 'el-input',
+      comp: 'PtDictFrontSelect',
       formItemProps: {
         label: '认证脚本类型',
       },
       compProps: {
-        clearable: true,
-        placeholder: '如：http://example.com'
+        // 字典查询
+        dictParam: {groupCode: 'dataquery_datasource_http_auth_script_type'},
+        // 选取value为选重值
+        props: {value: 'value'},
       }
     }
   },
@@ -370,6 +372,10 @@ const datasource_http = [
       comp: 'el-input',
       formItemProps: {
         label: '认证脚本',
+        tips: "可用变量句柄 data、headers（是一个map可以设置值为请求头）、username（数据源配置的用户）、password（数据源配置的密码）<br/>" +
+            "enjoy示例：#(headers.put('sign','xxxx')) 可以直接设置请求头。<br/>" +
+            "groovy设置请求头示例：headers.put('sign','xxxx') 可以直接设置请求头。<br/>" +
+            "groovy返回请求头示例：def map = new HashMap();map.put('sign','xxxx');map; 可以直接返回Map<String,String>对象作为请求头。"
       },
       compProps: {
         type: 'textarea',

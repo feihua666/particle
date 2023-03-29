@@ -64,7 +64,8 @@ const formComps = [
       comp: 'PtDictFrontSelect',
       formItemProps: {
         label: '请求内容类型',
-        required: true
+        required: true,
+        tips: 'get请求可以请求没有使用一，随便选一个'
       },
       compProps: {
         // 字典查询
