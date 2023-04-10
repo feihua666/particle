@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.jdbc.executor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.service.IJdbcService;
 import com.particle.global.dto.basic.PageQueryCommand;
@@ -67,7 +68,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 			if (b) {
 				return ((Page<?>) renderResult.getResult());
 			}else {
-				throw new RuntimeException(" jdbc render result must be instance of " + Page.class.getName());
+				throw new BigDatasourceException(" jdbc render result must be instance of " + Page.class.getName());
 			}
 		}
 
@@ -84,7 +85,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 			if (b) {
 				return ((Collection) renderResult.getResult());
 			}else {
-				throw new RuntimeException(" jdbc render result must be instance of " + Collection.class.getName());
+				throw new BigDatasourceException(" jdbc render result must be instance of " + Collection.class.getName());
 			}
 		}
 		List<?> list = jdbcService.selectList(renderResult.getStrTemplateResult(), command);

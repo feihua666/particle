@@ -2,6 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.http.executor;
 
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.AbstractBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
@@ -44,7 +45,7 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 			return executePostXml(bigDatasourceApi, command,queryString);
 		}
 
-		throw new RuntimeException("contentType " + httpBigDatasourceApiConfig.getRequestContentType().name() + " for method post not support currently");
+		throw new BigDatasourceException("contentType " + httpBigDatasourceApiConfig.getRequestContentType().name() + " for method post not support currently");
 	}
 
 	/**
@@ -115,6 +116,6 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 		if (HttpBigDatasourceApiConfigRequestMethod.get == httpBigDatasourceApiConfig.getRequestMethod()) {
 			return executeGet(bigDatasourceApi,command,queryString);
 		}
-		throw new RuntimeException("request method " + httpBigDatasourceApiConfig.getRequestMethod().name() + " not support currently");
+		throw new BigDatasourceException("request method " + httpBigDatasourceApiConfig.getRequestMethod().name() + " not support currently");
 	}
 }

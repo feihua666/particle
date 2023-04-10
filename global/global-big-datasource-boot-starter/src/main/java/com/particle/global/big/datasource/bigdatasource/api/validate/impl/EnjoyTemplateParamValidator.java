@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.api.validate.impl;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.big.datasource.bigdatasource.api.validate.ParamValidator;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import com.particle.global.tool.template.TemplateTool;
 import lombok.Data;
@@ -34,13 +35,13 @@ public class EnjoyTemplateParamValidator implements ParamValidator {
 
 		if (enjoyValidateResult.getIsSuccess() == null) {
 			if (StrUtil.isEmpty(render)) {
-				throw new RuntimeException("param validate error. result value must be set. example is #(validateResult.setIsSuccess(true)) or #{data.name==1}");
+				throw new BigDatasourceException("param validate error. result value must be set. example is #(validateResult.setIsSuccess(true)) or #{data.name==1}");
 			}else {
 				if ("true".equals(render) || "false".equals(render)) {
 					Boolean aBoolean = Boolean.valueOf(render);
 					return aBoolean;
 				}else {
-					throw new RuntimeException("enjoy template must render true or false value.for " + enjoyTemplate + " renderResult=" + render);
+					throw new BigDatasourceException("enjoy template must render true or false value.for " + enjoyTemplate + " renderResult=" + render);
 				}
 
 			}

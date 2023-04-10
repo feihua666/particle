@@ -2,6 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.api.validate.impl;
 
 import com.particle.global.big.datasource.bigdatasource.api.validate.ParamValidator;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import lombok.SneakyThrows;
@@ -35,7 +36,7 @@ public class GroovyParamValidator implements ParamValidator {
 		if(!b){
 			return ((Boolean) eval);
 		}
-		throw new RuntimeException("groovy script must render true or false value.for " + template + " renderResult=" + eval);
+		throw new BigDatasourceException("groovy script must render true or false value.for " + template + " renderResult=" + eval);
 	}
 
 	public static GroovyParamValidator create(){

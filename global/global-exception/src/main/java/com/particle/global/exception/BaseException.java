@@ -25,6 +25,11 @@ public class BaseException extends RuntimeException {
 	private final IErrorCode error;
 	private final Map<String, Object> data = new HashMap<>();
 
+	public BaseException(Throwable cause) {
+		super(format(DEFAULT_ERR_CODE.getErrCode(), handleStaticUserTip(DEFAULT_ERR_CODE,DEFAULT_ERR_CODE.getErrMessage()), null));
+		this.error = DEFAULT_ERR_CODE;
+	}
+
 	public BaseException(String userTip,IErrorCode error) {
 		super(format(error.getErrCode(), handleStaticUserTip(error,userTip), null));
 		this.error = error;

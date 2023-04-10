@@ -2,6 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.api.config;
 
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiPageableAdapterConfigProvider;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.tool.script.GroovyTool;
@@ -46,7 +47,7 @@ public class GroovyBigDatasourceApiPageableAdapterConfigProvider implements BigD
 		Object o = GroovyTool.compileAndEval(commandPageEnjoyTemplate, bindings, true);
 		boolean b = o instanceof PageQueryCommand;
 		if (!b) {
-			throw new RuntimeException("groovy template must return a " + PageQueryCommand.class.getName() + " instance");
+			throw new BigDatasourceException("groovy template must return a " + PageQueryCommand.class.getName() + " instance");
 		}
 
 		return pageQueryCommand;
@@ -68,11 +69,15 @@ public class GroovyBigDatasourceApiPageableAdapterConfigProvider implements BigD
 		bindings.putAll(objectMap);
 
 		Object o = GroovyTool.compileAndEval(responsePageEnjoyTemplate, bindings, true);
+		// 如果没有返回值，直接使用预设的值
+		if (o == null) {
+			return objectPageResponse;
+		}
 		boolean b = o instanceof PageResponse;
 		if (!b) {
-			throw new RuntimeException("groovy template must return a " + PageResponse.class.getName() + " instance");
+			throw new BigDatasourceException("groovy template must return a " + PageResponse.class.getName() + " instance");
 		}
-		return objectPageResponse;
+		return ((PageResponse<?>) o);
 	}
 
 

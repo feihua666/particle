@@ -18,6 +18,10 @@ public class BizException extends BaseException {
 
 	public static IErrorCode DEFAULT_ERR_CODE = ErrorCodeGlobalEnum.PLACEHOLDER_ERROR;
 
+	public BizException(Throwable cause) {
+		super(DEFAULT_ERR_CODE, cause);
+	}
+
 	public BizException(String userTip) {
 		super(userTip,DEFAULT_ERR_CODE);
 	}

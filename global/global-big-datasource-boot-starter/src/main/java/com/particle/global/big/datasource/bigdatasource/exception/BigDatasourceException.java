@@ -14,6 +14,10 @@ import java.util.Map;
  * @since 2023-03-09 11:43
  */
 public class BigDatasourceException extends BizException {
+
+	public BigDatasourceException(Throwable cause) {
+		super(cause);
+	}
 	public BigDatasourceException(String userTip) {
 		super(userTip);
 	}

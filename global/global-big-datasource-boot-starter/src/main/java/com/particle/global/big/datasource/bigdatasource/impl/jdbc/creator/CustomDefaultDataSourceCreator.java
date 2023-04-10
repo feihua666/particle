@@ -7,6 +7,7 @@ import com.baomidou.dynamic.datasource.event.DataSourceInitEvent;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceCreatorAutoConfiguration;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.baomidou.dynamic.datasource.support.DdConstants;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 				try {
 					((InitializingBean) dataSourceCreator).afterPropertiesSet();
 				} catch (Exception e) {
-					throw new RuntimeException(e);
+					throw new BigDatasourceException(e);
 				}
 			}
 		}

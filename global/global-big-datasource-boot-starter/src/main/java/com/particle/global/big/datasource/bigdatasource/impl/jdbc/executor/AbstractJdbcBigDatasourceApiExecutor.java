@@ -2,6 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.jdbc.executor;
 
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.AbstractBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
@@ -60,7 +61,7 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 
 		JdbcBigDatasourceApiConfigDataType dataType = jdbcBigDatasourceApiConfig.getDataType();
 		if (dataType == null) {
-			throw new RuntimeException("dataType can not be null");
+			throw new BigDatasourceException("dataType can not be null");
 		}
 
 		if (dataType == JdbcBigDatasourceApiConfigDataType.single) {
@@ -73,7 +74,7 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 			return executePage(bigDatasourceApi, command,queryString);
 		}
 
-		throw new RuntimeException("this is like a bug,because here is unreachable");
+		throw new BigDatasourceException("this is like a bug,because here is unreachable");
 
 	}
 

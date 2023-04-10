@@ -5,6 +5,7 @@ import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.RawResponse;
@@ -61,6 +62,9 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param command
 	 */
 	protected void commandValidate(BigDatasourceApi bigDatasourceApi,Object command,String queryString) {
+
+
+
 		BigDatasourceApiCommandValidateConfig bigDatasourceApiCommandValidateConfig = bigDatasourceApi.commandValidateConfig();
 		if (bigDatasourceApiCommandValidateConfig != null) {
 			bigDatasourceApiCommandValidateConfig.doValidate(command, true);
@@ -112,14 +116,14 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 				}
 				PageableAdapterConfig pageableAdapterConfig = bigDatasourceApi.pageableAdapterConfig();
 				if (pageableAdapterConfig == null) {
-					throw new RuntimeException("current BigDatasourceApiResponseWrapType is page mode, pageableAdapterConfig should be set!");
+					throw new BigDatasourceException("current BigDatasourceApiResponseWrapType is page mode, pageableAdapterConfig should be set!");
 				}
 				PageResponse pageResponse = pageableAdapterConfig.obtainResponsePageInfo(rawResultData);
 				if (pageResponse == null) {
-					throw new RuntimeException("current BigDatasourceApiResponseWrapType is page mode, pageableAdapterConfig#obtainResponsePageInfo method should be set!");
+					throw new BigDatasourceException("current BigDatasourceApiResponseWrapType is page mode, pageableAdapterConfig#obtainResponsePageInfo method should be set!");
 				}
 				// 这里应该提取分页结果数据
-				return PageResponse.of((Collection)resultData,pageResponse.getTotalCount(), pageResponse.getPageNo(), pageResponse.getPageSize());
+				return pageResponse;
 			}
 			if (bigDatasourceApi.responseWrapType() == BigDatasourceApiResponseWrapType.raw) {
 				if (resultData instanceof RawResponse) {

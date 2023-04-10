@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.api.config;
 
 import com.particle.global.big.datasource.bigdatasource.api.config.AbstractBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigRequestMethod;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigRequestUrlRenderType;
@@ -67,7 +68,7 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 			Object evalResult = GroovyTool.compileAndEval(requestUrlTemplate,bindings,true);
 			boolean b = evalResult instanceof String;
 			if (!b) {
-				throw new RuntimeException("renderRequestUrl use groovy script must return a String value");
+				throw new BigDatasourceException("renderRequestUrl use groovy script must return a String value");
 			}
 
 			return evalResult.toString();
@@ -84,6 +85,6 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 			return requestUrlTemplate;
 		}
 
-		throw new RuntimeException("not support renderRequestUrl for type " + requestUrlRenderType.name());
+		throw new BigDatasourceException("not support renderRequestUrl for type " + requestUrlRenderType.name());
 	}
 }

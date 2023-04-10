@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config;
 
 import com.particle.global.big.datasource.bigdatasource.api.config.AbstractBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigSqlTemplateType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.service.IJdbcService;
@@ -91,7 +92,7 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 			return RenderResult.createByStrTemplateResult(sqlTemplate);
 		}
 
-		throw new RuntimeException("not support render for type " + sqlTemplateType.name());
+		throw new BigDatasourceException("not support render for type " + sqlTemplateType.name());
 	}
 
 	/**
