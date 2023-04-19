@@ -1,22 +1,30 @@
 package com.particle.global.mybatis.plus.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
+import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.mybatis.plus.crud.MetricsAndSlowSqlMybatisInterceptor;
+import com.particle.global.mybatis.plus.datapermission.CustomMultiDataPermissionHandler;
+import com.particle.global.mybatis.plus.datapermission.DefaultTenantMultiDataPermissionHandler;
+import com.particle.global.mybatis.plus.datapermission.TenantMultiDataPermissionHandler;
 import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,18 +39,20 @@ import java.util.Optional;
  */
 @Data
 @Configuration
+@ConfigurationProperties(prefix = "particle.mybatis-plus")
 public class GlobalMybatisPlusConfig {
+
+	public static final int INTERCEPTOR_ORDER_START = 1;
 
 	/**
 	 * 启动多租户，支持，默认不启动
 	 */
-	@Value("${particle.mybatis-plus.tenant.enable:false}")
-	private Boolean tenantEnable;
+	private Boolean tenantEnable = true;
 	/**
 	 * 多租户忽略的表
 	 */
-	@Value("${particle.mybatis-plus.tenant.ignore-tables:#{null}}")
-	private List<String> ignoreTables;
+	private List<String> tenantIgnoreTables;
+
 	/**
 	 * 自定义一个包装类，占位，用来判定 {@link DataPermissionService} 类是否存在来动态启动是否获取数据权限
 	 * @return
@@ -52,34 +62,40 @@ public class GlobalMybatisPlusConfig {
 	DataPermissionServiceWrapper dataPermissionServiceWrapper (){
 		return new DataPermissionServiceWrapper();
 	}
-
-	/**
-	 * mybatisplus拦截器
-	 * @return
-	 */
-	@Bean
-	public MybatisPlusInterceptor mybatisPlusInterceptor() {
-		MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
-		if (tenantEnable) {
-			mybatisPlusInterceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler()));
-		}
-
-		// 数据库乐观锁插件
-		mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-		// 分布插件
-		mybatisPlusInterceptor.addInnerInterceptor( new PaginationInnerInterceptor());
-
-		return mybatisPlusInterceptor;
-	}
 	/**
 	 * 监控通知 mybatis 拦截器
 	 * 不依赖于mybatis plus
 	 * @return
 	 */
+	@Order(INTERCEPTOR_ORDER_START - 5)
 	@Bean
-	public MetricsAndSlowSqlMybatisInterceptor MetricsAndSlowSqlMybatisPlusInterceptor(){
+	public MetricsAndSlowSqlMybatisInterceptor metricsAndSlowSqlMybatisPlusInterceptor(){
 		return new MetricsAndSlowSqlMybatisInterceptor();
 	}
+	/**
+	 * mybatisplus拦截器
+	 * @return
+	 */
+	@Order(INTERCEPTOR_ORDER_START)
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+		if (tenantEnable) {
+			TenantTool.tenantEnable();
+			mybatisPlusInterceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler()));
+		}
+		// 数据权限插件
+		mybatisPlusInterceptor.addInnerInterceptor( new DataPermissionInterceptor(multiDataPermissionHandler()));
+
+		// 分页插件
+		mybatisPlusInterceptor.addInnerInterceptor( new PaginationInnerInterceptor());
+
+		// 数据库乐观锁插件
+		mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
+		return mybatisPlusInterceptor;
+	}
+
 	/**
 	 * 租户处理
 	 * @return
@@ -87,8 +103,27 @@ public class GlobalMybatisPlusConfig {
 	@Bean
 	public CustomTenantLineHandler tenantLineHandler(){
 		CustomTenantLineHandler customTenantLineHandler = new CustomTenantLineHandler();
-		customTenantLineHandler.setIgnoreTables(ignoreTables);
+		customTenantLineHandler.setIgnoreTables(tenantIgnoreTables);
 		return customTenantLineHandler;
+	}
+	/**
+	 * 数据权限处理
+	 * @return
+	 */
+	@Bean
+	public CustomMultiDataPermissionHandler multiDataPermissionHandler(){
+		TenantLineHandler tenantLineHandler = null;
+		if (tenantEnable) {
+			tenantLineHandler = tenantLineHandler();
+		}
+		CustomMultiDataPermissionHandler multiDataPermissionHandler = new CustomMultiDataPermissionHandler(tenantLineHandler);
+		return multiDataPermissionHandler;
+	}
+
+	@Bean
+	@ConfigurationProperties(prefix = "particle.mybatis-plus.tmdp")
+	public TenantMultiDataPermissionHandler tenantMultiDataPermissionHandler() {
+		return new DefaultTenantMultiDataPermissionHandler();
 	}
 	/**
 	 * 自定义 mybatisplus 填充处理

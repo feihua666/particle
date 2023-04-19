@@ -152,7 +152,16 @@ public class TransHelper {
          * @param transMeta 翻译元数据，根据各个翻译注解汇总而来
          */
         public void addTransMeta(TransMeta transMeta) {
+
             if (transMeta.getByFieldValue() != null) {
+                if (transMeta.isNotTransWhenExist()) {
+                    Object fieldValue = ReflectUtil.getFieldValue(transMeta.getItem(), transMeta.getForFieldName());
+                    if (fieldValue != null) {
+                        return;
+                    }
+                }
+
+
                 HashSet<Object> byFieldValues = new HashSet<>();
                 // 对isGroup支持
                 if (transMeta.isGroup()) {
@@ -309,6 +318,10 @@ public class TransHelper {
          */
         boolean batchOnly;
 
+        /**
+         * 当值存在时不翻译
+         */
+        boolean notTransWhenExist;
     }
 
     /**
@@ -349,6 +362,7 @@ public class TransHelper {
         transMeta.setMapJoinSeparator(transItem.mapJoinSeparator());
         transMeta.setGroup(transItem.isGroup());
         transMeta.setBatchOnly(transItem.batchOnly());
+        transMeta.setNotTransWhenExist(transItem.notTransWhenExist());
         transMeta.setItem(body);
         Object fieldValue = ReflectUtil.getFieldValue(body, transItem.byFieldName());
         transMeta.setByFieldValue(fieldValue);
@@ -386,6 +400,7 @@ public class TransHelper {
         transMeta.setMapJoinSeparator(transBy.mapJoinSeparator());
         transMeta.setGroup(transBy.isGroup());
         transMeta.setBatchOnly(transBy.batchOnly());
+        transMeta.setNotTransWhenExist(transBy.notTransWhenExist());
         transMeta.setItem(body);
         Object fieldValue = ReflectUtil.getFieldValue(body, transBy.byFieldName());
         transMeta.setByFieldValue(fieldValue);
@@ -422,6 +437,7 @@ public class TransHelper {
         transMeta.setMapJoinSeparator(transFor.mapJoinSeparator());
         transMeta.setGroup(transFor.isGroup());
         transMeta.setBatchOnly(transFor.batchOnly());
+        transMeta.setNotTransWhenExist(transFor.notTransWhenExist());
         transMeta.setItem(body);
         Object fieldValue = ReflectUtil.getFieldValue(body, byFieldName);
         transMeta.setByFieldValue(fieldValue);
@@ -440,6 +456,25 @@ public class TransHelper {
      * @param c
      */
     private void transCollection(Collection c) {
+        int transTimesCount = 1;
+        for (Object item : c) {
+            TransTimes transTimes = getAnnotation(item.getClass(), TransTimes.class);
+            if (transTimes != null) {
+                if (transTimesCount < transTimes.times()) {
+                    transTimesCount = transTimes.times();
+                }
+            }
+        }
+        for (int i = 0; i < transTimesCount; i++) {
+            doTransCollection(c);
+        }
+    }
+
+    /**
+     * 执行翻译
+     * @param c
+     */
+    private void doTransCollection(Collection c) {
         TransContext transContext = new TransContext();
         c.stream().forEach(item ->{
             // 填充翻译元数据，到上下文中
@@ -487,7 +522,6 @@ public class TransHelper {
         c.stream().forEach(item -> transFieldSupport(item));
 
     }
-
     /**
      * {@link TransField} 支持
      * @param body
@@ -651,8 +685,7 @@ public class TransHelper {
         // 这里不作任何判断，请谨慎使用
         if (!StrUtil.isEmpty(transMeta.getMapValueField())) {
             if(transValue instanceof Collection){
-                transValue = ((Collection) transValue).stream().map(obj -> getObjValue(obj,transMeta.getMapValueField())).collect(Collectors.toList());
-
+                transValue = ((Collection) transValue).stream().map(obj -> getObjValue(obj,transMeta.getMapValueField())).filter(Objects::nonNull).collect(Collectors.toList());
                 if (transMeta.isJoin()) {
                     transValue = ((Collection) transValue).stream().collect(Collectors.joining(transMeta.getMapJoinSeparator()));
                 }
@@ -682,8 +715,15 @@ public class TransHelper {
      * @param transResult
      */
     private void setFieldValue(TransMeta transMeta, TransResult transResult) {
-
-        ReflectUtil.setFieldValue(transMeta.getItem(),transMeta.getForFieldName(), getTransFormatValue(transMeta,transResult));
+        Object transValue = getTransFormatValue(transMeta, transResult);
+        Object fieldValue = transValue;
+        // 这里假设集合中的类型都是一致的，理论上应该也是一致的
+        Class forFieldNameType = transMeta.getForFieldNameType();
+        if (forFieldNameType == null) {
+            Field field = ReflectUtil.getField(transMeta.getItem().getClass(), transMeta.getForFieldName());
+            forFieldNameType = field.getType();
+        }
+        ReflectUtil.setFieldValue(transMeta.getItem(),transMeta.getForFieldName(),fieldValue);
     }
     /**
      * 设置翻译值

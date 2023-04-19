@@ -134,6 +134,7 @@ public class LowcodeModelItem extends AggreateRoot {
 
             boolean isRequired = getIsRequired();
             boolean isTransDictId = false;
+            boolean isUse = !ignorePropertyNames.contains(getPropertyName());
             // 默认查询不必填
             if(scope == LowcodeModelItemDesignJsonScope.QUERY_LIST || scope == LowcodeModelItemDesignJsonScope.QUERY_PAGE){
                 isRequired = false;
@@ -142,8 +143,13 @@ public class LowcodeModelItem extends AggreateRoot {
             if(scope == LowcodeModelItemDesignJsonScope.VO && getColumnName().endsWith("_dict_id")){
                 isTransDictId = true;
             }
+            if(scope == LowcodeModelItemDesignJsonScope.DOMAIN || scope == LowcodeModelItemDesignJsonScope.CREATE || scope == LowcodeModelItemDesignJsonScope.UPDATE){
+                if ("parentId".equals(getPropertyName())) {
+                    isUse = true;
+                }
+            }
             LowcodeModelItem.DesignJsonItem designJsonItem = LowcodeModelItem.DesignJsonItem.create(
-                    !ignorePropertyNames.contains(getPropertyName()),
+                    isUse,
                     isRequired,
                     false,
                     isTransDictId

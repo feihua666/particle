@@ -1,4 +1,5 @@
-import {page as funcPageApi} from "../api/admin/funcAdminApi";
+import {list as funcListApi, page as funcPageApi} from "../api/admin/funcAdminApi";
+import {list as funcGroupListApi} from "../api/admin/funcGroupAdminApi";
 
 export const remoteSelectFuncProps = {
     // 加载数据初始化参数,路由传参
@@ -13,7 +14,7 @@ export const remoteSelectFuncProps = {
  * 属性中必须有 funcId 和 funcName 两个属性
  * @param props
  */
-export const remoteSelectFuncCompItem = ({props,required})=>{
+export const useRemoteSelectFuncCompItem = ({props,required})=>{
   return   {
         field: {
             name: 'funcId',
@@ -53,6 +54,44 @@ export const remoteSelectFuncCompItem = ({props,required})=>{
                 }// r
 
                 return r
+            }
+        }
+    }
+}
+
+export const useCascaderFuncCompItem = ({fieldName= 'parentId',required=false,label= '功能菜单',valueChange = null})=>{
+    return  {
+        field: {
+            name: fieldName,
+            valueChange: valueChange
+        },
+        element: {
+            comp: 'PtCascader',
+            formItemProps: {
+                label: label,
+                required: required
+            },
+            compProps: {
+                // 加载数据
+                dataMethod: () => { return funcListApi({})},
+                dataMethodResultHandleConvertToTree: true,
+            }
+        }
+    }
+}
+
+export const useSelectFuncGroupCompItem = ({})=>{
+    return     {
+        field: {
+            name: 'funcGroupId'
+        },
+        element: {
+            comp: 'PtSelect',
+            formItemProps: {
+                label: '功能分组'
+            },
+            compProps: {
+                dataMethod: funcGroupListApi
             }
         }
     }

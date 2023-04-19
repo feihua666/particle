@@ -14,7 +14,11 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   lowcodeSegmentGenId: {
     type: String
-  }
+  },
+  // 引用生成id，用来加载引用的渲染数据
+  refrenceSegmentGenId:{
+    type: String
+  },
 })
 
 // 表单项

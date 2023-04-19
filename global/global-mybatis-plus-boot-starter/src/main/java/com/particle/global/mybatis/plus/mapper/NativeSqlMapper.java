@@ -17,6 +17,7 @@ import java.util.Map;
  * @author yangwei
  * @since 2021-01-23 18:27
  */
+@Mapper
 public interface NativeSqlMapper {
 
     public static final String paramSQL = "paramSQL";

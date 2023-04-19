@@ -44,10 +44,10 @@
         <!-- mybatis-plus-boot-starter -->
         <!-- 注意在升级时，因为自定义了部分逻辑，需要同步修改是否兼容 参见：global-mybatis-plus-boot-starter -->
         <!-- 注意在升级时详情查看 com.baomidou.mybatisplus.core.conditions.segments.README.md -->
-        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.5.3</mybatis-plus-boot-starter.version>
 
         <!-- 动态多数据源，见 global-datasource-boot-starter 引入提供统一依赖 -->
-        <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
+        <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
         <!-- 汉字转拼音 -->
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <!-- 主要用于图片参数，当前主要是苹果手机图片旋转问题 -->

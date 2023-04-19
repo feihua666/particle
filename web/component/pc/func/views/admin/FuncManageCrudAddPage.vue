@@ -293,6 +293,21 @@ const formComps = ref(
       },
       {
         field: {
+          name: 'componentOf'
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '归属组件',
+            required: true,
+          },
+          compProps: {
+            clearable: true,
+          }
+        }
+      },
+      {
+        field: {
           name: 'remark'
         },
         element: {
@@ -349,6 +364,7 @@ const parentInit = () => {
     reactiveData.form.parentId = data.id
     reactiveData.form.codePrefix = data.code + '_'
     reactiveData.form.namePrefix = data.name
+    reactiveData.form.componentOf = data.componentOf
   })
 }
 

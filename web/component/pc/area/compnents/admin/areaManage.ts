@@ -1,5 +1,6 @@
 import {list as areaListApi} from "../../api/admin/areaAdminApi";
 import {treeQueryComps} from "../../../treeQueryComps";
+import {useCascaderAreaCompItem} from "../areaCompItem";
 
 export const pageFormItems = [
     {
@@ -32,23 +33,7 @@ export const pageFormItems = [
             }
         }
     },
-    {
-        field: {
-            name: 'parentId'
-        },
-        element: {
-            comp: 'PtCascader',
-            formItemProps: {
-                label: '父级',
-            },
-            compProps: {
-                clearable: true,
-                // 加载数据
-                dataMethod: () => { return areaListApi({})},
-                dataMethodResultHandleConvertToTree: true,
-            }
-        }
-    },
+    useCascaderAreaCompItem({}),
     ...treeQueryComps
 ]
 
@@ -156,23 +141,7 @@ export const userAddPageFormItems = ({locationGeoMapDialogRef})=>{
                 }
             }
         },
-        {
-            field: {
-                name: 'parentId'
-            },
-            element: {
-                comp: 'PtCascader',
-                formItemProps: {
-                    label: '父级',
-                },
-                compProps: {
-                    clearable: true,
-                    // 加载数据
-                    dataMethod: () => { return areaListApi({})},
-                    dataMethodResultHandleConvertToTree: true,
-                }
-            }
-        },
+        useCascaderAreaCompItem({}),
         {
             field: {
                 name: 'seq',

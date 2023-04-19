@@ -27,4 +27,14 @@ public class GrantedRole implements Serializable {
 	private String code;
 	@ApiModelProperty("role name")
 	private String name;
+	@ApiModelProperty(value = "是否超级管理员")
+	private Boolean isSuperadmin;
+
+	public static GrantedRole create(Long id, String code, String name,Boolean isSuperadmin) {
+		return GrantedRole.builder().id(id)
+				.code(code)
+				.name(name)
+				.isSuperadmin(isSuperadmin)
+				.build();
+	}
 }

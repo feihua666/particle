@@ -68,4 +68,20 @@ public class GrantedPermission implements Serializable {
 		return GrantedPermission.builder().source(source.name());
 	}
 
+	public static GrantedPermission create(Long id,
+										   String permission,
+										   String name,
+										   String type,
+										   Source source,
+										   Long sourceId
+										   ) {
+		return GrantedPermission.create(source)
+				.sourceId(sourceId)
+				.id(id)
+				.permission(permission)
+				.name(name)
+				//	类型暂不添加
+				.type(type)
+				.build();
+	}
 }

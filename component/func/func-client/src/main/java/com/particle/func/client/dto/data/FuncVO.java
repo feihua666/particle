@@ -63,6 +63,9 @@ public class FuncVO extends AbstractBaseIdTreeVO {
     @ApiModelProperty("是否展示")
     private Boolean isShow;
 
+    @ApiModelProperty("归属组件")
+    private String componentOf;
+
     @ApiModelProperty("描述")
     private String remark;
 

@@ -41,6 +41,9 @@ public class RoleUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
+    @ApiModelProperty(value = "是否超级管理员")
+    private Boolean isSuperadmin;
+
     @ApiModelProperty("描述")
     private String remark;
 

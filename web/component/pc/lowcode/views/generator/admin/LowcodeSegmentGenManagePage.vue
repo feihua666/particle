@@ -150,7 +150,7 @@ const getTableRowButtons = ({row, column, $index}) => {
         position: 'more',
         permission: 'admin:web:lowcodeSegmentGen:renderGen',
         // 跳转到设计和渲染
-        route: {path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',query: idData}
+        route: {path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',query: idDataWithRefrenceSegmentGenId}
       },
   )
   const modelServiceExist = exist(row.generateTypeDictValue,['backend_model_service','frontend_model_service','backend_and_frontend_model_service'])

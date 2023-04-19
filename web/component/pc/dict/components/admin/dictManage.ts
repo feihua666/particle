@@ -1,5 +1,6 @@
 import {list as dictListApi} from "../../api/admin/dictAdminApi";
 import {treeQueryComps} from "../../../treeQueryComps";
+import {useCascaderDictCompItem} from "../dictCompItem";
 
 export const pageFormItems = [
     {
@@ -32,23 +33,7 @@ export const pageFormItems = [
             }
         }
     },
-    {
-        field: {
-            name: 'parentId'
-        },
-        element: {
-            comp: 'PtCascader',
-            formItemProps: {
-                label: '父级',
-            },
-            compProps: {
-                clearable: true,
-                // 加载数据
-                dataMethod: () => { return dictListApi({})},
-                dataMethodResultHandleConvertToTree: true,
-            }
-        }
-    },
+    useCascaderDictCompItem({}),
     ...treeQueryComps
 ]
 
@@ -281,24 +266,7 @@ export const addPageFormItems = [
             }
         }
     },
-    {
-        field: {
-            name: 'parentId'
-        },
-        element: {
-            comp: 'PtCascader',
-            formItemProps: {
-                label: '父级',
-                required: ({form}) => form.isGroup == false,
-            },
-            compProps: {
-                clearable: true,
-                // 加载数据
-                dataMethod: () => { return dictListApi({})},
-                dataMethodResultHandleConvertToTree: true,
-            }
-        }
-    },
+    useCascaderDictCompItem({required: ({form}) => form.isGroup == false}),
     {
         field: {
             name: 'seq',

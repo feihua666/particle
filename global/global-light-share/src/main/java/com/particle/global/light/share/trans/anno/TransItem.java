@@ -94,4 +94,10 @@ public @interface TransItem {
      * @return
      */
     boolean batchOnly() default false;
+
+    /**
+     * 当值存在时不翻译
+     * @return
+     */
+    boolean notTransWhenExist() default true;
 }

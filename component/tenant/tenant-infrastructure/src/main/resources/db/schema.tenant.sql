@@ -1,0 +1,8 @@
+-- 建表语句sql
+-- import classpath:db/schema.component_tenant.sql
+-- import classpath:db/schema.component_tenant_user.sql
+-- import classpath:db/tenantfunc/schema.component_tenant_func.sql
+-- import classpath:db/tenantfuncapplication/schema.component_tenant_func_application.sql
+-- import classpath:db/createapply/schema.component_tenant_create_apply.sql
+-- import classpath:db/userinvite/schema.component_tenant_user_invite.sql
+-- import classpath:db/userinvite/schema.component_tenant_user_invite_user_record.sql

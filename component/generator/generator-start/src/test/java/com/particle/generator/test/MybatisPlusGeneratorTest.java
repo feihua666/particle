@@ -70,7 +70,7 @@ public class MybatisPlusGeneratorTest {
 							// do 是关键字不能出现在包名中
 							.entity("dos")
 							.controller(adapterType.name().toLowerCase())
-							.pathInfo(Collections.singletonMap(OutputFile.mapperXml, globalOutputDir)); // 设置mapperXml生成路径
+							.pathInfo(Collections.singletonMap(OutputFile.xml, globalOutputDir)); // 设置mapperXml生成路径
 				})
 				.templateConfig(builder -> {
 

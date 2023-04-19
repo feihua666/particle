@@ -56,9 +56,15 @@ public class FuncDO extends BaseTreeDO {
      */
     private Boolean isShow;
     /**
+     * 归属组件，用来标识功能菜单是为哪个组件添加的
+     * 应该填写的内容参见 {@link com.particle.global.projectinfo.component.ComponentProperties#getEnable()} 中的key，两者应该保持一致，不包括 ALLKEY 对应的值
+     */
+    private String componentOf;
+    /**
     * 描述
     */
     private String remark;
+    
     /**
     * 排序,默认按该字段升序排序
     */

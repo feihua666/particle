@@ -1,0 +1,43 @@
+package com.particle.dept.infrastructure.deptuserrel.service.impl;
+
+import cn.hutool.core.util.StrUtil;
+import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
+import com.particle.dept.infrastructure.deptuserrel.mapper.DeptUserRelMapper;
+import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.dto.basic.QueryCommand;
+import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+/**
+ * <p>
+ * 部门用户关系 服务实现类
+ * </p>
+ *
+ * @author yw
+ * @since 2023-04-12 17:28:09
+ */
+@Component
+public class DeptUserRelServiceImpl extends IBaseServiceImpl<DeptUserRelMapper, DeptUserRelDO> implements IDeptUserRelService {
+	private IBaseQueryCommandMapStruct<DeptUserRelDO> queryCommandMapStruct;
+
+	@Override
+	protected DeptUserRelDO queryCommandToDO(QueryCommand queryCommand) {
+		return queryCommandMapStruct.queryCommandToDO(queryCommand);
+	}
+	@Autowired
+	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<DeptUserRelDO> queryCommandMapStruct) {
+		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+
+	@Override
+	protected void preAdd(DeptUserRelDO po) {
+	}
+
+	@Override
+	protected void preUpdate(DeptUserRelDO po) {
+    
+	}
+}

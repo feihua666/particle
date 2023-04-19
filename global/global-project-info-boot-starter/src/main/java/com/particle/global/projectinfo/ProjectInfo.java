@@ -1,6 +1,8 @@
 package com.particle.global.projectinfo;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.projectinfo.component.ComponentProperties;
+import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ public class ProjectInfo implements InitializingBean {
 
 	private GitProperties gitProperties;
 	private BuildProperties buildProperties;
+	private static ComponentProperties componentProperties;
 
 	public ProjectInfo( List<ProjectInfoInitializeListener> projectInfoInitializeListeners){
 		this.projectInfoInitializeListeners = projectInfoInitializeListeners;
@@ -86,6 +89,9 @@ public class ProjectInfo implements InitializingBean {
 		map.put("branch", BRANCH);
 		map.put("builddate", BUILDDATE);
 		map.put("lastcommintmessage", LASTCOMMINTMESSAGE);
+		if (componentProperties != null && componentProperties.getEnable()!=null) {
+			map.put("componentEnable", JsonTool.toJsonStr(componentProperties.getEnable()));
+		}
 
 		return map;
 	}
@@ -149,5 +155,13 @@ public class ProjectInfo implements InitializingBean {
 	@Autowired(required = false)
 	public void setBuildProperties(BuildProperties buildProperties) {
 		this.buildProperties = buildProperties;
+	}
+
+	public ComponentProperties getComponentProperties() {
+		return componentProperties;
+	}
+	@Autowired(required = false)
+	public void setComponentProperties(ComponentProperties componentProperties) {
+		this.componentProperties = componentProperties;
 	}
 }

@@ -55,5 +55,13 @@
             <artifactId>global-light-share</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 在引入租户后，同一个用户可以归属到不同的租户，这拿得用户的查询不得不考虑租户 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tenant-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

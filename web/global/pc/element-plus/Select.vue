@@ -275,8 +275,13 @@ const emitModelData = ({data,value})=>{
   let r = []
   let param = {data,value,result: r,childrenKey: groupProps.value.options,valueKey: propsOptions.value.value}
   pushCurrentModelData(param)
+  let emitData = props.multiple ? r : r[0]
+  // 如果当前数据有值，但没有获取到对应的数据对象
+  if(reactiveData.currentModelValue && !emitData){
+    return
+  }
   // 事件派发
-  emit(emitDataModelEvent.updateModelData,props.multiple ? r : r[0])
+  emit(emitDataModelEvent.updateModelData,emitData)
 }
 </script>
 <template>

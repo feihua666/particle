@@ -66,6 +66,9 @@ public class TableNameTransServiceImpl implements ITransService<Object,Object> {
             for (String key : item.keySet()) {
                 m.put(StringTool.lineToHump(key), item.get(key));
             }
+            if (!m.containsKey(StringTool.lineToHump(selectColumn))) {
+                m.put(StringTool.lineToHump(selectColumn), null);
+            }
             return m;
         }).collect(Collectors.toList());
         List<TransResult<Object, Object>> r = new ArrayList<>(keys.size());
@@ -74,7 +77,12 @@ public class TableNameTransServiceImpl implements ITransService<Object,Object> {
         for (Object key : keys) {
             collect = list.stream().filter(item -> key.equals(item.get(StringTool.lineToHump(whereColumn)))).collect(Collectors.toList());
             if (!CollectionUtil.isEmpty(collect)) {
-                r.add( new TransResult<Object, Object>(collect,key));
+                if (collect.size() == 1) {
+                    // 如果结果是一条数据时，直接转为解析集合为对象
+                    r.add( new TransResult<Object, Object>(collect.iterator().next(),key));
+                }else {
+                    r.add( new TransResult<Object, Object>(collect,key));
+                }
             }
         }
         return r;

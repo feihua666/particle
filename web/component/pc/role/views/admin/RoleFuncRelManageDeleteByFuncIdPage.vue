@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {deleteByFuncId} from "../../api/admin/roleFuncRelAdminApi"
-import {remoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
+import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -21,7 +21,7 @@ const reactiveData = reactive({
 // 表单项
 const formComps = ref(
     [
-      remoteSelectFuncCompItem({props,required: true}),
+      useRemoteSelectFuncCompItem({props,required: true}),
     ]
 )
 

@@ -48,25 +48,17 @@ public class UserFuncRetrieve {
 		Map<Long, List<GrantedPermission>> roleGrantedPermissions = getRoleFuncs(roleDOS);
 
 		for (RoleDO roleDO : roleDOS) {
-			GrantedRole grantedRole = GrantedRole.builder().id(roleDO.getId())
-					.code(roleDO.getCode())
-					.name(roleDO.getName())
-					.build();
+			GrantedRole grantedRole = GrantedRole.create(roleDO.getId(),roleDO.getCode(),roleDO.getName(),roleDO.getIsSuperadmin());
 			List<GrantedPermission> grantedPermissions = roleGrantedPermissions.get(roleDO.getId());
 			if (CollectionUtil.isEmpty(grantedPermissions)) {
 				result.add(
-						UserGrantedAuthority.builder().grantedPermissionRole(
-								grantedRole
-						).build()
+						UserGrantedAuthority.create(grantedRole,null)
 				);
 				continue;
 			}
 			for (GrantedPermission grantedPermission : grantedPermissions) {
 				result.add(
-						UserGrantedAuthority.builder().grantedPermissionRole(
-								grantedRole
-						).grantedPermission(grantedPermission)
-								.build()
+						UserGrantedAuthority.create(grantedRole,grantedPermission)
 				);
 			}
 
@@ -118,27 +110,27 @@ public class UserFuncRetrieve {
 
 
 					grantedPermissions.add(
-							GrantedPermission.create(GrantedPermission.Source.role)
-									.sourceId(roleDO.getId())
-							.id(funcDO.getId())
-							.permission(permission)
-							.name(funcDO.getName())
-							//	类型暂不添加
-							.type(null)
-							.build()
+							GrantedPermission.create(funcDO.getId(),
+									permission,
+									funcDO.getName(),
+									//	类型暂不添加
+									null,
+									GrantedPermission.Source.role,
+									roleDO.getId()
+									)
 					);
 				}// end inner for
 			}else {
 				// 将空的权限也添加上，保证角色的分配功能授权完整
 				grantedPermissions.add(
-						GrantedPermission.create(GrantedPermission.Source.role)
-								.sourceId(roleDO.getId())
-								.id(funcDO.getId())
-								.permission(funcDO.getPermissions())
-								.name(funcDO.getName())
+						GrantedPermission.create(funcDO.getId(),
+								funcDO.getPermissions(),
+								funcDO.getName(),
 								//	类型暂不添加
-								.type(null)
-								.build()
+								null,
+								GrantedPermission.Source.role,
+								roleDO.getId()
+						)
 				);
 			}
 		}

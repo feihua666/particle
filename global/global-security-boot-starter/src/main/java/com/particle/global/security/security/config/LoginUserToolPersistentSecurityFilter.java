@@ -1,12 +1,12 @@
 package com.particle.global.security.security.config;
 
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
+import com.particle.global.security.security.login.*;
+import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.security.tenant.ITenantResolveService;
+import com.particle.global.security.tenant.IUserTenantChangeListener;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.filter.GenericFilterBean;
@@ -38,6 +38,10 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 
 	@Setter
 	private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
+	@Setter
+	private List<IUserTenantChangeListener> iUserTenantChangeListeners;
+	@Setter
+	private ITenantResolveService iTenantResolveService;
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
@@ -68,9 +72,22 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 					securityFilterPersistentLoginUserReadyListener.onLoginUserReady(request);
 				}
 			}
+			if (iUserTenantChangeListeners != null && iTenantResolveService != null) {
+				GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(request);
+				for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
+					iUserTenantChangeListener.onTenantChanged(grantedTenant,null);
+				}
+			}
 			chain.doFilter(request,response);
 		}finally {
+			if (iUserTenantChangeListeners != null) {
+				for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
+					iUserTenantChangeListener.onTenantChanged(null,null);
+				}
+			}
 			LoginUserTool.clear();
+
 		}
 	}
+
 }

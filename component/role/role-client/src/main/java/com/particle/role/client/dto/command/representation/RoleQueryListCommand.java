@@ -32,6 +32,7 @@ public class RoleQueryListCommand extends AbstractBaseTreeQueryCommand {
     @ApiModelProperty("是否禁用")
     private Boolean isDisabled;
 
-    @ApiModelProperty("父级")
-    private Long parentId;
+    @ApiModelProperty(value = "是否超级管理员")
+    private Boolean isSuperadmin;
+
 }

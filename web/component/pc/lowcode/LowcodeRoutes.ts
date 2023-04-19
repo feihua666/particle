@@ -298,7 +298,7 @@ const LowcodeRoutes = [
             {
                 path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',
                 component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenModuleDesignAndGeneratePage.vue'),
-                props: route => ({ lowcodeSegmentGenId: route.query.id }),
+                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId}),
                 meta: {
                     showInDrawer: true,
                     code:'adminLowcodeSegmentGenModuleDesignAndGenerate',

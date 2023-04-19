@@ -1,7 +1,7 @@
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi";
-import {list as funcListApi} from "../../api/admin/funcAdminApi";
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import {treeQueryComps} from "../../../treeQueryComps";
+import {useCascaderFuncCompItem, useSelectFuncGroupCompItem} from "../funcCompItem";
 
 export const pageFormItems = [
     {
@@ -35,37 +35,8 @@ export const pageFormItems = [
         }
     },
 
-    {
-        field: {
-            name: 'funcGroupId'
-        },
-        element: {
-            comp: 'PtSelect',
-            formItemProps: {
-                label: '功能分组'
-            },
-            compProps: {
-                dataMethod: funcGroupListApi
-            }
-        }
-    },
-
-    {
-        field: {
-            name: 'parentId'
-        },
-        element: {
-            comp: 'PtCascader',
-            formItemProps: {
-                label: '父级',
-            },
-            compProps: {
-                // 加载数据
-                dataMethod: () => { return funcListApi({})},
-                dataMethodResultHandleConvertToTree: true,
-            }
-        }
-    },
+    useSelectFuncGroupCompItem({}),
+    useCascaderFuncCompItem({}),
     ...treeQueryComps
 ]
 
@@ -102,22 +73,7 @@ export const useAddPageFormItems = ({formData}) => {
                 }
             }
         },
-        {
-            field: {
-                name: 'funcGroupId',
-                value: ''
-            },
-            element: {
-                comp: 'PtSelect',
-                formItemProps: {
-                    label: '功能分组',
-                    required: true
-                },
-                compProps: {
-                    dataMethod: funcGroupListApi,
-                }
-            }
-        },
+        useSelectFuncGroupCompItem({}),
         {
             field: {
                 name: 'icon',
@@ -190,22 +146,8 @@ export const useAddPageFormItems = ({formData}) => {
                 }
             }
         },
-        {
-            field: {
-                name: 'parentId'
-            },
-            element: {
-                comp: 'PtCascader',
-                formItemProps: {
-                    label: '父级',
-                },
-                compProps: {
-                    // 加载数据
-                    dataMethod: () => { return funcListApi({})},
-                    dataMethodResultHandleConvertToTree: true,
-                }
-            }
-        },
+        useCascaderFuncCompItem({}),
+
         {
             field: {
                 name: 'typeDictId'
@@ -271,6 +213,21 @@ export const useAddPageFormItems = ({formData}) => {
                 comp: 'el-input-number',
                 formItemProps: {
                     label: '排序'
+                },
+                compProps: {
+                    clearable: true,
+                }
+            }
+        },
+        {
+            field: {
+                name: 'componentOf'
+            },
+            element: {
+                comp: 'el-input',
+                formItemProps: {
+                    label: '归属组件',
+                    required: true
                 },
                 compProps: {
                     clearable: true,

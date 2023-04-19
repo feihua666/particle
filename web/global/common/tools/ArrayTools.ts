@@ -28,17 +28,17 @@ export function exist(item: any,array: Array<any>):boolean {
  * @param parentId 从哪个parentId开始，不传入包括所有的
  * @return {*}
  */
-export function listToTree(list:Array<any>, parentId?:number|string):Array<any> {
+export function listToTree(list:Array<any>, parentId?:number|string,idProp = 'id',parentIdProp = 'parentId'):Array<any> {
     let cacheObj = {}
     list.forEach(item => {
-        cacheObj[item.id] = item
+        cacheObj[item[idProp]] = item
     })
     return list.filter(item => {
-        if (item.parentId != parentId && cacheObj[item.parentId]) {
-            if(!cacheObj[item.parentId].children){
-                cacheObj[item.parentId].children = []
+        if (item[parentIdProp] != parentId && cacheObj[item[parentIdProp]]) {
+            if(!cacheObj[item[parentIdProp]].children){
+                cacheObj[item[parentIdProp]].children = []
             }
-            cacheObj[item.parentId].children.push(item)
+            cacheObj[item[parentIdProp]].children.push(item)
             return false
         }
         return true

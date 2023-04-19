@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as roleFuncRelCreateApi} from "../../api/admin/roleFuncRelAdminApi"
-import {remoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
+import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
 import {remoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
 
 // 声明属性
@@ -23,7 +23,7 @@ const reactiveData = reactive({
 // 表单项
 const formComps = ref(
     [
-      remoteSelectFuncCompItem({props,required: true}),
+      useRemoteSelectFuncCompItem({props,required: true}),
       remoteSelectRoleCompItem({props,required: true}),
     ]
 )

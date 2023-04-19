@@ -6,6 +6,8 @@ import RoleRoutes from './role/RoleRoutes'
 import ToolsRoutes from './tools/ToolsRoutes'
 import LowcodeRoutes from './lowcode/LowcodeRoutes'
 import DataQueryRoutes from './dataquery/DataQueryRoutes.ts'
+import TenantRoutes from './tenant/TenantRoutes.ts'
+import DeptRoutes from './dept/DeptRoutes.ts'
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -16,4 +18,6 @@ let ComponentRoutes = []
     .concat(ToolsRoutes)
     .concat(LowcodeRoutes)
     .concat(DataQueryRoutes)
+    .concat(TenantRoutes)
+    .concat(DeptRoutes)
 export default ComponentRoutes

@@ -14,10 +14,5 @@ public class TransConstants {
 	 * 默认的表翻译，如果确认是单机运行，可直接使用
 	 */
 	public static final String defaultTransType = "trans_by_table_name";
-	/**
-	 * 字典翻译
-	 */
-	public static final String TRANS_DICT_BY_ID = "TRANS_DICT_BY_ID";
-	public static final String TRANS_USER_BY_ID = "TRANS_USER_BY_ID";
-	public static final String TRANS_FUNC_BY_ID = "TRANS_FUNC_BY_ID";
+
 }

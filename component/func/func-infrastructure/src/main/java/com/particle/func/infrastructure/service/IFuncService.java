@@ -1,5 +1,6 @@
 package com.particle.func.infrastructure.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
@@ -32,5 +33,19 @@ public interface IFuncService extends IBaseService<FuncDO> {
 		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
 	}
 
+	/**
+	 * exist sql形式
+	 *
+	 * @param queryWrapper
+	 * @param funcApplicationId
+	 */
+	public void addExistSqlIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
 
+	/**
+	 * in 形式
+	 *
+	 * @param queryWrapper
+	 * @param funcApplicationId
+	 */
+	public void addInIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
 }

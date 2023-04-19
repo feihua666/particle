@@ -43,6 +43,9 @@ public class RoleCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
+    @ApiModelProperty(value = "是否超级管理员")
+    private Boolean isSuperadmin = false;
+
     @ApiModelProperty("描述")
     private String remark;
 

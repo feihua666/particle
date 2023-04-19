@@ -23,7 +23,11 @@ import java.util.List;
  */
 @ComponentScan
 @Configuration
-@MapperScan("com.particle.func.infrastructure.mapper")
+@MapperScan({
+		"com.particle.func.infrastructure.mapper",
+		"com.particle.func.infrastructure.application.mapper",
+		"com.particle.func.infrastructure.funcapplicationfuncrel.mapper",
+})
 public class FuncAutoConfiguration {
 
 

@@ -12,6 +12,7 @@ CREATE TABLE `component_func` (
   `type_dict_id` bigint NOT NULL COMMENT '类型,字典id',
   `active_name` varchar(100) DEFAULT NULL COMMENT '激活菜单标识',
   `is_show` tinyint(1) NOT NULL COMMENT '是否显示',
+  `component_of` varchar(100) NOT NULL COMMENT '归属组件，用来标识功能菜单是为哪个组件添加的',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',
   `level` int NOT NULL COMMENT '层级、深度',
@@ -50,5 +51,5 @@ CREATE TABLE `component_func` (
   KEY `parent_id10` (`parent_id10`) USING BTREE,
   KEY `level` (`level`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE,
-  KEY `application_id` (`func_group_id`)
+  KEY `func_group_id` (`func_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单功能表';

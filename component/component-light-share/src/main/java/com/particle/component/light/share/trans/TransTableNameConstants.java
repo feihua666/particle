@@ -13,9 +13,11 @@ public class TransTableNameConstants {
 
 	public static final String component_func_group = "component_func_group";
 	public static final String component_func = "component_func";
+	public static final String component_func_application = "component_func_application";
 	public static final String component_dict = "component_dict";
 	public static final String component_area = "component_area";
 	public static final String component_user = "component_user";
+	public static final String component_user_account = "component_user_account";
 	public static final String component_user_identifier = "component_user_identifier";
 	public static final String component_role = "component_role";
 	public static final String component_lowcode_model = "component_lowcode_model";
@@ -24,4 +26,9 @@ public class TransTableNameConstants {
 	public static final String component_data_query_datasource = "component_data_query_datasource";
 	public static final String component_data_query_provider = "component_data_query_provider";
 	public static final String component_data_query_datasource_api = "component_data_query_datasource_api";
+	public static final String component_dept = "component_dept";
+	public static final String component_dept_tree = "component_dept_tree";
+	public static final String component_dept_tree_name = "component_dept_tree_name";
+	public static final String component_tenant = "component_tenant";
+	public static final String component_tenant_func_application = "component_tenant_func_application";
 }

@@ -61,6 +61,10 @@ public class FuncCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("是否展示")
     private Boolean isShow;
 
+    @NotEmpty(message = "归属组件不能为空")
+    @ApiModelProperty(value = "归属组件",required = true)
+    private String componentOf;
+
     @ApiModelProperty("描述")
     private String remark;
 

@@ -37,6 +37,12 @@ public class FuncQueryListCommand extends AbstractBaseTreeQueryCommand {
     @ApiModelProperty("类型,字典id")
     private Long typeDictId;
 
+    @ApiModelProperty("归属组件")
+    private String componentOf;
+
     @ApiModelProperty("父级id")
     private Long parentId;
+
+    @ApiModelProperty("功能应用id")
+    private Long funcApplicationId;
 }

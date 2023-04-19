@@ -105,6 +105,16 @@
             <artifactId>data-query-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tenant-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dept-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

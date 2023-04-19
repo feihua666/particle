@@ -14,20 +14,28 @@ export const remoteSelectUserProps = {
  * 属性中必须有 userId 和 userNickname 两个属性
  * @param props
  */
-export const useRemoteSelectUserCompItem = ({props,required})=>{
+export const useRemoteSelectUserCompItem = ({props,
+                                                required = false,
+                                                fieldName='userId',
+                                                propUserIdFieldName='userId',
+                                                propUserNicknameFieldName='userNickname',
+                                                label='用户',
+                                                valueChange = null})=>{
+
   return   {
         field: {
-            name: 'userId',
-            value: props.userId
+            name: fieldName,
+            value: props[propUserIdFieldName],
+            valueChange: valueChange
         },
         element: {
             comp: 'PtSelect',
                 formItemProps: {
-                label: '用户',
+                label: label,
                 required: required
             },
             compProps: ()=> {
-                let paramsExist = !!(props.userId && props.userNickname)
+                let paramsExist = !!(props[propUserIdFieldName] && props[propUserNicknameFieldName])
                 let r = {
                     placeholder: '输入用户昵称搜索',
                     disabled: paramsExist,
@@ -35,8 +43,8 @@ export const useRemoteSelectUserCompItem = ({props,required})=>{
                     dataMethod: ()=> {
                         if(paramsExist){
                             return {data: [{
-                                    id: props.userId,
-                                    nickname: props.userNickname,
+                                    id: props[propUserIdFieldName],
+                                    nickname: props[propUserNicknameFieldName],
                                 }]}
                         }
                         return {data: []}

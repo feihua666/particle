@@ -1,10 +1,10 @@
 package com.particle.global.security.security.config;
 
 import com.particle.global.security.security.PasswordEncryptEnum;
-import com.particle.global.security.security.login.DefaultAuthenticationFailureHandler;
-import com.particle.global.security.security.login.DefaultAuthenticationSuccessHandler;
-import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
+import com.particle.global.security.security.login.*;
 import com.particle.global.security.security.logout.DefaultLogoutSuccessHandler;
+import com.particle.global.security.tenant.ITenantResolveService;
+import com.particle.global.security.tenant.IUserTenantChangeListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.session.SessionManagementFilter;
@@ -42,6 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false)
     private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
 
+    @Autowired(required = false)
+    private List<IUserTenantChangeListener> iUserTenantChangeListeners;
+
+    @Autowired(required = false)
+    private ITenantResolveService iTenantResolveService;
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
@@ -79,6 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 自定义当前登录用户工具类
         LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
         loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
+        loginUserToolPersistentSecurityFilter.setIUserTenantChangeListeners(iUserTenantChangeListeners);
+        loginUserToolPersistentSecurityFilter.setITenantResolveService(iTenantResolveService);
         http.addFilterAfter(loginUserToolPersistentSecurityFilter, SessionManagementFilter.class);
 
         if (customWebSecurityConfigureList != null) {

@@ -6,6 +6,8 @@ import RolePlugin from './role/RolePlugin'
 import ToolsPlugin from './tools/ToolsPlugin'
 import LowcodePlugin from './lowcode/LowcodePlugin'
 import DataQueryPlugin from './dataquery/DataQueryPlugin.ts'
+import TenantPlugin from './tenant/TenantPlugin.ts'
+import DeptPlugin from './dept/DeptPlugin.ts'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -16,5 +18,7 @@ export default {
         ToolsPlugin.install(app,options)
         LowcodePlugin.install(app,options)
         DataQueryPlugin.install(app,options)
+        TenantPlugin.install(app,options)
+        DeptPlugin.install(app,options)
     }
 }

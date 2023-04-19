@@ -1,9 +1,10 @@
 package com.particle.component.adapter;
 
-import com.particle.component.adapter.user.login.UserAuthorityServiceImpl;
-import com.particle.component.adapter.user.login.UserFuncRetrieve;
+import com.particle.component.adapter.user.login.*;
 import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.role.infrastructure.service.IRoleService;
+import com.particle.tenant.infrastructure.service.ITenantService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,5 +32,21 @@ public class ComponentAdapterAutoConfiguration {
 	@ConditionalOnBean({ IFuncService.class})
 	public UserFuncRetrieve userFuncRetrieve(){
 		return new UserFuncRetrieve();
+	}
+
+	@Bean
+	@ConditionalOnBean({ ITenantService.class})
+	public UserTenantServiceImpl UserTenantServiceImpl(){
+		return new UserTenantServiceImpl();
+	}
+
+	@Bean
+	public UserLoginTenantChangeListener userLoginTenantChangeListener(){
+		return new UserLoginTenantChangeListener();
+	}
+
+	@Bean
+	public TenantResolveServiceImpl tenantResolveServiceImpl(){
+		return new TenantResolveServiceImpl();
 	}
 }

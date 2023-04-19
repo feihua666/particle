@@ -26,6 +26,9 @@
         <module>low-code</module>
         <module>tools</module>
         <module>data-query</module>
+        <module>tenant</module>
+        <module>dept</module>
+        <module>component-admin</module>
     </modules>
 
     <properties>

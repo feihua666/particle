@@ -1,14 +1,12 @@
 package com.particle.lowcode.infrastructure.generator.gateway.impl;
 
-import com.baomidou.mybatisplus.generator.IDatabaseQuery;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
+import com.baomidou.mybatisplus.generator.query.DefaultQuery;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.gateway.LowcodeDbTableInfoGateway;
@@ -88,6 +86,10 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 
 		// dataSourceConfig
 		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
+		dataSourceConfigBuilder
+				.addConnectionProperty("remarks","true")
+				.addConnectionProperty("useInformationSchema","true")
+				.addConnectionProperty("remarksReporting","true");
 		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
 		try {
 			// strategyConfig
@@ -103,7 +105,7 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 					null,
 					null);
 
-			List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(configBuilder).queryTables();
+			List<TableInfo> tableInfos = new DefaultQuery(configBuilder).queryTables();
 			if (tableInfos.isEmpty()) {
 				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.DATA_NOT_FOUND,tableName + " 表不存在");
 			}
@@ -134,16 +136,18 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 	 * @return
 	 */
 	private LowcodeModelItem createByTableField(TableField field) {
+
+		TableField.MetaInfo metaInfo = field.getMetaInfo();
+
 		LowcodeModelItem lowcodeModelItem = LowcodeModelItem.create();
 		lowcodeModelItem.setColumnName(field.getColumnName());
 		lowcodeModelItem.setPropertyName(field.getPropertyName());
-		lowcodeModelItem.setJdbcType(field.getType());
+		lowcodeModelItem.setJdbcType(metaInfo.getJdbcType().name());
 		lowcodeModelItem.setPropertyType(field.getPropertyType());
 		lowcodeModelItem.setPropertyFullType(Optional.ofNullable(field.getColumnType()).map(i->i.getPkg()).orElse(null));
 		lowcodeModelItem.setCommentFull(field.getComment());
 		lowcodeModelItem.fillCommentSimpleByCommentFull();
 
-		TableField.MetaInfo metaInfo = field.getMetaInfo();
 
 		lowcodeModelItem.setDefaultValue(metaInfo.getDefaultValue());
 		// 是否唯一字段判断，目前mybatis plus generator不支持，如果自己写的话也是可以的，但要兼容多种数据库也很费劲，暂不添加，放到前端设置

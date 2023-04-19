@@ -1,7 +1,30 @@
 particle:
   mybatis-plus:
-      tenant:
-        enable: true
+    tenant-enable: true
+    # 以下配置的表数据属于平台系统，不处理租户字段
+    tenant-ignore-tables:
+      - component_tenant
+      - component_user
+      - component_user_identifier
+      - component_user_identifier_pwd
+      - component_user_login_device
+      - component_user_login_record
+      - global_message_event
+      - global_message_event_consume_record
+      - component_dict
+      - component_func
+      - component_func_group
+      - component_func_application
+      - component_func_application_func_rel
+      - component_area
+    tmdp:
+      # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
+      tenantDataPermmision:
+        component_tenant: component_tenant.id = {tenantId}
+        component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
+        component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
+        component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
+        component_func_application_func_rel: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application_func_rel.func_application_id and tfp.tenant_id = {tenantId} ) and exists(select id from component_tenant_func tf where tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = {tenantId} )
 mybatis-plus:
   # classpath*:/mapper/**/*.xml 为默认值
   mapper-locations: classpath*:/mapper/**/*.xml

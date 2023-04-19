@@ -5,6 +5,7 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.Update;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -29,6 +30,7 @@ import org.springframework.util.Assert;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -932,16 +934,16 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param checkedOtherIds  已选择的被分配的id
      * @param uncheckeOtherIds 未选择的被分配的id
      */
-    default boolean removeAssignRelLazy(Long mainId, List<Long> checkedOtherIds, List<Long> uncheckeOtherIds, SFunction<DO, ?> main, SFunction<DO, ?> other) {
-        return removeAssignRel(mainId, checkedOtherIds, null, true, main, other);
+    default boolean removeAssignRelLazy(Long mainId, List<Long> checkedOtherIds, List<Long> uncheckeOtherIds, SFunction<DO, ?> main, SFunction<DO, ?> other, Consumer<LambdaQueryWrapper<DO>> addtionalCondition) {
+        return removeAssignRel(mainId, checkedOtherIds, null, true, main, other,addtionalCondition);
     }
     /**
      * 关系删除
      *
      * @param mainId           主id，如：如果是角色分配功能，则为角色id
      */
-    default boolean removeAssignRel(Long mainId,  SFunction<DO, ?> main) {
-        return removeAssignRel(mainId, null, null, false, main, null);
+    default boolean removeAssignRel(Long mainId,  SFunction<DO, ?> main, Consumer<LambdaQueryWrapper<DO>> addtionalCondition) {
+        return removeAssignRel(mainId, null, null, false, main, null,addtionalCondition);
     }
     /**
      * 关系处理，删除取消分配的数据
@@ -951,7 +953,7 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param isLazyLoad 标识页面的可选择数据是否为懒加载，如果不是懒加载会清空主id已绑定的所有数据
      * @return  返回真正需要checkedIds数据
      */
-    default List<Long> removeAssignRelWithReturn(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad, SFunction<DO,?> main, SFunction<DO,?> other){
+    default List<Long> removeAssignRelWithReturn(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad, SFunction<DO,?> main, SFunction<DO,?> other, Consumer<LambdaQueryWrapper<DO>> addtionalCondition){
 
         Assert.notNull(mainId, "mainId 不能为空");
         Assert.notNull(main, "main 不能为空");
@@ -961,22 +963,38 @@ public interface IBaseService<DO> extends IService<DO> {
         if (isLazy) {
             if (!isEmpty(uncheckeIds)) {
                 Assert.notNull(other, "other不能为空");
-                remove(Wrappers.<DO>lambdaQuery().eq(main,mainId).in(other,uncheckeIds));
+                LambdaQueryWrapper<DO> lambdaQueryWrapper = Wrappers.<DO>lambdaQuery().eq(main, mainId).in(other, uncheckeIds);
+                if (addtionalCondition != null) {
+                    addtionalCondition.accept(lambdaQueryWrapper);
+                }
+                remove(lambdaQueryWrapper);
             }
         }else {
             // 数据不是懒加载，且没有选中数据，则全部删除关系
             if (isEmpty(checkedIds)) {
-                remove(Wrappers.<DO>lambdaQuery().eq(main,mainId));
+                LambdaQueryWrapper<DO> lambdaQueryWrapper = Wrappers.<DO>lambdaQuery().eq(main, mainId);
+                if (addtionalCondition != null) {
+                    addtionalCondition.accept(lambdaQueryWrapper);
+                }
+                remove(lambdaQueryWrapper);
             }else {
                 Assert.notNull(other, "other不能为空");
-                remove(Wrappers.<DO>lambdaQuery().eq(main,mainId).notIn(other,checkedIds));
+                LambdaQueryWrapper<DO> lambdaQueryWrapper = Wrappers.<DO>lambdaQuery().eq(main, mainId).notIn(other, checkedIds);
+                if (addtionalCondition != null) {
+                    addtionalCondition.accept(lambdaQueryWrapper);
+                }
+                remove(lambdaQueryWrapper);
             }
         }
         // 上面已经把不需要的已经删除完成
         // 查询数据库里还剩下的已选中的
         if (!isEmpty(checkedIds)) {
             Assert.notNull(other, "other不能为空");
-            List<DO> listDb = list(Wrappers.<DO>lambdaQuery().eq(main, mainId).in(other, checkedIds));
+            LambdaQueryWrapper<DO> lambdaQueryWrapper = Wrappers.<DO>lambdaQuery().eq(main, mainId).in(other, checkedIds);
+            if (addtionalCondition != null) {
+                addtionalCondition.accept(lambdaQueryWrapper);
+            }
+            List<DO> listDb = list(lambdaQueryWrapper);
             // 已经选中的，除去数据库里已经存在的，是真正要添加的
             List<Long> newRealCheckedIds = new ArrayList<>();
             List<?> checkedIdsInDb = listDb.stream().map(other).collect(Collectors.toList());
@@ -999,9 +1017,9 @@ public interface IBaseService<DO> extends IService<DO> {
 		 * @param uncheckeIds 未选择的被分配的id
 		 * @param isLazyLoad 标识页面的可选择数据是否为懒加载，如果不是懒加载会清空主id已绑定的所有数据
 		 */
-    default boolean removeAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad, SFunction<DO,?> main, SFunction<DO,?> other){
+    default boolean removeAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad, SFunction<DO,?> main, SFunction<DO,?> other, Consumer<LambdaQueryWrapper<DO>> addtionalCondition){
 
-        List<Long> strings = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other);
+        List<Long> strings = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other,addtionalCondition);
         // 这里直接返回 true 因为上面的返回值不代表没有成功
         return true;
     }
@@ -1019,7 +1037,23 @@ public interface IBaseService<DO> extends IService<DO> {
     default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad,
                                        SFunction<DO,?> main, SFunction<DO,?> other,
                                        Function<RelDTO, ? extends DO> mapper){
-        List<Long> realCheckedIds = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other);
+        List<Long> realCheckedIds = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other,null);
+        return assignRel(mainId, realCheckedIds, mapper);
+    }
+    /**
+     * 分配支持懒加载,并支持额外条件
+     * @param mainId
+     * @param checkedIds
+     * @param uncheckeIds
+     * @param isLazyLoad
+     * @param main
+     * @param other
+     * @param mapper
+     */
+    default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, List<Long> uncheckeIds, Boolean isLazyLoad,
+                                       SFunction<DO,?> main, SFunction<DO,?> other,
+                                       Function<RelDTO, ? extends DO> mapper, Consumer<LambdaQueryWrapper<DO>> addtionalCondition){
+        List<Long> realCheckedIds = removeAssignRelWithReturn(mainId, checkedIds, uncheckeIds, isLazyLoad, main, other,addtionalCondition);
         return assignRel(mainId, realCheckedIds, mapper);
     }
     /**
@@ -1042,10 +1076,19 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param mapper
      */
     default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, SFunction<DO, ?> main, Function<RelDTO, ? extends DO> mapper){
-        removeAssignRel(mainId, main);
+        removeAssignRel(mainId, main,null);
         return assignRel(mainId, checkedIds, mapper);
     }
-
+    /**
+     * 删除并绑定数据，并支持额外条件
+     * @param mainId
+     * @param checkedIds
+     * @param mapper
+     */
+    default boolean removeAndAssignRel(Long mainId, List<Long> checkedIds, SFunction<DO, ?> main, Function<RelDTO, ? extends DO> mapper, Consumer<LambdaQueryWrapper<DO>> addtionalCondition){
+        removeAssignRel(mainId, main,addtionalCondition);
+        return assignRel(mainId, checkedIds, mapper);
+    }
     /******************* 关系表相关 结束 ****************************************/
 
 }

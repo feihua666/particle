@@ -89,8 +89,8 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 
 	@PreAuthorize("hasAuthority('admin:web:func:moveNode')")
 	@ApiOperation("移动菜单功能")
-	@DeleteMapping("/moveNode")
-	public SingleResponse<FuncVO> delete(@RequestBody FuncMoveCommand funcMoveNodeCommand){
+	@PostMapping("/moveNode")
+	public SingleResponse<FuncVO> moveNode(@RequestBody FuncMoveCommand funcMoveNodeCommand){
 		return iFuncApplicationService.moveNode(funcMoveNodeCommand);
 	}
 }

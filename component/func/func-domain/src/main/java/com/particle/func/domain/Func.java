@@ -62,6 +62,10 @@ public class Func extends AggreateRoot {
 	 * 是否展示
 	 */
 	private Boolean isShow;
+	/**
+	 * 归属组件，用来标识功能菜单是为哪个组件添加的
+	 */
+	private String componentOf;
     /**
      * 描述
      */

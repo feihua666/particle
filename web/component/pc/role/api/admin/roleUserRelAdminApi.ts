@@ -34,7 +34,7 @@ export const page = (data: anyObj): AxiosPromise => {
 export interface RoleAssignUser{
     roleId: string,// 角色id
     checkedUserIds?: string[],// 选择的用户id
-    checkedUserIds?: string[],// 未选择的用户id,如果为懒加载请传该值
+    uncheckedUserIds?: string[],// 未选择的用户id,如果为懒加载请传该值
     isLazyLoad: boolean // 页面可选择的数据是否为懒加载
 }
 /**
@@ -61,7 +61,7 @@ export const deleteByRoleId = (data: IdParam): AxiosPromise => {
 export interface UserAssignRole{
     userId: string,// 用户id
     checkedRoleIds?: string[],// 选择的角色id
-    checkedRoleIds?: string[],// 未选择的角色id,如果为懒加载请传该值
+    uncheckedRoleIds?: string[],// 未选择的角色id,如果为懒加载请传该值
     isLazyLoad: boolean // 页面可选择的数据是否为懒加载
 }
 /**

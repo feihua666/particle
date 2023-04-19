@@ -49,4 +49,6 @@ public class AreaCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
+    @ApiModelProperty("父级")
+    private Long parentId;
 }

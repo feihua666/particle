@@ -1,5 +1,6 @@
 package com.particle.role.client.dto.data;
 
+import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
@@ -17,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class RoleVO extends AbstractBaseIdVO {
+public class RoleVO extends AbstractBaseIdTreeVO {
 
 
     @ApiModelProperty("角色编码,模糊查询")
@@ -32,14 +33,14 @@ public class RoleVO extends AbstractBaseIdVO {
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
+    @ApiModelProperty(value = "是否超级管理员")
+    private Boolean isSuperadmin;
+
     @ApiModelProperty("排序,默认按该字段升序排序")
     private Integer seq;
 
     @ApiModelProperty("描述")
     private String remark;
-
-    @ApiModelProperty("父级")
-    private Long parentId;
 
     @ApiModelProperty("父级名称")
     @TransBy(tableName = TransTableNameConstants.component_role, byFieldName = "parentId", mapValueField = "name")

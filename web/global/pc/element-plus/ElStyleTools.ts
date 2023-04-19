@@ -53,7 +53,7 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['分配','配置'],
+        pattern:['分配','配置','授权'],
         icon: 'Tools',
         type:'primary'
     },

@@ -31,7 +31,6 @@ public class FuncRpcController extends AbstractBaseRpcAdapter implements FuncRpc
 	@Autowired
 	private IFuncApplicationService iFuncApplicationService;
 
-
 	@Override
 	public boolean supportBatch(String type) {
 		return FuncTransRpcFeignClient.super.supportBatch(type);
@@ -41,4 +40,5 @@ public class FuncRpcController extends AbstractBaseRpcAdapter implements FuncRpc
 	public List<TransResult<FuncTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return FuncTransRpcFeignClient.super.transBatch(type, keys);
 	}
+
 }

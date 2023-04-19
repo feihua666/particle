@@ -1,0 +1,6 @@
+-- 建表语句sql
+-- import classpath:db/schema.component_dept_tree_name.sql
+-- import classpath:db/schema.component_dept_tree.sql
+-- import classpath:db/schema.component_dept.sql
+-- import classpath:db/depttreeuserrel/schema.component_dept_tree_user_rel.sql
+-- import classpath:db/deptuserrel/schema.component_dept_user_rel.sql

@@ -49,4 +49,7 @@ public class AreaUpdateCommand extends AbstractBaseUpdateCommand {
     private Integer seq;
 
 
+    @ApiModelProperty("父级")
+    private Long parentId;
+
 }

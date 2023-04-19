@@ -52,13 +52,17 @@ const propsOptions = computed(() => {
     <template v-if="!$slots.default && (columnView || (nestColumns && nestColumns.length > 0))" #default="scope">
       <!--  图片  -->
       <template v-if="columnView == 'image'">
-        <PtImage class="pt-table-column-image" :dialogProps="{appendToBody: true}"  previewView="default" style="height: 1.5rem;width: 1.5rem;" :src="scope.row[scope.column.property]" :preview-teleported="true">
-          <template #error>
-            <div class="image-slot">
-              <el-icon><Picture /></el-icon>
-            </div>
-          </template>
-        </PtImage>
+        <template v-if="scope.row[scope.column.property]">
+          <PtImage class="pt-table-column-image" :dialogProps="{appendToBody: true}"  previewView="default" style="height: 1.5rem;width: 1.5rem;" :src="scope.row[scope.column.property]" :preview-teleported="true">
+            <template #error>
+              <div class="image-slot">
+                <el-icon><Picture /></el-icon>
+              </div>
+            </template>
+          </PtImage>
+        </template>
+        <template v-else></template>
+
       </template>
       <!--  图标  -->
       <template  v-else-if="columnView == 'elIcon'">

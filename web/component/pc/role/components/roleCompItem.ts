@@ -1,4 +1,6 @@
 import {page as rolePageApi} from "../api/admin/roleAdminApi";
+import {list as roleListApi} from "../../role/api/admin/roleAdminApi";
+
 
 export const remoteSelectRoleProps = {
     // 加载数据初始化参数,路由传参
@@ -53,6 +55,27 @@ export const remoteSelectRoleCompItem = ({props,required})=>{
                 }// r
 
                 return r
+            }
+        }
+    }
+}
+
+export const useCascaderRoleCompItem = ({fieldName= 'parentId',required=false,label= '父级'})=>{
+    return         {
+        field: {
+            name: fieldName
+        },
+        element: {
+            comp: 'PtCascader',
+            formItemProps: {
+                label: label,
+                required: required
+            },
+            compProps: {
+                clearable: true,
+                // 加载数据
+                dataMethod: () => { return roleListApi({})},
+                dataMethodResultHandleConvertToTree: true,
             }
         }
     }

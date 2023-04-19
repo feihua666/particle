@@ -79,6 +79,10 @@ const reactiveData = reactive({
       width: 50,
     },
     {
+      prop: 'componentOf',
+      label: '归属组件'
+    },
+    {
       prop: 'remark',
       label: '描述'
     }

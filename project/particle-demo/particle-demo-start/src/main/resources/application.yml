@@ -35,6 +35,8 @@ spring:
         - classpath:db/schema.global_message_event_consume_record.sql
         - classpath:db/schema.low-code.sql
         - classpath:db/schema.data-query.sql
+        - classpath:db/schema.tenant.sql
+        - classpath:db/schema.dept.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -48,6 +50,8 @@ spring:
         - classpath:db/data.tools.sql
         - classpath:db/data.data-query.sql
         - classpath:db/data.data-query.demo.sql
+        - classpath:db/data.tenant.sql
+        - classpath:db/data.dept.sql
       mode: ALWAYS # ALWAYS NEVER
 server:
   servlet:
@@ -55,7 +59,9 @@ server:
       # 在接收请求和返回数据，强制 utf-8 编码
       # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
       force: true
+
 particle:
-  trans:
-    table:
-      dict: component_dict
+  project-info:
+    component:
+      # 后端组件全部启用
+      all: true

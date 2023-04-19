@@ -2,6 +2,7 @@ package com.particle.global.mybatis.plus.tenant;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
+import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
@@ -25,7 +26,11 @@ public class CustomTenantLineHandler implements TenantLineHandler {
 
 	@Override
 	public Expression getTenantId() {
-		return new LongValue(TenantTool.getTenantId());
+		Long tenantId = TenantTool.getTenantId();
+		if (tenantId == null) {
+			return null;
+		}
+		return new LongValue(tenantId);
 	}
 
 	@Override

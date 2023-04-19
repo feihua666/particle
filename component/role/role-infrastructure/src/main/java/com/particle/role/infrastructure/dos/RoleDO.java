@@ -37,6 +37,10 @@ public class RoleDO extends BaseTreeDO {
     */
     private String disabledReason;
     /**
+     * 是否超级管理员
+     */
+    private Boolean isSuperadmin;
+    /**
      * 排序,默认按该字段升序排序
      */
     private Integer seq;

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>component</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.0.2-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tenant</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>tenant-adapter</module>
+        <module>tenant-adapter-feign-client</module>
+        <module>tenant-app</module>
+        <module>tenant-boot-starter</module>
+        <module>tenant-client</module>
+        <module>tenant-domain</module>
+        <module>tenant-infrastructure</module>
+        <module>tenant-start</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

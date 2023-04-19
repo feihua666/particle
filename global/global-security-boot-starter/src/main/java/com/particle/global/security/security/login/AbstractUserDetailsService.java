@@ -3,6 +3,10 @@ package com.particle.global.security.security.login;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.light.share.concurrency.ConcurrencyConstants;
+import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.security.tenant.IUserTenantChangeListener;
+import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.security.tenant.UserTenantService;
 import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,12 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
     public static String login_loaded_user_in_threadcontext_key ="loginLoadedUser";
 
     @Autowired(required = false)
+    private UserTenantService userTenantService;
+
+    @Autowired(required = false)
+    private List<IUserTenantChangeListener> iUserTenantChangeListeners;
+
+    @Autowired(required = false)
     private UserAuthorityService userAuthorityService;
 
     @Autowired(required = false)
@@ -44,22 +54,43 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         if (loginUser == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-
+        if (userTenantService != null) {
+            List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId());
+            loginUser.setTenants(grantedTenants);
+            if (CollectionUtil.isNotEmpty(grantedTenants)) {
+                // 默认使用第一个租户
+                loginUser.setCurrentTenant(grantedTenants.iterator().next());
+                if (iUserTenantChangeListeners != null) {
+                    for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
+                        iUserTenantChangeListener.onTenantChanged(loginUser.getCurrentTenant(),null);
+                    }
+                }
+            }
+        }
         // 默认添加用户权限
         loginUser.addAuthority(UserGrantedAuthority.userGrantedAuthority);
 
         CountDownLatch countDownLatch = new CountDownLatch(2);
         if (userAuthorityService != null) {
+            Long tenantId = TenantTool.getTenantId();
             asynSlotTaskExecutor.execute(() -> {
-                List<UserGrantedAuthority> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser.getId());
-                if (CollectionUtil.isNotEmpty(list)) {
-                    long superAdminRoleCount = list.stream().filter(item ->
-                            StrUtil.equals(LoginUser.super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
-                    ).count();
-                    loginUser.setIsSuperAdmin(superAdminRoleCount > 0);
+                try {
+                    TenantTool.setTenantId(tenantId);
+                    List<UserGrantedAuthority> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser.getId());
+                    if (CollectionUtil.isNotEmpty(list)) {
+                        long superAdminRoleCount = list.stream().filter(item ->
+                                // 包括超级管理员编码或角色设置了超级管理员
+                                StrUtil.equals(LoginUser.super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
+                                || Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getIsSuperadmin).orElse(false)
+                        ).count();
+                        loginUser.setIsSuperAdmin(superAdminRoleCount > 0);
+                    }
+                    loginUser.addAuthority(list);
+                } finally {
+                    countDownLatch.countDown();
+                    TenantTool.clear();
+
                 }
-                loginUser.addAuthority(list);
-                countDownLatch.countDown();
             });
 
         }else {
@@ -67,11 +98,17 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         }
 
         if (loginUserExtPutServices != null) {
+            Long tenantId = TenantTool.getTenantId();
             asynSlotTaskExecutor.execute(() -> {
-                for (LoginUserExtPutService loginUserExtPutService : loginUserExtPutServices) {
-                    loginUserExtPutService.addExt(loginUser);
+                try {
+                    TenantTool.setTenantId(tenantId);
+                    for (LoginUserExtPutService loginUserExtPutService : loginUserExtPutServices) {
+                        loginUserExtPutService.addExt(loginUser);
+                    }
+                } finally {
+                    countDownLatch.countDown();
+                    TenantTool.clear();
                 }
-                countDownLatch.countDown();
             });
         }else {
             countDownLatch.countDown();

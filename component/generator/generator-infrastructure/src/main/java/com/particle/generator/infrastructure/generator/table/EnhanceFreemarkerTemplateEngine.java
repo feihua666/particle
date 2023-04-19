@@ -3,6 +3,7 @@ package com.particle.generator.infrastructure.generator.table;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -12,6 +13,7 @@ import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.global.datasource.sqlinit.CustomDataSourceScriptDatabaseInitializer;
 import com.particle.global.tool.str.NetPathTool;
 import com.particle.global.tool.str.PathTool;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.sql.Connection;
@@ -30,8 +32,9 @@ import java.util.Optional;
  * @since 2022-07-07 14:52
  */
 public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
+
 	@Override
-	protected void outputCustomFile(Map<String, String> _customFile, TableInfo tableInfo,  Map<String, Object> objectMap) {
+	protected void outputCustomFile(@NotNull List<CustomFile> customFiles, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
 
 		//String otherPath = getPathInfo(OutputFile.other);
 		TableGenerateConf tableGenerateConf = InjectionConfigLogic.tableGenerateConfFromObjectMap(objectMap);
@@ -144,7 +147,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 				Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> {
 					t.beforeOutputFile(tableInfo, objectMap);
 					// 输出自定义文件
-					outputCustomFile(t.getCustomFile(), tableInfo, objectMap);
+					outputCustomFile(t.getCustomFiles(), tableInfo, objectMap);
 				});
 				// Mp.java
 				outputEntity(tableInfo, objectMap);

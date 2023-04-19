@@ -1,13 +1,17 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.google.common.collect.Lists;
+import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.security.tenant.UserTenantService;
+import com.particle.global.tool.json.JsonTool;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
@@ -18,6 +22,7 @@ import java.util.stream.Collectors;
  * @author yangwei
  * @since 2020/10/13 14:57
  */
+@Slf4j
 @Getter
 @Setter
 @ApiModel("登录用户信息")
@@ -46,7 +51,7 @@ public class LoginUser implements UserDetails {
     @ApiModelProperty(value = "用户性别")
     private String gender ;
 
-    @ApiModelProperty(value = "用户登录帐号")
+    @ApiModelProperty(value = "用户登录帐号,登录标识字符串")
     private String username;
 
     @ApiModelProperty(value = "用户登录密码")
@@ -74,11 +79,27 @@ public class LoginUser implements UserDetails {
 
     /**
      * 角色信息
-     * 通过 {@link LoginUser#userGrantedAuthorities} 获取
+     * 通过 {@link LoginUser#userGrantedAuthorities} 提取获取
      */
     @Setter(AccessLevel.NONE)
+    @ApiModelProperty(value = "角色信息")
     private List<GrantedRole> roles;
 
+    @ApiModelProperty(value = "当前正在使用的角色")
+    private GrantedRole currentRole;
+
+    /**
+     * 租户信息
+     * 通过 {@link UserTenantService} 获取并set设置
+     */
+    @ApiModelProperty(value = "租户信息")
+    private List<GrantedTenant> tenants;
+
+    /**
+     * 当前正在使用的租户
+     */
+    @ApiModelProperty(value = "当前正在使用的租户")
+    private GrantedTenant currentTenant;
     /**
      * 权限码信息
      * 通过 {@link LoginUser#userGrantedAuthorities} 获取
@@ -118,13 +139,52 @@ public class LoginUser implements UserDetails {
         return getIsEnabled();
     }
 
-    public List<GrantedRole> getRoles() {
-        if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
-            return Collections.emptyList();
-        }
-        return userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
+
+    /**
+     * 切换租户
+     * @param tenantId
+     */
+    public void changeTenant(Long tenantId) {
+        GrantedTenant grantedTenant = tenants.stream().filter(item -> item.getId().equals(tenantId)).findFirst().get();
+        currentTenant = grantedTenant;
     }
 
+    /**
+     * 切换角色
+     * @param roleId
+     */
+    public void changeRole(Long roleId) {
+        GrantedRole grantedRole = roles.stream().filter(item -> item.getId().equals(roleId)).findFirst().get();
+        currentRole = grantedRole;
+    }
+    /**
+     * 根据权限初始化角色
+     */
+    private void initRoles(){
+        if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
+            roles =  Collections.emptyList();
+            return;
+        }
+        roles =  userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
+        if (currentRole == null) {
+            if (CollectionUtil.isNotEmpty(roles)) {
+                currentRole = roles.iterator().next();
+            }
+        }else {
+            if (CollectionUtil.isNotEmpty(roles)) {
+                long count = roles.stream().filter(item -> item.getId().equals(currentRole.getId())).count();
+                // 如果可用的角色不包含当前角色，将当前角色重新设置
+                if (count <= 0) {
+                    GrantedRole newCurrentRole = roles.iterator().next();
+                    log.warn("currentRole changed to {} because of user roles not include old role {}", JsonTool.toJsonStr(newCurrentRole),JsonTool.toJsonStr(newCurrentRole));
+                    currentRole = newCurrentRole;
+                }
+            }else {
+                // 用户没有可用角色，将当前角色清空
+                currentRole = null;
+            }
+        }
+    }
     public List<String> getPermissions() {
         if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
             return Collections.emptyList();
@@ -141,10 +201,7 @@ public class LoginUser implements UserDetails {
      * @param authority
      */
     public void addAuthority(UserGrantedAuthority authority) {
-        if (userGrantedAuthorities == null) {
-            userGrantedAuthorities = new ArrayList<>();
-        }
-        userGrantedAuthorities.add(authority);
+        addAuthority(Lists.newArrayList(authority));
     }
 
     /**
@@ -156,6 +213,7 @@ public class LoginUser implements UserDetails {
             this.userGrantedAuthorities = new ArrayList<>();
         }
         this.userGrantedAuthorities.addAll(stringAuthorities);
+        initRoles();
     }
 
     public void addExt(String key, Object obj) {
