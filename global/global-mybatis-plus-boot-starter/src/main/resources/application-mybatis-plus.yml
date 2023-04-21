@@ -5,6 +5,9 @@ particle:
     tenant-ignore-tables:
       - component_tenant
       - component_tenant_create_apply
+      - component_tenant_user
+      - component_tenant_func_application
+      - component_tenant_func
       - component_user
       - component_user_identifier
       - component_user_identifier_pwd
@@ -22,6 +25,9 @@ particle:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
       tenantDataPermmision:
         component_tenant: component_tenant.id = {tenantId}
+        component_tenant_user: component_tenant_user.tenant_id = {tenantId}
+        component_tenant_func_application: component_tenant_func_application.tenant_id = {tenantId}
+        component_tenant_func: component_tenant_func.tenant_id = {tenantId}
         component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
         component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
         component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )

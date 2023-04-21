@@ -57,7 +57,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:DataQueryDatasource:pageQuery'
+  permission: 'admin:web:dataQueryDatasource:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -80,14 +80,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:DataQueryDatasource:update',
+      permission: 'admin:web:dataQueryDatasource:update',
       // 跳转到编辑
       route: {path: '/admin/DataQueryDatasourceManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:DataQueryDatasource:delete',
+      permission: 'admin:web:dataQueryDatasource:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -111,7 +111,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:DataQueryDatasource:create" route="/admin/DataQueryDatasourceManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:dataQueryDatasource:create" route="/admin/DataQueryDatasourceManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

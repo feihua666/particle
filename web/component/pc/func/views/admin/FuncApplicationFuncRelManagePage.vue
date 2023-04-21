@@ -36,7 +36,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:FuncApplicationFuncRel:pageQuery'
+  permission: 'admin:web:funcApplicationFuncRel:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -89,7 +89,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:FuncApplicationFuncRel:delete',
+      permission: 'admin:web:funcApplicationFuncRel:delete',
       methodConfirmText: `删除后功能应用 ${row.funcApplicationName} 将不再拥有功能 ${row.funcName}，确定要删除吗？`,
       // 删除操作
       method(){
@@ -113,7 +113,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:FuncApplicationFuncRel:create" route="/admin/FuncApplicationFuncRelManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:funcApplicationFuncRel:create" route="/admin/FuncApplicationFuncRelManageAdd">添加</PtButton>
 
       <PtButton permission="admin:web:funcApplicationFuncRel:funcAssignFuncApplication" route="/admin/funcApplicationFuncRelManageFuncAssignFuncApplication">功能分配功能应用</PtButton>
       <PtButton permission="admin:web:funcApplicationFuncRel:funcApplicationAssignFunc" route="/admin/funcApplicationFuncRelManageFuncApplicationAssignFunc">功能应用分配功能</PtButton>

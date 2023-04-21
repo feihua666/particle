@@ -44,7 +44,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认审核',
-  permission: 'admin:web:TenantCreateApply:audit',
+  permission: 'admin:web:tenantCreateApply:audit',
 })
 // 提交按钮
 const submitMethod = () => {

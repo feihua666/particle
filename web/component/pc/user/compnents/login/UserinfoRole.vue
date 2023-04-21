@@ -5,7 +5,7 @@ const loginUserStore = useLoginUserStore()
 
 const props = defineProps({
   // 角色数据
-  roless: {
+  roles: {
     type: Array,
     default: ()=>[]
   },

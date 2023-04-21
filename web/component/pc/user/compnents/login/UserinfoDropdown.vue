@@ -98,6 +98,7 @@ const handleUserinfoCommand = (command) => {
 <template>
   <el-dropdown class=" g-flex-align-cross-center" @command="handleUserinfoCommand"
                v-loading="userinfoLoading"
+               v-bind="$attrs"
                element-loading-spinner="el-icon-loading">
     <div class="pt-pointer pt-flex-align-cross-center" style="padding: 0 5px;">
       <el-avatar :src="avatar">

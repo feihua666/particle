@@ -103,7 +103,7 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '查询',
-  permission: 'admin:web:DataQueryDatasourceApi:test',
+  permission: 'admin:web:dataQueryDatasourceApi:test',
   beforeMethod:()=>{
     let param = reactiveData.form.param
     if (inParamType.value) {

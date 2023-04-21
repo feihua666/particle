@@ -62,7 +62,7 @@ public class TenantFuncCommandExecutor extends AbstractBaseExecutor {
 				cf.getCheckedFuncIds(),cf.getUncheckedFuncIds(),
 				cf.getIsLazyLoad(), TenantFuncDO::getTenantId,TenantFuncDO::getFuncId,
 				(relDto)-> convertToTenantFuncDO(relDto),(lambdaQueryWrapper)->{
-					lambdaQueryWrapper.in(TenantFuncDO::getFuncId, finalFuncIdsByFuncApplicationId);
+					lambdaQueryWrapper.in(CollectionUtil.isNotEmpty(finalFuncIdsByFuncApplicationId),TenantFuncDO::getFuncId, finalFuncIdsByFuncApplicationId);
 		});
 		return Response.buildSuccess();
 	}

@@ -60,7 +60,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:DataQueryDataApi:pageQuery'
+  permission: 'admin:web:dataQueryDataApi:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -83,14 +83,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:DataQueryDataApi:update',
+      permission: 'admin:web:dataQueryDataApi:update',
       // 跳转到编辑
       route: {path: '/admin/DataQueryDataApiManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:DataQueryDataApi:delete',
+      permission: 'admin:web:dataQueryDataApi:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -104,7 +104,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '接口测试',
       text: true,
-      permission: 'admin:web:DataQueryDataApi:test',
+      permission: 'admin:web:dataQueryDataApi:test',
       // 跳转到编辑
       route: {path: '/admin/DataQueryDataApiManageTest',query: idData}
     },
@@ -121,7 +121,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:DataQueryDataApi:create" route="/admin/DataQueryDataApiManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:dataQueryDataApi:create" route="/admin/DataQueryDataApiManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

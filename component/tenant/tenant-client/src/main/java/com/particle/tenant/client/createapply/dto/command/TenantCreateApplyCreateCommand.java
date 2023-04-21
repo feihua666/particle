@@ -47,12 +47,10 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "申请用户",required = true)
     private Long applyUserId;
 
-
     /**
-     * 默认为未审核
+     * 默认为未审核，前端填写了也不起作用
      */
-    @NotNull(message = "审核状态 不能为空")
-    @ApiModelProperty(value = "审核状态",required = true,hidden = true)
+    @ApiModelProperty(value = "审核状态",hidden = true)
     private Long auditStatusDictId;
 
 
@@ -70,13 +68,6 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 
     @ApiModelProperty(value = "描述")
     private String remark;
-
-
-
-
-
-
-
 
 
 }

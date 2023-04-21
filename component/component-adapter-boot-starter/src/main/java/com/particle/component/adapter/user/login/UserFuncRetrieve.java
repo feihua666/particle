@@ -87,7 +87,7 @@ public class UserFuncRetrieve {
 		List<FuncDO> funcDOS = iFuncService.list();
 		List<GrantedPermission> grantedPermissions = new ArrayList<>();
 		for (FuncDO funcDO : funcDOS) {
-			grantedPermissions.addAll(createGrantedPermission(funcDO, null, null));
+			grantedPermissions.addAll(createGrantedPermission(funcDO, GrantedPermission.Source.other, null));
 		}
 		Stream<UserGrantedAuthority> userGrantedAuthorityStream = grantedPermissions.stream().map(item -> UserGrantedAuthority.create(null, item));
 

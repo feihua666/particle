@@ -22,7 +22,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认添加',
-  permission: 'admin:web:TenantUserInvite:create',
+  permission: 'admin:web:tenantUserInvite:create',
 })
 // 提交按钮
 const submitMethod = () => {

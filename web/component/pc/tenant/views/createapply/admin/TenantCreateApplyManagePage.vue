@@ -72,7 +72,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:TenantCreateApply:pageQuery'
+  permission: 'admin:web:tenantCreateApply:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -96,14 +96,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:TenantCreateApply:update',
+      permission: 'admin:web:tenantCreateApply:update',
       // 跳转到编辑
       route: {path: '/admin/TenantCreateApplyManageUpdate',query: editIdData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:TenantCreateApply:delete',
+      permission: 'admin:web:tenantCreateApply:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -120,7 +120,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     tableRowButtons.push(    {
       txt: '审核',
       text: true,
-      permission: 'admin:web:TenantCreateApply:audit',
+      permission: 'admin:web:tenantCreateApply:audit',
       // 跳转到审核
       route: {path: '/admin/TenantCreateApplyManageAudit',query: editIdData}
     })
@@ -138,7 +138,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:TenantCreateApply:create" route="/admin/TenantCreateApplyManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:tenantCreateApply:create" route="/admin/TenantCreateApplyManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

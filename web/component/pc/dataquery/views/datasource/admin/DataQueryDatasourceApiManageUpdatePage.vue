@@ -47,7 +47,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认修改',
-  permission: 'admin:web:DataQueryDatasourceApi:update',
+  permission: 'admin:web:dataQueryDatasourceApi:update',
 })
 // 提交按钮
 const submitMethod = () => {

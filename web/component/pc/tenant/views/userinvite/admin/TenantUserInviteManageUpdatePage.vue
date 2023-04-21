@@ -38,7 +38,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认修改',
-  permission: 'admin:web:TenantUserInvite:update',
+  permission: 'admin:web:tenantUserInvite:update',
 })
 // 提交按钮
 const submitMethod = () => {
