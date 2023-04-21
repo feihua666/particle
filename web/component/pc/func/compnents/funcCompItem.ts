@@ -59,7 +59,7 @@ export const useRemoteSelectFuncCompItem = ({props,required})=>{
     }
 }
 
-export const useCascaderFuncCompItem = ({fieldName= 'parentId',required=false,label= '功能菜单',valueChange = null})=>{
+export const useCascaderFuncCompItem = ({fieldName= 'parentId',required=false,label= '父级',valueChange = null})=>{
     return  {
         field: {
             name: fieldName,

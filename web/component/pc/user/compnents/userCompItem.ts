@@ -20,7 +20,7 @@ export const useRemoteSelectUserCompItem = ({props,
                                                 propUserIdFieldName='userId',
                                                 propUserNicknameFieldName='userNickname',
                                                 label='用户',
-                                                valueChange = null})=>{
+                                                valueChange = ()=>{}})=>{
 
   return   {
         field: {

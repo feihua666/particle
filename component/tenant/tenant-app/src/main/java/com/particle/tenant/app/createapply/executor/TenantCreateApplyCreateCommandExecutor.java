@@ -38,6 +38,11 @@ public class TenantCreateApplyCreateCommandExecutor  extends AbstractBaseExecuto
 	 */
 	public SingleResponse<TenantCreateApplyVO> execute(@Valid TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand) {
 		TenantCreateApply tenantCreateApply = createByTenantCreateApplyCreateCommand(tenantCreateApplyCreateCommand);
+		/**
+		 * 默认为未审核
+		 */
+		tenantCreateApply.chanageAuditStatusToUnAudit();
+
 		tenantCreateApply.setAddControl(tenantCreateApplyCreateCommand);
 		boolean save = tenantCreateApplyGateway.save(tenantCreateApply);
 		if (save) {

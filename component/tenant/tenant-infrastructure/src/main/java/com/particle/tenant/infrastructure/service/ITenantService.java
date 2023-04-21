@@ -1,10 +1,15 @@
 package com.particle.tenant.infrastructure.service;
 
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
+
+import java.util.Collection;
 import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.tenant.infrastructure.dos.TenantUserDO;
 
 /**
  * <p>
@@ -47,5 +52,21 @@ public interface ITenantService extends IBaseService<TenantDO> {
     default TenantDO getByTenantDomain(String tenantDomain) {
         Assert.notNull(tenantDomain,"tenantDomain 不能为空");
         return getOne(Wrappers.<TenantDO>lambdaQuery().eq(TenantDO::getTenantDomain, tenantDomain));
+    }
+
+    /**
+     * 获取租户，不考虑租户的mybatis plus 插件限制
+     * @param tenantIds
+     * @return
+     */
+    default List<TenantDO> getByIdsIgnoreTenantLimit(Collection<Long> tenantIds) {
+        Assert.notEmpty(tenantIds,"tenantIds 不能为空");
+        try {
+            // 设置忽略租户插件
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
+            return listByIds(tenantIds);
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
     }
 }

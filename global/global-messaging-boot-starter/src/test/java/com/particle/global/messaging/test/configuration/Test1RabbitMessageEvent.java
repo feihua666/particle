@@ -14,17 +14,12 @@ import lombok.Data;
 @Data
 public class Test1RabbitMessageEvent extends AbstractMessageEvent<String> {
 
-	public Test1RabbitMessageEvent() {
-		super(null);
-	}
-
-	public Test1RabbitMessageEvent(String mq) {
-		super(mq);
+	public Test1RabbitMessageEvent(String identifier, String data, String mq) {
+		super(identifier, data, mq);
 	}
 
 	public static Test1RabbitMessageEvent create(String mq, String msgData) {
-		Test1RabbitMessageEvent test1RabbitMessageEvent = new Test1RabbitMessageEvent(mq);
-		test1RabbitMessageEvent.setData(msgData);
+		Test1RabbitMessageEvent test1RabbitMessageEvent = new Test1RabbitMessageEvent("Test1RabbitMessageEvent",msgData, mq);
 		return test1RabbitMessageEvent;
 	}
 }

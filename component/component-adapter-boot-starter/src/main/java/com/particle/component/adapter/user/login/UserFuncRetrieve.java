@@ -8,6 +8,7 @@ import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.light.share.concurrency.ConcurrencyConstants;
 import com.particle.global.security.security.login.GrantedPermission;
 import com.particle.global.security.security.login.GrantedRole;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.UserGrantedAuthority;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
@@ -19,6 +20,7 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -44,6 +46,8 @@ public class UserFuncRetrieve {
 	 * @return
 	 */
 	List<UserGrantedAuthority> retrieveRoleUserGrantedAuthorityByRoles(List<RoleDO> roleDOS) {
+
+
 		List<UserGrantedAuthority> result = new ArrayList<>();
 		Map<Long, List<GrantedPermission>> roleGrantedPermissions = getRoleFuncs(roleDOS);
 
@@ -63,10 +67,33 @@ public class UserFuncRetrieve {
 			}
 
 		}
+
+
+		boolean isTenantSuperAdmin = roleDOS.stream().anyMatch(r -> LoginUser.tenant_super_admin_role.equals(r.getCode()));
+		// 如果是租户管理员，直接获取全部
+		if (isTenantSuperAdmin) {
+			result.addAll(retrieveGrantedAuthority());
+		}
 		return result;
 
 	}
 
+	/**
+	 * 直接获取所有的功能授权，不考虑角色
+	 * 添加该方法主要是支持在多租户场景下，租户超级管理员角色无需分配功能即可拥有所有功能
+	 * @return
+	 */
+	public List<UserGrantedAuthority> retrieveGrantedAuthority() {
+		List<FuncDO> funcDOS = iFuncService.list();
+		List<GrantedPermission> grantedPermissions = new ArrayList<>();
+		for (FuncDO funcDO : funcDOS) {
+			grantedPermissions.addAll(createGrantedPermission(funcDO, null, null));
+		}
+		Stream<UserGrantedAuthority> userGrantedAuthorityStream = grantedPermissions.stream().map(item -> UserGrantedAuthority.create(null, item));
+
+		return userGrantedAuthorityStream.collect(Collectors.toList());
+
+	}
 
 	/**
 	 * 每一个角色下的权限
@@ -104,37 +131,52 @@ public class UserFuncRetrieve {
 				grantedPermissions = new ArrayList<>();
 				result.put(roleDO.getId(), grantedPermissions);
 			}
-			if (StrUtil.isNotEmpty(funcDO.getPermissions())) {
-				// 将权限以逗号分隔处理，建议在添加权限时不到添加逗号，在 controller中手动指定，更明确
-				for (String permission : funcDO.getPermissions().split(",")) {
 
-
-					grantedPermissions.add(
-							GrantedPermission.create(funcDO.getId(),
-									permission,
-									funcDO.getName(),
-									//	类型暂不添加
-									null,
-									GrantedPermission.Source.role,
-									roleDO.getId()
-									)
-					);
-				}// end inner for
-			}else {
-				// 将空的权限也添加上，保证角色的分配功能授权完整
-				grantedPermissions.add(
-						GrantedPermission.create(funcDO.getId(),
-								funcDO.getPermissions(),
-								funcDO.getName(),
-								//	类型暂不添加
-								null,
-								GrantedPermission.Source.role,
-								roleDO.getId()
-						)
-				);
-			}
+			grantedPermissions.addAll(createGrantedPermission(funcDO, GrantedPermission.Source.role, roleDO.getId()));
 		}
 
 		return result;
+	}
+
+
+	/**
+	 * funcDo转授权
+	 * @param funcDO
+	 * @param source
+	 * @param sourceId
+	 * @return
+	 */
+	private List<GrantedPermission> createGrantedPermission(FuncDO funcDO, GrantedPermission.Source source, Long sourceId) {
+		List<GrantedPermission> grantedPermissions = new ArrayList<>();
+		if (StrUtil.isNotEmpty(funcDO.getPermissions())) {
+			// 将权限以逗号分隔处理，建议在添加权限时不到添加逗号，在 controller中手动指定，更明确
+			for (String permission : funcDO.getPermissions().split(",")) {
+
+
+				grantedPermissions.add(
+						GrantedPermission.create(funcDO.getId(),
+								permission,
+								funcDO.getName(),
+								//	类型暂不添加
+								null,
+								source,
+								sourceId
+						)
+				);
+			}// end inner for
+		}else {
+			// 将空的权限也添加上，保证角色的分配功能授权完整
+			grantedPermissions.add(
+					GrantedPermission.create(funcDO.getId(),
+							funcDO.getPermissions(),
+							funcDO.getName(),
+							//	类型暂不添加
+							null,
+							source,
+							sourceId
+					)
+			);
+		}
+		return grantedPermissions;
 	}
 }

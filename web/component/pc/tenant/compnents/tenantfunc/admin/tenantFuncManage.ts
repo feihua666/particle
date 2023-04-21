@@ -3,7 +3,7 @@ import {useCascaderFuncCompItem} from "../../../../func/compnents/funcCompItem";
 import {useSelectTenantCompItem} from "../../tenantCompItem";
 
 export const pageFormItems = [
-  useCascaderFuncCompItem({fieldName: 'funcId'}),
+  useCascaderFuncCompItem({fieldName: 'funcId',label: '功能菜单'}),
       {
         field: {
           name: 'name',
@@ -24,7 +24,7 @@ export const pageFormItems = [
 
 ]
 export const addPageFormItems = [
-  useCascaderFuncCompItem({fieldName: 'funcId',valueChange: ({form,formData})=>{
+  useCascaderFuncCompItem({fieldName: 'funcId',label: '功能菜单',valueChange: ({form,formData})=>{
       nextTick(()=>{
         if(formData.funcId){
           form.name = formData.funcId.name

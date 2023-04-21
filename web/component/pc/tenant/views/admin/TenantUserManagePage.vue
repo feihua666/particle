@@ -31,6 +31,10 @@ const reactiveData = reactive({
       columnView: 'image'
     },
     {
+      prop: 'joinAt',
+      label: '加入时间',
+    },
+    {
       prop: 'isExpired',
       label: '是否过期',
       formatter: (row, column, cellValue, index) => {
@@ -60,6 +64,7 @@ const reactiveData = reactive({
       prop: 'leaveAt',
       label: '离职/退出时间',
     },
+
     {
       prop: 'tenantName',
       label: '租户名称',

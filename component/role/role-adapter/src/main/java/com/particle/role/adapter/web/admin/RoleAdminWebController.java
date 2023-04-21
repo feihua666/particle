@@ -5,6 +5,8 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.role.client.api.IRoleApplicationService;
 import com.particle.role.client.api.representation.IRoleRepresentationApplicationService;
 import com.particle.role.client.dto.command.RoleCreateCommand;
@@ -17,6 +19,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * <p>
  * 角色后台管理pc或平板端前端适配器
@@ -39,7 +43,8 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:role:create')")
 	@ApiOperation("添加角色")
 	@PostMapping("/create")
-	public SingleResponse<RoleVO> create(@RequestBody RoleCreateCommand roleCreateCommand){
+	public SingleResponse<RoleVO> create(@RequestBody RoleCreateCommand roleCreateCommand,@ApiIgnore LoginUser loginUser){
+		superAdminCheck(LoginUser.super_admin_role.equals(roleCreateCommand.getCode()) || roleCreateCommand.getIsSuperadmin(), loginUser);
 		return iRoleApplicationService.create(roleCreateCommand);
 	}
 
@@ -53,7 +58,9 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:role:update')")
 	@ApiOperation("更新角色")
 	@PutMapping("/update")
-	public SingleResponse<RoleVO> update(@RequestBody RoleUpdateCommand roleUpdateCommand){
+	public SingleResponse<RoleVO> update(@RequestBody RoleUpdateCommand roleUpdateCommand,@ApiIgnore LoginUser loginUser){
+
+		superAdminCheck(LoginUser.super_admin_role.equals(roleUpdateCommand.getCode()) || roleUpdateCommand.getIsSuperadmin(), loginUser);
 		return iRoleApplicationService.update(roleUpdateCommand);
 	}
 
@@ -83,6 +90,14 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@GetMapping("/page")
 	public PageResponse<RoleVO> pageQueryList(RolePageQueryCommand rolePageQueryCommand){
 		return iRoleRepresentationApplicationService.pageQuery(rolePageQueryCommand);
+	}
+
+	private void superAdminCheck(boolean isSuperAdmin, LoginUser loginUser) {
+
+		// 只有超级管理员才能添加或修改超级管理员角色
+		if (isSuperAdmin) {
+			Assert.isTrue(loginUser.getIsSuperAdmin(),"只有超级管理员才能添加或修改超级管理员角色");
+		}
 	}
 
 }

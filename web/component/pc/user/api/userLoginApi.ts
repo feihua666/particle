@@ -1,4 +1,6 @@
 import axios, { AxiosPromise} from 'axios'
+import {anyObj} from "../../../../global/common/tools/ObjectTools";
+import {IdParam} from "../../../../common/api/api";
 
 /**
  * 登录
@@ -24,4 +26,20 @@ export const hasLogin = (): AxiosPromise => {
  */
 export const userinfo = (): AxiosPromise => {
     return axios.get('/userinfo')
+}
+
+
+/**
+ * 切换租户
+ * @param data
+ */
+export const changeTenant = (data: IdParam): AxiosPromise => {
+    return axios.post('/changeTenant',data)
+}
+/**
+ * 切换角色
+ * @param data
+ */
+export const changeRole = (data: IdParam): AxiosPromise => {
+    return axios.post('/changeRole',data)
 }

@@ -11,8 +11,8 @@ public interface UserAuthorityService {
 
     /**
      * 获取用户权限信息
-     * @param userId
+     * @param loginUser
      * @return
      */
-    List<UserGrantedAuthority> retrieveUserAuthoritiesByUserId(Long userId);
+    List<UserGrantedAuthority> retrieveUserAuthoritiesByUserId( LoginUser loginUser);
 }

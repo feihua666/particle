@@ -1,7 +1,9 @@
 package com.particle.tenant.adapter.createapply.web.admin;
 
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import com.particle.tenant.client.createapply.api.representation.ITenantCreateApplyRepresentationApplicationService;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
 import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
 import com.particle.common.client.dto.command.IdCommand;
@@ -89,4 +91,13 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 		return iTenantCreateApplyRepresentationApplicationService.pageQuery(tenantCreateApplyPageQueryCommand);
 	}
 
+
+
+	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:audit')")
+	@ApiOperation("审核租户创建申请")
+	@PutMapping("/audit")
+	public SingleResponse<TenantCreateApplyVO> audit(@RequestBody TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand){
+		tenantCreateApplyAuditCommand.setTenantSuperAdminRoleCode(LoginUser.tenant_super_admin_role);
+		return iTenantCreateApplyApplicationService.audit(tenantCreateApplyAuditCommand);
+	}
 }

@@ -4,6 +4,7 @@ import com.particle.tenant.app.createapply.executor.TenantCreateApplyCreateComma
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyDeleteCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyUpdateCommand;
 import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
@@ -49,6 +50,11 @@ public class TenantCreateApplyApplicationServiceImpl extends AbstractBaseApplica
 	@Override
 	public SingleResponse<TenantCreateApplyVO> update(TenantCreateApplyUpdateCommand tenantCreateApplyUpdateCommand) {
 		return tenantCreateApplyUpdateCommandExecutor.execute(tenantCreateApplyUpdateCommand);
+	}
+
+	@Override
+	public SingleResponse<TenantCreateApplyVO> audit(TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand) {
+		return tenantCreateApplyUpdateCommandExecutor.audit(tenantCreateApplyAuditCommand);
 	}
 
 	@Autowired

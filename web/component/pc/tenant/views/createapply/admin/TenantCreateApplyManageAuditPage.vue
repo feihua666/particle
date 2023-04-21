@@ -1,14 +1,15 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="TenantCreateApplyManageAuditPage" lang="ts">
 /**
- * 租户创建申请管理更新页面
+ * 租户创建申请管理审核页面
  */
 import {reactive, ref} from 'vue'
 import {
-  update as TenantCreateApplyUpdateApi,
-  detailForUpdate as detailForUpdateApi,
+  audit as TenantCreateApplyAuditApi,
 } from "../../../api/createapply/admin/TenantCreateApplyAdminApi"
 
-import {useUpdatePageFormItems} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
+import {
+  useAuditPageFormItems,
+} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
 
 
 // 声明属性
@@ -37,25 +38,22 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    useUpdatePageFormItems({props})
+    useAuditPageFormItems({props})
 )
 
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '确认修改',
-  permission: 'admin:web:TenantCreateApply:update',
+  buttonText: '确认审核',
+  permission: 'admin:web:TenantCreateApply:audit',
 })
 // 提交按钮
 const submitMethod = () => {
-  return TenantCreateApplyUpdateApi
+  return TenantCreateApplyAuditApi
 }
-// 初始化加载更新的数据
-const dataMethod = () => {
-  return detailForUpdateApi({id: props.tenantCreateApplyId})
-}
+
 // 成功提示语
 const submitMethodSuccess = () => {
-  return '修改成功，请刷新数据查看'
+  return '审核成功，请刷新数据查看'
 }
 
 </script>
@@ -64,13 +62,13 @@ const submitMethodSuccess = () => {
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :dataMethod="dataMethod"
           :method="submitMethod()"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
+          :layout="1"
           :comps="formComps">
   </PtForm>
 

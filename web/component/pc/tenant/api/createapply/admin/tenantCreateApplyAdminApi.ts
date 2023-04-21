@@ -46,3 +46,10 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(tenantCreateApplyPrefix + '/page',{params: data})
 }
 
+/**
+ * 审核租户创建申请
+ * @param data
+ */
+export const audit = (data: updateParam): AxiosPromise => {
+    return axios.put(tenantCreateApplyPrefix + '/audit',data)
+}

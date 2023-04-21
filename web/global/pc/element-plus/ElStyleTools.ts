@@ -77,6 +77,16 @@ const d = [
         icon: 'DocumentCopy',
         type:'primary'
     },
+    {
+        pattern:['审核','审批'],
+        icon: 'Comment',
+        type:'primary'
+    },
+    {
+        pattern:['切换'],
+        icon: 'Switch',
+        type:'primary'
+    },
 ]
 
 /**

@@ -1,9 +1,15 @@
 package com.particle.role.adapter.roleuserrel.rpc;
 
+import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
 import com.particle.role.client.roleuserrel.api.IRoleUserRelApplicationService;
 import com.particle.role.adapter.feign.client.roleuserrel.rpc.RoleUserRelRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
+import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
+import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
+import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +36,21 @@ public class RoleUserRelRpcController extends AbstractBaseRpcAdapter implements 
 	@Autowired
 	private IRoleUserRelApplicationService iRoleUserRelApplicationService;
 
+	@Autowired
+	private IRoleUserRelService iRoleUserRelService;
 
+	@ApiOperation("添加角色用户关系")
+	@PostMapping("/add")
+	public RoleUserRelVO add(@RequestBody RoleUserRelWithTenantIdCreateCommand roleUserRelCreateCommand){
+		RoleUserRelDO roleUserRelDO = new RoleUserRelDO();
+		roleUserRelDO.setRoleId(roleUserRelCreateCommand.getRoleId());
+		roleUserRelDO.setUserId(roleUserRelCreateCommand.getUserId());
+		roleUserRelDO.setTenantId(roleUserRelCreateCommand.getTenantId());
+
+		RoleUserRelDO add = iRoleUserRelService.add(roleUserRelDO);
+
+		return RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(add);
+	}
 
 
 

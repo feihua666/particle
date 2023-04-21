@@ -3,11 +3,15 @@ package com.particle.tenant.adapter.login;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -24,12 +28,4 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags = "租户功能，登录用户相关")
 public class TenantLoginController {
 
-	@ApiOperation("切换当前登录用户租户")
-	@PreAuthorize("hasAuthority('user')")
-	@PostMapping("/changeTenant")
-	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeTenant(@RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
-		loginUser.changeTenant(idCommand.getId());
-		return SingleResponse.of(loginUser);
-	}
 }

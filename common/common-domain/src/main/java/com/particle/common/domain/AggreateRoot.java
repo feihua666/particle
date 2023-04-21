@@ -36,7 +36,7 @@ public abstract class AggreateRoot extends DTO {
 	 * 发布领域事件
 	 * @param event
 	 */
-	protected final void raiseEvent(DomainEvent event) {
+	public final void raiseEvent(DomainEvent event) {
 		getDomainEvents().add(event);
 	}
 

@@ -3,7 +3,11 @@ package com.particle.tenant.domain.createapply;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.tenant.domain.TenantCreateApplyAuditStatus;
+import com.particle.tenant.domain.gateway.TenantDictGateway;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * <p>
  * 租户创建申请 领域模型
@@ -15,6 +19,8 @@ import lombok.Data;
 @Data
 @Entity
 public class TenantCreateApply extends AggreateRoot {
+
+    private TenantDictGateway tenantDictGateway;
 
     private TenantCreateApplyId id;
 
@@ -73,7 +79,13 @@ public class TenantCreateApply extends AggreateRoot {
     */
     private String remark;
 
-
+    /**
+     * 设置审核状态为待审核
+     */
+    public void chanageAuditStatusToUnAudit(){
+        Long id = tenantDictGateway.getDictIdByGroupCodeAndItemValue(TenantCreateApplyAuditStatus.Group.tenant_create_apply_audit_status.groupCode(), TenantCreateApplyAuditStatus.un_audit.itemValue());
+        this.auditStatusDictId = id;
+    }
 
     /**
      * 创建租户创建申请领域模型对象
@@ -81,5 +93,10 @@ public class TenantCreateApply extends AggreateRoot {
      */
     public static TenantCreateApply create(){
         return DomainFactory.create(TenantCreateApply.class);
+    }
+
+    @Autowired
+    public void setTenantDictGateway(TenantDictGateway tenantDictGateway) {
+        this.tenantDictGateway = tenantDictGateway;
     }
 }

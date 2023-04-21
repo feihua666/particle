@@ -1,14 +1,17 @@
 package com.particle.user.adapter.login;
 
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.config.WebSecurityConfig;
+import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import io.swagger.annotations.*;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +19,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -85,4 +90,29 @@ public class LoginController {
 		return SingleResponse.of(loginUser);
 	}
 
+
+	@Autowired
+	private AbstractUserDetailsService abstractUserDetailsService;
+
+	@ApiOperation("切换当前登录用户租户")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/changeTenant")
+	@ResponseStatus(HttpStatus.OK)
+	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
+
+		loginUser.clearUserGrantedAuthorities();
+		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId());
+
+		return SingleResponse.of(loginUser);
+	}
+
+	@ApiOperation("切换当前登录用户角色")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/changeRole")
+	@ResponseStatus(HttpStatus.OK)
+	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
+
+		loginUser.changeRole(idCommand.getId());
+		return SingleResponse.of(loginUser);
+	}
 }

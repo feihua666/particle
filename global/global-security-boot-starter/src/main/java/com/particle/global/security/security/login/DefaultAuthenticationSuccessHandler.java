@@ -2,8 +2,11 @@ package com.particle.global.security.security.login;
 
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -29,7 +32,9 @@ public class DefaultAuthenticationSuccessHandler extends DefaultAbstractAuthenti
             LoginUserTool.saveToSession((LoginUser) principal,httpServletRequest);
         }
         SingleResponse<Object> singleResponse = SingleResponse.of(principal);
-        out.write(JsonTool.toJsonStr(singleResponse));
+        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
+        String toJsonStrForHttp = JsonTool.toJsonStrForHttp(singleResponse, jackson2HttpMessageConverter.getObjectMapper());
+        out.write(toJsonStrForHttp);
         out.flush();
         IoUtil.close(out);
         // 通知自定义认证结果调用

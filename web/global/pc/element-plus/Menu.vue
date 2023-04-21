@@ -64,7 +64,14 @@ onMounted(() => {
 })
 
 // 方法
+const refreshData = ()=>{
+  doDataMethod({props,reactiveData,emit})
+}
 
+// 暴露方法
+defineExpose({
+  refreshData,
+})
 </script>
 <template>
   <el-menu

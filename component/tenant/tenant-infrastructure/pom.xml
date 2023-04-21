@@ -39,6 +39,20 @@
             <artifactId>func-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 查询字典使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 租户创建申请审核通过添加角色和用户绑定 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>role-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -30,7 +30,7 @@ const tenantCreateApplyAdminRoutes = [
             {
                 path: '/admin/tenantCreateApplyManageUpdate',
                 component: () => import('./TenantCreateApplyManageUpdatePage.vue'),
-                props: route => ({ tenantCreateApplyId: route.query.id }),
+                props: route => ({ tenantCreateApplyId: route.query.id,applyUsserId: route.query.applyUsserId,applyUserNickname: route.query.applyUserNickname }),
                 meta: {
                     showInDrawer: true,
                     code:'adminTenantCreateApplyManageUpdate',
@@ -42,6 +42,24 @@ const tenantCreateApplyAdminRoutes = [
                     formButtonsTeleportProps: {
                         disabled: false,
                         to: '#adminTenantCreateApplyManageUpdate'
+                    }
+                }
+            },
+            {
+                path: '/admin/tenantCreateApplyManageAudit',
+                component: () => import('./TenantCreateApplyManageAuditPage.vue'),
+                props: route => ({ tenantCreateApplyId: route.query.id,applyUsserId: route.query.applyUsserId,applyUserNickname: route.query.applyUserNickname }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminTenantCreateApplyManageAudit',
+                    name: '租户创建申请审核',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminTenantCreateApplyManageAudit'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminTenantCreateApplyManageAudit'
                     }
                 }
             },

@@ -4,9 +4,11 @@ import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,12 +34,16 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         PrintWriter out = httpServletResponse.getWriter();
 
-        Response response = getResponseByException(e);
-        out.write(JsonTool.toJsonStr(response));
+        Response responseResult = getResponseByException(e);
+
+        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
+        String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, jackson2HttpMessageConverter.getObjectMapper());
+
+        out.write(toJsonStrForHttp);
 
         out.flush();
         IoUtil.close(out);
-        super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,response);
+        super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,responseResult);
     }
 
     /**

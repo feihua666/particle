@@ -21,25 +21,32 @@ const reactiveData = reactive({
       label: '租户名称',
     },
     {
+      prop: 'tenantTypeDictName',
+      label: '租户类型',
+    },
+    {
+      prop: 'applyUserNickname',
+      label: '申请用户',
+    },
+    {
+      prop: 'applyUserAvatar',
+      label: '申请用户头像',
+      columnView: 'image'
+    },
+    {
       prop: 'contactUserName',
       label: '联系人姓名',
     },
     {
       prop: 'contactUserEmail',
       label: '联系人邮箱',
+      showOverflowTooltip: true
     },
     {
       prop: 'contactUserPhone',
       label: '联系人电话',
     },
-    {
-      prop: 'tenantTypeDictName',
-      label: '租户类型字典id',
-    },
-    {
-      prop: 'applyUserId',
-      label: '申请用户',
-    },
+
     {
       prop: 'auditStatusDictName',
       label: '审核状态',
@@ -47,14 +54,11 @@ const reactiveData = reactive({
     {
       prop: 'auditStatusComment',
       label: '审核意见',
+      showOverflowTooltip: true
     },
     {
-      prop: 'auditUserId',
-      label: '审核用户id',
-    },
-    {
-      prop: 'appliedTenantId',
-      label: '审核通过后创建的租户id',
+      prop: 'auditUserNickname',
+      label: '审核人',
     },
     {
       prop: 'remark',
@@ -87,13 +91,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+  let editIdData = {id: row.id, applyUserId: row.applyUserId, applyUserNickname: row.applyUserNickname}
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
       permission: 'admin:web:TenantCreateApply:update',
       // 跳转到编辑
-      route: {path: '/admin/TenantCreateApplyManageUpdate',query: idData}
+      route: {path: '/admin/TenantCreateApplyManageUpdate',query: editIdData}
     },
     {
       txt: '删除',
@@ -110,6 +115,17 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     }
   ]
+  // 状态为待审核时添加审核
+  if('un_audit' == row.auditStatusDictValue){
+    tableRowButtons.push(    {
+      txt: '审核',
+      text: true,
+      permission: 'admin:web:TenantCreateApply:audit',
+      // 跳转到审核
+      route: {path: '/admin/TenantCreateApplyManageAudit',query: editIdData}
+    })
+  }
+
   return tableRowButtons
 }
 </script>

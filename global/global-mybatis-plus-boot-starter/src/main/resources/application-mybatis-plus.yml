@@ -4,6 +4,7 @@ particle:
     # 以下配置的表数据属于平台系统，不处理租户字段
     tenant-ignore-tables:
       - component_tenant
+      - component_tenant_create_apply
       - component_user
       - component_user_identifier
       - component_user_identifier_pwd

@@ -3,10 +3,12 @@
  * 当前登录用户相关操作
  * 主要展示头像和昵称且可直接操作退出登录等
  */
-import {computed} from "vue"
+import {computed, ref} from "vue"
 import {logout} from "../../api/userLoginApi"
 import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
 import {useRoute, useRouter} from 'vue-router'
+import PtUserinfoCenter from './UserinfoCenter.vue'
+import UserAccountSetting from './UserAccountSetting.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -47,12 +49,14 @@ const avatar = computed(() => {
     return props.avatar
   }
   let r = ''
-  let loginUser = loginUserStore.avatar
+  let loginUser = loginUserStore.loginUser
   if (loginUser) {
     r = loginUser.avatar
   }
   return r
 })
+const userinfoCenterDialogVisible = ref(false)
+const userAccountSettingDialogVisible = ref(false)
 const handleUserinfoCommand = (command) => {
   if(props.dropdownMethod){
     let dropdownMethodResult = props.dropdownMethod(command)
@@ -62,8 +66,12 @@ const handleUserinfoCommand = (command) => {
   }
 
   switch (command) {
-    case 'userinfo': {
-      router.push('/base/user/userinfo/current')
+    case 'userinfoCenter': {
+      userinfoCenterDialogVisible.value = true
+      break
+    }
+    case 'userinfoAccountSetting': {
+      userAccountSettingDialogVisible.value = true
       break
     }
     case 'updatePwd': {
@@ -100,13 +108,26 @@ const handleUserinfoCommand = (command) => {
 
     <template #dropdown>
       <el-dropdown-menu>
-        <!--<el-dropdown-item command="userinfo">个人信息</el-dropdown-item>
-        <el-dropdown-item  command="updatePwd">修改密码</el-dropdown-item>
+        <el-dropdown-item command="userinfoCenter" :disabled="!loginUserStore.hasLogin">个人中心</el-dropdown-item>
+        <el-dropdown-item command="userinfoAccountSetting" :disabled="!loginUserStore.hasLogin">账号设置</el-dropdown-item>
+        <!-- <el-dropdown-item  command="updatePwd">修改密码</el-dropdown-item>
         <el-dropdown-item command="userinfoEdit">修改信息</el-dropdown-item>-->
         <el-dropdown-item command="logout">退出登陆</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
+
+  <el-dialog v-model="userinfoCenterDialogVisible" title="个人中心" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
+
+    <PtUserinfoCenter></PtUserinfoCenter>
+
+  </el-dialog>
+
+  <el-dialog v-model="userAccountSettingDialogVisible" title="账号设置" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
+
+    <UserAccountSetting></UserAccountSetting>
+
+  </el-dialog>
 </template>
 
 <style scoped>

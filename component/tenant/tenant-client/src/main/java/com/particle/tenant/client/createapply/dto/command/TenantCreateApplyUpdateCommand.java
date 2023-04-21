@@ -20,61 +20,34 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 public class TenantCreateApplyUpdateCommand extends AbstractBaseUpdateCommand {
 
-
-
     @NotEmpty(message = "租户名称 不能为空")
-        @ApiModelProperty(value = "租户名称",required = true)
+    @ApiModelProperty(value = "租户名称",required = true)
     private String name;
-
 
     @ApiModelProperty(value = "联系人姓名")
     private String contactUserName;
 
-
     @ApiModelProperty(value = "联系人邮箱")
     private String contactUserEmail;
-
 
     @ApiModelProperty(value = "联系人电话")
     private String contactUserPhone;
 
-
     @NotNull(message = "租户类型字典id 不能为空")
-        @ApiModelProperty(value = "租户类型字典id",required = true)
+    @ApiModelProperty(value = "租户类型字典id",required = true)
     private Long tenantTypeDictId;
 
-
     @NotNull(message = "申请用户 不能为空")
-        @ApiModelProperty(value = "申请用户",required = true)
+    @ApiModelProperty(value = "申请用户",required = true)
     private Long applyUserId;
-
-
-    @NotNull(message = "审核状态 不能为空")
-        @ApiModelProperty(value = "审核状态",required = true)
-    private Long auditStatusDictId;
-
-
-    @ApiModelProperty(value = "审核意见")
-    private String auditStatusComment;
-
 
     @ApiModelProperty(value = "审核用户id")
     private Long auditUserId;
 
-
     @ApiModelProperty(value = "审核通过后创建的租户id")
     private Long appliedTenantId;
 
-
     @ApiModelProperty(value = "描述")
     private String remark;
-
-
-
-
-
-
-
-
 
 }

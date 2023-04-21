@@ -5,10 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.func.infrastructure.service.IFuncService;
-import com.particle.global.security.security.login.GrantedPermission;
-import com.particle.global.security.security.login.GrantedRole;
-import com.particle.global.security.security.login.UserAuthorityService;
-import com.particle.global.security.security.login.UserGrantedAuthority;
+import com.particle.global.security.security.login.*;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
@@ -32,9 +29,9 @@ public class UserAuthorityServiceImpl implements UserAuthorityService {
     private UserFuncRetrieve userFuncRetrieve;
 
     @Override
-    public List<UserGrantedAuthority> retrieveUserAuthoritiesByUserId(Long userId) {
+    public List<UserGrantedAuthority> retrieveUserAuthoritiesByUserId( LoginUser loginUser) {
         List<UserGrantedAuthority> result = new ArrayList<>();
-        List<UserGrantedAuthority> userRoleGrantedAuthorities = retrieveRoleUserGrantedAuthorityByUserId(userId);
+        List<UserGrantedAuthority> userRoleGrantedAuthorities = retrieveRoleUserGrantedAuthorityByUserId(loginUser);
         result.addAll(userRoleGrantedAuthorities);
 
         return result;
@@ -42,17 +39,19 @@ public class UserAuthorityServiceImpl implements UserAuthorityService {
 
     /**
      * 根据角色获取对应的授权信息
-     * @param userId
+     * @param loginUser
      * @return
      */
-    private  List<UserGrantedAuthority> retrieveRoleUserGrantedAuthorityByUserId(Long userId) {
-        List<RoleDO> roleDOS = iRoleService.getByUserId(userId, false);
+    private  List<UserGrantedAuthority> retrieveRoleUserGrantedAuthorityByUserId( LoginUser loginUser) {
+        List<RoleDO> roleDOS = iRoleService.getByUserId(loginUser.getId(), false);
         if (CollectionUtil.isEmpty(roleDOS)) {
             return Collections.emptyList();
         }
+
         if (userFuncRetrieve == null) {
             return Collections.emptyList();
         }
+
         return userFuncRetrieve.retrieveRoleUserGrantedAuthorityByRoles(roleDOS);
     }
 }

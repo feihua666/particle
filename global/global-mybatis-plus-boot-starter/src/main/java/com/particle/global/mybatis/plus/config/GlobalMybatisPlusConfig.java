@@ -10,11 +10,13 @@ import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.mybatis.plus.crud.MetricsAndSlowSqlMybatisInterceptor;
 import com.particle.global.mybatis.plus.datapermission.CustomMultiDataPermissionHandler;
 import com.particle.global.mybatis.plus.datapermission.DefaultTenantMultiDataPermissionHandler;
+import com.particle.global.mybatis.plus.datapermission.LoginUserSuperAdminResolver;
 import com.particle.global.mybatis.plus.datapermission.TenantMultiDataPermissionHandler;
 import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
@@ -135,7 +137,7 @@ public class GlobalMybatisPlusConfig {
 	}
 
 	/**
-	 * 默认用户id解析，主要用于 MpMetaObjectHandler 填充
+	 * 登录用户id解析，主要用于 MpMetaObjectHandler 填充
 	 * @return
 	 */
 	@Bean
@@ -160,6 +162,36 @@ public class GlobalMybatisPlusConfig {
 			@Override
 			public Long resolve() {
 				return LoginUserIdResolver.DEFAULT_USER_ID;
+			}
+		};
+	}
+
+	/**
+	 * 登录用户是否为超级管理员解析，主要用于 数据权限不限制操作
+	 * @return
+	 */
+	@Bean
+	@ConditionalOnClass(LoginUserTool.class)
+	public LoginUserSuperAdminResolver securityLoginUserSuperAdminResolver(){
+		return new LoginUserSuperAdminResolver(){
+			@Override
+			public boolean resolve() {
+				return Optional.ofNullable(LoginUserTool.getLoginUser()).map(LoginUser::getIsSuperAdmin).orElse(LoginUserSuperAdminResolver.DEFAULT_USER_SUPER_ADMIN);
+			}
+		};
+	}
+
+	/**
+	 * 默认是否为超级管理员解析，主要用于 数据权限不限制操作
+	 * @return
+	 */
+	@Bean
+	@ConditionalOnMissingClass("com.particle.global.security.security.login.LoginUserTool")
+	public LoginUserSuperAdminResolver defaultLoginUserSuperAdminResolver(){
+		return new LoginUserSuperAdminResolver(){
+			@Override
+			public boolean resolve() {
+				return LoginUserSuperAdminResolver.DEFAULT_USER_SUPER_ADMIN;
 			}
 		};
 	}

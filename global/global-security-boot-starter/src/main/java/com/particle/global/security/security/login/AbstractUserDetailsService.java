@@ -54,12 +54,31 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         if (loginUser == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
+        // 加载额外信息
+        loginUserDetailsFill(loginUser,null);
+
+        return loginUser;
+    }
+
+
+    /**
+     * 用户额外详细信息加载
+     * @param loginUser
+     * @param defaultTtenantId 默认切换到的租户id,如果为空默认切换到第一个
+     */
+    public void loginUserDetailsFill(LoginUser loginUser,Long defaultTtenantId) {
         if (userTenantService != null) {
             List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId());
             loginUser.setTenants(grantedTenants);
             if (CollectionUtil.isNotEmpty(grantedTenants)) {
                 // 默认使用第一个租户
-                loginUser.setCurrentTenant(grantedTenants.iterator().next());
+                if (defaultTtenantId != null) {
+                    GrantedTenant first = grantedTenants.stream().filter(item -> defaultTtenantId.equals(item.getId())).findFirst().get();
+                    loginUser.setCurrentTenant(first);
+
+                }else {
+                    loginUser.setCurrentTenant(grantedTenants.iterator().next());
+                }
                 if (iUserTenantChangeListeners != null) {
                     for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
                         iUserTenantChangeListener.onTenantChanged(loginUser.getCurrentTenant(),null);
@@ -76,14 +95,19 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             asynSlotTaskExecutor.execute(() -> {
                 try {
                     TenantTool.setTenantId(tenantId);
-                    List<UserGrantedAuthority> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser.getId());
+                    List<UserGrantedAuthority> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser);
                     if (CollectionUtil.isNotEmpty(list)) {
-                        long superAdminRoleCount = list.stream().filter(item ->
+                        boolean superAdminRole = list.stream().anyMatch(item ->
                                 // 包括超级管理员编码或角色设置了超级管理员
                                 StrUtil.equals(LoginUser.super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
-                                || Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getIsSuperadmin).orElse(false)
-                        ).count();
-                        loginUser.setIsSuperAdmin(superAdminRoleCount > 0);
+                                        || Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getIsSuperadmin).orElse(false)
+                        );
+                        loginUser.setIsSuperAdmin(superAdminRole);
+
+                        boolean tenantsSuperAdminRole = list.stream().anyMatch(item ->
+                                StrUtil.equals(LoginUser.tenant_super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
+                        );
+                        loginUser.setIsTenantSuperAdmin(tenantsSuperAdminRole);
                     }
                     loginUser.addAuthority(list);
                 } finally {
@@ -117,14 +141,13 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             countDownLatch.await();
         } catch (InterruptedException e) {
             String msg = "用户不存在";
-            log.error("用户 username={} 登录被中断，已抛出 {} 异常",username,msg,e);
+            log.error("用户 username={} 登录被中断，已抛出 {} 异常",loginUser.getUsername(),msg,e);
             // 在等待过程中，有可能被中断，比如系统 shutdown 停机
             throw new UsernameNotFoundException(msg);
         }
         // 在线程中放置一个用户，不管用户密码对不对，都可以在后期获取到，主要用来记录用户登录日志
         ThreadContextTool.put(login_loaded_user_in_threadcontext_key,loginUser);
-        return loginUser;
-    }
 
+    }
     public abstract LoginUser doLoadUserByUsername(String username);
 }

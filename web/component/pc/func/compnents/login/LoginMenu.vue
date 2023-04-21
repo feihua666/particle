@@ -4,11 +4,19 @@
  */
 import PtMenu from '../../../../../global/pc/element-plus/Menu.vue'
 import {loginGetList} from "../../api/funcLoginApi";
+import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
+
 import { useRoute } from 'vue-router'
+const loginUserStore = useLoginUserStore()
+import {ref, watch} from "vue";
+const menuRef = ref(null)
 const route = useRoute()
+// 如果切换租户或角色刷新功能菜单
+watch(()=> loginUserStore.loginUser?.currentTenant,()=>{menuRef.value?.refreshData()})
+watch(()=> loginUserStore.loginUser?.currentRole,()=>{menuRef.value?.refreshData()})
 </script>
 <template>
-  <PtMenu :dataMethod="loginGetList"
+  <PtMenu ref="menuRef" :dataMethod="loginGetList"
           :default-active="route.path"
           router
           :props="{type: 'typeDictValue',index: 'url'}"

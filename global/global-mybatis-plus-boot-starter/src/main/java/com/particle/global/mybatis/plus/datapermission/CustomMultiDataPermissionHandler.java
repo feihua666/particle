@@ -24,12 +24,22 @@ public class CustomMultiDataPermissionHandler implements MultiDataPermissionHand
 	private TenantMultiDataPermissionHandler tenantMultiDataPermissionHandler;
 	private NormalMultiDataPermissionHandler normalMultiDataPermissionHandler;
 
+	private LoginUserSuperAdminResolver loginUserSuperAdminResolver;
+
 	public CustomMultiDataPermissionHandler(TenantLineHandler tenantLineHandler){
 		this.tenantLineHandler = tenantLineHandler;
 	}
 
 	@Override
 	public Expression getSqlSegment(Table table, Expression where, String mappedStatementId) {
+		if (loginUserSuperAdminResolver != null) {
+			// 超级管理员不限制
+			if (loginUserSuperAdminResolver.resolve()) {
+				return null;
+			}
+		}
+
+
 		Expression tenantSqlSegment = tenantSqlSegment(table, where, mappedStatementId);
 		Expression normalSqlSegment = normalSqlSegment(table, tenantSqlSegment, mappedStatementId);
 		// 如果没有处理过，直接返回null，否则会拼接两个一样的条件
@@ -74,5 +84,10 @@ public class CustomMultiDataPermissionHandler implements MultiDataPermissionHand
 	@Autowired(required = false)
 	public void setNormalMultiDataPermissionHandler(NormalMultiDataPermissionHandler normalMultiDataPermissionHandler) {
 		this.normalMultiDataPermissionHandler = normalMultiDataPermissionHandler;
+	}
+
+	@Autowired(required = false)
+	public void setLoginUserSuperAdminResolver(LoginUserSuperAdminResolver loginUserSuperAdminResolver) {
+		this.loginUserSuperAdminResolver = loginUserSuperAdminResolver;
 	}
 }

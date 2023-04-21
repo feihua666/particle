@@ -2,6 +2,7 @@ package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Lists;
+import com.particle.global.security.security.voter.SuperAdminRoleVoter;
 import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.UserTenantService;
 import com.particle.global.tool.json.JsonTool;
@@ -29,18 +30,31 @@ import java.util.stream.Collectors;
 public class LoginUser implements UserDetails {
 
     /**
-     * 超级管理员角色
+     * 超级管理员角色编码
      */
     public static String super_admin_role = "superadmin";
-    
+    /**
+     * 租户超级管理员角色编码
+     */
+    public static String tenant_super_admin_role = "tenantsuperadmin";
+
     @ApiModelProperty(value = "用户id")
     private Long id;
 
     /**
-     * 是否超级管理员
+     * 是否超级管理员,超级管理员是系统级别，无需分配功能，即拥有所有功能权限
+     * 参见 {@link SuperAdminRoleVoter} 已硬编码
      */
     @ApiModelProperty(value = "是否超级管理员")
     private Boolean isSuperAdmin = false;
+
+    /**
+     * 是否租户超级管理员,租户超级管理员是租户级别，无需分配功能，即拥有所有租户下功能权限
+     * 这在获取用户的功能时已硬编码
+     * 该字段仅在多租户下有效，如果不是多租户部署，其在某种程序上等同于 {@link LoginUser#isSuperAdmin}
+     */
+    @ApiModelProperty(value = "是否租户超级管理员")
+    private Boolean isTenantSuperAdmin = false;
 
     @ApiModelProperty(value = "用户昵称")
     private String nickname;
@@ -72,7 +86,6 @@ public class LoginUser implements UserDetails {
     /**
      * 前端直接返回了，这里不生成，不显示到前端
      */
-    @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @ApiModelProperty(value = "权限信息")
     private List<UserGrantedAuthority> userGrantedAuthorities;
@@ -142,20 +155,26 @@ public class LoginUser implements UserDetails {
 
     /**
      * 切换租户
+     * todo 该方法暂不可能，因为切换租户并没有这么简单，这涉及租户对应的权限重新加载
      * @param tenantId
      */
     public void changeTenant(Long tenantId) {
-        GrantedTenant grantedTenant = tenants.stream().filter(item -> item.getId().equals(tenantId)).findFirst().get();
-        currentTenant = grantedTenant;
-    }
+        if (CollectionUtil.isNotEmpty(tenants)) {
 
+            GrantedTenant grantedTenant = tenants.stream().filter(item -> item.getId().equals(tenantId)).findFirst().get();
+            currentTenant = grantedTenant;
+        }
+    }
     /**
      * 切换角色
      * @param roleId
      */
     public void changeRole(Long roleId) {
-        GrantedRole grantedRole = roles.stream().filter(item -> item.getId().equals(roleId)).findFirst().get();
-        currentRole = grantedRole;
+        if (CollectionUtil.isNotEmpty(tenants)) {
+
+            GrantedRole grantedRole = roles.stream().filter(item -> item.getId().equals(roleId)).findFirst().get();
+            currentRole = grantedRole;
+        }
     }
     /**
      * 根据权限初始化角色
@@ -214,6 +233,24 @@ public class LoginUser implements UserDetails {
         }
         this.userGrantedAuthorities.addAll(stringAuthorities);
         initRoles();
+    }
+
+    public void setUserGrantedAuthorities(List<UserGrantedAuthority> userGrantedAuthorities) {
+        this.userGrantedAuthorities = userGrantedAuthorities;
+        if (this.userGrantedAuthorities == null) {
+            this.userGrantedAuthorities = new ArrayList<>();
+        }
+        initRoles();
+    }
+
+    /**
+     * 清空权限
+     * 这一般在重新加载权限时使用
+     */
+    public void clearUserGrantedAuthorities(){
+        if (this.userGrantedAuthorities != null) {
+            this.userGrantedAuthorities.clear();
+        }
     }
 
     public void addExt(String key, Object obj) {

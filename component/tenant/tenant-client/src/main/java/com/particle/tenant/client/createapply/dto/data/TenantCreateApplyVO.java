@@ -40,20 +40,36 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
         
     @ApiModelProperty("申请用户")
     private Long applyUserId;
-    
+
+    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "applyUserId",mapValueField = "nickname")
+    @ApiModelProperty("申请用户昵称")
+    private String applyUserNickname;
+
+    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "applyUserId",mapValueField = "avatar")
+    @ApiModelProperty("申请用户头像")
+    private String applyUserAvatar;
+
     @ApiModelProperty("审核状态")
     private Long auditStatusDictId;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "auditStatusDictId",mapValueField = "name")
     @ApiModelProperty("审核状态对应字典名称")
     private String auditStatusDictName;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "auditStatusDictId",mapValueField = "value")
+    @ApiModelProperty("审核状态对应字典值")
+    private String auditStatusDictValue;
         
     @ApiModelProperty("审核意见")
     private String auditStatusComment;
     
     @ApiModelProperty("审核用户id")
     private Long auditUserId;
-    
+
+    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "auditUserId",mapValueField = "nickname")
+    @ApiModelProperty("审核用户昵称")
+    private String auditUserNickname;
+
     @ApiModelProperty("审核通过后创建的租户id")
     private Long appliedTenantId;
     

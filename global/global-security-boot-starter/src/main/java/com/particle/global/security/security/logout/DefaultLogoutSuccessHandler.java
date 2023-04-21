@@ -2,8 +2,10 @@ package com.particle.global.security.security.logout;
 
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
+import com.particle.global.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -34,11 +36,14 @@ public class DefaultLogoutSuccessHandler extends DefaultAbstractLogoutSuccessHan
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		PrintWriter out = response.getWriter();
-		Response response1 = Response.buildSuccess();
-		out.write(JsonTool.toJsonStr(response1));
+		Response responseResult = Response.buildSuccess();
+
+		MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
+		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, jackson2HttpMessageConverter.getObjectMapper());
+		out.write(toJsonStrForHttp);
 		out.flush();
 		IoUtil.close(out);
-		super.tryNotifyILogoutSuccessResultServiceOnSuccess(request,response,authentication,response1);
+		super.tryNotifyILogoutSuccessResultServiceOnSuccess(request,response,authentication,responseResult);
 
 
 		if (securityContextLogoutHandler != null) {

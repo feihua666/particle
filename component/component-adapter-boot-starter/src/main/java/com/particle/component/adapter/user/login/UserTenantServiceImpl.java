@@ -34,16 +34,16 @@ public class UserTenantServiceImpl implements UserTenantService {
 		if (tenantUserDOS == null) {
 			return Collections.emptyList();
 		}
-		Set<Long> tenantIds = tenantUserDOS.stream().map(TenantUserDO::getTenantId).collect(Collectors.toSet());
+		Set<Long> tenantIds = tenantUserDOS.stream().filter(item -> !item.getIsExpired()).map(TenantUserDO::getTenantId).collect(Collectors.toSet());
 
 		if (tenantIds.isEmpty()) {
 			return Collections.emptyList();
 		}
 
 		// 这里不需要租户过滤，因为在租户插件配置中已过滤了表
-		List<TenantDO> tenantDOS = iTenantService.listByIds(tenantIds);
+		List<TenantDO> tenantDOS = iTenantService.getByIdsIgnoreTenantLimit(tenantIds);
 
-		return tenantDOS.stream().map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName())).collect(Collectors.toList());
+		return tenantDOS.stream().filter(item -> !item.getIsDisabled()).map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName())).collect(Collectors.toList());
 
 	}
 }

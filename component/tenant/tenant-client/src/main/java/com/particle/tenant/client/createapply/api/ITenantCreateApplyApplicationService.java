@@ -3,6 +3,7 @@ package com.particle.tenant.client.createapply.api;
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyUpdateCommand;
 import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
@@ -37,4 +38,11 @@ public interface ITenantCreateApplyApplicationService extends IBaseApplicationSe
 	 */
 	SingleResponse<TenantCreateApplyVO> update(TenantCreateApplyUpdateCommand tenantCreateApplyUpdateCommand);
 
+	/**
+	 * 审核
+	 *
+	 * @param tenantCreateApplyAuditCommand
+	 * @return
+	 */
+	public SingleResponse<TenantCreateApplyVO> audit(TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand);
 }

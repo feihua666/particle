@@ -13,16 +13,13 @@ import lombok.Data;
  */
 @Data
 public class Test1KafkaMessageEvent extends AbstractMessageEvent<String> {
-	public Test1KafkaMessageEvent() {
-		super(null);
-	}
-	public Test1KafkaMessageEvent(String mq) {
-		super(mq);
+
+	public Test1KafkaMessageEvent(String identifier, String data, String mq) {
+		super(identifier, data, mq);
 	}
 
 	public static Test1KafkaMessageEvent create(String mq, String msgData) {
-		Test1KafkaMessageEvent test1RabbitMessageEvent = new Test1KafkaMessageEvent(mq);
-		test1RabbitMessageEvent.setData(msgData);
+		Test1KafkaMessageEvent test1RabbitMessageEvent = new Test1KafkaMessageEvent("test", msgData,mq);
 		return test1RabbitMessageEvent;
 	}
 }

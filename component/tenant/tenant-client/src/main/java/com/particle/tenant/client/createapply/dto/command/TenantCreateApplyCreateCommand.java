@@ -22,7 +22,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "租户名称 不能为空")
-        @ApiModelProperty(value = "租户名称",required = true)
+    @ApiModelProperty(value = "租户名称",required = true)
     private String name;
 
 
@@ -39,17 +39,20 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "租户类型字典id 不能为空")
-        @ApiModelProperty(value = "租户类型字典id",required = true)
+    @ApiModelProperty(value = "租户类型字典id",required = true)
     private Long tenantTypeDictId;
 
 
     @NotNull(message = "申请用户 不能为空")
-        @ApiModelProperty(value = "申请用户",required = true)
+    @ApiModelProperty(value = "申请用户",required = true)
     private Long applyUserId;
 
 
+    /**
+     * 默认为未审核
+     */
     @NotNull(message = "审核状态 不能为空")
-        @ApiModelProperty(value = "审核状态",required = true)
+    @ApiModelProperty(value = "审核状态",required = true,hidden = true)
     private Long auditStatusDictId;
 
 

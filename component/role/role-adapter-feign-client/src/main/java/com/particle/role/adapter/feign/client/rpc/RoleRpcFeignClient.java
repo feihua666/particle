@@ -1,6 +1,11 @@
 package com.particle.role.adapter.feign.client.rpc;
 
+import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
+import com.particle.role.client.dto.data.RoleVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 /**
  * <p>
  * 角色远程调用
@@ -13,7 +18,13 @@ import org.springframework.cloud.openfeign.FeignClient;
 public interface RoleRpcFeignClient {
 
 
-
+	/**
+	 * 添加角色
+	 * @param roleCreateWithTenantIdCommand
+	 * @return
+	 */
+	@PostMapping("/add")
+	public RoleVO add(@RequestBody RoleCreateWithTenantIdCommand roleCreateWithTenantIdCommand);
 
 
 
