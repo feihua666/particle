@@ -12,8 +12,8 @@ import {ref, watch} from "vue";
 const menuRef = ref(null)
 const route = useRoute()
 // 如果切换租户或角色刷新功能菜单
-watch(()=> loginUserStore.loginUser?.currentTenant,()=>{menuRef.value?.refreshData()})
-watch(()=> loginUserStore.loginUser?.currentRole,()=>{menuRef.value?.refreshData()})
+watch(()=> loginUserStore.loginUser?.currentTenant,(val)=>{!!val && (menuRef.value?.refreshData())})
+watch(()=> loginUserStore.loginUser?.currentRole,(val)=>{!!val && (menuRef.value?.refreshData())})
 </script>
 <template>
   <PtMenu ref="menuRef" :dataMethod="loginGetList"

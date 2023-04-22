@@ -5,6 +5,8 @@ import cn.hutool.core.lang.SimpleCache;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -71,6 +73,10 @@ public class TransHelper {
 
     @Autowired
     private TableNameResolver tableNameResolver;
+
+    private static boolean ignoreTenantLine = true;
+    private static boolean ignoreDataPermission = true;
+
     /**
      * 翻译入口
      * @param body
@@ -81,6 +87,39 @@ public class TransHelper {
         }
         long start = System.currentTimeMillis();
         log.debug("翻译开始:bodyClass={}",body.getClass().getName());
+
+        try {
+            // 在翻译时不使用权限
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
+            transObj(body);
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
+
+        long transDuration = System.currentTimeMillis() - start;
+        log.debug("翻译结束:duration={}ms",transDuration);
+        if (transDuration > transNotifyThreshold) {
+            if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
+                com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
+                notifyParam.setContentType("trans.duration");
+                notifyParam.setTitle("trans 翻译执行时长超过阈值");
+                notifyParam.setSuggest("您可以通过 "+ transNotifyThresholdPlaceholder +" 配置改变阈值");
+                HttpServletRequest request = getRequest();
+                String url = Optional.ofNullable(request).map(request1 -> request1.getRequestURI()).orElse("未知");
+                notifyParam.setContent(StrUtil.format("trans 翻译执行时长{}ms超过阈值{}ms,className={},url={}"
+                        ,transDuration
+                        ,transNotifyThreshold
+                        ,body.getClass().getName()
+                        ,url
+                ));
+                com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
+            }
+
+        }
+        return body;
+    }
+
+    public Object transObj(Object body) {
         // 翻译支持
         if (!isEmpty(transServices)){
             if (body instanceof PageResponse) {
@@ -105,43 +144,22 @@ public class TransHelper {
                 transCollection(CollectionTool.newArrayList(body));
             }
         }
-        long transDuration = System.currentTimeMillis() - start;
-        log.debug("翻译结束:duration={}ms",transDuration);
-        if (transDuration > transNotifyThreshold) {
-            if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
-                com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system();
-                notifyParam.setContentType("trans.duration");
-                notifyParam.setTitle("trans 翻译执行时长超过阈值");
-                notifyParam.setSuggest("您可以通过 "+ transNotifyThresholdPlaceholder +" 配置改变阈值");
-                HttpServletRequest request = getRequest();
-                String url = Optional.ofNullable(request).map(request1 -> request1.getRequestURI()).orElse("未知");
-                notifyParam.setContent(StrUtil.format("trans 翻译执行时长{}ms超过阈值{}ms,className={},url={}"
-                        ,transDuration
-                        ,transNotifyThreshold
-                        ,body.getClass().getName()
-                        ,url
-                ));
-                com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
-            }
-
-        }
         return body;
     }
-
     /**
      * 翻译上下文类
      */
     @Setter
     @Getter
-    private class TransContext{
+    private class TransContext {
         /**
          * 存储某一个类型对应的所有要翻译的原始值
          */
-        private Map<String,Set<Object>> keysMap = new HashMap<>();
+        private Map<String, Set<Object>> keysMap = new HashMap<>();
         /**
          * 存储某一个类型对应的所有翻译的结果值
          */
-        private Map<String,List<TransResult>> transResultMap = new HashMap<>();
+        private Map<String, List<TransResult>> transResultMap = new HashMap<>();
         /**
          * 存储所有的翻译元数据
          */
@@ -177,17 +195,17 @@ public class TransHelper {
                         for (Object value : ((Collection) transMeta.byFieldValue)) {
                             byFieldValues.add(value);
                         }
-                    }else {
+                    } else {
                         byFieldValues.add(transMeta.byFieldValue);
                     }
-                }else {
+                } else {
                     byFieldValues.add(transMeta.byFieldValue);
                 }
 
                 String key = getKey(transMeta);
                 if (keysMap.containsKey(key)) {
                     keysMap.get(key).addAll(byFieldValues);
-                }else {
+                } else {
                     HashSet<Object> objects = new HashSet<>();
                     objects.addAll(byFieldValues);
                     keysMap.put(key, objects);
@@ -202,11 +220,11 @@ public class TransHelper {
          * @param type 翻译类型，如：根据字典id翻译就是一个类型Dict.TRANS_DICT_BY_ID
          * @param results 翻译的结果
          */
-        public void addTransResult(String type,List<TransResult> results) {
+        public void addTransResult(String type, List<TransResult> results) {
             if (!isEmpty(results)) {
                 if (transResultMap.containsKey(type)) {
                     transResultMap.get(type).addAll(results);
-                }else {
+                } else {
                     transResultMap.put(type, results);
                 }
             }
@@ -220,7 +238,7 @@ public class TransHelper {
          */
         public TransResult getBatchTransResult(String type, Object key) {
             List<TransResult> transResults = transResultMap.get(type);
-            if(!isEmpty(transResults)){
+            if (!isEmpty(transResults)) {
                 return transResults.stream().filter(item -> Objects.equals(key, item.getKey())).findFirst().orElse(null);
             }
             return null;
@@ -232,7 +250,7 @@ public class TransHelper {
      */
     @Setter
     @Getter
-    private class TransMeta{
+    private class TransMeta {
         /**
          * 翻译注解所在的对象
          */
@@ -329,15 +347,15 @@ public class TransHelper {
      * @param transMeta
      * @return
      */
-    private String tableNameResolve(TransMeta transMeta) {
-        return tableNameResolver.resolve(transMeta.getTableNameClass(),transMeta.getTableName());
+    private String tableNameResolve (TransMeta transMeta){
+        return tableNameResolver.resolve(transMeta.getTableNameClass(), transMeta.getTableName());
     }
     /**
      * 目前以support的type为key，
      * @param transMeta
      * @return
      */
-    private String getKey(TransMeta transMeta) {
+    private String getKey (TransMeta transMeta){
         return transMeta.getType();
     }
 
@@ -347,7 +365,7 @@ public class TransHelper {
      * @param body
      * @return
      */
-    private TransMeta newTransMeta(TransItem transItem, Object body) {
+    private TransMeta newTransMeta (TransItem transItem, Object body){
         TransMeta transMeta = new TransMeta();
         transMeta.setByFieldName(transItem.byFieldName());
         transMeta.setType(transItem.type());
@@ -371,7 +389,7 @@ public class TransHelper {
         if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
             transMeta.setTableName(tableNameResolve(transMeta));
             // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
-            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}",transMeta.getMapValueField(),transMeta.getTableName(),transMeta.getTableField()));
+            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
         }
 
         return transMeta;
@@ -384,7 +402,7 @@ public class TransHelper {
      * @param body
      * @return
      */
-    private TransMeta newTransMeta(TransBy transBy, String forFieldName, Object body) {
+    private TransMeta newTransMeta (TransBy transBy, String forFieldName, Object body){
         TransMeta transMeta = new TransMeta();
         transMeta.setByFieldName(transBy.byFieldName());
         transMeta.setType(transBy.type());
@@ -409,7 +427,7 @@ public class TransHelper {
         if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
             transMeta.setTableName(tableNameResolve(transMeta));
             // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
-            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}",transMeta.getMapValueField(),transMeta.getTableName(),transMeta.getTableField()));
+            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
         }
 
         return transMeta;
@@ -422,7 +440,7 @@ public class TransHelper {
      * @param body
      * @return
      */
-    private TransMeta newTransMeta(TransFor transFor, String byFieldName, Object body) {
+    private TransMeta newTransMeta (TransFor transFor, String byFieldName, Object body){
         TransMeta transMeta = new TransMeta();
         transMeta.setByFieldName(byFieldName);
         transMeta.setType(transFor.type());
@@ -446,7 +464,7 @@ public class TransHelper {
         if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
             transMeta.setTableName(tableNameResolve(transMeta));
             // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
-            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}",transMeta.getMapValueField(),transMeta.getTableName(),transMeta.getTableField()));
+            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
         }
         return transMeta;
     }
@@ -455,7 +473,7 @@ public class TransHelper {
      * 所有的转为集合从这里为入口
      * @param c
      */
-    private void transCollection(Collection c) {
+    private void transCollection (Collection c){
         int transTimesCount = 1;
         for (Object item : c) {
             TransTimes transTimes = getAnnotation(item.getClass(), TransTimes.class);
@@ -474,30 +492,39 @@ public class TransHelper {
      * 执行翻译
      * @param c
      */
-    private void doTransCollection(Collection c) {
+    private void doTransCollection (Collection c){
         TransContext transContext = new TransContext();
-        c.stream().forEach(item ->{
+        c.stream().forEach(item -> {
             // 填充翻译元数据，到上下文中
-            transPojo(item,transContext);
+            transPojo(item, transContext);
         });
         // 批量翻译并将翻译结果放到context中
-        Map<String,CompletableFuture<List>> cfMap = new HashMap<>();
+        Map<String, CompletableFuture<List>> cfMap = new HashMap<>();
         for (Map.Entry<String, Set<Object>> stringSetEntry : transContext.keysMap.entrySet()) {
-            ITransService iTransServiceByType = getITransServiceByType(stringSetEntry.getKey(),true);
+            ITransService iTransServiceByType = getITransServiceByType(stringSetEntry.getKey(), true);
             if (iTransServiceByType != null) {
                 // 根据值批量翻译
-                CompletableFuture<List> listCompletableFuture = CompletableFuture.supplyAsync(() -> iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue()), transTaskExecutor);
-                cfMap.put(stringSetEntry.getKey(),listCompletableFuture);
+                CompletableFuture<List> listCompletableFuture = CompletableFuture.supplyAsync(() -> {
+                    try {
+
+                        // 在翻译时不使用权限
+                        InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
+                        return iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue());
+                    } finally {
+                        InterceptorIgnoreHelper.clearIgnoreStrategy();
+                    }
+                }, transTaskExecutor);
+                cfMap.put(stringSetEntry.getKey(), listCompletableFuture);
             }
         }
         if (!cfMap.isEmpty()) {
             cfMap.entrySet().forEach(stringCompletableFutureEntry -> {
                 try {
-                    transContext.addTransResult(stringCompletableFutureEntry.getKey(),stringCompletableFutureEntry.getValue().get());
+                    transContext.addTransResult(stringCompletableFutureEntry.getKey(), stringCompletableFutureEntry.getValue().get());
                 } catch (InterruptedException e) {
-                    log.error("异步获指翻译异常 key={}",stringCompletableFutureEntry.getKey(),e);
+                    log.error("异步获指翻译异常 key={}", stringCompletableFutureEntry.getKey(), e);
                 } catch (ExecutionException e) {
-                    log.error("异步获指翻译异常 key={}",stringCompletableFutureEntry.getKey(),e);
+                    log.error("异步获指翻译异常 key={}", stringCompletableFutureEntry.getKey(), e);
                 }
             });
         }
@@ -505,10 +532,13 @@ public class TransHelper {
         CountDownLatch countDownLatch = new CountDownLatch(transContext.getTransMetas().size());
         // 设置目标值 改为异步执行
         for (TransMeta transMeta : transContext.getTransMetas()) {
-            transTaskExecutor.execute(()->{
+            transTaskExecutor.execute(() -> {
                 try {
+                    // 在翻译时不使用权限
+                    InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
                     doTrans(transMeta, transContext);
                 } finally {
+                    InterceptorIgnoreHelper.clearIgnoreStrategy();
                     countDownLatch.countDown();
                 }
             });
@@ -516,7 +546,7 @@ public class TransHelper {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            log.error("翻译在设置目标值等待时异常",e);
+            log.error("翻译在设置目标值等待时异常", e);
         }
         // 翻译field 注解支持
         c.stream().forEach(item -> transFieldSupport(item));
@@ -526,7 +556,7 @@ public class TransHelper {
      * {@link TransField} 支持
      * @param body
      */
-    private void transFieldSupport(Object body) {
+    private void transFieldSupport (Object body){
         if (body == null) {
             return;
         }
@@ -535,7 +565,7 @@ public class TransHelper {
         for (Field field : ReflectUtil.getFields(bodyClass)) {
             // 翻译字段本身
             TransField transField = getAnnotation(field, TransField.class);
-            if(transField != null){
+            if (transField != null) {
                 //  每一个transField单独翻译
                 trans(ReflectUtil.getFieldValue(body, field));
             }
@@ -546,7 +576,7 @@ public class TransHelper {
      * @param body
      * @param transContext
      */
-    private void transPojo(Object body,TransContext transContext){
+    private void transPojo (Object body, TransContext transContext){
         // 只翻译vo实体
         if (body == null) {
             return;
@@ -569,10 +599,10 @@ public class TransHelper {
      * trans 支持
      * @param body
      */
-    private void handleTransAnnotion(Object body,TransContext transContext){
+    private void handleTransAnnotion (Object body, TransContext transContext){
         Trans trans = getAnnotation(body.getClass(), Trans.class);
         if (trans != null) {
-            if(trans.value() != null){
+            if (trans.value() != null) {
                 for (TransItem transItem : trans.value()) {
                     transContext.addTransMeta(newTransMeta(transItem, body));
                 }
@@ -584,7 +614,7 @@ public class TransHelper {
      * transItem 支持
      * @param body
      */
-    private void handleTransItemAnnotion(Object body,TransContext transContext){
+    private void handleTransItemAnnotion (Object body, TransContext transContext){
         TransItem transItem = getAnnotation(body.getClass(), TransItem.class);
         if (transItem != null) {
             transContext.addTransMeta(newTransMeta(transItem, body));
@@ -596,10 +626,10 @@ public class TransHelper {
      * @param field
      * @param body
      */
-    private void handleTransByAnnotion(Field field, Object body,TransContext transContext){
+    private void handleTransByAnnotion (Field field, Object body, TransContext transContext){
         TransBy transBy = getAnnotation(field, TransBy.class);
         if (transBy != null) {
-            transContext.addTransMeta(newTransMeta(transBy,field.getName(), body));
+            transContext.addTransMeta(newTransMeta(transBy, field.getName(), body));
         }
     }
 
@@ -608,10 +638,10 @@ public class TransHelper {
      * @param field
      * @param body
      */
-    private void handleTransForAnnotion(Field field, Object body,TransContext transContext){
+    private void handleTransForAnnotion (Field field, Object body, TransContext transContext){
         TransFor transFor = getAnnotation(field, TransFor.class);
         if (transFor != null) {
-            transContext.addTransMeta(newTransMeta(transFor,field.getName(), body));
+            transContext.addTransMeta(newTransMeta(transFor, field.getName(), body));
         }
     }
 
@@ -620,8 +650,8 @@ public class TransHelper {
      * @param transMeta
      * @param transContext
      */
-    private void doTrans(TransMeta transMeta,TransContext transContext){
-        log.trace("doTrans: type={},byFieldName={},forFieldName={},mapValueField={},jsJoin={}",transMeta.getType(),transMeta.getByFieldName(),transMeta.forFieldName,transMeta.getMapValueField(),transMeta.isJoin());
+    private void doTrans (TransMeta transMeta, TransContext transContext){
+        log.trace("doTrans: type={},byFieldName={},forFieldName={},mapValueField={},jsJoin={}", transMeta.getType(), transMeta.getByFieldName(), transMeta.forFieldName, transMeta.getMapValueField(), transMeta.isJoin());
         if (transMeta.byFieldValue == null) {
             return;
         }
@@ -642,8 +672,8 @@ public class TransHelper {
         Object fieldValue = transMeta.getByFieldValue();
         TransResult transResult = getTransResult(transMeta.getType(), transMeta.isBatchOnly(), transContext, fieldValue);
         if (transResult == null) {
-            log.warn("在翻译设置值时，获取为空，可能的原因是数据不匹配,type={},fieldValue={}",transMeta.getType(),fieldValue);
-        }else {
+            log.warn("在翻译设置值时，获取为空，可能的原因是数据不匹配,type={},fieldValue={}", transMeta.getType(), fieldValue);
+        } else {
             setFieldValue(transMeta, transResult);
         }
 
@@ -657,18 +687,19 @@ public class TransHelper {
      * @param byFieldValue
      * @return
      */
-    private TransResult getTransResult(String type,boolean isBatchOnly,TransContext transContext,Object byFieldValue){
-        TransResult transResult = transContext.getBatchTransResult(type ,byFieldValue);
+    private TransResult getTransResult (String type,boolean isBatchOnly, TransContext transContext, Object
+            byFieldValue){
+        TransResult transResult = transContext.getBatchTransResult(type, byFieldValue);
         if (transResult != null) {
             return transResult;
         } else if (isBatchOnly) {
             return null;
         }
         // 单个支持
-        ITransService iTransServiceByType = getITransServiceByType(type,false);
+        ITransService iTransServiceByType = getITransServiceByType(type, false);
         if (iTransServiceByType != null) {
             if (byFieldValue != null) {
-                transResult = iTransServiceByType.trans(type,byFieldValue);
+                transResult = iTransServiceByType.trans(type, byFieldValue);
             }
         }
         return transResult;
@@ -680,17 +711,17 @@ public class TransHelper {
      * @param transResult
      * @return
      */
-    public Object getTransFormatValue(TransMeta transMeta, TransResult transResult) {
+    public Object getTransFormatValue (TransMeta transMeta, TransResult transResult){
         Object transValue = transResult.getTransValue();
         // 这里不作任何判断，请谨慎使用
         if (!StrUtil.isEmpty(transMeta.getMapValueField())) {
-            if(transValue instanceof Collection){
-                transValue = ((Collection) transValue).stream().map(obj -> getObjValue(obj,transMeta.getMapValueField())).filter(Objects::nonNull).collect(Collectors.toList());
+            if (transValue instanceof Collection) {
+                transValue = ((Collection) transValue).stream().map(obj -> getObjValue(obj, transMeta.getMapValueField())).filter(Objects::nonNull).collect(Collectors.toList());
                 if (transMeta.isJoin()) {
                     transValue = ((Collection) transValue).stream().collect(Collectors.joining(transMeta.getMapJoinSeparator()));
                 }
-            }else {
-                transValue = getObjValue(transValue,transMeta.getMapValueField());
+            } else {
+                transValue = getObjValue(transValue, transMeta.getMapValueField());
             }
         }
         return transValue;
@@ -702,7 +733,7 @@ public class TransHelper {
      * @param fieldName
      * @return
      */
-    private Object getObjValue(Object obj,String fieldName) {
+    private Object getObjValue (Object obj, String fieldName){
         if (obj instanceof Map) {
             return ((Map) obj).get(fieldName);
         }
@@ -714,7 +745,7 @@ public class TransHelper {
      * @param transMeta
      * @param transResult
      */
-    private void setFieldValue(TransMeta transMeta, TransResult transResult) {
+    private void setFieldValue (TransMeta transMeta, TransResult transResult){
         Object transValue = getTransFormatValue(transMeta, transResult);
         Object fieldValue = transValue;
         // 这里假设集合中的类型都是一致的，理论上应该也是一致的
@@ -723,14 +754,14 @@ public class TransHelper {
             Field field = ReflectUtil.getField(transMeta.getItem().getClass(), transMeta.getForFieldName());
             forFieldNameType = field.getType();
         }
-        ReflectUtil.setFieldValue(transMeta.getItem(),transMeta.getForFieldName(),fieldValue);
+        ReflectUtil.setFieldValue(transMeta.getItem(), transMeta.getForFieldName(), fieldValue);
     }
     /**
      * 设置翻译值
      * @param transMeta
      * @param transResults
      */
-    private void setFieldValueByGroup(TransMeta transMeta, List<TransResult> transResults) {
+    private void setFieldValueByGroup (TransMeta transMeta, List < TransResult > transResults){
         if (isEmpty(transResults)) {
             return;
         }
@@ -750,11 +781,11 @@ public class TransHelper {
                 forFieldNameType = field.getType();
             }
             if (forFieldNameType.isAssignableFrom(String.class)) {
-                fieldValue = transValues.stream().map(item->item.toString()).collect(Collectors.joining(transMeta.getMapJoinSeparator()));
-            }else if(forFieldNameType.isAssignableFrom(String[].class)){
-                fieldValue = transValues.stream().map(item->item.toString()).collect(Collectors.toList());
+                fieldValue = transValues.stream().map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapJoinSeparator()));
+            } else if (forFieldNameType.isAssignableFrom(String[].class)) {
+                fieldValue = transValues.stream().map(item -> item.toString()).collect(Collectors.toList());
             }
-            ReflectUtil.setFieldValue(transMeta.getItem(),transMeta.getForFieldName(),fieldValue);
+            ReflectUtil.setFieldValue(transMeta.getItem(), transMeta.getForFieldName(), fieldValue);
         }
 
 
@@ -764,12 +795,12 @@ public class TransHelper {
      * @param type
      * @return
      */
-    private ITransService getITransServiceByType(String type,boolean isBatch){
+    private ITransService getITransServiceByType (String type,boolean isBatch){
         ITransService iTransService = TRANS_SERVICE_CACHE.get(type + isBatch);
         if (iTransService != null) {
             return iTransService;
         }
-        if(!isEmpty(transServices)){
+        if (!isEmpty(transServices)) {
             iTransService = transServices.stream().filter(iTransServiceItem -> isBatch ? iTransServiceItem.supportBatch(type) : iTransServiceItem.support(type)).findFirst().orElse(null);
             return TRANS_SERVICE_CACHE.put(type + isBatch, iTransService);
         }
@@ -783,13 +814,13 @@ public class TransHelper {
      * @param <A>
      * @return
      */
-    private  <A extends Annotation> A getAnnotation(AnnotatedElement field, Class<A> annotationType){
+    private  <A extends Annotation > A getAnnotation(AnnotatedElement field, Class < A > annotationType) {
         String key = null;
         if (field instanceof Field) {
             key = ((Field) field).getDeclaringClass().getName() + ((Field) field).getName();
-        }else if(field instanceof Class) {
-            key = ((Class) field).getName() ;
-        }else {
+        } else if (field instanceof Class) {
+            key = ((Class) field).getName();
+        } else {
             key = field.getClass() + field.toString();
         }
         key += annotationType.getName();
@@ -798,7 +829,7 @@ public class TransHelper {
             return a;
         }
         a = AnnotationUtil.getAnnotation(field, annotationType);
-        return (A) ANNOTATION_CACHE.put(key,a);
+        return (A) ANNOTATION_CACHE.put(key, a);
     }
 
     /**
@@ -806,7 +837,7 @@ public class TransHelper {
      *
      * @return
      */
-    private static HttpServletRequest getRequest() {
+    private static HttpServletRequest getRequest () {
         try {
             return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         } catch (Exception e) {

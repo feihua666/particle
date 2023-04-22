@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * <p>
  * 租户创建申请后台管理pc或平板端前端适配器
@@ -96,8 +98,9 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:audit')")
 	@ApiOperation("审核租户创建申请")
 	@PutMapping("/audit")
-	public SingleResponse<TenantCreateApplyVO> audit(@RequestBody TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand){
+	public SingleResponse<TenantCreateApplyVO> audit(@RequestBody TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand, @ApiIgnore LoginUser loginUser){
 		tenantCreateApplyAuditCommand.setTenantSuperAdminRoleCode(LoginUser.tenant_super_admin_role);
+		tenantCreateApplyAuditCommand.setAuditUserId(loginUser.getId());
 		return iTenantCreateApplyApplicationService.audit(tenantCreateApplyAuditCommand);
 	}
 }

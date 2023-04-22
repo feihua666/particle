@@ -44,7 +44,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("添加角色")
 	@PostMapping("/create")
 	public SingleResponse<RoleVO> create(@RequestBody RoleCreateCommand roleCreateCommand,@ApiIgnore LoginUser loginUser){
-		superAdminCheck(LoginUser.super_admin_role.equals(roleCreateCommand.getCode()) || roleCreateCommand.getIsSuperadmin(), loginUser);
+		superAdminCheck(LoginUser.super_admin_role.equals(roleCreateCommand.getCode()) || (roleCreateCommand.getIsSuperadmin() != null && roleCreateCommand.getIsSuperadmin()), loginUser);
 		return iRoleApplicationService.create(roleCreateCommand);
 	}
 
@@ -60,7 +60,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	public SingleResponse<RoleVO> update(@RequestBody RoleUpdateCommand roleUpdateCommand,@ApiIgnore LoginUser loginUser){
 
-		superAdminCheck(LoginUser.super_admin_role.equals(roleUpdateCommand.getCode()) || roleUpdateCommand.getIsSuperadmin(), loginUser);
+		superAdminCheck(LoginUser.super_admin_role.equals(roleUpdateCommand.getCode()) || (roleUpdateCommand.getIsSuperadmin() != null && roleUpdateCommand.getIsSuperadmin()), loginUser);
 		return iRoleApplicationService.update(roleUpdateCommand);
 	}
 

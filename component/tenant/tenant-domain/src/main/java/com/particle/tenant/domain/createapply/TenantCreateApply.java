@@ -81,10 +81,28 @@ public class TenantCreateApply extends AggreateRoot {
 
     /**
      * 设置审核状态为待审核
+     * 添加时默认审核状态
      */
     public void chanageAuditStatusToUnAudit(){
         Long id = tenantDictGateway.getDictIdByGroupCodeAndItemValue(TenantCreateApplyAuditStatus.Group.tenant_create_apply_audit_status.groupCode(), TenantCreateApplyAuditStatus.un_audit.itemValue());
         this.auditStatusDictId = id;
+    }
+
+    /**
+     * 是否审核通过
+     * @return
+     */
+    public boolean checkIsAuditPass(){
+        String dictValueById = tenantDictGateway.getDictValueById(auditStatusDictId);
+        return TenantCreateApplyAuditStatus.audit_pass.itemValue().equals(dictValueById);
+    }
+
+    /**
+     * 修改已申请的租户id，这一般是审批通过是调用
+     * @param appliedTenantId
+     */
+    public void changeAppliedTenantId(Long appliedTenantId) {
+        this.appliedTenantId = appliedTenantId;
     }
 
     /**

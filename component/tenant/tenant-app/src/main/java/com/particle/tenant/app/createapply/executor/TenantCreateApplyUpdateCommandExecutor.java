@@ -19,6 +19,7 @@ import com.particle.tenant.domain.createapply.gateway.TenantCreateApplyGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.tenant.domain.gateway.TenantDictGateway;
 import com.particle.tenant.domain.gateway.TenantRoleGateway;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -49,6 +50,8 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 
 	private TenantRoleGateway tenantRoleGateway;
 
+	private TenantDictGateway tenantDictGateway;
+
 	/**
 	 * 执行 租户创建申请 更新指令
 	 * @param tenantCreateApplyUpdateCommand
@@ -74,42 +77,60 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 
 		boolean save = tenantCreateApplyGateway.save(tenantCreateApply);
 		if (save) {
-			// 如果审核通过，
-			// 1 添加租户
-			// 2 将用户绑定到租户下
-			// 3 添加租户下超级管理员角色
-			// 4 绑定用户
-			TenantCreateApply byId = tenantCreateApplyGateway.getById(tenantCreateApply.getId());
-			TenantCreateCommand tenantCreateCommand = new TenantCreateCommand();
-			tenantCreateCommand.setName(byId.getName());
-			tenantCreateCommand.setCode(IdUtil.fastSimpleUUID());
-			tenantCreateCommand.setIsDisabled(false);
-			tenantCreateCommand.setContactUserName(byId.getContactUserName());
-			tenantCreateCommand.setContactUserPhone(byId.getContactUserPhone());
-			tenantCreateCommand.setContactUserEmail(byId.getContactUserEmail());
-			// 1 添加租户
-			SingleResponse<TenantVO> tenantSave = tenantCreateCommandExecutor.execute(tenantCreateCommand);
-			if (tenantSave.isSuccess()) {
-				// 2 将用户绑定到租户下
-				TenantUserCreateCommand tenantUserCreateCommand = new TenantUserCreateCommand();
-				tenantUserCreateCommand.setUserId(byId.getApplyUserId());
-				tenantUserCreateCommand.setIsExpired(false);
-				tenantUserCreateCommand.setIsLeave(false);
-				tenantUserCreateCommand.setTenantId(tenantSave.getData().getId());
-				SingleResponse<TenantUserVO> tenantUserSave = tenantUserCreateCommandExecutor.execute(tenantUserCreateCommand);
-				if (tenantUserSave.isSuccess()) {
 
-					// 3 添加租户下超级管理员角色
-					Long roleId = tenantRoleGateway.createRole(tenantCreateApplyAuditCommand.getTenantSuperAdminRoleCode(), "超级管理员", false, tenantSave.getData().getId());
-					// 4 绑定用户
-					tenantRoleGateway.createRoleUserRel(roleId,byId.getApplyUserId(), tenantSave.getData().getId());
-				}
+			if (tenantCreateApply.checkIsAuditPass()) {
+				onAuditPass(tenantCreateApply,tenantCreateApplyAuditCommand);
 			}
 
 			return SingleResponse.of(TenantCreateApplyAppStructMapping.instance.toTenantCreateApplyVO(tenantCreateApply));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
+
+	/**
+	 * 审核通过后处理
+	 * @param tenantCreateApply
+	 * @param tenantCreateApplyAuditCommand
+	 */
+	private void onAuditPass(TenantCreateApply tenantCreateApply, TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand){
+		// 如果审核通过，
+		// 1 添加租户
+		// 2 将用户绑定到租户下
+		// 3 添加租户下超级管理员角色
+		// 4 绑定用户
+		TenantCreateApply byId = tenantCreateApplyGateway.getById(tenantCreateApply.getId());
+		TenantCreateCommand tenantCreateCommand = new TenantCreateCommand();
+		tenantCreateCommand.setName(byId.getName());
+		tenantCreateCommand.setCode(IdUtil.fastSimpleUUID());
+		tenantCreateCommand.setIsDisabled(false);
+		tenantCreateCommand.setContactUserName(byId.getContactUserName());
+		tenantCreateCommand.setContactUserPhone(byId.getContactUserPhone());
+		tenantCreateCommand.setContactUserEmail(byId.getContactUserEmail());
+		// 1 添加租户
+		SingleResponse<TenantVO> tenantSave = tenantCreateCommandExecutor.execute(tenantCreateCommand);
+		if (tenantSave.isSuccess()) {
+			// 设置已申请的租户id
+			byId.changeAppliedTenantId(tenantSave.getData().getId());
+			tenantCreateApplyGateway.save(byId);
+
+
+			// 2 将用户绑定到租户下
+			TenantUserCreateCommand tenantUserCreateCommand = new TenantUserCreateCommand();
+			tenantUserCreateCommand.setUserId(byId.getApplyUserId());
+			tenantUserCreateCommand.setIsExpired(false);
+			tenantUserCreateCommand.setIsLeave(false);
+			tenantUserCreateCommand.setTenantId(tenantSave.getData().getId());
+			SingleResponse<TenantUserVO> tenantUserSave = tenantUserCreateCommandExecutor.execute(tenantUserCreateCommand);
+			if (tenantUserSave.isSuccess()) {
+
+				// 3 添加租户下超级管理员角色
+				Long roleId = tenantRoleGateway.createRole(tenantCreateApplyAuditCommand.getTenantSuperAdminRoleCode(), "超级管理员", false, tenantSave.getData().getId());
+				// 4 绑定用户
+				tenantRoleGateway.createRoleUserRel(roleId,byId.getApplyUserId(), tenantSave.getData().getId());
+			}
+		}
+	}
+
 	/**
 	 * 根据区域创建指令创建区域模型
 	 * @param tenantCreateApplyUpdateCommand
@@ -169,5 +190,10 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 	@Autowired
 	public void setTenantRoleGateway(TenantRoleGateway tenantRoleGateway) {
 		this.tenantRoleGateway = tenantRoleGateway;
+	}
+
+	@Autowired
+	public void setTenantDictGateway(TenantDictGateway tenantDictGateway) {
+		this.tenantDictGateway = tenantDictGateway;
 	}
 }

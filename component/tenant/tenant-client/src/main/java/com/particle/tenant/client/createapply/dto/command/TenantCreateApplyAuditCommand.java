@@ -34,4 +34,7 @@ public class TenantCreateApplyAuditCommand extends AbstractBaseUpdateCommand {
      */
     @ApiModelProperty(value = "租户超级管理员角色编码",hidden = true)
     private String tenantSuperAdminRoleCode;
+
+    @ApiModelProperty(value = "审核人用户id",hidden = true)
+    private Long auditUserId;
 }
