@@ -67,8 +67,8 @@ public class DynamicHttpBigDatasourceTest {
 				BigDatasourceApiResponseWrapType.proxy,
 				HttpBigDatasourceApiConfig.create(
 						HttpBigDatasourceApiConfigRequestMethod.post,
-						HttpBigDatasourceApiConfigContentType.json,
-						HttpBigDatasourceApiConfigContentType.json,
+						HttpBigDatasourceApiConfigContentType.application_json,
+						HttpBigDatasourceApiConfigContentType.application_json,
 						HttpBigDatasourceApiConfigRequestUrlRenderType.raw,
 						"/front/web/aes/encrypt"
 				)
@@ -81,7 +81,7 @@ public class DynamicHttpBigDatasourceTest {
 				HttpBigDatasourceApiConfig.create(
 						HttpBigDatasourceApiConfigRequestMethod.get,
 						null,
-						HttpBigDatasourceApiConfigContentType.json,
+						HttpBigDatasourceApiConfigContentType.application_json,
 						HttpBigDatasourceApiConfigRequestUrlRenderType.raw,
 						"/admin/web/area/page"
 				)

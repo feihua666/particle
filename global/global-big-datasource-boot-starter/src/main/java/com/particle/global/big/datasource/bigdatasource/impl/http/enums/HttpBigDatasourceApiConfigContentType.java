@@ -10,30 +10,29 @@ package com.particle.global.big.datasource.bigdatasource.impl.http.enums;
  */
 public enum HttpBigDatasourceApiConfigContentType {
 
-
 	/**
-	 * json
+	 * application/json
 	 */
-	json
+	application_json
 	,
 	/**
-	 * form-data
+	 * multipart/form-data
 	 */
-	form_data
+	multipart_form_data
 	,
 	/**
-	 * x-www-form-urlencoded
+	 * application/x-www-form-urlencoded
 	 */
-	x_www_form_urlencoded
+	application_x_www_form_urlencoded
 	,
 	/**
-	 * text
+	 * text/plain
 	 */
-	text
+	text_plain
 	,
 	/**
-	 * xml
+	 * text/xml
 	 */
-	xml
+	text_xml
 	;
 }

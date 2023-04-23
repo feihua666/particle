@@ -29,19 +29,19 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = (HttpBigDatasourceApiConfig) config;
 
-		if (HttpBigDatasourceApiConfigContentType.json == httpBigDatasourceApiConfig.getRequestContentType()) {
+		if (HttpBigDatasourceApiConfigContentType.application_json == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostJson(bigDatasourceApi, command,queryString);
 		}
-		if (HttpBigDatasourceApiConfigContentType.form_data == httpBigDatasourceApiConfig.getRequestContentType()) {
+		if (HttpBigDatasourceApiConfigContentType.multipart_form_data == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostFormData(bigDatasourceApi, command,queryString);
 		}
-		if (HttpBigDatasourceApiConfigContentType.x_www_form_urlencoded == httpBigDatasourceApiConfig.getRequestContentType()) {
+		if (HttpBigDatasourceApiConfigContentType.application_x_www_form_urlencoded == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostXWwwFormUrlencoded(bigDatasourceApi, command,queryString);
 		}
-		if (HttpBigDatasourceApiConfigContentType.text == httpBigDatasourceApiConfig.getRequestContentType()) {
+		if (HttpBigDatasourceApiConfigContentType.text_plain == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostText(bigDatasourceApi, command,queryString);
 		}
-		if (HttpBigDatasourceApiConfigContentType.xml == httpBigDatasourceApiConfig.getRequestContentType()) {
+		if (HttpBigDatasourceApiConfigContentType.text_xml == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostXml(bigDatasourceApi, command,queryString);
 		}
 
