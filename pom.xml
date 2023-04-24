@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.particle</groupId>
     <artifactId>particle</artifactId>
-    <version>0.1.0-beta-SNAPSHOT</version>
+    <version>0.1.0-beta</version>
     <packaging>pom</packaging>
     <name>particle</name>
     <description>particle project for Spring Boot</description>
