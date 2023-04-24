@@ -29,6 +29,8 @@ particle:
         component_tenant_func_application: component_tenant_func_application.tenant_id = {tenantId}
         component_tenant_func: component_tenant_func.tenant_id = {tenantId}
         component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
+        component_user_login_device: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_device.user_id and tu.tenant_id = {tenantId} )
+        component_user_login_record: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_record.user_id and tu.tenant_id = {tenantId} )
         component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
         component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
         component_func_application_func_rel: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application_func_rel.func_application_id and tfp.tenant_id = {tenantId} ) and exists(select id from component_tenant_func tf where tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = {tenantId} )

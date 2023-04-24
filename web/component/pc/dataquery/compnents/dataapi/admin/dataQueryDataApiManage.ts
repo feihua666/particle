@@ -29,7 +29,7 @@ export const pageFormItems = [
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '接口地址'
+        label: '接口地址',
       },
       compProps: {
         clearable: true,
@@ -143,7 +143,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '接口地址',
           required: true,
-          tips: '请以 / 开头'
+          tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq'
         },
         compProps: {
           clearable: true,

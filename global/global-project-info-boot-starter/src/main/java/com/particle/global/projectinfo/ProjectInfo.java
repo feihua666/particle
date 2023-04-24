@@ -162,6 +162,6 @@ public class ProjectInfo implements InitializingBean {
 	}
 	@Autowired(required = false)
 	public void setComponentProperties(ComponentProperties componentProperties) {
-		this.componentProperties = componentProperties;
+		ProjectInfo.componentProperties = componentProperties;
 	}
 }
