@@ -4,6 +4,7 @@ import {isFunction} from '../../../common/tools/FunctionTools'
 // 用户未登录时使用
 import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
 import {anyObj} from "../../../common/tools/ObjectTools";
+import {getRaw} from "../../../common/tools/StorageTools";
 // store 变量缓存
 let loginUserStoreCache = null
 /**
@@ -20,8 +21,8 @@ const pendingMap = new Map()
  * 根据运行环境获取基础请求URL
  */
 export const getUrl = (): string => {
-    const baseUrl = import.meta.env.VITE_AXIOS_BASE_URL
-    const context = import.meta.env.VITE_AXIOS_CONTEXT || ''
+    const baseUrl = getRaw('VITE_AXIOS_BASE_URL') || import.meta.env.VITE_AXIOS_BASE_URL
+    const context = getRaw('VITE_AXIOS_CONTEXT') || import.meta.env.VITE_AXIOS_CONTEXT || ''
     return baseUrl == 'getCurrentDomain' ? window.location.protocol + '//' + window.location.host + context : baseUrl + context
 }
 
