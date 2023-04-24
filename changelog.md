@@ -1,7 +1,7 @@
 
 # Changelog
 
-# 0.1.0-beta (2023-04-24)
+# 0.1.1-beta-SNAPSHOT (2023-04-24)
 ### 新特性
 * 【data-query】
 1. 数据服务添加groovy脚本动态配置支持
