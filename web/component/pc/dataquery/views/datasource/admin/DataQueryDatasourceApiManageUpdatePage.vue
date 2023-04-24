@@ -6,7 +6,7 @@ import {reactive, ref} from 'vue'
 import {
   update as DataQueryDatasourceApiUpdateApi,
   detailForUpdate as detailForUpdateApi,
-} from "../../../api/datasource/admin/DataQueryDatasourceApiAdminApi"
+} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {useUpdatePageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
 import DataQueryDatasourceApiFormItemConfigs from '../../../compnents/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'

@@ -7,7 +7,7 @@ import {
   update as DeptTreeUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DeptTreeListApi
-} from "../../api/admin/DeptTreeAdminApi"
+} from "../../api/admin/deptTreeAdminApi"
 
 import {updatePageFormItems} from "../../compnents/admin/deptTreeManage";
 

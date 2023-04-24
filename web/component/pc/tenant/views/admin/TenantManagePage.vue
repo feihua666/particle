@@ -3,7 +3,7 @@
  * 租户管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as TenantPageApi, remove as TenantRemoveApi} from "../../api/admin/TenantAdminApi"
+import { page as TenantPageApi, remove as TenantRemoveApi} from "../../api/admin/tenantAdminApi"
 import {pageFormItems} from "../../compnents/admin/tenantManage";
 
 

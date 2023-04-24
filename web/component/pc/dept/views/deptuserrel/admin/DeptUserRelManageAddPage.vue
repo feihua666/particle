@@ -3,7 +3,7 @@
  * 部门用户关系管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as DeptUserRelCreateApi,list as DeptUserRelListApi} from "../../../api/deptuserrel/admin/DeptUserRelAdminApi"
+import {create as DeptUserRelCreateApi,list as DeptUserRelListApi} from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
 import {addPageFormItems} from "../../../compnents/deptuserrel/admin/deptUserRelManage";
 
 

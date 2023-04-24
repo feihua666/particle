@@ -3,7 +3,7 @@
  * 租户功能应用管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as TenantFuncApplicationPageApi, remove as TenantFuncApplicationRemoveApi} from "../../../api/tenantfuncapplication/admin/TenantFuncApplicationAdminApi"
+import { page as TenantFuncApplicationPageApi, remove as TenantFuncApplicationRemoveApi} from "../../../api/tenantfuncapplication/admin/tenantFuncApplicationAdminApi"
 import {pageFormItems} from "../../../compnents/tenantfuncapplication/admin/tenantFuncApplicationManage";
 import {listToTree} from "../../../../../../global/common/tools/ArrayTools";
 

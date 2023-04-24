@@ -7,7 +7,7 @@ import {
   update as DataQueryProviderUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DataQueryProviderListApi
-} from "../../../api/provider/admin/DataQueryProviderAdminApi"
+} from "../../../api/provider/admin/dataQueryProviderAdminApi"
 
 import {updatePageFormItems} from "../../../compnents/provider/admin/dataQueryProviderManage";
 

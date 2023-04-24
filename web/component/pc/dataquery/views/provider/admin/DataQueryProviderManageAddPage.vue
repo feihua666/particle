@@ -3,7 +3,7 @@
  * 数据查询供应商管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as DataQueryProviderCreateApi,list as DataQueryProviderListApi} from "../../../api/provider/admin/DataQueryProviderAdminApi"
+import {create as DataQueryProviderCreateApi,list as DataQueryProviderListApi} from "../../../api/provider/admin/dataQueryProviderAdminApi"
 import {addPageFormItems} from "../../../compnents/provider/admin/dataQueryProviderManage";
 
 

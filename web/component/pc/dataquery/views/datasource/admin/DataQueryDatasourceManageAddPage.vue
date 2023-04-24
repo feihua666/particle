@@ -3,7 +3,7 @@
  * 数据查询数据源管理添加页面
  */
 import {computed, reactive, ref} from 'vue'
-import {create as DataQueryDatasourceCreateApi,list as DataQueryDatasourceListApi} from "../../../api/datasource/admin/DataQueryDatasourceAdminApi"
+import {create as DataQueryDatasourceCreateApi,list as DataQueryDatasourceListApi} from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
 import { useAddPageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceManage";
 import DataQueryDatasourceManageConfigJsonPage from './DataQueryDatasourceManageConfigJsonPage.vue'
 

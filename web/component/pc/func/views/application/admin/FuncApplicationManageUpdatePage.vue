@@ -7,7 +7,7 @@ import {
   update as FuncApplicationUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as FuncApplicationListApi
-} from "../../../api/application/admin/FuncApplicationAdminApi"
+} from "../../../api/application/admin/funcApplicationAdminApi"
 
 import {updatePageFormItems} from "../../../compnents/application/admin/funcApplicationManage";
 

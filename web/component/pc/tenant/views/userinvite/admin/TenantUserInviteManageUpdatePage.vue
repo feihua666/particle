@@ -7,7 +7,7 @@ import {
   update as TenantUserInviteUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as TenantUserInviteListApi
-} from "../../../api/userinvite/admin/TenantUserInviteAdminApi"
+} from "../../../api/userinvite/admin/tenantUserInviteAdminApi"
 
 import {updatePageFormItems} from "../../../compnents/userinvite/admin/tenantUserInviteManage";
 

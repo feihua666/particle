@@ -7,7 +7,7 @@ import {
   update as DataQueryDatasourceUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DataQueryDatasourceListApi
-} from "../../../api/datasource/admin/DataQueryDatasourceAdminApi"
+} from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
 
 import {
   useUpdatePageFormItems

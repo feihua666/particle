@@ -1,4 +1,3 @@
-import {list as areaListApi} from "../../api/admin/areaAdminApi";
 import {treeQueryComps} from "../../../treeQueryComps";
 import {useCascaderAreaCompItem} from "../areaCompItem";
 

@@ -7,7 +7,7 @@ import {
   update as DeptUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DeptListApi
-} from "../../api/admin/DeptAdminApi"
+} from "../../api/admin/deptAdminApi"
 
 import {useUpdatePageFormItems} from "../../compnents/admin/deptManage";
 

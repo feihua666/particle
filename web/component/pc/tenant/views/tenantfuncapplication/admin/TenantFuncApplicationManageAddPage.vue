@@ -3,7 +3,7 @@
  * 租户功能应用管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as TenantFuncApplicationCreateApi,list as TenantFuncApplicationListApi} from "../../../api/tenantfuncapplication/admin/TenantFuncApplicationAdminApi"
+import {create as TenantFuncApplicationCreateApi,list as TenantFuncApplicationListApi} from "../../../api/tenantfuncapplication/admin/tenantFuncApplicationAdminApi"
 import {addPageFormItems} from "../../../compnents/tenantfuncapplication/admin/tenantFuncApplicationManage";
 
 

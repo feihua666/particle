@@ -6,7 +6,7 @@ import {reactive, ref} from 'vue'
 import {
   update as TenantCreateApplyUpdateApi,
   detailForUpdate as detailForUpdateApi,
-} from "../../../api/createapply/admin/TenantCreateApplyAdminApi"
+} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 
 import {useUpdatePageFormItems} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
 

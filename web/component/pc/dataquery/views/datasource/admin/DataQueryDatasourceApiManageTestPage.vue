@@ -5,7 +5,7 @@
 import {reactive, ref,nextTick} from 'vue'
 import {
   apiTest as dataQueryDatasourceApiTestApi, ApiTestParam, detail as dataQueryDatasourceApiDetailApi,
-} from "../../../api/datasource/admin/DataQueryDatasourceApiAdminApi"
+} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {ElMessage} from 'element-plus'
 import {inParamTypeHandler} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";

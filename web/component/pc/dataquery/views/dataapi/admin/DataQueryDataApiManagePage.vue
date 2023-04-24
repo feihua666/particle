@@ -3,7 +3,7 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi} from "../../../api/dataapi/admin/DataQueryDataApiAdminApi"
+import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
 
 

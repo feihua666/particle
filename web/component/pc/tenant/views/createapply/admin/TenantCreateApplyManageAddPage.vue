@@ -3,7 +3,7 @@
  * 租户创建申请管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as TenantCreateApplyCreateApi,list as TenantCreateApplyListApi} from "../../../api/createapply/admin/TenantCreateApplyAdminApi"
+import {create as TenantCreateApplyCreateApi,list as TenantCreateApplyListApi} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 import {useAddPageFormItems} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
 
 // 声明属性

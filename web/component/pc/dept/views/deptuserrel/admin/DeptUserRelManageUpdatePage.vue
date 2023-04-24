@@ -7,7 +7,7 @@ import {
   update as DeptUserRelUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DeptUserRelListApi
-} from "../../../api/deptuserrel/admin/DeptUserRelAdminApi"
+} from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
 
 import {updatePageFormItems} from "../../../compnents/deptuserrel/admin/deptUserRelManage";
 

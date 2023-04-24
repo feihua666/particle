@@ -7,7 +7,7 @@ import {
   update as TenantFuncUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as TenantFuncListApi
-} from "../../../api/tenantfunc/admin/TenantFuncAdminApi"
+} from "../../../api/tenantfunc/admin/tenantFuncAdminApi"
 
 import {updatePageFormItems} from "../../../compnents/tenantfunc/admin/tenantFuncManage";
 

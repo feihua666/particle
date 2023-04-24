@@ -3,7 +3,7 @@
  * 部门树名称管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as DeptTreeNameCreateApi,list as DeptTreeNameListApi} from "../../api/admin/DeptTreeNameAdminApi"
+import {create as DeptTreeNameCreateApi,list as DeptTreeNameListApi} from "../../api/admin/deptTreeNameAdminApi"
 import {addPageFormItems} from "../../compnents/admin/deptTreeNameManage";
 
 

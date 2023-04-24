@@ -5,3 +5,5 @@
    因为在生成对应的实体时，如果使用小写boolean类型，在json框架一般是根据get方法获取字段（Gson除外，没有这个问题），如果为小写boolean类型isDelete,则get方法和字段名会相同，导致区分不开真正的字段。  
    本项目中仍然使用is开关的数据库字段，因为实体都使用包装类型Boolean，其get方法不是is开关，并无此问题，方便前端判断类型。本项目一般局部变量用小写boolean，
    对象属性用大写包装类型Boolean。
+3. maven 指定模块打包 clean install -pl ./project/particle-demo  -Dmaven.test.skip=true
+4. idea 将字符首字母转大写正则 参考：https://blog.csdn.net/qq_35634181/article/details/111034194

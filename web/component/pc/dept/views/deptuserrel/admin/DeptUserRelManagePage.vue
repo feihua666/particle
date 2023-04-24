@@ -3,7 +3,7 @@
  * 部门用户关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DeptUserRelPageApi, remove as DeptUserRelRemoveApi} from "../../../api/deptuserrel/admin/DeptUserRelAdminApi"
+import { page as DeptUserRelPageApi, remove as DeptUserRelRemoveApi} from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
 import {pageFormItems} from "../../../compnents/deptuserrel/admin/deptUserRelManage";
 
 

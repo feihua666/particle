@@ -5,7 +5,7 @@
 import {reactive, ref} from 'vue'
 import {
   audit as TenantCreateApplyAuditApi,
-} from "../../../api/createapply/admin/TenantCreateApplyAdminApi"
+} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 
 import {
   useAuditPageFormItems,

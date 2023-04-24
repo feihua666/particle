@@ -3,7 +3,7 @@
  * 功能应用功能关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as FuncApplicationFuncRelPageApi, remove as FuncApplicationFuncRelRemoveApi} from "../../api/admin/FuncApplicationFuncRelAdminApi"
+import { page as FuncApplicationFuncRelPageApi, remove as FuncApplicationFuncRelRemoveApi} from "../../api/admin/funcApplicationFuncRelAdminApi"
 import {pageFormItems} from "../../compnents/admin/funcApplicationFuncRelManage";
 
 
