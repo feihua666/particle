@@ -1,10 +1,8 @@
 package com.particle.global.captcha.endpoint;
 
 import cn.hutool.core.util.IdUtil;
-import com.particle.global.captcha.CaptchaSceneEnum;
-import com.particle.global.captcha.CaptchaTypeEnum;
-import com.particle.global.captcha.CustomCaptchaScene;
-import com.particle.global.captcha.ICaptchaService;
+import cn.hutool.core.util.StrUtil;
+import com.particle.global.captcha.*;
 import com.particle.global.captcha.gen.CaptchaGenDTO;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
 import com.particle.global.captcha.verify.CaptchaVerifyDTO;
@@ -37,9 +35,20 @@ public class CaptchaController {
 	@GetMapping("/getCaptcha")
 	public SingleResponse<CaptchaVO> getCaptcha(@Valid CaptchaGenCommand genCommand){
 
+		ICaptchaType captchaType = CaptchaTypeEnum.arithmetic;
+		if (StrUtil.isNotEmpty(genCommand.getCaptchaType())) {
+			CaptchaTypeEnum captchaTypeEnum = CaptchaTypeEnum.getByName(genCommand.getCaptchaType());
+			if (captchaTypeEnum != null) {
+				captchaType = captchaTypeEnum;
+			}else {
+				captchaType = CustomCaptchaType.create(genCommand.getCaptchaType());
+			}
+		}
+
+
 		CaptchaGenDTO captchaGenDTO = CaptchaGenDTO.create(
 				IdUtil.fastSimpleUUID(),
-				CustomCaptchaScene.create(genCommand.getCaptchaScene()), CaptchaTypeEnum.arithmetic, 130, 48, 2, null);
+				CustomCaptchaScene.create(genCommand.getCaptchaScene()), captchaType, genCommand.getWidth(), genCommand.getHeight(), genCommand.getLength(), null);
 		CaptchaGenResultDTO gen = captchaService.gen(captchaGenDTO);
 
 		CaptchaVO captchaVO = CaptchaVO.create(gen.getCaptchaUniqueIdentifier(), gen.getBase64());

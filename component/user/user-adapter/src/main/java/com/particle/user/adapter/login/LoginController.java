@@ -1,6 +1,7 @@
 package com.particle.user.adapter.login;
 
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -72,9 +73,15 @@ public class LoginController {
 		private String password;
 
 
+		/**
+		 * 该字段名和 {@link CaptchaVerifyCommand#captchaUniqueIdentifierFieldName}保持一致
+		 */
 		@ApiModelProperty("验证码唯一标识,在开启验证码时必填")
 		private String captchaUniqueIdentifier;
 
+		/**
+		 * 该字段名和 {@link CaptchaVerifyCommand#captchaValueFieldName}保持一致
+		 */
 		@ApiModelProperty("用户输入值,在开启验证码时必填")
 		private String captchaValue;
 	}

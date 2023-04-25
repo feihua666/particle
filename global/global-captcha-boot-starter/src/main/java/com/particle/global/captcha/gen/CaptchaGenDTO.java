@@ -53,7 +53,7 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 	/**
 	 * 长度或位数
 	 */
-	private Integer length = 5;
+	private Integer length = 3;
 
 	/**
 	 * 文本字符串组合类型
