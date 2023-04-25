@@ -89,6 +89,8 @@ if (props.useCaptcha) {
       },
       compProps: ()=>{
         return {
+          class: 'pt-pointer',
+          title: '点击切换验证码',
           src: captchaSrc.value,
           onClick: loadLoginCaptchaImage
         }
