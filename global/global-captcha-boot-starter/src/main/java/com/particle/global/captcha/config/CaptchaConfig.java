@@ -9,6 +9,7 @@ import com.particle.global.captcha.store.ICaptchaStoreService;
 import com.particle.global.captcha.verify.DefaultCaptchaVerifyServiceImpl;
 import com.particle.global.captcha.verify.ICaptchaVerifyService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,23 +25,23 @@ import org.springframework.context.annotation.Configuration;
 public class CaptchaConfig {
 
 	@Bean
-	
+	@ConditionalOnMissingBean
 	public ICaptchaGenService captchaGenService(){
 		return new DefaultCaptchaGenServiceImpl();
 	}
 
 	@Bean
-	
+	@ConditionalOnMissingBean
 	public ICaptchaVerifyService captchaVerifyService(ICaptchaStoreService captchaStoreService){
 		return new DefaultCaptchaVerifyServiceImpl(captchaStoreService);
 	}
 	@Bean
-	
+	@ConditionalOnMissingBean
 	public ICaptchaStoreService captchaStoreService(){
 		return new HttpSessionStoreServiceImpl();
 	}
 	@Bean
-	
+	@ConditionalOnMissingBean
 	public ICaptchaService captchaService(ICaptchaGenService captchaGenService, ICaptchaVerifyService captchaVerifyService, ICaptchaStoreService captchaStoreService){
 		return new DefaultCaptchaServiceImpl(captchaGenService,captchaVerifyService,captchaStoreService);
 	}

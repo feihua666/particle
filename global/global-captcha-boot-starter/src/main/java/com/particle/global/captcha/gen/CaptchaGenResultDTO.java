@@ -22,6 +22,10 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 	 */
 	private String base64;
 	/**
+	 * 图片的内容
+	 */
+	private String base64Content;
+	/**
 	 * 真实结果
 	 */
 	private String captchaValue;

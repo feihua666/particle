@@ -51,11 +51,13 @@ public class CaptchaGeneratorTool {
 	}
 
 	private static CaptchaGenResultDTO toResult(CaptchaGenDTO captchaGenDTO, Captcha captcha) {
-		return CaptchaGenResultDTO.createByGenDTO(
+		CaptchaGenResultDTO byGenDTO = CaptchaGenResultDTO.createByGenDTO(
 				captchaGenDTO,
 				captcha.toBase64(),
 				captcha.text()
 		);
+		byGenDTO.setBase64Content(captcha instanceof ArithmeticCaptcha ? ((ArithmeticCaptcha) captcha).getArithmeticString() : captcha.text());
+		return byGenDTO;
 	}
 
 
