@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ public class LoginController {
 			@ApiImplicitParam(name = UserAuthenticationResultServiceImpl.login_header_device_id,value = "设备id，在登录日志是使用",paramType="header")
 	})
 	@PostMapping(value=WebSecurityConfig.login_processing_url,consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public SingleResponse<LoginUser> login(@ApiParam LoginCommand loginCommand){
+	public SingleResponse<LoginUser> login( @Valid LoginCommand loginCommand){
 		return SingleResponse.buildSuccess();
 	}
 	/**
@@ -62,10 +63,20 @@ public class LoginController {
 	@ApiModel("登录参数")
 	@Data
 	public static class LoginCommand{
-		@ApiModelProperty(value = "登录用户名",required = true,position = 1)
+		@NotEmpty(message = "登录用户名不能为空")
+		@ApiModelProperty(value = "登录用户名",required = true)
 		private String username;
-		@ApiModelProperty(value = "登录用户密码",required = true,position = 2)
+
+		@NotEmpty(message = "登录用户密码不能为空")
+		@ApiModelProperty(value = "登录用户密码",required = true)
 		private String password;
+
+
+		@ApiModelProperty("验证码唯一标识,在开启验证码时必填")
+		private String captchaUniqueIdentifier;
+
+		@ApiModelProperty("用户输入值,在开启验证码时必填")
+		private String captchaValue;
 	}
 	@ApiOperation("判断用户是否登录")
 	@GetMapping("/hasLogin")

@@ -11,6 +11,7 @@ package com.particle.global.exception.code;
 public class ErrorCodeGlobalStatusMax implements IErrorCodeStatusMax{
 
 	private static long s_5000000 = 50000000016L;
+	private static long s_4000000 = 40000000003L;
 	private static long s_4010000 = 40100000008L;
 	private static long s_4030000 = 40300000004L;
 	private static long s_4040000 = 40400000002L;

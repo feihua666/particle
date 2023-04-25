@@ -3,55 +3,57 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>user</artifactId>
+        <artifactId>global</artifactId>
         <groupId>com.particle</groupId>
         <version>0.1.1-beta-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>user-adapter</artifactId>
+    <artifactId>global-captcha-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
-        <!-- 通用 适配层依赖 -->
+        <!-- 为了方便引入，直接引入web编译 -->
         <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>common-adapter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- 应用层依赖 -->
-        <!-- 适配层依赖应用层 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>user-app</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- 只能做查询用 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>user-infrastructure</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- 实现feign-client接口 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>user-adapter-feign-client</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- 主要是使用验证码校验的两个字段 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-captcha-boot-starter</artifactId>
-            <version>${particle.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
 
+        <!-- 验证码依赖 -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${easy-captcha.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 添加过滤器 为安全提供验证码支持-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

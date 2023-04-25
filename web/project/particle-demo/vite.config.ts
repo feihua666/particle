@@ -38,6 +38,8 @@ export default defineConfig({
     ]
   },
   server: {
+    // 设置为 0.0.0.0 或者 true 表示对外开放
+    host: true,
     fs: {
       // Allow serving files from one level up to the project root
       strict: false,

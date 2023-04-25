@@ -6,8 +6,12 @@ import {IdParam} from "../../../../common/api/api";
  * 登录
  * @param loginForm
  */
-export const login = ({username,password}:{username: string,password: string}): AxiosPromise => {
-    return axios.post('/login','username=' + username +'&password='+password)
+export const login = ({username,password,captchaUniqueIdentifier,captchaValue}:{username: string,password: string,captchaUniqueIdentifier: string,captchaValue: string}): AxiosPromise => {
+    let form = 'username=' + username + '&password=' + password
+    if(captchaUniqueIdentifier && captchaValue){
+        form += '&captchaUniqueIdentifier=' + captchaUniqueIdentifier + '&captchaValue=' + captchaValue
+    }
+    return axios.post('/login',form)
 }
 /**
  * 退出登录
@@ -42,4 +46,11 @@ export const changeTenant = (data: IdParam): AxiosPromise => {
  */
 export const changeRole = (data: IdParam): AxiosPromise => {
     return axios.post('/changeRole',data)
+}
+
+/**
+ * 获取当前登录用户的信息
+ */
+export const getLoginCaptcha = (): AxiosPromise => {
+    return axios.get('/captcha/getCaptcha',{params: {captchaScene: '/login'}})
 }

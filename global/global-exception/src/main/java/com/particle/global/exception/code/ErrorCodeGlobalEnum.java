@@ -61,6 +61,10 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	NO_ENUM_CONSTANT_ERROR(40000000002L,"参数错误，枚举不存在"),
 	/**
+	 * 验证码不正确
+	 */
+	CAPTCHA_ERROR(40000000003L,"验证码不正确"),
+	/**
 	 * 未登录
 	 */
 	UNAUTHORIZED_ERROR(40100000001L,"未认证"),

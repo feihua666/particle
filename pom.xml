@@ -67,6 +67,8 @@
         <groovy-all.version>2.4.21</groovy-all.version>
         <!-- http简单客户端使用 jodd是一个java工具包，添加统一版本目前只是为了使用 大数据源的jodd http实现 -->
         <jodd.version>6.3.0</jodd.version>
+        <!-- 简单验证码依赖 https://github.com/ele-admin/EasyCaptcha 该库看上去好久不更新了，截止到今天 2023-04-24 最后一次更新是 2019-08-25，但能满足目前需求 -->
+        <easy-captcha.version>1.6.2</easy-captcha.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

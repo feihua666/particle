@@ -115,6 +115,12 @@
             <artifactId>dept-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-captcha-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

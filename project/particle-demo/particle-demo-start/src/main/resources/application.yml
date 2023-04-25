@@ -65,3 +65,9 @@ particle:
     component:
       # 后端组件全部启用
       all: true
+  captcha:
+    filter:
+      enable: true
+      uris:
+        # 登录添加验证码校验
+        - /login
