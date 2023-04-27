@@ -3,23 +3,36 @@ package com.particle.global.tool.http;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.io.IoStreamTool;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
+import com.particle.global.tool.spring.SpringContextHolder;
+import lombok.Builder;
+import lombok.Data;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.*;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,59 +51,65 @@ public class HttpClientTool{
     public static final int SOCKET_TIMEOUT = 5000;
     public static final String CHARSET = "UTF-8";
     private static HttpClient CLIENT = null;
-    private static BasicCookieStore COOKIE_STORE;
-    static {
-        COOKIE_STORE = new BasicCookieStore();
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(128);
-        cm.setDefaultMaxPerRoute(128);
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONN_TIMEOUT).setConnectionRequestTimeout(READ_TIMEOUT).setSocketTimeout(SOCKET_TIMEOUT).build();
-        CLIENT = HttpClients.custom().setConnectionManager(cm).setDefaultRequestConfig(requestConfig).setDefaultCookieStore(COOKIE_STORE).build();
-    }
+    // cookie默认存储
+    private static BasicCookieStore COOKIE_STORE = new BasicCookieStore();
 
-    public static String httpGet(String url) throws IOException {
-        return httpGet(url,null);
-    }
-    public static String httpGet(String url, List<Header> headers) throws IOException {
-        HttpGet get = new HttpGet(url);
-        if (headers != null && !headers.isEmpty()) {
-            headers.stream().forEach(header -> get.addHeader(header));
-        }
-        HttpResponse res = null;
-        String r = null;
-        try{
-            res = CLIENT.execute(get);
-            r = httpResponseContentToString(res);
-        }finally {
-            get.releaseConnection();
-        }
-        return r;
-    }
-    public static HttpResponse httpGetWithResponse(String url) throws IOException {
-        HttpGet get = new HttpGet(url);
-        HttpResponse res = null;
-        try{
-            res = CLIENT.execute(get);
-        }finally {
-            get.releaseConnection();
-        }
-        return res;
-    }
+
     public static HttpClient getCLIENT() {
+        if (CLIENT == null) {
+            synchronized(HttpClientTool.class) {
+                if (CLIENT == null) {
+                    PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+                    cm.setMaxTotal(128);
+                    cm.setDefaultMaxPerRoute(128);
+                    RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONN_TIMEOUT).setConnectionRequestTimeout(READ_TIMEOUT).setSocketTimeout(SOCKET_TIMEOUT).build();
+                    CLIENT = HttpClients.custom()
+                            .setConnectionManager(cm)
+                            .setDefaultRequestConfig(requestConfig)
+                            .setDefaultCookieStore(COOKIE_STORE)
+                            // todo 添加全局代理认证机制，以下代码先保留，待以后参考
+                            //.setProxyAuthenticationStrategy()
+                            /**
+                             *
+                             CredentialsProvider credsProvider = new BasicCredentialsProvider();
+                             credsProvider.setCredentials(
+                             new AuthScope(proxy),
+                             new UsernamePasswordCredentials(proxyUser, proxyPassword));
+
+                             DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
+                             */
+                            .build();
+                }
+            }
+        }
         return CLIENT;
     }
     public static CookieStore getCookieStore() {
         return COOKIE_STORE;
     }
 
+
     /**
-     *
+     * get请求
+     * @param url
+     * @param extConfig
+     * @return
+     * @throws IOException
+     */
+    public static String get(String url,ExtConfig extConfig) throws IOException {
+        HttpGet get = new HttpGet(url);
+        return executeRequestAsString(get,getCLIENT(),extConfig);
+    }
+
+
+    /**
+     * 以普通表单形式请求
      * @param url
      * @param params
      * @return
      * @throws IOException
      */
-    public static String httpPost(String url,Map<String,String> params) throws IOException {
+    public static String posForm(String url,Map<String,String> params,ExtConfig extConfig) throws IOException {
         HttpPost post = new HttpPost(url);
         // 创建参数列表
         if (params != null) {
@@ -102,71 +121,27 @@ public class HttpClientTool{
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, CHARSET);
             post.setEntity(entity);
         }
-        HttpResponse res = null;
-        String r = null;
-        try{
-            res = CLIENT.execute(post);
-            r = httpResponseContentToString(res);
-        }finally {
-            post.releaseConnection();
-        }
-        return r;
+        return executeRequestAsString(post,getCLIENT(),extConfig);
+
     }
 
     /**
-     *
-     * @param url
-     * @param params
-     * @return
-     * @throws IOException
-     */
-    public static HttpResponse httpPostWithResponse(String url,Map<String,String> params) throws IOException {
-        HttpPost post = new HttpPost(url);
-        // 创建参数列表
-        if (params != null) {
-            List<NameValuePair> paramList = new ArrayList<>();
-            for (String key : params.keySet()) {
-                paramList.add(new BasicNameValuePair(key, params.get(key)));
-            }
-            // 模拟表单
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, CHARSET);
-            post.setEntity(entity);
-        }
-        HttpResponse res = null;
-        String r = null;
-        try{
-            res = CLIENT.execute(post);
-        }finally {
-            post.releaseConnection();
-        }
-        return res;
-    }
-    /**
-     *
+     * 以 json 形式请求
      * @param url
      * @param body
      * @return
      * @throws IOException
      */
-    public static String httpPostJson(String url,String body, List<Header> headers) throws IOException {
+    public static String postJson(String url, String body,ExtConfig extConfig) throws IOException {
         HttpPost post = new HttpPost(url);
         post.addHeader("Content-Type", "application/json");
-        if (headers != null && !headers.isEmpty()) {
-            headers.stream().forEach(header -> post.addHeader(header));
-        }
+
         // 创建参数列表
         if(StrUtil.isNotEmpty(body)){
-            post.setEntity(new StringEntity(body,"utf-8"));
+            post.setEntity(new StringEntity(body,CHARSET));
         }
-        HttpResponse res = null;
-        String r = null;
-        try{
-            res = CLIENT.execute(post);
-            r = httpResponseContentToString(res);
-        }finally {
-            post.releaseConnection();
-        }
-        return r;
+
+        return executeRequestAsString(post,getCLIENT(),extConfig);
     }
 
     /**
@@ -185,22 +160,107 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String httpResponseContentToString(HttpResponse res) throws IOException {
-        return IoUtil.read(res.getEntity().getContent(), CHARSET);
+        return IoUtil.read(res.getEntity().getContent(), Charset.forName(CHARSET));
     }
 
     /**
-     * 下载
+     * 下载并返回二进制数据
      * @param urlPath
      * @return
      * @throws IOException
      */
-    public static byte[] download(String urlPath) throws IOException {
+    public static byte[] download(String urlPath,ExtConfig extConfig) throws IOException {
         HttpClient client = HttpClientTool.getCLIENT();
         HttpGet get = new HttpGet(urlPath);
-        HttpResponse httpResponse =  client.execute(get);
-        InputStream inputStream = httpResponse.getEntity().getContent();
+        CloseableHttpResponse closeableHttpResponse = executeRequest(get, client, null);
+        InputStream inputStream = closeableHttpResponse.getEntity().getContent();
         byte[] bytes = IoStreamTool.inputStreamToByteArray(inputStream);
+        closeableHttpResponse.close();
         get.releaseConnection();
         return bytes;
+    }
+    public static CloseableHttpResponse executeRequest(HttpRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException {
+
+        if (extConfig != null) {
+            if (request.getConfig() == null && extConfig.getProxy() != null) {
+                // 添加 proxy
+                HttpHost proxy = extConfig.getProxy();
+                String proxyUser = extConfig.getProxyUser();
+                String proxyPassword = extConfig.getProxyPassword();
+
+                if (StrUtil.isNotEmpty(proxyUser) && StrUtil.isNotEmpty(proxyPassword)) {
+                    String auth = proxyUser + ":" + proxyPassword;
+                    byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(CHARSET)));
+                    String authHeader = "Basic " + new String(encodedAuth);
+                    request.addHeader("Proxy-Authorization", authHeader);
+                }
+
+                RequestConfig config = RequestConfig.custom()
+                        .setProxy(proxy)
+                        .build();
+
+                request.setConfig(config);
+            }
+            if (extConfig.getCookie() != null) {
+                request.addHeader("Cookie", extConfig.getCookie());
+            }
+            List<Header> headers = extConfig.getHeaders();
+            if (headers != null && !headers.isEmpty()) {
+                headers.stream().forEach(header -> request.addHeader(header));
+            }
+        }
+
+        CloseableHttpResponse response = (CloseableHttpResponse) client.execute(request);
+        return response;
+    }
+
+    public static String executeRequestAsString(HttpRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException {
+        CloseableHttpResponse res = null;
+        String r = null;
+        try{
+            res = executeRequest(request,client,extConfig);
+            r = httpResponseContentToString(res);
+        }finally {
+            if (res != null) {
+                res.close();
+            }
+            request.releaseConnection();
+        }
+        return r;
+    }
+
+    @Data
+    @Builder
+    public static class ExtConfig{
+        // 代理地址
+        private HttpHost proxy;
+        // 请求cookie ,即：cookie值
+        private String cookie;
+        /**
+         * 代理用户
+         */
+        private String proxyUser;
+        /**
+         * 代理密码
+         */
+        private String proxyPassword;
+
+        /**
+         * 请求头
+         */
+        private List<Header> headers;
+
+        public ExtConfig withProxy(String proxyId, Integer proxyPort) {
+            this.proxy = HttpHost.create(proxyId + ":" + proxyPort);
+            return this;
+        }
+
+        public ExtConfig addHeader(String name, String value) {
+            if (headers == null) {
+                headers = new ArrayList<>();
+            }
+            headers.add(new BasicHeader(name,value));
+            return this;
+        }
     }
 }
