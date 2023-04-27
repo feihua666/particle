@@ -139,7 +139,7 @@ const dropdownTriggerButtonOptions = {
            default-expand-all
            :dataMethod="doLowcodeModelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

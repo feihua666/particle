@@ -169,7 +169,7 @@ const dropdownTriggerButtonOptions = {
            default-expand-all
            :dataMethod="doUserLoginRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

@@ -86,7 +86,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDeptTreeUserRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

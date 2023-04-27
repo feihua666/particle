@@ -22,6 +22,9 @@ public class DefaultCaptchaVerifyServiceImpl implements ICaptchaVerifyService{
 	@Override
 	public boolean verify(CaptchaVerifyDTO captchaVerifyDTO) {
 		CaptchaGenResultDTO resultDTO = captchaStoreService.get(captchaVerifyDTO.getCaptchaUniqueIdentifier());
+		if (resultDTO == null) {
+			return false;
+		}
 		return resultDTO.getCaptchaValue().equals(captchaVerifyDTO.getCaptchaValue());
 	}
 }

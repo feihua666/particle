@@ -52,6 +52,7 @@ export const dataMethodProps: DataMethodProps = {
         default: ({success,error,dataMethodEmptyData,convertToTree,listToTreeMethod = listToTree}) => {
             // success 为 res
             if (success) {
+                // let isHttpResponse = success.status && success.config && success.headers && success.request
                 let p = null
                 let data = success
                 if(!data){
@@ -77,6 +78,9 @@ export const dataMethodProps: DataMethodProps = {
                     }else {
                         data = listToTreeMethod(data)
                     }
+                }
+                if(p){
+                    return p
                 }
                 return data
             }

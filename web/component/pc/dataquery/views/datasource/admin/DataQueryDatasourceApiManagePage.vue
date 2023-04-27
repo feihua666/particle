@@ -134,7 +134,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataQueryDatasourceApiPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

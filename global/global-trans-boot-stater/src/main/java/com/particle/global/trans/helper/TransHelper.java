@@ -826,9 +826,17 @@ public class TransHelper {
         key += annotationType.getName();
         A a = (A) ANNOTATION_CACHE.get(key);
         if (a != null) {
+            if (a == none) {
+                return null;
+            }
             return a;
         }
         a = AnnotationUtil.getAnnotation(field, annotationType);
+        if (a == null) {
+            // null 也缓存
+            ANNOTATION_CACHE.put(key, none);
+            return null;
+        }
         return (A) ANNOTATION_CACHE.put(key, a);
     }
 
@@ -845,4 +853,11 @@ public class TransHelper {
         }
         return null;
     }
+
+    private static final Annotation none = new Annotation() {
+        @Override
+        public Class<? extends Annotation> annotationType() {
+            return null;
+        }
+    };
 }

@@ -114,7 +114,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doTenantUserInvitePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

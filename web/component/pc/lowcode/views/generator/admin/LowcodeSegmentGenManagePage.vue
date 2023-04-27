@@ -200,7 +200,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doLowcodeSegmentGenPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

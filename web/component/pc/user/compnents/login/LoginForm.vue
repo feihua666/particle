@@ -112,7 +112,6 @@ const submitAttrs = ref({
 // 登录成功后获取登录用户
 const loginResult = (result):void => {
   result.then(res => {
-
     loginUserStore.changeLoginUser(res.data.data)
     if(props.loginSuccess){
       if(isString(props.loginSuccess) && router){
@@ -122,6 +121,8 @@ const loginResult = (result):void => {
       }
     }
   }).catch(() => {
+    // 验证码错误也需要刷新
+    loadLoginCaptchaImage()
   //  catch 一下异常，否则控制台打印一大堆
   })
 }

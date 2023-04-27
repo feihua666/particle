@@ -198,7 +198,6 @@ const dropdownTriggerButtonOptions = {
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
   <PtTable ref="tableRef"
-           default-expand-all
            :dataMethod="doUserPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
            :paginationProps="tablePaginationProps"

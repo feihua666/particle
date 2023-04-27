@@ -114,5 +114,20 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!-- *********引入POI依赖 可以使用，仅测试使用，不依赖传递 ************ -->
+        <!-- 在 hutool 中依赖poi对excel等文档做了封装，该引入可以借用其工具使用 -->
+        <!-- 推荐引入poi-ooxml，这个包会自动关联引入poi包，且可以很好的支持Office2007+的文档格式 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <!-- 如果需要使用Sax方式读取Excel，需要引入以下依赖（POI-4.x以上这个非必须）： -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>${xercesImpl.version}</version>
+        </dependency>
+        <!-- *********引入POI依赖 可以使用，仅测试使用，不依赖传递 ************ -->
     </dependencies>
 </project>

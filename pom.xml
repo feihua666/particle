@@ -32,7 +32,7 @@
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 -->
-        <hutool-all.version>5.5.6</hutool-all.version>
+        <hutool-all.version>5.8.16</hutool-all.version>
         <!-- 强大的java工具类 ，全局引入，方便使用-->
         <guava.version>30.1.1-jre</guava.version>
         <!-- 实体转换 -->
@@ -59,6 +59,7 @@
 
         <!-- 测试数据用 可以将实体填充数据 测试用例使用-->
         <jmockdata.version>4.2.0</jmockdata.version>
+        <!-- shedlock是一个分页式锁支持 目前在 global-concurrency-boot-starter使用，以支持分页式锁，主要是 global-messaging-boot-starter 消息模块使用-->
         <shedlock.version>4.41.0</shedlock.version>
 
         <!-- 类似于freeMarker的模板引擎 -->
@@ -69,6 +70,25 @@
         <jodd.version>6.3.0</jodd.version>
         <!-- 简单验证码依赖 https://github.com/ele-admin/EasyCaptcha 该库看上去好久不更新了，截止到今天 2023-04-24 最后一次更新是 2019-08-25，但能满足目前需求 -->
         <easy-captcha.version>1.6.2</easy-captcha.version>
+        <!-- 开发基于s3 sdk 的对象储存 aws 提供了两个版本的sdk 分别为v1和v2版本，v2版本在2017年初始发布，是对v1版本的重构和改进，增加了非阻塞等特性-->
+        <!-- 在maven仓库中 v1和v2都在同时更新 -->
+        <!-- 以下为v1版本       -->
+<!--        <aws-java-sdk-s3.version>1.12.455</aws-java-sdk-s3.version>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${aws-java-sdk-s3.version}</version>
+        </dependency>-->
+        <!-- 以下为v2版本 v2版本使用bom依赖-->
+        <!-- v2 github https://github.com/aws/aws-sdk-java-v2 -->
+        <aws-sdk-java-v2.version>2.20.52</aws-sdk-java-v2.version>
+
+        <!-- 在 hutool 中依赖poi对excel等文档做了封装，该引入可以借用其工具使用 -->
+        <!-- 推荐引入poi-ooxml，这个包会自动关联引入poi包，且可以很好的支持Office2007+的文档格式 -->
+        <poi-ooxml.version>5.2.3</poi-ooxml.version>
+        <poi.version>${poi-ooxml.version}</poi.version>
+        <!-- 如果需要使用Sax方式读取Excel，需要引入以下依赖（POI-4.x以上这个非必须）： -->
+        <xercesImpl.version>2.12.2</xercesImpl.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>
@@ -115,6 +135,15 @@
                 <groupId>net.javacrumbs.shedlock</groupId>
                 <artifactId>shedlock-bom</artifactId>
                 <version>${shedlock.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- sws v2版本bom 使用方式及其可用的jar可参见下面github -->
+            <!-- v2 github https://github.com/aws/aws-sdk-java-v2 -->
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${aws-sdk-java-v2.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

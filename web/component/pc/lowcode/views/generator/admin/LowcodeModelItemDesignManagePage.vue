@@ -362,7 +362,7 @@ const cellStyle=({ row, column, rowIndex, columnIndex })=>{
            :cellStyle="cellStyle"
            :dataMethod="doLowcodeModelItemPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

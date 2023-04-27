@@ -113,7 +113,7 @@ const listToTreeMethod = (data)=>{
            default-expand-all
            :dataMethod="doTenantFuncPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :dataMethodResultHandleListToTreeMethod="listToTreeMethod"
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">

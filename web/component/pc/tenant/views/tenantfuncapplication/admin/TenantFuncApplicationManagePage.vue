@@ -145,7 +145,7 @@ const listToTreeMethod = (data)=>{
            default-expand-all
            :dataMethod="doTenantFuncApplicationPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           :dataMethodResultHandleConvertToTree="true"
+
            :dataMethodResultHandleListToTreeMethod="listToTreeMethod"
 
            :paginationProps="tablePaginationProps"
