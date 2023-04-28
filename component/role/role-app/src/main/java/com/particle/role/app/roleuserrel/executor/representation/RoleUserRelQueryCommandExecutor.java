@@ -88,7 +88,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	public MultiResponse<Long> queryRoleIdsByUserId(@Valid IdCommand userIdCommand) {
 
 		RoleUserRelQueryListCommand roleUserRelQueryListCommand = new RoleUserRelQueryListCommand();
-		roleUserRelQueryListCommand.setRoleId(userIdCommand.getId());
+		roleUserRelQueryListCommand.setUserId(userIdCommand.getId());
 		MultiResponse<RoleUserRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
 		if(roleUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getRoleId).collect(Collectors.toList());
