@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>global</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.1.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>global-oss-boot-starter</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- 为了方便引入，直接引入web编译 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 版本已在 particle pom中通过bom引入 -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+        </dependency>
+
+        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 用于ftp上传客户端使用 -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+        <!-- 用于sftp上传客户端使用 -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <!-- 用于ftp和sftp池化 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>${commons-pool2.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>

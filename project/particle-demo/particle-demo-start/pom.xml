@@ -115,10 +115,16 @@
             <artifactId>dept-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- 验证码支持 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-captcha-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- oss 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-oss-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

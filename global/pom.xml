@@ -42,6 +42,7 @@
         <module>global-messaging-boot-starter</module>
         <module>global-big-datasource-boot-starter</module>
         <module>global-captcha-boot-starter</module>
+        <module>global-oss-boot-starter</module>
 
     </modules>
 

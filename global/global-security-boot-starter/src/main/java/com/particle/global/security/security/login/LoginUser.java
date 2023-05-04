@@ -32,7 +32,7 @@ public class LoginUser implements UserDetails {
     /**
      * 超级管理员角色编码
      */
-    public static String super_admin_role = "superadmin";
+    public static final String super_admin_role = "superadmin";
     /**
      * 租户超级管理员角色编码
      */

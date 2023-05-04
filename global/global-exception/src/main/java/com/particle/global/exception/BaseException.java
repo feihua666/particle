@@ -39,7 +39,10 @@ public class BaseException extends RuntimeException {
 		super(format(DEFAULT_ERR_CODE.getErrCode(), handleStaticUserTip(DEFAULT_ERR_CODE,userTip), null));
 		this.error = DEFAULT_ERR_CODE;
 	}
-
+	protected BaseException(String userTip, Throwable cause) {
+		super(format(DEFAULT_ERR_CODE.getErrCode(), handleStaticUserTip(DEFAULT_ERR_CODE,userTip), null),cause);
+		this.error = DEFAULT_ERR_CODE;
+	}
 	protected BaseException(IErrorCode error, Throwable cause) {
 		this(error,null,cause);
 	}

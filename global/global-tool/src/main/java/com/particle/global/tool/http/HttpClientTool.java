@@ -50,7 +50,7 @@ public class HttpClientTool{
     // 响应超时时间,毫秒
     public static final int SOCKET_TIMEOUT = 5000;
     public static final String CHARSET = "UTF-8";
-    private static HttpClient CLIENT = null;
+    private static volatile HttpClient CLIENT = null;
     // cookie默认存储
     private static BasicCookieStore COOKIE_STORE = new BasicCookieStore();
 

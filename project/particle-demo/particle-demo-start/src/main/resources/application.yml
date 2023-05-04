@@ -53,8 +53,13 @@ spring:
         - classpath:db/data.tenant.sql
         - classpath:db/data.dept.sql
       mode: ALWAYS # ALWAYS NEVER
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 50MB
 server:
   servlet:
+
     encoding:
       # 在接收请求和返回数据，强制 utf-8 编码
       # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
@@ -67,7 +72,17 @@ particle:
       all: true
   captcha:
     filter:
-      enable: true
+      enabled: true
       uris:
         # 登录添加验证码校验
         - /login
+  # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
+  oss:
+    defaultClient: testLocal
+    concatEndpoint: false
+    local:
+      testLocal:
+        # 访问的地址
+        endpoint: http://localhost:8080/oss/download
+        basePath: /Users/yw/temp/localosstest
+        bucketName: localtestbucket

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  minio:
+    image: 'minio/minio'
+    container_name: 'particle-minio'
+    networks:
+      - particle-minio-net
+    env_file:
+      - minio.env
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      # 挂载数据目录到主机上
+      - particle-minio-data:/data
+    command: server --console-address ':9001' /data
+networks:
+  particle-minio-net:
+    driver: bridge
+
+volumes:
+  particle-minio-data:
+    driver: local

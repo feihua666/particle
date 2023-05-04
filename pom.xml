@@ -89,6 +89,13 @@
         <poi.version>${poi-ooxml.version}</poi.version>
         <!-- 如果需要使用Sax方式读取Excel，需要引入以下依赖（POI-4.x以上这个非必须）： -->
         <xercesImpl.version>2.12.2</xercesImpl.version>
+
+        <!-- 添加主要用于oss global-oss-boot-starter ftp上传-->
+        <commons-net.version>3.9.0</commons-net.version>
+        <!-- 添加主要用于oss global-oss-boot-starter sftp上传，该包截止到今天（ 2023-04-28）更新时间为 2018-11-26-->
+        <jsch.version>0.1.55</jsch.version>
+        <!-- 连接池，主要用于 global-oss-boot-starter ftp和sftp连接池 -->
+        <commons-pool2.version>2.11.1</commons-pool2.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

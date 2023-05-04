@@ -1,0 +1,46 @@
+particle:
+  # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
+  oss:
+    defaultClient: aws-for-minio
+    concatEndpoint: false
+    # aws sdk 配置 兼容 阿里云、腾讯云、七牛云、minio
+    aws:
+      # 具体配置是一个map，可以配置多个客户端，这里配置了一个 aws-for-minio 客户端
+      aws-for-minio:
+        # 访问的地址，也可以配置本地代理访问 http://localhost:8080/oss/download
+        endpoint: http://localhost:9000
+        # 上传使用 内网 如果不配置将使用 endpoint 对应的值
+        innerEndpoint: http://localhost:9000
+        # none 表示 minio 无区域，该项必填，minio配置可以填写任意值
+        region: none
+        bucketName: awstestbucket
+        accessKey: 2CZ2ONDVR7TFhx1T
+        secretKey: CEXO4mWwZVfbCdpxqjdEI5YfCZy09Ccw
+        # 因为使用的是 aws adk，如果使用 minio存储，这里需要设置为true，否则会请求 http://bucketName.localhost:9000 而不是请求 http://localhost:9000/bucketName
+        pathStyleAccessEnabled: true
+    ftp:
+      testFtp:
+        # 访问的地址
+        endpoint: http://localhost:8080/oss/download
+        basePath: /opt/ftptest
+        bucketName: ftptestbucket
+        host: 127.0.0.1
+        port: 21
+        user: user
+        password: password
+    sftp:
+      testSftp:
+        # 访问的地址
+        endpoint: http://localhost:8080/oss/download
+        basePath: /opt/sftptest
+        bucketName: sftptestbucket
+        host: 127.0.0.1
+        port: 22
+        user: user
+        password: password
+    local:
+      testLocal:
+        # 访问的地址
+        endpoint: http://localhost:8080/oss/download
+        basePath: /Users/yw/temp/localosstest
+        bucketName: localtestbucket

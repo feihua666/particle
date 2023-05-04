@@ -11,6 +11,7 @@ import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,10 +31,11 @@ import java.util.List;
  */
 @Configuration
 @ComponentScan
+@ConditionalOnProperty(prefix = "particle.captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class CaptchaAutoConfiguration {
 
 	/**
-	 * 后端管理文档
+	 * 验证码接口文档
 	 * @param projectInfo 参数不能去，依赖projectInfo
 	 * @return
 	 */

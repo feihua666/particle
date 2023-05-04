@@ -1,9 +1,5 @@
 package com.particle.global.tool.str;
 
-import cn.hutool.core.util.StrUtil;
-
-import java.io.File;
-
 /**
  * 文件路径工具
  * @author yangwei

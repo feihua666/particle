@@ -1,6 +1,7 @@
 package com.particle.global.exception.system;
 
 import com.particle.global.exception.BaseException;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 
 import java.util.Map;
@@ -14,6 +15,9 @@ import java.util.Map;
  * @since 2022-04-20 13:41
  */
 public class SystemException extends BaseException {
+
+	private static IErrorCode DEFAULT_ERR_CODE = ErrorCodeGlobalEnum.SYSTEM_ERROR;
+
 
 	public SystemException(IErrorCode error, Map<String, Object> data) {
 		super(error, data);
@@ -29,5 +33,9 @@ public class SystemException extends BaseException {
 
 	public SystemException(IErrorCode error) {
 		super(error);
+	}
+
+	public SystemException(String userTip) {
+		super(userTip,DEFAULT_ERR_CODE);
 	}
 }

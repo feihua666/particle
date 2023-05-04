@@ -1,7 +1,7 @@
 particle:
   captcha:
     filter:
-      enable: true
+      enabled: true
       uris:
         # 登录添加验证码校验
         - /login

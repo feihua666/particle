@@ -13,11 +13,11 @@ services:
       MYSQL_ROOT_HOST: '%'
     volumes:
       # 挂载数据目录到主机上
-      - particle-jenkins-data:/var/lib/mysql
+      - particle-mysql-data:/var/lib/mysql
 networks:
-  particle-jenkins-net:
+  particle-mysql-net:
     driver: bridge
 
 volumes:
-  particle-jenkins-data:
+  particle-mysql-data:
     driver: local

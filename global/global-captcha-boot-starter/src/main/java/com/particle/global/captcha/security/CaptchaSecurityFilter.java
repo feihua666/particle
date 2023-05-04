@@ -41,7 +41,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "particle.captcha.filter")
 public class CaptchaSecurityFilter extends GenericFilterBean {
 
-	private Boolean enable = false;
+	private Boolean enabled = false;
 	/**
 	 * 需要添加验证码的地址
 	 */
@@ -52,7 +52,7 @@ public class CaptchaSecurityFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (enable && CollectionUtil.isNotEmpty(uris)) {
+		if (enabled && CollectionUtil.isNotEmpty(uris)) {
 			HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 			String requestURI = httpServletRequest.getRequestURI();
 			String contextPath = request.getServletContext().getContextPath();
