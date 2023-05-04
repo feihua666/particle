@@ -1,13 +1,10 @@
 package com.particle.user.client.identifier.dto.command;
 
-import com.particle.global.validation.props.PropValid;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 /**
  * <p>

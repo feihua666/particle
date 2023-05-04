@@ -7,8 +7,8 @@ import {computed, ref} from "vue"
 import {logout} from "../../api/userLoginApi"
 import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
 import {useRoute, useRouter} from 'vue-router'
-import PtUserinfoCenter from './UserinfoCenter.vue'
-import UserAccountSetting from './UserAccountSetting.vue'
+import PtUserinfoCenter from './usercenter/UserinfoCenter.vue'
+import UserAccountSetting from './useraccountSetting/UserAccountSetting.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -118,19 +118,32 @@ const handleUserinfoCommand = (command) => {
     </template>
   </el-dropdown>
 
-  <el-dialog v-model="userinfoCenterDialogVisible" title="个人中心" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
+  <el-dialog class="pt-dialog-tab-use-scroll" v-model="userinfoCenterDialogVisible" title="个人中心" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
 
-    <PtUserinfoCenter></PtUserinfoCenter>
+    <PtUserinfoCenter class="pt-dialog-tab"></PtUserinfoCenter>
 
   </el-dialog>
 
-  <el-dialog v-model="userAccountSettingDialogVisible" title="账号设置" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
+  <el-dialog class="pt-dialog-tab-use-scroll" v-model="userAccountSettingDialogVisible" title="账号设置" width="90%" top="5vh" style="height:90vh" append-to-body destroy-on-close>
 
-    <UserAccountSetting></UserAccountSetting>
+    <UserAccountSetting class="pt-dialog-tab"></UserAccountSetting>
 
   </el-dialog>
 </template>
 
 <style scoped>
 
+</style>
+
+<style>
+/* 数据太多时，添加滚动条 */
+.pt-dialog-tab-use-scroll .el-dialog__body{
+  height: 75vh !important;
+}
+.pt-dialog-tab-use-scroll .pt-dialog-tab,.pt-dialog-tab-use-scroll .el-tabs,.pt-dialog-tab-use-scroll .el-tabs__content{
+  height: 100% !important;
+}
+.pt-dialog-tab-use-scroll .el-tabs_content{
+  overflow-y: scroll !important;
+}
 </style>

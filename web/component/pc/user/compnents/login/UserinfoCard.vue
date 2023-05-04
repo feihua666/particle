@@ -1,4 +1,8 @@
 <script setup name="UserinfoCard" lang="ts">
+/**
+ * 用户信息
+ * 主要用来 个人中心 和 账号设置 左上角头像信息
+ */
 const props = defineProps({
   // 当前登录用户昵称，如果传了就使用该值
   nickname: {

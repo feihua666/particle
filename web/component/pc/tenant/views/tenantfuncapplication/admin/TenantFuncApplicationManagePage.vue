@@ -6,6 +6,7 @@ import {reactive, ref} from 'vue'
 import { page as TenantFuncApplicationPageApi, remove as TenantFuncApplicationRemoveApi} from "../../../api/tenantfuncapplication/admin/tenantFuncApplicationAdminApi"
 import {pageFormItems} from "../../../compnents/tenantfuncapplication/admin/tenantFuncApplicationManage";
 import {listToTree} from "../../../../../../global/common/tools/ArrayTools";
+import {tenantFuncApplicationColumns} from "../../../compnents/tenantCompItem";
 
 
 const tableRef = ref(null)
@@ -16,50 +17,7 @@ const reactiveData = reactive({
   form: {
   },
   formComps: pageFormItems,
-  tableColumns: [
-    {
-      prop: 'name',
-      label: '名称',
-    },
-    {
-      prop: 'isGroup',
-      label: '应用组/应用',
-      formatter: (row, column, cellValue, index) => {
-        let r = cellValue ? '应用组' : '应用'
-        return r
-      }
-    },
-    {
-      prop: 'parentFuncApplicationName',
-      label: '父级',
-    },
-    {
-      prop: 'applicationTheme',
-      label: '应用主题',
-    },
-    {
-      prop: 'applicationDefaultRoute',
-      label: '默认路由',
-    },
-    {
-      prop: 'applicationLogoUrl',
-      label: '应用logo',
-      columnView: 'image'
-    },
-    {
-      prop: 'applicationIconUrl',
-      label: '应用icon',
-      columnView: 'image'
-    },
-    {
-      prop: 'configJson',
-      label: '额外配置json',
-    },
-    {
-      prop: 'tenantName',
-      label: '租户名称',
-    },
-  ],
+  tableColumns: tenantFuncApplicationColumns,
 
 })
 
@@ -145,9 +103,8 @@ const listToTreeMethod = (data)=>{
            default-expand-all
            :dataMethod="doTenantFuncApplicationPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-
+           :dataMethodResultHandleConvertToTree="true"
            :dataMethodResultHandleListToTreeMethod="listToTreeMethod"
-
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

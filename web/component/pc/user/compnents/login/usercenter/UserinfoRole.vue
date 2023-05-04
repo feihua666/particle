@@ -1,16 +1,16 @@
-<script setup name="UserinfoTenant" lang="ts">
-import {changeTenant} from "../../api/userLoginApi";
-import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
+<script setup name="UserinfoRole" lang="ts">
+import {changeRole} from "../../../api/userLoginApi";
+import {useLoginUserStore} from "../../../../../../global/common/security/loginUserStore"
 const loginUserStore = useLoginUserStore()
 
 const props = defineProps({
-  // 租户数据
-  tenants: {
+  // 角色数据
+  roles: {
     type: Array,
     default: ()=>[]
   },
-  // 当前租户对象
-  currentTenant: {
+  // 当前角色对象
+  currentRole: {
     type: Object,
     default: ()=>({})
   }
@@ -22,18 +22,18 @@ const dropdownTriggerButtonOptions = {
 const tableColumns = [
   {
     prop: 'code',
-    label: '租户编码',
+    label: '角色编码',
   },
   {
     prop: 'name',
-    label: '租户名称',
+    label: '角色名称',
   },
   {
     prop: 'useStatus',
     label: '使用情况',
     formatter: (row, column, cellValue, index) => {
       let r = ''
-      if(row.id == props.currentTenant.id){
+      if(row.id == props.currentRole.id){
         r = '正在使用'
       }
       return r
@@ -50,19 +50,18 @@ const getTableRowButtons = ({row, column, $index}) => {
   let tableRowButtons = [
 
   ]
-  if(row.id != props.currentTenant.id){
-    tableRowButtons.push(    {
-      txt: '切换到该租户',
+  if(row.id != props.currentRole.id){
+    tableRowButtons.push({
+      txt: '切换到该角色',
       text: true,
       methodConfirmText: `切换后将会重新加载页面，确定要切换 ${row.name} 吗？`,
       methodSuccess(res){
         // 切换成功后处理
         loginUserStore.changeLoginUser(res.data.data)
-
       },
       // 删除操作
       method(){
-        return changeTenant(idData).then(res => {
+        return changeRole(idData).then(res => {
           return Promise.resolve(res)
         })
       }
@@ -75,7 +74,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 <template>
   <PtTable ref="tableRef"
            :columns="tableColumns"
-           :options="tenants"
+           :options="roles"
   >
 
     <!--  操作按钮  -->

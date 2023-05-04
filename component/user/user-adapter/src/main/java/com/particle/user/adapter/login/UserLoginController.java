@@ -2,14 +2,26 @@ package com.particle.user.adapter.login;
 
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.config.WebSecurityConfig;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
+import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
+import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
+import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
+import com.particle.user.client.login.dto.data.UserLoginRecordVO;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
+import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
+import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
+import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
+import com.particle.user.infrastructure.login.service.IUserLoginRecordService;
 import io.swagger.annotations.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +35,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * <p>
@@ -35,7 +48,12 @@ import javax.validation.constraints.NotEmpty;
 @Api(tags = "用户登录相关接口")
 @RestController
 @RequestMapping
-public class LoginController {
+public class UserLoginController {
+
+	@Autowired
+	private IUserLoginRecordService iUserLoginRecordService;
+	@Autowired
+	private IUserLoginDeviceService iUserLoginDeviceService;
 
 	/**
 	 * 登录接口，这里只为了出接口文档 具体处理逻辑已经在 spring security 中处理
@@ -132,5 +150,26 @@ public class LoginController {
 
 		loginUser.changeRole(idCommand.getId());
 		return SingleResponse.of(loginUser);
+	}
+
+
+	@ApiOperation("获取当前登录用户的登录记录")
+	@PreAuthorize("hasAuthority('user')")
+	@GetMapping("/loginRecord")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<UserLoginRecordVO> loginRecord(@ApiIgnore LoginUser loginUser) {
+		List<UserLoginRecordDO> byUserId = iUserLoginRecordService.getByUserId(loginUser.getId());
+		List<UserLoginRecordVO> userLoginRecordVOS = UserLoginRecordAppStructMapping.instance.userLoginRecordDOsToUserLoginRecordVOs(byUserId);
+		return MultiResponse.of(userLoginRecordVOS);
+	}
+
+	@ApiOperation("获取当前登录用户的登录设备")
+	@PreAuthorize("hasAuthority('user')")
+	@GetMapping("/loginDevice")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<UserLoginDeviceVO> loginDevice(@ApiIgnore LoginUser loginUser) {
+		List<UserLoginDeviceDO> byUserId = iUserLoginDeviceService.getByUserId(loginUser.getId());
+		List<UserLoginDeviceVO> userLoginDeviceVOS = UserLoginDeviceAppStructMapping.instance.userLoginDeviceDOsToUserLoginDeviceVOs(byUserId);
+		return MultiResponse.of(userLoginDeviceVOS);
 	}
 }

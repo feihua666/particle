@@ -30,7 +30,7 @@ public class TenantUserDO extends BaseDO {
     private String name;
 
     /**
-    * 是否过期，过期后该密码不能登录
+    * 是否过期，过期后获取不到该租户
     */
     private Boolean isExpired;
 

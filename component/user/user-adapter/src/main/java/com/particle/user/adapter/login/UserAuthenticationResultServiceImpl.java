@@ -2,6 +2,7 @@ package com.particle.user.adapter.login;
 
 import brave.Tracer;
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
@@ -104,7 +105,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		userLoginRecordDO.setLoginIp(ServletUtil.getClientIP(httpServletRequest));
 
 		String deviceId = ServletUtil.getHeaderIgnoreCase(httpServletRequest, login_header_device_id);
-		userLoginRecordDO.setDeviceId(Optional.ofNullable(deviceId).orElse("none"));
+		userLoginRecordDO.setDeviceId(Optional.ofNullable(StrUtil.emptyToNull(deviceId)).orElse("none"));
 		userLoginRecordDO.setDeviceName(userAgent.getPlatform().getName());
 
 		userLoginRecordDO.setUserIdentifierId(userIdentifier.getId());

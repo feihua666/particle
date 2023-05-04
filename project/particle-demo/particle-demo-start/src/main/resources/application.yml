@@ -69,7 +69,8 @@ particle:
   project-info:
     component:
       # 后端组件全部启用
-      all: true
+      enable:
+        all: true
   captcha:
     filter:
       enabled: true

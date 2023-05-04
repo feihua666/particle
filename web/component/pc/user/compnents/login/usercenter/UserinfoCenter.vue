@@ -1,12 +1,18 @@
 <script setup name="UserinfoCenter" lang="ts">
-
+/**
+ * 个人中心入口页
+ * 在登录首页，下拉 点击个人中心 进入
+ */
 import {computed, ref} from 'vue'
-import type { TabsPaneContext } from 'element-plus'
-import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
+import {useLoginUserStore} from "../../../../../../global/common/security/loginUserStore"
 
-import UserinfoCard from './UserinfoCard.vue'
+import UserinfoCard from '../UserinfoCard.vue'
 import UserinfoTenant from './UserinfoTenant.vue'
 import UserinfoRole from './UserinfoRole.vue'
+import UserinfoApplication from './UserinfoApplication.vue'
+import UserinfoFunc from './UserinfoFunc.vue'
+import {componentEnabled} from "../../../../../../common/config/componentsConfig";
+
 const loginUserStore = useLoginUserStore()
 
 const nickname = computed(() => {
@@ -69,14 +75,20 @@ const activeName = ref('tenant')
         </template>
         Route
       </el-tab-pane>
-      <el-tab-pane label="租户" name="tenant">
+      <el-tab-pane label="租户" name="tenant" v-if="componentEnabled('tenant')">
         <UserinfoTenant :data="tenants" :currentTenant="currentTenant"></UserinfoTenant>
       </el-tab-pane>
-      <el-tab-pane label="角色" name="role">
+      <el-tab-pane label="角色" name="role"  v-if="componentEnabled('role')">
         <UserinfoRole :data="roles" :currentRole="currentRole"></UserinfoRole>
       </el-tab-pane>
-      <el-tab-pane label="应用" name="application">应用</el-tab-pane>
-      <el-tab-pane label="功能权限" name="permission">功能权限</el-tab-pane>
+      <el-tab-pane label="应用" name="application"  v-if="componentEnabled('tenant')">
+        <div>以下数据为您当前租户已获取的应用</div>
+        <UserinfoApplication></UserinfoApplication>
+      </el-tab-pane>
+      <el-tab-pane label="功能权限" name="permission"  v-if="componentEnabled('func')"  class="pt-height-100-pc">
+        <div>以下数据为您已获取的所以功能权限</div>
+        <UserinfoFunc></UserinfoFunc>
+      </el-tab-pane>
     </el-tabs>
 
   </div>

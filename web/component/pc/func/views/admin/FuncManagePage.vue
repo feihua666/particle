@@ -5,6 +5,7 @@
 import {reactive, ref} from 'vue'
 import { page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
 import {pageFormItems} from "../../compnents/admin/funcManage";
+import {funcColumns} from "../../compnents/funcCompItem";
 
 const tableRef = ref(null)
 
@@ -14,79 +15,7 @@ const reactiveData = reactive({
   form: {
   },
   formComps: pageFormItems,
-  tableColumns: [
-    {
-      prop: 'name',
-      label: '名称',
-      width: 150,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'code',
-      label: '编码',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'parentName',
-      label: '父级'
-    },
-    {
-      prop: 'funcGroupName',
-      label: '功能分组',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'icon',
-      label: '图标',
-      // elementPlus 图标
-      columnView: 'elIcon',
-      width: 50,
-    },
-    {
-      prop: 'isDisabled',
-      label: '是否禁用',
-      width: 70,
-      formatter: (row, column, cellValue, index) => {
-        return cellValue ? '禁用' : '启用'
-      }
-    },
-    {
-      prop: 'isShow',
-      label: '是否展示',
-      width: 70,
-      formatter: (row, column, cellValue, index) => {
-        return cellValue ? '展示' : '隐藏'
-      }
-    },
-    {
-      prop: 'url',
-      label: '路由',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'typeDictName',
-      label: '类型',
-      width: 50,
-    },
-    {
-      prop: 'permissions',
-      label: '权限码',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'seq',
-      label: '排序',
-      width: 50,
-    },
-    {
-      prop: 'componentOf',
-      label: '归属组件'
-    },
-    {
-      prop: 'remark',
-      label: '描述'
-    }
-  ],
+  tableColumns: funcColumns,
 
 })
 

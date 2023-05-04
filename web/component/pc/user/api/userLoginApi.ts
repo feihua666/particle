@@ -47,9 +47,44 @@ export const changeTenant = (data: IdParam): AxiosPromise => {
 export const changeRole = (data: IdParam): AxiosPromise => {
     return axios.post('/changeRole',data)
 }
-
 /**
- * 获取当前登录用户的信息
+ * 获取登录记录
+ */
+export const getLoginRecord = (): AxiosPromise => {
+    return axios.get('/loginRecord')
+}
+/**
+ * 获取登录设备
+ */
+export const getLoginDevice = (): AxiosPromise => {
+    return axios.get('/loginDevice')
+}
+/**
+ * 获取登录标识/我的账号
+ */
+export const getIdentifier = (): AxiosPromise => {
+    return axios.get('/user-identifier/login/identifier')
+}
+/**
+ * 获取登录标识/我的账号
+ */
+export const getIdentifierPwd = (): AxiosPromise => {
+    return axios.get('/user-identifier-pwd/login/identifier-pwd')
+}
+
+export interface IdentifierPwdUpdateData{
+    oldPassword: string // 原密码
+    userIdentifierId: string // 登录标识
+    password: string // 新密码
+}
+/**
+ * 修改登录标识密码
+ */
+export const identifierPwdUpdate = (data: IdentifierPwdUpdateData): AxiosPromise => {
+    return axios.post('/user-identifier-pwd/login/identifier-pwd-update',data)
+}
+/**
+ * 获取登录验证码
  */
 export const getLoginCaptcha = (): AxiosPromise => {
     return axios.get('/captcha/getCaptcha',{params: {captchaScene: '/login'}})

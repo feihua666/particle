@@ -28,3 +28,48 @@ export const useSelectTenantCompItem = ({props = {},fieldName = 'tenantId',requi
         }
     }
 }
+
+export const tenantFuncApplicationColumns = [
+    {
+        prop: 'name',
+        label: '名称',
+    },
+    {
+        prop: 'isGroup',
+        label: '应用组/应用',
+        formatter: (row, column, cellValue, index) => {
+            let r = cellValue ? '应用组' : '应用'
+            return r
+        }
+    },
+    {
+        prop: 'parentFuncApplicationName',
+        label: '父级',
+    },
+    {
+        prop: 'applicationTheme',
+        label: '应用主题',
+    },
+    {
+        prop: 'applicationDefaultRoute',
+        label: '默认路由',
+    },
+    {
+        prop: 'applicationLogoUrl',
+        label: '应用logo',
+        columnView: 'image'
+    },
+    {
+        prop: 'applicationIconUrl',
+        label: '应用icon',
+        columnView: 'image'
+    },
+    {
+        prop: 'configJson',
+        label: '额外配置json',
+    },
+    {
+        prop: 'tenantName',
+        label: '租户名称',
+    },
+]

@@ -1,24 +1,20 @@
 package com.particle.user.adapter.login;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserExtPutService;
-import com.particle.global.tool.thread.ThreadContextTool;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import com.particle.user.infrastructure.service.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -26,6 +22,7 @@ import java.util.Optional;
  * Created by yangwei
  * Created at 2020/12/10 20:59
  */
+@Slf4j
 @Service
 public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService {
 
@@ -61,17 +58,33 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
         loginUser.setUsername(username);
         // 账号是否可用
         loginUser.setIsEnabled(true);
-        loginUser.setIsLocked(userDO.getIsLock()||userIdentifierDO.getIsLock());
+        loginUser.setIsLocked(userDO.getIsLock() || userIdentifierDO.getIsLock());
         // 账号是否过期
-        loginUser.setIsExpired(userDO.getIsExpired() || userIdentifierDO.getIsExpired());
+        loginUser.setIsExpired(
+                userDO.getIsExpired() ||
+                checkHasExpired(userDO.getExpireAt()) ||
+                userIdentifierDO.getIsExpired() ||
+                checkHasExpired(userIdentifierDO.getExpireAt())
+                );
 
-        loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired());
 
         // 密码信息
         loginUser.setPassword(PasswordEncryptEnum.prefixEncodePassword(userIdentifierPwdDO.getPwdEncryptFlag(),userIdentifierPwdDO.getPwd()));
-        loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired());
+        loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired() || checkHasExpired(userIdentifierPwdDO.getExpireAt()));
 
         loginUser.addExt(user_ext_identifier_key, userIdentifierDO);
         return loginUser;
+    }
+
+    /**
+     * 是否过期
+     * @param expiredAt
+     * @return
+     */
+    private boolean checkHasExpired(LocalDateTime expiredAt) {
+        if (expiredAt == null) {
+            return false;
+        }
+        return expiredAt.isBefore(LocalDateTime.now());
     }
 }
