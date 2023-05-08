@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.userinvite.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.tenant.client.userinvite.api.ITenantUserInviteUserRecordApplicationService;
 import com.particle.tenant.client.userinvite.api.representation.ITenantUserInviteUserRecordRepresentationApplicationService;
 import com.particle.tenant.client.userinvite.dto.command.TenantUserInviteUserRecordCreateCommand;
@@ -43,6 +45,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:create')")
 	@ApiOperation("添加租户用户邀请记录")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantUserInviteUserRecordVO> create(@RequestBody TenantUserInviteUserRecordCreateCommand tenantUserInviteUserRecordCreateCommand){
 		return iTenantUserInviteUserRecordApplicationService.create(tenantUserInviteUserRecordCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:delete')")
 	@ApiOperation("删除租户用户邀请记录")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantUserInviteUserRecordVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantUserInviteUserRecordApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:update')")
 	@ApiOperation("更新租户用户邀请记录")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantUserInviteUserRecordVO> update(@RequestBody TenantUserInviteUserRecordUpdateCommand tenantUserInviteUserRecordUpdateCommand){
 		return iTenantUserInviteUserRecordApplicationService.update(tenantUserInviteUserRecordUpdateCommand);
 	}

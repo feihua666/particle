@@ -1,5 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.Response;
 import com.particle.lowcode.client.generator.api.ILowcodeModelApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeModelRepresentationApplicationService;
@@ -45,6 +47,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:create')")
 	@ApiOperation("添加低代码模型")
 	@PostMapping("/create")
+	@OpLog(name = "添加低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeModelVO> create(@RequestBody LowcodeModelCreateCommand lowcodeModelCreateCommand){
 		return iLowcodeModelApplicationService.create(lowcodeModelCreateCommand);
 	}
@@ -52,6 +55,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:delete')")
 	@ApiOperation("删除低代码模型")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeModelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iLowcodeModelApplicationService.delete(deleteCommand);
 	}
@@ -59,6 +63,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:update')")
 	@ApiOperation("更新低代码模型")
 	@PutMapping("/update")
+	@OpLog(name = "更新低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeModelVO> update(@RequestBody LowcodeModelUpdateCommand lowcodeModelUpdateCommand){
 		return iLowcodeModelApplicationService.update(lowcodeModelUpdateCommand);
 	}
@@ -96,6 +101,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:loadByModelAndDatasource')")
 	@ApiOperation("加载载模型项")
 	@PostMapping("/loadByModelAndDatasource")
+	@OpLog(name = "加载载模型项",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public Response loadByModelAndDatasource(@RequestBody LowcodeModelItemCreateByModelIdCommand idCommand){
 		return iLowcodeModelApplicationService.loadByModelAndDatasource(idCommand);
 	}

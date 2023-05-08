@@ -2,6 +2,7 @@ package com.particle.func.adapter.funcapplicationfuncrel.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
 import com.particle.func.client.funcapplicationfuncrel.api.representation.IFuncApplicationFuncRelRepresentationApplicationService;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationAssignFuncCommand;
@@ -10,6 +11,7 @@ import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncAssignFun
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelPageQueryCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelQueryListCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.data.FuncApplicationFuncRelVO;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
@@ -42,6 +44,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:create')")
 	@ApiOperation("添加功能应用功能关系")
 	@PostMapping("/create")
+	@OpLog(name = "添加功能应用功能关系",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
 	public SingleResponse<FuncApplicationFuncRelVO> create(@RequestBody FuncApplicationFuncRelCreateCommand funcApplicationFuncRelCreateCommand){
 		return iFuncApplicationFuncRelApplicationService.create(funcApplicationFuncRelCreateCommand);
 	}
@@ -49,6 +52,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:delete')")
 	@ApiOperation("删除功能应用功能关系")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除功能应用功能关系",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncApplicationFuncRelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iFuncApplicationFuncRelApplicationService.delete(deleteCommand);
 	}
@@ -80,6 +84,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:funcAssignFuncApplication')")
 	@PostMapping("/func/assign/funcApplication")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "功能分配功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.relAsign)
 	public Response funcAssignFuncApplication(@RequestBody FuncAssignFuncApplicationCommand cf) {
 		return iFuncApplicationFuncRelApplicationService.funcAssignFuncApplication(cf);
 	}
@@ -96,6 +101,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:deleteByFuncId')")
 	@DeleteMapping("/deleteByFuncId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空功能下的所有功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public Response deleteByFuncId(@RequestBody IdCommand funcIdCommand) {
 		return iFuncApplicationFuncRelApplicationService.deleteByFuncId(funcIdCommand);
 	}
@@ -105,6 +111,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:funcApplicationAssignFunc')")
 	@PostMapping("/funcApplication/assign/func")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "功能应用分配功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.relAsign)
 	public Response funcApplicationAssignFunc(@RequestBody FuncApplicationAssignFuncCommand cf) {
 		return iFuncApplicationFuncRelApplicationService.funcApplicationAssignFunc(cf);
 	}
@@ -122,6 +129,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:deleteByFuncApplicationId')")
 	@DeleteMapping("/deleteByFuncApplicationId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空功能应用下的所有功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public Response deleteByFuncApplicationId(@RequestBody IdCommand funcIdCommand) {
 		return iFuncApplicationFuncRelApplicationService.deleteByFuncApplicationId(funcIdCommand);
 	}

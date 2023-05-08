@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.createapply.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import com.particle.tenant.client.createapply.api.representation.ITenantCreateApplyRepresentationApplicationService;
@@ -47,6 +49,7 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:create')")
 	@ApiOperation("添加租户创建申请")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户创建申请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantCreateApplyVO> create(@RequestBody TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand){
 		return iTenantCreateApplyApplicationService.create(tenantCreateApplyCreateCommand);
 	}
@@ -54,6 +57,7 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:delete')")
 	@ApiOperation("删除租户创建申请")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户创建申请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantCreateApplyVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantCreateApplyApplicationService.delete(deleteCommand);
 	}
@@ -61,6 +65,7 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:update')")
 	@ApiOperation("更新租户创建申请")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户创建申请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantCreateApplyVO> update(@RequestBody TenantCreateApplyUpdateCommand tenantCreateApplyUpdateCommand){
 		return iTenantCreateApplyApplicationService.update(tenantCreateApplyUpdateCommand);
 	}
@@ -98,6 +103,7 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:audit')")
 	@ApiOperation("审核租户创建申请")
 	@PutMapping("/audit")
+	@OpLog(name = "审核租户创建申请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.audit)
 	public SingleResponse<TenantCreateApplyVO> audit(@RequestBody TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand, @ApiIgnore LoginUser loginUser){
 		tenantCreateApplyAuditCommand.setTenantSuperAdminRoleCode(LoginUser.tenant_super_admin_role);
 		tenantCreateApplyAuditCommand.setAuditUserId(loginUser.getId());

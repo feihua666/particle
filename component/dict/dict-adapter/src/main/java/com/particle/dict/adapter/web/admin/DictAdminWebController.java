@@ -2,6 +2,7 @@ package com.particle.dict.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
 import com.particle.dict.client.dto.command.DictCreateCommand;
@@ -11,6 +12,7 @@ import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -46,6 +48,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:create')")
 	@ApiOperation("添加字典")
 	@PostMapping("/create")
+	@OpLog(name = "添加字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.create)
 	public SingleResponse<DictVO> create(@RequestBody DictCreateCommand dictCreateCommand){
 		return iDictApplicationService.create(dictCreateCommand);
 	}
@@ -53,6 +56,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:delete')")
 	@ApiOperation("删除字典")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.delete)
 	public SingleResponse<DictVO> delete(@RequestBody IdCommand dictDeleteCommand){
 		return iDictApplicationService.delete(dictDeleteCommand);
 	}
@@ -60,6 +64,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
 	@ApiOperation("更新字典")
 	@PutMapping("/update")
+	@OpLog(name = "更新字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.update)
 	public SingleResponse<DictVO> update(@RequestBody DictUpdateCommand dictUpdateCommand){
 		return iDictApplicationService.update(dictUpdateCommand);
 	}

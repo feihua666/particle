@@ -2,6 +2,7 @@ package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.api.IFuncGroupApplicationService;
 import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncGroupCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.func.client.dto.command.FuncGroupUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -39,6 +41,7 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:create')")
 	@ApiOperation("添加功能组")
 	@PostMapping("/create")
+	@OpLog(name = "添加功能组",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
 	public SingleResponse<FuncGroupVO> create(@RequestBody FuncGroupCreateCommand funcGroupCreateCommand){
 		return iFuncGroupApplicationService.create(funcGroupCreateCommand);
 	}
@@ -46,6 +49,7 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:delete')")
 	@ApiOperation("删除功能组")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除功能组",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncGroupVO> delete(@RequestBody IdCommand funcGroupDeleteCommand){
 		return iFuncGroupApplicationService.delete(funcGroupDeleteCommand);
 	}
@@ -53,6 +57,7 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:update')")
 	@ApiOperation("更新功能组")
 	@PutMapping("/update")
+	@OpLog(name = "更新功能组",module = OpLogConstants.Module.func,type = OpLogConstants.Type.update)
 	public SingleResponse<FuncGroupVO> update(@RequestBody FuncGroupUpdateCommand funcGroupUpdateCommand){
 		return iFuncGroupApplicationService.update(funcGroupUpdateCommand);
 	}

@@ -2,6 +2,8 @@ package com.particle.role.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -43,6 +45,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:role:create')")
 	@ApiOperation("添加角色")
 	@PostMapping("/create")
+	@OpLog(name = "添加角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.create)
 	public SingleResponse<RoleVO> create(@RequestBody RoleCreateCommand roleCreateCommand,@ApiIgnore LoginUser loginUser){
 		superAdminCheck(LoginUser.super_admin_role.equals(roleCreateCommand.getCode()) || (roleCreateCommand.getIsSuperadmin() != null && roleCreateCommand.getIsSuperadmin()), loginUser);
 		return iRoleApplicationService.create(roleCreateCommand);
@@ -51,6 +54,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:role:delete')")
 	@ApiOperation("删除角色")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public SingleResponse<RoleVO> delete(@RequestBody IdCommand roleDeleteCommand){
 		return iRoleApplicationService.delete(roleDeleteCommand);
 	}
@@ -58,6 +62,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:role:update')")
 	@ApiOperation("更新角色")
 	@PutMapping("/update")
+	@OpLog(name = "更新角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.update)
 	public SingleResponse<RoleVO> update(@RequestBody RoleUpdateCommand roleUpdateCommand,@ApiIgnore LoginUser loginUser){
 
 		superAdminCheck(LoginUser.super_admin_role.equals(roleUpdateCommand.getCode()) || (roleUpdateCommand.getIsSuperadmin() != null && roleUpdateCommand.getIsSuperadmin()), loginUser);

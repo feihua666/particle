@@ -1,5 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentGenApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeSegmentGenRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenCreateCommand;
@@ -47,6 +49,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:create')")
 	@ApiOperation("添加低代码生成")
 	@PostMapping("/create")
+	@OpLog(name = "添加低代码生成",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeSegmentGenVO> create(@RequestBody LowcodeSegmentGenCreateCommand lowcodeSegmentGenCreateCommand){
 		return iLowcodeSegmentGenApplicationService.create(lowcodeSegmentGenCreateCommand);
 	}
@@ -54,6 +57,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:delete')")
 	@ApiOperation("删除低代码生成")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除低代码生成",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeSegmentGenVO> delete(@RequestBody IdCommand deleteCommand){
 		return iLowcodeSegmentGenApplicationService.delete(deleteCommand);
 	}
@@ -61,6 +65,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:update')")
 	@ApiOperation("更新低代码生成")
 	@PutMapping("/update")
+	@OpLog(name = "更新低代码生成",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeSegmentGenVO> update(@RequestBody LowcodeSegmentGenUpdateCommand lowcodeSegmentGenUpdateCommand){
 		return iLowcodeSegmentGenApplicationService.update(lowcodeSegmentGenUpdateCommand);
 	}
@@ -96,6 +101,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:reloadLowcodeModelJson')")
 	@ApiOperation("重新加载模型json数据")
 	@PutMapping("/reloadLowcodeModelJson")
+	@OpLog(name = "重新加载模型json数据",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@RequestBody IdCommand reloadCommand){
 		return iLowcodeSegmentGenApplicationService.reloadLowcodeModelJson(reloadCommand);
 	}
@@ -103,6 +109,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:renderGen')")
 	@ApiOperation("低代码生成设计和渲染")
 	@PostMapping("/renderGen")
+	@OpLog(name = "低代码生成设计和渲染",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeSegmentGenRenderGenVO> renderGen(@RequestBody LowcodeSegmentGenRenderGenCommand lowcodeSegmentGenRenderGenCommand){
 		return iLowcodeSegmentGenApplicationService.renderGen(lowcodeSegmentGenRenderGenCommand);
 	}

@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.depttreeuserrel.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.depttreeuserrel.api.IDeptTreeUserRelApplicationService;
 import com.particle.dept.client.depttreeuserrel.api.representation.IDeptTreeUserRelRepresentationApplicationService;
 import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelUpdat
 import com.particle.dept.client.depttreeuserrel.dto.command.representation.DeptTreeUserRelPageQueryCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.representation.DeptTreeUserRelQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class DeptTreeUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeUserRel:create')")
 	@ApiOperation("添加部门树用户关系")
 	@PostMapping("/create")
+	@OpLog(name = "添加部门树用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptTreeUserRelVO> create(@RequestBody DeptTreeUserRelCreateCommand deptTreeUserRelCreateCommand){
 		return iDeptTreeUserRelApplicationService.create(deptTreeUserRelCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DeptTreeUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeUserRel:delete')")
 	@ApiOperation("删除部门树用户关系")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除部门树用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptTreeUserRelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDeptTreeUserRelApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DeptTreeUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeUserRel:update')")
 	@ApiOperation("更新部门树用户关系")
 	@PutMapping("/update")
+	@OpLog(name = "更新部门树用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptTreeUserRelVO> update(@RequestBody DeptTreeUserRelUpdateCommand deptTreeUserRelUpdateCommand){
 		return iDeptTreeUserRelApplicationService.update(deptTreeUserRelUpdateCommand);
 	}

@@ -2,6 +2,7 @@ package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
 import com.particle.func.client.dto.command.FuncCreateCommand;
@@ -10,6 +11,7 @@ import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.command.representation.FuncPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -40,6 +42,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:create')")
 	@ApiOperation("添加菜单功能")
 	@PostMapping("/create")
+	@OpLog(name = "添加菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
 	public SingleResponse<FuncVO> create(@RequestBody FuncCreateCommand funcCreateCommand){
 		return iFuncApplicationService.create(funcCreateCommand);
 	}
@@ -47,6 +50,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:delete')")
 	@ApiOperation("删除菜单功能")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncVO> delete(@RequestBody IdCommand funcDeleteCommand){
 		return iFuncApplicationService.delete(funcDeleteCommand);
 	}
@@ -54,6 +58,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:update')")
 	@ApiOperation("更新菜单功能")
 	@PutMapping("/update")
+	@OpLog(name = "更新菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.update)
 	public SingleResponse<FuncVO> update(@RequestBody FuncUpdateCommand funcUpdateCommand){
 		return iFuncApplicationService.update(funcUpdateCommand);
 	}

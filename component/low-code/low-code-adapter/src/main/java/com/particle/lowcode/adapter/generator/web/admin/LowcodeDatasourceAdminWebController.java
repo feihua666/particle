@@ -1,5 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.lowcode.client.generator.api.ILowcodeDatasourceApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeDatasourceRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeDatasourceCreateCommand;
@@ -43,6 +45,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:create')")
 	@ApiOperation("添加低代码数据源")
 	@PostMapping("/create")
+	@OpLog(name = "添加低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeDatasourceVO> create(@RequestBody LowcodeDatasourceCreateCommand lowcodeDatasourceCreateCommand){
 		return iLowcodeDatasourceApplicationService.create(lowcodeDatasourceCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:delete')")
 	@ApiOperation("删除低代码数据源")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeDatasourceVO> delete(@RequestBody IdCommand deleteCommand){
 		return iLowcodeDatasourceApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:update')")
 	@ApiOperation("更新低代码数据源")
 	@PutMapping("/update")
+	@OpLog(name = "更新低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeDatasourceVO> update(@RequestBody LowcodeDatasourceUpdateCommand lowcodeDatasourceUpdateCommand){
 		return iLowcodeDatasourceApplicationService.update(lowcodeDatasourceUpdateCommand);
 	}

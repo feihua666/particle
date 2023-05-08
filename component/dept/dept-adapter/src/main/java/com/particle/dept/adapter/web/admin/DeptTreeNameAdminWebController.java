@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.api.IDeptTreeNameApplicationService;
 import com.particle.dept.client.api.representation.IDeptTreeNameRepresentationApplicationService;
 import com.particle.dept.client.dto.command.DeptTreeNameCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dept.client.dto.command.DeptTreeNameUpdateCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeNamePageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeNameQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:create')")
 	@ApiOperation("添加部门树名称")
 	@PostMapping("/create")
+	@OpLog(name = "添加部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptTreeNameVO> create(@RequestBody DeptTreeNameCreateCommand deptTreeNameCreateCommand){
 		return iDeptTreeNameApplicationService.create(deptTreeNameCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:delete')")
 	@ApiOperation("删除部门树名称")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptTreeNameVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDeptTreeNameApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:update')")
 	@ApiOperation("更新部门树名称")
 	@PutMapping("/update")
+	@OpLog(name = "更新部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptTreeNameVO> update(@RequestBody DeptTreeNameUpdateCommand deptTreeNameUpdateCommand){
 		return iDeptTreeNameApplicationService.update(deptTreeNameUpdateCommand);
 	}

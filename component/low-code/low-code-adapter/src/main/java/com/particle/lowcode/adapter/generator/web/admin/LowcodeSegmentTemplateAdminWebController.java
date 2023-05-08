@@ -1,5 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeSegmentTemplateRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
@@ -46,6 +48,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:create')")
 	@ApiOperation("添加低代码片段模板")
 	@PostMapping("/create")
+	@OpLog(name = "添加低代码片段模板",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeSegmentTemplateVO> create(@RequestBody LowcodeSegmentTemplateCreateCommand lowcodeSegmentTemplateCreateCommand){
 		return iLowcodeSegmentTemplateApplicationService.create(lowcodeSegmentTemplateCreateCommand);
 	}
@@ -53,6 +56,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:delete')")
 	@ApiOperation("删除低代码片段模板")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除低代码片段模板",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeSegmentTemplateVO> delete(@RequestBody IdCommand deleteCommand){
 		return iLowcodeSegmentTemplateApplicationService.delete(deleteCommand);
 	}
@@ -60,6 +64,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:update')")
 	@ApiOperation("更新低代码片段模板")
 	@PutMapping("/update")
+	@OpLog(name = "更新低代码片段模板",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeSegmentTemplateVO> update(@RequestBody LowcodeSegmentTemplateUpdateCommand lowcodeSegmentTemplateUpdateCommand){
 		return iLowcodeSegmentTemplateApplicationService.update(lowcodeSegmentTemplateUpdateCommand);
 	}
@@ -95,6 +100,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:renderTest')")
 	@ApiOperation("片段模板渲染测试")
 	@PostMapping("/renderTest")
+	@OpLog(name = "片段模板渲染测试",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeSegmentTemplateRenderVO> renderTest(@RequestBody LowcodeSegmentTemplateRenderCommand lowcodeSegmentTemplateRenderCommand){
 		return iLowcodeSegmentTemplateApplicationService.renderTest(lowcodeSegmentTemplateRenderCommand);
 	}
@@ -102,6 +108,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:copy')")
 	@ApiOperation("片段模板复制")
 	@PostMapping("/copy")
+	@OpLog(name = "片段模板复制",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeSegmentTemplateVO> copy(@RequestBody LowcodeSegmentTemplateCopyCommand lowcodeSegmentTemplateCopyCommand){
 		return iLowcodeSegmentTemplateApplicationService.copy(lowcodeSegmentTemplateCopyCommand);
 	}

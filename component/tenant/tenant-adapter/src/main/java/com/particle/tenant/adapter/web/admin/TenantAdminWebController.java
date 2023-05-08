@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.api.representation.ITenantRepresentationApplicationService;
 import com.particle.tenant.client.dto.command.TenantCreateCommand;
@@ -43,6 +45,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenant:create')")
 	@ApiOperation("添加租户")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantVO> create(@RequestBody TenantCreateCommand tenantCreateCommand){
 		return iTenantApplicationService.create(tenantCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenant:delete')")
 	@ApiOperation("删除租户")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenant:update')")
 	@ApiOperation("更新租户")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantVO> update(@RequestBody TenantUpdateCommand tenantUpdateCommand){
 		return iTenantApplicationService.update(tenantUpdateCommand);
 	}

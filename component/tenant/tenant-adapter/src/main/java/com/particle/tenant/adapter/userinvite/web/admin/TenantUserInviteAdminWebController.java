@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.userinvite.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.tenant.client.userinvite.api.ITenantUserInviteApplicationService;
 import com.particle.tenant.client.userinvite.api.representation.ITenantUserInviteRepresentationApplicationService;
 import com.particle.tenant.client.userinvite.dto.command.TenantUserInviteCreateCommand;
@@ -43,6 +45,7 @@ public class TenantUserInviteAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInvite:create')")
 	@ApiOperation("添加租户用户邀请")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户用户邀请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantUserInviteVO> create(@RequestBody TenantUserInviteCreateCommand tenantUserInviteCreateCommand){
 		return iTenantUserInviteApplicationService.create(tenantUserInviteCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class TenantUserInviteAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInvite:delete')")
 	@ApiOperation("删除租户用户邀请")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户用户邀请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantUserInviteVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantUserInviteApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class TenantUserInviteAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInvite:update')")
 	@ApiOperation("更新租户用户邀请")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户用户邀请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantUserInviteVO> update(@RequestBody TenantUserInviteUpdateCommand tenantUserInviteUpdateCommand){
 		return iTenantUserInviteApplicationService.update(tenantUserInviteUpdateCommand);
 	}

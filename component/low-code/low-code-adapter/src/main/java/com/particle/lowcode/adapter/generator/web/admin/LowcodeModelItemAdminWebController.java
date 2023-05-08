@@ -1,5 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.lowcode.client.generator.api.ILowcodeModelItemApplicationService;
 import com.particle.lowcode.client.generator.api.representation.ILowcodeModelItemRepresentationApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeModelItemCreateCommand;
@@ -43,6 +45,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:create')")
 	@ApiOperation("添加低代码模型项目")
 	@PostMapping("/create")
+	@OpLog(name = "添加低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeModelItemVO> create(@RequestBody LowcodeModelItemCreateCommand lowcodeModelItemCreateCommand){
 		return iLowcodeModelItemApplicationService.create(lowcodeModelItemCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:delete')")
 	@ApiOperation("删除低代码模型项目")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeModelItemVO> delete(@RequestBody IdCommand deleteCommand){
 		return iLowcodeModelItemApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:update')")
 	@ApiOperation("更新低代码模型项目")
 	@PutMapping("/update")
+	@OpLog(name = "更新低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeModelItemVO> update(@RequestBody LowcodeModelItemUpdateCommand lowcodeModelItemUpdateCommand){
 		return iLowcodeModelItemApplicationService.update(lowcodeModelItemUpdateCommand);
 	}

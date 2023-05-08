@@ -1,5 +1,6 @@
 package com.particle.func.adapter.application.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.application.api.IFuncApplicationApplicationService;
 import com.particle.func.client.application.api.representation.IFuncApplicationRepresentationApplicationService;
 import com.particle.func.client.application.dto.command.FuncApplicationCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.func.client.application.dto.command.FuncApplicationUpdateCom
 import com.particle.func.client.application.dto.command.representation.FuncApplicationPageQueryCommand;
 import com.particle.func.client.application.dto.command.representation.FuncApplicationQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcApplication:create')")
 	@ApiOperation("添加功能应用")
 	@PostMapping("/create")
+	@OpLog(name = "添加功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
 	public SingleResponse<FuncApplicationVO> create(@RequestBody FuncApplicationCreateCommand funcApplicationCreateCommand){
 		return iFuncApplicationApplicationService.create(funcApplicationCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcApplication:delete')")
 	@ApiOperation("删除功能应用")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
 		return iFuncApplicationApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcApplication:update')")
 	@ApiOperation("更新功能应用")
 	@PutMapping("/update")
+	@OpLog(name = "更新功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.update)
 	public SingleResponse<FuncApplicationVO> update(@RequestBody FuncApplicationUpdateCommand funcApplicationUpdateCommand){
 		return iFuncApplicationApplicationService.update(funcApplicationUpdateCommand);
 	}

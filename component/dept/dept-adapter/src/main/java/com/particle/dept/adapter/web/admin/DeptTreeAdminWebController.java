@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.api.IDeptTreeApplicationService;
 import com.particle.dept.client.api.representation.IDeptTreeRepresentationApplicationService;
 import com.particle.dept.client.dto.command.DeptTreeCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dept.client.dto.command.DeptTreeUpdateCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreePageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class DeptTreeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTree:create')")
 	@ApiOperation("添加部门树")
 	@PostMapping("/create")
+	@OpLog(name = "添加部门树",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptTreeVO> create(@RequestBody DeptTreeCreateCommand deptTreeCreateCommand){
 		return iDeptTreeApplicationService.create(deptTreeCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DeptTreeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTree:delete')")
 	@ApiOperation("删除部门树")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除部门树",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptTreeVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDeptTreeApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DeptTreeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTree:update')")
 	@ApiOperation("更新部门树")
 	@PutMapping("/update")
+	@OpLog(name = "更新部门树",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptTreeVO> update(@RequestBody DeptTreeUpdateCommand deptTreeUpdateCommand){
 		return iDeptTreeApplicationService.update(deptTreeUpdateCommand);
 	}

@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.tenantfuncapplication.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.Response;
 import com.particle.tenant.client.tenantfunc.dto.command.TenantAssignFuncCommand;
 import com.particle.tenant.client.tenantfuncapplication.api.ITenantFuncApplicationApplicationService;
@@ -47,6 +49,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:create')")
 	@ApiOperation("添加租户功能应用")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantFuncApplicationVO> create(@RequestBody TenantFuncApplicationCreateCommand tenantFuncApplicationCreateCommand){
 		return iTenantFuncApplicationApplicationService.create(tenantFuncApplicationCreateCommand);
 	}
@@ -54,6 +57,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:delete')")
 	@ApiOperation("删除租户功能应用")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantFuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantFuncApplicationApplicationService.delete(deleteCommand);
 	}
@@ -61,6 +65,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:update')")
 	@ApiOperation("更新租户功能应用")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantFuncApplicationVO> update(@RequestBody TenantFuncApplicationUpdateCommand tenantFuncApplicationUpdateCommand){
 		return iTenantFuncApplicationApplicationService.update(tenantFuncApplicationUpdateCommand);
 	}
@@ -97,6 +102,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:tenantAssignFuncApplication')")
 	@PostMapping("/tenant/assign/funcApplication")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "租户分配功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.relAsign)
 	public Response tenantAssignFuncApplication(@RequestBody TenantAssignFuncApplicationCommand cf) {
 		return iTenantFuncApplicationApplicationService.tenantAssignFuncApplication(cf);
 	}

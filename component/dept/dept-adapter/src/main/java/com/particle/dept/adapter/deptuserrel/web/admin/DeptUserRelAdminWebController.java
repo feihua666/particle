@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.deptuserrel.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.deptuserrel.api.IDeptUserRelApplicationService;
 import com.particle.dept.client.deptuserrel.api.representation.IDeptUserRelRepresentationApplicationService;
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelUpdateCommand
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:create')")
 	@ApiOperation("添加部门用户关系")
 	@PostMapping("/create")
+	@OpLog(name = "添加部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptUserRelVO> create(@RequestBody DeptUserRelCreateCommand deptUserRelCreateCommand){
 		return iDeptUserRelApplicationService.create(deptUserRelCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:delete')")
 	@ApiOperation("删除部门用户关系")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptUserRelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDeptUserRelApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:update')")
 	@ApiOperation("更新部门用户关系")
 	@PutMapping("/update")
+	@OpLog(name = "更新部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptUserRelVO> update(@RequestBody DeptUserRelUpdateCommand deptUserRelUpdateCommand){
 		return iDeptUserRelApplicationService.update(deptUserRelUpdateCommand);
 	}

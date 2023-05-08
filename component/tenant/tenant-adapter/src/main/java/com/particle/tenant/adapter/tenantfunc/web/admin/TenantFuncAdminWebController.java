@@ -1,5 +1,7 @@
 package com.particle.tenant.adapter.tenantfunc.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.Response;
 import com.particle.tenant.client.tenantfunc.api.ITenantFuncApplicationService;
 import com.particle.tenant.client.tenantfunc.api.representation.ITenantFuncRepresentationApplicationService;
@@ -47,6 +49,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:create')")
 	@ApiOperation("添加租户功能菜单")
 	@PostMapping("/create")
+	@OpLog(name = "添加租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantFuncVO> create(@RequestBody TenantFuncCreateCommand tenantFuncCreateCommand){
 		return iTenantFuncApplicationService.create(tenantFuncCreateCommand);
 	}
@@ -54,6 +57,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:delete')")
 	@ApiOperation("删除租户功能菜单")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantFuncVO> delete(@RequestBody IdCommand deleteCommand){
 		return iTenantFuncApplicationService.delete(deleteCommand);
 	}
@@ -61,6 +65,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:update')")
 	@ApiOperation("更新租户功能菜单")
 	@PutMapping("/update")
+	@OpLog(name = "更新租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantFuncVO> update(@RequestBody TenantFuncUpdateCommand tenantFuncUpdateCommand){
 		return iTenantFuncApplicationService.update(tenantFuncUpdateCommand);
 	}
@@ -97,6 +102,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("租户分配功能菜单")
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:tenantAssignFunc')")
 	@PostMapping("/tenant/assign/func")
+	@OpLog(name = "租户分配功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.relAsign)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Response tenantAssignFunc(@RequestBody TenantAssignFuncCommand cf) {
 		return iTenantFuncApplicationService.tenantAssignFunc(cf);
