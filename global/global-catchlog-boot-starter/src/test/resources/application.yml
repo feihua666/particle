@@ -1,0 +1,6 @@
+particle:
+  catchlog:
+    # 是否处理异常，如果不处理，将会直接抛出 参见：com.particle.global.catchlog.CatchLogAspect
+    handleException: false
+    # 启动异常捕获并打印日志，参见：com.particle.global.catchlog.CatchLogAutoConfiguration
+    enableCatchLog: false

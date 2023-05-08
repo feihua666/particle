@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>global</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.1.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>global-data-audit-boot-starter</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 日志包 -->
+        <!-- 版本已经在 spring-boot-dependencies 定义 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- global 组件依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-tool</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- servlet-api 不传递依赖 版本已在springboot parent 中定义 -->
+        <!-- OpLogAspect 中有使用 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- jdbc支持 主要是在jdbc事务提交后处理审计数据-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 并发包，主要用于降低数据比对性能的影响 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-concurrency-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+</project>

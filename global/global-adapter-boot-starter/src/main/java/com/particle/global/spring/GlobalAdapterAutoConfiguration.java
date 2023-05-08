@@ -1,5 +1,6 @@
 package com.particle.global.spring;
 
+import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -20,5 +21,10 @@ public class GlobalAdapterAutoConfiguration {
 	@ConditionalOnClass(SpringContextHolder.class)
 	public SpringContextHolder springContextHolder() {
 		return new SpringContextHolder();
+	}
+
+	@Bean
+	public SnowflakeIdTool snowflakeIdTool(){
+		return new SnowflakeIdTool();
 	}
 }

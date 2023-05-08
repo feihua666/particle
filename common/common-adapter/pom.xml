@@ -68,6 +68,13 @@
             <artifactId>global-session-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 业务组件共享数据依赖 统一添加到这里，主要是应用其操作日志常量-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>component-light-share</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

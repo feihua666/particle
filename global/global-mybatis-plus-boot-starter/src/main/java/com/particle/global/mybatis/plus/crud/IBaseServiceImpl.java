@@ -17,14 +17,20 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.particle.global.data.permission.DataPermissionService;
+import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
+import com.particle.global.dataaudit.op.OpLogTool;
+import com.particle.global.dataaudit.op.OpLogType;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.basic.TreeDO;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import lombok.extern.slf4j.Slf4j;
+import org.javers.common.collections.Lists;
+import org.javers.core.diff.Change;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -97,6 +103,21 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         preAdd(po,null);
         boolean r =  save(po);
         if(r){
+            OpLogTool.setMainDataIdIfNecessary(po.getId());
+            // 数据审计
+            //DataAuditHelperTool.publish(null,po);
+            // 这里使用异步方法处理，降低性能消耗
+            DataAuditHelperTool.publish(t -> {
+                DO byId = getById(po.getId());
+                List<Change> changes = t.apply(null, byId);
+                String dataTable = DataAuditHelperTool.getDoTableName(null, byId, null);
+
+                String dataEntity = DataAuditHelperTool.getDoDataEntity(null, byId, null);
+
+                Long dataId = byId.getId();
+                DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity, OpLogType.create.name());
+                return Lists.asList(dataAuditResultWithOpLogDTO);
+            });
             postAdd(po,null);
             return po;
         }else {
@@ -271,6 +292,21 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }
         boolean r = remove(queryWrapper);
         if(r){
+            OpLogTool.setMainDataIdIfNecessary(byId.getId());
+            // 数据审计
+            //DataAuditHelperTool.publish(byId,null);
+
+            // 这里使用异步方法处理，降低性能消耗
+            DataAuditHelperTool.publish(t -> {
+                List<Change> changes = t.apply(byId,null);
+                String dataTable = DataAuditHelperTool.getDoTableName(byId, null, null);
+
+                String dataEntity = DataAuditHelperTool.getDoDataEntity(byId, null, null);
+
+                Long dataId = byId.getId();
+                DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.delete.name());
+                return Lists.asList(dataAuditResultWithOpLogDTO);
+            });
             postDeleteById(id,byId,null);
         }
         return r;
@@ -327,6 +363,28 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
         boolean r = remove(queryWrapper);
         if(r){
+            if (CollectionUtil.isNotEmpty(list)) {
+                // todo 删除多条时，数据主体不匹配问题，这里取条件
+                if (columnId instanceof Long) {
+                    OpLogTool.setMainDataIdIfNecessary((Long) columnId);
+                }
+                for (DO aDo : list) {
+                    //DataAuditHelperTool.publish(aDo,null);
+                    // 这里使用异步方法处理，降低性能消耗
+                    DataAuditHelperTool.publish(t -> {
+                        List<Change> changes = t.apply(aDo,null);
+                        String dataTable = DataAuditHelperTool.getDoTableName(aDo, null, null);
+
+                        String dataEntity = DataAuditHelperTool.getDoDataEntity(aDo, null, null);
+
+                        Long dataId = aDo.getId();
+                        DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.delete.name());
+                        return Lists.asList(dataAuditResultWithOpLogDTO);
+                    });
+                }
+            }
+
+
             postDeleteByColumn(columnId,column,list,null);
         }
         return r;
@@ -395,12 +453,40 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
             getUpdateDataPermissionService().dataConstraint(updateWrapper);
         }
         Integer versionOrigin = po.getVersion();
+        // 更新之前的数据
+        DO dbDo = null;
+        // 更新之后的数据
+        DO dbDoUpdated = null;
+        if (DataAuditHelperTool.isEnabled()) {
+            dbDo = getById(po.getId());
+        }
         boolean r = update(po,updateWrapper);
+
         if (r) {
+            //if (DataAuditHelperTool.isEnabled()) {
+            //    dbDoUpdated = getById(po.getId());
+            //}
+            OpLogTool.setMainDataIdIfNecessary(po.getId());
+            //DataAuditHelperTool.publish(dbDo,dbDoUpdated);
+            // 这里使用异步方法处理，降低性能消耗
+            DO finalDbDo = dbDo;
+            DataAuditHelperTool.publish(t -> {
+                DO dbDoUpdatedAsync = getById(po.getId());
+                List<Change> changes = t.apply(finalDbDo,dbDoUpdatedAsync);
+                String dataTable = DataAuditHelperTool.getDoTableName(finalDbDo, dbDoUpdatedAsync, null);
+
+                String dataEntity = DataAuditHelperTool.getDoDataEntity(finalDbDo, dbDoUpdatedAsync, null);
+
+                Long dataId = finalDbDo.getId();
+                DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.update.name());
+                return Lists.asList(dataAuditResultWithOpLogDTO);
+            });
             postUpdate(po,null);
             return po;
         }else {
-            DO dbDo = getById(po.getId());
+            if (dbDo == null) {
+                dbDo = getById(po.getId());
+            }
             if (!Objects.equals(versionOrigin, dbDo.getVersion())) {
                 throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.UPDATE_DATA_VERSION_ERROR);
             }

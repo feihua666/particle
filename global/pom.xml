@@ -43,6 +43,7 @@
         <module>global-big-datasource-boot-starter</module>
         <module>global-captcha-boot-starter</module>
         <module>global-oss-boot-starter</module>
+        <module>global-data-audit-boot-starter</module>
 
     </modules>
 

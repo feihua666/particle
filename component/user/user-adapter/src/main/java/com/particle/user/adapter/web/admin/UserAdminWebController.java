@@ -2,6 +2,8 @@ package com.particle.user.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -41,6 +43,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:create')")
 	@ApiOperation("添加用户")
 	@PostMapping("/create")
+	@OpLog(name = "添加用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
 	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
 		PasswordTool.encodePassword(userIdentifierPasswordCommand);
 
@@ -50,6 +53,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:delete')")
 	@ApiOperation("删除用户")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
 	public SingleResponse<UserVO> delete(@RequestBody IdCommand userDeleteCommand){
 		return iUserApplicationService.delete(userDeleteCommand);
 	}
@@ -57,6 +61,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
 	@ApiOperation("更新用户")
 	@PutMapping("/update")
+	@OpLog(name = "更新用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public SingleResponse<UserVO> update(@RequestBody UserUpdateCommand userUpdateCommand){
 		return iUserApplicationService.update(userUpdateCommand);
 	}

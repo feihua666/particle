@@ -55,5 +55,12 @@
             <artifactId>global-adapter-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 操作日志及数据审计日志依赖 操作日志注解建议添加到controller 方法上，数据审计日志需要手动处理-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-data-audit-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

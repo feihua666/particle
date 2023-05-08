@@ -32,7 +32,7 @@ onMounted(()=>{
     let vh = window.innerHeight * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   })
-
+  window.resizeTo(400,300);
 })
 </script>
 

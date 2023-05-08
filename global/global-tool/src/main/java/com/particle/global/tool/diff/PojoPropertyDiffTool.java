@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 /**
  * <p>
  * 简单数据对象字典比对工具
+ * 建议使用 {@link DataAuditTool} 工具进行对比
  * </p>
  * 依赖 swagger 注解
  * @author yangwei
@@ -33,9 +34,9 @@ public class PojoPropertyDiffTool {
 	public static List<String> ignoreProperties = new ArrayList<>(2);
 
 	/**
-	 *
-	 * @param oldPojo 支持内省对象和map
-	 * @param newPojo 支持内省对象和map
+	 * 属性对比
+	 * @param oldPojo 支持内省对象 和 map
+	 * @param newPojo 支持内省对象 和 map
 	 * @return
 	 */
 	public static List<PropertyDiffResult> diff(Object oldPojo,Object newPojo){
@@ -105,7 +106,7 @@ public class PojoPropertyDiffTool {
 	}
 	/**
 	 * 获取每个对象的值
-	 * @param object
+	 * @param object 仅支持 {@link Map} (map 值仅支持简单数据类型) 和 pojo 对象（字段名称使用swagger注解）
 	 * @return
 	 */
 	private static List<PropertyResult> propertyResults(Object object){
@@ -153,8 +154,17 @@ public class PojoPropertyDiffTool {
 	@Setter
 	@Getter
 	private static class PropertyResult{
+		/**
+		 * 字段名称，一般为中文
+		 */
 		private String name;
+		/**
+		 * 字段属性
+		 */
 		private String property;
+		/**
+		 * 字段值
+		 */
 		private String value;
 
 	}
@@ -166,10 +176,21 @@ public class PojoPropertyDiffTool {
 	@Getter
 	@Accessors(chain = true)
 	public static class PropertyDiffResult{
+		/**
+		 * 字段名称，一般为中文
+		 */
 		private String name;
+		/**
+		 * 字段属性
+		 */
 		private String property;
+		/**
+		 * 原来值
+		 */
 		private String oldValue;
-
+		/**
+		 * 新值
+		 */
 		private String newValue;
 
 		@Override

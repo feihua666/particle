@@ -1,0 +1,6 @@
+particle:
+  dataaudit:
+    oplog:
+      enabled: true
+    audit:
+      enabled: true

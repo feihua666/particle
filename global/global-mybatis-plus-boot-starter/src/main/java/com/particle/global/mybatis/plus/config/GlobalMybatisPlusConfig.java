@@ -1,5 +1,7 @@
 package com.particle.global.mybatis.plus.config;
 
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
@@ -19,8 +21,8 @@ import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.id.SnowflakeIdTool;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -194,5 +196,24 @@ public class GlobalMybatisPlusConfig {
 				return LoginUserSuperAdminResolver.DEFAULT_USER_SUPER_ADMIN;
 			}
 		};
+	}
+
+	/**
+	 * 参数不能去掉，有依赖关系
+	 * 自定义 id 生成器，支持配置 节点id和数据中心id，参见 {@link SnowflakeIdTool}
+	 * @param snowflakeIdTool
+	 * @return
+	 */
+	@Bean
+	public IdentifierGenerator customIdentifierGenerator(SnowflakeIdTool snowflakeIdTool){
+		DefaultIdentifierGenerator customIdentifierGenerator = null;
+		Long workerId = SnowflakeIdTool.getWorkerId();
+		Long dataCenterId = SnowflakeIdTool.getDataCenterId();
+		if (workerId != null && dataCenterId != null) {
+			customIdentifierGenerator = new DefaultIdentifierGenerator(workerId,dataCenterId);
+		}else {
+			customIdentifierGenerator = new DefaultIdentifierGenerator();
+		}
+		return customIdentifierGenerator;
 	}
 }

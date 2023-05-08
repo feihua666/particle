@@ -129,5 +129,14 @@
             <version>${xercesImpl.version}</version>
         </dependency>
         <!-- *********引入POI依赖 可以使用，仅测试使用，不依赖传递 ************ -->
+
+        <!-- java 对象差异对比工具 都见 diff包数据审计 -->
+        <!-- https://mvnrepository.com/artifact/org.javers/javers-core -->
+        <dependency>
+            <groupId>org.javers</groupId>
+            <artifactId>javers-core</artifactId>
+            <version>${javers-core.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

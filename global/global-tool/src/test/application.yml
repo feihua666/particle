@@ -1,0 +1,10 @@
+particle:
+  snowflake:
+    # 建议在使用雪花算法生成id时 使用 SnowflakeIdTool 工具，这样整个项目统一id生成规则和配置
+    # 全部不配置，将使用默认的 默认有的地方使用的 hutool的IdUtil数据库使用的mybatis plus的IdWorker
+    # 设置为true，下面的worker-id和data-center-id配置将失效，将随机一个
+    use-random: false
+    # 取值范围 [1,31]
+    worker-id: 2
+    # 取值范围 [1,31]
+    data-center-id: 4
