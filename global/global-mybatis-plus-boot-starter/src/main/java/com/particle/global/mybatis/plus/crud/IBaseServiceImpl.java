@@ -28,6 +28,7 @@ import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
+import com.particle.global.security.tenant.TenantTool;
 import lombok.extern.slf4j.Slf4j;
 import org.javers.common.collections.Lists;
 import org.javers.core.diff.Change;
@@ -108,16 +109,22 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
                 // 数据审计
                 //DataAuditHelperTool.publish(null,po);
                 // 这里使用异步方法处理，降低性能消耗
+                Long tenantId = TenantTool.getTenantId();
                 DataAuditHelperTool.publish(t -> {
-                    DO byId = getById(po.getId());
-                    List<Change> changes = t.apply(null, byId);
-                    String dataTable = DataAuditHelperTool.getDoTableName(null, byId, null);
+                    TenantTool.setTenantId(tenantId);
+                    try {
+                        DO byId = getById(po.getId());
+                        List<Change> changes = t.apply(null, byId);
+                        String dataTable = DataAuditHelperTool.getDoTableName(null, byId, null);
 
-                    String dataEntity = DataAuditHelperTool.getDoDataEntity(null, byId, null);
+                        String dataEntity = DataAuditHelperTool.getDoDataEntity(null, byId, null);
 
-                    Long dataId = byId.getId();
-                    DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity, OpLogType.create.name());
-                    return Lists.asList(dataAuditResultWithOpLogDTO);
+                        Long dataId = byId.getId();
+                        DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity, OpLogType.create.name());
+                        return Lists.asList(dataAuditResultWithOpLogDTO);
+                    } finally {
+                        TenantTool.clear();
+                    }
                 });
             }
 
@@ -374,6 +381,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
                 if (columnId instanceof Long) {
                     OpLogTool.setMainDataIdIfNecessary((Long) columnId);
                 }
+
                 for (DO aDo : list) {
                     if (aDo.getDataAuditEnabled() != null && aDo.getDataAuditEnabled()) {
                         //DataAuditHelperTool.publish(aDo,null);
@@ -479,16 +487,22 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
                 //DataAuditHelperTool.publish(dbDo,dbDoUpdated);
                 // 这里使用异步方法处理，降低性能消耗
                 DO finalDbDo = dbDo;
+                Long tenantId = TenantTool.getTenantId();
                 DataAuditHelperTool.publish(t -> {
-                    DO dbDoUpdatedAsync = getById(po.getId());
-                    List<Change> changes = t.apply(finalDbDo,dbDoUpdatedAsync);
-                    String dataTable = DataAuditHelperTool.getDoTableName(finalDbDo, dbDoUpdatedAsync, null);
+                    TenantTool.setTenantId(tenantId);
+                    try {
+                        DO dbDoUpdatedAsync = getById(po.getId());
+                        List<Change> changes = t.apply(finalDbDo,dbDoUpdatedAsync);
+                        String dataTable = DataAuditHelperTool.getDoTableName(finalDbDo, dbDoUpdatedAsync, null);
 
-                    String dataEntity = DataAuditHelperTool.getDoDataEntity(finalDbDo, dbDoUpdatedAsync, null);
+                        String dataEntity = DataAuditHelperTool.getDoDataEntity(finalDbDo, dbDoUpdatedAsync, null);
 
-                    Long dataId = finalDbDo.getId();
-                    DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.update.name());
-                    return Lists.asList(dataAuditResultWithOpLogDTO);
+                        Long dataId = finalDbDo.getId();
+                        DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.update.name());
+                        return Lists.asList(dataAuditResultWithOpLogDTO);
+                    } finally {
+                        TenantTool.clear();
+                    }
                 });
             }
 

@@ -39,6 +39,7 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<UserVO> execute(@Valid UserUpdateCommand userUpdateCommand) {
 		User user = createByUserUpdateCommand(userUpdateCommand);
+		user.setUpdateControl(userUpdateCommand);
 		boolean save = userGateway.save(user);
 		if (save) {
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));

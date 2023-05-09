@@ -96,7 +96,7 @@ public class DataAuditCollectTool {
 	 * @return
 	 */
 	public static List<DataAuditResultDTO> getResult() {
-		return (List<DataAuditResultDTO>)ThreadContextTool.get(dataAuditCollectResultWithOpLogKey);
+		return (List<DataAuditResultDTO>)ThreadContextTool.get(dataAuditCollectResultKey);
 	}
 	/**
 	 * 获取已收集到的数据审计比对结果数据
