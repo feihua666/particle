@@ -8,6 +8,7 @@ import LowcodeRoutes from './lowcode/LowcodeRoutes'
 import DataQueryRoutes from './dataquery/DataQueryRoutes.ts'
 import TenantRoutes from './tenant/TenantRoutes.ts'
 import DeptRoutes from './dept/DeptRoutes.ts'
+import OpLogRoutes from "./oplog/OpLogRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -20,4 +21,5 @@ let ComponentRoutes = []
     .concat(DataQueryRoutes)
     .concat(TenantRoutes)
     .concat(DeptRoutes)
+    .concat(OpLogRoutes)
 export default ComponentRoutes

@@ -56,6 +56,9 @@ public class LoginUser implements UserDetails {
     @ApiModelProperty(value = "是否租户超级管理员")
     private Boolean isTenantSuperAdmin = false;
 
+    @ApiModelProperty(value = "用户姓名")
+    private String name;
+
     @ApiModelProperty(value = "用户昵称")
     private String nickname;
 

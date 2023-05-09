@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>component</artifactId>
+        <groupId>com.particle</groupId>
+        <version>0.1.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>op-log</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>op-log-adapter</module>
+        <module>op-log-adapter-feign-client</module>
+        <module>op-log-app</module>
+        <module>op-log-boot-starter</module>
+        <module>op-log-client</module>
+        <module>op-log-domain</module>
+        <module>op-log-infrastructure</module>
+        <module>op-log-start</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

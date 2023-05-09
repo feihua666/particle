@@ -127,6 +127,12 @@
             <artifactId>global-oss-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 操作日志及数据审计功能支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>op-log-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

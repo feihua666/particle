@@ -78,7 +78,7 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['审核','审批'],
+        pattern:['审计','审核','审批'],
         icon: 'Comment',
         type:'primary'
     },

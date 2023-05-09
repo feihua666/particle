@@ -1,0 +1,3 @@
+-- crud数据sql
+-- import classpath:db/data.op-log.func.sql
+-- import classpath:db/data.op-log.dict.sql

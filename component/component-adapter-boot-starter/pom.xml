@@ -63,5 +63,13 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 操作日志适配，主要实现 global-data-audit-boot-starter 操作日志持久化-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>op-log-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -55,6 +55,7 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
 
 
         loginUser.setId(userIdentifierDO.getUserId());
+        loginUser.setName(userDO.getName());
         loginUser.setUsername(username);
         // 账号是否可用
         loginUser.setIsEnabled(true);

@@ -29,6 +29,7 @@
         <module>tenant</module>
         <module>dept</module>
         <module>component-admin</module>
+        <module>op-log</module>
     </modules>
 
     <properties>

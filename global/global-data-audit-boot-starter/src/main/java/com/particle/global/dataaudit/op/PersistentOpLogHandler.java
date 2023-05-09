@@ -26,7 +26,7 @@ public class PersistentOpLogHandler implements IOpLogHandler{
 		if (opLogRepository != null) {
 			opLogRepository.save(opLogAndDataAuditResultsDTOList);
 		}else {
-			log.warn("opLogRepository is null,you can put a spring bean type of IOpLogHandler to persist oplog data");
+			log.warn("opLogRepository is null,you can put a spring bean type of OpLogRepository to persist oplog data");
 		}
 	}
 

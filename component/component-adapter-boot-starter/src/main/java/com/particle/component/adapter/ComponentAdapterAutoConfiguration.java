@@ -1,9 +1,11 @@
 package com.particle.component.adapter;
 
+import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.user.TenantUserAddServiceListener;
 import com.particle.component.adapter.user.login.*;
 import com.particle.func.infrastructure.service.IFuncService;
-import com.particle.global.security.security.login.AbstractUserDetailsService;
+import com.particle.global.dataaudit.op.IOpLogHandler;
+import com.particle.oplog.infrastructure.service.IOpLogService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
@@ -80,5 +82,15 @@ public class ComponentAdapterAutoConfiguration {
 	@ConditionalOnBean({ ITenantUserService.class})
 	public TenantUserAddServiceListener tenantUserAddServiceListener() {
 		return new TenantUserAddServiceListener();
+	}
+
+	/**
+	 * 操作日志持久化实现
+	 * @return
+	 */
+	@Bean
+	@ConditionalOnBean(IOpLogService.class)
+	public OpLogRepositoryImpl opLogRepositoryImpl(){
+		return new OpLogRepositoryImpl();
 	}
 }

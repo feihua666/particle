@@ -31,4 +31,8 @@ public class TransTableNameConstants {
 	public static final String component_dept_tree_name = "component_dept_tree_name";
 	public static final String component_tenant = "component_tenant";
 	public static final String component_tenant_func_application = "component_tenant_func_application";
+
+	public static final String component_op_log = "component_op_log";
+
+
 }
