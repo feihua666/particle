@@ -133,6 +133,11 @@
             <artifactId>op-log-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tracking-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

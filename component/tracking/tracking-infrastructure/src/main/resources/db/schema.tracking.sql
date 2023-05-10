@@ -1,0 +1,2 @@
+-- import classpath:db/schema.component_tracking_page_record.sql
+-- import classpath:db/schema.component_tracking_page.sql

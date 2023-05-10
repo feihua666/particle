@@ -30,6 +30,7 @@
         <module>dept</module>
         <module>component-admin</module>
         <module>op-log</module>
+        <module>tracking</module>
     </modules>
 
     <properties>

@@ -87,6 +87,7 @@ const d = [
         icon: 'Switch',
         type:'primary'
     },
+
 ]
 
 /**

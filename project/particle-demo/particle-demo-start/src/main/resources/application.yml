@@ -38,6 +38,7 @@ spring:
         - classpath:db/schema.tenant.sql
         - classpath:db/schema.dept.sql
         - classpath:db/schema.op-log.sql
+        - classpath:db/schema.tracking.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -54,6 +55,7 @@ spring:
         - classpath:db/data.tenant.sql
         - classpath:db/data.dept.sql
         - classpath:db/data.op-log.sql
+        - classpath:db/data.tracking.sql
       mode: ALWAYS # ALWAYS NEVER
   servlet:
     multipart:

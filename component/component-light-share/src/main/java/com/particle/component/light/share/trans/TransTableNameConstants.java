@@ -34,5 +34,7 @@ public class TransTableNameConstants {
 
 	public static final String component_op_log = "component_op_log";
 
+	public static final String component_tracking_page = "component_tracking_page";
+
 
 }

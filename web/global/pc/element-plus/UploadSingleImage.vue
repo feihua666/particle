@@ -5,9 +5,10 @@
  *          2. 提供了默认的上传表示形式
  *          3. 默认自带上传 dataLoading 功能效果
  */
-import {reactive,computed} from 'vue'
+import {reactive, computed, watch} from 'vue'
 import {emitDataModelEvent,} from './dataModel'
 import PtUpload from './Upload.vue'
+import {getPreviewUrl} from "../common/axios/axiosRequest";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -34,7 +35,7 @@ const reactiveData = reactive({
 const propsOptions = computed(() => {
   let defaultProps = {
     // 取 response 值的 url 属性名
-    url: 'url'
+    url: 'absoluteHttpUrl'
   }
   return Object.assign(defaultProps, props.props)
 })// 事件
@@ -43,9 +44,14 @@ const emit = defineEmits([
   emitDataModelEvent.updateModelValue,
 ])
 
+watch(()=> props.modelValue,(url)=>{
+  reactiveData.currentModelValue = url
+})
+
 const handleSuccess = (response, uploadFile, uploadFiles) => {
 
-  let url = response[propsOptions.url]
+
+  let url = response[propsOptions.value.url]
   reactiveData.currentModelValue = url
   emit(emitDataModelEvent.updateModelValue,url)
 }
@@ -59,7 +65,7 @@ const handleSuccess = (response, uploadFile, uploadFiles) => {
       @uploading="(uploading) => {reactiveData.uploading = uploading}"
       :on-success="handleSuccess">
     <div  v-loading="reactiveData.uploading">
-      <img v-if="reactiveData.currentModelValue" :src="reactiveData.currentModelValue" class="single-image-uploader-img" />
+      <img v-if="reactiveData.currentModelValue" :src="getPreviewUrl(reactiveData.currentModelValue)" class="single-image-uploader-img" />
       <el-icon v-else class="single-image-uploader-icon"><Plus /></el-icon>
     </div>
 

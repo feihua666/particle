@@ -16,4 +16,13 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <!-- 将全局的经量依赖到common里面来，方便使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-light-share</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

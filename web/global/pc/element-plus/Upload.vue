@@ -5,18 +5,21 @@
  *          2. 提供了默认的上传表示形式
  *          3. 默认自带上传 dataLoading 功能效果
  */
-import {reactive ,inject,ref,watch} from 'vue'
+import {reactive ,inject,ref,watch,computed} from 'vue'
 import PtButton from './Button.vue'
 import { ElMessage } from 'element-plus'
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {getUploadUrl, getUrl} from "../common/axios/axiosRequest";
 const uploadRef = ref(null)
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
+  // 上传地址，如果不传默认按 axiosRequest.ts 中的get url
+  action: String,
   // 值绑定
   modelValue: [Array],
   // 提示文本，也可以通过 tip 插槽覆盖该行为
@@ -77,6 +80,12 @@ const reactiveData = reactive({
   // 上传中，加载状态
   uploading: false
 })
+// 计算属性
+// 这里和 props.loading 重名了，但在模板是使用 loading 变量是这个值，也就是说这里会覆盖在模板中的值
+const action = computed(() => {
+  return props.action || getUploadUrl()
+})
+
 const injectPermissions = inject('permissions', [])
 
 // 计算属性
@@ -221,6 +230,7 @@ const handlePictureCardPreview = (uploadFile) => {
   <el-upload
       v-if="hasPermission.render"
       ref="uploadRef"
+      :action="action"
       v-model:file-list="reactiveData.currentModelValue"
       v-bind="$attrs"
       :title="hasDisabled.disabledReason || title"

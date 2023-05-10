@@ -8,6 +8,7 @@
 import {reactive,computed,watch} from 'vue'
 import {emitDataModelEvent,} from './dataModel'
 import PtUpload from './Upload.vue'
+import {getPreviewUrl} from "../common/axios/axiosRequest";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -34,7 +35,7 @@ const reactiveData = reactive({
 const propsOptions = computed(() => {
   let defaultProps = {
     // 取 response 值的 url 属性名
-    url: 'url'
+    url: 'absoluteHttpUrl'
   }
   return Object.assign(defaultProps, props.props)
 })
@@ -49,7 +50,7 @@ const emit = defineEmits([
 
 const handleSuccess = (response, uploadFile, uploadFiles) => {
 
-  let url = response[propsOptions.url]
+  let url = response[propsOptions.value.url]
   reactiveData.currentModelValue = url
   emit(emitDataModelEvent.updateModelValue,url)
 }
@@ -62,8 +63,8 @@ const handleSuccess = (response, uploadFile, uploadFiles) => {
       :noPermissionSimpleText="noPermissionSimpleText"
       @uploading="(uploading) => {reactiveData.uploading = uploading}"
       :on-success="handleSuccess">
-    <el-avatar   v-loading="reactiveData.uploading" :size="60" :src="reactiveData.currentModelValue">
-      {{reactiveData.imageUrl ? '加载失败':'请上传'}}
+    <el-avatar   v-loading="reactiveData.uploading" :size="60" :src="getPreviewUrl(reactiveData.currentModelValue)">
+      {{reactiveData.currentModelValue ? '加载失败':'请上传'}}
     </el-avatar>
 
   </PtUpload>

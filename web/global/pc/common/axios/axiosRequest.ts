@@ -25,6 +25,32 @@ export const getUrl = (): string => {
     const context = getRaw('VITE_AXIOS_CONTEXT') || import.meta.env.VITE_AXIOS_CONTEXT || ''
     return baseUrl == 'getCurrentDomain' ? window.location.protocol + '//' + window.location.host + context : baseUrl + context
 }
+/**
+ * 文件上传的url地址
+ */
+export const getUploadUrl = () => {
+    return (getUrl() + '/oss/upload')
+}
+/**
+ * 文件下载地址前缀
+ */
+export const getDownloadPrefixUrl = () => {
+    return (getUrl() + '/oss/download')
+}
+/**
+ * 获取预览的url
+ * @param url
+ */
+export const getPreviewUrl = (url: string) => {
+    if (!url) {
+        return url
+    }
+
+    if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0){
+        return url
+    }
+    return getDownloadPrefixUrl() + url
+}
 
 /*
  * 根据运行环境获取基础请求URL的端口

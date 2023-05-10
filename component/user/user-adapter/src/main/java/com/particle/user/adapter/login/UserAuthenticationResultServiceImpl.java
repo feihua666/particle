@@ -7,11 +7,13 @@ import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
+import com.particle.common.constant.CommonConstants;
 import com.particle.global.dto.response.Response;
 import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.security.security.login.IAuthenticationResultService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.thread.ThreadContextTool;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
@@ -47,7 +49,7 @@ import java.util.concurrent.ExecutorService;
 @Component
 public class UserAuthenticationResultServiceImpl implements IAuthenticationResultService {
 
-	public static final String login_header_device_id ="device-id";
+	public static final String login_header_device_id = CommonConstants.request_header_device_id;
 
 	@Autowired
 	private IUserIdentifierService iIdentifierService;
@@ -142,33 +144,39 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 	private void doAddLoginRecordAndDevice(UserLoginRecordDO userLoginRecordDO) {
 
 
+		Long tenantId = TenantTool.getTenantId();
 		// 减少登录时间，采用异步方式
 		commonDbTaskExecutor.execute(() -> {
-			iUserLoginRecordService.add(userLoginRecordDO);
+			try {
+				TenantTool.setTenantId(tenantId);
+				iUserLoginRecordService.add(userLoginRecordDO);
 
-			//	设备检查
-			UserLoginDeviceDO userLoginDeviceDO = iUserLoginDeviceService.getByUserIdAndDeviceId(userLoginRecordDO.getUserId(), userLoginRecordDO.getDeviceId());
-			UserLoginDeviceDO userLoginDeviceDOTemp = new UserLoginDeviceDO();
-			if (userLoginDeviceDO != null) {
-				userLoginDeviceDOTemp.setId(userLoginDeviceDO.getId());
-				userLoginDeviceDOTemp.setVersion(userLoginDeviceDO.getVersion());
-				userLoginDeviceDOTemp.setLoginLastAt(userLoginRecordDO.getLoginAt());
-				userLoginDeviceDOTemp.setOperatingSystem(userLoginRecordDO.getOperatingSystem());
-				boolean b = iUserLoginDeviceService.updateById(userLoginDeviceDOTemp);
-				if (!b) {
-					// 没有成功，有可能是版本错误，并发问题，但数据影响不严重，这里只打印日志
-					log.warn("user login device update failed!. data={}", JsonTool.toJsonStr(userLoginDeviceDOTemp));
+				//	设备检查
+				UserLoginDeviceDO userLoginDeviceDO = iUserLoginDeviceService.getByUserIdAndDeviceId(userLoginRecordDO.getUserId(), userLoginRecordDO.getDeviceId());
+				UserLoginDeviceDO userLoginDeviceDOTemp = new UserLoginDeviceDO();
+				if (userLoginDeviceDO != null) {
+					userLoginDeviceDOTemp.setId(userLoginDeviceDO.getId());
+					userLoginDeviceDOTemp.setVersion(userLoginDeviceDO.getVersion());
+					userLoginDeviceDOTemp.setLoginLastAt(userLoginRecordDO.getLoginAt());
+					userLoginDeviceDOTemp.setOperatingSystem(userLoginRecordDO.getOperatingSystem());
+					boolean b = iUserLoginDeviceService.updateById(userLoginDeviceDOTemp);
+					if (!b) {
+						// 没有成功，有可能是版本错误，并发问题，但数据影响不严重，这里只打印日志
+						log.warn("user login device update failed!. data={}", JsonTool.toJsonStr(userLoginDeviceDOTemp));
+					}
+				} else {
+					userLoginDeviceDOTemp.setUserId(userLoginRecordDO.getUserId());
+					userLoginDeviceDOTemp.setLoginFirstAt(userLoginRecordDO.getLoginAt());
+					userLoginDeviceDOTemp.setLoginLastAt(userLoginRecordDO.getLoginAt());
+					userLoginDeviceDOTemp.setDeviceId(userLoginRecordDO.getDeviceId());
+					userLoginDeviceDOTemp.setDeviceName(userLoginRecordDO.getDeviceName());
+					// 新设备时，需要设备验证，目前尚未实现，这里默认直接验证通过
+					userLoginDeviceDOTemp.setValidateAt(userLoginRecordDO.getLoginAt());
+					userLoginDeviceDOTemp.setOperatingSystem(userLoginRecordDO.getOperatingSystem());
+					iUserLoginDeviceService.add(userLoginDeviceDOTemp);
 				}
-			} else {
-				userLoginDeviceDOTemp.setUserId(userLoginRecordDO.getUserId());
-				userLoginDeviceDOTemp.setLoginFirstAt(userLoginRecordDO.getLoginAt());
-				userLoginDeviceDOTemp.setLoginLastAt(userLoginRecordDO.getLoginAt());
-				userLoginDeviceDOTemp.setDeviceId(userLoginRecordDO.getDeviceId());
-				userLoginDeviceDOTemp.setDeviceName(userLoginRecordDO.getDeviceName());
-				// 新设备时，需要设备验证，目前尚未实现，这里默认直接验证通过
-				userLoginDeviceDOTemp.setValidateAt(userLoginRecordDO.getLoginAt());
-				userLoginDeviceDOTemp.setOperatingSystem(userLoginRecordDO.getOperatingSystem());
-				iUserLoginDeviceService.add(userLoginDeviceDOTemp);
+			} finally {
+				TenantTool.clear();
 			}
 		});
 	}

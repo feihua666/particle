@@ -7,6 +7,7 @@
 import {reactive ,inject,ref,computed} from 'vue'
 import PtCarousel from './Carousel.vue'
 import {emitDataMethodEvent} from "./dataMethod";
+import {getPreviewUrl} from "../common/axios/axiosRequest";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -65,23 +66,27 @@ const carouselProps = computed(()=>{
 })
 // 属性计算
 const previewOptions = computed(() => {
+  let propSrcPreview = getPreviewUrl(props.src)
+
   let index = 0
   let dialogOptions = []
   let previewSrcList = []
   props.previewSrcList.forEach((item,ind) => {
+
+    let previewItem = getPreviewUrl(item)
     if(props.src == item){
       index = ind
     }
     dialogOptions.push({
-      value: item
+      value: previewItem
     })
-    previewSrcList.push(item)
+    previewSrcList.push(previewItem)
   })
   if (dialogOptions.length == 0 && props.src) {
     dialogOptions.push({
-      value: props.src
+      value: propSrcPreview
     })
-    previewSrcList.push(props.src)
+    previewSrcList.push(propSrcPreview)
   }
 
   return {index,dialogOptions,previewSrcList}
@@ -108,6 +113,7 @@ const preview = () => {
     dialogVisible.value = true
   }
 }
+
 </script>
 <template>
 <!-- :previewView="previewView" 属性仅用来css定位 -->
@@ -115,7 +121,7 @@ const preview = () => {
       v-bind="$attrs"
       class="pt-image"
       :preview-src-list="previewView == 'default' ? previewOptions.previewSrcList : undefined"
-      :src="src"
+      :src="getPreviewUrl(src)"
       :fit="fit"
       :initial-index="initialIndex"
       :previewView="previewView"
