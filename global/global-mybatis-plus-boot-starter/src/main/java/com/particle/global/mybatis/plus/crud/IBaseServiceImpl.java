@@ -107,7 +107,6 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
             if (po.getDataAuditEnabled() != null && po.getDataAuditEnabled()) {
                 OpLogTool.setMainDataIdIfNecessary(po.getId());
                 // 数据审计
-                //DataAuditHelperTool.publish(null,po);
                 // 这里使用异步方法处理，降低性能消耗
                 Long tenantId = TenantTool.getTenantId();
                 DataAuditHelperTool.publish(t -> {
@@ -305,7 +304,6 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
             if (byId.getDataAuditEnabled() != null && byId.getDataAuditEnabled()) {
                 OpLogTool.setMainDataIdIfNecessary(byId.getId());
                 // 数据审计
-                //DataAuditHelperTool.publish(byId,null);
 
                 // 这里使用异步方法处理，降低性能消耗
                 DataAuditHelperTool.publish(t -> {
@@ -382,11 +380,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
                     OpLogTool.setMainDataIdIfNecessary((Long) columnId);
                 }
 
-                for (DO aDo : list) {
-                    if (aDo.getDataAuditEnabled() != null && aDo.getDataAuditEnabled()) {
-                        //DataAuditHelperTool.publish(aDo,null);
-                        // 这里使用异步方法处理，降低性能消耗
-                        DataAuditHelperTool.publish(t -> {
+                // 这里使用异步方法处理，降低性能消耗
+                DataAuditHelperTool.publish(t -> {
+                    List<DataAuditResultWithOpLogDTO> result = new ArrayList<>(list.size());
+                    for (DO aDo : list) {
+                        if (aDo.getDataAuditEnabled() != null && aDo.getDataAuditEnabled()) {
                             List<Change> changes = t.apply(aDo,null);
                             String dataTable = DataAuditHelperTool.getDoTableName(aDo, null, null);
 
@@ -394,10 +392,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
                             Long dataId = aDo.getId();
                             DataAuditResultWithOpLogDTO dataAuditResultWithOpLogDTO = DataAuditResultWithOpLogDTO.create(changes, dataId, dataTable, dataEntity,OpLogType.delete.name());
-                            return Lists.asList(dataAuditResultWithOpLogDTO);
-                        });
+                            result.add(dataAuditResultWithOpLogDTO);
+                        }
                     }
-                }
+                    return result;
+                });
             }
 
 
@@ -480,11 +479,8 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
         if (r) {
             if (po.getDataAuditEnabled() != null && po.getDataAuditEnabled()) {
-                //if (DataAuditHelperTool.isEnabled()) {
-                //    dbDoUpdated = getById(po.getId());
-                //}
                 OpLogTool.setMainDataIdIfNecessary(po.getId());
-                //DataAuditHelperTool.publish(dbDo,dbDoUpdated);
+
                 // 这里使用异步方法处理，降低性能消耗
                 DO finalDbDo = dbDo;
                 Long tenantId = TenantTool.getTenantId();
