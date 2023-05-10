@@ -17,8 +17,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GlobalAdapterAutoConfiguration {
 
+
 	@Bean
-	@ConditionalOnClass(SpringContextHolder.class)
 	public SpringContextHolder springContextHolder() {
 		return new SpringContextHolder();
 	}

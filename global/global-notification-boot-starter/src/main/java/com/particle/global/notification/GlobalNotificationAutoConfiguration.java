@@ -22,16 +22,27 @@ import org.springframework.core.annotation.Order;
 @Configuration
 public class GlobalNotificationAutoConfiguration {
 
-	@Bean
+	@Configuration
 	@ConditionalOnClass(OnApplicationRunnerListener.class)
-	public OnApplicationRunnerListener applicationStartNotifyListener() {
-		return new ApplicationStartNotifyListener();
+	protected static class OnApplicationRunnerListenerDependConfig{
+
+		@Bean
+		@ConditionalOnClass(OnApplicationRunnerListener.class)
+		public OnApplicationRunnerListener applicationStartNotifyListener() {
+			return new ApplicationStartNotifyListener();
+		}
+
 	}
 
-	@Bean
+	@Configuration
 	@ConditionalOnClass(OnApplicationShutdownListener.class)
-	public OnApplicationShutdownListener OnApplicationShutdownNotifyListener() {
-		return new ApplicationShutdownNotifyListener();
+	protected static class OnApplicationShutdownListenerDependConfig{
+
+		@Bean
+		@ConditionalOnClass(OnApplicationShutdownListener.class)
+		public OnApplicationShutdownListener OnApplicationShutdownNotifyListener() {
+			return new ApplicationShutdownNotifyListener();
+		}
 	}
 
 	@Bean

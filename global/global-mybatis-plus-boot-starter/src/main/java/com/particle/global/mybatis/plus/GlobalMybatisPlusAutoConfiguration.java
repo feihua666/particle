@@ -23,10 +23,16 @@ import org.springframework.context.annotation.Import;
 @MapperScan("com.particle.global.mybatis.plus.mapper")
 public class GlobalMybatisPlusAutoConfiguration {
 
-	@Bean
+
+	@Configuration
 	@ConditionalOnClass(DataAuditCollectTool.class)
-	public DataAuditHelperTool dataAuditHelperTool(){
-		DataAuditHelperTool dataAuditHelperTool = new DataAuditHelperTool();
-		return dataAuditHelperTool;
+	protected static class DataAuditCollectToolDependConfig{
+
+		@Bean
+		@ConditionalOnClass(DataAuditCollectTool.class)
+		public DataAuditHelperTool dataAuditHelperTool(){
+			DataAuditHelperTool dataAuditHelperTool = new DataAuditHelperTool();
+			return dataAuditHelperTool;
+		}
 	}
 }

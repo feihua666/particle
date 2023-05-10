@@ -28,11 +28,6 @@ public class GlobalWebFilterAutoConfiguration {
 	private static int span = 5;
 
 	@Bean
-	@ConditionalOnClass(TraceConfiguration.class)
-	public ResponseTraceIdFilter responseTraceIdFilterBean(Tracer tracer) {
-		return new ResponseTraceIdFilter(tracer);
-	}
-	@Bean
 	public RequestBodyReadableFilter requestBodyReadableFilterBean() {
 		return new RequestBodyReadableFilter();
 	}
@@ -58,17 +53,28 @@ public class GlobalWebFilterAutoConfiguration {
 		return new CorsFilter(source);
 	}
 
-	/**
-	 * 响应头添加traceid过滤器
-	 * @return
-	 */
-	@Bean
+	@Configuration
 	@ConditionalOnClass(TraceConfiguration.class)
-	public FilterRegistrationBean responseTraceIdFilter(Tracer tracer) {
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		registrationBean.setFilter(responseTraceIdFilterBean(tracer));
-		registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span);
-		return registrationBean;
+	protected static class TraceConfigurationDependConfig{
+
+		/**
+		 * 响应头添加traceid过滤器
+		 * @return
+		 */
+		@Bean
+		@ConditionalOnClass(TraceConfiguration.class)
+		public FilterRegistrationBean responseTraceIdFilter(Tracer tracer) {
+			FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+			registrationBean.setFilter(responseTraceIdFilterBean(tracer));
+			registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span);
+			return registrationBean;
+		}
+
+		@Bean
+		@ConditionalOnClass(TraceConfiguration.class)
+		public ResponseTraceIdFilter responseTraceIdFilterBean(Tracer tracer) {
+			return new ResponseTraceIdFilter(tracer);
+		}
 	}
 
 	/**

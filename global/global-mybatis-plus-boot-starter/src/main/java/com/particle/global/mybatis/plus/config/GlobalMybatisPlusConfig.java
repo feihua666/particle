@@ -49,6 +49,11 @@ public class GlobalMybatisPlusConfig {
 	public static final int INTERCEPTOR_ORDER_START = 1;
 
 	/**
+	 * 在没有该类时 {@link LoginUserTool} 使用默认bean
+	 */
+	public static final String LoginUserToolClassName = "com.particle.global.security.security.login.LoginUserTool";
+
+	/**
 	 * 启动多租户，支持，默认不启动
 	 */
 	private Boolean tenantEnable = true;
@@ -57,14 +62,20 @@ public class GlobalMybatisPlusConfig {
 	 */
 	private List<String> tenantIgnoreTables;
 
-	/**
-	 * 自定义一个包装类，占位，用来判定 {@link DataPermissionService} 类是否存在来动态启动是否获取数据权限
-	 * @return
-	 */
-	@Bean
+	@Configuration
 	@ConditionalOnClass(DataPermissionService.class)
-	DataPermissionServiceWrapper dataPermissionServiceWrapper (){
-		return new DataPermissionServiceWrapper();
+	protected static class DataPermissionServiceDependConfig{
+
+		/**
+		 * 自定义一个包装类，占位，用来判定 {@link DataPermissionService} 类是否存在来动态启动是否获取数据权限
+		 * @return
+		 */
+		@Bean
+		@ConditionalOnClass(DataPermissionService.class)
+		DataPermissionServiceWrapper dataPermissionServiceWrapper (){
+			return new DataPermissionServiceWrapper();
+		}
+
 	}
 	/**
 	 * 监控通知 mybatis 拦截器
@@ -138,19 +149,42 @@ public class GlobalMybatisPlusConfig {
 		return new MpMetaObjectHandler();
 	}
 
-	/**
-	 * 登录用户id解析，主要用于 MpMetaObjectHandler 填充
-	 * @return
-	 */
-	@Bean
+
+	@Configuration
 	@ConditionalOnClass(LoginUserTool.class)
-	public LoginUserIdResolver securityLoginUserIdResolver(){
-		return new LoginUserIdResolver(){
-			@Override
-			public Long resolve() {
-				return Optional.ofNullable(LoginUserTool.getLoginUserId()).orElse(LoginUserIdResolver.DEFAULT_USER_ID);
-			}
-		};
+	protected static class LoginUserToolDependConfig{
+
+		/**
+		 * 登录用户id解析，主要用于 MpMetaObjectHandler 填充
+		 * @return
+		 */
+		@Bean
+		@ConditionalOnClass(LoginUserTool.class)
+		public LoginUserIdResolver securityLoginUserIdResolver(){
+			return new LoginUserIdResolver(){
+				@Override
+				public Long resolve() {
+					return Optional.ofNullable(LoginUserTool.getLoginUserId()).orElse(LoginUserIdResolver.DEFAULT_USER_ID);
+				}
+			};
+		}
+
+
+		/**
+		 * 登录用户是否为超级管理员解析，主要用于 数据权限不限制操作
+		 * @return
+		 */
+		@Bean
+		@ConditionalOnClass(LoginUserTool.class)
+		public LoginUserSuperAdminResolver securityLoginUserSuperAdminResolver(){
+			return new LoginUserSuperAdminResolver(){
+				@Override
+				public boolean resolve() {
+					return Optional.ofNullable(LoginUserTool.getLoginUser()).map(LoginUser::getIsSuperAdmin).orElse(LoginUserSuperAdminResolver.DEFAULT_USER_SUPER_ADMIN);
+				}
+			};
+		}
+
 	}
 
 	/**
@@ -158,7 +192,7 @@ public class GlobalMybatisPlusConfig {
 	 * @return
 	 */
 	@Bean
-	@ConditionalOnMissingClass("com.particle.global.security.security.login.LoginUserTool")
+	@ConditionalOnMissingClass(LoginUserToolClassName)
 	public LoginUserIdResolver defaultLoginUserIdResolver(){
 		return new LoginUserIdResolver(){
 			@Override
@@ -169,26 +203,11 @@ public class GlobalMybatisPlusConfig {
 	}
 
 	/**
-	 * 登录用户是否为超级管理员解析，主要用于 数据权限不限制操作
-	 * @return
-	 */
-	@Bean
-	@ConditionalOnClass(LoginUserTool.class)
-	public LoginUserSuperAdminResolver securityLoginUserSuperAdminResolver(){
-		return new LoginUserSuperAdminResolver(){
-			@Override
-			public boolean resolve() {
-				return Optional.ofNullable(LoginUserTool.getLoginUser()).map(LoginUser::getIsSuperAdmin).orElse(LoginUserSuperAdminResolver.DEFAULT_USER_SUPER_ADMIN);
-			}
-		};
-	}
-
-	/**
 	 * 默认是否为超级管理员解析，主要用于 数据权限不限制操作
 	 * @return
 	 */
 	@Bean
-	@ConditionalOnMissingClass("com.particle.global.security.security.login.LoginUserTool")
+	@ConditionalOnMissingClass(LoginUserToolClassName)
 	public LoginUserSuperAdminResolver defaultLoginUserSuperAdminResolver(){
 		return new LoginUserSuperAdminResolver(){
 			@Override
