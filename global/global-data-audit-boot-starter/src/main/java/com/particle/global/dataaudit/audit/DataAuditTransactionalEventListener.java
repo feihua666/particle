@@ -3,7 +3,7 @@ package com.particle.global.dataaudit.audit;
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.dataaudit.DataAuditAuditAutoConfiguration;
 import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
-import javafx.util.Pair;
+import cn.hutool.core.lang.Pair;
 import org.javers.common.collections.Lists;
 import org.javers.core.diff.Change;
 import org.springframework.beans.factory.annotation.Autowired;

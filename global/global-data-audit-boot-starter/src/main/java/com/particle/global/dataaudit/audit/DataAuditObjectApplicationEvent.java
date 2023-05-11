@@ -1,7 +1,7 @@
 package com.particle.global.dataaudit.audit;
 
+import cn.hutool.core.lang.Pair;
 import com.particle.global.dataaudit.op.OpLog;
-import javafx.util.Pair;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
@@ -40,7 +40,7 @@ public class DataAuditObjectApplicationEvent extends ApplicationEvent {
 	 * 构造函数
 	 * @param oldAndNewVersionPair key=oldVersion,value=newVersion
 	 */
-	public DataAuditObjectApplicationEvent(Pair<Object,Object> oldAndNewVersionPair,Long dataId,String dataTable,String dataEntity,String type) {
+	public DataAuditObjectApplicationEvent(Pair<Object,Object> oldAndNewVersionPair, Long dataId, String dataTable, String dataEntity, String type) {
 		super(oldAndNewVersionPair);
 		this.dataId = dataId;
 		this.dataTable = dataTable;

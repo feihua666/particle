@@ -5,7 +5,7 @@ import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
 import com.particle.global.dataaudit.op.OpLogTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.global.tool.thread.ThreadContextTool;
-import javafx.util.Pair;
+import cn.hutool.core.lang.Pair;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.ArrayList;

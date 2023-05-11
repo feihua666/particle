@@ -1,1 +1,0 @@
-import{g as s}from"./index.147a787d.js";let r="/admin/web/tenant";const m=t=>s.get(r+"/list",{params:t}),i={tenantId:{type:String}},d=({props:t={},fieldName:e="tenantId",required:n=!1,label:a="\u79DF\u6237"})=>({field:{name:e,value:t.tenantId},element:{comp:"PtSelect",formItemProps:{label:a,required:n},compProps:()=>({disabled:!!t.tenantId,dataMethod:m})}});export{i as s,d as u};
