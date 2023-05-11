@@ -31,6 +31,7 @@ CREATE TABLE `component_tracking_page_record` (
   `duration` bigint DEFAULT NULL COMMENT '页面停留时长，单位ms',
   `ext_info_json` varchar(2000) DEFAULT NULL COMMENT '额外数据，用于描述该事件的额外数据，比如加载成功后的结果数据',
   `trace_id` varchar(50) NOT NULL COMMENT '追踪id',
+  `front_trace_id` varchar(100) DEFAULT NULL COMMENT '前端追踪id，一般从二级页面开始设置后续操作都使用该id',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
@@ -39,7 +40,7 @@ CREATE TABLE `component_tracking_page_record` (
   `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `tracking_page_id` (`tracking_page_code`) USING BTREE,
+  UNIQUE KEY `tracking_page_code` (`tracking_page_code`) USING BTREE,
   KEY `user_id` (`user_id`),
   KEY `action_type_dict_id` (`action_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='页面埋点记录表';

@@ -136,6 +136,9 @@ public class TrackingPageRecordQueryListCommand extends AbstractBaseQueryCommand
     private String traceId;
 
 
+    @ApiModelProperty("前端追踪id")
+    private String frontTraceId;
+
     @ApiModelProperty(value = "描述")
     private String remark;
 

@@ -143,6 +143,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'frontTraceId',
+      label: '前端追踪id',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'remark',
       label: '描述',
     },

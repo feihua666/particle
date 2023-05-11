@@ -1,0 +1,46 @@
+particle:
+  mybatis-plus:
+    tenant-enable: true
+    # 以下配置的表数据属于平台系统，不处理租户字段
+    tenant-ignore-tables:
+      - component_tenant
+      - component_tenant_create_apply
+      - component_tenant_user
+      - component_tenant_func_application
+      - component_tenant_func
+      - component_user
+      - component_user_identifier
+      - component_user_identifier_pwd
+      - component_user_login_device
+      - component_user_login_record
+      - global_message_event
+      - global_message_event_consume_record
+      - component_dict
+      - component_func
+      - component_func_group
+      - component_func_application
+      - component_func_application_func_rel
+      - component_area
+      - component_op_log
+      - component_op_log_audit_data
+      # 埋点数据系统级别
+      - component_tracking_page
+      - component_tracking_page_record
+    # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
+    tmdp:
+      # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
+      # 下面这些配置一定的租户拦截器忽略的，但又想通过租户区分数据
+      tenantDataPermmision:
+        component_tenant: component_tenant.id = {tenantId}
+        component_tenant_user: component_tenant_user.tenant_id = {tenantId}
+        component_tenant_func_application: component_tenant_func_application.tenant_id = {tenantId}
+        component_tenant_func: component_tenant_func.tenant_id = {tenantId}
+        component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
+        component_user_login_device: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_device.user_id and tu.tenant_id = {tenantId} )
+        component_user_login_record: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_record.user_id and tu.tenant_id = {tenantId} )
+        component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
+        component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
+        component_func_application_func_rel: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application_func_rel.func_application_id and tfp.tenant_id = {tenantId} ) and exists(select id from component_tenant_func tf where tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = {tenantId} )
+        component_op_log: component_tenant_user.tenant_id = {tenantId}
+        component_op_log_audit_data: component_tenant_user.tenant_id = {tenantId}
+

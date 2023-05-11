@@ -52,6 +52,7 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 	private Tracer tracer;
 
 	@ApiOperation("添加页面埋点记录")
+	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/create")
 	public SingleResponse<AbstractBaseIdVO> create(@RequestBody TrackingPageRecordFrontCreateCommand trackingPageRecordFrontCreateCommand ,
 												   @ApiIgnore LoginUser loginUser,
@@ -104,6 +105,7 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 
 
 	@ApiOperation("更新页面埋点记录")
+	@PreAuthorize("hasAuthority('user')")
 	@PutMapping("/update")
 	public SingleResponse<TrackingPageRecordVO> update(@RequestBody TrackingPageRecordUpdateCommand trackingPageRecordUpdateCommand){
 		return iTrackingPageRecordApplicationService.update(trackingPageRecordUpdateCommand);

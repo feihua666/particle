@@ -164,6 +164,10 @@ public class TrackingPageRecordDO extends BaseDO {
     private String traceId;
 
     /**
+     * 前端追踪id，一般从二级页面开始设置后续操作都使用该id
+     */
+    private String frontTraceId;
+    /**
     * 描述
     */
     private String remark;

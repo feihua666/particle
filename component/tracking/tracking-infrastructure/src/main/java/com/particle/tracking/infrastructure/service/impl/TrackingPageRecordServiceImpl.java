@@ -32,12 +32,22 @@ public class TrackingPageRecordServiceImpl extends IBaseServiceImpl<TrackingPage
 		this.queryCommandMapStruct = queryCommandMapStruct;
 	}
 
+
 	@Override
 	protected void preAdd(TrackingPageRecordDO po) {
+		// 编码已存在不能添加
+		assertByColumn(po.getTrackingPageCode(),TrackingPageRecordDO::getTrackingPageCode,false);
 	}
 
 	@Override
 	protected void preUpdate(TrackingPageRecordDO po) {
-    
+		if (StrUtil.isNotEmpty(po.getTrackingPageCode())) {
+			TrackingPageRecordDO byId = getById(po.getId());
+			// 如果编码有改动
+			if (!StrUtil.equals(po.getTrackingPageCode(), byId.getTrackingPageCode())) {
+				// 编码已存在不能修改
+				assertByColumn(po.getTrackingPageCode(),TrackingPageRecordDO::getTrackingPageCode,false);
+			}
+		}
 	}
 }

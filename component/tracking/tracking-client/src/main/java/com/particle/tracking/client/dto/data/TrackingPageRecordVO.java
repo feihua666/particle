@@ -102,7 +102,10 @@ public class TrackingPageRecordVO extends AbstractBaseIdVO {
     
     @ApiModelProperty("追踪id")
     private String traceId;
-    
+
+    @ApiModelProperty("前端追踪id")
+    private String frontTraceId;
+
     @ApiModelProperty("描述")
     private String remark;
     

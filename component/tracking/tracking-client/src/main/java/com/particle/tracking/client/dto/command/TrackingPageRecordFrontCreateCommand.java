@@ -102,15 +102,10 @@ public class TrackingPageRecordFrontCreateCommand extends AbstractBaseCommand {
     private String extInfoJson;
 
 
+    @ApiModelProperty("前端追踪id")
+    private String frontTraceId;
+
     @ApiModelProperty(value = "描述")
     private String remark;
-
-
-
-
-
-
-
-
 
 }

@@ -10,6 +10,7 @@ spring:
       - sleuth
       - datasource
       - mybatis-plus
+      - mybatis-plus-tenant
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master
