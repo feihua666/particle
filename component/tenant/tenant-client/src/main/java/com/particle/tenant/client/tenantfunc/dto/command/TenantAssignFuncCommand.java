@@ -35,7 +35,8 @@ public class TenantAssignFuncCommand extends AbstractBaseCommand {
     /**
      * 支持按应用分配
      */
-    @ApiModelProperty(value = "功能应用id")
+    @NotNull(message = "功能应用id 不能为空")
+    @ApiModelProperty(value = "功能应用id",required = true)
     private Long funcApplicationId;
 
     @ApiModelProperty(value = "选择的功能菜单id")

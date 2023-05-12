@@ -5,6 +5,8 @@ import com.particle.global.mybatis.plus.dto.BaseDO;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 /**
  * <p>
@@ -67,6 +69,36 @@ public class TenantCreateApplyDO extends BaseDO {
     * 审核通过后创建的租户id
     */
     private Long appliedTenantId;
+
+	/**
+	 * 是否正式，1=正式，0=试用
+	 */
+	private Boolean isFormal;
+
+	/**
+	 * 用户数量限制
+	 */
+	private Integer userLimitCount;
+
+	/**
+	 * 生效日期，从什么时候开始生效
+	 */
+	private LocalDateTime effectiveAt;
+
+	/**
+	 * 申请天数
+	 */
+	private Integer effectiveDays;
+
+	/**
+	 * 失效日期，从什么时候失效
+	 */
+	private LocalDateTime invalidAt;
+
+	/**
+	 * 额外申请项json，如：应用和功能
+	 */
+	private String extJson;
 
     /**
     * 描述

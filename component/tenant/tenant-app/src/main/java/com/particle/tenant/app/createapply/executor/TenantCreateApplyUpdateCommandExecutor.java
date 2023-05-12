@@ -1,12 +1,15 @@
 package com.particle.tenant.app.createapply.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.tenant.app.createapply.structmapping.TenantCreateApplyAppStructMapping;
 import com.particle.tenant.app.executor.TenantCreateCommandExecutor;
 import com.particle.tenant.app.executor.TenantUserCreateCommandExecutor;
-import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
-import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
-import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyUpdateCommand;
+import com.particle.tenant.client.createapply.dto.command.*;
 import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
 import com.particle.tenant.client.dto.command.TenantCreateCommand;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
@@ -21,14 +24,21 @@ import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.tenant.domain.gateway.TenantDictGateway;
 import com.particle.tenant.domain.gateway.TenantRoleGateway;
+import com.particle.tenant.domain.tenantfunc.TenantFunc;
+import com.particle.tenant.domain.tenantfunc.gateway.TenantFuncGateway;
+import com.particle.tenant.domain.tenantfuncapplication.TenantFuncApplication;
+import com.particle.tenant.domain.tenantfuncapplication.gateway.TenantFuncApplicationGateway;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -38,6 +48,7 @@ import javax.validation.Valid;
  * @author yw
  * @since 2023-01-03
  */
+@Slf4j
 @Component
 @Validated
 public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecutor {
@@ -52,6 +63,10 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 
 	private TenantDictGateway tenantDictGateway;
 
+	private TenantFuncApplicationGateway tenantFuncApplicationGateway;
+
+	private TenantFuncGateway tenantFuncGateway;
+
 	/**
 	 * 执行 租户创建申请 更新指令
 	 * @param tenantCreateApplyUpdateCommand
@@ -59,6 +74,15 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 	 */
 	public SingleResponse<TenantCreateApplyVO> execute(@Valid TenantCreateApplyUpdateCommand tenantCreateApplyUpdateCommand) {
 		TenantCreateApply tenantCreateApply = createByTenantCreateApplyUpdateCommand(tenantCreateApplyUpdateCommand);
+		if (tenantCreateApplyUpdateCommand.getExtJsonObj() != null) {
+			MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
+
+			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyUpdateCommand.getExtJsonObj(),jackson2HttpMessageConverter.getObjectMapper()));
+		}
+		// 依赖用户选择，如果没有填写不计算天数
+		//tenantCreateApply.changeEffectiveAtNowIfNull();
+		tenantCreateApply.calculateDays();
+
 		tenantCreateApply.setUpdateControl(tenantCreateApplyUpdateCommand);
 		boolean save = tenantCreateApplyGateway.save(tenantCreateApply);
 		if (save) {
@@ -79,6 +103,7 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 		if (save) {
 
 			if (tenantCreateApply.checkIsAuditPass()) {
+				log.info("租户申请审批通过 applyId={}",tenantCreateApplyAuditCommand.getId());
 				onAuditPass(tenantCreateApply,tenantCreateApplyAuditCommand);
 			}
 
@@ -97,7 +122,9 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 		// 1 添加租户
 		// 2 将用户绑定到租户下
 		// 3 添加租户下超级管理员角色
-		// 4 绑定用户
+		// 4 为租户分配应用
+		// 5 绑定用户
+		// 6 通知
 		TenantCreateApply byId = tenantCreateApplyGateway.getById(tenantCreateApply.getId());
 		TenantCreateCommand tenantCreateCommand = new TenantCreateCommand();
 		tenantCreateCommand.setName(byId.getName());
@@ -106,9 +133,15 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 		tenantCreateCommand.setContactUserName(byId.getContactUserName());
 		tenantCreateCommand.setContactUserPhone(byId.getContactUserPhone());
 		tenantCreateCommand.setContactUserEmail(byId.getContactUserEmail());
+		tenantCreateCommand.setIsFormal(byId.getIsFormal());
+		tenantCreateCommand.setUserLimitCount(byId.getUserLimitCount());
+		tenantCreateCommand.setEffectiveAt(byId.getEffectiveAt());
+		tenantCreateCommand.setInvalidAt(byId.getInvalidAt());
+		tenantCreateCommand.setMasterUserId(byId.getApplyUserId());
 		// 1 添加租户
 		SingleResponse<TenantVO> tenantSave = tenantCreateCommandExecutor.execute(tenantCreateCommand);
 		if (tenantSave.isSuccess()) {
+			log.info("添加租户成功 tenantName={}",tenantCreateCommand.getName());
 			// 设置已申请的租户id
 			byId.changeAppliedTenantId(tenantSave.getData().getId());
 			tenantCreateApplyGateway.save(byId);
@@ -122,11 +155,43 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 			tenantUserCreateCommand.setTenantId(tenantSave.getData().getId());
 			SingleResponse<TenantUserVO> tenantUserSave = tenantUserCreateCommandExecutor.execute(tenantUserCreateCommand);
 			if (tenantUserSave.isSuccess()) {
+				log.info("将用户绑定到租户下成功 userId={}",tenantUserCreateCommand.getUserId());
 
 				// 3 添加租户下超级管理员角色
 				Long roleId = tenantRoleGateway.createRole(tenantCreateApplyAuditCommand.getTenantSuperAdminRoleCode(), "超级管理员", false, tenantSave.getData().getId());
-				// 4 绑定用户
+				log.info("添加租户下超级管理员角色成功 roleId={}",roleId);
+
+				// 4 为租户分配应用及应用下的功能
+				String extJson = byId.getExtJson();
+				if (StrUtil.isNotEmpty(extJson)) {
+					log.info("开始为租户分配应用及应用下的功能");
+
+					TenantCreateApplyExtJsonCommand tenantCreateApplyExtJsonCommand = JSONUtil.toBean(extJson, TenantCreateApplyExtJsonCommand.class);
+					if (CollectionUtil.isNotEmpty(tenantCreateApplyExtJsonCommand.getFuncApplications())) {
+						for (TenantCreateApplyExtJsonFuncApplicationCommand funcApplication : tenantCreateApplyExtJsonCommand.getFuncApplications()) {
+							TenantFuncApplication tenantFuncApplication = TenantFuncApplication.create();
+							tenantFuncApplication.simpleFill(funcApplication.getFuncApplicationId(),tenantSave.getData().getId());
+							tenantFuncApplicationGateway.save(tenantFuncApplication);
+							log.info("添加租户应用成功 funcApplicationId={}",tenantFuncApplication.getFuncApplicationId());
+
+							//	保存完应用，保存应用下的功能
+							List<Long> funcIds = funcApplication.getFuncIds();
+							if (CollectionUtil.isNotEmpty(funcIds)) {
+								for (Long funcId : funcIds) {
+									TenantFunc tenantFunc = TenantFunc.create();
+									tenantFunc.simpleFill(funcId,funcApplication.getFuncApplicationId(),tenantSave.getData().getId());
+									tenantFuncGateway.save(tenantFunc);
+									log.info("添加租户功能成功 funcApplicationId={},funcId={}",tenantFuncApplication.getFuncApplicationId(),funcId);
+
+								}
+							}
+						}
+					}
+				}
+				// 5 绑定用户
 				tenantRoleGateway.createRoleUserRel(roleId,byId.getApplyUserId(), tenantSave.getData().getId());
+				//	6 通知
+				// todo 通知逻辑
 			}
 		}
 	}
@@ -195,5 +260,14 @@ public class TenantCreateApplyUpdateCommandExecutor  extends AbstractBaseExecuto
 	@Autowired
 	public void setTenantDictGateway(TenantDictGateway tenantDictGateway) {
 		this.tenantDictGateway = tenantDictGateway;
+	}
+
+	@Autowired
+	public void setTenantFuncApplicationGateway(TenantFuncApplicationGateway tenantFuncApplicationGateway) {
+		this.tenantFuncApplicationGateway = tenantFuncApplicationGateway;
+	}
+	@Autowired
+	public void setTenantFuncGateway(TenantFuncGateway tenantFuncGateway) {
+		this.tenantFuncGateway = tenantFuncGateway;
 	}
 }

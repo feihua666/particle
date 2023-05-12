@@ -211,7 +211,7 @@ const emit = defineEmits([
 
 // 挂载
 onMounted(() => {
-  // 加载初始数据
+  // 加载初始数据,并通过 watch reactiveData.dataMethodData 来设置表单
   doDataMethod({props,reactiveData,emit})
 })
 

@@ -1,17 +1,21 @@
 package com.particle.user.client.exception;
 
+import com.particle.global.exception.code.ErrorCodeGlobalStatusMax;
 import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.exception.code.IErrorCodeStatusMax;
 
 /**
  * <p>
  * 用户相关 错误码
  * 其中业务码 从 0001 开始
+ * 添加枚举常量 需要同步修改 {@link IErrorCodeUserStatusMax} 以记录当前最大值
  * </p>
  *
  * @author yangwei
  * @since 2022-12-25 23:00
  */
 public enum ErrorCodeUserEnum implements IErrorCode {
+
 
 	/**
 	 * 用户登录标识密码不存在，用于修改密码或重置密码

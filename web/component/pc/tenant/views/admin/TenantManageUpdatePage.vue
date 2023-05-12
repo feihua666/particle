@@ -9,7 +9,7 @@ import {
   list as TenantListApi
 } from "../../api/admin/tenantAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/tenantManage";
+import {useUpdatePageFormItems} from "../../compnents/admin/tenantManage";
 
 
 // 声明属性
@@ -18,7 +18,13 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   tenantId: {
     type: String
-  }
+  },
+  masterUserId: {
+    type: String
+  },
+  masterUserNickname: {
+    type: String
+  },
 })
 // 属性
 const reactiveData = reactive({
@@ -32,7 +38,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    updatePageFormItems
+    useUpdatePageFormItems({props})
 )
 
 // 提交按钮属性
@@ -66,7 +72,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[2,2,3,3,1,2]"
+          :layout="[3,2,2,2,3,3,1,2]"
           :comps="formComps">
   </PtForm>
 

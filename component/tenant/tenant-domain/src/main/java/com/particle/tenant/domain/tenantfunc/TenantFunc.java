@@ -28,10 +28,27 @@ public class TenantFunc extends AggreateRoot {
     */
     private String name;
     /**
+     * 功能应用id
+     */
+    private Long funcApplicationId;
+    /**
      * 租户id
      */
     private Long tenantId;
 
+
+    /**
+     * 简单填充属性，用于简单添加
+     * 当前添加该方法主要是租户申请审批通过后添加租户功能，所以不需要复杂的属性
+     * @param funcId
+     * @param funcApplicationId
+     * @param tenantId
+     */
+    public void simpleFill(Long funcId, Long funcApplicationId, Long tenantId) {
+        this.funcId = funcId;
+        this.funcApplicationId = funcApplicationId;
+        this.tenantId = tenantId;
+    }
 
     /**
      * 创建租户功能菜单领域模型对象

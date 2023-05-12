@@ -2,6 +2,8 @@ package com.particle.component.adapter.user;
 
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
 import com.particle.global.security.tenant.TenantTool;
+import com.particle.tenant.client.api.ITenantUserApplicationService;
+import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
 import com.particle.user.infrastructure.dos.UserDO;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 public class TenantUserAddServiceListener implements IAddServiceListener<UserDO> {
 
 	@Autowired
-	private ITenantUserService iTenantUserService;
+	private ITenantUserApplicationService iTenantUserService;
 
 	@Override
 	public void postAdd(UserDO po) {
@@ -28,14 +30,13 @@ public class TenantUserAddServiceListener implements IAddServiceListener<UserDO>
 		if (TenantTool.isTenantEnable()) {
 			Long tenantId = TenantTool.getTenantId();
 			if (tenantId != null) {
-				TenantUserDO tenantUserDO = new TenantUserDO();
-				tenantUserDO.setUserId(po.getId());
-				tenantUserDO.setTenantId(tenantId);
-				tenantUserDO.setIsExpired(false);
-				tenantUserDO.setIsLeave(false);
-				tenantUserDO.setJoinAt(LocalDateTime.now());
+				TenantUserCreateCommand userCreateCommand = new TenantUserCreateCommand();
+				userCreateCommand.setUserId(po.getId());
+				userCreateCommand.setTenantId(tenantId);
+				userCreateCommand.setIsExpired(false);
+				userCreateCommand.setIsLeave(false);
 
-				iTenantUserService.add(tenantUserDO);
+				iTenantUserService.create(userCreateCommand);
 			}
 		}
 	}

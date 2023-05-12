@@ -72,6 +72,24 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
 
     @ApiModelProperty("审核通过后创建的租户id")
     private Long appliedTenantId;
+
+	@ApiModelProperty("是否正式，1=正式，0=试用")
+	private Boolean isFormal;
+
+	@ApiModelProperty("用户数量限制")
+	private Integer userLimitCount;
+
+	@ApiModelProperty("生效日期，从什么时候开始生效")
+	private LocalDateTime effectiveAt;
+
+	@ApiModelProperty("申请天数")
+	private Integer effectiveDays;
+
+	@ApiModelProperty("失效日期，从什么时候失效")
+	private LocalDateTime invalidAt;
+
+	@ApiModelProperty("额外申请项json，如：应用和功能")
+	private String extJson;
     
     @ApiModelProperty("描述")
     private String remark;

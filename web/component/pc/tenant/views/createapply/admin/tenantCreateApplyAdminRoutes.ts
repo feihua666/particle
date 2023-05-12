@@ -30,7 +30,7 @@ const tenantCreateApplyAdminRoutes = [
             {
                 path: '/admin/tenantCreateApplyManageUpdate',
                 component: () => import('./TenantCreateApplyManageUpdatePage.vue'),
-                props: route => ({ tenantCreateApplyId: route.query.id,applyUsserId: route.query.applyUsserId,applyUserNickname: route.query.applyUserNickname }),
+                props: route => ({ tenantCreateApplyId: route.query.id,applyUserId: route.query.applyUserId,applyUserNickname: route.query.applyUserNickname }),
                 meta: {
                     showInDrawer: true,
                     code:'adminTenantCreateApplyManageUpdate',
@@ -48,7 +48,7 @@ const tenantCreateApplyAdminRoutes = [
             {
                 path: '/admin/tenantCreateApplyManageAudit',
                 component: () => import('./TenantCreateApplyManageAuditPage.vue'),
-                props: route => ({ tenantCreateApplyId: route.query.id,applyUsserId: route.query.applyUsserId,applyUserNickname: route.query.applyUserNickname }),
+                props: route => ({ tenantCreateApplyId: route.query.id,applyUserId: route.query.applyUserId,applyUserNickname: route.query.applyUserNickname }),
                 meta: {
                     showInDrawer: true,
                     code:'adminTenantCreateApplyManageAudit',

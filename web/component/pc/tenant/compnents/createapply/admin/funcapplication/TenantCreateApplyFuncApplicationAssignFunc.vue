@@ -1,39 +1,46 @@
-<script setup name="TenantFuncTenantAssignFuncPage" lang="ts">
+<script setup name="TenantCreateApplyFuncApplicationAssignFunc" lang="ts">
 /**
- * 租户分配功能页面
+ * 功能应用分配功能,主要用于创建租户申请时可选择应用下的功能
  */
 import {reactive ,ref} from 'vue'
-import {list as funcListApi} from "../../../../func/api/admin/funcAdminApi";
-
-import {selectTenantProps, useSelectTenantCompItem} from "../../../compnents/tenantCompItem";
-import {tenantAssignFunc, queryFuncIdsByTenantId} from "../../../api/tenantfunc/admin/tenantFuncAdminApi";
+import {list as funcListApi} from "../../../../../func/api/admin/funcAdminApi";
+import {
+  funcApplicationAssignFunc,
+} from "../../../../../func/api/admin/funcApplicationFuncRelAdminApi";
+import {
+  remoteSelectFuncApplicationCompItem,
+  remoteSelectFuncApplicationProps
+} from "../../../../../func/compnents/application/funcApplicationCompItem";
+import {defineExpose} from "@vue/runtime-core";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
-  ...selectTenantProps,
-  // 用于过滤和分配，都有使用，所以必填
-  funcApplicationId: {
-    type: String,
-    required: true
+  ...remoteSelectFuncApplicationProps,
+  // 可用的功能，限制在该应用下
+  limitFuncApplicationId: {
+    type: String
   },
+  // 选中的功能id
+  checkedFuncIds:{
+    type: Array,
+    default: ()=>[]
+  }
 })
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
-  form: {
-    funcApplicationId: props.funcApplicationId
-  },
+  form: {},
   // 表单数据对象
   formData: {},
 })
 // 表单项
 const formComps = ref(
     [
-      useSelectTenantCompItem({props,required: true}),
+      remoteSelectFuncApplicationCompItem({props,required: true}),
       {
         field: {
-          name: 'checkedFuncIds',
+          name: 'funcIds',
           value: []
         },
         element: {
@@ -45,18 +52,14 @@ const formComps = ref(
           compProps: ({form})=> {
             return {
               // 加载初始化选中数据
-              dataInitMethod: ({param}) => {
-                let tenantId = param.tenantId
-                if(tenantId){
-                  return queryFuncIdsByTenantId({id: tenantId,funcApplicationId: props.funcApplicationId})
-                }
+              dataInitMethod: () => {
                 // 空函数不查询
-                return {data: []}
+                return {data: props.checkedFuncIds}
               },
-              // dataInitMethod 参数
-              dataInitMethodParam: {tenantId: form.tenantId},
               // 可用数据列表
-              dataMethod: ()=>{ return  funcListApi({funcApplicationId: props.funcApplicationId}) },
+              dataMethod: ()=> {
+                return funcListApi({funcApplicationId: props.limitFuncApplicationId})
+              },
               dataMethodResultHandleConvertToTree: true,
               showCheckbox: true
             }
@@ -69,17 +72,20 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认',
-  permission: 'admin:web:tenantFunc:tenantAssignFunc',
+  permission: 'admin:web:funcApplicationFuncRel:funcApplicationAssignFunc',
 })
 // 提交按钮
 const submitMethod = () => {
-  return tenantAssignFunc
+  return funcApplicationAssignFunc
 }
 // 成功提示语
 const submitMethodSuccess = () => {
   return '分配成功，请刷新数据查看'
 }
 
+defineExpose({
+  form: reactiveData.form
+})
 </script>
 <template>
   <!-- 添加表单 -->
@@ -88,9 +94,8 @@ const submitMethodSuccess = () => {
           labelWidth="80"
           :method="submitMethod()"
           :methodSuccess="submitMethodSuccess"
-          defaultButtonsShow="submit,reset"
+          defaultButtonsShow=""
           :submitAttrs="submitAttrs"
-          :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
           :layout="1"
           :comps="formComps">

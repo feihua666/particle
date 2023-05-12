@@ -1,5 +1,7 @@
 package com.particle.tenant.app.createapply.executor;
 
+import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.tenant.app.createapply.structmapping.TenantCreateApplyAppStructMapping;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
 import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
@@ -12,6 +14,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
@@ -38,10 +41,18 @@ public class TenantCreateApplyCreateCommandExecutor  extends AbstractBaseExecuto
 	 */
 	public SingleResponse<TenantCreateApplyVO> execute(@Valid TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand) {
 		TenantCreateApply tenantCreateApply = createByTenantCreateApplyCreateCommand(tenantCreateApplyCreateCommand);
+		if (tenantCreateApplyCreateCommand.getExtJsonObj() != null) {
+			MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
+
+			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyCreateCommand.getExtJsonObj(),jackson2HttpMessageConverter.getObjectMapper()));
+		}
 		/**
 		 * 默认为未审核
 		 */
 		tenantCreateApply.chanageAuditStatusToUnAudit();
+		// 依赖用户选择，如果没有填写不计算天数
+		//tenantCreateApply.changeEffectiveAtNowIfNull();
+		tenantCreateApply.calculateDays();
 
 		tenantCreateApply.setAddControl(tenantCreateApplyCreateCommand);
 		boolean save = tenantCreateApplyGateway.save(tenantCreateApply);

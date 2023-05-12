@@ -2,6 +2,7 @@ package com.particle.tenant.client.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -47,6 +48,25 @@ public class TenantVO extends AbstractBaseIdVO {
     
     @ApiModelProperty("租户默认的页面路由")
     private String tenantDefaultRoute;
+
+    @ApiModelProperty("是否正式，1=正式，0=试用")
+    private Boolean isFormal;
+
+    @ApiModelProperty("用户数量限制")
+    private Integer userLimitCount;
+
+    @ApiModelProperty("生效日期，从什么时候开始生效")
+    private LocalDateTime effectiveAt;
+
+    @ApiModelProperty("失效日期，从什么时候失效")
+    private LocalDateTime invalidAt;
+
+    @ApiModelProperty("主用户，一般该用户为租户的超级管理员")
+    private Long masterUserId;
+
+    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "masterUserId",mapValueField = "nickname")
+    @ApiModelProperty("主用户昵称")
+    private String masterUserNickname;
 
     @ApiModelProperty("租户logo地址")
     private String tenantLogoUrl;

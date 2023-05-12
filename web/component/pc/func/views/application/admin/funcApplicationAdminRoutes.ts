@@ -45,6 +45,20 @@ const funcApplicationAdminRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/funcApplicationAssignFunc',
+                component: () => import('../../admin/FuncApplicationFuncRelManageFuncApplicationAssignFuncPage.vue'),
+                props: route => ({ funcApplicationId: route.query.funcApplicationId, funcApplicationName: route.query.funcApplicationName }),
+                meta: {
+                    showInDrawer: true,
+                    code:'funcApplicationFuncRelManageFuncApplicationAssignFunc',
+                    name: '功能应用分配功能',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
         ]
     },
 ]

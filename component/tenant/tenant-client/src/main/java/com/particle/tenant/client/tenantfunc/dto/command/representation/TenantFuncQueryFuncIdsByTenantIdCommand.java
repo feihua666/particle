@@ -18,7 +18,7 @@ import lombok.Data;
 public class TenantFuncQueryFuncIdsByTenantIdCommand extends IdCommand {
 
 	/**
-	 * 可以根据功能应用id过滤
+	 * 可以根据功能应用id 过滤
 	 */
 	@ApiModelProperty(value = "功能应用id")
 	private Long funcApplicationId;

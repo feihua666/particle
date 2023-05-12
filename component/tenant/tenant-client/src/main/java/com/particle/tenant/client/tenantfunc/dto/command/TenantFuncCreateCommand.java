@@ -25,6 +25,10 @@ public class TenantFuncCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "名称")
     private String name;
 
+    @NotNull(message = "功能应用id 不能为空")
+    @ApiModelProperty(value = "功能应用id",required = true)
+    private Long funcApplicationId;
+
     @NotNull(message = "租户id 不能为空")
     @ApiModelProperty(value = "租户id",required = true)
     private Long tenantId;

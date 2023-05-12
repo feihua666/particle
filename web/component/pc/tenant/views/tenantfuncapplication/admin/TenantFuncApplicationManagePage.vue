@@ -76,6 +76,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   !row.isGroup && tableRowButtons.push({
     txt: '租户应用分配功能菜单',
     text: true,
+    position: 'more',
     permission: 'admin:web:tenantFunc:tenantAssignFunc',
     // 跳转
     route: {path: '/admin/tenantFuncApplication/tenantFuncTenantAssignFunc',query: tenantIdAndFuncApplicationIdData}
@@ -110,9 +111,9 @@ const listToTreeMethod = (data)=>{
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

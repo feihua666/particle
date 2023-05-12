@@ -1,8 +1,10 @@
 package com.particle.tenant.infrastructure.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.tenant.infrastructure.mapper.TenantUserMapper;
+import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TenantUserServiceImpl extends IBaseServiceImpl<TenantUserMapper, TenantUserDO> implements ITenantUserService {
 	private IBaseQueryCommandMapStruct<TenantUserDO> queryCommandMapStruct;
 
+
 	@Override
 	protected TenantUserDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
@@ -34,10 +37,12 @@ public class TenantUserServiceImpl extends IBaseServiceImpl<TenantUserMapper, Te
 
 	@Override
 	protected void preAdd(TenantUserDO po) {
+
 	}
 
 	@Override
 	protected void preUpdate(TenantUserDO po) {
     
 	}
+
 }

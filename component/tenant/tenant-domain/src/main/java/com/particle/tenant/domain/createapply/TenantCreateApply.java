@@ -1,5 +1,6 @@
 package com.particle.tenant.domain.createapply;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -7,6 +8,8 @@ import com.particle.tenant.domain.TenantCreateApplyAuditStatus;
 import com.particle.tenant.domain.gateway.TenantDictGateway;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -74,11 +77,65 @@ public class TenantCreateApply extends AggreateRoot {
     */
     private Long appliedTenantId;
 
+	/**
+	 * 是否正式，1=正式，0=试用
+	 */
+	private Boolean isFormal;
+
+	/**
+	 * 用户数量限制
+	 */
+	private Integer userLimitCount;
+
+	/**
+	 * 生效日期，从什么时候开始生效
+	 */
+	private LocalDateTime effectiveAt;
+
+	/**
+	 * 申请天数
+	 */
+	private Integer effectiveDays;
+
+	/**
+	 * 失效日期，从什么时候失效
+	 */
+	private LocalDateTime invalidAt;
+
+	/**
+	 * 额外申请项json，如：应用和功能
+	 */
+	private String extJson;
+
     /**
     * 描述
     */
     private String remark;
 
+	public void changeExtJson(String extJson) {
+		this.extJson = extJson;
+	}
+
+	public void changeEffectiveAtNowIfNull() {
+		if (effectiveAt == null) {
+			effectiveAt = LocalDateTime.now();
+		}
+	}
+	/**
+	 * 计算时间或天数
+	 */
+	public void calculateDays() {
+		if (effectiveAt == null) {
+			return;
+		}
+		if (invalidAt != null) {
+			effectiveDays = Long.valueOf( LocalDateTimeUtil.between(effectiveAt, invalidAt).toDays()).intValue();
+			return;
+		}
+		if (effectiveDays != null && effectiveDays != 0) {
+			invalidAt = effectiveAt.plusDays(effectiveDays);
+		}
+	}
     /**
      * 设置审核状态为待审核
      * 添加时默认审核状态

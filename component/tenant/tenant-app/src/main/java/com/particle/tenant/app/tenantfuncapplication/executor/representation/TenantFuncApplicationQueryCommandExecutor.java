@@ -81,7 +81,7 @@ public class TenantFuncApplicationQueryCommandExecutor  extends AbstractBaseQuer
 	 */
 	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(IdCommand tenantIdCommand) {
 		List<TenantFuncApplicationDO> tenantFuncApplicationDOS = iTenantFuncApplicationService.listByColumn(tenantIdCommand.getId(), TenantFuncApplicationDO::getTenantId);
-		List<Long> collect = tenantFuncApplicationDOS.stream().map(TenantFuncApplicationDO::getId).collect(Collectors.toList());
+		List<Long> collect = tenantFuncApplicationDOS.stream().map(TenantFuncApplicationDO::getFuncApplicationId).collect(Collectors.toList());
 		return MultiResponse.of(collect);
 	}
 

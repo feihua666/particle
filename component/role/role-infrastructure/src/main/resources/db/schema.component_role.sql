@@ -27,6 +27,6 @@ CREATE TABLE `component_role` (
   `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uni_code` (`code`) USING BTREE,
+  UNIQUE KEY `uni_code` (`code`,`tenant_id`) USING BTREE,
   KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='角色表';

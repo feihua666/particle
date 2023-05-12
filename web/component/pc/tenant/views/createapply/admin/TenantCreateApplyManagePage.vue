@@ -26,21 +26,61 @@ const reactiveData = reactive({
     },
     {
       prop: 'applyUserNickname',
-      label: '申请用户',
+      label: '申请人',
     },
     {
       prop: 'applyUserAvatar',
-      label: '申请用户头像',
+      label: '申请人头像',
       columnView: 'image'
     },
+
     {
-      prop: 'contactUserName',
-      label: '联系人姓名',
+      prop: 'isFormal',
+      label: '是否正式',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '正式' : '试用'
+      }
+    },
+    {
+      prop: 'userLimitCount',
+      label: '用户数限制',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? cellValue : '不限制'
+        return r
+      }
+    },
+    {
+      prop: 'effectiveDays',
+      label: '申请天数',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? cellValue : '不限制'
+        return r
+      }
+    },
+    {
+      prop: 'effectiveAt',
+      label: '生效日期',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? cellValue : '立即生效'
+        return r
+      }
+    },
+    {
+      prop: 'invalidAt',
+      label: '失效日期',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? cellValue : '不限制'
+        return r
+      }
     },
     {
       prop: 'contactUserEmail',
       label: '联系人邮箱',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'contactUserName',
+      label: '联系人姓名',
     },
     {
       prop: 'contactUserPhone',

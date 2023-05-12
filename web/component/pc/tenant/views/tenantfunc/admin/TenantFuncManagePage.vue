@@ -37,6 +37,10 @@ const reactiveData = reactive({
       label: '父级',
     },
     {
+      prop: 'funcApplicationName',
+      label: '功能应用名称',
+    },
+    {
       prop: 'tenantName',
       label: '租户名称',
     },

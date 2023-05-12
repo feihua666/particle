@@ -7,6 +7,7 @@ import com.particle.global.dataaudit.audit.IDataAuditHandler;
 import com.particle.global.mybatis.plus.GlobalMybatisPlusAutoConfiguration;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.tool.spring.SpringContextHolder;
+import com.particle.global.tool.thread.ThreadContextTool;
 
 /**
  * <p>
@@ -19,7 +20,15 @@ import com.particle.global.tool.spring.SpringContextHolder;
  */
 public class DataAuditHelperTool {
 
+	/**
+	 * 如果为true表示不需要发布数据审计事件，因为自动配置未生效，自动配置依赖了其它Bean 参见 {@link GlobalMybatisPlusAutoConfiguration#dataAuditHelperTool()}
+	 */
 	private static Boolean isInstanceNull = false;
+
+	/**
+	 * 允许手动控制是否忽略发布
+	 */
+	private static String ignorePublishKey = "DataAuditHelperTool_ignorePublishKey";
 
 	/**
 	 * 获取DO的表名
@@ -113,7 +122,9 @@ public class DataAuditHelperTool {
 	 * @param dataTable
 	 */
 	public static void publish(Object oldVersion,Object newVersion,Long dataId,String dataTable,String dataEntity,String type) {
-
+		if (isIgnorePublish()) {
+			return;
+		}
 		DataAuditHelperTool instance = getInstance();
 		if (instance != null) {
 
@@ -132,6 +143,9 @@ public class DataAuditHelperTool {
 	 * @param iDataAuditHandler
 	 */
 	public static void publish(IDataAuditHandler iDataAuditHandler) {
+		if (isIgnorePublish()) {
+			return;
+		}
 		DataAuditHelperTool instance = getInstance();
 		if (instance != null) {
 			DataAuditCollectTool.publish(iDataAuditHandler);
@@ -160,6 +174,22 @@ public class DataAuditHelperTool {
 	 * @return
 	 */
 	public static boolean isEnabled() {
-		return getInstance() != null;
+		return getInstance() != null && !isIgnorePublish();
+	}
+
+
+	/**
+	 * 设置忽略
+	 */
+	public static void setIgnorePublish() {
+		ThreadContextTool.put(ignorePublishKey,true);
+	}
+	public static boolean isIgnorePublish(){
+		Object o = ThreadContextTool.get(ignorePublishKey);
+
+		return o != null && ((Boolean) o);
+	}
+	public static void clearIgnorePublish(){
+		ThreadContextTool.remove(ignorePublishKey);
 	}
 }

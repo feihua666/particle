@@ -30,6 +30,9 @@ public class TenantFuncDO extends BaseDO {
     * 名称
     */
     private String name;
-
+    /**
+     * 功能应用id
+     */
+    private Long funcApplicationId;
 
 }

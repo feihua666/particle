@@ -4,6 +4,9 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 租户 领域模型
@@ -67,6 +70,26 @@ public class Tenant extends AggreateRoot {
     * 租户默认的页面路由
     */
     private String tenantDefaultRoute;
+	/**
+	 * 是否正式，1=正式，0=试用
+	 */
+	private Boolean isFormal;
+	/**
+	 * 用户数量限制
+	 */
+	private Integer userLimitCount;
+	/**
+	 * 生效日期，从什么时候开始生效
+	 */
+	private LocalDateTime effectiveAt;
+	/**
+	 * 失效日期，从什么时候失效
+	 */
+	private LocalDateTime invalidAt;
+	/**
+	 * 主用户，一般该用户为租户的超级管理员
+	 */
+	private Long masterUserId;
     /**
      * 租户logo地址
      */

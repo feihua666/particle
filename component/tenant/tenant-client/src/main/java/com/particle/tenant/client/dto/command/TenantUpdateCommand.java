@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -64,6 +65,23 @@ public class TenantUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "租户默认的页面路由")
     private String tenantDefaultRoute;
 
+    @NotNull(message = "是否正式 不能为空")
+    @ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)
+    private Boolean isFormal;
+
+    @ApiModelProperty("用户数量限制")
+    private Integer userLimitCount;
+
+    @ApiModelProperty("生效日期，从什么时候开始生效")
+    private LocalDateTime effectiveAt;
+
+    @ApiModelProperty("失效日期，从什么时候失效")
+    private LocalDateTime invalidAt;
+
+    @NotNull(message = "主用户 不能为空")
+    @ApiModelProperty(value = "主用户，一般该用户为租户的超级管理员",required = true)
+    private Long masterUserId;
+
     @ApiModelProperty("租户logo地址")
     private String tenantLogoUrl;
 
@@ -73,25 +91,6 @@ public class TenantUpdateCommand extends AbstractBaseUpdateCommand {
 
     @ApiModelProperty(value = "描述")
     private String remark;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

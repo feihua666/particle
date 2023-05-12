@@ -12,7 +12,7 @@ import {getItems,getGroupItems,getGroups} from "../api/front/dictFrontApi";
 const props = defineProps({
   // 值绑定
   modelValue: [Number, String, Array],
-  // 查询的参数 参见 DictItemsParam
+  // 查询的参数 参见 ../api/front/dictFrontApi.ts DictItemsParam
   dictParam: Object,
   dictApi: {
     type: String,

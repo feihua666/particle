@@ -1,25 +1,24 @@
-package com.particle.global.big.datasource.bigdatasource.enums;
+package com.particle.tenant.client.exception;
 
-import com.particle.global.exception.code.ErrorCodeGlobalStatusMax;
 import com.particle.global.exception.code.IErrorCode;
 
 /**
  * <p>
- * 添加枚举常量 需要同步修改 {@link ErrorCodeGlobalStatusMax} 以记录当前最大值
+ * 租户相关 错误码
+ * 其中业务码 从 0002 开始
  * </p>
  *
  * @author yangwei
- * @since 2023-03-09 11:46
+ * @since 2023-05-12 18:05:41
  */
-public enum BigDatasourceErrorCode implements IErrorCode {
+public enum ErrorCodeTenantEnum implements IErrorCode {
 
 	/**
-	 * 大数据源错误
+	 * 租户添加用户时人数限制错误
 	 */
-	BIG_DATASOURCE_ERROR(50000000016L, "大数据源错误");
+	tenant_user_exceed(40000020001L, "已超过最大人数");
 
-
-	BigDatasourceErrorCode(long status, String errMessage) {
+	ErrorCodeTenantEnum(long status, String errMessage) {
 		this.status = status;
 		this.errCode = this.name();
 		this.errMessage = errMessage;

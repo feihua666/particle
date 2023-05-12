@@ -109,6 +109,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+  let funcApplicationAssignFuncRouteQuery = {funcApplicationId: row.id,funcApplicationName: row.name}
+
   let tableRowButtons = [
     {
       txt: '编辑',
@@ -116,6 +118,12 @@ const getTableRowButtons = ({row, column, $index}) => {
       permission: 'admin:web:funcApplication:update',
       // 跳转到编辑
       route: {path: '/admin/FuncApplicationManageUpdate',query: idData}
+    },
+    {
+      txt: '为该功能应用分配功能',
+      text: true,
+      permission: 'admin:web:funcApplicationFuncRel:funcApplicationAssignFunc',
+      route: {path: '/admin/funcApplicationAssignFunc',query: funcApplicationAssignFuncRouteQuery}
     },
     {
       txt: '删除',

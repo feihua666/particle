@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as TenantCreateApi,list as TenantListApi} from "../../api/admin/tenantAdminApi"
-import {addPageFormItems} from "../../compnents/admin/tenantManage";
+import {useAddPageFormItems} from "../../compnents/admin/tenantManage";
 
 
 // 属性
@@ -16,7 +16,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    addPageFormItems
+    useAddPageFormItems({props: {}})
 )
 
 // 提交按钮属性
@@ -45,7 +45,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[2,2,3,3,1,2]"
+          :layout="[3,2,2,2,3,3,1,2]"
           :comps="formComps">
   </PtForm>
 </template>

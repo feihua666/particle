@@ -4,6 +4,7 @@ CREATE TABLE `component_tenant_func` (
   `id` bigint NOT NULL COMMENT '主键',
   `func_id` bigint NOT NULL COMMENT '功能id',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `func_application_id` bigint NOT NULL COMMENT '功能应用id',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',

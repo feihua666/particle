@@ -10,11 +10,14 @@ package com.particle.global.exception.code;
  */
 public class ErrorCodeGlobalStatusMax implements IErrorCodeStatusMax{
 
-	private static long s_5000000 = 50000000016L;
-	private static long s_4000000 = 40000000003L;
-	private static long s_4010000 = 40100000008L;
-	private static long s_4030000 = 40300000004L;
-	private static long s_4040000 = 40400000002L;
-	private static long s_4050000 = 40500000002L;
-	private static long s_4150000 = 41500000001L;
+	/**
+	 * s 前缀没有什么意义，statusMax 首字母可以这样认为，因为变量不允许为直接数字
+	 */
+	private static Long s_5000000 = 50000000016L;
+	private static Long s_4000000 = 40000000003L;
+	private static Long s_4010000 = 40100000008L;
+	private static Long s_4030000 = 40300000004L;
+	private static Long s_4040000 = 40400000002L;
+	private static Long s_4050000 = 40500000002L;
+	private static Long s_4150000 = 41500000001L;
 }

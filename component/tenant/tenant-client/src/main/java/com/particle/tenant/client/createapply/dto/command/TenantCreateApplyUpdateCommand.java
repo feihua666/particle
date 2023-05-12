@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -46,6 +47,31 @@ public class TenantCreateApplyUpdateCommand extends AbstractBaseUpdateCommand {
 
     @ApiModelProperty(value = "审核通过后创建的租户id")
     private Long appliedTenantId;
+
+
+	@NotNull(message = "是否正式 不能为空")
+	@ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)
+	private Boolean isFormal;
+
+	@ApiModelProperty("用户数量限制")
+	private Integer userLimitCount;
+
+	@ApiModelProperty("生效日期，从什么时候开始生效")
+	private LocalDateTime effectiveAt;
+
+	@ApiModelProperty("申请天数")
+	private Integer effectiveDays;
+
+	@ApiModelProperty("失效日期，从什么时候失效")
+	private LocalDateTime invalidAt;
+
+	@ApiModelProperty("额外申请项json，如：应用和功能")
+	private String extJson;
+	/**
+	 * extJson 的对象形式，如果有值，以该字段优先
+	 */
+	@ApiModelProperty("额外申请项json，如：应用和功能")
+	private TenantCreateApplyExtJsonCommand extJsonObj;
 
     @ApiModelProperty(value = "描述")
     private String remark;

@@ -1,13 +1,18 @@
 package com.particle.tenant.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.structmapping.TenantUserAppStructMapping;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.client.dto.data.TenantUserVO;
+import com.particle.tenant.client.exception.ErrorCodeTenantEnum;
 import com.particle.tenant.domain.TenantUser;
 import com.particle.tenant.domain.gateway.TenantUserGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.tenant.infrastructure.dos.TenantDO;
+import com.particle.tenant.infrastructure.service.ITenantService;
+import com.particle.tenant.infrastructure.service.ITenantUserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -31,12 +36,33 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private TenantUserGateway tenantUserGateway;
 
+	private ITenantService tenantService;
+
+	private ITenantUserService tenantUserService;
 	/**
 	 * 执行租户用户添加指令
 	 * @param tenantUserCreateCommand
 	 * @return
 	 */
 	public SingleResponse<TenantUserVO> execute(@Valid TenantUserCreateCommand tenantUserCreateCommand) {
+		// 判断用户是否已超过限制
+
+		//	校验是否超过人数限制
+		Long tenantId = tenantUserCreateCommand.getTenantId();
+		TenantDO byIdIgnoreTenantLimit = tenantService.getByIdIgnoreTenantLimit(tenantId);
+		if (byIdIgnoreTenantLimit.getUserLimitCount() != null && byIdIgnoreTenantLimit.getUserLimitCount() > 0) {
+
+			//	统计总人数
+			long count = tenantUserService.countByTenantIdIgnoreTenantLimit(tenantId, false);
+			// 实际人数已经达到限制，异常处理
+			if (count >= byIdIgnoreTenantLimit.getUserLimitCount()) {
+
+				throw ExceptionFactory.bizException(ErrorCodeTenantEnum.tenant_user_exceed);
+			}
+		}
+
+
+
 		TenantUser tenantUser = createByTenantUserCreateCommand(tenantUserCreateCommand);
 		tenantUser.changeJoinAtToCurrent();
 		tenantUser.changeIsLeaveToFalseIfNull();
@@ -79,5 +105,15 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setTenantUserGateway(TenantUserGateway tenantUserGateway) {
 		this.tenantUserGateway = tenantUserGateway;
+	}
+
+	@Autowired
+	public void setTenantService(ITenantService tenantService) {
+		this.tenantService = tenantService;
+	}
+
+	@Autowired
+	public void setTenantUserService(ITenantUserService tenantUserService) {
+		this.tenantUserService = tenantUserService;
 	}
 }

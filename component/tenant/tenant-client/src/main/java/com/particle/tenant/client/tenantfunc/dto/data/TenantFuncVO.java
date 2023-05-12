@@ -68,4 +68,12 @@ public class TenantFuncVO extends AbstractBaseIdVO {
     @ApiModelProperty("父级名称")
     @TransBy(tableName = TransTableNameConstants.component_func, byFieldName = "parentFuncId", mapValueField = "name")
     private String parentFuncName;
+
+
+    @ApiModelProperty("功能应用id")
+    private Long funcApplicationId;
+
+    @TransBy(tableName = TransTableNameConstants.component_func_application, byFieldName = "funcApplicationId", mapValueField = "name")
+    @ApiModelProperty("功能应用名称")
+    private String funcApplicationName;
 }

@@ -3,6 +3,7 @@ package com.particle.global.exception.code;
 /**
  * <p>
  * 全局常用错误代码
+ * 添加枚举常量 需要同步修改 {@link ErrorCodeGlobalStatusMax} 以记录当前最大值
  * </p>
  *
  * @author yangwei

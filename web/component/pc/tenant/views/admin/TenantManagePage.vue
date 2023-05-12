@@ -17,17 +17,43 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
-      prop: 'code',
-      label: '租户编码',
-    },
-    {
       prop: 'name',
       label: '租户名称',
+      showOverflowTooltip: true
     },
+    {
+      prop: 'code',
+      label: '租户编码',
+      showOverflowTooltip: true
+    },
+
     {
       prop: 'tenantLogoUrl',
       label: '租户logo',
       columnView: 'image'
+    },
+    {
+      prop: 'isFormal',
+      label: '是否正式',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '正式' : '试用'
+      }
+    },
+    {
+      prop: 'userLimitCount',
+      label: '用户数限制',
+    },
+    {
+      prop: 'effectiveAt',
+      label: '生效日期',
+    },
+    {
+      prop: 'invalidAt',
+      label: '失效日期',
+    },
+    {
+      prop: 'masterUserNickname',
+      label: '主用户昵称',
     },
     {
       prop: 'isDisabled',
@@ -101,7 +127,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let tenantIdData = {tenantId: row.id}
+  let tenantIdData = {tenantId: row.id,masterUserId: row.masterUserId,masterUserNickname: row.masterUserNickname}
   let tableRowButtons = [
     {
       txt: '编辑',
@@ -127,6 +153,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '租户分配应用',
       text: true,
+      position: 'more',
       permission: 'admin:web:tenantFuncApplication:tenantAssignFuncApplication',
       // 跳转到编辑
       route: {path: '/admin/tenant/tenantAssignFuncApplication',query: tenantIdData}
@@ -157,9 +184,9 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

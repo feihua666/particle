@@ -5,7 +5,6 @@ import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
 /**
  * <p>
  * 租户功能菜单 通用列表查询指令对象
@@ -25,15 +24,11 @@ public class TenantFuncQueryListCommand extends AbstractBaseQueryCommand {
 
 
     @Like
-        @ApiModelProperty(value = "名称,左前缀匹配")
+    @ApiModelProperty(value = "名称,左前缀匹配")
     private String name;
 
-
-
-
-
-
-
+    @ApiModelProperty(value = "功能应用id")
+    private Long funcApplicationId;
 
 
 }
