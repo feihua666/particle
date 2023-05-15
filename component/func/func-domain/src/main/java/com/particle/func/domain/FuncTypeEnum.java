@@ -28,6 +28,18 @@ public enum FuncTypeEnum implements IDictItem {
 	 * 字段
 	 */
 	field,
+	/**
+	 * 表单项
+	 */
+	form_item,
+	/**
+	 * 区域块
+	 */
+	div,
+	/**
+	 * 分组
+	 */
+	group,
 	;
 
 	@Override

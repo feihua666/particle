@@ -2,6 +2,8 @@ package com.particle.func.domain.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
 
+import java.util.Map;
+
 /**
  * <p>
  * 功能字典
@@ -13,4 +15,11 @@ import com.particle.common.domain.gateway.IGateway;
 public interface FuncDictGateway extends IGateway {
 
 	String getDictValueById(Long typeDictId);
+
+	/**
+	 * key为id，value为value
+	 * @param groupCode
+	 * @return
+	 */
+	Map<Long, String> getItemsByGroupCode(String groupCode);
 }

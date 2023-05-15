@@ -14,9 +14,13 @@ const route = useRoute()
 // 如果切换租户或角色刷新功能菜单
 watch(()=> loginUserStore.loginUser?.currentTenant,(val)=>{!!val && (menuRef.value?.refreshData())})
 watch(()=> loginUserStore.loginUser?.currentRole,(val)=>{!!val && (menuRef.value?.refreshData())})
+// 仅查询显示的数据
+const getFuncList = () =>{
+  return loginGetList({isShow: true})
+}
 </script>
 <template>
-  <PtMenu ref="menuRef" :dataMethod="loginGetList"
+  <PtMenu ref="menuRef" :dataMethod="getFuncList"
           :default-active="route.path"
           router
           :props="{type: 'typeDictValue',index: 'url'}"
