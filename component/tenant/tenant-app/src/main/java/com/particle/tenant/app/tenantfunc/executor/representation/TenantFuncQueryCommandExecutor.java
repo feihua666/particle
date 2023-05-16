@@ -5,7 +5,7 @@ import com.particle.tenant.app.tenantfunc.structmapping.TenantFuncAppStructMappi
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
-import com.particle.tenant.domain.gateway.TenantFuncGateway;
+import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
 import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
@@ -36,7 +36,7 @@ import com.particle.global.dto.response.SingleResponse;
 public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 
 	private ITenantFuncService iTenantFuncService;
-	private TenantFuncGateway tenantFuncGateway;
+	private TenantFuncFuncGateway tenantFuncFuncGateway;
 
 	/**
 	 * 执行 租户功能菜单 列表查询指令
@@ -87,7 +87,7 @@ public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	public MultiResponse<Long> queryFuncIdsByTenantId(@Valid TenantFuncQueryFuncIdsByTenantIdCommand tenantIdCommand) {
 		List<Long> funcIdsByFuncApplicationId = Collections.emptyList();
 		if (tenantIdCommand.getFuncApplicationId() != null) {
-			funcIdsByFuncApplicationId = tenantFuncGateway.getFuncIdsByFuncApplicationId(tenantIdCommand.getFuncApplicationId());
+			funcIdsByFuncApplicationId = tenantFuncFuncGateway.getFuncIdsByFuncApplicationId(tenantIdCommand.getFuncApplicationId());
 			if (CollectionUtil.isEmpty(funcIdsByFuncApplicationId)) {
 				// 如果应用下没有数据，直接返回空
 				return MultiResponse.buildSuccess();
@@ -106,7 +106,7 @@ public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 
 
 	@Autowired
-	public void setTenantFuncGateway(TenantFuncGateway tenantFuncGateway) {
-		this.tenantFuncGateway = tenantFuncGateway;
+	public void setTenantFuncGateway(TenantFuncFuncGateway tenantFuncFuncGateway) {
+		this.tenantFuncFuncGateway = tenantFuncFuncGateway;
 	}
 }

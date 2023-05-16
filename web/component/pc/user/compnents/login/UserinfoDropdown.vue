@@ -143,7 +143,7 @@ const handleUserinfoCommand = (command) => {
 .pt-dialog-tab-use-scroll .pt-dialog-tab,.pt-dialog-tab-use-scroll .el-tabs,.pt-dialog-tab-use-scroll .el-tabs__content{
   height: 100% !important;
 }
-.pt-dialog-tab-use-scroll .el-tabs_content{
+.pt-dialog-tab-use-scroll .el-tabs__content{
   overflow-y: scroll !important;
 }
 </style>

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel
-public class UserResetPasswordCommand extends UserIdentifierPasswordCommand {
+public class UserResetPwdCommand extends UserIdentifierPwdCommand {
 
     @NotNull(message = "用户ID不能为空")
     @ApiModelProperty(value = "用户ID",required = true)

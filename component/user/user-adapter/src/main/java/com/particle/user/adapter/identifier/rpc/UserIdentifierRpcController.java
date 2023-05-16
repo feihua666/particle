@@ -1,17 +1,18 @@
 package com.particle.user.adapter.identifier.rpc;
 
+import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.adapter.feign.client.identifier.rpc.UserIdentifierRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -31,11 +32,19 @@ public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implemen
 	private IUserIdentifierApplicationService iUserIdentifierApplicationService;
 
 
+	@Autowired
+	private IUserIdentifierService iIdentifierService;
 
+	@ApiOperation("根据登录标识获取")
+	@GetMapping("/getByIdentifier")
+	@Override
+	public SingleResponse<UserIdentifierVO> getByIdentifier(String identifier) {
+		UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(identifier);
+		if (userIdentifierDO == null) {
+			return SingleResponse.buildSuccess();
+		}
 
-
-
-
-
-
+		UserIdentifierVO userIdentifierVO = UserIdentifierAppStructMapping.instance.userIdentifierDOToUserIdentifierVO(userIdentifierDO);
+		return SingleResponse.of(userIdentifierVO);
+	}
 }

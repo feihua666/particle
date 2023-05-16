@@ -8,7 +8,7 @@ import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.exception.ErrorCodeUserEnum;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdUpdateCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierResetPasswordCommand;
-import com.particle.user.client.identifier.dto.command.UserResetPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserResetPwdCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -110,7 +109,7 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 	 * @param userResetPasswordCommand
 	 * @return
 	 */
-	public Response userResetPassword(@Valid UserResetPasswordCommand userResetPasswordCommand) {
+	public Response userResetPassword(@Valid UserResetPwdCommand userResetPasswordCommand) {
 		List<UserIdentifierDO> byUserId = iUserIdentifierService.getByUserId(userResetPasswordCommand.getUserId());
 		if (byUserId.isEmpty()) {
 			throw new BizException("当前用户没有账号，请先添加账号");

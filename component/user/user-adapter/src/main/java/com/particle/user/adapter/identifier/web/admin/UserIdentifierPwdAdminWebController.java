@@ -20,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 用户密码后台管理pc或平板端前端适配器
@@ -44,10 +42,10 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:create')")
 	@ApiOperation("添加用户密码")
 	@PostMapping("/create")
-	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
-		PasswordTool.encodePassword(userIdentifierPasswordCommand);
+	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
+		PasswordTool.encodePassword(userIdentifierPwdCommand);
 
-		return iUserIdentifierPwdApplicationService.create(userIdentifierPwdCreateCommand,userIdentifierPasswordCommand);
+		return iUserIdentifierPwdApplicationService.create(userIdentifierPwdCreateCommand, userIdentifierPwdCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:delete')")
@@ -61,15 +59,24 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@ApiOperation("更新用户密码")
 	@PutMapping("/update")
 	public SingleResponse<UserIdentifierPwdVO> update(@RequestBody UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand){
+
+		return iUserIdentifierPwdApplicationService.update(userIdentifierPwdUpdateCommand);
+	}
+
+	/**
+	 * 加密密码
+	 * @param userIdentifierPwdUpdateCommand
+	 */
+	public static void encodePassword(UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand) {
 		if (StrUtil.isNotEmpty(userIdentifierPwdUpdateCommand.getPwd())) {
 
-			UserIdentifierPasswordCommand userIdentifierPasswordCommand = new UserIdentifierPasswordCommand();
-			userIdentifierPasswordCommand.setPassword(userIdentifierPwdUpdateCommand.getPwd());
-			PasswordTool.encodePassword(userIdentifierPasswordCommand);
+			UserIdentifierPwdCommand userIdentifierPwdCommand = new UserIdentifierPwdCommand();
+			userIdentifierPwdCommand.setPassword(userIdentifierPwdUpdateCommand.getPwd());
+			PasswordTool.encodePassword(userIdentifierPwdCommand);
 
-			userIdentifierPwdUpdateCommand.setPwd(userIdentifierPasswordCommand.getPwdEncoded());
-			userIdentifierPwdUpdateCommand.setComplexity(userIdentifierPasswordCommand.getPwdComplexity());
-			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(userIdentifierPasswordCommand.getPwdEncryptFlag());
+			userIdentifierPwdUpdateCommand.setPwd(userIdentifierPwdCommand.getPwdEncoded());
+			userIdentifierPwdUpdateCommand.setComplexity(userIdentifierPwdCommand.getPwdComplexity());
+			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(userIdentifierPwdCommand.getPwdEncryptFlag());
 
 		}else {
 
@@ -78,8 +85,6 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 			userIdentifierPwdUpdateCommand.setPwdEncryptFlag(null);
 
 		}
-
-		return iUserIdentifierPwdApplicationService.update(userIdentifierPwdUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:update')")
@@ -120,7 +125,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:user:resetPassword')")
 	@ApiOperation("重置用户密码")
 	@PostMapping("/user/resetPassword")
-	public Response userResetPassword(@RequestBody UserResetPasswordCommand userResetPasswordCommand){
+	public Response userResetPassword(@RequestBody UserResetPwdCommand userResetPasswordCommand){
 		PasswordTool.encodePassword(userResetPasswordCommand);
 		return iUserIdentifierPwdApplicationService.userResetPassword(userResetPasswordCommand);
 	}

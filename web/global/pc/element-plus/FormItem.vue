@@ -7,6 +7,7 @@
 import {reactive ,inject,ref,computed} from 'vue'
 import PtFormItemDetail from './FormItemDetail.vue'
 import {getVal} from "../../common/tools/ObjectTools"
+import {regs} from "../../common/tools/RegTools";
 
 
 // 声明属性
@@ -40,6 +41,10 @@ const props = defineProps({
   // 验证如：mobile，email等
   validate: {
     type: Object
+  },
+  // element plus 原生属性
+  rules: {
+    type: Array
   },
   // 数据变化事件,如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
   valueChange: {
@@ -78,6 +83,7 @@ export interface ValidateObj{
 }
 
 const getFormItemRules = (validateObj:ValidateObj) => {
+  console.log(2222,validateObj)
   let r = []
   if(validateObj.required){
     r.push({required: true, message: `${validateObj.label}不能为空`, trigger: 'blur'})
@@ -95,7 +101,7 @@ const getFormItemRules = (validateObj:ValidateObj) => {
   if(v){
     v = getVal(validateObj,'validate',{form: props.form,formData: props.formData})
     if (v.mobile === true) {
-      r.push({ pattern:/^[1][0-9]{10}$/, message: '请输入正确的手机号', trigger: ['blur'] })
+      r.push({ pattern:regs.mobilePattern, message: '请输入正确的手机号', trigger: ['blur'] })
     }
     if (v.email === true) {
       r.push({ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur'] })
@@ -108,12 +114,13 @@ const getFormItemRules = (validateObj:ValidateObj) => {
     }
   }
 
+  console.log(1111,r)
   return r
 }
 
 </script>
 <template>
-<el-form-item v-bind="$attrs" :prop="prop" :required="required" :rules="getFormItemRules({required: required,rules: $attrs.rules,validate: $attrs.validate,label: $attrs.label})">
+<el-form-item v-bind="$attrs" :prop="prop" :required="required" :rules="getFormItemRules({required: required,rules: rules,validate: validate,label: $attrs.label})">
   <template v-if="$slots.default">
     <slot v-bind="{form}"></slot>
   </template>

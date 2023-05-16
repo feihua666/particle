@@ -14,4 +14,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  */
 @FeignClient(name = "${particle.feign-client.name.user:user}",path = "/rpc/user")
 public interface UserTransRpcFeignClient extends ITransService<UserTransVO,Long> {
+
 }

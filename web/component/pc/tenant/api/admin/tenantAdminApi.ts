@@ -46,3 +46,10 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(tenantPrefix + '/page',{params: data})
 }
 
+/**
+ * 一键添加租户创建申请并审批通过
+ * @param data
+ */
+export const oneClickCreate = (data: anyObj): AxiosPromise => {
+    return axios.post(tenantPrefix + '/oneClickCreate',data)
+}

@@ -9,15 +9,11 @@ import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.config.WebSecurityConfig;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
-import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
+import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
 import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
-import com.particle.user.client.dto.command.UserCreateCommand;
-import com.particle.user.client.dto.data.UserVO;
-import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
 import com.particle.user.client.login.dto.data.UserLoginRecordVO;
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
 import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
@@ -138,7 +134,8 @@ public class UserLoginController {
 
 		loginUser.clearUserGrantedAuthorities();
 		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId());
-
+		// 需要刷新一下权限，否则权限不会生效
+		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);
 	}
 
@@ -149,6 +146,8 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
 
 		loginUser.changeRole(idCommand.getId());
+		// 需要刷新一下权限，否则权限不会生效
+		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);
 	}
 

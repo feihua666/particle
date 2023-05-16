@@ -1,7 +1,7 @@
 package com.particle.user.app.identifier.executor;
 
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCreateCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
@@ -9,9 +9,6 @@ import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -37,14 +34,14 @@ public class UserIdentifierPwdCreateCommandExecutor  extends AbstractBaseExecuto
 	 * @param userIdentifierPwdCreateCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> execute(@Valid UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@Valid  UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
+	public SingleResponse<UserIdentifierPwdVO> execute(@Valid UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@Valid UserIdentifierPwdCommand userIdentifierPwdCommand) {
 
 		UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(userIdentifierPwdCreateCommand.getUserId(), userIdentifierPwdCreateCommand.getIdentifierId(),
-				userIdentifierPasswordCommand.getPwdEncoded(),
-				userIdentifierPasswordCommand.getPwdEncryptFlag(),
-				userIdentifierPasswordCommand.getPwdComplexity(),
-				userIdentifierPasswordCommand.getIsPwdExpired(),userIdentifierPasswordCommand.getPwdExpiredReason(),userIdentifierPasswordCommand.getPwdExpireAt(),
-				userIdentifierPasswordCommand.getIsPwdNeedUpdate(),userIdentifierPasswordCommand.getPwdNeedUpdateMessage());
+				userIdentifierPwdCommand.getPwdEncoded(),
+				userIdentifierPwdCommand.getPwdEncryptFlag(),
+				userIdentifierPwdCommand.getPwdComplexity(),
+				userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
+				userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
 		boolean save = userIdentifierPwdGateway.save(userIdentifierPwd);
 		if (save) {
 			return SingleResponse.of(UserIdentifierPwdAppStructMapping.instance.toUserIdentifierPwdVO(userIdentifierPwd));

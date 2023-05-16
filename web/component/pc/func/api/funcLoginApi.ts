@@ -1,4 +1,5 @@
 import axios, { AxiosPromise} from 'axios'
+import {anyObj} from "../../../../global/common/tools/ObjectTools";
 
 /**
  * 参见后台方法 com.particle.func.adapter.login.FuncLoginController.getList
@@ -14,4 +15,10 @@ export interface LoginGetListParam{
  */
 export const loginGetList = (data: LoginGetListParam): AxiosPromise => {
     return axios.get('/func/login/getList',{params: data})
+}
+/**
+ * 当前登录用户的应用
+ */
+export const getFuncApplicationList = (data: anyObj): AxiosPromise => {
+    return axios.get('/func/login/getFuncApplicationList',{params: data})
 }

@@ -2,8 +2,12 @@ package com.particle.tenant.adapter.web.admin;
 
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.api.representation.ITenantRepresentationApplicationService;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditPassCommand;
+import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
 import com.particle.tenant.client.dto.command.TenantCreateCommand;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.common.client.dto.command.IdCommand;
@@ -23,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * <p>
  * 租户后台管理pc或平板端前端适配器
@@ -94,4 +100,23 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 		return iTenantRepresentationApplicationService.pageQuery(tenantPageQueryCommand);
 	}
 
+
+	/**
+	 * 主要逻辑为，先创建租户申请再自动审批通过
+	 * @param tenantCreateApplyCreateCommand
+	 * @param loginUser
+	 * @return
+	 */
+	@PreAuthorize("hasAuthority('admin:web:tenant:oneClickCreate')")
+	@ApiOperation("一键添加租户")
+	@PostMapping("/oneClickCreate")
+	@OpLog(name = "一键添加租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
+	public SingleResponse<TenantVO> oneClickCreate(@RequestBody TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand, @ApiIgnore LoginUser loginUser){
+		// 其它属性在 iTenantApplicationService.oneClickCreate(tenantCreateApplyCreateCommand) 内部添加
+		TenantCreateApplyAuditPassCommand tenantCreateApplyAuditPassCommand = new TenantCreateApplyAuditPassCommand();
+		tenantCreateApplyAuditPassCommand.setTenantSuperAdminRoleCode(LoginUser.tenant_super_admin_role);
+		tenantCreateApplyAuditPassCommand.setAuditUserId(loginUser.getId());
+		tenantCreateApplyAuditPassCommand.setAuditStatusComment("一键添加租户默认审批通过");
+		return iTenantApplicationService.oneClickCreate(tenantCreateApplyCreateCommand, tenantCreateApplyAuditPassCommand);
+	}
 }

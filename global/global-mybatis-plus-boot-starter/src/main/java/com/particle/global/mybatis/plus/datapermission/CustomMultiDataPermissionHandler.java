@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
- * 自定义的数据权限过滤
+ * 自定义的数据权限过滤,本实现数据权限包括两部分，一部分为租户数据权限，为系统级别的；一部分为真正的数据权限
+ * 租户数据权限意义：项目中一部分表是系统级别的全局表，不考虑租户字段，但查询的时候又避免不了对租户进行限制
  * </p>
  *
  * @author yangwei
@@ -18,6 +19,7 @@ public class CustomMultiDataPermissionHandler implements MultiDataPermissionHand
 	/**
 	 * 依赖多租户处理器，因为系统中有一些系统平台级资源数据可能会分配到租户使用
 	 * 而这些资源表在多租户中已经不使用租户字段进行隔离，但仍需要租户关系表进行隔离，针对这种情况，使用数据权限解决，以减少开发量
+	 * 暂时没用到
 	 */
 	private TenantLineHandler tenantLineHandler;
 
@@ -30,6 +32,14 @@ public class CustomMultiDataPermissionHandler implements MultiDataPermissionHand
 		this.tenantLineHandler = tenantLineHandler;
 	}
 
+	/**
+	 * 没有处理就直接返回null，否则会拼接两个一样的条件
+	 * 该方法是获取额外的sql数据权限片段
+	 * @param table
+	 * @param where
+	 * @param mappedStatementId
+	 * @return
+	 */
 	@Override
 	public Expression getSqlSegment(Table table, Expression where, String mappedStatementId) {
 		if (loginUserSuperAdminResolver != null) {

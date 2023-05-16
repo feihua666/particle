@@ -1,7 +1,7 @@
 package com.particle.tenant.infrastructure.gateway.impl;
 
 import com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc.FuncApplicationFuncRelRpcFeignClient;
-import com.particle.tenant.domain.gateway.TenantFuncGateway;
+import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +15,8 @@ import java.util.List;
  * @author yangwei
  * @since 2023-04-20 00:03
  */
-@Component("tenantFuncsGatewayImpl")
-public class TenantFuncGatewayImpl implements TenantFuncGateway {
+@Component
+public class TenantFuncFuncGatewayImpl implements TenantFuncFuncGateway {
 
 	private FuncApplicationFuncRelRpcFeignClient funcApplicationFuncRelRpcFeignClient;
 

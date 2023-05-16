@@ -59,6 +59,23 @@ const tenantAdminRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/tenantManageOneClickAdd',
+                component: () => import('./TenantManageOneClickAddPage.vue'),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminTenantManageOneClickAdd',
+                    name: '一键添加租户',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminTenantManageOneClickAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminTenantManageOneClickAdd'
+                    }
+                }
+            },
         ]
     },
 ]

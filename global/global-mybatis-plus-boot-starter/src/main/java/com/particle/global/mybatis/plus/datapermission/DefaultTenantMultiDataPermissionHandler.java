@@ -1,5 +1,6 @@
 package com.particle.global.mybatis.plus.datapermission;
 
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -31,10 +32,20 @@ public class DefaultTenantMultiDataPermissionHandler implements TenantMultiDataP
 	 */
 	private Map<String, String> tenantDataPermmision;
 
+	/**
+	 * 如果没有做任何处理，请直接返回（请不要返回null）
+	 * @param table
+	 * @param where
+	 * @param mappedStatementId
+	 * @return
+	 */
 	@SneakyThrows
 	@Override
 	public Expression getSqlSegment(Table table, Expression where, String mappedStatementId) {
-		if (tenantDataPermmision != null && TenantTool.isTenantEnable() && tenantDataPermmision.containsKey(table.getName())) {
+		if (InterceptorIgnoreHelper.willIgnoreTenantLine(mappedStatementId)) {
+			return where;
+		}
+		if (TenantTool.isTenantEnable() && tenantDataPermmision != null && tenantDataPermmision.containsKey(table.getName())) {
 			Long tenantId = TenantTool.getTenantId();
 			if (tenantId != null && tenantId >= TenantMultiDataPermissionHandler.minTenantIdUseTenantDataPermisson) {
 				String dpSegment = tenantDataPermmision.get(table.getName());

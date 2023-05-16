@@ -73,7 +73,6 @@ const activeName = ref('tenant')
         <template #label>
           <UserinfoCard style="display: inline-block;" :avatar="avatar" :nickname="nickname"></UserinfoCard>
         </template>
-        Route
       </el-tab-pane>
       <el-tab-pane label="租户" name="tenant" v-if="componentEnabled('tenant')">
         <UserinfoTenant :data="tenants" :currentTenant="currentTenant"></UserinfoTenant>
@@ -81,12 +80,12 @@ const activeName = ref('tenant')
       <el-tab-pane label="角色" name="role"  v-if="componentEnabled('role')">
         <UserinfoRole :data="roles" :currentRole="currentRole"></UserinfoRole>
       </el-tab-pane>
-      <el-tab-pane label="应用" name="application"  v-if="componentEnabled('tenant')">
+      <el-tab-pane label="租户应用" name="application"  v-if="componentEnabled('tenant')">
         <div>以下数据为您当前租户已获取的应用</div>
         <UserinfoApplication></UserinfoApplication>
       </el-tab-pane>
       <el-tab-pane label="功能权限" name="permission"  v-if="componentEnabled('func')"  class="pt-height-100-pc">
-        <div>以下数据为您已获取的所以功能权限</div>
+        <div>以下数据为您当前角色已获取的所以功能权限</div>
         <UserinfoFunc></UserinfoFunc>
       </el-tab-pane>
     </el-tabs>

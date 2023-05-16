@@ -89,3 +89,9 @@ export const identifierPwdUpdate = (data: IdentifierPwdUpdateData): AxiosPromise
 export const getLoginCaptcha = (): AxiosPromise => {
     return axios.get('/captcha/getCaptcha',{params: {captchaScene: '/login'}})
 }
+/**
+ * 获取当前登录用户修改密码验证码
+ */
+export const getLoginUserUpdatePasswordCaptcha = (): AxiosPromise => {
+    return axios.get('/captcha/getCaptcha',{params: {captchaScene: '/user-identifier-pwd/login/identifier-pwd-update'}})
+}

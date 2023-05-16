@@ -15,7 +15,7 @@ import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +44,10 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("添加用户")
 	@PostMapping("/create")
 	@OpLog(name = "添加用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
-	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody UserIdentifierPasswordCommand userIdentifierPasswordCommand){
-		PasswordTool.encodePassword(userIdentifierPasswordCommand);
+	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
+		PasswordTool.encodePassword(userIdentifierPwdCommand);
 
-		return iUserApplicationService.create(userCreateCommand,userIdentifierPasswordCommand);
+		return iUserApplicationService.create(userCreateCommand, userIdentifierPwdCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:delete')")

@@ -1,5 +1,6 @@
 package com.particle.component.adapter.user;
 
+import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.tenant.client.api.ITenantUserApplicationService;
@@ -10,6 +11,8 @@ import com.particle.user.infrastructure.dos.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+
+import static com.particle.tenant.app.createapply.executor.TenantCreateApplyUpdateCommandExecutor.tenantCreateApplyUserAddScene;
 
 /**
  * <p>
@@ -26,6 +29,15 @@ public class TenantUserAddServiceListener implements IAddServiceListener<UserDO>
 
 	@Override
 	public void postAdd(UserDO po) {
+
+		if (po.getAddControl() != null) {
+			if (po.getAddControl() instanceof AbstractBaseCommand) {
+				// 租户申请创建用户时，不绑定当前租户
+				if (tenantCreateApplyUserAddScene.equals(((AbstractBaseCommand) po.getAddControl()).getScene())) {
+					return;
+				}
+			}
+		}
 
 		if (TenantTool.isTenantEnable()) {
 			Long tenantId = TenantTool.getTenantId();

@@ -25,29 +25,26 @@ public class TenantCreateApplyUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty(value = "租户名称",required = true)
     private String name;
 
-    @ApiModelProperty(value = "联系人姓名")
-    private String contactUserName;
 
-    @ApiModelProperty(value = "联系人邮箱")
-    private String contactUserEmail;
+	@ApiModelProperty(value = "联系人姓名，没有指定 applyUserId 时，用户创建用户昵称和姓名")
+	private String contactUserName;
 
-    @ApiModelProperty(value = "联系人电话")
-    private String contactUserPhone;
 
-    @NotNull(message = "租户类型字典id 不能为空")
-    @ApiModelProperty(value = "租户类型字典id",required = true)
-    private Long tenantTypeDictId;
+	@ApiModelProperty(value = "联系人邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
+	private String contactUserEmail;
 
-    @NotNull(message = "申请用户 不能为空")
-    @ApiModelProperty(value = "申请用户",required = true)
-    private Long applyUserId;
 
-    @ApiModelProperty(value = "审核用户id")
-    private Long auditUserId;
+	@ApiModelProperty(value = "联系人电话，没有指定 applyUserId 时，用户创建用户登录账号")
+	private String contactUserPhone;
 
-    @ApiModelProperty(value = "审核通过后创建的租户id")
-    private Long appliedTenantId;
 
+	@NotNull(message = "租户类型字典id 不能为空")
+	@ApiModelProperty(value = "租户类型字典id",required = true)
+	private Long tenantTypeDictId;
+
+
+	@ApiModelProperty(value = "申请用户，如果主空意味着联系邮箱和联系电话必须填写一个，将用户创建关联用户")
+	private Long applyUserId;
 
 	@NotNull(message = "是否正式 不能为空")
 	@ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)

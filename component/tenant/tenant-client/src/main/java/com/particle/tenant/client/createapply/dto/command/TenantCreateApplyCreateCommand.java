@@ -4,6 +4,7 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -27,15 +28,15 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
     private String name;
 
 
-    @ApiModelProperty(value = "联系人姓名")
+    @ApiModelProperty(value = "联系人姓名，没有指定 applyUserId 时，用户创建用户昵称和姓名")
     private String contactUserName;
 
 
-    @ApiModelProperty(value = "联系人邮箱")
+    @ApiModelProperty(value = "联系人邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
     private String contactUserEmail;
 
 
-    @ApiModelProperty(value = "联系人电话")
+    @ApiModelProperty(value = "联系人电话，没有指定 applyUserId 时，用户创建用户登录账号")
     private String contactUserPhone;
 
 
@@ -44,8 +45,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
     private Long tenantTypeDictId;
 
 
-    @NotNull(message = "申请用户 不能为空")
-    @ApiModelProperty(value = "申请用户",required = true)
+    @ApiModelProperty(value = "申请用户，如果主空意味着联系邮箱和联系电话必须填写一个，将用户创建关联用户")
     private Long applyUserId;
 
     /**
@@ -53,19 +53,6 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
      */
     @ApiModelProperty(value = "审核状态",hidden = true)
     private Long auditStatusDictId;
-
-
-    @ApiModelProperty(value = "审核意见")
-    private String auditStatusComment;
-
-
-    @ApiModelProperty(value = "审核用户id")
-    private Long auditUserId;
-
-
-    @ApiModelProperty(value = "审核通过后创建的租户id")
-    private Long appliedTenantId;
-
 
 	@NotNull(message = "是否正式 不能为空")
 	@ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)

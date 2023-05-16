@@ -114,7 +114,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
                 // 添加数据审计事件
                 publishAdd(() -> {
-                    DO byId = getById(po.getId());
+                    DO byId = getByIdIgnoreTenantLimit(po.getId());
                     return com.google.common.collect.Lists.newArrayList(byId);
                 });
             }

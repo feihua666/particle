@@ -4,11 +4,9 @@ import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 
 /**
  * <p>
@@ -24,7 +22,7 @@ public interface IUserApplicationService extends IBaseApplicationService {
 	 * @param userCreateCommand
 	 * @return
 	 */
-	SingleResponse<UserVO> create(UserCreateCommand userCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand);
+	SingleResponse<UserVO> create(UserCreateCommand userCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand);
 
 	/**
 	 * 删除领域对象

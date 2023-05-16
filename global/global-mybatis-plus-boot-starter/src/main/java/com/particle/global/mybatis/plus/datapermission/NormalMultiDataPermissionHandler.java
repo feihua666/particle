@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.handler.MultiDataPermissionHan
 
 /**
  * <p>
- * 业务级数据权限
+ * 业务级数据权限, 暂未提供默认实现
  * </p>
  *
  * @author yangwei

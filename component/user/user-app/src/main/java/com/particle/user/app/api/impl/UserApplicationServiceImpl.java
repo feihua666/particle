@@ -11,7 +11,7 @@ import com.particle.user.client.api.IUserApplicationService;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +36,8 @@ public class UserApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 
 
 	@Override
-	public SingleResponse<UserVO> create(UserCreateCommand userCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
-		return userCreateCommandExecutor.execute(userCreateCommand,userIdentifierPasswordCommand);
+	public SingleResponse<UserVO> create(UserCreateCommand userCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand) {
+		return userCreateCommandExecutor.execute(userCreateCommand, userIdentifierPwdCommand);
 	}
 
 	@Override

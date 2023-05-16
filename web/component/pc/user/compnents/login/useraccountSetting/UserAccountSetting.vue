@@ -43,11 +43,11 @@ const activeName = ref('myAccount')
       <el-tab-pane label="我的账号" name="myAccount">
         <UserinfoIdentifier></UserinfoIdentifier>
       </el-tab-pane>
-      <el-tab-pane label="绑定手机" name="bindMobile">敬请期待</el-tab-pane>
+<!--      <el-tab-pane label="绑定手机" name="bindMobile">敬请期待</el-tab-pane>-->
       <el-tab-pane label="登录密码" name="loginPassword">
         <UserinfoIdentifierPwd></UserinfoIdentifierPwd>
       </el-tab-pane>
-      <el-tab-pane label="绑定邮箱" name="bindEmail">敬请期待</el-tab-pane>
+<!--      <el-tab-pane label="绑定邮箱" name="bindEmail">敬请期待</el-tab-pane>-->
       <el-tab-pane label="登录设备" name="loginDevice">
         <UserinfoLoginDevice></UserinfoLoginDevice>
       </el-tab-pane>

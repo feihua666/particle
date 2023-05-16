@@ -3,7 +3,7 @@ package com.particle.user.app.executor;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.gateway.UserGateway;
 import com.particle.global.dto.response.SingleResponse;
@@ -43,7 +43,7 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	 * @param userCreateCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> execute(@Valid UserCreateCommand userCreateCommand,@Valid UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
+	public SingleResponse<UserVO> execute(@Valid UserCreateCommand userCreateCommand,@Valid UserIdentifierPwdCommand userIdentifierPwdCommand) {
 		User user = createByUserCreateCommand(userCreateCommand);
 		user.setAddControl(userCreateCommand);
 		boolean save = userGateway.save(user);
@@ -59,11 +59,11 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 			if (save1) {
 				// 添加密码
 				UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(user.getId().getId(), userIdentifier.getId().getId(),
-						userIdentifierPasswordCommand.getPwdEncoded(),
-						userIdentifierPasswordCommand.getPwdEncryptFlag(),
-						userIdentifierPasswordCommand.getPwdComplexity(),
-						userIdentifierPasswordCommand.getIsPwdExpired(),userIdentifierPasswordCommand.getPwdExpiredReason(),userIdentifierPasswordCommand.getPwdExpireAt(),
-						userIdentifierPasswordCommand.getIsPwdNeedUpdate(),userIdentifierPasswordCommand.getPwdNeedUpdateMessage());
+						userIdentifierPwdCommand.getPwdEncoded(),
+						userIdentifierPwdCommand.getPwdEncryptFlag(),
+						userIdentifierPwdCommand.getPwdComplexity(),
+						userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
+						userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
 				userIdentifierPwdGateway.save(userIdentifierPwd);
 			}
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));

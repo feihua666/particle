@@ -2,7 +2,6 @@ package com.particle.user.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -56,7 +55,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
 
     @NotNull(message = "是否锁定不能为空")
     @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
-    private Boolean isLock;
+    private Boolean isLock = false;
 
     @PropValid.DependCondition(message = "锁定原因不能为空" ,dependProp = "isLock",ifEqual = "true")
     @ApiModelProperty("锁定原因")
@@ -75,7 +74,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
 
     @NotNull(message = "是否过期不能为空")
     @ApiModelProperty(value = "是否过期，过期后该密码不能登录",required = true)
-    private Boolean isExpired;
+    private Boolean isExpired = false;
 
     @PropValid.DependCondition(message = "过期原因不能为空" ,dependProp = "isExpired",ifEqual = "true")
     @ApiModelProperty("过期原因")
@@ -97,6 +96,5 @@ public class UserCreateCommand extends AbstractBaseCommand {
 
     @ApiModelProperty("分组标识")
     private String identifierGroupFlag;
-
 
 }

@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.Update;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.LambdaMeta;
@@ -187,6 +189,21 @@ public interface IBaseService<DO> extends IService<DO> {
      * @return
      */
     DO queryById(Long id);
+
+    /**
+     * 不考虑租户的mybatis plus 插件限制
+     * @param id
+     * @return
+     */
+    default DO getByIdIgnoreTenantLimit(Long id) {
+        try {
+            // 设置忽略租户插件
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).build());
+            return getById(id);
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
+    }
 
     /**
      * 判断数据是否存在

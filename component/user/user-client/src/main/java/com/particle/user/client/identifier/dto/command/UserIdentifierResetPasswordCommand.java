@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 用户登录标识 重置用户密码指令对象
+ * 根据用户登录标识 重置用户密码指令对象
  * </p>
  *
  * @author yw
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel
-public class UserIdentifierResetPasswordCommand extends UserIdentifierPasswordCommand {
+public class UserIdentifierResetPasswordCommand extends UserIdentifierPwdCommand {
 
     @NotNull(message = "用户登录标识ID不能为空")
     @ApiModelProperty(value = "用户登录标识ID",required = true)

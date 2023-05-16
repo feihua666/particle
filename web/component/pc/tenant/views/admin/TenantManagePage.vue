@@ -172,6 +172,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:tenant:create" route="/admin/TenantManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:tenant:oneClickCreate" route="/admin/tenantManageOneClickAdd">一键添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

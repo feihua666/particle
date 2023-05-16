@@ -96,7 +96,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
     },
     useRemoteSelectUserCompItem({
       props: props,
-      required: true,
+      required: false,
       fieldName: 'applyUserId',
       propUserIdFieldName: 'applyUserId',
       propUserNicknameFieldName: 'applyUserNickname',
@@ -146,7 +146,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         formItemProps: {
           label: '申请天数',
           required: true,
-          tips: '0 为不限制'
+          tips: '0 为不限制，将根据截止日期自动计算'
         },
         compProps: {
 
@@ -162,7 +162,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'PtDatePicker',
         formItemProps: {
           label: '生效时间',
-          tips: '不填写立即生效'
+          tips: '不填写立即生效,将使用当前时间'
         },
         compProps:  {
           clearable: true,
@@ -178,7 +178,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'PtDatePicker',
         formItemProps: {
           label: '失效时间',
-          tips: '不填写永不失效'
+          tips: '不填写永不失效，将根据申请天数自动计算'
         },
         compProps:  {
           clearable: true,
@@ -201,7 +201,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
           return {
             text: true,
             type: form.extJsonObj ? 'primary' : 'default',
-            buttonText: '点击应用配置',
+            buttonText: '点击应用设置',
             method: ()=>{
               if(funcApplicationDialogVisible){
                 funcApplicationDialogVisible.value = true
@@ -219,9 +219,10 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'el-input',
         formItemProps: {
           label: '联系人姓名',
-
+          tips: '如果用户不存在将作为用户的昵称,创建用户'
         },
         compProps: {
+          placeholder: '姓名',
           clearable: true,
         }
       }
@@ -236,9 +237,10 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'el-input',
         formItemProps: {
           label: '联系人邮箱',
-
+          tips: '如果用户不存在将作为用户登录账号匹配用户'
         },
         compProps: {
+          placeholder: '邮箱',
           clearable: true,
         }
       }
@@ -253,9 +255,10 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'el-input',
         formItemProps: {
           label: '联系人电话',
-
+          tips: '如果用户不存在将作为用户登录账号匹配用户'
         },
         compProps: {
+          placeholder: '手机号',
           clearable: true,
         }
       }
@@ -323,3 +326,9 @@ return [
 ]
 }
 
+/**
+ * 从 useAddPageFormItems 复制页面，基本类似，因为后端使用的是一个表单对象
+ * @param props
+ * @param funcApplicationDialogVisible
+ */
+export const useOneClickAddPageFormItems = useAddPageFormItems

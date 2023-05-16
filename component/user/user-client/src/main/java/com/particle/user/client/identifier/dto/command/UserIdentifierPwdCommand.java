@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 密码基础类
  * </p>
  *
  * @author yangwei
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @PropValid
 @Data
 @ApiModel
-public class UserIdentifierPasswordCommand extends AbstractBaseCommand {
+public class UserIdentifierPwdCommand extends AbstractBaseCommand {
 
 
 	@NotEmpty(message = "密码不能为空")

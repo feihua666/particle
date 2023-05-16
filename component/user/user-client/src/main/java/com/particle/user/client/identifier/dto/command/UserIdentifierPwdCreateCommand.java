@@ -1,7 +1,6 @@
 package com.particle.user.client.identifier.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import com.particle.global.validation.props.PropValid;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,13 +10,12 @@ import javax.validation.constraints.NotNull;
 /**
  * <p>
  * 用户密码 通用创建指令对象
- * 必要时可配合 {@link UserIdentifierPasswordCommand} 一起使用
+ * 必要时可配合 {@link UserIdentifierPwdCommand} 一起使用
  * </p>
  *
  * @author yw
  * @since 2022-11-25
  */
-@PropValid
 @Data
 @ApiModel
 public class UserIdentifierPwdCreateCommand extends AbstractBaseCommand {

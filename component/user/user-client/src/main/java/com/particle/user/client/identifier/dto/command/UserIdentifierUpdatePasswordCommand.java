@@ -8,7 +8,8 @@ import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
- * 用户登录标识 修改用户密码指令对象
+ * 根据用户登录标识 修改用户密码指令对象
+ * 需要原密码匹配
  * </p>
  *
  * @author yangwei
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @ApiModel
-public class UserIdentifierUpdatePasswordCommand extends UserIdentifierResetPasswordCommand{
+public class UserIdentifierUpdatePasswordCommand extends UserIdentifierResetPasswordCommand {
 
 	@NotEmpty(message = "原密码不能为空")
 	@ApiModelProperty(value = "原密码",required = true)

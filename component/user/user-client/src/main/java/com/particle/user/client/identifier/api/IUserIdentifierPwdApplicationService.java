@@ -21,7 +21,7 @@ public interface IUserIdentifierPwdApplicationService extends IBaseApplicationSe
 	 * @param userIdentifierPwdCreateCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand);
+	SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand);
 
 	/**
 	 * 重置用户密码，根据 identifier重置
@@ -35,7 +35,7 @@ public interface IUserIdentifierPwdApplicationService extends IBaseApplicationSe
 	 * @param userResetPasswordCommand
 	 * @return
 	 */
-	Response userResetPassword(UserResetPasswordCommand userResetPasswordCommand);
+	Response userResetPassword(UserResetPwdCommand userResetPasswordCommand);
 
 	/**
 	 * 删除领域对象

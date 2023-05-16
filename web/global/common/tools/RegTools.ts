@@ -8,3 +8,9 @@ export function match(regStr: string,content: string,flags?: string): RegExpMatc
     let reg = new RegExp(regStr,flags ? flags: 'g')
     return content.match(reg)
 }
+
+
+export const regs = {
+    // 手机号验证 正则
+    mobilePattern: /^[1][0-9]{10}$/
+}

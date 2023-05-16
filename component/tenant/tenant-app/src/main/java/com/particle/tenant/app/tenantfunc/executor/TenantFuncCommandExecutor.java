@@ -6,7 +6,7 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.dto.RelDTO;
 import com.particle.tenant.client.tenantfunc.dto.command.TenantAssignFuncCommand;
-import com.particle.tenant.domain.gateway.TenantFuncGateway;
+import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
 import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.List;
 public class TenantFuncCommandExecutor extends AbstractBaseExecutor {
 
 	private ITenantFuncService tenantFuncService;
-	private TenantFuncGateway tenantFuncGateway;
+	private TenantFuncFuncGateway tenantFuncFuncGateway;
 
 	/**
 	 * 租户分配功能菜单
@@ -39,7 +39,7 @@ public class TenantFuncCommandExecutor extends AbstractBaseExecutor {
 	public Response tenantAssignFunc(TenantAssignFuncCommand cf) {
 		List<Long> funcIdsByFuncApplicationId = Collections.emptyList();
 		if (cf.getFuncApplicationId() != null) {
-			funcIdsByFuncApplicationId = tenantFuncGateway.getFuncIdsByFuncApplicationId(cf.getFuncApplicationId());
+			funcIdsByFuncApplicationId = tenantFuncFuncGateway.getFuncIdsByFuncApplicationId(cf.getFuncApplicationId());
 			Assert.notEmpty(funcIdsByFuncApplicationId,"应用下无功能菜单可用");
 		}
 		List<Long> finalFuncIdsByFuncApplicationId = funcIdsByFuncApplicationId;
@@ -65,7 +65,7 @@ public class TenantFuncCommandExecutor extends AbstractBaseExecutor {
 	}
 
 	@Autowired
-	public void setTenantFuncGateway(TenantFuncGateway tenantFuncGateway) {
-		this.tenantFuncGateway = tenantFuncGateway;
+	public void setTenantFuncGateway(TenantFuncFuncGateway tenantFuncFuncGateway) {
+		this.tenantFuncFuncGateway = tenantFuncFuncGateway;
 	}
 }

@@ -2,9 +2,11 @@ package com.particle.user.adapter.identifier.login;
 
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
 import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdatePasswordCommand;
@@ -56,10 +58,13 @@ public class IdentifierPwdLoginController {
 	@ResponseStatus(HttpStatus.OK)
 	public Response identifierPwdUpdate(@Valid @RequestBody UserIdentifierUpdatePasswordCommand userIdentifierUpdatePasswordCommand, @ApiIgnore LoginUser loginUser) {
 		UserIdentifierPwdDO byUserId = iUserIdentifierPwdService.getByIdentifierId(userIdentifierUpdatePasswordCommand.getUserIdentifierId());
+		// 不匹配说明是手动传参
+		Assert.isTrue(loginUser.getId().equals(byUserId.getUserId()),ErrorCodeGlobalEnum.ILLEGAL_REQUEST_ERROR);
 		boolean b = PasswordEncryptEnum.matchPassword(userIdentifierUpdatePasswordCommand.getOldPassword(), byUserId.getPwdEncryptFlag(), byUserId.getPwd());
 		if (!b) {
-			return Response.buildFailure(ErrorCodeGlobalEnum.INVALID_PASSWORD_ERROR);
+			return Response.buildFailure(ErrorCodeGlobalEnum.INVALID_PASSWORD_ERROR,"原密码不正确");
 		}
+		PasswordTool.encodePassword(userIdentifierUpdatePasswordCommand);
 		return iUserIdentifierPwdApplicationService.identifierResetPassword(userIdentifierUpdatePasswordCommand);
 	}
 }

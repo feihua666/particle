@@ -1,29 +1,23 @@
-package com.particle.component.light.share.dict;
+package com.particle.user.domain.enums;
+
 
 import com.particle.component.light.share.dict.api.IDictGroup;
 import com.particle.component.light.share.dict.api.IDictItem;
 
 /**
  * <p>
- * 性别
+ * 用户分类 字典项
  * </p>
  *
- * @author yangwei
- * @since 2022-08-08 17:53
+ * @author yw
+ * @since 2023-05-15 13:35:06
  */
-public enum Gender implements IDictItem {
+public enum UserCategory implements IDictItem {
+
 	/**
-	 * 男
+	 * 其它分类
 	 */
-	m,
-	/**
-	 * 女
-	 */
-	f,
-	/**
-	 * 未知
-	 */
-	unknown
+	other
 	;
 
 	@Override
@@ -33,18 +27,19 @@ public enum Gender implements IDictItem {
 
 	@Override
 	public String groupCode() {
-		return Group.gender.groupCode();
+		return Group.user_category.groupCode();
 	}
 
 	/**
-	 * 性别字典组编码
+	 * 用户分类 字典组
 	 */
-	public static enum Group implements IDictGroup {
-		gender
-		;
+	public enum Group implements IDictGroup {
+		user_category;
+
 		@Override
 		public String groupCode() {
 			return this.name();
 		}
 	}
 }
+

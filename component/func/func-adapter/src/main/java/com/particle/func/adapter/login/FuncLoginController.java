@@ -3,6 +3,9 @@ package com.particle.func.adapter.login;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
+import com.particle.func.client.application.api.representation.IFuncApplicationRepresentationApplicationService;
+import com.particle.func.client.application.dto.command.representation.FuncApplicationQueryListCommand;
+import com.particle.func.client.application.dto.data.FuncApplicationVO;
 import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.FuncTypeEnum;
@@ -46,6 +49,9 @@ public class FuncLoginController {
     @Autowired
     private FuncDictGateway funcDictGateway;
 
+    @Autowired
+    private IFuncApplicationRepresentationApplicationService iFuncApplicationRepresentationApplicationService;
+
     @ApiOperation("当前登录用户的功能")
     @PreAuthorize("hasAuthority('user')")
     @GetMapping("/getList")
@@ -76,7 +82,15 @@ public class FuncLoginController {
         filter(list,includeTypeDictValues, isShow);
         return list;
     }
+    @ApiOperation("当前登录用户的应用")
+    @PreAuthorize("hasAuthority('user')")
+    @GetMapping("/getFuncApplicationList")
+    @ResponseStatus(HttpStatus.OK)
+    public MultiResponse<FuncApplicationVO> getFuncApplicationList(FuncApplicationQueryListCommand funcApplicationQueryListCommand, @ApiIgnore LoginUser loginUser){
+        // 该方法已过滤，默认查询的是租户下的应用，如果不启用租户组件，那就是全部的应用数据
+        return iFuncApplicationRepresentationApplicationService.queryList(funcApplicationQueryListCommand);
 
+    }
     /**
      * 根据参数过滤，默认只过滤菜单、页面、分组
      * @param list

@@ -1,8 +1,12 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.thread.ThreadContextTool;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,5 +121,19 @@ public class LoginUserTool {
             }
         }
         return result.stream().collect(Collectors.toList());
+    }
+
+    /**
+     * 刷新用户认证信息
+     * 主要是重新刷新权限信息这在切换租户和角色时使用
+     */
+    public static void refreshAuthorities(Collection<? extends GrantedAuthority> getAuthorities){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
+            authentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), getAuthorities);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }else {
+            throw new RuntimeException(StrUtil.format("token for type of {} is not support", authentication.getClass()));
+        }
     }
 }

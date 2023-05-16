@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-
 /**
  * <p>
  * 用户密码 门面服务实现类
@@ -39,8 +37,8 @@ public class UserIdentifierPwdApplicationServiceImpl extends AbstractBaseApplica
 	private UserIdentifierPwdUpdateCommandExecutor userIdentifierPwdUpdateCommandExecutor;
 
 	@Override
-	public SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
-		return userIdentifierPwdCreateCommandExecutor.execute(userIdentifierPwdCreateCommand,userIdentifierPasswordCommand);
+	public SingleResponse<UserIdentifierPwdVO> create(UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand) {
+		return userIdentifierPwdCreateCommandExecutor.execute(userIdentifierPwdCreateCommand, userIdentifierPwdCommand);
 	}
 
 	@Override
@@ -49,7 +47,7 @@ public class UserIdentifierPwdApplicationServiceImpl extends AbstractBaseApplica
 	}
 
 	@Override
-	public Response userResetPassword(UserResetPasswordCommand userResetPasswordCommand) {
+	public Response userResetPassword(UserResetPwdCommand userResetPasswordCommand) {
 		return userIdentifierPwdUpdateCommandExecutor.userResetPassword(userResetPasswordCommand);
 	}
 

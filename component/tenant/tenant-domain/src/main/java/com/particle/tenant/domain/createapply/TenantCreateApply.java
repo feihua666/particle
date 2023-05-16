@@ -143,6 +143,7 @@ public class TenantCreateApply extends AggreateRoot {
     public void chanageAuditStatusToUnAudit(){
         Long id = tenantDictGateway.getDictIdByGroupCodeAndItemValue(TenantCreateApplyAuditStatus.Group.tenant_create_apply_audit_status.groupCode(), TenantCreateApplyAuditStatus.un_audit.itemValue());
         this.auditStatusDictId = id;
+
     }
 
     /**

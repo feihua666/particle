@@ -4,7 +4,7 @@ import com.particle.user.app.identifier.executor.UserIdentifierCreateCommandExec
 import com.particle.user.app.identifier.executor.UserIdentifierDeleteCommandExecutor;
 import com.particle.user.app.identifier.executor.UserIdentifierUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.user.client.identifier.dto.command.UserIdentifierPasswordCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateCommand;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
@@ -14,8 +14,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -38,8 +36,8 @@ public class UserIdentifierApplicationServiceImpl extends AbstractBaseApplicatio
 
 
 	@Override
-	public SingleResponse<UserIdentifierVO> create(UserIdentifierCreateCommand userIdentifierCreateCommand, UserIdentifierPasswordCommand userIdentifierPasswordCommand) {
-		return userIdentifierCreateCommandExecutor.execute(userIdentifierCreateCommand,userIdentifierPasswordCommand);
+	public SingleResponse<UserIdentifierVO> create(UserIdentifierCreateCommand userIdentifierCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand) {
+		return userIdentifierCreateCommandExecutor.execute(userIdentifierCreateCommand, userIdentifierPwdCommand);
 	}
 
 	@Override

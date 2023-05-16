@@ -1,6 +1,11 @@
-<script setup name="LoginForm"  lang="ts">
+<script setup name="LoginUserUpdatePasswordForm.vue"  lang="ts">
+
+/**
+ * 用户当前登录用户修改密码，目前是根据登录标识id修改
+ */
+
 import {getCurrentInstance,reactive ,ref} from 'vue'
-import {getLoginCaptcha, login} from '../../api/userLoginApi'
+import { getLoginUserUpdatePasswordCaptcha, identifierPwdUpdate} from '../../api/userLoginApi'
 import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../../global/common/tools/StringTools'
 import {isFunction} from '../../../../../global/common/tools/FunctionTools'
@@ -12,31 +17,38 @@ const loginUserStore = useLoginUserStore()
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
-  // 登录成功后，执行，如果为 String，就会被当作路由跳转 replace
-  loginSuccess: {
+  // 密码修改成功后，执行，如果为 String，就会被当作路由跳转 replace
+  updateSuccess: {
     type: [Function,String]
   },
-  // 是否启动验证码
+  // 是否启动验证码,需要后台配合配置路径拦截，参见后端全局验证码组件
   useCaptcha:{
     type: Boolean,
-    default: true
+    default: false
+  },
+  // 用户登录标识id
+  userIdentifierId:{
+    type: String,
+    required: true
   }
 })
 const captchaSrc = ref('')
 const formComps: Array<any> = [
   {
     field: {
-      name: 'username'
+      name: 'oldPassword'
     },
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '账 号',
+        label: '原密码',
         required: true
       },
       compProps: {
+        type: 'password',
         clearable: true,
-        placeholder: '账号'
+        showPassword: true,
+        placeholder: '原密码'
       }
     }
   },
@@ -47,14 +59,51 @@ const formComps: Array<any> = [
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '密 码',
+        label: '新密码',
         required: true
       },
       compProps: {
         type: 'password',
         clearable: true,
         showPassword: true,
-        placeholder: '密码'
+        placeholder: '新密码'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'confirmPassword'
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '密码确认',
+        required: true,
+        rules: [
+          { validator: (rule: any, value: any, callback: any) => {
+              if (value && reactiveData.form.password) {
+                if (value != reactiveData.form.password) {
+                  callback(new Error('再次密码输入不一致'))
+                }else {
+                  callback()
+                }
+              } else {
+                callback()
+              }
+            }, trigger: 'blur'
+          },
+        ],
+        validate: {
+          // 将rules添加到 validate下面，否则已填提示为英文
+
+        },
+
+      },
+      compProps: {
+        type: 'password',
+        clearable: true,
+        showPassword: true,
+        placeholder: '密码确认'
       }
     }
   },
@@ -91,7 +140,7 @@ if (props.useCaptcha) {
           class: 'pt-pointer',
           title: '点击切换验证码',
           src: captchaSrc.value,
-          onClick: loadLoginCaptchaImage
+          onClick: loadCaptchaImage
         }
       }
     }
@@ -100,64 +149,63 @@ if (props.useCaptcha) {
 // 属性
 const reactiveData = reactive({
   form: {
-    captchaUniqueIdentifier: ''
+    captchaUniqueIdentifier: '',
+    userIdentifierId: props.userIdentifierId
   },
   formComps: formComps
 })
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '登录',
+  buttonText: '确认修改',
 })
-// 登录成功后获取登录用户
-const loginResult = (result):void => {
+// 修改成功后处理逻辑，主要是调用回调参数
+const updateResult = (result):void => {
   result.then(res => {
-    loginUserStore.changeLoginUser(res.data.data)
-    if(props.loginSuccess){
-      if(isString(props.loginSuccess) && router){
-        router.replace(props.loginSuccess)
-      }else if(isFunction(props.loginSuccess)){
-        props.loginSuccess()
+    if (!res.data.success) {
+      return
+    }
+    if(props.updateSuccess){
+      if(isString(props.updateSuccess) && router){
+        router.replace(props.updateSuccess)
+      }else if(isFunction(props.updateSuccess)){
+        props.updateSuccess()
       }
     }
   }).catch(() => {
     // 验证码错误也需要刷新
-    loadLoginCaptchaImage()
+    loadCaptchaImage()
   //  catch 一下异常，否则控制台打印一大堆
   })
 }
 
-const loadLoginCaptchaImage = ()=>{
+const loadCaptchaImage = ()=>{
   if (props.useCaptcha) {
-    getLoginCaptcha().then(res => {
+    getLoginUserUpdatePasswordCaptcha().then(res => {
       captchaSrc.value = res.data.data.base64
       reactiveData.form.captchaUniqueIdentifier = res.data.data.captchaUniqueIdentifier
     })
   }
 
 }
-loadLoginCaptchaImage()
+loadCaptchaImage()
 </script>
 <template>
   <PtForm :form="reactiveData.form"
-          :method="login"
+          :method="identifierPwdUpdate"
           labelWidth="70"
           defaultButtonsShow="submit"
           :submitAttrs="submitAttrs"
-          class="login-form"
-          :layout="[1,1,[14,10]]"
+          class="login-user-update-pwd-form"
+          :layout="[1,1,1]"
           size="default"
-          @methodResult="loginResult"
+          @methodResult="updateResult"
           :comps="reactiveData.formComps">
   </PtForm>
 </template>
 
 <style scoped>
-.login-form{
-  width: 25rem !important;
+.login-user-update-pwd-form{
   padding: 2rem;
   background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-  box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
 }
 </style>

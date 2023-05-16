@@ -66,6 +66,10 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	CAPTCHA_ERROR(40000000003L,"验证码不正确"),
 	/**
+	 * 非常请求，一些不正常的请求，主要指能预测到的手动修改参数情况
+	 */
+	ILLEGAL_REQUEST_ERROR(40000000004L,"非法请求，你的行为已被记录！！"),
+	/**
 	 * 未登录
 	 */
 	UNAUTHORIZED_ERROR(40100000001L,"未认证"),

@@ -53,6 +53,19 @@
             <artifactId>role-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 租户创建申请审核通过可动态添加用户 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 租户创建申请审核通过可动态添加用户 仅使用枚举查询字典-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-domain</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
