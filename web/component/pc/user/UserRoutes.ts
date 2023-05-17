@@ -67,6 +67,20 @@ const UserRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/userManageUserAssignRole',
+                component: () => import('../role/views/admin/RoleUserRelManageUserAssignRolePage.vue'),
+                props: route => ({ userId: route.query.userId, userNickname: route.query.userNickname }),
+                meta: {
+                    showInDrawer: true,
+                    code:'roleUserRelManageUserAssignRole',
+                    name: '用户分配角色',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
         ]
     },
     {

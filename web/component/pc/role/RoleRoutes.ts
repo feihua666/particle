@@ -38,6 +38,20 @@ const RoleRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/roleManageRoleAssignFunc',
+                component: () => import('./views/admin/RoleFuncRelManageRoleAssignFuncPage.vue'),
+                props: route => ({ roleId: route.query.roleId, roleName: route.query.roleName }),
+                meta: {
+                    showInDrawer: true,
+                    code:'roleFuncRelManageRoleAssignFunc',
+                    name: '角色分配功能菜单',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
         ]
     },
     {

@@ -6,6 +6,7 @@ import {reactive, ref} from 'vue'
 import {page as userPageApi, remove as userRemoveApi} from "../../api/admin/userAdminApi"
 import { useRoute } from 'vue-router'
 import {pageFormItems} from "../../compnents/admin/userManage";
+import {componentEnabled} from "../../../../../common/config/componentsConfig";
 const route = useRoute()
 const tableRef = ref(null)
 
@@ -116,7 +117,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   }
   let idData = {id: row.id}
   let routeQuery = {userId: row.id,nickname: row.nickname}
-  let tableRowButtons = [
+  let tableRowButtons: Array<any> = [
     {
       txt: '编辑',
       text: true,
@@ -177,6 +178,19 @@ const getTableRowButtons = ({row, column, $index}) => {
       route: {path: '/admin/userIdentifierPwdManagePage',query: routeQuery},
     },
   ]
+  let userAssignRoleRouteQuery = {userId: row.id,userNickname: row.nickname}
+
+  if (componentEnabled('role')) {
+    tableRowButtons.push(
+        {
+          txt: '用户分配角色',
+          text: true,
+          position: 'more',
+          permission: 'admin:web:roleUserRel:userAssignRole',
+          route: {path: '/admin/userManageUserAssignRole',query: userAssignRoleRouteQuery}
+        }
+    )
+  }
   return tableRowButtons
 }
 const dropdownTriggerButtonOptions = {

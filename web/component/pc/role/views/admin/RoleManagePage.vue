@@ -6,6 +6,7 @@ import {reactive, ref} from 'vue'
 import {list as roleListApi, page as rolePageApi, remove as roleRemoveApi} from "../../api/admin/roleAdminApi"
 import {treeQueryComps} from '../../../treeQueryComps'
 import {pageFormItems} from "../../components/admin/roleManage";
+import {componentEnabled} from "../../../../../common/config/componentsConfig";
 
 const tableRef = ref(null)
 
@@ -75,7 +76,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let tableRowButtons = [
+  let tableRowButtons: Array<any> = [
     {
       txt: '编辑',
       text: true,
@@ -98,6 +99,18 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     }
   ]
+  let roleAssignFuncRouteQuery = {roleId: row.id,roleName: row.name}
+
+  if (componentEnabled('func')) {
+    tableRowButtons.push(
+        {
+          txt: '角色分配功能菜单',
+          text: true,
+          permission: 'admin:web:roleFuncRel:roleAssignFunc',
+          route: {path: '/admin/roleManageRoleAssignFunc',query: roleAssignFuncRouteQuery}
+        }
+    )
+  }
   return tableRowButtons
 }
 </script>
