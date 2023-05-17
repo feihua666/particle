@@ -16,6 +16,7 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,8 +58,8 @@ public class FuncLoginController {
     @GetMapping("/getList")
     @ResponseStatus(HttpStatus.OK)
     public MultiResponse<FuncVO> getList(@ApiIgnore LoginUser loginUser,
-										 @RequestParam(value = "包括的类型，func_type字典值，默认 menu、page、group",required = false) String includeTypeDictValues,
-										 @RequestParam(value = "过虑是否展示的数据，不传忽略过虑条件",required = false) Boolean isShow) {
+                                         @ApiParam(value = "包括的类型，func_type字典值，默认 menu、page、group")  @RequestParam(required = false) String includeTypeDictValues,
+                                         @ApiParam(value = "过虑是否展示的数据，不传忽略过虑条件") @RequestParam(required = false) Boolean isShow) {
         if (loginUser.getIsSuperAdmin()) {
             FuncQueryListCommand funcQueryListCommand = new FuncQueryListCommand();
             funcQueryListCommand.setIsDisabled(false);
