@@ -1,5 +1,6 @@
 package com.particle.user.infrastructure.dos;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import java.io.Serializable;
@@ -42,11 +43,15 @@ public class UserDO extends BaseDO {
     private String serialNo;
     /**
     * 公司id，冗余字段，由dept_id对应公司派生
+     * 使用部门用户关系表
     */
+    @TableField(exist = false)
     private Long compId;
     /**
     * 部门id
+     * 使用部门用户关系表
     */
+    @TableField(exist = false)
     private Long deptId;
     /**
     * 是否虚拟用户，虚拟用户代表不是一个真正存在的用户

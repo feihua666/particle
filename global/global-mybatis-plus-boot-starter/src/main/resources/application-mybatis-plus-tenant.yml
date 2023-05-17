@@ -29,7 +29,7 @@ particle:
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
-      # 下面这些配置一定的租户拦截器忽略的，但又想通过租户区分数据
+      # 下面这些配置的表是在租户拦截器忽略的，但又想通过租户区分数据
       tenantDataPermmision:
         component_tenant: component_tenant.id = {tenantId}
         component_tenant_user: component_tenant_user.tenant_id = {tenantId}
@@ -40,7 +40,7 @@ particle:
         component_user_login_record: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_record.user_id and tu.tenant_id = {tenantId} )
         component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
         component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
-        component_func_application_func_rel: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application_func_rel.func_application_id and tfp.tenant_id = {tenantId} ) and exists(select id from component_tenant_func tf where tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = {tenantId} )
+        component_func_application_func_rel: exists(select id from component_tenant_func tf where tf.func_application_id = component_func_application_func_rel.func_application_id and tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = 1 )
         component_op_log: component_tenant_user.tenant_id = {tenantId}
         component_op_log_audit_data: component_tenant_user.tenant_id = {tenantId}
 

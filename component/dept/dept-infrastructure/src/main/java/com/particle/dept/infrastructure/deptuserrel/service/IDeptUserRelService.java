@@ -9,8 +9,17 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 public interface IDeptUserRelService extends IBaseService<DeptUserRelDO> {
+
+
+
+
+
+
+
+
+
 
 }

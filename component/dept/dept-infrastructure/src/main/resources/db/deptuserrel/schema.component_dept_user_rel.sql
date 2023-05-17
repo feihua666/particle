@@ -14,4 +14,4 @@ CREATE TABLE `component_dept_user_rel` (
   UNIQUE KEY `uni_user_id_dept_id` (`user_id`,`dept_id`) USING BTREE,
   KEY `idx_dept_id` (`dept_id`) USING BTREE,
   KEY `idx_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='部门用户关系表'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='部门用户关系表';

@@ -60,6 +60,8 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
     protected List<IUpdateServiceListener<DO>> updateServiceListeners;
 
+    private List<IQueryWrapperHandler<DO>> queryWrapperHandlers;
+
     @Autowired(required = false)
     private DataPermissionServiceWrapper dataPermissionServiceWrapper;
 
@@ -283,6 +285,12 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }
 
         queryWrapper.orderByAsc(BaseDO.COLUMN_ID);
+        if (queryWrapperHandlers != null) {
+            for (IQueryWrapperHandler<DO> queryWrapperHandler : queryWrapperHandlers) {
+
+                queryWrapperHandler.handle(queryWrapper,queryForm);
+            }
+        }
         return queryWrapper;
     }
 
@@ -674,6 +682,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     protected DataPermissionService getUpdateDataPermissionService(){
         return dataPermissionService;
     }
+
     @Autowired(required = false)
     public void setAddServiceListeners(List<IAddServiceListener<DO>> addServiceListeners) {
         this.addServiceListeners = addServiceListeners;
@@ -681,5 +690,10 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     @Autowired(required = false)
     public void setUpdateServiceListeners(List<IUpdateServiceListener<DO>> updateServiceListeners) {
         this.updateServiceListeners = updateServiceListeners;
+    }
+
+    @Autowired(required = false)
+    public void setQueryWrapperHandlers(List<IQueryWrapperHandler<DO>> queryWrapperHandlers) {
+        this.queryWrapperHandlers = queryWrapperHandlers;
     }
 }

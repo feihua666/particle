@@ -20,7 +20,7 @@ import java.util.List;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:43
+ * @since 2023-05-17 10:26:06
  */
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DeptTreeUserRelAppStructMapping  implements IBaseQueryCommandMapStruct<DeptTreeUserRelDO>{

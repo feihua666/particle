@@ -22,7 +22,7 @@ import static com.particle.tenant.app.createapply.executor.TenantCreateApplyUpda
  * @author yangwei
  * @since 2023-05-04 14:25
  */
-public class TenantUserAddServiceListener implements IAddServiceListener<UserDO> {
+public class TenantUserUserAddServiceListener implements IAddServiceListener<UserDO> {
 
 	@Autowired
 	private ITenantUserApplicationService iTenantUserService;

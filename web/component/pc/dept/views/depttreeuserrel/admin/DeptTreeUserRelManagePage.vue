@@ -3,7 +3,7 @@
  * 部门树用户关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DeptTreeUserRelPageApi, remove as DeptTreeUserRelRemoveApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
+import { page as deptTreeUserRelPageApi, remove as deptTreeUserRelRemoveApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
 import {pageFormItems} from "../../../compnents/depttreeuserrel/admin/deptTreeUserRelManage";
 
 
@@ -16,6 +16,14 @@ const reactiveData = reactive({
   },
   formComps: pageFormItems,
   tableColumns: [
+    {
+      prop: 'userId',
+      label: '用户id',
+    },
+    {
+      prop: 'deptTreeId',
+      label: '部门树id',
+    },
   ],
 
 })
@@ -24,7 +32,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:deptTreeUserRel:pageQuery'
+  permission: 'admin:web:DeptTreeUserRel:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -32,7 +40,7 @@ const submitMethod = ():void => {
 }
 // 分页数据查询
 const doDeptTreeUserRelPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
-  return DeptTreeUserRelPageApi({...reactiveData.form,...pageQuery})
+  return deptTreeUserRelPageApi({...reactiveData.form,...pageQuery})
 }
 const tablePaginationProps = {
   permission: submitAttrs.value.permission
@@ -47,18 +55,18 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:deptTreeUserRel:update',
+      permission: 'admin:web:DeptTreeUserRel:update',
       // 跳转到编辑
       route: {path: '/admin/DeptTreeUserRelManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:deptTreeUserRel:delete',
+      permission: 'admin:web:DeptTreeUserRel:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
-        return DeptTreeUserRelRemoveApi({id: row.id}).then(res => {
+        return deptTreeUserRelRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
           return Promise.resolve(res)
@@ -78,7 +86,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:deptTreeUserRel:create" route="/admin/DeptTreeUserRelManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:DeptTreeUserRel:create" route="/admin/DeptTreeUserRelManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
@@ -86,7 +94,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDeptTreeUserRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-
+           
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

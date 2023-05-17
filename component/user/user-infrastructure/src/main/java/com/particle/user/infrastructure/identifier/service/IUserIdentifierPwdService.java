@@ -1,6 +1,7 @@
 package com.particle.user.infrastructure.identifier.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
@@ -56,7 +57,22 @@ public interface IUserIdentifierPwdService extends IBaseService<UserIdentifierPw
 	 */
 	boolean updatePasswordByIdentifierId(Long identifierId,String encodedPassword);
 
+	/**
+	 * 根据登录标识id删除
+	 * @param identifierId
+	 * @return
+	 */
 	default boolean deleteByIdentifierId(Long identifierId){
 		return deleteByColumn(identifierId, UserIdentifierPwdDO::getIdentifierId);
+	}
+
+
+	/**
+	 * 根据用户id删除
+	 * @param userId
+	 * @return
+	 */
+	default boolean deleteByUserId(Long userId) {
+		return deleteByColumn(userId, UserIdentifierPwdDO::getUserId);
 	}
 }

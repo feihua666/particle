@@ -10,13 +10,23 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Data
 @Entity
 public class DeptUserRel extends AggreateRoot {
 
     private DeptUserRelId id;
+
+    /**
+    * 用户id
+    */
+    private Long userId;
+
+    /**
+    * 部门id
+    */
+    private Long deptId;
 
 
 

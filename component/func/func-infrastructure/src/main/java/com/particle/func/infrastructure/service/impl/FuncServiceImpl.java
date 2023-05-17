@@ -72,7 +72,7 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 				"com.particle.func.client.dto.command.representation.FuncQueryListCommand")) {
 			Object funcApplicationId = ReflectUtil.getFieldValue(queryForm, "funcApplicationId");
 			//addExistSqlIffuncApplicationIdNotNull(queryWrapper, funcApplicationId);
-			addInIffuncApplicationIdNotNull(queryWrapper, funcApplicationId);
+			addInIfFuncApplicationIdNotNull(queryWrapper, funcApplicationId);
 
 		}
 
@@ -85,7 +85,7 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 	 * @param queryWrapper
 	 * @param funcApplicationId
 	 */
-	public void addExistSqlIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper,Object funcApplicationId) {
+	public void addExistSqlIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId) {
 		if (funcApplicationFuncRelDOTableNameCache == null) {
 			TableName annotation = AnnotationUtil.getAnnotation(FuncApplicationFuncRelDO.class, TableName.class);
 			funcApplicationFuncRelDOTableNameCache = annotation.value();
@@ -111,7 +111,7 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 	 * @param queryWrapper
 	 * @param funcApplicationId
 	 */
-	public void addInIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper,Object funcApplicationId){
+	public void addInIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId){
 		if (funcApplicationId != null) {
 			List<FuncApplicationFuncRelDO> funcApplicationFuncRelDOS = funcApplicationFuncRelMapper.selectList(Wrappers.<FuncApplicationFuncRelDO>lambdaQuery().eq(FuncApplicationFuncRelDO::getFuncApplicationId, funcApplicationId));
 			List<Long> collect = funcApplicationFuncRelDOS.stream().map(FuncApplicationFuncRelDO::getFuncId).collect(Collectors.toList());

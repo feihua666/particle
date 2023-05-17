@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:43
+ * @since 2023-05-17 10:26:06
  */
 @Mapper
 public interface DeptTreeUserRelMapper extends IBaseMapper<DeptTreeUserRelDO> {

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as DeptUserRelUpdateApi,
+  update as deptUserRelUpdateApi,
   detailForUpdate as detailForUpdateApi,
   list as DeptUserRelListApi
 } from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
@@ -38,11 +38,11 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认修改',
-  permission: 'admin:web:deptUserRel:update',
+  permission: 'admin:web:DeptUserRel:update',
 })
 // 提交按钮
 const submitMethod = () => {
-  return DeptUserRelUpdateApi
+  return deptUserRelUpdateApi
 }
 // 初始化加载更新的数据
 const dataMethod = () => {

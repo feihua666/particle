@@ -39,7 +39,7 @@ public interface IFuncService extends IBaseService<FuncDO> {
 	 * @param queryWrapper
 	 * @param funcApplicationId
 	 */
-	public void addExistSqlIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
+	public void addExistSqlIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
 
 	/**
 	 * in 形式
@@ -47,5 +47,5 @@ public interface IFuncService extends IBaseService<FuncDO> {
 	 * @param queryWrapper
 	 * @param funcApplicationId
 	 */
-	public void addInIffuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
+	public void addInIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId);
 }

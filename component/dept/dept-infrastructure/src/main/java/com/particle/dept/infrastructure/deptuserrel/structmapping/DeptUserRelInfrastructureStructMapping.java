@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Mapper
 public abstract class DeptUserRelInfrastructureStructMapping {

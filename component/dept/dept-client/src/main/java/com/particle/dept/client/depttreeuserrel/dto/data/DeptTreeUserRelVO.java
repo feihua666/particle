@@ -5,18 +5,25 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 部门树用户关系 数据通用响应对象
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:43
+ * @since 2023-05-17 10:26:06
  */
 @Data
 @ApiModel
 public class DeptTreeUserRelVO extends AbstractBaseIdVO {
 
+    @ApiModelProperty("用户id")
+    private Long userId;
+    
+    @ApiModelProperty("部门树id")
+    private Long deptTreeId;
+    
 
 
 }

@@ -12,11 +12,21 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Data
 @TableName("component_dept_user_rel")
 public class DeptUserRelDO extends BaseDO {
+
+    /**
+    * 用户id
+    */
+    private Long userId;
+
+    /**
+    * 部门id
+    */
+    private Long deptId;
 
 
 }

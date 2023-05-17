@@ -1,5 +1,4 @@
 package com.particle.dept.client.deptuserrel.dto.command.representation;
-
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import io.swagger.annotations.ApiModel;
@@ -11,11 +10,26 @@ import lombok.Data;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Data
 @ApiModel
 public class DeptUserRelPageQueryCommand extends AbstractBasePageQueryCommand {
+
+
+
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
+
+
+    @ApiModelProperty(value = "部门id")
+    private Long deptId;
+
+
+
+
+
+
 
 
 

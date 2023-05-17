@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Component
 public class DeptUserRelServiceImpl extends IBaseServiceImpl<DeptUserRelMapper, DeptUserRelDO> implements IDeptUserRelService {

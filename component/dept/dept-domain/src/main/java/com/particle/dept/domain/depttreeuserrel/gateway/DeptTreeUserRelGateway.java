@@ -10,7 +10,7 @@ import com.particle.common.domain.gateway.IBaseGateway;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:43
+ * @since 2023-05-17 10:26:06
  */
 public interface DeptTreeUserRelGateway extends IBaseGateway<DeptTreeUserRelId,DeptTreeUserRel> {
 }

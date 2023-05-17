@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * @author yw
- * @since 2023-04-12 17:28:09
+ * @since 2023-05-17 10:28:42
  */
 @Component
 public class DeptUserRelGatewayImpl extends AbstractBaseGatewayImpl<DeptUserRelId,DeptUserRel> implements DeptUserRelGateway {

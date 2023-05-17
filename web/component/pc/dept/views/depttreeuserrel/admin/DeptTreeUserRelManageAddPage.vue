@@ -3,7 +3,7 @@
  * 部门树用户关系管理添加页面
  */
 import {reactive ,ref} from 'vue'
-import {create as DeptTreeUserRelCreateApi,list as DeptTreeUserRelListApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
+import {create as deptTreeUserRelCreateApi,list as DeptTreeUserRelListApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
 import {addPageFormItems} from "../../../compnents/depttreeuserrel/admin/deptTreeUserRelManage";
 
 
@@ -22,11 +22,11 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认添加',
-  permission: 'admin:web:deptTreeUserRel:create',
+  permission: 'admin:web:DeptTreeUserRel:create',
 })
 // 提交按钮
 const submitMethod = () => {
-  return DeptTreeUserRelCreateApi
+  return deptTreeUserRelCreateApi
 }
 // 成功提示语
 const submitMethodSuccess = () => {

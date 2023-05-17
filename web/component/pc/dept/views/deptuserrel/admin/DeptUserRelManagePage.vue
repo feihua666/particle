@@ -3,7 +3,7 @@
  * 部门用户关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DeptUserRelPageApi, remove as DeptUserRelRemoveApi} from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
+import { page as deptUserRelPageApi, remove as deptUserRelRemoveApi} from "../../../api/deptuserrel/admin/deptUserRelAdminApi"
 import {pageFormItems} from "../../../compnents/deptuserrel/admin/deptUserRelManage";
 
 
@@ -16,6 +16,14 @@ const reactiveData = reactive({
   },
   formComps: pageFormItems,
   tableColumns: [
+    {
+      prop: 'userId',
+      label: '用户id',
+    },
+    {
+      prop: 'deptId',
+      label: '部门id',
+    },
   ],
 
 })
@@ -24,7 +32,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:deptUserRel:pageQuery'
+  permission: 'admin:web:DeptUserRel:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -32,7 +40,7 @@ const submitMethod = ():void => {
 }
 // 分页数据查询
 const doDeptUserRelPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
-  return DeptUserRelPageApi({...reactiveData.form,...pageQuery})
+  return deptUserRelPageApi({...reactiveData.form,...pageQuery})
 }
 const tablePaginationProps = {
   permission: submitAttrs.value.permission
@@ -47,18 +55,18 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:deptUserRel:update',
+      permission: 'admin:web:DeptUserRel:update',
       // 跳转到编辑
       route: {path: '/admin/DeptUserRelManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:deptUserRel:delete',
+      permission: 'admin:web:DeptUserRel:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
-        return DeptUserRelRemoveApi({id: row.id}).then(res => {
+        return deptUserRelRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
           return Promise.resolve(res)
@@ -78,7 +86,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:deptUserRel:create" route="/admin/DeptUserRelManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:DeptUserRel:create" route="/admin/DeptUserRelManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
@@ -86,7 +94,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDeptUserRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-
+           
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
