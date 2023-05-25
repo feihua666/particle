@@ -22,7 +22,7 @@ import static com.google.common.collect.Maps.newHashMap;
 @Slf4j
 public class JdbcTemplateMessageEventConsumeRecorder implements MessageEventConsumeRecorder {
 
-    public static String tableName = "GLOBAL_MESSAGE_EVENT_CONSUME_RECORD";
+    public static String tableName = "global_message_event_consume_record";
     public static String eventIdColumn = "ID";
     public static String eventIdProperty = "id";
     public static String createAtColumn = "CREATE_AT";
