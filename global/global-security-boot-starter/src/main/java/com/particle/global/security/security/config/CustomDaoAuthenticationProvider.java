@@ -16,6 +16,6 @@ public class CustomDaoAuthenticationProvider extends DaoAuthenticationProvider {
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return (UsernamePasswordAuthenticationToken.class
-				.isAssignableFrom(authentication)) && UsernamePasswordAuthenticationToken.class.getName().equals(authentication.getClass().getName());
+				.isAssignableFrom(authentication)) && UsernamePasswordAuthenticationToken.class.getName().equals(authentication.getName());
 	}
 }
