@@ -2,6 +2,7 @@ package com.particle.common.domain.event;
 
 import com.particle.global.tool.email.EmailAccount;
 import com.google.common.collect.Lists;
+import com.particle.global.tool.sms.SmsAccount;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -140,10 +141,18 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 	@Getter
 	public static class Sms{
 
+		private SmsAccount smsAccount;
 		/**
 		 * 通知的手机号
 		 */
 		private List<String> noticeMobiles;
+
+		public static Sms create(SmsAccount smsAccount, List<String> noticeMobiles) {
+			Sms sms = new Sms();
+			sms.setSmsAccount(smsAccount);
+			sms.setNoticeMobiles(noticeMobiles);
+			return sms;
+		}
 
 		public static Sms create(List<String> noticeMobiles) {
 			Sms sms = new Sms();

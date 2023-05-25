@@ -3,6 +3,7 @@ package com.particle.user.adapter.login;
 import com.particle.global.security.security.config.CustomWebSecurityConfigure;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
 import com.particle.user.adapter.login.captcha.CaptchaDaoAuthenticationProvider;
+import com.particle.user.adapter.login.captcha.CaptchaUsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,7 +34,7 @@ public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecu
 	public void configure(HttpSecurity http, AuthenticationManager authenticationManager, CustomWebSecurityConfigureExt ext) throws Exception {
 
 		// 配置验证码登录过滤器
-		UsernamePasswordAuthenticationFilter captchaUsernamePasswordAuthenticationFilter = new UsernamePasswordAuthenticationFilter();
+		CaptchaUsernamePasswordAuthenticationFilter captchaUsernamePasswordAuthenticationFilter = new CaptchaUsernamePasswordAuthenticationFilter();
 		captchaUsernamePasswordAuthenticationFilter.setFilterProcessesUrl(login_captcha_url);
 		captchaUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager);
 		captchaUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(ext.getDefaultAuthenticationSuccessHandler());

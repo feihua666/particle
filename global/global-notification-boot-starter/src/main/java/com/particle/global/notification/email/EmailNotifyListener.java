@@ -46,7 +46,7 @@ public class EmailNotifyListener extends AbstractNotifyListener {
 		if (mailAccount == null) {
 			throw new RuntimeException("no mailAccount was found. maybe you can config in yml or pass a EmailAccount instance param");
 		}
-
+		emailParam.setEmailAccount(mailAccount);
 		MailUtil.send(
 				mailAccount,
 				notifyParam.getToUser(),

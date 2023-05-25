@@ -191,6 +191,12 @@ public class NotifyParam implements Serializable {
 	public static class SmsParam{
 
 		private SmsAccount smsAccount;
+
+		public static SmsParam create(SmsAccount smsAccount) {
+			SmsParam smsParam = new SmsParam();
+			smsParam.setSmsAccount(smsAccount);
+			return smsParam;
+		}
 	}
 	/**
 	 * type 为 {@link Type#email} 对应的参数

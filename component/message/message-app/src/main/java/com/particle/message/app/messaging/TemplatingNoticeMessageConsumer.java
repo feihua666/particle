@@ -117,7 +117,7 @@ public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomai
 		emailHandle(renderTitle, emailContentResult, isSystem, templatingDomainMessageEvent.getEmail());
 
 		// 4. 手机号发送处理
-		ContentDetailJsonResult smsContentResult = resolveContentDetail(NotifyParam.Type.email.name(), contentDetailJson, contentDetailJsonResult, templateData);
+		ContentDetailJsonResult smsContentResult = resolveContentDetail(NotifyParam.Type.sms.name(), contentDetailJson, contentDetailJsonResult, templateData);
 		smsHandle(renderTitle, smsContentResult, isSystem, templatingDomainMessageEvent.getSms(),templateData);
 	}
 
@@ -210,13 +210,16 @@ public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomai
 			return;
 		}
 		NotifyParam notifyParam = isSystem? NotifyParam.system() : NotifyParam.business();
+		NotifyParam.SmsParam smsParam = NotifyParam.SmsParam.create(sms.getSmsAccount());
+
 		notifyParam.smsType()
 				.setTitle(renderTitle)
 				.setContent(contentDetailJsonResult.getRenderContent())
 				.setToUser(sms.getNoticeMobiles())
+				.setSmsParam(smsParam)
 				.setIsHtml(contentDetailJsonResult.getIsContentHtml())
 				.setThirdTemplateCode(contentDetailJsonResult.getThirdTemplateCode())
-		.addExt(MessageTemplateConstants.notify_template_data_key,templateData)
+				.addExt(MessageTemplateConstants.notify_template_data_key,templateData)
 		;
 		NotifyTool.notify(notifyParam);
 	}

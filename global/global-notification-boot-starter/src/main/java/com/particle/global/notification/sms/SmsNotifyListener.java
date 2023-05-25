@@ -34,7 +34,7 @@ public class SmsNotifyListener extends AbstractNotifyListener {
 	public void doNotify(NotifyParam notifyParam) {
 		NotifyParam.SmsParam smsParam = notifyParam.getSmsParam();
 		if (smsParam == null) {
-			log.warn("sms notify ignored. because of emailParam is null");
+			log.warn("sms notify ignored. because of smsParam is null");
 			return;
 		}
 		SmsAccount smsAccount = smsParam.getSmsAccount();
@@ -44,6 +44,8 @@ public class SmsNotifyListener extends AbstractNotifyListener {
 		if (smsAccount == null) {
 			throw new RuntimeException("no smsAccount was found. maybe you can config in yml or pass a SmsAccount instance param");
 		}
+		smsParam.setSmsAccount(smsAccount);
+
 		if (smsNotifyHandlerListeners != null) {
 			for (ISmsNotifyHandlerListener smsNotifyHandlerListener : smsNotifyHandlerListeners) {
 				if (smsNotifyHandlerListener.support(smsAccount)) {

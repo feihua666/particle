@@ -2,6 +2,7 @@ package com.particle.global.captcha.store;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  * @author yangwei
  * @since 2023-04-25 13:36
  */
+@Slf4j
 public abstract class AbstractCaptchaStoreService implements ICaptchaStoreService{
 	@Override
 	public boolean save(CaptchaGenResultDTO captchaGenResultDTO) {
@@ -31,8 +33,9 @@ public abstract class AbstractCaptchaStoreService implements ICaptchaStoreServic
 		CaptchaGenResultDTO resultDTO = doGet(captchaUniqueIdentifier);
 
 		// 超时时间判断
-		if (resultDTO.getExpireAt() != null) {
+		if (resultDTO !=null && resultDTO.getExpireAt() != null) {
 			if (LocalDateTime.now().isAfter(resultDTO.getExpireAt())) {
+				log.warn("captcha expired captchaUniqueIdentifier={}",captchaUniqueIdentifier);
 				return null;
 			}
 		}
