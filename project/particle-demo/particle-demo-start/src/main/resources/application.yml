@@ -109,8 +109,10 @@ particle:
     filter:
       enabled: true
       uris:
-        # 登录添加验证码校验
-        - /loginCaptcha
+        # 这里随便举例 动态验证码登录独立校验，不需要该拦截器支持，如果配置会有冲突
+        - /loginCaptcha111
+    uriIdentifier:
+      '[/loginCaptcha111]': username
     # 参见 com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties
     notifyIdentifiers:
       '/loginCaptcha': user_login_dynamic_captcha

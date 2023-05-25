@@ -45,7 +45,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 主要是使用验证码校验的两个字段 -->
+        <!-- 主要是使用动态验证码登录校验 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-captcha-boot-starter</artifactId>

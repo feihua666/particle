@@ -1,18 +1,14 @@
 package com.particle.user.adapter.login.captcha;
 
-import cn.hutool.core.lang.Validator;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.security.exception.GenericAuthenticationException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static com.particle.global.captcha.endpoint.CaptchaVerifyCommand.captchaUniqueIdentifierFieldName;
 
 /**
  * <p>
@@ -38,6 +34,7 @@ public class CaptchaUsernamePasswordAuthenticationFilter extends UsernamePasswor
 		password = (password != null) ? password : "";
 
 		CaptchaUsernamePasswordAuthenticationToken authRequest = new CaptchaUsernamePasswordAuthenticationToken(username, password);
+		authRequest.setCaptchaUniqueIdentifier(request.getParameter(captchaUniqueIdentifierFieldName));
 		// Allow subclasses to set the "details" property
 		setDetails(request, authRequest);
 		return this.getAuthenticationManager().authenticate(authRequest);

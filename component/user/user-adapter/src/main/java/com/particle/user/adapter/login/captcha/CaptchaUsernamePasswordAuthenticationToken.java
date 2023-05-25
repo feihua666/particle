@@ -1,5 +1,7 @@
 package com.particle.user.adapter.login.captcha;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,7 +15,15 @@ import java.util.Collection;
  * @author yangwei
  * @since 2023-05-24 17:37
  */
+@Setter
+@Getter
 public class CaptchaUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
+
+	/**
+	 * 动态验证码唯一标识
+	 */
+	private String captchaUniqueIdentifier;
+
 	public CaptchaUsernamePasswordAuthenticationToken(Object principal, Object credentials) {
 		super(principal, credentials);
 	}

@@ -13,7 +13,6 @@ import com.particle.global.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -86,7 +85,7 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 					return;
 				}
 
-				boolean verifyCaptcha = verifyCaptcha(captchaVerifyCommand);
+				boolean verifyCaptcha = verifyCaptcha(captchaVerifyCommand,httpServletRequest,requestURI);
 				if (!verifyCaptcha) {
 					writeError(((HttpServletResponse) response));
 					return;
@@ -104,7 +103,7 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 	 * @param verifyCommand
 	 * @return
 	 */
-	public boolean verifyCaptcha(@Valid CaptchaVerifyCommand verifyCommand){
+	public boolean verifyCaptcha(@Valid CaptchaVerifyCommand verifyCommand,HttpServletRequest httpServletRequest,String uri) throws IOException {
 
 		CaptchaVerifyDTO captchaVerifyDTO = CaptchaVerifyDTO.create(verifyCommand.getCaptchaUniqueIdentifier(), verifyCommand.getCaptchaValue());
 		captchaVerifyDTO.setIsRemove(true);

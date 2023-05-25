@@ -17,8 +17,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "particle.captcha.filter")
 public class CaptchaSecurityFilter extends BaseCaptchaSecurityFilter {
-	@Override
-	public boolean verifyCaptcha(CaptchaVerifyCommand verifyCommand) {
-		return super.verifyCaptcha(verifyCommand);
-	}
+
 }

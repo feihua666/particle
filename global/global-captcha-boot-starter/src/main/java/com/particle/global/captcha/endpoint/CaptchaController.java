@@ -83,6 +83,9 @@ public class CaptchaController {
 	public SingleResponse<CaptchaVO> getDynamicCaptcha(@Valid DynamicCaptchaGenCommand genCommand){
 
 		String identifier = genCommand.getIdentifier();
+		if (identifier == null) {
+			identifier = "";
+		}
 		boolean isEmail = Validator.isEmail(identifier);
 		boolean isMobile = Validator.isMobile(identifier);
 		Assert.isTrue(isEmail || isMobile,ErrorCodeGlobalEnum.MOBILE_EMAIL_REQUEST_ERROR);
@@ -91,7 +94,7 @@ public class CaptchaController {
 			genCommand.setCaptchaType(CaptchaTypeEnum.customImage.type());
 		}
 		String fastSimpleUUID = IdUtil.fastSimpleUUID();
-		String md5Hex = DigestUtil.md5Hex(fastSimpleUUID + dynamic_suffix);
+		String md5Hex = DigestUtil.md5Hex(fastSimpleUUID + dynamic_suffix + identifier);
 		CaptchaGenResultDTO gen = gen(genCommand,md5Hex);
 
 		if (dynamicCaptchaNotify != null) {

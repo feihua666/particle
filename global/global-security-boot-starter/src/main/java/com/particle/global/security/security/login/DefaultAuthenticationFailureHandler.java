@@ -6,6 +6,7 @@ import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.exception.BadCaptchaAuthenticationException;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -77,5 +78,6 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
         errorCodeMap.put(LockedException.class, ErrorCodeGlobalEnum.ACCOUNT_LOACKED_ERROR);
         errorCodeMap.put(UsernameNotFoundException.class, ErrorCodeGlobalEnum.INVALID_ACCOUNT_ERROR);
         errorCodeMap.put(BadCredentialsException.class, ErrorCodeGlobalEnum.INVALID_PASSWORD_ERROR);
+        errorCodeMap.put(BadCaptchaAuthenticationException.class, ErrorCodeGlobalEnum.CAPTCHA_ERROR);
     }
 }
