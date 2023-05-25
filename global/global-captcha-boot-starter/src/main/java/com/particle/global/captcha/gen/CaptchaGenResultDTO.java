@@ -39,10 +39,11 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 											 Integer width,
 											 Integer height,
 											 Integer length,
+											 Integer charType,
 											 LocalDateTime expireAt,
 											 String base64,String captchaValue) {
 		CaptchaGenResultDTO captchaGenResultDTO = new CaptchaGenResultDTO();
-		captchaGenResultDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length, expireAt);
+		captchaGenResultDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType, expireAt);
 		captchaGenResultDTO.setBase64(base64);
 		captchaGenResultDTO.setCaptchaValue(captchaValue);
 		return captchaGenResultDTO;
@@ -57,6 +58,7 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 				captchaGenDTO.getWidth(),
 				captchaGenDTO.getHeight(),
 				captchaGenDTO.getLength(),
+				captchaGenDTO.getCharType(),
 				captchaGenDTO.getExpireAt(),
 				base64,captchaValue);
 	}
@@ -71,6 +73,6 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 				getCaptchaScene(),
 				getCaptchaType(),
 				getWidth(),
-				getHeight(), getLength(), getExpireAt(), null, getCaptchaValue());
+				getHeight(), getLength(),getCharType(), getExpireAt(), null, getCaptchaValue());
 	}
 }

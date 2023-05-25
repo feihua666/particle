@@ -74,7 +74,7 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 									   ICaptchaScene captchaScene
 
 	) {
-		return create(captchaUniqueIdentifier,captchaScene,null,null,null,null,null);
+		return create(captchaUniqueIdentifier,captchaScene,null,null,null,null,null,null);
 	}
 
 	/**
@@ -94,13 +94,12 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 									   Integer width,
 									   Integer height,
 									   Integer length,
+									   Integer charType,
 									   LocalDateTime expireAt
 
 	) {
 		CaptchaGenDTO captchaGenDTO = new CaptchaGenDTO();
-		captchaGenDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,expireAt);
-		captchaGenDTO.setCharType(TYPE_DEFAULT);
-
+		captchaGenDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType,expireAt);
 		return captchaGenDTO;
 	}
 
@@ -110,6 +109,7 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 					 Integer width,
 					 Integer height,
 					 Integer length,
+					 Integer charType,
 					 LocalDateTime expireAt
 	) {
 		fill(captchaUniqueIdentifier);
@@ -126,6 +126,8 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 		if (length != null) {
 			this.length = length;
 		}
+		this.charType = charType != null ? charType : TYPE_DEFAULT;
+
 		if (expireAt == null) {
 			this.expireAt = LocalDateTime.now().plusMinutes(2);
 		}else {

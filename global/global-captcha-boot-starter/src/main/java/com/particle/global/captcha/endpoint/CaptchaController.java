@@ -148,6 +148,7 @@ public class CaptchaController {
 				genCommand.getWidth(),
 				genCommand.getHeight(),
 				genCommand.getLength(),
+				genCommand.getCharType(),
 				// 默认超时5分钟
 				LocalDateTime.now().plusMinutes(5));
 		CaptchaGenResultDTO gen = captchaService.gen(captchaGenDTO);
