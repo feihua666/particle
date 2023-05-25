@@ -55,14 +55,20 @@ public enum CaptchaTypeEnum implements ICaptchaType{
 	public static int defaultLength(String captchaType){
 		if (defaultLengthMap == null) {
 			defaultLengthMap = new HashMap<>();
-		}
-		defaultLengthMap.put(CaptchaTypeEnum.customImage.name(), 4);
-		defaultLengthMap.put(CaptchaTypeEnum.gif.name(), 3);
-		defaultLengthMap.put(CaptchaTypeEnum.chinese.name(), 3);
-		defaultLengthMap.put(CaptchaTypeEnum.chineseGif.name(), 3);
-		defaultLengthMap.put(CaptchaTypeEnum.arithmetic.name(), 2);
 
-		return 3;
+			defaultLengthMap.put(CaptchaTypeEnum.customImage.name(), 4);
+			defaultLengthMap.put(CaptchaTypeEnum.gif.name(), 3);
+			defaultLengthMap.put(CaptchaTypeEnum.chinese.name(), 3);
+			defaultLengthMap.put(CaptchaTypeEnum.chineseGif.name(), 3);
+			defaultLengthMap.put(CaptchaTypeEnum.arithmetic.name(), 2);
+		}
+
+		int result = 3;
+		if (defaultLengthMap.containsKey(captchaType)) {
+			result = defaultLengthMap.get(captchaType);
+		}
+
+		return result;
 	}
 
 	private static Map<String,Integer> defaultLengthMap;

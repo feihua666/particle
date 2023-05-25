@@ -69,7 +69,8 @@ public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomai
 		try {
 			doConsume(templatingDomainMessageEvent);
 		} catch (Throwable e) {
-			log.error("consume message error log only",e);
+			log.error("consume message error log only,event={}",JsonTool.toJsonStr(templatingDomainMessageEvent),e);
+			throw e;
 		}
 	}
 

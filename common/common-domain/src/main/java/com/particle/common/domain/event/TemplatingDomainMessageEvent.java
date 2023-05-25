@@ -114,9 +114,20 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 			return email;
 		}
 
+		/**
+		 * 只指定多个发送人
+		 * @param noticeEmails
+		 * @return
+		 */
 		public static Email create(List<String> noticeEmails) {
-			return create(null, noticeEmails, noticeEmails, null);
+			return create(null, noticeEmails, null, null);
 		}
+
+		/**
+		 * 只指定单个发送人
+		 * @param noticeEmails
+		 * @return
+		 */
 		public static Email create(String noticeEmails) {
 			return create(Lists.newArrayList(noticeEmails));
 		}

@@ -32,6 +32,7 @@ public class EmailNotifyListener extends AbstractNotifyListener {
 	public void doNotify(NotifyParam notifyParam) {
 		NotifyParam.EmailParam emailParam = notifyParam.getEmailParam();
 		if (emailParam == null) {
+			log.warn("email notify ignored. because of emailParam is null");
 			return;
 		}
 		EmailAccount mailAccount = emailParam.getEmailAccount();
@@ -41,8 +42,9 @@ public class EmailNotifyListener extends AbstractNotifyListener {
 		if (mailAccount == null) {
 			mailAccount = EmailAccount.createByMailAccount(GlobalMailAccount.INSTANCE.getAccount());
 		}
+		// 没有邮件账号，发送不到，可以使用 yml配置或发送通知时指定邮件账号
 		if (mailAccount == null) {
-			throw new RuntimeException("no mailAccount was found");
+			throw new RuntimeException("no mailAccount was found. maybe you can config in yml or pass a EmailAccount instance param");
 		}
 
 		MailUtil.send(
