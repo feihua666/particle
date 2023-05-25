@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Import;
  * @since 2023-05-19 17:39
  */
 @ConditionalOnProperty(prefix = "particle.message.testBinder", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Import(LocalChannelBinderConfiguration.class)
+//@Import(LocalChannelBinderConfiguration.class)
 public class GlobalMessageTestBinderAutoConfiguration {
 }

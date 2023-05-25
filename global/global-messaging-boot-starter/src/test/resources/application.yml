@@ -32,6 +32,8 @@ spring:
     stream:
       # binder 们
       binders:
+        test:
+          type: local
         rabbit:
           type: rabbit
         kafka:
@@ -64,7 +66,7 @@ spring:
           destination: testTestBinderMq
           group: group
         testTestBinderProducer-out-0:
-          #binder: test
+          binder: test
           destination: testTestBinderMq
         # ******************************************************************************* obj 测试开始
         testObjRabbitConsumer-in-0:
@@ -88,12 +90,12 @@ spring:
           # binder=test 是spring-cloud-stream-test-support的单元测试binder，其依赖已在pom注释，使用 spring-cloud-stream.xxx.test-binder
           # spring-cloud-stream.xxx.test-binder 的好处是就算没有引入中间件消息也会本地发送
           # 不指定 值会使用默认 default-binder
-          #binder: test
+          binder: test
           # 目标，在kafka中会自动创建名称 testObjTestBinderMq 的 topic
           destination: testObjTestBinderMq
           group: group
         testObjTestBinderProducer-out-0:
-          #binder: test
+          binder: test
           destination: testObjTestBinderMq
         # ******************************************************************************* obj 测试结束
       # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
