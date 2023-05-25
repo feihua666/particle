@@ -4,6 +4,7 @@ import cn.hutool.crypto.digest.DigestUtil;
 import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.security.exception.BadCaptchaAuthenticationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -48,6 +49,7 @@ public class CaptchaDaoAuthenticationProvider extends DaoAuthenticationProvider 
 		}
 	}
 
+	@Autowired
 	public void setCaptchaService(ICaptchaService captchaService) {
 		this.captchaService = captchaService;
 	}

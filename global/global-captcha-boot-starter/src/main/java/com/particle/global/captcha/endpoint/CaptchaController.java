@@ -58,6 +58,11 @@ public class CaptchaController {
 		return SingleResponse.of(captchaVO);
 	}
 
+	/**
+	 * 请注意动态验证码由于唯一标识有 根据 identifier 组件 md5 的规则，因此前端不能直接校验成功
+	 * @param verifyCommand
+	 * @return
+	 */
 	@ApiOperation("校验验证码")
 	@PostMapping("/verifyCaptcha")
 	public SingleResponse<Boolean> verifyCaptcha(@Valid @RequestBody CaptchaVerifyCommand verifyCommand){
@@ -83,9 +88,7 @@ public class CaptchaController {
 	public SingleResponse<CaptchaVO> getDynamicCaptcha(@Valid DynamicCaptchaGenCommand genCommand){
 
 		String identifier = genCommand.getIdentifier();
-		if (identifier == null) {
-			identifier = "";
-		}
+
 		boolean isEmail = Validator.isEmail(identifier);
 		boolean isMobile = Validator.isMobile(identifier);
 		Assert.isTrue(isEmail || isMobile,ErrorCodeGlobalEnum.MOBILE_EMAIL_REQUEST_ERROR);

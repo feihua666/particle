@@ -1,5 +1,7 @@
 package com.particle.user.adapter.login;
 
+import com.particle.global.captcha.ICaptchaService;
+import com.particle.global.security.security.config.CustomDaoAuthenticationProvider;
 import com.particle.global.security.security.config.CustomWebSecurityConfigure;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
 import com.particle.user.adapter.login.captcha.CaptchaDaoAuthenticationProvider;
@@ -28,7 +30,8 @@ public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecu
 
 	@Autowired
 	private IdentifierUserDetailsServiceImpl identifierUserDetailsService;
-
+	@Autowired
+	private ICaptchaService captchaService;
 
 	@Override
 	public void configure(HttpSecurity http, AuthenticationManager authenticationManager, CustomWebSecurityConfigureExt ext) throws Exception {
@@ -45,10 +48,18 @@ public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecu
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder,CustomWebSecurityConfigureExt ext) throws Exception {
-		auth.userDetailsService(identifierUserDetailsService).passwordEncoder(passwordEncoder);
+
+		CustomDaoAuthenticationProvider customDaoAuthenticationProvider = new CustomDaoAuthenticationProvider();
+		customDaoAuthenticationProvider.setUserDetailsService(identifierUserDetailsService);
+		customDaoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+		auth.authenticationProvider(customDaoAuthenticationProvider);
+
+		// 使用上面的自定义 CustomDaoAuthenticationProvider
+		//auth.userDetailsService(identifierUserDetailsService).passwordEncoder(passwordEncoder);
 
 		//	验证码登录
 		CaptchaDaoAuthenticationProvider captchaDaoAuthenticationProvider = new CaptchaDaoAuthenticationProvider();
+		captchaDaoAuthenticationProvider.setCaptchaService(captchaService);
 		captchaDaoAuthenticationProvider.setUserDetailsService(identifierUserDetailsService);
 		auth.authenticationProvider(captchaDaoAuthenticationProvider);
 	}
