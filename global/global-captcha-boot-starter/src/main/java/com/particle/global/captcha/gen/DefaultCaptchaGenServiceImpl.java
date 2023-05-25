@@ -24,7 +24,6 @@ public class DefaultCaptchaGenServiceImpl implements ICaptchaGenService{
 	}
 
 	@Autowired(required = false)
-
 	public void setCaptchaGenerator(ICaptchaGenerator captchaGenerator) {
 		this.captchaGenerator = captchaGenerator;
 	}

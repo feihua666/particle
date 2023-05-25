@@ -5,7 +5,10 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.google.common.collect.Lists;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.domain.event.TemplatingDomainMessageEvent;
+import com.particle.component.light.share.message.MessageConstants;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -24,6 +27,7 @@ import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.client.dto.data.TenantUserVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.domain.createapply.TenantCreateApply;
+import com.particle.tenant.domain.createapply.TenantCreateApplyAuditPassDomainEvent;
 import com.particle.tenant.domain.createapply.TenantCreateApplyId;
 import com.particle.tenant.domain.createapply.gateway.TenantCreateApplyGateway;
 import com.particle.tenant.domain.gateway.TenantDictGateway;
@@ -266,7 +270,22 @@ public class TenantCreateApplyUpdateCommandExecutor extends AbstractBaseExecutor
 				// 6 绑定用户在租户下的超级管理员角色
 				tenantRoleGateway.createRoleUserRel(roleId, applyUserId, tenantSave.getData().getId());
 				//	7 通知
-				// todo 通知逻辑
+				if (StrUtil.isNotEmpty(tenantCreateApplyDb.getContactUserEmail())) {
+					TenantCreateApplyAuditPassDomainEvent.DataContent dataContent = TenantCreateApplyAuditPassDomainEvent.DataContent.create(
+							// url为空请在模板中指定
+							"",
+							tenantCreateApplyDb.getContactUserEmail(),
+							password,
+							tenantCreateApplyDb.getContactUserPhone(),
+							tenantCreateApplyDb.getIsFormal(),
+							tenantCreateApplyDb.getInvalidAt()
+					);
+
+					TenantCreateApplyAuditPassDomainEvent event = new TenantCreateApplyAuditPassDomainEvent(dataContent);
+					TemplatingDomainMessageEvent templatingDomainMessageEvent = event.toTemplatingDomainMessageEvent(applyUserId,tenantCreateApplyAuditCommand.getAuditUserId());
+					tenantCreateApplyGateway.sendDomainEvent(templatingDomainMessageEvent);
+				}
+
 			}
 		}
 		return tenantCreateApplyDb;

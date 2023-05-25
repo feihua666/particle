@@ -54,5 +54,12 @@
             <artifactId>global-light-share</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 结合 hutool 发送邮件 -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${javax.mail.version}</version>
+        </dependency>
     </dependencies>
 </project>

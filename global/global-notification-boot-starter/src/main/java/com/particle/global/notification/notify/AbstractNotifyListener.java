@@ -64,6 +64,7 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 
 	/**
 	 * 格式化内容,提供一个工具方法
+	 * 主要用于系统消息时通知内容，如：系统报警
 	 * @param notifyParam
 	 * @return
 	 */

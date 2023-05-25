@@ -2,6 +2,7 @@ package com.particle.global.security.security.login;
 
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
+import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.security.ApplicationContextForSecurityHelper;
@@ -54,8 +55,13 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
     private Response getResponseByException(AuthenticationException e){
         IErrorCode iErrorCode = errorCodeMap.get(e.getClass());
         if (iErrorCode == null) {
-            iErrorCode = ErrorCodeGlobalEnum.AUTHENTICATION_ERROR;
-            log.error("登录异常",e);
+            if (e.getCause() instanceof BizException) {
+                iErrorCode = ((BizException) e.getCause()).getError();
+            }else {
+                iErrorCode = ErrorCodeGlobalEnum.AUTHENTICATION_ERROR;
+                log.error("登录异常",e);
+            }
+
         }
 
         Response response = Response.buildFailure(iErrorCode);

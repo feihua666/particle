@@ -24,22 +24,34 @@ public class RabbitTestConfiguration {
 	private Integer id = 0;
 
 /*	@Bean
-	public Supplier<Test1RabbitMessageEvent> test1RabbitProducer(){
+	public Supplier<MessageStringDataTestEvent> testRabbitProducer(){
 		return () -> {
 			String msg = StrUtil.format("这是一个rabbit消息{}", id++);
 			log.info(msg);
-			return Test1RabbitMessageEvent.create(GlobalCloudSteamMessageUtil.inZeroBindingName("test1RabbitConsumer"),msg);
+			return MessageStringDataTestEvent.create(GlobalCloudSteamMessageUtil.inZeroBindingName("testRabbitConsumer"),msg);
 		};
 	}*/
 
 	@Bean
-	public Consumer<Test1RabbitMessageEvent> test1RabbitConsumer(){
+	public Consumer<MessageStringDataTestEvent> testRabbitConsumer(){
 
-		return new Consumer<Test1RabbitMessageEvent>() {
+		return new Consumer<MessageStringDataTestEvent>() {
 			@CloudStreamConsume
 			@Override
-			public void accept(Test1RabbitMessageEvent test1RabbitMessageEvent) {
-				log.info("收到rabbit消息 Test1KafkaMessageEvent={}", JsonTool.toJsonStr(test1RabbitMessageEvent));
+			public void accept(MessageStringDataTestEvent rabbitMessageStringDataTestEvent) {
+				log.info("收到rabbit消息 MessageStringDataTestEvent={}", JsonTool.toJsonStr(rabbitMessageStringDataTestEvent));
+			}
+		};
+
+	}
+	@Bean
+	public Consumer<MessageObjDataTestEvent> testObjRabbitConsumer(){
+
+		return new Consumer<MessageObjDataTestEvent>() {
+			@CloudStreamConsume
+			@Override
+			public void accept(MessageObjDataTestEvent messageObjDataTestEvent) {
+				log.info("收到rabbit消息 MessageObjDataTestEvent={}", JsonTool.toJsonStr(messageObjDataTestEvent));
 			}
 		};
 

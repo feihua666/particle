@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  * http session 存储实现
- * 如果在分页式情况下，可以结合spring session，所以一般使用 http session是没有问题的
+ * 如果在分布式情况下，可以结合spring session，所以一般使用 http session是没有问题的
+ * 使用 http session存储在用户未登录时不可用，因为用户登录之前还没有 session
  * </p>
  *
  * @author yangwei

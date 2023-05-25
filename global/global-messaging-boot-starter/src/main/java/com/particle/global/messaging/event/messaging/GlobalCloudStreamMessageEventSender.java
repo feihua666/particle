@@ -11,7 +11,6 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -31,19 +30,8 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 	@Autowired(required = false)
 	private MessageEventRepository messageEventRepository;
 
-	@Autowired(required = false)
-	private List<LocalMessageListener> localMessageListeners;
-
 	@Override
 	public boolean send(AbstractMessageEvent event) {
-		if (AbstractMessageEvent.defaultLocalListenerSyncVirtualMq.equals(event.getMq())) {
-			if (localMessageListeners != null) {
-				for (LocalMessageListener localMessageListener : localMessageListeners) {
-					localMessageListener.onMessage(event);
-				}
-			}
-			return true;
-		}
 		try {
 			streamBridge.send(event.getMq(), event);
 			return true;

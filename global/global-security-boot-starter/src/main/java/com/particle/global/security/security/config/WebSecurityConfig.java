@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String login_processing_url = "/login";
     public static final String logout_processing_url = "/logout";
+
+    private CustomWebSecurityConfigureExt ext = new CustomWebSecurityConfigureExt();
 
     /**
      * 密码加解密处理，用户添加的时候也会用到
@@ -63,8 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin()
-                .successHandler(new DefaultAuthenticationSuccessHandler())
-                .failureHandler(new DefaultAuthenticationFailureHandler())
+                .successHandler(ext.getDefaultAuthenticationSuccessHandler())
+                .failureHandler(ext.getDefaultAuthenticationFailureHandler())
                 .loginProcessingUrl(login_processing_url)
                 .permitAll()
                 .and()
@@ -88,16 +92,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         if (customWebSecurityConfigureList != null) {
             for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {
-                customWebSecurityConfigure.configure(http,authenticationManager);
+                customWebSecurityConfigure.configure(http,authenticationManager,ext);
             }
         }
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         if (customWebSecurityConfigureList != null) {
             for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {
-                customWebSecurityConfigure.configure(auth,passwordEncoder());
+                customWebSecurityConfigure.configure(auth,passwordEncoder(),ext);
             }
         }
     }

@@ -1,4 +1,5 @@
 particle:
+  # 参见 com.particle.global.tool.id.SnowflakeIdTool
   snowflake:
     # 建议在使用雪花算法生成id时 使用 SnowflakeIdTool 工具，这样整个项目统一id生成规则和配置
     # 全部不配置，将使用默认的 默认有的地方使用的 hutool的IdUtil数据库使用的mybatis plus的IdWorker
@@ -8,3 +9,13 @@ particle:
     worker-id: 2
     # 取值范围 [1,31]
     data-center-id: 4
+  # 配置该项配置意味着使用 com.particle.global.notification.notify.NotifyTool com.particle.global.tool.http.HttpClientTool 等项目工具将所有网络请求使用默认的该代理配置
+  # 不建议使用，因为一般只是个别的接口需要代理访问，系统运行内网内接口不需要使用代理
+  # 参见 com.particle.global.tool.proxy.ProxyConfig
+  proxy:
+    useProxy: true
+    proxyAddress: 127.0.0.1
+    proxyPort: 333
+    proxyUsername: username
+    proxyPassword: password
+    asDefault: false

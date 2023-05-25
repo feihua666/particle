@@ -75,7 +75,7 @@ public class SegmentTemplate {
 	private OutputFileHandleType outputFileHandleType = OutputFileHandleType.OVERRIDE;
 
 	/**
-	 * 共享变量
+	 * 共享内容变量
 	 * 共享变量旨在 {@link SegmentTemplate#subSegmentTemplates} 子级中可以直接访问并追加数据
 	 * 主要应用场景是：比如要生成一个 java 类，其中有import语句，但该语句在依赖其定义的方法或属性来决定的，只有知道了其属性是如日期类型才会import一个java.util.Date
 	 */

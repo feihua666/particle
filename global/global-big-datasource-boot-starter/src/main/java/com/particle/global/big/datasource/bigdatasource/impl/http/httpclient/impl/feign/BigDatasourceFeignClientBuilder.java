@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * <p>
  * 自定义feign client builder，提供静态工具方法
+ * todo 基于 feign的client实现
  * </p>
  *
  * @author yangwei

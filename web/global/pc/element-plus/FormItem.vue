@@ -83,7 +83,6 @@ export interface ValidateObj{
 }
 
 const getFormItemRules = (validateObj:ValidateObj) => {
-  console.log(2222,validateObj)
   let r = []
   if(validateObj.required){
     r.push({required: true, message: `${validateObj.label}不能为空`, trigger: 'blur'})
@@ -114,7 +113,6 @@ const getFormItemRules = (validateObj:ValidateObj) => {
     }
   }
 
-  console.log(1111,r)
   return r
 }
 

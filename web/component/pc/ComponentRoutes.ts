@@ -10,6 +10,7 @@ import TenantRoutes from './tenant/TenantRoutes.ts'
 import DeptRoutes from './dept/DeptRoutes.ts'
 import OpLogRoutes from "./oplog/OpLogRoutes";
 import TrackingRoutes from "./tracking/TrackingRoutes";
+import MessageRoutes from "./message/MessageRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -24,4 +25,5 @@ let ComponentRoutes = []
     .concat(DeptRoutes)
     .concat(OpLogRoutes)
     .concat(TrackingRoutes)
+    .concat(MessageRoutes)
 export default ComponentRoutes

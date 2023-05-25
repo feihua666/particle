@@ -1,0 +1,35 @@
+particle:
+  # 提供系统级别的全局邮件配置
+  # 参见 com.particle.global.notification.GlobalNotificationProperties
+  notification:
+    email:
+      # 邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
+      host: smtp.exmail.qq.com
+      # 邮件服务器的SMTP端口，可选，默认25
+      port: 222
+      # 发件人（必须正确，否则发送失败）
+      from: xxxx@example.com
+      # 用户名，默认为发件人邮箱前缀
+      user:
+      # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
+      pass: xxxx
+      # 代理支持，一般有可能发布到生产网络隔离问题需要配置代理访问外网
+      proxy:
+        useProxy: true
+        proxyAddress: 22.33.44.22
+        proxyPort: 99
+        proxyUsername: proxyUsername
+        proxyPassword: proxyPassword
+  sms:
+    domain: 'http://example.com'
+    username: username
+    password: password
+    # 渠道标识必填，用于标识通过哪个渠道发送短信 参见接口 com.particle.global.notification.sms.ISmsNotifyHandlerListener 的实现支持的渠道
+    channel: channel
+    # 代理支持，一般有可能发布到生产网络隔离问题需要配置代理访问外网
+    proxy:
+      useProxy: true
+      proxyAddress: 22.33.44.22
+      proxyPort: 99
+      proxyUsername: proxyUsername
+      proxyPassword: proxyPassword

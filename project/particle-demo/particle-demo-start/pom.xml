@@ -138,6 +138,11 @@
             <artifactId>tracking-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>message-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

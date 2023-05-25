@@ -237,7 +237,10 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         comp: 'el-input',
         formItemProps: {
           label: '联系人邮箱',
-          tips: '如果用户不存在将作为用户登录账号匹配用户'
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+          validate: {
+            email: true
+          }
         },
         compProps: {
           placeholder: '邮箱',
@@ -245,8 +248,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         }
       }
     },
-
-
+      
     {
       field: {
         name: 'contactUserPhone',
@@ -254,8 +256,11 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
       element: {
         comp: 'el-input',
         formItemProps: {
-          label: '联系人电话',
-          tips: '如果用户不存在将作为用户登录账号匹配用户'
+          label: '联系人手机',
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+          validate: {
+            mobile: true
+          }
         },
         compProps: {
           placeholder: '手机号',

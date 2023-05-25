@@ -1,6 +1,8 @@
 package com.particle.global.captcha;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,4 +46,25 @@ public enum CaptchaTypeEnum implements ICaptchaType{
 	public static CaptchaTypeEnum getByName(String name) {
 		return Arrays.stream(CaptchaTypeEnum.values()).sequential().filter(item -> item.name().equals(name)).findFirst().orElse(null);
 	}
+
+	/**
+	 * 获取默认的长度
+	 * @param captchaType
+	 * @return
+	 */
+	public static int defaultLength(String captchaType){
+		if (defaultLengthMap == null) {
+			defaultLengthMap = new HashMap<>();
+		}
+		defaultLengthMap.put(CaptchaTypeEnum.customImage.name(), 4);
+		defaultLengthMap.put(CaptchaTypeEnum.gif.name(), 3);
+		defaultLengthMap.put(CaptchaTypeEnum.chinese.name(), 3);
+		defaultLengthMap.put(CaptchaTypeEnum.chineseGif.name(), 3);
+		defaultLengthMap.put(CaptchaTypeEnum.arithmetic.name(), 2);
+
+		return 3;
+	}
+
+	private static Map<String,Integer> defaultLengthMap;
+
 }

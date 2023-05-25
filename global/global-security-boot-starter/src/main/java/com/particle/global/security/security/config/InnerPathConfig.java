@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class InnerPathConfig implements CustomWebSecurityConfigure {
     @Override
-    public void configure(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public void configure(HttpSecurity http, AuthenticationManager authenticationManager,CustomWebSecurityConfigureExt ext) throws Exception {
         http.authorizeRequests().antMatchers("/**/inner/**").denyAll();
         http.authorizeRequests().antMatchers("/**/rpc/**").denyAll();
     }

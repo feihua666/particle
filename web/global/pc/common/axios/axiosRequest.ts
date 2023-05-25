@@ -45,8 +45,7 @@ export const getPreviewUrl = (url: string) => {
     if (!url) {
         return url
     }
-
-    if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0){
+    if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0  || url.indexOf('data:') == 0){
         return url
     }
     return getDownloadPrefixUrl() + url

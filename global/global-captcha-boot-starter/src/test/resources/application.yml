@@ -1,7 +1,18 @@
 particle:
+  # 参见 com.particle.global.captcha.security.CaptchaSecurityFilter
   captcha:
     filter:
       enabled: true
       uris:
         # 登录添加验证码校验
         - /login
+  # 参见 com.particle.global.captcha.security.DynamicCaptchaSecurityFilter
+  dynamic-captcha:
+    filter:
+      enabled: true
+      uris:
+        # 登录添加动态验证码校验
+        - /loginCaptcha
+    # 参见 com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties
+    notifyIdentifiers:
+      '/login': 

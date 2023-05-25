@@ -6,6 +6,7 @@ import com.particle.global.captcha.gen.DefaultCaptchaGenServiceImpl;
 import com.particle.global.captcha.gen.ICaptchaGenService;
 import com.particle.global.captcha.store.HttpSessionStoreServiceImpl;
 import com.particle.global.captcha.store.ICaptchaStoreService;
+import com.particle.global.captcha.store.MemoryStoreServiceImpl;
 import com.particle.global.captcha.verify.DefaultCaptchaVerifyServiceImpl;
 import com.particle.global.captcha.verify.ICaptchaVerifyService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -35,10 +36,16 @@ public class CaptchaConfig {
 	public ICaptchaVerifyService captchaVerifyService(ICaptchaStoreService captchaStoreService){
 		return new DefaultCaptchaVerifyServiceImpl(captchaStoreService);
 	}
+
+	/**
+	 * 默认使用内存存储
+	 * 谨慎使用 {@link HttpSessionStoreServiceImpl} 实现，因为其在没有登录之前不可用
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	public ICaptchaStoreService captchaStoreService(){
-		return new HttpSessionStoreServiceImpl();
+		return new MemoryStoreServiceImpl();
 	}
 	@Bean
 	@ConditionalOnMissingBean

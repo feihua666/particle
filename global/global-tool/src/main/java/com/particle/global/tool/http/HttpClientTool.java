@@ -3,6 +3,7 @@ package com.particle.global.tool.http;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.io.IoStreamTool;
+import com.particle.global.tool.proxy.ProxyConfig;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.Builder;
 import lombok.Data;
@@ -179,31 +180,73 @@ public class HttpClientTool{
         get.releaseConnection();
         return bytes;
     }
+
+    /**
+     * 发起请求
+     * @param request
+     * @param client
+     * @param extConfig 扩展配置 可以为 null
+     * @return
+     * @throws IOException
+     */
     public static CloseableHttpResponse executeRequest(HttpRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException {
 
         if (extConfig != null) {
-            if (request.getConfig() == null && extConfig.getProxy() != null) {
+            RequestConfig requestConfig = request.getConfig();
+            // 代理处理
+            if (requestConfig == null || requestConfig.getProxy() == null) {
                 // 添加 proxy
                 HttpHost proxy = extConfig.getProxy();
                 String proxyUser = extConfig.getProxyUser();
                 String proxyPassword = extConfig.getProxyPassword();
 
-                if (StrUtil.isNotEmpty(proxyUser) && StrUtil.isNotEmpty(proxyPassword)) {
-                    String auth = proxyUser + ":" + proxyPassword;
-                    byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(CHARSET)));
-                    String authHeader = "Basic " + new String(encodedAuth);
-                    request.addHeader("Proxy-Authorization", authHeader);
+                ProxyConfig proxyConfig = extConfig.getProxyConfig();
+                // 全局默认代理
+                if (proxyConfig == null) {
+                    proxyConfig = ProxyConfig.proxyConfig();
+                    // 判断是否作为全局默认的代理
+                    if (proxyConfig != null) {
+                        if (proxyConfig.getAsDefault() == null || !proxyConfig.getAsDefault()) {
+                            proxyConfig = null;
+                        }
+                    }
+                }
+                boolean useProxy = proxyConfig.getUseProxy()!= null && proxyConfig.getUseProxy();
+                if (proxy == null && proxyConfig != null && useProxy ) {
+                    proxy = HttpHost.create(proxyConfig.getProxyAddress() + ":" + proxyConfig.getProxyPort());
+                }
+                if (StrUtil.isEmpty(proxyUser) && proxyConfig != null) {
+                    proxyUser = proxyConfig.getProxyUsername();
+                }
+                if (StrUtil.isEmpty(proxyPassword) && proxyConfig != null) {
+                    proxyPassword = proxyConfig.getProxyPassword();
                 }
 
-                RequestConfig config = RequestConfig.custom()
-                        .setProxy(proxy)
-                        .build();
+                if (proxy != null) {
 
-                request.setConfig(config);
+                    if (StrUtil.isNotEmpty(proxyUser) && StrUtil.isNotEmpty(proxyPassword)) {
+                        String auth = proxyUser + ":" + proxyPassword;
+                        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(CHARSET)));
+                        String authHeader = "Basic " + new String(encodedAuth);
+                        request.addHeader("Proxy-Authorization", authHeader);
+                    }
+                    if (requestConfig == null) {
+                        requestConfig = RequestConfig.custom()
+                                .setProxy(proxy)
+                                .build();
+                    }else {
+                        requestConfig = RequestConfig.copy(requestConfig).setProxy(proxy).build();
+                    }
+
+                    request.setConfig(requestConfig);
+                }
+
             }
+            // cookie 处理
             if (extConfig.getCookie() != null) {
                 request.addHeader("Cookie", extConfig.getCookie());
             }
+            // 请求头处理
             List<Header> headers = extConfig.getHeaders();
             if (headers != null && !headers.isEmpty()) {
                 headers.stream().forEach(header -> request.addHeader(header));
@@ -232,6 +275,13 @@ public class HttpClientTool{
     @Data
     @Builder
     public static class ExtConfig{
+
+
+        /**
+         * 自定义代理
+         */
+        private ProxyConfig proxyConfig;
+
         // 代理地址
         private HttpHost proxy;
         // 请求cookie ,即：cookie值
@@ -252,6 +302,11 @@ public class HttpClientTool{
 
         public ExtConfig withProxy(String proxyId, Integer proxyPort) {
             this.proxy = HttpHost.create(proxyId + ":" + proxyPort);
+            return this;
+        }
+
+        public ExtConfig withProxy(ProxyConfig proxyConfig) {
+            this.proxyConfig = proxyConfig;
             return this;
         }
 

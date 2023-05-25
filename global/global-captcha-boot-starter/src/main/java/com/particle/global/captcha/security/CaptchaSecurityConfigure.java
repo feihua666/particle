@@ -1,6 +1,7 @@
 package com.particle.global.captcha.security;
 
 import com.particle.global.security.security.config.CustomWebSecurityConfigure;
+import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +17,13 @@ import org.springframework.stereotype.Component;
 public class CaptchaSecurityConfigure implements CustomWebSecurityConfigure {
     @Autowired
     private CaptchaSecurityFilter captchaSecurityFilter;
+    @Autowired
+    private DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter;
 
     @Override
-    public void configure(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public void configure(HttpSecurity http, AuthenticationManager authenticationManager, CustomWebSecurityConfigureExt ext) throws Exception {
 
         http.addFilterBefore(captchaSecurityFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(dynamicCaptchaSecurityFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -83,7 +83,10 @@ public class OpLogAspect {
 		}finally {
 			OpLogTool.clear();
 			DataAuditCollectTool.clear();
-			log.debug("opLogAspect cost : {}ms",System.currentTimeMillis() - startTime);
+			// 只记录后置处理的时间
+			if (startTime >0) {
+				log.debug("opLogAspect cost : {}ms",System.currentTimeMillis() - startTime);
+			}
 		}
 
 		return response ;

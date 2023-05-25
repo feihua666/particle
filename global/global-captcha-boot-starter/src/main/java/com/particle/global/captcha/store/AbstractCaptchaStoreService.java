@@ -3,6 +3,8 @@ package com.particle.global.captcha.store;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 验证码存储抽象基础类
@@ -26,7 +28,15 @@ public abstract class AbstractCaptchaStoreService implements ICaptchaStoreServic
 		if (StrUtil.isEmpty(captchaUniqueIdentifier)) {
 			return null;
 		}
-		return doGet(captchaUniqueIdentifier);
+		CaptchaGenResultDTO resultDTO = doGet(captchaUniqueIdentifier);
+
+		// 超时时间判断
+		if (resultDTO.getExpireAt() != null) {
+			if (LocalDateTime.now().isAfter(resultDTO.getExpireAt())) {
+				return null;
+			}
+		}
+		return resultDTO;
 	}
 
 	public abstract CaptchaGenResultDTO doGet(String captchaUniqueIdentifier);

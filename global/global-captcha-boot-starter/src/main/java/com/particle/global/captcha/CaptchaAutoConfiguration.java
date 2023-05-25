@@ -1,5 +1,6 @@
 package com.particle.global.captcha;
 
+import com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties;
 import com.particle.global.captcha.gen.DefaultCaptchaGenServiceImpl;
 import com.particle.global.captcha.gen.ICaptchaGenService;
 import com.particle.global.captcha.security.CaptchaSecurityFilter;
@@ -12,6 +13,7 @@ import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,7 @@ import java.util.List;
  */
 @Configuration
 @ComponentScan
+@EnableConfigurationProperties(DynamicCaptchaNotifyProperties.class)
 @ConditionalOnProperty(prefix = "particle.captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class CaptchaAutoConfiguration {
 

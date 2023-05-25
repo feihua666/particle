@@ -1,7 +1,11 @@
 package com.particle.common.domain.gateway;
 
+import com.google.common.collect.Lists;
 import com.particle.common.domain.AggreateRoot;
+import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.id.Id;
+
+import java.util.List;
 
 /**
  * <p>
@@ -36,4 +40,19 @@ public interface IBaseGateway<ID extends Id,AR extends AggreateRoot> extends IGa
 	 * @return
 	 */
 	boolean delete(ID id);
+
+
+	/**
+	 * 单独发送领城事件多条
+	 * @param domainEventList
+	 */
+	void sendDomainEvents(List<DomainEvent> domainEventList);
+
+	/**
+	 * 单独发送领城事件单条
+	 * @param domainEvent
+	 */
+	default void sendDomainEvent(DomainEvent domainEvent) {
+		sendDomainEvents(Lists.newArrayList(domainEvent));
+	}
 }

@@ -27,4 +27,14 @@ public class CaptchaSecurityConfig {
 		captchaSecurityFilter.setCaptchaService(captchaService);
 		return captchaSecurityFilter;
 	}
+	/**
+	 * 该配置不能放到 {@link CaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
+	 * @return
+	 */
+	@Bean
+	public DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter(ICaptchaService captchaService){
+		DynamicCaptchaSecurityFilter captchaSecurityFilter = new DynamicCaptchaSecurityFilter();
+		captchaSecurityFilter.setCaptchaService(captchaService);
+		return captchaSecurityFilter;
+	}
 }

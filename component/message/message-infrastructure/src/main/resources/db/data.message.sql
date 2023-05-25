@@ -1,0 +1,2 @@
+-- import classpath:db/data.message.func.sql
+-- import classpath:db/data.message.dict.sql

@@ -38,28 +38,69 @@ spring:
           type: kafka
       # 通道与binder绑定关系
       bindings:
-        test1RabbitConsumer-in-0:
+        testRabbitConsumer-in-0:
           binder: rabbit
-          # 目标，在rabbit中会自动创建名称 test1RabbitMq 交换器 类型为 topic
-          destination: test1RabbitMq
-          # 分组 在rabbit中会自动创建名为 test1RabbitMq.group 的队列
+          # 目标，在rabbit中会自动创建名称 testRabbitMq 交换器 类型为 topic
+          destination: testRabbitMq
+          # 分组 在rabbit中会自动创建名为 testRabbitMq.group 的队列
           group: group
-        test1RabbitProducer-out-0:
+        testRabbitProducer-out-0:
           binder: rabbit
-          destination: test1RabbitMq
-        test1KafkaConsumer-in-0:
+          destination: testRabbitMq
+        testKafkaConsumer-in-0:
           binder: kafka
-          # 目标，在kafka中会自动创建名称 test1RabbitMq 的 topic
-          destination: test1KafkaMq
+          # 目标，在kafka中会自动创建名称 testKafkaMq 的 topic
+          destination: testKafkaMq
           group: group
-        test1KafkaProducer-out-0:
+        testKafkaProducer-out-0:
           binder: kafka
-          destination: test1KafkaMq
-      # 配置多个 binder 时，必需指定的一个默认binder
-      default-binder: test
-    # 声名的函数式编程定义，如果使用交互式编程发送消息，可以不指定生产者
+          destination: testKafkaMq
+        testTestBinderConsumer-in-0:
+          # binder=test 是spring-cloud-stream-test-support的单元测试binder，其依赖已在pom注释，使用 spring-cloud-stream.xxx.test-binder
+          # spring-cloud-stream.xxx.test-binder 的好处是就算没有引入中间件消息也会本地发送
+          # 不指定 值会使用默认 default-binder
+          #binder: test
+          # 目标，在kafka中会自动创建名称 testTestBinderMq 的 topic
+          destination: testTestBinderMq
+          group: group
+        testTestBinderProducer-out-0:
+          #binder: test
+          destination: testTestBinderMq
+        # ******************************************************************************* obj 测试开始
+        testObjRabbitConsumer-in-0:
+          binder: rabbit
+          # 目标，在rabbit中会自动创建名称 testObjRabbitMq 交换器 类型为 topic
+          destination: testObjRabbitMq
+          # 分组 在rabbit中会自动创建名为 testObjRabbitMq.group 的队列
+          group: group
+        testObjRabbitProducer-out-0:
+          binder: rabbit
+          destination: testObjRabbitMq
+        testObjKafkaConsumer-in-0:
+          binder: kafka
+          # 目标，在kafka中会自动创建名称 testObjKafkaMq 的 topic
+          destination: testObjKafkaMq
+          group: group
+        testObjKafkaProducer-out-0:
+          binder: kafka
+          destination: testObjKafkaMq
+        testObjTestBinderConsumer-in-0:
+          # binder=test 是spring-cloud-stream-test-support的单元测试binder，其依赖已在pom注释，使用 spring-cloud-stream.xxx.test-binder
+          # spring-cloud-stream.xxx.test-binder 的好处是就算没有引入中间件消息也会本地发送
+          # 不指定 值会使用默认 default-binder
+          #binder: test
+          # 目标，在kafka中会自动创建名称 testObjTestBinderMq 的 topic
+          destination: testObjTestBinderMq
+          group: group
+        testObjTestBinderProducer-out-0:
+          #binder: test
+          destination: testObjTestBinderMq
+        # ******************************************************************************* obj 测试结束
+      # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
+      default-binder: kafka
+    # 声名的函数式编程定义，如果使用交互式编程(如：TestController手动发送)发送消息，可以不指定生产者
     function:
-      definition: test1RabbitConsumer;test1RabbitProducer;test1KafkaConsumer;test1KafkaProducer
+      definition: testRabbitConsumer;testRabbitProducer;testKafkaConsumer;testKafkaProducer;testTestBinderConsumer;testTestBinderProducer;testObjRabbitConsumer;testObjKafkaConsumer;testObjTestBinderConsumer
   sql:
     init:
       schema-locations:

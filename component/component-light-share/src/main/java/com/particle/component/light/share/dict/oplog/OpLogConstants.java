@@ -23,6 +23,7 @@ public class OpLogConstants {
 		public static final String role = "role";
 		public static final String tenant = "tenant";
 		public static final String tracking = "tracking";
+		public static final String message = "message";
 
 		public static final String unknown = "unknown";
 

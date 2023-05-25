@@ -12,16 +12,16 @@ import cn.hutool.core.util.StrUtil;
  */
 public class GlobalCloudSteamMessageUtil {
 
-	private static String placeHolder = "{}";
+	private static final String placeHolder = "{}";
 
-	private static String out = "out";
-	private static String in = "in";
+	private static final String out = "out";
+	private static final String in = "in";
 
-	private static String out_zero = "out-0";
-	private static String in_zero = "in-0";
+	private static final String out_zero = "out-0";
+	private static final String in_zero = "in-0";
 
-	private static String bindingNamePlaceHolderOutZero = placeHolder + "-" + out_zero;
-	private static String bindingNamePlaceHolderInZero = placeHolder + "-" + in_zero;
+	private static final String bindingNamePlaceHolderOutZero = placeHolder + "-" + out_zero;
+	private static final String bindingNamePlaceHolderInZero = placeHolder + "-" + in_zero;
 
 
 	/**

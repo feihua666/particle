@@ -69,6 +69,9 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 * 非常请求，一些不正常的请求，主要指能预测到的手动修改参数情况
 	 */
 	ILLEGAL_REQUEST_ERROR(40000000004L,"非法请求，你的行为已被记录！！"),
+	EMAIL_REQUEST_ERROR(40000000005L,"邮箱格式不正确"),
+	MOBILE_REQUEST_ERROR(40000000006L,"手机号格式不正确"),
+	MOBILE_EMAIL_REQUEST_ERROR(40000000007L,"手机号或邮箱格式不正确"),
 	/**
 	 * 未登录
 	 */

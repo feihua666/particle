@@ -47,7 +47,12 @@ const getSelectedData = ()=>{
 
   return r
 }
-
+const isCheckedEmpty = (checkedIds)=>{
+  if(!checkedIds){
+    return true
+  }
+  return checkedIds.length == 0
+}
 defineExpose({
   getSelectedData
 })
@@ -56,6 +61,9 @@ defineExpose({
   <el-tabs v-model="activeName">
     <template v-for="item in funcApplications" :key="item.id">
       <el-tab-pane :label="item.name" :name="item.code">
+        <template #label v-if="!isCheckedEmpty(getCheckedFuncIds(item.id))">
+          <el-badge type="success" is-dot class="pt-message-template-content-detail-json-badge">{{ item.name }}</el-badge>
+        </template>
         <TenantCreateApplyFuncApplicationAssignFunc
             ref="funcApplicationAssignFuncRef"
             :funcApplicationId="item.id"
@@ -72,4 +80,9 @@ defineExpose({
 
 <style scoped>
 
+</style>
+<style>
+.pt-message-template-content-detail-json-badge .el-badge__content.is-fixed{
+  top: .8rem;
+}
 </style>

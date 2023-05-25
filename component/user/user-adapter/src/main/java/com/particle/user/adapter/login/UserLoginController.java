@@ -65,6 +65,23 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> login( @Valid LoginCommand loginCommand){
 		return SingleResponse.buildSuccess();
 	}
+
+
+	/**
+	 * 动态验证码登录接口，这里只为了出接口文档 具体处理逻辑已经在 spring security 中处理
+	 * @param loginCommand
+	 * @return
+	 */
+	@ApiOperation("动态验证码登录")
+	@ApiImplicitParams({
+			// header 参见{@link ParameterType}
+			@ApiImplicitParam(name = UserAuthenticationResultServiceImpl.login_header_device_id,value = "设备id，在登录日志是使用",paramType="header")
+	})
+	@PostMapping(value=UserDefaultLoginCustomWebSecurityConfigure.login_captcha_url,consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public SingleResponse<LoginUser> dynamicCaptchaLogin( @Valid LoginCommand loginCommand){
+		return SingleResponse.buildSuccess();
+	}
+
 	/**
 	 * 登录接口，这里只为了出接口文档 具体处理逻辑已经在 spring security 中处理
 	 * @return
@@ -79,11 +96,11 @@ public class UserLoginController {
 	@Data
 	public static class LoginCommand{
 		@NotEmpty(message = "登录用户名不能为空")
-		@ApiModelProperty(value = "登录用户名",required = true)
+		@ApiModelProperty(value = "登录用户名,动态验证码登录时支持邮件和手机号",required = true)
 		private String username;
 
 		@NotEmpty(message = "登录用户密码不能为空")
-		@ApiModelProperty(value = "登录用户密码",required = true)
+		@ApiModelProperty(value = "登录用户密码，动态验证码登录时为动态验证码",required = true)
 		private String password;
 
 
@@ -96,7 +113,7 @@ public class UserLoginController {
 		/**
 		 * 该字段名和 {@link CaptchaVerifyCommand#captchaValueFieldName}保持一致
 		 */
-		@ApiModelProperty("用户输入值,在开启验证码时必填")
+		@ApiModelProperty("用户输入值,在开启验证码时必填、动态验证码登录时必填")
 		private String captchaValue;
 	}
 	@ApiOperation("判断用户是否登录")

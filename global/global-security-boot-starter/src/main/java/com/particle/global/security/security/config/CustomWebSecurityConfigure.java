@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public interface CustomWebSecurityConfigure {
 
-    default void configure(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {};
+    default void configure(HttpSecurity http, AuthenticationManager authenticationManager,CustomWebSecurityConfigureExt ext) throws Exception {};
 
-    default void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {}
+    default void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder,CustomWebSecurityConfigureExt ext) throws Exception {}
 }

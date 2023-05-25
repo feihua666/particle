@@ -18,11 +18,6 @@ import java.time.LocalDateTime;
 public class AbstractMessageEvent<T> extends DTO {
 
 	/**
-	 * 默认不走消息中间件，走本地消息监听，适用于本地单机模式
-	 */
-	public static String defaultLocalListenerSyncVirtualMq = "defaultLocalListenerSyncVirtualMq";
-
-	/**
 	 * 状态
 	 */
 	public enum Status{
@@ -42,7 +37,7 @@ public class AbstractMessageEvent<T> extends DTO {
 	 * 在rabbit中应该是一个交换机名称
 	 * 在kafka或rocketMq中应该是一个topic
 	 */
-	private String mq = defaultLocalListenerSyncVirtualMq;
+	private String mq;
 
 	/**
 	 * 消费业务标识字符串，用来标识是什么消息
@@ -56,14 +51,9 @@ public class AbstractMessageEvent<T> extends DTO {
 	private String status;
 
 
-
-	public AbstractMessageEvent(String identifier,T data) {
+	public AbstractMessageEvent(String identifier,T data, String mq) {
 		this.identifier = identifier;
 		this.data = data;
-	}
-
-	public AbstractMessageEvent(String identifier,T data, String mq) {
-		this(identifier, data);
 		this.mq = mq;
 	}
 
@@ -86,4 +76,44 @@ public class AbstractMessageEvent<T> extends DTO {
 		return this.getClass().getSimpleName() + "[" + messageId + "]";
 	}
 
+
+	/**
+	 * 填充默认值，主要用于新建一个新的事件对象
+	 * @param newEvent 新 new 的对象
+	 * @param originEvent 原来的对象
+	 */
+	public void fillDefault(AbstractMessageEvent newEvent,AbstractMessageEvent originEvent) {
+		newEvent.setMessageId(originEvent.getMessageId());
+		newEvent.setMessageCreatedAt(originEvent.getMessageCreatedAt());
+	}
+
+	/**
+	 * 全部字典填充
+	 * @param newEvent
+	 * @param originEvent
+	 */
+	public void fillAll(AbstractMessageEvent newEvent,AbstractMessageEvent originEvent) {
+		fillDefault(newEvent, originEvent);
+		newEvent.setData(originEvent.getData());
+		newEvent.setIdentifier(originEvent.getIdentifier());
+		newEvent.setMq(originEvent.getMq());
+	}
+
+
+	/**
+	 * 填充默认值，主要用于将另一个对象的默认值填充到本对象
+	 * @param originEvent 原来的对象
+	 */
+	public void fillDefault(AbstractMessageEvent originEvent) {
+		fillDefault(this,originEvent);
+	}
+
+	/**
+	 * 全部字段填充
+	 * @param originEvent
+	 */
+	public void fillAll(AbstractMessageEvent originEvent) {
+		fillDefault(originEvent);
+		fillAll(this,originEvent);
+	}
 }

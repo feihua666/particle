@@ -13,6 +13,11 @@ import lombok.Data;
  */
 @Data
 public class BigDatasourceProxyConfig extends DTO {
+
+	/**
+	 * 是否使用代理
+	 */
+	private Boolean useProxy;
 	/**
 	 * 代理地址
 	 */

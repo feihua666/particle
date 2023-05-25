@@ -1,0 +1,3 @@
+-- import classpath:db/schema.component_message.sql
+-- import classpath:db/schema.component_message_template.sql
+-- import classpath:db/schema.component_message_user_state.sql

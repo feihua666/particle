@@ -74,7 +74,7 @@ public class JdbcTemplateMessageEventDao implements MessageEventRepository {
         try {
             return jdbcTemplate.queryForObject(sql, of("id", eventId), mapper);
         } catch (EmptyResultDataAccessException e) {
-            log.error("get by eventId.return null instead",e);
+            log.trace("get by eventId.return null instead",e);
             return null;
         }
     }

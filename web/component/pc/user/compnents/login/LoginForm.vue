@@ -82,7 +82,7 @@ if (props.useCaptcha) {
       name: ''
     },
     element: {
-      comp: 'el-image',
+      comp: 'PtImage',
       formItemProps: {
         label: '',
       },

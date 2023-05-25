@@ -1,4 +1,4 @@
-import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi";
+import {nextTick} from 'vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import {treeQueryComps} from "../../../treeQueryComps";
 import {useCascaderFuncCompItem, useSelectFuncGroupCompItem} from "../funcCompItem";
@@ -73,7 +73,7 @@ export const useAddPageFormItems = ({formData}) => {
                 }
             }
         },
-        useSelectFuncGroupCompItem({}),
+        useSelectFuncGroupCompItem({required: true}),
         {
             field: {
                 name: 'icon',
@@ -146,7 +146,13 @@ export const useAddPageFormItems = ({formData}) => {
                 }
             }
         },
-        useCascaderFuncCompItem({}),
+        useCascaderFuncCompItem({valueChange: ({form,formData})=>{
+           nextTick(()=>{
+               if(formData.parentId){
+                   form.componentOf = formData.parentId.componentOf
+               }
+           })
+            }}),
 
         {
             field: {

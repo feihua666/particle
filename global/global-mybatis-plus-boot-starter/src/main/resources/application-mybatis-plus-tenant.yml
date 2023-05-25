@@ -23,9 +23,16 @@ particle:
       - component_area
       - component_op_log
       - component_op_log_audit_data
-      # 埋点数据系统级别
+      # 埋点数据是系统级别的数据
       - component_tracking_page
       - component_tracking_page_record
+      # 数据查询数据相当于开发的功能为系统级别的数据
+      - component_data_query_data_api
+      - component_data_query_datasource
+      - component_data_query_datasource_api
+      - component_data_query_provider
+      # 消息模板
+      - component_message_template
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

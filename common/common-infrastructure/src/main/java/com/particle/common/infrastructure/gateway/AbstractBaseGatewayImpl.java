@@ -1,6 +1,7 @@
 package com.particle.common.infrastructure.gateway;
 
 import com.particle.common.domain.AggreateRoot;
+import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.common.domain.id.Id;
 import com.particle.global.messaging.event.api.MessageEventSender;
@@ -40,4 +41,11 @@ public abstract class AbstractBaseGatewayImpl<ID extends Id,AR extends AggreateR
 	 * @return
 	 */
 	public abstract boolean doSave(AR ar);
+
+	@Override
+	public void sendDomainEvents(List<DomainEvent> domainEventList) {
+
+		log.info("send domain events only size={}",domainEventList.size());
+		messageEventSender.sendBatch((List)domainEventList);
+	}
 }

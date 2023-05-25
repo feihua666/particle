@@ -55,5 +55,12 @@
             <artifactId>global-security-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 为动态验证码提供支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-messaging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

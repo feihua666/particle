@@ -5,13 +5,9 @@
 import {reactive ,ref} from 'vue'
 import {list as funcListApi} from "../../../../../func/api/admin/funcAdminApi";
 import {
-  funcApplicationAssignFunc,
-} from "../../../../../func/api/admin/funcApplicationFuncRelAdminApi";
-import {
   remoteSelectFuncApplicationCompItem,
   remoteSelectFuncApplicationProps
 } from "../../../../../func/compnents/application/funcApplicationCompItem";
-import {defineExpose} from "@vue/runtime-core";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -69,19 +65,6 @@ const formComps = ref(
     ]
 )
 
-// 提交按钮属性
-const submitAttrs = ref({
-  buttonText: '确认',
-  permission: 'admin:web:funcApplicationFuncRel:funcApplicationAssignFunc',
-})
-// 提交按钮
-const submitMethod = () => {
-  return funcApplicationAssignFunc
-}
-// 成功提示语
-const submitMethodSuccess = () => {
-  return '分配成功，请刷新数据查看'
-}
 
 defineExpose({
   form: reactiveData.form
@@ -92,10 +75,7 @@ defineExpose({
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :method="submitMethod()"
-          :methodSuccess="submitMethodSuccess"
           defaultButtonsShow=""
-          :submitAttrs="submitAttrs"
           inline
           :layout="1"
           :comps="formComps">

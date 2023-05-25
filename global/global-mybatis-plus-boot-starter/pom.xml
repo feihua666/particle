@@ -24,9 +24,10 @@
         </dependency>
         <!-- mysql 驱动 版本已在spring 父级指定 -->
         <!-- 默认支持mysql -->
+        <!-- groupId和artifacetId已变更 https://xuxiaowei.blog.csdn.net/article/details/127438773?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-127438773-blog-129404282.235%5Ev36%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-127438773-blog-129404282.235%5Ev36%5Epc_relevant_default_base3&utm_relevant_index=1 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>

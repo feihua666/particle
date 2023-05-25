@@ -165,7 +165,7 @@ public class TenantCreateApply extends AggreateRoot {
 
     /**
      * 创建租户创建申请领域模型对象
-     * @return 租户创建申请领域模型对象，该对应所有属性为空，需要进行初始化操作
+     * @return 租户创建申请领域模型对象，该对象所有属性为空，需要进行初始化操作
      */
     public static TenantCreateApply create(){
         return DomainFactory.create(TenantCreateApply.class);

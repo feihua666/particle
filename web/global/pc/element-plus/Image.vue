@@ -131,6 +131,9 @@ const preview = () => {
     <template #placeholder v-if="$slots.placeholder">
       <slot name="placeholder"></slot>
     </template>
+    <template #placeholder v-if="!$slots.placeholder">
+      <div class="image-slot">加载中<span class="dot">...</span></div>
+    </template>
     <template #error v-if="$slots.error">
       <slot name="error"></slot>
     </template>

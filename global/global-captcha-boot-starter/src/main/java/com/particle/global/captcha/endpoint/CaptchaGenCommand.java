@@ -54,11 +54,12 @@ public class CaptchaGenCommand extends Command {
 	@ApiModelProperty("验证码高度")
 	private Integer height = 48;
 
-	@Max(value = 10,message = "验证码长度最大不能超过10")
-	@Min(value = 2,message = "验证码长度最小不能低于2")
 	@ApiModelProperty("验证码长度")
-	private Integer length = 3;
+	private Integer length;
 
+	/**
+	 * 仅自定义图片时有效 即 {@link CaptchaGenCommand#captchaType} = {@link CaptchaTypeEnum#customImage}
+	 */
 	@ApiModelProperty(value = "文本字符串组合类型",example =
 			(TYPE_DEFAULT + "= 字母数字混合,") +
 					(TYPE_ONLY_NUMBER + "= 纯数字,") +
@@ -66,6 +67,6 @@ public class CaptchaGenCommand extends Command {
 					(TYPE_ONLY_UPPER + "= 纯大写字母,") +
 					(TYPE_ONLY_LOWER + "= 纯小写字母,") +
 					(TYPE_NUM_AND_UPPER + "= 数字大写字母"))
-	private int charType;
+	private Integer charType = TYPE_ONLY_NUMBER;
 	
 }

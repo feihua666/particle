@@ -40,6 +40,7 @@ spring:
         - classpath:db/schema.dept.sql
         - classpath:db/schema.op-log.sql
         - classpath:db/schema.tracking.sql
+        - classpath:db/schema.message.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -57,11 +58,33 @@ spring:
         - classpath:db/data.dept.sql
         - classpath:db/data.op-log.sql
         - classpath:db/data.tracking.sql
+        - classpath:db/data.message.sql
       mode: ALWAYS # ALWAYS NEVER
   servlet:
     multipart:
       max-request-size: 500MB
       max-file-size: 50MB
+  cloud:
+    stream:
+      # binder 们，默认情况下 binders配置不会生效，因为使用了testBinder。需要修改配置 particle.message.testBinder.enabled=false以启用实际的mq中间件binder
+      binders:
+        rabbit:
+          type: rabbit
+        kafka:
+          type: kafka
+      # 通道与binder绑定关系
+      bindings:
+        templatingNoticeMessageConsumer-in-0:
+          destination: templating_notice_message
+        templatingNoticeMessageProducer-out-0:
+          destination: templating_notice_message
+
+      # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
+      default-binder: rabbit
+    # 声名的函数式编程定义，如果使用交互式编程(如：TestController手动发送)发送消息，可以不指定生产者
+    function:
+      # 实现了 java.util.function.Consumer 接口的bean名称消费类
+      definition: templatingNoticeMessageConsumer
 server:
   servlet:
 
@@ -71,17 +94,29 @@ server:
       force: true
 
 particle:
+  # 参见 com.particle.global.projectinfo.ProjectInfo
   project-info:
     component:
       # 后端组件全部启用
       enable:
         all: true
   captcha:
+    # 参见 com.particle.global.captcha.security.CaptchaSecurityFilter
     filter:
       enabled: true
       uris:
         # 登录添加验证码校验
         - /login
+  dynamic-captcha:
+    # 参见 com.particle.global.captcha.security.DynamicCaptchaSecurityFilter
+    filter:
+      enabled: true
+      uris:
+        # 登录添加验证码校验
+        - /loginCaptcha
+    # 参见 com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties
+    notifyIdentifiers:
+      '/loginCaptcha': user_login_dynamic_captcha
   # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
   oss:
     defaultClient: testLocal
@@ -92,3 +127,16 @@ particle:
         endpoint: http://localhost:8080/oss/download
         basePath: /Users/yw/temp/localosstest
         bucketName: localtestbucket
+  # 参见 com.particle.global.notification.GlobalNotificationProperties
+  notification:
+    email:
+      # 邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
+      host: smtp.exmail.qq.com
+      # 邮件服务器的SMTP端口，可选，默认25
+      port: 222
+      # 发件人（必须正确，否则发送失败）
+      from: xxxx@example.com
+      # 用户名，默认为发件人邮箱前缀
+      user:
+      # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
+      pass: xxxx
