@@ -211,16 +211,19 @@ public class HttpClientTool{
                         }
                     }
                 }
-                boolean useProxy = proxyConfig.getUseProxy()!= null && proxyConfig.getUseProxy();
-                if (proxy == null && proxyConfig != null && useProxy ) {
-                    proxy = HttpHost.create(proxyConfig.getProxyAddress() + ":" + proxyConfig.getProxyPort());
+                if (proxyConfig != null) {
+                    boolean useProxy = proxyConfig.getUseProxy()!= null && proxyConfig.getUseProxy();
+                    if (proxy == null && useProxy ) {
+                        proxy = HttpHost.create(proxyConfig.getProxyAddress() + ":" + proxyConfig.getProxyPort());
+                    }
+                    if (StrUtil.isEmpty(proxyUser)) {
+                        proxyUser = proxyConfig.getProxyUsername();
+                    }
+                    if (StrUtil.isEmpty(proxyPassword)) {
+                        proxyPassword = proxyConfig.getProxyPassword();
+                    }
                 }
-                if (StrUtil.isEmpty(proxyUser) && proxyConfig != null) {
-                    proxyUser = proxyConfig.getProxyUsername();
-                }
-                if (StrUtil.isEmpty(proxyPassword) && proxyConfig != null) {
-                    proxyPassword = proxyConfig.getProxyPassword();
-                }
+
 
                 if (proxy != null) {
 
