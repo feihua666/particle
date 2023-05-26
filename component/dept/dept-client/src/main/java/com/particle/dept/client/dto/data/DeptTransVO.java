@@ -8,8 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 部门树 翻译结果
- * 主要是为了解决根据 DeptTreeId 翻译部门名称
+ * 部门 翻译结果
  * </p>
  *
  * @author yw
@@ -18,12 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data
 @ApiModel
-public class DeptTreeTransVO extends AbstractBaseIdVO {
-
-    @ApiModelProperty("部门id")
-    private Long deptId;
-
+public class DeptTransVO extends AbstractBaseIdVO {
     @ApiModelProperty("部门名称")
-    private String deptName;
-
+    private String name;
 }

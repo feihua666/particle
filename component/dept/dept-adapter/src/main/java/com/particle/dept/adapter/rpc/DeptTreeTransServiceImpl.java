@@ -20,13 +20,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 翻译字典实现
+ * 翻译部门树实现
  * @author  yangwei
  * Created at 2020/11/26 18:49
  */
 @Primary
 @Component
-public class DictTreeTransServiceImpl implements ITransService<DeptTreeTransVO,Long> {
+public class DeptTreeTransServiceImpl implements ITransService<DeptTreeTransVO,Long> {
 
     @Autowired
     private IDeptService iDeptService;

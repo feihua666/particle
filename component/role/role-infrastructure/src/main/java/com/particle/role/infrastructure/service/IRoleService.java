@@ -6,6 +6,7 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +34,14 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @return
 	 */
 	List<RoleDO> getByUserId(Long userId, Boolean isDisabled);
+
+	/**
+	 * 根据用户id查询
+	 * @param userIds
+	 * @param isDisabled
+	 * @return key为用户id
+	 */
+	Map<Long,List<RoleDO>> getByUserIds(List<Long> userIds, Boolean isDisabled);
 
 	/**
 	 * 根据功能id查询

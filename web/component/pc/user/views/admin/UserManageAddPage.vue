@@ -6,6 +6,7 @@ import {reactive, ref} from 'vue'
 import {create as userCreateApi, list as userListApi} from "../../api/admin/userAdminApi"
 import {resetPasswordCompItems} from "../../compnents/userCompItem";
 import {addPageFormItems} from "../../compnents/admin/userManage";
+import {componentEnabled} from "../../../../../common/config/componentsConfig";
 
 // 属性
 const reactiveData = reactive({
@@ -16,7 +17,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    addPageFormItems
+    addPageFormItems.filter(item => !!item)
 )
 
 // 提交按钮属性
@@ -44,7 +45,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[1,3,3,3,3,1]"
+          :layout="[1,3,3,3,3,componentEnabled('dept') ? 2 : 1]"
           :comps="formComps">
   </PtForm>
 </template>

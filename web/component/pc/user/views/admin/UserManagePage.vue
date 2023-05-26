@@ -15,29 +15,36 @@ const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
-  formComps: pageFormItems,
+  formComps: pageFormItems.filter(item => !!item),
   tableColumns: [
     {
       prop: 'nickname',
       label: '昵称',
+      width: 100,
       showOverflowTooltip: true
     },
     {
       prop: 'name',
       label: '姓名',
+      width: 80,
+      showOverflowTooltip: true
     },
     {
       prop: 'avatar',
       label: '头像',
-      columnView: 'image'
+      columnView: 'image',
+      width: 50
     },
     {
       prop: 'serialNo',
-      label: '编号'
+      label: '编号',
+      width: 100,
+      showOverflowTooltip: true
     },
     {
       prop: 'genderDictName',
-      label: '性别'
+      label: '性别',
+      width: 50
     },
     {
       prop: 'isVirtual',
@@ -62,15 +69,19 @@ const reactiveData = reactive({
     },
     {
       prop: 'categoryDictName',
-      label: '分类'
+      label: '分类',
+      width: 70,
     },
     {
       prop: 'groupFlag',
-      label: '分组标识'
+      label: '分组标识',
+      width: 70,
     },
     {
       prop: 'sourceFromDictName',
       label: '来源',
+      width: 70,
+      showOverflowTooltip: true
     },
     {
       prop: 'isExpired',
@@ -87,7 +98,7 @@ const reactiveData = reactive({
     {
       prop: 'expireAt',
       label: '过期时间',
-      width: 80,
+      showOverflowTooltip: true
     },
   ],
 

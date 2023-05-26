@@ -1,10 +1,10 @@
 package com.particle.dept.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.dept.adapter.feign.client.rpc.DeptTreeTransRpcFeignClient;
-import com.particle.dept.client.api.IDeptApplicationService;
 import com.particle.dept.adapter.feign.client.rpc.DeptRpcFeignClient;
-import com.particle.dept.client.dto.data.DeptTreeTransVO;
+import com.particle.dept.adapter.feign.client.rpc.DeptTransRpcFeignClient;
+import com.particle.dept.client.api.IDeptApplicationService;
+import com.particle.dept.client.dto.data.DeptTransVO;
 import com.particle.global.trans.result.TransResult;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +26,21 @@ import java.util.Set;
 @Api(tags = "部门远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dept")
-public class DeptRpcController extends AbstractBaseRpcAdapter implements DeptRpcFeignClient, DeptTreeTransRpcFeignClient {
+public class DeptRpcController extends AbstractBaseRpcAdapter implements DeptRpcFeignClient, DeptTransRpcFeignClient {
 
 	@Autowired
 	private IDeptApplicationService iDeptApplicationService;
 
 	@Autowired
-	private DictTreeTransServiceImpl dictTreeTransService;
+	private DeptTransServiceImpl deptTransService;
 
 	@Override
 	public boolean supportBatch(String type) {
-		return dictTreeTransService.supportBatch(type);
+		return deptTransService.supportBatch(type);
 	}
 
 	@Override
-	public List<TransResult<DeptTreeTransVO, Long>> transBatch(String type, Set<Long> keys) {
-		return dictTreeTransService.transBatch(type, keys);
+	public List<TransResult<DeptTransVO, Long>> transBatch(String type, Set<Long> keys) {
+		return deptTransService.transBatch(type, keys);
 	}
 }

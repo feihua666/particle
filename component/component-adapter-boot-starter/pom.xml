@@ -37,6 +37,8 @@
             <scope>provided</scope>
         </dependency>
         <!-- 获取用户权限实现 -->
+        <!-- 用来监听用户添加可以添加角色 -->
+
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>func-adapter</artifactId>
@@ -79,5 +81,6 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 </project>

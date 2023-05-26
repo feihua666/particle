@@ -1,4 +1,6 @@
 import {resetPasswordCompItems} from "../userCompItem";
+import {componentEnabled} from "../../../../../common/config/componentsConfig";
+import {useCascaderDeptCompItem} from "../../../dept/compnents/deptCompItem";
 
 export const pageFormItems = [
     {
@@ -93,6 +95,13 @@ export const pageFormItems = [
             }
         }
     },
+    componentEnabled('dept') ? useCascaderDeptCompItem(
+        {
+            fieldName: 'deptId',
+            required: false,
+            label: '部门'
+        }
+    ) : null,
 ]
 
 export const addPageFormItems = [
@@ -316,7 +325,13 @@ export const addPageFormItems = [
             }
         }
     },
-
+    componentEnabled('dept') ? useCascaderDeptCompItem(
+        {
+            fieldName: 'deptId',
+            required: false,
+            label: '部门'
+        }
+        ) : null,
     //  以下为账号信息
     {
         field: {
@@ -589,4 +604,11 @@ export const updatePageFormItems = [
             }
         }
     },
+    componentEnabled('dept') ? useCascaderDeptCompItem(
+        {
+            fieldName: 'deptId',
+            required: false,
+            label: '部门'
+        }
+    ) : null,
 ]

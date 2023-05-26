@@ -3,6 +3,7 @@ package com.particle.user.app.structmapping;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.user.client.dto.data.UserWithRoleVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierResetPasswordCommand;
 import com.particle.user.client.identifier.dto.command.UserResetPwdCommand;
 import com.particle.user.domain.User;
@@ -84,4 +85,12 @@ public abstract class UserAppStructMapping  implements IBaseQueryCommandMapStruc
 
 
 	public abstract UserIdentifierResetPasswordCommand userResetPasswordCommandToUserIdentifierResetPasswordCommand(UserResetPwdCommand userResetPasswordCommand);
+
+	/**
+	 * 用户vo转带角色信息的vo
+	 * @param userVO
+	 * @return
+	 */
+	public abstract UserWithRoleVO mapUserWithRoleVO(UserVO userVO);
+
 }

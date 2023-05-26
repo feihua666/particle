@@ -2,6 +2,7 @@ package com.particle.component.adapter;
 
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.user.DeptUserServiceListener;
+import com.particle.component.adapter.user.RoleUserAddServiceListener;
 import com.particle.component.adapter.user.TenantUserUserAddServiceListener;
 import com.particle.component.adapter.user.login.*;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
@@ -46,6 +47,15 @@ public class ComponentAdapterAutoConfiguration {
 			return new UserAuthorityServiceImpl();
 		}
 
+		/**
+		 * 用户添加时支持添加角色
+		 * @return
+		 */
+		@Bean
+		@ConditionalOnBean(IRoleService.class)
+		public RoleUserAddServiceListener roleUserAddServiceListener(){
+			return new RoleUserAddServiceListener();
+		}
 	}
 
 	/**

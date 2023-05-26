@@ -16,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -70,6 +73,28 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 			return Collections.emptyList();
 		}
 		return getByRoleIds(roleIds,isDisabled);
+	}
+
+	@Override
+	public Map<Long, List<RoleDO>> getByUserIds(List<Long> userIds, Boolean isDisabled) {
+		List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByUserIds(userIds);
+		if (CollectionUtil.isEmpty(roleUserRelDOS)) {
+			return Collections.emptyMap();
+		}
+		List<Long> roleIds = roleUserRelDOS.stream().map(RoleUserRelDO::getRoleId).collect(Collectors.toList());
+		List<RoleDO> roleDOS = getByRoleIds(roleIds, isDisabled);
+		if (CollectionUtil.isEmpty(roleDOS)) {
+			return Collections.emptyMap();
+		}
+		// key = userId，value = roleIds
+		Map<Long, List<Long>> roleUserRelDOSGroupingBy = roleUserRelDOS.stream().collect(Collectors.groupingBy(RoleUserRelDO::getUserId, Collectors.mapping(RoleUserRelDO::getRoleId, Collectors.toList())));
+
+		Map<Long, List<RoleDO>> result = new HashMap<>(roleUserRelDOSGroupingBy.size());
+
+		for (Map.Entry<Long, List<Long>> longListEntry : roleUserRelDOSGroupingBy.entrySet()) {
+			result.put(longListEntry.getKey(), roleDOS.stream().filter(roleDO -> longListEntry.getValue().contains(roleDO.getId())).collect(Collectors.toList()));
+		}
+		return result;
 	}
 
 	@Override

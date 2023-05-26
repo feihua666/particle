@@ -1,4 +1,4 @@
-package com.particle.dept.client.dto.data;
+package com.particle.role.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import io.swagger.annotations.ApiModel;
@@ -8,8 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 部门树 翻译结果
- * 主要是为了解决根据 DeptTreeId 翻译部门名称
+ * 角色 翻译结果
  * </p>
  *
  * @author yw
@@ -18,12 +17,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data
 @ApiModel
-public class DeptTreeTransVO extends AbstractBaseIdVO {
+public class RoleTransVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("部门id")
-    private Long deptId;
+    @ApiModelProperty("角色编码")
+    private String code;
 
-    @ApiModelProperty("部门名称")
-    private String deptName;
-
+    @ApiModelProperty("角色名称")
+    private String name;
 }

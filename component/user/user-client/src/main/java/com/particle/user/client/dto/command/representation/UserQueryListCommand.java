@@ -57,5 +57,9 @@ public class UserQueryListCommand extends AbstractBaseQueryCommand {
 
     @ApiModelProperty("是否过期，过期后该密码不能登录")
     private Boolean isExpired;
-    
+
+
+
+    @ApiModelProperty("是否包含角色信息响应")
+    private Boolean isIncludeRoleInfo;
 }

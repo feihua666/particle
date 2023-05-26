@@ -60,6 +60,7 @@ public @interface TransBy {
      * 当翻译结果是一个对象时，可以使用该字段取对象的一个属性值
      * 当翻译结果是一个集合时，可以使用集合中该字段取对象的一个属性值 仅支持List集合
      * type= {@link com.particle.global.trans.api.impl.TableNameTransServiceImpl#TRANS_BY_TABLE_NAME} 即 {@link TransConstants#defaultTransType}  必填
+     * 其它类型，请根据实际返回的结果确定，如果返回的是对象 或集合中的项是对象则需要填写对应的字段名
      * @return
      */
     String mapValueField() default "";

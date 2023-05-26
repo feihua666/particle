@@ -8,6 +8,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.adapter.tool.PasswordTool;
+import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.api.IUserApplicationService;
 import com.particle.user.client.api.representation.IUserRepresentationApplicationService;
 import com.particle.user.client.dto.command.UserCreateCommand;
@@ -15,12 +16,17 @@ import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
+import com.particle.user.client.dto.data.UserWithRoleVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * 用户后台管理pc或平板端前端适配器
@@ -84,14 +90,27 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("列表查询用户")
 	@GetMapping("/list")
 	public MultiResponse<UserVO> queryList(UserQueryListCommand userQueryListCommand){
-		return iUserRepresentationApplicationService.queryList(userQueryListCommand);
+		MultiResponse<UserVO> userVOMultiResponse = iUserRepresentationApplicationService.queryList(userQueryListCommand);
+
+		if (userVOMultiResponse.isNotEmpty() && userQueryListCommand.getIsIncludeRoleInfo() != null && userQueryListCommand.getIsIncludeRoleInfo()) {
+			List<UserVO> collect = userVOMultiResponse.getData().stream().map(item -> UserAppStructMapping.instance.mapUserWithRoleVO(item)).collect(Collectors.toList());
+			userVOMultiResponse.setData(collect);
+		}
+		return userVOMultiResponse;
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:pageQuery')")
 	@ApiOperation("分页查询用户")
 	@GetMapping("/page")
 	public PageResponse<UserVO> pageQueryList(UserPageQueryCommand userPageQueryCommand){
-		return iUserRepresentationApplicationService.pageQuery(userPageQueryCommand);
+
+		PageResponse<UserVO> userVOPageResponse = iUserRepresentationApplicationService.pageQuery(userPageQueryCommand);
+		if (userVOPageResponse.isNotEmpty() && userPageQueryCommand.getIsIncludeRoleInfo() != null && userPageQueryCommand.getIsIncludeRoleInfo()) {
+			List<UserVO> collect = userVOPageResponse.getData().stream().map(item -> UserAppStructMapping.instance.mapUserWithRoleVO(item)).collect(Collectors.toList());
+			userVOPageResponse.setData(collect);
+		}
+		return userVOPageResponse;
 	}
+
 
 }

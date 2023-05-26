@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi,
   list as userListApi
 } from "../../api/admin/userAdminApi"
-import {updatePageFormItems} from "../../compnents/admin/userManage";
+import {addPageFormItems, updatePageFormItems} from "../../compnents/admin/userManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -29,7 +29,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    updatePageFormItems
+    updatePageFormItems.filter(item => !!item)
 )
 
 // 提交按钮属性

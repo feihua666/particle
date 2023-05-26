@@ -18,4 +18,7 @@ public class TransConstants {
 	public static final String TRANS_USER_BY_ID = "TRANS_USER_BY_ID";
 	public static final String TRANS_FUNC_BY_ID = "TRANS_FUNC_BY_ID";
 	public static final String TRANS_DEPT_TREE_BY_ID = "TRANS_DEPT_TREE_BY_ID";
+	public static final String TRANS_DEPT_BY_ID = "TRANS_DEPT_BY_ID";
+	public static final String TRANS_ROLE_BY_ID = "TRANS_ROLE_BY_ID";
+	public static final String TRANS_ROLE_BY_USER_ID = "TRANS_ROLE_BY_USER_ID";
 }

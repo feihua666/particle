@@ -12,6 +12,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2022-07-19
  */
-@FeignClient(name = "${particle.feign-client.name.dept:dept}",path = "/rpc/dept")
+@FeignClient(name = "${particle.feign-client.name.dept:dept}",path = "/rpc/dept_tree")
 public interface DeptTreeTransRpcFeignClient extends ITransService<DeptTreeTransVO,Long> {
 }

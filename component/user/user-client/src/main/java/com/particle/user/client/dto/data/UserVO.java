@@ -47,6 +47,10 @@ public class UserVO extends AbstractBaseIdVO {
     @ApiModelProperty("部门id")
     private Long deptId;
 
+    @TransBy(type = TransConstants.TRANS_DEPT_BY_ID,byFieldName = "deptId",mapValueField = "name")
+    @ApiModelProperty("部门名称")
+    private String deptName;
+
     @ApiModelProperty("是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
     private Boolean isVirtual;
 

@@ -75,7 +75,7 @@ public class IdentifierLoginController {
 	@PreAuthorize("hasAuthority('user')")
 	@GetMapping("/identifierMobile")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<UserIdentifierVO> identifierEmail(@ApiIgnore LoginUser loginUser) {
+	public MultiResponse<UserIdentifierVO> identifierMobile(@ApiIgnore LoginUser loginUser) {
 		Long identityTypeDictId = userDictGateway.getDictIdByGroupCodeAndItemValue(
 				UserAccountType.Group.user_account_type.groupCode(),
 				UserAccountType.front_mobile.itemValue());

@@ -9,6 +9,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -97,4 +98,8 @@ public class UserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("分组标识")
     private String identifierGroupFlag;
 
+    /**
+     * 角色id，在依赖 角色 组件时可用
+     */
+    private List<Long> roleIds;
 }
