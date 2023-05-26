@@ -48,8 +48,7 @@ export const usePageFormItems = ({props}) => {
         useRemoteSelectUserCompItem({props,required: false}),
     ]
 }
-
-export const useAddPageFormItems = ({props}) => {
+export const useBindPageFormItems = ({props}) => {
     return  [
         useRemoteSelectUserCompItem({props,required: true}),
         {
@@ -181,6 +180,12 @@ export const useAddPageFormItems = ({props}) => {
             }
         },
 
+    ]
+}
+
+export const useAddPageFormItems = ({props}) => {
+    return  [
+        ...useBindPageFormItems({props}),
         ...resetPasswordCompItems
     ]
 }

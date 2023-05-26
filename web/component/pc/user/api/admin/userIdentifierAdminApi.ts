@@ -11,6 +11,13 @@ export const create = (data: anyObj): AxiosPromise => {
     return axios.post(prefix + '/create',data)
 }
 /**
+ * 绑定用户登录标识
+ * @param data
+ */
+export const createBind = (data: anyObj): AxiosPromise => {
+    return axios.post(prefix + '/createBind',data)
+}
+/**
  * 删除用户登录标识
  * @param data
  */

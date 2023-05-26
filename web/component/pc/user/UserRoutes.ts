@@ -54,6 +54,21 @@ const UserRoutes = [
                 }
             },
             {
+                path: '/admin/userIdentifierManageBindFixed',
+                component: () => import('./views/admin/UserIdentifierManageBindPage.vue'),
+                props: route => ({ userId: route.query.userId,userNickname: route.query.nickname }),
+
+                meta: {
+                    showInDrawer: true,
+                    code:'adminUserIdentifierManageBind',
+                    name: '用户登录标识绑定',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
+            {
                 path: '/admin/userPwdManageResetPassword',
                 component: () => import('./views/admin/UserResetPassowordPage.vue'),
                 props: route => ({ userId: route.query.userId }),

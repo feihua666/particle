@@ -29,7 +29,7 @@ const d = [
         type:'primary',
     },
     {
-        pattern:['修改','编辑','更新','保存'],
+        pattern:['修改','编辑','更新','保存','绑定'],
         icon: 'Edit',
         type:'primary',
     },

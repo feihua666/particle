@@ -1,5 +1,6 @@
 package com.particle.user.adapter.login;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,7 +47,15 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
            return null;
         }
         UserDO userDO = iUserService.getById(userIdentifierDO.getUserId());
+
         UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
+        if (userIdentifierPwdDO == null) {
+            // 支持唯一密码登录
+            List<UserIdentifierPwdDO> userIdentifierPwdDOS = iIdentifierPwdService.getByUserId(userDO.getId());
+            if (CollectionUtil.isNotEmpty(userIdentifierPwdDOS) && userIdentifierPwdDOS.size() == 1) {
+                userIdentifierPwdDO = userIdentifierPwdDOS.iterator().next();
+            }
+        }
         LoginUser loginUser = new LoginUser();
 
         // 帐号信息

@@ -122,6 +122,11 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 		return iUserIdentifierPwdApplicationService.identifierResetPassword(userIdentifierResetPasswordCommand);
 	}
 
+	/**
+	 * 会重置用户所有登录标识的密码密码
+	 * @param userResetPasswordCommand
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:user:resetPassword')")
 	@ApiOperation("重置用户密码")
 	@PostMapping("/user/resetPassword")

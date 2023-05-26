@@ -44,18 +44,29 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 		UserIdentifier userIdentifier = createByUserIdentifierCreateCommand(userIdentifierCreateCommand);
 		boolean save = userIdentifierGateway.save(userIdentifier);
 		if (save) {
+			if (userIdentifierPwdCommand != null) {
+				// 添加密码
+				UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(userIdentifier.getUserId(), userIdentifier.getId().getId(),
+						userIdentifierPwdCommand.getPwdEncoded(),
+						userIdentifierPwdCommand.getPwdEncryptFlag(),
+						userIdentifierPwdCommand.getPwdComplexity(),
+						userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
+						userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
+				userIdentifierPwdGateway.save(userIdentifierPwd);
+			}
 
-			// 添加密码
-			UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(userIdentifier.getUserId(), userIdentifier.getId().getId(),
-					userIdentifierPwdCommand.getPwdEncoded(),
-					userIdentifierPwdCommand.getPwdEncryptFlag(),
-					userIdentifierPwdCommand.getPwdComplexity(),
-					userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
-					userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
-			userIdentifierPwdGateway.save(userIdentifierPwd);
 			return SingleResponse.of(UserIdentifierAppStructMapping.instance.toUserIdentifierVO(userIdentifier));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
+
+	/**
+	 * 仅绑定登录标识
+	 * @param userIdentifierCreateCommand
+	 * @return
+	 */
+	public SingleResponse<UserIdentifierVO> createBind(@Valid UserIdentifierCreateCommand userIdentifierCreateCommand) {
+		return execute(userIdentifierCreateCommand, null);
 	}
 
 	/**

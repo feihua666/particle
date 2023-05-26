@@ -40,6 +40,10 @@ public class UserIdentifierVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "identityTypeDictId",mapValueField = "name")
     private String identityTypeDictName;
 
+    @ApiModelProperty("授权类型,字典值")
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "identityTypeDictId",mapValueField = "value")
+    private String identityTypeDictValue;
+
     @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
     private Boolean isLock;
 

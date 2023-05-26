@@ -158,6 +158,14 @@ const getTableRowButtons = ({row, column, $index}) => {
       route: {path: '/admin/userIdentifierManageAddFixed',query: routeQuery},
     },
     {
+      txt: '绑定登录标识',
+      text: true,
+      permission: 'admin:web:userIdentifier:create',
+      position: 'more',
+      // 跳转到编辑
+      route: {path: '/admin/userIdentifierManageBindFixed',query: routeQuery},
+    },
+    {
       txt: '登录标识',
       text: true,
       permission: 'admin:web:userIdentifier:pageQuery',

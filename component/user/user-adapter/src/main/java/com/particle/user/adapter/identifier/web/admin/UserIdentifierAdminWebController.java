@@ -46,6 +46,19 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 		return iUserIdentifierApplicationService.create(userIdentifierCreateCommand, userIdentifierPwdCommand);
 	}
 
+
+	/**
+	 * 绑定用户登录标识不添加登录密码，仅做绑定，这在登录时将会使用唯一密码
+	 * @param userIdentifierCreateCommand
+	 * @return
+	 */
+	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
+	@ApiOperation("仅绑定用户登录标识")
+	@PostMapping("/createBind")
+	public SingleResponse<UserIdentifierVO> createBind(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand){
+		return iUserIdentifierApplicationService.createBind(userIdentifierCreateCommand);
+	}
+
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")
 	@ApiOperation("删除用户登录标识")
 	@DeleteMapping("/delete")

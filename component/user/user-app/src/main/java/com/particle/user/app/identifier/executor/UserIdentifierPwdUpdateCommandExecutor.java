@@ -87,6 +87,11 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 		UserIdentifierPwdDO userIdentifierPwdDO = iUserIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
 
 		if (userIdentifierPwdDO == null) {
+
+			/**
+			 * 注意该编码不能随意修改对应的下面代码有处理逻辑
+			 * {@link UserIdentifierPwdUpdateCommandExecutor#userResetPassword(com.particle.user.client.identifier.dto.command.UserResetPwdCommand)}
+			 */
 			throw ExceptionFactory.bizException(ErrorCodeUserEnum.USER_IDENTIFIER_PASSWORD_NOT_EXIST, "当前登录标识没有密码，请先添加");
 
 		}

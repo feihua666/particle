@@ -41,6 +41,12 @@ public class UserIdentifierApplicationServiceImpl extends AbstractBaseApplicatio
 	}
 
 	@Override
+	public SingleResponse<UserIdentifierVO> createBind(UserIdentifierCreateCommand userIdentifierCreateCommand) {
+		return userIdentifierCreateCommandExecutor.createBind(userIdentifierCreateCommand);
+
+	}
+
+	@Override
 	public SingleResponse<UserIdentifierVO> delete(IdCommand userIdentifierDeleteCommand) {
 		return userIdentifierDeleteCommandExecutor.execute(userIdentifierDeleteCommand);
 	}

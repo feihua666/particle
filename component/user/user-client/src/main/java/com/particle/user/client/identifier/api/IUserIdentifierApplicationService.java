@@ -25,6 +25,13 @@ public interface IUserIdentifierApplicationService extends IBaseApplicationServi
 	SingleResponse<UserIdentifierVO> create(UserIdentifierCreateCommand userIdentifierCreateCommand, UserIdentifierPwdCommand userIdentifierPwdCommand);
 
 	/**
+	 * 仅绑定登录标识，一般用于绑定手机号和邮箱等三方登录
+	 * @param userIdentifierCreateCommand
+	 * @return
+	 */
+	SingleResponse<UserIdentifierVO> createBind(UserIdentifierCreateCommand userIdentifierCreateCommand);
+
+	/**
 	 * 删除领域对象
 	 * @param userIdentifierDeleteCommand
 	 * @return
