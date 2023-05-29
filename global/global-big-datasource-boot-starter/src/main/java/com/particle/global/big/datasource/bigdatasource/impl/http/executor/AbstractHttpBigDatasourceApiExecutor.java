@@ -7,6 +7,7 @@ import com.particle.global.big.datasource.bigdatasource.executor.AbstractBigData
 import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigRequestMethod;
+import com.particle.global.tool.json.JsonTool;
 
 /**
  * <p>
@@ -29,14 +30,25 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = (HttpBigDatasourceApiConfig) config;
 
+		String commandJsonStr = null;
 		if (HttpBigDatasourceApiConfigContentType.application_json == httpBigDatasourceApiConfig.getRequestContentType()) {
-			return executePostJson(bigDatasourceApi, command,queryString);
+			if (command != null) {
+				commandJsonStr = JsonTool.toJsonStr(command);	
+			}
+			
+			return executePostJson(bigDatasourceApi, command,commandJsonStr,queryString);
 		}
 		if (HttpBigDatasourceApiConfigContentType.multipart_form_data == httpBigDatasourceApiConfig.getRequestContentType()) {
-			return executePostFormData(bigDatasourceApi, command,queryString);
+			if (command != null) {
+				commandJsonStr = JsonTool.toJsonStr(command);
+			}
+			return executePostFormData(bigDatasourceApi, command,commandJsonStr,queryString);
 		}
 		if (HttpBigDatasourceApiConfigContentType.application_x_www_form_urlencoded == httpBigDatasourceApiConfig.getRequestContentType()) {
-			return executePostXWwwFormUrlencoded(bigDatasourceApi, command,queryString);
+			if (command != null) {
+				commandJsonStr = JsonTool.toJsonStr(command);
+			}
+			return executePostXWwwFormUrlencoded(bigDatasourceApi, command,commandJsonStr,queryString);
 		}
 		if (HttpBigDatasourceApiConfigContentType.text_plain == httpBigDatasourceApiConfig.getRequestContentType()) {
 			return executePostText(bigDatasourceApi, command,queryString);
@@ -52,17 +64,19 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 	 * 执行 post json 请求
 	 * @param bigDatasourceApi
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	public abstract Object executePostJson(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
+	public abstract Object executePostJson(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString);
 
 	/**
 	 * 执行 post form-data 请求
 	 * @param bigDatasourceApi
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	public abstract Object executePostFormData(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
+	public abstract Object executePostFormData(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString);
 
 	/**
 	 * 执行 post x-www-form-urlencoded 请求
@@ -70,7 +84,7 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 	 * @param command
 	 * @return
 	 */
-	public abstract Object executePostXWwwFormUrlencoded(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
+	public abstract Object executePostXWwwFormUrlencoded(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString);
 
 	/**
 	 * 执行 post text 请求
@@ -94,17 +108,21 @@ public abstract class AbstractHttpBigDatasourceApiExecutor extends AbstractBigDa
 	 * @return
 	 */
 	public Object executeGet(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
-
-		return doExecuteGet(bigDatasourceApi, command,queryString);
+		String commandJsonStr = null;
+		if (command != null) {
+			commandJsonStr = JsonTool.toJsonStr(command);
+		}
+		return doExecuteGet(bigDatasourceApi, command,commandJsonStr,queryString);
 	}
 
 	/**
 	 * 执行get请求
 	 * @param bigDatasourceApi
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	public abstract Object doExecuteGet(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
+	public abstract Object doExecuteGet(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString);
 
 	@Override
 	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {

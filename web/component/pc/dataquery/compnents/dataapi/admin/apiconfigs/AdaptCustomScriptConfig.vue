@@ -60,7 +60,7 @@ const formComps = [
       formItemProps: {
         label: '脚本内容',
         required: true,
-        tips: 'groovy示例：def map = new HashMap();map.put("result1",datasourceApi.invoke("datasourceApiCode",data));map; 以上为接口聚合示例，其中 datasourceApi 包括两个参数 参数1=数据查询数据源接口编码，2=请求参数，data变量为请求参数句柄,最后 map 需要返回处理结果'
+        tips: 'groovy示例：def map = new HashMap();map.put("result1",datasourceApi.invoke("datasourceApiCode",data,queryStr));map; 以上为接口聚合示例，其中 datasourceApi 包括三个参数 参数1=数据查询数据源接口编码，2=请求参数，data变量为请求参数句柄,3=查询字符串参数，最后 map 需要返回处理结果'
       },
       compProps: {
         type: 'textarea',

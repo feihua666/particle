@@ -24,49 +24,49 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 	private HttpBigDatasourceConfig httpBigDatasourceConfig;
 
 	@Override
-	public Object executePostJson(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+	public Object executePostJson(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
-		return bigDatasourceHttpClient.postJson(url, headers,command,queryString);
+		Map<String, String> headers = getHeaders(command,commandJsonStr,queryString);
+		return bigDatasourceHttpClient.postJson(url, headers,command, commandJsonStr,queryString);
 	}
 
 	@Override
-	public Object executePostFormData(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+	public Object executePostFormData(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
-		return bigDatasourceHttpClient.postFormData(url,headers,command,queryString);
+		Map<String, String> headers = getHeaders(command,commandJsonStr,queryString);
+		return bigDatasourceHttpClient.postFormData(url,headers,command, commandJsonStr,queryString);
 	}
 
 	@Override
-	public Object executePostXWwwFormUrlencoded(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+	public Object executePostXWwwFormUrlencoded(BigDatasourceApi bigDatasourceApi, Object command,String commandJsonStr,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
-		return bigDatasourceHttpClient.postXWwwFormUrlencoded(url,headers,command,queryString);
+		Map<String, String> headers = getHeaders(command,commandJsonStr,queryString);
+		return bigDatasourceHttpClient.postXWwwFormUrlencoded(url,headers,command, commandJsonStr,queryString);
 	}
 
 	@Override
 	public Object executePostText(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
+		Map<String, String> headers = getHeaders(command,null,queryString);
 		return bigDatasourceHttpClient.postText(url,headers,command,queryString);
 	}
 
 	@Override
 	public Object executePostXml(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
+		Map<String, String> headers = getHeaders(command,null,queryString);
 		return bigDatasourceHttpClient.postXml(url,headers,command,queryString);
 	}
 
 	@Override
-	public Object doExecuteGet(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+	public Object doExecuteGet(BigDatasourceApi bigDatasourceApi, Object command,String  commandJsonStr,String queryString) {
 		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,queryString);
-		return bigDatasourceHttpClient.get(url,headers,command,queryString);
+		Map<String, String> headers = getHeaders(command,commandJsonStr,queryString);
+		return bigDatasourceHttpClient.get(url,headers,command, commandJsonStr,queryString);
 	}
 
-	private Map<String, String> getHeaders(Object command,String queryString) {
-		Map<String, String> map = httpBigDatasourceConfig.renderAuthHeaders(command, queryString);
+	private Map<String, String> getHeaders(Object command,String commandJsonStr,String queryString) {
+		Map<String, String> map = httpBigDatasourceConfig.renderAuthHeaders(command,commandJsonStr, queryString);
 		if (map != null) {
 			return map;
 		}

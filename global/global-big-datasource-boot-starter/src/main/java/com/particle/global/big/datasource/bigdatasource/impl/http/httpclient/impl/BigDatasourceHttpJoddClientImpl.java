@@ -23,50 +23,53 @@ import java.util.Map;
 @Slf4j
 public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient {
 	@Override
-	public Object postJson(String url, Map<String,String> headers, Object command,String queryString) {
-		String body = JsonTool.toJsonStr(command);
+	public Object postJson(String url, Map<String,String> headers, Object command,String  commandJsonStr,String queryString) {
+		String body = commandJsonStr;
 		log.info("postJson. url={},body={},headers={}",url,body,JsonTool.toJsonStr(headers));
 		HttpResponse httpResponse = HttpRequest.post(url)
 				.bodyText(body, "application/json")
+				.queryString(queryString)
 				.header(headers)
 				.send();
 		String result = httpResponse.charset("utf-8").bodyText();
 		log.info("postJson result. result={}",result);
 
-		return adapteResult(httpResponse.contentType(), result);
+		return adaptResult(httpResponse.contentType(), result);
 
 	}
 
 	@Override
-	public Object postFormData(String url,Map<String,String> headers, Object command,String queryString) {
-		String form = JsonTool.toJsonStr(command);
+	public Object postFormData(String url,Map<String,String> headers, Object command,String  commandJsonStr,String queryString) {
+		String form = commandJsonStr;
 		log.info("postFormData. url={},form={},headers={}",url,form,JsonTool.toJsonStr(headers));
 		HttpResponse httpResponse = HttpRequest.post(url)
 				//.form(JsonTool.toJsonStr(command), "multipart/form-data")
 				.form(((Map) command))
+				.queryString(queryString)
 				.header(headers)
 				.send();
 
 		String result = httpResponse.charset("utf-8").bodyText();
 		log.info("postFormData result. result={}",result);
 
-		return adapteResult(httpResponse.contentType(), result);
+		return adaptResult(httpResponse.contentType(), result);
 
 	}
 
 	@Override
-	public Object postXWwwFormUrlencoded(String url, Map<String,String> headers,Object command,String queryString) {
-		String form = JsonTool.toJsonStr(command);
+	public Object postXWwwFormUrlencoded(String url, Map<String,String> headers,Object command,String  commandJsonStr,String queryString) {
+		String form = commandJsonStr;
 		log.info("postXWwwFormUrlencoded. url={},form={},headers={}",url,form,JsonTool.toJsonStr(headers));
 		HttpResponse httpResponse = HttpRequest.post(url)
 				//.bodyText(JsonTool.toJsonStr(command), "application/x-www-form-urlencoded")
 				.form(((Map) command))
+				.queryString(queryString)
 				.header(headers)
 				.send();
 		String result = httpResponse.charset("utf-8").bodyText();
 		log.info("postXWwwFormUrlencoded result. result={}",result);
 
-		return adapteResult(httpResponse.contentType(), result);
+		return adaptResult(httpResponse.contentType(), result);
 
 	}
 
@@ -81,21 +84,23 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	}
 
 	@Override
-	public Object get(String url, Map<String,String> headers,Object command,String queryString) {
+	public Object get(String url, Map<String,String> headers,Object command,String  commandJsonStr,String queryString) {
 		Map<String, String> queryMap = Collections.emptyMap();
 		boolean b = command instanceof Map;
 		if (b) {
 			queryMap = ((Map<String, String>) command);
 		}
-		log.info("get. url={},form={},headers={}",url,JsonTool.toJsonStr(queryMap),JsonTool.toJsonStr(headers));
+		log.info("get. url={},form={},headers={}",url,commandJsonStr,JsonTool.toJsonStr(headers));
 		HttpResponse httpResponse = HttpRequest.get(url)
+				// queryString 必须在前面，会重置内部query
+				.queryString(queryString)
 				.query(queryMap)
 				.header(headers)
 				.send();
 		String result = httpResponse.charset("utf-8").bodyText();
 		log.info("get result. result={}",result);
 
-		return adapteResult(httpResponse.contentType(), result);
+		return adaptResult(httpResponse.contentType(), result);
 	}
 
 
@@ -105,7 +110,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	 * @param result
 	 * @return
 	 */
-	private Object adapteResult(String responseContentType, Object result) {
+	private Object adaptResult(String responseContentType, Object result) {
 		boolean b = responseContentType != null && responseContentType.startsWith("application/json");
 		if (result != null && (result instanceof String) && b) {
 			String string = result.toString().trim();

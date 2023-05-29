@@ -83,7 +83,7 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 	 * @return 空或者null也是有可能返回的
 	 */
 	@SneakyThrows
-	public Map<String, String> renderAuthHeaders(Object command,String queryString) {
+	public Map<String, String> renderAuthHeaders(Object command,String commandJsonStr,String queryString) {
 
 		Map<String, String> result = new HashMap<>();
 
@@ -95,6 +95,7 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 		objectMap.put("headers", result);
 		objectMap.put("username", getUsername());
 		objectMap.put("password", getPassword());
+		objectMap.put("dataJsonStr", commandJsonStr);
 		if (authScriptType == HttpBigDatasourceAuthScriptType.enjoy_template) {
 			// enjoy模板只支持在脚本中设置 headers
 			TemplateTool.render(authScriptTemplate, objectMap);

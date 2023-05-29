@@ -17,27 +17,30 @@ public interface BigDatasourceHttpClient {
 	 * @param url
 	 * @param headers
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	Object postJson(String url, Map<String,String> headers, Object command,String queryString);
+	Object postJson(String url, Map<String,String> headers, Object command, String commandJsonStr,String queryString);
 
 	/**
 	 * post请求form-data
 	 * @param url
 	 * @param headers
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	Object postFormData(String url,Map<String,String> headers,Object command,String queryString);
+	Object postFormData(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString);
 
 	/**
 	 * post请求 x-www-form-urlencoded
 	 * @param url
 	 * @param headers
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	Object postXWwwFormUrlencoded(String url,Map<String,String> headers,Object command,String queryString);
+	Object postXWwwFormUrlencoded(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString);
 
 	/**
 	 * post请求 文本
@@ -62,7 +65,8 @@ public interface BigDatasourceHttpClient {
 	 * @param url
 	 * @param headers
 	 * @param command
+	 * @param commandJsonStr command参数对应的json字符串
 	 * @return
 	 */
-	Object get(String url,Map<String,String> headers,Object command,String queryString);
+	Object get(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString);
 }

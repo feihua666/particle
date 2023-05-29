@@ -127,6 +127,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(param).toRenderMap();
 			renderMap.put("datasourceApi", new DatasourceApiInvoker(this));
+			renderMap.put("queryStr", queryString);
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);
 			DataQueryDataApiCustomScriptAdaptConfig dataQueryDataApiCustomScriptAdaptConfig = dataQueryDataApi.customScriptAdaptConfig();
@@ -168,6 +169,13 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 			this.dataApiQueryGateway = dataApiQueryGateway;
 		}
 
+		/**
+		 * 脚本方法
+		 * @param datasourceApiCode
+		 * @param param
+		 * @param queryString
+		 * @return
+		 */
 		public Object invoke(String datasourceApiCode, Object param,String queryString) {
 			return dataApiQueryGateway.doExecuteByDatasourceApiCode(datasourceApiCode, param,queryString);
 		}
