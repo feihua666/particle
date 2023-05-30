@@ -45,7 +45,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
     private Long tenantTypeDictId;
 
 
-    @ApiModelProperty(value = "申请用户，如果主空意味着联系邮箱和联系电话必须填写一个，将用户创建关联用户")
+    @ApiModelProperty(value = "申请用户，如果为空意味着联系邮箱和联系电话必须填写一个，将用户创建关联用户")
     private Long applyUserId;
 
     /**
@@ -67,8 +67,8 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 	@ApiModelProperty("申请天数")
 	private Integer effectiveDays;
 
-	@ApiModelProperty("失效日期，从什么时候失效")
-	private LocalDateTime invalidAt;
+	@ApiModelProperty("过期时间，从什么时候失效")
+	private LocalDateTime expireAt;
 
 	@ApiModelProperty("额外申请项json，如：应用和功能")
 	private String extJson;

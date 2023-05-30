@@ -1,8 +1,11 @@
 package com.particle.role.app.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCommandExecutor;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.command.RoleCreateCommand;
 import com.particle.role.client.dto.data.RoleVO;
+import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import com.particle.role.domain.Role;
 import com.particle.role.domain.gateway.RoleGateway;
 import com.particle.global.dto.response.SingleResponse;
@@ -30,6 +33,10 @@ import javax.validation.Valid;
 public class RoleCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private RoleGateway roleGateway;
+	/**
+	 * 添加角色时允许分配功能
+	 */
+	private RoleFuncRelCommandExecutor roleFuncRelCommandExecutor;
 
 	/**
 	 * 执行角色添加指令
@@ -41,6 +48,13 @@ public class RoleCreateCommandExecutor  extends AbstractBaseExecutor {
 		role.setAddControl(roleCreateCommand);
 		boolean save = roleGateway.save(role);
 		if (save) {
+			// 如果存在 funcIds，则分配功能
+			if (CollectionUtil.isNotEmpty(roleCreateCommand.getFuncIds())) {
+				RoleAssignFuncCommand roleAssignFuncCommand = new RoleAssignFuncCommand();
+				roleAssignFuncCommand.setRoleId(role.getId().getId());
+				roleAssignFuncCommand.setCheckedFuncIds(roleCreateCommand.getFuncIds());
+				roleFuncRelCommandExecutor.roleAssignFunc(roleAssignFuncCommand);
+			}
 			return SingleResponse.of(RoleAppStructMapping.instance.toRoleVO(role));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -76,5 +90,10 @@ public class RoleCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setRoleGateway(RoleGateway roleGateway) {
 		this.roleGateway = roleGateway;
+	}
+
+	@Autowired
+	public void setRoleFuncRelCommandExecutor(RoleFuncRelCommandExecutor roleFuncRelCommandExecutor) {
+		this.roleFuncRelCommandExecutor = roleFuncRelCommandExecutor;
 	}
 }

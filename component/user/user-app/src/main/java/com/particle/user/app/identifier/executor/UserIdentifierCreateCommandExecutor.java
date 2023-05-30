@@ -42,6 +42,7 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<UserIdentifierVO> execute(@Valid UserIdentifierCreateCommand userIdentifierCreateCommand,@Valid UserIdentifierPwdCommand userIdentifierPwdCommand) {
 		UserIdentifier userIdentifier = createByUserIdentifierCreateCommand(userIdentifierCreateCommand);
+		userIdentifier.changeIdentityTypeDictIdByValueIfNeccesary(userIdentifierCreateCommand.getIdentityTypeDictValue());
 		boolean save = userIdentifierGateway.save(userIdentifier);
 		if (save) {
 			if (userIdentifierPwdCommand != null) {

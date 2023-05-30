@@ -48,8 +48,8 @@ const reactiveData = reactive({
       label: '生效日期',
     },
     {
-      prop: 'invalidAt',
-      label: '失效日期',
+      prop: 'expireAt',
+      label: '过期时间',
     },
     {
       prop: 'masterUserNickname',

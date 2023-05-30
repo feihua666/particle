@@ -50,6 +50,9 @@ public class TenantUserVO extends AbstractBaseIdVO {
     @ApiModelProperty("用户加入时间")
     private LocalDateTime joinAt;
 
+	@ApiModelProperty("是否正式，1=正式，0=试用")
+	private Boolean isFormal;
+
 
     @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "userId",mapValueField = "nickname")
     @ApiModelProperty("昵称，模糊查询")

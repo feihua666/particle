@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 @ApiModel
 public class TenantUserUpdateCommand extends AbstractBaseUpdateCommand {
 
+	@ApiModelProperty("是否正式，1=正式，0=试用")
+	private Boolean isFormal;
+
     @NotNull(message = "用户id 不能为空")
     @ApiModelProperty(value = "用户id",required = true)
     private Long userId;

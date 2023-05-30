@@ -1,7 +1,9 @@
 package com.particle.tenant.infrastructure.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
+import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
@@ -49,14 +51,16 @@ public interface ITenantUserService extends IBaseService<TenantUserDO> {
      * @param tenantId
      * @return
      */
-    default long countByTenantIdIgnoreTenantLimit(Long tenantId,Boolean isLeave) {
+    default long countByTenantIdIgnoreTenantLimit(Long tenantId,Boolean isLeave,Boolean isExpired) {
         Assert.notNull(tenantId,"tenantId 不能为空");
         try {
             // 设置忽略租户插件
             InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).build());
             return count(Wrappers.<TenantUserDO>lambdaQuery()
                     .eq(TenantUserDO::getTenantId, tenantId)
-                    .eq(isLeave != null,TenantUserDO::getIsLeave,isLeave));
+                    .eq(isLeave != null,TenantUserDO::getIsLeave,isLeave)
+                    .eq(isExpired != null,TenantUserDO::getIsExpired,isExpired)
+            );
         } finally {
             InterceptorIgnoreHelper.clearIgnoreStrategy();
         }
@@ -71,16 +75,6 @@ public interface ITenantUserService extends IBaseService<TenantUserDO> {
         Assert.notEmpty(userIds,"userIds 不能为空");
         return list(Wrappers.<TenantUserDO>lambdaQuery().in(TenantUserDO::getUserId, userIds));
     }
-            
-
-
-
-
-
-
-
-
-
 
 
 

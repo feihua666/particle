@@ -19,6 +19,9 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @ApiModel
 public class TenantUserQueryListCommand extends AbstractBaseQueryCommand {
 
+	@ApiModelProperty("是否正式，1=正式，0=试用")
+	private Boolean isFormal;
+
 
 
     @ApiModelProperty(value = "用户id")

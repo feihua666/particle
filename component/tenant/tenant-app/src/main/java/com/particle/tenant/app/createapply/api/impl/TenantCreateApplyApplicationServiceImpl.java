@@ -1,5 +1,6 @@
 package com.particle.tenant.app.createapply.api.impl;
 
+import com.particle.tenant.app.createapply.executor.TenantCreateApplyAuditCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyCreateCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyDeleteCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyUpdateCommandExecutor;
@@ -36,6 +37,7 @@ public class TenantCreateApplyApplicationServiceImpl extends AbstractBaseApplica
 
 	private TenantCreateApplyUpdateCommandExecutor tenantCreateApplyUpdateCommandExecutor;
 
+	private TenantCreateApplyAuditCommandExecutor tenantCreateApplyAuditCommandExecutor;
 
 	@Override
 	public SingleResponse<TenantCreateApplyVO> create(TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand) {
@@ -54,7 +56,7 @@ public class TenantCreateApplyApplicationServiceImpl extends AbstractBaseApplica
 
 	@Override
 	public SingleResponse<TenantCreateApplyVO> audit(TenantCreateApplyAuditCommand tenantCreateApplyAuditCommand) {
-		return tenantCreateApplyUpdateCommandExecutor.audit(tenantCreateApplyAuditCommand);
+		return tenantCreateApplyAuditCommandExecutor.audit(tenantCreateApplyAuditCommand);
 	}
 
 	@Autowired
@@ -70,5 +72,8 @@ public class TenantCreateApplyApplicationServiceImpl extends AbstractBaseApplica
 	public void setTenantCreateApplyUpdateCommandExecutor(TenantCreateApplyUpdateCommandExecutor tenantCreateApplyUpdateCommandExecutor) {
 		this.tenantCreateApplyUpdateCommandExecutor = tenantCreateApplyUpdateCommandExecutor;
 	}
-
+	@Autowired
+	public void setTenantCreateApplyAuditCommandExecutor(TenantCreateApplyAuditCommandExecutor tenantCreateApplyAuditCommandExecutor) {
+		this.tenantCreateApplyAuditCommandExecutor = tenantCreateApplyAuditCommandExecutor;
+	}
 }

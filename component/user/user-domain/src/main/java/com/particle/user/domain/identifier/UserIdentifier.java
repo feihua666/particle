@@ -3,7 +3,12 @@ package com.particle.user.domain.identifier;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.global.exception.Assert;
+import com.particle.user.domain.enums.UserAccountType;
+import com.particle.user.domain.gateway.UserDictGateway;
 import lombok.Data;
+import org.mapstruct.ap.internal.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +23,9 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class UserIdentifier extends AggreateRoot {
+
+	private UserDictGateway userDictGateway;
+
 
 	private UserIdentifierId id;
     /**
@@ -71,6 +79,16 @@ public class UserIdentifier extends AggreateRoot {
     private String lastLoginIp;
 
 
+	public void changeIdentityTypeDictIdByValueIfNeccesary(String identityTypeDictValue) {
+		if (identityTypeDictId != null) {
+			return;
+		}
+		Assert.notEmpty(identityTypeDictValue,"identityTypeDictValue 不能为空");
+
+		Long dictIdByGroupCodeAndItemValue = userDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), identityTypeDictValue);
+		identityTypeDictId = dictIdByGroupCodeAndItemValue;
+	}
+
 	/**
 	 * 创建用户登录标识领域模型对象
 	 * @return 用户登录标识领域模型对象，该对应所有属性为空，需要进行初始化操作
@@ -92,5 +110,11 @@ public class UserIdentifier extends AggreateRoot {
 
 
 		return userIdentifier;
+	}
+
+
+	@Autowired
+	public void setUserDictGateway(UserDictGateway userDictGateway) {
+		this.userDictGateway = userDictGateway;
 	}
 }

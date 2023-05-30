@@ -1,5 +1,6 @@
 package com.particle.global.validation.depend;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -51,7 +53,7 @@ public class DependFieldValidator implements ConstraintValidator<DependField, Ob
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
-        // 不验证空
+        // 不验证空，value为需要验证的对象比如一个 UserCreateCommand
         if (value == null) {
             return true;
         }
@@ -63,8 +65,9 @@ public class DependFieldValidator implements ConstraintValidator<DependField, Ob
                 targetValue
 
         );
-        // 判断字符串相等只考虑了字符串的情况
-        if(dependValue != null && this.equal != null && Objects.equals(dependValue.toString(),this.equal)){
+
+        boolean isAllAny = isAllAny(dependValue, equal);
+        if(isAllAny){
 
             // 验证pattern
             if (targetValue != null && !ReUtil.isMatch(this.pattern,targetValue.toString())) {
@@ -79,5 +82,24 @@ public class DependFieldValidator implements ConstraintValidator<DependField, Ob
     @Autowired
     public void setValidHelper(ValidHelper validHelper) {
         this.validHelper = validHelper;
+    }
+
+
+    public static boolean isEqual(Object dependValue, String equalStr) {
+        return Objects.equals(dependValue,equalStr)
+                || (dependValue instanceof Boolean) && Boolean.toString(((Boolean) dependValue)).equals(equalStr);
+    }
+    public static boolean isNull(Object dependValue, String equalStr) {
+        return "null".equals(equalStr) && dependValue == null;
+    }
+    public static boolean isEmpty(Object dependValue, String equalStr) {
+        return "empty".equals(equalStr)
+                && (dependValue == null
+                    || (dependValue instanceof String && StrUtil.isEmpty(dependValue.toString()))
+                    || (dependValue instanceof Collection && CollectionUtil.isEmpty((Collection)dependValue)));
+    }
+
+    public static boolean isAllAny(Object dependValue, String equalStr) {
+        return isEqual(dependValue, equalStr) || isNull(dependValue, equalStr) || isEmpty(dependValue, equalStr);
     }
 }

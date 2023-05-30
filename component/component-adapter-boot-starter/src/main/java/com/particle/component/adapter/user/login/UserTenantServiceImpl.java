@@ -51,7 +51,7 @@ public class UserTenantServiceImpl implements UserTenantService {
 				// 已生效
 				.filter(item -> item.getEffectiveAt() == null || item.getEffectiveAt().isBefore(now))
 				// 没到截止日期
-				.filter(item -> item.getInvalidAt() == null || item.getInvalidAt().isAfter(now))
+				.filter(item -> item.getExpireAt() == null || item.getExpireAt().isAfter(now))
 
 				.map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName()))
 				.collect(Collectors.toList());

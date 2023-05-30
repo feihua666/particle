@@ -2,6 +2,7 @@ package com.particle.tenant.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.tenant.client.dto.data.TenantLoginVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.domain.Tenant;
 import com.particle.tenant.domain.TenantId;
@@ -79,4 +80,6 @@ public abstract class TenantAppStructMapping  implements IBaseQueryCommandMapStr
 	public abstract TenantDO pageQueryCommandToDO(TenantPageQueryCommand tenantPageQueryCommand);
 
 	public abstract TenantDO queryListCommandToDO(TenantQueryListCommand tenantQueryListCommand);
+
+	public abstract TenantLoginVO TenantVOToTenantLoginVO(TenantVO tenantVO);
 }

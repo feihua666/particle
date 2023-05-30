@@ -4,6 +4,8 @@ import com.particle.user.domain.identifier.UserIdentifier;
 import com.particle.user.domain.identifier.UserIdentifierId;
 import com.particle.common.domain.gateway.IBaseGateway;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户登录标识 防腐层

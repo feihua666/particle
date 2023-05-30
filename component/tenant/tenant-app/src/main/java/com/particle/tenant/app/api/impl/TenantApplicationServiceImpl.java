@@ -1,24 +1,23 @@
 package com.particle.tenant.app.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.tenant.app.createapply.executor.TenantCreateApplyAuditCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyCreateCommandExecutor;
-import com.particle.tenant.app.createapply.executor.TenantCreateApplyUpdateCommandExecutor;
 import com.particle.tenant.app.executor.TenantCreateCommandExecutor;
 import com.particle.tenant.app.executor.TenantDeleteCommandExecutor;
 import com.particle.tenant.app.executor.TenantUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
+import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditPassCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
-import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyUpdateCommand;
 import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
-import com.particle.tenant.client.dto.command.TenantUpdateCommand;
-import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.dto.command.TenantCreateCommand;
+import com.particle.tenant.client.dto.command.TenantUpdateCommand;
 import com.particle.tenant.client.dto.data.TenantVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
 import com.particle.tenant.domain.Tenant;
 import com.particle.tenant.domain.TenantCreateApplyAuditStatus;
 import com.particle.tenant.domain.TenantId;
@@ -29,8 +28,6 @@ import com.particle.tenant.domain.gateway.TenantDictGateway;
 import com.particle.tenant.domain.gateway.TenantGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -52,7 +49,8 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 	private TenantUpdateCommandExecutor tenantUpdateCommandExecutor;
 
 	private TenantCreateApplyCreateCommandExecutor tenantCreateApplyCreateCommandExecutor;
-	private TenantCreateApplyUpdateCommandExecutor tenantCreateApplyUpdateCommandExecutor;
+
+	private TenantCreateApplyAuditCommandExecutor tenantCreateApplyAuditCommandExecutor;
 
 	private TenantGateway tenantGateway;
 	private TenantCreateApplyGateway tenantCreateApplyGateway;
@@ -81,7 +79,7 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 		Long tenantCreateApplyAuditStatusPass = tenantDictGateway.getDictIdByGroupCodeAndItemValue(TenantCreateApplyAuditStatus.Group.tenant_create_apply_audit_status.groupCode(), TenantCreateApplyAuditStatus.audit_pass.itemValue());
 		tenantCreateApplyAuditCommand.setAuditStatusDictId(tenantCreateApplyAuditStatusPass);
 
-		SingleResponse<TenantCreateApplyVO> audit = tenantCreateApplyUpdateCommandExecutor.audit(tenantCreateApplyAuditCommand);
+		SingleResponse<TenantCreateApplyVO> audit = tenantCreateApplyAuditCommandExecutor.audit(tenantCreateApplyAuditCommand);
 		if (tenantCreateApply.checkIsAuditPass()) {
 			// 返回租户信息
 			Tenant tenant = tenantGateway.getById(TenantId.of(tenantCreateApply.getAppliedTenantId()));
@@ -117,10 +115,12 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 	public void setTenantCreateApplyCreateCommandExecutor(TenantCreateApplyCreateCommandExecutor tenantCreateApplyCreateCommandExecutor) {
 		this.tenantCreateApplyCreateCommandExecutor = tenantCreateApplyCreateCommandExecutor;
 	}
+
 	@Autowired
-	public void setTenantCreateApplyUpdateCommandExecutor(TenantCreateApplyUpdateCommandExecutor tenantCreateApplyUpdateCommandExecutor) {
-		this.tenantCreateApplyUpdateCommandExecutor = tenantCreateApplyUpdateCommandExecutor;
+	public void setTenantCreateApplyAuditCommandExecutor(TenantCreateApplyAuditCommandExecutor tenantCreateApplyAuditCommandExecutor) {
+		this.tenantCreateApplyAuditCommandExecutor = tenantCreateApplyAuditCommandExecutor;
 	}
+
 	@Autowired
 	public void setTenantGateway(TenantGateway tenantGateway) {
 		this.tenantGateway = tenantGateway;

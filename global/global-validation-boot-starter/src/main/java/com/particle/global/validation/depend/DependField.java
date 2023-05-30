@@ -41,6 +41,8 @@ public @interface DependField {
 
     /**
      * 表示依赖的字段值与该值相等正则验证 pattern
+     * 支持 null字符串（表示依赖的字段为null）
+     * 支持 empty字符串（表示依赖的字段为empty）仅限依赖的字段为字符串或集合
      * @return
      */
     String ifEqual() default "";

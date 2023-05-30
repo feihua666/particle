@@ -22,7 +22,6 @@ public interface ITenantUserApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<TenantUserVO> create(TenantUserCreateCommand tenantUserCreateCommand);
-
 	/**
 	 * 删除领域对象
 	 * @param deleteCommand

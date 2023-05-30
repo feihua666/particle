@@ -2,6 +2,7 @@ package com.particle.global.exception;
 
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.IErrorCode;
+import org.mapstruct.ap.internal.util.Strings;
 
 import java.util.Collection;
 import java.util.Map;
@@ -147,5 +148,18 @@ public abstract class Assert {
 
 	public static void notEmpty(Map<?, ?> map) {
 		notEmpty(map, "[Assertion failed] Map must not be empty: it must contain at least one entry");
+	}
+
+
+	public static void notEmpty(String str, IErrorCode errorCode) {
+		if (Strings.isEmpty(str)) {
+			throw new BizException(errorCode);
+		}
+	}
+
+	public static void notEmpty(String str, String errMessage) {
+		if (Strings.isEmpty(str)) {
+			throw new BizException(errMessage);
+		}
 	}
 }

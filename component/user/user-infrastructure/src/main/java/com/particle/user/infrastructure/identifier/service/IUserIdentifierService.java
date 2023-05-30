@@ -18,7 +18,7 @@ import java.util.List;
 public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 
 	/**
-	 * 根据编码查询
+	 * 根据登录标识查询
 	 * @param identifier
 	 * @return
 	 */
@@ -26,7 +26,15 @@ public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 		Assert.hasText(identifier,"identifier不能为空");
 		return getOne(Wrappers.<UserIdentifierDO>lambdaQuery().eq(UserIdentifierDO::getIdentifier, identifier));
 	}
-
+	/**
+	 * 根据登录标识查询
+	 * @param identifiers
+	 * @return
+	 */
+	default List<UserIdentifierDO> getByIdentifiers(List<String> identifiers) {
+		Assert.notEmpty(identifiers,"identifiers不能为空");
+		return list(Wrappers.<UserIdentifierDO>lambdaQuery().in(UserIdentifierDO::getIdentifier, identifiers));
+	}
 
 	/**
 	 * 根据用户id查询

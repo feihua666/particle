@@ -98,9 +98,9 @@ public class TenantCreateApply extends AggreateRoot {
 	private Integer effectiveDays;
 
 	/**
-	 * 失效日期，从什么时候失效
+	 * 过期时间，从什么时候失效
 	 */
-	private LocalDateTime invalidAt;
+	private LocalDateTime expireAt;
 
 	/**
 	 * 额外申请项json，如：应用和功能
@@ -128,12 +128,12 @@ public class TenantCreateApply extends AggreateRoot {
 		if (effectiveAt == null) {
 			return;
 		}
-		if (invalidAt != null) {
-			effectiveDays = Long.valueOf( LocalDateTimeUtil.between(effectiveAt, invalidAt).toDays()).intValue();
+		if (expireAt != null) {
+			effectiveDays = Long.valueOf( LocalDateTimeUtil.between(effectiveAt, expireAt).toDays()).intValue();
 			return;
 		}
 		if (effectiveDays != null && effectiveDays != 0) {
-			invalidAt = effectiveAt.plusDays(effectiveDays);
+			expireAt = effectiveAt.plusDays(effectiveDays);
 		}
 	}
     /**

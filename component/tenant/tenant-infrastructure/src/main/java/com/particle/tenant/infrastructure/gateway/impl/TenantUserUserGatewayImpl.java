@@ -10,11 +10,15 @@ import com.particle.user.adapter.feign.client.rpc.UserRpcFeignClient;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.domain.enums.UserCategory;
 import com.particle.user.domain.enums.UserSourceFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,14 +37,21 @@ public class TenantUserUserGatewayImpl implements TenantUserUserGateway {
 
 
 	@Override
-	public Long createUser(String name, String nickname, String identifier,Long identityTypeDictId,String password,String userAddScene) {
+	public Long createUser(String name, String nickname, List<IdentifierParam> identifiers, String password, String userAddScene) {
 		UserCreateCommand userCreateCommand = new UserCreateCommand();
 		// 基本设置
 		userCreateCommand.setName(name);
 		userCreateCommand.setNickname(nickname);
-		userCreateCommand.setIdentifier(identifier);
-		userCreateCommand.setIdentityTypeDictId(identityTypeDictId);
 		userCreateCommand.setScene(userAddScene);
+
+		List<UserIdentifierSimpleCreateCommand> userIdentifierSimpleCreateCommands = identifiers.stream().map(item -> {
+			UserIdentifierSimpleCreateCommand userIdentifierSimpleCreateCommand = new UserIdentifierSimpleCreateCommand();
+			userIdentifierSimpleCreateCommand.setIdentifier(item.getIdentifier());
+			userIdentifierSimpleCreateCommand.setIdentityTypeDictId(item.getIdentityTypeDictId());
+			userIdentifierSimpleCreateCommand.setIdentityTypeDictValue(item.getIdentityTypeDictValue());
+			return userIdentifierSimpleCreateCommand;
+		}).collect(Collectors.toList());
+		userCreateCommand.setIdentifiers(userIdentifierSimpleCreateCommands);
 
 		// 性别 字典
 		SingleResponse<DictVO> genderUnknown = dictRpcFeignClient.getByGroupCodeAndItemValue(Gender.Group.gender.groupCode(), Gender.unknown.itemValue());
@@ -72,6 +83,15 @@ public class TenantUserUserGatewayImpl implements TenantUserUserGateway {
 			return null;
 		}
 		return byIdentifier.getData().getUserId();
+	}
+
+	@Override
+	public String getIdentifierByUserIdAndType(Long userId, Long identityTypeDictId) {
+		SingleResponse<UserIdentifierVO> byUserIdAndType = userIdentifierRpcFeignClient.getByUserIdAndType(userId, identityTypeDictId);
+		if (byUserIdAndType.getData() != null) {
+			return byUserIdAndType.getData().getIdentifier();
+		}
+		return null;
 	}
 
 	@Autowired

@@ -1,9 +1,14 @@
 package com.particle.user.app.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.ExceptionFactory;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.gateway.UserGateway;
 import com.particle.global.dto.response.SingleResponse;
@@ -13,6 +18,8 @@ import com.particle.user.domain.identifier.UserIdentifier;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.gateway.UserIdentifierGateway;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -21,6 +28,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -38,23 +47,39 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	private UserIdentifierGateway userIdentifierGateway;
 	private UserIdentifierPwdGateway userIdentifierPwdGateway;
 
+	private IUserIdentifierService userIdentifierService;
+
 	/**
 	 * 执行用户添加指令
 	 * @param userCreateCommand
 	 * @return
 	 */
 	public SingleResponse<UserVO> execute(@Valid UserCreateCommand userCreateCommand,@Valid UserIdentifierPwdCommand userIdentifierPwdCommand) {
+		// 校验，登录标识是否存在
+		if (CollectionUtil.isNotEmpty(userCreateCommand.getIdentifiers())) {
+			List<String> identifiers = userCreateCommand.getIdentifiers().stream().map(UserIdentifierSimpleCreateCommand::getIdentifier).distinct().collect(Collectors.toList());
+			List<UserIdentifierDO> byIdentifiers = userIdentifierService.getByIdentifiers(identifiers);
+			if (CollectionUtil.isNotEmpty(byIdentifiers)) {
+				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", byIdentifiers.iterator().next().getIdentifier()));
+			}
+		}
+
 		User user = createByUserCreateCommand(userCreateCommand);
 		user.setAddControl(userCreateCommand);
 		boolean save = userGateway.save(user);
 		if (save) {
 			// 添加成功添加账号
-			UserIdentifier userIdentifier = UserIdentifier.create(
-					user.getId().getId(),
-					userCreateCommand.getIdentifier(),
-					userCreateCommand.getIdentityTypeDictId(),
-					userCreateCommand.getGroupFlag()
-			);
+			UserIdentifier userIdentifier = null;
+
+			for (UserIdentifierSimpleCreateCommand identifier : userCreateCommand.getIdentifiers()) {
+				userIdentifier = UserIdentifier.create(
+						user.getId().getId(),
+						identifier.getIdentifier(),
+						identifier.getIdentityTypeDictId(),
+						userCreateCommand.getGroupFlag()
+				);
+				userIdentifier.changeIdentityTypeDictIdByValueIfNeccesary(identifier.getIdentityTypeDictValue());
+			}
 			boolean save1 = userIdentifierGateway.save(userIdentifier);
 			if (save1) {
 				// 添加密码
@@ -110,5 +135,9 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setUserIdentifierPwdGateway(UserIdentifierPwdGateway userIdentifierPwdGateway) {
 		this.userIdentifierPwdGateway = userIdentifierPwdGateway;
+	}
+	@Autowired
+	public void setUserIdentifierService(IUserIdentifierService userIdentifierService) {
+		this.userIdentifierService = userIdentifierService;
 	}
 }

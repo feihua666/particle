@@ -2,6 +2,7 @@ package com.particle.tenant.adapter.web.admin;
 
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.api.ITenantUserApplicationService;
 import com.particle.tenant.client.api.representation.ITenantUserRepresentationApplicationService;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import springfox.documentation.annotations.ApiIgnore;
+
 /**
  * <p>
  * 租户用户后台管理pc或平板端前端适配器
@@ -46,7 +49,10 @@ public class TenantUserAdminWebController extends AbstractBaseWebAdapter {
 	@ApiOperation("添加租户用户")
 	@PostMapping("/create")
 	@OpLog(name = "添加租户用户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
-	public SingleResponse<TenantUserVO> create(@RequestBody TenantUserCreateCommand tenantUserCreateCommand){
+	public SingleResponse<TenantUserVO> create(@RequestBody TenantUserCreateCommand tenantUserCreateCommand, @ApiIgnore LoginUser loginUser){
+		if (tenantUserCreateCommand.getTenantId() == null) {
+			tenantUserCreateCommand.setTenantId(loginUser.getId());
+		}
 		return iTenantUserApplicationService.create(tenantUserCreateCommand);
 	}
 

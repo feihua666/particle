@@ -85,8 +85,8 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
 	@ApiModelProperty("申请天数")
 	private Integer effectiveDays;
 
-	@ApiModelProperty("失效日期，从什么时候失效")
-	private LocalDateTime invalidAt;
+	@ApiModelProperty("过期时间，从什么时候失效")
+	private LocalDateTime expireAt;
 
 	@ApiModelProperty("额外申请项json，如：应用和功能")
 	private String extJson;

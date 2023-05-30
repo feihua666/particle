@@ -75,8 +75,8 @@ public class TenantCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("生效日期，从什么时候开始生效")
     private LocalDateTime effectiveAt;
 
-    @ApiModelProperty("失效日期，从什么时候失效")
-    private LocalDateTime invalidAt;
+    @ApiModelProperty("过期时间，从什么时候失效")
+    private LocalDateTime expireAt;
 
     @NotNull(message = "主用户 不能为空")
     @ApiModelProperty(value = "主用户，一般该用户为租户的超级管理员",required = true)

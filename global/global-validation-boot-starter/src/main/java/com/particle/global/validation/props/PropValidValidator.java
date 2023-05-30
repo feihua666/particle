@@ -41,7 +41,7 @@ public class PropValidValidator implements ConstraintValidator<PropValid, Object
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
-        // 不验证空
+        // 不验证空,value为需要验证的对象比如一个 UserCreateCommand
         if (value == null) {
             return true;
         }

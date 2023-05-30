@@ -91,9 +91,9 @@ public class TenantCreateApplyDO extends BaseDO {
 	private Integer effectiveDays;
 
 	/**
-	 * 失效日期，从什么时候失效
+	 * 过期时间，从什么时候失效
 	 */
-	private LocalDateTime invalidAt;
+	private LocalDateTime expireAt;
 
 	/**
 	 * 额外申请项json，如：应用和功能

@@ -66,8 +66,8 @@ const reactiveData = reactive({
       }
     },
     {
-      prop: 'invalidAt',
-      label: '失效日期',
+      prop: 'expireAt',
+      label: '过期时间',
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? cellValue : '不限制'
         return r

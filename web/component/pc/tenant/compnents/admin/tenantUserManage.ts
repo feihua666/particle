@@ -24,11 +24,11 @@ export const usePageFormItems = ({props}) => {
     useSelectTenantCompItem({}),
   ]
 }
-export const useAddPageFormItems = ({props})=>{
-  return  [
+export const useAddPageFormItems = ({props,isForAdd = false})=>{
+  let r =  [
     useRemoteSelectUserCompItem(
         {props,
-      required: true,
+      required: isForAdd ? false : true,
           valueChange: ({form, formData})=> {
             nextTick(()=>{
               if (formData.userId) {
@@ -154,10 +154,73 @@ export const useAddPageFormItems = ({props})=>{
         }
       }
     },
+    {
+      field: {
+        name: 'isFormal',
+        value: false
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '是否正式',
+          required: true,
+        },
+        compProps: {
+          activeText: '正式',
+          inactiveText: '试用',
+        }
+      }
+    },
 
   ]
+
+  let addOnly = [
+
+    {
+      field: {
+        name: 'userEmail',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '邮箱',
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+          validate: {
+            email: true
+          }
+        },
+        compProps: {
+          placeholder: '邮箱',
+          clearable: true,
+        }
+      }
+    },
+
+    {
+      field: {
+        name: 'userPhone',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '手机号',
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+          validate: {
+            mobile: true
+          }
+        },
+        compProps: {
+          placeholder: '手机号',
+          clearable: true,
+        }
+      }
+    },
+  ]
+  if(isForAdd){
+    r = r.concat(addOnly)
+  }
+  return r
 }
 
 // 更新和添加一致
 export const useUpdatePageFormItems = useAddPageFormItems
-

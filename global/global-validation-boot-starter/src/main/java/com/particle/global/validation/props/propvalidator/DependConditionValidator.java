@@ -4,6 +4,7 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.validation.ValidHelper;
+import com.particle.global.validation.depend.DependFieldValidator;
 import com.particle.global.validation.form.ValidContext;
 import com.particle.global.validation.form.ValidResult;
 import com.particle.global.validation.props.IPropValidator;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * @author yangwei
@@ -37,7 +39,10 @@ public class DependConditionValidator implements IPropValidator<PropValid.Depend
 
         if (dependOnValue != null) {
             boolean r = true;
-            if(annotation.ifEqual().equals(dependOnValue)|| (dependOnValue instanceof Boolean) && annotation.ifEqual().equals(Boolean.toString(((Boolean) dependOnValue)))){
+            String isEqual = annotation.ifEqual();
+
+            boolean isAllAny = DependFieldValidator.isAllAny(dependOnValue, isEqual);
+            if(isAllAny){
                 String pattern = annotation.thenPattern();
                 if(StrUtil.isEmpty(pattern) && !StrUtil.isEmpty(annotation.patternAlias())){
                     pattern = validHelper.getPatternAliasMap().get(annotation.patternAlias());

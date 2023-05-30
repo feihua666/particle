@@ -1,7 +1,10 @@
 package com.particle.tenant.app.executor;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.structmapping.TenantUserAppStructMapping;
@@ -33,12 +36,21 @@ import javax.validation.Valid;
 @Component
 @Validated
 public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
+	/**
+	 * 直接绑定租户用户场景
+	 */
+	public static final String tenantUserAddScene = "tenantUserAddScene";
+
 
 	private TenantUserGateway tenantUserGateway;
 
 	private ITenantService tenantService;
 
 	private ITenantUserService tenantUserService;
+
+
+	private TenantUserHelper tenantUserHelper;
+
 	/**
 	 * 执行租户用户添加指令
 	 * @param tenantUserCreateCommand
@@ -53,16 +65,32 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 		if (byIdIgnoreTenantLimit.getUserLimitCount() != null && byIdIgnoreTenantLimit.getUserLimitCount() > 0) {
 
 			//	统计总人数
-			long count = tenantUserService.countByTenantIdIgnoreTenantLimit(tenantId, false);
+			long count = tenantUserService.countByTenantIdIgnoreTenantLimit(tenantId, false,null);
 			// 实际人数已经达到限制，异常处理
 			if (count >= byIdIgnoreTenantLimit.getUserLimitCount()) {
 
 				throw ExceptionFactory.bizException(ErrorCodeTenantEnum.tenant_user_exceed);
 			}
 		}
+		// 如果添加用户，为用户设置密码，这里没必要先初始化随机密码，等真正使用时初始化
+		String password = null;
+		// 尝试添加用户
+		Long userId = tenantUserCreateCommand.getUserId();
+		if (userId == null) {
+			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
+			Assert.isTrue(StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail()) || StrUtil.isNotEmpty(tenantUserCreateCommand.getUserPhone()), "邮箱和手机号必须填写一个，以用于匹配用户");
+			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserPhone());
 
+			// 还为空直接创建用户
+			if (userId == null) {
+				if (StrUtil.isEmpty(password)) {
+					password = RandomUtil.randomString(16);
+				}
+				userId = tenantUserHelper.createUser(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserPhone(), tenantUserCreateCommand.getName(), password,tenantUserAddScene);
+			}
+		}
 
-
+		tenantUserCreateCommand.setUserId(userId);
 		TenantUser tenantUser = createByTenantUserCreateCommand(tenantUserCreateCommand);
 		tenantUser.changeJoinAtToCurrent();
 		tenantUser.changeIsLeaveToFalseIfNull();
@@ -70,6 +98,15 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 		tenantUser.setAddControl(tenantUserCreateCommand);
 		boolean save = tenantUserGateway.save(tenantUser);
 		if (save) {
+
+			tenantUserHelper.notify(userId,
+					tenantUserCreateCommand.getUserEmail(),
+					tenantUserCreateCommand.getUserPhone(),
+					password,
+					tenantUserCreateCommand.getCurrentUserId(),
+					byIdIgnoreTenantLimit.getIsFormal(),
+					byIdIgnoreTenantLimit.getExpireAt()
+			);
 			return SingleResponse.of(TenantUserAppStructMapping.instance.toTenantUserVO(tenantUser));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -115,5 +152,10 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setTenantUserService(ITenantUserService tenantUserService) {
 		this.tenantUserService = tenantUserService;
+	}
+
+	@Autowired
+	public void setTenantUserHelper(TenantUserHelper tenantUserHelper) {
+		this.tenantUserHelper = tenantUserHelper;
 	}
 }

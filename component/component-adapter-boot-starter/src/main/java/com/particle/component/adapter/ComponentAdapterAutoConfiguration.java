@@ -1,6 +1,8 @@
 package com.particle.component.adapter;
 
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
+import com.particle.component.adapter.tenant.DeptTenantUserServiceListener;
+import com.particle.component.adapter.tenant.RoleTenantUserAddServiceListener;
 import com.particle.component.adapter.user.DeptUserServiceListener;
 import com.particle.component.adapter.user.RoleUserAddServiceListener;
 import com.particle.component.adapter.user.TenantUserUserAddServiceListener;
@@ -56,6 +58,14 @@ public class ComponentAdapterAutoConfiguration {
 		public RoleUserAddServiceListener roleUserAddServiceListener(){
 			return new RoleUserAddServiceListener();
 		}
+
+		@Bean
+		@ConditionalOnBean(IRoleService.class)
+		public RoleTenantUserAddServiceListener roleTenantUserAddServiceListener(){
+			return new RoleTenantUserAddServiceListener();
+		}
+
+
 	}
 
 	/**
@@ -155,6 +165,13 @@ public class ComponentAdapterAutoConfiguration {
 		@ConditionalOnBean({ IDeptUserRelService.class})
 		public DeptUserServiceListener deptUserAddServiceListener(){
 			return new DeptUserServiceListener();
+		}
+
+
+		@Bean
+		@ConditionalOnBean({ IDeptUserRelService.class})
+		public DeptTenantUserServiceListener deptTenantUserServiceListener(){
+			return new DeptTenantUserServiceListener();
 		}
 	}
 }

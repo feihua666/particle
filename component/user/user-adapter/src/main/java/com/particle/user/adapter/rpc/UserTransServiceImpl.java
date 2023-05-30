@@ -6,6 +6,7 @@ import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import com.particle.user.client.dto.data.UserTransVO;
 import com.particle.user.infrastructure.dos.UserDO;
+import com.particle.user.infrastructure.mapper.UserMapper;
 import com.particle.user.infrastructure.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,8 +26,11 @@ import java.util.stream.Collectors;
 @Component
 public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
 
+    /**
+     * 这里使用 mapper 否则有循环依赖问题
+     */
     @Autowired
-    private IUserService userService;
+    private UserMapper userService;
 
     @Override
     public boolean support(String type) {
@@ -36,7 +40,7 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
     @Override
     public TransResult<UserTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID)) {
-            UserDO byId = userService.getById(key);
+            UserDO byId = userService.selectById(key);
             return new TransResult(userMapUserForTrans(byId),key);
         }
         return null;
@@ -50,7 +54,7 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
     @Override
     public List<TransResult<UserTransVO, Long>> transBatch(String type, Set<Long> keys) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_USER_BY_ID)) {
-            return userService.listByIds(keys).stream().map(item->new TransResult<UserTransVO, Long>(userMapUserForTrans(item),item.getId())).collect(Collectors.toList());
+            return userService.selectBatchIds(keys).stream().map(item->new TransResult<UserTransVO, Long>(userMapUserForTrans(item),item.getId())).collect(Collectors.toList());
         }
         return null;
     }

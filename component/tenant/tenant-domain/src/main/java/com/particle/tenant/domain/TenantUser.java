@@ -64,6 +64,11 @@ public class TenantUser extends AggreateRoot {
      */
     private LocalDateTime joinAt;
 
+	/**
+	 * 是否正式，1=正式，0=试用
+	 */
+	private Boolean isFormal;
+
 
     /**
      * 租户id

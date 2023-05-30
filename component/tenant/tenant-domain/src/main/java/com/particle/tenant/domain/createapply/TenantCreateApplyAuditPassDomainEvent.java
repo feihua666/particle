@@ -54,7 +54,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 		private String password;
 		private String mobile;
 		private Boolean isFormal;
-		private LocalDateTime invalidAt;
+		private LocalDateTime expireAt;
 
 		public static DataContent create(
 				String url,
@@ -62,7 +62,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 				String password,
 				String mobile,
 				Boolean isFormal,
-				LocalDateTime invalidAt
+				LocalDateTime expireAt
 		) {
 			DataContent dataContent = new DataContent();
 			dataContent.setUrl(url);
@@ -70,7 +70,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 			dataContent.setPassword(password);
 			dataContent.setMobile(mobile);
 			dataContent.setIsFormal(isFormal);
-			dataContent.setInvalidAt(invalidAt);
+			dataContent.setExpireAt(expireAt);
 			return dataContent;
 		}
 

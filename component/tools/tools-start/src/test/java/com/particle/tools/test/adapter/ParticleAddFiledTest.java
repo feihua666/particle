@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("is_system"));
-		addFieldCommand.setDomainName("Message");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/message");
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("join_at"));
+		addFieldCommand.setDomainName("TenantUser");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/tenant");
 
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("template_message_id"),"消息模板id，用来追踪是哪个模板",Long.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("is_formal"),"是否正式，1=正式，0=试用",Boolean.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

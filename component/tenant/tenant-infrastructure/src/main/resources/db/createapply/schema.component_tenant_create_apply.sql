@@ -16,7 +16,7 @@ CREATE TABLE `component_tenant_create_apply` (
   `user_limit_count` int NULL DEFAULT NULL COMMENT '用户数量限制',
   `effective_at` datetime NULL DEFAULT NULL COMMENT '生效日期，从什么时候开始生效',
   `effective_days` int NULL DEFAULT NULL COMMENT '申请天数',
-  `invalid_at` datetime NULL DEFAULT NULL COMMENT '失效日期，从什么时候失效',
+  `expire_at` datetime NULL DEFAULT NULL COMMENT '过期时间，从什么时候失效',
   `ext_json` mediumtext DEFAULT NULL COMMENT '额外申请项json，如：应用和功能',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',

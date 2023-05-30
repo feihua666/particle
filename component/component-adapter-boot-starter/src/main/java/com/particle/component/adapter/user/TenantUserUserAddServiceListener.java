@@ -3,6 +3,8 @@ package com.particle.component.adapter.user;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
 import com.particle.global.security.tenant.TenantTool;
+import com.particle.tenant.app.createapply.executor.TenantCreateApplyAuditCommandExecutor;
+import com.particle.tenant.app.executor.TenantUserCreateCommandExecutor;
 import com.particle.tenant.client.api.ITenantUserApplicationService;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
@@ -12,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-import static com.particle.tenant.app.createapply.executor.TenantCreateApplyUpdateCommandExecutor.tenantCreateApplyUserAddScene;
 
 /**
  * <p>
@@ -25,7 +26,7 @@ import static com.particle.tenant.app.createapply.executor.TenantCreateApplyUpda
 public class TenantUserUserAddServiceListener implements IAddServiceListener<UserDO> {
 
 	@Autowired
-	private ITenantUserApplicationService iTenantUserService;
+	private ITenantUserService iTenantUserService;
 
 	@Override
 	public void postAdd(UserDO po) {
@@ -33,7 +34,8 @@ public class TenantUserUserAddServiceListener implements IAddServiceListener<Use
 		if (po.getAddControl() != null) {
 			if (po.getAddControl() instanceof AbstractBaseCommand) {
 				// 租户申请创建用户时，不绑定当前租户
-				if (tenantCreateApplyUserAddScene.equals(((AbstractBaseCommand) po.getAddControl()).getScene())) {
+				if (TenantCreateApplyAuditCommandExecutor.tenantCreateApplyUserAddScene.equals(((AbstractBaseCommand) po.getAddControl()).getScene())
+						|| TenantUserCreateCommandExecutor.tenantUserAddScene.equals(((AbstractBaseCommand) po.getAddControl()).getScene())) {
 					return;
 				}
 			}
@@ -42,13 +44,17 @@ public class TenantUserUserAddServiceListener implements IAddServiceListener<Use
 		if (TenantTool.isTenantEnable()) {
 			Long tenantId = TenantTool.getTenantId();
 			if (tenantId != null) {
-				TenantUserCreateCommand userCreateCommand = new TenantUserCreateCommand();
-				userCreateCommand.setUserId(po.getId());
-				userCreateCommand.setTenantId(tenantId);
-				userCreateCommand.setIsExpired(false);
-				userCreateCommand.setIsLeave(false);
+				TenantUserDO tenantUserDO = new TenantUserDO();
+				tenantUserDO.setUserId(po.getId());
+				tenantUserDO.setTenantId(tenantId);
+				tenantUserDO.setIsExpired(false);
+				tenantUserDO.setIsLeave(false);
+				tenantUserDO.setName(po.getName());
+				tenantUserDO.setJoinAt(LocalDateTime.now());
+				// 默认true
+				tenantUserDO.setIsFormal(true);
 
-				iTenantUserService.create(userCreateCommand);
+				iTenantUserService.add(tenantUserDO);
 			}
 		}
 	}

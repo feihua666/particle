@@ -179,7 +179,7 @@ export const useAddPageFormItems = ({props})=>{
     },
     {
       field: {
-        name: 'invalidAt',
+        name: 'expireAt',
       },
       element: {
         comp: 'PtDatePicker',

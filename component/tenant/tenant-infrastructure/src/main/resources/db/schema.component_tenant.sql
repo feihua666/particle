@@ -16,7 +16,7 @@ CREATE TABLE `component_tenant` (
   `is_formal` tinyint(1) NOT NULL COMMENT '是否正式，1=正式，0=试用',
   `user_limit_count` int NULL DEFAULT NULL COMMENT '用户数量限制',
   `effective_at` datetime NULL DEFAULT NULL COMMENT '生效日期，从什么时候开始生效',
-  `invalid_at` datetime NULL DEFAULT NULL COMMENT '失效日期，从什么时候失效',
+  `expire_at` datetime NULL DEFAULT NULL COMMENT '过期时间，从什么时候失效',
   `master_user_id` bigint NOT NULL COMMENT '主用户，一般该用户为租户的超级管理员',
   `config_json` varchar(2000) DEFAULT NULL COMMENT '额外配置json',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',

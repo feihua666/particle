@@ -2,6 +2,7 @@ package com.particle.user.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
+import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -84,22 +85,16 @@ public class UserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty("到期时间，为空永不到期")
     private LocalDateTime expireAt;
 
-
-//    账号信息
-
-    @NotEmpty(message = "登录标识不能为空")
-    @ApiModelProperty(value = "登录标识",required = true)
-    private String identifier;
-
-    @NotNull(message = "授权类型不能为空")
-    @ApiModelProperty(value = "授权类型,字典id",required = true)
-    private Long identityTypeDictId;
-
-    @ApiModelProperty("分组标识")
-    private String identifierGroupFlag;
+    /**
+     * 账号信息
+     */
+    @NotEmpty(message = "登录标识 不能为空")
+    @ApiModelProperty("登录标识，支持多个")
+    private List<UserIdentifierSimpleCreateCommand> identifiers;
 
     /**
      * 角色id，在依赖 角色 组件时可用
      */
+    @ApiModelProperty("角色id")
     private List<Long> roleIds;
 }

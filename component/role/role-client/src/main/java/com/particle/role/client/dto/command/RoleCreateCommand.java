@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -35,7 +36,6 @@ public class RoleCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "是否禁用",required = true)
     private Boolean isDisabled;
 
-
     /**
      * 禁用时，禁用原因必填
      */
@@ -54,4 +54,10 @@ public class RoleCreateCommand extends AbstractBaseCommand {
 
     @ApiModelProperty("父级")
     private Long parentId;
+
+    /**
+     * 允许添加时分配功能
+     */
+    @ApiModelProperty("分配的功能")
+    private List<Long> funcIds;
 }

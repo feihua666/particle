@@ -64,7 +64,13 @@ const reactiveData = reactive({
       prop: 'leaveAt',
       label: '离职/退出时间',
     },
-
+    {
+      prop: 'isFormal',
+      label: '是否正式',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '正式' : '试用'
+      }
+    },
     {
       prop: 'tenantName',
       label: '租户名称',

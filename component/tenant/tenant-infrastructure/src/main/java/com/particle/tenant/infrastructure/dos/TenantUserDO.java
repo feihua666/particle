@@ -64,5 +64,10 @@ public class TenantUserDO extends BaseDO {
      */
     private LocalDateTime joinAt;
 
+	/**
+	 * 是否正式，1=正式，0=试用
+	 */
+	private Boolean isFormal;
+
 
 }

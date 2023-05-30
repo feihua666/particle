@@ -26,8 +26,13 @@ const submitAttrs = ref({
   permission: 'admin:web:user:create',
 })
 // 提交按钮
-const submitMethod = () => {
-  return userCreateApi
+const submitMethod = (form) => {
+  form.identifiers = []
+  form.identifiers.push({
+    identifier: form.identifier,
+    identityTypeDictId: form.identityTypeDictId
+  })
+  return userCreateApi(form)
 }
 // 成功提示语
 const submitMethodSuccess = () => {
@@ -39,7 +44,7 @@ const submitMethodSuccess = () => {
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :method="submitMethod()"
+          :method="submitMethod"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"

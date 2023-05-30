@@ -47,4 +47,15 @@ public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implemen
 		UserIdentifierVO userIdentifierVO = UserIdentifierAppStructMapping.instance.userIdentifierDOToUserIdentifierVO(userIdentifierDO);
 		return SingleResponse.of(userIdentifierVO);
 	}
+
+	@Override
+	public SingleResponse<UserIdentifierVO> getByUserIdAndType(Long userId, Long identifierTypeDictId) {
+		UserIdentifierDO userIdentifierDO = iIdentifierService.getByUserIdAndIdentifierTypeDictId(userId, identifierTypeDictId);
+		if (userIdentifierDO == null) {
+			return SingleResponse.buildSuccess();
+		}
+
+		UserIdentifierVO userIdentifierVO = UserIdentifierAppStructMapping.instance.userIdentifierDOToUserIdentifierVO(userIdentifierDO);
+		return SingleResponse.of(userIdentifierVO);
+	}
 }

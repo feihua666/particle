@@ -21,5 +21,7 @@ public interface UserIdentifierRpcFeignClient {
 	 */
 	public SingleResponse<UserIdentifierVO> getByIdentifier(String identifier);
 
+	public SingleResponse<UserIdentifierVO> getByUserIdAndType(Long userId, Long identifierTypeDictId);
+
 
 }

@@ -83,9 +83,9 @@ public class TenantDO extends BaseTreeDO {
 	private LocalDateTime effectiveAt;
 
 	/**
-	 * 失效日期，从什么时候失效
+	 * 过期时间，从什么时候失效
 	 */
-	private LocalDateTime invalidAt;
+	private LocalDateTime expireAt;
 
 	/**
 	 * 主用户，一般该用户为租户的超级管理员

@@ -1,5 +1,6 @@
 package com.particle.global.validation.props.propvalidator;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.validation.form.ValidContext;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Collection;
 
 /**
  * @author yangwei
@@ -33,7 +35,10 @@ public class DependValidator implements IPropValidator<PropValid.Depend> {
                 return false;
             }
         }else {
-            if (dependOnValue == null && (fieldValue == null || (fieldValue instanceof String && StrUtil.isEmpty(((String) fieldValue))) )) {
+            if (dependOnValue == null && (fieldValue == null
+                                            || (fieldValue instanceof String && StrUtil.isEmpty(((String) fieldValue)))
+                                            || (fieldValue instanceof Collection && CollectionUtil.isEmpty(((Collection) fieldValue)))
+            )) {
                 validResult.setErrorMsg(annotation.message());
                 return false;
             }

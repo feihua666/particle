@@ -172,7 +172,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
     },
     {
       field: {
-        name: 'invalidAt',
+        name: 'expireAt',
       },
       element: {
         comp: 'PtDatePicker',
