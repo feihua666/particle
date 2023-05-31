@@ -1,6 +1,5 @@
 package com.particle.global.mybatis.plus.crud;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.particle.global.dto.basic.QueryCommand;
 

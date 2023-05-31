@@ -31,4 +31,7 @@ public class TenantUserPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty(value = "是否过期")
     private Boolean isExpired;
 
+
+	@ApiModelProperty("部门id")
+	private Long deptId;
 }

@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 @TableName("component_tenant_user")
 public class TenantUserDO extends BaseDO {
 
+    public static final String COLUMN_USER_ID = "user_id";
+
+
     /**
     * 用户id
     */

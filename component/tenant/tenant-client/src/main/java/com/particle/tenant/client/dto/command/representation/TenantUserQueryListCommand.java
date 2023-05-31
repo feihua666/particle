@@ -22,28 +22,17 @@ public class TenantUserQueryListCommand extends AbstractBaseQueryCommand {
 	@ApiModelProperty("是否正式，1=正式，0=试用")
 	private Boolean isFormal;
 
+	@ApiModelProperty(value = "用户id")
+	private Long userId;
 
+	@Like
+	@ApiModelProperty(value = "真实姓名,左前缀匹配")
+	private String name;
 
-    @ApiModelProperty(value = "用户id")
-    private Long userId;
+	@ApiModelProperty(value = "是否过期")
+	private Boolean isExpired;
 
-
-    @Like
-        @ApiModelProperty(value = "真实姓名,左前缀匹配")
-    private String name;
-
-
-    @ApiModelProperty(value = "是否过期")
-    private Boolean isExpired;
-
-
-
-
-
-
-
-
-
-
+	@ApiModelProperty("部门id")
+	private Long deptId;
 
 }
