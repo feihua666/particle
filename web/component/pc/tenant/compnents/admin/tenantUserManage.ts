@@ -198,7 +198,7 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
 
     {
       field: {
-        name: 'userPhone',
+        name: 'userMobile',
       },
       element: {
         comp: 'el-input',

@@ -28,7 +28,7 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     private String userEmail;
 
     @ApiModelProperty(value = "手机号，没有指定 applyUserId 时，用户创建用户登录账号")
-    private String userPhone;
+    private String userMobile;
 
     @ApiModelProperty(value = "真实姓名")
     private String name;

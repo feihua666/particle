@@ -78,15 +78,15 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 		Long userId = tenantUserCreateCommand.getUserId();
 		if (userId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
-			Assert.isTrue(StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail()) || StrUtil.isNotEmpty(tenantUserCreateCommand.getUserPhone()), "邮箱和手机号必须填写一个，以用于匹配用户");
-			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserPhone());
+			Assert.isTrue(StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail()) || StrUtil.isNotEmpty(tenantUserCreateCommand.getUserMobile()), "邮箱和手机号必须填写一个，以用于匹配用户");
+			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile());
 
 			// 还为空直接创建用户
 			if (userId == null) {
 				if (StrUtil.isEmpty(password)) {
 					password = RandomUtil.randomString(16);
 				}
-				userId = tenantUserHelper.createUser(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserPhone(), tenantUserCreateCommand.getName(), password,tenantUserAddScene);
+				userId = tenantUserHelper.createUser(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile(), tenantUserCreateCommand.getName(), password,tenantUserAddScene);
 			}
 		}
 
@@ -101,7 +101,7 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 
 			tenantUserHelper.notify(userId,
 					tenantUserCreateCommand.getUserEmail(),
-					tenantUserCreateCommand.getUserPhone(),
+					tenantUserCreateCommand.getUserMobile(),
 					password,
 					tenantUserCreateCommand.getCurrentUserId(),
 					byIdIgnoreTenantLimit.getIsFormal(),

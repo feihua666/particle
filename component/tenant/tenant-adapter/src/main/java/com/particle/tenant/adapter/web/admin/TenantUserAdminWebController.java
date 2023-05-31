@@ -51,7 +51,7 @@ public class TenantUserAdminWebController extends AbstractBaseWebAdapter {
 	@OpLog(name = "添加租户用户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantUserVO> create(@RequestBody TenantUserCreateCommand tenantUserCreateCommand, @ApiIgnore LoginUser loginUser){
 		if (tenantUserCreateCommand.getTenantId() == null) {
-			tenantUserCreateCommand.setTenantId(loginUser.getId());
+			tenantUserCreateCommand.setTenantId(loginUser.getCurrentTenant().getId());
 		}
 		return iTenantUserApplicationService.create(tenantUserCreateCommand);
 	}

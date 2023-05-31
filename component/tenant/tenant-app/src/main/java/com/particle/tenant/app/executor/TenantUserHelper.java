@@ -41,7 +41,7 @@ public class TenantUserHelper{
 	 * 通知
 	 * @param userId
 	 * @param userEmail 通知目标，以邮箱通知
-	 * @param userPhone 手机号，仅用在消息内容中
+	 * @param userMobile 手机号，仅用在消息内容中
 	 * @param password 初始密码
 	 * @param sendUserId 发送人
 	 * @param tenantIsFormal 租户是否正式
@@ -49,7 +49,7 @@ public class TenantUserHelper{
 	 */
 	public void notify(Long userId,
 					   String userEmail,
-					   String userPhone,
+					   String userMobile,
 					   String password,
 					   Long sendUserId,
 					   Boolean tenantIsFormal,
@@ -66,7 +66,7 @@ public class TenantUserHelper{
 					"",
 					userEmail,
 					password,
-					userPhone,
+					userMobile,
 					tenantIsFormal,
 					tenantExpireAt
 			);
@@ -81,10 +81,10 @@ public class TenantUserHelper{
 	/**
 	 * 判断用户登录标识是否为空，
 	 * @param userEmail 邮箱
-	 * @param userPhone 手机
+	 * @param userMobile 手机
 	 * @return null=为空
 	 */
-	public Long userIdentifierExist(String userEmail,String userPhone) {
+	public Long userIdentifierExist(String userEmail,String userMobile) {
 		Long applyUserId = null;
 		if (StrUtil.isNotEmpty(userEmail)) {
 			applyUserId = tenantUserUserGateway.getByUserIdentifier(userEmail);
@@ -94,25 +94,25 @@ public class TenantUserHelper{
 		}
 		// 还为空根据手机号获取
 		if (applyUserId == null) {
-			if (StrUtil.isNotEmpty(userPhone)) {
-				applyUserId = tenantUserUserGateway.getByUserIdentifier(userPhone);
+			if (StrUtil.isNotEmpty(userMobile)) {
+				applyUserId = tenantUserUserGateway.getByUserIdentifier(userMobile);
 			}
 		}
 		if (applyUserId != null) {
-			log.info("用户已存在，直接使用手机号对应的id，mobile={}，userId={}", userPhone, applyUserId);
+			log.info("用户已存在，直接使用手机号对应的id，mobile={}，userId={}", userMobile, applyUserId);
 		}
 		return applyUserId;
 	}
 	/**
 	 * 创建用户
 	 * @param userEmail
-	 * @param userPhone
+	 * @param userMobile
 	 * @param userName
 	 * @param password
 	 * @return
 	 */
-	public Long createUser(String userEmail,String userPhone, String userName,String password,String createUserScene) {
-		log.info("开始创建用户，email={}，mobile={}", userEmail, userPhone);
+	public Long createUser(String userEmail,String userMobile, String userName,String password,String createUserScene) {
+		log.info("开始创建用户，email={}，mobile={}", userEmail, userMobile);
 		List<TenantUserUserGateway.IdentifierParam> identifierParams = new ArrayList<>(2);
 
 
@@ -121,8 +121,8 @@ public class TenantUserHelper{
 			identifierParams.add(TenantUserUserGateway.IdentifierParam.create(userEmail,null, UserAccountType.front_email.itemValue()));
 		}
 		// 如果手机号不为空，以手机号为账号
-		if (StrUtil.isNotEmpty(userPhone)) {
-			identifierParams.add(TenantUserUserGateway.IdentifierParam.create(userPhone,null, UserAccountType.front_mobile.itemValue()));
+		if (StrUtil.isNotEmpty(userMobile)) {
+			identifierParams.add(TenantUserUserGateway.IdentifierParam.create(userMobile,null, UserAccountType.front_mobile.itemValue()));
 
 		}
 		String nickname = Optional.ofNullable(userName).orElse("未填写");

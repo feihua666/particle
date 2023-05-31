@@ -85,7 +85,7 @@ public class TenantUserVO extends AbstractBaseIdVO {
     @ApiModelProperty("部门名称")
     private String deptName;
 
-    @TransBy(type = TransConstants.TRANS_ROLE_BY_USER_ID,byFieldName = "id",mapValueField = "name")
+    @TransBy(type = TransConstants.TRANS_ROLE_BY_USER_ID,byFieldName = "userId",mapValueField = "name")
     @ApiModelProperty("角色名称")
     private String roleName;
 }

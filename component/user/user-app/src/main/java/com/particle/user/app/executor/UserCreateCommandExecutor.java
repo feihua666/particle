@@ -72,25 +72,29 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 			UserIdentifier userIdentifier = null;
 
 			for (UserIdentifierSimpleCreateCommand identifier : userCreateCommand.getIdentifiers()) {
-				userIdentifier = UserIdentifier.create(
-						user.getId().getId(),
-						identifier.getIdentifier(),
-						identifier.getIdentityTypeDictId(),
-						userCreateCommand.getGroupFlag()
-				);
+				// 使用第一个登录标识作为后续处理的密码关联
+				if (userIdentifier == null) {
+					userIdentifier = UserIdentifier.create(
+							user.getId().getId(),
+							identifier.getIdentifier(),
+							identifier.getIdentityTypeDictId(),
+							userCreateCommand.getGroupFlag()
+					);
+				}
+
 				userIdentifier.changeIdentityTypeDictIdByValueIfNeccesary(identifier.getIdentityTypeDictValue());
+				userIdentifierGateway.save(userIdentifier);
 			}
-			boolean save1 = userIdentifierGateway.save(userIdentifier);
-			if (save1) {
-				// 添加密码
-				UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(user.getId().getId(), userIdentifier.getId().getId(),
-						userIdentifierPwdCommand.getPwdEncoded(),
-						userIdentifierPwdCommand.getPwdEncryptFlag(),
-						userIdentifierPwdCommand.getPwdComplexity(),
-						userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
-						userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
-				userIdentifierPwdGateway.save(userIdentifierPwd);
-			}
+
+			// 添加密码
+			UserIdentifierPwd userIdentifierPwd = UserIdentifierPwd.create(user.getId().getId(), userIdentifier.getId().getId(),
+					userIdentifierPwdCommand.getPwdEncoded(),
+					userIdentifierPwdCommand.getPwdEncryptFlag(),
+					userIdentifierPwdCommand.getPwdComplexity(),
+					userIdentifierPwdCommand.getIsPwdExpired(), userIdentifierPwdCommand.getPwdExpiredReason(), userIdentifierPwdCommand.getPwdExpireAt(),
+					userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
+			userIdentifierPwdGateway.save(userIdentifierPwd);
+
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
