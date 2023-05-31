@@ -73,17 +73,20 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 
 			for (UserIdentifierSimpleCreateCommand identifier : userCreateCommand.getIdentifiers()) {
 				// 使用第一个登录标识作为后续处理的密码关联
-				if (userIdentifier == null) {
-					userIdentifier = UserIdentifier.create(
-							user.getId().getId(),
-							identifier.getIdentifier(),
-							identifier.getIdentityTypeDictId(),
-							userCreateCommand.getGroupFlag()
-					);
-				}
+				UserIdentifier userIdentifierTemp = UserIdentifier.create(
+						user.getId().getId(),
+						identifier.getIdentifier(),
+						identifier.getIdentityTypeDictId(),
+						userCreateCommand.getGroupFlag()
+				);
 
-				userIdentifier.changeIdentityTypeDictIdByValueIfNeccesary(identifier.getIdentityTypeDictValue());
-				userIdentifierGateway.save(userIdentifier);
+
+				userIdentifierTemp.changeIdentityTypeDictIdByValueIfNeccesary(identifier.getIdentityTypeDictValue());
+				userIdentifierGateway.save(userIdentifierTemp);
+
+				if (userIdentifier == null) {
+					userIdentifier = userIdentifierTemp;
+				}
 			}
 
 			// 添加密码
