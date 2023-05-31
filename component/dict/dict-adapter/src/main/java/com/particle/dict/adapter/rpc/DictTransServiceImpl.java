@@ -36,6 +36,9 @@ public class DictTransServiceImpl implements ITransService<DictTransVO,Long> {
     public TransResult<DictTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_DICT_BY_ID)) {
             DictDO byId = iDictService.getById(key);
+            if (byId == null) {
+                return null;
+            }
             return new TransResult(newDictTransVO(byId),key);
         }
         return null;

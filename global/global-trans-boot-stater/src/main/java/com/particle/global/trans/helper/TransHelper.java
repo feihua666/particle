@@ -672,6 +672,7 @@ public class TransHelper {
         Object fieldValue = transMeta.getByFieldValue();
         TransResult transResult = getTransResult(transMeta.getType(), transMeta.isBatchOnly(), transContext, fieldValue);
         if (transResult == null) {
+            // 翻译字段有值，但没翻译出结果来，比如  根据用户id翻译昵称，有用户id但没有昵称，这一般认为这条数据不存在，所以警告一下，如果是间接翻译的，也不是什么错误信息
             log.warn("在翻译设置值时，获取为空，可能的原因是数据不匹配,type={},fieldValue={}", transMeta.getType(), fieldValue);
         } else {
             setFieldValue(transMeta, transResult);

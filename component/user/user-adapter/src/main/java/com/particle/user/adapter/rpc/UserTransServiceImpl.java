@@ -52,6 +52,9 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
     public TransResult<UserTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID)) {
             UserDO byId = userService.selectById(key);
+            if (byId == null) {
+                return null;
+            }
             return new TransResult(userMapUserForTrans(byId),key);
         }else if (StrUtil.containsAny(type, TransConstants.TRANS_USER_INFO_BY_ID)) {
             UserDO byId = userService.selectById(key);

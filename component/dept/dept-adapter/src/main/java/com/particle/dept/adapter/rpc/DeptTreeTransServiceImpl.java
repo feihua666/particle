@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.rpc;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.dept.client.dto.data.DeptTreeTransVO;
@@ -46,6 +47,9 @@ public class DeptTreeTransServiceImpl implements ITransService<DeptTreeTransVO,L
                 return null;
             }
             DeptDO deptDO = iDeptService.getById(deptTreeDO.getDeptId());
+            if (deptDO == null) {
+                return null;
+            }
 
             return new TransResult(newDeptTreeTransVO(deptTreeDO,deptDO),key);
         }
@@ -61,7 +65,11 @@ public class DeptTreeTransServiceImpl implements ITransService<DeptTreeTransVO,L
     public List<TransResult<DeptTreeTransVO, Long>> transBatch(String type, Set<Long> keys) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_TREE_BY_ID)) {
             List<DeptTreeDO> deptTreeDOS = iDeptTreeService.listByIds(keys);
+            if (CollectionUtil.isEmpty(deptTreeDOS)) {
+                return null;
+            }
             Set<Long> deptIds = deptTreeDOS.stream().map(DeptTreeDO::getDeptId).collect(Collectors.toSet());
+
             Map<Long, DeptDO> longDeptDOMap = iDeptService.listByIds(deptIds).stream().collect(Collectors.toMap(DeptDO::getId, Function.identity()));
             return deptTreeDOS.stream()
                     .map(item->new TransResult<DeptTreeTransVO, Long>(newDeptTreeTransVO(item,longDeptDOMap.get(item.getDeptId())),item.getId()))

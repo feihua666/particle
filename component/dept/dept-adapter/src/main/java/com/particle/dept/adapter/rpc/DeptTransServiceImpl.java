@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.rpc;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.dept.client.dto.data.DeptTransVO;
@@ -36,11 +37,13 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
 
     @Override
     public TransResult<DeptTransVO, Long> trans(String type, Long key) {
+        DeptDO deptDO = null;
         if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_ID)) {
-            DeptDO deptDO = iDeptService.getById(key);
-            return new TransResult(newDeptTransVO(deptDO),key);
+            deptDO = iDeptService.getById(key);
         }else if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_USER_ID)) {
-            DeptDO deptDO = iDeptService.getByUserId(key);
+            deptDO = iDeptService.getByUserId(key);
+        }
+        if (deptDO != null) {
             return new TransResult(newDeptTransVO(deptDO),key);
         }
         return null;
@@ -61,7 +64,7 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
         }else if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_USER_ID)) {
 
             Map<Long, DeptDO> mapByUserIds = iDeptService.getMapByUserIds(new ArrayList<>(keys));
-            if (mapByUserIds != null) {
+            if (CollectionUtil.isNotEmpty(mapByUserIds)) {
                 List<TransResult<DeptTransVO, Long>> result = new ArrayList<>();
                 for (Long userId : mapByUserIds.keySet()) {
                     result.add(new TransResult<DeptTransVO, Long>(newDeptTransVO(mapByUserIds.get(userId)),userId));
@@ -73,6 +76,9 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
     }
 
     private DeptTransVO newDeptTransVO(DeptDO deptDO){
+        if (deptDO == null) {
+            return null;
+        }
         DeptTransVO deptTransVO = new DeptTransVO();
         deptTransVO.setId(deptDO.getId());
         deptTransVO.setName(deptDO.getName());

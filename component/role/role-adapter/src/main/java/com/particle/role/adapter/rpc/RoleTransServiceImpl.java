@@ -36,6 +36,9 @@ public class RoleTransServiceImpl implements ITransService<RoleTransVO,Long> {
     public TransResult<RoleTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_ROLE_BY_ID)) {
             RoleDO roleDO = iRoleService.getById(key);
+            if (roleDO == null) {
+                return null;
+            }
             return new TransResult(newRoleTransVO(roleDO),key);
         }
         return null;

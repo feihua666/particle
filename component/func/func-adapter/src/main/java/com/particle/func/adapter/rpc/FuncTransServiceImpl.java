@@ -37,6 +37,9 @@ public class FuncTransServiceImpl implements ITransService<FuncTransVO,Long> {
     public TransResult<FuncTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type, TransConstants.TRANS_FUNC_BY_ID)) {
             FuncDO byId = funcService.getById(key);
+            if (byId == null) {
+                return null;
+            }
             return new TransResult(funcMapFuncForTrans(byId),key);
         }
         return null;

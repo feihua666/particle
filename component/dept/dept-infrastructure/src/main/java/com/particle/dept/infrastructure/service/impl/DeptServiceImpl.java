@@ -1,5 +1,6 @@
 package com.particle.dept.infrastructure.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
@@ -84,10 +85,14 @@ public class DeptServiceImpl extends IBaseServiceImpl<DeptMapper, DeptDO> implem
 	public Map<Long, DeptDO> getMapByUserIds(List<Long> userIds) {
 		Assert.notEmpty(userIds,"userIds 不能为空");
 		List<DeptUserRelDO> deptUserRelDOS = deptUserRelMapper.selectList(Wrappers.<DeptUserRelDO>lambdaQuery().in(DeptUserRelDO::getUserId, userIds));
+		Map<Long, DeptDO> map = new HashMap<>();
+
+		if (CollectionUtil.isEmpty(deptUserRelDOS)) {
+			return map;
+		}
 		List<Long> deptIds = deptUserRelDOS.stream().map(DeptUserRelDO::getDeptId).collect(Collectors.toList());
 		List<DeptDO> deptDOS = listByIds(deptIds);
 		Map<Long, DeptDO> deptMap = deptDOS.stream().collect(Collectors.toMap(DeptDO::getId, Function.identity()));
-		Map<Long, DeptDO> map = new HashMap<>();
 		for (DeptUserRelDO deptUserRelDO : deptUserRelDOS) {
 			map.put(deptUserRelDO.getUserId(), deptMap.get(deptUserRelDO.getDeptId()));
 		}
