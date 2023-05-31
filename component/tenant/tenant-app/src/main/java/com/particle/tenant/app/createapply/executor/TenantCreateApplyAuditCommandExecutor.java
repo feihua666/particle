@@ -128,15 +128,15 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 		// 1 创建或获取申请用户
 		if (applyUserId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
-			Assert.isTrue(StrUtil.isNotEmpty(tenantCreateApplyDb.getContactUserEmail()) || StrUtil.isNotEmpty(tenantCreateApplyDb.getContactUserPhone()), "联系人邮箱和电话必须填写一个，以用于匹配用户");
-			applyUserId = tenantUserHelper.userIdentifierExist(tenantCreateApplyDb.getContactUserEmail(), tenantCreateApplyDb.getContactUserPhone());
+			Assert.isTrue(StrUtil.isNotEmpty(tenantCreateApplyDb.getEmail()) || StrUtil.isNotEmpty(tenantCreateApplyDb.getMobile()), "邮箱和电话必须填写一个，以用于匹配用户");
+			applyUserId = tenantUserHelper.userIdentifierExist(tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile());
 
 			// 还为空直接创建用户
 			if (applyUserId == null) {
 				if (StrUtil.isEmpty(password)) {
 					password = RandomUtil.randomString(16);
 				}
-				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getContactUserEmail(), tenantCreateApplyDb.getContactUserPhone(), tenantCreateApply.getName(), password,tenantCreateApplyUserAddScene);
+				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile(), tenantCreateApply.getName(), password,tenantCreateApplyUserAddScene);
 			}
 		}
 		// 2 添加租户
@@ -144,9 +144,9 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 		tenantCreateCommand.setName(tenantCreateApplyDb.getName());
 		tenantCreateCommand.setCode(IdUtil.fastSimpleUUID());
 		tenantCreateCommand.setIsDisabled(false);
-		tenantCreateCommand.setContactUserName(tenantCreateApplyDb.getContactUserName());
-		tenantCreateCommand.setContactUserPhone(tenantCreateApplyDb.getContactUserPhone());
-		tenantCreateCommand.setContactUserEmail(tenantCreateApplyDb.getContactUserEmail());
+		tenantCreateCommand.setUserName(tenantCreateApplyDb.getUserName());
+		tenantCreateCommand.setMobile(tenantCreateApplyDb.getMobile());
+		tenantCreateCommand.setEmail(tenantCreateApplyDb.getEmail());
 		tenantCreateCommand.setIsFormal(tenantCreateApplyDb.getIsFormal());
 		tenantCreateCommand.setUserLimitCount(tenantCreateApplyDb.getUserLimitCount());
 		tenantCreateCommand.setEffectiveAt(tenantCreateApplyDb.getEffectiveAt());
@@ -206,8 +206,8 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 				tenantRoleGateway.createRoleUserRel(roleId, applyUserId, tenantSave.getData().getId());
 				//	7 通知
 				tenantUserHelper.notify(applyUserId,
-						tenantCreateApplyDb.getContactUserEmail(),
-						tenantCreateApplyDb.getContactUserPhone(),
+						tenantCreateApplyDb.getEmail(),
+						tenantCreateApplyDb.getMobile(),
 						password,
 						tenantCreateApplyAuditCommand.getAuditUserId(),
 						tenantCreateApplyDb.getIsFormal(),

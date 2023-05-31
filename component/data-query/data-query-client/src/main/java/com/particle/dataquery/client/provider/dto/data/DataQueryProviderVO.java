@@ -27,14 +27,14 @@ public class DataQueryProviderVO extends AbstractBaseIdVO {
     @ApiModelProperty("禁用原因")
     private String disabledReason;
 
-    @ApiModelProperty("联系人姓名")
-    private String contactUserName;
+    @ApiModelProperty("姓名")
+    private String userName;
     
-    @ApiModelProperty("联系人邮箱")
-    private String contactUserEmail;
+    @ApiModelProperty("邮箱")
+    private String email;
     
-    @ApiModelProperty("联系人电话")
-    private String contactUserPhone;
+    @ApiModelProperty("手机号")
+    private String mobile;
     
     @ApiModelProperty("描述")
     private String remark;

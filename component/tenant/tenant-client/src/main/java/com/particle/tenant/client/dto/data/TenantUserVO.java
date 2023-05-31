@@ -24,7 +24,7 @@ public class TenantUserVO extends AbstractBaseIdVO {
     @ApiModelProperty("用户id")
     private Long userId;
 
-    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "userId",mapValueField = "name")
+    @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "name")
     @ApiModelProperty("真实姓名")
     private String name;
     
@@ -54,13 +54,21 @@ public class TenantUserVO extends AbstractBaseIdVO {
 	private Boolean isFormal;
 
 
-    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "userId",mapValueField = "nickname")
+    @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "nickname")
     @ApiModelProperty("昵称，模糊查询")
     private String nickname;
 
-    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "userId",mapValueField = "avatar")
+    @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "avatar")
     @ApiModelProperty("头像，图片绝对路径")
     private String avatar;
+
+    @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "email")
+    @ApiModelProperty("邮箱")
+    private String email;
+
+    @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "mobile")
+    @ApiModelProperty("手机号")
+    private String mobile;
 
     @ApiModelProperty("租户id")
     private Long tenantId;
@@ -68,4 +76,16 @@ public class TenantUserVO extends AbstractBaseIdVO {
     @TransBy(tableName = TransTableNameConstants.component_tenant, byFieldName = "tenantId", mapValueField = "name")
     @ApiModelProperty("租户名称")
     private String tenantName;
+
+    @TransBy(type = TransConstants.TRANS_DEPT_BY_USER_ID,byFieldName = "userId",mapValueField = "id")
+    @ApiModelProperty("部门id")
+    private Long deptId;
+
+    @TransBy(type = TransConstants.TRANS_DEPT_BY_USER_ID,byFieldName = "userId",mapValueField = "name")
+    @ApiModelProperty("部门名称")
+    private String deptName;
+
+    @TransBy(type = TransConstants.TRANS_ROLE_BY_USER_ID,byFieldName = "id",mapValueField = "name")
+    @ApiModelProperty("角色名称")
+    private String roleName;
 }

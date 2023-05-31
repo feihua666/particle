@@ -32,19 +32,19 @@ public class DataQueryProvider extends AggreateRoot {
      */
     private String disabledReason;
     /**
-    * 联系人姓名
+    * 姓名
     */
-    private String contactUserName;
+    private String userName;
 
     /**
-    * 联系人邮箱
+    * 邮箱
     */
-    private String contactUserEmail;
+    private String email;
 
     /**
-    * 联系人电话
+    * 手机号
     */
-    private String contactUserPhone;
+    private String mobile;
 
     /**
     * 描述

@@ -9,10 +9,12 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
 import com.particle.user.client.identifier.api.IUserIdentifierPwdApplicationService;
-import com.particle.user.client.identifier.dto.command.UserIdentifierUpdatePasswordCommand;
+import com.particle.user.client.identifier.dto.command.*;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,15 @@ public class IdentifierPwdLoginController {
 	@Autowired
 	private IUserIdentifierPwdService iUserIdentifierPwdService;
 	@Autowired
+	private IUserIdentifierService iUserIdentifierService;
+	@Autowired
 	private IUserIdentifierPwdApplicationService iUserIdentifierPwdApplicationService;
 
+	/**
+	 * 密码支持不同的登录标识设置独立的密码
+	 * @param loginUser
+	 * @return
+	 */
 	@ApiOperation("获取当前登录用户的登录标识密码")
 	@PreAuthorize("hasAuthority('user')")
 	@GetMapping("/identifier-pwd")
@@ -52,6 +61,12 @@ public class IdentifierPwdLoginController {
 		return MultiResponse.of(userIdentifierPwdVOS);
 	}
 
+	/**
+	 * 根据登录标识修改密码
+	 * @param userIdentifierUpdatePasswordCommand
+	 * @param loginUser
+	 * @return
+	 */
 	@ApiOperation("修改当前登录用户的登录标识密码")
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/identifier-pwd-update")
@@ -66,5 +81,72 @@ public class IdentifierPwdLoginController {
 		}
 		PasswordTool.encodePassword(userIdentifierUpdatePasswordCommand);
 		return iUserIdentifierPwdApplicationService.identifierResetPassword(userIdentifierUpdatePasswordCommand);
+	}
+
+	/**
+	 * 会修改用户所有登录标识的密码密码
+	 * @param userUpdatePwdCommand
+	 * @return
+	 */
+	@PreAuthorize("hasAuthority('user')")
+	@ApiOperation("修改当前登录用户密码")
+	@PostMapping("/user/updatePassword")
+	public Response userUpdatePassword(@Valid @RequestBody UserUpdatePwdCommand userUpdatePwdCommand,@ApiIgnore LoginUser loginUser){
+		List<UserIdentifierPwdDO> byUserId = iUserIdentifierPwdService.getByUserId(loginUser.getId());
+		boolean isPasswordValid = false;
+		// 有一个匹配说明密码正确
+		for (UserIdentifierPwdDO userIdentifierPwdDO : byUserId) {
+			isPasswordValid = PasswordEncryptEnum.matchPassword(userUpdatePwdCommand.getOldPassword(), userIdentifierPwdDO.getPwdEncryptFlag(), userIdentifierPwdDO.getPwd());
+			if (!isPasswordValid) {
+				continue;
+			}
+		}
+		if (!isPasswordValid) {
+			return Response.buildFailure(ErrorCodeGlobalEnum.INVALID_PASSWORD_ERROR,"原密码不正确");
+		}
+		// 上面校验原密码没问题，直接重置
+		UserResetPwdCommand userResetPwdCommand = userIdentifierPwdCommandToUserResetPwdCommand(userUpdatePwdCommand, loginUser.getId());
+		PasswordTool.encodePassword(userResetPwdCommand);
+		return iUserIdentifierPwdApplicationService.userResetPassword(userResetPwdCommand);
+	}
+
+
+	/**
+	 * 会修改用户所有登录标识的密码密码
+	 * 该方法不能裸奔，必须配置动态验证码
+	 * @param userFindBackPwdCommand
+	 * @return
+	 */
+	@ApiOperation("用户找回密码")
+	@PostMapping("/user/findBackPassword")
+	public Response findBackPassword(@Valid @RequestBody UserFindBackPwdCommand userFindBackPwdCommand){
+		UserIdentifierDO byIdentifier = iUserIdentifierService.getByIdentifier(userFindBackPwdCommand.getIdentifier());
+		if (byIdentifier == null) {
+			Response.buildFailure(ErrorCodeGlobalEnum.INVALID_ACCOUNT_ERROR, "账号不存在");
+		}
+
+		UserResetPwdCommand userResetPwdCommand = userIdentifierPwdCommandToUserResetPwdCommand(userFindBackPwdCommand,byIdentifier.getUserId());
+		PasswordTool.encodePassword(userResetPwdCommand);
+
+		return iUserIdentifierPwdApplicationService.userResetPassword(userResetPwdCommand);
+	}
+
+	/**
+	 * 映射
+	 * @param userIdentifierPwdCommand
+	 * @param userId
+	 * @return
+	 */
+	private UserResetPwdCommand userIdentifierPwdCommandToUserResetPwdCommand(UserIdentifierPwdCommand userIdentifierPwdCommand,Long userId) {
+		UserResetPwdCommand userResetPwdCommand = new UserResetPwdCommand();
+		userResetPwdCommand.setPassword(userResetPwdCommand.getPassword());
+		userResetPwdCommand.setIsPwdExpired(userIdentifierPwdCommand.getIsPwdExpired());
+		userResetPwdCommand.setPwdExpiredReason(userIdentifierPwdCommand.getPwdExpiredReason());
+		userResetPwdCommand.setPwdExpireAt(userIdentifierPwdCommand.getPwdExpireAt());
+		userResetPwdCommand.setIsPwdNeedUpdate(userIdentifierPwdCommand.getIsPwdNeedUpdate());
+		userResetPwdCommand.setPwdNeedUpdateMessage(userIdentifierPwdCommand.getPwdNeedUpdateMessage());
+
+		userResetPwdCommand.setUserId(userId);
+		return userResetPwdCommand;
 	}
 }

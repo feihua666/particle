@@ -32,16 +32,16 @@ const reactiveData = reactive({
       }
     },
     {
-      prop: 'contactUserName',
-      label: '联系人姓名',
+      prop: 'userName',
+      label: '姓名',
     },
     {
-      prop: 'contactUserEmail',
-      label: '联系人邮箱',
+      prop: 'email',
+      label: '邮箱',
     },
     {
-      prop: 'contactUserPhone',
-      label: '联系人电话',
+      prop: 'mobile',
+      label: '手机号',
     },
     {
       prop: 'remark',

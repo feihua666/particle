@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS component_role;
 CREATE TABLE `component_role` (
   `id` bigint NOT NULL COMMENT '角色ID',
-  `code` varchar(100) NOT NULL COMMENT '角色编码,模糊查询',
+  `code` varchar(100) DEFAULT NULL COMMENT '角色编码,模糊查询',
   `name` varchar(100) NOT NULL COMMENT '角色名称,模糊查询',
   `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',
   `disabled_reason` varchar(255) DEFAULT NULL COMMENT '禁用原因',

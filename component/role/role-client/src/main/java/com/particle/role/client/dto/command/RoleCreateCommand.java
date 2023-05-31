@@ -23,8 +23,6 @@ import java.util.List;
 @ApiModel
 public class RoleCreateCommand extends AbstractBaseCommand {
 
-
-    @NotEmpty(message = "角色编码不能为空")
     @ApiModelProperty("角色编码")
     private String code;
 

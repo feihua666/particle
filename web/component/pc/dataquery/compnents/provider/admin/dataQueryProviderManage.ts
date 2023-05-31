@@ -66,12 +66,12 @@ export const addPageFormItems = [
   },
   {
     field: {
-      name: 'contactUserName',
+      name: 'userName',
     },
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '联系人姓名',
+        label: '姓名',
 
       },
       compProps: {
@@ -81,12 +81,12 @@ export const addPageFormItems = [
   },
   {
     field: {
-      name: 'contactUserEmail',
+      name: 'email',
     },
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '联系人邮箱',
+        label: '邮箱',
 
       },
       compProps: {
@@ -98,12 +98,12 @@ export const addPageFormItems = [
 
   {
     field: {
-      name: 'contactUserPhone',
+      name: 'mobile',
     },
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '联系人电话',
+        label: '手机号',
 
       },
       compProps: {

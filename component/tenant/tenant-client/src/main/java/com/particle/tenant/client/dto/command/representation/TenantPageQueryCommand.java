@@ -33,18 +33,18 @@ public class TenantPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
     @Like
-        @ApiModelProperty(value = "联系人姓名,左前缀匹配")
-    private String contactUserName;
+        @ApiModelProperty(value = "姓名,左前缀匹配")
+    private String userName;
 
 
     @Like
-        @ApiModelProperty(value = "联系人邮箱,左前缀匹配")
-    private String contactUserEmail;
+        @ApiModelProperty(value = "邮箱,左前缀匹配")
+    private String email;
 
 
     @Like
-        @ApiModelProperty(value = "联系人电话,左前缀匹配")
-    private String contactUserPhone;
+        @ApiModelProperty(value = "手机号,左前缀匹配")
+    private String mobile;
 
 
 

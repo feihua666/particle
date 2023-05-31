@@ -111,11 +111,14 @@ particle:
       uris:
         # 这里随便举例 动态验证码登录独立校验，不需要该拦截器支持，如果配置会有冲突
         - /loginCaptcha111
+        - /user-identifier-pwd/login/user/findBackPassword
     uriIdentifier:
       '[/loginCaptcha111]': username
+      '[/user-identifier-pwd/login/user/findBackPassword]': identifier
     # 参见 com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties
     notifyIdentifiers:
-      '/loginCaptcha': user_login_dynamic_captcha
+      '[/loginCaptcha111]': user_login_dynamic_captcha
+      '[/user-identifier-pwd/login/user/findBackPassword]': user_find_back_password_dynamic_captcha
   # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
   oss:
     defaultClient: testLocal

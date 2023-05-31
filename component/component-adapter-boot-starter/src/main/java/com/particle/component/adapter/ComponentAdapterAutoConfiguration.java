@@ -10,6 +10,7 @@ import com.particle.component.adapter.user.login.*;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.service.IDeptService;
 import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.global.security.security.login.UserDeptService;
 import com.particle.oplog.infrastructure.service.IOpLogService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.tenant.infrastructure.service.ITenantService;
@@ -172,6 +173,12 @@ public class ComponentAdapterAutoConfiguration {
 		@ConditionalOnBean({ IDeptUserRelService.class})
 		public DeptTenantUserServiceListener deptTenantUserServiceListener(){
 			return new DeptTenantUserServiceListener();
+		}
+
+		@Bean
+		@ConditionalOnBean({ IDeptUserRelService.class})
+		public UserDeptService userDeptService(){
+			return new UserDeptServiceImpl();
 		}
 	}
 }

@@ -29,16 +29,16 @@ public class DataQueryProviderPageQueryCommand extends AbstractBasePageQueryComm
     private Boolean isDisabled;
 
 
-    @ApiModelProperty(value = "联系人姓名")
-    private String contactUserName;
+    @ApiModelProperty(value = "姓名")
+    private String userName;
 
 
-    @ApiModelProperty(value = "联系人邮箱")
-    private String contactUserEmail;
+    @ApiModelProperty(value = "邮箱")
+    private String email;
 
 
-    @ApiModelProperty(value = "联系人电话")
-    private String contactUserPhone;
+    @ApiModelProperty(value = "手机号")
+    private String mobile;
 
 
     @ApiModelProperty(value = "描述")

@@ -26,16 +26,16 @@ public class TenantCreateApplyUpdateCommand extends AbstractBaseUpdateCommand {
     private String name;
 
 
-	@ApiModelProperty(value = "联系人姓名，没有指定 applyUserId 时，用户创建用户昵称和姓名")
-	private String contactUserName;
+	@ApiModelProperty(value = "姓名，没有指定 applyUserId 时，用户创建用户昵称和姓名")
+	private String userName;
 
 
-	@ApiModelProperty(value = "联系人邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
-	private String contactUserEmail;
+	@ApiModelProperty(value = "邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
+	private String email;
 
 
-	@ApiModelProperty(value = "联系人电话，没有指定 applyUserId 时，用户创建用户登录账号")
-	private String contactUserPhone;
+	@ApiModelProperty(value = "手机号，没有指定 applyUserId 时，用户创建用户登录账号")
+	private String mobile;
 
 
 	@NotNull(message = "租户类型字典id 不能为空")

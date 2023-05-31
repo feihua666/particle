@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.security.login.PasswordInfo;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
@@ -82,6 +83,20 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
         // 密码信息
         loginUser.setPassword(PasswordEncryptEnum.prefixEncodePassword(userIdentifierPwdDO.getPwdEncryptFlag(),userIdentifierPwdDO.getPwd()));
         loginUser.setIsCredentialsExpired(userIdentifierPwdDO.getIsExpired() || checkHasExpired(userIdentifierPwdDO.getExpireAt()));
+
+        loginUser.setPasswordInfo(
+                PasswordInfo.create(
+                        userIdentifierPwdDO.getId(),
+                        userIdentifierPwdDO.getIdentifierId(),
+                        userIdentifierPwdDO.getIsExpired(),
+                        userIdentifierPwdDO.getExpiredReason(),
+                        userIdentifierPwdDO.getExpireAt(),
+                        userIdentifierPwdDO.getIsNeedUpdate(),
+                        userIdentifierPwdDO.getNeedUpdateMessage(),
+                        userIdentifierPwdDO.getPwdModifiedAt(),
+                        userIdentifierPwdDO.getComplexity()
+                ));
+
 
         loginUser.addExt(user_ext_identifier_key, userIdentifierDO);
         return loginUser;

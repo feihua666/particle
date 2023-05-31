@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,13 +31,16 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DEPT_BY_ID);
+        return StrUtil.containsAny(type, TransConstants.TRANS_DEPT_BY_ID,TransConstants.TRANS_DEPT_BY_USER_ID);
     }
 
     @Override
     public TransResult<DeptTransVO, Long> trans(String type, Long key) {
         if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_ID)) {
             DeptDO deptDO = iDeptService.getById(key);
+            return new TransResult(newDeptTransVO(deptDO),key);
+        }else if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_USER_ID)) {
+            DeptDO deptDO = iDeptService.getByUserId(key);
             return new TransResult(newDeptTransVO(deptDO),key);
         }
         return null;
@@ -53,6 +58,16 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
             return deptDOS.stream()
                     .map(item->new TransResult<DeptTransVO, Long>(newDeptTransVO(item),item.getId()))
                     .collect(Collectors.toList());
+        }else if (StrUtil.containsAny(type,TransConstants.TRANS_DEPT_BY_USER_ID)) {
+
+            Map<Long, DeptDO> mapByUserIds = iDeptService.getMapByUserIds(new ArrayList<>(keys));
+            if (mapByUserIds != null) {
+                List<TransResult<DeptTransVO, Long>> result = new ArrayList<>();
+                for (Long userId : mapByUserIds.keySet()) {
+                    result.add(new TransResult<DeptTransVO, Long>(newDeptTransVO(mapByUserIds.get(userId)),userId));
+                }
+                return result;
+            }
         }
         return null;
     }

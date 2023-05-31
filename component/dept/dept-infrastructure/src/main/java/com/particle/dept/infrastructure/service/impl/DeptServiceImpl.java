@@ -1,14 +1,24 @@
 package com.particle.dept.infrastructure.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
+import com.particle.dept.infrastructure.deptuserrel.mapper.DeptUserRelMapper;
 import com.particle.dept.infrastructure.dos.DeptDO;
 import com.particle.dept.infrastructure.mapper.DeptMapper;
 import com.particle.dept.infrastructure.service.IDeptService;
+import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 /**
@@ -23,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DeptServiceImpl extends IBaseServiceImpl<DeptMapper, DeptDO> implements IDeptService {
 	private IBaseQueryCommandMapStruct<DeptDO> queryCommandMapStruct;
 
+	private DeptUserRelMapper deptUserRelMapper;
 	@Override
 	protected DeptDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
@@ -30,6 +41,10 @@ public class DeptServiceImpl extends IBaseServiceImpl<DeptMapper, DeptDO> implem
 	@Autowired
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<DeptDO> queryCommandMapStruct) {
 		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+	@Autowired
+	public void setDeptUserRelMapper(DeptUserRelMapper deptUserRelMapper) {
+		this.deptUserRelMapper = deptUserRelMapper;
 	}
 
 	@Override
@@ -53,5 +68,30 @@ public class DeptServiceImpl extends IBaseServiceImpl<DeptMapper, DeptDO> implem
 				assertByColumn(po.getCode(),DeptDO::getCode,false);
 			}
 		}
+	}
+
+	@Override
+	public DeptDO getByUserId(Long userId) {
+		Assert.notNull(userId,"userId 不能为空");
+		DeptUserRelDO deptUserRelDO = deptUserRelMapper.selectOne(Wrappers.<DeptUserRelDO>lambdaQuery().eq(DeptUserRelDO::getUserId, userId));
+		if (deptUserRelDO != null) {
+			return getById(deptUserRelDO.getDeptId());
+		}
+		return null;
+	}
+
+	@Override
+	public Map<Long, DeptDO> getMapByUserIds(List<Long> userIds) {
+		Assert.notEmpty(userIds,"userIds 不能为空");
+		List<DeptUserRelDO> deptUserRelDOS = deptUserRelMapper.selectList(Wrappers.<DeptUserRelDO>lambdaQuery().in(DeptUserRelDO::getUserId, userIds));
+		List<Long> deptIds = deptUserRelDOS.stream().map(DeptUserRelDO::getDeptId).collect(Collectors.toList());
+		List<DeptDO> deptDOS = listByIds(deptIds);
+		Map<Long, DeptDO> deptMap = deptDOS.stream().collect(Collectors.toMap(DeptDO::getId, Function.identity()));
+		Map<Long, DeptDO> map = new HashMap<>();
+		for (DeptUserRelDO deptUserRelDO : deptUserRelDOS) {
+			map.put(deptUserRelDO.getUserId(), deptMap.get(deptUserRelDO.getDeptId()));
+		}
+
+		return map;
 	}
 }

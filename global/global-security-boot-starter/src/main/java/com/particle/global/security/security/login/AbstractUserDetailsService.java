@@ -2,6 +2,7 @@ package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.particle.global.light.share.concurrency.ConcurrencyConstants;
 import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.IUserTenantChangeListener;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
@@ -35,6 +37,9 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
     private UserTenantService userTenantService;
 
     @Autowired(required = false)
+    private UserDeptService userDeptService;
+
+    @Autowired(required = false)
     private List<IUserTenantChangeListener> iUserTenantChangeListeners;
 
     @Autowired(required = false)
@@ -46,6 +51,9 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
     @Qualifier(ConcurrencyConstants.default_global_asyn_slot_task_executor)
     @Autowired
     private ExecutorService asynSlotTaskExecutor;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -67,6 +75,10 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
      * @param defaultTtenantId 默认切换到的租户id,如果为空默认切换到第一个
      */
     public void loginUserDetailsFill(LoginUser loginUser,Long defaultTtenantId) {
+
+        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+        loginUser.setLoginIp(clientIP);
+
         if (userTenantService != null) {
             List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId());
             loginUser.setTenants(grantedTenants);
@@ -121,6 +133,11 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             countDownLatch.countDown();
         }
 
+        // 部门信息
+        if (userDeptService != null) {
+            DeptInfo deptInfo = userDeptService.retrieveUserDeptInfoByUserId(loginUser.getId());
+            loginUser.setDeptInfo(deptInfo);
+        }
         if (loginUserExtPutServices != null) {
             Long tenantId = TenantTool.getTenantId();
             asynSlotTaskExecutor.execute(() -> {

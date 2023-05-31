@@ -44,10 +44,11 @@ public class UserVO extends AbstractBaseIdVO {
     @ApiModelProperty("公司id，冗余字段，由dept_id对应公司派生")
     private Long compId;
 
+    @TransBy(type = TransConstants.TRANS_DEPT_BY_USER_ID,byFieldName = "id",mapValueField = "id")
     @ApiModelProperty("部门id")
     private Long deptId;
 
-    @TransBy(type = TransConstants.TRANS_DEPT_BY_ID,byFieldName = "deptId",mapValueField = "name")
+    @TransBy(type = TransConstants.TRANS_DEPT_BY_USER_ID,byFieldName = "id",mapValueField = "name")
     @ApiModelProperty("部门名称")
     private String deptName;
 

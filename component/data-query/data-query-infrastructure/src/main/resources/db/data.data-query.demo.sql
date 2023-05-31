@@ -1,5 +1,5 @@
 -- 数据查询供应商
-INSERT INTO `component_data_query_provider` (`id`, `name`, `is_disabled`, `disabled_reason`, `contact_user_name`, `contact_user_email`, `contact_user_phone`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1636205678244229121, '本机测试', 0, NULL, NULL, NULL, NULL, NULL, 3, 1, '2023-03-16 11:20:08', 1, '2023-03-17 11:10:54', 1);
+INSERT INTO `component_data_query_provider` (`id`, `name`, `is_disabled`, `disabled_reason`, `user_name`, `email`, `mobile`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1636205678244229121, '本机测试', 0, NULL, NULL, NULL, NULL, NULL, 3, 1, '2023-03-16 11:20:08', 1, '2023-03-17 11:10:54', 1);
 -- 数据查询jdbc数据源
 INSERT INTO `component_data_query_datasource` (`id`, `code`, `name`, `type_dict_id`, `config_json`, `username`, `password`, `data_query_provider_id`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1636566011660038146, NULL, 'particle_test', 1633407476579213314, '{\"driverClassName\":\"com.mysql.cj.jdbc.Driver\",\"url\":\"jdbc:mysql://localhost/particle_test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8\"}', 'root', 'rootroot', 1636205678244229121, NULL, 1, 1, '2023-03-17 11:11:58', 1, NULL, NULL);
 -- 数据查询 jdbc 数据源接口

@@ -24,10 +24,10 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "用户id，可以直接关联用户id或输入邮箱和手机号")
     private Long userId;
 
-    @ApiModelProperty(value = "联系人邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
+    @ApiModelProperty(value = "邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
     private String userEmail;
 
-    @ApiModelProperty(value = "联系人电话，没有指定 applyUserId 时，用户创建用户登录账号")
+    @ApiModelProperty(value = "手机号，没有指定 applyUserId 时，用户创建用户登录账号")
     private String userPhone;
 
     @ApiModelProperty(value = "真实姓名")

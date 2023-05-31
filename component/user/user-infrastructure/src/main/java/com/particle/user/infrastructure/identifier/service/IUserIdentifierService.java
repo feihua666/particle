@@ -6,6 +6,8 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -44,6 +46,19 @@ public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 	default List<UserIdentifierDO> getByUserId(Long userId) {
 		Assert.notNull(userId,"userId不能为空");
 		return list(Wrappers.<UserIdentifierDO>lambdaQuery().eq(UserIdentifierDO::getUserId, userId));
+	}
+
+	/**
+	 * 根据用户id查询,key=用户id
+	 * 主要是为了一次性查询出多个来
+	 * @param userIds
+	 * @return
+	 */
+	default Map<Long,List<UserIdentifierDO>> getMapByUserIds(List<Long> userIds) {
+		Assert.notEmpty(userIds,"userIds 不能为空");
+		List<UserIdentifierDO> list = list(Wrappers.<UserIdentifierDO>lambdaQuery().in(UserIdentifierDO::getUserId, userIds));
+		Map<Long, List<UserIdentifierDO>> longListMap = list.stream().collect(Collectors.groupingBy(UserIdentifierDO::getUserId));
+		return longListMap;
 	}
 	/**
 	 * 根据用户id和分组标识查询

@@ -35,6 +35,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags = "租户功能，登录用户相关")
 public class TenantLoginController {
 
+	@Autowired
 	private ITenantUserService tenantUserService;
 	@Autowired
 	private ITenantService tenantService;

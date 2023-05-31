@@ -104,6 +104,12 @@ public class LoginUser implements UserDetails {
     @ApiModelProperty(value = "当前正在使用的角色")
     private GrantedRole currentRole;
 
+    @ApiModelProperty(value = "部门信息")
+    private DeptInfo deptInfo;
+
+    @ApiModelProperty(value = "密码信息")
+    private PasswordInfo passwordInfo;
+
     /**
      * 租户信息
      * 通过 {@link UserTenantService} 获取并set设置
@@ -128,6 +134,9 @@ public class LoginUser implements UserDetails {
 
     @ApiModelProperty(value = "登录时间")
     private LocalDateTime loginAt = LocalDateTime.now();
+
+    @ApiModelProperty(value = "登录IP")
+    private String loginIp;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

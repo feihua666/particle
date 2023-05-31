@@ -1,17 +1,24 @@
 package com.particle.user.adapter.rpc;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import com.particle.user.client.dto.data.UserTransVO;
+import com.particle.user.domain.enums.UserAccountType;
+import com.particle.user.domain.gateway.UserDictGateway;
 import com.particle.user.infrastructure.dos.UserDO;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import com.particle.user.infrastructure.mapper.UserMapper;
 import com.particle.user.infrastructure.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,10 +38,14 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
      */
     @Autowired
     private UserMapper userService;
+    @Autowired
+    private IUserIdentifierService userIdentifierService;
+    @Autowired
+    private UserDictGateway userDictGateway;
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID);
+        return StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID,TransConstants.TRANS_USER_INFO_BY_ID);
     }
 
     @Override
@@ -42,6 +53,21 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
         if (StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID)) {
             UserDO byId = userService.selectById(key);
             return new TransResult(userMapUserForTrans(byId),key);
+        }else if (StrUtil.containsAny(type, TransConstants.TRANS_USER_INFO_BY_ID)) {
+            UserDO byId = userService.selectById(key);
+            if (byId == null) {
+                return null;
+            }
+            UserTransVO userTransVO = userMapUserForTrans(byId);
+
+            List<UserIdentifierDO> userIdentifierDOS = userIdentifierService.getByUserId(byId.getId());
+            if (CollectionUtil.isNotEmpty(userIdentifierDOS)) {
+                Long emailDictId = userDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_email.itemValue());
+                Long mobileDictId = userDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_mobile.itemValue());
+                fillExtInfo(userTransVO, userIdentifierDOS, emailDictId, mobileDictId);
+            }
+
+            return new TransResult(userTransVO,key);
         }
         return null;
     }
@@ -53,8 +79,24 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
 
     @Override
     public List<TransResult<UserTransVO, Long>> transBatch(String type, Set<Long> keys) {
+        List<UserDO> userDOS = userService.selectBatchIds(keys);
+        if (CollectionUtil.isEmpty(userDOS)) {
+            return null;
+        }
         if (StrUtil.containsAny(type,TransConstants.TRANS_USER_BY_ID)) {
-            return userService.selectBatchIds(keys).stream().map(item->new TransResult<UserTransVO, Long>(userMapUserForTrans(item),item.getId())).collect(Collectors.toList());
+            return userDOS.stream().map(item->new TransResult<UserTransVO, Long>(userMapUserForTrans(item),item.getId())).collect(Collectors.toList());
+        }else if (StrUtil.containsAny(type,TransConstants.TRANS_USER_INFO_BY_ID)) {
+            Long emailDictId = userDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_email.itemValue());
+            Long mobileDictId = userDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_mobile.itemValue());
+            List<Long> userIds = userDOS.stream().map(UserDO::getId).collect(Collectors.toList());
+            Map<Long, List<UserIdentifierDO>> mapByUserIds = userIdentifierService.getMapByUserIds(userIds);
+            return userDOS.stream().map(item->{
+                        UserTransVO userTransVO = userMapUserForTrans(item);
+                        List<UserIdentifierDO> userIdentifierDOS = mapByUserIds.get(item.getId());
+                        fillExtInfo(userTransVO, userIdentifierDOS, emailDictId, mobileDictId);
+                        return new TransResult<UserTransVO, Long>(userTransVO,item.getId());
+                    }
+                    ).collect(Collectors.toList());
         }
         return null;
     }
@@ -72,5 +114,17 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
         userForTrans.setNickname(user.getNickname());
         userForTrans.setAvatar(user.getAvatar());
         return userForTrans;
+    }
+
+    private void fillExtInfo(UserTransVO userTransVO, List<UserIdentifierDO> userIdentifierDOS, Long emailDictId, Long mobileDictId) {
+        if (CollectionUtil.isNotEmpty(userIdentifierDOS)) {
+            for (UserIdentifierDO userIdentifierDO : userIdentifierDOS) {
+                if (Objects.equals(userIdentifierDO.getIdentityTypeDictId(),emailDictId)) {
+                    userTransVO.setEmail(userIdentifierDO.getIdentifier());
+                }else if (Objects.equals(userIdentifierDO.getIdentityTypeDictId(),mobileDictId)) {
+                    userTransVO.setMobile(userIdentifierDO.getIdentifier());
+                }
+            }
+        }
     }
 }

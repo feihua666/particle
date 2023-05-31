@@ -2,6 +2,8 @@ package com.particle.user.app.identifier.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.user.client.identifier.dto.command.UserResetPwdCommand;
+import com.particle.user.client.identifier.dto.command.UserUpdatePwdCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
@@ -79,4 +81,5 @@ public abstract class UserIdentifierPwdAppStructMapping  implements IBaseQueryCo
 	public abstract UserIdentifierPwdDO pageQueryCommandToDO(UserIdentifierPwdPageQueryCommand userIdentifierPwdPageQueryCommand);
 
 	public abstract UserIdentifierPwdDO queryListCommandToDO(UserIdentifierPwdQueryListCommand userIdentifierPwdQueryListCommand);
+
 }

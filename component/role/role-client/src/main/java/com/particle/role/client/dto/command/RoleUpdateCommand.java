@@ -22,7 +22,6 @@ import javax.validation.constraints.NotNull;
 @ApiModel
 public class RoleUpdateCommand extends AbstractBaseUpdateCommand {
 
-    @NotEmpty(message = "角色编码不能为空")
     @ApiModelProperty("角色编码")
     private String code;
 
