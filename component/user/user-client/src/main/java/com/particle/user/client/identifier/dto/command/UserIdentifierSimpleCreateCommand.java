@@ -27,11 +27,11 @@ public class UserIdentifierSimpleCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "登录标识",required = true)
     private String identifier;
 
-    @PropValid.Depend(message = "授权类型,字典id 不能为空",dependProp = "identityTypeDictValue")
+    @PropValid.Depend(message = "授权类型,字典id 不能为空",dependProp = "identityTypeDictValue",dependPropHasValue = false)
     @ApiModelProperty(value = "授权类型,字典id，授权类型,字典值二选一")
     private Long identityTypeDictId;
 
-    @PropValid.Depend(message = "授权类型,字典值不能为空",dependProp = "identityTypeDictId")
+    @PropValid.Depend(message = "授权类型,字典值不能为空",dependProp = "identityTypeDictId",dependPropHasValue = false)
     @ApiModelProperty(value = "授权类型,字典值，授权类型,字典id二选一")
     private String identityTypeDictValue;
 
