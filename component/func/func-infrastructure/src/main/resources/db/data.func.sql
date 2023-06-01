@@ -20,7 +20,13 @@ INSERT INTO `component_func` (`id`, `code`, `name`, `func_group_id`, `icon`, `is
 INSERT INTO `component_func` (`id`, `code`, `name`, `func_group_id`, `icon`, `is_disabled`, `disabled_reason`, `url`, `permissions`, `type_dict_id`, `active_name`, `is_show`, `component_of`, `remark`, `seq`, `level`, `parent_id`, `parent_id1`, `parent_id2`, `parent_id3`, `parent_id4`, `parent_id5`, `parent_id6`, `parent_id7`, `parent_id8`, `parent_id9`, `parent_id10`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1605743465016676353, 'func_group_manage_update', '功能组修改', 1, 'Link', 0, NULL, NULL, 'funcGroupManageUpdate,admin:web:funcGroup:update', 1605497232817737729, NULL, 1,'func', NULL, 10, 3, 1205368687877005313, 1, 1205368687877005313, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '2022-12-22 09:54:10', 1, NULL, NULL);
 
 -- 后台管理分组
-INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1, 'backend', 'pc或平板后台管理', 'pc或平板后台管理分组', 1, 1, '2020-12-15 13:29:51', NULL, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1, 'backend_pc', 'pc或平板后台管理', 'pc或平板后台管理分组', 1, 1, '2020-12-15 13:29:51', NULL, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1664149870342049794, 'frontend_pc', 'pc或平板前台管理', NULL, 1, NULL, '2023-06-01 14:00:22', 1, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1664150233468112898, 'backend_mobile', '移动后台管理', NULL, 1, NULL, '2023-06-01 14:01:48', 1, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1664150411969302530, 'frontend_mobile', '移动前台管理', NULL, 1, NULL, '2023-06-01 14:02:31', 1, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1664150550393917442, 'backend_wap', 'wap后台管理', NULL, 1, NULL, '2023-06-01 14:03:04', 1, NULL, NULL);
+INSERT INTO `component_func_group` (`id`, `code`, `name`, `remark`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1664150647966011393, 'frontend_wap', 'wap前台管理', NULL, 1, NULL, '2023-06-01 14:03:27', 1, NULL, NULL);
+
 
 
 -- 功能应用管理

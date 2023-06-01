@@ -139,7 +139,7 @@ public class IdentifierPwdLoginController {
 	 */
 	private UserResetPwdCommand userIdentifierPwdCommandToUserResetPwdCommand(UserIdentifierPwdCommand userIdentifierPwdCommand,Long userId) {
 		UserResetPwdCommand userResetPwdCommand = new UserResetPwdCommand();
-		userResetPwdCommand.setPassword(userResetPwdCommand.getPassword());
+		userResetPwdCommand.setPassword(userIdentifierPwdCommand.getPassword());
 		userResetPwdCommand.setIsPwdExpired(userIdentifierPwdCommand.getIsPwdExpired());
 		userResetPwdCommand.setPwdExpiredReason(userIdentifierPwdCommand.getPwdExpiredReason());
 		userResetPwdCommand.setPwdExpireAt(userIdentifierPwdCommand.getPwdExpireAt());
