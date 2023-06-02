@@ -38,7 +38,7 @@ public class RequestTool {
     /**
      * 获得用户远程地址,ip地址
      */
-    public static String getRemoteAddr(HttpServletRequest request, String... otherHeaderNames) {
+    public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
         String remoteAddr = ServletUtil.getClientIP(request,otherHeaderNames);
         if (StrUtil.isEmpty(remoteAddr)) {
             // 下面是自定义的获取ip的方法暂保留

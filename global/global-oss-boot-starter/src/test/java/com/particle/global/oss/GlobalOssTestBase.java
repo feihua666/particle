@@ -6,6 +6,7 @@ import com.particle.global.exception.Assert;
 import com.particle.global.oss.client.GlobalOssClient;
 import com.particle.global.oss.dto.GlobalOssBucket;
 import com.particle.global.oss.dto.GlobalOssObject;
+import com.particle.global.tool.file.FileTool;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public abstract class GlobalOssTestBase {
 	}
 
 	public void putObjectTest() {
-		ossClient.putObject(testBucket,objectName, IoUtil.toStream(FileUtil.file(localSourceFileFullPath)));
+		ossClient.putObject(testBucket,objectName, IoUtil.toStream(FileUtil.file(localSourceFileFullPath)), FileTool.getMimeType(localSourceFileFullPath));
 
 	}
 	public void getObjectTest() {

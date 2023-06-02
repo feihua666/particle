@@ -8,6 +8,7 @@ import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.IUserTenantChangeListener;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.security.tenant.UserTenantService;
+import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
      */
     public void loginUserDetailsFill(LoginUser loginUser,Long defaultTtenantId) {
 
-        String clientIP = ServletUtil.getClientIP(httpServletRequest);
+        String clientIP = RequestTool.getClientIP(httpServletRequest);
         loginUser.setLoginIp(clientIP);
 
         if (userTenantService != null) {

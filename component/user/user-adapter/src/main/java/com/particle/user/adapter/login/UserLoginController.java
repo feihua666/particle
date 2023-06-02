@@ -1,5 +1,6 @@
 package com.particle.user.adapter.login;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
 import com.particle.global.dto.response.MultiResponse;
@@ -56,6 +57,7 @@ public class UserLoginController {
 	 * @param loginCommand
 	 * @return
 	 */
+	@JsonView(LoginUser.UserWebView.class)
 	@ApiOperation("登录")
 	@ApiImplicitParams({
 			// header 参见{@link ParameterType}
@@ -131,6 +133,7 @@ public class UserLoginController {
 		return Response.buildSuccess();
 	}
 
+	@JsonView(LoginUser.UserWebView.class)
 	@PreAuthorize("hasAuthority('user')")
 	@ApiOperation("获取当前登录用户信息")
 	@GetMapping("/userinfo")

@@ -13,6 +13,7 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.common.constant.CommonConstants;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.tool.servlet.RequestTool;
 import com.particle.tracking.app.structmapping.TrackingPageRecordAppStructMapping;
 import com.particle.tracking.client.api.ITrackingPageRecordApplicationService;
 import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
@@ -79,7 +80,7 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 		String userAgentStr = ServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
 		UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
 
-		String clientIP = ServletUtil.getClientIP(httpServletRequest);
+		String clientIP = RequestTool.getClientIP(httpServletRequest);
 		trackingPageRecordCreateCommand.setIp(clientIP);
 
 		String deviceId = ServletUtil.getHeaderIgnoreCase(httpServletRequest, CommonConstants.request_header_device_id);

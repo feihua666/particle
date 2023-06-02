@@ -42,6 +42,10 @@ public class GlobalOssObject extends DTO  implements Closeable {
 	 */
 	private Long contentLength;
 	/**
+	 * 内容类型如：application/json 是一个MediaType
+	 */
+	private String contentType;
+	/**
 	 * 创建时间
 	 */
 	private LocalDateTime createAt;

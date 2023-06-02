@@ -143,6 +143,14 @@
             <artifactId>message-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+
+        <!-- 文档相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-document-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -12,8 +12,14 @@ export interface LoginGetListParam{
 }
 /**
  * 当前登录用户的功能
+ * 平板或pc后台管理使用
  */
 export const loginGetList = (data: LoginGetListParam): AxiosPromise => {
+    if (!data) {
+        data = {}
+    }
+    data.funcGroupCode = 'backend_pc'
+
     return axios.get('/func/login/getList',{params: data})
 }
 /**

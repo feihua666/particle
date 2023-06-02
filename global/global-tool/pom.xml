@@ -138,5 +138,12 @@
             <version>${javers-core.version}</version>
         </dependency>
 
+        <!-- 使用其判断媒体类型 主要使用的类为 MediaTypeFactory 参见 FileTool -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

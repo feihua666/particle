@@ -45,9 +45,9 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 	}
 
 	@Override
-	public String upload(String objectName, InputStream inputStream, String client) {
+	public String upload(String objectName, InputStream inputStream, String client,String contentType) {
 		GlobalOssClientWrapper globalOssClientWrapper = routeGlobalOssClient(client);
-		globalOssClientWrapper.getGlobalOssClient().putObject(globalOssClientWrapper.getBucketName(),objectName,inputStream);
+		globalOssClientWrapper.getGlobalOssClient().putObject(globalOssClientWrapper.getBucketName(),objectName,inputStream,contentType);
 		if (globalOssProperties.getConcatEndpoint()) {
 			return NetPathTool.concat(globalOssClientWrapper.getEndpoint(),objectName);
 		}
@@ -83,7 +83,7 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 		GlobalOssObject sourceGlobalOssObject = sourceGlobalOssClientWrapper.getGlobalOssClient().getObject(sourceGlobalOssClientWrapper.getBucketName(), sourceObjectName);
 
 		GlobalOssClientWrapper destGlobalOssClientWrapper = routeGlobalOssClient(destClient);
-		destGlobalOssClientWrapper.getGlobalOssClient().putObject(destGlobalOssClientWrapper.getBucketName(),destObjectName,sourceGlobalOssObject.getObjectContent());
+		destGlobalOssClientWrapper.getGlobalOssClient().putObject(destGlobalOssClientWrapper.getBucketName(),destObjectName,sourceGlobalOssObject.getObjectContent(),sourceGlobalOssObject.getContentType());
 
 	}
 

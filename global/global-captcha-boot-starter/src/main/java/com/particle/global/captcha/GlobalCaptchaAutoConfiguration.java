@@ -35,7 +35,7 @@ import java.util.List;
 @ComponentScan
 @EnableConfigurationProperties(DynamicCaptchaNotifyProperties.class)
 @ConditionalOnProperty(prefix = "particle.captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class CaptchaAutoConfiguration {
+public class GlobalCaptchaAutoConfiguration {
 
 	/**
 	 * 验证码接口文档

@@ -10,6 +10,8 @@ import com.particle.func.client.dto.command.representation.FuncQueryListCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.FuncTypeEnum;
 import com.particle.func.domain.gateway.FuncDictGateway;
+import com.particle.func.infrastructure.dos.FuncGroupDO;
+import com.particle.func.infrastructure.service.IFuncGroupService;
 import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.security.security.login.LoginUser;
@@ -17,6 +19,7 @@ import com.particle.global.security.security.login.LoginUserTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.javers.common.string.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +55,8 @@ public class FuncLoginController {
 
     @Autowired
     private IFuncApplicationRepresentationApplicationService iFuncApplicationRepresentationApplicationService;
+    @Autowired
+    private IFuncGroupService funcGroupService;
 
     @ApiOperation("当前登录用户的功能")
     @PreAuthorize("hasAuthority('user')")
@@ -59,12 +64,19 @@ public class FuncLoginController {
     @ResponseStatus(HttpStatus.OK)
     public MultiResponse<FuncVO> getList(@ApiIgnore LoginUser loginUser,
                                          @ApiParam(value = "包括的类型，func_type字典值，默认 menu、page、group")  @RequestParam(required = false) String includeTypeDictValues,
-                                         @ApiParam(value = "过虑是否展示的数据，不传忽略过虑条件") @RequestParam(required = false) Boolean isShow) {
+                                         @ApiParam(value = "过虑是否展示的数据，不传忽略过虑条件") @RequestParam(required = false) Boolean isShow,
+                                         @ApiParam(value = "功能分组编码")  @RequestParam(required = false) String funcGroupCode) {
+        Long funcGroupId = null;
+        if (Strings.isNonEmpty(funcGroupCode)) {
+            FuncGroupDO byCode = funcGroupService.getByCode(funcGroupCode);
+            funcGroupId = byCode.getId();
+        }
         if (loginUser.getIsSuperAdmin()) {
             FuncQueryListCommand funcQueryListCommand = new FuncQueryListCommand();
             funcQueryListCommand.setIsDisabled(false);
+            funcQueryListCommand.setFuncGroupId(funcGroupId);
             MultiResponse<FuncVO> list = iFuncRepresentationApplicationService.queryList(funcQueryListCommand);
-            filter(list,includeTypeDictValues,isShow);
+            filter(list,includeTypeDictValues,isShow,funcGroupId);
             return list;
         }
 
@@ -80,7 +92,7 @@ public class FuncLoginController {
             list.setData(collect);
         }
         // 条件过虑
-        filter(list,includeTypeDictValues, isShow);
+        filter(list,includeTypeDictValues, isShow,funcGroupId);
         return list;
     }
     @ApiOperation("当前登录用户的应用")
@@ -96,18 +108,21 @@ public class FuncLoginController {
      * 根据参数过滤，默认只过滤菜单、页面、分组
      * @param list
      * @param includeTypeDictValues 如果为 all 将不过滤，值为功能类型字典值，多个以逗号分隔
+     * @param funcGroupId 过虑 功能分组
      */
-    private void filter(MultiResponse<FuncVO> list, String includeTypeDictValues, Boolean isShow){
-        if (StrUtil.equals(includeTypeDictValues,includeTypeDictValueAll)) {
-            return;
-        }
+    private void filter(MultiResponse<FuncVO> list, String includeTypeDictValues, Boolean isShow,Long funcGroupId){
+
+
         if (StrUtil.isEmpty(includeTypeDictValues)) {
             includeTypeDictValues = includeTypeDictValuesDefault;
         }
+
         Map<Long,String> itemsByGroupCode = funcDictGateway.getItemsByGroupCode(FuncTypeEnum.Group.func_type.groupCode());
         String finalIncludeTypeDictValues = includeTypeDictValues;
+        Long finalFuncGroupId = funcGroupId;
         List<FuncVO> collect = list.getData().stream()
 				.filter(item -> isShow == null || isShow.equals(item.getIsShow()))
+				.filter(item -> finalFuncGroupId == null || finalFuncGroupId.equals(item.getFuncGroupId()))
 				.filter(item -> {
             String value = itemsByGroupCode.get(item.getTypeDictId());
             return finalIncludeTypeDictValues.contains(value) || StrUtil.equals(finalIncludeTypeDictValues,includeTypeDictValueAll);

@@ -17,6 +17,7 @@ import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.servlet.RequestTool;
 import com.particle.oplog.domain.gateway.OpLogDictGateway;
 import com.particle.oplog.infrastructure.dos.OpLogAuditDataDO;
 import com.particle.oplog.infrastructure.dos.OpLogDO;
@@ -73,7 +74,7 @@ public class OpLogRepositoryImpl implements OpLogRepository {
 			String clientIP = null;
 			if (httpServletRequest != null) {
 				requestUrl = httpServletRequest.getRequestURL().toString();
-				clientIP = ServletUtil.getClientIP(httpServletRequest);
+				clientIP = RequestTool.getClientIP(httpServletRequest);
 			}
 			String finalRequestUrl = requestUrl;
 			String finalClientIP = clientIP;

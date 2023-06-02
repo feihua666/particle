@@ -15,6 +15,7 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.tool.thread.ThreadContextTool;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
@@ -71,7 +72,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		UserIdentifierDO identifier = (UserIdentifierDO) loginUser.getExt().get(IdentifierUserDetailsServiceImpl.user_ext_identifier_key);
 		// 更新上次登录时间和登录ip
 		identifier.setLastLoginAt(LocalDateTimeUtil.now());
-		identifier.setLastLoginIp(ServletUtil.getClientIP(httpServletRequest));
+		identifier.setLastLoginIp(RequestTool.getClientIP(httpServletRequest));
 		// 减少登录时间，采用异步方式
 		commonDbTaskExecutor.execute(() -> {
 			iIdentifierService.updateById(identifier);
@@ -104,7 +105,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		UserLoginRecordDO userLoginRecordDO = new UserLoginRecordDO();
 		userLoginRecordDO.setUserId(loginUser.getId());
 		userLoginRecordDO.setLoginAt(now);
-		userLoginRecordDO.setLoginIp(ServletUtil.getClientIP(httpServletRequest));
+		userLoginRecordDO.setLoginIp(RequestTool.getClientIP(httpServletRequest));
 
 		String deviceId = ServletUtil.getHeaderIgnoreCase(httpServletRequest, login_header_device_id);
 		userLoginRecordDO.setDeviceId(Optional.ofNullable(StrUtil.emptyToNull(deviceId)).orElse("none"));

@@ -97,7 +97,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 		return iRoleRepresentationApplicationService.pageQuery(rolePageQueryCommand);
 	}
 
-	private void superAdminCheck(boolean isSuperAdmin, LoginUser loginUser) {
+	public static void superAdminCheck(boolean isSuperAdmin, LoginUser loginUser) {
 
 		// 只有超级管理员才能添加或修改超级管理员角色
 		if (isSuperAdmin) {

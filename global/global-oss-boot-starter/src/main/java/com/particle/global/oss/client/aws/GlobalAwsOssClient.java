@@ -87,11 +87,12 @@ public class GlobalAwsOssClient extends AbstractGlobalOssClient {
 
 	@SneakyThrows
 	@Override
-	public void putObject(String bucketName, String objectName, InputStream inputStream) {
+	public void putObject(String bucketName, String objectName, InputStream inputStream,String contentType) {
 		String key = (objectName);
 
 		this.s3Client.putObject(builder -> builder
 				.bucket(bucketName)
+				.contentType(contentType)
 				.key(key), RequestBody.fromInputStream(inputStream, inputStream.available()));
 		IoUtil.close(inputStream);
 	}
@@ -107,6 +108,7 @@ public class GlobalAwsOssClient extends AbstractGlobalOssClient {
 		}
 		GlobalOssObject globalOssObject = GlobalOssObject.create(objectName, bucketName, inputStream);
 		globalOssObject.setContentLength(inputStream.response().contentLength());
+		globalOssObject.setContentType(inputStream.response().contentType());
 		globalOssObject.setLastUpdateAt(LocalDateTimeUtil.of(inputStream.response().lastModified()));
 		// aws 没有创建时间，这里取最后修改时间
 		globalOssObject.setCreateAt(globalOssObject.getLastUpdateAt());

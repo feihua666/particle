@@ -51,4 +51,16 @@ public class JsonTool {
 	public static String toJsonStrForHttp(Object object, ObjectMapper objectMapper) {
 		return objectMapper.writeValueAsString(object);
 	}
+
+	/**
+	 * 同上面的方法，多加一个视图
+	 * @param object
+	 * @param objectMapper
+	 * @param view
+	 * @return
+	 */
+	@SneakyThrows(JsonProcessingException.class)
+	public static String toJsonStrForHttp(Object object, ObjectMapper objectMapper,Class view) {
+		return objectMapper.writerWithView(view).writeValueAsString(object);
+	}
 }

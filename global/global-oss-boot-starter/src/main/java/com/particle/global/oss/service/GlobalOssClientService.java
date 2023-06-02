@@ -21,7 +21,7 @@ public interface GlobalOssClientService {
 	 * @param client 表示使用哪个客户端，为空表示使用默认的客户端
 	 * @return 存储对象可访问的 web 绝对地址
 	 */
-	String upload(String objectName, InputStream inputStream, String client);
+	String upload(String objectName, InputStream inputStream, String client,String contentType);
 
 	/**
 	 * 使用默认的客户端上传
@@ -29,8 +29,8 @@ public interface GlobalOssClientService {
 	 * @param inputStream 上传的文件输入流
 	 * @return 存储对象可访问的 web 绝对地址
 	 */
-	default String upload(String objectName, InputStream inputStream){
-		return upload(objectName, inputStream, null);
+	default String upload(String objectName, InputStream inputStream,String contentType){
+		return upload(objectName, inputStream, null,contentType);
 	}
 
 	/**

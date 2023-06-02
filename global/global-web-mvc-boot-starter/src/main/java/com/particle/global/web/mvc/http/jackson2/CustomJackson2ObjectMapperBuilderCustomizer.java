@@ -52,6 +52,8 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 
 		//默认关闭，将char[]数组序列化为String类型。若开启后序列化为JSON数组。
 		jacksonObjectMapperBuilder.featuresToEnable(SerializationFeature.WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS);
+		// 启动jsonView,可以实现针对不同的视图返回不同的json
+		jacksonObjectMapperBuilder.defaultViewInclusion(true);
 
 		//默认开启，若map的value为null，则不对map条目进行序列化。(已废弃)。
 		// 推荐使用：jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);

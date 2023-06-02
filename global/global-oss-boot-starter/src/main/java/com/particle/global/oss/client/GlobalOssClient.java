@@ -41,9 +41,10 @@ public interface GlobalOssClient {
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
 	 * @param inputStream 文件流，将会自动关闭流
+	 * @param contentType 文件内容类型 mimeType 如：application/json
 	 * @throws Exception
 	 */
-	void putObject(String bucketName, String objectName, InputStream inputStream);
+	void putObject(String bucketName, String objectName, InputStream inputStream,String contentType);
 
 	/**
 	 * 获取文件

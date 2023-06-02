@@ -73,7 +73,7 @@ public class GlobalLocalOssClient extends AbstractGlobalOssClient {
 	}
 
 	@Override
-	public void putObject(String bucketName, String objectName, InputStream inputStream) {
+	public void putObject(String bucketName, String objectName, InputStream inputStream,String contentType) {
 		String fullPath = NetPathTool.concat(globalLocalOssProperties.getBasePath(), bucketName,objectName);
 		FileUtil.writeFromStream(inputStream, fullPath);
 

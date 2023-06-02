@@ -1,6 +1,7 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
 import com.particle.global.security.security.voter.SuperAdminRoleVoter;
 import com.particle.global.security.tenant.GrantedTenant;
@@ -8,7 +9,6 @@ import com.particle.global.security.tenant.UserTenantService;
 import com.particle.global.tool.json.JsonTool;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -88,16 +88,19 @@ public class LoginUser implements UserDetails {
 
     /**
      * 前端直接返回了，这里不生成，不显示到前端
+     * 不要直接使用set方法设置，使用 addxxx方法设置，会有对应的角色的数据处理逻辑
      */
-    @Getter(AccessLevel.NONE)
+    //@Getter(AccessLevel.NONE)
+    @JsonView(UserWebIgnoreView.class)
     @ApiModelProperty(value = "权限信息")
     private List<UserGrantedAuthority> userGrantedAuthorities;
 
     /**
      * 角色信息
      * 通过 {@link LoginUser#userGrantedAuthorities} 提取获取
+     * 不要直接通过set方法设置，这在添加权限的时候自动初始化
      */
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     @ApiModelProperty(value = "角色信息")
     private List<GrantedRole> roles;
 
@@ -125,8 +128,9 @@ public class LoginUser implements UserDetails {
     /**
      * 权限码信息
      * 通过 {@link LoginUser#userGrantedAuthorities} 获取
+     * 不要直接通过set方法设置，这在get方法中直接获取
      */
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     private List<String> permissions;
 
     @ApiModelProperty(value = "扩展信息")
@@ -138,6 +142,7 @@ public class LoginUser implements UserDetails {
     @ApiModelProperty(value = "登录IP")
     private String loginIp;
 
+    @JsonView(UserWebIgnoreView.class)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return userGrantedAuthorities;
@@ -196,7 +201,11 @@ public class LoginUser implements UserDetails {
             roles =  Collections.emptyList();
             return;
         }
-        roles =  userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
+        List<GrantedRole> rolesTemp =  userGrantedAuthorities.stream().map(UserGrantedAuthority::getGrantedPermissionRole).filter(Objects::nonNull).collect(Collectors.toList());
+        if (CollectionUtil.isNotEmpty(rolesTemp)) {
+            List<GrantedRole> distinct = CollectionUtil.distinct(rolesTemp, r -> r.getId(), true);
+            roles = distinct;
+        }
         if (currentRole == null) {
             if (CollectionUtil.isNotEmpty(roles)) {
                 currentRole = roles.iterator().next();
@@ -271,4 +280,10 @@ public class LoginUser implements UserDetails {
         }
         ext.put(key, obj);
     }
+
+    /**
+     * 用于返回给前端json，忽略某些字段
+     */
+    public static interface UserWebIgnoreView {}
+    public static interface UserWebView {}
 }

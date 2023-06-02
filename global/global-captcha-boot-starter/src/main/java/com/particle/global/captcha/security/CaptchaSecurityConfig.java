@@ -1,6 +1,6 @@
 package com.particle.global.captcha.security;
 
-import com.particle.global.captcha.CaptchaAutoConfiguration;
+import com.particle.global.captcha.GlobalCaptchaAutoConfiguration;
 import com.particle.global.captcha.ICaptchaService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class CaptchaSecurityConfig {
 
 
 	/**
-	 * 该配置不能放到 {@link CaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
+	 * 该配置不能放到 {@link GlobalCaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
 	 * @return
 	 */
 	@Bean
@@ -28,7 +28,7 @@ public class CaptchaSecurityConfig {
 		return captchaSecurityFilter;
 	}
 	/**
-	 * 该配置不能放到 {@link CaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
+	 * 该配置不能放到 {@link GlobalCaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
 	 * @return
 	 */
 	@Bean

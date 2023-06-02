@@ -44,6 +44,7 @@
         <module>global-captcha-boot-starter</module>
         <module>global-oss-boot-starter</module>
         <module>global-data-audit-boot-starter</module>
+        <module>global-document-boot-starter</module>
 
     </modules>
 

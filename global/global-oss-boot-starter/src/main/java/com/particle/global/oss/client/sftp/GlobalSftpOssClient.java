@@ -96,7 +96,7 @@ public class GlobalSftpOssClient extends AbstractGlobalOssClient {
 	}
 
 	@Override
-	public void putObject(String bucketName, String objectName, InputStream inputStream) {
+	public void putObject(String bucketName, String objectName, InputStream inputStream,String contentType) {
 		Sftp sftp = getSftp();
 		try {
 			String objectParent = objectName.substring(0, objectName.lastIndexOf(NetPathTool.SLASH));
@@ -157,7 +157,7 @@ public class GlobalSftpOssClient extends AbstractGlobalOssClient {
 			IoUtil.copy(globalOssObject.getObjectContent(), byteArrayOutputStream);
 			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
 
-			putObject(destBucketName,destObjectName,byteArrayInputStream);
+			putObject(destBucketName,destObjectName,byteArrayInputStream,globalOssObject.getContentType());
 
 			IoUtil.close(globalOssObject.getObjectContent());
 		}

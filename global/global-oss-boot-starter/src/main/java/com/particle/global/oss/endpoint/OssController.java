@@ -11,9 +11,11 @@ import com.particle.global.oss.endpoint.dto.GlobalOssVO;
 import com.particle.global.oss.endpoint.dto.UploadCommand;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.tool.file.FileTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -70,7 +72,8 @@ public class OssController {
 		Long fileLength = file.getSize();
 		log.info("文件上传开始，path={},originalFilename={},fileLength={},objectName={}",uploadCommand.getPath(),originalFilename,fileLength,objectName);
 
-		String upload = globalOssClientService.upload(objectName, inputStream);
+		String mimeType = FileTool.getMimeType(objectName);
+		String upload = globalOssClientService.upload(objectName, inputStream,mimeType);
 		IoUtil.close(inputStream);
 
 		log.info("文件上传结束,uploadResult={}",upload);
@@ -81,12 +84,20 @@ public class OssController {
 	 * 下载
 	 * @param request
 	 */
+	@ApiOperation("下载文件或预览文件")
 	@GetMapping(API_DOWNLOAD + "/**")
 	public void download(HttpServletRequest request, HttpServletResponse response, String objectName, String client) throws Throwable {
 		String finalObjectName = getObjectName(request, objectName);
 
 		GlobalOssObject globalOssObject = globalOssClientService.download(finalObjectName, client);
 		if (globalOssObject.getObjectContent() != null) {
+			if (Strings.isEmpty(globalOssObject.getContentType())) {
+			//	尝试获取
+				String mimeType = FileTool.getMimeType(finalObjectName);
+				if (Strings.isNotEmpty(mimeType)) {
+					response.setContentType(mimeType);
+				}
+			}
 			OutputStream stream = response.getOutputStream();
 			IoUtil.copy(globalOssObject.getObjectContent(),stream);
 			IoUtil.close(globalOssObject.getObjectContent());
@@ -99,6 +110,7 @@ public class OssController {
 	 */
 	@PreAuthorize("hasRole("+ LoginUser.super_admin_role +")")
 	@DeleteMapping( API_DOWNLOAD + "/**")
+	@ApiOperation("删除文件，只能超级管理员才能删除")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(HttpServletRequest request,String objectName, String client){
 		String finalObjectName = getObjectName(request, objectName);
