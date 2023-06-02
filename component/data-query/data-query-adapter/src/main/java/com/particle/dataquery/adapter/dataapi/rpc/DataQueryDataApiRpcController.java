@@ -3,8 +3,11 @@ package com.particle.dataquery.adapter.dataapi.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.adapter.feign.client.dataapi.rpc.DataQueryDataApiRpcFeignClient;
+import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
+import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +27,19 @@ public class DataQueryDataApiRpcController extends AbstractBaseRpcAdapter implem
 
 	@Autowired
 	private IDataQueryDataApiApplicationService iDataQueryDataApiApplicationService;
+	@Autowired
+	private IDataQueryDataApiRepresentationApplicationService iDataQueryDataApiRepresentationApplicationService;
 
 
+	@PostMapping("/invoke")
+	@Override
+	public Object invoke(String code, Object command, String queryString) {
+
+		DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();
+		dataQueryDataApiQueryCommand.setUrl(code);
+		dataQueryDataApiQueryCommand.setParam(command);
+		dataQueryDataApiQueryCommand.setQueryString(queryString);
+
+		return iDataQueryDataApiRepresentationApplicationService.dataApiQuery(dataQueryDataApiQueryCommand);
+	}
 }
