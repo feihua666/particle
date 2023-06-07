@@ -1,5 +1,6 @@
 package com.particle.role.adapter.rolefuncrel.rpc;
 
+import com.particle.global.dto.response.Response;
 import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.adapter.feign.client.rolefuncrel.rpc.RoleFuncRelRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,12 +33,10 @@ public class RoleFuncRelRpcController extends AbstractBaseRpcAdapter implements 
 	@Autowired
 	private IRoleFuncRelApplicationService iRoleFuncRelApplicationService;
 
-
-
-
-
-
-
-
-
+	@ApiOperation("删除功能id范围外的角色功能关系数据")
+	@PostMapping("/deleteOutOfScopeByScopedFuncIds")
+	@Override
+	public Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
+		return iRoleFuncRelApplicationService.deleteOutOfScopeByScopedFuncIds(scopedFuncIds,tenantId);
+	}
 }

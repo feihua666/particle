@@ -9,6 +9,8 @@ import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色菜单功能关系 应用门面服务类
@@ -31,7 +33,15 @@ public interface IRoleFuncRelApplicationService extends IBaseApplicationService 
 	 * @return
 	 */
 	SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand);
-
+	
+	/**
+	 * 删除功能id范围外的角色功能关系数据
+	 * 该功能接口主要用于在租户应用分配功能后，可能功能会减少，将减少的功能联动角色一并减少
+	 * 注意：scopedFuncIds 为空时将会清空所有数据
+	 * @param scopedFuncIds 范围内的funcId数据
+	 * @return
+	 */
+	Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId);
 
 	/**
 	 * 角色分配功能

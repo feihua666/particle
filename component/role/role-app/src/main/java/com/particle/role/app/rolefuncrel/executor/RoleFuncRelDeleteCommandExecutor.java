@@ -1,5 +1,7 @@
 package com.particle.role.app.rolefuncrel.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.dto.response.Response;
 import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
 import com.particle.common.client.dto.command.IdCommand;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -69,6 +72,20 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public Response deleteByFuncId(@Valid IdCommand funcIdCommand) {
 		boolean result = iRoleFuncRelService.deleteByColumn(funcIdCommand.getId(), RoleFuncRelDO::getFuncId);
+		return Response.buildSuccess();
+	}
+
+	/**
+	 * 删除范围外的数据
+	 * @param scopedFuncIds
+	 * @return
+	 */
+	public Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
+		if (CollectionUtil.isEmpty(scopedFuncIds)) {
+			iRoleFuncRelService.remove(Wrappers.emptyWrapper());
+			return Response.buildSuccess();
+		}
+		iRoleFuncRelService.remove(Wrappers.<RoleFuncRelDO>lambdaQuery().notIn(RoleFuncRelDO::getFuncId, scopedFuncIds).eq(RoleFuncRelDO::getTenantId,tenantId));
 		return Response.buildSuccess();
 	}
 	/**

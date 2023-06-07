@@ -16,6 +16,9 @@ import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 /**
  * <p>
  * 角色菜单功能关系 门面服务实现类
@@ -43,6 +46,11 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	@Override
 	public SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand) {
 		return roleFuncRelDeleteCommandExecutor.execute(roleFuncRelDeleteCommand);
+	}
+
+	@Override
+	public Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
+		return roleFuncRelDeleteCommandExecutor.deleteOutOfScopeByScopedFuncIds(scopedFuncIds,tenantId);
 	}
 
 	@Override

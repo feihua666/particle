@@ -99,6 +99,13 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 
+	/**
+	 * 租户分配功能菜单，也可以用做租户应用分配功能菜单，但租户id是必填的
+	 * 目前后台管理的 租户应用分配功能菜单 用的就是这个接口
+	 * 分配完成后，有可能会功能比以前的少，这时租户下已分配的角色对应的功能也得相应减少，否则数据会不对，该方法内部已经处理该情形
+	 * @param cf
+	 * @return
+	 */
 	@ApiOperation("租户分配功能菜单")
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:tenantAssignFunc')")
 	@PostMapping("/tenant/assign/func")

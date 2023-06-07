@@ -69,6 +69,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认',
+  methodConfirmText: '注意：该功能将影响租户已分配的所有功能，一旦功能减少已分配的角色功能将同步减少操作不可逆！',
   permission: 'admin:web:tenantFunc:tenantAssignFunc',
 })
 // 提交按钮

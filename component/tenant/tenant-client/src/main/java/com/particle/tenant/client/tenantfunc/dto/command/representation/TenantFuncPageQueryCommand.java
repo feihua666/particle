@@ -31,10 +31,8 @@ public class TenantFuncPageQueryCommand extends AbstractBasePageQueryCommand {
     @ApiModelProperty(value = "功能应用id")
     private Long funcApplicationId;
 
-
-
-
-
+    @ApiModelProperty(value = "租户id")
+    private Long tenantId;
 
 
 }
