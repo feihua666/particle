@@ -7,6 +7,7 @@ import com.particle.global.tool.json.JsonTool;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,75 +23,18 @@ import java.util.Map;
  */
 @Slf4j
 public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient {
-	@Override
-	public Object postJson(String url, Map<String,String> headers, Object command,String  commandJsonStr,String queryString) {
-		String body = commandJsonStr;
-		log.info("postJson. url={},body={},headers={}",url,body,JsonTool.toJsonStr(headers));
-		HttpResponse httpResponse = HttpRequest.post(url)
-				.bodyText(body, "application/json")
-				.queryString(queryString)
-				.header(headers)
-				.send();
-		String result = httpResponse.charset("utf-8").bodyText();
-		log.info("postJson result. result={}",result);
 
-		return adaptResult(httpResponse.contentType(), result);
-
-	}
 
 	@Override
-	public Object postFormData(String url,Map<String,String> headers, Object command,String  commandJsonStr,String queryString) {
-		String form = commandJsonStr;
-		log.info("postFormData. url={},form={},headers={}",url,form,JsonTool.toJsonStr(headers));
-		HttpResponse httpResponse = HttpRequest.post(url)
-				//.form(JsonTool.toJsonStr(command), "multipart/form-data")
-				.form(((Map) command))
-				.queryString(queryString)
-				.header(headers)
-				.send();
-
-		String result = httpResponse.charset("utf-8").bodyText();
-		log.info("postFormData result. result={}",result);
-
-		return adaptResult(httpResponse.contentType(), result);
-
-	}
-
-	@Override
-	public Object postXWwwFormUrlencoded(String url, Map<String,String> headers,Object command,String  commandJsonStr,String queryString) {
-		String form = commandJsonStr;
-		log.info("postXWwwFormUrlencoded. url={},form={},headers={}",url,form,JsonTool.toJsonStr(headers));
-		HttpResponse httpResponse = HttpRequest.post(url)
-				//.bodyText(JsonTool.toJsonStr(command), "application/x-www-form-urlencoded")
-				.form(((Map) command))
-				.queryString(queryString)
-				.header(headers)
-				.send();
-		String result = httpResponse.charset("utf-8").bodyText();
-		log.info("postXWwwFormUrlencoded result. result={}",result);
-
-		return adaptResult(httpResponse.contentType(), result);
-
-	}
-
-	@Override
-	public Object postText(String url, Map<String,String> headers,Object command,String queryString) {
-		throw new BigDatasourceException(" post text not support currently");
-	}
-
-	@Override
-	public Object postXml(String url,Map<String,String> headers, Object command,String queryString) {
-		throw new BigDatasourceException(" post xml not support currently");
-	}
-
-	@Override
-	public Object get(String url, Map<String,String> headers,Object command,String  commandJsonStr,String queryString) {
+	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
 		Map<String, String> queryMap = Collections.emptyMap();
 		boolean b = command instanceof Map;
 		if (b) {
 			queryMap = ((Map<String, String>) command);
 		}
-		log.info("get. url={},form={},headers={}",url,commandJsonStr,JsonTool.toJsonStr(headers));
+		// get请求没有请求内容类型 contentType
+		log.info("{}. url={},body={},queryString={},headers={},content-type={}","get",url,commandJsonStr,JsonTool.toJsonStr(headers),contentType);
+		long start = System.currentTimeMillis();
 		HttpResponse httpResponse = HttpRequest.get(url)
 				// queryString 必须在前面，会重置内部query
 				.queryString(queryString)
@@ -98,11 +42,72 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 				.header(headers)
 				.send();
 		String result = httpResponse.charset("utf-8").bodyText();
-		log.info("get result. result={}",result);
+		log.info("get result. duration={}ms, result={}",System.currentTimeMillis()-start,result);
 
 		return adaptResult(httpResponse.contentType(), result);
 	}
 
+	@Override
+	public Object post(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+		HttpRequest httpRequest = HttpRequest.post(url);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "post");
+	}
+
+	@Override
+	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+		HttpRequest httpRequest = HttpRequest.post(url);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "delete");
+	}
+
+	@Override
+	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+		HttpRequest httpRequest = HttpRequest.post(url);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "put");
+	}
+
+	@Override
+	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+		HttpRequest httpRequest = HttpRequest.post(url);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "patch");
+	}
+
+	/**
+	 * 发起请求
+	 * @param httpRequest
+	 * @param url
+	 * @param headers
+	 * @param command
+	 * @param commandJsonStr
+	 * @param queryString
+	 * @param contentType
+	 * @param methodLog
+	 * @return
+	 */
+	private Object request(HttpRequest httpRequest,String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType,String methodLog) {
+		String body = commandJsonStr;
+		log.info("{}. url={},body={},queryString={},headers={},content-type={}",methodLog,url,body,queryString,JsonTool.toJsonStr(headers),contentType);
+
+		if (contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
+			httpRequest.bodyText(body, contentType);
+		} else if (contentType.startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+			httpRequest.form(((Map) command)).multipart(true).contentType(contentType);
+		}else if (contentType.startsWith(MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
+			httpRequest.form(((Map) command)).contentType(contentType);
+		}else {
+			httpRequest.bodyText(body, contentType);
+		}
+		long start = System.currentTimeMillis();
+
+		HttpResponse httpResponse = httpRequest
+				.queryString(queryString)
+				.header(headers)
+				.send();
+		String result = httpResponse.charset("utf-8").bodyText();
+		log.info("{} result. duration={}ms, result={}",methodLog,System.currentTimeMillis() - start,result);
+
+		return adaptResult(httpResponse.contentType(), result);
+
+	}
 
 	/**
 	 * 适配结果
@@ -136,4 +141,5 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		BigDatasourceHttpJoddClientImpl bigDatasourceHttpJoddClient = new BigDatasourceHttpJoddClientImpl();
 		return bigDatasourceHttpJoddClient;
 	}
+
 }

@@ -33,6 +33,14 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 		Object resultDataConverted = resultDataConvert(bigDatasourceApi, command,queryString,resultData, o);
 		return resultDataConverted;
 	}
+
+	/**
+	 * 真正执行
+	 * @param bigDatasourceApi
+	 * @param command
+	 * @param queryString
+	 * @return
+	 */
 	public abstract Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString);
 
 	/**
