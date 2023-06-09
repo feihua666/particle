@@ -1,7 +1,20 @@
+import {nextTick} from 'vue'
 import {list as lowcodeSegmentTemplateListApi} from "../../api/generator/admin/lowcodeSegmentTemplateAdminApi";
 import {list as lowcodeModelListApi} from "../../api/generator/admin/lowcodeModelAdminApi";
 import {list as lowcodeSegmentGenListApi} from "../../api/generator/admin/lowcodeSegmentGenAdminApi";
 
+const getFormName = (form,formData)=>{
+    const separator = '_'
+    let namePrefix = ''
+    if (formData.lowcodeModelId) {
+        namePrefix = formData.lowcodeModelId.name
+    }
+    let nameSuffix = ''
+    if (formData.generateTypeDictId) {
+        nameSuffix = separator + formData.generateTypeDictId.name
+    }
+    return namePrefix + nameSuffix
+}
 export const pageFormItems = [
     {
         field: {
@@ -88,7 +101,7 @@ export const addPageFormItems = [
             formItemProps: {
                 label: '生成名称',
                 required: true,
-                tips: '仅做为标识识别'
+                tips: '仅做为标识识别，自动联动 低代码模型和生成类型'
             },
             compProps: {
                 clearable: true,
@@ -98,13 +111,13 @@ export const addPageFormItems = [
 
     {
         field: {
-            name: 'lowcodeSegmentTemplateId'
+            name: 'lowcodeSegmentTemplateId',
         },
         element: {
             comp: 'PtCascader',
             formItemProps: {
                 label: '低代码片段模板',
-                tips: '将基于该模板进行渲染',
+                tips: '将基于该模板进行渲染，注意：和生成类型有对应关系',
                 required: true
             },
             compProps: {
@@ -116,6 +129,11 @@ export const addPageFormItems = [
     {
         field: {
             name: 'lowcodeModelId',
+            valueChange:({form,formData,newValue})=>{
+                nextTick(()=>{
+                    form.name = getFormName(form,formData)
+                })
+            }
         },
         element: {
             comp: 'PtSelect',
@@ -130,7 +148,12 @@ export const addPageFormItems = [
     },
     {
         field: {
-            name: 'generateTypeDictId'
+            name: 'generateTypeDictId',
+            valueChange:({form,formData,newValue})=>{
+                nextTick(()=>{
+                    form.name = getFormName(form,formData)
+                })
+            }
         },
         element: {
             comp: 'PtDictFrontSelect',

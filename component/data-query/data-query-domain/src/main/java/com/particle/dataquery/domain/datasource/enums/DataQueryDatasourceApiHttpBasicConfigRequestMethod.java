@@ -17,8 +17,19 @@ public enum DataQueryDatasourceApiHttpBasicConfigRequestMethod implements IDictI
 	/**
 	 * post请求
 	 */
-	post
-	,
+	post,
+	/**
+	 * delete请求
+	 */
+	delete,
+	/**
+	 * put请求
+	 */
+	put,
+	/**
+	 * patch请求
+	 */
+	patch,
 	/**
 	 * get请求
 	 */

@@ -37,7 +37,12 @@ public enum DataQueryDatasourceApiHttpBasicConfigContentType implements IDictIte
 	/**
 	 * text/xml
 	 */
-	text_xml
+	text_xml,
+	/**
+	 * 无，在get方法时请求内容类型不用填写
+	 */
+	none
+
 	;
 
 	@Override
