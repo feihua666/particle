@@ -145,5 +145,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 提供retry工具 -->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 </project>

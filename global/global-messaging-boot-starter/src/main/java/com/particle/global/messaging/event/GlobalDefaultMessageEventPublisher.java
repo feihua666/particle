@@ -6,6 +6,7 @@ import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import com.particle.global.messaging.event.api.MessageEventPublisher;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.messaging.event.api.MessageEventSender;
+import com.particle.global.tool.retry.RetryTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
@@ -27,7 +28,6 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
     private final MessageEventRepository eventDao;
     private final LockExecutor lockExecutor;
     private final MessageEventSender sender;
-    private final RetryTemplate retryTemplate;
 
     public GlobalDefaultMessageEventPublisher(MessageEventRepository eventDao,
                                               LockExecutor lockExecutor,
@@ -35,23 +35,8 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
         this.eventDao = eventDao;
         this.lockExecutor = lockExecutor;
         this.sender = sender;
-        this.retryTemplate = retryTemplate();
     }
 
-    private RetryTemplate retryTemplate() {
-        RetryTemplate retryTemplate = new RetryTemplate();
-
-        ExponentialBackOffPolicy policy = new ExponentialBackOffPolicy();
-        policy.setInitialInterval(200);
-        policy.setMaxInterval(2000);
-        policy.setMultiplier(2.0);
-        retryTemplate.setBackOffPolicy(policy);
-        SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
-        retryPolicy.setMaxAttempts(3);
-        retryTemplate.setRetryPolicy(retryPolicy);
-
-        return retryTemplate;
-    }
 
     @Override
     public void publishNextBatch() {
@@ -61,7 +46,7 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
     @Override
     public void publishNextBatch(int size) {
         try {
-            retryTemplate.execute(context -> {
+            RetryTool.execute(context -> {
                 lockExecutor.execute(() -> doPublish(size), "default-message-event-publisher");
                 return null;
             });
