@@ -34,11 +34,11 @@ public class GlobalMybatisExecutorsConfig {
 				commonDbTaskExecutor,
 				5,
 				100,
-				1000,
+				1000 * 60,
 				new LinkedBlockingQueue<>(1000),
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
-				true);
+				false);
 	}
 
 

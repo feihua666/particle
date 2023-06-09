@@ -45,6 +45,7 @@
         <module>global-oss-boot-starter</module>
         <module>global-data-audit-boot-starter</module>
         <module>global-document-boot-starter</module>
+        <module>global-scheduler-boot-starter</module>
 
     </modules>
 

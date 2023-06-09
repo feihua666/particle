@@ -47,7 +47,7 @@ public class ProxyConfig implements InitializingBean, Serializable {
 	private String proxyPassword;
 
 	/**
-	 * 是否便衣全局默认的代理
+	 * 是否设置为全局默认的代理
 	 */
 	private Boolean asDefault;
 

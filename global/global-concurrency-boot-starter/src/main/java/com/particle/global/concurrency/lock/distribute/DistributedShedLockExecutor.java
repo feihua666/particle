@@ -1,5 +1,7 @@
 package com.particle.global.concurrency.lock.distribute;
 
+import com.particle.global.concurrency.lock.LockExecuteConfig;
+import com.particle.global.concurrency.lock.LockExecutor;
 import com.particle.global.exception.biz.LockAlreadyOccupiedException;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.core.LockConfiguration;
@@ -20,11 +22,8 @@ import java.util.function.Supplier;
  * @since 2022-09-19 13:18
  */
 @Slf4j
-public class DistributedShedLockExecutor {
-	/**
-	 * 最大锁定时间，默认5分钟
-	 */
-	private static final Duration MAX_RUN_TIME = Duration.ofMinutes(5);
+public class DistributedShedLockExecutor implements LockExecutor {
+
 
 	/**
 	 * 锁提供商，可以自定义
@@ -53,12 +52,35 @@ public class DistributedShedLockExecutor {
 		}
 	}
 
+	@Override
 	public <T> T execute(Supplier<T> supplier, String lockKey) {
-		Instant now = Instant.now();
-		// 最小持有时间，这里默认为0
-		LockConfiguration lockConfiguration = new LockConfiguration(now, lockKey, Duration.between(now, now.plus(MAX_RUN_TIME)), Duration.between(now, now));;
+		LockConfiguration lockConfiguration = lockExecuteConfigConvert(LockExecuteConfig.create(lockKey, LockExecuteConfig.MAX_RUN_TIME.toMillis()));
 
 		return this.execute(supplier, lockConfiguration);
 
+	}
+
+	@Override
+	public <T> T execute(Supplier<T> supplier, LockExecuteConfig lockExecuteConfig) {
+
+		LockConfiguration lockConfiguration = lockExecuteConfigConvert(lockExecuteConfig);
+
+		return this.execute(supplier, lockConfiguration);
+	}
+
+
+	/**
+	 * 对象转换
+	 * @param lockExecuteConfig
+	 * @return
+	 */
+	private LockConfiguration lockExecuteConfigConvert(LockExecuteConfig lockExecuteConfig) {
+		Instant now = Instant.now();
+		// 最小持有时间，这里默认为0
+		LockConfiguration lockConfiguration = new LockConfiguration(now,
+				lockExecuteConfig.getName(),
+				Duration.between(now, now.plus(Duration.ofMillis(lockExecuteConfig.durationMust()))), Duration.between(now, now));;
+
+		return lockConfiguration;
 	}
 }

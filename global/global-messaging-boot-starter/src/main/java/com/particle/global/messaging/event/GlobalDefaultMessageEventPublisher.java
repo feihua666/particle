@@ -1,5 +1,6 @@
 package com.particle.global.messaging.event;
 
+import com.particle.global.concurrency.lock.LockExecutor;
 import com.particle.global.concurrency.lock.distribute.DistributedShedLockExecutor;
 import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import com.particle.global.messaging.event.api.MessageEventPublisher;
@@ -24,12 +25,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher {
     private final MessageEventRepository eventDao;
-    private final DistributedShedLockExecutor lockExecutor;
+    private final LockExecutor lockExecutor;
     private final MessageEventSender sender;
     private final RetryTemplate retryTemplate;
 
     public GlobalDefaultMessageEventPublisher(MessageEventRepository eventDao,
-                                              DistributedShedLockExecutor lockExecutor,
+                                              LockExecutor lockExecutor,
                                               MessageEventSender sender) {
         this.eventDao = eventDao;
         this.lockExecutor = lockExecutor;

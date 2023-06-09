@@ -9,6 +9,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigD
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.BigDatasourceHttpClient;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -51,8 +52,8 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = (HttpBigDatasourceApiConfig) config;
-
-		return httpBigDatasourceConfig.getDomainUrl() + httpBigDatasourceApiConfig.renderRequestUrl(command,queryString);
+		Map<String, Object> objectMap = httpBigDatasourceConfig.shareDataMap();
+		return httpBigDatasourceConfig.getDomainUrl() + httpBigDatasourceApiConfig.renderRequestUrl(command,queryString,objectMap);
 	}
 
 

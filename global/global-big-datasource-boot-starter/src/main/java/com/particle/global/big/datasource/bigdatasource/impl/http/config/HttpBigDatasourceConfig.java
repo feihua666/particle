@@ -92,10 +92,13 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 		}
 		TemplateRenderDataWrap<Object> objectTemplateRenderDataWrap = TemplateRenderDataWrap.create(command);
 		Map<String, Object> objectMap = objectTemplateRenderDataWrap.toRenderMap();
+		Map<String, Object> shareDataMap = shareDataMap();
 		objectMap.put("headers", result);
-		objectMap.put("username", getUsername());
-		objectMap.put("password", getPassword());
+
 		objectMap.put("dataJsonStr", commandJsonStr);
+		objectMap.put("commandStr", commandJsonStr);
+		objectMap.put("queryString", queryString);
+		objectMap.putAll(shareDataMap);
 		if (authScriptType == HttpBigDatasourceAuthScriptType.enjoy_template) {
 			// enjoy模板只支持在脚本中设置 headers
 			TemplateTool.render(authScriptTemplate, objectMap);
@@ -118,4 +121,14 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 			return result;
 	}
 
+	/**
+	 * 共享的数据
+	 * @return
+	 */
+	public Map<String,Object> shareDataMap(){
+		Map<String, Object> objectMap = new HashMap<>();
+		objectMap.put("username", getUsername());
+		objectMap.put("password", getPassword());
+		return objectMap;
+	}
 }

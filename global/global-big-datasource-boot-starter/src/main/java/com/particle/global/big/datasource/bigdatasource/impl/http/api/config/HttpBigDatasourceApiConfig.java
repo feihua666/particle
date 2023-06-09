@@ -1,5 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.api.config;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.big.datasource.bigdatasource.api.config.AbstractBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
@@ -54,14 +55,23 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	}
 
 
-
-
+	/**
+	 * 渲染请求地址
+	 * @param command
+	 * @param queryString
+	 * @param objectMap 额外的扩展数据
+	 * @return
+	 */
 	@SneakyThrows
-	public String renderRequestUrl(Object command,String queryString){
+	public String renderRequestUrl(Object command,String queryString,Map<String, Object> objectMap){
 
 		if(requestUrlRenderType == HttpBigDatasourceApiConfigRequestUrlRenderType.groovy_script){
 
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(command).toRenderMap();
+			if (CollectionUtil.isNotEmpty(objectMap)) {
+				renderMap.putAll(objectMap);
+			}
+			renderMap.put("queryString", queryString);
 
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);

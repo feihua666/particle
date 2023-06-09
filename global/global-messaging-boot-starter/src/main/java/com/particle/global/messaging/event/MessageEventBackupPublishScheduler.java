@@ -1,6 +1,7 @@
 package com.particle.global.messaging.event;
 
 import com.particle.global.messaging.event.api.MessageEventPublisher;
+import com.particle.global.scheduler.IGlobalScheduler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -14,7 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
  * @since 2022-05-14 12:18
  */
 @Slf4j
-public class MessageEventBackupPublishScheduler {
+public class MessageEventBackupPublishScheduler implements IGlobalScheduler {
 
     private MessageEventPublisher publisher;
 
@@ -23,9 +24,9 @@ public class MessageEventBackupPublishScheduler {
     }
 
     /**
-     * 按固定时间定时发布消息，单位默认10秒发送一次
+     * 按固定时间定时发布消息，单位默认20秒发送一次
      */
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 20000)
     public void run() {
         log.info("Scheduled trigger message event backup publish process.");
         publisher.publishNextBatch();

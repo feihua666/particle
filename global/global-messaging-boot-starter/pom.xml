@@ -164,6 +164,12 @@
             <artifactId>shedlock-provider-jdbc-template</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-scheduler-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

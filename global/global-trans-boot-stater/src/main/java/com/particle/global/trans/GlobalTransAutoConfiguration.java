@@ -129,10 +129,10 @@ public class GlobalTransAutoConfiguration {
 				transTaskExecutor,
 				10,
 				100,
-				100,
+				1000 * 60,
 				new LinkedBlockingQueue<>(100),
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
-				true);
+				false);
 	}
 }
