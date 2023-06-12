@@ -55,19 +55,19 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 
 	@Override
 	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
-		HttpRequest httpRequest = HttpRequest.post(url);
+		HttpRequest httpRequest = HttpRequest.delete(url);
 		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "delete");
 	}
 
 	@Override
 	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
-		HttpRequest httpRequest = HttpRequest.post(url);
+		HttpRequest httpRequest = HttpRequest.put(url);
 		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "put");
 	}
 
 	@Override
 	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
-		HttpRequest httpRequest = HttpRequest.post(url);
+		HttpRequest httpRequest = HttpRequest.patch(url);
 		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "patch");
 	}
 
