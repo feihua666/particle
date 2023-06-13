@@ -166,6 +166,7 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 			tenantUserCreateCommand.setUserId(applyUserId);
 			tenantUserCreateCommand.setIsExpired(false);
 			tenantUserCreateCommand.setIsLeave(false);
+			tenantUserCreateCommand.setIsFormal(true);
 			tenantUserCreateCommand.setTenantId(tenantSave.getData().getId());
 			SingleResponse<TenantUserVO> tenantUserSave = tenantUserCreateCommandExecutor.execute(tenantUserCreateCommand);
 			if (tenantUserSave.isSuccess()) {
