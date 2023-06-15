@@ -475,24 +475,6 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
           label: '输出包装类型',
           tips: '重要，标识接口数据的输出类型和处理逻辑',
           required: true,
-          rules: [
-            { validator: (rule: any, value: any, callback: any) => {
-                if (value) {
-                  // 数据源选择的是jdbc类型数据源，不支持代理验证
-                  if(formData.dataQueryDatasourceId.typeDictValue == 'datasource_jdbc'){
-                    if(formData.typeDictId?.value == 'proxy'){
-                      callback(new Error(`${formData.dataQueryDatasourceId.name}为jdbc类型数据源不支持代理`))
-                    } else {
-                      callback()
-                    }
-                  } else {
-                    callback()
-                  }
-                } else {
-                  callback(new Error('类型不能为空'))
-                }
-              }, trigger: 'blur' }
-          ]
         },
         compProps: ({form,formData})=>{
           let disabled = !form.dataQueryDatasourceId
@@ -502,26 +484,6 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
             title: '请先选择数据源',
             // 字典查询
             dictParam: {groupCode: 'dataquery_datasource_api_type'},
-            sceneDataHander(data){
-              if(formData.dataQueryDatasourceId?.typeDictValue == 'datasource_jdbc'){
-                if(data){
-                  let r = []
-                  data.forEach(item =>{
-
-                    let itemTemp = clone(item)
-                    if(item.value == 'proxy'){
-                      itemTemp.isDisabled = true
-                      itemTemp.disabledReason = `${formData.dataQueryDatasourceId.name}为jdbc类型数据源不支持代理`
-                      r.push(itemTemp)
-                    }else {
-                      r.push(itemTemp)
-                    }
-                  })
-                  return r
-                }
-              }
-              return data
-            }
           }
         }
       }
