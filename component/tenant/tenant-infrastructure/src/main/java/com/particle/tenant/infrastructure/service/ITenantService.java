@@ -2,6 +2,7 @@ package com.particle.tenant.infrastructure.service;
 
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
@@ -70,4 +71,32 @@ public interface ITenantService extends IBaseService<TenantDO> {
         }
     }
 
+    /**
+     * 获取租户，不考虑租户的mybatis plus 插件限制
+     * @return
+     */
+    default List<TenantDO> getAllIgnoreTenantLimit() {
+        try {
+            // 设置忽略租户插件
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
+            return list();
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
+    }
+    /**
+     * 获取租户，不考虑租户的mybatis plus 插件限制
+     * 不查询总数
+     * @return
+     */
+    default Page<TenantDO> pageAllIgnoreTenantLimit(Long current, Long size) {
+        try {
+            // 设置忽略租户插件
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
+
+            return page(new Page<TenantDO>(current,size,false));
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
+    }
 }

@@ -1,12 +1,23 @@
 package com.particle.tenant.adapter.rpc;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.global.dto.basic.PageQueryCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.tenant.app.structmapping.TenantAppStructMapping;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.adapter.feign.client.rpc.TenantRpcFeignClient;
+import com.particle.tenant.client.dto.data.TenantVO;
+import com.particle.tenant.infrastructure.dos.TenantDO;
+import com.particle.tenant.infrastructure.service.ITenantService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +35,24 @@ public class TenantRpcController extends AbstractBaseRpcAdapter implements Tenan
 
 	@Autowired
 	private ITenantApplicationService iTenantApplicationService;
+	@Autowired
+	private ITenantService iTenantService;
+
+
+	@ApiOperation("获取所有租户，不加任何条件")
+	@Override
+	public MultiResponse<TenantVO> getAllTenant() {
+		List<TenantDO> allIgnoreTenantLimit = iTenantService.getAllIgnoreTenantLimit();
+		List<TenantVO> tenantVOS = TenantAppStructMapping.instance.tenantDOsToTenantVOs(allIgnoreTenantLimit);
+		return MultiResponse.of(tenantVOS);
+	}
+
+	@ApiOperation("分页获取所有租户，不加任何条件")
+	@Override
+	public PageResponse<TenantVO> pageAllTenant(PageQueryCommand pageQueryCommand) {
+		Page<TenantDO> tenantDOPage = iTenantService.pageAllIgnoreTenantLimit(pageQueryCommand.getPageNo(), pageQueryCommand.getPageSize());
+		return TenantAppStructMapping.instance.infrastructurePageToPageResponse(tenantDOPage);
+	}
 
 
 }
