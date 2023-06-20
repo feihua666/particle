@@ -1,6 +1,8 @@
 package com.particle.global.mybatis.plus.tenant;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
@@ -9,10 +11,13 @@ import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.schema.Column;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * <p>
- *
+ * 自定义租户配置处理器
  * </p>
  *
  * @author yangwei
@@ -48,5 +53,35 @@ public class CustomTenantLineHandler implements TenantLineHandler {
 	@Override
 	public boolean ignoreInsert(List<Column> columns, String tenantIdColumn) {
 		return TenantLineHandler.super.ignoreInsert(columns, tenantIdColumn);
+	}
+
+	/**
+	 * 忽略租户限制
+	 * @param supplier
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> T executeIgnoreTenant(Supplier<T> supplier){
+		try {
+			// 设置忽略租户插件
+			InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).build());
+			return supplier.get();
+		} finally {
+			InterceptorIgnoreHelper.clearIgnoreStrategy();
+		}
+	}
+
+	/**
+	 * 忽略租户限制
+	 * @param runnable
+	 */
+	public static void executeIgnoreTenant(Runnable runnable){
+		try {
+			// 设置忽略租户插件
+			InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).build());
+			runnable.run();
+		} finally {
+			InterceptorIgnoreHelper.clearIgnoreStrategy();
+		}
 	}
 }

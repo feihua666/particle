@@ -153,5 +153,11 @@
         </dependency>
 
 
+        <!-- 日志中间接引入了 https://github.com/alibaba/transmittable-thread-local 以方便的修饰线程变量问题 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-logging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

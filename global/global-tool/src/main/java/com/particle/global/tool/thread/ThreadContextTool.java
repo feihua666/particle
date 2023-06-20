@@ -1,5 +1,6 @@
 package com.particle.global.tool.thread;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
@@ -14,8 +15,7 @@ import java.util.Map;
  */
 @Slf4j
 public class ThreadContextTool {
-    private static final ThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
-
+    private static final TransmittableThreadLocal<Map<Object, Object>> RESOURCES = new TransmittableThreadLocal<>();
     protected ThreadContextTool() {
     }
 

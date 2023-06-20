@@ -2,7 +2,9 @@ package com.particle.global.concurrency.threadpool;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.util.ClassLoaderUtil;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
+import com.particle.global.tool.thread.ThreadContextTool;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -20,10 +22,8 @@ import java.util.concurrent.*;
  */
 @Slf4j
 public class CustomExecutors{
-
-
 	/**
-	 * 自定义线程池，带链路追踪，带监控
+	 * 自定义线程池，带链路追踪，带监控,完善支持使用 {@link ThreadContextTool} 变量继承
 	 * @param beanFactory
 	 * @param threadPoolName
 	 * @param corePoolSize
@@ -91,7 +91,7 @@ public class CustomExecutors{
 
 		MeterRegistry meterRegistry = null;
 		try {
-			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
+			if (beanFactory != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.METER_REGISTRY_CLASS_NAME)) {
 				meterRegistry = beanFactory.getBean(MeterRegistry.class);
 			}
 		} catch (BeansException e) {
@@ -101,15 +101,10 @@ public class CustomExecutors{
 		// 线程工厂
 		ThreadFactory threadFactory = ThreadFactoryBuilder.create().setNamePrefix(threadPoolName).setUncaughtExceptionHandler(new CustomDefaultUncaughtExceptionHandler()).build();
 
-		ThreadPoolExecutor threadPoolExecutor = newThreadPoolExecutor( threadFactory , corePoolSize, maximumPoolSize, keepAliveTime, workQueue, handler, scheduled);
+		ExecutorService threadPoolExecutor = newThreadPoolExecutor( threadFactory , corePoolSize, maximumPoolSize, keepAliveTime, workQueue, handler, scheduled,preStartCoreThread);
 
-
-		// 预启动核心线程
-		if (preStartCoreThread) {
-			threadPoolExecutor.prestartAllCoreThreads();
-		}
 		ExecutorService executorService = threadPoolExecutor;
-		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
+		if (meterRegistry != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
 			if (scheduled) {
 				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((CustomScheduledThreadPoolExecutor) threadPoolExecutor), threadPoolName);
 			}else{
@@ -124,8 +119,14 @@ public class CustomExecutors{
 				// 异步链路追踪
 				executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService(beanFactory, executorService, threadPoolName);
 			}
-			
+
 		}
+		if (executorService instanceof ScheduledExecutorService) {
+			executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
+		}else {
+			executorService = TtlExecutors.getTtlExecutorService(executorService);
+		}
+
 		return executorService;
 	}
 
@@ -140,19 +141,31 @@ public class CustomExecutors{
 	 * @param scheduled
 	 * @return
 	 */
-	private static ThreadPoolExecutor newThreadPoolExecutor(ThreadFactory threadFactory ,
+	public static ThreadPoolExecutor newThreadPoolExecutor(ThreadFactory threadFactory ,
 													 int corePoolSize,
 													 int maximumPoolSize,
 													 long keepAliveTime,
 													 BlockingQueue<Runnable> workQueue,
 													 RejectedExecutionHandler handler,
-													 boolean scheduled){
+													 boolean scheduled, boolean preStartCoreThread){
 		// 线程池，自定义
 		if (scheduled) {
-			return new CustomScheduledThreadPoolExecutor(corePoolSize, threadFactory, handler);
+			CustomScheduledThreadPoolExecutor customScheduledThreadPoolExecutor = new CustomScheduledThreadPoolExecutor(corePoolSize, threadFactory, handler);
+			// 预启动核心线程
+			if (preStartCoreThread) {
+				customScheduledThreadPoolExecutor.prestartAllCoreThreads();
+			}
+			return customScheduledThreadPoolExecutor;
+
 		}
 		// 线程池，自定义
-		return new CustomThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, workQueue, threadFactory, handler);
+		CustomThreadPoolExecutor customThreadPoolExecutor = new CustomThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, workQueue, threadFactory, handler);
+		// 预启动核心线程
+		if (preStartCoreThread) {
+			customThreadPoolExecutor.prestartAllCoreThreads();
+		}
+
+		return customThreadPoolExecutor;
 	}
 
 }
