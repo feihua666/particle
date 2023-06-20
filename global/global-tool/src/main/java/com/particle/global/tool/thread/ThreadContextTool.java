@@ -15,6 +15,7 @@ import java.util.Map;
  */
 @Slf4j
 public class ThreadContextTool {
+    //private static final ThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
     private static final TransmittableThreadLocal<Map<Object, Object>> RESOURCES = new TransmittableThreadLocal<>();
     protected ThreadContextTool() {
     }

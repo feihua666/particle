@@ -1,6 +1,7 @@
 package com.particle.global.concurrency.test;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.particle.global.concurrency.threadpool.CustomDefaultUncaughtExceptionHandler;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.tool.thread.ThreadContextTool;
@@ -36,6 +37,7 @@ public class TtlExecutorTest {
 				new ThreadPoolExecutor.CallerRunsPolicy(),
 				false,false);
 
+		executorService = TtlExecutors.getTtlExecutorService(executorService);
 
 		String threadKey = "testExecutorServiceKey";
 		ThreadContextTool.put(threadKey,threadKey);
@@ -67,6 +69,7 @@ public class TtlExecutorTest {
 				new ThreadPoolExecutor.CallerRunsPolicy(),
 				true,false);
 
+		//executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
 
 		String threadKey = "testSchedulerExecutorServiceKey";
 		ThreadContextTool.put(threadKey,threadKey);
@@ -75,9 +78,11 @@ public class TtlExecutorTest {
 		},4,2,TimeUnit.SECONDS);
 
 		String threadKey1 = "testSchedulerExecutorServiceKey1";
+		ThreadContextTool.remove(threadKey);
 		ThreadContextTool.put(threadKey1 ,threadKey1);
 		executorService.scheduleAtFixedRate(()->{
 			System.out.println(threadKey1 + " = " + ThreadContextTool.get(threadKey1));
+			System.out.println(threadKey + " = " + ThreadContextTool.get(threadKey));
 		},2,2,TimeUnit.SECONDS);
 		//executorService.shutdown();
 	}
