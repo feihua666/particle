@@ -45,7 +45,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageTemplate:create')")
 	@ApiOperation("添加消息模板")
 	@PostMapping("/create")
-	@OpLog(name = "添加消息模板",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.create)
 	public SingleResponse<MessageTemplateVO> create(@RequestBody MessageTemplateCreateCommand messageTemplateCreateCommand){
 		return iMessageTemplateApplicationService.create(messageTemplateCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageTemplate:delete')")
 	@ApiOperation("删除消息模板")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除消息模板",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
 	public SingleResponse<MessageTemplateVO> delete(@RequestBody IdCommand deleteCommand){
 		return iMessageTemplateApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageTemplate:update')")
 	@ApiOperation("更新消息模板")
 	@PutMapping("/update")
-	@OpLog(name = "更新消息模板",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.update)
 	public SingleResponse<MessageTemplateVO> update(@RequestBody MessageTemplateUpdateCommand messageTemplateUpdateCommand){
 		return iMessageTemplateApplicationService.update(messageTemplateUpdateCommand);
 	}
