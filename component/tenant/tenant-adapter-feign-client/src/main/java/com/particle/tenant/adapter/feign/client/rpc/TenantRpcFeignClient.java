@@ -23,14 +23,14 @@ public interface TenantRpcFeignClient {
 	 * 获取所有租户
 	 * @return
 	 */
-	@GetMapping("listAllTenant")
+	@GetMapping("getAllTenant")
 	MultiResponse<TenantVO> getAllTenant();
 
 	/**
 	 * 分页获取所有租户
 	 * @return
 	 */
-	@GetMapping("listAllTenant")
+	@GetMapping("pageAllTenant")
 	PageResponse<TenantVO> pageAllTenant(PageQueryCommand pageQueryCommand);
 
 }
