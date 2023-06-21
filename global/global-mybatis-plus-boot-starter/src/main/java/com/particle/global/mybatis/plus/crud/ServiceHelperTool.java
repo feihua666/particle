@@ -50,7 +50,7 @@ public class ServiceHelperTool {
      * @param pageNo       从 1 开始
      * @param pageSize     从 默认 100
      */
-    public static void pageExecute(Function<Page, Page> function, Consumer<Page> pageConsumer, Long pageNo, Long pageSize, String logPrefix) {
+    public static <T> void pageExecute(Function<Page<T>, Page<T>> function, Consumer<Page<T>> pageConsumer, Long pageNo, Long pageSize, String logPrefix) {
         Page page = null;
         if (pageNo == null) {
             pageNo = 0L;
@@ -77,7 +77,7 @@ public class ServiceHelperTool {
                 }
                 break;
             }
-        } while (page != null && CollectionUtil.isNotEmpty(page.getRecords()));
+        } while (page != null && page.hasNext());
     }
 
     /**
@@ -86,7 +86,7 @@ public class ServiceHelperTool {
      * @param pageConsumer
      * @param logPrefix
      */
-    public static void pageExecute(Function<Page, Page> function, Consumer<Page> pageConsumer, String logPrefix) {
+    public static  <T>  void pageExecute(Function<Page<T>, Page<T>> function, Consumer<Page<T>> pageConsumer, String logPrefix) {
         pageExecute(function, pageConsumer, null, null, logPrefix);
     }
 
