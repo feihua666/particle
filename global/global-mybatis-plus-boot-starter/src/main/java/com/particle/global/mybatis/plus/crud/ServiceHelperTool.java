@@ -19,9 +19,10 @@ public class ServiceHelperTool {
 
     /**
      * 清空 BaseDO对应的所有字段，一般用于复制实体时使用
+     *
      * @param po
      */
-    public static <Po extends BaseDO> void emptyBaseDOFields(Po po){
+    public static <Po extends BaseDO> void emptyBaseDOFields(Po po) {
 
         po.setId(null);
         po.setCreateAt(null);
@@ -43,17 +44,18 @@ public class ServiceHelperTool {
 
     /**
      * 定义分页处理,方便遍历分页数据
+     *
      * @param function
      * @param pageConsumer
-     * @param pageNo 从 1 开始
-     * @param pageSize 从 1 开始
+     * @param pageNo       从 1 开始
+     * @param pageSize     从 默认 100
      */
-    private void pageExecute(Function<Page,Page> function, Consumer<Page> pageConsumer,Long pageNo,Long pageSize,String logPrefix) {
+    public static void pageExecute(Function<Page, Page> function, Consumer<Page> pageConsumer, Long pageNo, Long pageSize, String logPrefix) {
         Page page = null;
         if (pageNo == null) {
             pageNo = 0L;
-        }else {
-            pageNo = pageNo -1;
+        } else {
+            pageNo = pageNo - 1;
         }
         if (pageSize == null) {
             pageSize = 100L;
@@ -66,15 +68,26 @@ public class ServiceHelperTool {
 
             if (CollectionUtil.isNotEmpty(page.getRecords())) {
                 if (logPrefix != null) {
-                    log.info("{} {} 条",logPrefix,page.getRecords().size());
+                    log.info("{} {} 条", logPrefix, page.getRecords().size());
                 }
                 pageConsumer.accept(page);
-            }else {
+            } else {
                 if (logPrefix != null) {
-                    log.info("{} {} 条,",logPrefix, 0);
+                    log.info("{} {} 条,", logPrefix, 0);
                 }
                 break;
             }
         } while (page != null && page.hasNext());
     }
+
+    /**
+     * 重载
+     * @param function
+     * @param pageConsumer
+     * @param logPrefix
+     */
+    public static void pageExecute(Function<Page, Page> function, Consumer<Page> pageConsumer, String logPrefix) {
+        pageExecute(function, pageConsumer, null, null, logPrefix);
+    }
+
 }
