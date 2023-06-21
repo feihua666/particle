@@ -77,7 +77,7 @@ public class ServiceHelperTool {
                 }
                 break;
             }
-        } while (page != null && page.hasNext());
+        } while (page != null && CollectionUtil.isNotEmpty(page.getRecords()));
     }
 
     /**
