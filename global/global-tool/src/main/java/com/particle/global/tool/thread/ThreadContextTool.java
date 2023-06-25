@@ -133,6 +133,7 @@ public class ThreadContextTool {
         Map<Object, Object> perThreadResources = (Map) RESOURCES.get();
         if (useNewMapOnRemoveKey && perThreadResources != null) {
             perThreadResources = newHashMap(perThreadResources);
+            resourcesInitialize(perThreadResources);
         }
         Object value = perThreadResources != null ? perThreadResources.remove(key) : null;
         if(value != null && log.isTraceEnabled()) {
