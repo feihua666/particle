@@ -155,8 +155,9 @@ public class ThreadContextTool {
             Map<Object, Object> result = null;
             if (parentValue instanceof ThreadContextMap) {
                 result = super.copy(((Map<Object, Object>) ((ThreadContextMap<Object, Object>) parentValue).clone()));
+            }else {
+                result = super.copy(parentValue);
             }
-            result = super.copy(parentValue);
             if(result != null && !result.isEmpty()){
                 for (Object o : result.keySet()) {
                     if (result.get(o) instanceof Cloneable) {
