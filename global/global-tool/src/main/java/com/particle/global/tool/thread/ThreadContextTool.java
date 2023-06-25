@@ -7,7 +7,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 线程变量工具类
@@ -16,24 +15,9 @@ import java.util.Objects;
  */
 @Slf4j
 public class ThreadContextTool {
-    //private static final ThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
-    /**
-     * 注释掉了上面的，这支持了另开线程继承问题
-     */
-    private static final TransmittableThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
-    /**
-     * 加一个控制，由于在线程中使用的是map存储所有的线程数据，这导致在线程池继承时共用一个map的实例，如果在子线程清除会导致主线程数据同样被清除的问题，开启将在清除时重新设置一个map不影响之前的主线程map
-     */
-    private static boolean useNewMapOnRemoveKey = true;
-    protected ThreadContextTool() {
-    }
 
-    /**
-     * 禁用，注意禁用后会有问题，参见字段说明
-     */
-    public static void disableUseNewMapOnRemoveKey() {
-        useNewMapOnRemoveKey = false;
-    }
+    private static final TransmittableThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
+
     public static Map<Object, Object> getResources() {
         return (Map)(RESOURCES.get() == null? Collections.emptyMap():(Map) RESOURCES.get());
     }
@@ -78,7 +62,7 @@ public class ThreadContextTool {
      * @return
      */
     private static Map<Object, Object> newHashMap(Map<Object, Object> origin) {
-        Map<Object, Object> hashMap = new HashMap();
+        Map<Object, Object> hashMap = new ThreadContextMap();
         if (origin == null) {
             return hashMap;
         }
@@ -131,10 +115,6 @@ public class ThreadContextTool {
      */
     public static Object remove(Object key) {
         Map<Object, Object> perThreadResources = (Map) RESOURCES.get();
-        if (useNewMapOnRemoveKey && perThreadResources != null) {
-            perThreadResources = newHashMap(perThreadResources);
-            resourcesInitialize(perThreadResources);
-        }
         Object value = perThreadResources != null ? perThreadResources.remove(key) : null;
         if(value != null && log.isTraceEnabled()) {
             String msg = "Removed value of type [" + value.getClass().getName() + "] for key [" + key + "]" + "from thread [" + Thread.currentThread().getName() + "]";
@@ -169,5 +149,21 @@ public class ThreadContextTool {
         protected Map<Object, Object> childValue(Map<Object, Object> parentValue) {
             return parentValue != null?(Map)((HashMap)parentValue).clone():null;
         }
+        @Override
+        public Map<Object, Object> copy(Map<Object, Object> parentValue) {
+            if (parentValue instanceof ThreadContextMap) {
+                return super.copy(((Map<Object, Object>) ((ThreadContextMap<Object, Object>) parentValue).clone()));
+            }
+            return super.copy(parentValue);
+        }
+    }
+
+    /**
+     * 自定义 map 标识为线程变量存储
+     * @param <K>
+     * @param <V>
+     */
+    private static class ThreadContextMap<K,V> extends HashMap<K,V> {
+
     }
 }
