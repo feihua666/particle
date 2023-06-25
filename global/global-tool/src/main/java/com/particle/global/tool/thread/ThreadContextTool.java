@@ -160,7 +160,7 @@ public class ThreadContextTool {
             if(result != null && !result.isEmpty()){
                 for (Object o : result.keySet()) {
                     if (result.get(o) instanceof Cloneable) {
-                        // 将map中的值拷贝一下
+                        // 将map中的值拷贝一下，否则也会有同一个对象的问题，引起并发问题如：值是一个 List
                         result.put(o, ReflectUtil.invoke(result.get(o),"clone"));
                     }
                 }
