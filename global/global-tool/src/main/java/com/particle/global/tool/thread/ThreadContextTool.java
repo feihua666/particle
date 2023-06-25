@@ -1,5 +1,6 @@
 package com.particle.global.tool.thread;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
@@ -151,10 +152,21 @@ public class ThreadContextTool {
         }
         @Override
         public Map<Object, Object> copy(Map<Object, Object> parentValue) {
+            Map<Object, Object> result = null;
             if (parentValue instanceof ThreadContextMap) {
-                return super.copy(((Map<Object, Object>) ((ThreadContextMap<Object, Object>) parentValue).clone()));
+                result = super.copy(((Map<Object, Object>) ((ThreadContextMap<Object, Object>) parentValue).clone()));
             }
-            return super.copy(parentValue);
+            result = super.copy(parentValue);
+            if(result != null && !result.isEmpty()){
+                for (Object o : result.keySet()) {
+                    if (result.get(o) instanceof Cloneable) {
+                        // 将map中的值拷贝一下
+                        result.put(o, ReflectUtil.invoke(result.get(o),"clone"));
+                    }
+                }
+            }
+
+            return result;
         }
     }
 
