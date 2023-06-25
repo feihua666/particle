@@ -17,9 +17,13 @@ import java.util.Objects;
 @Slf4j
 public class ThreadContextTool {
     //private static final ThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
-    // 注释掉了上面的，这支持了另开线程继承问题
+    /**
+     * 注释掉了上面的，这支持了另开线程继承问题
+     */
     private static final TransmittableThreadLocal<Map<Object, Object>> RESOURCES = new InheritableThreadLocalMap<>();
-    // 加一个控制，由于在线程中使用的是map存储所有的线程数据，这导致在线程池继承时共用一个map的实例，如果在子线程清除会导致主线程数据同样被清除的问题，开启将在清除时重新设置一个map不影响之前的主线程map
+    /**
+     * 加一个控制，由于在线程中使用的是map存储所有的线程数据，这导致在线程池继承时共用一个map的实例，如果在子线程清除会导致主线程数据同样被清除的问题，开启将在清除时重新设置一个map不影响之前的主线程map
+     */
     private static boolean useNewMapOnRemoveKey = true;
     protected ThreadContextTool() {
     }
