@@ -6,6 +6,7 @@ import com.particle.component.adapter.tenant.RoleTenantUserAddServiceListener;
 import com.particle.component.adapter.user.DeptUserServiceListener;
 import com.particle.component.adapter.user.RoleUserAddServiceListener;
 import com.particle.component.adapter.user.TenantUserUserAddServiceListener;
+import com.particle.component.adapter.user.UserTransOverrideServiceImpl;
 import com.particle.component.adapter.user.login.*;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.service.IDeptService;
@@ -15,6 +16,8 @@ import com.particle.oplog.infrastructure.service.IOpLogService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
+import com.particle.user.adapter.rpc.UserTransOverrideService;
+import com.particle.user.adapter.rpc.UserTransServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -180,5 +183,20 @@ public class ComponentAdapterAutoConfiguration {
 		public UserDeptService userDeptService(){
 			return new UserDeptServiceImpl();
 		}
+	}
+
+
+	/**
+	 * 用户翻译使用依赖
+	 */
+	@Configuration
+	@ConditionalOnClass({UserTransServiceImpl.class,ITenantUserService.class})
+	public static class UserTransConfig{
+
+		@Bean
+		public UserTransOverrideService userTransOverrideService(){
+			return new UserTransOverrideServiceImpl();
+		}
+
 	}
 }

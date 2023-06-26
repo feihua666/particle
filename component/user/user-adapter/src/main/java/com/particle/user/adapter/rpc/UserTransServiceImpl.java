@@ -16,10 +16,8 @@ import com.particle.user.infrastructure.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +40,9 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
     private IUserIdentifierService userIdentifierService;
     @Autowired
     private UserDictGateway userDictGateway;
+
+    @Autowired(required = false)
+    private UserTransOverrideService userTransOverrideService;
 
     @Override
     public boolean support(String type) {
@@ -115,6 +116,8 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
 
         userForTrans.setName(user.getName());
         userForTrans.setNickname(user.getNickname());
+        userForTrans.changeAbNameIfNecessary();
+
         userForTrans.setAvatar(user.getAvatar());
         return userForTrans;
     }
@@ -126,6 +129,35 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
                     userTransVO.setEmail(userIdentifierDO.getIdentifier());
                 }else if (Objects.equals(userIdentifierDO.getIdentityTypeDictId(),mobileDictId)) {
                     userTransVO.setMobile(userIdentifierDO.getIdentifier());
+                }
+            }
+        }
+    }
+
+    /**
+     * 覆盖数据
+     * @param result
+     */
+    private void overrideData(List<UserTransVO> result) {
+        if (userTransOverrideService == null) {
+            return;
+        }
+        if(CollectionUtil.isEmpty(result)){
+            return;
+        }
+        List<Long> collect = result.stream().map(UserTransVO::getId).collect(Collectors.toList());
+        List<UserTransOverrideService.UserTransOverrideDTO> overrideData = userTransOverrideService.getOverrideData(collect);
+
+        if (CollectionUtil.isEmpty(overrideData)) {
+            return;
+        }
+        Map<Long, UserTransOverrideService.UserTransOverrideDTO> userIdMap = overrideData.stream().collect(Collectors.toMap(UserTransOverrideService.UserTransOverrideDTO::getId, Function.identity()));
+
+        for (UserTransVO userTransVO : result) {
+            UserTransOverrideService.UserTransOverrideDTO userTransOverrideDTO = userIdMap.get(userTransVO.getId());
+            if (userTransOverrideDTO != null) {
+                if (StrUtil.isNotEmpty(userTransOverrideDTO.getName())) {
+                    userTransVO.changeName(userTransOverrideDTO.getName());
                 }
             }
         }
