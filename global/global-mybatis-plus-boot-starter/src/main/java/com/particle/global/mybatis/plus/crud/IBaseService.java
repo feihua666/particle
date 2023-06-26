@@ -577,6 +577,28 @@ public interface IBaseService<DO> extends IService<DO> {
                 continue;
             }
 
+            if (fieldValue != null && fieldValue instanceof Boolean && ((Boolean) fieldValue)) {
+                // QueryNull 处理
+                QueryNull queryNull = AnnotationUtil.getAnnotation(field, QueryNull.class);
+                if(queryNull != null){
+                    String queryNullValue = queryNull.value();
+                    if (queryNull.nulls()) {
+                        ((AbstractWrapper) queryWrapper).isNull(StringTool.humpToLine(queryNullValue));
+                    }else if (queryNull.empty()) {
+                        ((AbstractWrapper) queryWrapper).eq(StringTool.humpToLine(queryNullValue),"");
+                    }else if (queryNull.nullsOrEmpty()) {
+                        ((AbstractWrapper) queryWrapper).nested(wq -> {
+                            ((AbstractWrapper) wq).isNull(StringTool.humpToLine(queryNullValue));
+                            ((AbstractWrapper) ((AbstractWrapper) queryWrapper).or()).eq(StringTool.humpToLine(queryNullValue), "");
+                        });
+                    }
+                    setObjectValueNull(queryWrapper.getEntity(), queryNullValue);
+
+                    continue;
+                }
+            }
+
+
             Or or = AnnotationUtil.getAnnotation(field, Or.class);
             if (or != null) {
                 Object finalFieldValue = fieldValue;

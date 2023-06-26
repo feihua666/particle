@@ -15,6 +15,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface Ne {
-    // 字段名，java字段名，驼峰转下划线
+    /**
+     * 字段名，java字段名，驼峰转下划线
+     * @return
+     */
     String value() default "";
 }

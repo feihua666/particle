@@ -17,8 +17,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface Lt {
-    // 字段名，java字段名，驼峰转下划线
+    /**
+     * 字段名，java字段名，驼峰转下划线
+     * @return
+     */
     String value();
-    // 是否包括等于，如果包括就是小于等于
+
+    /**
+     * 是否包括等于，如果包括就是小于等于
+     * @return
+     */
     boolean eq() default false;
 }

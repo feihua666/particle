@@ -16,11 +16,22 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface OrderBy {
-    // 字段名，java字段名，驼峰转下划线,默认使用注解的字段名
+    /**
+     * 字段名，java字段名，驼峰转下划线,默认使用注解的字段名
+     * @return
+     */
     String value() default "";
-    // 升序还是降序，默认升级
+
+    /**
+     * 升序还是降序，默认升级
+     * @return
+     */
     boolean asc() default true;
-    // 排序
+
+    /**
+     * 排序
+     * @return
+     */
     int order() default 0;
 
 }
