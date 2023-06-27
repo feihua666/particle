@@ -65,13 +65,14 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	@SneakyThrows
 	public String renderRequestUrl(Object command,String queryString,Map<String, Object> objectMap){
 
-		if(requestUrlRenderType == HttpBigDatasourceApiConfigRequestUrlRenderType.groovy_script){
+		Map<String, Object> renderMap = TemplateRenderDataWrap.create(command).toRenderMap();
+		if (CollectionUtil.isNotEmpty(objectMap)) {
+			renderMap.putAll(objectMap);
+		}
+		renderMap.put("queryString", queryString);
 
-			Map<String, Object> renderMap = TemplateRenderDataWrap.create(command).toRenderMap();
-			if (CollectionUtil.isNotEmpty(objectMap)) {
-				renderMap.putAll(objectMap);
-			}
-			renderMap.put("queryString", queryString);
+
+		if(requestUrlRenderType == HttpBigDatasourceApiConfigRequestUrlRenderType.groovy_script){
 
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);
@@ -85,7 +86,7 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 
 		}
 		if (requestUrlRenderType == HttpBigDatasourceApiConfigRequestUrlRenderType.enjoy_template) {
-			String result =  TemplateTool.render(requestUrlTemplate, TemplateRenderDataWrap.create(command));
+			String result =  TemplateTool.render(requestUrlTemplate, renderMap);
 			return result;
 		}
 		/**
