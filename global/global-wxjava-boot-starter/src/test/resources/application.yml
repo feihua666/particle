@@ -1,0 +1,14 @@
+particle:
+  # 参见：com.particle.global.wxjava.cp.config.WxCpProperties
+  cp:
+    appConfigs:
+      - agentId: 1000001
+        corpId: xxxx
+        secret: 1111
+        token: 111
+        aesKey: 111
+      - agentId: 1000002
+        corpId: xxxx
+        secret: 1111
+        token: 111
+        aesKey: 111

@@ -1,6 +1,7 @@
 package com.particle.global.exception.handle;
 
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.biz.AssertException;
@@ -10,6 +11,8 @@ import com.particle.global.exception.biz.NoDataPrivilegeException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.exception.system.SystemException;
+import com.particle.global.notification.notify.NotifyParam;
+import com.particle.global.notification.notify.NotifyTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
@@ -78,6 +81,11 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(AssertException.class)
     public ResponseEntity<Response> handleAssertException(HttpServletRequest request, AssertException ex) {
         log.error("断言异常：{}",ex.getMessage(),ex);
+        NotifyParam notifyParam = NotifyParam.system();
+        notifyParam.setContentType("global.restcontrolleradvice.error.assert.exception");
+        notifyParam.setTitle("断言异常");
+        notifyParam.setContent(ExceptionUtil.stacktraceToString(ex));
+        NotifyTool.notify(notifyParam);
         Response rm = createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
         return ResponseEntity.status(Optional.ofNullable(ex.getError().getHttpStatus()).orElse(HttpStatus.INTERNAL_SERVER_ERROR.value()))
                 .body(rm);
@@ -339,6 +347,11 @@ public class GlobalExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response handleException(HttpServletRequest request, Exception ex) {
         log.error("系统内部异常：{}",ex.getMessage(),ex);
+        NotifyParam notifyParam = NotifyParam.system();
+        notifyParam.setContentType("global.restcontrolleradvice.error.exception");
+        notifyParam.setTitle("系统内部异常");
+        notifyParam.setContent(ExceptionUtil.stacktraceToString(ex));
+        NotifyTool.notify(notifyParam);
         return createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
     }
 }

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>global-notification-boot-starter</artifactId>
+    <artifactId>global-wxjava-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,6 +17,7 @@
     </properties>
 
     <dependencies>
+        <!-- 为了方便引入，直接引入web编译 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -27,46 +28,63 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
-        <!-- 全局监控 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-actuator-boot-starter</artifactId>
+            <artifactId>global-exception</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
+            <artifactId>global-dto</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- 应用启动或停止发通知 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-bootstrap-boot-starter</artifactId>
-            <version>${particle.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-swagger-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 结合 hutool 发送邮件 -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax.mail.version}</version>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
         </dependency>
-
-        <!-- 结合 企业号/企业微信：weixin-java-cp 发送报警通知-->
+        <!-- 微信小程序：weixin-java-miniapp -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>${wxjava.version}</version>
+        </dependency>
+        <!-- 微信支付：weixin-java-pay -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>${wxjava.version}</version>
+        </dependency>
+        <!-- 微信开放平台：weixin-java-open -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-open</artifactId>
+            <version>${wxjava.version}</version>
+        </dependency>
+        <!-- 公众号（包括订阅号和服务号）：weixin-java-mp -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>${wxjava.version}</version>
+        </dependency>
+        <!-- 企业号/企业微信：weixin-java-cp -->
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-cp</artifactId>
             <version>${wxjava.version}</version>
+        </dependency>
+
+        <!-- 异常通知-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
         </dependency>
     </dependencies>
 </project>

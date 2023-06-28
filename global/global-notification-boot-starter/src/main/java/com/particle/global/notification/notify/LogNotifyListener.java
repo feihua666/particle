@@ -21,7 +21,7 @@ public class LogNotifyListener extends AbstractNotifyListener{
 
 	@Override
 	protected String supportType() {
-		throw new RuntimeException("该方法不会执行");
+		throw new RuntimeException("日志通知支持类型，该方法不会执行");
 	}
 
 	@Override

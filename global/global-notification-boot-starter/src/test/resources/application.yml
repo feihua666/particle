@@ -33,3 +33,5 @@ particle:
       proxyPort: 99
       proxyUsername: proxyUsername
       proxyPassword: proxyPassword
+  wxcpWebhooks:
+    - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxx

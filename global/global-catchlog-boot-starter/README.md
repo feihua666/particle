@@ -3,4 +3,4 @@
 该模块参考cola架构而来，该模块应该被service层依赖或cola架构的app层依赖
 
 默认日志记录不开启，可以通过以下配置开启
-particle.catchlog.enableCatchLog=true
+particle.catchlog.enabled=true

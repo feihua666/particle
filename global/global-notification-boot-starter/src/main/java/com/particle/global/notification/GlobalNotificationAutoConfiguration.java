@@ -2,6 +2,7 @@ package com.particle.global.notification;
 
 import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
 import com.particle.global.bootstrap.boot.OnApplicationShutdownListener;
+import com.particle.global.notification.alert.AlertNotifyListener;
 import com.particle.global.notification.email.EmailNotifyListener;
 import com.particle.global.notification.notify.ApplicationShutdownNotifyListener;
 import com.particle.global.notification.notify.ApplicationStartNotifyListener;
@@ -70,5 +71,11 @@ public class GlobalNotificationAutoConfiguration {
 	public SmsNotifyListener smsNotifyListener(){
 		SmsNotifyListener smsNotifyListener = new SmsNotifyListener();
 		return smsNotifyListener;
+	}
+	@Bean
+	@ConditionalOnMissingBean
+	public AlertNotifyListener alertNotifyListener(){
+		AlertNotifyListener alertNotifyListener = new AlertNotifyListener();
+		return alertNotifyListener;
 	}
 }

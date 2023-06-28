@@ -142,3 +142,6 @@ particle:
       user:
       # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
       pass: xxxx
+    alert:
+      wxcpWebhooks:
+        - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx

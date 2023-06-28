@@ -1,5 +1,6 @@
 package com.particle.global.notification;
 
+import com.particle.global.notification.alert.AlertAccount;
 import com.particle.global.tool.email.EmailAccount;
 import com.particle.global.tool.sms.SmsAccount;
 import lombok.Data;
@@ -25,4 +26,9 @@ public class GlobalNotificationProperties {
 	 * 短信发送配置
 	 */
 	private SmsAccount sms;
+	/**
+	 * 报警
+	 */
+	private AlertAccount alert;
+
 }

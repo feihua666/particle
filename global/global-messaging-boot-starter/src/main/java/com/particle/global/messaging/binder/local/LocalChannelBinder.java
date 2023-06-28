@@ -1,5 +1,6 @@
 package com.particle.global.messaging.binder.local;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.binder.AbstractMessageChannelBinder;
@@ -37,6 +38,7 @@ import java.util.function.Consumer;
  * @author yangwei
  * @since 2023-05-22 10:41
  */
+@Slf4j
 public class LocalChannelBinder extends AbstractMessageChannelBinder<ConsumerProperties, ProducerProperties, LocalChannelBinderProvisioner> {
 
 	@Autowired
@@ -123,7 +125,7 @@ public class LocalChannelBinder extends AbstractMessageChannelBinder<ConsumerPro
 	protected MessageHandler getErrorMessageHandler(ConsumerDestination destination,
 													String group, ConsumerProperties consumerProperties) {
 		return m -> {
-			this.logger.debug("Error handled: " + m);
+			log.debug("Error handled: " + m);
 			this.lastError = m;
 		};
 	}

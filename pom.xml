@@ -101,6 +101,9 @@
         <javers-core.version>6.14.0</javers-core.version>
         <!-- 结合 hutool 发送邮件 -->
         <javax.mail.version>1.6.2</javax.mail.version>
+        <!-- 微信相关支持，当前添加主要是支持企业微信报警 -->
+        <!-- gitee地址：https://gitee.com/binary/weixin-java-tools -->
+        <wxjava.version>4.5.0</wxjava.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

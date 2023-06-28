@@ -46,6 +46,7 @@
         <module>global-data-audit-boot-starter</module>
         <module>global-document-boot-starter</module>
         <module>global-scheduler-boot-starter</module>
+        <module>global-wxjava-boot-starter</module>
 
     </modules>
 

@@ -200,17 +200,8 @@ public class HttpClientTool{
                 String proxyUser = extConfig.getProxyUser();
                 String proxyPassword = extConfig.getProxyPassword();
 
-                ProxyConfig proxyConfig = extConfig.getProxyConfig();
-                // 全局默认代理
-                if (proxyConfig == null) {
-                    proxyConfig = ProxyConfig.proxyConfig();
-                    // 判断是否作为全局默认的代理
-                    if (proxyConfig != null) {
-                        if (proxyConfig.getAsDefault() == null || !proxyConfig.getAsDefault()) {
-                            proxyConfig = null;
-                        }
-                    }
-                }
+                ProxyConfig proxyConfig = ProxyConfig.finalProxyConfig(extConfig.getProxyConfig());
+
                 if (proxyConfig != null) {
                     boolean useProxy = proxyConfig.getUseProxy()!= null && proxyConfig.getUseProxy();
                     if (proxy == null && useProxy ) {

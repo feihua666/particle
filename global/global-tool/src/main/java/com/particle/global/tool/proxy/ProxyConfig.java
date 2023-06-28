@@ -67,6 +67,43 @@ public class ProxyConfig implements InitializingBean, Serializable {
 		return proxyConfig;
 	}
 
+
+	/**
+	 * 结合自定义，和全局默认，得到一个最终的代理对象
+	 * @param customProxyConfig
+	 * @return 可能返回null
+	 */
+	public static ProxyConfig finalProxyConfig(ProxyConfig customProxyConfig) {
+		if (customProxyConfig != null) {
+			Boolean useProxy = customProxyConfig.getUseProxy();
+			if (useProxy == null) {
+				return null;
+			}
+			if (useProxy) {
+				return customProxyConfig;
+			}else {
+				return null;
+			}
+		}
+	//	customProxyConfig = null
+		ProxyConfig globalProxyConfig = ProxyConfig.proxyConfig();
+		if (globalProxyConfig != null) {
+			Boolean useProxy = globalProxyConfig.getUseProxy();
+			if (useProxy == null) {
+				return null;
+			}
+			if (useProxy) {
+				Boolean asDefault = globalProxyConfig.getAsDefault();
+				if (asDefault != null && asDefault) {
+					return globalProxyConfig;
+				}
+			}else {
+				return null;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * 静态初始化
 	 */

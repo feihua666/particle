@@ -171,6 +171,8 @@ public class NotifyParam implements Serializable {
 	 * 类型
 	 */
 	public static enum Type{
+		// 报警消息
+		alert,
 		// 站内信
 		internalMessage,
 		// 短信
