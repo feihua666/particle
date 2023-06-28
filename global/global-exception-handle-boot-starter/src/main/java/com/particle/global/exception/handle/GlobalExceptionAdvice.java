@@ -3,6 +3,7 @@ package com.particle.global.exception.handle;
 
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.biz.AssertException;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.biz.InvalidDataVersionException;
 import com.particle.global.exception.biz.NoDataPrivilegeException;
@@ -66,7 +67,21 @@ public class GlobalExceptionAdvice {
         return Response.buildFailure(errorCode, userTip);
     }
 
-
+    /**
+     * 断言 异常
+     * 该哦断言打印异常日志，方便由于参数不正确查找问题
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(AssertException.class)
+    public ResponseEntity<Response> handleAssertException(HttpServletRequest request, AssertException ex) {
+        log.error("断言异常：{}",ex.getMessage(),ex);
+        Response rm = createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
+        return ResponseEntity.status(Optional.ofNullable(ex.getError().getHttpStatus()).orElse(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+                .body(rm);
+    }
     /**
      * 业务 异常
      * 该异常没有打印异常日志，应该是可预知的异常
@@ -76,7 +91,6 @@ public class GlobalExceptionAdvice {
      * @return
      */
     @ExceptionHandler(BizException.class)
-    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Response> handleBizException(HttpServletRequest request, BizException ex) {
         Response rm = createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
         return ResponseEntity.status(Optional.ofNullable(ex.getError().getHttpStatus()).orElse(HttpStatus.INTERNAL_SERVER_ERROR.value()))
