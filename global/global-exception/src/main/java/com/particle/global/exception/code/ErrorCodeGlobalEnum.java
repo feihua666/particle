@@ -1,5 +1,7 @@
 package com.particle.global.exception.code;
 
+import com.particle.global.exception.Assert;
+
 /**
  * <p>
  * 全局常用错误代码
@@ -53,6 +55,10 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 * 连接超时
 	 */
 	CONNECT_TIMEOUT(50000000015L, "连接超时"),
+	/**
+	 * 断言异常，主要用于使用 {@link Assert}时抛出的异常
+	 */
+	ASSERT_ERROR(50000000016L, "断言异常"),
 	/**
 	 * 常用的400 错误
 	 */
