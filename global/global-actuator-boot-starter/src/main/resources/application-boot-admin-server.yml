@@ -1,0 +1,6 @@
+# 由于一般项目中存在前端代码，为根路径，这里改一下路径
+spring:
+  boot:
+    admin:
+      # 必须以 / 开头，原生没要求，但该值被 client url引用了
+      contextPath: /bootadmin

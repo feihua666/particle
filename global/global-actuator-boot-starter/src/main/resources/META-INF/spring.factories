@@ -1,2 +1,2 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.particle.global.actuator.GlobalActuatorAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.particle.global.actuator.GlobalActuatorAutoConfiguration,com.particle.global.actuator.bootadmin.server.GlobalSpringBootAdminServerAutoConfiguration

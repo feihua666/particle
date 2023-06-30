@@ -18,7 +18,7 @@ public class ApplicationShutdownNotifyListener implements OnApplicationShutdownL
 	public void shutdown() {
 		NotifyParam notifyParam = NotifyParam.system()
 				.setTitle("应用已停止")
-				.setContentType("application.boot.start")
+				.setContentType("application.boot.shutdown")
 				.setContent(StrUtil.format("hostname={},host={}", NetUtil.getLocalHostName(),NetUtil.getLocalhostStr()));
 
 		NotifyTool.notify(notifyParam);

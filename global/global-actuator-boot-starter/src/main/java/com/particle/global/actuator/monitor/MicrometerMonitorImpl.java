@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author yangwei
  * @since 2021-08-24 15:26
  */
-public class MicromterMonitorImpl implements IMonitor {
+public class MicrometerMonitorImpl implements IMonitor {
 
 	@Autowired
 	private MeterRegistry meterRegistry;

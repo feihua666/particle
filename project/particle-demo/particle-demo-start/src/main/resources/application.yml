@@ -11,6 +11,9 @@ spring:
       - datasource
       - mybatis-plus
       - mybatis-plus-tenant
+      - actuator
+      - boot-admin-client-local
+      - boot-admin-server
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master
@@ -142,6 +145,11 @@ particle:
       user:
       # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
       pass: xxxx
-    alert:
-      wxcpWebhooks:
-        - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx
+    #alert:
+    #  wxcpWebhooks:
+    #    - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx
+management:
+  endpoint:
+    bindings:
+      cache:
+        time-to-live:

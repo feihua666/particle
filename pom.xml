@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.12</version>
+        <version>2.7.13</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
@@ -104,6 +104,9 @@
         <!-- 微信相关支持，当前添加主要是支持企业微信报警 -->
         <!-- gitee地址：https://gitee.com/binary/weixin-java-tools -->
         <wxjava.version>4.5.0</wxjava.version>
+
+        <!-- spring boot admin 这是一个bom -->
+        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>
@@ -153,12 +156,21 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- sws v2版本bom 使用方式及其可用的jar可参见下面github -->
+            <!-- aws v2版本bom 使用方式及其可用的jar可参见下面github -->
             <!-- v2 github https://github.com/aws/aws-sdk-java-v2 -->
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
                 <version>${aws-sdk-java-v2.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- spring boot admin -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -1,7 +1,7 @@
 package com.particle.global.actuator;
 
 import com.particle.global.actuator.monitor.IMonitor;
-import com.particle.global.actuator.monitor.MicromterMonitorImpl;
+import com.particle.global.actuator.monitor.MicrometerMonitorImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +24,6 @@ public class GlobalActuatorAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public IMonitor defaultIMonitor() {
-		return new MicromterMonitorImpl();
+		return new MicrometerMonitorImpl();
 	}
 }

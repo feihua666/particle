@@ -28,5 +28,13 @@
             <artifactId>global-security-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <!-- 对其 json 序列化做可选配置 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

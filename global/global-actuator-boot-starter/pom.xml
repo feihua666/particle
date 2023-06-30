@@ -37,5 +37,21 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 集成 spring boot admin client -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 集成 spring boot admin server -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

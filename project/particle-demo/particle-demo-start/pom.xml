@@ -151,6 +151,33 @@
             <artifactId>global-document-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 监控相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-actuator-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 通知相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 集成 spring boot admin client -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <!-- 不需要直接去掉依赖即可 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
+        <!-- 集成 spring boot admin server -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <!-- 不需要直接去掉依赖即可 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -1,0 +1,13 @@
+# actuator endpoint 配置
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # 普罗米修斯 监控开启
+  endpoint:
+    prometheus:
+      enabled: true

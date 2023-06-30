@@ -1,8 +1,10 @@
 package com.particle.global.web.mvc.http.jackson2;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONNull;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.NullifyingDeserializer;
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.particle.global.tool.calendar.CalendarTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.core.Ordered;
@@ -21,6 +24,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +38,10 @@ import java.time.format.DateTimeFormatter;
  */
 @Component
 public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2ObjectMapperBuilderCustomizer, Ordered {
+
+	@Autowired(required = false)
+	private List<ICustomAdditionalJackson2ObjectMapperBuilderCustomizer> customAdditionalJackson2ObjectMapperBuilderCustomizerList;
+
 	@Override
 	public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
 
@@ -48,7 +57,10 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 		javaTimeModule.addSerializer(localDateTimeSerializer);
 		LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern( CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
 		javaTimeModule.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
-		jacksonObjectMapperBuilder.modules(javaTimeModule,new ParameterNamesModule());
+
+		List<Module> modules = new ArrayList<>();
+		modules.add(javaTimeModule);
+		modules.add(new ParameterNamesModule());
 
 		//默认关闭，将char[]数组序列化为String类型。若开启后序列化为JSON数组。
 		jacksonObjectMapperBuilder.featuresToEnable(SerializationFeature.WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS);
@@ -90,6 +102,19 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 		jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
 		// hutool在将json字符串转为map时，如果有空值会转为JSONNull，这里直接转为null
 		jacksonObjectMapperBuilder.serializerByType(JSONNull.class, NullSerializer.instance);
+
+		if (customAdditionalJackson2ObjectMapperBuilderCustomizerList != null) {
+			for (ICustomAdditionalJackson2ObjectMapperBuilderCustomizer iCustomAdditionalJackson2ObjectMapperBuilderCustomizer : customAdditionalJackson2ObjectMapperBuilderCustomizerList) {
+				iCustomAdditionalJackson2ObjectMapperBuilderCustomizer.customize(jacksonObjectMapperBuilder);
+				List<Module> moduleList = iCustomAdditionalJackson2ObjectMapperBuilderCustomizer.modules(jacksonObjectMapperBuilder);
+				if (CollectionUtil.isNotEmpty(moduleList)) {
+					modules.addAll(moduleList);
+				}
+			}
+		}
+
+		jacksonObjectMapperBuilder.modules(modules);
+
 	}
 
 
