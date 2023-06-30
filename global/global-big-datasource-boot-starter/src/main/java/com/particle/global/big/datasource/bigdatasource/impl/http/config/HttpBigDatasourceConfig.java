@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.http.config;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.big.datasource.bigdatasource.config.BigDatasourceAccountConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceAuthScriptType;
+import com.particle.global.tool.proxy.ProxyConfig;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import com.particle.global.tool.template.TemplateTool;
@@ -65,15 +66,9 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 												 String authScriptTemplate,
 												 String username,
 												 String password,
-												 String proxyAddress,
-												 String proxyPort,
-												 String proxyUsername,
-												 String proxyPassword){
+												 ProxyConfig proxyConfig){
 		HttpBigDatasourceConfig httpBigDatasourceConfig = create(domainUrl,authScriptType,authScriptTemplate, username, password);
-		httpBigDatasourceConfig.setProxyAddress(proxyAddress);
-		httpBigDatasourceConfig.setProxyPort(proxyPort);
-		httpBigDatasourceConfig.setProxyUsername(proxyUsername);
-		httpBigDatasourceConfig.setProxyPassword(proxyPassword);
+		httpBigDatasourceConfig.setProxyConfig(proxyConfig);
 		return httpBigDatasourceConfig;
 	}
 

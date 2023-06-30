@@ -15,11 +15,11 @@ import lombok.Data;
 public class BigDatasourceAccountConfig extends BigDatasourceProxyConfig {
 
 	/**
-	 * 用户名
+	 * 认证用户名
 	 */
 	private String username;
 	/**
-	 * 密码
+	 * 认证密码
 	 */
 	private String password;
 }

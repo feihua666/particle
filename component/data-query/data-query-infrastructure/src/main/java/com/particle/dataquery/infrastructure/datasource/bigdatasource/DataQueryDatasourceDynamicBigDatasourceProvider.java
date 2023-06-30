@@ -136,10 +136,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 							config.getAuthScriptTemplate(),
 							config.getUsername(),
 							config.getPassword(),
-							config.getProxyAddress(),
-							config.getProxyPort(),
-							config.getProxyUsername(),
-							config.getProxyPassword());
+							config.getProxyConfig());
 					HttpBigDatasource httpBigDatasource = HttpBigDatasource.create(dataQueryDatasource.getName(),
 							BigDatasourceType.datasource_http,httpBigDatasourceConfig);
 

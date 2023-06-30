@@ -2,6 +2,7 @@ package com.particle.dataquery.domain.datasource.value;
 
 import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Data;
 
 /**
@@ -14,20 +15,9 @@ import lombok.Data;
  */
 @Data
 public class DataQueryDatasourceProxyConfig extends Value {
+
 	/**
-	 * 代理地址
+	 * 代理配置
 	 */
-	private String proxyAddress;
-	/**
-	 * 代理端口
-	 */
-	private String proxyPort;
-	/**
-	 * 代理用户
-	 */
-	private String proxyUsername;
-	/**
-	 * 代理密码
-	 */
-	private String proxyPassword;
+	private ProxyConfig proxyConfig;
 }

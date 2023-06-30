@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.config;
 
 import com.particle.global.dto.basic.DTO;
+import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Data;
 
 /**
@@ -15,23 +16,7 @@ import lombok.Data;
 public class BigDatasourceProxyConfig extends DTO {
 
 	/**
-	 * 是否使用代理
+	 * 代表配置
 	 */
-	private Boolean useProxy;
-	/**
-	 * 代理地址
-	 */
-	private String proxyAddress;
-	/**
-	 * 代理端口
-	 */
-	private String proxyPort;
-	/**
-	 * 代理用户
-	 */
-	private String proxyUsername;
-	/**
-	 * 代理密码
-	 */
-	private String proxyPassword;
+	private ProxyConfig proxyConfig;
 }

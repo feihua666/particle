@@ -4,8 +4,12 @@ import cn.hutool.json.JSONUtil;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.BigDatasourceHttpClient;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.proxy.ProxyConfig;
+import jodd.http.HttpConnectionProvider;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
+import jodd.http.ProxyInfo;
+import jodd.http.net.SocketHttpConnectionProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 
@@ -26,7 +30,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 
 
 	@Override
-	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
 		Map<String, String> queryMap = Collections.emptyMap();
 		boolean b = command instanceof Map;
 		if (b) {
@@ -48,27 +52,27 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	}
 
 	@Override
-	public Object post(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+	public Object post(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
 		HttpRequest httpRequest = HttpRequest.post(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "post");
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "post");
 	}
 
 	@Override
-	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
 		HttpRequest httpRequest = HttpRequest.delete(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "delete");
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "delete");
 	}
 
 	@Override
-	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
 		HttpRequest httpRequest = HttpRequest.put(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "put");
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "put");
 	}
 
 	@Override
-	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType) {
+	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
 		HttpRequest httpRequest = HttpRequest.patch(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType, "patch");
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "patch");
 	}
 
 	/**
@@ -83,7 +87,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	 * @param methodLog
 	 * @return
 	 */
-	private Object request(HttpRequest httpRequest,String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType,String methodLog) {
+	private Object request(HttpRequest httpRequest,String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig,String methodLog) {
 		String body = commandJsonStr;
 		log.info("{}. url={},body={},queryString={},headers={},content-type={}",methodLog,url,body,queryString,JsonTool.toJsonStr(headers),contentType);
 
@@ -98,10 +102,18 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		}
 		long start = System.currentTimeMillis();
 
-		HttpResponse httpResponse = httpRequest
+		httpRequest = httpRequest
 				.queryString(queryString)
-				.header(headers)
-				.send();
+				.header(headers);
+		ProxyConfig proxy = ProxyConfig.finalProxyConfig(proxyConfig);
+		if (proxy != null) {
+			HttpConnectionProvider connectionProvider=new SocketHttpConnectionProvider();
+			ProxyInfo proxyInfo = ProxyInfo.httpProxy(proxy.getProxyAddress(), Integer.parseInt(proxy.getProxyPort()), proxy.getProxyUsername(), proxy.getProxyPassword());
+			connectionProvider.useProxy(proxyInfo);
+			httpRequest = httpRequest.withConnectionProvider(connectionProvider);
+		}
+
+		HttpResponse httpResponse = httpRequest.send();
 		String result = httpResponse.charset("utf-8").bodyText();
 		log.info("{} result. duration={}ms, result={}",methodLog,System.currentTimeMillis() - start,result);
 
