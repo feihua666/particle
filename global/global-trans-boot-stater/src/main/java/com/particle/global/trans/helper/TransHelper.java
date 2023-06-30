@@ -5,6 +5,7 @@ import cn.hutool.core.lang.SimpleCache;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.particle.global.dto.response.MultiResponse;
@@ -262,8 +263,8 @@ public class TransHelper {
 
         /**
          * 表名字符串，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
-         * 优先级高于 scatter.common.rest.trans.TransFor#tableNameClass()
-         * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+         * 优先级高于 {@link TransFor#tableNameClass()}
+         * 仅type={@link TableNameTransServiceImpl#TRANS_BY_TABLE_NAME}有效
          * @return
          */
         private String tableName;
@@ -271,15 +272,15 @@ public class TransHelper {
         /**
          * 表名实体类，仅支持{@link TableNameTransServiceImpl 实现的特殊定义}
          * 如果该类存在mybatis_plus的注解{@link TableName}则使用该注解的表名，如果不存在注解，则使用类名转下划线作为表名
-         * 优先经低于 scatter.common.rest.trans.TransFor#tableName()
-         * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+         * 优先经低于 {@link TransFor#tableName()}
+         * 仅type={@link TableNameTransServiceImpl#TRANS_BY_TABLE_NAME}有效
          * @return
          */
         private Class tableNameClass;
 
         /**
          * 根据哪一列翻译，可以写表列名或实体属性名（实体属性名会转为下划线作为列名）
-         * 仅type=scatter.common.rest.trans.impl.TableNameTransServiceImpl#trans_by_table_name有效
+         * 仅type={@link TableNameTransServiceImpl#TRANS_BY_TABLE_NAME}有效
          *
          * @return
          */

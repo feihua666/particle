@@ -49,12 +49,13 @@ import java.util.regex.Matcher;
 @Slf4j
 public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
+	private static final String slowSqlNotifyThresholdValueKey = "particle.notify.slowSql.threshold";
 
 	/**
 	 * 慢sql通知阈值
 	 */
-	@Value("${particle.notify.slowSql.threshold:1000}")
-	private long slowSqlNotifyThreshold;
+	@Value("${" + slowSqlNotifyThresholdValueKey + ":1000}")
+	private long slowSqlNotifyThreshold = 1000;
 	/**
 	 * 打印完整sql
 	 */
@@ -81,7 +82,7 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system()
 								.setTitle("慢sql")
 								.setContentType("mybatis.interceptor.slowSql")
-								.setSuggest("您可以修改配置 scatter.notify.slowSql.threshold 来改变阈值")
+								.setSuggest("您可以修改配置 " + slowSqlNotifyThresholdValueKey + " 来改变阈值")
 								.setContent(StrUtil.format("sql执行时间{}ms,超过阈值{}ms，sql={}", duration, slowSqlNotifyThreshold, finalSql(ms,parameter)));
 					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
 					}
