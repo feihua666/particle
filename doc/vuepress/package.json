@@ -1,6 +1,6 @@
 {
   "name": "particle-docs",
-  "version": "0.1.1-beta-SNAPSHOT",
+  "version": "1.0.0-beta",
   "description": "particle 技术文档",
   "main": "index.js",
   "scripts": {
