@@ -149,5 +149,46 @@ public class CustomEnjoyEngine implements TemplateEngine{
 		public static boolean isObjNull(Object obj) {
 			return JSONUtil.isNull(obj);
 		}
+
+		/**
+		 * 是否为空
+		 * @param str
+		 * @return
+		 */
+		public static boolean isStrEmpty(String str) {
+			return StrUtil.isEmpty(str);
+		}
+		/**
+		 * 是否不为空
+		 * @param str
+		 * @return
+		 */
+		public static boolean isStrNotEmpty(String str) {
+			return StrUtil.isNotEmpty(str);
+		}
+		/**
+		 * 将空转为null文件在模板中统一判断
+		 * @param str
+		 * @return
+		 */
+		public static String emptyStrToNull(String str) {
+			return StrUtil.emptyToNull(str);
+		}
+
+		/**
+		 * 返回第一个有值的字符串
+		 * @param str
+		 * @return
+		 */
+		public static String firstNoneEmptyStr(String ...str) {
+			if (str != null && str.length > 0) {
+				for (String s : str) {
+					if (StrUtil.isNotEmpty(s)) {
+						return s;
+					}
+				}
+			}
+			return null;
+		}
 	}
 }
