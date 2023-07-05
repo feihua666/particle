@@ -30,5 +30,24 @@
             <artifactId>global-concurrency-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

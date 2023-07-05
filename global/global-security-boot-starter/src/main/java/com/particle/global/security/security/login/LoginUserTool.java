@@ -136,4 +136,23 @@ public class LoginUserTool {
             throw new RuntimeException(StrUtil.format("token for type of {} is not support", authentication.getClass()));
         }
     }
+
+    /**
+     * 断言是否为超级管理员
+     * @param loginUser
+     * @param errMessage
+     */
+    public static void superAdminCheck(LoginUser loginUser,String errMessage) {
+        Assert.isTrue(loginUser !=null && loginUser.getIsSuperAdmin() != null && loginUser.getIsSuperAdmin(),errMessage);
+    }
+
+    /**
+     * 断言是否为超级管理员
+     * @param errMessage
+     */
+    public static void assertSuperAdmin(String errMessage) {
+        LoginUser loginUser = getLoginUser();
+        superAdminCheck(loginUser, errMessage);
+    }
+
 }

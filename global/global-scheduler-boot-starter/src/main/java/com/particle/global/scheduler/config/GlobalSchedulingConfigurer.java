@@ -28,11 +28,13 @@ public class GlobalSchedulingConfigurer implements SchedulingConfigurer {
 	@Autowired
 	private BeanFactory beanFactory;
 
+	private ScheduledTaskRegistrar taskRegistrar;
+
 
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 		taskRegistrar.setScheduler(globalScheduledTaskExecutor());
-
+		this.taskRegistrar = taskRegistrar;
 	}
 
 
@@ -49,5 +51,9 @@ public class GlobalSchedulingConfigurer implements SchedulingConfigurer {
 				new ThreadPoolExecutor.CallerRunsPolicy(),
 				false);
 
+	}
+
+	public ScheduledTaskRegistrar getTaskRegistrar() {
+		return taskRegistrar;
 	}
 }
