@@ -509,9 +509,12 @@ public interface IBaseService<DO> extends IService<DO> {
             In in = AnnotationUtil.getAnnotation(field, In.class);
             if (in != null && fieldValue != null) {
                 Object finalFieldValue = fieldValue;
+                Collection finalFieldValueCollection = (Collection) finalFieldValue;
+                if (!finalFieldValueCollection.isEmpty()) {
+                    (((AbstractWrapper) queryWrapper)).in(StringTool.humpToLine(Optional.ofNullable(StrUtil.emptyToNull(in.value())).orElse(field.getName())), finalFieldValueCollection);
+                    setObjectValueNull(queryWrapper.getEntity(), field.getName());
 
-                (((AbstractWrapper) queryWrapper)).in(StringTool.humpToLine(Optional.ofNullable(StrUtil.emptyToNull(in.value())).orElse(field.getName())), ((Collection) finalFieldValue));
-                setObjectValueNull(queryWrapper.getEntity(), field.getName());
+                }
                 continue;
             }
 
