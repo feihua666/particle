@@ -624,10 +624,11 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param fieldName
      */
     default void setObjectValueNull(Object obj,String fieldName){
-        if (obj != null) {
+        if (obj != null && ReflectUtil.hasField(obj.getClass(),fieldName)) {
             try {
                 ReflectUtil.setFieldValue(obj,fieldName,null);
             }catch (Exception e){
+
                 LoggerFactory.getLogger(IBaseService.class).warn(e.getMessage() + "你利用了查询参数注解，在将原始值设置为空时出错了，但这也许不影响运行的正确性",e);
             }
         }
