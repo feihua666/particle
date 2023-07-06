@@ -15,4 +15,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface In {
+	/**
+	 * 字段名，java字段名，驼峰转下划线,如果不指定默认使用字段名称
+	 * @return
+	 */
+	String value() default "";
 }

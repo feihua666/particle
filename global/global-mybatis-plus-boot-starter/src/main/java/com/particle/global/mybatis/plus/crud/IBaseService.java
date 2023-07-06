@@ -510,7 +510,7 @@ public interface IBaseService<DO> extends IService<DO> {
             if (in != null && fieldValue != null) {
                 Object finalFieldValue = fieldValue;
 
-                (((AbstractWrapper) queryWrapper)).in(StringTool.humpToLine(field.getName()), ((Collection) finalFieldValue));
+                (((AbstractWrapper) queryWrapper)).in(StringTool.humpToLine(Optional.ofNullable(StrUtil.emptyToNull(in.value())).orElse(field.getName())), ((Collection) finalFieldValue));
                 setObjectValueNull(queryWrapper.getEntity(), field.getName());
                 continue;
             }
