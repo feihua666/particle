@@ -6,8 +6,6 @@ import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
-import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -89,13 +87,7 @@ public class TransHelper {
         long start = System.currentTimeMillis();
         log.debug("翻译开始:bodyClass={}",body.getClass().getName());
 
-        try {
-            // 在翻译时不使用权限
-            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
-            transObj(body);
-        } finally {
-            InterceptorIgnoreHelper.clearIgnoreStrategy();
-        }
+        transObj(body);
 
         long transDuration = System.currentTimeMillis() - start;
         log.debug("翻译结束:duration={}ms",transDuration);
@@ -506,14 +498,7 @@ public class TransHelper {
             if (iTransServiceByType != null) {
                 // 根据值批量翻译
                 CompletableFuture<List> listCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                    try {
-
-                        // 在翻译时不使用权限
-                        InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
-                        return iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue());
-                    } finally {
-                        InterceptorIgnoreHelper.clearIgnoreStrategy();
-                    }
+                    return iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue());
                 }, transTaskExecutor);
                 cfMap.put(stringSetEntry.getKey(), listCompletableFuture);
             }
@@ -534,14 +519,7 @@ public class TransHelper {
         // 设置目标值 改为异步执行
         for (TransMeta transMeta : transContext.getTransMetas()) {
             transTaskExecutor.execute(() -> {
-                try {
-                    // 在翻译时不使用权限
-                    InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(ignoreTenantLine).dataPermission(ignoreDataPermission).build());
-                    doTrans(transMeta, transContext);
-                } finally {
-                    InterceptorIgnoreHelper.clearIgnoreStrategy();
-                    countDownLatch.countDown();
-                }
+                doTrans(transMeta, transContext);
             });
         }
         try {
