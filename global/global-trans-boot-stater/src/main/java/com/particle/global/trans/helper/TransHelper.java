@@ -516,7 +516,11 @@ public class TransHelper {
         // 设置目标值 改为异步执行
         for (TransMeta transMeta : transContext.getTransMetas()) {
             transTaskExecutor.execute(() -> {
-                doTrans(transMeta, transContext);
+                try {
+                    doTrans(transMeta, transContext);
+                } finally {
+                    countDownLatch.countDown();
+                }
             });
         }
         try {
