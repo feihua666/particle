@@ -73,9 +73,6 @@ public class TransHelper {
     @Autowired
     private TableNameResolver tableNameResolver;
 
-    private static boolean ignoreTenantLine = true;
-    private static boolean ignoreDataPermission = true;
-
     /**
      * 翻译入口
      * @param body
