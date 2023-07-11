@@ -12,4 +12,11 @@
 一般想全局跨域，不细分，直接配置corsFilter就好了，简单；  
 如果项目使用了spring security，最好在security配置，security就是安全管理的；  
 如果想在mvc个别接口是单独跨域，那么需要在mvc中配置比较好。  
-本项目默认已在全局组件 global-web-filter-boot-starter中全局过滤器配置中(GlobalWebFilterAutoConfiguration)配置了corsFilter  
+本项目默认已在全局组件 global-web-filter-boot-starter中全局过滤器配置中(GlobalWebFilterAutoConfiguration)配置了corsFilter
+
+## spring security 自带登录和授权页面css访问不了的问题解决
+可以通过 https://ping.chinaz.com 多点ping， 配置一下host，一般也就开发时使用
+```shell
+#sping security
+104.18.10.207 stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com
+```

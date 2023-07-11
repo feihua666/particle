@@ -1,9 +1,8 @@
-package com.particle.global.security;
+package com.particle.global.security.security;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @author yangwei
  * @since 2022-04-20 17:38
  */
-@Component
 public class ApplicationContextForSecurityHelper implements ApplicationContextAware {
 	private static ApplicationContext applicationContext;
 

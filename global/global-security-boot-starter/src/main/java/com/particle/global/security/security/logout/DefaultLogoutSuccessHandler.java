@@ -2,7 +2,7 @@ package com.particle.global.security.security.logout;
 
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
-import com.particle.global.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;

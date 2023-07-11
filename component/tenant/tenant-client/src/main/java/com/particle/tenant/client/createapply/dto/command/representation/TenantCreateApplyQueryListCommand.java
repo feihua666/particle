@@ -18,6 +18,18 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @ApiModel
 public class TenantCreateApplyQueryListCommand extends AbstractBaseQueryCommand {
 
+	@ApiModelProperty("密码，没有指定 applyUserId 时，用户创建用户登录密码")
+	private String password;
+
+	@ApiModelProperty("是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送")
+	private Boolean isSendEmailNotice;
+
+	@ApiModelProperty("密码，没有指定 applyUserId 时，用户创建用户登录密码")
+	private Boolean isSendMobileNotice;
+
+	@ApiModelProperty("账号，没有指定 applyUserId 时，用户创建用户登录账号")
+	private String account;
+
 
 
     @Like

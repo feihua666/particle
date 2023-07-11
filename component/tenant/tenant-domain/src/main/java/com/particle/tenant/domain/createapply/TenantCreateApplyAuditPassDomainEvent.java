@@ -37,7 +37,8 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 	public TemplatingDomainMessageEvent toTemplatingDomainMessageEvent(Long internalMessageUserId, Long sendUserId){
 		TemplatingDomainMessageEvent templatingDomainMessageEvent = new TemplatingDomainMessageEvent(MessageTemplateConstants.tenant_create_success_notice, getData().toMap() , MessageConstants.Producer.templatingNoticeMessageProducerOutZeroBindingName);
 		templatingDomainMessageEvent.fillDefault(this);
-		templatingDomainMessageEvent.setEmail(TemplatingDomainMessageEvent.Email.create(Lists.newArrayList(getData().getAccount())));
+		templatingDomainMessageEvent.setEmail(TemplatingDomainMessageEvent.Email.create(getData().getEmail()));
+		templatingDomainMessageEvent.setSms(TemplatingDomainMessageEvent.Sms.create(getData().getMobile()));
 		templatingDomainMessageEvent.setInternalMessage(TemplatingDomainMessageEvent.InternalMessage.create(internalMessageUserId));
 		templatingDomainMessageEvent.setSendUserId(sendUserId);
 
@@ -51,6 +52,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 	public static class DataContent{
 		private String url;
 		private String account;
+		private String email;
 		private String password;
 		private String mobile;
 		private Boolean isFormal;
@@ -59,6 +61,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 		public static DataContent create(
 				String url,
 				String account,
+				String email,
 				String password,
 				String mobile,
 				Boolean isFormal,
@@ -67,6 +70,7 @@ public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCre
 			DataContent dataContent = new DataContent();
 			dataContent.setUrl(url);
 			dataContent.setAccount(account);
+			dataContent.setEmail(email);
 			dataContent.setPassword(password);
 			dataContent.setMobile(mobile);
 			dataContent.setIsFormal(isFormal);

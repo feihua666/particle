@@ -123,20 +123,25 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 		TenantCreateApply tenantCreateApplyDb = tenantCreateApplyGateway.getById(tenantCreateApply.getId());
 		Long applyUserId = tenantCreateApplyDb.getApplyUserId();
 
+		// 标识是否创建了用户
+		boolean isCreateUser = false;
+
 		// 如果添加用户，为用户设置密码，这里没必要先初始化随机密码，等真正使用时初始化
-		String password = null;
+		// 注意密码此时可能为空，但需要创建用户时再初始化
+		String password = tenantCreateApply.getPassword();
 		// 1 创建或获取申请用户
 		if (applyUserId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
 			Assert.isTrue(StrUtil.isNotEmpty(tenantCreateApplyDb.getEmail()) || StrUtil.isNotEmpty(tenantCreateApplyDb.getMobile()), "邮箱和电话必须填写一个，以用于匹配用户");
-			applyUserId = tenantUserHelper.userIdentifierExist(tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile());
+			applyUserId = tenantUserHelper.userIdentifierExist(tenantCreateApplyDb.getAccount(),tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile());
 
 			// 还为空直接创建用户
 			if (applyUserId == null) {
 				if (StrUtil.isEmpty(password)) {
 					password = RandomUtil.randomString(16);
 				}
-				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile(), tenantCreateApply.getName(), password,tenantCreateApplyUserAddScene);
+				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getAccount(),tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile(), tenantCreateApply.getName(), password,tenantCreateApplyUserAddScene);
+				isCreateUser = true;
 			}
 		}
 		// 2 添加租户
@@ -168,6 +173,9 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 			tenantUserCreateCommand.setIsLeave(false);
 			tenantUserCreateCommand.setIsFormal(true);
 			tenantUserCreateCommand.setTenantId(tenantSave.getData().getId());
+			// 禁用通知，因为审核通过后会发送
+			tenantUserCreateCommand.setIsSendEmailNotice(false);
+			tenantUserCreateCommand.setIsSendMobileNotice(false);
 			SingleResponse<TenantUserVO> tenantUserSave = tenantUserCreateCommandExecutor.execute(tenantUserCreateCommand);
 			if (tenantUserSave.isSuccess()) {
 				log.info("将用户绑定到租户下成功 userId={}", tenantUserCreateCommand.getUserId());
@@ -207,12 +215,15 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 				tenantRoleGateway.createRoleUserRel(roleId, applyUserId, tenantSave.getData().getId());
 				//	7 通知
 				tenantUserHelper.notify(applyUserId,
-						tenantCreateApplyDb.getEmail(),
-						tenantCreateApplyDb.getMobile(),
-						password,
+						tenantCreateApplyDb.getIsSendEmailNotice() ? tenantCreateApplyDb.getEmail() : null,
+						tenantCreateApplyDb.getIsSendMobileNotice() ? tenantCreateApplyDb.getMobile(): null,
+						// 只有创建了用户密码才有意义
+						isCreateUser ? password : null,
 						tenantCreateApplyAuditCommand.getAuditUserId(),
 						tenantCreateApplyDb.getIsFormal(),
-						tenantCreateApplyDb.getExpireAt()
+						tenantCreateApplyDb.getExpireAt(),
+						tenantCreateApplyDb.getIsSendEmailNotice(),
+						tenantCreateApplyDb.getIsSendMobileNotice()
 				);
 
 			}

@@ -22,9 +22,9 @@ public class CustomWebSecurityConfigureExt {
 	/**
 	 * 登录成功处理器
 	 */
-	private AuthenticationSuccessHandler defaultAuthenticationSuccessHandler = new DefaultAuthenticationSuccessHandler();
+	private AuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
 	/**
 	 * 登录失败处理器
 	 */
-	private AuthenticationFailureHandler defaultAuthenticationFailureHandler = new DefaultAuthenticationFailureHandler();
+	private AuthenticationFailureHandler defaultAuthenticationFailureHandler;
 }

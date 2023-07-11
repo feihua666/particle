@@ -100,7 +100,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
       fieldName: 'applyUserId',
       propUserIdFieldName: 'applyUserId',
       propUserNicknameFieldName: 'applyUserNickname',
-      label: '申请用户'}),
+      label: '申请用户',tips: '填写后手动输入的账号、邮箱、手机号不再生效，不再匹配用户'}),
 
     {
       field: {
@@ -228,7 +228,22 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
       }
     },
 
-
+    {
+      field: {
+        name: 'account',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '账号',
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+        },
+        compProps: {
+          placeholder: '账号',
+          clearable: true,
+        }
+      }
+    },
     {
       field: {
         name: 'email',
@@ -256,7 +271,7 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
       element: {
         comp: 'el-input',
         formItemProps: {
-          label: '联系人手机',
+          label: '手机号',
           tips: '如果用户不存在将作为用户登录账号匹配用户',
           validate: {
             mobile: true
@@ -265,6 +280,39 @@ export const useAddPageFormItems = ({props,funcApplicationDialogVisible})=>{
         compProps: {
           placeholder: '手机号',
           clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'password',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '密码',
+          tips: '如果用户不存在将作为初始密码，不填写将自动生成',
+        },
+        compProps: {
+          placeholder: '密码',
+          clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'isSendEmailNotice',
+        value: true
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '发送邮件通知',
+          tips: '仅邮箱存在时生效',
+        },
+        compProps: {
+          activeText: "发送",
+          inactiveText: '不发送'
         }
       }
     },

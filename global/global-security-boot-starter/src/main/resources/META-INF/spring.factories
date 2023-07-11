@@ -1,2 +1,2 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.particle.global.security.GlobalSecurityAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.particle.global.security.security.GlobalSecurityAutoConfiguration,com.particle.global.security.authorizationserver.AuthorizationServerSecurityAutoConfiguration

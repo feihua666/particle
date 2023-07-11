@@ -1,13 +1,17 @@
 package com.particle.common.domain.event;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.tool.email.EmailAccount;
 import com.google.common.collect.Lists;
 import com.particle.global.tool.sms.SmsAccount;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -107,6 +111,15 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 								   List<String> noticeEmails,
 								   List<String> noticeCcEmails,
 								   List<String> noticeBccEmails) {
+
+			if (CollectionUtil.isEmpty(noticeEmails)) {
+				return null;
+			}
+			List<String> collect = noticeEmails.stream().filter(Objects::nonNull).collect(Collectors.toList());
+			if (CollectionUtil.isEmpty(collect)) {
+				return null;
+			}
+
 			Email email = new Email();
 			email.setEmailAccount(mailAccount);
 			email.setNoticeEmails(noticeEmails);
@@ -148,6 +161,13 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 		private List<String> noticeMobiles;
 
 		public static Sms create(SmsAccount smsAccount, List<String> noticeMobiles) {
+			if (CollectionUtil.isEmpty(noticeMobiles)) {
+				return null;
+			}
+			List<String> collect = noticeMobiles.stream().filter(Objects::nonNull).collect(Collectors.toList());
+			if (CollectionUtil.isEmpty(collect)) {
+				return null;
+			}
 			Sms sms = new Sms();
 			sms.setSmsAccount(smsAccount);
 			sms.setNoticeMobiles(noticeMobiles);
@@ -155,9 +175,7 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 		}
 
 		public static Sms create(List<String> noticeMobiles) {
-			Sms sms = new Sms();
-			sms.setNoticeMobiles(noticeMobiles);
-			return sms;
+			return create(null, noticeMobiles);
 		}
 		public static Sms create(String noticeMobile) {
 			return create(Lists.newArrayList(noticeMobile));

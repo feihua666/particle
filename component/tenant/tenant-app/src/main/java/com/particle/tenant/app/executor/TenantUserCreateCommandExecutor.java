@@ -72,21 +72,28 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 				throw ExceptionFactory.bizException(ErrorCodeTenantEnum.tenant_user_exceed);
 			}
 		}
+		// 标识是否创建了用户
+		boolean isCreateUser = false;
 		// 如果添加用户，为用户设置密码，这里没必要先初始化随机密码，等真正使用时初始化
-		String password = null;
+		String password = tenantUserCreateCommand.getPassword();
 		// 尝试添加用户
 		Long userId = tenantUserCreateCommand.getUserId();
 		if (userId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
-			Assert.isTrue(StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail()) || StrUtil.isNotEmpty(tenantUserCreateCommand.getUserMobile()), "邮箱和手机号必须填写一个，以用于匹配用户");
-			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile());
+			Assert.isTrue(
+					StrUtil.isNotEmpty(tenantUserCreateCommand.getUserAccount())
+							|| StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail())
+							|| StrUtil.isNotEmpty(tenantUserCreateCommand.getUserMobile()),
+					"账号、邮箱或手机号必须填写一个，以用于匹配用户");
+			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserAccount(),tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile());
 
 			// 还为空直接创建用户
 			if (userId == null) {
 				if (StrUtil.isEmpty(password)) {
 					password = RandomUtil.randomString(16);
 				}
-				userId = tenantUserHelper.createUser(tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile(), tenantUserCreateCommand.getName(), password,tenantUserAddScene);
+				userId = tenantUserHelper.createUser(tenantUserCreateCommand.getUserAccount(),tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile(), tenantUserCreateCommand.getName(), password,tenantUserAddScene);
+				isCreateUser = true;
 			}
 		}
 
@@ -102,10 +109,13 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 			tenantUserHelper.notify(userId,
 					tenantUserCreateCommand.getUserEmail(),
 					tenantUserCreateCommand.getUserMobile(),
-					password,
+					// 只有创建了用户密码才有意义
+					isCreateUser ? password : null,
 					tenantUserCreateCommand.getCurrentUserId(),
 					byIdIgnoreTenantLimit.getIsFormal(),
-					byIdIgnoreTenantLimit.getExpireAt()
+					byIdIgnoreTenantLimit.getExpireAt(),
+					tenantUserCreateCommand.getIsSendEmailNotice(),
+					tenantUserCreateCommand.getIsSendMobileNotice()
 			);
 			return SingleResponse.of(TenantUserAppStructMapping.instance.toTenantUserVO(tenantUser));
 		}

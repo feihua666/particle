@@ -9,7 +9,7 @@ import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
 import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 				requestURI = requestURI.substring(contextPath.length());
 			}
 			if (uris.contains(requestURI)) {
-				boolean isApplicationJsonContentType = request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE);
+				boolean isApplicationJsonContentType = StrUtil.equalsAny(request.getContentType(),MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE);
 				CaptchaVerifyCommand captchaVerifyCommand = null;
 				if (isApplicationJsonContentType) {
 					String body = IoUtil.readUtf8(httpServletRequest.getInputStream());

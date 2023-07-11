@@ -53,30 +53,47 @@ public class TenantUserHelper{
 					   String password,
 					   Long sendUserId,
 					   Boolean tenantIsFormal,
-					   LocalDateTime tenantExpireAt
+					   LocalDateTime tenantExpireAt,
+					   Boolean isSendEmailNotice,
+					   Boolean isSendMobileNotice
 					   ) {
-		String email = userEmail;
-		if (StrUtil.isEmpty(email)) {
-			Long dictIdByGroupCodeAndItemValue = tenantDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_email.itemValue());
-			tenantUserUserGateway.getIdentifierByUserIdAndType(userId, dictIdByGroupCodeAndItemValue);
-		}
-		if (StrUtil.isNotEmpty(email)) {
-			TenantCreateApplyAuditPassDomainEvent.DataContent dataContent = TenantCreateApplyAuditPassDomainEvent.DataContent.create(
-					// url为空请在模板中指定
-					"",
-					userEmail,
-					password,
-					userMobile,
-					tenantIsFormal,
-					tenantExpireAt
-			);
 
-			TenantCreateApplyAuditPassDomainEvent event = new TenantCreateApplyAuditPassDomainEvent(dataContent);
-			TemplatingDomainMessageEvent templatingDomainMessageEvent = event.toTemplatingDomainMessageEvent(userId,sendUserId);
-			tenantCreateApplyGateway.sendDomainEvent(templatingDomainMessageEvent);
+		boolean sendEmailNotice = isSendEmailNotice != null && isSendEmailNotice;
+		boolean sendMobileNotice = isSendMobileNotice != null && isSendMobileNotice;
+		String email = userEmail;
+		if (sendEmailNotice) {
+			if (StrUtil.isEmpty(email)) {
+				// 邮箱为空获取用户已绑定的邮箱
+				Long dictIdByGroupCodeAndItemValue = tenantDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_email.itemValue());
+				email = tenantUserUserGateway.getIdentifierByUserIdAndType(userId, dictIdByGroupCodeAndItemValue);
+			}
 		}else {
-			log.warn("尝试根据邮箱发送模板消息，但用户邮箱为空，消息未发送 userId={}",userId);
+			log.info("尝试根据邮箱发送模板消息，但参数 sendEmailNotice={}，不要求发送，消息未发送 userId={}，email={}",sendEmailNotice,userId,email);
 		}
+		String mobile = userMobile;
+		if (sendMobileNotice) {
+			if (StrUtil.isEmpty(mobile)) {
+				Long dictIdByGroupCodeAndItemValue = tenantDictGateway.getDictIdByGroupCodeAndItemValue(UserAccountType.Group.user_account_type.groupCode(), UserAccountType.front_mobile.itemValue());
+				mobile = tenantUserUserGateway.getIdentifierByUserIdAndType(userId, dictIdByGroupCodeAndItemValue);
+			}
+		}else {
+			log.info("尝试根据手机号发送模板消息，但参数 sendMobileNotice={}，不要求发送，消息未发送 userId={}，mobile={}",sendMobileNotice,userId,mobile);
+		}
+
+		TenantCreateApplyAuditPassDomainEvent.DataContent dataContent = TenantCreateApplyAuditPassDomainEvent.DataContent.create(
+				// url为空请在模板中指定
+				"",
+				null,
+				sendEmailNotice ? email : null,
+				password,
+				sendMobileNotice ? mobile: null,
+				tenantIsFormal,
+				tenantExpireAt
+		);
+
+		TenantCreateApplyAuditPassDomainEvent event = new TenantCreateApplyAuditPassDomainEvent(dataContent);
+		TemplatingDomainMessageEvent templatingDomainMessageEvent = event.toTemplatingDomainMessageEvent(userId,sendUserId);
+		tenantCreateApplyGateway.sendDomainEvent(templatingDomainMessageEvent);
 	}
 	/**
 	 * 判断用户登录标识是否为空，
@@ -84,38 +101,51 @@ public class TenantUserHelper{
 	 * @param userMobile 手机
 	 * @return null=为空
 	 */
-	public Long userIdentifierExist(String userEmail,String userMobile) {
+	public Long userIdentifierExist(String account, String userEmail,String userMobile) {
 		Long applyUserId = null;
+		if (StrUtil.isNotEmpty(account)) {
+			applyUserId = tenantUserUserGateway.getByUserIdentifier(account);
+		}
+		if (applyUserId != null) {
+			log.info("用户已存在，直接使用账号对应的id，accont={}，userId={}", account, applyUserId);
+			return applyUserId;
+		}
+
+		// 根据邮箱获取
 		if (StrUtil.isNotEmpty(userEmail)) {
 			applyUserId = tenantUserUserGateway.getByUserIdentifier(userEmail);
 		}
 		if (applyUserId != null) {
 			log.info("用户已存在，直接使用邮箱对应的id，email={}，userId={}", userEmail, applyUserId);
+			return applyUserId;
 		}
 		// 还为空根据手机号获取
-		if (applyUserId == null) {
-			if (StrUtil.isNotEmpty(userMobile)) {
-				applyUserId = tenantUserUserGateway.getByUserIdentifier(userMobile);
-			}
+		if (StrUtil.isNotEmpty(userMobile)) {
+			applyUserId = tenantUserUserGateway.getByUserIdentifier(userMobile);
 		}
 		if (applyUserId != null) {
 			log.info("用户已存在，直接使用手机号对应的id，mobile={}，userId={}", userMobile, applyUserId);
+			return applyUserId;
 		}
 		return applyUserId;
 	}
 	/**
 	 * 创建用户
+	 * @param userAccount
 	 * @param userEmail
 	 * @param userMobile
 	 * @param userName
 	 * @param password
 	 * @return
 	 */
-	public Long createUser(String userEmail,String userMobile, String userName,String password,String createUserScene) {
-		log.info("开始创建用户，email={}，mobile={}", userEmail, userMobile);
-		List<TenantUserUserGateway.IdentifierParam> identifierParams = new ArrayList<>(2);
+	public Long createUser(String userAccount,String userEmail,String userMobile, String userName,String password,String createUserScene) {
+		log.info("开始创建用户，account={}，email={}，mobile={}",userAccount, userEmail, userMobile);
+		List<TenantUserUserGateway.IdentifierParam> identifierParams = new ArrayList<>(3);
 
-
+		// 如果账号不为空，直接以账号为账号
+		if (StrUtil.isNotEmpty(userAccount)) {
+			identifierParams.add(TenantUserUserGateway.IdentifierParam.create(userAccount,null, UserAccountType.front_account.itemValue()));
+		}
 		// 如果邮箱不为空，直接以邮箱为账号
 		if (StrUtil.isNotEmpty(userEmail)) {
 			identifierParams.add(TenantUserUserGateway.IdentifierParam.create(userEmail,null, UserAccountType.front_email.itemValue()));

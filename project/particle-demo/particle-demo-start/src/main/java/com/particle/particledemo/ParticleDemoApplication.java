@@ -1,11 +1,9 @@
 package com.particle.particledemo;
 
-import com.particle.global.security.GlobalSecurityAutoConfiguration;
 import com.particle.global.session.MapSessionRepositoryConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;

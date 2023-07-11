@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @author yangwei
  * @since 2021/1/28 18:40
  */
-@Component
 public class InnerPathConfig implements CustomWebSecurityConfigure {
     @Override
     public void configure(HttpSecurity http, AuthenticationManager authenticationManager,CustomWebSecurityConfigureExt ext) throws Exception {

@@ -1,4 +1,4 @@
-package com.particle.global.security;
+package com.particle.global.security.security;
 
 
 import com.particle.global.dto.response.Response;

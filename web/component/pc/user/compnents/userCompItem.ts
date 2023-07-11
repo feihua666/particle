@@ -20,7 +20,7 @@ export const useRemoteSelectUserCompItem = ({props,
                                                 propUserIdFieldName='userId',
                                                 propUserNicknameFieldName='userNickname',
                                                 label='用户',
-                                                valueChange = ()=>{}})=>{
+                                                valueChange = ()=>{},tips = ''})=>{
 
   return   {
         field: {
@@ -30,9 +30,10 @@ export const useRemoteSelectUserCompItem = ({props,
         },
         element: {
             comp: 'PtSelect',
-                formItemProps: {
+            formItemProps: {
                 label: label,
-                required: required
+                required: required,
+                tips: tips
             },
             compProps: ()=> {
                 let paramsExist = !!(props[propUserIdFieldName] && props[propUserNicknameFieldName])

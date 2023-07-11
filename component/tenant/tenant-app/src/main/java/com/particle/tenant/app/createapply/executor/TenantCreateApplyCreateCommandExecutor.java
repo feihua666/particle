@@ -41,6 +41,8 @@ public class TenantCreateApplyCreateCommandExecutor  extends AbstractBaseExecuto
 	 */
 	public SingleResponse<TenantCreateApplyVO> execute(@Valid TenantCreateApplyCreateCommand tenantCreateApplyCreateCommand) {
 		TenantCreateApply tenantCreateApply = createByTenantCreateApplyCreateCommand(tenantCreateApplyCreateCommand);
+		tenantCreateApply.initIsSendMobileNotice();
+		tenantCreateApply.initIsSendMobileNotice();
 		if (tenantCreateApplyCreateCommand.getExtJsonObj() != null) {
 			MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
 

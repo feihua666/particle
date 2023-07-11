@@ -1,7 +1,7 @@
 package com.particle.test;
 
 import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.security.GlobalSecurityAutoConfiguration;
+import com.particle.global.security.security.GlobalSecurityAutoConfiguration;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import lombok.extern.slf4j.Slf4j;

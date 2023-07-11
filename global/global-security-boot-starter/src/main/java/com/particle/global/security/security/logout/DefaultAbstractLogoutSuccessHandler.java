@@ -2,7 +2,7 @@ package com.particle.global.security.security.logout;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.dto.response.Response;
-import com.particle.global.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

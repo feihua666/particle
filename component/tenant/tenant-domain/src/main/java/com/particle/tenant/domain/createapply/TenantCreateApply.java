@@ -37,6 +37,11 @@ public class TenantCreateApply extends AggreateRoot {
     */
     private String userName;
 
+	/**
+	 * 账号，没有指定 applyUserId 时，用户创建用户登录账号
+	 */
+	private String account;
+
     /**
     * 邮箱
     */
@@ -46,6 +51,21 @@ public class TenantCreateApply extends AggreateRoot {
     * 手机号
     */
     private String mobile;
+
+	/**
+	 * 密码，没有指定 applyUserId 时，用户创建用户登录密码
+	 */
+	private String password;
+
+	/**
+	 * 是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送
+	 */
+	private Boolean isSendEmailNotice;
+
+	/**
+	 * 密码，没有指定 applyUserId 时，用户创建用户登录密码
+	 */
+	private Boolean isSendMobileNotice;
 
     /**
     * 租户类型字典id
@@ -163,6 +183,16 @@ public class TenantCreateApply extends AggreateRoot {
         this.appliedTenantId = appliedTenantId;
     }
 
+	public void initIsSendEmailNotice() {
+		if (this.isSendEmailNotice == null) {
+			this.isSendEmailNotice = false;
+		}
+	}
+	public void initIsSendMobileNotice() {
+		if (this.isSendMobileNotice == null) {
+			this.isSendMobileNotice = false;
+		}
+	}
     /**
      * 创建租户创建申请领域模型对象
      * @return 租户创建申请领域模型对象，该对象所有属性为空，需要进行初始化操作

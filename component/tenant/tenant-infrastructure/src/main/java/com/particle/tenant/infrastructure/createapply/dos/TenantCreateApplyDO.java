@@ -30,6 +30,11 @@ public class TenantCreateApplyDO extends BaseDO {
     */
     private String userName;
 
+	/**
+	 * 账号，没有指定 applyUserId 时，用户创建用户登录账号
+	 */
+	private String account;
+
     /**
     * 邮箱
     */
@@ -39,6 +44,21 @@ public class TenantCreateApplyDO extends BaseDO {
     * 手机号
     */
     private String mobile;
+
+	/**
+	 * 密码，没有指定 applyUserId 时，用户创建用户登录密码
+	 */
+	private String password;
+
+	/**
+	 * 是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送
+	 */
+	private Boolean isSendEmailNotice;
+
+	/**
+	 * 密码，没有指定 applyUserId 时，用户创建用户登录密码
+	 */
+	private Boolean isSendMobileNotice;
 
     /**
     * 租户类型字典id

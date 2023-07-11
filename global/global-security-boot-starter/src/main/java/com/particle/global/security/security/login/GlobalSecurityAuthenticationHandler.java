@@ -2,7 +2,7 @@ package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.dto.response.Response;
-import com.particle.global.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 定义一个抽象的登录成功和失败的处理类，主要用来处理登录成功或失败的额外操作
+ * 定义一个登录成功和失败的处理类，主要用来处理登录成功或失败的额外操作
  * 实现方式可以继承该类并实现 spring security 对应的 {@link AuthenticationFailureHandler} 或 {@link AuthenticationSuccessHandler}
  * </p>
  *
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @since 2021-09-28 10:08
  */
 @Slf4j
-public abstract class DefaultAbstractAuthenticationHandler {
+public class GlobalSecurityAuthenticationHandler {
 
 	@Autowired
 	protected List<IAuthenticationResultService> iAuthenticationResultServices;

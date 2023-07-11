@@ -28,7 +28,7 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
   let r =  [
     useRemoteSelectUserCompItem(
         {props,
-      required: isForAdd ? false : true,
+          required: isForAdd ? false : true,
           valueChange: ({form, formData})=> {
             nextTick(()=>{
               if (formData.userId) {
@@ -37,7 +37,8 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
                 form.name = ''
               }
             })
-          }
+          },
+        tips: '填写后手动输入的账号、邮箱、手机号不再生效，不再匹配用户'
         }),
 
 
@@ -175,7 +176,22 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
   ]
 
   let addOnly = [
-
+    {
+      field: {
+        name: 'userAccount',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '账号',
+          tips: '如果用户不存在将作为用户登录账号匹配用户',
+        },
+        compProps: {
+          placeholder: '账号',
+          clearable: true,
+        }
+      }
+    },
     {
       field: {
         name: 'userEmail',
@@ -212,6 +228,39 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
         compProps: {
           placeholder: '手机号',
           clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'password',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '密码',
+          tips: '如果用户不存在将作为初始密码，不填写将自动生成',
+        },
+        compProps: {
+          placeholder: '密码',
+          clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'isSendEmailNotice',
+        value: true
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '发送邮件通知',
+          tips: '仅邮箱存在时生效',
+        },
+        compProps: {
+          activeText: "发送",
+          inactiveText: '不发送'
         }
       }
     },

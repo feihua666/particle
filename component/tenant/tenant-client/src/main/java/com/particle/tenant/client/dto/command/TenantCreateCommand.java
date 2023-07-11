@@ -42,15 +42,15 @@ public class TenantCreateCommand extends AbstractBaseCommand {
     private String disabledReason;
 
 
-    @ApiModelProperty(value = "姓名")
+    @ApiModelProperty(value = "姓名，仅作为联系人，展示使用")
     private String userName;
 
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "邮箱，仅作为联系人邮箱，展示使用")
     private String email;
 
 
-    @ApiModelProperty(value = "手机号")
+    @ApiModelProperty(value = "手机号，仅作为联系人手机号，展示使用")
     private String mobile;
 
 

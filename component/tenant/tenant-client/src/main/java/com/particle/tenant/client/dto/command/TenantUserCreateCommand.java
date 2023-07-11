@@ -24,11 +24,24 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     @ApiModelProperty(value = "用户id，可以直接关联用户id或输入邮箱和手机号")
     private Long userId;
 
-    @ApiModelProperty(value = "邮箱，没有指定 applyUserId 时，用户创建用户登录账号")
+    @ApiModelProperty(value = "账号，没有指定 userId 时，用户创建用户登录账号")
+    private String userAccount;
+
+    @ApiModelProperty(value = "邮箱，没有指定 userId 时，用户创建用户登录账号")
     private String userEmail;
 
-    @ApiModelProperty(value = "手机号，没有指定 applyUserId 时，用户创建用户登录账号")
+    @ApiModelProperty(value = "手机号，没有指定 userId 时，用户创建用户登录账号")
     private String userMobile;
+
+    @ApiModelProperty("密码，没有指定 userId 时，用户创建用户登录密码")
+    private String password;
+
+
+    @ApiModelProperty("是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送")
+    private Boolean isSendEmailNotice;
+
+    @ApiModelProperty("密码，没有指定 applyUserId 时，用户创建用户登录密码")
+    private Boolean isSendMobileNotice;
 
     @ApiModelProperty(value = "真实姓名")
     private String name;

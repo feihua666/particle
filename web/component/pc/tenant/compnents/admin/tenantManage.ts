@@ -238,7 +238,7 @@ export const useAddPageFormItems = ({props})=>{
         comp: 'el-input',
         formItemProps: {
           label: '姓名',
-
+          tips: '仅作为联系人，展示使用'
         },
         compProps: {
           clearable: true,
@@ -255,7 +255,7 @@ export const useAddPageFormItems = ({props})=>{
         comp: 'el-input',
         formItemProps: {
           label: '邮箱',
-
+          tips: '仅作为联系人邮箱，展示使用'
         },
         compProps: {
           clearable: true,
@@ -272,14 +272,13 @@ export const useAddPageFormItems = ({props})=>{
         comp: 'el-input',
         formItemProps: {
           label: '手机号',
-
+          tips: '仅作为联系人手机号，展示使用'
         },
         compProps: {
           clearable: true,
         }
       }
     },
-
 
     {
       field: {

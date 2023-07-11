@@ -5,17 +5,20 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
-import com.particle.global.security.ApplicationContextForSecurityHelper;
 import com.particle.global.security.exception.BadCaptchaAuthenticationException;
+import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.servlet.RequestTool;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,15 +32,30 @@ import java.util.Map;
  * @since 2020/12/11 13:32
  */
 @Slf4j
-public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenticationHandler implements AuthenticationFailureHandler {
+public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    @Autowired
+    private GlobalSecurityAuthenticationHandler globalSecurityAuthenticationHandler;
+
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
+    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+
+        Response responseResult = getResponseByException(e);
+        boolean ajaxRequest = RequestTool.isAjaxRequest(httpServletRequest);
+        if (ajaxRequest) {
+            outJson(httpServletResponse,responseResult);
+        }
+        globalSecurityAuthenticationHandler.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,responseResult);
+
+        if (!ajaxRequest) {
+            super.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
+        }
+    }
+
+    protected void outJson(HttpServletResponse httpServletResponse,Response responseResult) throws IOException{
         httpServletResponse.setContentType("application/json;charset=utf-8");
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         PrintWriter out = httpServletResponse.getWriter();
-
-        Response responseResult = getResponseByException(e);
-
         MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
         String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, jackson2HttpMessageConverter.getObjectMapper());
 
@@ -45,7 +63,6 @@ public class DefaultAuthenticationFailureHandler extends DefaultAbstractAuthenti
 
         out.flush();
         IoUtil.close(out);
-        super.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,responseResult);
     }
 
     /**
