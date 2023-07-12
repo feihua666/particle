@@ -84,7 +84,7 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 					StrUtil.isNotEmpty(tenantUserCreateCommand.getUserAccount())
 							|| StrUtil.isNotEmpty(tenantUserCreateCommand.getUserEmail())
 							|| StrUtil.isNotEmpty(tenantUserCreateCommand.getUserMobile()),
-					"账号、邮箱或手机号必须填写一个，以用于匹配用户");
+					"账号、邮箱或手机号必须填写一个，以用于创建或匹配用户");
 			userId = tenantUserHelper.userIdentifierExist(tenantUserCreateCommand.getUserAccount(),tenantUserCreateCommand.getUserEmail(), tenantUserCreateCommand.getUserMobile());
 
 			// 还为空直接创建用户

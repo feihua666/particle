@@ -132,7 +132,11 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 		// 1 创建或获取申请用户
 		if (applyUserId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
-			Assert.isTrue(StrUtil.isNotEmpty(tenantCreateApplyDb.getEmail()) || StrUtil.isNotEmpty(tenantCreateApplyDb.getMobile()), "邮箱和电话必须填写一个，以用于匹配用户");
+			Assert.isTrue(
+					StrUtil.isNotEmpty(tenantCreateApplyDb.getAccount())
+					|| StrUtil.isNotEmpty(tenantCreateApplyDb.getEmail())
+							|| StrUtil.isNotEmpty(tenantCreateApplyDb.getMobile()),
+					"账号、邮箱或手机号必须填写一个，以用于创建或匹配用户");
 			applyUserId = tenantUserHelper.userIdentifierExist(tenantCreateApplyDb.getAccount(),tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile());
 
 			// 还为空直接创建用户
