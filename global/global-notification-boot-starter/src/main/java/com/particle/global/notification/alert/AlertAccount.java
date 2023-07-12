@@ -20,7 +20,7 @@ public class AlertAccount implements Serializable {
 	/**
 	 * 代理配置
 	 */
-	private ProxyConfig proxyConfig;
+	private ProxyConfig proxy;
 	/**
 	 * 企业微信webhooks
 	 * 企业微信群机器人

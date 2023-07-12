@@ -71,7 +71,7 @@ public class ProxyConfig implements InitializingBean, Serializable {
 	/**
 	 * 结合自定义，和全局默认，得到一个最终的代理对象
 	 * @param customProxyConfig
-	 * @return 可能返回null
+	 * @return 可能返回null表示无可用代理或配置的代理已禁用
 	 */
 	public static ProxyConfig finalProxyConfig(ProxyConfig customProxyConfig) {
 		if (customProxyConfig != null) {

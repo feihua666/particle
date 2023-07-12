@@ -52,8 +52,10 @@ public class AlertNotifyListener  extends AbstractNotifyListener {
 	public void doNotify(NotifyParam notifyParam) {
 		AlertAccount alertAccount = globalNotificationProperties.getAlert();
 		if (alertAccount != null) {
-			ProxyConfig proxyConfig = ProxyConfig.finalProxyConfig(alertAccount.getProxyConfig());
+			ProxyConfig proxyConfig = ProxyConfig.finalProxyConfig(alertAccount.getProxy());
 			doWxcpWebhooks(alertAccount.getWxcpWebhooks(), notifyParam,proxyConfig);
+		}else {
+			log.debug("alert notify ignored. because of alertAccount is null");
 		}
 	}
 

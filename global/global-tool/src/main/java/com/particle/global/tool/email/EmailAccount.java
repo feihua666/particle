@@ -34,23 +34,7 @@ public class EmailAccount extends MailAccount {
 	@Override
 	public Properties getSmtpProps() {
 		Properties properties = super.getSmtpProps();
-		ProxyConfig proxy = this.proxy;
-		if (proxy == null) {
-			proxy = ProxyConfig.proxyConfig();
-			if (proxy != null) {
-				boolean useProxy = proxy.getUseProxy()!=null && proxy.getUseProxy();
-				if (!useProxy) {
-					proxy = null;
-				}
-			}
-			if (proxy != null) {
-				boolean asDefault = proxy.getAsDefault()!=null && proxy.getAsDefault();
-				if (!asDefault) {
-					proxy = null;
-				}
-			}
-		}
-
+		ProxyConfig proxy = ProxyConfig.finalProxyConfig(this.proxy);
 		if (proxy != null) {
 			properties.put("mail.smtp.proxy.host", proxy.getProxyAddress());
 			properties.put("mail.smtp.proxy.port", proxy.getProxyPort());
