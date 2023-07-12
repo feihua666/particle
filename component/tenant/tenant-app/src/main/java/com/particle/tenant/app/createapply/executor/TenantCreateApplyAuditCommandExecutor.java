@@ -128,7 +128,7 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 
 		// 如果添加用户，为用户设置密码，这里没必要先初始化随机密码，等真正使用时初始化
 		// 注意密码此时可能为空，但需要创建用户时再初始化
-		String password = tenantCreateApply.getPassword();
+		String password = tenantCreateApplyDb.getPassword();
 		// 1 创建或获取申请用户
 		if (applyUserId == null) {
 			//	userId为空，代表可能需要添加用户，如果根据登录标识能够获取到用户就不用再添加用户了
@@ -140,7 +140,7 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 				if (StrUtil.isEmpty(password)) {
 					password = RandomUtil.randomString(16);
 				}
-				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getAccount(),tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile(), tenantCreateApply.getName(), password,tenantCreateApplyUserAddScene);
+				applyUserId = tenantUserHelper.createUser(tenantCreateApplyDb.getAccount(),tenantCreateApplyDb.getEmail(), tenantCreateApplyDb.getMobile(), tenantCreateApplyDb.getUserName(), password,tenantCreateApplyUserAddScene);
 				isCreateUser = true;
 			}
 		}
