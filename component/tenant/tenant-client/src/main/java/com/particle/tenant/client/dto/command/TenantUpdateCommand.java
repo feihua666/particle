@@ -60,11 +60,11 @@ public class TenantUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @ApiModelProperty(value = "租户主题")
-    private String tenantTheme;
+    private String tenantThemeJson;
 
 
     @ApiModelProperty(value = "租户默认的页面路由")
-    private String tenantDefaultRoute;
+    private String tenantDefaultRouteJson;
 
     @NotNull(message = "是否正式 不能为空")
     @ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)
@@ -84,7 +84,7 @@ public class TenantUpdateCommand extends AbstractBaseUpdateCommand {
     private Long masterUserId;
 
     @ApiModelProperty("租户logo地址")
-    private String tenantLogoUrl;
+    private String tenantLogoJson;
 
     @ApiModelProperty(value = "额外配置json")
     private String configJson;

@@ -2,6 +2,7 @@ package com.particle.component.adapter.user.login;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.GrantedTenant;
@@ -9,10 +10,12 @@ import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.service.ITenantService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -29,6 +32,8 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 	 */
 	TimedCache<String, GrantedTenant> timedCache = CacheUtil.newTimedCache(2 * 60 * 60 * 1000);
 
+	private List<TenantDO> cachedTenantDOS;
+
 	@Autowired
 	private ITenantService iTenantService;
 
@@ -39,16 +44,37 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 		if (loginUser != null) {
 			return loginUser.getCurrentTenant();
 		}
-		String domain = RequestTool.getDomain(((HttpServletRequest) request), false, false);
+		String domainWidthPort = RequestTool.getDomain(((HttpServletRequest) request), false, true);
+		String domainOnly = domainWidthPort.split(":")[0];
 
-		return timedCache.get(domain, () -> {
-
-			TenantDO byTenantDomain = iTenantService.getByTenantDomain(domain);
-			if (byTenantDomain == null) {
+		if (cachedTenantDOS == null) {
+			cachedTenantDOS = iTenantService.getAllSimpleIgnoreTenantLimit();
+			if (cachedTenantDOS == null) {
 				return null;
 			}
-			return GrantedTenant.create(byTenantDomain.getId(), byTenantDomain.getCode(), byTenantDomain.getName());
+		}
+
+		return timedCache.get(domainWidthPort, () -> {
+			for (TenantDO cachedTenantDO : cachedTenantDOS) {
+				String tenantDomain = cachedTenantDO.getTenantDomain();
+				if (Strings.isEmpty(tenantDomain)) {
+					return null;
+				}
+
+				if (StrUtil.equalsAny(tenantDomain,domainOnly,domainWidthPort)) {
+					return GrantedTenant.create(cachedTenantDO.getId(), cachedTenantDO.getCode(), cachedTenantDO.getName());
+
+				}
+
+			}
+			return null;
 		});
 
+	}
+
+	@Override
+	public void removeCache() {
+		cachedTenantDOS = null;
+		timedCache.clear();
 	}
 }

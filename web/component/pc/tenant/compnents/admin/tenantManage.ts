@@ -300,7 +300,7 @@ export const useAddPageFormItems = ({props})=>{
 
     {
       field: {
-        name: 'tenantTheme',
+        name: 'tenantThemeJson',
       },
       element: {
         comp: 'el-input',
@@ -317,7 +317,7 @@ export const useAddPageFormItems = ({props})=>{
 
     {
       field: {
-        name: 'tenantDefaultRoute',
+        name: 'tenantDefaultRouteJson',
       },
       element: {
         comp: 'el-input',
@@ -350,7 +350,7 @@ export const useAddPageFormItems = ({props})=>{
     },
     {
       field: {
-        name: 'tenantLogoUrl',
+        name: 'tenantLogoJson',
       },
       element: {
         comp: 'el-input',

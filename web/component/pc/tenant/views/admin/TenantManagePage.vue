@@ -28,7 +28,7 @@ const reactiveData = reactive({
     },
 
     {
-      prop: 'tenantLogoUrl',
+      prop: 'tenantLogoJson',
       label: '租户logo',
       columnView: 'image'
     },
@@ -83,11 +83,11 @@ const reactiveData = reactive({
       label: '租户域名',
     },
     {
-      prop: 'tenantTheme',
+      prop: 'tenantThemeJson',
       label: '租户主题',
     },
     {
-      prop: 'tenantDefaultRoute',
+      prop: 'tenantDefaultRouteJson',
       label: '默认路由',
     },
     {

@@ -2,6 +2,7 @@ package com.particle.global.security.security;
 
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
+import com.particle.global.security.security.config.GrantedTenantResolveAndPersistentHelper;
 import com.particle.global.security.security.config.InnerPathConfig;
 import com.particle.global.security.security.login.DefaultAuthenticationFailureHandler;
 import com.particle.global.security.security.login.DefaultAuthenticationSuccessHandler;
@@ -56,5 +57,10 @@ public class GlobalSecurityAutoConfiguration {
 	@Bean
 	public GlobalSecurityAuthenticationHandler globalSecurityAuthenticationHandler() {
 		return new GlobalSecurityAuthenticationHandler();
+	}
+
+	@Bean
+	public GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper() {
+		return new GrantedTenantResolveAndPersistentHelper();
 	}
 }

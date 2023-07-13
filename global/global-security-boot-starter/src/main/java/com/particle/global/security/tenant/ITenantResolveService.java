@@ -13,6 +13,11 @@ import javax.servlet.ServletRequest;
 public interface ITenantResolveService {
 
 	/**
+	 * 清除缓存
+	 */
+	default public void removeCache(){}
+
+	/**
 	 * 处理用户租户
 	 * @param request
 	 * @return

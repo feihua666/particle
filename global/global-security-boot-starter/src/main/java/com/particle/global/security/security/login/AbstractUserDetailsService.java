@@ -64,7 +64,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 加载额外信息
-        loginUserDetailsFill(loginUser,null);
+        loginUserDetailsFill(loginUser,TenantTool.getTenantId());
 
         return loginUser;
     }
@@ -86,13 +86,18 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             if (CollectionUtil.isNotEmpty(grantedTenants)) {
                 // 默认使用第一个租户
                 if (defaultTtenantId != null) {
-                    GrantedTenant first = grantedTenants.stream().filter(item -> defaultTtenantId.equals(item.getId())).findFirst().get();
+                    GrantedTenant first = grantedTenants.stream().filter(item -> defaultTtenantId.equals(item.getId())).findFirst().orElse(null);
+                    if (first == null) {
+                        log.warn("defaultTtenantId={},but no GrantedTenant found, UsernameNotFoundException was throwed ");
+                        throw new UsernameNotFoundException("租户不匹配");
+                    }
                     loginUser.setCurrentTenant(first);
 
                 }else {
                     loginUser.setCurrentTenant(grantedTenants.iterator().next());
                 }
-                if (iUserTenantChangeListeners != null) {
+                // 如果已经解析租户，不再处理
+                if (iUserTenantChangeListeners != null && TenantTool.getTenantId() == null) {
                     for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
                         iUserTenantChangeListener.onTenantChanged(loginUser.getCurrentTenant(),null);
                     }

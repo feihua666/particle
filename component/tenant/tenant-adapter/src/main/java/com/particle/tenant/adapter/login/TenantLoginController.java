@@ -4,7 +4,9 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.github.xiaoymin.knife4j.core.util.Assert;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.tenant.TenantTool;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
+import com.particle.tenant.client.dto.data.TenantCurrentVO;
 import com.particle.tenant.client.dto.data.TenantLoginVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.infrastructure.dos.TenantDO;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -61,5 +65,20 @@ public class TenantLoginController {
 		tenantLoginVO.setUserCount(userCount);
 
 		return SingleResponse.of(tenantLoginVO);
+	}
+
+	@ApiOperation("获取当前租户信息")
+	@GetMapping("/currentTenant")
+	@ResponseStatus(HttpStatus.OK)
+	public SingleResponse<TenantCurrentVO> currentTenant() {
+		Long tenantId = TenantTool.getTenantId();
+		if (tenantId == null) {
+			return SingleResponse.buildSuccess();
+		}
+		TenantDO tenantDO = tenantService.getById(tenantId);
+		TenantCurrentVO tenantVO = TenantAppStructMapping.instance.tenantDOToTenantCurrentVO(tenantDO);
+		return SingleResponse.of(tenantVO);
+
+
 	}
 }

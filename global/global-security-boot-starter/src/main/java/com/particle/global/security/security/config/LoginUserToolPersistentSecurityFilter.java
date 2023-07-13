@@ -38,18 +38,21 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 
 	@Setter
 	private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
+
+
 	@Setter
-	private List<IUserTenantChangeListener> iUserTenantChangeListeners;
-	@Setter
-	private ITenantResolveService iTenantResolveService;
+	private GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper;
+
+
+
 	@Override
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
 
 			Object principal = Optional.ofNullable(SecurityContextHolder.getContext())
 					.map(securityContext -> securityContext.getAuthentication())
-					.map(authentication -> authentication.getPrincipal()).orElse(null)
-					;
+					.map(authentication -> authentication.getPrincipal()).orElse(null);
 			String userInfo = "";
 			if (principal != null) {
 				if (!(principal instanceof String)) {
@@ -66,25 +69,15 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 					}
 				}
 			}
-			log.info("当前登录用户: loginUser={}",userInfo);
+			log.info("当前登录用户: loginUser={}", userInfo);
 			if (securityFilterPersistentLoginUserReadyListenerList != null) {
 				for (SecurityFilterPersistentLoginUserReadyListener securityFilterPersistentLoginUserReadyListener : securityFilterPersistentLoginUserReadyListenerList) {
 					securityFilterPersistentLoginUserReadyListener.onLoginUserReady(request);
 				}
 			}
-			if (iUserTenantChangeListeners != null && iTenantResolveService != null) {
-				GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(request);
-				for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
-					iUserTenantChangeListener.onTenantChanged(grantedTenant,null);
-				}
-			}
-			chain.doFilter(request,response);
-		}finally {
-			if (iUserTenantChangeListeners != null) {
-				for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
-					iUserTenantChangeListener.onTenantChanged(null,null);
-				}
-			}
+			grantedTenantResolveAndPersistentHelper.resolveAndPersistentIfNotExist(request);
+			chain.doFilter(request, response);
+		} finally {
 			LoginUserTool.clear();
 
 		}

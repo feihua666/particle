@@ -23,7 +23,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.session.SessionManagementFilter;
 
 import java.util.List;
@@ -58,11 +61,8 @@ public class WebSecurityConfig {
     @Autowired(required = false)
     private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
 
-    @Autowired(required = false)
-    private List<IUserTenantChangeListener> iUserTenantChangeListeners;
-
-    @Autowired(required = false)
-    private ITenantResolveService iTenantResolveService;
+    @Autowired
+    private GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper;
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
@@ -122,11 +122,19 @@ public class WebSecurityConfig {
         AuthenticationManager authenticationManager = authenticationManager(authenticationManagerBuilder);
         http.authenticationManager(authenticationManager);
 
+        /**
+         * 默认排序
+         * @see https://docs.spring.io/spring-security/reference/5.7/servlet/configuration/xml-namespace.html#filter-stack
+         */
+        TenantToolPersistentSecurityFilter tenantToolPersistentSecurityFilter = new TenantToolPersistentSecurityFilter();
+        tenantToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
+        http.addFilterBefore(tenantToolPersistentSecurityFilter, LogoutFilter.class);
+
+
         // 自定义当前登录用户工具类
         LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
         loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
-        loginUserToolPersistentSecurityFilter.setIUserTenantChangeListeners(iUserTenantChangeListeners);
-        loginUserToolPersistentSecurityFilter.setITenantResolveService(iTenantResolveService);
+        loginUserToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
         http.addFilterAfter(loginUserToolPersistentSecurityFilter, SessionManagementFilter.class);
 
         if (customWebSecurityConfigureList != null) {

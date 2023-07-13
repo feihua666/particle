@@ -1,23 +1,23 @@
 package com.particle.tenant.client.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import com.particle.component.light.share.trans.TransConstants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
+
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 租户 数据通用响应对象
+ * 当前租户 数据通用响应对象
  * </p>
  *
  * @author yw
- * @since 2023-04-11 22:25:27
+ * @since 2023-07-13 15:36:07
  */
 @Data
 @ApiModel
-public class TenantVO extends AbstractBaseIdVO {
+public class TenantCurrentVO extends AbstractBaseIdVO {
 
     @ApiModelProperty("租户编码")
     private String code;
@@ -64,10 +64,6 @@ public class TenantVO extends AbstractBaseIdVO {
     @ApiModelProperty("主用户，一般该用户为租户的超级管理员")
     private Long masterUserId;
 
-    @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "masterUserId",mapValueField = "nickname")
-    @ApiModelProperty("主用户昵称")
-    private String masterUserNickname;
-
     @ApiModelProperty("租户logo地址")
     private String tenantLogoJson;
 
@@ -76,7 +72,5 @@ public class TenantVO extends AbstractBaseIdVO {
     
     @ApiModelProperty("描述")
     private String remark;
-    
-
 
 }

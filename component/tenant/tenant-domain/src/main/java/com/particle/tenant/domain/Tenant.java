@@ -64,12 +64,12 @@ public class Tenant extends AggreateRoot {
     /**
     * 租户主题，一个代表客户端主题样式的字符串
     */
-    private String tenantTheme;
+    private String tenantThemeJson;
 
     /**
     * 租户默认的页面路由
     */
-    private String tenantDefaultRoute;
+    private String tenantDefaultRouteJson;
 	/**
 	 * 是否正式，1=正式，0=试用
 	 */
@@ -93,7 +93,7 @@ public class Tenant extends AggreateRoot {
     /**
      * 租户logo地址
      */
-    private String tenantLogoUrl;
+    private String tenantLogoJson;
     /**
     * 额外配置json
     */
