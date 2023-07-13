@@ -3,18 +3,23 @@ package com.particle.component.adapter.user.login;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.tenant.infrastructure.dos.TenantDO;
+import com.particle.tenant.infrastructure.mapper.TenantMapper;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -35,7 +40,7 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 	private List<TenantDO> cachedTenantDOS;
 
 	@Autowired
-	private ITenantService iTenantService;
+	private TenantMapper tenantMapper;
 
 	@Override
 	public GrantedTenant resolveGrantedTenant(ServletRequest request) {
@@ -48,7 +53,9 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 		String domainOnly = domainWidthPort.split(":")[0];
 
 		if (cachedTenantDOS == null) {
-			cachedTenantDOS = iTenantService.getAllSimpleIgnoreTenantLimit();
+
+			List<TenantDO> tenantDOS = getAllSimpleIgnoreTenantLimit();
+			cachedTenantDOS = UserTenantServiceImpl.filterAvailableTenantDOs(tenantDOS, LocalDateTime.now());
 			if (cachedTenantDOS == null) {
 				return null;
 			}
@@ -60,12 +67,12 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 				if (Strings.isEmpty(tenantDomain)) {
 					return null;
 				}
+				for (String domain : tenantDomain.split(",")) {
+					if (StrUtil.equalsAny(domain,domainOnly,domainWidthPort)) {
+						return GrantedTenant.create(cachedTenantDO.getId(), cachedTenantDO.getCode(), cachedTenantDO.getName());
 
-				if (StrUtil.equalsAny(tenantDomain,domainOnly,domainWidthPort)) {
-					return GrantedTenant.create(cachedTenantDO.getId(), cachedTenantDO.getCode(), cachedTenantDO.getName());
-
+					}
 				}
-
 			}
 			return null;
 		});
@@ -76,5 +83,16 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 	public void removeCache() {
 		cachedTenantDOS = null;
 		timedCache.clear();
+	}
+
+
+	private List<TenantDO> getAllSimpleIgnoreTenantLimit() {
+		try {
+			// 设置忽略租户插件
+			InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
+			return tenantMapper.selectList(Wrappers.<TenantDO>lambdaQuery().select(TenantDO::getId,TenantDO::getCode,TenantDO::getName,TenantDO::getTenantDomain,TenantDO::getIsDisabled));
+		} finally {
+			InterceptorIgnoreHelper.clearIgnoreStrategy();
+		}
 	}
 }

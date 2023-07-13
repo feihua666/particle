@@ -5,6 +5,7 @@ import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.global.security.tenant.IUserTenantChangeListener;
 import com.particle.global.security.tenant.TenantTool;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,10 @@ import java.util.List;
  */
 public class GrantedTenantResolveAndPersistentHelper {
 
+	@Autowired
 	@Setter
 	private List<IUserTenantChangeListener> iUserTenantChangeListeners;
+	@Autowired
 	@Setter
 	private ITenantResolveService iTenantResolveService;
 

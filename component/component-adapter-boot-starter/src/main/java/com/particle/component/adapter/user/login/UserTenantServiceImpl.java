@@ -1,5 +1,6 @@
 package com.particle.component.adapter.user.login;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.UserTenantService;
 import com.particle.tenant.infrastructure.dos.TenantDO;
@@ -45,16 +46,33 @@ public class UserTenantServiceImpl implements UserTenantService {
 		List<TenantDO> tenantDOS = iTenantService.getByIdsIgnoreTenantLimit(tenantIds);
 
 		LocalDateTime now = LocalDateTime.now();
+		tenantDOS = filterAvailableTenantDOs(tenantDOS,now);
 		return tenantDOS.stream()
-				// 没有被禁用
-				.filter(item -> !item.getIsDisabled())
-				// 已生效
-				.filter(item -> item.getEffectiveAt() == null || item.getEffectiveAt().isBefore(now))
-				// 没到截止日期
-				.filter(item -> item.getExpireAt() == null || item.getExpireAt().isAfter(now))
 
 				.map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName()))
 				.collect(Collectors.toList());
 
+	}
+
+
+	/**
+	 * 提供一个工具过滤可用的
+	 * @param tenantDOS
+	 * @param now
+	 * @return
+	 */
+	public static List<TenantDO> filterAvailableTenantDOs(List<TenantDO> tenantDOS,LocalDateTime now) {
+		if (CollectionUtil.isEmpty(tenantDOS)) {
+			return Collections.emptyList();
+		}
+
+		return tenantDOS.stream()
+				// 没有被禁用
+				.filter(item -> item.getIsDisabled() == null || !item.getIsDisabled())
+				// 已生效
+				.filter(item -> item.getEffectiveAt() == null || item.getEffectiveAt().isBefore(now))
+				// 没到截止日期
+				.filter(item -> item.getExpireAt() == null || item.getExpireAt().isAfter(now))
+				.collect(Collectors.toList());
 	}
 }

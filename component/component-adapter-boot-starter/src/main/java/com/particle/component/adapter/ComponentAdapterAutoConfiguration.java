@@ -3,6 +3,7 @@ package com.particle.component.adapter;
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.tenant.DeptTenantUserServiceListener;
 import com.particle.component.adapter.tenant.RoleTenantUserAddServiceListener;
+import com.particle.component.adapter.tenant.TenantServiceListener;
 import com.particle.component.adapter.user.DeptUserServiceListener;
 import com.particle.component.adapter.user.RoleUserAddServiceListener;
 import com.particle.component.adapter.user.TenantUserUserAddServiceListener;
@@ -23,6 +24,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 /**
  * <p>
@@ -127,6 +129,16 @@ public class ComponentAdapterAutoConfiguration {
 			return new TenantResolveServiceImpl();
 		}
 
+		/**
+		 * 主要是在编辑用户时，清空租户解析缓存
+		 * @return
+		 */
+		@Bean
+		public TenantServiceListener tenantServiceListener(){
+			TenantServiceListener tenantServiceListener = new TenantServiceListener();
+			tenantServiceListener.setITenantResolveService(tenantResolveServiceImpl());
+			return tenantServiceListener;
+		}
 	}
 
 	/**
