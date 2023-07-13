@@ -69,7 +69,14 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 				}
 				for (String domain : tenantDomain.split(",")) {
 					if (StrUtil.equalsAny(domain,domainOnly,domainWidthPort)) {
-						return GrantedTenant.create(cachedTenantDO.getId(), cachedTenantDO.getCode(), cachedTenantDO.getName());
+						return GrantedTenant.create(cachedTenantDO.getId(),
+								cachedTenantDO.getCode(),
+								cachedTenantDO.getName(),
+								cachedTenantDO.getTenantThemeJson(),
+								cachedTenantDO.getTenantDefaultRouteJson(),
+								cachedTenantDO.getTenantLogoJson(),
+								cachedTenantDO.getConfigJson()
+								);
 
 					}
 				}

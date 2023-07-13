@@ -49,7 +49,11 @@ public class UserTenantServiceImpl implements UserTenantService {
 		tenantDOS = filterAvailableTenantDOs(tenantDOS,now);
 		return tenantDOS.stream()
 
-				.map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName()))
+				.map(item -> GrantedTenant.create(item.getId(), item.getCode(), item.getName(),
+						item.getTenantThemeJson(),
+						item.getTenantDefaultRouteJson(),
+						item.getTenantLogoJson(),
+						item.getConfigJson()))
 				.collect(Collectors.toList());
 
 	}

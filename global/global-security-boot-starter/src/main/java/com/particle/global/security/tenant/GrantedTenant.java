@@ -26,12 +26,28 @@ public class GrantedTenant implements Serializable {
 	private String code;
 	@ApiModelProperty("tenant name")
 	private String name;
+	@ApiModelProperty("租户主题")
+	private String tenantThemeJson;
+	@ApiModelProperty("租户默认的页面路由")
+	private String tenantDefaultRouteJson;
+	@ApiModelProperty("租户logo地址")
+	private String tenantLogoJson;
+	@ApiModelProperty("额外配置json")
+	private String configJson;
 
 
-	public static GrantedTenant create(Long id, String code, String name) {
+	public static GrantedTenant create(Long id, String code, String name,
+									   String tenantThemeJson,
+									   String tenantDefaultRouteJson,
+									   String tenantLogoJson,
+									   String configJson) {
 		return GrantedTenant.builder().id(id)
 				.code(code)
 				.name(name)
+				.tenantThemeJson(tenantThemeJson)
+				.tenantDefaultRouteJson(tenantDefaultRouteJson)
+				.tenantLogoJson(tenantLogoJson)
+				.configJson(configJson)
 				.build();
 	}
 }
