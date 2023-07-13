@@ -783,6 +783,10 @@ public class TransHelper {
         }
         if (!isEmpty(transServices)) {
             iTransService = transServices.stream().filter(iTransServiceItem -> isBatch ? iTransServiceItem.supportBatch(type) : iTransServiceItem.support(type)).findFirst().orElse(null);
+            if (iTransService == null) {
+                log.warn("can not find iTransService for trans type={} isBatch={} ",type,isBatch);
+                return null;
+            }
             return TRANS_SERVICE_CACHE.put(type + isBatch, iTransService);
         }
         return null;
