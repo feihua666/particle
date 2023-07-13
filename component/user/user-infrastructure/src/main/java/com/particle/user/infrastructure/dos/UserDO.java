@@ -34,7 +34,7 @@ public class UserDO extends BaseDO {
     */
     private Long genderDictId;
     /**
-    * 头像，图片绝对路径
+    * 头像，建议图片相对路径
     */
     private String avatar;
     /**

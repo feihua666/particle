@@ -141,7 +141,7 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据用户密码更新指令创建用户密码模型
 	 * @param userIdentifierPwdUpdateCommand
 	 * @return
 	 */

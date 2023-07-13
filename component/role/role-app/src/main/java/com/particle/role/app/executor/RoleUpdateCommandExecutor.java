@@ -48,7 +48,7 @@ public class RoleUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据角色更新指令创建角色模型
 	 * @param roleUpdateCommand
 	 * @return
 	 */

@@ -48,7 +48,7 @@ public class TenantFuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据租户功能菜单更新指令创建租户功能菜单模型
 	 * @param tenantFuncUpdateCommand
 	 * @return
 	 */

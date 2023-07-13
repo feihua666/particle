@@ -49,7 +49,7 @@ public class FuncGroupUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据功能组更新指令创建功能组模型
 	 * @param funcGroupUpdateCommand
 	 * @return
 	 */

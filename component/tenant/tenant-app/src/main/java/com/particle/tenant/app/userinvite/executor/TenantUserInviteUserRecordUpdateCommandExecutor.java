@@ -48,7 +48,7 @@ public class TenantUserInviteUserRecordUpdateCommandExecutor  extends AbstractBa
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据租户用户邀请记录更新指令创建租户用户邀请记录模型
 	 * @param tenantUserInviteUserRecordUpdateCommand
 	 * @return
 	 */

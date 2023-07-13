@@ -49,7 +49,7 @@ public class DictUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据字典更新指令创建字典模型
 	 * @param dictUpdateCommand
 	 * @return
 	 */

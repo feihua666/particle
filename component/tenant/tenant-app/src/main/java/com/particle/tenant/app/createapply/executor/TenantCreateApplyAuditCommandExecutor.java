@@ -238,7 +238,7 @@ public class TenantCreateApplyAuditCommandExecutor extends AbstractBaseExecutor 
 
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据创建指令创建区域模型
 	 *
 	 * @param tenantCreateApplyAuditCommand
 	 * @return

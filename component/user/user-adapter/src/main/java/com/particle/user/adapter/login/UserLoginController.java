@@ -13,6 +13,13 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
 import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
+import com.particle.user.client.api.IUserApplicationService;
+import com.particle.user.client.dto.command.UserUpdateInfoCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierUpdatePasswordCommand;
+import com.particle.user.client.login.dto.command.LoginUserUpdateAvatarCommand;
+import com.particle.user.client.login.dto.command.LoginUserUpdateGenderCommand;
+import com.particle.user.client.login.dto.command.LoginUserUpdateNameCommand;
+import com.particle.user.client.login.dto.command.LoginUserUpdateNicknameCommand;
 import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
 import com.particle.user.client.login.dto.data.UserLoginRecordVO;
 import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
@@ -51,6 +58,8 @@ public class UserLoginController {
 	private IUserLoginRecordService iUserLoginRecordService;
 	@Autowired
 	private IUserLoginDeviceService iUserLoginDeviceService;
+	@Autowired
+	private IUserApplicationService iUserApplicationService;
 
 	/**
 	 * 登录接口，这里只为了出接口文档 具体处理逻辑已经在 spring security 中处理
@@ -190,5 +199,62 @@ public class UserLoginController {
 		List<UserLoginDeviceDO> byUserId = iUserLoginDeviceService.getByUserId(loginUser.getId());
 		List<UserLoginDeviceVO> userLoginDeviceVOS = UserLoginDeviceAppStructMapping.instance.userLoginDeviceDOsToUserLoginDeviceVOs(byUserId);
 		return MultiResponse.of(userLoginDeviceVOS);
+	}
+
+	/**
+	 * 修改当前登录用户头像
+	 * @param avatarCommand
+	 * @param loginUser
+	 * @return
+	 */
+	@ApiOperation("修改当前登录用户头像")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/user/update/avatar")
+	@ResponseStatus(HttpStatus.OK)
+	public Response userUpdateAvatar(@Valid @RequestBody LoginUserUpdateAvatarCommand avatarCommand, @ApiIgnore LoginUser loginUser) {
+		UserUpdateInfoCommand userUpdateInfoCommand = UserUpdateInfoCommand.createByLoginUserUpdateAvatarCommand(avatarCommand,loginUser.getId());
+		return iUserApplicationService.updateUserInfo(userUpdateInfoCommand);
+	}
+	/**
+	 * 修改当前登录用户性别
+	 * @param genderCommand
+	 * @param loginUser
+	 * @return
+	 */
+	@ApiOperation("修改当前登录用户性别")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/user/update/gender")
+	@ResponseStatus(HttpStatus.OK)
+	public Response userUpdateGender(@Valid @RequestBody LoginUserUpdateGenderCommand genderCommand, @ApiIgnore LoginUser loginUser) {
+		UserUpdateInfoCommand userUpdateInfoCommand = UserUpdateInfoCommand.createByLoginUserUpdateGenderCommand(genderCommand,loginUser.getId());
+		return iUserApplicationService.updateUserInfo(userUpdateInfoCommand);
+	}
+	/**
+	 * 修改当前登录用户姓名
+	 * @param nameCommand
+	 * @param loginUser
+	 * @return
+	 */
+	@ApiOperation("修改当前登录用户姓名")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/user/update/name")
+	@ResponseStatus(HttpStatus.OK)
+	public Response userUpdateName(@Valid @RequestBody LoginUserUpdateNameCommand nameCommand, @ApiIgnore LoginUser loginUser) {
+		UserUpdateInfoCommand userUpdateInfoCommand = UserUpdateInfoCommand.createByLoginUserUpdateNameCommand(nameCommand,loginUser.getId());
+		return iUserApplicationService.updateUserInfo(userUpdateInfoCommand);
+	}
+	/**
+	 * 修改当前登录用户昵称
+	 * @param nicknameCommand
+	 * @param loginUser
+	 * @return
+	 */
+	@ApiOperation("修改当前登录用户昵称")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/user/update/nickname")
+	@ResponseStatus(HttpStatus.OK)
+	public Response userUpdateNickname(@Valid @RequestBody LoginUserUpdateNicknameCommand nicknameCommand, @ApiIgnore LoginUser loginUser) {
+		UserUpdateInfoCommand userUpdateInfoCommand = UserUpdateInfoCommand.createByLoginUserUpdateNicknameCommand(nicknameCommand,loginUser.getId());
+		return iUserApplicationService.updateUserInfo(userUpdateInfoCommand);
 	}
 }

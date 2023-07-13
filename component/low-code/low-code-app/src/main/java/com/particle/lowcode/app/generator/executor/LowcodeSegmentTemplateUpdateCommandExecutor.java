@@ -48,7 +48,7 @@ public class LowcodeSegmentTemplateUpdateCommandExecutor  extends AbstractBaseEx
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据低代码片段模板更新指令创建低代码片段模板模型
 	 * @param lowcodeSegmentTemplateUpdateCommand
 	 * @return
 	 */

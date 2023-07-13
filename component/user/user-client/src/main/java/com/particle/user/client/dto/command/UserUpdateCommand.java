@@ -38,7 +38,7 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     @ApiModelProperty("性别，字典id")
     private Long genderDictId;
 
-    @ApiModelProperty("头像，图片绝对路径")
+    @ApiModelProperty("头像，建议图片相对路径")
     private String avatar;
 
     @ApiModelProperty("用户编号，可以做为员工编号")

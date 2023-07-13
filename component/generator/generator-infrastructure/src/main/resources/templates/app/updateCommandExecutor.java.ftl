@@ -48,7 +48,7 @@ public class ${injection.className}  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据${injection.tableComment}更新指令创建${injection.tableComment}模型
 	 * @param ${injection.updateCommand.classNameVar}
 	 * @return
 	 */

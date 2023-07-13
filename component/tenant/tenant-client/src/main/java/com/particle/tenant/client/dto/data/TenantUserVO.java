@@ -59,7 +59,7 @@ public class TenantUserVO extends AbstractBaseIdVO {
     private String nickname;
 
     @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "avatar")
-    @ApiModelProperty("头像，图片绝对路径")
+    @ApiModelProperty("头像，建议图片相对路径")
     private String avatar;
 
     @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "email")

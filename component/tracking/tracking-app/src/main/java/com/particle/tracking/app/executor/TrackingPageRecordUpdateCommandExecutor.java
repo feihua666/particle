@@ -48,7 +48,7 @@ public class TrackingPageRecordUpdateCommandExecutor  extends AbstractBaseExecut
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据页面埋点记录更新指令创建页面埋点记录模型
 	 * @param trackingPageRecordUpdateCommand
 	 * @return
 	 */

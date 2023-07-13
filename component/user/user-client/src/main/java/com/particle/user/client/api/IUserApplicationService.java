@@ -1,8 +1,10 @@
 package com.particle.user.client.api;
 
+import com.particle.global.dto.response.Response;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.UserUpdateCommand;
+import com.particle.user.client.dto.command.UserUpdateInfoCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.client.api.IBaseApplicationService;
@@ -37,5 +39,13 @@ public interface IUserApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<UserVO> update(UserUpdateCommand userUpdateCommand);
+
+	/**
+	 * 单纯更新用户信息
+	 * 一般用户自己更新头像、昵称、姓名、性别等统一入口
+	 * @param userUpdateInfoCommand
+	 * @return
+	 */
+	Response updateUserInfo(UserUpdateInfoCommand userUpdateInfoCommand);
 
 }

@@ -48,7 +48,7 @@ public class DeptTreeUserRelUpdateCommandExecutor  extends AbstractBaseExecutor 
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据部门树用户关系更新指令创建部门树用户关系模型
 	 * @param deptTreeUserRelUpdateCommand
 	 * @return
 	 */

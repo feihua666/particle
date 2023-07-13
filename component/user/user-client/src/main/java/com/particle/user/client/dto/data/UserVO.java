@@ -35,7 +35,7 @@ public class UserVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "genderDictId",mapValueField = "name")
     private String genderDictName;
 
-    @ApiModelProperty("头像，图片绝对路径")
+    @ApiModelProperty("头像，建议图片相对路径")
     private String avatar;
 
     @ApiModelProperty("用户编号，可以做为员工编号")

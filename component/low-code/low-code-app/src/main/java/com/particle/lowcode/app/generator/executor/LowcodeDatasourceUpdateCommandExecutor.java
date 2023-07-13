@@ -48,7 +48,7 @@ public class LowcodeDatasourceUpdateCommandExecutor  extends AbstractBaseExecuto
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据更新创建指令创建区域模型
 	 * @param lowcodeDatasourceUpdateCommand
 	 * @return
 	 */

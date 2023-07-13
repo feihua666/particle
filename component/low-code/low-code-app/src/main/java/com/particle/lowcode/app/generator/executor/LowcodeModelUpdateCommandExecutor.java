@@ -48,7 +48,7 @@ public class LowcodeModelUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据低代码模型更新指令创建低代码模型模型
 	 * @param lowcodeModelUpdateCommand
 	 * @return
 	 */

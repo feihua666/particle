@@ -1,7 +1,9 @@
 package com.particle.user.app.executor;
 
+import com.particle.global.dto.response.Response;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserUpdateCommand;
+import com.particle.user.client.dto.command.UserUpdateInfoCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
@@ -48,7 +50,32 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 单纯更新用户信息
+	 * @param userUpdateInfoCommand
+	 * @return
+	 */
+	public Response updateUserInfo(@Valid UserUpdateInfoCommand userUpdateInfoCommand) {
+		User user = createByUserUpdateInfoCommand(userUpdateInfoCommand);
+		user.setUpdateControl(userUpdateInfoCommand);
+		boolean save = userGateway.save(user);
+		if (save) {
+			return Response.buildSuccess();
+		}
+		return Response.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
+
+	/**
+	 * 根据用户简单更新指令创建用户模型
+	 * @param userUpdateInfoCommand
+	 * @return
+	 */
+	private User createByUserUpdateInfoCommand(UserUpdateInfoCommand userUpdateInfoCommand){
+		User user = User.create();
+		UserUpdateCommandToUserMapping.instance.fillUserByUserUpdateInfoCommand(user, userUpdateInfoCommand);
+		return user;
+	}
+	/**
+	 * 根据用户更新指令创建用户模型
 	 * @param userUpdateCommand
 	 * @return
 	 */
@@ -74,6 +101,7 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 		 * @param userUpdateCommand
 		 */
 		void fillUserByUserUpdateCommand(@MappingTarget User user, UserUpdateCommand userUpdateCommand);
+		void fillUserByUserUpdateInfoCommand(@MappingTarget User user, UserUpdateInfoCommand userUpdateInfoCommand);
 	}
 
 	/**

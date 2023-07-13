@@ -47,7 +47,7 @@ public class UserIdentifierUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据用户登录标识更新指令创建用户登录标识模型
 	 * @param userIdentifierUpdateCommand
 	 * @return
 	 */

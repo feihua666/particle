@@ -49,7 +49,7 @@ public class MessageUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据消息更新指令创建消息模型
 	 * @param messageUpdateCommand
 	 * @return
 	 */

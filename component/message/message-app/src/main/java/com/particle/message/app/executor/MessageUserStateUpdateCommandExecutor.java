@@ -48,7 +48,7 @@ public class MessageUserStateUpdateCommandExecutor  extends AbstractBaseExecutor
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据用户消息读取状态更新指令创建用户消息读取状态模型
 	 * @param messageUserStateUpdateCommand
 	 * @return
 	 */

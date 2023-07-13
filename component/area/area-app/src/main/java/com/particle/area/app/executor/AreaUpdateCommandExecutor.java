@@ -49,7 +49,7 @@ public class AreaUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据区域更新指令创建区域模型
 	 * @param areaUpdateCommand
 	 * @return
 	 */

@@ -67,7 +67,7 @@ public class FuncUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据菜单功能更新指令创建菜单功能模型
 	 * @param funcUpdateCommand
 	 * @return
 	 */

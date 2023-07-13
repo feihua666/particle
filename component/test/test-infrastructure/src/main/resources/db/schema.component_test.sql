@@ -3,7 +3,7 @@ CREATE TABLE `component_test` (
   `id` bigint NOT NULL COMMENT '用户ID',
   `nickname` varchar(50) NOT NULL COMMENT '昵称，姓名,模糊查询',
   `gender_dict_id` bigint DEFAULT NULL COMMENT '性别，字典id',
-  `avatar` varchar(500) DEFAULT NULL COMMENT '头像，图片绝对路径',
+  `avatar` varchar(500) DEFAULT NULL COMMENT '头像，建议图片相对路径',
   `is_lock` tinyint(1) NOT NULL COMMENT '锁定状态，0=未锁定；1=锁定',
   `lock_reason` varchar(255) DEFAULT NULL COMMENT '锁定原因',
   `group_flag` varchar(255) DEFAULT NULL COMMENT '分组标识',

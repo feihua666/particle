@@ -64,7 +64,7 @@ public class TenantCreateApplyUpdateCommandExecutor extends AbstractBaseExecutor
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据租户创建申请更新指令创建租户创建申请模型
 	 *
 	 * @param tenantCreateApplyUpdateCommand
 	 * @return
@@ -76,7 +76,7 @@ public class TenantCreateApplyUpdateCommandExecutor extends AbstractBaseExecutor
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据创建指令创建区域模型
 	 *
 	 * @param tenantCreateApplyAuditCommand
 	 * @return

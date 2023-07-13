@@ -48,7 +48,7 @@ public class DataQueryDatasourceUpdateCommandExecutor  extends AbstractBaseExecu
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据数据查询数据源更新指令创建数据查询数据源模型
 	 * @param dataQueryDatasourceUpdateCommand
 	 * @return
 	 */

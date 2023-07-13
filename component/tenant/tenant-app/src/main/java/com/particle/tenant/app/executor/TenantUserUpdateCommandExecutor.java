@@ -50,7 +50,7 @@ public class TenantUserUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据租户用户更新指令创建租户用户模型
 	 * @param tenantUserUpdateCommand
 	 * @return
 	 */

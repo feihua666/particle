@@ -47,7 +47,7 @@ public class TestUpdateCommandExecutor extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据测试更新指令创建测试模型
 	 * @param testUpdateCommand
 	 * @return
 	 */

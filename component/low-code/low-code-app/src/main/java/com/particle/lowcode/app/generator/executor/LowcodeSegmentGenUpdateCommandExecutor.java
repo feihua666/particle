@@ -59,7 +59,7 @@ public class LowcodeSegmentGenUpdateCommandExecutor  extends AbstractBaseExecuto
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据低代码生成更新指令创建低代码生成模型
 	 * @param lowcodeSegmentGenUpdateCommand
 	 * @return
 	 */

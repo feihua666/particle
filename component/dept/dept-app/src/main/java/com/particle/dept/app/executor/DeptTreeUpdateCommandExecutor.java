@@ -48,7 +48,7 @@ public class DeptTreeUpdateCommandExecutor  extends AbstractBaseExecutor {
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据部门树更新指令创建部门树模型
 	 * @param deptTreeUpdateCommand
 	 * @return
 	 */

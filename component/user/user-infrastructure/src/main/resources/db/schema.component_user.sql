@@ -4,7 +4,7 @@ CREATE TABLE `component_user` (
   `name` varchar(50) NULL COMMENT '姓名，真实姓名',
   `nickname` varchar(50) NOT NULL COMMENT '昵称，模糊查询',
   `gender_dict_id` bigint DEFAULT NULL COMMENT '性别，字典id',
-  `avatar` varchar(500) DEFAULT NULL COMMENT '头像，图片绝对路径',
+  `avatar` varchar(500) DEFAULT NULL COMMENT '头像，建议图片相对路径',
   `serial_no` varchar(50) DEFAULT NULL COMMENT '用户编号，可以做为员工编号',
   `comp_id` bigint DEFAULT NULL COMMENT '公司id，冗余字段，由dept_id对应公司派生',
   `dept_id` bigint DEFAULT NULL COMMENT '部门id',

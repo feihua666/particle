@@ -48,7 +48,7 @@ public class DataQueryProviderUpdateCommandExecutor  extends AbstractBaseExecuto
 	}
 
 	/**
-	 * 根据区域创建指令创建区域模型
+	 * 根据数据查询供应商更新指令创建数据查询供应商模型
 	 * @param dataQueryProviderUpdateCommand
 	 * @return
 	 */
