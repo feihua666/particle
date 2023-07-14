@@ -65,7 +65,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 加载额外信息
-        loginUserDetailsFill(loginUser,null);
+        loginUserDetailsFill(loginUser,null,TenantTool.getTenantId());
 
         return loginUser;
     }
@@ -75,43 +75,44 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
      * 用户额外详细信息加载
      * @param loginUser
      * @param defaultTenantId 默认切换到的租户id,如果为空默认切换到第一个
+     * @param limitedTenantId 限制租户id，如果指定，只能限制在该租户下
      */
-    public void loginUserDetailsFill(LoginUser loginUser,Long defaultTenantId) {
+    public void loginUserDetailsFill(LoginUser loginUser,Long defaultTenantId,Long limitedTenantId) {
 
         String clientIP = RequestTool.getClientIP(httpServletRequest);
         loginUser.setLoginIp(clientIP);
 
         if (userTenantService != null) {
-            // 获取租户id，这一般是通过 com.particle.global.security.security.config.TenantToolPersistentSecurityFilter 过滤器根据域名配置获取到的
+            // limitedTenantId，这一般是通过 com.particle.global.security.security.config.TenantToolPersistentSecurityFilter 过滤器根据域名配置获取到的
             // 如果有值那么租户就锁定在该租户下
-            Long tenantId = TenantTool.getTenantId();
             List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId());
-            if (tenantId != null) {
+            if (limitedTenantId != null) {
                 if (CollectionUtil.isNotEmpty(grantedTenants)) {
                     // 限定在已解析到的租户下
-                    grantedTenants = grantedTenants.stream().filter(item -> tenantId.equals(item.getId())).collect(Collectors.toList());
+                    grantedTenants = grantedTenants.stream().filter(item -> limitedTenantId.equals(item.getId())).collect(Collectors.toList());
                 }else {
                     throw new UsernameNotFoundException("未获取到租户数据userId="+loginUser.getId());
                 }
-                defaultTenantId = tenantId;
+                defaultTenantId = limitedTenantId;
             }
             loginUser.setTenants(grantedTenants);
             if (CollectionUtil.isNotEmpty(grantedTenants)) {
                 // 默认使用第一个租户
+                GrantedTenant defaultFirstGrantedTenant = grantedTenants.iterator().next();
                 if (defaultTenantId != null) {
                     Long finalDefaultTenantId = defaultTenantId;
                     GrantedTenant first = grantedTenants.stream().filter(item -> finalDefaultTenantId.equals(item.getId())).findFirst().orElse(null);
                     if (first == null) {
-                        loginUser.setCurrentTenant(grantedTenants.iterator().next());
+                        log.warn("defaultTenantId has value but can not found grantedTenant, user default instead. defaultTenantId={}",defaultFirstGrantedTenant.getId());
+                        loginUser.setCurrentTenant(defaultFirstGrantedTenant);
                     }else {
                         loginUser.setCurrentTenant(first);
                     }
-
                 }else {
-                    loginUser.setCurrentTenant(grantedTenants.iterator().next());
+                    loginUser.setCurrentTenant(defaultFirstGrantedTenant);
                 }
                 // 如果已经解析租户，不再处理
-                if (iUserTenantChangeListeners != null && TenantTool.getTenantId() == null) {
+                if (iUserTenantChangeListeners != null) {
                     for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
                         iUserTenantChangeListener.onTenantChanged(loginUser.getCurrentTenant(),null);
                     }

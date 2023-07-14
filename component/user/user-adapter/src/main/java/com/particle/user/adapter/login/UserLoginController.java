@@ -162,7 +162,7 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
 
 		loginUser.clearUserGrantedAuthorities();
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId());
+		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(),null);
 		// 需要刷新一下权限，否则权限不会生效
 		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);
