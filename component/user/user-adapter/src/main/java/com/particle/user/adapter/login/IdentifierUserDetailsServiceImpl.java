@@ -5,6 +5,7 @@ import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.PasswordInfo;
+import com.particle.global.security.tenant.TenantTool;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
@@ -48,6 +49,13 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
            return null;
         }
         UserDO userDO = iUserService.getById(userIdentifierDO.getUserId());
+
+        if (userDO == null) {
+            if (TenantTool.getTenantId() != null) {
+                    log.debug("UsernameNotFoundException was throwed. this is likely the user(userId={}) not exist in tenant(tenantId={})",userIdentifierDO.getUserId(),TenantTool.getTenantId());
+            }
+            throw new UsernameNotFoundException("用户不存在");
+        }
 
         UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
         if (userIdentifierPwdDO == null) {
