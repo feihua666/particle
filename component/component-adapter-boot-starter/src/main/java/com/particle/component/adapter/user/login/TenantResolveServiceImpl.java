@@ -65,7 +65,7 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 			for (TenantDO cachedTenantDO : cachedTenantDOS) {
 				String tenantDomain = cachedTenantDO.getTenantDomain();
 				if (Strings.isEmpty(tenantDomain)) {
-					return null;
+					continue;
 				}
 				for (String domain : tenantDomain.split(",")) {
 					if (StrUtil.equalsAny(domain,domainOnly,domainWidthPort)) {
