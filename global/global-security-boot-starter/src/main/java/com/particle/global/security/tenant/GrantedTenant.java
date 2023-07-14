@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * <p>
  * 授权的角色
+ * 字符名和{@link com.particle.tenant.client.dto.data.TenantCurrentVO} 保持一致，改的时候一起改，对前端保持一致
  * </p>
  *
  * @author yangwei
