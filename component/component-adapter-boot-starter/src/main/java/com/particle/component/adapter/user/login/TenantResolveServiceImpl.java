@@ -3,6 +3,7 @@ package com.particle.component.adapter.user.login;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -32,6 +33,8 @@ import java.util.List;
  */
 public class TenantResolveServiceImpl implements ITenantResolveService {
 
+	private static String header_c_host = "c-host";
+
 	/**
 	 * 缓存两小时
 	 */
@@ -49,8 +52,19 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 		if (loginUser != null) {
 			return loginUser.getCurrentTenant();
 		}
-		String domainWidthPort = RequestTool.getDomain(((HttpServletRequest) request), false, true);
-		String domainOnly = domainWidthPort.split(":")[0];
+		String domainWithPort = ServletUtil.getHeaderIgnoreCase(((HttpServletRequest) request),header_c_host);
+		if (Strings.isEmpty(domainWithPort)) {
+			domainWithPort = RequestTool.getDomain(((HttpServletRequest) request), false, true);
+		}
+
+
+		return resolveGrantedTenant(domainWithPort);
+	}
+
+	@Override
+	public GrantedTenant resolveGrantedTenant(String domainWithPort) {
+
+		String domainOnly = domainWithPort.split(":")[0];
 
 		if (cachedTenantDOS == null) {
 
@@ -61,14 +75,14 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 			}
 		}
 
-		return timedCache.get(domainWidthPort, () -> {
+		return timedCache.get(domainWithPort, () -> {
 			for (TenantDO cachedTenantDO : cachedTenantDOS) {
 				String tenantDomain = cachedTenantDO.getTenantDomain();
 				if (Strings.isEmpty(tenantDomain)) {
 					continue;
 				}
 				for (String domain : tenantDomain.split(",")) {
-					if (StrUtil.equalsAny(domain,domainOnly,domainWidthPort)) {
+					if (StrUtil.equalsAny(domain,domainOnly,domainWithPort)) {
 						return GrantedTenant.create(cachedTenantDO.getId(),
 								cachedTenantDO.getCode(),
 								cachedTenantDO.getName(),
@@ -76,15 +90,13 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 								cachedTenantDO.getTenantDefaultRouteJson(),
 								cachedTenantDO.getTenantLogoJson(),
 								cachedTenantDO.getConfigJson()
-								);
+						);
 
 					}
 				}
 			}
 			return null;
-		});
-
-	}
+		});	}
 
 	@Override
 	public void removeCache() {
