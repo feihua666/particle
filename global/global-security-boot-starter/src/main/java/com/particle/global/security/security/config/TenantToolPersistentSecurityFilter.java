@@ -40,7 +40,6 @@ public class TenantToolPersistentSecurityFilter extends GenericFilterBean {
 			chain.doFilter(request, response);
 		} finally {
 			grantedTenantResolveAndPersistentHelper.removeFromPsrsistent();
-			LoginUserTool.clear();
 
 		}
 	}

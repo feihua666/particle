@@ -4,12 +4,11 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.particle.global.light.share.concurrency.ConcurrencyConstants;
-import com.particle.global.security.tenant.GrantedTenant;
-import com.particle.global.security.tenant.IUserTenantChangeListener;
-import com.particle.global.security.tenant.TenantTool;
-import com.particle.global.security.tenant.UserTenantService;
+import com.particle.global.security.security.config.GrantedTenantResolveAndPersistentHelper;
+import com.particle.global.security.tenant.*;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.tool.thread.ThreadContextTool;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,6 +55,8 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+    @Autowired
+    private ITenantResolveService iTenantResolveService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -65,7 +66,8 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 加载额外信息
-        loginUserDetailsFill(loginUser,null,TenantTool.getTenantId());
+        GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest);
+        loginUserDetailsFill(loginUser,null,Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
 
         return loginUser;
     }

@@ -11,6 +11,8 @@ import com.particle.global.security.security.config.WebSecurityConfig;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
 import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
 import com.particle.user.client.api.IUserApplicationService;
@@ -40,6 +42,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -154,6 +157,9 @@ public class UserLoginController {
 
 	@Autowired
 	private AbstractUserDetailsService abstractUserDetailsService;
+	@Autowired
+	private ITenantResolveService iTenantResolveService;
+
 
 	@ApiOperation("切换当前登录用户租户")
 	@PreAuthorize("hasAuthority('user')")
@@ -162,7 +168,9 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
 
 		loginUser.clearUserGrantedAuthorities();
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(),null);
+		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest);
+
+		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(), Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
 		// 需要刷新一下权限，否则权限不会生效
 		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);

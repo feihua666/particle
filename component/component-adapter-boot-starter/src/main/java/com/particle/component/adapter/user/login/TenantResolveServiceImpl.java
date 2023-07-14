@@ -36,9 +36,9 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 	private static String header_c_host = "c-host";
 
 	/**
-	 * 缓存两小时
+	 * 缓存，参数为0表示不限制缓存时间
 	 */
-	TimedCache<String, GrantedTenant> timedCache = CacheUtil.newTimedCache(2 * 60 * 60 * 1000);
+	TimedCache<String, GrantedTenant> timedCache = CacheUtil.newTimedCache(0);
 
 	private List<TenantDO> cachedTenantDOS;
 
