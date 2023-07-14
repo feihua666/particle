@@ -24,7 +24,7 @@ public interface ITenantResolveService {
 	 * @param request
 	 * @return
 	 */
-	public GrantedTenant resolveGrantedTenant(ServletRequest request);
+	public GrantedTenant resolveGrantedTenant(ServletRequest request,boolean useLoginUser);
 	/**
 	 * 处理用户租户
 	 * @param domainWithPort 如：localhost:8080、api.bds.com
@@ -38,9 +38,9 @@ public interface ITenantResolveService {
 	 * @param domainWithPort
 	 * @return
 	 */
-	default public GrantedTenant resolveGrantedTenant(ServletRequest fallbackRequest,String domainWithPort) {
+	default public GrantedTenant resolveGrantedTenant(ServletRequest fallbackRequest,boolean useLoginUser,String domainWithPort) {
 		if (Strings.isEmpty(domainWithPort)) {
-			return resolveGrantedTenant(fallbackRequest);
+			return resolveGrantedTenant(fallbackRequest,useLoginUser);
 		}
 		return resolveGrantedTenant(domainWithPort);
 	}

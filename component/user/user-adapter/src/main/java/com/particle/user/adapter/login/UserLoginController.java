@@ -169,7 +169,7 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser, HttpServletRequest httpServletRequest) {
 
 		loginUser.clearUserGrantedAuthorities();
-		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest);
+		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
 
 		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(), Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
 		// 需要刷新一下权限，否则权限不会生效

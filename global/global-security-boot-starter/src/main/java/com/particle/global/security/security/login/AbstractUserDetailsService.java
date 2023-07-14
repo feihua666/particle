@@ -66,7 +66,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 加载额外信息
-        GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest);
+        GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
         loginUserDetailsFill(loginUser,null,Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
 
         return loginUser;

@@ -47,7 +47,7 @@ public class GrantedTenantResolveAndPersistentHelper {
 	public void resolveAndPersistent(ServletRequest request) {
 		// 处理租户并设置到线程变量
 		if (iUserTenantChangeListeners != null && iTenantResolveService != null) {
-			GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(request);
+			GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(request,true);
 			for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
 				iUserTenantChangeListener.onTenantChanged(grantedTenant, null);
 			}

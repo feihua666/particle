@@ -46,10 +46,10 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 	private TenantMapper tenantMapper;
 
 	@Override
-	public GrantedTenant resolveGrantedTenant(ServletRequest request) {
+	public GrantedTenant resolveGrantedTenant(ServletRequest request,boolean useLoginUser) {
 
 		LoginUser loginUser = LoginUserTool.getLoginUser();
-		if (loginUser != null) {
+		if (loginUser != null && useLoginUser) {
 			return loginUser.getCurrentTenant();
 		}
 		String domainWithPort = ServletUtil.getHeaderIgnoreCase(((HttpServletRequest) request),header_c_host);
