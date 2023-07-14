@@ -39,6 +39,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -165,7 +166,7 @@ public class UserLoginController {
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/changeTenant")
 	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser) {
+	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @ApiIgnore LoginUser loginUser, HttpServletRequest httpServletRequest) {
 
 		loginUser.clearUserGrantedAuthorities();
 		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest);
