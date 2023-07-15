@@ -104,6 +104,11 @@ public class CustomExecutors{
 		ExecutorService threadPoolExecutor = newThreadPoolExecutor( threadFactory , corePoolSize, maximumPoolSize, keepAliveTime, workQueue, handler, scheduled,preStartCoreThread);
 
 		ExecutorService executorService = threadPoolExecutor;
+		if (executorService instanceof ScheduledExecutorService) {
+			executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
+		}else {
+			executorService = TtlExecutors.getTtlExecutorService(executorService);
+		}
 		if (meterRegistry != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
 			if (scheduled) {
 				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((CustomScheduledThreadPoolExecutor) threadPoolExecutor), threadPoolName);
@@ -121,11 +126,7 @@ public class CustomExecutors{
 			}
 
 		}
-		if (executorService instanceof ScheduledExecutorService) {
-			executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
-		}else {
-			executorService = TtlExecutors.getTtlExecutorService(executorService);
-		}
+
 
 		return executorService;
 	}
