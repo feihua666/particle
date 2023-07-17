@@ -38,6 +38,7 @@ public class RoleTenantUserAddServiceListener implements IAddServiceListener<Ten
 		}
 
 
+		roleUserRelService.deleteByColumn(po.getUserId(), RoleUserRelDO::getUserId);
 		roleUserRelService.assignRel(po.getUserId(), roleIds, (relDto) -> new RoleUserRelDO().setUserId(relDto.getMainId()).setRoleId(relDto.getOtherId()));
 	}
 }
