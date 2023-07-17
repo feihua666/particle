@@ -116,7 +116,12 @@ public class CustomExecutors{
 				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
 			}
 		}
-		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.TRACEABLE_EXECUTOR_SERVICE_CLASS_NAME)) {
+
+		/**
+		 * 目前不用手动添加链路追踪包装了，当前spring 版本 2.7.14（这并不意味着当前版本以前就是需要手动添加，具体从哪个版本开始不用添加的，不太清楚目前）
+		 * 因为在 sleuth 自动配置中已经通过aop处理了，但目前如果使用注解schedued注解时，且将ScheduledExecutorService注入到了spring中，那么在使用 cron时会导致traceid重复，
+		 */
+/*		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.TRACEABLE_EXECUTOR_SERVICE_CLASS_NAME)) {
 			if (scheduled) {
 				// 异步链路追踪
 				executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableScheduledExecutorService(beanFactory, executorService, threadPoolName);
@@ -125,7 +130,7 @@ public class CustomExecutors{
 				executorService = new org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService(beanFactory, executorService, threadPoolName);
 			}
 
-		}
+		}*/
 
 
 		return executorService;
