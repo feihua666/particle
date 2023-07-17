@@ -4,6 +4,7 @@ import com.particle.global.session.MapSessionRepositoryConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,8 @@ import static java.util.TimeZone.getTimeZone;
  */
 @Slf4j
 @SpringBootApplication
+// 必须在启动类添加 切面支持，否则有可能componet注解的扫描不到
+@EnableAspectJAutoProxy
 //@SpringBootApplication(exclude = {GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 @Import(MapSessionRepositoryConfig.class)
 public class ParticleDemoApplication {
