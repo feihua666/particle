@@ -11,6 +11,7 @@ import jodd.http.HttpResponse;
 import jodd.http.ProxyInfo;
 import jodd.http.net.SocketHttpConnectionProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.MediaType;
 
 import java.util.Collections;
@@ -31,24 +32,8 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 
 	@Override
 	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig) {
-		Map<String, String> queryMap = Collections.emptyMap();
-		boolean b = command instanceof Map;
-		if (b) {
-			queryMap = ((Map<String, String>) command);
-		}
-		// get请求没有请求内容类型 contentType
-		log.info("{}. url={},body={},queryString={},headers={},content-type={}","get",url,commandJsonStr,JsonTool.toJsonStr(headers),contentType);
-		long start = System.currentTimeMillis();
-		HttpResponse httpResponse = HttpRequest.get(url)
-				// queryString 必须在前面，会重置内部query
-				.queryString(queryString)
-				.query(queryMap)
-				.header(headers)
-				.send();
-		String result = httpResponse.charset("utf-8").bodyText();
-		log.info("get result. duration={}ms, result={}",System.currentTimeMillis()-start,result);
-
-		return adaptResult(httpResponse.contentType(), result);
+		HttpRequest httpRequest = HttpRequest.get(url);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "get");
 	}
 
 	@Override
@@ -108,7 +93,14 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		ProxyConfig proxy = ProxyConfig.finalProxyConfig(proxyConfig);
 		if (proxy != null) {
 			HttpConnectionProvider connectionProvider=new SocketHttpConnectionProvider();
-			ProxyInfo proxyInfo = ProxyInfo.httpProxy(proxy.getProxyAddress(), Integer.parseInt(proxy.getProxyPort()), proxy.getProxyUsername(), proxy.getProxyPassword());
+			ProxyInfo proxyInfo = null;
+			if (Strings.isEmpty(proxy.getProxyType()) || ProxyConfig.ProxyType.http.name().equals(proxy.getProxyType())) {
+				proxyInfo = ProxyInfo.httpProxy(proxy.getProxyAddress(), Integer.parseInt(proxy.getProxyPort()), proxy.getProxyUsername(), proxy.getProxyPassword());
+			} else if(ProxyConfig.ProxyType.socks4.name().equals(proxy.getProxyType())) {
+				proxyInfo = ProxyInfo.socks4Proxy(proxy.getProxyAddress(), Integer.parseInt(proxy.getProxyPort()), proxy.getProxyUsername());
+			} else if(ProxyConfig.ProxyType.socks5.name().equals(proxy.getProxyType())) {
+				proxyInfo = ProxyInfo.socks5Proxy(proxy.getProxyAddress(), Integer.parseInt(proxy.getProxyPort()), proxy.getProxyUsername(),proxy.getProxyPassword());
+			}
 			connectionProvider.useProxy(proxyInfo);
 			httpRequest = httpRequest.withConnectionProvider(connectionProvider);
 		}

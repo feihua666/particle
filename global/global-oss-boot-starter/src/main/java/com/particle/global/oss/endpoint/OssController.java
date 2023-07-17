@@ -108,7 +108,7 @@ public class OssController {
 	 * 删除是一个危险的操作，只有超级管理员可使用
 	 * @param request
 	 */
-	@PreAuthorize("hasRole('"+ LoginUser.super_admin_role +"')")
+	@PreAuthorize("hasAnyRole('"+ LoginUser.super_admin_role +"','ossDelete')")
 	@DeleteMapping( API_DOWNLOAD + "/**")
 	@ApiOperation("删除文件，只能超级管理员才能删除")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

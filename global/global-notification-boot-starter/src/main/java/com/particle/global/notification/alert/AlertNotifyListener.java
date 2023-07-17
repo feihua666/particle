@@ -13,6 +13,7 @@ import me.chanjar.weixin.cp.api.WxCpGroupRobotService;
 import me.chanjar.weixin.cp.api.impl.WxCpGroupRobotServiceImpl;
 import me.chanjar.weixin.cp.api.impl.WxCpServiceApacheHttpClientImpl;
 import me.chanjar.weixin.cp.config.impl.WxCpDefaultConfigImpl;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -71,6 +72,10 @@ public class AlertNotifyListener  extends AbstractNotifyListener {
 		if (wxCpGroupRobotService == null) {
 			WxCpDefaultConfigImpl config = new WxCpDefaultConfigImpl();
 			if (proxyConfig != null) {
+
+				if (Strings.isNotEmpty(proxyConfig.getProxyType()) && !ProxyConfig.ProxyType.http.name().equals(proxyConfig.getProxyType())) {
+					log.warn("doWxcpWebhooks config proxyType={} is not http,can not support likely! ",proxyConfig.getProxyType());
+				}
 				config.setHttpProxyHost(proxyConfig.getProxyAddress());
 				config.setHttpProxyPort(Integer.parseInt(proxyConfig.getProxyPort()));
 				config.setHttpProxyUsername(proxyConfig.getProxyUsername());

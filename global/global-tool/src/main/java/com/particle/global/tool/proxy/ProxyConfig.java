@@ -22,6 +22,8 @@ import java.io.Serializable;
 @ConfigurationProperties(prefix = "particle.proxy")
 public class ProxyConfig implements InitializingBean, Serializable {
 
+
+
 	private static ProxyConfig proxyConfig = null;
 
 	/**
@@ -50,6 +52,12 @@ public class ProxyConfig implements InitializingBean, Serializable {
 	 * 是否设置为全局默认的代理
 	 */
 	private Boolean asDefault;
+
+	/**
+	 * 代理类型
+	 * {@link ProxyType} 的name
+	 */
+	private String proxyType;
 
 	// spring 初始化
 	@Override
@@ -126,5 +134,23 @@ public class ProxyConfig implements InitializingBean, Serializable {
 			}
 			ProxyConfig.proxyConfig = proxyConfig;
 		}
+	}
+
+	/**
+	 * 代理代理
+	 */
+	public static enum ProxyType {
+		/**
+		 * http代理
+		 */
+		http,
+		/**
+		 * socks4代理 不支持密码
+		 */
+		socks4,
+		/**
+		 * socks5代理
+		 */
+		socks5
 	}
 }

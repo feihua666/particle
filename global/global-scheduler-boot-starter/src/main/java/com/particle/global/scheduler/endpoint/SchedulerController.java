@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- * 文档相关服务接口
+ * 任务计划相关服务接口
  * </p>
  *
  * @author yangwei
@@ -56,7 +56,7 @@ public class SchedulerController {
 	 * @param param
 	 * @throws Throwable
 	 */
-	@PreAuthorize("hasRole('"+ LoginUser.super_admin_role +"')")
+	@PreAuthorize("hasAnyRole('"+ LoginUser.super_admin_role +"','manualExecution')")
 	@ApiOperation("手动执行任务计划")
 	@PostMapping( "/manualExecution")
 	public Response manualExecution(@RequestBody String param,@Valid SchedulerManualExeCommand schedulerManualExeCommand) throws Throwable {

@@ -7,6 +7,7 @@ import com.particle.global.tool.proxy.ProxyConfig;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
@@ -30,6 +31,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +45,7 @@ import java.util.Map;
  * @author yangwei
  * @since 2018/4/28 10:19
  */
+@Slf4j
 public class HttpClientTool{
     // 建立链接超时时间,毫秒
     public static final int CONN_TIMEOUT = 5000;
@@ -205,6 +208,10 @@ public class HttpClientTool{
                 if (proxyConfig != null) {
                     boolean useProxy = proxyConfig.getUseProxy()!= null && proxyConfig.getUseProxy();
                     if (proxy == null && useProxy ) {
+                        if (Strings.isNotEmpty(proxyConfig.getProxyType()) && !ProxyConfig.ProxyType.http.name().equals(proxyConfig.getProxyType())) {
+                            log.warn("executeRequest config proxyType={} is not http,can not support likely! ",proxyConfig.getProxyType());
+                        }
+
                         proxy = HttpHost.create(proxyConfig.getProxyAddress() + ":" + proxyConfig.getProxyPort());
                     }
                     if (StrUtil.isEmpty(proxyUser)) {
