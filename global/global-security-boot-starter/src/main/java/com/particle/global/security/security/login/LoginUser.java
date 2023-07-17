@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.particle.global.security.security.voter.SuperAdminRoleVoter;
 import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.UserTenantService;
+import com.particle.global.tool.constant.Constants;
 import com.particle.global.tool.json.JsonTool;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,7 +33,7 @@ public class LoginUser implements UserDetails {
     /**
      * 超级管理员角色编码
      */
-    public static final String super_admin_role = "superadmin";
+    public static final String super_admin_role = Constants.super_admin_role;
     /**
      * 租户超级管理员角色编码
      */

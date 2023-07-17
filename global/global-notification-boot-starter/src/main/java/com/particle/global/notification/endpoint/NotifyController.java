@@ -3,7 +3,7 @@ package com.particle.global.notification.endpoint;
 import com.particle.global.dto.response.Response;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.tool.constant.Constants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +28,7 @@ public class NotifyController {
 	 * 手动发送通知是一个危险操作，只有超级管理员才能使用
 	 * @param notifyParam
 	 */
-	@PreAuthorize("hasAnyRole('"+ LoginUser.super_admin_role +"','manualNotify')")
+	@PreAuthorize("hasAnyRole('"+ Constants.super_admin_role +"','manualNotify')")
 	@ApiOperation("手动发送通知")
 	@PostMapping( "/manualNotify")
 	public Response manualNotify(@RequestBody NotifyParam notifyParam){

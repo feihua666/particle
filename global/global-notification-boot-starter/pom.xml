@@ -82,12 +82,18 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-security-boot-starter</artifactId>
+            <artifactId>global-dto</artifactId>
             <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 </project>
