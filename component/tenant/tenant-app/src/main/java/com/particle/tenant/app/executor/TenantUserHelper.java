@@ -107,7 +107,7 @@ public class TenantUserHelper{
 			applyUserId = tenantUserUserGateway.getByUserIdentifier(account);
 		}
 		if (applyUserId != null) {
-			log.info("用户已存在，直接使用账号对应的id，accont={}，userId={}", account, applyUserId);
+			log.info("用户已存在，直接使用账号对应的id，account={}，userId={}", account, applyUserId);
 			return applyUserId;
 		}
 

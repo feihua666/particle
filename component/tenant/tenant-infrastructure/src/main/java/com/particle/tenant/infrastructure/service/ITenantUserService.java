@@ -25,9 +25,9 @@ public interface ITenantUserService extends IBaseService<TenantUserDO> {
      * @param userId
      * @return
      */
-    default List<TenantUserDO> getByUserId(Long userId) {
+    default TenantUserDO getByUserId(Long userId) {
         Assert.notNull(userId,"userId 不能为空");
-        return list(Wrappers.<TenantUserDO>lambdaQuery().eq(TenantUserDO::getUserId, userId));
+        return getOne(Wrappers.<TenantUserDO>lambdaQuery().eq(TenantUserDO::getUserId, userId));
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.particle.tenant.infrastructure.service.impl;
 
+import com.particle.global.exception.Assert;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
@@ -38,6 +39,8 @@ public class TenantUserServiceImpl extends IBaseServiceImpl<TenantUserMapper, Te
 	@Override
 	protected void preAdd(TenantUserDO po) {
 
+		TenantUserDO byUserId = getByUserId(po.getUserId());
+		Assert.isTrue(byUserId == null,"用户已存在，请匆重复添加");
 	}
 
 	@Override
