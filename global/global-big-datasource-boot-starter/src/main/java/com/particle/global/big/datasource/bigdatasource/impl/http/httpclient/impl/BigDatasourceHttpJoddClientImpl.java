@@ -76,11 +76,11 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		String body = commandJsonStr;
 		log.info("{}. url={},body={},queryString={},headers={},content-type={}",methodLog,url,body,queryString,JsonTool.toJsonStr(headers),contentType);
 
-		if (contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
+		if (contentType != null && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
 			httpRequest.bodyText(body, contentType);
-		} else if (contentType.startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+		} else if (contentType != null && contentType.startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
 			httpRequest.form(((Map) command)).multipart(true).contentType(contentType);
-		}else if (contentType.startsWith(MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
+		}else if (contentType != null && contentType.startsWith(MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
 			httpRequest.form(((Map) command)).contentType(contentType);
 		}else {
 			httpRequest.bodyText(body, contentType);

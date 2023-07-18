@@ -122,20 +122,23 @@ public class WebSecurityConfig {
         AuthenticationManager authenticationManager = authenticationManager(authenticationManagerBuilder);
         http.authenticationManager(authenticationManager);
 
+
+        // 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系
+
+        // 自定义当前登录用户工具类
+        LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
+        loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
+        loginUserToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
+        http.addFilterAfter(loginUserToolPersistentSecurityFilter, SecurityContextPersistenceFilter.class);
         /**
          * 默认排序
          * @see https://docs.spring.io/spring-security/reference/5.7/servlet/configuration/xml-namespace.html#filter-stack
          */
         TenantToolPersistentSecurityFilter tenantToolPersistentSecurityFilter = new TenantToolPersistentSecurityFilter();
         tenantToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
-        http.addFilterBefore(tenantToolPersistentSecurityFilter, LogoutFilter.class);
+        http.addFilterAfter(tenantToolPersistentSecurityFilter, SecurityContextPersistenceFilter.class);
 
 
-        // 自定义当前登录用户工具类
-        LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
-        loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
-        loginUserToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
-        http.addFilterAfter(loginUserToolPersistentSecurityFilter, SessionManagementFilter.class);
 
         if (customWebSecurityConfigureList != null) {
             for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {

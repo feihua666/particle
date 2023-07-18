@@ -30,7 +30,7 @@ const tenantAdminRoutes = [
             {
                 path: '/admin/tenantManageUpdate',
                 component: () => import('./TenantManageUpdatePage.vue'),
-                props: route => ({ tenantId: route.query.id,masterUserId: route.query.masterUserId,masterUserNickname: route.query.masterUserNickname }),
+                props: route => ({ tenantId: route.query.tenantId,masterUserId: route.query.masterUserId,masterUserNickname: route.query.masterUserNickname }),
                 meta: {
                     showInDrawer: true,
                     code:'adminTenantManageUpdate',

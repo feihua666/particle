@@ -18,7 +18,13 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   tenantUserId: {
     type: String
-  }
+  },
+  userId: {
+    type: String
+  },
+  userNickname: {
+    type: String
+  },
 })
 // 属性
 const reactiveData = reactive({

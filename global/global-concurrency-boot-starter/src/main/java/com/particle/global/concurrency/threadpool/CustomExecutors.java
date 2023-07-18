@@ -109,11 +109,12 @@ public class CustomExecutors{
 		}else {
 			executorService = TtlExecutors.getTtlExecutorService(executorService);
 		}
+		// 不像 TraceableExecutorService ，目前好像没有找到自动添加监控的方式，这里手动添加
 		if (meterRegistry != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
 			if (scheduled) {
-				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((CustomScheduledThreadPoolExecutor) threadPoolExecutor), threadPoolName);
+				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((ScheduledExecutorService) executorService), threadPoolName);
 			}else{
-				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, threadPoolExecutor, threadPoolName);
+				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, executorService, threadPoolName);
 			}
 		}
 

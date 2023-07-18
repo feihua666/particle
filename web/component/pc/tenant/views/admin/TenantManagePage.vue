@@ -134,7 +134,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       text: true,
       permission: 'admin:web:tenant:update',
       // 跳转到编辑
-      route: {path: '/admin/TenantManageUpdate',query: idData}
+      route: {path: '/admin/TenantManageUpdate',query: tenantIdData}
     },
     {
       txt: '删除',

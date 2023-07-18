@@ -32,10 +32,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
@@ -489,15 +486,13 @@ public class TransHelper {
             transPojo(item, transContext);
         });
         // 批量翻译并将翻译结果放到context中
-        Map<String, CompletableFuture<List>> cfMap = new HashMap<>();
+        Map<String, Future<List>> cfMap = new HashMap<>();
         for (Map.Entry<String, Set<Object>> stringSetEntry : transContext.keysMap.entrySet()) {
             ITransService iTransServiceByType = getITransServiceByType(stringSetEntry.getKey(), true);
             if (iTransServiceByType != null) {
                 // 根据值批量翻译
-                CompletableFuture<List> listCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                    return iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue());
-                }, transTaskExecutor);
-                cfMap.put(stringSetEntry.getKey(), listCompletableFuture);
+                Future<List> submit = transTaskExecutor.submit(() -> iTransServiceByType.transBatch(stringSetEntry.getKey(), stringSetEntry.getValue()));
+                cfMap.put(stringSetEntry.getKey(), submit);
             }
         }
         if (!cfMap.isEmpty()) {

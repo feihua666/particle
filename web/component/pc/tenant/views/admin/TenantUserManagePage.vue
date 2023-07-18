@@ -102,13 +102,15 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+  let userIdData = {...idData,userId: row.userId,userNickname: row.nickname}
+
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
       permission: 'admin:web:tenantUser:update',
       // 跳转到编辑
-      route: {path: '/admin/TenantUserManageUpdate',query: idData}
+      route: {path: '/admin/TenantUserManageUpdate',query: userIdData}
     },
     {
       txt: '删除',

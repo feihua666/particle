@@ -132,10 +132,20 @@ const getTableRowButtons = ({row, column, $index}) => {
   }
   let idData = {id: row.id}
   let editIdData = {id: row.id, applyUserId: row.applyUserId, applyUserNickname: row.applyUserNickname}
+
+  let isAuditPass = row.auditStatusDictValue == 'audit_pass'
+  let editDisabledProps = {}
+  if(isAuditPass){
+    editDisabledProps = {
+      disabled: true,
+      disabledReason: '已审核通过不能编辑'
+    }
+  }
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
+      ...editDisabledProps,
       permission: 'admin:web:tenantCreateApply:update',
       // 跳转到编辑
       route: {path: '/admin/TenantCreateApplyManageUpdate',query: editIdData}

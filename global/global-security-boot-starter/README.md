@@ -20,3 +20,9 @@
 #sping security
 104.18.10.207 stackpath.bootstrapcdn.com maxcdn.bootstrapcdn.com
 ```
+
+## 关于常用的租户和当前登录用户线程变量
+1. 目前在security中添加了两个过滤器LoginUserToolPersistentSecurityFilter、TenantToolPersistentSecurityFilter
+2. 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系
+3. 以上保证解析租户（登录前根据域名配置解析租户，登录后以登录用户正在使用租户为准）和当前登录用户正在使用的租户，分别放到TenantTool和LoginUserTool中以供后续逻辑使用
+4. 在用户登录中如果也同样设置了当前租户，这是因为有可能在登录的时候前面两个filter都没有解析到用户数据（在登录时如果前面已经解析到租户会延用已经解析到的租户）时设置当前租户以影响后续逻辑处理
