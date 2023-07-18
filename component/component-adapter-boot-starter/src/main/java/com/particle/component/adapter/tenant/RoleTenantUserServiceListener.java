@@ -1,7 +1,10 @@
 package com.particle.component.adapter.tenant;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
+import com.particle.global.mybatis.plus.crud.IDeleteServiceListener;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
@@ -11,6 +14,7 @@ import com.particle.user.infrastructure.dos.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -20,7 +24,7 @@ import java.util.List;
  * @author yangwei
  * @since 2023-05-26 16:38:47
  */
-public class RoleTenantUserAddServiceListener implements IAddServiceListener<TenantUserDO> {
+public class RoleTenantUserServiceListener implements IAddServiceListener<TenantUserDO>, IDeleteServiceListener<TenantUserDO> {
 
 	@Autowired
 	private IRoleUserRelService roleUserRelService;
@@ -36,9 +40,18 @@ public class RoleTenantUserAddServiceListener implements IAddServiceListener<Ten
 				}
 			}
 		}
-
-
-		roleUserRelService.deleteByColumn(po.getUserId(), RoleUserRelDO::getUserId);
 		roleUserRelService.assignRel(po.getUserId(), roleIds, (relDto) -> new RoleUserRelDO().setUserId(relDto.getMainId()).setRoleId(relDto.getOtherId()));
+	}
+
+	@Override
+	public void postDeleteById(Long id, TenantUserDO tenantUserDO) {
+		roleUserRelService.deleteByColumn(tenantUserDO.getUserId(), RoleUserRelDO::getUserId);
+	}
+	@Override
+	public void postDeleteByColumn(Object columnId, SFunction<TenantUserDO, ?> column, List<TenantUserDO> tenantUserDOS) {
+		List<Long> userIds = tenantUserDOS.stream().map(TenantUserDO::getUserId).collect(Collectors.toList());
+		for (Long userId : userIds) {
+			roleUserRelService.deleteByColumn(userId, RoleUserRelDO::getUserId);
+		}
 	}
 }

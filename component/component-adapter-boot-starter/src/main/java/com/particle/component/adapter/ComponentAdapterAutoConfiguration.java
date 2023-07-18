@@ -2,7 +2,7 @@ package com.particle.component.adapter;
 
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.tenant.DeptTenantUserServiceListener;
-import com.particle.component.adapter.tenant.RoleTenantUserAddServiceListener;
+import com.particle.component.adapter.tenant.RoleTenantUserServiceListener;
 import com.particle.component.adapter.tenant.TenantServiceListener;
 import com.particle.component.adapter.user.DeptUserServiceListener;
 import com.particle.component.adapter.user.RoleUserAddServiceListener;
@@ -24,7 +24,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
 /**
  * <p>
@@ -67,8 +66,8 @@ public class ComponentAdapterAutoConfiguration {
 
 		@Bean
 		@ConditionalOnBean(IRoleService.class)
-		public RoleTenantUserAddServiceListener roleTenantUserAddServiceListener(){
-			return new RoleTenantUserAddServiceListener();
+		public RoleTenantUserServiceListener roleTenantUserAddServiceListener(){
+			return new RoleTenantUserServiceListener();
 		}
 
 

@@ -2,14 +2,17 @@ package com.particle.component.adapter.tenant;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
+import com.particle.global.mybatis.plus.crud.IDeleteServiceListener;
 import com.particle.global.mybatis.plus.crud.IQueryWrapperHandler;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.client.dto.command.representation.TenantUserPageQueryCommand;
 import com.particle.tenant.client.dto.command.representation.TenantUserQueryListCommand;
+import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
@@ -27,7 +30,7 @@ import java.util.stream.Collectors;
  * @author yangwei
  * @since 2023-05-17 09:50:35
  */
-public class DeptTenantUserServiceListener implements IAddServiceListener<TenantUserDO>, IQueryWrapperHandler<TenantUserDO> {
+public class DeptTenantUserServiceListener implements IAddServiceListener<TenantUserDO>, IQueryWrapperHandler<TenantUserDO>, IDeleteServiceListener<TenantUserDO> {
 
 	@Autowired
 	private IDeptUserRelService deptUserRelService;
@@ -43,6 +46,19 @@ public class DeptTenantUserServiceListener implements IAddServiceListener<Tenant
 				deptUserRelDO.setUserId(po.getUserId());
 				deptUserRelService.add(deptUserRelDO);
 			}
+		}
+	}
+
+	@Override
+	public void postDeleteById(Long id, TenantUserDO tenantUserDO) {
+		deptUserRelService.deleteByColumn(tenantUserDO.getUserId(), DeptUserRelDO::getUserId);
+
+	}
+	@Override
+	public void postDeleteByColumn(Object columnId, SFunction<TenantUserDO, ?> column, List<TenantUserDO> tenantUserDOS) {
+		List<Long> userIds = tenantUserDOS.stream().map(TenantUserDO::getUserId).collect(Collectors.toList());
+		for (Long userId : userIds) {
+			deptUserRelService.deleteByColumn(userId, DeptUserRelDO::getUserId);
 		}
 	}
 
