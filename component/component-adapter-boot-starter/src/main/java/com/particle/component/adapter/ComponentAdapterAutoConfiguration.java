@@ -66,7 +66,7 @@ public class ComponentAdapterAutoConfiguration {
 
 		@Bean
 		@ConditionalOnBean(IRoleService.class)
-		public RoleTenantUserServiceListener roleTenantUserAddServiceListener(){
+		public RoleTenantUserServiceListener roleTenantUserServiceListener(){
 			return new RoleTenantUserServiceListener();
 		}
 
