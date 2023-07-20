@@ -25,7 +25,7 @@ public class DeptTreeNameCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "部门树名称 不能为空")
-    @Schema(description = "部门树名称",required = true)
+    @Schema(description = "部门树名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 

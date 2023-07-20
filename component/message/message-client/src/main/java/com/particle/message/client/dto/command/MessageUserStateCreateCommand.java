@@ -22,17 +22,17 @@ public class MessageUserStateCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "消息表主键 不能为空")
-        @Schema(description = "消息表主键",required = true)
+        @Schema(description = "消息表主键",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long messageId;
 
 
     @NotNull(message = "用户id 不能为空")
-        @Schema(description = "用户id",required = true)
+        @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
 
     @NotNull(message = "是否已读 不能为空")
-        @Schema(description = "是否已读",required = true)
+        @Schema(description = "是否已读",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isRead;
 
 

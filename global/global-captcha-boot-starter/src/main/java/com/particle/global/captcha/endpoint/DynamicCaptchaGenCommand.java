@@ -19,7 +19,7 @@ import javax.validation.constraints.NotEmpty;
 public class DynamicCaptchaGenCommand extends CaptchaGenCommand {
 
 	@NotEmpty(message = "手机号或邮箱不能为空")
-	@Schema(description = "手机号或邮箱",required = true)
+	@Schema(description = "手机号或邮箱",requiredMode = Schema.RequiredMode.REQUIRED)
 	private String identifier;
 
 	/**

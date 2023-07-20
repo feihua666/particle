@@ -19,7 +19,7 @@ import javax.validation.constraints.NotEmpty;
 public class UserFindBackPwdCommand extends UserIdentifierPwdCommand {
 
     @NotEmpty(message = "登录标识 不能为空")
-    @Schema(description = "登录标识",required = true)
+    @Schema(description = "登录标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String identifier;
 
 

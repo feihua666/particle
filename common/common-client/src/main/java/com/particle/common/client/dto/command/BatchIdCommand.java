@@ -22,7 +22,7 @@ import java.util.List;
 public class BatchIdCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "ids 不能为空")
-	@Schema(description = "ids",required = true)
+	@Schema(description = "ids",requiredMode = Schema.RequiredMode.REQUIRED)
 	private List<Long> ids;
 
 }

@@ -22,17 +22,17 @@ public class FuncApplicationCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "应用编码 不能为空")
-    @Schema(description = "应用编码",required = true)
+    @Schema(description = "应用编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
 
     @NotEmpty(message = "功能应用名称 不能为空")
-    @Schema(description = "功能应用名称",required = true)
+    @Schema(description = "功能应用名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "是否禁用 不能为空")
-    @Schema(description = "是否禁用",required = true)
+    @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isDisabled;
 
 
@@ -59,12 +59,12 @@ public class FuncApplicationCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "是否为分组 不能为空")
-    @Schema(description = "是否为分组",required = true)
+    @Schema(description = "是否为分组",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isGroup;
 
 
     @NotNull(message = "排序 不能为空")
-    @Schema(description = "排序",required = true)
+    @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
 

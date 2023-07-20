@@ -27,17 +27,17 @@ public class DataQueryDatasourceUpdateCommand extends AbstractBaseUpdateCommand 
 
 
     @NotEmpty(message = "名称 不能为空")
-    @Schema(description = "名称",required = true)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "类型 不能为空")
-    @Schema(description = "类型",required = true)
+    @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long typeDictId;
 
 
     @NotEmpty(message = "json配置 不能为空")
-    @Schema(description = "json配置",required = true)
+    @Schema(description = "json配置",requiredMode = Schema.RequiredMode.REQUIRED)
     private String configJson;
 
 
@@ -50,7 +50,7 @@ public class DataQueryDatasourceUpdateCommand extends AbstractBaseUpdateCommand 
 
 
     @NotNull(message = "数据查询供应商id 不能为空")
-    @Schema(description = "数据查询供应商id",required = true)
+    @Schema(description = "数据查询供应商id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataQueryProviderId;
 
 

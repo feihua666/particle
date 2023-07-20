@@ -23,12 +23,12 @@ public class TenantUserInviteCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "邀请码 不能为空")
-        @Schema(description = "邀请码",required = true)
+        @Schema(description = "邀请码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String inviteCode;
 
 
     @NotNull(message = "最大邀请人数 不能为空")
-        @Schema(description = "最大邀请人数",required = true)
+        @Schema(description = "最大邀请人数",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer maxInviteCount;
 
 
@@ -37,7 +37,7 @@ public class TenantUserInviteCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "是否过期 不能为空")
-        @Schema(description = "是否过期",required = true)
+        @Schema(description = "是否过期",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired;
 
 
@@ -50,7 +50,7 @@ public class TenantUserInviteCreateCommand extends AbstractBaseCommand {
     
 
     @NotNull(message = "邀请人用户id 不能为空")
-        @Schema(description = "邀请人用户id",required = true)
+        @Schema(description = "邀请人用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long inviterUserId;
 
 

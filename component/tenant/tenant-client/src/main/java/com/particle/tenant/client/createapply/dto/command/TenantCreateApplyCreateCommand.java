@@ -24,7 +24,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "租户名称 不能为空")
-    @Schema(description = "租户名称",required = true)
+    @Schema(description = "租户名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
@@ -53,7 +53,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "租户类型字典id 不能为空")
-    @Schema(description = "租户类型字典id",required = true)
+    @Schema(description = "租户类型字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long tenantTypeDictId;
 
 
@@ -67,7 +67,7 @@ public class TenantCreateApplyCreateCommand extends AbstractBaseCommand {
     private Long auditStatusDictId;
 
 	@NotNull(message = "是否正式 不能为空")
-	@Schema(description = "是否正式，1=正式，0=试用",required = true)
+	@Schema(description = "是否正式，1=正式，0=试用",requiredMode = Schema.RequiredMode.REQUIRED)
 	private Boolean isFormal;
 
 	@Schema(description = "用户数量限制")

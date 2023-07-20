@@ -24,17 +24,17 @@ public class TenantCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "租户编码 不能为空")
-    @Schema(description = "租户编码",required = true)
+    @Schema(description = "租户编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
 
     @NotEmpty(message = "租户名称 不能为空")
-    @Schema(description = "租户名称",required = true)
+    @Schema(description = "租户名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "是否禁用 不能为空")
-    @Schema(description = "是否禁用",required = true)
+    @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isDisabled;
 
 
@@ -66,7 +66,7 @@ public class TenantCreateCommand extends AbstractBaseCommand {
     private String tenantDefaultRouteJson;
 
     @NotNull(message = "是否正式 不能为空")
-    @Schema(description = "是否正式，1=正式，0=试用",required = true)
+    @Schema(description = "是否正式，1=正式，0=试用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isFormal;
 
     @Schema(description = "用户数量限制")
@@ -79,7 +79,7 @@ public class TenantCreateCommand extends AbstractBaseCommand {
     private LocalDateTime expireAt;
 
     @NotNull(message = "主用户 不能为空")
-    @Schema(description = "主用户，一般该用户为租户的超级管理员",required = true)
+    @Schema(description = "主用户，一般该用户为租户的超级管理员",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long masterUserId;
 
     @Schema(description = "租户logo地址")

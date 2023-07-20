@@ -25,7 +25,7 @@ public class UserIdentifierCreateMobilelBindCommand extends AbstractBaseCommand 
 
     @Mobile(message = "手机号格式不正确")
     @NotEmpty(message = "手机号不能为空")
-    @Schema(description = "手机号",required = true)
+    @Schema(description = "手机号",requiredMode = Schema.RequiredMode.REQUIRED)
     private String mobile;
 
 }

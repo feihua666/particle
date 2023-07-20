@@ -22,12 +22,12 @@ public class DeptTreeUserRelUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "用户id 不能为空")
-        @Schema(description = "用户id",required = true)
+        @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
 
     @NotNull(message = "部门树id 不能为空")
-        @Schema(description = "部门树id",required = true)
+        @Schema(description = "部门树id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long deptTreeId;
 
 

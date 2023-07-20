@@ -26,7 +26,7 @@ public class LowcodeSegmentTemplateUpdateCommand extends AbstractBaseUpdateComma
     private String code;
 
     @NotEmpty(message = "模板名称不能为空")
-    @Schema(description = "模板名称，仅做展示",required = true)
+    @Schema(description = "模板名称，仅做展示",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Schema(description = "计算模板")
@@ -45,7 +45,7 @@ public class LowcodeSegmentTemplateUpdateCommand extends AbstractBaseUpdateComma
     private Long referenceSegmentTemplateId;
 
     @NotNull(message = "输出类型字典id不能为空")
-    @Schema(description = "输出类型字典id，file=文件，dir=目录，segment=片段",required = true)
+    @Schema(description = "输出类型字典id，file=文件，dir=目录，segment=片段",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long outputTypeDictId;
 
     @Schema(description = "内容输出变量名")

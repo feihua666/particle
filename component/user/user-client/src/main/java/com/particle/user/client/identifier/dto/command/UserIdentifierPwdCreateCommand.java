@@ -22,11 +22,11 @@ public class UserIdentifierPwdCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "用户id 不能为空")
-    @Schema(description = "用户id",required = true)
+    @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @NotNull(message = "用户标识id 不能为空")
-    @Schema(description = "用户标识id",required = true)
+    @Schema(description = "用户标识id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long identifierId;
 
     @Schema(description = "分组标识")

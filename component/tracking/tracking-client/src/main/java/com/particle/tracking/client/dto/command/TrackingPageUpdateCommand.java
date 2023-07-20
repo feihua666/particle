@@ -22,38 +22,38 @@ public class TrackingPageUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "页面编码 不能为空")
-    @Schema(description = "页面编码",required = true)
+    @Schema(description = "页面编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
 
     @NotEmpty(message = "页面名称 不能为空")
-    @Schema(description = "页面名称",required = true)
+    @Schema(description = "页面名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotEmpty(message = "页面图片地址 不能为空")
-    @Schema(description = "页面图片地址",required = true)
+    @Schema(description = "页面图片地址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String imageUrl;
 
 
     @NotEmpty(message = "页面访问地址 不能为空")
-    @Schema(description = "页面访问地址",required = true)
+    @Schema(description = "页面访问地址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String absoluteUrl;
 
     @NotEmpty(message = "路径说明 不能为空")
-    @Schema(description = "路径说明",required = true)
+    @Schema(description = "路径说明",requiredMode = Schema.RequiredMode.REQUIRED)
     private String pathMemo;
 
     @NotEmpty(message = "页面版本 不能为空")
-    @Schema(description = "页面版本",required = true)
+    @Schema(description = "页面版本",requiredMode = Schema.RequiredMode.REQUIRED)
     private String pageVersion;
 
     @NotEmpty(message = "分组标识 不能为空")
-    @Schema(description = "分组标识",required = true)
+    @Schema(description = "分组标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String groupFlag;
 
     @NotNull(message = "排序 不能为空")
-    @Schema(description = "排序",required = true)
+    @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
     @Schema(description = "描述")

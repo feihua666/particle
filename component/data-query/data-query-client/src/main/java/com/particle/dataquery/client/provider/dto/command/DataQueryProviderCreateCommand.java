@@ -24,11 +24,11 @@ public class DataQueryProviderCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "供应商名称 不能为空")
-    @Schema(description = "供应商名称",required = true)
+    @Schema(description = "供应商名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @NotNull(message = "是否禁用 不能为空")
-    @Schema(description = "是否禁用",required = true)
+    @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isDisabled;
 
     /**

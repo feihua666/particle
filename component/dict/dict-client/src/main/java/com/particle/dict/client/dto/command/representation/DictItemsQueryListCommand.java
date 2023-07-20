@@ -22,7 +22,7 @@ import javax.validation.constraints.NotEmpty;
 public class DictItemsQueryListCommand extends AbstractBaseQueryCommand {
 
     @NotEmpty(message="字典组编码不能为空")
-    @Schema(description = "字典组编码",required = true)
+    @Schema(description = "字典组编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String groupCode;
 
     @Schema(description = "私有标识")

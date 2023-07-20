@@ -26,20 +26,20 @@ public class UserIdentifierUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "用户ID不能为空")
-    @Schema(description = "用户ID",required = true)
+    @Schema(description = "用户ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @NotEmpty(message = "登录标识不能为空")
-    @Schema(description = "登录标识",required = true)
+    @Schema(description = "登录标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String identifier;
 
 
     @NotNull(message = "授权类型不能为空")
-    @Schema(description = "授权类型,字典id",required = true)
+    @Schema(description = "授权类型,字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long identityTypeDictId;
 
     @NotNull(message = "是否锁定不能为空")
-    @Schema(description = "锁定状态，0=未锁定；1=锁定",required = true)
+    @Schema(description = "锁定状态，0=未锁定；1=锁定",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isLock;
 
     @PropValid.DependCondition(message = "锁定原因不能为空" ,dependProp = "isLock",ifEqual = "true")
@@ -50,7 +50,7 @@ public class UserIdentifierUpdateCommand extends AbstractBaseUpdateCommand {
     private String unionId;
 
     @NotNull(message = "是否过期不能为空")
-    @Schema(description = "是否过期",required = true)
+    @Schema(description = "是否过期",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired;
 
     @PropValid.DependCondition(message = "过期原因不能为空" ,dependProp = "isExpired",ifEqual = "true")

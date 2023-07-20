@@ -25,11 +25,11 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "用户id 不能为空")
-    @Schema(description = "用户id",required = true)
+    @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @NotNull(message = "用户标识id 不能为空")
-    @Schema(description = "用户标识id",required = true)
+    @Schema(description = "用户标识id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long identifierId;
 
     @Schema(description = "密码")
@@ -42,7 +42,7 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
     private String pwdEncryptFlag;
 
     @NotNull(message = "是否过期不能为空")
-    @Schema(description = "是否过期，过期后该密码不能登录",required = true)
+    @Schema(description = "是否过期，过期后该密码不能登录",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired;
 
     @SetNullWhenNull
@@ -54,7 +54,7 @@ public class UserIdentifierPwdUpdateCommand extends AbstractBaseUpdateCommand {
     private LocalDateTime expireAt;
 
     @NotNull(message = "是否需要提示修改密码不能为空")
-    @Schema(description = "是否需要提示修改密码",required = true)
+    @Schema(description = "是否需要提示修改密码",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isNeedUpdate;
 
     @PropValid.DependCondition(message = "提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")

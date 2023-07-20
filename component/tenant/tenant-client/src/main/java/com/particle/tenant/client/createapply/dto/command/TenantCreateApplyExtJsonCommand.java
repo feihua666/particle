@@ -23,6 +23,6 @@ public class TenantCreateApplyExtJsonCommand extends AbstractBaseCommand {
 
 	@Valid
 	@NotEmpty(message = "功能功能 不能为空")
-	@Schema(description = "功能功能",required = true)
+	@Schema(description = "功能功能",requiredMode = Schema.RequiredMode.REQUIRED)
 	List<TenantCreateApplyExtJsonFuncApplicationCommand> funcApplications;
 }

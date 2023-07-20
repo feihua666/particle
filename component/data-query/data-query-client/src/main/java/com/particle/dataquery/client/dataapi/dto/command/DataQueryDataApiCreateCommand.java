@@ -21,18 +21,18 @@ public class DataQueryDataApiCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "接口地址 不能为空")
-    @Schema(description = "接口地址",required = true)
+    @Schema(description = "接口地址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String url;
 
     @NotEmpty(message = "接口名称 不能为空")
-    @Schema(description = "接口名称",required = true)
+    @Schema(description = "接口名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Schema(description = "数据查询数据源接口id")
     private Long dataQueryDatasourceApiId;
 
     @NotNull(message = "适配类型 不能为空")
-    @Schema(description = "适配类型",required = true)
+    @Schema(description = "适配类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long adaptTypeDictId;
 
     @Schema(description = "接口适配配置json")

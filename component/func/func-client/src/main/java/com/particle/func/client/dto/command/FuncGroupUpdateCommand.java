@@ -22,11 +22,11 @@ public class FuncGroupUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "编码不能为空")
-    @Schema(description = "编码",required = true)
+    @Schema(description = "编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
     @NotEmpty(message = "名称不能为空")
-    @Schema(description = "名称",required = true)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Schema(description = "描述")

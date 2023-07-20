@@ -24,7 +24,7 @@ public class MessageUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "消息标题 不能为空")
-    @Schema(description = "消息标题",required = true)
+    @Schema(description = "消息标题",requiredMode = Schema.RequiredMode.REQUIRED)
     private String title;
 
 
@@ -33,7 +33,7 @@ public class MessageUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "消息内容 不能为空")
-    @Schema(description = "消息内容",required = true)
+    @Schema(description = "消息内容",requiredMode = Schema.RequiredMode.REQUIRED)
     private String content;
 
 	@Schema(description = "内容是否为html，1=是，0=否")

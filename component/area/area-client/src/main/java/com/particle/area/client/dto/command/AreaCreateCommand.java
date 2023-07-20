@@ -23,11 +23,11 @@ public class AreaCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "编码不能为空")
-    @Schema(description = "编码，唯一",required = true)
+    @Schema(description = "编码，唯一",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
     @NotEmpty(message = "编码不能为空")
-    @Schema(description = "区域名称",required = true)
+    @Schema(description = "区域名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Schema(description = "区域简称")

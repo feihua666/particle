@@ -26,7 +26,7 @@ public class UserIdentifierCreateEmailBindCommand extends AbstractBaseCommand {
 
     @Email(message = "邮箱格式不正确")
     @NotEmpty(message = "邮箱不能为空")
-    @Schema(description = "邮箱",required = true)
+    @Schema(description = "邮箱",requiredMode = Schema.RequiredMode.REQUIRED)
     private String email;
 
 }

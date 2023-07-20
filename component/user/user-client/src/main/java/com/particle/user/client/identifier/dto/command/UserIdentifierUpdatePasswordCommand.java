@@ -20,6 +20,6 @@ import javax.validation.constraints.NotEmpty;
 public class UserIdentifierUpdatePasswordCommand extends UserIdentifierResetPasswordCommand {
 
 	@NotEmpty(message = "原密码不能为空")
-	@Schema(description = "原密码",required = true)
+	@Schema(description = "原密码",requiredMode = Schema.RequiredMode.REQUIRED)
 	private String oldPassword;
 }

@@ -21,13 +21,13 @@ import javax.validation.constraints.NotNull;
 public class DataQueryDatasourceApiQueryCommand extends AbstractBaseCommand {
 
     @NotNull(message = "数据源接口id 不能为空")
-    @Schema(description = "数据源接口id",required = true)
+    @Schema(description = "数据源接口id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataQueryDatasourceApiId;
 
     /**
      * 参数对象
      */
-    @Schema(description = "参数对象",required = true)
+    @Schema(description = "参数对象",requiredMode = Schema.RequiredMode.REQUIRED)
     private Object param;
 
 

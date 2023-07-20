@@ -114,11 +114,11 @@ public class UserLoginController {
 	@Data
 	public static class LoginCommand{
 		@NotEmpty(message = "登录用户名不能为空")
-		@Schema(description = "登录用户名,动态验证码登录时支持邮件和手机号",required = true)
+		@Schema(description = "登录用户名,动态验证码登录时支持邮件和手机号",requiredMode = Schema.RequiredMode.REQUIRED)
 		private String username;
 
 		@NotEmpty(message = "登录用户密码不能为空")
-		@Schema(description = "登录用户密码，动态验证码登录时为动态验证码",required = true)
+		@Schema(description = "登录用户密码，动态验证码登录时为动态验证码",requiredMode = Schema.RequiredMode.REQUIRED)
 		private String password;
 
 

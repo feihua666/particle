@@ -23,12 +23,12 @@ public class TenantUserInviteUserRecordUpdateCommand extends AbstractBaseUpdateC
 
 
     @NotNull(message = "租户用户邀请id 不能为空")
-        @Schema(description = "租户用户邀请id",required = true)
+        @Schema(description = "租户用户邀请id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer tenantUserInviteId;
 
 
     @NotNull(message = "被邀请人用户id 不能为空")
-        @Schema(description = "被邀请人用户id",required = true)
+        @Schema(description = "被邀请人用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long invitedUserId;
 
 

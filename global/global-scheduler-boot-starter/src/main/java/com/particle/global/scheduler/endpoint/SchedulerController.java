@@ -117,11 +117,11 @@ public class SchedulerController {
 	public static class SchedulerManualExeCommand extends Command {
 
 		@NotEmpty(message = "任务计划名称 不能为空")
-		@Schema(description = "任务计划名称，bean名称",required = true)
+		@Schema(description = "任务计划名称，bean名称",requiredMode = Schema.RequiredMode.REQUIRED)
 		private String schedulerName;
 
 		@NotEmpty(message = "任务计划调用方法名称 不能为空")
-		@Schema(description = "任务计划调用方法名称",required = true)
+		@Schema(description = "任务计划调用方法名称",requiredMode = Schema.RequiredMode.REQUIRED)
 		private String schedulerMethodName;
 	}
 

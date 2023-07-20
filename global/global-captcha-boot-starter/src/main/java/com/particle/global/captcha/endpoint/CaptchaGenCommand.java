@@ -30,7 +30,7 @@ import static com.particle.global.captcha.gen.CaptchaGenDTO.*;
 public class CaptchaGenCommand extends Command {
 
 	@NotEmpty(message = "验证码的用途或场景标识不能为空")
-	@Schema(description = "验证码的用途或场景标识",required = true,example = "任意的字符串")
+	@Schema(description = "验证码的用途或场景标识",requiredMode = Schema.RequiredMode.REQUIRED,example = "任意的字符串")
 	private String captchaScene;
 
 	/**

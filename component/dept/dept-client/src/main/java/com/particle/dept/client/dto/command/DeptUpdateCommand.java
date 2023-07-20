@@ -25,12 +25,12 @@ public class DeptUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "部门名称 不能为空")
-    @Schema(description = "部门名称",required = true)
+    @Schema(description = "部门名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "类型 不能为空")
-    @Schema(description = "类型",required = true)
+    @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long typeDictId;
 
 
@@ -39,12 +39,12 @@ public class DeptUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "是否虚拟部门 不能为空")
-    @Schema(description = "是否虚拟部门",required = true)
+    @Schema(description = "是否虚拟部门",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isVirtual;
 
 
     @NotNull(message = "是否为公司 不能为空")
-    @Schema(description = "是否为公司",required = true)
+    @Schema(description = "是否为公司",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isComp;
 
 

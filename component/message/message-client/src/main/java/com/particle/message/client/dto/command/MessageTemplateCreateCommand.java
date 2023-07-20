@@ -28,7 +28,7 @@ public class MessageTemplateCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "模板名称 不能为空")
-    @Schema(description = "模板名称",required = true)
+    @Schema(description = "模板名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
@@ -60,7 +60,7 @@ public class MessageTemplateCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "是否为分组 不能为空")
-    @Schema(description = "是否为分组，true=分组，false=模板",required = true)
+    @Schema(description = "是否为分组，true=分组，false=模板",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isGroup;
 
 
@@ -81,7 +81,7 @@ public class MessageTemplateCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "排序 不能为空")
-    @Schema(description = "排序",required = true)
+    @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
     @Schema(description = "父级id")

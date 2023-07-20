@@ -30,7 +30,7 @@ public class RoleUpdateCommand extends AbstractBaseUpdateCommand {
     private String name;
 
     @NotNull(message = "是否禁用不能为空")
-    @Schema(description = "是否禁用",required = true)
+    @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isDisabled;
     /**
      * 禁用时，禁用原因必填

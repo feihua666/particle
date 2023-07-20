@@ -21,12 +21,12 @@ public class DeptTreeCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "部门id 不能为空")
-    @Schema(description = "部门id",required = true)
+    @Schema(description = "部门id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long deptId;
 
 
     @NotNull(message = "部门树名称id 不能为空")
-    @Schema(description = "部门树名称id",required = true)
+    @Schema(description = "部门树名称id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long deptTreeNameId;
 
 

@@ -28,7 +28,7 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     private String name;
 
     @NotEmpty(message = "昵称 不能为空")
-    @Schema(description = "昵称，模糊查询",required = true)
+    @Schema(description = "昵称，模糊查询",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nickname;
 
     /**
@@ -64,14 +64,14 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     private String lockReason;
 
     @NotNull(message = "用户分类不能为空")
-    @Schema(description = "用户分类字典，标识是哪一类用户，比如后台用户等",required = true)
+    @Schema(description = "用户分类字典，标识是哪一类用户，比如后台用户等",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long categoryDictId;
 
     @Schema(description = "分组标识")
     private String groupFlag;
 
     @NotNull(message = "用户来源不能为空")
-    @Schema(description = "用户来源，字典id",required = true)
+    @Schema(description = "用户来源，字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long sourceFromDictId;
 
     @NotNull(message = "是否过期不能为空")

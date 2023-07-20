@@ -34,28 +34,28 @@ public class TrackingPageRecordCreateCommand extends TrackingPageRecordFrontCrea
 
 
     @NotEmpty(message = "会话标识 不能为空")
-    @Schema(description = "会话标识",required = true)
+    @Schema(description = "会话标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String session;
 
 
     @NotEmpty(message = "会话标识的md5摘要值 不能为空")
-    @Schema(description = "会话标识的md5摘要值",required = true)
+    @Schema(description = "会话标识的md5摘要值",requiredMode = Schema.RequiredMode.REQUIRED)
     private String sessionMd5;
 
 
 
     @NotEmpty(message = "设备id 不能为空")
-    @Schema(description = "设备id",required = true)
+    @Schema(description = "设备id",requiredMode = Schema.RequiredMode.REQUIRED)
     private String deviceId;
 
 
     @NotEmpty(message = "设备名称 不能为空")
-    @Schema(description = "设备名称",required = true)
+    @Schema(description = "设备名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String deviceName;
 
 
     @NotEmpty(message = "操作系统及版本 不能为空")
-    @Schema(description = "操作系统及版本",required = true)
+    @Schema(description = "操作系统及版本",requiredMode = Schema.RequiredMode.REQUIRED)
     private String operatingSystem;
 
 
@@ -64,10 +64,10 @@ public class TrackingPageRecordCreateCommand extends TrackingPageRecordFrontCrea
 
 
     @NotEmpty(message = "追踪id 不能为空")
-    @Schema(description = "追踪id",required = true)
+    @Schema(description = "追踪id",requiredMode = Schema.RequiredMode.REQUIRED)
     private String traceId;
 
     @NotEmpty(message = "请求ip 不能为空")
-    @Schema(description = "请求ip",required = true)
+    @Schema(description = "请求ip",requiredMode = Schema.RequiredMode.REQUIRED)
     private String ip;
 }

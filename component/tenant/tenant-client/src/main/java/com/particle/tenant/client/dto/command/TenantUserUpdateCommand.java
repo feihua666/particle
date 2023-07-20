@@ -24,14 +24,14 @@ public class TenantUserUpdateCommand extends AbstractBaseUpdateCommand {
 	private Boolean isFormal;
 
     @NotNull(message = "用户id 不能为空")
-    @Schema(description = "用户id",required = true)
+    @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @Schema(description = "真实姓名")
     private String name;
 
     @NotNull(message = "是否过期 不能为空")
-    @Schema(description = "是否过期",required = true)
+    @Schema(description = "是否过期",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired;
 
     @Schema(description = "过期原因")
@@ -51,6 +51,6 @@ public class TenantUserUpdateCommand extends AbstractBaseUpdateCommand {
     private LocalDateTime leaveAt;
 
     @NotNull(message = "租户id 不能为空")
-    @Schema(description = "租户id",required = true)
+    @Schema(description = "租户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long tenantId;
 }

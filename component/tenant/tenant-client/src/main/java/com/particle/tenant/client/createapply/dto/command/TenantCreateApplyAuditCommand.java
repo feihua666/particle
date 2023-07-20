@@ -22,11 +22,11 @@ public class TenantCreateApplyAuditCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "审核状态 不能为空")
-    @Schema(description = "审核状态",required = true)
+    @Schema(description = "审核状态",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long auditStatusDictId;
 
     @NotNull(message = "审核意见 不能为空")
-    @Schema(description = "审核意见",required = true)
+    @Schema(description = "审核意见",requiredMode = Schema.RequiredMode.REQUIRED)
     private String auditStatusComment;
 
     /**

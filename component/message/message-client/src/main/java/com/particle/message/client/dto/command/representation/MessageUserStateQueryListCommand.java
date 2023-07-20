@@ -23,7 +23,7 @@ public class MessageUserStateQueryListCommand extends AbstractBaseQueryCommand {
 
 
     @NotNull(message = "消息Id 不能为空")
-    @Schema(description = "消息Id",required = true)
+    @Schema(description = "消息Id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long messageId;
 
 

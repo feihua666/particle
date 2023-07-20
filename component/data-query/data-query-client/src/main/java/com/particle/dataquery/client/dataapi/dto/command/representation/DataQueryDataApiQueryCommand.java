@@ -20,13 +20,13 @@ import javax.validation.constraints.NotNull;
 public class DataQueryDataApiQueryCommand extends AbstractBaseCommand {
 
     @NotNull(message = "数据接口地址 不能为空")
-    @Schema(description = "数据接口地址",required = true)
+    @Schema(description = "数据接口地址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String url;
 
     /**
      * 参数对象
      */
-    @Schema(description = "参数对象",required = true)
+    @Schema(description = "参数对象",requiredMode = Schema.RequiredMode.REQUIRED)
     private Object param;
 
     /**

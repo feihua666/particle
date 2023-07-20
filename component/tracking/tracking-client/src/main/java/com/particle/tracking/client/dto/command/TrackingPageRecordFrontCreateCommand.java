@@ -22,14 +22,14 @@ import java.time.LocalDateTime;
 public class TrackingPageRecordFrontCreateCommand extends AbstractBaseCommand {
 
     @NotNull(message = "是否用户触发 不能为空")
-    @Schema(description = "是否用户触发",required = true)
+    @Schema(description = "是否用户触发",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isUserTrigger;
 
     @Schema(description = "设备串号")
     private String imei;
 
     @NotEmpty(message = "埋点页面编码 不能为空")
-    @Schema(description = "埋点页面编码",required = true)
+    @Schema(description = "埋点页面编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String trackingPageCode;
 
 
@@ -39,12 +39,12 @@ public class TrackingPageRecordFrontCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "客户端版本 不能为空")
-    @Schema(description = "客户端版本",required = true)
+    @Schema(description = "客户端版本",requiredMode = Schema.RequiredMode.REQUIRED)
     private String appVersion;
 
 
     @NotEmpty(message = "行为类型 不能为空")
-    @Schema(description = "行为类型",required = true)
+    @Schema(description = "行为类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private String actionType;
 
 
@@ -68,7 +68,7 @@ public class TrackingPageRecordFrontCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "网络类型 不能为空")
-    @Schema(description = "网络类型，如：2G、4G、wifi",required = true)
+    @Schema(description = "网络类型，如：2G、4G、wifi",requiredMode = Schema.RequiredMode.REQUIRED)
     private String netType;
 
 
@@ -81,12 +81,12 @@ public class TrackingPageRecordFrontCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "屏幕高度 不能为空")
-    @Schema(description = "屏幕高度，获取不到请填0",required = true)
+    @Schema(description = "屏幕高度，获取不到请填0",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer screenHeight;
 
 
     @NotNull(message = "屏幕宽度 不能为空")
-    @Schema(description = "屏幕宽度，获取不到请填0",required = true)
+    @Schema(description = "屏幕宽度，获取不到请填0",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer screenWidth;
 
 

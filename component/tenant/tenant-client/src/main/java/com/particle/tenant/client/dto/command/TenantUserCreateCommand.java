@@ -47,7 +47,7 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     private String name;
 
     @NotNull(message = "是否过期 不能为空")
-    @Schema(description = "是否过期",required = true)
+    @Schema(description = "是否过期",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired;
 
     @Schema(description = "过期原因")

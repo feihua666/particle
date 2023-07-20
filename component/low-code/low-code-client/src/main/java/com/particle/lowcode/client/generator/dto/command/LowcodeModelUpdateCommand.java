@@ -23,26 +23,26 @@ public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "名称不能为空")
-    @Schema(description = "名称",required = true)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @NotEmpty(message = "英文名称不能为空")
-    @Schema(description = "英文名称",required = true)
+    @Schema(description = "英文名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nameEn;
 
     @NotEmpty(message = "实体名称")
-    @Schema(description = "实体名称",example = "首字母大写，符合java类名规范",required = true)
+    @Schema(description = "实体名称",example = "首字母大写，符合java类名规范",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nameEnEntity;
 
     @NotEmpty(message = "实体变量名称")
-    @Schema(description = "实体变量名称",example = "nameEnEntity 的首字母小写",required = true)
+    @Schema(description = "实体变量名称",example = "nameEnEntity 的首字母小写",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nameEnEntityVar;
 
     @Schema(description = "表名称")
     private String tableName;
 
     @NotNull(message = "模型表类型字典id 不能为空")
-    @Schema(description = "模型表类型字典id，rel,tree,normal",required = true)
+    @Schema(description = "模型表类型字典id，rel,tree,normal",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long tableTypeDictId;
 
     @NotEmpty(message = "请求路径不能为空")

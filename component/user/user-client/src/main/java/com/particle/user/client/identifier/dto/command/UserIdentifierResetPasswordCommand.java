@@ -19,6 +19,6 @@ import javax.validation.constraints.NotNull;
 public class UserIdentifierResetPasswordCommand extends UserIdentifierPwdCommand {
 
     @NotNull(message = "用户登录标识ID不能为空")
-    @Schema(description = "用户登录标识ID",required = true)
+    @Schema(description = "用户登录标识ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userIdentifierId;
 }

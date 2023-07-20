@@ -19,17 +19,17 @@ import javax.validation.constraints.NotNull;
 public class TenantFuncCreateCommand extends AbstractBaseCommand {
 
     @NotNull(message = "功能id 不能为空")
-    @Schema(description = "功能id",required = true)
+    @Schema(description = "功能id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long funcId;
 
     @Schema(description = "名称")
     private String name;
 
     @NotNull(message = "功能应用id 不能为空")
-    @Schema(description = "功能应用id",required = true)
+    @Schema(description = "功能应用id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long funcApplicationId;
 
     @NotNull(message = "租户id 不能为空")
-    @Schema(description = "租户id",required = true)
+    @Schema(description = "租户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long tenantId;
 }

@@ -26,17 +26,17 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "名称 不能为空")
-    @Schema(description = "名称",required = true)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "分类 不能为空")
-    @Schema(description = "分类",required = true)
+    @Schema(description = "分类",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long categoryDictId;
 
 
     @NotNull(message = "数据查询供应商id 不能为空")
-    @Schema(description = "数据查询供应商id",required = true)
+    @Schema(description = "数据查询供应商id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataQueryProviderId;
 
 
@@ -45,7 +45,7 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "数据查询数据源id 不能为空")
-    @Schema(description = "数据查询数据源id",required = true)
+    @Schema(description = "数据查询数据源id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataQueryDatasourceId;
 
     @Schema(description = "入参类型，字典id")
@@ -71,7 +71,7 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
     private String inParamExtConfigJson;
 
     @NotNull(message = "出参类型 不能为空")
-    @Schema(description = "出参类型，字典id",required = true)
+    @Schema(description = "出参类型，字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long outParamTypeDictId;
 
     @Schema(description = "出参示例")
@@ -92,7 +92,7 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
     private String outParamExtConfigJson;
 
     @NotNull(message = "输出类型 不能为空")
-    @Schema(description = "输出类型",required = true)
+    @Schema(description = "输出类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long responseTypeDictId;
 
     @Schema(description = "分页适配信息配置json")

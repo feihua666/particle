@@ -28,7 +28,7 @@ public class DictCreateCommand extends AbstractBaseCommand {
      * 添加字典组，编码必填
      */
     @PropValid.DependCondition(message = "字典编码不能为空",dependProp = "isGroup",ifEqual = "true")
-    @Schema(description = "字典编码,模糊查询，字典组时必填",required = true)
+    @Schema(description = "字典编码,模糊查询，字典组时必填",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
     @Schema(description = "字典名称,模糊查询")
@@ -45,19 +45,19 @@ public class DictCreateCommand extends AbstractBaseCommand {
     private String valueUnit;
 
     @NotNull(message = "是否为系统字典不能为空")
-    @Schema(description = "是否为系统字典，一般系统字典代码中会做判断，不能修改或删除",required = true)
+    @Schema(description = "是否为系统字典，一般系统字典代码中会做判断，不能修改或删除",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isSystem;
 
     @NotNull(message = "是否为公共字典不能为空")
-    @Schema(description = "是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询",required = true)
+    @Schema(description = "是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isPublic;
 
     @NotNull(message = "是否为字典组不能为空")
-    @Schema(description = "是否为字典组，不是字典组就是字典项目，没有其它的",required = true)
+    @Schema(description = "是否为字典组，不是字典组就是字典项目，没有其它的",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isGroup;
 
     @NotNull(message = "是否禁用不能为空")
-    @Schema(description = "是否禁用",required = true)
+    @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isDisabled;
 
     /**
@@ -88,7 +88,7 @@ public class DictCreateCommand extends AbstractBaseCommand {
     private String remark;
 
     @NotNull(message = "排序不能为空")
-    @Schema(description = "排序,默认按该字段升序排序",required = true)
+    @Schema(description = "排序,默认按该字段升序排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
     /**

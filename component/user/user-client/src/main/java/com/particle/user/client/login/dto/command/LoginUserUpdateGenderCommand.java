@@ -21,6 +21,6 @@ import javax.validation.constraints.NotNull;
 public class LoginUserUpdateGenderCommand extends AbstractBaseCommand {
 
     @NotNull(message = "性别 不能为空")
-    @Schema(description = "性别，字典id",required = true)
+    @Schema(description = "性别，字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long genderDictId;
 }

@@ -25,11 +25,11 @@ public class UserIdentifierPwdCommand extends AbstractBaseCommand {
 
 
 	@NotEmpty(message = "密码不能为空")
-	@Schema(description = "密码",required = true)
+	@Schema(description = "密码",requiredMode = Schema.RequiredMode.REQUIRED)
 	private String password;
 
 	@NotNull(message = "密码是否过期不能为空")
-	@Schema(description = "密码是否过期，过期后该密码不能登录",required = true)
+	@Schema(description = "密码是否过期，过期后该密码不能登录",requiredMode = Schema.RequiredMode.REQUIRED)
 	private Boolean isPwdExpired = false;
 
 	@PropValid.DependCondition(message = "密码过期原因不能为空",dependProp = "isExpired",ifEqual = "true")
@@ -40,7 +40,7 @@ public class UserIdentifierPwdCommand extends AbstractBaseCommand {
 	private LocalDateTime pwdExpireAt;
 
 	@NotNull(message = "密码是否需要提示修改密码不能为空")
-	@Schema(description = "密码是否需要提示修改密码",required = true)
+	@Schema(description = "密码是否需要提示修改密码",requiredMode = Schema.RequiredMode.REQUIRED)
 	private Boolean isPwdNeedUpdate = false;
 
 	@PropValid.DependCondition(message = "密码提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")

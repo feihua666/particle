@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public class UserIdentifierSimpleCreateCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "登录标识不能为空")
-    @Schema(description = "登录标识",required = true)
+    @Schema(description = "登录标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String identifier;
 
     @PropValid.Depend(message = "授权类型,字典id 不能为空",dependProp = "identityTypeDictValue",dependPropHasValue = false)
@@ -36,7 +36,7 @@ public class UserIdentifierSimpleCreateCommand extends AbstractBaseCommand {
     private String identityTypeDictValue;
 
     @NotNull(message = "是否锁定不能为空")
-    @Schema(description = "锁定状态，0=未锁定；1=锁定",required = true)
+    @Schema(description = "锁定状态，0=未锁定；1=锁定",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isLock = false;
 
     @PropValid.DependCondition(message = "锁定原因不能为空" ,dependProp = "isLock",ifEqual = "true")
@@ -47,7 +47,7 @@ public class UserIdentifierSimpleCreateCommand extends AbstractBaseCommand {
     private String unionId;
 
     @NotNull(message = "是否过期不能为空")
-    @Schema(description = "是否过期",required = true)
+    @Schema(description = "是否过期",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExpired = false;
 
     @PropValid.DependCondition(message = "过期原因不能为空" ,dependProp = "isExpired",ifEqual = "true")

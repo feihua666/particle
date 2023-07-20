@@ -21,11 +21,11 @@ public class RoleUserRelCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "用户id不能为空")
-    @Schema(description = "用户id",required = true)
+    @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 
     @NotNull(message = "角色id不能为空")
-    @Schema(description = "角色id",required = true)
+    @Schema(description = "角色id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long roleId;
 
 

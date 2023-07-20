@@ -21,7 +21,7 @@ public class IdCommand extends AbstractBaseCommand {
 
 	@Min(value = 1,message = "id 不能小于1")
     @NotNull(message = "id不能为空")
-	@Schema(description = "id",required = true)
+	@Schema(description = "id",requiredMode = Schema.RequiredMode.REQUIRED)
 	private Long id;
 
 }

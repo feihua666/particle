@@ -24,6 +24,6 @@ import javax.validation.constraints.NotNull;
 public class FuncMoveCommand extends AbstractBaseUpdateCommand {
 
     @NotNull(message = "父级id不能为空")
-    @Schema(description = "父级id",required = true)
+    @Schema(description = "父级id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long parentId;
 }

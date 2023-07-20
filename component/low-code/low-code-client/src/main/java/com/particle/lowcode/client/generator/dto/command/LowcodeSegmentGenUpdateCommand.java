@@ -25,11 +25,11 @@ import javax.validation.constraints.NotNull;
 public class LowcodeSegmentGenUpdateCommand extends AbstractBaseUpdateCommand {
 
     @NotEmpty(message = "生成名称不能为空")
-    @Schema(description = "生成名称，一般用于显示标识",required = true)
+    @Schema(description = "生成名称，一般用于显示标识",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @NotNull(message = "低代码片段模板id 不能为空")
-    @Schema(description = "低代码片段模板id",required = true)
+    @Schema(description = "低代码片段模板id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long lowcodeSegmentTemplateId;
 
     @SetNullWhenNull
@@ -37,7 +37,7 @@ public class LowcodeSegmentGenUpdateCommand extends AbstractBaseUpdateCommand {
     private Long lowcodeModelId;
 
     @NotNull(message = "生成类型字典id 不能为空")
-    @Schema(description = "生成类型字典id",required = true)
+    @Schema(description = "生成类型字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long generateTypeDictId;
 
     @Schema(description = "引用生成id，主要用来获取引用的相关变量")

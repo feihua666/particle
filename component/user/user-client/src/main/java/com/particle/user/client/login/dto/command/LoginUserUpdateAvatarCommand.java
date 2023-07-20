@@ -20,6 +20,6 @@ import javax.validation.constraints.NotNull;
 public class LoginUserUpdateAvatarCommand extends AbstractBaseCommand {
 
     @NotNull(message = "头像 不能为空")
-    @Schema(description = "头像，建议图片相对路径",required = true)
+    @Schema(description = "头像，建议图片相对路径",requiredMode = Schema.RequiredMode.REQUIRED)
     private String avatar;
 }

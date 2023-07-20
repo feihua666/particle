@@ -20,6 +20,6 @@ import javax.validation.constraints.NotEmpty;
 public class LoginUserUpdateNameCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "姓名 不能为空")
-    @Schema(description = "姓名，真实姓名",required = true)
+    @Schema(description = "姓名，真实姓名",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 }
