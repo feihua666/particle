@@ -43,7 +43,6 @@ public class UserAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("user接口")
 				.basePackage("com.particle.user.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

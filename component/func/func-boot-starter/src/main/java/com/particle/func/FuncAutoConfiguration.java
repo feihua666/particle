@@ -47,7 +47,6 @@ public class FuncAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("func接口")
 				.basePackage("com.particle.func.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

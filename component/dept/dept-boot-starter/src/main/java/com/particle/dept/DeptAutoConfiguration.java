@@ -47,7 +47,6 @@ public class DeptAutoConfiguration {
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("dept接口")
                 .basePackage("com.particle.dept.adapter")
-
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

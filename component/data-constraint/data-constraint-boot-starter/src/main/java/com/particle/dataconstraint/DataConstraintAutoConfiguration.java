@@ -43,7 +43,6 @@ public class DataConstraintAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("data-constraint接口")
 				.basePackage("com.particle.dataconstraint.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

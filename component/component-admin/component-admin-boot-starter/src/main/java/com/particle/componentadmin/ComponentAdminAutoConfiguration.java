@@ -43,7 +43,6 @@ public class ComponentAdminAutoConfiguration {
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("component-admin接口")
                 .basePackage("com.particle.componentadmin.adapter")
-
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

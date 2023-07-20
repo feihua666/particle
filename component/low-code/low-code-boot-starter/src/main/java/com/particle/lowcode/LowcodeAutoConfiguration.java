@@ -43,7 +43,6 @@ public class LowcodeAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("low-code接口")
 				.basePackage("com.particle.lowcode.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

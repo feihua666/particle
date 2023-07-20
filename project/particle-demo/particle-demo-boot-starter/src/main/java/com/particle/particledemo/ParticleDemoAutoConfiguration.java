@@ -39,7 +39,6 @@ public class ParticleDemoAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("particle-demo接口")
 				.basePackage("com.particle.particledemo.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

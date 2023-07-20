@@ -49,7 +49,6 @@ public class TenantAutoConfiguration {
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("tenant接口")
                 .basePackage("com.particle.tenant.adapter")
-
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

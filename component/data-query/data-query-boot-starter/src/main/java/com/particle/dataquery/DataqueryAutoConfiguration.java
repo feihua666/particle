@@ -47,7 +47,6 @@ public class DataqueryAutoConfiguration {
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("data-query接口")
                 .basePackage("com.particle.dataquery.adapter")
-
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

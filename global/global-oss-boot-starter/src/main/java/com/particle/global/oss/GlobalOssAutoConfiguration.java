@@ -55,7 +55,6 @@ public class GlobalOssAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("oss接口")
 				.basePackage("com.particle.global.oss.endpoint")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

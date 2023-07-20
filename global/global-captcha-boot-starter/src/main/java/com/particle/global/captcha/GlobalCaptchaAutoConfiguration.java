@@ -52,7 +52,6 @@ public class GlobalCaptchaAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("captcha接口")
 				.basePackage("com.particle.global.captcha.endpoint")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

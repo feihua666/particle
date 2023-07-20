@@ -42,7 +42,6 @@ public class ComponentTemplateAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("componenttemplate接口")
 				.basePackage("com.particle.componenttemplate.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

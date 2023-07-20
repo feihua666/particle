@@ -59,7 +59,6 @@ public class TestApplication {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("test接口")
 				.basePackage("com.particle.test.adapter")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

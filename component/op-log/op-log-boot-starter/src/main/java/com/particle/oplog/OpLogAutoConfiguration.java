@@ -43,7 +43,6 @@ public class OpLogAutoConfiguration {
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("op-log接口")
                 .basePackage("com.particle.oplog.adapter")
-
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

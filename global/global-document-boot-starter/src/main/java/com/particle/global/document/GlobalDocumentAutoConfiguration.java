@@ -44,7 +44,6 @@ public class GlobalDocumentAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("document接口")
 				.basePackage("com.particle.global.document.endpoint")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

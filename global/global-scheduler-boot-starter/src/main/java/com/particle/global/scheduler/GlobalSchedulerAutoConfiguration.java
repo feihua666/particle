@@ -46,7 +46,6 @@ public class GlobalSchedulerAutoConfiguration {
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("scheduler接口")
 				.basePackage("com.particle.global.scheduler.endpoint")
-
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")
