@@ -2,7 +2,6 @@ package com.particle.global.scheduler;
 
 import com.particle.global.concurrency.lock.LockExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 
 /**
  * <p>
