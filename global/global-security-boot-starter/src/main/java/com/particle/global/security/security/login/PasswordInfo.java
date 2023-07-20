@@ -1,7 +1,7 @@
 package com.particle.global.security.security.login;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,31 +18,31 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-@ApiModel("密码信息")
+@Schema(description = "密码信息")
 public class PasswordInfo implements Serializable {
 
-	@ApiModelProperty("pwd id")
+	@Schema(description = "pwd id")
 	private Long id;
 
-	@ApiModelProperty("登录标识id")
+	@Schema(description = "登录标识id")
 	private Long identifierId;
-	@ApiModelProperty("是否过期")
+	@Schema(description = "是否过期")
 	private Boolean isExpired;
-	@ApiModelProperty("过期原因")
+	@Schema(description = "过期原因")
 	private String expiredReason;
-	@ApiModelProperty("过期时间")
+	@Schema(description = "过期时间")
 	private LocalDateTime expireAt;
 
-	@ApiModelProperty("是否需要修改密码")
+	@Schema(description = "是否需要修改密码")
 	private Boolean isNeedUpdate;
 
-	@ApiModelProperty("提示修改密码消息内容")
+	@Schema(description = "提示修改密码消息内容")
 	private String needUpdateMessage;
 
-	@ApiModelProperty("提示修改密码消息内容")
+	@Schema(description = "提示修改密码消息内容")
 	private LocalDateTime pwdModifiedAt;
 
-	@ApiModelProperty("复杂度，数字越高越复杂，取值 1-100")
+	@Schema(description = "复杂度，数字越高越复杂，取值 1-100")
 	private Integer complexity;
 
 	public static PasswordInfo create(Long id,

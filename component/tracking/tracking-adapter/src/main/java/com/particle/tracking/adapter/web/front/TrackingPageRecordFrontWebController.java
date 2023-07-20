@@ -20,12 +20,12 @@ import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
 import com.particle.tracking.client.dto.command.TrackingPageRecordFrontCreateCommand;
 import com.particle.tracking.client.dto.command.TrackingPageRecordUpdateCommand;
 import com.particle.tracking.client.dto.data.TrackingPageRecordVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Parameter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,7 +42,7 @@ import java.util.Optional;
  * @author yw
  * @since 2023-05-10 11:44:01
  */
-@Api(tags = "页面埋点记录pc或平板端前台应用相关接口")
+@Tag(name = "页面埋点记录pc或平板端前台应用相关接口")
 @RestController
 @RequestMapping("/front/web/tracking_page_record")
 public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter {
@@ -52,12 +52,12 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 	@Autowired
 	private Tracer tracer;
 
-	@ApiOperation("添加页面埋点记录")
+	@Operation(summary = "添加页面埋点记录")
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/create")
 	public SingleResponse<AbstractBaseIdVO> create(@RequestBody TrackingPageRecordFrontCreateCommand trackingPageRecordFrontCreateCommand ,
-												   @ApiIgnore LoginUser loginUser,
-												   @ApiIgnore HttpServletRequest httpServletRequest){
+												   @Parameter(hidden = true) LoginUser loginUser,
+												   @Parameter(hidden = true) HttpServletRequest httpServletRequest){
 		TrackingPageRecordCreateCommand trackingPageRecordCreateCommand = TrackingPageRecordAppStructMapping.instance
 				.trackingPageRecordFrontCreateCommandToTrackingPageRecordCreateCommand(trackingPageRecordFrontCreateCommand);
 		if (trackingPageRecordCreateCommand.getActionAt() == null) {
@@ -105,7 +105,7 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 	}
 
 
-	@ApiOperation("更新页面埋点记录")
+	@Operation(summary = "更新页面埋点记录")
 	@PreAuthorize("hasAuthority('user')")
 	@PutMapping("/update")
 	public SingleResponse<TrackingPageRecordVO> update(@RequestBody TrackingPageRecordUpdateCommand trackingPageRecordUpdateCommand){

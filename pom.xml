@@ -37,17 +37,23 @@
         <guava.version>30.1.1-jre</guava.version>
         <!-- 实体转换 -->
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-        <!-- swagger 接口文档 -->
+        <!--已过时，使用 springdoc.version， swagger 接口文档 截止到现在（2023-07-19 21:54:17） 该版本已经停更了 已经被 springdoc openapi替代 参见：https://github.com/springdoc/springdoc-openapi-->
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
-        <!-- swagger ui-接口文档 -->
-        <knife4j-spring-boot-starter>3.0.3</knife4j-spring-boot-starter>
+        <!-- 已过时，使用新的 knife4j-openapi3-spring-boot-starter， swagger ui-接口文档 文档参考：https://doc.xiaominfo.com/ -->
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <!-- springdoc(springdoc 即是openapi3的实现，springfox其实是openapi2的实现) 版本 github：https://github.com/springdoc/springdoc-openapi 文章参考：https://www.rstk.cn/news/147270.html、https://zhuanlan.zhihu.com/p/559882901 直接引入springdoc-openapi-ui会依赖全部引入-->
+        <springdoc.version>1.7.0</springdoc.version>
+        <!-- 定义一个注解版本方便仅引入注解 -->
+        <swagger-annotations-v3.version>2.2.9</swagger-annotations-v3.version>
+        <!-- 截止到现在（2023-07-19 21:54:17） swagger（其实也经不是swagger了，但ui还是用的swagger的ui，因为swagger ui v3支持openapi3规范）已经出了springdoc openapi ，只需要引入 knife4j 已经依赖引入了springdoc-->
+        <knife4j-openapi3-spring-boot-starter.version>4.1.0</knife4j-openapi3-spring-boot-starter.version>
         <!-- mybatis-plus-boot-starter -->
         <!-- 注意在升级时，因为自定义了部分逻辑，需要同步修改是否兼容 参见：global-mybatis-plus-boot-starter -->
         <!-- 注意在升级时详情查看 com.baomidou.mybatisplus.core.conditions.segments.README.md -->
         <mybatis-plus-boot-starter.version>3.5.3</mybatis-plus-boot-starter.version>
 
         <!-- 动态多数据源，见 global-datasource-boot-starter 引入提供统一依赖 -->
-        <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
+        <dynamic-datasource.version>4.1.1</dynamic-datasource.version>
         <!-- 汉字转拼音 -->
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <!-- 主要用于图片参数，当前主要是苹果手机图片旋转问题 -->

@@ -3,8 +3,8 @@ package com.particle.dept.client.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -16,34 +16,34 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-04-12 14:19:42
  */
 @Data
-@ApiModel
+@Schema
 public class DeptPageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
 
     @Like
-    @ApiModelProperty(value = "部门编码,左前缀匹配")
+    @Schema(description = "部门编码,左前缀匹配")
     private String code;
 
 
     @Like
-    @ApiModelProperty(value = "部门名称,左前缀匹配")
+    @Schema(description = "部门名称,左前缀匹配")
     private String name;
 
 
-    @ApiModelProperty(value = "类型")
+    @Schema(description = "类型")
     private Long typeDictId;
 
 
-    @ApiModelProperty(value = "负责人用户id")
+    @Schema(description = "负责人用户id")
     private Long masterUserId;
 
 
-    @ApiModelProperty(value = "是否虚拟部门")
+    @Schema(description = "是否虚拟部门")
     private Boolean isVirtual;
 
 
-    @ApiModelProperty(value = "是否为公司")
+    @Schema(description = "是否为公司")
     private Boolean isComp;
 
 

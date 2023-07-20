@@ -1,8 +1,8 @@
 package com.particle.user.client.login.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 
@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
  * @since 2022-11-26
  */
 @Data
-@ApiModel
+@Schema
 public class UserLoginRecordQueryDetailCommand extends AbstractBaseCommand {
 
     @NotNull
-	@ApiModelProperty(value = "id")
+	@Schema(description = "id")
 	private Long id;
 
 }

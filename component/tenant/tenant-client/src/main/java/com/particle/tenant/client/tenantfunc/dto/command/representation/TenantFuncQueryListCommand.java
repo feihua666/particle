@@ -2,8 +2,8 @@ package com.particle.tenant.client.tenantfunc.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
  * <p>
@@ -14,20 +14,20 @@ import lombok.Data;
  * @since 2023-04-17 18:11:17
  */
 @Data
-@ApiModel
+@Schema
 public class TenantFuncQueryListCommand extends AbstractBaseQueryCommand {
 
 
 
-    @ApiModelProperty(value = "功能id")
+    @Schema(description = "功能id")
     private Long funcId;
 
 
     @Like
-    @ApiModelProperty(value = "名称,左前缀匹配")
+    @Schema(description = "名称,左前缀匹配")
     private String name;
 
-    @ApiModelProperty(value = "功能应用id")
+    @Schema(description = "功能应用id")
     private Long funcApplicationId;
 
 

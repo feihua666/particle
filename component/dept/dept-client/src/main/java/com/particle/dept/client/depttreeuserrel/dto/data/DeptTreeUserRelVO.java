@@ -2,8 +2,8 @@ package com.particle.dept.client.depttreeuserrel.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.trans.anno.TransBy;
 /**
@@ -15,13 +15,13 @@ import com.particle.global.light.share.trans.anno.TransBy;
  * @since 2023-05-17 10:26:06
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreeUserRelVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
     
-    @ApiModelProperty("部门树id")
+    @Schema(description = "部门树id")
     private Long deptTreeId;
     
 

@@ -15,13 +15,13 @@ import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user-identifier-pwd/login")
-@Api(tags = "用户账号登录标识密码，登录用户相关")
+@Tag(name = "用户账号登录标识密码，登录用户相关")
 public class IdentifierPwdLoginController {
 
 	@Autowired
@@ -51,11 +51,11 @@ public class IdentifierPwdLoginController {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation("获取当前登录用户的登录标识密码")
+	@Operation(summary = "获取当前登录用户的登录标识密码")
 	@PreAuthorize("hasAuthority('user')")
 	@GetMapping("/identifier-pwd")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<UserIdentifierPwdVO> identifierPwd(@ApiIgnore LoginUser loginUser) {
+	public MultiResponse<UserIdentifierPwdVO> identifierPwd(@Parameter(hidden = true) LoginUser loginUser) {
 		List<UserIdentifierPwdDO> byUserId = iUserIdentifierPwdService.getByUserId(loginUser.getId());
 		List<UserIdentifierPwdVO> userIdentifierPwdVOS = UserIdentifierPwdAppStructMapping.instance.userIdentifierPwdDOsToUserIdentifierPwdVOs(byUserId);
 		return MultiResponse.of(userIdentifierPwdVOS);
@@ -67,11 +67,11 @@ public class IdentifierPwdLoginController {
 	 * @param loginUser
 	 * @return
 	 */
-	@ApiOperation("修改当前登录用户的登录标识密码")
+	@Operation(summary = "修改当前登录用户的登录标识密码")
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/identifier-pwd-update")
 	@ResponseStatus(HttpStatus.OK)
-	public Response identifierPwdUpdate(@Valid @RequestBody UserIdentifierUpdatePasswordCommand userIdentifierUpdatePasswordCommand, @ApiIgnore LoginUser loginUser) {
+	public Response identifierPwdUpdate(@Valid @RequestBody UserIdentifierUpdatePasswordCommand userIdentifierUpdatePasswordCommand, @Parameter(hidden = true) LoginUser loginUser) {
 		UserIdentifierPwdDO byUserId = iUserIdentifierPwdService.getByIdentifierId(userIdentifierUpdatePasswordCommand.getUserIdentifierId());
 		// 不匹配说明是手动传参
 		Assert.isTrue(loginUser.getId().equals(byUserId.getUserId()),ErrorCodeGlobalEnum.ILLEGAL_REQUEST_ERROR);
@@ -89,9 +89,9 @@ public class IdentifierPwdLoginController {
 	 * @return
 	 */
 	@PreAuthorize("hasAuthority('user')")
-	@ApiOperation("修改当前登录用户密码")
+	@Operation(summary = "修改当前登录用户密码")
 	@PostMapping("/user/updatePassword")
-	public Response userUpdatePassword(@Valid @RequestBody UserUpdatePwdCommand userUpdatePwdCommand,@ApiIgnore LoginUser loginUser){
+	public Response userUpdatePassword(@Valid @RequestBody UserUpdatePwdCommand userUpdatePwdCommand,@Parameter(hidden = true) LoginUser loginUser){
 		List<UserIdentifierPwdDO> byUserId = iUserIdentifierPwdService.getByUserId(loginUser.getId());
 		boolean isPasswordValid = false;
 		// 有一个匹配说明密码正确
@@ -117,7 +117,7 @@ public class IdentifierPwdLoginController {
 	 * @param userFindBackPwdCommand
 	 * @return
 	 */
-	@ApiOperation("用户找回密码")
+	@Operation(summary = "用户找回密码")
 	@PostMapping("/user/findBackPassword")
 	public Response findBackPassword(@Valid @RequestBody UserFindBackPwdCommand userFindBackPwdCommand){
 		UserIdentifierDO byIdentifier = iUserIdentifierService.getByIdentifier(userFindBackPwdCommand.getIdentifier());

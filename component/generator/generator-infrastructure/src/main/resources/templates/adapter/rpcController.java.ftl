@@ -7,8 +7,8 @@ import ${im};
 </#list>
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ${author}
  * @since ${date}
  */
-@Api(tags = "${injection.tableComment}远程调用相关接口")
+@Tag(name = "${injection.tableComment}远程调用相关接口")
 @RestController
 @RequestMapping("${injection.urlPrefix}/${injection.entityUrlPath}")
 public class ${injection.className} extends AbstractBaseRpcAdapter implements ${injection.rpcFeignClient.className} {

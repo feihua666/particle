@@ -4,6 +4,7 @@ import com.particle.global.messaging.event.GlobalMessageEventConfiguration;
 import com.particle.global.messaging.event.messaging.CloudStreamConfiguration;
 import com.particle.global.messaging.event.recording.jdbc.JdbcTemplateMessageEventConfiguration;
 import com.particle.global.messaging.event.recording.mongo.MongoMessageEventConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -20,5 +21,6 @@ import org.springframework.context.annotation.Import;
 		MongoMessageEventConfiguration.class,
 		CloudStreamConfiguration.class,
 		JdbcTemplateMessageEventConfiguration.class})
+@ConditionalOnProperty(prefix = "particle.message", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalMessageAutoConfiguration {
 }

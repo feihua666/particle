@@ -2,7 +2,7 @@ package com.particle.oplog.adapter.mobile.front;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
 import com.particle.oplog.client.api.IOpLogAuditDataApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-08 18:33:30
  */
-@Api(tags = "操作日志审计数据移动端前台应用相关接口")
+@Tag(name = "操作日志审计数据移动端前台应用相关接口")
 @RestController
 @RequestMapping("/front/mobile/op_log_audit_data")
 public class OpLogAuditDataFrontMobileController extends AbstractBaseMobileAdapter {

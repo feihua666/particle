@@ -1,8 +1,8 @@
 package com.particle.tenant.client.createapply.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -18,11 +18,11 @@ import java.util.List;
  * @since 2023-05-11 16:33
  */
 @Data
-@ApiModel
+@Schema
 public class TenantCreateApplyExtJsonCommand extends AbstractBaseCommand {
 
 	@Valid
 	@NotEmpty(message = "功能功能 不能为空")
-	@ApiModelProperty(value = "功能功能",required = true)
+	@Schema(description = "功能功能",required = true)
 	List<TenantCreateApplyExtJsonFuncApplicationCommand> funcApplications;
 }

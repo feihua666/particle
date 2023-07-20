@@ -2,8 +2,8 @@ package com.particle.user.adapter.login.web.front;
 
 import com.particle.user.client.login.api.IUserLoginRecordApplicationService;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-11-26
  */
-@Api(tags = "用户登录记录pc或平板端前台应用相关接口")
+@Tag(name = "用户登录记录pc或平板端前台应用相关接口")
 @RestController
 @RequestMapping("/front/web/user-login-record")
 public class UserLoginRecordFrontWebController extends AbstractBaseWebAdapter {

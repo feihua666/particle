@@ -12,8 +12,8 @@ import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserR
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-04-12 17:28:09
  */
-@Api(tags = "部门用户关系pc或平板端后台管理相关接口")
+@Tag(name = "部门用户关系pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/dept_user_rel")
 public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
@@ -43,7 +43,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	private IDeptUserRelRepresentationApplicationService iDeptUserRelRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:create')")
-	@ApiOperation("添加部门用户关系")
+	@Operation(summary = "添加部门用户关系")
 	@PostMapping("/create")
 	@OpLog(name = "添加部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptUserRelVO> create(@RequestBody DeptUserRelCreateCommand deptUserRelCreateCommand){
@@ -51,7 +51,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:delete')")
-	@ApiOperation("删除部门用户关系")
+	@Operation(summary = "删除部门用户关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptUserRelVO> delete(@RequestBody IdCommand deleteCommand){
@@ -59,7 +59,7 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:update')")
-	@ApiOperation("更新部门用户关系")
+	@Operation(summary = "更新部门用户关系")
 	@PutMapping("/update")
 	@OpLog(name = "更新部门用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptUserRelVO> update(@RequestBody DeptUserRelUpdateCommand deptUserRelUpdateCommand){
@@ -67,28 +67,28 @@ public class DeptUserRelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:update')")
-	@ApiOperation("部门用户关系更新详情")
+	@Operation(summary = "部门用户关系更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<DeptUserRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iDeptUserRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:detail')")
-	@ApiOperation("部门用户关系详情展示")
+	@Operation(summary = "部门用户关系详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<DeptUserRelVO> queryDetail(IdCommand detailCommand){
 		return iDeptUserRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:queryList')")
-	@ApiOperation("列表查询部门用户关系")
+	@Operation(summary = "列表查询部门用户关系")
 	@GetMapping("/list")
 	public MultiResponse<DeptUserRelVO> queryList(DeptUserRelQueryListCommand deptUserRelQueryListCommand){
 		return iDeptUserRelRepresentationApplicationService.queryList(deptUserRelQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptUserRel:pageQuery')")
-	@ApiOperation("分页查询部门用户关系")
+	@Operation(summary = "分页查询部门用户关系")
 	@GetMapping("/page")
 	public PageResponse<DeptUserRelVO> pageQueryList(DeptUserRelPageQueryCommand deptUserRelPageQueryCommand){
 		return iDeptUserRelRepresentationApplicationService.pageQuery(deptUserRelPageQueryCommand);

@@ -6,7 +6,7 @@ import com.particle.dept.client.api.IDeptTreeApplicationService;
 import com.particle.dept.adapter.feign.client.rpc.DeptTreeRpcFeignClient;
 import com.particle.dept.client.dto.data.DeptTreeTransVO;
 import com.particle.global.trans.result.TransResult;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +23,7 @@ import java.util.Set;
  * @author yw
  * @since 2023-04-12 11:41:43
  */
-@Api(tags = "部门树远程调用相关接口")
+@Tag(name = "部门树远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dept_tree")
 public class DeptTreeRpcController extends AbstractBaseRpcAdapter implements DeptTreeRpcFeignClient, DeptTreeTransRpcFeignClient {

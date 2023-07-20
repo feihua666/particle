@@ -4,6 +4,7 @@ import com.particle.global.web.mvc.LoginUserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -33,6 +34,8 @@ public class GlobalWebMvcConfigurer implements WebMvcConfigurer {
 	private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
 	@Autowired(required = false)
 	private StringHttpMessageConverter stringHttpMessageConverter;
+	@Autowired(required = false)
+	private ByteArrayHttpMessageConverter byteArrayHttpMessageConverter;
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -48,7 +51,37 @@ public class GlobalWebMvcConfigurer implements WebMvcConfigurer {
 			converters.removeIf(converter -> converter instanceof StringHttpMessageConverter);
 			converters.add(0, stringHttpMessageConverter);
 		}
+		// 添加了swagger openapi3，原因是其资源大部分返回的字节数组 参见：https://github.com/springdoc/springdoc-openapi/issues/2246
+		// 注意顺序很重要
+		if (Objects.nonNull(byteArrayHttpMessageConverter)) {
+			addByteArrayHttpMessageConverter(converters, byteArrayHttpMessageConverter);
+		}else {
+			ByteArrayHttpMessageConverter byteArrayHttpMessageConverterInited = null;
+			for (HttpMessageConverter<?> converter : converters) {
+				if (converter instanceof ByteArrayHttpMessageConverter) {
+					byteArrayHttpMessageConverterInited = ((ByteArrayHttpMessageConverter) converter);
+					break;
+				}
+			}
+			if (Objects.nonNull(byteArrayHttpMessageConverterInited)) {
+				addByteArrayHttpMessageConverter(converters, byteArrayHttpMessageConverterInited);
+			}else {
+				addByteArrayHttpMessageConverter(converters, new ByteArrayHttpMessageConverter());
 
+			}
+		}
+	}
+
+	/**
+	 * 主要是为了使用springdoc添加
+	 * @param converters
+	 * @param byteArrayHttpMessageConverter
+	 */
+	private void addByteArrayHttpMessageConverter(List<HttpMessageConverter<?>> converters,ByteArrayHttpMessageConverter byteArrayHttpMessageConverter) {
+		if (Objects.nonNull(byteArrayHttpMessageConverter)) {
+			converters.removeIf(converter -> converter instanceof ByteArrayHttpMessageConverter);
+			converters.add(0, byteArrayHttpMessageConverter);
+		}
 	}
 	/**
 	 * 注入当前登录用户

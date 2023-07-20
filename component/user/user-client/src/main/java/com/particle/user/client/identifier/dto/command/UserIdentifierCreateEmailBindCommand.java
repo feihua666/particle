@@ -2,8 +2,8 @@ package com.particle.user.client.identifier.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -21,12 +21,12 @@ import java.time.LocalDateTime;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierCreateEmailBindCommand extends AbstractBaseCommand {
 
     @Email(message = "邮箱格式不正确")
     @NotEmpty(message = "邮箱不能为空")
-    @ApiModelProperty(value = "邮箱",required = true)
+    @Schema(description = "邮箱",required = true)
     private String email;
 
 }

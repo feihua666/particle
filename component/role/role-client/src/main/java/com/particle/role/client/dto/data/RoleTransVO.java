@@ -1,8 +1,8 @@
 package com.particle.role.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,12 +16,12 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@ApiModel
+@Schema
 public class RoleTransVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("角色编码")
+    @Schema(description = "角色编码")
     private String code;
 
-    @ApiModelProperty("角色名称")
+    @Schema(description = "角色名称")
     private String name;
 }

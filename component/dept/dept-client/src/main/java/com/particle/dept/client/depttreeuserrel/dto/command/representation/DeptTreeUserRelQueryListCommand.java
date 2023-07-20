@@ -2,8 +2,8 @@ package com.particle.dept.client.depttreeuserrel.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
  * <p>
@@ -14,16 +14,16 @@ import lombok.Data;
  * @since 2023-05-17 10:26:06
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreeUserRelQueryListCommand extends AbstractBaseQueryCommand {
 
 
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
 
-    @ApiModelProperty(value = "部门树id")
+    @Schema(description = "部门树id")
     private Long deptTreeId;
 
 

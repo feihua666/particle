@@ -5,8 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.Response;
 import com.particle.tools.client.dto.command.AddFieldCommand;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +24,12 @@ import java.util.function.Predicate;
  * Created by yangwei
  * Created at 2023-05-11 12:38:09
  */
-@Api(tags = "Cron相关接口")
+@Tag(name = "Cron相关接口")
 @RestController
 @RequestMapping("front/web/particle")
 public class ParticleController extends AbstractBaseWebAdapter {
 
-    @ApiOperation("添加字段")
+    @Operation(summary = "添加字段")
     @PostMapping("/addField")
     @ResponseStatus(HttpStatus.OK)
     public Response addField(@Validated AddFieldCommand addFieldCommand) {
@@ -81,10 +81,10 @@ public class ParticleController extends AbstractBaseWebAdapter {
      */
     private void handleBackendFile(File file,AddFieldCommand addFieldCommand) {
         List<String> list = FileUtil.readUtf8Lines(file);
-        boolean hasApiModelProperty = list.stream().anyMatch(line -> StrUtil.contains(line, "ApiModelProperty"));
+        boolean hasSchema = list.stream().anyMatch(line -> StrUtil.contains(line, "Schema"));
         boolean hasAfterFieldName = list.stream().anyMatch(line -> StrUtil.startWith(line.trim(),"private") && StrUtil.contains(line,addFieldCommand.getAfterFieldName()));
         List<String> listResult = new ArrayList<>(list.size());
-        List<String> properties = addFieldCommand.properties(hasApiModelProperty);
+        List<String> properties = addFieldCommand.properties(hasSchema);
         boolean hasAdd = false;
         for (String line : list) {
             listResult.add(line);

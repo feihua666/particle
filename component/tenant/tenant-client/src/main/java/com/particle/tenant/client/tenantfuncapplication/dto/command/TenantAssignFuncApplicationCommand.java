@@ -2,8 +2,8 @@ package com.particle.tenant.client.tenantfuncapplication.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,22 +23,22 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Accessors(chain = true)
-@ApiModel(value="租户分配功能应用表单对象")
+@Schema(description = "租户分配功能应用表单对象")
 public class TenantAssignFuncApplicationCommand extends AbstractBaseCommand {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "租户id不能为空")
-    @ApiModelProperty(value = "租户id")
+    @Schema(description = "租户id")
     private Long tenantId;
 
-    @ApiModelProperty(value = "选择的功能应用id")
+    @Schema(description = "选择的功能应用id")
     private List<Long> checkedFuncApplicationIds;
 
     @PropValid.DependCondition(message = "未选择的功能应用id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @ApiModelProperty(value = "未选择的功能应用id",example = "如果为懒加载请传该值")
+    @Schema(description = "未选择的功能应用id",example = "如果为懒加载请传该值")
     private List<Long> uncheckedFuncApplicationIds;
 
-    @ApiModelProperty(value = "页面可选择的数据是否为懒加载")
+    @Schema(description = "页面可选择的数据是否为懒加载")
     private Boolean isLazyLoad = false;
 }

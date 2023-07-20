@@ -3,8 +3,8 @@ package com.particle.lowcode.client.generator.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,19 +16,19 @@ import lombok.Data;
  * @since 2023-01-03
  */
 @Data
-@ApiModel
+@Schema
 public class LowcodeDatasourceQueryListCommand extends AbstractBaseQueryCommand {
 
     @Like
-    @ApiModelProperty("编码")
+    @Schema(description = "编码")
     private String code;
 
     @Like
-    @ApiModelProperty("名称")
+    @Schema(description = "名称")
     private String name;
 
     @Like
-    @ApiModelProperty("用户名")
+    @Schema(description = "用户名")
     private String username;
 
 }

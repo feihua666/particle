@@ -1,8 +1,8 @@
 package com.particle.tenant.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,79 +18,79 @@ import java.time.LocalDateTime;
  * @since 2023-04-11 22:25:27
  */
 @Data
-@ApiModel
+@Schema
 public class TenantUpdateCommand extends AbstractBaseUpdateCommand {
 
 
 
     @NotEmpty(message = "租户编码 不能为空")
-        @ApiModelProperty(value = "租户编码",required = true)
+        @Schema(description = "租户编码",required = true)
     private String code;
 
 
     @NotEmpty(message = "租户名称 不能为空")
-        @ApiModelProperty(value = "租户名称",required = true)
+        @Schema(description = "租户名称",required = true)
     private String name;
 
 
     @NotNull(message = "是否禁用 不能为空")
-        @ApiModelProperty(value = "是否禁用",required = true)
+        @Schema(description = "是否禁用",required = true)
     private Boolean isDisabled;
 
 
-    @ApiModelProperty(value = "禁用原因")
+    @Schema(description = "禁用原因")
     private String disabledReason;
 
 
 
-    @ApiModelProperty(value = "姓名，仅作为联系人，展示使用")
+    @Schema(description = "姓名，仅作为联系人，展示使用")
     private String userName;
 
 
-    @ApiModelProperty(value = "邮箱，仅作为联系人邮箱，展示使用")
+    @Schema(description = "邮箱，仅作为联系人邮箱，展示使用")
     private String email;
 
 
-    @ApiModelProperty(value = "手机号，仅作为联系人手机号，展示使用")
+    @Schema(description = "手机号，仅作为联系人手机号，展示使用")
     private String mobile;
 
 
-    @ApiModelProperty(value = "租户域名")
+    @Schema(description = "租户域名")
     private String tenantDomain;
 
 
-    @ApiModelProperty(value = "租户主题")
+    @Schema(description = "租户主题")
     private String tenantThemeJson;
 
 
-    @ApiModelProperty(value = "租户默认的页面路由")
+    @Schema(description = "租户默认的页面路由")
     private String tenantDefaultRouteJson;
 
     @NotNull(message = "是否正式 不能为空")
-    @ApiModelProperty(value = "是否正式，1=正式，0=试用",required = true)
+    @Schema(description = "是否正式，1=正式，0=试用",required = true)
     private Boolean isFormal;
 
-    @ApiModelProperty("用户数量限制")
+    @Schema(description = "用户数量限制")
     private Integer userLimitCount;
 
-    @ApiModelProperty("生效日期，从什么时候开始生效")
+    @Schema(description = "生效日期，从什么时候开始生效")
     private LocalDateTime effectiveAt;
 
-    @ApiModelProperty("过期时间，从什么时候失效")
+    @Schema(description = "过期时间，从什么时候失效")
     private LocalDateTime expireAt;
 
     @NotNull(message = "主用户 不能为空")
-    @ApiModelProperty(value = "主用户，一般该用户为租户的超级管理员",required = true)
+    @Schema(description = "主用户，一般该用户为租户的超级管理员",required = true)
     private Long masterUserId;
 
-    @ApiModelProperty("租户logo地址")
+    @Schema(description = "租户logo地址")
     private String tenantLogoJson;
 
-    @ApiModelProperty(value = "额外配置json")
+    @Schema(description = "额外配置json")
     private String configJson;
 
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
 

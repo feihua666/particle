@@ -1,29 +1,23 @@
 package com.particle.global.swagger.factory;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.google.common.collect.Lists;
 import com.particle.global.swagger.SwaggerInfo;
-import io.swagger.annotations.Api;
-import springfox.documentation.RequestHandler;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
-import springfox.documentation.spring.web.plugins.Docket;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * swagger 文档工厂类
  *
- * 该类为 [Swagger] 工厂类, 主要用于根据 {@link SwaggerInfo} 创建 {@link Docket} 对象
+ * 该类为 [Swagger] 工厂类, 主要用于根据 {@link SwaggerInfo} 创建 {@link GroupedOpenApi} 对象
  * 该类指定了部分默认参数, 如需自定义在参数 {@link SwaggerInfo} 中进行赋值相关属性即可
- * 注意: 请求地址中带有 [common] 字段时 {@link SecurityContext} 上下文将不生效
  *
  * @author yangwei
  * @see SwaggerInfo
@@ -56,7 +50,7 @@ public class SwaggerFactory {
     /**
      * 默认作者信息
      */
-    public static final Contact DEFAULT_CONTACT = new Contact("yangwei", "https://ahbdz.com", "feihua666@sina.com");
+    public static final Contact DEFAULT_CONTACT = new Contact().name("yangwei").url("https://ahbdz.com").email("feihua666@sina.com");
 
     /**
      * 默认版本号
@@ -64,38 +58,33 @@ public class SwaggerFactory {
     public static final String DEFAULT_VERSION = "1.0.0";
 
     /**
-     * 忽略权限的正则表达式
-     * 主要用于接口文档中默认对匹配的路径不加上请求头, 方便操作
-     */
-    public static final Pattern IGNORE_PATTERN = Pattern.compile("^((?!common).)*$");
-
-    /**
      * 初始化API文档
      *
      * @param infoDTO 自定义Swagger信息
      * @return API文档
      */
-    public static Docket createRestApi(SwaggerInfo infoDTO) {
-        Docket docket = new Docket(DocumentationType.OAS_30);
-        Optional.ofNullable(infoDTO.getSecuritySchemes())
-                .ifPresent(p -> docket.securitySchemes(p).securityContexts(Arrays.asList(securityContext(p))));
-
+    public static GroupedOpenApi createRestApi(SwaggerInfo infoDTO) {
         String groupName = Optional.ofNullable(infoDTO.getGroupName())
                 .orElse(DEFAULT_GROUP_NAME);
-
-        Predicate<RequestHandler> predicate = Optional.ofNullable(infoDTO.getBasePackage())
-                .map(p -> RequestHandlerSelectors.basePackage(p))
-                .orElse(RequestHandlerSelectors.withClassAnnotation(Api.class));
-
-        return docket.apiInfo(apiInfo(infoDTO))
-                .groupName(groupName)
-                .select()
-                .apis(predicate)
-                .paths(PathSelectors.any())
-                .build()
-                .extensions(infoDTO.getOpenApiExtensionResolver()
-                        .buildExtensions(groupName)).globalRequestParameters(infoDTO.getRequestParameters())
-                ;
+        GroupedOpenApi build = GroupedOpenApi.builder()
+                .group(groupName)
+                .packagesToScan(infoDTO.getBasePackage())
+                .addOperationCustomizer((operation, handlerMethod) -> {
+                    if (CollectionUtil.isNotEmpty(infoDTO.getParameters())) {
+                        for (Parameter parameter : infoDTO.getParameters()) {
+                            operation.addParametersItem(parameter);
+                        }
+                    }
+                    return operation;
+                }).addOpenApiCustomiser(openApi -> {
+                    openApi.info(apiInfo(infoDTO));
+                    SecurityRequirement securityRequirement = securityRequirement(infoDTO.getSecuritySchemes());
+                    if (securityRequirement != null) {
+                        openApi.addSecurityItem(securityRequirement);
+                    }
+                })
+                .build();
+        return build;
     }
 
     /**
@@ -103,27 +92,31 @@ public class SwaggerFactory {
      * @param infoDTO 自定义Swagger信息
      * @return API信息
      */
-    private static ApiInfo apiInfo(SwaggerInfo infoDTO) {
-        return new ApiInfoBuilder()
+    public static Info apiInfo(SwaggerInfo infoDTO) {
+        return new Info()
                 .title(Optional.ofNullable(infoDTO.getTitle()).orElse(DEFAULT_TITLE))
                 .description(Optional.ofNullable(infoDTO.getDescription()).orElse(DEFAULT_DESCRIPTION))
-                .termsOfServiceUrl(Optional.ofNullable(infoDTO.getTermsOfServiceUrl()).orElse(DEFAULT_TERMS_OF_SERVICE_URL))
+                .termsOfService(Optional.ofNullable(infoDTO.getTermsOfServiceUrl()).orElse(DEFAULT_TERMS_OF_SERVICE_URL))
                 .contact(Optional.ofNullable(infoDTO.getContact()).orElse(DEFAULT_CONTACT))
                 .version(Optional.ofNullable(infoDTO.getVersion()).orElse(DEFAULT_VERSION))
-                .build();
+                ;
     }
 
     /**
      * 创建安全上下文
-     * @param parameters 授权参数
+     * @param securitySchemes 授权参数
      * @return 返回权限上下文
      */
-    private static SecurityContext securityContext(List<SecurityScheme> parameters) {
-        AuthorizationScope[] authorizationScopes = {new AuthorizationScope("web", "access_token")};
-        return SecurityContext.builder()
-                .securityReferences(parameters.stream()
-                        .map(parameter -> new SecurityReference(parameter.getName(), authorizationScopes)).collect(Collectors.toList()))
-                .operationSelector(path -> IGNORE_PATTERN.matcher(path.requestMappingPattern()).matches())
-                .build();
+    private static SecurityRequirement securityRequirement(List<SecurityScheme> securitySchemes) {
+        if (CollectionUtil.isEmpty(securitySchemes)) {
+            return null;
+        }
+        String[] authorizationScopes = new String[] {"web", "access_token"};
+        SecurityRequirement securityRequirement = new SecurityRequirement();
+        for (SecurityScheme securityScheme : securitySchemes) {
+            securityRequirement.addList(securityScheme.getName(), Lists.newArrayList(authorizationScopes));
+        }
+
+        return securityRequirement;
     }
 }

@@ -2,8 +2,8 @@ package com.particle.user.client.identifier.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,47 +20,47 @@ import java.time.LocalDateTime;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierPwdCommand extends AbstractBaseCommand {
 
 
 	@NotEmpty(message = "密码不能为空")
-	@ApiModelProperty(value = "密码",required = true)
+	@Schema(description = "密码",required = true)
 	private String password;
 
 	@NotNull(message = "密码是否过期不能为空")
-	@ApiModelProperty(value = "密码是否过期，过期后该密码不能登录",required = true)
+	@Schema(description = "密码是否过期，过期后该密码不能登录",required = true)
 	private Boolean isPwdExpired = false;
 
 	@PropValid.DependCondition(message = "密码过期原因不能为空",dependProp = "isExpired",ifEqual = "true")
-	@ApiModelProperty("密码过期原因")
+	@Schema(description = "密码过期原因")
 	private String pwdExpiredReason;
 
-	@ApiModelProperty("密码到期时间，为空永不到期")
+	@Schema(description = "密码到期时间，为空永不到期")
 	private LocalDateTime pwdExpireAt;
 
 	@NotNull(message = "密码是否需要提示修改密码不能为空")
-	@ApiModelProperty(value = "密码是否需要提示修改密码",required = true)
+	@Schema(description = "密码是否需要提示修改密码",required = true)
 	private Boolean isPwdNeedUpdate = false;
 
 	@PropValid.DependCondition(message = "密码提示修改密码消息内容不能为空",dependProp = "isNeedUpdate",ifEqual = "true")
-	@ApiModelProperty("密码提示修改密码消息内容")
+	@Schema(description = "密码提示修改密码消息内容")
 	private String pwdNeedUpdateMessage;
 
 	/**
 	 * 后台处理，传参无效
 	 */
-	@ApiModelProperty(value = "加密后的密码",hidden = true)
+	@Schema(description = "加密后的密码",hidden = true)
 	private String pwdEncoded;
 	/**
 	 * 后台处理，传参无效
 	 */
-	@ApiModelProperty(value = "密码加密方式",hidden = true)
+	@Schema(description = "密码加密方式",hidden = true)
 	private String pwdEncryptFlag;
 	/**
 	 * 后台处理，传参无效
 	 */
-	@ApiModelProperty(value = "密码复杂度",hidden = true)
+	@Schema(description = "密码复杂度",hidden = true)
 	private Integer pwdComplexity;
 
 }

@@ -14,8 +14,8 @@ import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "角色用户关系pc或平板端前台应用相关接口")
+@Tag(name = "角色用户关系pc或平板端前台应用相关接口")
 @RestController
 @RequestMapping("/front/web/role-user-rel")
 public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
@@ -42,41 +42,41 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	private IRoleUserRelRepresentationApplicationService iRoleUserRelRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:create')")
-	@ApiOperation("添加角色用户关系")
+	@Operation(summary = "添加角色用户关系")
 	@PostMapping("/create")
 	public SingleResponse<RoleUserRelVO> create(@RequestBody RoleUserRelCreateCommand roleUserRelCreateCommand){
 		return iRoleUserRelApplicationService.create(roleUserRelCreateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:delete')")
-	@ApiOperation("删除角色用户关系")
+	@Operation(summary = "删除角色用户关系")
 	@DeleteMapping("/delete")
 	public SingleResponse<RoleUserRelVO> delete(@RequestBody IdCommand roleUserRelDeleteCommand){
 		return iRoleUserRelApplicationService.delete(roleUserRelDeleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:detail')")
-	@ApiOperation("角色用户关系详情展示")
+	@Operation(summary = "角色用户关系详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<RoleUserRelVO> queryDetail(IdCommand roleUserRelQueryDetailCommand){
 		return iRoleUserRelRepresentationApplicationService.queryDetail(roleUserRelQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:queryList')")
-	@ApiOperation("列表查询角色用户关系")
+	@Operation(summary = "列表查询角色用户关系")
 	@GetMapping("/list")
 	public MultiResponse<RoleUserRelVO> queryList(RoleUserRelQueryListCommand roleUserRelQueryListCommand){
 		return iRoleUserRelRepresentationApplicationService.queryList(roleUserRelQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:pageQuery')")
-	@ApiOperation("分页查询角色用户关系")
+	@Operation(summary = "分页查询角色用户关系")
 	@GetMapping("/page")
 	public PageResponse<RoleUserRelVO> pageQueryList(RoleUserRelPageQueryCommand roleUserRelPageQueryCommand){
 		return iRoleUserRelRepresentationApplicationService.pageQuery(roleUserRelPageQueryCommand);
 	}
 
-	@ApiOperation("角色分配用户")
+	@Operation(summary = "角色分配用户")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:roleAssignUser')")
 	@PostMapping("/role/assign/user")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -84,7 +84,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 		return iRoleUserRelApplicationService.roleAssignUser(cf);
 	}
 
-	@ApiOperation("根据角色ID查询已分配的用户id")
+	@Operation(summary = "根据角色ID查询已分配的用户id")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:queryUserIdsByRoleId')")
 	@GetMapping("/queryUserIdsByRoleId")
 	@ResponseStatus(HttpStatus.OK)
@@ -92,7 +92,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 		return iRoleUserRelRepresentationApplicationService.queryUserIdsByRoleId( roleIdCommand);
 	}
 
-	@ApiOperation("清空角色下的所有用户")
+	@Operation(summary = "清空角色下的所有用户")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:deleteByRoleId')")
 	@DeleteMapping("/deleteByRoleId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -101,7 +101,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	}
 
 
-	@ApiOperation("用户分配角色")
+	@Operation(summary = "用户分配角色")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:userAssignRole')")
 	@PostMapping("/user/assign/role")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -109,7 +109,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 		return iRoleUserRelApplicationService.userAssignRole(cf);
 	}
 
-	@ApiOperation("根据用户ID查询已分配的角色id")
+	@Operation(summary = "根据用户ID查询已分配的角色id")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:queryRoleIdsByUserId')")
 	@GetMapping("/queryRoleIdsByUserId")
 	@ResponseStatus(HttpStatus.OK)
@@ -118,7 +118,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 
 	}
 
-	@ApiOperation("清空用户下的所有角色")
+	@Operation(summary = "清空用户下的所有角色")
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:deleteByUserId')")
 	@DeleteMapping("/deleteByUserId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

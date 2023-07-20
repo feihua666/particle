@@ -3,8 +3,8 @@ package com.particle.dept.client.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
  * <p>
@@ -15,16 +15,16 @@ import lombok.Data;
  * @since 2023-04-12 11:41:43
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreePageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
 
-    @ApiModelProperty(value = "部门id")
+    @Schema(description = "部门id")
     private Long deptId;
 
 
-    @ApiModelProperty(value = "部门树名称id")
+    @Schema(description = "部门树名称id")
     private Long deptTreeNameId;
 
 

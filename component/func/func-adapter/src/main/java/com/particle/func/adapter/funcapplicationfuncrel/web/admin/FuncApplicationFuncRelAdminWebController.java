@@ -16,8 +16,8 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2023-04-17 10:15:29
  */
-@Api(tags = "功能应用功能关系pc或平板端后台管理相关接口")
+@Tag(name = "功能应用功能关系pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/func_application_func_rel")
 public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAdapter {
@@ -42,7 +42,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	private IFuncApplicationFuncRelRepresentationApplicationService iFuncApplicationFuncRelRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:create')")
-	@ApiOperation("添加功能应用功能关系")
+	@Operation(summary = "添加功能应用功能关系")
 	@PostMapping("/create")
 	@OpLog(name = "添加功能应用功能关系",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
 	public SingleResponse<FuncApplicationFuncRelVO> create(@RequestBody FuncApplicationFuncRelCreateCommand funcApplicationFuncRelCreateCommand){
@@ -50,7 +50,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:delete')")
-	@ApiOperation("删除功能应用功能关系")
+	@Operation(summary = "删除功能应用功能关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除功能应用功能关系",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncApplicationFuncRelVO> delete(@RequestBody IdCommand deleteCommand){
@@ -58,21 +58,21 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:detail')")
-	@ApiOperation("功能应用功能关系详情展示")
+	@Operation(summary = "功能应用功能关系详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<FuncApplicationFuncRelVO> queryDetail(IdCommand detailCommand){
 		return iFuncApplicationFuncRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:queryList')")
-	@ApiOperation("列表查询功能应用功能关系")
+	@Operation(summary = "列表查询功能应用功能关系")
 	@GetMapping("/list")
 	public MultiResponse<FuncApplicationFuncRelVO> queryList(FuncApplicationFuncRelQueryListCommand funcApplicationFuncRelQueryListCommand){
 		return iFuncApplicationFuncRelRepresentationApplicationService.queryList(funcApplicationFuncRelQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:pageQuery')")
-	@ApiOperation("分页查询功能应用功能关系")
+	@Operation(summary = "分页查询功能应用功能关系")
 	@GetMapping("/page")
 	public PageResponse<FuncApplicationFuncRelVO> pageQueryList(FuncApplicationFuncRelPageQueryCommand funcApplicationFuncRelPageQueryCommand){
 		return iFuncApplicationFuncRelRepresentationApplicationService.pageQuery(funcApplicationFuncRelPageQueryCommand);
@@ -80,7 +80,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 
 
 
-	@ApiOperation("功能分配功能应用")
+	@Operation(summary = "功能分配功能应用")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:funcAssignFuncApplication')")
 	@PostMapping("/func/assign/funcApplication")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -89,7 +89,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 		return iFuncApplicationFuncRelApplicationService.funcAssignFuncApplication(cf);
 	}
 
-	@ApiOperation("根据功能ID查询已分配的功能应用id")
+	@Operation(summary = "根据功能ID查询已分配的功能应用id")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:queryFuncApplicationIdsByFuncId')")
 	@GetMapping("/queryFuncApplicationIdsByFuncId")
 	@ResponseStatus(HttpStatus.OK)
@@ -97,7 +97,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 		return iFuncApplicationFuncRelRepresentationApplicationService.queryFuncApplicationIdsByFuncId( funcIdCommand);
 	}
 
-	@ApiOperation("清空功能下的所有功能应用")
+	@Operation(summary = "清空功能下的所有功能应用")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:deleteByFuncId')")
 	@DeleteMapping("/deleteByFuncId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -107,7 +107,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	}
 
 
-	@ApiOperation("功能应用分配功能")
+	@Operation(summary = "功能应用分配功能")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:funcApplicationAssignFunc')")
 	@PostMapping("/funcApplication/assign/func")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -116,7 +116,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 		return iFuncApplicationFuncRelApplicationService.funcApplicationAssignFunc(cf);
 	}
 
-	@ApiOperation("根据功能应用ID查询已分配的功能id")
+	@Operation(summary = "根据功能应用ID查询已分配的功能id")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:queryFuncIdsByFuncApplicationId')")
 	@GetMapping("/queryFuncIdsByFuncApplicationId")
 	@ResponseStatus(HttpStatus.OK)
@@ -125,7 +125,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 
 	}
 
-	@ApiOperation("清空功能应用下的所有功能")
+	@Operation(summary = "清空功能应用下的所有功能")
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:deleteByFuncApplicationId')")
 	@DeleteMapping("/deleteByFuncApplicationId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

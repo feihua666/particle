@@ -2,8 +2,8 @@ package com.particle.user.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,49 +17,49 @@ import java.time.LocalDateTime;
  * @since 2022-11-25
  */
 @Data
-@ApiModel
+@Schema
 public class UserQueryListCommand extends AbstractBaseQueryCommand {
 
     @Like
-    @ApiModelProperty("姓名，左前缀匹配")
+    @Schema(description = "姓名，左前缀匹配")
     private String name;
     
     @Like
-    @ApiModelProperty("昵称，左前缀匹配")
+    @Schema(description = "昵称，左前缀匹配")
     private String nickname;
 
-    @ApiModelProperty("性别，字典id")
+    @Schema(description = "性别，字典id")
     private Long genderDictId;
 
-    @ApiModelProperty("用户编号，可以做为员工编号")
+    @Schema(description = "用户编号，可以做为员工编号")
     private String serialNo;
 
-    @ApiModelProperty("公司id，冗余字段，由dept_id对应公司派生")
+    @Schema(description = "公司id，冗余字段，由dept_id对应公司派生")
     private Long compId;
 
-    @ApiModelProperty("部门id")
+    @Schema(description = "部门id")
     private Long deptId;
 
-    @ApiModelProperty("是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
+    @Schema(description = "是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
     private Boolean isVirtual;
 
-    @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
+    @Schema(description = "锁定状态，0=未锁定；1=锁定")
     private Boolean isLock;
 
-    @ApiModelProperty("用户分类字典，标识是哪一类用户，比如后台用户等")
+    @Schema(description = "用户分类字典，标识是哪一类用户，比如后台用户等")
     private Long categoryDictId;
 
-    @ApiModelProperty("分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
-    @ApiModelProperty("用户来源，字典id")
+    @Schema(description = "用户来源，字典id")
     private Long sourceFromDictId;
 
-    @ApiModelProperty("是否过期，过期后该密码不能登录")
+    @Schema(description = "是否过期，过期后该密码不能登录")
     private Boolean isExpired;
 
 
 
-    @ApiModelProperty("是否包含角色信息响应")
+    @Schema(description = "是否包含角色信息响应")
     private Boolean isIncludeRoleInfo;
 }

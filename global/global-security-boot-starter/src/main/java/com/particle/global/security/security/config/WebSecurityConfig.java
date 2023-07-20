@@ -123,7 +123,7 @@ public class WebSecurityConfig {
         http.authenticationManager(authenticationManager);
 
 
-        // 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系
+        // 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系,因为租户信息以登录用户的为准
 
         // 自定义当前登录用户工具类
         LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
@@ -138,6 +138,9 @@ public class WebSecurityConfig {
         tenantToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
         http.addFilterAfter(tenantToolPersistentSecurityFilter, SecurityContextPersistenceFilter.class);
 
+        // 判断是否为匿名登录
+        LoginUserToolAnonymousPersistentSecurityFilter anonymousPersistentSecurityFilter = new LoginUserToolAnonymousPersistentSecurityFilter();
+        http.addFilterAfter(anonymousPersistentSecurityFilter, SessionManagementFilter.class);
 
 
         if (customWebSecurityConfigureList != null) {

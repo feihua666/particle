@@ -14,8 +14,8 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2023-04-12 14:19:42
  */
-@Api(tags = "部门pc或平板端前台应用相关接口")
+@Tag(name = "部门pc或平板端前台应用相关接口")
 @RestController
 @RequestMapping("/front/web/dept")
 public class DeptFrontWebController extends AbstractBaseWebAdapter {
@@ -41,7 +41,7 @@ public class DeptFrontWebController extends AbstractBaseWebAdapter {
 	private IDeptRepresentationApplicationService iDeptRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('front:web:dept:create')")
-	@ApiOperation("添加部门")
+	@Operation(summary = "添加部门")
 	@PostMapping("/create")
 	@OpLog(name = "添加部门",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptVO> create(@RequestBody DeptCreateCommand deptCreateCommand){
@@ -49,7 +49,7 @@ public class DeptFrontWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:delete')")
-	@ApiOperation("删除部门")
+	@Operation(summary = "删除部门")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptVO> delete(@RequestBody IdCommand deleteCommand){
@@ -57,7 +57,7 @@ public class DeptFrontWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:update')")
-	@ApiOperation("更新部门")
+	@Operation(summary = "更新部门")
 	@PutMapping("/update")
 	@OpLog(name = "更新部门",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptVO> update(@RequestBody DeptUpdateCommand deptUpdateCommand){
@@ -65,28 +65,28 @@ public class DeptFrontWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:update')")
-	@ApiOperation("部门更新详情")
+	@Operation(summary = "部门更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<DeptVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iDeptRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:detail')")
-	@ApiOperation("部门详情展示")
+	@Operation(summary = "部门详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<DeptVO> queryDetail(IdCommand detailCommand){
 		return iDeptRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:queryList')")
-	@ApiOperation("列表查询部门")
+	@Operation(summary = "列表查询部门")
 	@GetMapping("/list")
 	public MultiResponse<DeptVO> queryList(DeptQueryListCommand deptQueryListCommand){
 		return iDeptRepresentationApplicationService.queryList(deptQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:dept:pageQuery')")
-	@ApiOperation("分页查询部门")
+	@Operation(summary = "分页查询部门")
 	@GetMapping("/page")
 	public PageResponse<DeptVO> pageQueryList(DeptPageQueryCommand deptPageQueryCommand){
 		return iDeptRepresentationApplicationService.pageQuery(deptPageQueryCommand);

@@ -1,8 +1,8 @@
 package com.particle.func.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,18 +16,18 @@ import javax.validation.constraints.NotEmpty;
  * @since 2022-12-02
  */
 @Data
-@ApiModel
+@Schema
 public class FuncGroupCreateCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "编码不能为空")
-    @ApiModelProperty(value = "编码",required = true)
+    @Schema(description = "编码",required = true)
     private String code;
 
     @NotEmpty(message = "名称不能为空")
-    @ApiModelProperty(value = "名称",required = true)
+    @Schema(description = "名称",required = true)
     private String name;
 
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String remark;
 
 

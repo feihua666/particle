@@ -104,11 +104,7 @@ public class CustomExecutors{
 		ExecutorService threadPoolExecutor = newThreadPoolExecutor( threadFactory , corePoolSize, maximumPoolSize, keepAliveTime, workQueue, handler, scheduled,preStartCoreThread);
 
 		ExecutorService executorService = threadPoolExecutor;
-		if (executorService instanceof ScheduledExecutorService) {
-			executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
-		}else {
-			executorService = TtlExecutors.getTtlExecutorService(executorService);
-		}
+
 		// 不像 TraceableExecutorService ，目前好像没有找到自动添加监控的方式，这里手动添加
 		if (meterRegistry != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
 			if (scheduled) {
@@ -133,7 +129,12 @@ public class CustomExecutors{
 
 		}*/
 
-
+		// ExecutorServiceMetrics 不支持ttl包括后的对象类型，放在最后面，否则会报警告：Failed to bind as com.alibaba.ttl.threadpool.ExecutorServiceTtlWrapper is unsupported.
+		if (executorService instanceof ScheduledExecutorService) {
+			executorService =  TtlExecutors.getTtlScheduledExecutorService(((ScheduledExecutorService) executorService));
+		}else {
+			executorService = TtlExecutors.getTtlExecutorService(executorService);
+		}
 		return executorService;
 	}
 

@@ -1,0 +1,4 @@
+# 可以使用配置来禁用使用@scheduled标记的定时任务，因为如果部署两个环境，但数据库是同一个时，可能将一般为edge环境的去掉
+particle:
+  scheduler:
+    enabled: true

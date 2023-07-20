@@ -2,8 +2,8 @@ package com.particle.role.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,9 +19,9 @@ import javax.validation.constraints.NotNull;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class RoleCreateWithTenantIdCommand extends RoleCreateCommand {
 
-    @ApiModelProperty("租户id")
+    @Schema(description = "租户id")
     private Long tenantId;
 }

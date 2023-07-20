@@ -11,8 +11,8 @@ import com.particle.role.client.dto.data.RoleTransVO;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.service.IRoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +31,7 @@ import java.util.Set;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "角色远程调用相关接口")
+@Tag(name = "角色远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/role")
 public class RoleRpcController extends AbstractBaseRpcAdapter implements RoleRpcFeignClient, RoleTransRpcFeignClient {
@@ -44,7 +44,7 @@ public class RoleRpcController extends AbstractBaseRpcAdapter implements RoleRpc
 	@Autowired
 	private RoleTransServiceImpl roleTransService;
 
-	@ApiOperation("添加角色")
+	@Operation(summary = "添加角色")
 	@PostMapping("/add")
 	public RoleVO add(@RequestBody RoleCreateWithTenantIdCommand roleCreateWithTenantIdCommand){
 

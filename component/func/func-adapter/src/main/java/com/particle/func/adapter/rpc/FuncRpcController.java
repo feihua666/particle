@@ -6,7 +6,7 @@ import com.particle.func.adapter.feign.client.rpc.FuncTransRpcFeignClient;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.dto.data.FuncTransVO;
 import com.particle.global.trans.result.TransResult;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +23,7 @@ import java.util.Set;
  * @author yw
  * @since 2022-07-19
  */
-@Api(tags = "菜单功能远程调用相关接口")
+@Tag(name = "菜单功能远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/func")
 public class FuncRpcController extends AbstractBaseRpcAdapter implements FuncRpcFeignClient, FuncTransRpcFeignClient {

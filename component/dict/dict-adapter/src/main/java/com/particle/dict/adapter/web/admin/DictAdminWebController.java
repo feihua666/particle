@@ -16,8 +16,8 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,7 +35,7 @@ import java.util.List;
  * @author yw
  * @since 2022-07-19
  */
-@Api(tags = "字典pc或平板端后台管理相关接口")
+@Tag(name = "字典pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/dict")
 public class DictAdminWebController extends AbstractBaseWebAdapter {
@@ -46,7 +46,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	private IDictRepresentationApplicationService iDictRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:dict:create')")
-	@ApiOperation("添加字典")
+	@Operation(summary = "添加字典")
 	@PostMapping("/create")
 	@OpLog(name = "添加字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.create)
 	public SingleResponse<DictVO> create(@RequestBody DictCreateCommand dictCreateCommand){
@@ -54,7 +54,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:delete')")
-	@ApiOperation("删除字典")
+	@Operation(summary = "删除字典")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.delete)
 	public SingleResponse<DictVO> delete(@RequestBody IdCommand dictDeleteCommand){
@@ -62,7 +62,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
-	@ApiOperation("更新字典")
+	@Operation(summary = "更新字典")
 	@PutMapping("/update")
 	@OpLog(name = "更新字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.update)
 	public SingleResponse<DictVO> update(@RequestBody DictUpdateCommand dictUpdateCommand){
@@ -70,28 +70,28 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
-	@ApiOperation("字典更新详情")
+	@Operation(summary = "字典更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand){
 		return iDictRepresentationApplicationService.queryDetailForUpdate(dictQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:detail')")
-	@ApiOperation("字典详情展示")
+	@Operation(summary = "字典详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand){
 		return iDictRepresentationApplicationService.queryDetail(dictQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:queryList')")
-	@ApiOperation("列表查询字典")
+	@Operation(summary = "列表查询字典")
 	@GetMapping("/list")
 	public MultiResponse<DictVO> queryList(DictQueryListCommand dictQueryListCommand){
 		return iDictRepresentationApplicationService.queryList(dictQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:pageQuery')")
-	@ApiOperation("分页查询字典")
+	@Operation(summary = "分页查询字典")
 	@GetMapping("/page")
 	public PageResponse<DictVO> pageQueryList(DictPageQueryCommand dictPageQueryCommand){
 		return iDictRepresentationApplicationService.pageQuery(dictPageQueryCommand);

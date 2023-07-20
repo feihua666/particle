@@ -1,8 +1,8 @@
 package com.particle.func.client.application.dto.command.representation;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -14,36 +14,36 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-04-17 10:12:23
  */
 @Data
-@ApiModel
+@Schema
 public class FuncApplicationPageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
 
 
     @Like
-        @ApiModelProperty(value = "应用编码,左前缀匹配")
+        @Schema(description = "应用编码,左前缀匹配")
     private String code;
 
 
     @Like
-        @ApiModelProperty(value = "功能应用名称,左前缀匹配")
+        @Schema(description = "功能应用名称,左前缀匹配")
     private String name;
 
 
-    @ApiModelProperty(value = "是否禁用")
+    @Schema(description = "是否禁用")
     private Boolean isDisabled;
 
 
 
-    @ApiModelProperty(value = "应用主题")
+    @Schema(description = "应用主题")
     private String applicationTheme;
 
 
-    @ApiModelProperty(value = "应用默认的页面路由")
+    @Schema(description = "应用默认的页面路由")
     private String applicationDefaultRoute;
 
 
 
-    @ApiModelProperty(value = "是否为分组")
+    @Schema(description = "是否为分组")
     private Boolean isGroup;
 
 

@@ -1,8 +1,8 @@
 package com.particle.user.client.identifier.dto.command;
 
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -17,12 +17,12 @@ import javax.validation.constraints.NotNull;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierCreateCommand extends UserIdentifierSimpleCreateCommand {
 
 
     @NotNull(message = "用户ID不能为空")
-    @ApiModelProperty(value = "用户ID",required = true)
+    @Schema(description = "用户ID",required = true)
     private Long userId;
 
 }

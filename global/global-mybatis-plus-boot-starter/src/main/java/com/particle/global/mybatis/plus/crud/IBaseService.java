@@ -25,7 +25,7 @@ import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 import com.particle.global.mybatis.plus.dto.RelDTO;
 import com.particle.global.tool.str.StringTool;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
@@ -372,10 +372,10 @@ public interface IBaseService<DO> extends IService<DO> {
             String columnLabel = propertyName;
             Field field = ReflectUtil.getField(resolve.getInstantiatedClass(), propertyName);
             if (field != null) {
-                ApiModelProperty apiModelProperty = AnnotationUtil.getAnnotation(field, ApiModelProperty.class);
-                if (apiModelProperty != null && StrUtil.isNotEmpty(apiModelProperty.value())) {
+                Schema apiModelProperty = AnnotationUtil.getAnnotation(field, Schema.class);
+                if (apiModelProperty != null && StrUtil.isNotEmpty(apiModelProperty.title())) {
                     // 取第一个逗号逗号分隔的字符作为提示标签
-                    columnLabel = apiModelProperty.value().split(",")[0].split("，")[0];
+                    columnLabel = apiModelProperty.title().split(",")[0].split("，")[0];
                 }
             }
             if (exist) {

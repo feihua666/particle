@@ -12,8 +12,8 @@ import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
  * @author yangwei
  * @since 2023-04-25 14:17
  */
-@Api(tags = "全局服务验证码相关接口")
+@Tag(name = "全局服务验证码相关接口")
 @RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
@@ -48,7 +48,7 @@ public class CaptchaController {
 	private DynamicCaptchaNotifyProperties dynamicCaptchaNotifyProperties;
 
 
-	@ApiOperation("获取验证码")
+	@Operation(summary = "获取验证码")
 	@GetMapping("/getCaptcha")
 	public SingleResponse<CaptchaVO> getCaptcha(@Valid CaptchaGenCommand genCommand){
 
@@ -63,7 +63,7 @@ public class CaptchaController {
 	 * @param verifyCommand
 	 * @return
 	 */
-	@ApiOperation("校验验证码")
+	@Operation(summary = "校验验证码")
 	@PostMapping("/verifyCaptcha")
 	public SingleResponse<Boolean> verifyCaptcha(@Valid @RequestBody CaptchaVerifyCommand verifyCommand){
 
@@ -83,7 +83,7 @@ public class CaptchaController {
 	 * @param genCommand
 	 * @return
 	 */
-	@ApiOperation("获取动态验证码")
+	@Operation(summary = "获取动态验证码")
 	@GetMapping("/getDynamicCaptcha")
 	public SingleResponse<CaptchaVO> getDynamicCaptcha(@Valid DynamicCaptchaGenCommand genCommand){
 

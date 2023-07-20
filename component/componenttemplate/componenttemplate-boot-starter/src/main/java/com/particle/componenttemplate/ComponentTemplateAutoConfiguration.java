@@ -1,14 +1,16 @@
 package com.particle.componenttemplate;
 
 import com.particle.global.projectinfo.ProjectInfo;
+import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.service.SecurityScheme;
-import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +34,15 @@ public class ComponentTemplateAutoConfiguration {
 	 * @param projectInfo 参数不能去，依赖projectInfo
 	 * @return
 	 */
+	@ConditionalOnBean({ApplicationContexSwaggertHelper.class})
 	@Bean
-	public Docket createComponentTemplateAdminRestApi(ProjectInfo projectInfo) {
+	public GroupedOpenApi createComponentTemplateAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
 		
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("componenttemplate接口")
 				.basePackage("com.particle.componenttemplate.adapter")
-				//  SwaggerInfo 已自动处理
-				.openApiExtensionResolver(null)
+
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

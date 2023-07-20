@@ -2,8 +2,8 @@ package com.particle.message.client.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.trans.anno.TransBy;
 import java.time.LocalDateTime;
@@ -16,19 +16,19 @@ import java.time.LocalDateTime;
  * @since 2023-05-18 15:36:07
  */
 @Data
-@ApiModel
+@Schema
 public class MessageUserStateVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("消息表主键")
+    @Schema(description = "消息表主键")
     private Long messageId;
     
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
     
-    @ApiModelProperty("是否已读")
+    @Schema(description = "是否已读")
     private Boolean isRead;
     
-    @ApiModelProperty("读取时间")
+    @Schema(description = "读取时间")
     private LocalDateTime readAt;
         
 

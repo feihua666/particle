@@ -1,7 +1,7 @@
 package com.particle.generator.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yangwei
  * @since 2022-06-30 17:33
  */
-@Api(tags = "代码生成后台管理相关接口")
+@Tag(name = "代码生成后台管理相关接口")
 @RestController
 @RequestMapping("/admin/generator")
 public class GeneratorAdminController extends AbstractBaseWebAdapter {

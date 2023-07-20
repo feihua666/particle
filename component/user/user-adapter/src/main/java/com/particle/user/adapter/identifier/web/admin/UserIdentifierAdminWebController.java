@@ -14,8 +14,8 @@ import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateComma
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "用户登录标识pc或平板端后台管理相关接口")
+@Tag(name = "用户登录标识pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/user-identifier")
 public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
@@ -39,7 +39,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	private IUserIdentifierRepresentationApplicationService iUserIdentifierRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
-	@ApiOperation("添加用户登录标识")
+	@Operation(summary = "添加用户登录标识")
 	@PostMapping("/create")
 	public SingleResponse<UserIdentifierVO> create(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
 		PasswordTool.encodePassword(userIdentifierPwdCommand);
@@ -53,49 +53,49 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	 * @return
 	 */
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
-	@ApiOperation("仅绑定用户登录标识")
+	@Operation(summary = "仅绑定用户登录标识")
 	@PostMapping("/createBind")
 	public SingleResponse<UserIdentifierVO> createBind(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand){
 		return iUserIdentifierApplicationService.createBind(userIdentifierCreateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")
-	@ApiOperation("删除用户登录标识")
+	@Operation(summary = "删除用户登录标识")
 	@DeleteMapping("/delete")
 	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand userIdentifierDeleteCommand){
 		return iUserIdentifierApplicationService.delete(userIdentifierDeleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
-	@ApiOperation("更新用户登录标识")
+	@Operation(summary = "更新用户登录标识")
 	@PutMapping("/update")
 	public SingleResponse<UserIdentifierVO> update(@RequestBody UserIdentifierUpdateCommand userIdentifierUpdateCommand){
 		return iUserIdentifierApplicationService.update(userIdentifierUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
-	@ApiOperation("用户登录标识更新详情")
+	@Operation(summary = "用户登录标识更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(IdCommand userIdentifierQueryDetailForUpdateCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetailForUpdate(userIdentifierQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:detail')")
-	@ApiOperation("用户登录标识详情展示")
+	@Operation(summary = "用户登录标识详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<UserIdentifierVO> queryDetail(IdCommand userIdentifierQueryDetailCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetail(userIdentifierQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:queryList')")
-	@ApiOperation("列表查询用户登录标识")
+	@Operation(summary = "列表查询用户登录标识")
 	@GetMapping("/list")
 	public MultiResponse<UserIdentifierVO> queryList(UserIdentifierQueryListCommand userIdentifierQueryListCommand){
 		return iUserIdentifierRepresentationApplicationService.queryList(userIdentifierQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:pageQuery')")
-	@ApiOperation("分页查询用户登录标识")
+	@Operation(summary = "分页查询用户登录标识")
 	@GetMapping("/page")
 	public PageResponse<UserIdentifierVO> pageQueryList(UserIdentifierPageQueryCommand userIdentifierPageQueryCommand){
 		return iUserIdentifierRepresentationApplicationService.pageQuery(userIdentifierPageQueryCommand);

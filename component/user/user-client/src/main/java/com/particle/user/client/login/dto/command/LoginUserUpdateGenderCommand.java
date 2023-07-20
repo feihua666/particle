@@ -1,8 +1,8 @@
 package com.particle.user.client.login.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
  * @since 2023-07-12 18:12:43
  */
 @Data
-@ApiModel
+@Schema
 public class LoginUserUpdateGenderCommand extends AbstractBaseCommand {
 
     @NotNull(message = "性别 不能为空")
-    @ApiModelProperty(value = "性别，字典id",required = true)
+    @Schema(description = "性别，字典id",required = true)
     private Long genderDictId;
 }

@@ -15,8 +15,8 @@ import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFu
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-04-17 18:11:17
  */
-@Api(tags = "租户功能菜单pc或平板端后台管理相关接口")
+@Tag(name = "租户功能菜单pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/tenant_func")
 public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
@@ -47,7 +47,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	private ITenantFuncRepresentationApplicationService iTenantFuncRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:create')")
-	@ApiOperation("添加租户功能菜单")
+	@Operation(summary = "添加租户功能菜单")
 	@PostMapping("/create")
 	@OpLog(name = "添加租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantFuncVO> create(@RequestBody TenantFuncCreateCommand tenantFuncCreateCommand){
@@ -55,7 +55,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:delete')")
-	@ApiOperation("删除租户功能菜单")
+	@Operation(summary = "删除租户功能菜单")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantFuncVO> delete(@RequestBody IdCommand deleteCommand){
@@ -63,7 +63,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:update')")
-	@ApiOperation("更新租户功能菜单")
+	@Operation(summary = "更新租户功能菜单")
 	@PutMapping("/update")
 	@OpLog(name = "更新租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantFuncVO> update(@RequestBody TenantFuncUpdateCommand tenantFuncUpdateCommand){
@@ -71,28 +71,28 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:update')")
-	@ApiOperation("租户功能菜单更新详情")
+	@Operation(summary = "租户功能菜单更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<TenantFuncVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iTenantFuncRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:detail')")
-	@ApiOperation("租户功能菜单详情展示")
+	@Operation(summary = "租户功能菜单详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<TenantFuncVO> queryDetail(IdCommand detailCommand){
 		return iTenantFuncRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:queryList')")
-	@ApiOperation("列表查询租户功能菜单")
+	@Operation(summary = "列表查询租户功能菜单")
 	@GetMapping("/list")
 	public MultiResponse<TenantFuncVO> queryList(TenantFuncQueryListCommand tenantFuncQueryListCommand){
 		return iTenantFuncRepresentationApplicationService.queryList(tenantFuncQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:pageQuery')")
-	@ApiOperation("分页查询租户功能菜单")
+	@Operation(summary = "分页查询租户功能菜单")
 	@GetMapping("/page")
 	public PageResponse<TenantFuncVO> pageQueryList(TenantFuncPageQueryCommand tenantFuncPageQueryCommand){
 		return iTenantFuncRepresentationApplicationService.pageQuery(tenantFuncPageQueryCommand);
@@ -106,7 +106,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	 * @param cf
 	 * @return
 	 */
-	@ApiOperation("租户分配功能菜单")
+	@Operation(summary = "租户分配功能菜单")
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:tenantAssignFunc')")
 	@PostMapping("/tenant/assign/func")
 	@OpLog(name = "租户分配功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.relAsign)
@@ -115,7 +115,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 		return iTenantFuncApplicationService.tenantAssignFunc(cf);
 	}
 
-	@ApiOperation("根据租户ID查询已分配的功能菜单id")
+	@Operation(summary = "根据租户ID查询已分配的功能菜单id")
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:queryFuncIdsByTenantId')")
 	@GetMapping("/queryFuncIdsByTenantId")
 	@ResponseStatus(HttpStatus.OK)

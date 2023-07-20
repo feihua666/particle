@@ -4,8 +4,8 @@ import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicat
 import com.particle.lowcode.adapter.feign.client.generator.rpc.LowcodeSegmentTemplateRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-01-06
  */
-@Api(tags = "低代码片段模板远程调用相关接口")
+@Tag(name = "低代码片段模板远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/lowcode-segment-template")
 public class LowcodeSegmentTemplateRpcController extends AbstractBaseRpcAdapter implements LowcodeSegmentTemplateRpcFeignClient {

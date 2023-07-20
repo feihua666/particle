@@ -1,8 +1,8 @@
 package com.particle.global.captcha.endpoint;
 
 import com.particle.global.dto.basic.VO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,13 +14,13 @@ import lombok.Data;
  * @since 2023-04-25 14:25
  */
 @Data
-@ApiModel
+@Schema
 public class CaptchaVO extends VO {
 
-	@ApiModelProperty("验证码唯一标识")
+	@Schema(description = "验证码唯一标识")
 	private String captchaUniqueIdentifier;
 
-	@ApiModelProperty("验证码base64字符串")
+	@Schema(description = "验证码base64字符串")
 	private String base64;
 
 	public static CaptchaVO create(String captchaUniqueIdentifier, String base64) {

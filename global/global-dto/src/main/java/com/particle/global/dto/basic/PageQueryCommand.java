@@ -1,6 +1,6 @@
 package com.particle.global.dto.basic;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -18,12 +18,12 @@ public class PageQueryCommand extends QueryCommand{
 	/**
 	 * 请求页码
 	 */
-	@ApiModelProperty(value = "请求页码，从1开始，不传默认为1")
+	@Schema(description = "请求页码，从1开始，不传默认为1")
 	private Long pageNo = 1L;
 	/**
 	 * 每页条数
 	 */
-	@ApiModelProperty(value = "请求每页条数，不传默认为10")
+	@Schema(description = "请求每页条数，不传默认为10")
 	private Long pageSize = 10L;
 
 }

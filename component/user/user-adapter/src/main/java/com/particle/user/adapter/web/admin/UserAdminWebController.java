@@ -18,8 +18,8 @@ import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.dto.data.UserWithRoleVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "用户pc或平板端后台管理相关接口")
+@Tag(name = "用户pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/user")
 public class UserAdminWebController extends AbstractBaseWebAdapter {
@@ -47,7 +47,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	private IUserRepresentationApplicationService iUserRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:user:create')")
-	@ApiOperation("添加用户")
+	@Operation(summary = "添加用户")
 	@PostMapping("/create")
 	@OpLog(name = "添加用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
 	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
@@ -57,7 +57,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:delete')")
-	@ApiOperation("删除用户")
+	@Operation(summary = "删除用户")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
 	public SingleResponse<UserVO> delete(@RequestBody IdCommand userDeleteCommand){
@@ -65,7 +65,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
-	@ApiOperation("更新用户")
+	@Operation(summary = "更新用户")
 	@PutMapping("/update")
 	@OpLog(name = "更新用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public SingleResponse<UserVO> update(@RequestBody UserUpdateCommand userUpdateCommand){
@@ -73,21 +73,21 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
-	@ApiOperation("用户更新详情")
+	@Operation(summary = "用户更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand){
 		return iUserRepresentationApplicationService.queryDetailForUpdate(userQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:detail')")
-	@ApiOperation("用户详情展示")
+	@Operation(summary = "用户详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand){
 		return iUserRepresentationApplicationService.queryDetail(userQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:queryList')")
-	@ApiOperation("列表查询用户")
+	@Operation(summary = "列表查询用户")
 	@GetMapping("/list")
 	public MultiResponse<UserVO> queryList(UserQueryListCommand userQueryListCommand){
 		MultiResponse<UserVO> userVOMultiResponse = iUserRepresentationApplicationService.queryList(userQueryListCommand);
@@ -100,7 +100,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:pageQuery')")
-	@ApiOperation("分页查询用户")
+	@Operation(summary = "分页查询用户")
 	@GetMapping("/page")
 	public PageResponse<UserVO> pageQueryList(UserPageQueryCommand userPageQueryCommand){
 

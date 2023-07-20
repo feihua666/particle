@@ -11,8 +11,8 @@ import com.particle.user.client.login.dto.command.representation.UserLoginDevice
 import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryDetailCommand;
 import com.particle.user.client.login.dto.command.representation.UserLoginDeviceQueryListCommand;
 import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-26
  */
-@Api(tags = "用户登录设备pc或平板端后台管理相关接口")
+@Tag(name = "用户登录设备pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/user-login-device")
 public class UserLoginDeviceAdminWebController extends AbstractBaseWebAdapter {
@@ -37,28 +37,28 @@ public class UserLoginDeviceAdminWebController extends AbstractBaseWebAdapter {
 
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginDevice:delete')")
-	@ApiOperation("删除用户登录设备")
+	@Operation(summary = "删除用户登录设备")
 	@DeleteMapping("/delete")
 	public SingleResponse<UserLoginDeviceVO> delete(@RequestBody UserLoginDeviceDeleteCommand userLoginDeviceDeleteCommand){
 		return iUserLoginDeviceApplicationService.delete(userLoginDeviceDeleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginDevice:detail')")
-	@ApiOperation("用户登录设备详情展示")
+	@Operation(summary = "用户登录设备详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<UserLoginDeviceVO> queryDetail(UserLoginDeviceQueryDetailCommand userLoginDeviceQueryDetailCommand){
 		return iUserLoginDeviceRepresentationApplicationService.queryDetail(userLoginDeviceQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginDevice:queryList')")
-	@ApiOperation("列表查询用户登录设备")
+	@Operation(summary = "列表查询用户登录设备")
 	@GetMapping("/list")
 	public MultiResponse<UserLoginDeviceVO> queryList(UserLoginDeviceQueryListCommand userLoginDeviceQueryListCommand){
 		return iUserLoginDeviceRepresentationApplicationService.queryList(userLoginDeviceQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginDevice:pageQuery')")
-	@ApiOperation("分页查询用户登录设备")
+	@Operation(summary = "分页查询用户登录设备")
 	@GetMapping("/page")
 	public PageResponse<UserLoginDeviceVO> pageQueryList(UserLoginDevicePageQueryCommand userLoginDevicePageQueryCommand){
 		return iUserLoginDeviceRepresentationApplicationService.pageQuery(userLoginDevicePageQueryCommand);

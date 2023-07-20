@@ -8,8 +8,8 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "用户登录标识远程调用相关接口")
+@Tag(name = "用户登录标识远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/user-identifier")
 public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implements UserIdentifierRpcFeignClient {
@@ -35,7 +35,7 @@ public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implemen
 	@Autowired
 	private IUserIdentifierService iIdentifierService;
 
-	@ApiOperation("根据登录标识获取")
+	@Operation(summary = "根据登录标识获取")
 	@GetMapping("/getByIdentifier")
 	@Override
 	public SingleResponse<UserIdentifierVO> getByIdentifier(String identifier) {

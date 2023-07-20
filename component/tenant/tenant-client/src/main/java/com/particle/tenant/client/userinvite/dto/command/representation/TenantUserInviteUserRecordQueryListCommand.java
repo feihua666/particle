@@ -2,8 +2,8 @@ package com.particle.tenant.client.userinvite.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
  * <p>
@@ -14,16 +14,16 @@ import lombok.Data;
  * @since 2023-04-18 11:06:17
  */
 @Data
-@ApiModel
+@Schema
 public class TenantUserInviteUserRecordQueryListCommand extends AbstractBaseQueryCommand {
 
 
 
-    @ApiModelProperty(value = "租户用户邀请id")
+    @Schema(description = "租户用户邀请id")
     private Integer tenantUserInviteId;
 
 
-    @ApiModelProperty(value = "被邀请人用户id")
+    @Schema(description = "被邀请人用户id")
     private Long invitedUserId;
 
 

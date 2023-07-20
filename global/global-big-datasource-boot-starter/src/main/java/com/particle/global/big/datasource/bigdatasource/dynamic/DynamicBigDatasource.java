@@ -1,19 +1,15 @@
 package com.particle.global.big.datasource.bigdatasource.dynamic;
 
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.dynamic.executor.DelegateBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.dynamic.executor.DelegateBigDatasourceExecutor;
 import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRouterImpl;
-import com.particle.global.big.datasource.bigdatasource.dynamic.properties.BigDatasourceProperty;
-import com.particle.global.big.datasource.bigdatasource.dynamic.properties.DynamicBigDatasourceProperties;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.DynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;

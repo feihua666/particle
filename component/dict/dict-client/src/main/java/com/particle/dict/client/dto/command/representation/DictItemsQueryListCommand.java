@@ -2,8 +2,8 @@ package com.particle.dict.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.OrderBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,23 +18,23 @@ import javax.validation.constraints.NotEmpty;
  */
 @OrderBy("seq")
 @Data
-@ApiModel
+@Schema
 public class DictItemsQueryListCommand extends AbstractBaseQueryCommand {
 
     @NotEmpty(message="字典组编码不能为空")
-    @ApiModelProperty(value = "字典组编码",required = true)
+    @Schema(description = "字典组编码",required = true)
     private String groupCode;
 
-    @ApiModelProperty(value = "私有标识")
+    @Schema(description = "私有标识")
     private String privateFlag;
 
-    @ApiModelProperty(value = "分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
-    @ApiModelProperty(value = "标签，多个以逗号分隔，用来区分字典项")
+    @Schema(description = "标签，多个以逗号分隔，用来区分字典项")
     private String tags;
 
 
-    @ApiModelProperty("使用id数据对应的value作为tag，可以根据标签过滤，如果tag有值，该字段不生效")
+    @Schema(description = "使用id数据对应的value作为tag，可以根据标签过滤，如果tag有值，该字段不生效")
     private Long valueAsTagId;
 }

@@ -2,8 +2,8 @@ package com.particle.dataquery.client.provider.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,36 +18,36 @@ import javax.validation.constraints.NotNull;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class DataQueryProviderCreateCommand extends AbstractBaseCommand {
 
 
 
     @NotEmpty(message = "供应商名称 不能为空")
-    @ApiModelProperty(value = "供应商名称",required = true)
+    @Schema(description = "供应商名称",required = true)
     private String name;
 
     @NotNull(message = "是否禁用 不能为空")
-    @ApiModelProperty(value = "是否禁用",required = true)
+    @Schema(description = "是否禁用",required = true)
     private Boolean isDisabled;
 
     /**
      * 禁用时，禁用原因必填
      */
     @PropValid.DependCondition(message = "禁用原因不能为空",dependProp = "isDisabled",ifEqual = "true")
-    @ApiModelProperty("禁用原因")
+    @Schema(description = "禁用原因")
     private String disabledReason;
 
-    @ApiModelProperty(value = "姓名")
+    @Schema(description = "姓名")
     private String userName;
 
-    @ApiModelProperty(value = "邮箱")
+    @Schema(description = "邮箱")
     private String email;
 
-    @ApiModelProperty(value = "手机号")
+    @Schema(description = "手机号")
     private String mobile;
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
 }

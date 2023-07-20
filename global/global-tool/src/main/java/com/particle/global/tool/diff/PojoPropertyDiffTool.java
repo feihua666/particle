@@ -5,7 +5,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -130,13 +130,13 @@ public class PojoPropertyDiffTool {
 			}
 		}else {
 			Field[] fields = ReflectUtil.getFields(object.getClass());
-			ApiModelProperty annotation = null;
+			Schema annotation = null;
 			for (Field field : fields) {
 				temp = new PropertyResult();
 				temp.setProperty(field.getName());
-				annotation = AnnotationUtil.getAnnotation(field, ApiModelProperty.class);
+				annotation = AnnotationUtil.getAnnotation(field, Schema.class);
 				if(annotation != null){
-					temp.setName(annotation.value());
+					temp.setName(annotation.title());
 				}
 				valueTemp = ReflectUtil.getFieldValue(object,field);
 				valueTemp = Convert.toStr(valueTemp);

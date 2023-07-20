@@ -2,8 +2,8 @@ package com.particle.dataquery.client.provider.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.trans.anno.TransBy;
 /**
@@ -15,28 +15,28 @@ import com.particle.global.light.share.trans.anno.TransBy;
  * @since 2023-03-03 19:19:55
  */
 @Data
-@ApiModel
+@Schema
 public class DataQueryProviderVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("供应商名称")
+    @Schema(description = "供应商名称")
     private String name;
     
-    @ApiModelProperty("是否禁用")
+    @Schema(description = "是否禁用")
     private Boolean isDisabled;
 
-    @ApiModelProperty("禁用原因")
+    @Schema(description = "禁用原因")
     private String disabledReason;
 
-    @ApiModelProperty("姓名")
+    @Schema(description = "姓名")
     private String userName;
     
-    @ApiModelProperty("邮箱")
+    @Schema(description = "邮箱")
     private String email;
     
-    @ApiModelProperty("手机号")
+    @Schema(description = "手机号")
     private String mobile;
     
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String remark;
     
 

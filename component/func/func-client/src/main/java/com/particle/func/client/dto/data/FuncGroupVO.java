@@ -2,8 +2,8 @@ package com.particle.func.client.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,17 +15,17 @@ import lombok.Data;
  * @since 2022-12-02
  */
 @Data
-@ApiModel
+@Schema
 public class FuncGroupVO extends AbstractBaseIdVO {
 
 
-    @ApiModelProperty("编码，模糊查询")
+    @Schema(description = "编码，模糊查询")
     private String code;
 
-    @ApiModelProperty("名称，模糊查询")
+    @Schema(description = "名称，模糊查询")
     private String name;
 
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String remark;
 
 

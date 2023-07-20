@@ -5,8 +5,8 @@ import ${injection.applicationService.pkg}.${injection.applicationService.classN
 import ${im};
 </#list>
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ${author}
  * @since ${date}
  */
-@Api(tags = "${injection.tableComment}移动端前台应用相关接口")
+@Tag(name = "${injection.tableComment}移动端前台应用相关接口")
 @RestController
 @RequestMapping("${injection.urlPrefix}/${injection.entityUrlPath}")
 public class ${injection.className} extends AbstractBaseMobileAdapter {

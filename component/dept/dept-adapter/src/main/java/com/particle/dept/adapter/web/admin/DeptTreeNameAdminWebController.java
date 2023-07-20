@@ -12,8 +12,8 @@ import com.particle.dept.client.dto.command.representation.DeptTreeNameQueryList
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-04-12 11:42:10
  */
-@Api(tags = "部门树名称pc或平板端后台管理相关接口")
+@Tag(name = "部门树名称pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/dept_tree_name")
 public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
@@ -43,7 +43,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	private IDeptTreeNameRepresentationApplicationService iDeptTreeNameRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:create')")
-	@ApiOperation("添加部门树名称")
+	@Operation(summary = "添加部门树名称")
 	@PostMapping("/create")
 	@OpLog(name = "添加部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.create)
 	public SingleResponse<DeptTreeNameVO> create(@RequestBody DeptTreeNameCreateCommand deptTreeNameCreateCommand){
@@ -51,7 +51,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:delete')")
-	@ApiOperation("删除部门树名称")
+	@Operation(summary = "删除部门树名称")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptTreeNameVO> delete(@RequestBody IdCommand deleteCommand){
@@ -59,7 +59,7 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:update')")
-	@ApiOperation("更新部门树名称")
+	@Operation(summary = "更新部门树名称")
 	@PutMapping("/update")
 	@OpLog(name = "更新部门树名称",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptTreeNameVO> update(@RequestBody DeptTreeNameUpdateCommand deptTreeNameUpdateCommand){
@@ -67,28 +67,28 @@ public class DeptTreeNameAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:update')")
-	@ApiOperation("部门树名称更新详情")
+	@Operation(summary = "部门树名称更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<DeptTreeNameVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iDeptTreeNameRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:detail')")
-	@ApiOperation("部门树名称详情展示")
+	@Operation(summary = "部门树名称详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<DeptTreeNameVO> queryDetail(IdCommand detailCommand){
 		return iDeptTreeNameRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:queryList')")
-	@ApiOperation("列表查询部门树名称")
+	@Operation(summary = "列表查询部门树名称")
 	@GetMapping("/list")
 	public MultiResponse<DeptTreeNameVO> queryList(DeptTreeNameQueryListCommand deptTreeNameQueryListCommand){
 		return iDeptTreeNameRepresentationApplicationService.queryList(deptTreeNameQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeName:pageQuery')")
-	@ApiOperation("分页查询部门树名称")
+	@Operation(summary = "分页查询部门树名称")
 	@GetMapping("/page")
 	public PageResponse<DeptTreeNameVO> pageQueryList(DeptTreeNamePageQueryCommand deptTreeNamePageQueryCommand){
 		return iDeptTreeNameRepresentationApplicationService.pageQuery(deptTreeNamePageQueryCommand);

@@ -1,24 +1,22 @@
 package com.particle.global.swagger;
 
-import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.particle.global.swagger.factory.SwaggerFactory;
-import springfox.documentation.builders.RequestParameterBuilder;
-import springfox.documentation.schema.ScalarType;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.ParameterType;
-import springfox.documentation.service.RequestParameter;
-import springfox.documentation.service.SecurityScheme;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 自定义Swagger信息
  *
  * <p>该类为 {@code Swagger} 相关信息封装,
  * 配合 {@link SwaggerFactory} 工厂类生成
- * {@link springfox.documentation.spring.web.plugins.Docket} 对象, 创建相关接口文档数据
+ * {@link GroupedOpenApi} 对象, 创建相关接口文档数据
  *
  * @see SwaggerFactory
  * @author yangwei
@@ -73,12 +71,6 @@ public class SwaggerInfo {
     private final String basePackage;
 
     /**
-     * 扩展解析器对象(必传, 将自动注入的对象赋值过来即可)
-     * 注意：OpenApiExtensionResolver辅助类需要配置knife4j.enable=true才能自动@Autowired
-     */
-    private final OpenApiExtensionResolver openApiExtensionResolver;
-
-    /**
      * 授权参数
      * <ul>
      *     <li>KeyValue: new ApiKey("参数说明(Token)", "参数名(Authorization)", "参数位置(header|query)")</li>
@@ -88,11 +80,10 @@ public class SwaggerInfo {
      */
     private final List<SecurityScheme> securitySchemes;
 
-    private final List<RequestParameter> requestParameters;
+    private final List<Parameter> parameter;
 
     public SwaggerInfo(String groupName, String title, String description, String termsOfServiceUrl,
-                       Contact contact, String version, String basePackage,
-                       OpenApiExtensionResolver openApiExtensionResolver, List<SecurityScheme> securitySchemes,List<RequestParameter> requestParameters) {
+                       Contact contact, String version, String basePackage,List<SecurityScheme> securitySchemes,List<Parameter> parameter) {
         this.groupName = groupName;
         this.title = title;
         this.description = description;
@@ -100,10 +91,8 @@ public class SwaggerInfo {
         this.contact = contact;
         this.version = version;
         this.basePackage = basePackage;
-        this.openApiExtensionResolver = Optional.ofNullable(openApiExtensionResolver)
-                .orElse(ApplicationContexSwaggertHelper.getBean(OpenApiExtensionResolver.class));
         this.securitySchemes = securitySchemes;
-        this.requestParameters = requestParameters;
+        this.parameter = parameter;
     }
 
     public static SwaggerInfoDtoBuilder builder() {
@@ -138,16 +127,12 @@ public class SwaggerInfo {
         return basePackage;
     }
 
-    public OpenApiExtensionResolver getOpenApiExtensionResolver() {
-        return openApiExtensionResolver;
-    }
-
     public List<SecurityScheme> getSecuritySchemes() {
         return securitySchemes;
     }
 
-    public List<RequestParameter> getRequestParameters() {
-        return requestParameters;
+    public List<Parameter> getParameters() {
+        return parameter;
     }
 
     @Override
@@ -160,9 +145,8 @@ public class SwaggerInfo {
                 ", contact=" + contact +
                 ", version='" + version + '\'' +
                 ", basePackage='" + basePackage + '\'' +
-                ", openApiExtensionResolver=" + openApiExtensionResolver +
                 ", securitySchemes=" + securitySchemes +
-                ", requestParameter=" + requestParameters +
+                ", requestParameter=" + parameter +
                 '}';
     }
 
@@ -175,27 +159,23 @@ public class SwaggerInfo {
         private Contact contact;
         private String version;
         private String basePackage;
-        private OpenApiExtensionResolver openApiExtensionResolver;
         private List<SecurityScheme> securitySchemes;
         // 全局请求参数
-        private List<RequestParameter> requestParameter;
+        private List<Parameter> requestParameter;
         public SwaggerInfo build() {
             if (requestParameter == null) {
                 requestParameter = new ArrayList<>();
             }
             if (!requestParameter.stream().filter(item -> token.equals(item.getName())).findFirst().isPresent()) {
-                requestParameter.add(
-                        new RequestParameterBuilder()
-                                .name(token)
-                                .description("自定义token")
-                                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
-                                .required(false)
-                                .in(ParameterType.HEADER)
-                                .build()
-                );
+                Parameter tokenParameter = new Parameter();
+                tokenParameter.setName(token);
+                tokenParameter.setSchema(new StringSchema());
+                tokenParameter.setRequired(false);
+                tokenParameter.setIn(ParameterIn.HEADER.toString());
+                requestParameter.add(tokenParameter);
             }
 
-            return new SwaggerInfo(this.groupName, this.title, this.description, this.termsOfServiceUrl, this.contact, this.version, this.basePackage, this.openApiExtensionResolver, this.securitySchemes,this.requestParameter);
+            return new SwaggerInfo(this.groupName, this.title, this.description, this.termsOfServiceUrl, this.contact, this.version, this.basePackage, this.securitySchemes,this.requestParameter);
         }
 
         public SwaggerInfoDtoBuilder groupName(final String groupName) {
@@ -233,16 +213,11 @@ public class SwaggerInfo {
             return this;
         }
 
-        public SwaggerInfoDtoBuilder openApiExtensionResolver(final OpenApiExtensionResolver openApiExtensionResolver) {
-            this.openApiExtensionResolver = openApiExtensionResolver;
-            return this;
-        }
-
         public SwaggerInfoDtoBuilder securitySchemes(final List<SecurityScheme> securitySchemes) {
             this.securitySchemes = securitySchemes;
             return this;
         }
-        public SwaggerInfoDtoBuilder requestParameter(final List<RequestParameter> requestParameter) {
+        public SwaggerInfoDtoBuilder requestParameter(final List<Parameter> requestParameter) {
             this.requestParameter = requestParameter;
             return this;
         }
@@ -256,7 +231,6 @@ public class SwaggerInfo {
                     ", contact=" + contact +
                     ", version='" + version + '\'' +
                     ", basePackage='" + basePackage + '\'' +
-                    ", openApiExtensionResolver=" + openApiExtensionResolver +
                     ", securitySchemes=" + securitySchemes +
                     ", requestParameter=" + requestParameter +
                     '}';

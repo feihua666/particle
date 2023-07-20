@@ -3,8 +3,8 @@ package com.particle.func.client.dto.command.representation;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreeQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import com.particle.global.light.share.mybatis.anno.OrderBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -17,32 +17,32 @@ import lombok.Data;
  */
 @OrderBy("seq")
 @Data
-@ApiModel
+@Schema
 public class FuncQueryListCommand extends AbstractBaseTreeQueryCommand {
 
     @Like
-    @ApiModelProperty("编码，左前缀匹配")
+    @Schema(description = "编码，左前缀匹配")
     private String code;
 
     @Like
-    @ApiModelProperty("名称，左模糊查询")
+    @Schema(description = "名称，左模糊查询")
     private String name;
 
-    @ApiModelProperty("功能分组id")
+    @Schema(description = "功能分组id")
     private Long funcGroupId;
 
-    @ApiModelProperty("是否禁用")
+    @Schema(description = "是否禁用")
     private Boolean isDisabled;
 
-    @ApiModelProperty("类型,字典id")
+    @Schema(description = "类型,字典id")
     private Long typeDictId;
 
-    @ApiModelProperty("归属组件")
+    @Schema(description = "归属组件")
     private String componentOf;
 
-    @ApiModelProperty("父级id")
+    @Schema(description = "父级id")
     private Long parentId;
 
-    @ApiModelProperty("功能应用id")
+    @Schema(description = "功能应用id")
     private Long funcApplicationId;
 }

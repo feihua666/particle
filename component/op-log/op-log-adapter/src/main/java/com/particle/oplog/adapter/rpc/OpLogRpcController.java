@@ -3,7 +3,7 @@ package com.particle.oplog.adapter.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.oplog.client.api.IOpLogApplicationService;
 import com.particle.oplog.adapter.feign.client.rpc.OpLogRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-08 18:32:34
  */
-@Api(tags = "操作日志远程调用相关接口")
+@Tag(name = "操作日志远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/op_log")
 public class OpLogRpcController extends AbstractBaseRpcAdapter implements OpLogRpcFeignClient  {

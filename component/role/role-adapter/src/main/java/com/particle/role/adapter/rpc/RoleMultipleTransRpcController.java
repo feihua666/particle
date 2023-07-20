@@ -4,7 +4,7 @@ import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.trans.result.TransResult;
 import com.particle.role.adapter.feign.client.rpc.RoleMultipleTransRpcFeignClient;
 import com.particle.role.client.dto.data.RoleTransVO;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ import java.util.Set;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "角色远程调用相关接口")
+@Tag(name = "角色远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/role/mt")
 public class RoleMultipleTransRpcController extends AbstractBaseRpcAdapter implements RoleMultipleTransRpcFeignClient {

@@ -2,8 +2,8 @@ package com.particle.dataquery.client.datasource.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 import com.particle.global.light.share.mybatis.anno.Like;
@@ -16,24 +16,24 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-03-08 14:29:00
  */
 @Data
-@ApiModel
+@Schema
 public class DataQueryDatasourcePageQueryCommand extends AbstractBasePageQueryCommand {
 
 
-    @ApiModelProperty(value = "编码")
+    @Schema(description = "编码")
     private String code;
 
     @Like
-    @ApiModelProperty(value = "名称,左前缀匹配")
+    @Schema(description = "名称,左前缀匹配")
     private String name;
 
-    @ApiModelProperty(value = "类型")
+    @Schema(description = "类型")
     private Long typeDictId;
 
-    @ApiModelProperty(value = "用户名")
+    @Schema(description = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "数据查询供应商")
+    @Schema(description = "数据查询供应商")
     private Long dataQueryProviderId;
 
 }

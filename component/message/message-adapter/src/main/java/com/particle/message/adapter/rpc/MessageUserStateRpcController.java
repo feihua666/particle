@@ -3,7 +3,7 @@ package com.particle.message.adapter.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.message.client.api.IMessageUserStateApplicationService;
 import com.particle.message.adapter.feign.client.rpc.MessageUserStateRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-18 15:36:07
  */
-@Api(tags = "用户消息读取状态远程调用相关接口")
+@Tag(name = "用户消息读取状态远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/message_user_state")
 public class MessageUserStateRpcController extends AbstractBaseRpcAdapter implements MessageUserStateRpcFeignClient  {

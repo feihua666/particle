@@ -8,8 +8,8 @@ import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.UserTenantService;
 import com.particle.global.tool.constant.Constants;
 import com.particle.global.tool.json.JsonTool;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Getter
 @Setter
-@ApiModel("登录用户信息")
+@Schema(description = "登录用户信息")
 public class LoginUser implements UserDetails {
 
     /**
@@ -39,14 +39,14 @@ public class LoginUser implements UserDetails {
      */
     public static String tenant_super_admin_role = "tenantsuperadmin";
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long id;
 
     /**
      * 是否超级管理员,超级管理员是系统级别，无需分配功能，即拥有所有功能权限
      * 参见 {@link SuperAdminRoleVoter} 已硬编码
      */
-    @ApiModelProperty(value = "是否超级管理员")
+    @Schema(description = "是否超级管理员")
     private Boolean isSuperAdmin = false;
 
     /**
@@ -54,37 +54,37 @@ public class LoginUser implements UserDetails {
      * 这在获取用户的功能时已硬编码
      * 该字段仅在多租户下有效，如果不是多租户部署，其在某种程序上等同于 {@link LoginUser#isSuperAdmin}
      */
-    @ApiModelProperty(value = "是否租户超级管理员")
+    @Schema(description = "是否租户超级管理员")
     private Boolean isTenantSuperAdmin = false;
 
-    @ApiModelProperty(value = "用户姓名")
+    @Schema(description = "用户姓名")
     private String name;
 
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "用户头像")
+    @Schema(description = "用户头像")
     private String avatar ;
 
-    @ApiModelProperty(value = "用户性别")
+    @Schema(description = "用户性别")
     private String gender ;
 
-    @ApiModelProperty(value = "用户登录帐号,登录标识字符串")
+    @Schema(description = "用户登录帐号,登录标识字符串")
     private String username;
 
-    @ApiModelProperty(value = "用户登录密码")
+    @Schema(description = "用户登录密码")
     private String password;
 
-    @ApiModelProperty(value = "帐号是否过期")
+    @Schema(description = "帐号是否过期")
     private Boolean isExpired = false;
 
-    @ApiModelProperty(value = "用户是否锁定")
+    @Schema(description = "用户是否锁定")
     private Boolean isLocked = false;
 
-    @ApiModelProperty(value = "帐号是否可用")
+    @Schema(description = "帐号是否可用")
     private Boolean isEnabled = true;
 
-    @ApiModelProperty(value = "用户登录密码是否过期")
+    @Schema(description = "用户登录密码是否过期")
     private Boolean isCredentialsExpired = false;
 
     /**
@@ -93,7 +93,7 @@ public class LoginUser implements UserDetails {
      */
     //@Getter(AccessLevel.NONE)
     @JsonView(UserWebIgnoreView.class)
-    @ApiModelProperty(value = "权限信息")
+    @Schema(description = "权限信息")
     private List<UserGrantedAuthority> userGrantedAuthorities;
 
     /**
@@ -102,29 +102,29 @@ public class LoginUser implements UserDetails {
      * 不要直接通过set方法设置，这在添加权限的时候自动初始化
      */
     //@Setter(AccessLevel.NONE)
-    @ApiModelProperty(value = "角色信息")
+    @Schema(description = "角色信息")
     private List<GrantedRole> roles;
 
-    @ApiModelProperty(value = "当前正在使用的角色")
+    @Schema(description = "当前正在使用的角色")
     private GrantedRole currentRole;
 
-    @ApiModelProperty(value = "部门信息")
+    @Schema(description = "部门信息")
     private DeptInfo deptInfo;
 
-    @ApiModelProperty(value = "密码信息")
+    @Schema(description = "密码信息")
     private PasswordInfo passwordInfo;
 
     /**
      * 租户信息
      * 通过 {@link UserTenantService} 获取并set设置
      */
-    @ApiModelProperty(value = "租户信息")
+    @Schema(description = "租户信息")
     private List<GrantedTenant> tenants;
 
     /**
      * 当前正在使用的租户
      */
-    @ApiModelProperty(value = "当前正在使用的租户")
+    @Schema(description = "当前正在使用的租户")
     private GrantedTenant currentTenant;
     /**
      * 权限码信息
@@ -134,13 +134,13 @@ public class LoginUser implements UserDetails {
     //@Setter(AccessLevel.NONE)
     private List<String> permissions;
 
-    @ApiModelProperty(value = "扩展信息")
+    @Schema(description = "扩展信息")
     private Map<String, Object> ext;
 
-    @ApiModelProperty(value = "登录时间")
+    @Schema(description = "登录时间")
     private LocalDateTime loginAt = LocalDateTime.now();
 
-    @ApiModelProperty(value = "登录IP")
+    @Schema(description = "登录IP")
     private String loginIp;
 
     @JsonView(UserWebIgnoreView.class)

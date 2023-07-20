@@ -14,8 +14,8 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-07-18
  */
-@Api(tags = "区域pc或平板端后台管理相关接口")
+@Tag(name = "区域pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/area")
 public class AreaAdminWebController extends AbstractBaseWebAdapter {
@@ -39,7 +39,7 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	private IAreaRepresentationApplicationService iAreaRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:area:create')")
-	@ApiOperation("添加区域")
+	@Operation(summary = "添加区域")
 	@PostMapping("/create")
 	@OpLog(name = "添加区域",module = OpLogConstants.Module.area,type = OpLogConstants.Type.create)
 	public SingleResponse<AreaVO> create(@RequestBody AreaCreateCommand areaCreateCommand){
@@ -47,7 +47,7 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:delete')")
-	@ApiOperation("删除区域")
+	@Operation(summary = "删除区域")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除区域",module = OpLogConstants.Module.area,type = OpLogConstants.Type.delete)
 	public SingleResponse<AreaVO> delete(@RequestBody IdCommand areaDeleteCommand){
@@ -55,7 +55,7 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:update')")
-	@ApiOperation("更新区域")
+	@Operation(summary = "更新区域")
 	@PutMapping("/update")
 	@OpLog(name = "更新区域",module = OpLogConstants.Module.area,type = OpLogConstants.Type.update)
 	public SingleResponse<AreaVO> update(@RequestBody AreaUpdateCommand areaUpdateCommand){
@@ -63,28 +63,28 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:update')")
-	@ApiOperation("区域更新详情")
+	@Operation(summary = "区域更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand){
 		return iAreaRepresentationApplicationService.queryDetailForUpdate(areaQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:detail')")
-	@ApiOperation("区域详情展示")
+	@Operation(summary = "区域详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand){
 		return iAreaRepresentationApplicationService.queryDetail(areaQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:queryList')")
-	@ApiOperation("列表查询区域")
+	@Operation(summary = "列表查询区域")
 	@GetMapping("/list")
 	public MultiResponse<AreaVO> queryList(AreaQueryListCommand areaQueryListCommand){
 		return iAreaRepresentationApplicationService.queryList(areaQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:pageQuery')")
-	@ApiOperation("分页查询区域")
+	@Operation(summary = "分页查询区域")
 	@GetMapping("/page")
 	public PageResponse<AreaVO> pageQueryList(AreaPageQueryCommand areaPageQueryCommand){
 		return iAreaRepresentationApplicationService.pageQuery(areaPageQueryCommand);

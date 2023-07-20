@@ -2,7 +2,7 @@ package com.particle.dict.adapter.wap.admin;
 
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
 import com.particle.dict.client.api.IDictApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-07-19
  */
-@Api(tags = "字典wap端后台管理相关接口")
+@Tag(name = "字典wap端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/wap/dict")
 public class DictAdminWapController extends AbstractBaseWapAdapter {

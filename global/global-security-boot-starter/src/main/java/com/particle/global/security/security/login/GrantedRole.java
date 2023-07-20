@@ -1,7 +1,7 @@
 package com.particle.global.security.security.login;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,16 +18,16 @@ import java.util.List;
  */
 @Data
 @Builder
-@ApiModel("授权的角色")
+@Schema(description = "授权的角色")
 public class GrantedRole implements Serializable {
 
-	@ApiModelProperty("role id")
+	@Schema(description = "role id")
 	private Long id;
-	@ApiModelProperty("role code")
+	@Schema(description = "role code")
 	private String code;
-	@ApiModelProperty("role name")
+	@Schema(description = "role name")
 	private String name;
-	@ApiModelProperty(value = "是否超级管理员")
+	@Schema(description = "是否超级管理员")
 	private Boolean isSuperadmin;
 
 	public static GrantedRole create(Long id, String code, String name,Boolean isSuperadmin) {

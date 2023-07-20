@@ -1,19 +1,22 @@
 package com.particle.global.oss;
 
+
 import com.particle.global.oss.client.aws.GlobalAwsOssProperties;
 import com.particle.global.oss.service.DefaultGlobalOssClientServiceImpl;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.projectinfo.ProjectInfo;
+import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.service.SecurityScheme;
-import springfox.documentation.spring.web.plugins.Docket;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +47,15 @@ public class GlobalOssAutoConfiguration {
 	 * @param projectInfo 参数不能去，依赖projectInfo
 	 * @return
 	 */
+	@ConditionalOnBean({ApplicationContexSwaggertHelper.class})
 	@Bean
-	public Docket createGlobalOssRestApi(ProjectInfo projectInfo) {
+	public GroupedOpenApi createGlobalOssRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
 
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("oss接口")
 				.basePackage("com.particle.global.oss.endpoint")
-				//  SwaggerInfo 已自动处理
-				.openApiExtensionResolver(null)
+
 				.securitySchemes(parameters)
 				.version(ProjectInfo.VERSION)
 				.title(ProjectInfo.NAME + " Swagger Apis")

@@ -1,14 +1,12 @@
 package com.particle.global.security.security.config;
 
-import com.particle.global.security.security.login.*;
-import com.particle.global.security.tenant.GrantedTenant;
-import com.particle.global.security.tenant.ITenantResolveService;
-import com.particle.global.security.tenant.IUserTenantChangeListener;
+import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -30,23 +28,13 @@ import java.util.Optional;
  */
 @Slf4j
 public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
-	/**
-	 * 匿名用户的 principal
-	 * 来源于 {@link AnonymousAuthenticationFilter}
-	 */
-	private static String ANONYMOUS_USER_PRINCIPAL = "anonymousUser";
 
 	@Setter
 	private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
-
-
 	@Setter
 	private GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper;
 
-
-
 	@Override
-
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
 
@@ -61,12 +49,6 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 						LoginUserTool.setAnonymous(false);
 					}
 					userInfo = JsonTool.toJsonStr(principal);
-				}
-				if ((principal instanceof String)) {
-					userInfo = ((String) principal);
-					if (ANONYMOUS_USER_PRINCIPAL.equals(userInfo)) {
-						LoginUserTool.setAnonymous(true);
-					}
 				}
 			}
 			log.info("当前登录用户: loginUser={}", userInfo);

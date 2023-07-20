@@ -10,8 +10,8 @@ import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdC
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "角色用户关系远程调用相关接口")
+@Tag(name = "角色用户关系远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/role-user-rel")
 public class RoleUserRelRpcController extends AbstractBaseRpcAdapter implements RoleUserRelRpcFeignClient {
@@ -39,7 +39,7 @@ public class RoleUserRelRpcController extends AbstractBaseRpcAdapter implements 
 	@Autowired
 	private IRoleUserRelService iRoleUserRelService;
 
-	@ApiOperation("添加角色用户关系")
+	@Operation(summary = "添加角色用户关系")
 	@PostMapping("/add")
 	public RoleUserRelVO add(@RequestBody RoleUserRelWithTenantIdCreateCommand roleUserRelCreateCommand){
 		RoleUserRelDO roleUserRelDO = new RoleUserRelDO();

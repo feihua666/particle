@@ -1,8 +1,8 @@
 package com.particle.tenant.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,25 +17,25 @@ import java.time.LocalDateTime;
  * @since 2023-07-13 15:36:07
  */
 @Data
-@ApiModel
+@Schema
 public class TenantCurrentVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("租户编码")
+    @Schema(description = "租户编码")
     private String code;
     
-    @ApiModelProperty("租户名称")
+    @Schema(description = "租户名称")
     private String name;
 
-    @ApiModelProperty("租户主题")
+    @Schema(description = "租户主题")
     private String tenantThemeJson;
     
-    @ApiModelProperty("租户默认的页面路由")
+    @Schema(description = "租户默认的页面路由")
     private String tenantDefaultRouteJson;
 
-    @ApiModelProperty("租户logo地址")
+    @Schema(description = "租户logo地址")
     private String tenantLogoJson;
 
-    @ApiModelProperty("额外配置json")
+    @Schema(description = "额外配置json")
     private String configJson;
 
 }

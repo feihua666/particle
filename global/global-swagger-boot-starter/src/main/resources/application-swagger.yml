@@ -1,6 +1,7 @@
 # ========================= swagger config =========================
-spring:
-  mvc:
-    pathmatch:
-      # 解决 spring新版本中，swagger3兼容的问题，但这不是长久问题，不加这个接口在doc.html页面显示不出来
-      matching-strategy: ant_path_matcher
+springdoc:
+  # 默认是false，需要设置为true
+  # 主要是解决 Knife4j v4.0版本针对参数解析ParameterObject的问题说明 参见：https://doc.xiaominfo.com/docs/faq/v4/knife4j-parameterobject-flat-param
+  default-flat-param-object: true
+  api-docs:
+    enabled: ${particle.swagger.enabled:true}

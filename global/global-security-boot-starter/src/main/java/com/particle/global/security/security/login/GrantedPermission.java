@@ -1,7 +1,7 @@
 package com.particle.global.security.security.login;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,27 +17,27 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@ApiModel("授权的权限")
+@Schema(description = "授权的权限")
 public class GrantedPermission implements Serializable {
 	// 一般登录登录成功后就有user权限
 	public static String userGrantedPermissionCode = "user";
 
-	@ApiModelProperty("permission id")
+	@Schema(description = "permission id")
 	private Long id;
-	@ApiModelProperty("permission code")
+	@Schema(description = "permission code")
 	private String permission;
-	@ApiModelProperty("permission name")
+	@Schema(description = "permission name")
 	private String name;
-	@ApiModelProperty("permission type")
+	@Schema(description = "permission type")
 	private String type;
 
-	@ApiModelProperty("permission source")
+	@Schema(description = "permission source")
 	private String source;
 
 	/**
 	 * 如果 source为role则sourceId为roleId
 	 */
-	@ApiModelProperty("permission sourceId")
+	@Schema(description = "permission sourceId")
 	private Long sourceId;
 	/**
 	 * 来源

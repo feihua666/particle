@@ -3,8 +3,8 @@ package com.particle.func.client.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,10 +20,10 @@ import javax.validation.constraints.NotNull;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class FuncMoveCommand extends AbstractBaseUpdateCommand {
 
     @NotNull(message = "父级id不能为空")
-    @ApiModelProperty(value = "父级id",required = true)
+    @Schema(description = "父级id",required = true)
     private Long parentId;
 }

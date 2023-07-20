@@ -2,7 +2,7 @@ package com.particle.global.trans.api;
 
 
 import com.particle.global.trans.result.TransResult;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface ITransService<R, K> {
      * @param type 一个翻译的标识
      * @return
      */
-    @ApiOperation("判断是否支持单个翻译")
+    @Operation(summary = "判断是否支持单个翻译")
     @GetMapping("/trans/support")
     default boolean support(String type){return false;}
 
@@ -32,7 +32,7 @@ public interface ITransService<R, K> {
      * @return
      */
 
-    @ApiOperation("判断是否支持批量翻译")
+    @Operation(summary = "判断是否支持批量翻译")
     @GetMapping("/trans/supportBatch")
     default boolean supportBatch(String type){
         return false;
@@ -44,7 +44,7 @@ public interface ITransService<R, K> {
      * @param keys
      * @return
      */
-    @ApiOperation("批量翻译")
+    @Operation(summary = "批量翻译")
     @GetMapping("/trans/transBatch")
     default List<TransResult<R,K>> transBatch(String type, Set<K> keys){
         return null;
@@ -55,7 +55,7 @@ public interface ITransService<R, K> {
      * @param key
      * @return
      */
-    @ApiOperation("单个翻译")
+    @Operation(summary = "单个翻译")
     @GetMapping("/trans/trans")
     default TransResult<R,K> trans(String type, K key){
         return null;

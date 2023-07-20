@@ -1,8 +1,8 @@
 package com.particle.tracking.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -17,49 +17,49 @@ import javax.validation.constraints.NotNull;
  * @since 2023-05-10 11:39:06
  */
 @Data
-@ApiModel
+@Schema
 public class TrackingPageUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "页面编码 不能为空")
-    @ApiModelProperty(value = "页面编码",required = true)
+    @Schema(description = "页面编码",required = true)
     private String code;
 
 
     @NotEmpty(message = "页面名称 不能为空")
-    @ApiModelProperty(value = "页面名称",required = true)
+    @Schema(description = "页面名称",required = true)
     private String name;
 
 
     @NotEmpty(message = "页面图片地址 不能为空")
-    @ApiModelProperty(value = "页面图片地址",required = true)
+    @Schema(description = "页面图片地址",required = true)
     private String imageUrl;
 
 
     @NotEmpty(message = "页面访问地址 不能为空")
-    @ApiModelProperty(value = "页面访问地址",required = true)
+    @Schema(description = "页面访问地址",required = true)
     private String absoluteUrl;
 
     @NotEmpty(message = "路径说明 不能为空")
-    @ApiModelProperty(value = "路径说明",required = true)
+    @Schema(description = "路径说明",required = true)
     private String pathMemo;
 
     @NotEmpty(message = "页面版本 不能为空")
-    @ApiModelProperty(value = "页面版本",required = true)
+    @Schema(description = "页面版本",required = true)
     private String pageVersion;
 
     @NotEmpty(message = "分组标识 不能为空")
-    @ApiModelProperty(value = "分组标识",required = true)
+    @Schema(description = "分组标识",required = true)
     private String groupFlag;
 
     @NotNull(message = "排序 不能为空")
-    @ApiModelProperty(value = "排序",required = true)
+    @Schema(description = "排序",required = true)
     private Integer seq;
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
-    @ApiModelProperty(value = "父级")
+    @Schema(description = "父级")
     private Long parentId;
 
 }

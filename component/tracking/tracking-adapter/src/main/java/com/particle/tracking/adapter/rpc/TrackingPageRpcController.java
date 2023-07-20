@@ -3,7 +3,7 @@ package com.particle.tracking.adapter.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.tracking.client.api.ITrackingPageApplicationService;
 import com.particle.tracking.adapter.feign.client.rpc.TrackingPageRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-10 11:39:06
  */
-@Api(tags = "埋点页面远程调用相关接口")
+@Tag(name = "埋点页面远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/tracking_page")
 public class TrackingPageRpcController extends AbstractBaseRpcAdapter implements TrackingPageRpcFeignClient  {

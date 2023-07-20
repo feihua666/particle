@@ -1,8 +1,8 @@
 package com.particle.global.captcha.endpoint;
 
 import com.particle.global.dto.basic.Command;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
  * @since 2023-04-25 14:28
  */
 @Data
-@ApiModel
+@Schema
 public class CaptchaVerifyCommand extends Command {
 
 	public static String captchaUniqueIdentifierFieldName = "captchaUniqueIdentifier";
@@ -24,11 +24,11 @@ public class CaptchaVerifyCommand extends Command {
 
 
 	@NotEmpty(message = "验证码唯一标识不能为空")
-	@ApiModelProperty("验证码唯一标识")
+	@Schema(description = "验证码唯一标识")
 	private String captchaUniqueIdentifier;
 
 	@NotEmpty(message = "验证码不能为空")
-	@ApiModelProperty("用户输入值")
+	@Schema(description = "用户输入值")
 	private String captchaValue;
 
 }

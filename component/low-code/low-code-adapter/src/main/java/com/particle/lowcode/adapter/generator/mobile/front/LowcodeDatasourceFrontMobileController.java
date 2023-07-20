@@ -2,8 +2,8 @@ package com.particle.lowcode.adapter.generator.mobile.front;
 
 import com.particle.lowcode.client.generator.api.ILowcodeDatasourceApplicationService;
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-01-03
  */
-@Api(tags = "低代码数据源移动端前台应用相关接口")
+@Tag(name = "低代码数据源移动端前台应用相关接口")
 @RestController
 @RequestMapping("/front/mobile/lowcode-datasource")
 public class LowcodeDatasourceFrontMobileController extends AbstractBaseMobileAdapter {

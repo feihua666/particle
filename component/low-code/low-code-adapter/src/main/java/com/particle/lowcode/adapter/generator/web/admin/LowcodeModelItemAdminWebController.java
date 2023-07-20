@@ -12,8 +12,8 @@ import com.particle.lowcode.client.generator.dto.command.representation.LowcodeM
 import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelItemQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-01-05
  */
-@Api(tags = "低代码模型项目pc或平板端后台管理相关接口")
+@Tag(name = "低代码模型项目pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/lowcode-model-item")
 public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
@@ -43,7 +43,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	private ILowcodeModelItemRepresentationApplicationService iLowcodeModelItemRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:create')")
-	@ApiOperation("添加低代码模型项目")
+	@Operation(summary = "添加低代码模型项目")
 	@PostMapping("/create")
 	@OpLog(name = "添加低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeModelItemVO> create(@RequestBody LowcodeModelItemCreateCommand lowcodeModelItemCreateCommand){
@@ -51,7 +51,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:delete')")
-	@ApiOperation("删除低代码模型项目")
+	@Operation(summary = "删除低代码模型项目")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeModelItemVO> delete(@RequestBody IdCommand deleteCommand){
@@ -59,7 +59,7 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:update')")
-	@ApiOperation("更新低代码模型项目")
+	@Operation(summary = "更新低代码模型项目")
 	@PutMapping("/update")
 	@OpLog(name = "更新低代码模型项目",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeModelItemVO> update(@RequestBody LowcodeModelItemUpdateCommand lowcodeModelItemUpdateCommand){
@@ -67,28 +67,28 @@ public class LowcodeModelItemAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:update')")
-	@ApiOperation("低代码模型项目更新详情")
+	@Operation(summary = "低代码模型项目更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<LowcodeModelItemVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iLowcodeModelItemRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:detail')")
-	@ApiOperation("低代码模型项目详情展示")
+	@Operation(summary = "低代码模型项目详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<LowcodeModelItemVO> queryDetail(IdCommand detailCommand){
 		return iLowcodeModelItemRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:queryList')")
-	@ApiOperation("列表查询低代码模型项目")
+	@Operation(summary = "列表查询低代码模型项目")
 	@GetMapping("/list")
 	public MultiResponse<LowcodeModelItemVO> queryList(LowcodeModelItemQueryListCommand lowcodeModelItemQueryListCommand){
 		return iLowcodeModelItemRepresentationApplicationService.queryList(lowcodeModelItemQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModelItem:pageQuery')")
-	@ApiOperation("分页查询低代码模型项目")
+	@Operation(summary = "分页查询低代码模型项目")
 	@GetMapping("/page")
 	public PageResponse<LowcodeModelItemVO> pageQueryList(LowcodeModelItemPageQueryCommand lowcodeModelItemPageQueryCommand){
 		return iLowcodeModelItemRepresentationApplicationService.pageQuery(lowcodeModelItemPageQueryCommand);

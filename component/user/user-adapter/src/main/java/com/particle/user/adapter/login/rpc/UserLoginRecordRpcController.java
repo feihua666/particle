@@ -4,8 +4,8 @@ import com.particle.user.client.login.api.IUserLoginRecordApplicationService;
 import com.particle.user.adapter.feign.client.login.rpc.UserLoginRecordRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-11-26
  */
-@Api(tags = "用户登录记录远程调用相关接口")
+@Tag(name = "用户登录记录远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/user-login-record")
 public class UserLoginRecordRpcController extends AbstractBaseRpcAdapter implements UserLoginRecordRpcFeignClient {

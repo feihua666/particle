@@ -1,17 +1,19 @@
  package com.particle.tracking;
 
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.service.SecurityScheme;
-import springfox.documentation.spring.web.plugins.Docket;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 /**
  * <p>
@@ -32,15 +34,14 @@ public class TrackingAutoConfiguration {
      * @param projectInfo 参数不能去，依赖projectInfo
      * @return
      */
+    @ConditionalOnBean({ApplicationContexSwaggertHelper.class})
     @Bean
-    public Docket createTrackingAdminRestApi(ProjectInfo projectInfo) {
+    public GroupedOpenApi createTrackingAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
         
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("tracking接口")
                 .basePackage("com.particle.tracking.adapter")
-                //  SwaggerInfo 已自动处理
-                .openApiExtensionResolver(null)
                 .securitySchemes(parameters)
                 .version(ProjectInfo.VERSION)
                 .title(ProjectInfo.NAME + " Swagger Apis")

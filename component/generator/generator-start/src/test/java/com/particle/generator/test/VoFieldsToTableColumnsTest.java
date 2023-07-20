@@ -31,7 +31,7 @@ public class VoFieldsToTableColumnsTest {
 		List<Map<String, String>> result = new ArrayList<>();
 		while (iterator.hasNext()){
 			String line = iterator.next();
-			if(line.trim().startsWith("@ApiModelProperty")){
+			if(line.trim().startsWith("@Schema")){
 				Map<String, String> map = new HashMap<>();
 				map.put("label", matchLabel(line));
 				line = iterator.next();

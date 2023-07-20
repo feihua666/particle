@@ -2,7 +2,7 @@ package com.particle.message.adapter.wap.front;
 
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
 import com.particle.message.client.api.IMessageTemplateApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-18 15:34:49
  */
-@Api(tags = "消息模板wap端前台应用相关接口")
+@Tag(name = "消息模板wap端前台应用相关接口")
 @RestController
 @RequestMapping("/front/wap/message_template")
 public class MessageTemplateFrontWapController extends AbstractBaseWapAdapter {

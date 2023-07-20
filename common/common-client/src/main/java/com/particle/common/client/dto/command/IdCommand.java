@@ -1,7 +1,7 @@
 package com.particle.common.client.dto.command;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -16,12 +16,12 @@ import javax.validation.constraints.NotNull;
  * @since 2022-07-19
  */
 @Data
-@ApiModel
+@Schema
 public class IdCommand extends AbstractBaseCommand {
 
 	@Min(value = 1,message = "id 不能小于1")
     @NotNull(message = "id不能为空")
-	@ApiModelProperty(value = "id",required = true)
+	@Schema(description = "id",required = true)
 	private Long id;
 
 }

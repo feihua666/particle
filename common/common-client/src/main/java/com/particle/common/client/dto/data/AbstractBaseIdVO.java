@@ -1,6 +1,6 @@
 package com.particle.common.client.dto.data;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -18,6 +18,6 @@ public class AbstractBaseIdVO extends AbstractBaseVO{
 	/**
 	 * 主键id
 	 */
-	@ApiModelProperty("主键id")
+	@Schema(description = "主键id")
 	private Long id;
 }

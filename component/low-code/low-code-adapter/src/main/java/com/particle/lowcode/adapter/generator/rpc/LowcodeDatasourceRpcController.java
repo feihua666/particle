@@ -3,7 +3,7 @@ package com.particle.lowcode.adapter.generator.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.lowcode.adapter.feign.client.generator.rpc.LowcodeDatasourceRpcFeignClient;
 import com.particle.lowcode.client.generator.api.ILowcodeDatasourceApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-01-03
  */
-@Api(tags = "低代码数据源远程调用相关接口")
+@Tag(name = "低代码数据源远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/lowcode-datasource")
 public class LowcodeDatasourceRpcController extends AbstractBaseRpcAdapter implements LowcodeDatasourceRpcFeignClient {

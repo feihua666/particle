@@ -21,15 +21,22 @@ import java.util.List;
 @Slf4j
 public abstract class AbstractBaseGatewayImpl<ID extends Id,AR extends AggreateRoot> implements IBaseGateway<ID,AR> {
 
-	@Autowired
+	/**
+	 * 不强制依赖，在不启用全局消息组件时，可以正常使用
+	 */
+	@Autowired(required = false)
 	protected MessageEventSender messageEventSender;
 
 	@Override
 	public boolean save(AR ar) {
 		boolean b = doSave(ar);
 		if (b) {
-			log.info("send domain events size={}",ar.getDomainEvents().size());
-			messageEventSender.sendBatch(((List) ar.getDomainEvents()));
+			if (messageEventSender != null) {
+				log.info("send domain events size={}",ar.getDomainEvents().size());
+				messageEventSender.sendBatch(((List) ar.getDomainEvents()));
+			}else {
+				log.warn("messageEventSender is null. enable global message first");
+			}
 			ar.clearEvents();
 		}
 		return b;
@@ -44,8 +51,11 @@ public abstract class AbstractBaseGatewayImpl<ID extends Id,AR extends AggreateR
 
 	@Override
 	public void sendDomainEvents(List<DomainEvent> domainEventList) {
-
-		log.info("send domain events only size={}",domainEventList.size());
-		messageEventSender.sendBatch((List)domainEventList);
+		if (messageEventSender != null) {
+			log.info("send domain events only size={}",domainEventList.size());
+			messageEventSender.sendBatch((List)domainEventList);
+		}else {
+			log.warn("messageEventSender is null. enable global message first");
+		}
 	}
 }

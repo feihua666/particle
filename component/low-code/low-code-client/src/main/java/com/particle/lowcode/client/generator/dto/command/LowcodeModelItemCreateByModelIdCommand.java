@@ -1,8 +1,8 @@
 package com.particle.lowcode.client.generator.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -16,15 +16,15 @@ import javax.validation.constraints.NotNull;
  * @since 2023-01-03
  */
 @Data
-@ApiModel
+@Schema
 public class LowcodeModelItemCreateByModelIdCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "模型id不能为空")
-    @ApiModelProperty("模型id")
+    @Schema(description = "模型id")
     private Long lowcodeModelId;
 
     @NotNull(message = "数据源id不能为空")
-    @ApiModelProperty("数据源id")
+    @Schema(description = "数据源id")
     private Long lowcodeDatasourceId;
 }

@@ -3,8 +3,8 @@ package com.particle.role.client.roleuserrel.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,22 +24,22 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Accessors(chain = true)
-@ApiModel(value="用户分配角色表单对象")
+@Schema(description = "用户分配角色表单对象")
 public class UserAssignRoleCommand extends AbstractBaseCommand {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "用户id不能为空")
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
-    @ApiModelProperty(value = "选择的角色id")
+    @Schema(description = "选择的角色id")
     private List<Long> checkedRoleIds;
 
     @PropValid.DependCondition(message = "未选择的角色id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @ApiModelProperty(value = "未选择的角色id",example = "如果为懒加载请传该值")
+    @Schema(description = "未选择的角色id",example = "如果为懒加载请传该值")
     private List<Long> uncheckedRoleIds;
 
-    @ApiModelProperty(value = "页面可选择的数据是否为懒加载")
+    @Schema(description = "页面可选择的数据是否为懒加载")
     private Boolean isLazyLoad = false;
 }

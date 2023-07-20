@@ -33,19 +33,19 @@ public interface NativeSqlMapper {
     int delete(@Param(paramSQL) String sql);
 
     @Select(paramSQLExpressin)
-    Map<String,Object> selectOne(@Param(paramSQL) String sql);
+    Map<String,Object> selectOneBySql(@Param(paramSQL) String sql);
 
     @Select(paramSQLExpressin)
     Map<String,Object> selectOne(@Param(paramSQL) String sql,@Param("data") Object data);
 
     @Select(paramSQLExpressin)
-    List<Map<String,Object>> selectList(@Param(paramSQL) String sql);
+    List<Map<String,Object>> selectListBySql(@Param(paramSQL) String sql);
 
     @Select(paramSQLExpressin)
     List<Map<String,Object>> selectList(@Param(paramSQL) String sql,@Param("data") Object data);
 
     @Select(paramSQLExpressin)
-    <P extends IPage<Map<String, Object>>> P selectPage(P page, @Param(paramSQL) String sql);
+    <P extends IPage<Map<String, Object>>> P selectPageBySql(P page, @Param(paramSQL) String sql);
 
 
     @Select(paramSQLExpressin)

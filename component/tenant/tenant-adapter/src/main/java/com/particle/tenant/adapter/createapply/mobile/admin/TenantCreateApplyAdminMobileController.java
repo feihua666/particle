@@ -2,7 +2,7 @@ package com.particle.tenant.adapter.createapply.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
 import  com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-04-18 11:01:30
  */
-@Api(tags = "租户创建申请移动端后台管理相关接口")
+@Tag(name = "租户创建申请移动端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/mobile/tenant_create_apply")
 public class TenantCreateApplyAdminMobileController extends AbstractBaseMobileAdapter {

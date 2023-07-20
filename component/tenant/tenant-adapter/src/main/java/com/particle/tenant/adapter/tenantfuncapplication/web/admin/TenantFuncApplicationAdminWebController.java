@@ -15,8 +15,8 @@ import com.particle.tenant.client.tenantfuncapplication.dto.command.representati
 import com.particle.tenant.client.tenantfuncapplication.dto.command.representation.TenantFuncApplicationQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-04-17 18:12:06
  */
-@Api(tags = "租户功能应用pc或平板端后台管理相关接口")
+@Tag(name = "租户功能应用pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/tenant_func_application")
 public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdapter {
@@ -47,7 +47,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	private ITenantFuncApplicationRepresentationApplicationService iTenantFuncApplicationRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:create')")
-	@ApiOperation("添加租户功能应用")
+	@Operation(summary = "添加租户功能应用")
 	@PostMapping("/create")
 	@OpLog(name = "添加租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantFuncApplicationVO> create(@RequestBody TenantFuncApplicationCreateCommand tenantFuncApplicationCreateCommand){
@@ -55,7 +55,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:delete')")
-	@ApiOperation("删除租户功能应用")
+	@Operation(summary = "删除租户功能应用")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantFuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
@@ -63,7 +63,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:update')")
-	@ApiOperation("更新租户功能应用")
+	@Operation(summary = "更新租户功能应用")
 	@PutMapping("/update")
 	@OpLog(name = "更新租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantFuncApplicationVO> update(@RequestBody TenantFuncApplicationUpdateCommand tenantFuncApplicationUpdateCommand){
@@ -71,34 +71,34 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:update')")
-	@ApiOperation("租户功能应用更新详情")
+	@Operation(summary = "租户功能应用更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:detail')")
-	@ApiOperation("租户功能应用详情展示")
+	@Operation(summary = "租户功能应用详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<TenantFuncApplicationVO> queryDetail(IdCommand detailCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:queryList')")
-	@ApiOperation("列表查询租户功能应用")
+	@Operation(summary = "列表查询租户功能应用")
 	@GetMapping("/list")
 	public MultiResponse<TenantFuncApplicationVO> queryList(TenantFuncApplicationQueryListCommand tenantFuncApplicationQueryListCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.queryList(tenantFuncApplicationQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:pageQuery')")
-	@ApiOperation("分页查询租户功能应用")
+	@Operation(summary = "分页查询租户功能应用")
 	@GetMapping("/page")
 	public PageResponse<TenantFuncApplicationVO> pageQueryList(TenantFuncApplicationPageQueryCommand tenantFuncApplicationPageQueryCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.pageQuery(tenantFuncApplicationPageQueryCommand);
 	}
 
-	@ApiOperation("租户分配功能应用")
+	@Operation(summary = "租户分配功能应用")
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:tenantAssignFuncApplication')")
 	@PostMapping("/tenant/assign/funcApplication")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -108,7 +108,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	}
 
 
-	@ApiOperation("根据租户ID查询已分配的功能应用id")
+	@Operation(summary = "根据租户ID查询已分配的功能应用id")
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:queryFuncApplicationIdsByTenantId')")
 	@GetMapping("/queryFuncApplicationIdsByTenantId")
 	@ResponseStatus(HttpStatus.OK)

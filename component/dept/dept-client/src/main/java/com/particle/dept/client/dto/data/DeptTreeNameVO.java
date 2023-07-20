@@ -2,8 +2,8 @@ package com.particle.dept.client.dto.data;
 
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.trans.anno.TransBy;
 /**
@@ -15,16 +15,16 @@ import com.particle.global.light.share.trans.anno.TransBy;
  * @since 2023-04-12 11:42:10
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreeNameVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("部门树名称编码")
+    @Schema(description = "部门树名称编码")
     private String code;
     
-    @ApiModelProperty("部门树名称")
+    @Schema(description = "部门树名称")
     private String name;
     
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String remark;
     
 

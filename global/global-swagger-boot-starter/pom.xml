@@ -26,22 +26,66 @@
         </dependency>
 
         <!-- swagger 接口文档工具 -->
-        <dependency>
+<!--        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox-boot-starter.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- swagger ui-接口文档工具 doc.html -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>${knife4j-spring-boot-starter}</version>
+            <version>${knife4j-spring-boot-starter.version}</version>
+        </dependency>-->
+
+        <!--springdoc-openapi的Jar包引用-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
 
+        <!-- 直接使用 knife4j，已经间接引入了对应版本的 springdoc -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+            <version>${knife4j-openapi3-spring-boot-starter.version}</version>
+            <!--排查低版本-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-common</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-webflux-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-models</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-annotations</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 项目信息 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

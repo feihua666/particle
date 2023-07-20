@@ -1,7 +1,7 @@
 package com.particle.common.client.dto.command;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -18,11 +18,11 @@ import java.util.List;
  * @since 2023-06-21 10:00:47
  */
 @Data
-@ApiModel
+@Schema
 public class BatchIdCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "ids 不能为空")
-	@ApiModelProperty(value = "ids",required = true)
+	@Schema(description = "ids",required = true)
 	private List<Long> ids;
 
 }

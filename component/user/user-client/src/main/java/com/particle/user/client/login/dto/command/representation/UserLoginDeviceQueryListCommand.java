@@ -2,8 +2,8 @@ package com.particle.user.client.login.dto.command.representation;
 
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,14 +15,14 @@ import lombok.Data;
  * @since 2022-11-26
  */
 @Data
-@ApiModel
+@Schema
 public class UserLoginDeviceQueryListCommand extends AbstractBaseQueryCommand {
 
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
-    @ApiModelProperty("设备id，可以用来唯一标识一个设备")
+    @Schema(description = "设备id，可以用来唯一标识一个设备")
     private String deviceId;
 
 }

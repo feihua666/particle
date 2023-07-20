@@ -2,7 +2,7 @@ package com.particle.message.adapter.mobile.front;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
 import com.particle.message.client.api.IMessageUserStateApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-18 15:36:07
  */
-@Api(tags = "用户消息读取状态移动端前台应用相关接口")
+@Tag(name = "用户消息读取状态移动端前台应用相关接口")
 @RestController
 @RequestMapping("/front/mobile/message_user_state")
 public class MessageUserStateFrontMobileController extends AbstractBaseMobileAdapter {

@@ -1,8 +1,8 @@
 package com.particle.user.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -18,25 +18,25 @@ import java.util.Optional;
  */
 @Accessors(chain = true)
 @Data
-@ApiModel
+@Schema
 public class UserTransVO extends AbstractBaseIdVO {
 
-    @ApiModelProperty("用户姓名")
+    @Schema(description = "用户姓名")
     private String name;
 
-    @ApiModelProperty("用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty("优先取姓名，如果姓名不存在取昵称")
+    @Schema(description = "优先取姓名，如果姓名不存在取昵称")
     private String abName;
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty("邮箱")
+    @Schema(description = "邮箱")
     private String email;
 
-    @ApiModelProperty("手机号")
+    @Schema(description = "手机号")
     private String mobile;
 
 

@@ -11,8 +11,8 @@ import com.particle.user.client.login.dto.command.representation.UserLoginRecord
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryDetailCommand;
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryListCommand;
 import com.particle.user.client.login.dto.data.UserLoginRecordVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-26
  */
-@Api(tags = "用户登录记录pc或平板端后台管理相关接口")
+@Tag(name = "用户登录记录pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/user-login-record")
 public class UserLoginRecordAdminWebController extends AbstractBaseWebAdapter {
@@ -36,28 +36,28 @@ public class UserLoginRecordAdminWebController extends AbstractBaseWebAdapter {
 	private IUserLoginRecordRepresentationApplicationService iUserLoginRecordRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginRecord:delete')")
-	@ApiOperation("删除用户登录记录")
+	@Operation(summary = "删除用户登录记录")
 	@DeleteMapping("/delete")
 	public SingleResponse<UserLoginRecordVO> delete(@RequestBody UserLoginRecordDeleteCommand userLoginRecordDeleteCommand){
 		return iUserLoginRecordApplicationService.delete(userLoginRecordDeleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginRecord:detail')")
-	@ApiOperation("用户登录记录详情展示")
+	@Operation(summary = "用户登录记录详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<UserLoginRecordVO> queryDetail(UserLoginRecordQueryDetailCommand userLoginRecordQueryDetailCommand){
 		return iUserLoginRecordRepresentationApplicationService.queryDetail(userLoginRecordQueryDetailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginRecord:queryList')")
-	@ApiOperation("列表查询用户登录记录")
+	@Operation(summary = "列表查询用户登录记录")
 	@GetMapping("/list")
 	public MultiResponse<UserLoginRecordVO> queryList(UserLoginRecordQueryListCommand userLoginRecordQueryListCommand){
 		return iUserLoginRecordRepresentationApplicationService.queryList(userLoginRecordQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userLoginRecord:pageQuery')")
-	@ApiOperation("分页查询用户登录记录")
+	@Operation(summary = "分页查询用户登录记录")
 	@GetMapping("/page")
 	public PageResponse<UserLoginRecordVO> pageQueryList(UserLoginRecordPageQueryCommand userLoginRecordPageQueryCommand){
 		return iUserLoginRecordRepresentationApplicationService.pageQuery(userLoginRecordPageQueryCommand);

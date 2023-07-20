@@ -4,8 +4,8 @@ import cn.hutool.core.date.DateUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.tools.client.dto.command.CronQueryCommand;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.support.CronExpression;
 import org.springframework.validation.annotation.Validated;
@@ -22,12 +22,12 @@ import java.util.List;
  * Created by yangwei
  * Created at 2021/2/5 17:46
  */
-@Api(tags = "Cron相关接口")
+@Tag(name = "Cron相关接口")
 @RestController
 @RequestMapping("front/web/cron")
 public class CronController extends AbstractBaseWebAdapter {
 
-    @ApiOperation("获取cron的执行时间")
+    @Operation(summary = "获取cron的执行时间")
     @GetMapping("/cronRunTimes")
     @ResponseStatus(HttpStatus.OK)
     public MultiResponse<String> cronRunTimes(@Validated CronQueryCommand cronQueryCommand) {

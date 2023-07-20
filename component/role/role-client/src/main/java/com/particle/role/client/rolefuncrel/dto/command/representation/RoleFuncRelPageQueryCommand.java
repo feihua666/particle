@@ -1,8 +1,8 @@
 package com.particle.role.client.rolefuncrel.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,14 +14,14 @@ import lombok.Data;
  * @since 2022-11-25
  */
 @Data
-@ApiModel
+@Schema
 public class RoleFuncRelPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
-    @ApiModelProperty("角色id")
+    @Schema(description = "角色id")
     private Long roleId;
 
-    @ApiModelProperty("功能id")
+    @Schema(description = "功能id")
     private Long funcId;
 
 

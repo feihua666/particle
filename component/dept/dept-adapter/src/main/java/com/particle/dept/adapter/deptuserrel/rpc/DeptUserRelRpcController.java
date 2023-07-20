@@ -3,7 +3,7 @@ package com.particle.dept.adapter.deptuserrel.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dept.client.deptuserrel.api.IDeptUserRelApplicationService;
 import com.particle.dept.adapter.feign.client.deptuserrel.rpc.DeptUserRelRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-17 10:28:42
  */
-@Api(tags = "部门用户关系远程调用相关接口")
+@Tag(name = "部门用户关系远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dept_user_rel")
 public class DeptUserRelRpcController extends AbstractBaseRpcAdapter implements DeptUserRelRpcFeignClient  {

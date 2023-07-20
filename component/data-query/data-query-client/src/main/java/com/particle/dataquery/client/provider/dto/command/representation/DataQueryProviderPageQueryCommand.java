@@ -2,8 +2,8 @@ package com.particle.dataquery.client.provider.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -15,33 +15,33 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-03-03 19:19:55
  */
 @Data
-@ApiModel
+@Schema
 public class DataQueryProviderPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
 
     @Like
-        @ApiModelProperty(value = "供应商名称,左前缀匹配")
+        @Schema(description = "供应商名称,左前缀匹配")
     private String name;
 
 
-    @ApiModelProperty(value = "是否禁用")
+    @Schema(description = "是否禁用")
     private Boolean isDisabled;
 
 
-    @ApiModelProperty(value = "姓名")
+    @Schema(description = "姓名")
     private String userName;
 
 
-    @ApiModelProperty(value = "邮箱")
+    @Schema(description = "邮箱")
     private String email;
 
 
-    @ApiModelProperty(value = "手机号")
+    @Schema(description = "手机号")
     private String mobile;
 
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
 

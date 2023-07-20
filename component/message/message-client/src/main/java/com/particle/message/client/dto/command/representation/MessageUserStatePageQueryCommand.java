@@ -1,8 +1,8 @@
 package com.particle.message.client.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -16,24 +16,24 @@ import java.time.LocalDateTime;
  * @since 2023-05-18 15:36:07
  */
 @Data
-@ApiModel
+@Schema
 public class MessageUserStatePageQueryCommand extends AbstractBasePageQueryCommand {
 
 
     @NotNull(message = "消息Id 不能为空")
-    @ApiModelProperty(value = "消息Id",required = true)
+    @Schema(description = "消息Id",required = true)
     private Long messageId;
 
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
 
-    @ApiModelProperty(value = "是否已读")
+    @Schema(description = "是否已读")
     private Boolean isRead;
 
 
-    @ApiModelProperty(value = "读取时间")
+    @Schema(description = "读取时间")
     private LocalDateTime readAt;
     
 

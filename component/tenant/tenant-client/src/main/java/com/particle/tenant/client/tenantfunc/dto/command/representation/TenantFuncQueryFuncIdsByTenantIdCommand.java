@@ -1,8 +1,8 @@
 package com.particle.tenant.client.tenantfunc.dto.command.representation;
 
 import com.particle.common.client.dto.command.IdCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,12 +14,12 @@ import lombok.Data;
  * @since 2023-04-19 19:56
  */
 @Data
-@ApiModel
+@Schema
 public class TenantFuncQueryFuncIdsByTenantIdCommand extends IdCommand {
 
 	/**
 	 * 可以根据功能应用id 过滤
 	 */
-	@ApiModelProperty(value = "功能应用id")
+	@Schema(description = "功能应用id")
 	private Long funcApplicationId;
 }

@@ -1,7 +1,7 @@
 package com.particle.global.captcha.endpoint;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,11 +15,11 @@ import javax.validation.constraints.NotEmpty;
  * @since 2023-04-25 14:28
  */
 @Data
-@ApiModel
+@Schema
 public class DynamicCaptchaGenCommand extends CaptchaGenCommand {
 
 	@NotEmpty(message = "手机号或邮箱不能为空")
-	@ApiModelProperty(value = "手机号或邮箱",required = true)
+	@Schema(description = "手机号或邮箱",required = true)
 	private String identifier;
 
 	/**
@@ -27,6 +27,6 @@ public class DynamicCaptchaGenCommand extends CaptchaGenCommand {
 	 * 可以通过后端配置，根据场景值配置对应的通知标识，如果配置存在是该值将忽略
 	 * 参见 {@link DynamicCaptchaNotifyProperties} 配置
 	 */
-	@ApiModelProperty(value = "通知标识")
+	@Schema(description = "通知标识")
 	private String notifyIdentifier;
 }

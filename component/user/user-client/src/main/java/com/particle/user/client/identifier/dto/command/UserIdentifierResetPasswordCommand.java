@@ -1,7 +1,7 @@
 package com.particle.user.client.identifier.dto.command;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
  * @since 2022-12-25
  */
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierResetPasswordCommand extends UserIdentifierPwdCommand {
 
     @NotNull(message = "用户登录标识ID不能为空")
-    @ApiModelProperty(value = "用户登录标识ID",required = true)
+    @Schema(description = "用户登录标识ID",required = true)
     private Long userIdentifierId;
 }

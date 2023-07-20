@@ -13,8 +13,8 @@ import ${im};
 </#list>
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +33,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author ${author}
  * @since ${date}
  */
-@Api(tags = "${injection.tableComment}pc或平板端后台管理相关接口")
+@Tag(name = "${injection.tableComment}pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("${injection.urlPrefix}/${injection.entityUrlPath}")
 public class ${injection.className} extends AbstractBaseWebAdapter {
@@ -45,7 +45,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.create>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:create')")
-	@ApiOperation("添加${injection.tableComment}")
+	@Operation(summary = "添加${injection.tableComment}")
 	@PostMapping("/create")
 	public SingleResponse<${injection.vo.className}> create(@RequestBody ${injection.createCommand.className} ${injection.createCommand.classNameVar}){
 		return ${injection.applicationService.classNameVar}.create(${injection.createCommand.classNameVar});
@@ -54,7 +54,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.delete>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:delete')")
-	@ApiOperation("删除${injection.tableComment}")
+	@Operation(summary = "删除${injection.tableComment}")
 	@DeleteMapping("/delete")
 	public SingleResponse<${injection.vo.className}> delete(@RequestBody IdCommand deleteCommand){
 		return ${injection.applicationService.classNameVar}.delete(deleteCommand);
@@ -63,7 +63,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.update>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:update')")
-	@ApiOperation("更新${injection.tableComment}")
+	@Operation(summary = "更新${injection.tableComment}")
 	@PutMapping("/update")
 	public SingleResponse<${injection.vo.className}> update(@RequestBody ${injection.updateCommand.className} ${injection.updateCommand.classNameVar}){
 		return ${injection.applicationService.classNameVar}.update(${injection.updateCommand.classNameVar});
@@ -72,7 +72,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.queryDetailForUpdate>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:update')")
-	@ApiOperation("${injection.tableComment}更新详情")
+	@Operation(summary = "${injection.tableComment}更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<${injection.vo.className}> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return ${injection.representationApplicationService.classNameVar}.queryDetailForUpdate(detailForUpdateCommand);
@@ -81,7 +81,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.queryDetail>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:detail')")
-	@ApiOperation("${injection.tableComment}详情展示")
+	@Operation(summary = "${injection.tableComment}详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<${injection.vo.className}> queryDetail(IdCommand detailCommand){
 		return ${injection.representationApplicationService.classNameVar}.queryDetail(detailCommand);
@@ -90,7 +90,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.queryList>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:queryList')")
-	@ApiOperation("列表查询${injection.tableComment}")
+	@Operation(summary = "列表查询${injection.tableComment}")
 	@GetMapping("/list")
 	public MultiResponse<${injection.vo.className}> queryList(${injection.queryListCommand.className} ${injection.queryListCommand.classNameVar}){
 		return ${injection.representationApplicationService.classNameVar}.queryList(${injection.queryListCommand.classNameVar});
@@ -99,7 +99,7 @@ public class ${injection.className} extends AbstractBaseWebAdapter {
 
 	<#if injection.method.queryPage>
 	@PreAuthorize("hasAuthority('${injection.authorityPrefix}:${injection.entityAuthority}:pageQuery')")
-	@ApiOperation("分页查询${injection.tableComment}")
+	@Operation(summary = "分页查询${injection.tableComment}")
 	@GetMapping("/page")
 	public PageResponse<${injection.vo.className}> pageQueryList(${injection.pageQueryCommand.className} ${injection.pageQueryCommand.classNameVar}){
 		return ${injection.representationApplicationService.classNameVar}.pageQuery(${injection.pageQueryCommand.classNameVar});

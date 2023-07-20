@@ -1,6 +1,7 @@
 package com.particle.dict.client.dto.data;
 
-import io.swagger.annotations.ApiModel;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2022-07-19
  */
 @Data
-@ApiModel
+@Schema
 public class DictGroupItemsVO extends DictVO {
 
     /**

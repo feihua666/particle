@@ -2,8 +2,8 @@ package com.particle.user.client.login.dto.command.representation;
 
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,32 +15,32 @@ import lombok.Data;
  * @since 2022-11-26
  */
 @Data
-@ApiModel
+@Schema
 public class UserLoginRecordQueryListCommand extends AbstractBaseQueryCommand {
 
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
-    @ApiModelProperty("设备id，可以用来唯一标识一个设备")
+    @Schema(description = "设备id，可以用来唯一标识一个设备")
     private String deviceId;
 
-    @ApiModelProperty("登录标识id")
+    @Schema(description = "登录标识id")
     private Long userIdentifierId;
 
-    @ApiModelProperty("会话标识，登录成功后的会话")
+    @Schema(description = "会话标识，登录成功后的会话")
     private String session;
 
-    @ApiModelProperty("会话标识的md5摘要值，考虑到会话标识可能会很长")
+    @Schema(description = "会话标识的md5摘要值，考虑到会话标识可能会很长")
     private String sessionMd5;
 
-    @ApiModelProperty("登录是否成功")
+    @Schema(description = "登录是否成功")
     private Boolean isSuccess;
 
-    @ApiModelProperty("追踪id")
+    @Schema(description = "追踪id")
     private String traceId;
 
-    @ApiModelProperty("api数量，该次登录请求的api数，登录算第1次")
+    @Schema(description = "api数量，该次登录请求的api数，登录算第1次")
     private Long apiCount;
 
 }

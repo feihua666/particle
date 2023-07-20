@@ -1,6 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.creator;
 
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
+import com.baomidou.dynamic.datasource.creator.DataSourceProperty;
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.dynamic.properties.BigDatasourceProperty;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;

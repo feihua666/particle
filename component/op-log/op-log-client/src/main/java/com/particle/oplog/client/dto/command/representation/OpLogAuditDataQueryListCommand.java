@@ -3,8 +3,8 @@ package com.particle.oplog.client.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import com.particle.global.light.share.mybatis.anno.OrderBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -17,62 +17,62 @@ import com.particle.global.light.share.mybatis.anno.Like;
  */
 @OrderBy(value = "createAt",asc = false,order = 0)
 @Data
-@ApiModel
+@Schema
 public class OpLogAuditDataQueryListCommand extends AbstractBaseQueryCommand {
 
 
 
     @Like
-    @ApiModelProperty(value = "数据字段名称,左前缀匹配")
+    @Schema(description = "数据字段名称,左前缀匹配")
     private String name;
 
 
     @Like
-    @ApiModelProperty(value = "数据字段英文名称,左前缀匹配")
+    @Schema(description = "数据字段英文名称,左前缀匹配")
     private String propertyName;
 
 
-    @ApiModelProperty(value = "旧值")
+    @Schema(description = "旧值")
     private String oldValue;
 
 
-    @ApiModelProperty(value = "新值")
+    @Schema(description = "新值")
     private String newValue;
 
 
-    @ApiModelProperty(value = "值改变类型字典id")
+    @Schema(description = "值改变类型字典id")
     private Long changeTypeDictId;
 
 
-    @ApiModelProperty(value = "值改变类型")
+    @Schema(description = "值改变类型")
     private String changeType;
 
 
-    @ApiModelProperty(value = "类型对应的字典id")
+    @Schema(description = "类型对应的字典id")
     private Long typeDictId;
 
 
-    @ApiModelProperty(value = "类型")
+    @Schema(description = "类型")
     private String type;
 
 
-    @ApiModelProperty(value = "操作用户id")
+    @Schema(description = "操作用户id")
     private Long userId;
 
 
-    @ApiModelProperty(value = "数据id")
+    @Schema(description = "数据id")
     private Long dataId;
 
     @OrderBy(value = "dataTable",asc = true,order = 3)
-    @ApiModelProperty(value = "数据表名")
+    @Schema(description = "数据表名")
     private String dataTable;
 
     @OrderBy(value = "dataEntity",asc = true,order = 6)
-    @ApiModelProperty(value = "数据载体")
+    @Schema(description = "数据载体")
     private String dataEntity;
 
 
-    @ApiModelProperty(value = "操作日志id")
+    @Schema(description = "操作日志id")
     private Long opLogId;
 
 }

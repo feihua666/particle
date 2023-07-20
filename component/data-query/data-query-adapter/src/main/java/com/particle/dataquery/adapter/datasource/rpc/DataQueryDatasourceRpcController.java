@@ -3,7 +3,7 @@ package com.particle.dataquery.adapter.datasource.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApplicationService;
 import com.particle.dataquery.adapter.feign.client.datasource.rpc.DataQueryDatasourceRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-03-08 14:29:00
  */
-@Api(tags = "数据查询数据源远程调用相关接口")
+@Tag(name = "数据查询数据源远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/data_query_datasource")
 public class DataQueryDatasourceRpcController extends AbstractBaseRpcAdapter implements DataQueryDatasourceRpcFeignClient  {

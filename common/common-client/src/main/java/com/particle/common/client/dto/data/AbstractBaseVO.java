@@ -1,7 +1,7 @@
 package com.particle.common.client.dto.data;
 
 import com.particle.global.dto.basic.VO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -19,6 +19,6 @@ public abstract class AbstractBaseVO extends VO {
 	/**
 	 * 数据版本
 	 */
-	@ApiModelProperty(value = "数据版本",example = "从 1 开始取值")
+	@Schema(description = "数据版本",example = "从 1 开始取值")
 	private Integer version;
 }

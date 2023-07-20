@@ -12,8 +12,8 @@ import com.particle.lowcode.client.generator.dto.command.representation.LowcodeD
 import com.particle.lowcode.client.generator.dto.command.representation.LowcodeDatasourceQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-01-03
  */
-@Api(tags = "低代码数据源pc或平板端后台管理相关接口")
+@Tag(name = "低代码数据源pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/lowcode-datasource")
 public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter {
@@ -43,7 +43,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	private ILowcodeDatasourceRepresentationApplicationService iLowcodeDatasourceRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:create')")
-	@ApiOperation("添加低代码数据源")
+	@Operation(summary = "添加低代码数据源")
 	@PostMapping("/create")
 	@OpLog(name = "添加低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeDatasourceVO> create(@RequestBody LowcodeDatasourceCreateCommand lowcodeDatasourceCreateCommand){
@@ -51,7 +51,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:delete')")
-	@ApiOperation("删除低代码数据源")
+	@Operation(summary = "删除低代码数据源")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeDatasourceVO> delete(@RequestBody IdCommand deleteCommand){
@@ -59,7 +59,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:update')")
-	@ApiOperation("更新低代码数据源")
+	@Operation(summary = "更新低代码数据源")
 	@PutMapping("/update")
 	@OpLog(name = "更新低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeDatasourceVO> update(@RequestBody LowcodeDatasourceUpdateCommand lowcodeDatasourceUpdateCommand){
@@ -67,28 +67,28 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:update')")
-	@ApiOperation("低代码数据源更新详情")
+	@Operation(summary = "低代码数据源更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<LowcodeDatasourceVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:detail')")
-	@ApiOperation("低代码数据源详情展示")
+	@Operation(summary = "低代码数据源详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<LowcodeDatasourceVO> queryDetail(IdCommand detailCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:queryList')")
-	@ApiOperation("列表查询低代码数据源")
+	@Operation(summary = "列表查询低代码数据源")
 	@GetMapping("/list")
 	public MultiResponse<LowcodeDatasourceVO> queryList(LowcodeDatasourceQueryListCommand lowcodeDatasourceQueryListCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.queryList(lowcodeDatasourceQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:pageQuery')")
-	@ApiOperation("分页查询低代码数据源")
+	@Operation(summary = "分页查询低代码数据源")
 	@GetMapping("/page")
 	public PageResponse<LowcodeDatasourceVO> pageQueryList(LowcodeDatasourcePageQueryCommand lowcodeDatasourcePageQueryCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.pageQuery(lowcodeDatasourcePageQueryCommand);

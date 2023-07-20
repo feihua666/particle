@@ -14,8 +14,8 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.trans.result.TransResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ import java.util.Set;
  * @author yw
  * @since 2022-07-19
  */
-@Api(tags = "字典远程调用相关接口")
+@Tag(name = "字典远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dict")
 public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpcFeignClient, DictTransRpcFeignClient {
@@ -61,7 +61,7 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 
 
 
-	@ApiOperation("根据编号查询字段子一级")
+	@Operation(summary = "根据编号查询字段子一级")
 	@Override
 	public MultiResponse<DictVO> getItemsByGroupCode(String groupCode) {
 		List<DictDO> byCode = iDictService.getItemsByGroupCode(groupCode);
@@ -71,21 +71,21 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 	}
 
 
-	@ApiOperation("根据字典组编码和字典项值查询")
+	@Operation(summary = "根据字典组编码和字典项值查询")
 	@Override
 	public SingleResponse<DictVO> getByGroupCodeAndItemValue(String groupCode, String value) {
 		DictDO dictDO = iDictService.getByGroupCodeAndItemValue(groupCode, value);
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
 
-	@ApiOperation("根据字典id查询")
+	@Operation(summary = "根据字典id查询")
 	@Override
 	public SingleResponse<DictVO> queryById(Long id) {
 		DictDO dictDO = iDictService.getById(id);
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
 
-	@ApiOperation("根据字典id查询,多个")
+	@Operation(summary = "根据字典id查询,多个")
 	@Override
 	public MultiResponse<DictVO> queryByIds(List<Long> ids) {
 		List<DictDO> list = iDictService.list(Wrappers.<DictDO>lambdaQuery().in(DictDO::getId, ids));

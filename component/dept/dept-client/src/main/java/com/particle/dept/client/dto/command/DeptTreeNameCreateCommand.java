@@ -1,8 +1,8 @@
 package com.particle.dept.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,21 +15,21 @@ import javax.validation.constraints.NotEmpty;
  * @since 2023-04-12 11:42:10
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreeNameCreateCommand extends AbstractBaseCommand {
 
 
 
-    @ApiModelProperty(value = "部门树名称编码")
+    @Schema(description = "部门树名称编码")
     private String code;
 
 
     @NotEmpty(message = "部门树名称 不能为空")
-    @ApiModelProperty(value = "部门树名称",required = true)
+    @Schema(description = "部门树名称",required = true)
     private String name;
 
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
 }

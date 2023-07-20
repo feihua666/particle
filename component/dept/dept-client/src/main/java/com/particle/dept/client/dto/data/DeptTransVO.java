@@ -1,8 +1,8 @@
 package com.particle.dept.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@ApiModel
+@Schema
 public class DeptTransVO extends AbstractBaseIdVO {
-    @ApiModelProperty("部门名称")
+    @Schema(description = "部门名称")
     private String name;
 }

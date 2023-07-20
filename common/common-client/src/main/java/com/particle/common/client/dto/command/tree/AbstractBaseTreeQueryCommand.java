@@ -1,7 +1,7 @@
 package com.particle.common.client.dto.command.tree;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -17,12 +17,12 @@ import lombok.Data;
 public abstract class AbstractBaseTreeQueryCommand extends AbstractBaseQueryCommand {
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty("父级id")
+	@Schema(description = "父级id")
 	private Long parentId;
 
-	@ApiModelProperty("是否包含父级本身，父级id不为空时有效")
+	@Schema(description = "是否包含父级本身，父级id不为空时有效")
 	private Boolean isIncludeParent;
 
-	@ApiModelProperty("是否包含所有子孙，父级id不为空时有效")
+	@Schema(description = "是否包含所有子孙，父级id不为空时有效")
 	private Boolean isIncludeAllChildren;
 }

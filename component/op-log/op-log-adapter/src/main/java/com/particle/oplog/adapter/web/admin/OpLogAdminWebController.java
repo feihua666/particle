@@ -10,8 +10,8 @@ import com.particle.oplog.client.api.representation.IOpLogRepresentationApplicat
 import com.particle.oplog.client.dto.command.representation.OpLogPageQueryCommand;
 import com.particle.oplog.client.dto.command.representation.OpLogQueryListCommand;
 import com.particle.oplog.client.dto.data.OpLogVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2023-05-08 18:32:34
  */
-@Api(tags = "操作日志pc或平板端后台管理相关接口")
+@Tag(name = "操作日志pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/op_log")
 public class OpLogAdminWebController extends AbstractBaseWebAdapter {
@@ -36,7 +36,7 @@ public class OpLogAdminWebController extends AbstractBaseWebAdapter {
 
 
 	@PreAuthorize("hasAuthority('admin:web:opLog:delete')")
-	@ApiOperation("删除操作日志")
+	@Operation(summary = "删除操作日志")
 	@DeleteMapping("/delete")
 	public SingleResponse<OpLogVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpLogApplicationService.delete(deleteCommand);
@@ -44,21 +44,21 @@ public class OpLogAdminWebController extends AbstractBaseWebAdapter {
 
 
 	@PreAuthorize("hasAuthority('admin:web:opLog:detail')")
-	@ApiOperation("操作日志详情展示")
+	@Operation(summary = "操作日志详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<OpLogVO> queryDetail(IdCommand detailCommand){
 		return iOpLogRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:opLog:queryList')")
-	@ApiOperation("列表查询操作日志")
+	@Operation(summary = "列表查询操作日志")
 	@GetMapping("/list")
 	public MultiResponse<OpLogVO> queryList(OpLogQueryListCommand opLogQueryListCommand){
 		return iOpLogRepresentationApplicationService.queryList(opLogQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:opLog:pageQuery')")
-	@ApiOperation("分页查询操作日志")
+	@Operation(summary = "分页查询操作日志")
 	@GetMapping("/page")
 	public PageResponse<OpLogVO> pageQueryList(OpLogPageQueryCommand opLogPageQueryCommand){
 		return iOpLogRepresentationApplicationService.pageQuery(opLogPageQueryCommand);

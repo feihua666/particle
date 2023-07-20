@@ -1,7 +1,7 @@
 package com.particle.tenant.client.dto.data;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,9 +13,9 @@ import lombok.Data;
  * @since 2023-05-30 10:37
  */
 @Data
-@ApiModel
+@Schema
 public class TenantLoginVO extends TenantVO{
 
-	@ApiModelProperty("当前用户数量")
+	@Schema(description = "当前用户数量")
 	private Integer userCount;
 }

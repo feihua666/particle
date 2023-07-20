@@ -4,8 +4,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.particle.global.document.template.GlobalDocumentTemplate;
 import com.particle.global.document.template.GlobalDocumentTemplateService;
 import com.particle.global.tool.file.FileTool;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author yangwei
  * @since 2023-06-01 15:52
  */
-@Api(tags = "全局服务文档相关接口")
+@Tag(name = "全局服务文档相关接口")
 @RestController
 @RequestMapping("/document")
 public class DocumentController {
@@ -29,7 +29,7 @@ public class DocumentController {
 	@Autowired
 	private GlobalDocumentTemplateService globalDocumentTemplateService;
 
-	@ApiOperation("下载模板")
+	@Operation(summary = "下载模板")
 	@GetMapping( "/downloadTemplate")
 	public void downloadTemplate(HttpServletResponse response, String templateIdentifier) throws Throwable {
 		GlobalDocumentTemplate globalDocumentTemplate = globalDocumentTemplateService.resolveTemplate(templateIdentifier);

@@ -2,8 +2,8 @@ package com.particle.user.client.identifier.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,29 +17,29 @@ import java.time.LocalDateTime;
  * @since 2022-11-25
  */
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierQueryListCommand extends AbstractBaseQueryCommand {
 
-    @ApiModelProperty("用户ID")
+    @Schema(description = "用户ID")
     private Long userId;
 
     @Like
-    @ApiModelProperty("登录标识，左前缀匹配")
+    @Schema(description = "登录标识，左前缀匹配")
     private String identifier;
 
-    @ApiModelProperty("授权类型,字典id")
+    @Schema(description = "授权类型,字典id")
     private Long identityTypeDictId;
 
-    @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
+    @Schema(description = "锁定状态，0=未锁定；1=锁定")
     private Boolean isLock;
 
-    @ApiModelProperty("unionId，支持第三方登录unionId")
+    @Schema(description = "unionId，支持第三方登录unionId")
     private String unionId;
 
-    @ApiModelProperty("是否过期")
+    @Schema(description = "是否过期")
     private Boolean isExpired;
 
-    @ApiModelProperty("分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
 

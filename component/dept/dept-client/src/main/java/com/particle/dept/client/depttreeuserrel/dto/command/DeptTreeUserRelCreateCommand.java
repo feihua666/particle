@@ -1,8 +1,8 @@
 package com.particle.dept.client.depttreeuserrel.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 
@@ -15,18 +15,18 @@ import javax.validation.constraints.NotNull;
  * @since 2023-05-17 10:26:06
  */
 @Data
-@ApiModel
+@Schema
 public class DeptTreeUserRelCreateCommand extends AbstractBaseCommand {
 
 
 
     @NotNull(message = "用户id 不能为空")
-        @ApiModelProperty(value = "用户id",required = true)
+        @Schema(description = "用户id",required = true)
     private Long userId;
 
 
     @NotNull(message = "部门树id 不能为空")
-        @ApiModelProperty(value = "部门树id",required = true)
+        @Schema(description = "部门树id",required = true)
     private Long deptTreeId;
 
 

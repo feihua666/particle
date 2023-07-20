@@ -2,7 +2,7 @@ package com.particle.message.adapter.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
 import  com.particle.message.client.api.IMessageApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-05-18 15:32:30
  */
-@Api(tags = "消息移动端后台管理相关接口")
+@Tag(name = "消息移动端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/mobile/message")
 public class MessageAdminMobileController extends AbstractBaseMobileAdapter {

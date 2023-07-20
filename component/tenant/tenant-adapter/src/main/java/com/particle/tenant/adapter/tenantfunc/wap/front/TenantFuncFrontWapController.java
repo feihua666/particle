@@ -2,7 +2,7 @@ package com.particle.tenant.adapter.tenantfunc.wap.front;
 
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
 import com.particle.tenant.client.tenantfunc.api.ITenantFuncApplicationService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-04-17 18:11:17
  */
-@Api(tags = "租户功能菜单wap端前台应用相关接口")
+@Tag(name = "租户功能菜单wap端前台应用相关接口")
 @RestController
 @RequestMapping("/front/wap/tenant_func")
 public class TenantFuncFrontWapController extends AbstractBaseWapAdapter {

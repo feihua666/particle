@@ -11,8 +11,8 @@ import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserTransVO;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +31,7 @@ import java.util.Set;
  * @author yw
  * @since 2022-11-25
  */
-@Api(tags = "用户远程调用相关接口")
+@Tag(name = "用户远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/user")
 public class UserRpcController extends AbstractBaseRpcAdapter implements UserRpcFeignClient , UserTransRpcFeignClient {
@@ -54,7 +54,7 @@ public class UserRpcController extends AbstractBaseRpcAdapter implements UserRpc
 
 
 
-	@ApiOperation("添加用户")
+	@Operation(summary = "添加用户")
 	@PostMapping("/create")
 	@Override
 	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand, @RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){

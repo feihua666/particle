@@ -3,8 +3,8 @@ package com.particle.tenant.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -16,35 +16,35 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-04-11 22:25:27
  */
 @Data
-@ApiModel
+@Schema
 public class TenantQueryListCommand extends AbstractBaseQueryCommand {
 
 
 
     @Like
-        @ApiModelProperty(value = "租户编码,左前缀匹配")
+        @Schema(description = "租户编码,左前缀匹配")
     private String code;
 
 
     @Like
-        @ApiModelProperty(value = "租户名称,左前缀匹配")
+        @Schema(description = "租户名称,左前缀匹配")
     private String name;
 
 
 
 
     @Like
-        @ApiModelProperty(value = "姓名,左前缀匹配")
+        @Schema(description = "姓名,左前缀匹配")
     private String userName;
 
 
     @Like
-        @ApiModelProperty(value = "邮箱,左前缀匹配")
+        @Schema(description = "邮箱,左前缀匹配")
     private String email;
 
 
     @Like
-        @ApiModelProperty(value = "手机号,左前缀匹配")
+        @Schema(description = "手机号,左前缀匹配")
     private String mobile;
 
 

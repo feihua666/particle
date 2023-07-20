@@ -5,8 +5,8 @@ import com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc.FuncApp
 import com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
 import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * @author yw
  * @since 2023-04-17 10:15:29
  */
-@Api(tags = "功能应用功能关系远程调用相关接口")
+@Tag(name = "功能应用功能关系远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/func_application_func_rel")
 public class FuncApplicationFuncRelRpcController extends AbstractBaseRpcAdapter implements FuncApplicationFuncRelRpcFeignClient  {
@@ -36,7 +36,7 @@ public class FuncApplicationFuncRelRpcController extends AbstractBaseRpcAdapter 
 	private IFuncApplicationFuncRelService iFuncApplicationFuncRelService;
 
 	@Override
-	@ApiOperation("菜单功能更新详情")
+	@Operation(summary = "菜单功能更新详情")
 	@GetMapping("/getFuncIdsByFuncApplicationId")
 	public List<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId) {
 		List<FuncApplicationFuncRelDO> funcApplicationFuncRelDOS = iFuncApplicationFuncRelService.listByColumn(funcApplicationId, FuncApplicationFuncRelDO::getFuncApplicationId);

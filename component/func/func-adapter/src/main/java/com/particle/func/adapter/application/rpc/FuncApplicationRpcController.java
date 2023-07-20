@@ -3,7 +3,7 @@ package com.particle.func.adapter.application.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.func.client.application.api.IFuncApplicationApplicationService;
 import com.particle.func.adapter.feign.client.application.rpc.FuncApplicationRpcFeignClient;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2023-04-17 10:12:23
  */
-@Api(tags = "功能应用远程调用相关接口")
+@Tag(name = "功能应用远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/func_application")
 public class FuncApplicationRpcController extends AbstractBaseRpcAdapter implements FuncApplicationRpcFeignClient  {

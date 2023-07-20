@@ -1,9 +1,9 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.baomidou.dynamic.datasource.creator.DataSourceProperty;
 import com.baomidou.dynamic.datasource.event.DataSourceInitEvent;
 import com.baomidou.dynamic.datasource.event.EncDataSourceInitEvent;
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;

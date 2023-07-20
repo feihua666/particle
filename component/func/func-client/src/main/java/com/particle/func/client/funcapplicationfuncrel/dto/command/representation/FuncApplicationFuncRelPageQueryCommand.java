@@ -1,8 +1,8 @@
 package com.particle.func.client.funcapplicationfuncrel.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
  * <p>
@@ -13,16 +13,16 @@ import lombok.Data;
  * @since 2023-04-17 10:15:29
  */
 @Data
-@ApiModel
+@Schema
 public class FuncApplicationFuncRelPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
 
-    @ApiModelProperty(value = "功能应用id")
+    @Schema(description = "功能应用id")
     private Long funcApplicationId;
 
 
-    @ApiModelProperty(value = "功能id")
+    @Schema(description = "功能id")
     private Long funcId;
 
 

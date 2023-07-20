@@ -7,8 +7,8 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -20,52 +20,52 @@ import lombok.Data;
  * @since 2023-01-06
  */
 @Data
-@ApiModel
+@Schema
 public class LowcodeSegmentTemplateVO extends AbstractBaseIdTreeVO {
 
 
-    @ApiModelProperty("编码，唯一")
+    @Schema(description = "编码，唯一")
     private String code;
 
-    @ApiModelProperty("模板名称，仅做展示")
+    @Schema(description = "模板名称，仅做展示")
     private String name;
 
-    @ApiModelProperty("计算模板")
+    @Schema(description = "计算模板")
     private String computeTemplate;
 
-    @ApiModelProperty("名称模板")
+    @Schema(description = "名称模板")
     private String nameTemplate;
 
-    @ApiModelProperty("名称输出变量名")
+    @Schema(description = "名称输出变量名")
     private String nameOutputVariable;
 
-    @ApiModelProperty("内容模板")
+    @Schema(description = "内容模板")
     private String contentTemplate;
 
-    @ApiModelProperty("引用模板id")
+    @Schema(description = "引用模板id")
     private Long referenceSegmentTemplateId;
 
     @TransBy(tableName = TransTableNameConstants.component_lowcode_segment_template, byFieldName = "referenceSegmentTemplateId", mapValueField = "name")
-    @ApiModelProperty("引用模板名称")
+    @Schema(description = "引用模板名称")
     private String referenceSegmentTemplateName;
 
-    @ApiModelProperty("输出类型字典id，file=文件，dir=目录，segment=片段")
+    @Schema(description = "输出类型字典id，file=文件，dir=目录，segment=片段")
     private Long outputTypeDictId;
 
     @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "outputTypeDictId",mapValueField = "name")
-    @ApiModelProperty("模型表类型字典名称")
+    @Schema(description = "模型表类型字典名称")
     private String outputTypeDictName;
 
-    @ApiModelProperty("内容输出变量名")
+    @Schema(description = "内容输出变量名")
     private String outputVariable;
 
-    @ApiModelProperty("共享变量名，多个以逗号分隔，变量类型为Set<String>")
+    @Schema(description = "共享变量名，多个以逗号分隔，变量类型为Set<String>")
     private String shareVariables;
 
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String remark;
 
-    @ApiModelProperty("父级名称")
+    @Schema(description = "父级名称")
     @TransBy(tableName = TransTableNameConstants.component_lowcode_segment_template, byFieldName = "parentId", mapValueField = "name")
     private String parentName;
 

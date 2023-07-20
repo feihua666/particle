@@ -1,7 +1,7 @@
 package com.particle.global.security.tenant;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,22 +18,22 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@ApiModel("授权的租户")
+@Schema(description = "授权的租户")
 public class GrantedTenant implements Serializable {
 
-	@ApiModelProperty("tenant id")
+	@Schema(description = "tenant id")
 	private Long id;
-	@ApiModelProperty("tenant code")
+	@Schema(description = "tenant code")
 	private String code;
-	@ApiModelProperty("tenant name")
+	@Schema(description = "tenant name")
 	private String name;
-	@ApiModelProperty("租户主题")
+	@Schema(description = "租户主题")
 	private String tenantThemeJson;
-	@ApiModelProperty("租户默认的页面路由")
+	@Schema(description = "租户默认的页面路由")
 	private String tenantDefaultRouteJson;
-	@ApiModelProperty("租户logo地址")
+	@Schema(description = "租户logo地址")
 	private String tenantLogoJson;
-	@ApiModelProperty("额外配置json")
+	@Schema(description = "额外配置json")
 	private String configJson;
 
 

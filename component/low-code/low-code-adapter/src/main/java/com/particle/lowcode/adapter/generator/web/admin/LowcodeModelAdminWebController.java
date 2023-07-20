@@ -14,8 +14,8 @@ import com.particle.lowcode.client.generator.dto.command.representation.LowcodeM
 import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +34,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-01-05
  */
-@Api(tags = "低代码模型pc或平板端后台管理相关接口")
+@Tag(name = "低代码模型pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/lowcode-model")
 public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
@@ -45,7 +45,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	private ILowcodeModelRepresentationApplicationService iLowcodeModelRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:create')")
-	@ApiOperation("添加低代码模型")
+	@Operation(summary = "添加低代码模型")
 	@PostMapping("/create")
 	@OpLog(name = "添加低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public SingleResponse<LowcodeModelVO> create(@RequestBody LowcodeModelCreateCommand lowcodeModelCreateCommand){
@@ -53,7 +53,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:delete')")
-	@ApiOperation("删除低代码模型")
+	@Operation(summary = "删除低代码模型")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
 	public SingleResponse<LowcodeModelVO> delete(@RequestBody IdCommand deleteCommand){
@@ -61,7 +61,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:update')")
-	@ApiOperation("更新低代码模型")
+	@Operation(summary = "更新低代码模型")
 	@PutMapping("/update")
 	@OpLog(name = "更新低代码模型",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
 	public SingleResponse<LowcodeModelVO> update(@RequestBody LowcodeModelUpdateCommand lowcodeModelUpdateCommand){
@@ -69,28 +69,28 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:update')")
-	@ApiOperation("低代码模型更新详情")
+	@Operation(summary = "低代码模型更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<LowcodeModelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iLowcodeModelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:detail')")
-	@ApiOperation("低代码模型详情展示")
+	@Operation(summary = "低代码模型详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<LowcodeModelVO> queryDetail(IdCommand detailCommand){
 		return iLowcodeModelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:queryList')")
-	@ApiOperation("列表查询低代码模型")
+	@Operation(summary = "列表查询低代码模型")
 	@GetMapping("/list")
 	public MultiResponse<LowcodeModelVO> queryList(LowcodeModelQueryListCommand lowcodeModelQueryListCommand){
 		return iLowcodeModelRepresentationApplicationService.queryList(lowcodeModelQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:pageQuery')")
-	@ApiOperation("分页查询低代码模型")
+	@Operation(summary = "分页查询低代码模型")
 	@GetMapping("/page")
 	public PageResponse<LowcodeModelVO> pageQueryList(LowcodeModelPageQueryCommand lowcodeModelPageQueryCommand){
 		return iLowcodeModelRepresentationApplicationService.pageQuery(lowcodeModelPageQueryCommand);
@@ -99,7 +99,7 @@ public class LowcodeModelAdminWebController extends AbstractBaseWebAdapter {
 
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeModel:loadByModelAndDatasource')")
-	@ApiOperation("加载载模型项")
+	@Operation(summary = "加载载模型项")
 	@PostMapping("/loadByModelAndDatasource")
 	@OpLog(name = "加载载模型项",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.create)
 	public Response loadByModelAndDatasource(@RequestBody LowcodeModelItemCreateByModelIdCommand idCommand){

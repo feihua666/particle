@@ -1,8 +1,8 @@
 package com.particle.tenant.client.tenantfuncapplication.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 /**
@@ -14,21 +14,21 @@ import com.particle.global.light.share.mybatis.anno.Like;
  * @since 2023-04-17 18:12:06
  */
 @Data
-@ApiModel
+@Schema
 public class TenantFuncApplicationPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
 
-    @ApiModelProperty(value = "功能应用id")
+    @Schema(description = "功能应用id")
     private Long funcApplicationId;
 
 
     @Like
-        @ApiModelProperty(value = "名称,左前缀匹配")
+        @Schema(description = "名称,左前缀匹配")
     private String name;
 
 
-    @ApiModelProperty(value = "应用主题")
+    @Schema(description = "应用主题")
     private String applicationTheme;
 
 

@@ -3,8 +3,8 @@ package com.particle.func.client.dto.command.representation;
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,15 +16,15 @@ import lombok.Data;
  * @since 2022-12-02
  */
 @Data
-@ApiModel
+@Schema
 public class FuncGroupPageQueryCommand extends AbstractBasePageQueryCommand {
 
 
     @Like
-    @ApiModelProperty("编码，左前缀匹配")
+    @Schema(description = "编码，左前缀匹配")
     private String code;
 
     @Like
-    @ApiModelProperty("名称，左前缀匹配")
+    @Schema(description = "名称，左前缀匹配")
     private String name;
 }

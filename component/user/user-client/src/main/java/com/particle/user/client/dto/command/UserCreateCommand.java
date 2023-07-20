@@ -3,8 +3,8 @@ package com.particle.user.client.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -22,79 +22,79 @@ import java.util.List;
  */
 @PropValid
 @Data
-@ApiModel
+@Schema
 public class UserCreateCommand extends AbstractBaseCommand {
 
-    @ApiModelProperty("姓名，真实姓名")
+    @Schema(description = "姓名，真实姓名")
     private String name;
     
     @NotEmpty(message = "昵称 不能为空")
-    @ApiModelProperty(value = "昵称，模糊查询",required = true)
+    @Schema(description = "昵称，模糊查询",required = true)
     private String nickname;
 
     /**
      * 真实用户性别必填
      */
     @PropValid.DependCondition(message = "性别不能为空" ,dependProp = "isVirtual",ifEqual = "false")
-    @ApiModelProperty("性别，字典id")
+    @Schema(description = "性别，字典id")
     private Long genderDictId;
 
-    @ApiModelProperty("头像，建议图片相对路径")
+    @Schema(description = "头像，建议图片相对路径")
     private String avatar;
 
-    @ApiModelProperty("用户编号，可以做为员工编号")
+    @Schema(description = "用户编号，可以做为员工编号")
     private String serialNo;
 
-    @ApiModelProperty("公司id，冗余字段，由dept_id对应公司派生")
+    @Schema(description = "公司id，冗余字段，由dept_id对应公司派生")
     private Long compId;
 
-    @ApiModelProperty("部门id")
+    @Schema(description = "部门id")
     private Long deptId;
 
     @NotNull(message = "是否虚拟用户不能为空")
-    @ApiModelProperty("是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
+    @Schema(description = "是否虚拟用户，虚拟用户代表不是一个真正存在的用户")
     private Boolean isVirtual;
 
     @NotNull(message = "是否锁定不能为空")
-    @ApiModelProperty("锁定状态，0=未锁定；1=锁定")
+    @Schema(description = "锁定状态，0=未锁定；1=锁定")
     private Boolean isLock = false;
 
     @PropValid.DependCondition(message = "锁定原因不能为空" ,dependProp = "isLock",ifEqual = "true")
-    @ApiModelProperty("锁定原因")
+    @Schema(description = "锁定原因")
     private String lockReason;
 
     @NotNull(message = "用户分类不能为空")
-    @ApiModelProperty(value = "用户分类字典，标识是哪一类用户，比如后台用户等",required = true)
+    @Schema(description = "用户分类字典，标识是哪一类用户，比如后台用户等",required = true)
     private Long categoryDictId;
 
-    @ApiModelProperty("分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
     @NotNull(message = "用户来源不能为空")
-    @ApiModelProperty(value = "用户来源，字典id",required = true)
+    @Schema(description = "用户来源，字典id",required = true)
     private Long sourceFromDictId;
 
     @NotNull(message = "是否过期不能为空")
-    @ApiModelProperty(value = "是否过期，过期后该密码不能登录",required = true)
+    @Schema(description = "是否过期，过期后该密码不能登录",required = true)
     private Boolean isExpired = false;
 
     @PropValid.DependCondition(message = "过期原因不能为空" ,dependProp = "isExpired",ifEqual = "true")
-    @ApiModelProperty("过期原因")
+    @Schema(description = "过期原因")
     private String expiredReason;
 
-    @ApiModelProperty("到期时间，为空永不到期")
+    @Schema(description = "到期时间，为空永不到期")
     private LocalDateTime expireAt;
 
     /**
      * 账号信息
      */
     @NotEmpty(message = "登录标识 不能为空")
-    @ApiModelProperty("登录标识，支持多个")
+    @Schema(description = "登录标识，支持多个")
     private List<UserIdentifierSimpleCreateCommand> identifiers;
 
     /**
      * 角色id，在依赖 角色 组件时可用
      */
-    @ApiModelProperty("角色id")
+    @Schema(description = "角色id")
     private List<Long> roleIds;
 }

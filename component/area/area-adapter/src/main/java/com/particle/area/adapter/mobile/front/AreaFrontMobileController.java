@@ -2,7 +2,7 @@ package com.particle.area.adapter.mobile.front;
 
 import com.particle.area.client.api.IAreaApplicationService;
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-07-18
  */
-@Api(tags = "区域移动端前台应用相关接口")
+@Tag(name = "区域移动端前台应用相关接口")
 @RestController
 @RequestMapping("/front/mobile/area")
 public class AreaFrontMobileController extends AbstractBaseMobileAdapter {

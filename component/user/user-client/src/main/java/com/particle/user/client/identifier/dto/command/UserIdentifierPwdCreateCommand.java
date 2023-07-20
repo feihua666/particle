@@ -1,8 +1,8 @@
 package com.particle.user.client.identifier.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -17,19 +17,19 @@ import javax.validation.constraints.NotNull;
  * @since 2022-11-25
  */
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierPwdCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "用户id 不能为空")
-    @ApiModelProperty(value = "用户id",required = true)
+    @Schema(description = "用户id",required = true)
     private Long userId;
 
     @NotNull(message = "用户标识id 不能为空")
-    @ApiModelProperty(value = "用户标识id",required = true)
+    @Schema(description = "用户标识id",required = true)
     private Long identifierId;
 
-    @ApiModelProperty("分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
 

@@ -3,8 +3,8 @@ package com.particle.user.client.identifier.dto.data;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,49 +18,49 @@ import java.time.LocalDateTime;
  * @since 2022-11-25
  */
 @Data
-@ApiModel
+@Schema
 public class UserIdentifierPwdVO extends AbstractBaseIdVO {
 
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
     @TransBy(tableName = TransTableNameConstants.component_user, byFieldName = "userId", mapValueField = "nickname")
-    @ApiModelProperty("用户昵称")
+    @Schema(description = "用户昵称")
     private String userNickname;
 
-    @ApiModelProperty("用户标识id")
+    @Schema(description = "用户标识id")
     private Long identifierId;
 
     @TransBy(tableName = TransTableNameConstants.component_user_identifier, byFieldName = "identifierId", mapValueField = "identifier")
-    @ApiModelProperty("登录标识")
+    @Schema(description = "登录标识")
     private String userIdentifier;
 
-    @ApiModelProperty("密码加密方式标识")
+    @Schema(description = "密码加密方式标识")
     private String pwdEncryptFlag;
 
-    @ApiModelProperty("是否过期，过期后该密码不能登录")
+    @Schema(description = "是否过期，过期后该密码不能登录")
     private Boolean isExpired;
 
-    @ApiModelProperty("过期原因")
+    @Schema(description = "过期原因")
     private String expiredReason;
 
-    @ApiModelProperty("到期时间，为空永不到期")
+    @Schema(description = "到期时间，为空永不到期")
     private LocalDateTime expireAt;
 
-    @ApiModelProperty("是否需要提示修改密码")
+    @Schema(description = "是否需要提示修改密码")
     private Boolean isNeedUpdate;
 
-    @ApiModelProperty("提示修改密码消息内容")
+    @Schema(description = "提示修改密码消息内容")
     private String needUpdateMessage;
 
-    @ApiModelProperty("密码的修改时间")
+    @Schema(description = "密码的修改时间")
     private LocalDateTime pwdModifiedAt;
 
-    @ApiModelProperty("复杂度，数字越高越复杂，取值 1-100")
+    @Schema(description = "复杂度，数字越高越复杂，取值 1-100")
     private Integer complexity;
 
-    @ApiModelProperty("分组标识")
+    @Schema(description = "分组标识")
     private String groupFlag;
 
 

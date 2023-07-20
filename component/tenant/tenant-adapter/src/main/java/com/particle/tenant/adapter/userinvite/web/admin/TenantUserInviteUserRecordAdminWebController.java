@@ -12,8 +12,8 @@ import com.particle.tenant.client.userinvite.dto.command.representation.TenantUs
 import com.particle.tenant.client.userinvite.dto.command.representation.TenantUserInviteUserRecordQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ import com.particle.global.dto.response.PageResponse;
  * @author yw
  * @since 2023-04-18 11:06:17
  */
-@Api(tags = "租户用户邀请记录pc或平板端后台管理相关接口")
+@Tag(name = "租户用户邀请记录pc或平板端后台管理相关接口")
 @RestController
 @RequestMapping("/admin/web/tenant_user_invite_user_record")
 public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWebAdapter {
@@ -43,7 +43,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	private ITenantUserInviteUserRecordRepresentationApplicationService iTenantUserInviteUserRecordRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:create')")
-	@ApiOperation("添加租户用户邀请记录")
+	@Operation(summary = "添加租户用户邀请记录")
 	@PostMapping("/create")
 	@OpLog(name = "添加租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
 	public SingleResponse<TenantUserInviteUserRecordVO> create(@RequestBody TenantUserInviteUserRecordCreateCommand tenantUserInviteUserRecordCreateCommand){
@@ -51,7 +51,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:delete')")
-	@ApiOperation("删除租户用户邀请记录")
+	@Operation(summary = "删除租户用户邀请记录")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantUserInviteUserRecordVO> delete(@RequestBody IdCommand deleteCommand){
@@ -59,7 +59,7 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:update')")
-	@ApiOperation("更新租户用户邀请记录")
+	@Operation(summary = "更新租户用户邀请记录")
 	@PutMapping("/update")
 	@OpLog(name = "更新租户用户邀请记录",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantUserInviteUserRecordVO> update(@RequestBody TenantUserInviteUserRecordUpdateCommand tenantUserInviteUserRecordUpdateCommand){
@@ -67,28 +67,28 @@ public class TenantUserInviteUserRecordAdminWebController extends AbstractBaseWe
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:update')")
-	@ApiOperation("租户用户邀请记录更新详情")
+	@Operation(summary = "租户用户邀请记录更新详情")
 	@GetMapping("/detail-for-update")
 	public SingleResponse<TenantUserInviteUserRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
 		return iTenantUserInviteUserRecordRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:detail')")
-	@ApiOperation("租户用户邀请记录详情展示")
+	@Operation(summary = "租户用户邀请记录详情展示")
 	@GetMapping("/detail")
 	public SingleResponse<TenantUserInviteUserRecordVO> queryDetail(IdCommand detailCommand){
 		return iTenantUserInviteUserRecordRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:queryList')")
-	@ApiOperation("列表查询租户用户邀请记录")
+	@Operation(summary = "列表查询租户用户邀请记录")
 	@GetMapping("/list")
 	public MultiResponse<TenantUserInviteUserRecordVO> queryList(TenantUserInviteUserRecordQueryListCommand tenantUserInviteUserRecordQueryListCommand){
 		return iTenantUserInviteUserRecordRepresentationApplicationService.queryList(tenantUserInviteUserRecordQueryListCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInviteUserRecord:pageQuery')")
-	@ApiOperation("分页查询租户用户邀请记录")
+	@Operation(summary = "分页查询租户用户邀请记录")
 	@GetMapping("/page")
 	public PageResponse<TenantUserInviteUserRecordVO> pageQueryList(TenantUserInviteUserRecordPageQueryCommand tenantUserInviteUserRecordPageQueryCommand){
 		return iTenantUserInviteUserRecordRepresentationApplicationService.pageQuery(tenantUserInviteUserRecordPageQueryCommand);

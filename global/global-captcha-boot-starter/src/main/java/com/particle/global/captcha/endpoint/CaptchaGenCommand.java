@@ -6,8 +6,8 @@ import com.particle.global.captcha.ICaptchaScene;
 import com.particle.global.captcha.ICaptchaType;
 import com.particle.global.captcha.gen.CaptchaGenDTO;
 import com.particle.global.dto.basic.Command;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -26,18 +26,18 @@ import static com.particle.global.captcha.gen.CaptchaGenDTO.*;
  * @since 2023-04-25 14:28
  */
 @Data
-@ApiModel
+@Schema
 public class CaptchaGenCommand extends Command {
 
 	@NotEmpty(message = "验证码的用途或场景标识不能为空")
-	@ApiModelProperty(value = "验证码的用途或场景标识",required = true,example = "任意的字符串")
+	@Schema(description = "验证码的用途或场景标识",required = true,example = "任意的字符串")
 	private String captchaScene;
 
 	/**
 	 * 验证码类型
 	 * 实现了 {@link ICaptchaType}接口的类型,默认实现参见{@link CaptchaTypeEnum}
 	 */
-	@ApiModelProperty(value = "验证码类型",example =
+	@Schema(description = "验证码类型",example =
 			("customImage = 自定义图片,") +
 			("gif = 动画,") +
 			("chinese = 中文,") +
@@ -47,20 +47,20 @@ public class CaptchaGenCommand extends Command {
 	private String captchaType;
 
 	@Max(value = 500,message = "验证码宽度最大不能超过500")
-	@ApiModelProperty("验证码宽度")
+	@Schema(description = "验证码宽度")
 	private Integer width = 130;
 
 	@Max(value = 70,message = "验证码高度最大不能超过70")
-	@ApiModelProperty("验证码高度")
+	@Schema(description = "验证码高度")
 	private Integer height = 48;
 
-	@ApiModelProperty("验证码长度")
+	@Schema(description = "验证码长度")
 	private Integer length;
 
 	/**
 	 * 仅自定义图片时有效 即 {@link CaptchaGenCommand#captchaType} = {@link CaptchaTypeEnum#customImage}
 	 */
-	@ApiModelProperty(value = "文本字符串组合类型",example =
+	@Schema(description = "文本字符串组合类型",example =
 			(TYPE_DEFAULT + "= 字母数字混合,") +
 					(TYPE_ONLY_NUMBER + "= 纯数字,") +
 					(TYPE_ONLY_CHAR + "= 纯字母,") +

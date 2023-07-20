@@ -12,21 +12,18 @@ import com.particle.func.domain.FuncTypeEnum;
 import com.particle.func.domain.gateway.FuncDictGateway;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.infrastructure.service.IFuncGroupService;
-import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.javers.common.string.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +39,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/func/login")
-@Api(tags = "菜单功能，登录用户相关")
+@Tag(name = "菜单功能，登录用户相关")
 public class FuncLoginController {
 
     private static String includeTypeDictValueAll = "all";
@@ -58,14 +55,14 @@ public class FuncLoginController {
     @Autowired
     private IFuncGroupService funcGroupService;
 
-    @ApiOperation("当前登录用户的功能")
+    @Operation(summary = "当前登录用户的功能")
     @PreAuthorize("hasAuthority('user')")
     @GetMapping("/getList")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<FuncVO> getList(@ApiIgnore LoginUser loginUser,
-                                         @ApiParam(value = "包括的类型，func_type字典值，默认 menu、page、group")  @RequestParam(required = false) String includeTypeDictValues,
-                                         @ApiParam(value = "过虑是否展示的数据，不传忽略过虑条件") @RequestParam(required = false) Boolean isShow,
-                                         @ApiParam(value = "功能分组编码")  @RequestParam(required = false) String funcGroupCode) {
+    public MultiResponse<FuncVO> getList(@Parameter(hidden = true) LoginUser loginUser,
+                                         @Parameter(description = "包括的类型，func_type字典值，默认 menu、page、group")  @RequestParam(required = false) String includeTypeDictValues,
+                                         @Parameter(description = "过虑是否展示的数据，不传忽略过虑条件") @RequestParam(required = false) Boolean isShow,
+                                         @Parameter(description = "功能分组编码")  @RequestParam(required = false) String funcGroupCode) {
         Long funcGroupId = null;
         if (Strings.isNonEmpty(funcGroupCode)) {
             FuncGroupDO byCode = funcGroupService.getByCode(funcGroupCode);
@@ -95,11 +92,11 @@ public class FuncLoginController {
         filter(list,includeTypeDictValues, isShow,funcGroupId);
         return list;
     }
-    @ApiOperation("当前登录用户的应用")
+    @Operation(summary = "当前登录用户的应用")
     @PreAuthorize("hasAuthority('user')")
     @GetMapping("/getFuncApplicationList")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<FuncApplicationVO> getFuncApplicationList(FuncApplicationQueryListCommand funcApplicationQueryListCommand, @ApiIgnore LoginUser loginUser){
+    public MultiResponse<FuncApplicationVO> getFuncApplicationList(FuncApplicationQueryListCommand funcApplicationQueryListCommand, @Parameter(hidden = true) LoginUser loginUser){
         // 该方法已过滤，默认查询的是租户下的应用，如果不启用租户组件，那就是全部的应用数据
         return iFuncApplicationRepresentationApplicationService.queryList(funcApplicationQueryListCommand);
 

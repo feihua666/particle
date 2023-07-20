@@ -2,8 +2,8 @@ package com.particle.tracking.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.*;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.particle.global.light.share.mybatis.anno.Like;
 import java.time.LocalDateTime;
@@ -17,129 +17,129 @@ import java.time.LocalDateTime;
  */
 @OrderBy(value = "createAt",asc = false)
 @Data
-@ApiModel
+@Schema
 public class TrackingPageRecordQueryListCommand extends AbstractBaseQueryCommand {
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
 
     @Like
-    @ApiModelProperty(value = "操作用户昵称,左前缀匹配")
+    @Schema(description = "操作用户昵称,左前缀匹配")
     private String userNickname;
 
 
 
-    @ApiModelProperty(value = "是否用户触发")
+    @Schema(description = "是否用户触发")
     private Boolean isUserTrigger;
 
 
-    @ApiModelProperty(value = "会话标识")
+    @Schema(description = "会话标识")
     private String session;
 
 
-    @ApiModelProperty(value = "会话标识的md5摘要值")
+    @Schema(description = "会话标识的md5摘要值")
     private String sessionMd5;
 
 
-    @ApiModelProperty(value = "设备串号")
+    @Schema(description = "设备串号")
     private String imei;
 
 
-    @ApiModelProperty(value = "设备id")
+    @Schema(description = "设备id")
     private String deviceId;
 
 
     @Like
-    @ApiModelProperty(value = "设备名称,左前缀匹配")
+    @Schema(description = "设备名称,左前缀匹配")
     private String deviceName;
 
 
     @Like
-    @ApiModelProperty(value = "埋点页面编码,左前缀匹配")
+    @Schema(description = "埋点页面编码,左前缀匹配")
     private String trackingPageCode;
 
 
-    @ApiModelProperty(value = "埋点前驱页面编码")
+    @Schema(description = "埋点前驱页面编码")
     private String preTrackingPageCode;
 
 
-    @ApiModelProperty(value = "操作系统及版本")
+    @Schema(description = "操作系统及版本")
     private String operatingSystem;
 
 
-    @ApiModelProperty(value = "客户端版本")
+    @Schema(description = "客户端版本")
     private String appVersion;
 
 
-    @ApiModelProperty(value = "行为类型")
+    @Schema(description = "行为类型")
     private String actionType;
 
 
     @Gt("actionAt")
-    @ApiModelProperty(value = "行为开始时间")
+    @Schema(description = "行为开始时间")
     private LocalDateTime actionAtStart;
 
     @Lt("actionAt")
-    @ApiModelProperty(value = "行为结束时间")
+    @Schema(description = "行为结束时间")
     private LocalDateTime actionAtEnd;
 
-    @ApiModelProperty(value = "行为值")
+    @Schema(description = "行为值")
     private String actionResult;
 
 
-    @ApiModelProperty(value = "行为位置 x")
+    @Schema(description = "行为位置 x")
     private Integer actionOnX;
 
 
-    @ApiModelProperty(value = "行为位置 y")
+    @Schema(description = "行为位置 y")
     private Integer actionOnY;
 
 
-    @ApiModelProperty(value = "网络类型")
+    @Schema(description = "网络类型")
     private String netType;
 
 
-    @ApiModelProperty(value = "位置经度")
+    @Schema(description = "位置经度")
     private String longitude;
 
 
-    @ApiModelProperty(value = "位置纬度")
+    @Schema(description = "位置纬度")
     private String latitude;
 
 
-    @ApiModelProperty(value = "屏幕高度")
+    @Schema(description = "屏幕高度")
     private Integer screenHeight;
 
 
-    @ApiModelProperty(value = "屏幕宽度")
+    @Schema(description = "屏幕宽度")
     private Integer screenWidth;
 
 
-    @ApiModelProperty(value = "进入页面时间")
+    @Schema(description = "进入页面时间")
     private LocalDateTime entryAt;
 
 
-    @ApiModelProperty(value = "离开页面时间")
+    @Schema(description = "离开页面时间")
     private LocalDateTime leaveAt;
 
 
-    @ApiModelProperty(value = "页面停留时长")
+    @Schema(description = "页面停留时长")
     private Long duration;
 
 
-    @ApiModelProperty(value = "额外数据")
+    @Schema(description = "额外数据")
     private String extInfoJson;
 
 
-    @ApiModelProperty(value = "追踪id")
+    @Schema(description = "追踪id")
     private String traceId;
 
 
-    @ApiModelProperty("前端追踪id")
+    @Schema(description = "前端追踪id")
     private String frontTraceId;
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String remark;
 
 }

@@ -1,8 +1,8 @@
 package com.particle.func.client.funcapplicationfuncrel.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 
@@ -15,18 +15,18 @@ import javax.validation.constraints.NotNull;
  * @since 2023-04-17 10:15:29
  */
 @Data
-@ApiModel
+@Schema
 public class FuncApplicationFuncRelCreateCommand extends AbstractBaseCommand {
 
 
 
     @NotNull(message = "功能应用id 不能为空")
-        @ApiModelProperty(value = "功能应用id",required = true)
+        @Schema(description = "功能应用id",required = true)
     private Long funcApplicationId;
 
 
     @NotNull(message = "功能id 不能为空")
-        @ApiModelProperty(value = "功能id",required = true)
+        @Schema(description = "功能id",required = true)
     private Long funcId;
 
 

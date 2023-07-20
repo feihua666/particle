@@ -13,10 +13,10 @@ import com.particle.global.scheduler.SchedulerParamTool;
 import com.particle.global.scheduler.config.GlobalSchedulingConfigurer;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.tool.json.JsonTool;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
  * @author yangwei
  * @since 2023-07-05 14:56:00
  */
-@Api(tags = "全局服务任务计划相关接口")
+@Tag(name = "全局服务任务计划相关接口")
 @RestController
 @RequestMapping("/scheduler")
 public class SchedulerController {
@@ -57,7 +57,7 @@ public class SchedulerController {
 	 * @throws Throwable
 	 */
 	@PreAuthorize("hasAnyRole('"+ LoginUser.super_admin_role +"','manualExecution')")
-	@ApiOperation("手动执行任务计划")
+	@Operation(summary = "手动执行任务计划")
 	@PostMapping( "/manualExecution")
 	public Response manualExecution(@RequestBody String param,@Valid SchedulerManualExeCommand schedulerManualExeCommand) throws Throwable {
 		if (globalSchedulerMap == null) {
@@ -79,7 +79,7 @@ public class SchedulerController {
 	}
 
 	@PreAuthorize("hasAuthority('user')")
-	@ApiOperation("任务计划列表")
+	@Operation(summary = "任务计划列表")
 	@GetMapping( "/list")
 	public MultiResponse<SchedulerVO> list() throws Throwable {
 		if (globalSchedulerMap == null) {
@@ -113,32 +113,32 @@ public class SchedulerController {
 
 
 	@Data
-	@ApiModel
+	@Schema
 	public static class SchedulerManualExeCommand extends Command {
 
 		@NotEmpty(message = "任务计划名称 不能为空")
-		@ApiModelProperty(value = "任务计划名称，bean名称",required = true)
+		@Schema(description = "任务计划名称，bean名称",required = true)
 		private String schedulerName;
 
 		@NotEmpty(message = "任务计划调用方法名称 不能为空")
-		@ApiModelProperty(value = "任务计划调用方法名称",required = true)
+		@Schema(description = "任务计划调用方法名称",required = true)
 		private String schedulerMethodName;
 	}
 
 	@Data
-	@ApiModel
+	@Schema
 	public static class SchedulerVO extends VO {
 
-		@ApiModelProperty(value = "任务计划名称，bean名称")
+		@Schema(description = "任务计划名称，bean名称")
 		private String schedulerName;
 
-		@ApiModelProperty(value = "任务计划调用方法名称")
+		@Schema(description = "任务计划调用方法名称")
 		private String schedulerMethodName;
 
-		@ApiModelProperty(value = "注解名称")
+		@Schema(description = "注解名称")
 		private String annotationName;
 
-		@ApiModelProperty(value = "注解参数，仅供肉眼识别文本")
+		@Schema(description = "注解参数，仅供肉眼识别文本")
 		private String annotationParams;
 
 	}

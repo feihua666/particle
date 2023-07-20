@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import ${im};
 </#list>
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -19,7 +19,7 @@ import lombok.Data;
  * @since ${date}
  */
 @Data
-@ApiModel
+@Schema
 public class ${injection.className} extends AbstractBaseQueryCommand {
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->
@@ -30,7 +30,7 @@ public class ${injection.className} extends AbstractBaseQueryCommand {
 
     <#if field.comment!?length gt 0>
         <#if swagger>
-    @ApiModelProperty("${field.comment}")
+    @Schema(description = "${field.comment}")
         <#else>
     /**
      * ${field.comment}

@@ -5,8 +5,8 @@ import cn.hutool.core.util.URLUtil;
 import com.particle.common.adapter.api.AbstractBaseApiAdapter;
 import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ import java.util.Map;
  * @author yw
  * @since 2023-03-21 13:11:05
  */
-@Api(tags = "数据查询数据服务接口")
+@Tag(name = "数据查询数据服务接口")
 @RestController
 @RequestMapping(DataQueryDataApiController.API_REQUEST_MAPPING)
 public class DataQueryDataApiController extends AbstractBaseApiAdapter {
@@ -39,7 +39,7 @@ public class DataQueryDataApiController extends AbstractBaseApiAdapter {
 	private IDataQueryDataApiRepresentationApplicationService iDataQueryDataApiRepresentationApplicationService;
 
 	@PreAuthorize("hasAuthority('user')")
-	@ApiOperation("数据查询数据服务接口入口")
+	@Operation(summary = "数据查询数据服务接口入口")
 	@PostMapping(API_ENTRY  + "/**")
 	public Object dataQueryDataApiEntry(@RequestBody Object param,HttpServletRequest request){
 

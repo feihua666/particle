@@ -1,7 +1,7 @@
 package com.particle.global.security.security.login;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,33 +17,33 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@ApiModel("部门信息")
+@Schema(description = "部门信息")
 public class DeptInfo implements Serializable {
 
-	@ApiModelProperty("dept id")
+	@Schema(description = "dept id")
 	private Long id;
-	@ApiModelProperty("dept code")
+	@Schema(description = "dept code")
 	private String code;
-	@ApiModelProperty("dept name")
+	@Schema(description = "dept name")
 	private String name;
 
-	@ApiModelProperty("dept type")
+	@Schema(description = "dept type")
 	private Long typeDictId;
 
-	@ApiModelProperty("dept type value")
+	@Schema(description = "dept type value")
 	private String typeDictValue;
 
 
-	@ApiModelProperty("负责人用户id")
+	@Schema(description = "负责人用户id")
 	private Long masterUserId;
 
-	@ApiModelProperty("是否虚拟部门")
+	@Schema(description = "是否虚拟部门")
 	private Boolean isVirtual;
 
-	@ApiModelProperty("是否为公司")
+	@Schema(description = "是否为公司")
 	private Boolean isComp;
 
-	@ApiModelProperty("父级id")
+	@Schema(description = "父级id")
 	private Long parentId;
 
 	public static DeptInfo create(Long id,

@@ -3,7 +3,7 @@ package com.particle.area.adapter.rpc;
 import com.particle.area.adapter.feign.client.rpc.AreaRpcFeignClient;
 import com.particle.area.client.api.IAreaApplicationService;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yw
  * @since 2022-07-18
  */
-@Api(tags = "区域远程调用相关接口")
+@Tag(name = "区域远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/area")
 public class AreaRpcController extends AbstractBaseRpcAdapter implements AreaRpcFeignClient {
