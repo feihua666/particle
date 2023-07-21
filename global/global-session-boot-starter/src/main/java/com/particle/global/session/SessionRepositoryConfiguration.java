@@ -36,6 +36,7 @@ public class SessionRepositoryConfiguration {
 	 */
 	@Configuration
 	@EnableSpringHttpSession
+	@ConditionalOnProperty(prefix = "spring.session",name = "store-type",havingValue = "none",matchIfMissing = true)
 	@ConditionalOnMissingBean(SessionRepository.class)
 	@ConditionalOnClass(EnableSpringHttpSession.class)
 	static class SessionRepositoryMapConfiguration{
@@ -47,7 +48,7 @@ public class SessionRepositoryConfiguration {
 		 * 默认简单map方式内存存储
 		 * @return
 		 */
-		@ConditionalOnMissingBean(SessionRepository.class)
+		//@ConditionalOnMissingBean(SessionRepository.class)
 		@Bean
 		public MapSessionRepository sessionRepository() {
 			return new MapSessionRepository(new ConcurrentHashMap<>());
