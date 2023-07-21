@@ -23,14 +23,15 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("mobile"));
-		addFieldCommand.setDomainName("TenantCreateApply");
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("expire_at"));
+		// 注意首字母要大家，应该是类名称，不带后缀
+		addFieldCommand.setDomainName("TenantUser");
 		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/tenant");
 
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("password"),"密码，没有指定 applyUserId 时，用户创建用户登录密码",String.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("is_send_email_notice"),"是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送",String.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("is_send_mobile_notice"),"密码，没有指定 applyUserId 时，用户创建用户登录密码",String.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("effective_at"),"生效日期，从什么时候开始生效",LocalDateTime.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("effective_at_trigger_dict_id"),"生效日期，触发方式，一般为首次登录触发",Long.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("effective_days"),"有效天数,0或空为不限制",Integer.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

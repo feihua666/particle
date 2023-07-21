@@ -26,6 +26,10 @@ public class AddFieldCommand extends AbstractBaseCommand {
     @Schema(description = "添加到该字段之后")
     private String afterFieldName;
 
+    /**
+     * 例如：/Users/yw/fh/git-source/particle/component/tenant
+     * 注意后面带组件名称
+     */
     @NotEmpty(message = "后端组件绝对路径 不能为空")
     @Schema(description = "前端组件绝对路径")
     private String componentBackendAbsolutePath;
@@ -33,6 +37,7 @@ public class AddFieldCommand extends AbstractBaseCommand {
     /**
      * 后端所有的需要添加字段的都是以领域模型为前缀的
      * 以该名称为前缀匹配
+     * 注意首字母要大家，应该是类名称，不带后缀
      */
     @NotEmpty(message = "领域模型名称 不能为空")
     @Schema(description = "领域模型名称")
@@ -81,7 +86,7 @@ public class AddFieldCommand extends AbstractBaseCommand {
         return items.stream()
                 .map(item -> {
 
-                    String comment = StrUtil.format("\t@Schema(\"{}\")", item.getFieldComment());
+                    String comment = StrUtil.format("\t@Schema(description = \"{}\")", item.getFieldComment());
                     if (!swagger) {
                         comment = StrUtil.format("\t/**\n" +
                                 "\t * {}\n" +

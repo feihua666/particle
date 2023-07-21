@@ -1,6 +1,9 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
 /**
  * scatter默认认证成功处理器，直接写入json的响应数据
@@ -39,7 +43,8 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
         SingleResponse<Object> singleResponse = SingleResponse.of(principal);
 
         boolean ajaxRequest = RequestTool.isAjaxRequest(httpServletRequest);
-        if (ajaxRequest) {
+        String accept = ServletUtil.getHeader(httpServletRequest, "Accept", CharsetUtil.UTF_8.toUpperCase());
+        if (ajaxRequest || StrUtil.contains(accept,MediaType.APPLICATION_JSON_VALUE)) {
             outJson(httpServletResponse,singleResponse);
         }
         // 通知自定义认证结果调用

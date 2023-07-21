@@ -47,6 +47,21 @@ public class TenantUserDO extends BaseDO {
     */
     private LocalDateTime expireAt;
 
+	/**
+	 * 生效日期，从什么时候开始生效
+	 */
+	private LocalDateTime effectiveAt;
+
+	/**
+	 * 生效日期，触发方式，一般为首次登录触发
+	 */
+	private Long effectiveAtTriggerDictId;
+
+	/**
+	 * 有效天数,0或空为不限制
+	 */
+	private Integer effectiveDays;
+
 
     /**
      * 是否离职或退出

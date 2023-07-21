@@ -29,6 +29,17 @@ public interface ITenantUserService extends IBaseService<TenantUserDO> {
         Assert.notNull(userId,"userId 不能为空");
         return getOne(Wrappers.<TenantUserDO>lambdaQuery().eq(TenantUserDO::getUserId, userId));
     }
+    /**
+     * 根据用户id查询
+     * @param userId 必填
+     * @param tenantId 非必填
+     * @return
+     */
+    default TenantUserDO getByUserIdAndTenantId(Long userId,Long tenantId) {
+        Assert.notNull(userId,"userId 不能为空");
+        Assert.notNull(userId,"tenantId 不能为空");
+        return getOne(Wrappers.<TenantUserDO>lambdaQuery().eq(TenantUserDO::getUserId, userId).eq(TenantUserDO::getTenantId,tenantId));
+    }
 
     /**
      * 根据用户id查询

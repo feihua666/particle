@@ -8,6 +8,7 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.particle.common.constant.CommonConstants;
+import com.particle.component.light.share.dict.UserEffectiveAtTrigger;
 import com.particle.global.dto.response.Response;
 import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.security.security.login.IAuthenticationResultService;
@@ -15,14 +16,18 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.logical.TimeLogicTool;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.tool.thread.ThreadContextTool;
+import com.particle.user.domain.gateway.UserDictGateway;
+import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
 import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
 import com.particle.user.infrastructure.login.service.IUserLoginRecordService;
+import com.particle.user.infrastructure.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -54,6 +59,8 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 
 	@Autowired
 	private IUserIdentifierService iIdentifierService;
+	@Autowired
+	private IUserService iUserService;
 
 	@Qualifier(GlobalMybatisExecutorsConfig.commonDbTaskExecutor)
 	@Autowired
@@ -64,6 +71,8 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 	private IUserLoginDeviceService iUserLoginDeviceService;
 	@Autowired
 	private Tracer tracer;
+	@Autowired
+	private UserDictGateway userDictGateway;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication, Response response) throws IOException {
@@ -78,11 +87,35 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 			iIdentifierService.updateById(identifier);
 		});
 		addLoginRecordAndDevice(httpServletRequest, null, response);
+		// 更新过期时间
+		updateExpireAtIfNecessary();
 	}
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e, Response response) throws IOException {
 		addLoginRecordAndDevice(httpServletRequest, e, response);
+	}
+
+	/**
+	 * 更新过期时间,注意租户用户也有相同的处理方式，即：{@link com.particle.tenant.adapter.login.TenantUserAuthenticationResultServiceImpl#updateExpireAtIfNecessary()}
+	 */
+	private void updateExpireAtIfNecessary() {
+
+		LoginUser loginUser = LoginUserTool.getLoginUser();
+		commonDbTaskExecutor.execute(() -> {
+			UserDO user = iUserService.getById(loginUser.getId());
+			if (user.getEffectiveAtTriggerDictId() != null && user.getExpireAt() == null && user.getEffectiveDays() != null && user.getEffectiveDays() != 0) {
+				String dictValueById = userDictGateway.getDictValueById(user.getEffectiveAtTriggerDictId());
+				if (UserEffectiveAtTrigger.login_success.name().equals(dictValueById)) {
+					LocalDateTime now = LocalDateTime.now();
+					LocalDateTime expireAt = TimeLogicTool.calculateExpireAt(now, user.getEffectiveDays());
+					user.setEffectiveAt(now);
+					user.setExpireAt(expireAt);
+					iUserService.updateById(user);
+				}
+			}
+		});
+
 	}
 
 	/**

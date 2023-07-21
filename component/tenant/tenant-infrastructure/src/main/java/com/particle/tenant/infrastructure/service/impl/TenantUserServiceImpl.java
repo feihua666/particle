@@ -39,7 +39,13 @@ public class TenantUserServiceImpl extends IBaseServiceImpl<TenantUserMapper, Te
 	@Override
 	protected void preAdd(TenantUserDO po) {
 
-		TenantUserDO byUserId = getByUserId(po.getUserId());
+		TenantUserDO byUserId = null;
+		if (po.getTenantId() == null) {
+			byUserId = getByUserId(po.getUserId());
+		}else {
+			byUserId = getByUserIdAndTenantId(po.getUserId(),po.getTenantId());
+		}
+
 		Assert.isTrue(byUserId == null,"用户已存在，请匆重复添加");
 	}
 

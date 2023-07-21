@@ -86,5 +86,14 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "到期时间，为空永不到期")
     private LocalDateTime expireAt;
 
+	@Schema(description = "生效日期，从什么时候开始生效")
+	private LocalDateTime effectiveAt;
+
+	@Schema(description = "生效日期，触发方式，一般为首次登录触发")
+	private Long effectiveAtTriggerDictId;
+
+	@Schema(description = "有效天数,0或空为不限制")
+	private Integer effectiveDays;
+
 
 }
