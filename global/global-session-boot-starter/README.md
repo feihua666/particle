@@ -6,3 +6,4 @@
 使用时需要添加注解启用，可用的常用注解有：
 1. EnableSpringHttpSession 启用http，存储需要自定义
 2. EnableRedisHttpSession 启动redis存储，需要依赖 spring-session-data-redis包  
+3. 各数据库的sql脚本在classpath:org/springframework/session/jdbc目录下

@@ -28,6 +28,18 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
         </dependency>
+        <!-- 不启用默认，默认使用内存session -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 不启用默认，默认使用内存session -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- swagger 定义全局请求头文档与 session 保持一致 -->
         <dependency>
             <groupId>com.particle</groupId>

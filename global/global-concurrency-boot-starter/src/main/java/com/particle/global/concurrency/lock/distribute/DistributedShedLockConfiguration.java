@@ -59,6 +59,7 @@ public class DistributedShedLockConfiguration {
         @Bean
         @ConditionalOnBean(DataSource.class)
         public LockProvider jdbcLockProvider(DataSource dataSource) {
+            log.warn("init JdbcTemplateLockProvider instance.");
             return new JdbcTemplateLockProvider(
                     JdbcTemplateLockProvider.Configuration.builder()
                             .withJdbcTemplate(new JdbcTemplate(dataSource))

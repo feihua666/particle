@@ -1,0 +1,27 @@
+spring:
+  redis:
+    # 数据库索引，默认为0
+    database: 1
+    # redis服务器地址，默认为localhost
+    host: 127.0.0.1
+    # 端口号，默认为6379
+    port: 6379
+    # 连接超时时长，单位毫秒，默认不限制
+    connect-timeout: 2000
+    # 读取超时时长，单位毫秒，默认不限制
+    timeout: 5000
+    # 密码，默认为空
+    password: 123456
+    lettuce:
+      pool:
+        # 最大连接数据库连接数,设 0 为没有限制
+        max-active: 8
+        # 最大等待连接中的数量,设 0 为没有限制
+        max-idle: 8
+        # 最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        max-wait: -1ms
+        # 最小等待连接中的数量,设 0 为没有限制
+        min-idle: 0
+
+
+

@@ -1,0 +1,6 @@
+spring:
+  session:
+    # 默认30分钟，单位秒
+    timeout: 1800
+    # 存储方式，如果依赖了多个实现时，需要指定
+    store-type: none
