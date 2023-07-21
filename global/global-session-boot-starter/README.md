@@ -7,3 +7,6 @@
 1. EnableSpringHttpSession 启用http，存储需要自定义
 2. EnableRedisHttpSession 启动redis存储，需要依赖 spring-session-data-redis包  
 3. 各数据库的sql脚本在classpath:org/springframework/session/jdbc目录下
+
+## 注意
+spring session repository 允许有多个实例，在spring auto configure中如果检测到存在配置生效就生成对应的仓库存储对象

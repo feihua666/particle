@@ -4,3 +4,6 @@ spring:
     timeout: 1800
     # 存储方式，如果依赖了多个实现时，需要指定
     store-type: none
+    jdbc:
+      # 指定为空，使用默认的表名称，一般sql与配置需要保持一致，参见：schema.global_spring_session.sql、SessionRepositoryConfiguration
+      table-name: ''
