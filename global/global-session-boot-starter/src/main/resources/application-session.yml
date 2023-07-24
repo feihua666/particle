@@ -3,3 +3,7 @@ spring:
     jdbc:
       # 设置为空使用默认名称
       table-name: ''
+particle:
+  session:
+    jdbc:
+      type: mysql

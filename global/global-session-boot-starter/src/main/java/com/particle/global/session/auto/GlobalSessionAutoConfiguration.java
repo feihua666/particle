@@ -1,9 +1,11 @@
 package com.particle.global.session.auto;
 
+import com.particle.global.session.GlobalSessionProperties;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
 import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.boot.web.server.Cookie;
 import org.springframework.boot.web.servlet.server.Session;
@@ -25,6 +27,7 @@ import java.util.Arrays;
  * @author yangwei
  * @since 2022-07-29 14:13
  */
+@EnableConfigurationProperties(GlobalSessionProperties.class)
 @Configuration
 public class GlobalSessionAutoConfiguration {
 

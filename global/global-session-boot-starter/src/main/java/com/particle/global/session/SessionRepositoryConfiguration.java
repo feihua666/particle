@@ -2,6 +2,7 @@ package com.particle.global.session;
 
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.db.dialect.DialectName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,10 +15,16 @@ import org.springframework.session.SessionRepository;
 import org.springframework.session.config.SessionRepositoryCustomizer;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.session.jdbc.JdbcIndexedSessionRepository;
+import org.springframework.session.jdbc.*;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -80,11 +87,14 @@ public class SessionRepositoryConfiguration {
 		}
 
 		@Bean
-		public JdbcSessionRepositoryCustomizer jdbcSessionReposityCustomizer(JdbcSessionProperties jdbcSessionProperties) {
-			return new JdbcSessionRepositoryCustomizer(jdbcSessionProperties);
+		public JdbcSessionRepositoryCustomizer jdbcSessionReposityCustomizer(JdbcSessionProperties jdbcSessionProperties,GlobalSessionProperties globalSessionProperties) {
+			return new JdbcSessionRepositoryCustomizer(jdbcSessionProperties, globalSessionProperties);
 		}
 	}
 
+	/**
+	 * 自定义sql
+	 */
 	public static class JdbcSessionRepositoryCustomizer implements SessionRepositoryCustomizer<JdbcIndexedSessionRepository> {
 
 		/**
@@ -108,12 +118,25 @@ public class SessionRepositoryConfiguration {
 		 */
 		private Boolean lowerCaseAllSql = true;
 
-		public JdbcSessionRepositoryCustomizer(JdbcSessionProperties jdbcSessionProperties) {
+		private String jdbcType;
+
+		public JdbcSessionRepositoryCustomizer(JdbcSessionProperties jdbcSessionProperties,GlobalSessionProperties globalSessionProperties) {
 			this.specifiedTableName = jdbcSessionProperties.getTableName();
+			this.jdbcType = Optional.of(globalSessionProperties.getJdbc()).map(item -> item.getType()).orElse(null);
 		}
 
 		@Override
 		public void customize(JdbcIndexedSessionRepository sessionRepository) {
+			if (StrUtil.isEmpty(jdbcType)) {
+				log.warn("JdbcSessionRepositoryCustomizer jdbc type is empty, this may cause a set session attrbute DuplicateKeyException,you can config this by particle.session.jdbc.type");
+			}else {
+				Supplier<SessionRepositoryCustomizer<JdbcIndexedSessionRepository>> sessionRepositoryCustomizerSupplier = customizerMap.get(jdbcType);
+				if (sessionRepositoryCustomizerSupplier == null) {
+					throw new RuntimeException("jdbcType=" + jdbcType + " Can not support,the valid value can be " + Arrays.stream(DatabaseDialect.values()).collect(Collectors.toList()));
+				}
+				sessionRepositoryCustomizerSupplier.get().customize(sessionRepository);
+			}
+
 			// 如果没有明确指定，重新设置一下表名
 			if (StrUtil.isEmpty(specifiedTableName)) {
 				sessionRepository.setTableName(defaultTableName);
@@ -144,8 +167,31 @@ public class SessionRepositoryConfiguration {
 						ReflectUtil.setFieldValue(sessionRepository,sqlProperty,sql.replace(attributesTableName,attributesTableNameLowerCase));
 					}
 				}
-			}
+				}
 		}
 	}
 
+
+	/**
+	 * key 支持 枚举：{@link DatabaseDialect}
+	 */
+	private static Map<String, Supplier< SessionRepositoryCustomizer<JdbcIndexedSessionRepository>>> customizerMap = new HashMap<>();
+
+	static {
+		customizerMap.put(DatabaseDialect.mysql.name(), () -> new MySqlJdbcIndexedSessionRepositoryCustomizer());
+		customizerMap.put(DatabaseDialect.oracle.name(), () -> new OracleJdbcIndexedSessionRepositoryCustomizer());
+		customizerMap.put(DatabaseDialect.postgresql.name(), () -> new PostgreSqlJdbcIndexedSessionRepositoryCustomizer());
+		customizerMap.put(DatabaseDialect.db2.name(), () -> new Db2JdbcIndexedSessionRepositoryCustomizer());
+	}
+
+	/**
+	 * 支持自定义的数据库类型
+	 * 参考：{@link DialectName}
+	 */
+	public static enum DatabaseDialect{
+		mysql,
+		oracle,
+		postgresql,
+		db2
+	}
 }
