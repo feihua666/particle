@@ -86,6 +86,9 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		commonDbTaskExecutor.execute(() -> {
 			iIdentifierService.updateById(identifier);
 		});
+
+		// 初始化apicount
+		UserSecurityFilterPersistentLoginUserReadyListener.initApiCountToOne(httpServletRequest);
 		addLoginRecordAndDevice(httpServletRequest, null, response);
 		// 更新过期时间
 		updateExpireAtIfNecessary();

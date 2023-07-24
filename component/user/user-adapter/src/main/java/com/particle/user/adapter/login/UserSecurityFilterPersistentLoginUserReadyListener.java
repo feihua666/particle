@@ -40,11 +40,24 @@ public class UserSecurityFilterPersistentLoginUserReadyListener implements Secur
 	private ExecutorService commonDbTaskExecutor;
 	@Override
 	public void onLoginUserReady(ServletRequest request) {
+
 		LoginUser loginUser = LoginUserTool.getLoginUser();
 		// 用户不存在不处理
 		if (loginUser == null) {
 			return;
 		}
+		// 请求 apiCount 计数
+		apiCount((HttpServletRequest)request);
+
+
+	}
+
+
+	/**
+	 * 请求 apiCount 计数
+	 * @param request
+	 */
+	private void apiCount(HttpServletRequest request) {
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		if (session == null) {
 			return;
@@ -76,6 +89,18 @@ public class UserSecurityFilterPersistentLoginUserReadyListener implements Secur
 			session.setAttribute(api_count_key,apiCount);
 		}
 
+	}
 
+	/**
+	 * 初始化apiCount
+	 * @param request
+	 */
+	public static void initApiCountToOne(HttpServletRequest request) {
+		HttpSession session = ((HttpServletRequest) request).getSession(false);
+		if (session == null) {
+			return;
+		}
+		int apiCount = 1;
+		session.setAttribute(api_count_key,apiCount);
 	}
 }
