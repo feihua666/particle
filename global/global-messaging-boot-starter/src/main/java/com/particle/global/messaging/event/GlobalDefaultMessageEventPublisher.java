@@ -3,6 +3,7 @@ package com.particle.global.messaging.event;
 import com.particle.global.concurrency.lock.LockExecutor;
 import com.particle.global.concurrency.lock.distribute.DistributedShedLockExecutor;
 import com.particle.global.dto.messaging.event.AbstractMessageEvent;
+import com.particle.global.exception.biz.LockAlreadyOccupiedException;
 import com.particle.global.messaging.event.api.MessageEventPublisher;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.messaging.event.api.MessageEventSender;
@@ -47,7 +48,14 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
     public void publishNextBatch(int size) {
         try {
             RetryTool.execute(context -> {
-                lockExecutor.execute(() -> doPublish(size), "default-message-event-publisher");
+                String lockKey = "default-message-event-publisher";
+                try {
+                    lockExecutor.execute(() -> doPublish(size), lockKey);
+                } catch (LockAlreadyOccupiedException e) {
+                    log.warn("{} LockAlreadyOccupied. ignored!",lockKey);
+                    // 不用再重试了
+                    context.setExhaustedOnly();
+                }
                 return null;
             });
         } catch (Throwable e) {
