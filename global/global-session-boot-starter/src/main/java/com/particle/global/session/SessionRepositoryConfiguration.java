@@ -122,7 +122,7 @@ public class SessionRepositoryConfiguration {
 
 		public JdbcSessionRepositoryCustomizer(JdbcSessionProperties jdbcSessionProperties,GlobalSessionProperties globalSessionProperties) {
 			this.specifiedTableName = jdbcSessionProperties.getTableName();
-			this.jdbcType = Optional.of(globalSessionProperties.getJdbc()).map(item -> item.getType()).orElse(null);
+			this.jdbcType = Optional.ofNullable(globalSessionProperties.getJdbc()).map(item -> item.getType()).orElse(null);
 		}
 
 		@Override
