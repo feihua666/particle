@@ -4,6 +4,7 @@
  */
 import {reactive, watch} from 'vue'
 import PtSelect from '../../../../global/pc/element-plus/Select.vue'
+import PtCheckboxGroup from '../../../../global/pc/element-plus/CheckboxGroup.vue'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from '../../../../global/pc/element-plus/dataModel'
 import {getItems,getGroupItems,getGroups} from "../api/front/dictFrontApi";
 
@@ -17,6 +18,11 @@ const props = defineProps({
   dictApi: {
     type: String,
     default: 'getItems' //合法值 getItems,getGroupItems,getGroups
+  },
+  // 展示方式，可选 select checkbox
+  view: {
+    type: String,
+    default: 'select'
   },
   resultDataHandler: {
     type: Function,
@@ -61,7 +67,7 @@ const dataMethod = () => {
 }
 </script>
 <template>
-  <PtSelect
+  <PtSelect v-if="view == 'select'"
       v-model="reactiveData.currentModelValue"
       v-bind="$attrs"
       :dataMethod="dataMethod"
@@ -69,6 +75,15 @@ const dataMethod = () => {
       @update:modelData="changeModelDataEvent"
       @change="changeModelValueEvent"
   ></PtSelect>
+  <PtCheckboxGroup  v-else-if="view == 'checkbox'"
+      v-model="reactiveData.currentModelValue"
+      v-bind="$attrs"
+      :dataMethod="dataMethod"
+      @update:modelValue="updateModelValueEvent"
+      @update:modelData="changeModelDataEvent"
+      @change="changeModelValueEvent"
+  ></PtCheckboxGroup>
+
 </template>
 
 

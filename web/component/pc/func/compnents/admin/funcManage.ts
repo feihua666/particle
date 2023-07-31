@@ -150,6 +150,7 @@ export const useAddPageFormItems = ({formData}) => {
            nextTick(()=>{
                if(formData.parentId){
                    form.componentOf = formData.parentId.componentOf
+                   form.funcGroupId = formData.parentId.funcGroupId
                }
            })
             }}),

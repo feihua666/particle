@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>oauth2authorization</artifactId>
+        <groupId>com.particle</groupId>
+        <version>1.0.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>oauth2authorization-adapter</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <!-- 通用 适配层依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-adapter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 应用层依赖 -->
+        <!-- 适配层依赖应用层 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>oauth2authorization-app</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 实现feign-client接口 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>oauth2authorization-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>

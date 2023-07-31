@@ -22,7 +22,7 @@ import java.util.*;
 public class SegmentTemplate {
 
 	public SegmentTemplate(){
-		this.uniqueId = UUID.fastUUID().toString();
+		this.uniqueId = UUID.fastUUID().toString(true);
 	}
 
 	public SegmentTemplate(String uniqueId){

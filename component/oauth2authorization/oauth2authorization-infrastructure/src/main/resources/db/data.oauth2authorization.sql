@@ -1,0 +1,3 @@
+-- crud数据sql
+-- import classpath:db/data.oauth2authorization.dict.sql
+-- import classpath:db/data.oauth2authorization.func.sql

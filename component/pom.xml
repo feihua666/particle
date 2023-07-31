@@ -32,6 +32,7 @@
         <module>op-log</module>
         <module>tracking</module>
         <module>message</module>
+        <module>oauth2authorization</module>
     </modules>
 
     <properties>

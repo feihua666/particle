@@ -2,7 +2,7 @@ import FrontSelect from './components/FrontSelect.vue'
 // 使用一个模块前缀
 let prefix = 'PtDict'
 let map = {
-    FrontSelect
+    FrontSelect,
 }
 export default {
     install: function (app, options) {

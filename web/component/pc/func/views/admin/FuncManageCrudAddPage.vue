@@ -117,7 +117,8 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '权限码前缀',
-            required: true
+            required: true,
+            tips: '注意一般结尾带冒号'
           },
           compProps: {
             clearable: true,

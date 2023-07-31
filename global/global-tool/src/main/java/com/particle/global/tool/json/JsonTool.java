@@ -1,5 +1,6 @@
 package com.particle.global.tool.json;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONConfig;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.particle.global.tool.calendar.CalendarTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.Collection;
 
@@ -62,5 +64,34 @@ public class JsonTool {
 	@SneakyThrows(JsonProcessingException.class)
 	public static String toJsonStrForHttp(Object object, ObjectMapper objectMapper,Class view) {
 		return objectMapper.writerWithView(view).writeValueAsString(object);
+	}
+
+	/**
+	 * 是否json字符串是空对象或空字符串
+	 * jsonStr = "" ==> true
+	 * jsonStr = null ==> true
+	 * jsonStr = {} ==> true
+	 * jsonStr = {   } ==> true
+	 * jsonStr = [] ==> true
+	 * jsonStr = [   ] ==> true
+	 *
+	 * @param jsonStr
+	 * @return
+	 */
+	public static boolean isJsonStrEmpty(String jsonStr) {
+		// 如果为空直接返回
+		if (Strings.isEmpty(jsonStr)) {
+			return true;
+		}
+		// trim 一下
+		String trimToEmpty = StrUtil.trimToEmpty(jsonStr);
+		// 如果trim后为空直接返回
+		if (Strings.isEmpty(trimToEmpty)) {
+			return true;
+		}
+		// 去除开头 （{ 或[） 和结尾的（}或]）
+		String substringContent = trimToEmpty.substring(1, trimToEmpty.length() - 1);
+		// 判断内容是否长度为0
+		return StrUtil.trimToEmpty(substringContent).length() == 0;
 	}
 }

@@ -8,6 +8,10 @@ import LowcodePlugin from './lowcode/LowcodePlugin'
 import DataQueryPlugin from './dataquery/DataQueryPlugin.ts'
 import TenantPlugin from './tenant/TenantPlugin.ts'
 import DeptPlugin from './dept/DeptPlugin.ts'
+import OpLogPlugin from './oplog/OpLogPlugin.ts'
+import TrackingPlugin from './tracking/TrackingPlugin.ts'
+import MessagePlugin from './message/MessagePlugin.ts'
+import Oauth2authorizationPlugin from './oauth2authorization/Oauth2authorizationPlugin.ts'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -20,5 +24,9 @@ export default {
         DataQueryPlugin.install(app,options)
         TenantPlugin.install(app,options)
         DeptPlugin.install(app,options)
+        OpLogPlugin.install(app,options)
+        TrackingPlugin.install(app,options)
+        MessagePlugin.install(app,options)
+        Oauth2authorizationPlugin.install(app,options)
     }
 }

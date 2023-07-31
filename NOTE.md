@@ -17,9 +17,13 @@
       导致了一系列的提前创建bean，创建bean断点可以打在 AbstractBeanFactory 中的大概335行（return createBean(beanName, mbd, args);）  
    c. 参考 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory 大概531行（Object bean = resolveBeforeInstantiation(beanName, mbdToUse);）  
    d. 总结在定义Advisor接口对应的bean和BeanPostProcessor对应的bean时，需要单独使用配置类配置，否则可能导致整个大配置类过早实例化缺少全部BeanPostProcessor处理的机会    
-9. 关于分布式部署的注意事项，针对单机多实例部署或微服务部署
+9. 关于分布式部署的注意事项，针对单机多实例部署或微服务部署  
    a. 被 @sheduled 注解的方法需要加锁，可以继承 global-scheduler-boot-starter 模块中的 AbstractGlobalScheduler 使用 lockExecutor 加钞  
    b. 如果使用 lockExecutor ，目前在分布式下需要添加 <artifactId>shedlock-provider-jdbc-template</artifactId>依赖，使用数据库方式支持,详细内容参考 global-concurrency-boot-starter模块下的 README.md 
    c. session,在 global-session-boot-starter 模块中依赖了 spring session，分布式中可以使用数据库或redis等，详见：global-session-boot-starter 模块的 README.md  
    d. mq,如果不与第三方系统mq交互，可以使用默认的local binder，否则需要配置对应的mq配置，可参见 global-messaging-boot-starter 模块的 README.md，及测试资源中的 application.yml配置  
-   
+10. 关于使用低代码生成的注意事项  
+   a. 生成后端模块需要在父级 component pom.xml中添加 类型模块 <module>xxxxx</module>  
+   b. 生成后端服务，如果指定了包名，需要在 boot-starter配置类中配置 mybatis mapper接口包路径  
+   c. 添加后端管理菜单尽量使用添加 crud 功能按钮添加，注意权限码前缀结尾一般带冒号，保持一致  
+   d. crud添加成功后，需要手动修改对应的数据，在每个权限码（分页查询、添加、修改）前面添加对应的路径code，以备后面进行路由权限判断使用（暂没有使用到，但以备后期使用）  

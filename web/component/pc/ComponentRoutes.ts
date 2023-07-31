@@ -11,6 +11,7 @@ import DeptRoutes from './dept/DeptRoutes.ts'
 import OpLogRoutes from "./oplog/OpLogRoutes";
 import TrackingRoutes from "./tracking/TrackingRoutes";
 import MessageRoutes from "./message/MessageRoutes";
+import Oauth2authorizationRoutes from "./oauth2authorization/Oauth2authorizationRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -26,4 +27,5 @@ let ComponentRoutes = []
     .concat(OpLogRoutes)
     .concat(TrackingRoutes)
     .concat(MessageRoutes)
+    .concat(Oauth2authorizationRoutes)
 export default ComponentRoutes

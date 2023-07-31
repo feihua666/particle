@@ -54,6 +54,20 @@
             <version>${spring-authorization-server.version}</version>
         </dependency>
 
+        <!-- jdbc支持 不强制依赖 主要是 authorzation server 存储使用-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- 该包目前springboot父级中未定义，因为目前我们使用的是springboot 2.x版本，待以后升级到springboot 3.x后，放开该注释，并将上面的包删除理论上可行 -->
         <!--<dependency>-->
         <!--    <groupId>org.springframework.boot</groupId>-->

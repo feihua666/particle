@@ -26,3 +26,24 @@
 2. 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系
 3. 以上保证解析租户（登录前根据域名配置解析租户，登录后以登录用户正在使用租户为准）和当前登录用户正在使用的租户，分别放到TenantTool和LoginUserTool中以供后续逻辑使用
 4. 在用户登录中如果也同样设置了当前租户，这是因为有可能在登录的时候前面两个filter都没有解析到用户数据（在登录时如果前面已经解析到租户会延用已经解析到的租户）时设置当前租户以影响后续逻辑处理
+
+## authorization server相关
+参考文档：https://www.yii666.com/blog/520502.html
+参考文档源码解读：https://blog.csdn.net/weixin_41866717/article/details/129027551
+1. 默认是jdbc存储配置，所以需要依赖,本模块没有传递依赖，scope 为 provided,但其它模板有使用如：global-messaging-boot-starter，如果使用了 message 模块会间接引入
+```xml
+        <!-- jdbc shedlockjdbc支持时可以依赖使用，这里不传递依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+```
+2. 

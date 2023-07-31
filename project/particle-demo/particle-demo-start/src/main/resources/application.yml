@@ -45,6 +45,10 @@ spring:
         - classpath:db/schema.op-log.sql
         - classpath:db/schema.tracking.sql
         - classpath:db/schema.message.sql
+        - classpath:db/schema.oauth2authorization.sql
+        - classpath:db/schema.global_oauth2_authorization.sql
+        - classpath:db/schema.global_oauth2_authorization_consent.sql
+        - classpath:db/schema.global_oauth2_registered_client.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -63,6 +67,7 @@ spring:
         - classpath:db/data.op-log.sql
         - classpath:db/data.tracking.sql
         - classpath:db/data.message.sql
+        - classpath:db/data.oauth2authorization.sql
       mode: ALWAYS # ALWAYS NEVER
   servlet:
     multipart:
@@ -104,7 +109,7 @@ particle:
   captcha:
     # 参见 com.particle.global.captcha.security.CaptchaSecurityFilter
     filter:
-      enabled: true
+      enabled: false
       uris:
         # 登录添加验证码校验
         - /login
@@ -149,8 +154,3 @@ particle:
     #alert:
     #  wxcpWebhooks:
     #    - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx
-management:
-  endpoint:
-    bindings:
-      cache:
-        time-to-live:

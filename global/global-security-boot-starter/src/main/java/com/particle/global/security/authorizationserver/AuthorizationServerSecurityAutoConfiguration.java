@@ -1,5 +1,6 @@
 package com.particle.global.security.authorizationserver;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -7,18 +8,24 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.config.WebSecurityConfig;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
@@ -78,22 +85,30 @@ public class AuthorizationServerSecurityAutoConfiguration {
 		return http.build();
 	}
 
+	/**
+	 * 这里使用jdbc，因为使用内存存储意义不大
+	 * @param jdbcTemplate
+	 * @return
+	 */
+	@ConditionalOnBean(JdbcTemplate.class)
 	@Bean
-	public RegisteredClientRepository registeredClientRepository() {
-		RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("oidc-client")
-				.clientSecret("{noop}secret")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
-				//.postLogoutRedirectUri("http://127.0.0.1:8080/")
-				.scope(OidcScopes.OPENID)
-				.scope(OidcScopes.PROFILE)
-				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-				.build();
+	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+		return new JdbcRegisteredClientRepository(jdbcTemplate);
+	}
+	@ConditionalOnBean(JdbcTemplate.class)
+	@Bean
+	public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate,
+														   RegisteredClientRepository registeredClientRepository) {
+		return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
+	}
 
-		return new InMemoryRegisteredClientRepository(oidcClient);
+	@ConditionalOnBean(JdbcTemplate.class)
+	@Bean
+	public JdbcOAuth2AuthorizationConsentService jdbcOAuth2AuthorizationConsentService(JdbcTemplate jdbcTemplate,
+																					   RegisteredClientRepository registeredClientRepository) {
+		// Will be used by the ConsentController
+		return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+
 	}
 
 	@Bean

@@ -1,0 +1,2 @@
+-- 建表语句sql
+-- import classpath:db/client/schema.component_oauth2_registered_client.sql
