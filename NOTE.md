@@ -27,3 +27,4 @@
    b. 生成后端服务，如果指定了包名，需要在 boot-starter配置类中配置 mybatis mapper接口包路径  
    c. 添加后端管理菜单尽量使用添加 crud 功能按钮添加，注意权限码前缀结尾一般带冒号，保持一致  
    d. crud添加成功后，需要手动修改对应的数据，在每个权限码（分页查询、添加、修改）前面添加对应的路径code，以备后面进行路由权限判断使用（暂没有使用到，但以备后期使用）  
+   e. 为审计日志分配模块 com.particle.component.light.share.dict.oplog.OpLogConstants.Module，并在对应的controller方法上修改，记得添加操作日志字典 component/op-log/op-log-infrastructure/src/main/resources/db/data.op-log.dict.sql   

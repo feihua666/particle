@@ -24,6 +24,9 @@ public class OpLogConstants {
 		public static final String tenant = "tenant";
 		public static final String tracking = "tracking";
 		public static final String message = "message";
+		public static final String dataQuery = "dataQuery";
+		public static final String oauth2authorization = "oauth2authorization";
+		public static final String openPlatform = "openPlatform";
 
 		public static final String unknown = "unknown";
 

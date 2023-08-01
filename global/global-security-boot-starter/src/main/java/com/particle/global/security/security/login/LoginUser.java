@@ -31,6 +31,11 @@ import java.util.stream.Collectors;
 public class LoginUser implements UserDetails {
 
     /**
+     * 该字段太大，主要是引用该字段，以在打印日志时忽略该字段
+     */
+    public static final String userGrantedAuthoritiesFieldName = "userGrantedAuthorities";
+
+    /**
      * 超级管理员角色编码
      */
     public static final String super_admin_role = Constants.super_admin_role;

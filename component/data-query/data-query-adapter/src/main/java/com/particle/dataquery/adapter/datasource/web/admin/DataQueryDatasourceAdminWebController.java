@@ -1,5 +1,6 @@
 package com.particle.dataquery.adapter.datasource.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceU
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourcePageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +45,7 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:create')")
 	@Operation(summary = "添加数据查询数据源")
 	@PostMapping("/create")
+	@OpLog(name = "添加数据查询数据源",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
 	public SingleResponse<DataQueryDatasourceVO> create(@RequestBody DataQueryDatasourceCreateCommand dataQueryDatasourceCreateCommand){
 		return iDataQueryDatasourceApplicationService.create(dataQueryDatasourceCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:delete')")
 	@Operation(summary = "删除数据查询数据源")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除数据查询数据源",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
 	public SingleResponse<DataQueryDatasourceVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDataQueryDatasourceApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:update')")
 	@Operation(summary = "更新数据查询数据源")
 	@PutMapping("/update")
+	@OpLog(name = "更新数据查询数据源",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
 	public SingleResponse<DataQueryDatasourceVO> update(@RequestBody DataQueryDatasourceUpdateCommand dataQueryDatasourceUpdateCommand){
 		return iDataQueryDatasourceApplicationService.update(dataQueryDatasourceUpdateCommand);
 	}

@@ -45,7 +45,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageUserState:create')")
 	@Operation(summary = "添加用户消息读取状态")
 	@PostMapping("/create")
-	@OpLog(name = "添加用户消息读取状态",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.create)
 	public SingleResponse<MessageUserStateVO> create(@RequestBody MessageUserStateCreateCommand messageUserStateCreateCommand){
 		return iMessageUserStateApplicationService.create(messageUserStateCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageUserState:delete')")
 	@Operation(summary = "删除用户消息读取状态")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除用户消息读取状态",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
 	public SingleResponse<MessageUserStateVO> delete(@RequestBody IdCommand deleteCommand){
 		return iMessageUserStateApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageUserState:update')")
 	@Operation(summary = "更新用户消息读取状态")
 	@PutMapping("/update")
-	@OpLog(name = "更新用户消息读取状态",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.update)
 	public SingleResponse<MessageUserStateVO> update(@RequestBody MessageUserStateUpdateCommand messageUserStateUpdateCommand){
 		return iMessageUserStateApplicationService.update(messageUserStateUpdateCommand);
 	}

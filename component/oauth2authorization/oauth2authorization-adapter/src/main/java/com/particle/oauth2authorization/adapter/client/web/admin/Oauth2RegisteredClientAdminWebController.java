@@ -41,7 +41,7 @@ public class Oauth2RegisteredClientAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:oauth2RegisteredClient:create')")
 	@Operation(summary = "添加oauth2客户端")
 	@PostMapping("/create")
-	@OpLog(name = "添加oauth2客户端",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加oauth2客户端",module = OpLogConstants.Module.oauth2authorization,type = OpLogConstants.Type.create)
 	public SingleResponse<Oauth2RegisteredClientVO> create(@RequestBody Oauth2RegisteredClientCreateCommand oauth2RegisteredClientCreateCommand){
 		return iOauth2RegisteredClientApplicationService.create(oauth2RegisteredClientCreateCommand);
 	}
@@ -49,7 +49,7 @@ public class Oauth2RegisteredClientAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:oauth2RegisteredClient:delete')")
 	@Operation(summary = "删除oauth2客户端")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除oauth2客户端",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除oauth2客户端",module = OpLogConstants.Module.oauth2authorization,type = OpLogConstants.Type.delete)
 	public SingleResponse<Oauth2RegisteredClientVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOauth2RegisteredClientApplicationService.delete(deleteCommand);
 	}
@@ -57,7 +57,7 @@ public class Oauth2RegisteredClientAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:oauth2RegisteredClient:update')")
 	@Operation(summary = "更新oauth2客户端")
 	@PutMapping("/update")
-	@OpLog(name = "更新oauth2客户端",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新oauth2客户端",module = OpLogConstants.Module.oauth2authorization,type = OpLogConstants.Type.update)
 	public SingleResponse<Oauth2RegisteredClientVO> update(@RequestBody Oauth2RegisteredClientUpdateCommand oauth2RegisteredClientUpdateCommand){
 		return iOauth2RegisteredClientApplicationService.update(oauth2RegisteredClientUpdateCommand);
 	}

@@ -1,5 +1,6 @@
 package com.particle.dataquery.adapter.provider.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.provider.api.IDataQueryProviderApplicationService;
 import com.particle.dataquery.client.provider.api.representation.IDataQueryProviderRepresentationApplicationService;
 import com.particle.dataquery.client.provider.dto.command.DataQueryProviderCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dataquery.client.provider.dto.command.DataQueryProviderUpdat
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +45,7 @@ public class DataQueryProviderAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryProvider:create')")
 	@Operation(summary = "添加数据查询供应商")
 	@PostMapping("/create")
+	@OpLog(name = "添加数据查询供应商",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
 	public SingleResponse<DataQueryProviderVO> create(@RequestBody DataQueryProviderCreateCommand dataQueryProviderCreateCommand){
 		return iDataQueryProviderApplicationService.create(dataQueryProviderCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DataQueryProviderAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryProvider:delete')")
 	@Operation(summary = "删除数据查询供应商")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除数据查询供应商",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
 	public SingleResponse<DataQueryProviderVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDataQueryProviderApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DataQueryProviderAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryProvider:update')")
 	@Operation(summary = "更新数据查询供应商")
 	@PutMapping("/update")
+	@OpLog(name = "更新数据查询供应商",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
 	public SingleResponse<DataQueryProviderVO> update(@RequestBody DataQueryProviderUpdateCommand dataQueryProviderUpdateCommand){
 		return iDataQueryProviderApplicationService.update(dataQueryProviderUpdateCommand);
 	}

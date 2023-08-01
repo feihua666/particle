@@ -11,6 +11,7 @@ import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
@@ -88,7 +89,8 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
 
         HttpServletResponse responseToUse = response;
 
-        boolean matchResponse = (isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl);
+        boolean matchResponse = ((isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl))||
+                isMatchContentType(request.getHeader(HttpHeaders.ACCEPT),RESPONSE_CONTENT_TYPE_WHITE_SET) ;
 
 
         if(isLogResponse && matchResponse && !(response instanceof ContentCachingResponseWrapper)){
@@ -192,7 +194,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         Map<String, String> headerMapResult = Collections.emptyMap();
         Collection<String> headerNames = response.getHeaderNames();
         if (CollectionUtil.isNotEmpty(headerNames)) {
-            headerMapResult = headerNames.stream().collect(Collectors.toMap(Function.identity(), (item) -> response.getHeader(item)));
+            headerMapResult = headerNames.stream().collect(Collectors.toMap(Function.identity(), (item) -> response.getHeader(item),(v1,v2)-> v1));
         }
         return JsonTool.toJsonStr(headerMapResult);
     }

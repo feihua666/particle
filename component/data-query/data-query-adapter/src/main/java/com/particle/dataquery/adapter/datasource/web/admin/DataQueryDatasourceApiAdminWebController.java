@@ -1,5 +1,6 @@
 package com.particle.dataquery.adapter.datasource.web.admin;
 
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApiApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceApiRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceA
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiPageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +45,7 @@ public class DataQueryDatasourceApiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasourceApi:create')")
 	@Operation(summary = "添加数据查询数据源接口")
 	@PostMapping("/create")
+	@OpLog(name = "添加数据查询数据源接口",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
 	public SingleResponse<DataQueryDatasourceApiVO> create(@RequestBody DataQueryDatasourceApiCreateCommand dataQueryDatasourceApiCreateCommand){
 		return iDataQueryDatasourceApiApplicationService.create(dataQueryDatasourceApiCreateCommand);
 	}
@@ -50,6 +53,7 @@ public class DataQueryDatasourceApiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasourceApi:delete')")
 	@Operation(summary = "删除数据查询数据源接口")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除数据查询数据源接口",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
 	public SingleResponse<DataQueryDatasourceApiVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDataQueryDatasourceApiApplicationService.delete(deleteCommand);
 	}
@@ -57,6 +61,7 @@ public class DataQueryDatasourceApiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasourceApi:update')")
 	@Operation(summary = "更新数据查询数据源接口")
 	@PutMapping("/update")
+	@OpLog(name = "更新数据查询数据源接口",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
 	public SingleResponse<DataQueryDatasourceApiVO> update(@RequestBody DataQueryDatasourceApiUpdateCommand dataQueryDatasourceApiUpdateCommand){
 		return iDataQueryDatasourceApiApplicationService.update(dataQueryDatasourceApiUpdateCommand);
 	}
