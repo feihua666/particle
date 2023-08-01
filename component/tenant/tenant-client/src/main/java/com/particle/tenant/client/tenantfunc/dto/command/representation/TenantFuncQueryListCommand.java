@@ -17,8 +17,6 @@ import lombok.Data;
 @Schema
 public class TenantFuncQueryListCommand extends AbstractBaseQueryCommand {
 
-
-
     @Schema(description = "功能id")
     private Long funcId;
 
@@ -30,5 +28,6 @@ public class TenantFuncQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "功能应用id")
     private Long funcApplicationId;
 
-
+    @Schema(description = "租户id")
+    private Long tenantId;
 }

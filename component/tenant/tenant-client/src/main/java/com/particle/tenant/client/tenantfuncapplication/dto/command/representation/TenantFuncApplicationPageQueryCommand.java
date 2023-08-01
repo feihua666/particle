@@ -17,28 +17,16 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @Schema
 public class TenantFuncApplicationPageQueryCommand extends AbstractBasePageQueryCommand {
 
-
-
     @Schema(description = "功能应用id")
     private Long funcApplicationId;
-
 
     @Like
         @Schema(description = "名称,左前缀匹配")
     private String name;
 
-
     @Schema(description = "应用主题")
     private String applicationTheme;
 
-
-
-
-
-
-
-
-
-
-
+    @Schema(description = "租户id")
+    private Long tenantId;
 }

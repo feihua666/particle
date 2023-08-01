@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.jdbc.creator;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.dynamic.datasource.creator.*;
+import com.baomidou.dynamic.datasource.creator.atomikos.AtomikosDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.basic.BasicDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.beecp.BeeCpDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.dbcp.Dbcp2DataSourceCreator;
@@ -42,6 +43,7 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 	public CustomDefaultDataSourceCreator(DynamicDataSourceProperties dynamicDataSourceProperties,DataSourceInitEvent dataSourceInitEvent){
 		this.dynamicDataSourceProperties = dynamicDataSourceProperties;
 		this.dataSourceInitEvent = dataSourceInitEvent;
+		super.setDataSourceInitEvent(dataSourceInitEvent);
 		// 初始化默认的数据源创建器
 		initDefaultDataSourceCreators();
 	}
@@ -49,6 +51,7 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 	public CustomDefaultDataSourceCreator(DynamicDataSourceProperties dynamicDataSourceProperties,DataSourceInitEvent dataSourceInitEvent,List<DataSourceCreator> creators){
 		this.dynamicDataSourceProperties = dynamicDataSourceProperties;
 		this.dataSourceInitEvent = dataSourceInitEvent;
+		super.setDataSourceInitEvent(dataSourceInitEvent);
 		setCreators(creators);
 	}
 
@@ -58,18 +61,24 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 	protected void initDefaultDataSourceCreators() {
 
 		Map<Integer, DataSourceCreator> defaultDataSourceCreators = new HashMap<>();
+		/**
+		 * 与自动配置类保持一致即可 {@link DynamicDataSourceCreatorAutoConfiguration}
+		 */
 		defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.JNDI_ORDER, new JndiDataSourceCreator());
 		if (ClassLoaderUtil.isPresent(DdConstants.DRUID_DATASOURCE)) {
-			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DRUID_ORDER, new DruidDataSourceCreator());
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DRUID_ORDER, new DruidDataSourceCreator(dynamicDataSourceProperties.getDruid()));
 		}
 		if (ClassLoaderUtil.isPresent(DdConstants.HIKARI_DATASOURCE)) {
-			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.HIKARI_ORDER, new HikariDataSourceCreator());
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.HIKARI_ORDER, new HikariDataSourceCreator(dynamicDataSourceProperties.getHikari()));
 		}
 		if (ClassLoaderUtil.isPresent(DdConstants.BEECP_DATASOURCE)) {
-			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.BEECP_ORDER, new BeeCpDataSourceCreator());
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.BEECP_ORDER, new BeeCpDataSourceCreator(dynamicDataSourceProperties.getBeecp()));
 		}
 		if (ClassLoaderUtil.isPresent(DdConstants.DBCP2_DATASOURCE)) {
-			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DBCP2_ORDER, new Dbcp2DataSourceCreator());
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DBCP2_ORDER, new Dbcp2DataSourceCreator(dynamicDataSourceProperties.getDbcp2()));
+		}
+		if (ClassLoaderUtil.isPresent(DdConstants.ATOMIKOS_DATASOURCE)) {
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.ATOMIKOS_ORDER, new AtomikosDataSourceCreator(dynamicDataSourceProperties.getAtomikos()));
 		}
 		defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DEFAULT_ORDER, new BasicDataSourceCreator());
 
@@ -83,19 +92,13 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 	 * @param dataSourceCreator
 	 */
 	public void addDataSourceCreator(DataSourceCreator dataSourceCreator){
-		Object properties = ReflectUtil.getFieldValue(dataSourceCreator, "properties");
-		if (properties == null) {
-			ReflectUtil.setFieldValue(dataSourceCreator,"properties",this.dynamicDataSourceProperties);
-			ReflectUtil.setFieldValue(dataSourceCreator,"dataSourceInitEvent",this.dataSourceInitEvent);
-			if (dataSourceCreator instanceof InitializingBean) {
-				try {
-					((InitializingBean) dataSourceCreator).afterPropertiesSet();
-				} catch (Exception e) {
-					throw new BigDatasourceException(e);
-				}
+		if (dataSourceCreator instanceof InitializingBean) {
+			try {
+				((InitializingBean) dataSourceCreator).afterPropertiesSet();
+			} catch (Exception e) {
+				throw new BigDatasourceException(e);
 			}
 		}
-
 		if (creators == null) {
 			creators = new ArrayList<>();
 		}

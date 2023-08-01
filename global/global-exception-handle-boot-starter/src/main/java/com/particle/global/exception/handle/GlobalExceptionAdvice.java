@@ -61,6 +61,7 @@ public class GlobalExceptionAdvice {
                 Optional.ofNullable(errorCode).map(IErrorCode::getErrCode).orElse(null),
                 Optional.ofNullable(errorCode).map(IErrorCode::getErrMessage).orElse(null),
                 data,e.getMessage(), e.getClass().getName());
+        e.printStackTrace();
         if (data != null) {
             SingleResponse singleResponse = SingleResponse.buildFailure(errorCode, userTip);
             singleResponse.setData(data);

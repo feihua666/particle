@@ -47,4 +47,6 @@ public class TenantUserQueryListCommand extends AbstractBaseQueryCommand {
 	@Schema(description = "部门id")
 	private Long deptId;
 
+	@Schema(description = "租户id")
+	private Long tenantId;
 }

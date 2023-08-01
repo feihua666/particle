@@ -43,7 +43,9 @@ public class TenantUserPageQueryCommand extends AbstractBasePageQueryCommand {
     @Schema(description = "是否过期")
     private Boolean isExpired;
 
-
 	@Schema(description = "部门id")
 	private Long deptId;
+
+	@Schema(description = "租户id")
+	private Long tenantId;
 }
