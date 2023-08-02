@@ -1,6 +1,5 @@
 package com.particle.global.security.authorizationserver;
 
-import cn.hutool.core.util.ReflectUtil;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -8,37 +7,24 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.config.WebSecurityConfig;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
@@ -51,14 +37,15 @@ import java.util.UUID;
  * @author yangwei
  * @since 2023-07-07 16:13
  */
+@AutoConfigureAfter(AuthorizationServerSecurityServiceAndRepositoryAutoConfiguration.class)
 @Configuration
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".authorization-server", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class AuthorizationServerSecurityAutoConfiguration {
 
 
 	/**
-	 * 根据官方文档，该配置排序需要比{@link WebSecurityConfig#defaultSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 靠前
-	 * @param http 注意：该实例和{@link WebSecurityConfig#defaultSecurityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 不是一个实例
+	 * 根据官方文档，该配置排序需要比{@link WebSecurityConfig#defaultSecurityFilterChain(HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 靠前
+	 * @param http 注意：该实例和{@link WebSecurityConfig#defaultSecurityFilterChain(HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 不是一个实例
 	 * @return
 	 * @throws Exception
 	 */
@@ -85,31 +72,7 @@ public class AuthorizationServerSecurityAutoConfiguration {
 		return http.build();
 	}
 
-	/**
-	 * 这里使用jdbc，因为使用内存存储意义不大
-	 * @param jdbcTemplate
-	 * @return
-	 */
-	@ConditionalOnBean(JdbcTemplate.class)
-	@Bean
-	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-		return new JdbcRegisteredClientRepository(jdbcTemplate);
-	}
-	@ConditionalOnBean(JdbcTemplate.class)
-	@Bean
-	public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate,
-														   RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
-	}
 
-	@ConditionalOnBean(JdbcTemplate.class)
-	@Bean
-	public JdbcOAuth2AuthorizationConsentService jdbcOAuth2AuthorizationConsentService(JdbcTemplate jdbcTemplate,
-																					   RegisteredClientRepository registeredClientRepository) {
-		// Will be used by the ConsentController
-		return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
-
-	}
 
 	@Bean
 	public JWKSource<SecurityContext> jwkSource() {
