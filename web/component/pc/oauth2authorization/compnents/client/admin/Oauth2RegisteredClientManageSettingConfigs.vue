@@ -5,7 +5,7 @@
 
 import {ref,reactive,nextTick} from "vue"
 import ClientSettings from './ClientSettings.vue'
-import TokenSetting from './TokenSetting.vue'
+import TokenSettings from './TokenSettings.vue'
 
 
 const clientSettingRef = ref(null)
@@ -85,10 +85,10 @@ defineExpose({
   </el-dialog>
 
   <el-dialog v-model="reactiveData.tokenSettingConfigJson.dialogVisible" width="70%" title="token配置Json" @open="tokenSettingDialogOpen" @closed="tokenSettingConfigRender=false" append-to-body destroy-on-close>
-    <TokenSetting v-if="tokenSettingConfigRender" ref="tokenSettingRef" :initJsonStr="form.tokenSettings"
+    <TokenSettings v-if="tokenSettingConfigRender" ref="tokenSettingRef" :initJsonStr="form.tokenSettings"
                   :onSubmit="tokenSettingSubmit"
                   :buttonsTeleportProps="{disabled: false,to: '#oauth2RegisteredClientTokenSettingDialogFooter'}">
-    </TokenSetting>
+    </TokenSettings>
     <template #footer>
       <!--   将表单按钮传送到这里   -->
       <div id="oauth2RegisteredClientTokenSettingDialogFooter"></div>

@@ -42,6 +42,6 @@ CREATE TABLE `component_data_query_data_api` (
   UNIQUE KEY `url` (`url`),
   KEY `version` (`version`) USING BTREE,
   KEY `name` (`name`) USING BTREE,
-  KEY `data_query_datasource_api_id` (`data_query_datasource_api_id`),
-  KEY `response_type_dict_id` (`response_type_dict_id`)
+  KEY `data_query_datasource_api_id` (`data_query_datasource_api_id`) USING BTREE,
+  KEY `response_type_dict_id` (`response_type_dict_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='数据查询数据接口表';

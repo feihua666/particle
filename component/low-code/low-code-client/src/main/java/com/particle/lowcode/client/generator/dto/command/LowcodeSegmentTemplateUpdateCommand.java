@@ -3,6 +3,7 @@ package com.particle.lowcode.client.generator.dto.command;
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -41,6 +42,7 @@ public class LowcodeSegmentTemplateUpdateCommand extends AbstractBaseUpdateComma
     @Schema(description = "内容模板")
     private String contentTemplate;
 
+    @SetNullWhenNull
     @Schema(description = "引用模板id")
     private Long referenceSegmentTemplateId;
 

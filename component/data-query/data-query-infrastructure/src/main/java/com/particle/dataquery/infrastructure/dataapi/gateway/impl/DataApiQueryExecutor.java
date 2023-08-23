@@ -1,6 +1,5 @@
 package com.particle.dataquery.infrastructure.dataapi.gateway.impl;
 
-import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.executor.AbstractBigDatasourceApiExecutor;
 

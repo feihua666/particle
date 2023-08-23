@@ -26,7 +26,17 @@ public interface IOauth2RegisteredClientService extends IBaseService<Oauth2Regis
         return getOne(Wrappers.<Oauth2RegisteredClientDO>lambdaQuery().eq(Oauth2RegisteredClientDO::getClientId, clientId));
     }
 
-
+    /**
+     * 根据客户端ID查询
+     * @param clientId
+     * @return
+     */
+    default Oauth2RegisteredClientDO getSecretByClientId(String clientId) {
+        Assert.notNull(clientId,"clientId 不能为空");
+        return getOne(Wrappers.<Oauth2RegisteredClientDO>lambdaQuery()
+                .select(Oauth2RegisteredClientDO::getId,Oauth2RegisteredClientDO::getClientId,Oauth2RegisteredClientDO::getClientSecret)
+                .eq(Oauth2RegisteredClientDO::getClientId, clientId));
+    }
 
     /**
      * 根据客户端ID查询多个

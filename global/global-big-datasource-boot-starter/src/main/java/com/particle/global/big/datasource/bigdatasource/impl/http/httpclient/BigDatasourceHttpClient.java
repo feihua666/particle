@@ -1,5 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.httpclient;
 
+import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.tool.proxy.ProxyConfig;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object get(String url, Map<String,String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig);
+	Object get(String url, Map<String,String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
 
 	/**
 	 * post请求
@@ -34,7 +35,7 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object post(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig);
+	Object post(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
 
 
 	/**
@@ -46,7 +47,7 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object delete(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig);
+	Object delete(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
 
 
 	/**
@@ -58,7 +59,7 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object put(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig);
+	Object put(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
 
 
 	/**
@@ -70,5 +71,5 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object patch(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig);
+	Object patch(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
 }

@@ -21,6 +21,6 @@ CREATE TABLE `component_lowcode_segment_gen` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `version` (`version`) USING BTREE,
-  KEY `lowcode_segment_template_id` (`lowcode_segment_template_id`),
-  KEY `lowcode_model_id` (`lowcode_model_id`)
+  KEY `lowcode_segment_template_id` (`lowcode_segment_template_id`) USING BTREE,
+  KEY `lowcode_model_id` (`lowcode_model_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='低代码生成表';

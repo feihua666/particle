@@ -47,10 +47,16 @@ public class TestBinderTestConfiguration {
 	 * 正解：参见{@link RabbitTestConfiguration#testObjRabbitConsumer()}
 	 * @return
 	 */
-	@Bean
+/*	@Bean
 	public Consumer<MessageObjDataTestEvent> testObjTestBinderConsumer(){
 		return event ->{
 			log.info("收到testBinder消息 MessageObjDataTestEvent={}", JsonTool.toJsonStr(event));
 		};
+	}*/
+
+	@Bean
+	public TestBinderTestMessageConsumer testObjTestBinderConsumer(){
+		TestBinderTestMessageConsumer testBinderTestMessageConsumer = new TestBinderTestMessageConsumer();
+		return testBinderTestMessageConsumer;
 	}
 }

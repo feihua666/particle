@@ -89,7 +89,7 @@ const formComps = ref(
             dataMethod: algorithmList,
             props: {
               value: 'value',
-              name: 'name'
+              label: 'name'
             }
           }
         }

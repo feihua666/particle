@@ -51,7 +51,7 @@ public class HttpBigDatasource extends AbstractBigDatasource {
 		httpBigDatasource.setType(type);
 		httpBigDatasource.setHttpBigDatasourceConfig(httpBigDatasourceConfig);
 
-		HttpBigDatasourceApiExecutor httpBigDatasourceApiExecutor = HttpBigDatasourceApiExecutor.create(BigDatasourceHttpJoddClientImpl.create(), httpBigDatasourceConfig);
+		HttpBigDatasourceApiExecutor httpBigDatasourceApiExecutor = HttpBigDatasourceApiExecutor.create(BigDatasourceHttpJoddClientImpl.create().httpClientInfrastructureListenersInitFromSpring(), httpBigDatasourceConfig);
 		httpBigDatasource.setHttpBigDatasourceApiExecutor(httpBigDatasourceApiExecutor);
 
 		return httpBigDatasource;

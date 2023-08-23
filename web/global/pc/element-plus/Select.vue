@@ -191,6 +191,12 @@ watch(
       emitModelData({data: options.value,value: val})
     }
 )
+watch(
+    () => props.dataMethodParam,
+    (val) => {
+      doDataMethod({props,reactiveData,emit})
+    }
+)
 // 数据加载完成初始化一个默认值
 watch(()=> reactiveData.dataMethodData,(val: any[]) => {
   // 没有指定默认值时，匹配一个默认值

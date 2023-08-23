@@ -1,4 +1,5 @@
 import {list as dataQueryProviderListApi} from "../../../api/provider/admin/dataQueryProviderAdminApi";
+import {useSelectDataqueryProviderCompItem} from "../../dataqueryProviderCompItem";
 
 export const pageFormItems = [
   {
@@ -63,20 +64,7 @@ export const pageFormItems = [
       }
     }
   },
-  {
-    field: {
-      name: 'dataQueryProviderId',
-    },
-    element: {
-      comp: 'PtSelect',
-      formItemProps: {
-        label: '数据查询供应商',
-      },
-      compProps: {
-        dataMethod: dataQueryProviderListApi
-      }
-    }
-  },
+  useSelectDataqueryProviderCompItem({}),
 ]
 export const useAddPageFormItems = ({reactiveData,configJsonDialogVisible}) => {
   return [
@@ -197,21 +185,7 @@ export const useAddPageFormItems = ({reactiveData,configJsonDialogVisible}) => {
     },
 
 
-    {
-      field: {
-        name: 'dataQueryProviderId',
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '数据查询供应商',
-          required: true,
-        },
-        compProps: {
-          dataMethod: dataQueryProviderListApi
-        }
-      }
-    },
+    useSelectDataqueryProviderCompItem({required: true}),
 
 
     {

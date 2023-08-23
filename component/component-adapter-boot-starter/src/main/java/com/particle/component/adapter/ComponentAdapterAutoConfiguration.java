@@ -1,5 +1,6 @@
 package com.particle.component.adapter;
 
+import com.particle.component.adapter.oauth2authorization.Oauth2RegisteredClientOpenapiClientSecretProvider;
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.tenant.DeptTenantUserServiceListener;
 import com.particle.component.adapter.tenant.RoleTenantUserServiceListener;
@@ -13,6 +14,7 @@ import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.service.IDeptService;
 import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.security.security.login.UserDeptService;
+import com.particle.oauth2authorization.infrastructure.client.service.impl.Oauth2RegisteredClientServiceImpl;
 import com.particle.oplog.infrastructure.service.IOpLogService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.tenant.infrastructure.service.ITenantService;
@@ -210,4 +212,14 @@ public class ComponentAdapterAutoConfiguration {
 		}
 
 	}
+	@Configuration
+	@ConditionalOnClass({Oauth2RegisteredClientServiceImpl.class})
+	public static class Oauth2AuthorizationConfig {
+
+		@Bean
+		public Oauth2RegisteredClientOpenapiClientSecretProvider oauth2RegisteredClientOpenapiClientSecretProvider() {
+			return new Oauth2RegisteredClientOpenapiClientSecretProvider();
+		}
+	}
+
 }

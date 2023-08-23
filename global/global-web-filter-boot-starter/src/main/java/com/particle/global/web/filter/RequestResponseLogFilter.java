@@ -10,6 +10,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
@@ -34,6 +35,11 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
+
+
+    @Autowired(required = false)
+    private List<RequestResponseLogMatchResponseResolver> requestResponseLogMatchResponseResolvers;
+
 
     /**
      * 换行符
@@ -92,8 +98,17 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         boolean matchResponse = ((isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl))||
                 isMatchContentType(request.getHeader(HttpHeaders.ACCEPT),RESPONSE_CONTENT_TYPE_WHITE_SET) ;
 
+        if (!matchResponse) {
+            if (requestResponseLogMatchResponseResolvers != null) {
+                for (RequestResponseLogMatchResponseResolver requestResponseLogMatchResponseResolver : requestResponseLogMatchResponseResolvers) {
+                    if (requestResponseLogMatchResponseResolver.matchs(request)) {
+                        matchResponse = true;
+                    }
+                }
+            }
+        }
 
-        if(isLogResponse && matchResponse && !(response instanceof ContentCachingResponseWrapper)){
+        if(isLogResponse && matchResponse && !(response instanceof ContentCachingResponseWrapper) &&  !isAsyncDispatch(request)){
             responseToUse = new ContentCachingResponseWrapper(response);
         }
         boolean matchRequest = (request.getContentType() == null ||isMatchContentType(request.getContentType(),REQUEST_CONTENT_TYPE_WHITE_SET)) && !mathRequestExtensionBlack(requestUrl);
@@ -118,17 +133,18 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
                     // 自定义打印请求响应日志
                     String responseMessagePayload = getResponseMessagePayload(responseToUse);
                     String responseHeaders = getResponseHeaders(responseToUse);
-                    if (!StrUtil.isEmpty(responseMessagePayload)) {
-                        // 不要空行，日志一行打印，查日志时多行麻烦
-                        log.info("请求响应：status={},payload={},headers={}" ,responseToUse.getStatus(), responseMessagePayload.replace(SEP,""),responseHeaders);
-                    }
+                    // 不要空行，日志一行打印，查日志时多行麻烦
+                    log.info("请求响应：status={},payload={},headers={}" ,
+                            responseToUse.getStatus(),
+                            StrUtil.isEmpty(responseMessagePayload) ? "" : responseMessagePayload.replace(SEP,""),
+                            responseHeaders);
                 }
             }
             if(!isAsyncStarted){
                 long end = System.currentTimeMillis();
                 log.info("请求结束：耗时: {}ms",end - start);
             }else {
-                log.warn("异步servlet 不支持日志打印");
+                log.warn("异步servlet 不支持响应日志打印");
             }
         }
     }
@@ -160,7 +176,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
      * @param response
      * @return
      */
-    private String getResponseMessagePayload(HttpServletResponse response){
+    public static String getResponseMessagePayload(HttpServletResponse response){
         ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
         if (wrapper != null) {
             byte[] buf = wrapper.getContentAsByteArray();

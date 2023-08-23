@@ -4,6 +4,7 @@ import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.security.security.config.CustomDaoAuthenticationProvider;
 import com.particle.global.security.security.config.CustomWebSecurityConfigure;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
+import com.particle.global.security.security.config.LazyResolveAuthenticationManager;
 import com.particle.user.adapter.login.captcha.CaptchaDaoAuthenticationProvider;
 import com.particle.user.adapter.login.captcha.CaptchaUsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +35,22 @@ public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecu
 	private ICaptchaService captchaService;
 
 	@Override
-	public void configure(HttpSecurity http, AuthenticationManager authenticationManager, CustomWebSecurityConfigureExt ext) throws Exception {
+	public void configure(HttpSecurity http,AuthenticationManagerBuilder authenticationManagerBuilder, PasswordEncoder passwordEncoder,CustomWebSecurityConfigureExt ext) throws Exception {
 
 		// 配置验证码登录过滤器
 		CaptchaUsernamePasswordAuthenticationFilter captchaUsernamePasswordAuthenticationFilter = new CaptchaUsernamePasswordAuthenticationFilter();
 		captchaUsernamePasswordAuthenticationFilter.setFilterProcessesUrl(login_captcha_url);
+		AuthenticationManager authenticationManager = new LazyResolveAuthenticationManager(http);
 		captchaUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager);
 		captchaUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(ext.getDefaultAuthenticationSuccessHandler());
 		captchaUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(ext.getDefaultAuthenticationFailureHandler());
 		http.addFilterAfter(captchaUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-	}
-
-	@Override
-	public void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder,CustomWebSecurityConfigureExt ext) throws Exception {
 
 		CustomDaoAuthenticationProvider customDaoAuthenticationProvider = new CustomDaoAuthenticationProvider();
 		customDaoAuthenticationProvider.setUserDetailsService(identifierUserDetailsService);
 		customDaoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-		auth.authenticationProvider(customDaoAuthenticationProvider);
+		authenticationManagerBuilder.authenticationProvider(customDaoAuthenticationProvider);
 
 		// 使用上面的自定义 CustomDaoAuthenticationProvider
 		//auth.userDetailsService(identifierUserDetailsService).passwordEncoder(passwordEncoder);
@@ -61,6 +59,7 @@ public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecu
 		CaptchaDaoAuthenticationProvider captchaDaoAuthenticationProvider = new CaptchaDaoAuthenticationProvider();
 		captchaDaoAuthenticationProvider.setCaptchaService(captchaService);
 		captchaDaoAuthenticationProvider.setUserDetailsService(identifierUserDetailsService);
-		auth.authenticationProvider(captchaDaoAuthenticationProvider);
+		authenticationManagerBuilder.authenticationProvider(captchaDaoAuthenticationProvider);
 	}
+
 }

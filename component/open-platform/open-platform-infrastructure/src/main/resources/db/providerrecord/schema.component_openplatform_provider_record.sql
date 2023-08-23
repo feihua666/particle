@@ -1,0 +1,33 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_openplatform_provider_record;
+CREATE TABLE `component_openplatform_provider_record` (
+  `id` bigint NOT NULL COMMENT '表主键',
+  `openplatform_openapi_record_id` bigint NOT NULL COMMENT '调用记录id',
+  `customer_id` bigint DEFAULT NULL COMMENT '客户id',
+  `request_url` varchar(255) DEFAULT NULL COMMENT '接口地址，一般为http开头的绝对地址',
+  `request_parameter_md5` varchar(100) DEFAULT NULL COMMENT '请求参数md5',
+  `response_result_md5` varchar(100) DEFAULT NULL COMMENT '响应结果md5',
+  `trace_id` varchar(50) NOT NULL COMMENT '日志追踪id',
+  `handle_duration` int NOT NULL COMMENT '处理时长，单位毫秒',
+  `is_response_has_effective_value` tinyint(1) NOT NULL COMMENT '是否包含有效响应数据',
+  `response_http_status` int DEFAULT NULL COMMENT '响应http状态码，如果是http调用一般有值',
+  `response_business_status` varchar(50) DEFAULT NULL COMMENT '响应业务编码或业务状态码',
+  `openplatform_provider_id` bigint DEFAULT NULL COMMENT '供应商id',
+  `data_query_provider_id` bigint DEFAULT NULL COMMENT '数据查询供应商id，冗余openplatform_provider同名字段',
+  `remark` varchar(2000) DEFAULT NULL COMMENT '描述',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `openplatform_openapi_record_id` (`openplatform_openapi_record_id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `request_url` (`request_url`),
+  KEY `request_parameter_md5` (`request_parameter_md5`),
+  KEY `response_result_md5` (`response_result_md5`),
+  KEY `trace_id` (`trace_id`),
+  KEY `openplatform_provider_id` (`openplatform_provider_id`),
+  KEY `data_query_provider_id` (`data_query_provider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台开放接口供应商调用记录表';

@@ -230,6 +230,12 @@ watch(
       doDataMethodInit({props,reactiveData})
     }
 )
+watch(
+    () => props.dataMethodParam,
+    (val) => {
+      doDataMethod({props,reactiveData,emit})
+    }
+)
 // 事件
 const emit = defineEmits([
   // 用来更新 modelValue

@@ -5,7 +5,7 @@
  *          2. 自带加载数据 dataLoading 功能效果
  *          3. 增加名称为 item 的插槽，方便直接写内容
  */
-import {computed, inject, onMounted, reactive, ref} from 'vue'
+import {computed, inject, onMounted, reactive, ref,watch} from 'vue'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
 
 const carouselRef = ref(null)
@@ -73,7 +73,12 @@ const dataLoading = computed(() => {
 })
 const injectPermissions = inject('permissions', [])
 
-
+watch(
+    () => props.dataMethodParam,
+    (val) => {
+      doDataMethod({props,reactiveData,emit})
+    }
+)
 // 事件
 const emit = defineEmits([
   'change',

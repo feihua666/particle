@@ -2,7 +2,7 @@ package com.particle.component.light.share.message;
 
 /**
  * <p>
- * ii
+ * 定义mq相关常量
  * </p>
  *
  * @author yangwei
@@ -24,5 +24,12 @@ public class MessageConstants {
 		 */
 		public static final String templatingNoticeMessageProducer = "templatingNoticeMessageProducer";
 		public static final String templatingNoticeMessageProducerOutZeroBindingName = templatingNoticeMessageProducer + __out_zero;
+
+		/**
+		 * 开放平台调用记录消息
+		 */
+		public static final String openplatformOpenapiRecordProducer = "openplatformOpenapiRecordProducer";
+		public static final String openplatformOpenapiRecordProducerOutZeroBindingName = openplatformOpenapiRecordProducer + __out_zero;
+
 	}
 }

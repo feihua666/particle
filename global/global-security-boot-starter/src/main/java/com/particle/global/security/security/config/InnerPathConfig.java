@@ -1,7 +1,9 @@
 package com.particle.global.security.security.config;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 public class InnerPathConfig implements CustomWebSecurityConfigure {
     @Override
-    public void configure(HttpSecurity http, AuthenticationManager authenticationManager,CustomWebSecurityConfigureExt ext) throws Exception {
+    public void configure(HttpSecurity http, AuthenticationManagerBuilder authenticationManagerBuilder, PasswordEncoder passwordEncoder, CustomWebSecurityConfigureExt ext) throws Exception {
         http.authorizeRequests().antMatchers("/**/inner/**").denyAll();
         http.authorizeRequests().antMatchers("/**/rpc/**").denyAll();
     }

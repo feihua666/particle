@@ -36,7 +36,19 @@ public class UserTenantServiceImpl implements UserTenantService {
 		if (tenantUserDOS == null) {
 			return Collections.emptyList();
 		}
-		Set<Long> tenantIds = tenantUserDOS.stream().filter(item -> !item.getIsExpired()).map(TenantUserDO::getTenantId).collect(Collectors.toSet());
+
+		LocalDateTime now = LocalDateTime.now();
+
+		Set<Long> tenantIds = tenantUserDOS.stream()
+				// 没有被禁用
+				.filter(item -> item.getIsExpired()==null || !item.getIsExpired())
+				// 已生效
+				.filter(item -> item.getEffectiveAt() == null || item.getEffectiveAt().isBefore(now))
+				// 没到截止日期
+				.filter(item -> item.getExpireAt() == null || item.getExpireAt().isAfter(now))
+				// 没有被禁用
+				.filter(item -> item.getIsLeave()==null || !item.getIsLeave())
+				.map(TenantUserDO::getTenantId).collect(Collectors.toSet());
 
 		if (tenantIds.isEmpty()) {
 			return Collections.emptyList();
@@ -45,7 +57,6 @@ public class UserTenantServiceImpl implements UserTenantService {
 		// 这里不需要租户过滤，因为在租户插件配置中已过滤了表
 		List<TenantDO> tenantDOS = iTenantService.getByIdsIgnoreTenantLimit(tenantIds);
 
-		LocalDateTime now = LocalDateTime.now();
 		tenantDOS = filterAvailableTenantDOs(tenantDOS,now);
 		return tenantDOS.stream()
 

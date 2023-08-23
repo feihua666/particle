@@ -19,8 +19,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 数据查询数据接口前台应用pc或平板端前端适配器
- * 主要用于pc或平板端前台应用
+ * 数据查询数据接口
  * 基础路径 {@link DataQueryDataApiController#API_REQUEST_MAPPING} 中 dq 表示 data_query的缩写，为了缩短路径
  * </p>
  *
@@ -34,13 +33,14 @@ public class DataQueryDataApiController extends AbstractBaseApiAdapter {
 	public static final String API_REQUEST_MAPPING = "/api/dq";
 	public static final String API_ENTRY = "";
 	public static final String API_ENTRY_PREFIX = API_REQUEST_MAPPING + API_ENTRY;
+	public static final String API_ENTRY_REQUEST_MAPPING = API_ENTRY + "/**";
 
 	@Autowired
 	private IDataQueryDataApiRepresentationApplicationService iDataQueryDataApiRepresentationApplicationService;
 
-	@PreAuthorize("hasAuthority('user')")
+	@PreAuthorize("hasAuthority('user') or @pms.hasPermission('dataquery:api')")
 	@Operation(summary = "数据查询数据服务接口入口")
-	@PostMapping(API_ENTRY  + "/**")
+	@PostMapping(API_ENTRY_REQUEST_MAPPING)
 	public Object dataQueryDataApiEntry(@RequestBody Object param,HttpServletRequest request){
 
 		DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();

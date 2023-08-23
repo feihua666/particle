@@ -43,7 +43,7 @@ public class AuthorizationServerSecurityServiceAndRepositoryAutoConfiguration {
 	@ConditionalOnBean(JdbcTemplate.class)
 	@Bean
 	public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-		return new JdbcRegisteredClientRepository(jdbcTemplate);
+		return new CustomJdbcRegisteredClientRepository(jdbcTemplate);
 	}
 	@ConditionalOnBean(JdbcTemplate.class)
 	@Bean

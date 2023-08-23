@@ -10,8 +10,11 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.RawResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.tool.spring.SpringContextHolder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -21,17 +24,51 @@ import java.util.Collection;
  * @author yangwei
  * @since 2023-03-10 17:06
  */
+@Slf4j
 public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceApiExecutor{
+
+	protected List<ExecutorInfrastructureListener> executorInfrastructureListenerList;
 
 	@Override
 	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		if (executorInfrastructureListenerList != null) {
+			for (ExecutorInfrastructureListener executorInfrastructureListener : executorInfrastructureListenerList) {
+				executorInfrastructureListener.beforeRequest(bigDatasourceApi,command,queryString);
+			}
+		}
 		preExe(bigDatasourceApi, command, queryString);
 		Object o = doExecute(bigDatasourceApi, command,queryString);
 		postExe(bigDatasourceApi, command,queryString, o);
 		boolean success = isSuccess(bigDatasourceApi,o);
+		bigDatasourceApi.apiContext().putData("executor.result.success",success);
 		Object resultData = resultData(bigDatasourceApi, command,queryString, o);
 		Object resultDataConverted = resultDataConvert(bigDatasourceApi, command,queryString,resultData, o);
+
+		if (executorInfrastructureListenerList != null) {
+			for (ExecutorInfrastructureListener executorInfrastructureListener : executorInfrastructureListenerList) {
+				executorInfrastructureListener.afterResponse(bigDatasourceApi,command,queryString,success,resultData,resultDataConverted);
+			}
+		}
 		return resultDataConverted;
+	}
+
+	/**
+	 * 初始化
+	 * @param executorInfrastructureListenerList
+	 */
+	protected void executorInfrastructureListenerInit(List<ExecutorInfrastructureListener> executorInfrastructureListenerList) {
+		this.executorInfrastructureListenerList = executorInfrastructureListenerList;
+	}
+
+	/**
+	 * 从spring窗口初始化
+	 */
+	protected void executorInfrastructureListenerInitFromSpring() {
+		try {
+			this.executorInfrastructureListenerList = SpringContextHolder.getBeans(ExecutorInfrastructureListener.class);
+		} catch (Exception e) {
+			log.warn("can not init executorInfrastructureListenerList from spring because of exception",e);
+		}
 	}
 
 	/**
@@ -70,9 +107,6 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param command
 	 */
 	protected void commandValidate(BigDatasourceApi bigDatasourceApi,Object command,String queryString) {
-
-
-
 		BigDatasourceApiCommandValidateConfig bigDatasourceApiCommandValidateConfig = bigDatasourceApi.commandValidateConfig();
 		if (bigDatasourceApiCommandValidateConfig != null) {
 			bigDatasourceApiCommandValidateConfig.doValidate(command, true);

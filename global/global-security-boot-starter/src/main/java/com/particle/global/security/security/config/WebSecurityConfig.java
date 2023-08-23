@@ -4,30 +4,23 @@ import cn.hutool.core.util.ReflectUtil;
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.authorizationserver.AuthorizationServerSecurityAutoConfiguration;
 import com.particle.global.security.security.PasswordEncryptEnum;
-import com.particle.global.security.security.login.*;
+import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
 import com.particle.global.security.security.logout.DefaultLogoutSuccessHandler;
-import com.particle.global.security.tenant.ITenantResolveService;
-import com.particle.global.security.tenant.IUserTenantChangeListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
-import org.springframework.security.web.session.SessionManagementFilter;
 
 import java.util.List;
 
@@ -83,6 +76,7 @@ public class WebSecurityConfig {
 
         http.authorizeRequests(expressionInterceptUrlRegistry -> {
             // 已启用 EnableGlobalMethodSecurity，这里全部放开，根据权限动态配置
+            // 注意：这里配置所有请求并不是 anyRequest,否则在扩展中不能再使用规则了
             expressionInterceptUrlRegistry.antMatchers("/**")
                     .permitAll();
         }).formLogin(formLoginConfigurer -> {
@@ -119,8 +113,11 @@ public class WebSecurityConfig {
         //AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         //configure(authenticationManagerBuilder);
         //AuthenticationManager authenticationManager = authenticationManagerBuilder.getOrBuild();
-        AuthenticationManager authenticationManager = authenticationManager(authenticationManagerBuilder);
-        http.authenticationManager(authenticationManager);
+
+        /**
+         * 注意这里不能设置，设置了会导致服务服务器 AuthenticationProvider 失效，因为这里提前构建了 AuthenticationManagerBuilder，框架中是在这里创建的{@link HttpSecurity#beforeConfigure()}
+         */
+        //http.authenticationManager(authenticationManager);
 
 
         // 必须保证 LoginUserToolPersistentSecurityFilter 在 TenantToolPersistentSecurityFilter 之前，有依赖关系,因为租户信息以登录用户的为准
@@ -140,28 +137,17 @@ public class WebSecurityConfig {
 
         // 判断是否为匿名登录
         LoginUserToolAnonymousPersistentSecurityFilter anonymousPersistentSecurityFilter = new LoginUserToolAnonymousPersistentSecurityFilter();
-        http.addFilterAfter(anonymousPersistentSecurityFilter, SessionManagementFilter.class);
-
-
+        http.addFilterAfter(anonymousPersistentSecurityFilter, AnonymousAuthenticationFilter.class);
+        /**
+         * 提供不同的自定义配置
+         */
         if (customWebSecurityConfigureList != null) {
             for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {
-                customWebSecurityConfigure.configure(http,authenticationManager,ext);
+                customWebSecurityConfigure.configure(http,authenticationManagerBuilder,passwordEncoder(),ext);
             }
         }
-        return http.build();
-    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        configure(authenticationManagerBuilder);
-        return authenticationManagerBuilder.getOrBuild();
-    }
-
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        if (customWebSecurityConfigureList != null) {
-            for (CustomWebSecurityConfigure customWebSecurityConfigure : customWebSecurityConfigureList) {
-                customWebSecurityConfigure.configure(auth,passwordEncoder(),ext);
-            }
-        }
+        DefaultSecurityFilterChain build = http.build();
+        return build;
     }
 }

@@ -30,7 +30,7 @@ public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 	 * 构造方法
 	 * @param templateCode 将父级的 identifier 作为模板编码使用
 	 * @param data map数据用于渲染模板 模板使用应该前缀添加 data如：#(data.text)
-	 * @param mq
+	 * @param mq 在spring cloud中这里应该是producer的binder名称
 	 */
 	public TemplatingDomainMessageEvent(String templateCode,Map data,String mq) {
 		super(templateCode, data, mq);

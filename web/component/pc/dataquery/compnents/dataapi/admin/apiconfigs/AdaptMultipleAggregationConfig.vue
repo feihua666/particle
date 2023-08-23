@@ -109,7 +109,6 @@ const submitMethod = ():void => {
     dataQueryDatasourceApiId: reactiveData.form.dataQueryDatasourceApiId,
     datasourceApiName: reactiveData.form.datasourceApiName
   }
-  console.log('item',item)
   reactiveData.initJson.aggregationItems.push(item)
 }
 

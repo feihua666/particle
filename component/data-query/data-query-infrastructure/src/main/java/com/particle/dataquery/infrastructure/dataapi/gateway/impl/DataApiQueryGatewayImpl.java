@@ -4,6 +4,7 @@ import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiCustomScriptType;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
+import com.particle.dataquery.domain.dataapi.gateway.DataApiRemoteQueryGateway;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiMultipleAggregationAdaptConfig;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
@@ -61,9 +62,19 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	private ExecutorService dataQueryDataApiExecutor;
 	@Autowired
 	private IDataQueryDatasourceApiService iDataQueryDatasourceApiService;
+	@Autowired(required = false)
+	private DataApiRemoteQueryGateway dataApiRemoteQueryGateway;
 
 	@Override
 	public Object query(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
+
+		// 添加一个前置处理，主要是为了兼容开放接口
+		if (dataApiRemoteQueryGateway != null) {
+			if (dataApiRemoteQueryGateway.support(dataQueryDataApi,param,queryString)) {
+				return dataApiRemoteQueryGateway.query(dataQueryDataApi, param, queryString,()-> queryRealtime(dataQueryDataApi,param,queryString));
+			}
+		}
+
 		// todo 缓存性能
 		return queryRealtime(dataQueryDataApi,param,queryString);
 	}

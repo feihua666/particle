@@ -47,6 +47,12 @@
             <artifactId>global-big-datasource-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 依赖开放接口，主要是使用其方法做数据签名 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-openapi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

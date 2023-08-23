@@ -2,6 +2,7 @@ package com.particle.dataquery.client.datasource.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -49,6 +50,7 @@ public class DataQueryDatasourceApiUpdateCommand extends AbstractBaseUpdateComma
     @Schema(description = "数据查询数据源id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataQueryDatasourceId;
 
+    @SetNullWhenNull
     @Schema(description = "入参类型，字典id")
     private Long inParamTypeDictId;
 

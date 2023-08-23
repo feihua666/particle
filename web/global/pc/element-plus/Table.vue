@@ -5,7 +5,7 @@
  *          2. 后端使用时支持权限控制
  *          3. 自带加载数据 dataLoading 功能效果
  */
-import {computed, onMounted, reactive} from 'vue'
+import {computed, onMounted, reactive,watch} from 'vue'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -72,7 +72,12 @@ const options = computed(() => {
 const dataLoading = computed(() => {
   return props.dataLoading || reactiveData.dataMethodLocalLoading
 })
-
+watch(
+    () => props.dataMethodParam,
+    (val) => {
+      doDataMethod({props,reactiveData,emit})
+    }
+)
 // 事件
 const emit = defineEmits([
   'select',

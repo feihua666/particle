@@ -35,6 +35,18 @@ particle:
       - component_message_template
       # oauth2 注册客户端不使用租户id
       - oauth2_registered_client
+      # 客户端业务表
+      - component_oauth2_registered_client
+      # 开放平台相关表
+      - component_openplatform_app
+      - component_openplatform_app_openapi
+      - component_openplatform_openapi
+      - component_openplatform_openapi_fee
+      - component_openplatform_openapi_record
+      - component_openplatform_openapi_record_param
+      - component_openplatform_provider
+      - component_openplatform_provider_record
+      - component_openplatform_provider_record_param
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

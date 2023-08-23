@@ -23,5 +23,42 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- 依赖安全组件 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 全局 dto -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 接口文档 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 主要获取一下traceId -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-sleuth-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- RequestResponseLogFilter 获取响应数据 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-filter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

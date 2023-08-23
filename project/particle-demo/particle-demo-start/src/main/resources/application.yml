@@ -15,6 +15,7 @@ spring:
       - boot-admin-client-local
       - boot-admin-server
       - session
+      - resourceserver-local
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master
@@ -49,6 +50,7 @@ spring:
         - classpath:db/schema.global_oauth2_authorization.sql
         - classpath:db/schema.global_oauth2_authorization_consent.sql
         - classpath:db/schema.global_oauth2_registered_client.sql
+        - classpath:db/schema.open-platform.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -68,6 +70,7 @@ spring:
         - classpath:db/data.tracking.sql
         - classpath:db/data.message.sql
         - classpath:db/data.oauth2authorization.sql
+        - classpath:db/data.open-platform.sql
       mode: ALWAYS # ALWAYS NEVER
   servlet:
     multipart:
@@ -81,23 +84,33 @@ spring:
           type: local
       # 通道与binder绑定关系
       bindings:
+        # 生产者与消费者目标要一致，自定义值，相当于一个消息队列名称
+        # 模板消息生产者与消费者
         templatingNoticeMessageConsumer-in-0:
           destination: templating_notice_message
         templatingNoticeMessageProducer-out-0:
           destination: templating_notice_message
+        # 开放平台开放接口调用记录
+        openplatformOpenapiRecordMessageConsumer-in-0:
+          destination: openplatform_openapirecord_message
+        openplatformOpenapiRecordProducer-out-0:
+          destination: openplatform_openapirecord_message
       # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
       default-binder: local
     # 声名的函数式编程定义，如果使用交互式编程(如：TestController手动发送)发送消息，可以不指定生产者
     function:
-      # 实现了 java.util.function.Consumer 接口的bean名称消费类
-      definition: templatingNoticeMessageConsumer
+      # 实现了 java.util.function.Consumer 接口的bean名称消费类，要与bindings的消费或生产者名称前缀一致（如：templatingNoticeMessageConsumer-in-0 的前缀应该是 templatingNoticeMessageConsumer）
+      definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer
 server:
   servlet:
-
     encoding:
       # 在接收请求和返回数据，强制 utf-8 编码
       # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
       force: true
+  error:
+    include-exception: true
+    include-binding-errors: always
+    include-stacktrace: always
 
 particle:
   # 参见 com.particle.global.projectinfo.ProjectInfo
@@ -154,3 +167,12 @@ particle:
     #alert:
     #  wxcpWebhooks:
     #    - https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx
+  # 数据查询对开放接口支持，参见：com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl.Config
+  dataquery:
+    openapi:
+      config:
+        # 默认不开启，这主要用在分系统部署，分系统访问远程服务系统
+        enabled: false
+        remoteDomain: http://localhost:8080
+        appId: 1688811472965656576
+        appSecret: 03b109817ddc4269a40d30ca12459511

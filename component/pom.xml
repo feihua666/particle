@@ -33,6 +33,7 @@
         <module>tracking</module>
         <module>message</module>
         <module>oauth2authorization</module>
+        <module>open-platform</module>
     </modules>
 
     <properties>

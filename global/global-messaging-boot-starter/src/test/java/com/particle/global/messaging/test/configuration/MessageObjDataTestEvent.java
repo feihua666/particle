@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 2023-05-19 13:23:34
  */
 
-public class MessageObjDataTestEvent extends AbstractMessageEvent<MessageObjDataTestEvent.TestObj> {
+public class MessageObjDataTestEvent extends DomainEvent<MessageObjDataTestEvent.TestObj> {
 
 	public MessageObjDataTestEvent(String identifier, TestObj data, String mq) {
 		super(identifier, data, mq);

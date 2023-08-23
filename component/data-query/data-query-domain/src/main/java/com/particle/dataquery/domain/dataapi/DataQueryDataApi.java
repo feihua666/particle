@@ -132,7 +132,7 @@ public class DataQueryDataApi extends AggreateRoot {
         if (StrUtil.isEmpty(adaptConfigJson)) {
             return null;
         }
-        DataQueryDataApiMultipleAggregationAdaptConfig fromJsonStr = DataQueryDataApiMultipleAggregationAdaptConfig.createFromJsonStr(pageableAdapterConfigJson);
+        DataQueryDataApiMultipleAggregationAdaptConfig fromJsonStr = DataQueryDataApiMultipleAggregationAdaptConfig.createFromJsonStr(adaptConfigJson);
         return fromJsonStr;
     }
 
@@ -144,7 +144,7 @@ public class DataQueryDataApi extends AggreateRoot {
         if (StrUtil.isEmpty(adaptConfigJson)) {
             return null;
         }
-        DataQueryDataApiCustomScriptAdaptConfig fromJsonStr = DataQueryDataApiCustomScriptAdaptConfig.createFromJsonStr(pageableAdapterConfigJson);
+        DataQueryDataApiCustomScriptAdaptConfig fromJsonStr = DataQueryDataApiCustomScriptAdaptConfig.createFromJsonStr(adaptConfigJson);
         return fromJsonStr;
     }
 

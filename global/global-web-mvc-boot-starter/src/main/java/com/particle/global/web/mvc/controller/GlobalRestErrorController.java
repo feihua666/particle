@@ -3,10 +3,12 @@ package com.particle.global.web.mvc.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.BaseException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
@@ -38,15 +41,31 @@ public class GlobalRestErrorController  extends BasicErrorController {
         super(errorAttributes, serverProperties.getError(), errorViewResolvers);
     }
 
+    /**
+     * error {@link org.apache.catalina.core.StandardWrapperValve#exception(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, java.lang.Throwable)}
+     * @param request
+     * @return
+     */
+    @SneakyThrows
     @Override
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+        /**
+         * 一般这里是filter发生了异常，如果能获取到异常，扔到全局异常统一处理
+         */
+        Object attribute = request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
+        if (attribute instanceof Exception) {
+            throw ((Exception) attribute);
+        }
         HttpStatus status = getStatus(request);
         if (status == HttpStatus.NO_CONTENT) {
             return new ResponseEntity<>(status);
         }
+        // key 包括：timestamp、status、error、exception、trace、path
         Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
+        SingleResponse singleResponse = null;
+
         Error error = JSONUtil.toBean(JsonTool.toJsonStr(body), Error.class);
-        SingleResponse singleResponse = SingleResponse.buildFailure(getByError(error));
+        singleResponse = SingleResponse.buildFailure(getByError(error));
         singleResponse.setData(body);
         Map<String, Object> objectMap = BeanUtil.beanToMap(singleResponse);
         log.error("请求有错误，响应内容: {}", JsonTool.toJsonStr(objectMap));
@@ -55,6 +74,7 @@ public class GlobalRestErrorController  extends BasicErrorController {
 
     /**
      *         "error": "Not Found",
+     *         "exception": "com.particle.global.exception.biz.AssertException",
      *         "path": "/admin/web/lowcode-model/loadByModelAndDatasource",
      *         "timestamp": "2023-01-05 13:09:24",
      *         "status": 404

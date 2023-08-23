@@ -19,6 +19,7 @@ import java.util.List;
 public class DataQueryDataApiMultipleAggregationAdaptConfig {
 
 
+
 	private List<AggregationItem> aggregationItems;
 
 	@Setter

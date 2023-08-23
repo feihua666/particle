@@ -2,6 +2,7 @@ package com.particle.dept.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -33,7 +34,7 @@ public class DeptUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long typeDictId;
 
-
+    @SetNullWhenNull
     @Schema(description = "负责人用户id")
     private Long masterUserId;
 

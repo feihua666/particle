@@ -82,5 +82,20 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- oauth2authorization 结合 open-platform 搞点事情，主要是获取客户端密码 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>oauth2authorization-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- oauth2authorization 结合 open-platform 搞点事情，主要是获取客户端密码 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>open-platform-adapter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

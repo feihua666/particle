@@ -17,6 +17,6 @@ CREATE TABLE `component_data_query_provider` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `name` (`name`) USING BTREE,
-  KEY `data_object_id` (`is_disabled`) USING BTREE,
-  KEY `version` (`version`)
+  KEY `is_disabled` (`is_disabled`) USING BTREE,
+  KEY `version` (`version`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='数据查询供应商表';

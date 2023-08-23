@@ -46,4 +46,6 @@
             </exclusions>
         </dependency>
 ```
-2. 
+## resource server相关
+spring sesurity 默认情况下资源服务器和授权服务器分开部署是没有问题的，如果想合并在一起部署需要自定义配置  
+这可以从参考 com.particle.global.security.resourceserver.ResourceServerSecurityAutoConfiguration 配置类

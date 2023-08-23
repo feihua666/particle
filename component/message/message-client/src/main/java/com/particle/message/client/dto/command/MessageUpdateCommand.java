@@ -2,6 +2,7 @@ package com.particle.message.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -43,11 +44,11 @@ public class MessageUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "业务内容json")
     private String businessDataJson;
 
-
+	@SetNullWhenNull
     @Schema(description = "业务数据id")
     private Long businessId;
 
-
+	@SetNullWhenNull
     @Schema(description = "消息分类")
     private Long typeDictId;
 
@@ -55,6 +56,7 @@ public class MessageUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "是否为系统消息，1=是，0=否")
     private Boolean isSystem = false;
 
+	@SetNullWhenNull
 	@Schema(description = "消息模板id，用来追踪是哪个模板")
 	private Long messageTemplateId;
 

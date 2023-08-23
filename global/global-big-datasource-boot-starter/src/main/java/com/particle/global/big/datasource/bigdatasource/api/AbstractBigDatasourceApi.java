@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * <p>
  * 默认的大数据源接口信息
+ * 注意：该类型实现不能是单例，否则导致数据错乱
  * </p>
  *
  * @author yangwei
@@ -17,6 +18,8 @@ import java.util.List;
  */
 @Setter
 public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
+
+	protected BigDatasourceApiContext apiContext;
 
 	protected BigDatasourceApiResponseWrapType responseAssertType;
 	protected IBigDatasourceApiConfig config;
@@ -27,6 +30,14 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected BigDatasourceApiPageableAdapterConfig pageableAdapterConfig;
 	protected BigDatasourceApiCommandValidateConfig commandValidateConfig;
 	protected BigDatasourceApiSuccessValidateConfig successValidateConfig;
+
+	@Override
+	public BigDatasourceApiContext apiContext() {
+		if (apiContext == null) {
+			apiContext = BigDatasourceApiContext.create();
+		}
+		return apiContext;
+	}
 
 	@Override
 	public BigDatasourceApiResponseWrapType responseWrapType() {

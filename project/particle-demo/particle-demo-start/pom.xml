@@ -148,11 +148,22 @@
             <artifactId>oauth2authorization-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>open-platform-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
 
         <!-- 文档相关 支持 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-document-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 开放接口相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-openapi-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
         <!-- 监控相关 支持 -->

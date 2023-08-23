@@ -32,6 +32,7 @@ public class AreaUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "区域简称")
     private String nameSimple;
 
+    @NotNull(message = "类型 不能为空")
     @Schema(description = "类型，字典id")
     private Long typeDictId;
 

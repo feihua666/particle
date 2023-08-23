@@ -16,6 +16,11 @@ import java.util.Optional;
  */
 public class Response extends DTO {
 
+	public static final String FIELD_SUCCESS = "success";
+	public static final String FIELD_STATUS = "status";
+	public static final String FIELD_ERRCODE = "errCode";
+	public static final String FIELD_ERRMESSAGE = "errMessage";
+
 	private static final long serialVersionUID = 1L;
 
 	private boolean success;

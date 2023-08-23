@@ -17,6 +17,12 @@ import java.util.List;
 public interface BigDatasourceApi {
 
 	/**
+	 * 应该永远不返回null
+	 * @return
+	 */
+	BigDatasourceApiContext apiContext();
+
+	/**
 	 * 大数据源接口返回结果包装类型类型
 	 * 根据不同的类型可以用来判断执行不同的对应方法，适用于直接调用 execute方法智能判断
 	 * @return

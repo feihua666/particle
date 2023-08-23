@@ -38,7 +38,7 @@ const checkAuthorizationCodeExist = ({authorizationGrantTypes}) => {
 }
 
 // 后端存储是一个对象，参考两个静态属性对象：org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat
-let self_contained = {value: 'self_contained'}
+let self_contained = {value: 'self-contained'}
 let self_contained_json_str = JSON.stringify(self_contained)
 let reference = {value: 'reference'}
 let reference_json_str = JSON.stringify(reference)
@@ -93,7 +93,6 @@ const formComps = ref(
           },
           compProps: {
             dataMethod: ()=>{
-
               return {
                 data: [{
                   id: self_contained_json_str,
@@ -158,7 +157,7 @@ const formComps = ref(
             },
             props: {
               value: 'value',
-              name: 'name'
+              label: 'name'
             }
           }
         }
@@ -173,9 +172,17 @@ onMounted(()=>{
     let form = JSON.parse(props.initJsonStr)
     for (let formKey in form) {
       if(formKey == 'settings.token.access-token-format'){
-        if (form[formKey]) {
-          // 这里转换一下，因为有可能是万一手动修改了数据，导致字符串不相等，默认值选不中
-          reactiveData.form[formKey] = JSON.stringify(JSON.parse(form[formKey]))
+        let value = form[formKey]
+        if (value) {
+          if (typeof value == 'string') {
+            //  如果是字符串
+            // 这里转换一下，因为有可能是万一手动修改了数据，导致字符串不相等，默认值选不中
+            reactiveData.form[formKey] = JSON.stringify(JSON.parse(value))
+          }else {
+            // 如果是对象转为字符串
+            // 这里转换一下，因为有可能是万一手动修改了数据，导致字符串不相等，默认值选不中
+            reactiveData.form[formKey] = JSON.stringify(value)
+          }
         }
       }else {
         reactiveData.form[formKey] = form[formKey]

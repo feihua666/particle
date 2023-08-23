@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.executor;
 
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
+import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
@@ -65,6 +66,8 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 		HttpBigDatasourceApiExecutor httpBigDatasourceApiExecutor = new HttpBigDatasourceApiExecutor();
 		httpBigDatasourceApiExecutor.setBigDatasourceHttpClient(bigDatasourceHttpClient);
 		httpBigDatasourceApiExecutor.setHttpBigDatasourceConfig(httpBigDatasourceConfig);
+		// 初始化监听
+		httpBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
 		return httpBigDatasourceApiExecutor;
 	}
 
@@ -76,22 +79,23 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 		ProxyConfig proxyConfig = httpBigDatasourceConfig.getProxyConfig();
 		String url = getUrl(bigDatasourceApi, command,queryString);
 		Map<String, String> headers = getHeaders(command,commandString,queryString);
+		BigDatasourceApiContext bigDatasourceApiContext = bigDatasourceApi.apiContext();
 
 		String contentType = httpBigDatasourceApiConfig.getRequestContentType().getContentType();
 		if (HttpBigDatasourceApiConfigRequestMethod.get == httpBigDatasourceApiConfig.getRequestMethod()) {
-			return bigDatasourceHttpClient.get(url,headers,command, commandString,queryString, contentType,proxyConfig);
+			return bigDatasourceHttpClient.get(url,headers,command, commandString,queryString, contentType,proxyConfig,bigDatasourceApiContext);
 		}
 		if (HttpBigDatasourceApiConfigRequestMethod.post == httpBigDatasourceApiConfig.getRequestMethod()) {
-			return bigDatasourceHttpClient.post(url,headers,command, commandString,queryString, contentType,proxyConfig);
+			return bigDatasourceHttpClient.post(url,headers,command, commandString,queryString, contentType,proxyConfig,bigDatasourceApiContext);
 		}
 		if (HttpBigDatasourceApiConfigRequestMethod.delete == httpBigDatasourceApiConfig.getRequestMethod()) {
-			return bigDatasourceHttpClient.delete(url,headers,command, commandString,queryString, contentType,proxyConfig);
+			return bigDatasourceHttpClient.delete(url,headers,command, commandString,queryString, contentType,proxyConfig,bigDatasourceApiContext);
 		}
 		if (HttpBigDatasourceApiConfigRequestMethod.put == httpBigDatasourceApiConfig.getRequestMethod()) {
-			return bigDatasourceHttpClient.put(url,headers,command, commandString,queryString, contentType,proxyConfig);
+			return bigDatasourceHttpClient.put(url,headers,command, commandString,queryString, contentType,proxyConfig,bigDatasourceApiContext);
 		}
 		if (HttpBigDatasourceApiConfigRequestMethod.patch == httpBigDatasourceApiConfig.getRequestMethod()) {
-			return bigDatasourceHttpClient.patch(url,headers,command, commandString,queryString, contentType,proxyConfig);
+			return bigDatasourceHttpClient.patch(url,headers,command, commandString,queryString, contentType,proxyConfig,bigDatasourceApiContext);
 		}
 		throw new BigDatasourceException("request method " + httpBigDatasourceApiConfig.getRequestMethod().name() + " not support currently");
 	}

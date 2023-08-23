@@ -143,7 +143,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '接口地址',
           required: true,
-          tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq'
+          tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq。开放接口前面拼接 /openapi/dq'
         },
         compProps: {
           clearable: true,

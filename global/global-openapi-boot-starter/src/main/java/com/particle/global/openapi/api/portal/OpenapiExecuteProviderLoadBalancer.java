@@ -1,0 +1,35 @@
+package com.particle.global.openapi.api.portal;
+
+import com.particle.global.openapi.collect.OpenapiContext;
+import com.particle.global.openapi.endpoint.command.OpenapiCommand;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 开放接口执行提供商负载策略实现
+ * </p>
+ *
+ * @author yangwei
+ * @since 2023-08-18 11:06
+ */
+public interface OpenapiExecuteProviderLoadBalancer {
+
+	/**
+	 * 是否支持
+	 * @param openapiExecuteProviders
+	 * @param openapiCommand
+	 * @param openapiContext
+	 * @return
+	 */
+	boolean support(List<OpenapiExecuteProvider> openapiExecuteProviders, OpenapiCommand openapiCommand, OpenapiContext openapiContext);
+
+	/**
+	 * 执行
+	 * @param openapiExecuteProviders
+	 * @param openapiCommand
+	 * @param openapiContext
+	 * @return
+	 */
+	public Object execute(List<OpenapiExecuteProvider> openapiExecuteProviders, OpenapiCommand openapiCommand, OpenapiContext openapiContext);
+}

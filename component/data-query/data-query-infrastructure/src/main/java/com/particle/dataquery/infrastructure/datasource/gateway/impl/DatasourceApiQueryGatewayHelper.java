@@ -7,6 +7,7 @@ import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInPa
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiJdbcBasicConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
+import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
@@ -39,6 +40,10 @@ import java.util.Optional;
  */
 @Component
 public class DatasourceApiQueryGatewayHelper {
+
+	public static final String apiContext_dataQueryProviderId = "dataQueryProviderId";
+
+
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
 
@@ -60,6 +65,9 @@ public class DatasourceApiQueryGatewayHelper {
 				commandValidateConfig(datasourceApi),
 				successValidateConfig(datasourceApi)
 		);
+		// 传递一些数据，目前添加主要是收集调用过程中的关键数据，以支持开放接口收集供应商调用数据
+		BigDatasourceApiContext bigDatasourceApiContext = defaultBigDatasourceApi.apiContext();
+		bigDatasourceApiContext.putData("dataQueryProviderId",datasourceApi.getDataQueryProviderId());
 		return defaultBigDatasourceApi;
 	}
 

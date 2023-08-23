@@ -2,6 +2,7 @@ package com.particle.dataquery.client.dataapi.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -29,6 +30,7 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "接口名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
+    @SetNullWhenNull
     @Schema(description = "数据查询数据源接口id")
     private Long dataQueryDatasourceApiId;
 
@@ -39,6 +41,7 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "接口适配配置json")
     private String adaptConfigJson;
 
+    @SetNullWhenNull
     @Schema(description = "入参类型,非一对一直连必填")
     private Long inParamTypeDictId;
 
@@ -54,6 +57,7 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "入参校验配置json")
     private String inParamValidateConfigJson;
 
+    @SetNullWhenNull
     @Schema(description = "出参类型,非一对一直连必填")
     private Long outParamTypeDictId;
 
@@ -66,6 +70,7 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "出参成功或失败配置json")
     private String outParamSuccessConfigJson;
 
+    @SetNullWhenNull
     @Schema(description = "输出类型,非一对一直连必填")
     private Long responseTypeDictId;
 

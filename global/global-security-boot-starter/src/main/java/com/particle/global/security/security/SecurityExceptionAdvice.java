@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -65,7 +66,7 @@ public class SecurityExceptionAdvice {
     public Response handleAccessDeniedException(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex) {
         if (LoginUserTool.isAnonymous()!=null && LoginUserTool.isAnonymous()) {
             return createRM(ErrorCodeGlobalEnum.NO_PRIVILEGE_ANONYMOUS_ERROR, ErrorCodeGlobalEnum.NO_PRIVILEGE_ANONYMOUS_ERROR.getErrMessage(), request.getRequestURI(), ex);
-        }else if(LoginUserTool.getLoginUser() == null){
+        }else if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
             return createRM(ErrorCodeGlobalEnum.ACCOUNT_NOT_LOGIN_ERROR, ErrorCodeGlobalEnum.ACCOUNT_NOT_LOGIN_ERROR.getErrMessage(), request.getRequestURI(), ex);
 
         }

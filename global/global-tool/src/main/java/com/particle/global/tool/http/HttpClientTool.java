@@ -277,7 +277,6 @@ public class HttpClientTool{
     @Builder
     public static class ExtConfig{
 
-
         /**
          * 自定义代理
          */
@@ -317,6 +316,10 @@ public class HttpClientTool{
             }
             headers.add(new BasicHeader(name,value));
             return this;
+        }
+
+        public static ExtConfig create() {
+            return ExtConfig.builder().build();
         }
     }
 }

@@ -3,6 +3,7 @@ package com.particle.lowcode.client.generator.dto.command;
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -67,6 +68,7 @@ public class LowcodeModelItemUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "字段是否外键")
     private Boolean isForeignKey;
 
+    @SetNullWhenNull
     @Schema(description = "模型id")
     private Long lowcodeModelId;
 

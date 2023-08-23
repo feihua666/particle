@@ -59,12 +59,12 @@ const reactiveData = reactive({
       prop: 'isDisabled',
       label: '是否禁用',
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '禁用' : '启用'
+        let r = cellValue ? '禁用' : '启用'
+        if(cellValue && row.disabledReason){
+          r = r + `(${row.disabledReason})`
+        }
+        return r
       }
-    },
-    {
-      prop: 'disabledReason',
-      label: '禁用原因',
     },
     {
       prop: 'userName',

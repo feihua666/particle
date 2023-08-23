@@ -54,6 +54,12 @@ watch(
 
     }
 )
+watch(
+    () => props.dataMethodParam,
+    (val) => {
+      doDataMethod({props,reactiveData,emit})
+    }
+)
 // 事件
 const emit = defineEmits(['open','close','select',emitDataMethodEvent.dataMethodData,emitDataMethodEvent.dataMethodDataLoading,emitDataMethodEvent.dataMethodResult])
 

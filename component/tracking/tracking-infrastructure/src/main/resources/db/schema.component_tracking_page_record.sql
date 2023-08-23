@@ -41,6 +41,6 @@ CREATE TABLE `component_tracking_page_record` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `tracking_page_code` (`tracking_page_code`) USING BTREE,
-  KEY `user_id` (`user_id`),
-  KEY `action_type_dict_id` (`action_type`)
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `action_type_dict_id` (`action_type`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='页面埋点记录表';

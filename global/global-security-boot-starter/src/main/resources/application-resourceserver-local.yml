@@ -1,0 +1,24 @@
+spring:
+  security:
+    oauth2:
+      # jwt 和 opaqueToken 不能同时配置否则报错，参见：{@link OAuth2ResourceServerConfigurer#validateConfiguration()}
+      resourceserver:
+        # jwt方式，注意仅配置这里并不生效，除非资源服务器和授权服务器分开部署，因为一起部署 由于 jwtDecoder 共用，自动配置并不会添加该过滤器
+        jwt:
+          issuer-uri: http://localhost:8080
+          jwk-set-uri: http://localhost:8080/oauth2/jwks
+        # opaque 透明方式
+        opaquetoken:
+          client-id: 1688811472965656576
+          client-secret: 03b109817ddc4269a40d30ca12459511
+          introspection-uri: http://localhost:8080/oauth2/introspect
+particle:
+  security:
+    oauth2:
+      # 配置参见：com.particle.global.security.resourceserver.ResourceServerSecurityAutoConfiguration.CustomWebSecurityConfigureForResourceServer
+      # jwt 和 opaquetoken 不能同时使用
+      resourceserver:
+        jwt:
+          enable: false
+        opaquetoken:
+          enable: true

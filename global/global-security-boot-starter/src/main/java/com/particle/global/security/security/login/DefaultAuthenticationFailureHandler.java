@@ -1,6 +1,7 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -11,7 +12,9 @@ import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.servlet.RequestTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -42,7 +45,8 @@ public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthentication
 
         Response responseResult = getResponseByException(e);
         boolean ajaxRequest = RequestTool.isAjaxRequest(httpServletRequest);
-        if (ajaxRequest) {
+        String accept = httpServletRequest.getHeader(HttpHeaders.ACCEPT);
+        if (ajaxRequest || StrUtil.contains(accept, MediaType.APPLICATION_JSON_VALUE)) {
             outJson(httpServletResponse,responseResult);
         }
         globalSecurityAuthenticationHandler.tryNotifyIAuthenticationResultServicesOnFailure(httpServletRequest,httpServletResponse,e,responseResult);

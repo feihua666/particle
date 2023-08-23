@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.event.TemplatingDomainMessageEvent;
 import com.particle.component.light.share.message.MessageTemplateConstants;
 import com.particle.global.messaging.event.messaging.CloudStreamConsume;
+import com.particle.global.messaging.event.messaging.MessageConsumer;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
 import com.particle.global.tool.json.JsonTool;
@@ -44,7 +45,7 @@ import java.util.stream.Collectors;
 @Transactional
 @Slf4j
 @Component
-public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomainMessageEvent> {
+public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomainMessageEvent> , MessageConsumer {
 
 	@Autowired
 	private IMessageTemplateService messageTemplateService;
@@ -65,11 +66,11 @@ public class TemplatingNoticeMessageConsumer implements Consumer<TemplatingDomai
 	@CloudStreamConsume
 	@Override
 	public void accept(TemplatingDomainMessageEvent templatingDomainMessageEvent) {
-		log.debug("received message {} ",JsonTool.toJsonStr(templatingDomainMessageEvent));
+		log.debug("received templatingDomainMessageEvent message {} ",JsonTool.toJsonStr(templatingDomainMessageEvent));
 		try {
 			doConsume(templatingDomainMessageEvent);
 		} catch (Throwable e) {
-			log.error("consume message error log only,event={}",JsonTool.toJsonStr(templatingDomainMessageEvent),e);
+			log.error("consume templatingDomainMessageEvent message error log only,event={}",JsonTool.toJsonStr(templatingDomainMessageEvent),e);
 			throw e;
 		}
 	}

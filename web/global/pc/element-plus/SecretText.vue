@@ -108,27 +108,27 @@ const doSubmit = () => {
 
 <template>
 <span
-    v-if="hasPermission.render"  class="pt-secret-text"
+    v-if="hasPermission.render"  class="pt-openapiSecret-text"
     :title="hasDisabled.disabledReason || title"
     v-bind="$attrs"
 >
-  <el-icon v-if="showSwitchButton" class="pt-secret-text-bt" :class="{disabled: hasDisabled.disabled}"  @click="doSubmit">
+  <el-icon v-if="showSwitchButton" class="pt-openapiSecret-text-bt" :class="{disabled: hasDisabled.disabled}"  @click="doSubmit">
     <Hide v-if="reactiveData.showSecretText" ></Hide>
     <View v-else ></View>
   </el-icon>
-  <span class="pt-secret-text-value" >{{computedValue}}</span>
+  <span class="pt-openapiSecret-text-value" >{{computedValue}}</span>
 
 </span>
 </template>
 
 
 <style scoped>
-.pt-secret-text-bt{
+.pt-openapiSecret-text-bt{
   margin-right: .5rem;
   cursor: pointer;
   vertical-align: middle;
 }
-.pt-secret-text-bt.disabled{
+.pt-openapiSecret-text-bt.disabled{
   cursor: not-allowed;
 }
 

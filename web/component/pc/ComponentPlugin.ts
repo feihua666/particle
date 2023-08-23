@@ -12,6 +12,7 @@ import OpLogPlugin from './oplog/OpLogPlugin.ts'
 import TrackingPlugin from './tracking/TrackingPlugin.ts'
 import MessagePlugin from './message/MessagePlugin.ts'
 import Oauth2authorizationPlugin from './oauth2authorization/Oauth2authorizationPlugin.ts'
+import OpenPlatformPlugin from './openplatform/OpenPlatformPlugin.ts'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -28,5 +29,6 @@ export default {
         TrackingPlugin.install(app,options)
         MessagePlugin.install(app,options)
         Oauth2authorizationPlugin.install(app,options)
+        OpenPlatformPlugin.install(app,options)
     }
 }

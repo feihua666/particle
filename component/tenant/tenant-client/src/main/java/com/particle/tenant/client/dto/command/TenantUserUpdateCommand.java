@@ -2,6 +2,7 @@ package com.particle.tenant.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -44,6 +45,7 @@ public class TenantUserUpdateCommand extends AbstractBaseUpdateCommand {
 	@Schema(description = "生效日期，从什么时候开始生效")
 	private LocalDateTime effectiveAt;
 
+	@SetNullWhenNull
 	@Schema(description = "生效日期，触发方式，一般为首次登录触发")
 	private Long effectiveAtTriggerDictId;
 

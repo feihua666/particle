@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * oauth2客户端 通用列表查询指令对象
+ * oauth2算法 通用列表查询指令对象
  * </p>
  *
  * @author yw
@@ -22,14 +22,23 @@ public class Oauth2AlgorithmListCommand extends AbstractBaseQueryCommand {
 
     /**
      * 支持两种，分别支对应
-     * mac: org.springframework.security.oauth2.jose.jws.MacAlgorithm
-     * signature: org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
+     * mac: {@link org.springframework.security.oauth2.jose.jws.MacAlgorithm}
+     * signature: {@link org.springframework.security.oauth2.jose.jws.SignatureAlgorithm}
      */
-    @Schema(description = "客户端ID,两种 mac和signature")
+    @Schema(description = "算法类型,两种 mac和signature")
     private String type;
 
 
     public enum AlgorithmType{
-        mac,signature
+        /**
+         * 消息确认码
+         * mac: {@link org.springframework.security.oauth2.jose.jws.MacAlgorithm}
+         */
+        mac,
+        /**
+         * 签名
+         * signature: {@link org.springframework.security.oauth2.jose.jws.SignatureAlgorithm}
+         */
+        signature
     }
 }

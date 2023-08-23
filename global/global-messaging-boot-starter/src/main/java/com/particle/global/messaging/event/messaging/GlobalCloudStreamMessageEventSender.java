@@ -33,6 +33,7 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 	@Override
 	public boolean send(AbstractMessageEvent event) {
 		try {
+			log.info("send cloud stream message.messageId={},identifier={},mq={}",event.getMessageId(),event.getIdentifier(),event.getMq());
 			streamBridge.send(event.getMq(), event);
 			return true;
 		} catch (Throwable e) {

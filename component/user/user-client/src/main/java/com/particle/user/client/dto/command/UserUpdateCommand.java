@@ -34,6 +34,7 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     /**
      * 真实用户性别必填
      */
+    @SetNullWhenNull
     @PropValid.DependCondition(message = "性别不能为空" ,dependProp = "isVirtual",ifEqual = "false")
     @Schema(description = "性别，字典id")
     private Long genderDictId;
@@ -89,6 +90,7 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
 	@Schema(description = "生效日期，从什么时候开始生效")
 	private LocalDateTime effectiveAt;
 
+    @SetNullWhenNull
 	@Schema(description = "生效日期，触发方式，一般为首次登录触发")
 	private Long effectiveAtTriggerDictId;
 

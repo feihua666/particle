@@ -1,6 +1,7 @@
 package com.particle.message.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -53,7 +54,7 @@ public class MessageTemplateUpdateCommand extends AbstractBaseUpdateCommand {
 	@Schema(description = "内容是否为html，1=是，0=否")
 	private Boolean isContentHtml;
 
-
+    @SetNullWhenNull
     @Schema(description = "消息模板分类")
     private Long typeDictId;
 

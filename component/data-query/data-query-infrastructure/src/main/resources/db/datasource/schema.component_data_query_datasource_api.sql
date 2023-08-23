@@ -40,9 +40,9 @@ CREATE TABLE `component_data_query_datasource_api` (
   UNIQUE KEY `code` (`code`),
   KEY `version` (`version`) USING BTREE,
   KEY `name` (`name`) USING BTREE,
-  KEY `category_dict_id` (`category_dict_id`),
-  KEY `data_query_provider_id` (`data_query_provider_id`),
-  KEY `data_query_datasource_id` (`data_query_datasource_id`),
-  KEY `response_type_dict_id` (`response_type_dict_id`),
-  KEY `same_tag` (`same_tag`)
+  KEY `category_dict_id` (`category_dict_id`) USING BTREE,
+  KEY `data_query_provider_id` (`data_query_provider_id`) USING BTREE,
+  KEY `data_query_datasource_id` (`data_query_datasource_id`) USING BTREE,
+  KEY `response_type_dict_id` (`response_type_dict_id`) USING BTREE,
+  KEY `same_tag` (`same_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='数据查询数据源接口表';

@@ -2,6 +2,7 @@ import {list as dataQueryDatasourceListApi} from "../../../api/datasource/admin/
 import {list as dataQueryProviderListApi} from "../../../api/provider/admin/dataQueryProviderAdminApi";
 import {clone} from "../../../../../../global/common/tools/ObjectTools";
 import {ElMessage} from 'element-plus'
+import {useSelectDataqueryProviderCompItem} from "../../dataqueryProviderCompItem";
 
 const alert = (message,type='success')=>{
   ElMessage({
@@ -325,20 +326,7 @@ export const pageFormItems = [
       }
     }
   },
-  {
-    field: {
-      name: 'dataQueryProviderId',
-    },
-    element: {
-      comp: 'PtSelect',
-      formItemProps: {
-        label: '数据查询供应商',
-      },
-      compProps: {
-        dataMethod: dataQueryProviderListApi
-      }
-    }
-  },
+  useSelectDataqueryProviderCompItem({}),
   {
     field: {
       name: 'dataQueryDatasourceId',
@@ -434,21 +422,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-    {
-      field: {
-        name: 'dataQueryProviderId',
-      },
-      element: {
-        comp: 'PtSelect',
-        formItemProps: {
-          label: '数据查询供应商',
-          required: true,
-        },
-        compProps: {
-          dataMethod: dataQueryProviderListApi
-        }
-      }
-    },
+    useSelectDataqueryProviderCompItem({required: true}),
 
     {
       field: {
