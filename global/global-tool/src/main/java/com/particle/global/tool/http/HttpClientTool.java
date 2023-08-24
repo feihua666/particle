@@ -179,6 +179,7 @@ public class HttpClientTool{
         CloseableHttpResponse closeableHttpResponse = executeRequest(get, client, null);
         InputStream inputStream = closeableHttpResponse.getEntity().getContent();
         byte[] bytes = IoStreamTool.inputStreamToByteArray(inputStream);
+        inputStream.close();
         closeableHttpResponse.close();
         get.releaseConnection();
         return bytes;
