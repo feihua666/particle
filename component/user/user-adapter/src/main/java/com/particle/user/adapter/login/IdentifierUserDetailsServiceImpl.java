@@ -52,7 +52,7 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
 
         if (userDO == null) {
             if (TenantTool.getTenantId() != null) {
-                    log.debug("UsernameNotFoundException was throwed. this is likely the user(userId={}) not exist in tenant(tenantId={})",userIdentifierDO.getUserId(),TenantTool.getTenantId());
+                    log.debug("UsernameNotFoundException was threw. this is likely the user(userId={}) not exist in tenant(tenantId={})",userIdentifierDO.getUserId(),TenantTool.getTenantId());
             }
             throw new UsernameNotFoundException("用户不存在");
         }

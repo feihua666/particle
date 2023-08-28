@@ -27,10 +27,12 @@ const reactiveData = reactive({
     {
       prop: 'openplatformOpenapiRecordId',
       label: '调用记录id',
+      showOverflowTooltip: true
     },
     {
       prop: 'customerName',
       label: '客户',
+      showOverflowTooltip: true
     },
     {
       prop: 'requestUrl',
@@ -40,14 +42,17 @@ const reactiveData = reactive({
     {
       prop: 'requestParameterMd5',
       label: '请求参数md5',
+      showOverflowTooltip: true
     },
     {
       prop: 'responseResultMd5',
       label: '响应结果md5',
+      showOverflowTooltip: true
     },
     {
       prop: 'traceId',
       label: 'traceId',
+      showOverflowTooltip: true
     },
     {
       prop: 'handleDuration',
@@ -59,7 +64,8 @@ const reactiveData = reactive({
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? '正常响应数据' : '无数据'
         return r
-      }
+      },
+      showOverflowTooltip: true
     },
     {
       prop: 'responseHttpStatus',
@@ -68,14 +74,17 @@ const reactiveData = reactive({
     {
       prop: 'responseBusinessStatus',
       label: '业务编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'openplatformProviderName',
       label: '供应商',
+      showOverflowTooltip: true
     },
     {
       prop: 'dataQueryProviderName',
       label: '数据查询供应商',
+      showOverflowTooltip: true
     },
   ],
 
