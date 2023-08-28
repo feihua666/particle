@@ -1,5 +1,27 @@
 
 # Changelog
+
+# 2.0.0-beta(2023-08-28)
+### 新特性
+
+* 【open-platform】添加开放接口管理业务组件，配合 global-openapi-boot-starter，实现方便的接入开放接口，支持对 data-query 业务组件的配置化兼容
+* 【global-openapi-boot-starter】添加全局开放接口全局组件，以对外提供api支持
+* 【oauth2authorization】oauth2 server jdbc支持以实现后台可界面化管理，配合 global-security-boot-starter 的 oauth2 authorization server使用
+* 【global-session-boot-starter】修改springsession支持jdbc和redis简单配置就可使用
+* 【global-redis-boot-starter】添加 global-redis-boot-starter 全局redis组件
+* 【global-scheduler-boot-starter】添加AbstractGlobalScheduler，方便定时使用带锁执行
+* 【tenant】支持根据域名解析租户
+* 【user】添加当前登录用户可修改头像、昵称等接口
+* 【global-security-boot-starter】添加oauth2 authorization server支持，添加resource server支持
+* 【global-scheduler-boot-starter】添加scheduler手动执行任务web接口，以方便手动任务触发
+* 【global-mybatis-plus-boot-starter 】@In查询可以使用自定义字段名称
+* 升级动态多数据源到4.1.1 添加swagger启用控制 升级 swagger2到openapi3
+### bug修复
+
+* 【tenant】租户一键创建密码取值错误问题处理
+* 【global-notification-boot-starter】修改notification，alertAccount 字符proxyConfig改为proxy
+* 【global-trans-boot-stater】修改翻译时去掉了租户不考虑问题，否则在多租户下这将导致数据错乱
+
 # 1.0.0-beta(2023-07-03)
 ### 新特性
 * 【global-captcha-boot-starter】添加验证码全局模块，支持图片、动画、算术、中文，支持动态验证码如：短信、邮件
@@ -15,6 +37,7 @@
 * 【global-concurrency-boot-starter】线程池可完美继承主程序线程变量
 * 【global-tool】ThreadContextTool使用ttl线程变量，结合线程池使用，添加proxyConfig全局工具对象，以支持接口调用代理情况、重构HttpClientTool
 * 【tenant】添加租户用户添加多参数支持功能、添加租户用户列表查询可以根据部门查询、租户申请添加用户时默认正式
+
 # 0.1.0-beta (2023-04-24)
 ### 新特性
 * 【data-query】
@@ -26,13 +49,11 @@
 * 【tenant】多租户业务组件包括租户管理、租户应用管理、租户用户管理、租户申请管理
 * 【global-mybatis-plus-boot-starter】升级mybatis plus到3.5.3，添加基本mybatis plus数据权限技术支持
 * 【global-trans-boot-stater】添加数据翻译支持多级翻译
-
 ### bug修复
 * 【data-query】
     1. 数据查询字典数据媒体类型修改，更便于理解
     2. 代码生成的import引用文件名与实际文件名首字母大小写不匹配
 * 【low-code】代码生成的权限问题处理
-
 
 # 0.0.1-beta (2023-03-22)
 0.0.1-beta初始发布
