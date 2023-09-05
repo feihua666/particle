@@ -46,8 +46,18 @@ const props = defineProps({
   rules: {
     type: Array
   },
-  // 数据变化事件,如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
+  // 数据变化事件,一般只要有数据变化就会触发，如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
   valueChange: {
+    type: Function,
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
+  },
+  // 数据变化事件,一般ui组件值手动更新会触发（如ui手动输入或手动ui选择下拉框），如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
+  updateModelValueChange: {
+    type: Function,
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
+  },
+  // 数据变化事件,一般ui组件值手动更新会触发（如手动ui选择下拉框），如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
+  changeModelValueChange: {
     type: Function,
     default: ({form,formData,prop,newValue,oldValue}) =>({})
   },
@@ -123,7 +133,11 @@ const getFormItemRules = (validateObj:ValidateObj) => {
     <slot v-bind="{form}"></slot>
   </template>
   <template v-if="!$slots.default">
-    <PtFormItemDetail v-bind="compProps" :form="form" :valueChange="valueChange" :formData="formData" :prop="prop" :comp="comp">
+    <PtFormItemDetail v-bind="compProps" :form="form"
+                      :valueChange="valueChange"
+                      :updateModelValueChange="updateModelValueChange"
+                      :changeModelValueChange="changeModelValueChange"
+                      :formData="formData" :prop="prop" :comp="comp">
     </PtFormItemDetail>
   </template>
   <template #label="scope" v-if="$slots.label">

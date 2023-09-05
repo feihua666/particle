@@ -129,7 +129,7 @@ export const addPageFormItems = [
     {
         field: {
             name: 'lowcodeModelId',
-            valueChange:({form,formData,newValue})=>{
+            updateModelValueChange:({form,formData,newValue})=>{
                 nextTick(()=>{
                     form.name = getFormName(form,formData)
                 })
@@ -149,7 +149,7 @@ export const addPageFormItems = [
     {
         field: {
             name: 'generateTypeDictId',
-            valueChange:({form,formData,newValue})=>{
+            updateModelValueChange:({form,formData,newValue})=>{
                 nextTick(()=>{
                     form.name = getFormName(form,formData)
                 })

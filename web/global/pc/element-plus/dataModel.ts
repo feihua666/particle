@@ -26,11 +26,41 @@ export const emitDataModelEvent = {
 
 
 // 值更新事件
-export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}:{}) => {
+export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName,emitOnly = false,valueEventCallback}:{}) => {
     return function (value){
-        if(hasPermission !== undefined ){
-            let doAlertOrCustomFnIfNeccessaryResult = hasPermission.value.doAlertOrCustomFnIfNeccessary()
-            if (doAlertOrCustomFnIfNeccessaryResult) {
+        if (!emitOnly) {
+            if(hasPermission !== undefined ){
+                let doAlertOrCustomFnIfNeccessaryResult = hasPermission.value.doAlertOrCustomFnIfNeccessary()
+                if (doAlertOrCustomFnIfNeccessaryResult) {
+                    // 没有权限时，在下一次更新将原来值重置回来，不能编辑
+                    nextTick(() => {
+                        reactiveData.currentModelValue = reactiveData.oldModelValue
+                    })
+                    return true
+                }
+            }
+
+            reactiveData.currentModelValue = value
+            reactiveData.oldModelValue = value
+        }
+
+        let params = [eventName ? eventName: emitDataModelEvent.updateModelValue]
+        for (let i = 0; i < arguments.length; i++) {
+            params.push(arguments[i])
+        }
+        emit.apply(null,params)
+        if (valueEventCallback) {
+            valueEventCallback(value)
+        }
+        return false
+    }
+}
+// 值改变事件,
+export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName,emitOnly = false,valueEventCallback}:{}) => {
+
+    return function (value) {
+        if (!emitOnly) {
+            if (hasPermission !== undefined && hasPermission.value.enable && !hasPermission.value.hasPm) {
                 // 没有权限时，在下一次更新将原来值重置回来，不能编辑
                 nextTick(() => {
                     reactiveData.currentModelValue = reactiveData.oldModelValue
@@ -39,32 +69,14 @@ export const updateDataModelValueEventHandle = ({reactiveData,hasPermission,emit
             }
         }
 
-        reactiveData.currentModelValue = value
-        reactiveData.oldModelValue = value
-        let params = [eventName ? eventName: emitDataModelEvent.updateModelValue]
-        for (let i = 0; i < arguments.length; i++) {
-            params.push(arguments[i])
-        }
-        emit.apply(null,params)
-        return false
-    }
-}
-// 值改变事件,
-export const changeDataModelValueEventHandle = ({reactiveData,hasPermission,emit,eventName}:{}) => {
-
-    return function (value) {
-        if (hasPermission !== undefined && hasPermission.value.enable && !hasPermission.value.hasPm) {
-            // 没有权限时，在下一次更新将原来值重置回来，不能编辑
-            nextTick(() => {
-                reactiveData.currentModelValue = reactiveData.oldModelValue
-            })
-            return true
-        }
         let params = [eventName ? eventName: emitDataModelEvent.change]
         for (let i = 0; i < arguments.length; i++) {
             params.push(arguments[i])
         }
         emit.apply(null,params)
+        if (valueEventCallback) {
+            valueEventCallback(value)
+        }
         return false
     }
 }

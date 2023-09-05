@@ -19,7 +19,7 @@ const props = defineProps({
   comp: {
     type: String
   },
-  // 组件是否支持权限，如果支持权限，不再封装，将使用组合的权限逻辑
+  // 组件是否支持权限，如果支持权限，不再封装，将使用组件的权限逻辑
   permissionSupport: {
     type: Boolean,
     default: undefined
@@ -45,9 +45,21 @@ const props = defineProps({
   title: {
     type: String
   },
-  // 数据变化事件
+  // 数据变化事件,一般只要有数据变化就会触发，如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
   valueChange: {
     type: Function,
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
+  },
+  // 数据变化事件,一般ui组件值手动更新会触发（如ui手动输入或手动ui选择下拉框），如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
+  updateModelValueChange: {
+    type: Function,
+    // 暂不支持oldValue
+    default: ({form,formData,prop,newValue,oldValue}) =>({})
+  },
+  // 数据变化事件,一般ui组件值手动更新会触发（如手动ui选择下拉框），如果在该方法中使用formData，可能会取不到新值的情况，可以结合nextTick使用
+  changeModelValueChange: {
+    type: Function,
+    // 暂不支持oldValue
     default: ({form,formData,prop,newValue,oldValue}) =>({})
   },
   // 权限相关
@@ -107,11 +119,18 @@ watch(() => props.form[props.prop],(val,oldVal)=> {
 })
 // 方法
 // 值更新事件
-const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit})
+const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit,valueEventCallback:(value)=>{
+    props.updateModelValueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: value,oldValue: null})
+  }})
+const updateModelValueEmitOnlyEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit,emitOnly:true,valueEventCallback:(value)=>{
+  console.log(2222)
+    props.updateModelValueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: value,oldValue: null})
+  }})
 
 // 值改变事件
-const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPermission,emit})
-
+const changeModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPermission,emit,valueEventCallback:(value)=>{
+    props.changeModelValueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: value,oldValue: null})
+  }})
 // 取文本的值
 const propValue = () => {
   let r = getVal(props.form,props.prop,props.form)
@@ -142,8 +161,9 @@ const txtValue = () => {
                  :noPermissionFn="noPermissionFn"
                  :noPermissionSimpleText="noPermissionSimpleText"
                  :noPermissionText="noPermissionText"
-                 :disabled="disabled"
+                 :disabled="hasDisabled.disabled"
                  :disabledReason="disabledReason"
+                 @update:modelValue="updateModelValueEmitOnlyEvent"
                  @update:modelData="(data) => { props.formData[props.prop] = data }"
       >
         <!--  插槽  -->

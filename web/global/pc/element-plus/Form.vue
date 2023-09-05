@@ -251,7 +251,16 @@ defineExpose({
           <template  v-for="(colItem,colIndex) in rowItem"  :key="colIndex">
             <el-col :span="colItem">
               <template v-for="(elementItem,elementItemIndex) in [comps[layoutIndex(rowIndex,colIndex,layoutComputedLayout)]]" :key="elementItemIndex">
-                <PtFormItem v-bind="elementItem.element.formItemProps" :compProps="elementItem.element.compProps" :form="reactiveData.form" :formData="reactiveData.formData" :prop="elementItem.field.name" :comp="elementItem.element.comp" :valueChange="elementItem.field.valueChange" >
+                <PtFormItem v-bind="elementItem.element.formItemProps"
+                            :compProps="elementItem.element.compProps"
+                            :form="reactiveData.form"
+                            :formData="reactiveData.formData"
+                            :prop="elementItem.field.name"
+                            :comp="elementItem.element.comp"
+                            :valueChange="elementItem.field.valueChange"
+                            :updateModelValueChange="elementItem.field.updateModelValueChange"
+                            :changeModelValueChange="elementItem.field.changeModelValueChange"
+                >
                 </PtFormItem>
               </template>
             </el-col>
