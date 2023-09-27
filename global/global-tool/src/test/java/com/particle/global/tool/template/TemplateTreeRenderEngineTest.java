@@ -77,7 +77,7 @@ public class TemplateTreeRenderEngineTest {
 		StringBuffer segmentTemplateContent = new StringBuffer();
 		segmentTemplateContent.append("作者：#(global.author)" + "\n");
 		// 子级变量
-		segmentTemplateContent.append("child：#(child.sub1)" + "\n");
+		segmentTemplateContent.append("child：#(child.outputVar.sub1)" + "\n");
 		segmentTemplateContent.append("share：#(share.shareTest)" + "\n");
 
 
@@ -100,7 +100,7 @@ public class TemplateTreeRenderEngineTest {
 
 			StringBuffer segmentTemplateContent = new StringBuffer();
 			segmentTemplateContent.append( prefixI + "作者：#(global.author)" + "\n");
-			segmentTemplateContent.append(  "sharesub：#(parents.share.shareTest.add('"+prefixI+"'))" + "\n");
+			segmentTemplateContent.append(  "sharesub：#(parent.share.shareTest.add('"+prefixI+"'))" + "\n");
 			//segmentTemplateContent.append(  "sharesub1：#(parents.shareAct.add('shareTest','"+prefixI+"'))" + "\n");
 
 			segmentTemplate.setTemplateContent(segmentTemplateContent.toString());

@@ -1,0 +1,2 @@
+-- import classpath:db/template/schema.component_report_segment_template.sql
+-- import classpath:db/reportapi/schema.component_report_report_api.sql

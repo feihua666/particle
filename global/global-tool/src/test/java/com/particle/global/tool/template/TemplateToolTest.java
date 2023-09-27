@@ -23,5 +23,21 @@ public class TemplateToolTest {
 		render = TemplateTool.render("#(firstNoneEmptyStr(empty,null,aa))",
 				Dict.of("empty", "", "null", null,"aa","aa"));
 		System.out.println(render);
+
+		render = TemplateTool.render("#(firstNoneEmptyStr(empty,null,aa))",
+				Dict.of("empty", "", "null", null,"aa","aa"));
+		System.out.println(render);
+
+		String t = "#set(tableHeader = [\n" +
+				"{\n" +
+				"\"valueLabel\": \"注销日期\",\n" +
+				"\"valueKey\": \"candate\"\n" +
+				"}\n" +
+				"])" +
+				"#(tableHeader)";
+
+		render = TemplateTool.render(t,
+				Dict.of("empty", "", "null", null,"aa","aa"));
+		System.out.println(render);
 	}
 }

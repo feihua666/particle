@@ -5,6 +5,7 @@ import com.particle.global.tool.template.templatetreerenderengine.OutputFileHand
 import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.TemplateTreeRenderEngine;
 import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
+import com.particle.global.tool.template.templatetreerenderengine.template.impl.GroovyScriptSegmentTemplateRenderDataResolverImpl;
 import lombok.Data;
 
 import java.util.*;
@@ -89,7 +90,7 @@ public class SegmentTemplate {
 	 * 字段数据配置，预留
 	 * 可以用来设置获取数据的配置，比如请求接口参数等
 	 */
-	private Object extConfig;
+	private ExtConfig extConfig;
 
 	/**
 	 * 模板渲染数据获取
@@ -120,5 +121,25 @@ public class SegmentTemplate {
 			subSegmentTemplates = new ArrayList<>();
 		}
 		subSegmentTemplates.add(segmentTemplate);
+	}
+
+	@Data
+	public static class ExtConfig{
+		/**
+		 * groovy 脚本,主要用来获取数据，添加该项配置主要是配合 {@link GroovyScriptSegmentTemplateRenderDataResolverImpl} 实现脚本获取
+		 */
+		private String dataGroovyScript;
+		/**
+		 * 条件脚本，主要是用来条件判断，如果返回一个特定的值，则对特定的值做特殊的处理，当前主要是用来判断是否需要处理模板及子模板
+		 */
+		private String conditionGroovyScript;
+
+
+		public static ExtConfig create(String dataGroovyScript,String conditionGroovyScript) {
+			ExtConfig extConfig = new ExtConfig();
+			extConfig.dataGroovyScript = dataGroovyScript;
+			extConfig.conditionGroovyScript = conditionGroovyScript;
+			return extConfig;
+		}
 	}
 }

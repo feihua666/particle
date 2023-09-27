@@ -20,7 +20,8 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-19
  */
 @Component
-public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implements IDictService {
+public class
+DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implements IDictService {
 
 
 	private IBaseQueryCommandMapStruct<DictDO> queryCommandMapStruct;
@@ -43,18 +44,13 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 		}
 
 		if (po.getParentId() != null) {
-			DictDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"字典项不能添加子节点");
+			DictDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
 		}
 	}
 
 	@Override
 	protected void preUpdate(DictDO po) {
-		if (po.getParentId() != null) {
-			DictDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"字典项不能添加子节点");
-		}
-
 		if (StrUtil.isNotEmpty(po.getCode())) {
 			DictDO byId = getById(po.getId());
 			// 如果编码有改动
@@ -62,6 +58,10 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 				// 编码已存在不能修改
 				assertByColumn(po.getCode(),DictDO::getCode,false);
 			}
+		}
+		if (po.getParentId() != null) {
+			DictDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
 		}
 	}
 }

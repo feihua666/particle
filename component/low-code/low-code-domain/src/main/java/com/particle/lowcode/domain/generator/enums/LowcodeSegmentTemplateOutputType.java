@@ -12,7 +12,7 @@ import com.particle.component.light.share.dict.api.IDictItem;
  * @author yangwei
  * @since 2023-01-06
  */
-public enum OutputType implements IDictItem {
+public enum LowcodeSegmentTemplateOutputType implements IDictItem {
 	/**
 	 * 输出文件
 	 */

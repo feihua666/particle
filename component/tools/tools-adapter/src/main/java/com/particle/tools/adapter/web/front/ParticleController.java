@@ -24,11 +24,16 @@ import java.util.function.Predicate;
  * Created by yangwei
  * Created at 2023-05-11 12:38:09
  */
-@Tag(name = "Cron相关接口")
+@Tag(name = "Particle项目相关接口")
 @RestController
 @RequestMapping("front/web/particle")
 public class ParticleController extends AbstractBaseWebAdapter {
 
+    /**
+     * 主要用于对已生成的代码，添加字段，包括常用的po、command、vo等，注意不包括sql
+     * @param addFieldCommand
+     * @return
+     */
     @Operation(summary = "添加字段")
     @PostMapping("/addField")
     @ResponseStatus(HttpStatus.OK)

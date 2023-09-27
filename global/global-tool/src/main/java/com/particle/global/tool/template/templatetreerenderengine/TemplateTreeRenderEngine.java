@@ -8,36 +8,42 @@ import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import cn.hutool.extra.template.engine.enjoy.EnjoyEngine;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;
 import com.particle.global.tool.template.CustomEnjoyEngine;
 import com.particle.global.tool.template.TemplateTool;
 import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
 import com.particle.global.tool.template.templatetreerenderengine.render.RenderContext;
 import com.particle.global.tool.template.templatetreerenderengine.render.SegmentTemplateData;
+import com.particle.global.tool.template.templatetreerenderengine.render.TemplateRenderCondition;
 import com.particle.global.tool.template.templatetreerenderengine.render.TemplateRenderContext;
 import com.particle.global.tool.template.templatetreerenderengine.template.ISegmentTemplateRenderDataResolver;
+import com.particle.global.tool.template.templatetreerenderengine.template.ResolveRenderDataParam;
 import com.particle.global.tool.template.templatetreerenderengine.template.SegmentTemplate;
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.script.Bindings;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>
  * 模板树渲染引擎
  * 支持模板带有子级渲染规则如下：
  * 1. 模板支持名称渲染和内容渲染
- * 2. 优先渲染模板名称，模板名称一般用户输出文件或目录，其输出变量可在直接子级（子一级中）中使用，需添加 parent 前缀，如：#(parent.outputVariable)
- * 3. 内容模板用来生成模板片段或文件内容，其可以使用直接子级中定义的输出变量
- * 4. 在父级中可使用的子级输出变量为 child.[输出自定义变量],在子级中可使用的父级输出变量为 parent.[输出自定义变量]，parents.share.[共享自定义变量] ，parents.shareAct([共享自定义变量],[变量值])
- * 5. 可以模板中处理模板获取的数据 前缀：trd.[获取的数据]，通过 {@link SegmentTemplate#segmentTemplateRenderDataResolver} 获取的数据
- * 6. 如果输出为 .java 文件后缀文件，会输出一个 [名称输出变量名]+JavaPackage 变量，值为java包名
+ * 2. 优先渲染模板名称，模板名称一般用户输出文件或目录，其输出变量可在直接子级（子一级中）中使用，需添加 parent 前缀，如：#(parent.outputVar.[outputVariable])
+ * 3. 内容模板用来生成模板片段或文件内容，其可以使用直接子级中定义的内容输出变量，来聚合子集内容
+ * 4. 在父级中可使用的子级输出变量为 child.outputVar.[输出自定义变量],在子级中可使用的父级输出变量为 parent.outputVar.[输出自定义变量]，parent.share.[共享自定义变量] ，parent.shareAct([共享自定义变量],[变量值])
+ * 5. 可以模板中处理模板获取的数据 前缀：trd.[获取的数据]，通过 {@link SegmentTemplate#segmentTemplateRenderDataResolver} 获取的数据，模板自定义数据可以在该模板所有位置使用（包括计算模板、标题模板、内容模板）
+ * 6. 如果输出为 .java 文件后缀文件，会输出一个 [名称输出变量名]+JavaPackage 变量，值为java包名，这是对java文件特有的支持
  * 7. 如果全局或扩展数据有java package值，建议指定{@link ConfigData#getJavaPackageKeys()} 以自动转换为 [key]Path的全局或扩展变量作为路径处理
- * 8. 渲染模板时，自动配置一个变量为 tempMap 的 map变量以做为临时map变量，是样可以被子级访问
- * 9. 更多的功能可使用 parentContext 来访问父级渲染上下文
+ * 8. 渲染模板时，自动配置一个变量为 tempMap 的 map变量以做为临时map变量，这样可以被子级访问
+ * 9. 更多的功能可使用 parent.context 来访问父级渲染上下文
  * </p>
  *
  * @author yangwei
@@ -82,10 +88,11 @@ public class TemplateTreeRenderEngine {
 		RenderContext renderContext = renderWithRenderContext(configData, segmentTemplate);
 		List<TemplateRenderContext> templateRenderContexts = renderContext.getTemplateRenderContexts();
 		if (!templateRenderContexts.isEmpty()) {
+			// 如果渲染上下文不为空，第一个即是根模板渲染内容
 			TemplateRenderContext next = templateRenderContexts.iterator().next();
 			return next.getSegmentTemplateData().getTemplateContentResult();
 		}
-		return "";
+		return null;
 	}
 	/**
 	 * 渲染
@@ -97,6 +104,16 @@ public class TemplateTreeRenderEngine {
 	protected String doRender(SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext) {
 
 		TemplateRenderContext templateRenderContext = preDoRender(segmentTemplate, parentTemplateRenderContext, renderContext);
+
+		// 判断渲染条件
+		TemplateRenderCondition templateRenderCondition = templateRenderCondition(segmentTemplate, templateRenderContext);
+		if (templateRenderCondition != null) {
+			// 如果返回结果为忽略，后续逻辑不再执行
+			if (templateRenderCondition == TemplateRenderCondition.ignore) {
+				log.debug("templateRenderCondition is ignore.returned!");
+				return null;
+			}
+		}
 
 		/*************************** 渲染名称*********************************************************/
 		doRenderTemplateNameContent(templateRenderContext,segmentTemplate, parentTemplateRenderContext, renderContext);
@@ -138,15 +155,22 @@ public class TemplateTreeRenderEngine {
 		// 待渲染的数据,如果父级存在，将父级数据加入
 		Map<String, Object> objectMap = renderContext.getConfigData().toMap();
 
-		String tempMap = "tempMap";
+		// 渲染条件预定义对象
+		objectMap.put("renderCondition", TemplateRenderCondition.templateRenderConditionMap);
+
+		Map<String, Object> parent = new HashMap<>();
+		objectMap.put("parent", parent);
+
+		String tempMap = "temp";
 		objectMap.put(tempMap, new HashMap<>());
-		objectMap.put("parentContext", parentTemplateRenderContext);
+
+		parent.put("context", parentTemplateRenderContext);
 
 
 		// 将父级输出变量可引用
 		if (parentTemplateRenderContext != null) {
-			objectMap.put("parent", parentTemplateRenderContext.getSegmentTemplateData().outputVariableMap());
-			objectMap.put("parentTempMap", parentTemplateRenderContext.getRenderData().get(tempMap));
+			parent.put("outputVar", parentTemplateRenderContext.getSegmentTemplateData().outputVariableMap());
+			parent.put(tempMap, parentTemplateRenderContext.getRenderData().get(tempMap));
 		}
 		templateRenderContext.setRenderData(objectMap);
 
@@ -164,13 +188,22 @@ public class TemplateTreeRenderEngine {
 		}
 		if (parentTemplateRenderContext != null) {
 			Map<String, Object> parentsShareData = parentShareDataMap(templateRenderContext);
-			objectMap.put("parents", parentsShareData);
+			if (parentsShareData != null) {
+				parent.putAll(parentsShareData);
+			}
 		}
 
 		// 获取模板私有数据
 		ISegmentTemplateRenderDataResolver segmentTemplateRenderDataResolver = segmentTemplate.getSegmentTemplateRenderDataResolver();
 		if (segmentTemplateRenderDataResolver != null) {
-			Object resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(segmentTemplate);
+			ResolveRenderDataParam resolveRenderDataParam = ResolveRenderDataParam.create(objectMap,segmentTemplate);
+			Object resolveRenderData = null;
+			try {
+				resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(resolveRenderDataParam);
+			} catch (Exception e) {
+				throw new RuntimeException("render groovy script error",e);
+			}
+			// trd 为TemplateRenderData的缩写
 			objectMap.put("trd", resolveRenderData);
 		}
 
@@ -181,6 +214,28 @@ public class TemplateTreeRenderEngine {
 		return templateRenderContext;
 	}
 
+	/**
+	 * 渲染结果条件
+	 * @return
+	 */
+	@SneakyThrows
+	protected TemplateRenderCondition templateRenderCondition(SegmentTemplate segmentTemplate, TemplateRenderContext templateRenderContext){
+		String conditionGroovyScript = Optional.ofNullable(segmentTemplate)
+				.map(item -> item.getExtConfig()).map(item -> item.getConditionGroovyScript()).orElse(null);
+		if (StrUtil.isNotEmpty(conditionGroovyScript)) {
+			Bindings bindings = GroovyTool.createBindings();
+			Map<String, Object> renderData = Optional.ofNullable(templateRenderContext).map(item -> item.getRenderData()).orElse(null);
+			if (CollectionUtil.isNotEmpty(renderData)) {
+				bindings.putAll(renderData);
+			}
+
+			Object o = GroovyTool.compileAndEval(conditionGroovyScript, bindings, true);
+			if (o instanceof TemplateRenderCondition) {
+				return ((TemplateRenderCondition) o);
+			}
+		}
+		return null;
+	}
 	/**
 	 * 获取最近的父一级共享变量数据
 	 * @param templateRenderContext
@@ -298,14 +353,21 @@ public class TemplateTreeRenderEngine {
 		OutputType outputType = segmentTemplate.getOutputType();
 		OutputFileHandleType outputFileHandleType = segmentTemplate.getOutputFileHandleType();
 
+		String childKey = "child";
+		String childOutputVarKey = "outputVar";
 		// 将渲染完的结果变量给到上一级使用
 		if (parentTemplateRenderContext != null) {
-			Object child = parentTemplateRenderContext.getRenderData().get("child");
+			Map child = (Map)parentTemplateRenderContext.getRenderData().get(childKey);
 			if (child == null) {
 				child = new HashMap<>();
-				parentTemplateRenderContext.getRenderData().put("child", child);
+				parentTemplateRenderContext.getRenderData().put(childKey, child);
 			}
-			((Map) child).putAll(segmentTemplateData.outputVariableMap());
+			Map childOutputVar = (Map)child.get(childOutputVarKey);
+			if (childOutputVar == null) {
+				childOutputVar = new HashMap<>();
+				child.put(childOutputVarKey, childOutputVar);
+			}
+			((Map) childOutputVar).putAll(segmentTemplateData.outputVariableMap());
 		}
 
 		// 将数据写入文件

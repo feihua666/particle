@@ -62,8 +62,8 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 		}
 
 		if (po.getParentId() != null) {
-			OpenplatformOpenapiDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"接口不能添加子节点");
+			OpenplatformOpenapiDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"接口不能添加子节点");
 		}
 
 	}
@@ -71,10 +71,6 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 	@Override
 	protected void preUpdate(OpenplatformOpenapiDO po) {
 
-		if (po.getParentId() != null) {
-			OpenplatformOpenapiDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"接口不能添加子节点");
-		}
 
 	    OpenplatformOpenapiDO byId = null;
 	    if (StrUtil.isNotEmpty(po.getCode())) {
@@ -96,7 +92,11 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 	        }
 	    }
 
-    
+
+		if (po.getParentId() != null) {
+			OpenplatformOpenapiDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"接口不能添加子节点");
+		}
 	}
 
 	@Override

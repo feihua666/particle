@@ -5,6 +5,7 @@ import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.script.ScriptUtil;
 
 import javax.script.*;
+import java.util.Map;
 
 /**
  * <p>
@@ -41,10 +42,18 @@ public class GroovyTool {
 	public static Bindings createBindings(){
 		return getGroovyEngine().createBindings();
 	}
+	public static Bindings createBindings(Map<String,Object> data){
+		Bindings bindings = createBindings();
+		if (data != null) {
+			bindings.putAll(data);
+		}
+		return bindings;
+	}
 	/**
 	 * 编码并执行
 	 * @param script
 	 * @param bindings
+	 * @param useCache 是否使用已经编译好的脚本，否则重新编译
 	 * @return
 	 */
 	public static Object compileAndEval(String script, Bindings bindings,boolean useCache) throws ScriptException {

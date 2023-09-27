@@ -1,0 +1,2 @@
+-- import classpath:db/data.report.dict.sql
+-- import classpath:db/data.report.func.sql

@@ -40,7 +40,7 @@ public class OpenplatformOpenapiRecordParamAdminWebController extends AbstractBa
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordParam:delete')")
 	@Operation(summary = "删除开放平台开放接口调用记录参数")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台开放接口调用记录参数",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台开放接口调用记录参数",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformOpenapiRecordParamVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformOpenapiRecordParamApplicationService.delete(deleteCommand);
 	}

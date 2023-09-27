@@ -1,6 +1,12 @@
 package com.particle.global.tool.template;
 
+import cn.hutool.json.JSONNull;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.particle.global.tool.json.JsonTool;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,5 +25,15 @@ public class JsonToolTest {
 		System.out.println(JsonTool.isJsonStrEmpty("[]"));
 		System.out.println(JsonTool.isJsonStrEmpty("[   ]"));
 		System.out.println(JsonTool.isJsonStrEmpty("[ 22  ]"));
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("aaa", null);
+
+		String toJsonStr = JsonTool.toJsonStr(map);
+
+		System.out.println(toJsonStr);
+		JSONObject jsonObject = JSONUtil.parseObj(toJsonStr);
+		// debug查看aaa为null而不是JSONNull
+		System.out.println(jsonObject);
 	}
 }

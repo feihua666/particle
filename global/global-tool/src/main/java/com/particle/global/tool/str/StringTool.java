@@ -1,5 +1,7 @@
 package com.particle.global.tool.str;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,5 +43,20 @@ public class StringTool {
         }
         matcher.appendTail(sb);
         return sb.toString();
+    }
+
+    /**
+     * 字符串引用，如果str为空将使用referenceStr，否则将str中的占位字符替换为referenceStr
+     * @param str
+     * @param referenceStr
+     * @return
+     */
+    public static String referenceStr(String str, String referenceStr) {
+
+        if (StrUtil.isEmpty(str)) {
+            return StrUtil.emptyToNull(referenceStr);
+        }
+        String tempReferenceStr = StrUtil.nullToEmpty(referenceStr);
+        return str.replace("{{referenceStr}}", tempReferenceStr);
     }
 }

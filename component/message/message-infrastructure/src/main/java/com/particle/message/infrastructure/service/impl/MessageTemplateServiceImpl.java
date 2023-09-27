@@ -43,17 +43,14 @@ public class MessageTemplateServiceImpl extends IBaseServiceImpl<MessageTemplate
 		}
 
 		if (po.getParentId() != null) {
-			MessageTemplateDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"模板不能添加子节点");
+			MessageTemplateDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"模板不能添加子节点");
 		}
 	}
 
 	@Override
 	protected void preUpdate(MessageTemplateDO po) {
-		if (po.getParentId() != null) {
-			MessageTemplateDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"模板不能添加子节点");
-		}
+
 
 		if (StrUtil.isNotEmpty(po.getCode())) {
 			MessageTemplateDO byId = getById(po.getId());
@@ -62,6 +59,10 @@ public class MessageTemplateServiceImpl extends IBaseServiceImpl<MessageTemplate
 				// 编码已存在不能修改
 				assertByColumn(po.getCode(),MessageTemplateDO::getCode,false);
 			}
+		}
+		if (po.getParentId() != null) {
+			MessageTemplateDO byId = getById(po.getParentId());
+			Assert.isTrue(byId.getIsGroup(),"模板不能添加子节点");
 		}
 	}
 }

@@ -27,6 +27,7 @@ public class OpLogConstants {
 		public static final String dataQuery = "dataQuery";
 		public static final String oauth2authorization = "oauth2authorization";
 		public static final String openPlatform = "openPlatform";
+		public static final String report = "report";
 
 		public static final String unknown = "unknown";
 

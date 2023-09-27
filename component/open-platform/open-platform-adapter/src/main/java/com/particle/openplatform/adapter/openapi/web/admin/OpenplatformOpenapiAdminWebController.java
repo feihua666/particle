@@ -45,7 +45,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:create')")
 	@Operation(summary = "添加开放平台开放接口")
 	@PostMapping("/create")
-	@OpLog(name = "添加开放平台开放接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加开放平台开放接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public SingleResponse<OpenplatformOpenapiVO> create(@RequestBody OpenplatformOpenapiCreateCommand openplatformOpenapiCreateCommand){
 		return iOpenplatformOpenapiApplicationService.create(openplatformOpenapiCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:delete')")
 	@Operation(summary = "删除开放平台开放接口")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台开放接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台开放接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformOpenapiVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformOpenapiApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:update')")
 	@Operation(summary = "更新开放平台开放接口")
 	@PutMapping("/update")
-	@OpLog(name = "更新开放平台开放接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新开放平台开放接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
 	public SingleResponse<OpenplatformOpenapiVO> update(@RequestBody OpenplatformOpenapiUpdateCommand openplatformOpenapiUpdateCommand){
 		return iOpenplatformOpenapiApplicationService.update(openplatformOpenapiUpdateCommand);
 	}

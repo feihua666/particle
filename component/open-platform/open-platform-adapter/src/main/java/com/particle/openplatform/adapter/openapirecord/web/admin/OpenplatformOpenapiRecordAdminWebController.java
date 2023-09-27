@@ -39,7 +39,7 @@ public class OpenplatformOpenapiRecordAdminWebController extends AbstractBaseWeb
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecord:delete')")
 	@Operation(summary = "删除开放平台开放接口调用记录")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台开放接口调用记录",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台开放接口调用记录",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformOpenapiRecordVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformOpenapiRecordApplicationService.delete(deleteCommand);
 	}

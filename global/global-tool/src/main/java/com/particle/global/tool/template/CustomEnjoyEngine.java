@@ -1,7 +1,10 @@
 package com.particle.global.tool.template;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.comparator.CompareUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.Template;
@@ -10,7 +13,16 @@ import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.engine.enjoy.EnjoyTemplate;
 import cn.hutool.json.JSONNull;
 import cn.hutool.json.JSONUtil;
+import com.google.common.collect.Comparators;
 import com.jfinal.template.source.FileSourceFactory;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.str.FilePathTool;
+import com.particle.global.tool.str.NetPathTool;
+import lombok.SneakyThrows;
+import org.apache.commons.collections4.ComparatorUtils;
+
+import javax.script.Bindings;
+import java.util.*;
 
 /**
  * <p>
@@ -72,7 +84,7 @@ public class CustomEnjoyEngine implements TemplateEngine{
 	 */
 	private void init(com.jfinal.template.Engine engine){
 		this.engine = engine;
-		engine.addSharedMethod(new ObjKit());
+		engine.addSharedMethod(new SharedMethodKit());
 
 	}
 
@@ -139,7 +151,7 @@ public class CustomEnjoyEngine implements TemplateEngine{
 	/**
 	 * Shared Method 扩展
 	 */
-	public static class ObjKit{
+	public static class SharedMethodKit {
 		/**
 		 * 判断对象是否为空，在模板中尽量使用该方法
 		 * 因为在使用 hutool将json转为map时，如果值有null，并不是null而是 {@link JSONNull}
@@ -148,6 +160,26 @@ public class CustomEnjoyEngine implements TemplateEngine{
 		 */
 		public static boolean isObjNull(Object obj) {
 			return JSONUtil.isNull(obj);
+		}
+
+		/**
+		 * 如果为null设置一个默认值
+		 * @param obj
+		 * @param defaultObj
+		 * @return
+		 */
+		public static Object nullToDefault(Object obj, Object defaultObj) {
+			return isObjNull(obj) ? defaultObj : obj;
+		}
+
+		/**
+		 * 将null转为null
+		 * 因为在使用 hutool将json转为map时，如果值有null，并不是null而是 {@link JSONNull}
+		 * @param obj
+		 * @return
+		 */
+		public Object nullToNull(Object obj) {
+			return isObjNull(obj) ? null : obj;
 		}
 
 		/**
@@ -176,6 +208,27 @@ public class CustomEnjoyEngine implements TemplateEngine{
 		}
 
 		/**
+		 * 如果一个对象为空，则转为null，包括字符串和集合
+		 * @param o
+		 * @return
+		 */
+		public static Object emptyToNull(Object o) {
+			if (isObjNull(o)) {
+				return null;
+			}
+			if (o instanceof String) {
+				return emptyStrToNull(((String) o));
+			}
+			if (o instanceof Collection) {
+				return CollectionUtil.isEmpty(((Collection<?>) o)) ? null : o;
+			}
+			if (o instanceof Object[]) {
+				return ((Object[]) o).length == 0 ? null : o;
+			}
+			return o;
+		}
+
+		/**
 		 * 返回第一个有值的字符串
 		 * @param str
 		 * @return
@@ -189,6 +242,151 @@ public class CustomEnjoyEngine implements TemplateEngine{
 				}
 			}
 			return null;
+		}
+
+		/**
+		 * 新建一个map
+		 * @return
+		 */
+		public static Map<Object, Object> newHashMap() {
+			return new HashMap<>();
+		}
+
+
+		/**
+		 * 新建一个list
+		 * @return
+		 */
+		public static List<Object> newArrayList() {
+			return new ArrayList<>();
+		}
+
+		/**
+		 * 先从map获取一个key ,先返回然后加步长
+		 * @param map
+		 * @param key
+		 * @param step
+		 * @return
+		 */
+		public static Integer integerGetAndIncrement(Map<Object,Object> map,String key,int step){
+			Integer result = (Integer)map.get(key);
+			if (result != null) {
+				map.put(key, result + step);
+			}
+			return result;
+		}
+		/**
+		 * 先从map获取一个key ,先返回然后加步长 1
+		 * @param map
+		 * @param key
+		 * @return
+		 */
+		public static Integer integerGetAndIncrementOne(Map<Object,Object> map,String key){
+			return integerGetAndIncrement(map, key, 1);
+		}
+		/**
+		 * 先从map获取一个key并加步长后返回
+		 * @param map
+		 * @param key
+		 * @param step
+		 * @return
+		 */
+		public static Integer integerIncrementAndGet(Map<Object,Object> map,String key,int step){
+			Integer result = (Integer)map.get(key);
+			if (result != null) {
+				result += step;
+				map.put(key, result);
+			}
+			return result;
+		}
+		/**
+		 * 先从map获取一个key并加步长 1 后返回
+		 * @param map
+		 * @param key
+		 * @return
+		 */
+		public static Integer integerIncrementAndGetOne(Map<Object,Object> map,String key){
+			return integerIncrementAndGet(map, key, 1);
+		}
+
+		/**
+		 * 执行groovy脚本
+		 * @param expression
+		 * @param data
+		 * @return
+		 */
+		@SneakyThrows
+		public static Object groovyScript(String expression, Map<String, Object> data) {
+			Bindings bindings = GroovyTool.createBindings();
+			if (data != null) {
+				bindings.putAll(data);
+			}
+			Object o = GroovyTool.compileAndEval(expression, bindings, true);
+			return o;
+		}
+
+		/**
+		 * 将字符格式化为字符串
+		 * @param pattern
+		 * @param value
+		 * @return
+		 */
+		public static String decimalFormat(String pattern, Object value) {
+			if (value == null) {
+				return null;
+			}
+			try {
+				return NumberUtil.decimalFormat(pattern, value);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		/**
+		 * 格式化为百分数，并保留两位小数
+		 * @param value
+		 * @return
+		 */
+		public static String decimalFormatP2(Object value) {
+			return decimalFormat("#.##%", value);
+		}
+
+		/**
+		 * 可比较的排序，一般集合中的元素必须实现{@link Comparable} 接口
+		 * @param collection
+		 * @param asc true=升序，false=降序
+		 * @param isNullGreater null值是否做为最大值
+		 * @return
+		 */
+		public static Collection<Object> comparableSort(Collection<Object> collection, boolean asc, boolean isNullGreater) {
+			if (CollectionUtil.isEmpty(collection)) {
+				return collection;
+			}
+			List<Object> sort = CollectionUtil.sort(collection, (v1, v2) -> {
+				if (asc) {
+					return CompareUtil.compare(v1, v2, false);
+				}
+				return 0 - CompareUtil.compare(v1, v2, false);
+			});
+			return sort;
+		}
+
+		/**
+		 * 拼接网络路径
+		 * @param str
+		 * @return
+		 */
+		public static String netPathConcat(String ...str) {
+			return NetPathTool.concat(str);
+		}
+		/**
+		 * 拼接网络路径
+		 * @param str
+		 * @return
+		 */
+		public static String filePathConcat(String ...str) {
+			return FilePathTool.concat(str);
 		}
 	}
 }

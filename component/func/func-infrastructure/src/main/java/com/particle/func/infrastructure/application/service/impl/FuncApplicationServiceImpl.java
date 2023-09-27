@@ -43,17 +43,14 @@ public class FuncApplicationServiceImpl extends IBaseServiceImpl<FuncApplication
 		}
 
 		if (po.getParentId() != null) {
-			FuncApplicationDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"应用不能添加子节点");
+			FuncApplicationDO byParentId = getById(po.getParentId());
+			Assert.isTrue(byParentId.getIsGroup(),"应用不能添加子节点");
 		}
 	}
 
 	@Override
 	protected void preUpdate(FuncApplicationDO po) {
-		if (po.getParentId() != null) {
-			FuncApplicationDO byId = getById(po.getParentId());
-			Assert.isTrue(byId.getIsGroup(),"应用不能添加子节点");
-		}
+
 
 		if (StrUtil.isNotEmpty(po.getCode())) {
 			FuncApplicationDO byId = getById(po.getId());
@@ -62,6 +59,10 @@ public class FuncApplicationServiceImpl extends IBaseServiceImpl<FuncApplication
 				// 编码已存在不能修改
 				assertByColumn(po.getCode(),FuncApplicationDO::getCode,false);
 			}
+		}
+		if (po.getParentId() != null) {
+			FuncApplicationDO byId = getById(po.getParentId());
+			Assert.isTrue(byId.getIsGroup(),"应用不能添加子节点");
 		}
 	}
 }

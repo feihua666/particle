@@ -45,7 +45,7 @@ public class OpenplatformProviderAdminWebController extends AbstractBaseWebAdapt
 	@PreAuthorize("hasAuthority('admin:web:openplatformProvider:create')")
 	@Operation(summary = "添加开放平台开放接口供应商")
 	@PostMapping("/create")
-	@OpLog(name = "添加开放平台开放接口供应商",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加开放平台开放接口供应商",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public SingleResponse<OpenplatformProviderVO> create(@RequestBody OpenplatformProviderCreateCommand openplatformProviderCreateCommand){
 		return iOpenplatformProviderApplicationService.create(openplatformProviderCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class OpenplatformProviderAdminWebController extends AbstractBaseWebAdapt
 	@PreAuthorize("hasAuthority('admin:web:openplatformProvider:delete')")
 	@Operation(summary = "删除开放平台开放接口供应商")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台开放接口供应商",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台开放接口供应商",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformProviderVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformProviderApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class OpenplatformProviderAdminWebController extends AbstractBaseWebAdapt
 	@PreAuthorize("hasAuthority('admin:web:openplatformProvider:update')")
 	@Operation(summary = "更新开放平台开放接口供应商")
 	@PutMapping("/update")
-	@OpLog(name = "更新开放平台开放接口供应商",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新开放平台开放接口供应商",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
 	public SingleResponse<OpenplatformProviderVO> update(@RequestBody OpenplatformProviderUpdateCommand openplatformProviderUpdateCommand){
 		return iOpenplatformProviderApplicationService.update(openplatformProviderUpdateCommand);
 	}

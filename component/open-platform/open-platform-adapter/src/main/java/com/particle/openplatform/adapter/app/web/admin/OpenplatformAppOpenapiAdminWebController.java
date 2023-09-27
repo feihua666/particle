@@ -45,7 +45,7 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformAppOpenapi:create')")
 	@Operation(summary = "添加开放平台应用与开放接口配置")
 	@PostMapping("/create")
-	@OpLog(name = "添加开放平台应用与开放接口配置",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加开放平台应用与开放接口配置",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public SingleResponse<OpenplatformAppOpenapiVO> create(@RequestBody OpenplatformAppOpenapiCreateCommand openplatformAppOpenapiCreateCommand){
 		return iOpenplatformAppOpenapiApplicationService.create(openplatformAppOpenapiCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformAppOpenapi:delete')")
 	@Operation(summary = "删除开放平台应用与开放接口配置")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台应用与开放接口配置",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台应用与开放接口配置",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformAppOpenapiVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformAppOpenapiApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformAppOpenapi:update')")
 	@Operation(summary = "更新开放平台应用与开放接口配置")
 	@PutMapping("/update")
-	@OpLog(name = "更新开放平台应用与开放接口配置",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新开放平台应用与开放接口配置",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
 	public SingleResponse<OpenplatformAppOpenapiVO> update(@RequestBody OpenplatformAppOpenapiUpdateCommand openplatformAppOpenapiUpdateCommand){
 		return iOpenplatformAppOpenapiApplicationService.update(openplatformAppOpenapiUpdateCommand);
 	}

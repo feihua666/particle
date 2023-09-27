@@ -24,6 +24,11 @@ public class TemplateRenderContext {
 	}
 
 	/**
+	 * 模板渲染条件
+	 */
+	private TemplateRenderCondition templateRenderCondition;
+
+	/**
 	 * 渲染的模板和结果
 	 */
 	private SegmentTemplateData segmentTemplateData;

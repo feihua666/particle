@@ -4,7 +4,7 @@ import com.particle.common.domain.gateway.IGateway;
 
 /**
  * <p>
- * 功能字典
+ * 低代码字典
  * </p>
  *
  * @author yangwei

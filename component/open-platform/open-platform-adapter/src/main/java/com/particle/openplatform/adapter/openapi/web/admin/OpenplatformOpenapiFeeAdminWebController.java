@@ -45,7 +45,7 @@ public class OpenplatformOpenapiFeeAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiFee:create')")
 	@Operation(summary = "添加开放平台开放接口费用")
 	@PostMapping("/create")
-	@OpLog(name = "添加开放平台开放接口费用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加开放平台开放接口费用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public SingleResponse<OpenplatformOpenapiFeeVO> create(@RequestBody OpenplatformOpenapiFeeCreateCommand openplatformOpenapiFeeCreateCommand){
 		return iOpenplatformOpenapiFeeApplicationService.create(openplatformOpenapiFeeCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class OpenplatformOpenapiFeeAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiFee:delete')")
 	@Operation(summary = "删除开放平台开放接口费用")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台开放接口费用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台开放接口费用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformOpenapiFeeVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformOpenapiFeeApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class OpenplatformOpenapiFeeAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiFee:update')")
 	@Operation(summary = "更新开放平台开放接口费用")
 	@PutMapping("/update")
-	@OpLog(name = "更新开放平台开放接口费用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新开放平台开放接口费用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
 	public SingleResponse<OpenplatformOpenapiFeeVO> update(@RequestBody OpenplatformOpenapiFeeUpdateCommand openplatformOpenapiFeeUpdateCommand){
 		return iOpenplatformOpenapiFeeApplicationService.update(openplatformOpenapiFeeUpdateCommand);
 	}

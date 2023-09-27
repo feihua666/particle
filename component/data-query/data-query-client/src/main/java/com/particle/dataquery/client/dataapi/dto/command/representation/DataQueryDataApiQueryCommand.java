@@ -26,7 +26,7 @@ public class DataQueryDataApiQueryCommand extends AbstractBaseCommand {
     /**
      * 参数对象
      */
-    @Schema(description = "参数对象",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "参数对象")
     private Object param;
 
     /**

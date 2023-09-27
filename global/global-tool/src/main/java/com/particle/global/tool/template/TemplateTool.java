@@ -5,6 +5,7 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import com.particle.global.tool.json.JsonTool;
 
 import java.util.Map;
 
@@ -51,7 +52,11 @@ public class TemplateTool {
 		if (StrUtil.isBlank(template)) {
 			return template;
 		}
-		Template template1 = engine.getTemplate(template);
-		return template1.render(data);
+		try {
+			Template template1 = engine.getTemplate(template);
+			return template1.render(data);
+		} catch (Exception e) {
+			throw new RuntimeException("template=" + template, e);
+		}
 	}
 }

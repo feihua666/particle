@@ -22,10 +22,10 @@ import java.util.Set;
 @Schema
 public class LowcodeSegmentTemplateCopyCommand extends IdCommand {
 
-	@Schema(description = "父级id")
+	@Schema(description = "父级id,可以重新指定一个父级id")
 	private Long parentId;
 
-	@Schema(description = "是否包含所有子孙，父级id不为空时有效")
+	@Schema(description = "是否包含所有子孙")
 	private Boolean isIncludeAllChildren;
 
 	@Schema(description = "关键字文本替换",example = "text=newText,text1=newText1")

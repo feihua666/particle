@@ -2,6 +2,7 @@ package com.particle.lowcode.infrastructure.generator.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.tool.str.StringTool;
 import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.TemplateTreeRenderEngine;
 import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
@@ -55,6 +56,7 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 		RenderContext renderContext = templateTreeRenderEngine.renderWithRenderContext(configData, segmentTemplate);
 		List<TemplateRenderContext> templateRenderContexts = renderContext.getTemplateRenderContexts();
 		if (!templateRenderContexts.isEmpty()) {
+			// 第一个是根节点
 			TemplateRenderContext next = templateRenderContexts.iterator().next();
 			return LowcodeSegmentTemplateRenderResult.create(
 					next.getSegmentTemplateData().getTemplateNameContentResult(),
@@ -143,11 +145,12 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 	private SegmentTemplate lowcodeSegmentTemplateDOToSegmentTemplate(LowcodeSegmentTemplateDO lowcodeSegmentTemplateDO,LowcodeSegmentTemplateDO referenceSegmentTemplateDO){
 		SegmentTemplate segmentTemplate = new SegmentTemplate(lowcodeSegmentTemplateDO.getId().toString());
 
-		segmentTemplate.setTemplateComputeContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getComputeTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getComputeTemplate).orElse(null)));
-		segmentTemplate.setTemplateNameContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getNameTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getNameTemplate).orElse(null)));
+		segmentTemplate.setTemplateComputeContent(StringTool.referenceStr(lowcodeSegmentTemplateDO.getComputeTemplate(),Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getComputeTemplate).orElse(null)));
+		segmentTemplate.setTemplateNameContent(StringTool.referenceStr(lowcodeSegmentTemplateDO.getNameTemplate(),Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getNameTemplate).orElse(null)));
 		segmentTemplate.setOutputNameVariableName(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getNameOutputVariable())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getNameOutputVariable).orElse(null)));
-		segmentTemplate.setTemplateContent(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getContentTemplate())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getContentTemplate).orElse(null)));
+		segmentTemplate.setTemplateContent(StringTool.referenceStr(lowcodeSegmentTemplateDO.getContentTemplate(),Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getContentTemplate).orElse(null)));
 		segmentTemplate.setOutputVariableName(Optional.ofNullable(StrUtil.emptyToNull(lowcodeSegmentTemplateDO.getOutputVariable())).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getOutputVariable).orElse(null)));
+
 
 		segmentTemplate.setOutputType(OutputType.valueOf(Optional.ofNullable(StrUtil.emptyToNull( lowcodeDictGateway.getDictValueById(lowcodeSegmentTemplateDO.getOutputTypeDictId()))).orElse(Optional.ofNullable(referenceSegmentTemplateDO).map(item->lowcodeDictGateway.getDictValueById(item.getOutputTypeDictId())).orElse(null))));
 		List<String> split = StrUtil.split(lowcodeSegmentTemplateDO.getShareVariables(), ',');

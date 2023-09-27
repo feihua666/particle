@@ -45,7 +45,7 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:openplatformApp:create')")
 	@Operation(summary = "添加开放平台应用")
 	@PostMapping("/create")
-	@OpLog(name = "添加开放平台应用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加开放平台应用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public SingleResponse<OpenplatformAppVO> create(@RequestBody OpenplatformAppCreateCommand openplatformAppCreateCommand){
 		return iOpenplatformAppApplicationService.create(openplatformAppCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:openplatformApp:delete')")
 	@Operation(summary = "删除开放平台应用")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除开放平台应用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除开放平台应用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
 	public SingleResponse<OpenplatformAppVO> delete(@RequestBody IdCommand deleteCommand){
 		return iOpenplatformAppApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:openplatformApp:update')")
 	@Operation(summary = "更新开放平台应用")
 	@PutMapping("/update")
-	@OpLog(name = "更新开放平台应用",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新开放平台应用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
 	public SingleResponse<OpenplatformAppVO> update(@RequestBody OpenplatformAppUpdateCommand openplatformAppUpdateCommand){
 		return iOpenplatformAppApplicationService.update(openplatformAppUpdateCommand);
 	}

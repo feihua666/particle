@@ -175,7 +175,7 @@ export const addPageFormItems = [
             comp: 'el-input',
             formItemProps: {
                 label: '名称输出变量名',
-                tips: '表示直接子级可以在模板中使用 parent.[变量名]'
+                tips: '表示直接子级可以在模板中使用 parent.outputVar.[变量名]'
             },
             compProps: {
                 clearable: true,
@@ -209,7 +209,7 @@ export const addPageFormItems = [
             comp: 'el-input',
             formItemProps: {
                 label: '内容输出变量名',
-                tips: '表示父级可以在模板中使用 child.[变量名]'
+                tips: '表示父级可以在模板中使用 child.outputVar.[变量名]'
 
             },
             compProps: {
@@ -226,7 +226,7 @@ export const addPageFormItems = [
             comp: 'el-input',
             formItemProps: {
                 label: '共享变量名',
-                tips: '仅子级可访问，并可设置值，类型为Set&lt;String&gt;可以通过share.[变量名].add("xxx")添加共享数据'
+                tips: '仅子级可访问，并可设置值，值类型为Set&lt;String&gt;子级可以通过parent.share.[变量名].add("xxx")添加共享数据'
             },
             compProps: {
                 clearable: true,
