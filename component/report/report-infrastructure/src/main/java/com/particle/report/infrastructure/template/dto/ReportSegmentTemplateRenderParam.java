@@ -3,6 +3,7 @@ package com.particle.report.infrastructure.template.dto;
 import com.particle.global.dto.basic.Value;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,6 +26,10 @@ public class ReportSegmentTemplateRenderParam extends Value {
 	 */
 	private Map<String,Object> ext;
 	/**
+	 * 全局临时数据
+	 */
+	private Map<String,Object> globalTemp;
+	/**
 	 * 片段模板id
 	 */
 	private Long rootSegmentTemplateId;
@@ -41,16 +46,18 @@ public class ReportSegmentTemplateRenderParam extends Value {
 	 * @return
 	 */
 	public ReportSegmentTemplateRenderParam changeRootSegmentTemplateId(Long rootSegmentTemplateId) {
-		return create(this.global, this.ext, rootSegmentTemplateId, this.outputFileParentAbsoluteDir);
+		return create(this.global, this.ext, this.globalTemp, rootSegmentTemplateId, this.outputFileParentAbsoluteDir);
 	}
 
 	public static ReportSegmentTemplateRenderParam create(Map<String, Object> global,
 												   Map<String, Object> ext,
+														  Map<String,Object> globalTemp,
 												   Long rootSegmentTemplateId,
 												   String outputFileParentAbsoluteDir) {
 		ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam = new ReportSegmentTemplateRenderParam();
 		reportSegmentTemplateRenderParam.setGlobal(global);
 		reportSegmentTemplateRenderParam.setExt(ext);
+		reportSegmentTemplateRenderParam.setGlobalTemp(globalTemp);
 		reportSegmentTemplateRenderParam.setRootSegmentTemplateId(rootSegmentTemplateId);
 		reportSegmentTemplateRenderParam.setOutputFileParentAbsoluteDir(outputFileParentAbsoluteDir);
 

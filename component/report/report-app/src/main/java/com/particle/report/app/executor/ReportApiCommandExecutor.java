@@ -71,7 +71,8 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 
 		ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam = ReportSegmentTemplateRenderParam.create(
 				global,
-				null,
+				new HashMap<>(),
+				new HashMap<>(),
 				reportReportApiDO.getReportSegmentTemplateId(),
 				FileUtil.getTmpDirPath() + File.separator + "particle_report" + File.separator + LocalDateTimeUtil.format(LocalDateTimeUtil.now(), DatePattern.PURE_DATETIME_PATTERN) + SnowflakeIdTool.nextId()
 		);
