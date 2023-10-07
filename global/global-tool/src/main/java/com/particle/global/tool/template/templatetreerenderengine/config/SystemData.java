@@ -22,9 +22,17 @@ public class SystemData {
 	 */
 	private String currentDate = DateUtil.today();
 	/**
+	 * 当前中文日期
+	 */
+	private String currentCnDate = DateUtil.formatChineseDate(DateUtil.date(),false,false);
+	/**
 	 * 当前日期时间
 	 */
 	private String currentDateTime = DateUtil.now();
+	/**
+	 * 当前中文日期时间
+	 */
+	private String currentCnDateTime = DateUtil.formatChineseDate(DateUtil.date(),false,true);
 
 	/**
 	 * 文件系统分隔符
