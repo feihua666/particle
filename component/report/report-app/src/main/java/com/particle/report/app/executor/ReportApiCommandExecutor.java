@@ -12,6 +12,7 @@ import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.str.FilePathTool;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
 import com.particle.report.client.dto.data.ReportApiGenerateVO;
 import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
@@ -74,7 +75,7 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 				new HashMap<>(),
 				new HashMap<>(),
 				reportReportApiDO.getReportSegmentTemplateId(),
-				FileUtil.getTmpDirPath() + File.separator + "particle_report" + File.separator + LocalDateTimeUtil.format(LocalDateTimeUtil.now(), DatePattern.PURE_DATETIME_PATTERN) + SnowflakeIdTool.nextId()
+				FilePathTool.ensureNotEndFileSeparator(FileUtil.getTmpDirPath()) + File.separator + "particle_report" + File.separator + LocalDateTimeUtil.format(LocalDateTimeUtil.now(), DatePattern.PURE_DATETIME_PATTERN) + SnowflakeIdTool.nextId()
 		);
 
 		// 注入数据处理
