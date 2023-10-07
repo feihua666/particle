@@ -86,6 +86,7 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 	private ConfigData configData(ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam){
 		ConfigData configData = ConfigData.create(reportSegmentTemplateRenderParam.getGlobal());
 		configData.setExt(reportSegmentTemplateRenderParam.getExt());
+		configData.setGlobalTemp(reportSegmentTemplateRenderParam.getGlobalTemp());
 		configData.setOutputFileParentAbsoluteDir(reportSegmentTemplateRenderParam.getOutputFileParentAbsoluteDir());
 		return configData;
 	}
