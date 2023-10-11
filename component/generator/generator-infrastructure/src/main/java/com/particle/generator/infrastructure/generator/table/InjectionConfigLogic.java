@@ -431,7 +431,11 @@ public class InjectionConfigLogic {
 		 * 主要是mapper.xml等不需要
 		 */
 		private Boolean ignoreParentPackage;
-		
+
+		/**
+		 * 是否覆盖已有文件（默认 true）
+		 */
+		private Boolean fileOverride = true;
 		
 		/**
 		 * 模板相关性对象

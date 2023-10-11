@@ -53,6 +53,14 @@
             <version>${particle.version}</version>
         </dependency>
 
+        <!-- 实现一个默认的大数据源执行器缓存 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-cache-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!--  主要是为了数据查询动态配置支持 groovy脚本而添加-->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

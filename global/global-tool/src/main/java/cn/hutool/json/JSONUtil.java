@@ -754,7 +754,7 @@ public class JSONUtil {
 	 */
 	public static Object wrap(Object object, JSONConfig jsonConfig) {
 		if (object == null) {
-			//return jsonConfig.isIgnoreNullValue() ? null : JSONNull.NULL;
+			// return jsonConfig.isIgnoreNullValue() ? null : JSONNull.NULL;
 			// 注释掉上面的直接返回null
 			return null;
 		}

@@ -44,8 +44,8 @@ public class ReportSegmentTemplateCopyCommandExecutor extends AbstractBaseExecut
 			}
 			String keyWordReplace = reportSegmentTemplateCopyCommand.getKeyWordReplace();
 			if (StrUtil.isNotEmpty(keyWordReplace)) {
-				for (String keyWord : keyWordReplace.split("===")) {
-					String[] split = keyWord.split("=");
+				for (String keyWord : keyWordReplace.split(reportSegmentTemplateCopyCommand.getGroupSeperator())) {
+					String[] split = keyWord.split(reportSegmentTemplateCopyCommand.getSeperator());
 					handleDO.setCode(Optional.ofNullable(handleDO.getCode()).map(i -> i.replace(split[0], split[1])).orElse(null));
 					handleDO.setName(Optional.ofNullable(handleDO.getName()).map(i -> i.replace(split[0], split[1])).orElse(null));
 					handleDO.setNameTemplate(Optional.ofNullable(handleDO.getNameTemplate()).map(i -> i.replace(split[0], split[1])).orElse(null));

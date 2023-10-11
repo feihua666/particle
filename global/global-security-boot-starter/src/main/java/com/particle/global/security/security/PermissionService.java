@@ -1,6 +1,8 @@
 package com.particle.global.security.security;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.thread.ThreadContextTool;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,14 +34,15 @@ public class PermissionService {
 	 */
 	public boolean hasPermission(String permission) {
 
+		LoginUser loginUser = LoginUserTool.getLoginUser();
+		if (loginUser != null && loginUser.getIsSuperAdmin() != null && loginUser.getIsSuperAdmin()) {
+			return true;
+		}
+
+
 		String permissionTemp = ((String) ThreadContextTool.get(permissionKey));
 
-		if (StrUtil.isBlank(permissionTemp)) {
-			permissionTemp = permission;
-		}
-		if (StrUtil.isBlank(permissionTemp)) {
-			return false;
-		}
+
 		SecurityContext context = SecurityContextHolder.getContext();
 		if (context == null) {
 			return false;
@@ -51,7 +54,7 @@ public class PermissionService {
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		String finalPermissionTemp = permissionTemp;
 		return authorities.stream().map(GrantedAuthority::getAuthority).filter(StringUtils::hasText)
-				.anyMatch(x -> PatternMatchUtils.simpleMatch(finalPermissionTemp, x));
+				.anyMatch(x -> PatternMatchUtils.simpleMatch(finalPermissionTemp, x) || PatternMatchUtils.simpleMatch(permission, x));
 	}
 
 	public static void putPermission(String permission) {

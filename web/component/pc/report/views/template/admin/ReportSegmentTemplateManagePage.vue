@@ -28,6 +28,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      label: "模板权限码",
+      prop: "permissions",
+      showOverflowTooltip: true
+    },
+    {
       label: "输出类型",
       prop: "outputTypeDictName"
     },
@@ -40,21 +45,13 @@ const reactiveData = reactive({
       prop: "computeTemplate",
       showOverflowTooltip: true
     },
-    {
-      label: "名称模板",
-      prop: "nameTemplate",
-      showOverflowTooltip: true
-    },
+
     {
       label: "名称输出变量名",
       prop: "nameOutputVariable",
       showOverflowTooltip: true
     },
-    {
-      label: "内容模板",
-      prop: "contentTemplate",
-      showOverflowTooltip: true
-    },
+
     {
       label: "内容输出变量名",
       prop: "outputVariable",
@@ -64,7 +61,6 @@ const reactiveData = reactive({
       label: "引用模板",
       prop: "referenceSegmentTemplateName"
     },
-
 
     {
       label: "共享变量名",

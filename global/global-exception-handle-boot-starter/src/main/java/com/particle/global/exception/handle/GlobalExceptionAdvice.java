@@ -61,7 +61,6 @@ public class GlobalExceptionAdvice {
                 Optional.ofNullable(errorCode).map(IErrorCode::getErrCode).orElse(null),
                 Optional.ofNullable(errorCode).map(IErrorCode::getErrMessage).orElse(null),
                 data,e.getMessage(), e.getClass().getName());
-        e.printStackTrace();
         if (data != null) {
             SingleResponse singleResponse = SingleResponse.buildFailure(errorCode, userTip);
             singleResponse.setData(data);
@@ -297,7 +296,6 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response handleHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException ex) {
-        ex.printStackTrace();
         return createRM(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, "没有可用参数或参数格式不正确", request.getRequestURI(), ex);
     }
 
@@ -345,14 +343,22 @@ public class GlobalExceptionAdvice {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Response handleException(HttpServletRequest request, Exception ex) {
+    public  ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex) {
+
+        // 兼容一下内部
+        Throwable cause = ex.getCause();
+        if (cause != null && cause instanceof BizException) {
+            return handleBizException(request, (BizException) ex);
+        }
+
         log.error("系统内部异常：{}",ex.getMessage(),ex);
         NotifyParam notifyParam = NotifyParam.system();
         notifyParam.setContentType("global.restcontrolleradvice.error.exception");
         notifyParam.setTitle("系统内部异常");
         notifyParam.setContent(ExceptionUtil.stacktraceToString(ex));
         NotifyTool.notify(notifyParam);
-        return createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
+        Response rm = createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body(rm);
     }
 }

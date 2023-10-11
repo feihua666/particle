@@ -26,6 +26,9 @@ public class ReportSegmentTemplatePageQueryCommand extends AbstractBaseTreePageQ
     @Schema(description = "模板名称，仅做展示")
     private String name;
 
+	@Schema(description = "模板权限码")
+	private String permissions;
+
     @Schema(description = "输出类型字典id，file=文件，dir=目录，segment=片段")
     private Long outputTypeDictId;
 

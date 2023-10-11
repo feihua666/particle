@@ -26,6 +26,9 @@ public class ReportSegmentTemplateVO extends AbstractBaseIdTreeVO {
     @Schema(description = "模板名称，仅做展示")
     private String name;
 
+	@Schema(description = "模板权限码")
+	private String permissions;
+
     @Schema(description = "计算模板")
     private String computeTemplate;
 

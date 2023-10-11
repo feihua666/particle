@@ -1,5 +1,7 @@
 package com.particle.report.app.executor;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -43,6 +45,9 @@ import java.util.Optional;
 @Validated
 public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 
+	public static WeakCache<String, ReportReportApiDO> reportReportApiDOCache = CacheUtil.newWeakCache(14 * 1 * 60000);
+
+
 	@Autowired
 	private IReportSegmentTemplateRenderService iReportSegmentTemplateRenderService;
 
@@ -51,6 +56,9 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 
 	@Autowired(required = false)
 	private IReportApiGenerateDataInjector iReportApiGenerateDataInjector;
+
+	@Autowired
+	private IReportApiGenerateResultHandler iReportApiGenerateResultHandler;
 
 	/**
 	 * 生成报告
@@ -66,7 +74,7 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 		global.put("queryStrMap", UrlQuery.of(reportApiGenerateCommand.getQueryString(), CharsetUtil.CHARSET_UTF_8).getQueryMap());
 		global.put("queryStr", reportApiGenerateCommand.getQueryString());
 
-		ReportReportApiDO reportReportApiDO = iReportReportApiService.getByUrl(reportApiGenerateCommand.getUrl());
+		ReportReportApiDO reportReportApiDO = reportReportApiDOCache.get(reportApiGenerateCommand.getUrl(), () -> iReportReportApiService.getByUrl(reportApiGenerateCommand.getUrl()));
 
 		Assert.notNull(reportReportApiDO,"接口地址不存在");
 
@@ -90,6 +98,8 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 		}
 		String fileAbsolutePath = Optional.ofNullable(reportSegmentTemplateRenderResult.getTemplateNameContentResultFile()).map(item -> item.getAbsolutePath()).orElse(null);
 
+		SingleResponse<ReportApiGenerateVO> result = null;
+		// 后置脚本处理
 		String postScript = reportReportApiDO.getPostScript();
 		if (StrUtil.isNotEmpty(postScript)) {
 			Bindings bindings = GroovyTool.createBindings();
@@ -99,15 +109,18 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 			Object o = GroovyTool.compileAndEval(postScript, bindings, true);
 			// 如果返回null，也直接返回null
 			if (o == null) {
-				return SingleResponse.of(ReportApiGenerateVO.create(null));
-			}
-			if (o instanceof String) {
-				return SingleResponse.of(ReportApiGenerateVO.create(((String) o)));
+				result =  SingleResponse.of(ReportApiGenerateVO.create(null));
+			} else if (o instanceof String) {
+				result = SingleResponse.of(ReportApiGenerateVO.create(((String) o)));
 			}
 			throw new RuntimeException("the returned value type " + o.getClass().getName() + " can not support,only String support from script");
 		}
+		if (result == null) {
+			result = SingleResponse.of(ReportApiGenerateVO.create(fileAbsolutePath));
+		}
+		iReportApiGenerateResultHandler.handle(result.getData());
 
-		return SingleResponse.of(ReportApiGenerateVO.create(fileAbsolutePath));
+		return result;
 	}
 
 	@Autowired

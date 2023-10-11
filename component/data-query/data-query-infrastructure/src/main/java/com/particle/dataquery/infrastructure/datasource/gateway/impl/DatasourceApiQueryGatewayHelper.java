@@ -57,6 +57,7 @@ public class DatasourceApiQueryGatewayHelper {
 		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				datasourceApi.getId().toString()+ "_" + datasourceApi.getName(),
 				// 响应包装
 				BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),
 				iBigDatasourceApiConfig,

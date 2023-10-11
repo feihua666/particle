@@ -31,6 +31,7 @@ public interface ExecutorInfrastructureListener extends InfrastructureListener {
 	 * @param success 标识是否返回了成功的结果，或者说有效的数据
 	 * @param resultData 返回的数据，可能被修改过
 	 * @param resultDataConverted 最终返回的数据，可能被修改过
+	 * @param isCacheHit 是否命中了缓存
 	 */
-	void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString,boolean success,Object resultData,Object resultDataConverted);
+	void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString,boolean success,Object resultData,Object resultDataConverted,Boolean isCacheHit);
 }

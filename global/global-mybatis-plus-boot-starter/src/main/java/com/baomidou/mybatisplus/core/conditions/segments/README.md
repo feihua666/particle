@@ -6,6 +6,7 @@
 
 发现在嵌套时并没有添加括号，所以替换了 AbstractWrapper类，并在嵌套中添加了控制，暂没发现其它问题，可正常使用  
 
+改动版本 4.5.3.2
 修改部分详见：
 com.baomidou.mybatisplus.core.conditions.segments.NormalSegmentList.childrenSqlSegment 90 行
-com.baomidou.mybatisplus.core.conditions.AbstractWrapper.nested 450 行
+com.baomidou.mybatisplus.core.conditions.AbstractWrapper.nested 457 行左右

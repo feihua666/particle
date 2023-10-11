@@ -13,6 +13,7 @@ import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.global.datasource.sqlinit.CustomDataSourceScriptDatabaseInitializer;
 import com.particle.global.tool.str.NetPathTool;
 import com.particle.global.tool.str.PathTool;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -31,6 +32,7 @@ import java.util.Optional;
  * @author yangwei
  * @since 2022-07-07 14:52
  */
+@Slf4j
 public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 
 	@Override
@@ -73,7 +75,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 
 			if (tableGenerateConf.getFileDelete()) {
 				FileUtil.del(fileAbsolutePath);
-				logger.info("删除文件:templatePath={},outputFile={}",templateAndFileName.getTemplate(),fileAbsolutePath);
+				log.info("删除文件:templatePath={},outputFile={}",templateAndFileName.getTemplate(),fileAbsolutePath);
 			}else {
 
 				// 将注入属性平铺，可以不用考虑当前模板，少写一个 outputFileEnum 层级
@@ -81,7 +83,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 				Map<String, Object> injectionDataMap = injectionData.toMap();
 				injection.putAll(injectionDataMap);
 
-				outputFile(new File(fileAbsolutePath), objectMap, templateFilePath(templateAndFileName.getTemplate()));
+				outputFile(new File(fileAbsolutePath), objectMap, templateFilePath(templateAndFileName.getTemplate()),templateAndFileName.getFileOverride());
 
 				// schema处理
 				if (outputFileEnum == OutputFileEnum.tableDdl) {
@@ -101,7 +103,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 							FileUtil.appendUtf8String(System.getProperty("line.separator") + importLocation, schemaPath);
 						}
 					}else {
-						logger.warn("schemaPath={} not exist,importLocation like ({}) maybe used",schemaPath,importLocation);
+						log.warn("schemaPath={} not exist,importLocation like ({}) maybe used",schemaPath,importLocation);
 					}
 				}
 				//	生成完成后移除注入的平铺map
@@ -119,8 +121,8 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 	 * @param templatePath
 	 */
 	@Override
-	protected void outputFile(File file, Map<String, Object> objectMap, String templatePath) {
-		if (isCreate(file)) {
+	protected void outputFile(File file, Map<String, Object> objectMap, String templatePath, boolean fileOverride) {
+		if (isCreate(file,fileOverride)) {
 			try {
 				// 全局判断【默认】
 				boolean exist = file.exists();
@@ -129,7 +131,7 @@ public class EnhanceFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
 					FileUtils.forceMkdir(parentFile);
 				}
 				writer(objectMap, templatePath, file);
-				logger.info("生成文件:templatePath={},outputFile={}",templatePath,file.getAbsolutePath());
+				log.info("生成文件:templatePath={},outputFile={}",templatePath,file.getAbsolutePath());
 			} catch (Exception exception) {
 				throw new RuntimeException(exception);
 			}

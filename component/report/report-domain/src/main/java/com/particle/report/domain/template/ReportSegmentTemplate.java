@@ -28,6 +28,11 @@ public class ReportSegmentTemplate extends AggreateRoot {
     */
     private String name;
 
+	/**
+	 * 模板权限码
+	 */
+	private String permissions;
+
     /**
      * 数据获取脚本，目前仅支持groovy脚本
      */

@@ -30,6 +30,9 @@ public class ReportSegmentTemplateUpdateCommand extends AbstractBaseUpdateComman
     @Schema(description = "模板名称，仅做展示",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
+	@Schema(description = "模板权限码")
+	private String permissions;
+
     @Schema(description = "数据获取脚本，目前仅支持groovy脚本")
     private String dataResolveScript;
 

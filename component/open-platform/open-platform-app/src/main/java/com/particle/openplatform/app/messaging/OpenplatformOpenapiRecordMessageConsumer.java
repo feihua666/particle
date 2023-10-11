@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -169,6 +170,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 						openplatformProviderRecordDO.setDataQueryProviderId(openplatformProviderDO.getDataQueryProviderId());
 					}
 				}
+				openplatformProviderRecordDO.setIsCacheHit(Optional.ofNullable(providerRecord.getIsCacheHit()).orElse(false));
 				openplatformProviderRecordDO.setRemark(providerRecord.getRemark());
 
 				iOpenplatformProviderRecordService.save(openplatformProviderRecordDO);

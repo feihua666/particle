@@ -1,5 +1,7 @@
 package com.particle.dataquery.infrastructure.dataapi.gateway.impl;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.WeakCache;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiCustomScriptType;
@@ -27,6 +29,7 @@ import com.particle.global.tool.template.TemplateRenderDataWrap;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.script.Bindings;
@@ -46,6 +49,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
+
+	private static WeakCache<Object, DataQueryDatasourceApi> dataQueryDatasourceApiCache = CacheUtil.newWeakCache(17 * 1 * 60000);
+	private static WeakCache<Object, DataQueryDatasource> dataQueryDatasourceCache = CacheUtil.newWeakCache(19 * 1 * 60000);
+
 	@Autowired
 	private DatasourceApiQueryGateway datasourceApiQueryGateway;
 	@Autowired
@@ -75,7 +82,6 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 			}
 		}
 
-		// todo 缓存性能
 		return queryRealtime(dataQueryDataApi,param,queryString);
 	}
 
@@ -87,7 +93,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
 		DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
 		if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
-			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId()));
+			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiCache.get(dataQueryDataApi.getDataQueryDatasourceApiId(),()-> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId())));
 			dataQueryDatasourceApi = singleDirectDataQueryDatasourceApi;
 		}
 		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(dataQueryDatasourceApi,null);
@@ -158,8 +164,8 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	}
 
 	public Object doExecuteByDatasourceApiId(Long datasourceApiId,Object param,String queryString){
-		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId));
-		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId()));
+		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiCache.get(datasourceApiId, () -> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId)));
+		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceCache.get(dataQueryDatasourceApi.getDataQueryDatasourceId(), () -> dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId())));
 		return datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, param,queryString);
 	}
 

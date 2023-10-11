@@ -36,7 +36,7 @@ public class RoleAssignFuncCommand extends AbstractBaseCommand {
     private List<Long> checkedFuncIds;
 
     @PropValid.DependCondition(message = "未选择的功能id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @Schema(description = "未选择的功能id",example = "如果为懒加载请传该值")
+    @Schema(title = "未选择的功能id",description = "如果为懒加载请传该值")
     private List<Long> uncheckedFuncIds;
 
     @Schema(description = "页面可选择的数据是否为懒加载")

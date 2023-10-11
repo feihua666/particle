@@ -38,11 +38,6 @@ const reactiveData = reactive({
       prop: "parentName"
     },
     {
-      label: "计算模板",
-      prop: "computeTemplate",
-      showOverflowTooltip: true
-    },
-    {
       label: "名称模板",
       prop: "nameTemplate",
       showOverflowTooltip: true
@@ -50,11 +45,6 @@ const reactiveData = reactive({
     {
       label: "名称输出变量名",
       prop: "nameOutputVariable",
-      showOverflowTooltip: true
-    },
-    {
-      label: "内容模板",
-      prop: "contentTemplate",
       showOverflowTooltip: true
     },
     {
@@ -66,13 +56,10 @@ const reactiveData = reactive({
       label: "引用模板",
       prop: "referenceSegmentTemplateName"
     },
-
-
     {
       label: "共享变量名",
       prop: "shareVariables"
     },
-
     {
       label: "描述",
       prop: "remark",

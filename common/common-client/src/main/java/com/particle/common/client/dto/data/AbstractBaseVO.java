@@ -19,6 +19,6 @@ public abstract class AbstractBaseVO extends VO {
 	/**
 	 * 数据版本
 	 */
-	@Schema(description = "数据版本",example = "从 1 开始取值")
+	@Schema(title = "数据版本",description = "从 1 开始取值")
 	private Integer version;
 }

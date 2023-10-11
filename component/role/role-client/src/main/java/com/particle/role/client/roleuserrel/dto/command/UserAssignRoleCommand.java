@@ -37,7 +37,7 @@ public class UserAssignRoleCommand extends AbstractBaseCommand {
     private List<Long> checkedRoleIds;
 
     @PropValid.DependCondition(message = "未选择的角色id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @Schema(description = "未选择的角色id",example = "如果为懒加载请传该值")
+    @Schema(title = "未选择的角色id",description = "如果为懒加载请传该值")
     private List<Long> uncheckedRoleIds;
 
     @Schema(description = "页面可选择的数据是否为懒加载")

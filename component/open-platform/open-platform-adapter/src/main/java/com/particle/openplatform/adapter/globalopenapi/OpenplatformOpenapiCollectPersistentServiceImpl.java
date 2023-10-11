@@ -99,6 +99,7 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setResponseHttpStatus(providerDTO.getResponseHttpStatus());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setResponseBusinessStatus(providerDTO.getResponseBusinessStatus());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setProviderIdentifier(providerDTO.getProviderIdentifier());
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setIsCacheHit(providerDTO.getIsCacheHit());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setRemark(providerDTO.getRemark());
 				providerRecords.add(openplatformOpenapiRecordDomainEventContentProviderRecord);
 

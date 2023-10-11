@@ -37,6 +37,12 @@
             <artifactId>report-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- oss 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-oss-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

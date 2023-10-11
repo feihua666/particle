@@ -63,6 +63,9 @@ public class OpenplatformProviderRecordVO extends AbstractBaseIdVO {
     @Schema(description = "数据查询供应商id")
     private Long dataQueryProviderId;
 
+	@Schema(description = "是否命中缓存")
+	private Boolean isCacheHit;
+
     @TransBy(type = TransConstants.TRANS_DATAQUERY_PROVIDER_BY_USER_ID,byFieldName = "dataQueryProviderId",mapValueField = "name")
     @Schema(description = "数据查询供应商")
     private String dataQueryProviderName;

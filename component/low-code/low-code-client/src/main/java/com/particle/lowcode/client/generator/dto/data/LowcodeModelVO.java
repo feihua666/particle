@@ -27,10 +27,10 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
     @Schema(description = "英文名称")
     private String nameEn;
 
-    @Schema(description = "实体名称",example = "首字母大写，符合java类名规范")
+    @Schema(title = "实体名称",description = "首字母大写，符合java类名规范")
     private String nameEnEntity;
 
-    @Schema(description = "实体变量名称",example = "nameEnEntity 的首字母小写")
+    @Schema(title = "实体变量名称",description = "nameEnEntity 的首字母小写")
     private String nameEnEntityVar;
 
     @Schema(description = "表名称")

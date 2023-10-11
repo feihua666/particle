@@ -68,5 +68,12 @@
             <artifactId>common-constant</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 在基础设施层引入缓存，方便全局使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-cache-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

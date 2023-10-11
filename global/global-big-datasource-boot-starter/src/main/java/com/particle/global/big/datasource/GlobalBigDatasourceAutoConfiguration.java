@@ -7,8 +7,12 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDyna
 import com.particle.global.big.datasource.bigdatasource.dynamic.properties.DynamicBigDatasourceProperties;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.DynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.YmlDynamicBigDatasourceProvider;
+import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatasourceApiExecutorExeCacheImpl;
+import com.particle.global.big.datasource.bigdatasource.executor.IBigDatasourceApiExecutorExeCache;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.feign.BigDatasourceFeignClientBuilder;
+import com.particle.global.cache.CacheHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -58,4 +62,17 @@ public class GlobalBigDatasourceAutoConfiguration {
 	public BigDatasourceFeignClientBuilder bigDatasourceFeignClientBuilder(){
 		return new BigDatasourceFeignClientBuilder();
 	}
+
+	/**
+	 * 缓存配置
+	 */
+	@Configuration
+	@ConditionalOnBean(CacheHelper.class)
+	public static class BigDatasourceApiExecutorExeCacheConfig{
+		@Bean
+		public IBigDatasourceApiExecutorExeCache bigDatasourceApiExecutorExeCache(){
+			return new DefaultBigDatasourceApiExecutorExeCacheImpl();
+		}
+	}
+
 }

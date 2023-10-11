@@ -79,6 +79,11 @@ public class OpenplatformProviderRecordDO extends BaseDO {
     private Long dataQueryProviderId;
 
 	/**
+	 * 是否命中缓存
+	 */
+	private Boolean isCacheHit;
+
+	/**
 	 * 描述
 	 */
 	private String remark;

@@ -69,7 +69,7 @@ const formComps = ref(
           comp: 'el-input',
           formItemProps: {
             label: '替换文本',
-            tips: '如：text=newText,text1=newText1。等号右边替换左边',
+            tips: '如：text=newText,text1=newText1。等号右边替换左边,如果被替换的内容包括分隔符，需要修改对应的分隔符',
             displayBlock: true
           },
           compProps: {
@@ -78,8 +78,41 @@ const formComps = ref(
           }
         }
       },
-      
 
+      {
+        field: {
+          name: 'seperator',
+          value: '='
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '组内分隔字符',
+            tips: '如：=',
+            displayBlock: true
+          },
+          compProps: {
+            clearable: true,
+          }
+        }
+      },
+      {
+        field: {
+          name: 'groupSeperator',
+          value: ','
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '组分隔字符',
+            tips: '如：,',
+            displayBlock: true
+          },
+          compProps: {
+            clearable: true,
+          }
+        }
+      },
     ]
 )
 

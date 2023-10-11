@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -28,6 +29,7 @@ import java.util.List;
 public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceApiExecutor{
 
 	protected List<ExecutorInfrastructureListener> executorInfrastructureListenerList;
+	protected IBigDatasourceApiExecutorExeCache bigDatasourceApiExecutorExeCache;
 
 	@Override
 	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
@@ -37,7 +39,21 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 			}
 		}
 		preExe(bigDatasourceApi, command, queryString);
-		Object o = doExecute(bigDatasourceApi, command,queryString);
+		// 添加缓存支持
+		IBigDatasourceApiExecutorExeCache.CacheValue cacheValue = Optional.ofNullable(bigDatasourceApiExecutorExeCache).map(iBigDatasourceApiExecutorExeCache -> iBigDatasourceApiExecutorExeCache.get(bigDatasourceApi, command, queryString)).orElse(null);
+		Object o = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getData()).orElse(null);
+		boolean cacheHit = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getIsCacheHit()).orElse(false);
+		// 没有命中获取
+		if (!cacheHit) {
+			o = doExecute(bigDatasourceApi, command,queryString);
+			if (o != null) {
+				Object finalO = o;
+				Optional.ofNullable(bigDatasourceApiExecutorExeCache).ifPresent((iBigDatasourceApiExecutorExeCache)->{
+					iBigDatasourceApiExecutorExeCache.put(bigDatasourceApi, command, queryString, finalO);
+				});
+			}
+		}
+
 		postExe(bigDatasourceApi, command,queryString, o);
 		boolean success = isSuccess(bigDatasourceApi,o);
 		bigDatasourceApi.apiContext().putData("executor.result.success",success);
@@ -46,7 +62,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 
 		if (executorInfrastructureListenerList != null) {
 			for (ExecutorInfrastructureListener executorInfrastructureListener : executorInfrastructureListenerList) {
-				executorInfrastructureListener.afterResponse(bigDatasourceApi,command,queryString,success,resultData,resultDataConverted);
+				executorInfrastructureListener.afterResponse(bigDatasourceApi,command,queryString,success,resultData,resultDataConverted,cacheHit);
 			}
 		}
 		return resultDataConverted;
@@ -61,7 +77,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	}
 
 	/**
-	 * 从spring窗口初始化
+	 * 从spring容器初始化
 	 */
 	protected void executorInfrastructureListenerInitFromSpring() {
 		try {
@@ -71,6 +87,24 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 		}
 	}
 
+	/**
+	 * 初始化缓存
+	 * @param bigDatasourceApiExecutorExeCache
+	 */
+	protected void bigDatasourceApiExecutorExeCacheInit(IBigDatasourceApiExecutorExeCache bigDatasourceApiExecutorExeCache) {
+		this.bigDatasourceApiExecutorExeCache = bigDatasourceApiExecutorExeCache;
+	}
+
+	/**
+	 * 从spring容器初始化缓存
+	 */
+	protected void bigDatasourceApiExecutorExeCacheInitFromSpring() {
+		try {
+			this.bigDatasourceApiExecutorExeCache = SpringContextHolder.getBean(IBigDatasourceApiExecutorExeCache.class);
+		} catch (Exception e) {
+			log.warn("can not init bigDatasourceApiExecutorExeCache from spring because of exception",e);
+		}
+	}
 	/**
 	 * 真正执行
 	 * @param bigDatasourceApi

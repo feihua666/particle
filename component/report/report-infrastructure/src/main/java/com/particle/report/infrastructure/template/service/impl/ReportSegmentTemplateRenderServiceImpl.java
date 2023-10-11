@@ -1,7 +1,10 @@
 package com.particle.report.infrastructure.template.service.impl;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.exception.Assert;
 import com.particle.global.tool.str.StringTool;
 import com.particle.global.tool.template.templatetreerenderengine.OutputType;
 import com.particle.global.tool.template.templatetreerenderengine.TemplateTreeRenderEngine;
@@ -12,9 +15,11 @@ import com.particle.global.tool.template.templatetreerenderengine.template.Segme
 import com.particle.global.tool.template.templatetreerenderengine.template.impl.GroovyScriptSegmentTemplateRenderDataResolverImpl;
 import com.particle.report.domain.gateway.ReportDataQueryDataApiGateway;
 import com.particle.report.domain.gateway.ReportDictGateway;
+import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.report.infrastructure.template.dto.ReportSegmentTemplateRenderParam;
 import com.particle.report.infrastructure.template.dto.ReportSegmentTemplateRenderResult;
+import com.particle.report.infrastructure.template.service.IReportSegmentTemplatePermissionCheckService;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplateRenderService;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -34,6 +40,9 @@ import java.util.*;
 @Component
 public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTemplateRenderService {
 
+	public static WeakCache<Long, ReportSegmentTemplateDO> reportSegmentTemplateDOCache = CacheUtil.newWeakCache(16 * 1 * 60000);
+	public static WeakCache<Long, List<ReportSegmentTemplateDO>> childrenReportSegmentTemplateDOsCache = CacheUtil.newWeakCache(17 * 1 * 60000);
+
 	@Autowired
 	private IReportSegmentTemplateService iReportSegmentTemplateService;
 	
@@ -42,6 +51,9 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 
 	@Autowired
 	private ReportDataQueryDataApiGateway reportDataQueryDataApiGateway;
+
+	@Autowired(required = false)
+	private IReportSegmentTemplatePermissionCheckService iReportSegmentTemplatePermissionCheckService;
 	
 	private TemplateTreeRenderEngine templateTreeRenderEngine = new TemplateTreeRenderEngine();
 	/**
@@ -59,9 +71,11 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 
 	@Override
 	public ReportSegmentTemplateRenderResult render(ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam) {
+		SegmentTemplate segmentTemplate = getSegmentTemplate(reportSegmentTemplateRenderParam.getRootSegmentTemplateId());
+		Assert.notNull(segmentTemplate,"无可用模板，请检查是否配置模板权限");
 		RenderContext renderContext = templateTreeRenderEngine.renderWithRenderContext(
 				configData(reportSegmentTemplateRenderParam),
-				getSegmentTemplate(reportSegmentTemplateRenderParam.getRootSegmentTemplateId())
+				segmentTemplate
 		);
 
 		List<TemplateRenderContext> templateRenderContexts = renderContext.getTemplateRenderContexts();
@@ -100,10 +114,13 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 		if (rootSegmentTemplateId == null) {
 			return null;
 		}
-		ReportSegmentTemplateDO reportSegmentTemplateDO = iReportSegmentTemplateService.getById(rootSegmentTemplateId);
+		ReportSegmentTemplateDO reportSegmentTemplateDO = getReportSegmentTemplateDOById(rootSegmentTemplateId);
 		if (reportSegmentTemplateDO == null) {
 			return null;
 		}
+		boolean hasTemplatePermission = hasTemplatePermission(reportSegmentTemplateDO);
+		Assert.isTrue(hasTemplatePermission,"您没有报告模板 " + reportSegmentTemplateDO.getName() + " 的权限");
+
 		return getSegmentTemplate(reportSegmentTemplateDO);
 	}
 
@@ -113,23 +130,29 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 	 * @return
 	 */
 	private SegmentTemplate getSegmentTemplate(ReportSegmentTemplateDO reportSegmentTemplateDO){
+		// 检查权限
+		if (!hasTemplatePermission(reportSegmentTemplateDO)) {
+			return null;
+		}
+
 		Long rootSegmentTemplateId = reportSegmentTemplateDO.getId();
 		// 引用相关
 		Long referenceSegmentTemplateId = reportSegmentTemplateDO.getReferenceSegmentTemplateId();
 		ReportSegmentTemplateDO referenceSegmentTemplateDO = null;
 		List<ReportSegmentTemplateDO> referenceSegmentTemplateDOChildrens = null;
 		if (referenceSegmentTemplateId != null) {
-			referenceSegmentTemplateDO = iReportSegmentTemplateService.getById(referenceSegmentTemplateId);
+			referenceSegmentTemplateDO = getReportSegmentTemplateDOById(referenceSegmentTemplateId);
 			if (referenceSegmentTemplateDO != null) {
-				referenceSegmentTemplateDOChildrens = iReportSegmentTemplateService.getChildren(referenceSegmentTemplateId);
+				referenceSegmentTemplateDOChildrens = getReportSegmentTemplateChildrenById(referenceSegmentTemplateId);
 			}
 		}
 
-		List<ReportSegmentTemplateDO> segmentTemplateDOChildrens = iReportSegmentTemplateService.getChildren(rootSegmentTemplateId);
+		List<ReportSegmentTemplateDO> segmentTemplateDOChildrens = getReportSegmentTemplateChildrenById(rootSegmentTemplateId);
 
 		if (CollectionUtil.isNotEmpty(referenceSegmentTemplateDOChildrens)) {
 			segmentTemplateDOChildrens.addAll(referenceSegmentTemplateDOChildrens);
 		}
+
 		//  从小到大排序
 		segmentTemplateDOChildrens = CollectionUtil.sort(segmentTemplateDOChildrens, Comparator.comparingInt(ReportSegmentTemplateDO::getSeq));
 
@@ -180,5 +203,32 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 		segmentTemplate.setExtConfig(extConfig);
 		segmentTemplate.setSegmentTemplateRenderDataResolver(groovyScriptSegmentTemplateRenderDataResolver);
 		return segmentTemplate;
+	}
+
+	private boolean hasTemplatePermission(ReportSegmentTemplateDO reportSegmentTemplateDO) {
+		if (iReportSegmentTemplatePermissionCheckService != null) {
+			boolean hasPermission = iReportSegmentTemplatePermissionCheckService.hasPermission(reportSegmentTemplateDO);
+			return hasPermission;
+		}
+		// 默认为true
+		return true;
+	}
+
+	/**
+	 * 根据id获取
+	 * @param reportSegmentTemplateId
+	 * @return
+	 */
+	private ReportSegmentTemplateDO getReportSegmentTemplateDOById(Long reportSegmentTemplateId) {
+		return reportSegmentTemplateDOCache.get(reportSegmentTemplateId, () -> iReportSegmentTemplateService.getById(reportSegmentTemplateId));
+	}
+
+	/**
+	 * 根据id获取子级
+	 * @param reportSegmentTemplateId
+	 * @return
+	 */
+	private List<ReportSegmentTemplateDO> getReportSegmentTemplateChildrenById(Long reportSegmentTemplateId) {
+		return childrenReportSegmentTemplateDOsCache.get(reportSegmentTemplateId, () -> iReportSegmentTemplateService.getChildren(reportSegmentTemplateId));
 	}
 }

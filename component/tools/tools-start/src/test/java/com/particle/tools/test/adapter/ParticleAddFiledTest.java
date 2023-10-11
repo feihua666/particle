@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("in_param_example_config_json"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("data_query_provider_id"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("ReportReportApi");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/report");
+		addFieldCommand.setDomainName("OpenplatformProviderRecord");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/open-platform");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("post_script"),"后置处理脚本，可以用来对渲染的结果进一步处理，如转为pdf，目前仅支持groovy脚本",String.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("is_cache_hit"),"是否命中缓存",Boolean.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

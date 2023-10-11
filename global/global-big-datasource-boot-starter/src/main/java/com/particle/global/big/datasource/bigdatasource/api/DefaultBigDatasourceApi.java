@@ -20,51 +20,52 @@ import lombok.Setter;
 public class DefaultBigDatasourceApi extends AbstractBigDatasourceApi{
 
 
-	public static DefaultBigDatasourceApi create(BigDatasourceApiResponseWrapType responseAssertType,
+	public static DefaultBigDatasourceApi create(String identifier,BigDatasourceApiResponseWrapType responseAssertType,
 												 IBigDatasourceApiConfig config){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = new DefaultBigDatasourceApi();
+		defaultBigDatasourceApi.setIdentifier(identifier);
 		defaultBigDatasourceApi.setResponseAssertType(responseAssertType);
 		defaultBigDatasourceApi.setConfig(config);
 
 		return defaultBigDatasourceApi;
 	}
 
-	public static DefaultBigDatasourceApi create(BigDatasourceApiResponseWrapType responseAssertType,
+	public static DefaultBigDatasourceApi create(String identifier,BigDatasourceApiResponseWrapType responseAssertType,
 												 IBigDatasourceApiConfig config,
 												 DynamicBigDatasourceRoutingKey routingKey){
-		DefaultBigDatasourceApi defaultBigDatasourceApi = create(responseAssertType, config);
+		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config);
 		defaultBigDatasourceApi.setRoutingKey(routingKey);
 
 		return defaultBigDatasourceApi;
 	}
-	public static DefaultBigDatasourceApi create(BigDatasourceApiResponseWrapType responseAssertType,
+	public static DefaultBigDatasourceApi create(String identifier,BigDatasourceApiResponseWrapType responseAssertType,
 												 IBigDatasourceApiConfig config,
 												 DynamicBigDatasourceRoutingKey routingKey,
 												 BigDatasourceApiPageableAdapterConfig pageableAdapterConfig){
-		DefaultBigDatasourceApi defaultBigDatasourceApi = create(responseAssertType, config,routingKey);
+		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config,routingKey);
 		defaultBigDatasourceApi.setPageableAdapterConfig(pageableAdapterConfig);
 
 		return defaultBigDatasourceApi;
 	}
 
-	public static DefaultBigDatasourceApi create(BigDatasourceApiResponseWrapType responseAssertType,
+	public static DefaultBigDatasourceApi create(String identifier,BigDatasourceApiResponseWrapType responseAssertType,
 												 IBigDatasourceApiConfig config,
 												 DynamicBigDatasourceRoutingKey routingKey,
 												 BigDatasourceApiPageableAdapterConfig pageableAdapterConfig,
 												 BigDatasourceApiCommandValidateConfig commandValidateConfig){
-		DefaultBigDatasourceApi defaultBigDatasourceApi = create(responseAssertType, config,routingKey,pageableAdapterConfig);
+		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config,routingKey,pageableAdapterConfig);
 		defaultBigDatasourceApi.setCommandValidateConfig(commandValidateConfig);
 
 		return defaultBigDatasourceApi;
 	}
 
-	public static DefaultBigDatasourceApi create(BigDatasourceApiResponseWrapType responseAssertType,
+	public static DefaultBigDatasourceApi create(String identifier,BigDatasourceApiResponseWrapType responseAssertType,
 												 IBigDatasourceApiConfig config,
 												 DynamicBigDatasourceRoutingKey routingKey,
 												 BigDatasourceApiPageableAdapterConfig pageableAdapterConfig,
 												 BigDatasourceApiCommandValidateConfig commandValidateConfig,
 												 BigDatasourceApiSuccessValidateConfig successValidateConfig){
-		DefaultBigDatasourceApi defaultBigDatasourceApi = create(responseAssertType, config,routingKey,pageableAdapterConfig,commandValidateConfig);
+		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config,routingKey,pageableAdapterConfig,commandValidateConfig);
 		defaultBigDatasourceApi.setSuccessValidateConfig(successValidateConfig);
 
 		return defaultBigDatasourceApi;

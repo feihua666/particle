@@ -4,6 +4,7 @@ CREATE TABLE `component_report_segment_template` (
   `id` bigint NOT NULL COMMENT '模板ID',
   `code` varchar(200) DEFAULT NULL COMMENT '编码，唯一',
   `name` varchar(100) NOT NULL COMMENT '模板名称，仅做展示',
+  `permissions` varchar(200) DEFAULT NULL COMMENT '模板权限码',
   `data_resolve_script` varchar(2000) COMMENT '数据获取脚本，目前仅支持groovy脚本',
   `render_condition_script` varchar(2000) COMMENT '渲染条件脚本，目前仅支持groovy脚本',
   `compute_template` varchar(1000) DEFAULT NULL COMMENT '计算模板',

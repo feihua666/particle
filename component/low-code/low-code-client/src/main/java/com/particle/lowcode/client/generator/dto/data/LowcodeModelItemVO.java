@@ -79,7 +79,7 @@ public class LowcodeModelItemVO extends AbstractBaseIdVO {
     @Schema(description = "模型名称")
     private String lowcodeModelName;
 
-    @Schema(description = "设计json数据",example = "包括一般CRUD相关配置信息")
+    @Schema(title = "设计json数据",description = "包括一般CRUD相关配置信息")
     private String designJson;
 
     @Schema(description = "设计json数据map",hidden = true)

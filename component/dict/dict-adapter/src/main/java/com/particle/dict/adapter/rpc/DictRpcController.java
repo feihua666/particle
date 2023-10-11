@@ -17,6 +17,7 @@ import com.particle.global.trans.result.TransResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,6 +79,7 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
 
+	@Cacheable(cacheNames = {"DictRpcControllerCache_queryById"})
 	@Operation(summary = "根据字典id查询")
 	@Override
 	public SingleResponse<DictVO> queryById(Long id) {

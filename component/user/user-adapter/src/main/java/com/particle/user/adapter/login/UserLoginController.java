@@ -34,6 +34,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -80,7 +81,7 @@ public class UserLoginController {
 			@Parameter(name = UserAuthenticationResultServiceImpl.login_header_device_id,description = "设备id，在登录日志是使用",in= ParameterIn.HEADER)
 	})
 	@PostMapping(value=WebSecurityConfig.login_processing_url,consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public SingleResponse<LoginUser> login( @Valid LoginCommand loginCommand){
+	public SingleResponse<LoginUser> login( @Valid @ParameterObject LoginCommand loginCommand){
 		return SingleResponse.buildSuccess();
 	}
 
@@ -96,7 +97,7 @@ public class UserLoginController {
 			@Parameter(name = UserAuthenticationResultServiceImpl.login_header_device_id,description = "设备id，在登录日志是使用",in= ParameterIn.HEADER)
 	})
 	@PostMapping(value=UserDefaultLoginCustomWebSecurityConfigure.login_captcha_url,consumes= MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public SingleResponse<LoginUser> dynamicCaptchaLogin( @Valid LoginCommand loginCommand){
+	public SingleResponse<LoginUser> dynamicCaptchaLogin( @Valid @ParameterObject LoginCommand loginCommand){
 		return SingleResponse.buildSuccess();
 	}
 

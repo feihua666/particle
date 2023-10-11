@@ -25,7 +25,7 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 	}
 
 	@Override
-	public void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString, boolean success, Object resultData, Object resultDataConverted) {
+	public void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString, boolean success, Object resultData, Object resultDataConverted,Boolean isCacheHit) {
 		if (OpenapiCollectTool.isStartOpenApi()) {
 			OpenapiContext context = OpenapiCollectTool.getContext();
 			if (context != null) {
@@ -57,7 +57,7 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 							handleDuration,
 							success,
 							responseStatus,
-							responseBusinessStatus, command, responseResult, dataQueryProviderId.toString());
+							responseBusinessStatus, command, responseResult, dataQueryProviderId.toString(),isCacheHit);
 					context.addProviderDTO(openapiCollectProviderDTO);
 				}
 

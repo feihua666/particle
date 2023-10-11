@@ -49,6 +49,7 @@
         <module>global-wxjava-boot-starter</module>
         <module>global-redis-boot-starter</module>
         <module>global-openapi-boot-starter</module>
+        <module>global-cache-boot-starter</module>
 
     </modules>
 

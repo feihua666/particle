@@ -64,6 +64,7 @@ public class DynamicHttpBigDatasourceTest {
 	public static BigDatasourceApi httpBigDatasourceAESEncryptApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"httpBigDatasourceAESEncryptApi",
 				BigDatasourceApiResponseWrapType.proxy,
 				HttpBigDatasourceApiConfig.create(
 						HttpBigDatasourceApiConfigRequestMethod.post,
@@ -77,6 +78,7 @@ public class DynamicHttpBigDatasourceTest {
 	}
 	public static BigDatasourceApi httpBigDatasourcePageApi(){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"httpBigDatasourcePageApi",
 				BigDatasourceApiResponseWrapType.proxy,
 				HttpBigDatasourceApiConfig.create(
 						HttpBigDatasourceApiConfigRequestMethod.get,

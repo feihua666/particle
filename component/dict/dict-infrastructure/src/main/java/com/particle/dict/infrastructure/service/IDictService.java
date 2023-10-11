@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.Assert;
 
 import java.util.Collections;
@@ -26,6 +27,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param code
 	 * @return
 	 */
+	@Cacheable(cacheNames = {"DictServiceImplCache_getByCode"})
 	default DictDO getByCode(String code) {
 		Assert.hasText(code,"code 不能为空");
 		return getOne(Wrappers.<DictDO>lambdaQuery().eq(DictDO::getCode, code));
@@ -36,6 +38,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param groupCode
 	 * @return
 	 */
+	@Cacheable(cacheNames = {"DictServiceImplCache_getItemsByGroupCode"})
 	default List<DictDO> getItemsByGroupCode(String groupCode){
 		DictDO byCode = getByCode(groupCode);
 		if (byCode == null) {
@@ -51,6 +54,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param value
 	 * @return
 	 */
+	@Cacheable(cacheNames = {"DictServiceImplCache_getByGroupCodeAndItemValue"})
 	default DictDO getByGroupCodeAndItemValue(String groupCode, String value){
 		Assert.hasText(value,"value 不能为空");
 		List<DictDO> items = getItemsByGroupCode(groupCode);

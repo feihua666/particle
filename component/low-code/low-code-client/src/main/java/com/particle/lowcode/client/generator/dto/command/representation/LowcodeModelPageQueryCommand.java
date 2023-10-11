@@ -31,11 +31,11 @@ public class LowcodeModelPageQueryCommand extends AbstractBasePageQueryCommand {
     private String nameEn;
 
     @Like
-    @Schema(description = "实体名称",example = "首字母大写，符合java类名规范")
+    @Schema(title = "实体名称",description = "首字母大写，符合java类名规范")
     private String nameEnEntity;
 
     @Like
-    @Schema(description = "实体变量名称",example = "nameEnEntity 的首字母小写")
+    @Schema(title = "实体变量名称",description = "nameEnEntity 的首字母小写")
     private String nameEnEntityVar;
 
     @Like

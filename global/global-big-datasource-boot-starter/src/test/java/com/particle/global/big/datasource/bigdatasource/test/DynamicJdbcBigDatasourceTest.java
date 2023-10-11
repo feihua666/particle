@@ -72,9 +72,10 @@ public class DynamicJdbcBigDatasourceTest {
 	public static BigDatasourceApi jdbcBigDatasourceListApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"jdbcBigDatasourceListApi",
 				BigDatasourceApiResponseWrapType.multiple,
 				JdbcBigDatasourceApiConfig.createByWithRawType(JdbcBigDatasourceApiConfigDataType.multiple,
-						"<script>"+"select * from component_func " +
+						"<script>" + "select * from component_func " +
 								"<where>" +
 								"<if test=\"data.data.name != null\"> name = #{data.data.name}</if>" +
 								"</where>" + "</script>")
@@ -83,13 +84,14 @@ public class DynamicJdbcBigDatasourceTest {
 	}
 	public static BigDatasourceApi jdbcBigDatasourcePageApi(){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"jdbcBigDatasourcePageApi",
 				BigDatasourceApiResponseWrapType.page,
 				JdbcBigDatasourceApiConfig.createByWithRawType(JdbcBigDatasourceApiConfigDataType.page,
-						"<script>"+"select * from component_func " +
+						"<script>" + "select * from component_func " +
 								"<where>" +
 								"<if test=\"data.data.name != null\"> name = #{data.data.name}</if>" +
 								"</where>" + "</script>"
-								)
+				)
 		);
 		return defaultBigDatasourceApi;
 	}

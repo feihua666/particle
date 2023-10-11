@@ -19,6 +19,8 @@ import java.util.List;
 @Setter
 public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 
+	protected String identifier;
+
 	protected BigDatasourceApiContext apiContext;
 
 	protected BigDatasourceApiResponseWrapType responseAssertType;
@@ -30,6 +32,11 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected BigDatasourceApiPageableAdapterConfig pageableAdapterConfig;
 	protected BigDatasourceApiCommandValidateConfig commandValidateConfig;
 	protected BigDatasourceApiSuccessValidateConfig successValidateConfig;
+
+	@Override
+	public String identifier() {
+		return identifier;
+	}
 
 	@Override
 	public BigDatasourceApiContext apiContext() {

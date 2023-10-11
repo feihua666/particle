@@ -7,6 +7,7 @@ import com.particle.global.captcha.ICaptchaType;
 import com.particle.global.captcha.gen.CaptchaGenDTO;
 import com.particle.global.dto.basic.Command;
 
+import com.particle.global.dto.basic.QueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -27,17 +28,17 @@ import static com.particle.global.captcha.gen.CaptchaGenDTO.*;
  */
 @Data
 @Schema
-public class CaptchaGenCommand extends Command {
+public class CaptchaGenCommand extends QueryCommand {
 
 	@NotEmpty(message = "验证码的用途或场景标识不能为空")
-	@Schema(description = "验证码的用途或场景标识",requiredMode = Schema.RequiredMode.REQUIRED,example = "任意的字符串")
+	@Schema(title = "验证码的用途或场景标识",requiredMode = Schema.RequiredMode.REQUIRED,description = "任意的字符串",example = "/login")
 	private String captchaScene;
 
 	/**
 	 * 验证码类型
 	 * 实现了 {@link ICaptchaType}接口的类型,默认实现参见{@link CaptchaTypeEnum}
 	 */
-	@Schema(description = "验证码类型",example =
+	@Schema(title = "验证码类型",description =
 			("customImage = 自定义图片,") +
 			("gif = 动画,") +
 			("chinese = 中文,") +
@@ -60,7 +61,7 @@ public class CaptchaGenCommand extends Command {
 	/**
 	 * 仅自定义图片时有效 即 {@link CaptchaGenCommand#captchaType} = {@link CaptchaTypeEnum#customImage}
 	 */
-	@Schema(description = "文本字符串组合类型",example =
+	@Schema(title = "文本字符串组合类型",description =
 			(TYPE_DEFAULT + "= 字母数字混合,") +
 					(TYPE_ONLY_NUMBER + "= 纯数字,") +
 					(TYPE_ONLY_CHAR + "= 纯字母,") +

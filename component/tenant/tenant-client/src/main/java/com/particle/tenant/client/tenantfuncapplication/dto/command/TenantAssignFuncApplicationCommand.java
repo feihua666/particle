@@ -36,7 +36,7 @@ public class TenantAssignFuncApplicationCommand extends AbstractBaseCommand {
     private List<Long> checkedFuncApplicationIds;
 
     @PropValid.DependCondition(message = "未选择的功能应用id不能为空",dependProp = "isLazyLoad",ifEqual = "true")
-    @Schema(description = "未选择的功能应用id",example = "如果为懒加载请传该值")
+    @Schema(title = "未选择的功能应用id",description = "如果为懒加载请传该值")
     private List<Long> uncheckedFuncApplicationIds;
 
     @Schema(description = "页面可选择的数据是否为懒加载")

@@ -338,7 +338,6 @@ public class CustomEnjoyEngine implements TemplateEngine{
 			try {
 				return NumberUtil.decimalFormat(pattern, value);
 			} catch (Exception e) {
-				e.printStackTrace();
 				return null;
 			}
 		}

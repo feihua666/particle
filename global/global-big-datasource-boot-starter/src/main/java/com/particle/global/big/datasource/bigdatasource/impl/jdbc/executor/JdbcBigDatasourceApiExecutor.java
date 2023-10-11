@@ -31,6 +31,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 		JdbcBigDatasourceApiExecutor jdbcBigDatasourceApiExecutor = new JdbcBigDatasourceApiExecutor();
 		jdbcBigDatasourceApiExecutor.setJdbcService(IJdbcService);
 		jdbcBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
+		jdbcBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
 		return jdbcBigDatasourceApiExecutor;
 	}
 

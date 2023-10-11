@@ -72,6 +72,22 @@ export const addPageFormItems = [
   },
   {
     field: {
+      name: 'permissions'
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '权限码',
+        tips: '权限码仅支持单个，不支持多个，支持根据功能权限配置输出,不配置表示具体该权限'
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '如：admin:user:add',
+      }
+    }
+  },
+  {
+    field: {
       name: 'outputTypeDictId'
     },
     element: {
@@ -247,7 +263,7 @@ export const addPageFormItems = [
   useCascaderReportSegmentTemplateCompItem({
     fieldName: 'referenceSegmentTemplateId',
     label: '引用模板',
-    tips: '引用模板是本模板的一个副本，本模板将会合并到引用模板（本模板有值字段会覆盖引用模板对应字段），形成一个全模板'
+    tips: '引用模板是本模板的一个副本，本模板将会合并到引用模板（本模板有值字段会覆盖引用模板对应字段），形成一个全模板，可以使用{{reference}}占位符指定合并的位置'
   }),
 
   {

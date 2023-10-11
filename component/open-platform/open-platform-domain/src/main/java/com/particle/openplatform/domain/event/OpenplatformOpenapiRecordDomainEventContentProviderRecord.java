@@ -60,6 +60,10 @@ public class OpenplatformOpenapiRecordDomainEventContentProviderRecord extends D
 	private String providerIdentifier;
 
 	/**
+	 * 是否命中缓存
+	 */
+	private Boolean isCacheHit;
+	/**
 	 * 描述说明，备注
 	 */
 	private String remark;

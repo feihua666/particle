@@ -72,7 +72,7 @@ public class LowcodeModelItemUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "模型id")
     private Long lowcodeModelId;
 
-    @Schema(description = "设计json数据",example = "包括一般CRUD相关配置信息")
+    @Schema(title = "设计json数据",description = "包括一般CRUD相关配置信息")
     private String designJson;
 
     @Schema(description = "描述,注意事项等")

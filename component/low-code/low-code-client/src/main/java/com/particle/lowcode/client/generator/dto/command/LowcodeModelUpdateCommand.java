@@ -31,11 +31,11 @@ public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
     private String nameEn;
 
     @NotEmpty(message = "实体名称")
-    @Schema(description = "实体名称",example = "首字母大写，符合java类名规范",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "实体名称",description = "首字母大写，符合java类名规范",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nameEnEntity;
 
     @NotEmpty(message = "实体变量名称")
-    @Schema(description = "实体变量名称",example = "nameEnEntity 的首字母小写",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "实体变量名称",description = "nameEnEntity 的首字母小写",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nameEnEntityVar;
 
     @Schema(description = "表名称")

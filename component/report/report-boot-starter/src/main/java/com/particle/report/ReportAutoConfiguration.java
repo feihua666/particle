@@ -1,11 +1,17 @@
  package com.particle.report;
 
+import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import com.particle.report.adapter.api.permission.SecurityPermissionReportSegmentTemplatePermissionCheckServiceImpl;
+import com.particle.report.app.executor.IReportApiGenerateResultHandler;
+import com.particle.report.adapter.api.handler.ReportApiGenerateResultOssHandlerImpl;
+import com.particle.report.infrastructure.template.service.IReportSegmentTemplatePermissionCheckService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -47,5 +53,26 @@ public class ReportAutoConfiguration {
                 .title(ProjectInfo.NAME + " Swagger Apis")
                 .description(ProjectInfo.NAME + " Swagger Apis Description")
                 .build());
+    }
+
+    /**
+     * 配置一个默认的基于登录用户的权限校验器
+     * @return
+     */
+    @ConditionalOnMissingBean
+    @Bean
+    public IReportSegmentTemplatePermissionCheckService reportSegmentTemplatePermissionCheckService(){
+        return new SecurityPermissionReportSegmentTemplatePermissionCheckServiceImpl();
+    }
+
+    /**
+     * 提供将报告如果为本地文件，上传到oss中
+     * @return
+     */
+    @ConditionalOnMissingBean
+    @ConditionalOnBean(GlobalOssClientService.class)
+    @Bean
+    public IReportApiGenerateResultHandler reportApiGenerateResultHandler() {
+        return new ReportApiGenerateResultOssHandlerImpl();
     }
 }

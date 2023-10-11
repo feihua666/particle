@@ -22,11 +22,12 @@
             <artifactId>global-exception</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 使用其传递依赖的注解，添加这个主要是为了在基类QueryCommand上添加一个@ParameterObject注解 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-swagger-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

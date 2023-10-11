@@ -58,6 +58,11 @@ public class OpenapiCollectProviderDTO {
 	private String providerIdentifier;
 
 	/**
+	 * 是否命中缓存
+	 */
+	private Boolean isCacheHit;
+
+	/**
 	 * 描述说明，备注
 	 */
 	private String remark;
@@ -69,7 +74,8 @@ public class OpenapiCollectProviderDTO {
 												   String responseBusinessStatus,
 												   Object requestParam,
 												   Object responseResult,
-												   String providerIdentifier) {
+												   String providerIdentifier,
+												   Boolean isCacheHit) {
 		OpenapiCollectProviderDTO openapiCollectProviderDTO = new OpenapiCollectProviderDTO();
 
 		openapiCollectProviderDTO.requestUrl = requestUrl;
@@ -80,6 +86,7 @@ public class OpenapiCollectProviderDTO {
 		openapiCollectProviderDTO.requestParam = requestParam;
 		openapiCollectProviderDTO.responseResult = responseResult;
 		openapiCollectProviderDTO.providerIdentifier = providerIdentifier;
+		openapiCollectProviderDTO.isCacheHit = isCacheHit;
 
 		return openapiCollectProviderDTO;
 	}

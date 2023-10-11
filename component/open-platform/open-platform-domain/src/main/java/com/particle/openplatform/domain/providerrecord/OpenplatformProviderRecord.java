@@ -79,6 +79,11 @@ public class OpenplatformProviderRecord extends AggreateRoot {
     private Long dataQueryProviderId;
 
 	/**
+	 * 是否命中缓存
+	 */
+	private Boolean isCacheHit;
+
+	/**
 	 * 描述
 	 */
 	private String remark;

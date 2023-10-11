@@ -14,6 +14,7 @@ CREATE TABLE `component_openplatform_provider_record` (
   `response_business_status` varchar(50) DEFAULT NULL COMMENT '响应业务编码或业务状态码',
   `openplatform_provider_id` bigint DEFAULT NULL COMMENT '供应商id',
   `data_query_provider_id` bigint DEFAULT NULL COMMENT '数据查询供应商id，冗余openplatform_provider同名字段',
+  `is_cache_hit` tinyint(1) NOT NULL COMMENT '是否命中缓存',
   `remark` varchar(2000) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

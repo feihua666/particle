@@ -35,7 +35,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	/**
 	 * 缓存13分钟,13为质数
 	 */
-	public static WeakCache<String, DataQueryDataApi> dataApiQueryCache = CacheUtil.newWeakCache(13 * 1 * 6000);
+	public static WeakCache<String, DataQueryDataApi> dataQueryDataApiCache = CacheUtil.newWeakCache(13 * 1 * 60000);
 
 
 	/**
@@ -45,7 +45,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 */
 	public Object dataApiQuery(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
 		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
-		DataQueryDataApi dataQueryDataApi = dataApiQueryCache.get(dataQueryDataApiQueryCommand.getUrl(),
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(dataQueryDataApiQueryCommand.getUrl(),
 				() -> dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl()));
 		Assert.notNull(dataQueryDataApi,"数据接口地址不存在");
 

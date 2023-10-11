@@ -62,6 +62,9 @@ public class OpenplatformProviderRecordPageQueryCommand extends AbstractBasePage
     @Schema(description = "数据查询供应商id")
     private Long dataQueryProviderId;
 
+	@Schema(description = "是否命中缓存")
+	private Boolean isCacheHit;
+
 	@Schema(description = "描述")
 	private String remark;
 

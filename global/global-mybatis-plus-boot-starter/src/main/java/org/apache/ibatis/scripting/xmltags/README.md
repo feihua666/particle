@@ -28,3 +28,5 @@ sql 传值如下：
 </where>
 </script>
 ```
+修改版本 3.5.13
+修改类 org.apache.ibatis.scripting.xmltags.DynamicSqlSource 46行左右

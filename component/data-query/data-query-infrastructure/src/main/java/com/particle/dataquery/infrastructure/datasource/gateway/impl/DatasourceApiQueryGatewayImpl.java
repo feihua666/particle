@@ -70,7 +70,6 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 
 	@Override
 	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
-		// todo 缓存性能
 		return queryRealtime(datasource,datasourceApi,param,queryString);
 	}
 
