@@ -53,7 +53,7 @@ public class ReportApiGenerateResultOssHandlerImpl implements IReportApiGenerate
         log.info("start upload report file to oss，path={},originalFilename={},fileLength={},objectName={}",path,originalFilename,fileLength,objectName);
 
         String mimeType = FileTool.getMimeType(objectName);
-        String upload = globalOssClientService.upload(objectName, inputStream,mimeType);
+        String upload = globalOssClientService.upload(objectName, inputStream,null,mimeType,true);
         IoUtil.close(inputStream);
 
         log.info("end upload report file to oss,uploadResult={}",upload);

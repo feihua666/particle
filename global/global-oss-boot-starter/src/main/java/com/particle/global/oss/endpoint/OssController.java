@@ -87,7 +87,7 @@ public class OssController {
 		log.info("文件上传开始，path={},originalFilename={},fileLength={},objectName={}",uploadCommand.getPath(),originalFilename,fileLength,objectName);
 
 		String mimeType = FileTool.getMimeType(objectName);
-		String upload = globalOssClientService.upload(objectName, inputStream,null,mimeType,true);
+		String upload = globalOssClientService.upload(objectName, inputStream,mimeType);
 		IoUtil.close(inputStream);
 
 		log.info("文件上传结束,uploadResult={}",upload);
