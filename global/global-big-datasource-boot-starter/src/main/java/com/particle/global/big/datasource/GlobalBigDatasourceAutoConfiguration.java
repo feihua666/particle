@@ -11,12 +11,16 @@ import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatas
 import com.particle.global.big.datasource.bigdatasource.executor.IBigDatasourceApiExecutorExeCache;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.feign.BigDatasourceFeignClientBuilder;
 import com.particle.global.cache.CacheHelper;
+import com.particle.global.cache.GlobalCacheAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -30,6 +34,8 @@ import java.util.List;
  * @since 2022-06-29 18:58
  */
 @Configuration
+// 确保在cache之后配置，有 cacheHelper 依赖关系
+@AutoConfigureAfter(GlobalCacheAutoConfiguration.class)
 @EnableConfigurationProperties(DynamicBigDatasourceProperties.class)
 @ConditionalOnProperty(prefix = DynamicBigDatasourceProperties.prefix, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalBigDatasourceAutoConfiguration {
@@ -67,9 +73,10 @@ public class GlobalBigDatasourceAutoConfiguration {
 	 * 缓存配置
 	 */
 	@Configuration
-	@ConditionalOnBean(CacheHelper.class)
-	public static class BigDatasourceApiExecutorExeCacheConfig{
+	@ConditionalOnClass(CacheHelper.class)
+	static class BigDatasourceApiExecutorExeCacheConfig{
 		@Bean
+		@ConditionalOnBean(CacheHelper.class)
 		public IBigDatasourceApiExecutorExeCache bigDatasourceApiExecutorExeCache(){
 			return new DefaultBigDatasourceApiExecutorExeCacheImpl();
 		}

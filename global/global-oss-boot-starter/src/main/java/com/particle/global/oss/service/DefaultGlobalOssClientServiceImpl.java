@@ -45,10 +45,10 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 	}
 
 	@Override
-	public String upload(String objectName, InputStream inputStream, String client,String contentType) {
+	public String upload(String objectName, InputStream inputStream, String client,String contentType,Boolean concatEndPoint) {
 		GlobalOssClientWrapper globalOssClientWrapper = routeGlobalOssClient(client);
 		globalOssClientWrapper.getGlobalOssClient().putObject(globalOssClientWrapper.getBucketName(),objectName,inputStream,contentType);
-		if (globalOssProperties.getConcatEndpoint()) {
+		if ((concatEndPoint != null && concatEndPoint) || (concatEndPoint == null && globalOssProperties.getConcatEndpoint())) {
 			return NetPathTool.concat(globalOssClientWrapper.getEndpoint(),objectName);
 		}
 		return objectName;

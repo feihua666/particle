@@ -112,8 +112,9 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 				result =  SingleResponse.of(ReportApiGenerateVO.create(null));
 			} else if (o instanceof String) {
 				result = SingleResponse.of(ReportApiGenerateVO.create(((String) o)));
+			}else {
+				throw new RuntimeException("the returned value type " + o.getClass().getName() + " can not support,only String support from script");
 			}
-			throw new RuntimeException("the returned value type " + o.getClass().getName() + " can not support,only String support from script");
 		}
 		if (result == null) {
 			result = SingleResponse.of(ReportApiGenerateVO.create(fileAbsolutePath));
