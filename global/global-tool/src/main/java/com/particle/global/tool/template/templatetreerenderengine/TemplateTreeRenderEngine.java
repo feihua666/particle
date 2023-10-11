@@ -146,7 +146,8 @@ public class TemplateTreeRenderEngine {
 	 * @param renderContext
 	 * @return
 	 */
-	protected TemplateRenderContext preDoRender(SegmentTemplate segmentTemplate,TemplateRenderContext parentTemplateRenderContext,RenderContext renderContext){
+	@SneakyThrows
+	protected TemplateRenderContext preDoRender(SegmentTemplate segmentTemplate, TemplateRenderContext parentTemplateRenderContext, RenderContext renderContext){
 
 		// 渲染数据上下文
 		TemplateRenderContext templateRenderContext = new TemplateRenderContext();
@@ -197,12 +198,7 @@ public class TemplateTreeRenderEngine {
 		ISegmentTemplateRenderDataResolver segmentTemplateRenderDataResolver = segmentTemplate.getSegmentTemplateRenderDataResolver();
 		if (segmentTemplateRenderDataResolver != null) {
 			ResolveRenderDataParam resolveRenderDataParam = ResolveRenderDataParam.create(objectMap,segmentTemplate);
-			Object resolveRenderData = null;
-			try {
-				resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(resolveRenderDataParam);
-			} catch (Exception e) {
-				throw new RuntimeException("render groovy script error",e);
-			}
+			Object resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(resolveRenderDataParam);
 			// trd 为TemplateRenderData的缩写
 			objectMap.put("trd", resolveRenderData);
 		}
