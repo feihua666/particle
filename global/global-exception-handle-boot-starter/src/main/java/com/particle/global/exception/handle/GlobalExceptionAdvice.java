@@ -102,7 +102,7 @@ public class GlobalExceptionAdvice {
     public ResponseEntity<Response> handleBizException(HttpServletRequest request, BizException ex) {
         Response rm = createRM(ex.getError(), ex.getMessage(), ex.getData(), ex);
         return ResponseEntity.status(Optional.ofNullable(ex.getError().getHttpStatus()).orElse(HttpStatus.INTERNAL_SERVER_ERROR.value()))
-        .body(rm);
+                .body(rm);
     }
     /**
      * 业务系统 异常
@@ -345,10 +345,10 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public  ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex) {
 
-        // 兼容一下内部
-        Throwable cause = ex.getCause();
-        if (cause != null && cause instanceof BizException) {
-            return handleBizException(request, (BizException) ex);
+        // 兼容一下内部 BizException
+        ResponseEntity<Response> responseResponseEntity = handleCauseBizException(request, ex, 4);
+        if (responseResponseEntity != null) {
+            return responseResponseEntity;
         }
 
         log.error("系统内部异常：{}",ex.getMessage(),ex);
@@ -360,5 +360,24 @@ public class GlobalExceptionAdvice {
         Response rm = createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .body(rm);
+    }
+
+    /**
+     * 获取原始异常
+     * @param request
+     * @param ex
+     * @param deep 深度最小为1
+     * @return
+     */
+    private ResponseEntity<Response> handleCauseBizException(HttpServletRequest request,Throwable ex,int deep) {
+        if(deep <= 0){
+            return null;
+        }
+        if (ex != null && ex instanceof BizException) {
+            return handleBizException(request, (BizException) ex);
+        }else {
+            return handleCauseBizException(request, ex.getCause(),deep - 1);
+        }
+
     }
 }

@@ -23,7 +23,7 @@ public class BaseException extends RuntimeException {
 	private static IErrorCode DEFAULT_ERR_CODE = ErrorCodeGlobalEnum.PLACEHOLDER_ERROR;
 
 	private final IErrorCode error;
-	private final Map<String, Object> data = new HashMap<>();
+	private Map<String, Object> data;
 
 	public BaseException(Throwable cause) {
 		super(format(DEFAULT_ERR_CODE.getErrCode(), handleStaticUserTip(DEFAULT_ERR_CODE,DEFAULT_ERR_CODE.getErrMessage()), null));
@@ -67,6 +67,9 @@ public class BaseException extends RuntimeException {
 
 	private void putAllDataIfNotEmpty(Map<String, Object> data){
 		Optional.ofNullable(data).ifPresent(dataMap->{
+			if (this.data == null) {
+				this.data = new HashMap<>();
+			}
 			this.data.putAll(dataMap);
 		});
 	}
