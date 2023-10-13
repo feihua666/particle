@@ -54,6 +54,22 @@ import java.util.Optional;
 public class TemplateTreeRenderEngine {
 
 	/**
+	 * 值参考：@{link com.particle.global.tool.template.templatetreerenderengine.render.TemplateRenderCondition}
+	 */
+	private static String renderConditionKey = "renderCondition";
+	private static String tempKey = "temp";
+	private static String contextKey = "context";
+
+	private static String parentKey = "parent";
+	private static String parentOutputVarKey = "outputVar";
+
+	private static String childKey = "child";
+	private static String childOutputVarKey = "outputVar";
+	/**
+	 * trd 为TemplateRenderData的缩写
+	 */
+	private static String trdKey = "trd";
+	/**
 	 * 使用 enjoyTemplateEngine 来渲染字符串模板
 	 */
 	public static final TemplateEngine enjoyTemplateEngine = TemplateTool.defaultTemplateEngine;
@@ -157,22 +173,27 @@ public class TemplateTreeRenderEngine {
 		Map<String, Object> objectMap = renderContext.getConfigData().toMap();
 
 		// 渲染条件预定义对象
-		objectMap.put("renderCondition", TemplateRenderCondition.templateRenderConditionMap);
+		objectMap.put(renderConditionKey, TemplateRenderCondition.templateRenderConditionMap);
 
 		Map<String, Object> parent = new HashMap<>();
-		objectMap.put("parent", parent);
+		objectMap.put(parentKey, parent);
 
-		String tempMap = "temp";
+		String tempMap = tempKey;
 		objectMap.put(tempMap, new HashMap<>());
 
-		parent.put("context", parentTemplateRenderContext);
+		parent.put(contextKey, parentTemplateRenderContext);
 
 
 		// 将父级输出变量可引用
 		if (parentTemplateRenderContext != null) {
-			parent.put("outputVar", parentTemplateRenderContext.getSegmentTemplateData().outputVariableMap());
+			parent.put(parentOutputVarKey, parentTemplateRenderContext.getSegmentTemplateData().outputVariableMap());
 			parent.put(tempMap, parentTemplateRenderContext.getRenderData().get(tempMap));
 		}
+		Map<String, Object> child = new HashMap<>();
+		Map<String, Object> childOutputVar = new HashMap<>();
+		child.put(childOutputVarKey, childOutputVar);
+		objectMap.put(childKey, child);
+
 		templateRenderContext.setRenderData(objectMap);
 
 		// 片段模板与渲染数据
@@ -200,7 +221,7 @@ public class TemplateTreeRenderEngine {
 			ResolveRenderDataParam resolveRenderDataParam = ResolveRenderDataParam.create(objectMap,segmentTemplate);
 			Object resolveRenderData = segmentTemplateRenderDataResolver.resolveRenderData(resolveRenderDataParam);
 			// trd 为TemplateRenderData的缩写
-			objectMap.put("trd", resolveRenderData);
+			objectMap.put(trdKey, resolveRenderData);
 		}
 
 
@@ -349,8 +370,6 @@ public class TemplateTreeRenderEngine {
 		OutputType outputType = segmentTemplate.getOutputType();
 		OutputFileHandleType outputFileHandleType = segmentTemplate.getOutputFileHandleType();
 
-		String childKey = "child";
-		String childOutputVarKey = "outputVar";
 		// 将渲染完的结果变量给到上一级使用
 		if (parentTemplateRenderContext != null) {
 			Map child = (Map)parentTemplateRenderContext.getRenderData().get(childKey);
