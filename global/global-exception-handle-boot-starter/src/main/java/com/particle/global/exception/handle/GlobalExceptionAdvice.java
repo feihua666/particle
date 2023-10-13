@@ -370,7 +370,7 @@ public class GlobalExceptionAdvice {
      * @return
      */
     private ResponseEntity<Response> handleCauseBizException(HttpServletRequest request,Throwable ex,int deep) {
-        if(deep <= 0){
+        if(deep <= 0 || ex == null){
             return null;
         }
         if (ex != null && ex instanceof BizException) {
