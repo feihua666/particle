@@ -346,7 +346,7 @@ public class GlobalExceptionAdvice {
     public  ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex) {
 
         // 兼容一下内部 BizException
-        ResponseEntity<Response> responseResponseEntity = handleCauseBizException(request, ex, 4);
+        ResponseEntity<Response> responseResponseEntity = handleCauseBizException(request, ex, 5);
         if (responseResponseEntity != null) {
             return responseResponseEntity;
         }
