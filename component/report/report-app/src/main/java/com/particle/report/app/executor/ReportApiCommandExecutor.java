@@ -76,7 +76,7 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 
 		ReportReportApiDO reportReportApiDO = reportReportApiDOCache.get(reportApiGenerateCommand.getUrl(), () -> iReportReportApiService.getByUrl(reportApiGenerateCommand.getUrl()));
 
-		Assert.notNull(reportReportApiDO,"接口地址不存在");
+		Assert.notNull(reportReportApiDO,"接口地址不存在" + reportApiGenerateCommand.getUrl());
 
 		ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam = ReportSegmentTemplateRenderParam.create(
 				global,
