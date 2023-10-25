@@ -59,9 +59,9 @@ public class UsageCountRecordMarkCommandExecutor extends AbstractBaseExecutor {
 
 	private ExecutorService commonDbTaskExecutor;
 
-	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByCodeCache = CacheUtil.newWeakCache(0);
-	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByUrlPatternCache = CacheUtil.newWeakCache(0);
-	private static WeakCache<Long, List<UsageCountConfigDO>> usageCountConfigByUsageCountDefineIdCache = CacheUtil.newWeakCache(0);
+	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByCodeCache = CacheUtil.newWeakCache(30 * 60 * 1000);
+	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByUrlPatternCache = CacheUtil.newWeakCache(31 * 60 * 1000);
+	private static WeakCache<Long, List<UsageCountConfigDO>> usageCountConfigByUsageCountDefineIdCache = CacheUtil.newWeakCache(32 * 60 * 1000);
 
 
 	/**
