@@ -50,6 +50,11 @@ particle:
       # 报告相关表
       - component_report_report_api
       - component_report_segment_template
+      # 使用次数相关表
+      - component_usage_count_define
+      - component_usage_count_config
+      - component_usage_count_record
+      - component_usage_count_record_detail
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

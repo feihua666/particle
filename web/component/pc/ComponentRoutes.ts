@@ -5,15 +5,16 @@ import UserRoutes from './user/UserRoutes'
 import RoleRoutes from './role/RoleRoutes'
 import ToolsRoutes from './tools/ToolsRoutes'
 import LowcodeRoutes from './lowcode/LowcodeRoutes'
-import DataQueryRoutes from './dataquery/DataQueryRoutes.ts'
-import TenantRoutes from './tenant/TenantRoutes.ts'
-import DeptRoutes from './dept/DeptRoutes.ts'
+import DataQueryRoutes from './dataquery/DataQueryRoutes'
+import TenantRoutes from './tenant/TenantRoutes'
+import DeptRoutes from './dept/DeptRoutes'
 import OpLogRoutes from "./oplog/OpLogRoutes";
 import TrackingRoutes from "./tracking/TrackingRoutes";
 import MessageRoutes from "./message/MessageRoutes";
 import Oauth2authorizationRoutes from "./oauth2authorization/Oauth2authorizationRoutes";
-import OpenPlatformRoutes from "./openplatform/OpenPlatformRoutes.ts";
+import OpenPlatformRoutes from "./openplatform/OpenPlatformRoutes";
 import ReportRoutes from "./report/ReportRoutes";
+import UsageCountRoutes from "./usagecount/UsageCountRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -32,4 +33,5 @@ let ComponentRoutes = []
     .concat(Oauth2authorizationRoutes)
     .concat(OpenPlatformRoutes)
     .concat(ReportRoutes)
+    .concat(UsageCountRoutes)
 export default ComponentRoutes

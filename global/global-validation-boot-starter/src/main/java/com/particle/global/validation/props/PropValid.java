@@ -68,8 +68,8 @@ public @interface PropValid {
 
         /**
          * 依赖的字段是否等于该值, 支持 boolean 字符串，true或false,
-         * 支持 null字符串（表示依赖的字段为null）
-         * 支持 empty字符串（表示依赖的字段为empty）仅限依赖的字段为字符串或集合
+         * 支持 null 字符串（表示依赖的字段为null）
+         * 支持 empty 字符串（表示依赖的字段为empty）仅限依赖的字段为字符串或集合
          * @return
          */
         String ifEqual() default "";

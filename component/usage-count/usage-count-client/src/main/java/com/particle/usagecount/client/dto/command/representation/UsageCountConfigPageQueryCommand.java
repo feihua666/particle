@@ -1,0 +1,44 @@
+package com.particle.usagecount.client.dto.command.representation;
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import com.particle.global.light.share.mybatis.anno.Like;
+/**
+ * <p>
+ * 使用次数配置 通用分页查询指令对象
+ * </p>
+ *
+ * @author yw
+ * @since 2023-10-19 17:14:39
+ */
+@Data
+@Schema
+public class UsageCountConfigPageQueryCommand extends AbstractBasePageQueryCommand {
+
+
+
+    @Like
+        @Schema(description = "名称,左前缀匹配")
+    private String name;
+
+
+    @Schema(description = "使用次数定义id")
+    private Long usageCountDefineId;
+
+
+
+    @Schema(description = "限制规则类型字典id")
+    private Long limitRuleTypeDictId;
+
+
+    @Schema(description = "限制周期字典id")
+    private Long limitPeriodDictId;
+
+	@Schema(description = "限制租户id，如果为空代表是全局的设置")
+	private Long limitTenantId;
+
+
+
+}

@@ -159,6 +159,12 @@
             <version>${particle.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>usage-count-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
         <!-- 文档相关 支持 -->
         <dependency>
             <groupId>com.particle</groupId>

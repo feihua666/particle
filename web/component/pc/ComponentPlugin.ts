@@ -1,18 +1,20 @@
-import FuncPlugin from './func/FuncPlugin.ts'
-import UserPlugin from './user/UserPlugin.ts'
+import FuncPlugin from './func/FuncPlugin'
+import UserPlugin from './user/UserPlugin'
 import DictPlugin from './dict/DictPlugin'
 import AreaPlugin from './area/AreaPlugin'
 import RolePlugin from './role/RolePlugin'
 import ToolsPlugin from './tools/ToolsPlugin'
 import LowcodePlugin from './lowcode/LowcodePlugin'
-import DataQueryPlugin from './dataquery/DataQueryPlugin.ts'
-import TenantPlugin from './tenant/TenantPlugin.ts'
-import DeptPlugin from './dept/DeptPlugin.ts'
-import OpLogPlugin from './oplog/OpLogPlugin.ts'
-import TrackingPlugin from './tracking/TrackingPlugin.ts'
-import MessagePlugin from './message/MessagePlugin.ts'
-import Oauth2authorizationPlugin from './oauth2authorization/Oauth2authorizationPlugin.ts'
-import OpenPlatformPlugin from './openplatform/OpenPlatformPlugin.ts'
+import DataQueryPlugin from './dataquery/DataQueryPlugin'
+import TenantPlugin from './tenant/TenantPlugin'
+import DeptPlugin from './dept/DeptPlugin'
+import OpLogPlugin from './oplog/OpLogPlugin'
+import TrackingPlugin from './tracking/TrackingPlugin'
+import MessagePlugin from './message/MessagePlugin'
+import Oauth2authorizationPlugin from './oauth2authorization/Oauth2authorizationPlugin'
+import OpenPlatformPlugin from './openplatform/OpenPlatformPlugin'
+import ReportPlugin from './report/ReportPlugin'
+import UsageCountPlugin from './usagecount/UsageCountPlugin'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -30,5 +32,7 @@ export default {
         MessagePlugin.install(app,options)
         Oauth2authorizationPlugin.install(app,options)
         OpenPlatformPlugin.install(app,options)
+        ReportPlugin.install(app,options)
+        UsageCountPlugin.install(app,options)
     }
 }

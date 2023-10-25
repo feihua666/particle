@@ -37,7 +37,6 @@ public class DependConditionValidator implements IPropValidator<PropValid.Depend
 
         Object dependOnValue = ReflectUtil.getFieldValue(value, annotation.dependProp());
 
-        if (dependOnValue != null) {
             boolean r = true;
             String isEqual = annotation.ifEqual();
 
@@ -60,7 +59,6 @@ public class DependConditionValidator implements IPropValidator<PropValid.Depend
                 validResult.setErrorMsg(annotation.message());
                 return false;
             }
-        }
 
         return true;
     }

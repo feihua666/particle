@@ -60,6 +60,10 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	ASSERT_ERROR(50000000016L, "断言异常"),
 	/**
+	 * 缺少必要的配置，或配置不正确
+	 */
+	CONFIG_ERROR(50000000017L, "缺少必要的配置，或配置不正确"),
+	/**
 	 * 常用的400 错误
 	 */
 	BAD_REQUEST_ERROR(40000000001L,"请求参数有错误"),
@@ -97,6 +101,7 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	// 一般用在用户匿名登录，没有权限，登录后尝试的场景
 	NO_PRIVILEGE_ANONYMOUS_ERROR(40300000003L,"没有权限,请尝试登录"),
 	NO_PRIVILEGE_RATELIMIT_ERROR(40300000004L,"超过限流速率"),
+	USAGE_COUNT_LIMIT_ERROR(40300000005L,"使用次数已达上限"),
 
 	/**
 	 * 数据不存在

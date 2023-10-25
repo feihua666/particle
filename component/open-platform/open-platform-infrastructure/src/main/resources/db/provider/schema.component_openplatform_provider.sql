@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS component_openplatform_provider;
 CREATE TABLE `component_openplatform_provider` (
   `id` bigint NOT NULL COMMENT '表主键',
-  `code` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '编码，唯一',
+  `code` varchar(50) DEFAULT NULL COMMENT '编码，唯一',
   `name` varchar(50) NOT NULL COMMENT '供应商名称',
   `data_query_provider_id` bigint DEFAULT NULL COMMENT '数据查询供应商id，兼容一下数据查询数据进行统一供应商',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',

@@ -43,6 +43,9 @@ public class TransTableNameConstants {
 
 	public static final String component_report_segment_template = "component_report_segment_template";
 	public static final String component_report_report_api = "component_report_report_api";
+	public static final String component_usage_count_define = "component_usage_count_define";
+	public static final String component_usage_count_config = "component_usage_count_config";
+	public static final String component_usage_count_record = "component_usage_count_record";
 
 
 }

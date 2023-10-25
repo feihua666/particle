@@ -5,7 +5,7 @@ export const selectTenantProps = {
         type: String
     },
 }
-export const useSelectTenantCompItem = ({props = {},fieldName = 'tenantId',required = false, label = '租户'})=>{
+export const useSelectTenantCompItem = ({props = {},fieldName = 'tenantId',required = false, label = '租户',tips = ''})=>{
     return     {
         field: {
             name: fieldName,
@@ -16,7 +16,8 @@ export const useSelectTenantCompItem = ({props = {},fieldName = 'tenantId',requi
             comp: 'PtSelect',
             formItemProps: {
                 label: label,
-                required: required
+                required: required,
+                tips: tips
             },
             compProps: ()=>{
                 let paramsExist = !!(props.tenantId)

@@ -35,6 +35,7 @@
         <module>oauth2authorization</module>
         <module>open-platform</module>
         <module>report</module>
+        <module>usage-count</module>
     </modules>
 
     <properties>

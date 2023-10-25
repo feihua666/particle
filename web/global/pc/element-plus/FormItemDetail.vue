@@ -123,7 +123,6 @@ const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasP
     props.updateModelValueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: value,oldValue: null})
   }})
 const updateModelValueEmitOnlyEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit,emitOnly:true,valueEventCallback:(value)=>{
-  console.log(2222)
     props.updateModelValueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: value,oldValue: null})
   }})
 
