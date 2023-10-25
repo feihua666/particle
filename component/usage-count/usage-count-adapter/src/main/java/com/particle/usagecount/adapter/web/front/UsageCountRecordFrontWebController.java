@@ -9,7 +9,9 @@ import com.particle.usagecount.client.api.IUsageCountRecordApplicationService;
 import com.particle.usagecount.client.dto.command.UsageCountRecordMarkCommand;
 import com.particle.usagecount.client.dto.data.UsageCountRecordMarkVO;
 import com.particle.usagecount.client.dto.data.UsageCountRecordVO;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +41,7 @@ public class UsageCountRecordFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('user')")
 	@Operation(summary = "记录使用次数记录")
 	@PostMapping("/mark")
-	public SingleResponse<UsageCountRecordMarkVO> mark(@RequestBody UsageCountRecordMarkCommand usageCountRecordMarkCommand, LoginUser loginUser){
+	public SingleResponse<UsageCountRecordMarkVO> mark(@RequestBody UsageCountRecordMarkCommand usageCountRecordMarkCommand, @Parameter(hidden = true) LoginUser loginUser){
 		usageCountRecordMarkCommand.setCurrentUserId(loginUser.getId());
 		if (loginUser.getCurrentTenant() != null) {
 			usageCountRecordMarkCommand.setCurrentTenantId(loginUser.getCurrentTenant().getId());
