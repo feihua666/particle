@@ -3,6 +3,7 @@ package com.particle.report.adapter.api;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.particle.common.adapter.api.AbstractBaseApiAdapter;
+import com.particle.report.adapter.api.interceptor.IReportApiGenerateInterceptor;
 import com.particle.report.client.api.IReportApiApplicationService;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +38,8 @@ public class ReportApiController extends AbstractBaseApiAdapter {
 
 	@Autowired
 	private IReportApiApplicationService iReportApiApplicationService;
+	@Autowired(required = false)
+	private List<IReportApiGenerateInterceptor> iReportApiGenerateInterceptors;
 
 	@PreAuthorize("hasAuthority('user') or @pms.hasPermission('report:api')")
 	@Operation(summary = "报告服务接口入口")
@@ -47,7 +51,19 @@ public class ReportApiController extends AbstractBaseApiAdapter {
 		reportApiGenerateCommand.setParam(param);
 		reportApiGenerateCommand.setQueryString(request.getQueryString());
 
-		return iReportApiApplicationService.reportApiGenerate(reportApiGenerateCommand);
+		if (iReportApiGenerateInterceptors != null) {
+			for (IReportApiGenerateInterceptor iReportApiGenerateInterceptor : iReportApiGenerateInterceptors) {
+				iReportApiGenerateInterceptor.pre(reportApiGenerateCommand);
+			}
+		}
+		Object r = iReportApiApplicationService.reportApiGenerate(reportApiGenerateCommand);
+
+		if (iReportApiGenerateInterceptors != null) {
+			for (IReportApiGenerateInterceptor iReportApiGenerateInterceptor : iReportApiGenerateInterceptors) {
+				iReportApiGenerateInterceptor.post(r,reportApiGenerateCommand);
+			}
+		}
+		return r;
 	}
 
 	/**
