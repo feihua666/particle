@@ -7,11 +7,11 @@ import {IdParam} from "../../../../common/api/api";
  * @param loginForm
  */
 export const login = ({username,password,captchaUniqueIdentifier,captchaValue}:{username: string,password: string,captchaUniqueIdentifier: string,captchaValue: string}): AxiosPromise => {
-    let form = 'username=' + username + '&password=' + password
-    if(captchaUniqueIdentifier && captchaValue){
-        form += '&captchaUniqueIdentifier=' + captchaUniqueIdentifier + '&captchaValue=' + captchaValue
-    }
-    return axios.post('/login',form)
+    return axios.post('/login', {username,password,captchaUniqueIdentifier,captchaValue},{
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
 }
 /**
  * 退出登录

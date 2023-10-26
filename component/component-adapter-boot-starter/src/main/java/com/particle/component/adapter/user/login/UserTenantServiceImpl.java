@@ -122,9 +122,9 @@ public class UserTenantServiceImpl implements UserTenantService {
 			// 如果为空，给一个合理的提示信息
 			TenantDO tenantDO = null;
 			if (limitedTenantId != null) {
-				tenantDO = tenantDOList.stream().filter(item -> Objects.equals(limitedTenantId, item.getId())).findFirst().orElse(null);
+				tenantDO = tenantDOS.stream().filter(item -> Objects.equals(limitedTenantId, item.getId())).findFirst().orElse(null);
 			}else {
-				tenantDO = tenantDOList.iterator().next();
+				tenantDO = tenantDOS.iterator().next();
 			}
 			if (tenantDO == null) {
 				return Collections.emptyList();
