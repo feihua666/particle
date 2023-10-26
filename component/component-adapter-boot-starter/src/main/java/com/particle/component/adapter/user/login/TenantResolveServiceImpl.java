@@ -89,7 +89,8 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 								cachedTenantDO.getTenantThemeJson(),
 								cachedTenantDO.getTenantDefaultRouteJson(),
 								cachedTenantDO.getTenantLogoJson(),
-								cachedTenantDO.getConfigJson()
+								cachedTenantDO.getConfigJson(),
+								cachedTenantDO.getIsFormal()
 						);
 
 					}

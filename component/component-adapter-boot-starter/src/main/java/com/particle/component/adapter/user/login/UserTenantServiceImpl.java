@@ -64,7 +64,8 @@ public class UserTenantServiceImpl implements UserTenantService {
 						item.getTenantThemeJson(),
 						item.getTenantDefaultRouteJson(),
 						item.getTenantLogoJson(),
-						item.getConfigJson()))
+						item.getConfigJson(),
+						item.getIsFormal()))
 				.collect(Collectors.toList());
 
 	}

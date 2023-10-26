@@ -23,25 +23,34 @@ public class GrantedTenant implements Serializable {
 
 	@Schema(description = "tenant id")
 	private Long id;
+
 	@Schema(description = "tenant code")
 	private String code;
+
 	@Schema(description = "tenant name")
 	private String name;
+
 	@Schema(description = "租户主题")
 	private String tenantThemeJson;
+
 	@Schema(description = "租户默认的页面路由")
 	private String tenantDefaultRouteJson;
+
 	@Schema(description = "租户logo地址")
 	private String tenantLogoJson;
+
 	@Schema(description = "额外配置json")
 	private String configJson;
 
+	@Schema(description = "是否正式，1=正式，0=试用")
+	private Boolean isFormal;
 
 	public static GrantedTenant create(Long id, String code, String name,
 									   String tenantThemeJson,
 									   String tenantDefaultRouteJson,
 									   String tenantLogoJson,
-									   String configJson) {
+									   String configJson,
+									   Boolean isFormal) {
 		return GrantedTenant.builder().id(id)
 				.code(code)
 				.name(name)
@@ -49,6 +58,7 @@ public class GrantedTenant implements Serializable {
 				.tenantDefaultRouteJson(tenantDefaultRouteJson)
 				.tenantLogoJson(tenantLogoJson)
 				.configJson(configJson)
+				.isFormal(isFormal)
 				.build();
 	}
 }

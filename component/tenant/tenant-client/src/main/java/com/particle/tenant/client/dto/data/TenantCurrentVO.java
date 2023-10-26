@@ -38,4 +38,7 @@ public class TenantCurrentVO extends AbstractBaseIdVO {
     @Schema(description = "额外配置json")
     private String configJson;
 
+
+    @Schema(description = "是否正式，1=正式，0=试用")
+    private Boolean isFormal;
 }
