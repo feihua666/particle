@@ -8,6 +8,7 @@ CREATE TABLE `component_usage_count_config` (
   `limit_rule_type_dict_id` bigint NOT NULL COMMENT '限制规则类型字典id',
   `limit_period_dict_id` bigint NOT NULL COMMENT '限制周期字典id',
   `limit_tenant_id` bigint DEFAULT NULL COMMENT '限制租户id，如果为空代表是全局的设置',
+  `exceed_tip` varchar(255) DEFAULT NULL COMMENT '超出提示信息',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

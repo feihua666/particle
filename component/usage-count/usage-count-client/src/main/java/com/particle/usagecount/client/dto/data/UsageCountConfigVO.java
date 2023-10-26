@@ -48,6 +48,9 @@ public class UsageCountConfigVO extends AbstractBaseIdVO {
     @Schema(description = "限制租户id，如果为空代表是全局的设置")
     private Long limitTenantId;
 
+	@Schema(description = "超出提示信息")
+	private String exceedTip;
+
     @TransBy(type = TransConstants.TRANS_TENANT_BY_ID,byFieldName = "limitTenantId",mapValueField = "name")
     @Schema(description = "限制租户名称")
     private String limitTenantName;

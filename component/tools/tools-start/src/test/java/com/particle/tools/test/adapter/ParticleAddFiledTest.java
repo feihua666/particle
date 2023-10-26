@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("data_query_provider_id"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("limit_tenant_id"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("OpenplatformProviderRecord");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/open-platform");
+		addFieldCommand.setDomainName("UsageCountConfig");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/usage-count");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("is_cache_hit"),"是否命中缓存",Boolean.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("exceed_tip"),"超出提示信息",String.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

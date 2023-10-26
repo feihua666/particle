@@ -24,12 +24,12 @@ public class UsageCountConfigUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "名称 不能为空")
-        @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "使用次数定义id 不能为空")
-        @Schema(description = "使用次数定义id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "使用次数定义id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long usageCountDefineId;
 
 
@@ -38,17 +38,20 @@ public class UsageCountConfigUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotNull(message = "限制规则类型字典id 不能为空")
-        @Schema(description = "限制规则类型字典id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "限制规则类型字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long limitRuleTypeDictId;
 
 
     @NotNull(message = "限制周期字典id 不能为空")
-        @Schema(description = "限制周期字典id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "限制周期字典id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long limitPeriodDictId;
 
     @SetNullWhenNull
-	@Schema(description = "限制租户id，如果为空代表是全局的设置")
-	private Long limitTenantId;
+    @Schema(description = "限制租户id，如果为空代表是全局的设置")
+    private Long limitTenantId;
+
+    @Schema(description = "超出提示信息")
+    private String exceedTip;
 
 
     @Schema(description = "备注")

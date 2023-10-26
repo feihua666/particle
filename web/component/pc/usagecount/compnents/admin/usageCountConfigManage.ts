@@ -143,7 +143,20 @@ export const addPageFormItems = [
         label: '限制租户',
         tips: '如果设置将按租户配置其它租户不受影响，否则将全局生效'
     }),
-
+    {
+        field: {
+            name: 'exceedTip',
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '超出提示信息',
+            },
+            compProps: {
+                clearable: true,
+            }
+        }
+    },
     {
         field: {
             name: 'remark',

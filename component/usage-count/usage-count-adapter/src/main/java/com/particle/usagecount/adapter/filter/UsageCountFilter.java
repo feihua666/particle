@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 /**
  * <p>
@@ -62,16 +63,13 @@ public class UsageCountFilter extends OncePerRequestFilter {
 			SingleResponse<UsageCountRecordMarkVO> mark = iUsageCountRecordApplicationService.mark(usageCountRecordMarkCommand);
 			log.debug("usage count filter mark result = {}",JsonTool.toJsonStr(mark));
 			if (mark.getData() != null) {
-				Integer usageCount = mark.getData().getUsageCount();
-				Integer maxLimitCount = mark.getData().getMaxLimitCount();
-				if (maxLimitCount != null && maxLimitCount !=0) {
-					if (usageCount > maxLimitCount) {
-						ErrorCodeGlobalEnum usageCountLimitError = ErrorCodeGlobalEnum.USAGE_COUNT_LIMIT_ERROR;
-						Response failureResponse = Response.buildFailure(usageCountLimitError);
-						outJson(response,failureResponse,usageCountLimitError.getHttpStatus());
+				if (mark.getData().getIsExceed()) {
+					ErrorCodeGlobalEnum usageCountLimitError = ErrorCodeGlobalEnum.USAGE_COUNT_LIMIT_ERROR;
+					String userTip = mark.getData().getExceedTip();
+					Response failureResponse = Response.buildFailure(usageCountLimitError,userTip);
+					outJson(response,failureResponse,usageCountLimitError.getHttpStatus());
 
-						return;
-					}
+					return;
 				}
 			}
 		}

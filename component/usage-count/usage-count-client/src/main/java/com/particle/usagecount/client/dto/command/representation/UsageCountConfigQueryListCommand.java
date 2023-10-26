@@ -17,16 +17,11 @@ import lombok.Data;
 @Schema
 public class UsageCountConfigQueryListCommand extends AbstractBaseQueryCommand {
 
-
-
     @Schema(description = "名称")
     private String name;
 
-
     @Schema(description = "使用次数定义id")
     private Long usageCountDefineId;
-
-
 
     @Schema(description = "限制规则类型字典id")
     private Long limitRuleTypeDictId;
@@ -37,14 +32,5 @@ public class UsageCountConfigQueryListCommand extends AbstractBaseQueryCommand {
 
 	@Schema(description = "限制租户id，如果为空代表是全局的设置")
 	private Long limitTenantId;
-
-
-
-
-
-
-
-
-
 
 }

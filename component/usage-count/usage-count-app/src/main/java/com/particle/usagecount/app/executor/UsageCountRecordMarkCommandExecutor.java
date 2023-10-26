@@ -167,22 +167,22 @@ public class UsageCountRecordMarkCommandExecutor extends AbstractBaseExecutor {
 		}
 
 		String computeKey = computeKey(usageCountConfigDO, currentUserId, currentTenantId);
-		UsageCountRecordDO byUsageCountKey = iUsageCountRecordService.getByUsageCountKey(computeKey);
+		UsageCountRecordDO usageCountRecordDO = iUsageCountRecordService.getByUsageCountKey(computeKey);
 		// 由于添加和更新的差异，定义一个真正的计数变量，以设置真正的计数
 		int realCount = 0;
 		// 不存在添加
-		if (byUsageCountKey == null) {
-			UsageCountRecordDO usageCountRecordDO = new UsageCountRecordDO();
-			usageCountRecordDO.setUsageCountKey(computeKey);
-			usageCountRecordDO.setUsageCount(1);
-			usageCountRecordDO.setUsageCountConfigId(usageCountConfigDO.getId());
-			usageCountRecordDO.setUsageCountDefineId(usageCountDefineDOId);
+		if (usageCountRecordDO == null) {
+			UsageCountRecordDO usageCountRecordDOToBeInsert = new UsageCountRecordDO();
+			usageCountRecordDOToBeInsert.setUsageCountKey(computeKey);
+			usageCountRecordDOToBeInsert.setUsageCount(1);
+			usageCountRecordDOToBeInsert.setUsageCountConfigId(usageCountConfigDO.getId());
+			usageCountRecordDOToBeInsert.setUsageCountDefineId(usageCountDefineDOId);
 			// 用户应该理解为第一次开始计数的用户id
-			usageCountRecordDO.setUsageUserId(currentUserId);
-			usageCountRecordDO.setUsageTenantId(currentTenantId);
+			usageCountRecordDOToBeInsert.setUsageUserId(currentUserId);
+			usageCountRecordDOToBeInsert.setUsageTenantId(currentTenantId);
 			// 在并发情况下，添加的时候有可能已存在
 			try {
-				byUsageCountKey = iUsageCountRecordService.add(usageCountRecordDO);
+				usageCountRecordDO = iUsageCountRecordService.add(usageCountRecordDOToBeInsert);
 				realCount = 1;
 			} catch (Exception e) {
 				// 尝试直接加1
@@ -194,17 +194,17 @@ public class UsageCountRecordMarkCommandExecutor extends AbstractBaseExecutor {
 		}
 
 		// 只有在添加失败时才有可能是null
-		if (byUsageCountKey == null) {
-			byUsageCountKey = iUsageCountRecordService.getByUsageCountKey(computeKey);
-			realCount = byUsageCountKey.getUsageCount();
+		if (usageCountRecordDO == null) {
+			usageCountRecordDO = iUsageCountRecordService.getByUsageCountKey(computeKey);
+			realCount = usageCountRecordDO.getUsageCount();
 		}else {
 			// 判断一下是否为0，如果为0代表没有处理过该值，这里直接加1，否则可能是在添加了一个默认1导致不正确
 			if (realCount <= 0) {
-				realCount = byUsageCountKey.getUsageCount() + 1;
+				realCount = usageCountRecordDO.getUsageCount() + 1;
 			}
 		}
 
-		UsageCountRecordDO finalByUsageCountKey = byUsageCountKey;
+		UsageCountRecordDO finalByUsageCountKey = usageCountRecordDO;
 		commonDbTaskExecutor.execute(()->{
 			// 记录明细
 			UsageCountRecordDetailDO usageCountRecordDetailDO = new UsageCountRecordDetailDO();
@@ -215,7 +215,12 @@ public class UsageCountRecordMarkCommandExecutor extends AbstractBaseExecutor {
 			iUsageCountRecordDetailService.add(usageCountRecordDetailDO);
 		});
 
-		UsageCountRecordMarkVO usageCountRecordMarkVO = UsageCountRecordMarkVO.create(byUsageCountKey.getId(),computeKey, realCount, usageCountConfigDO.getLimitCount());
+		UsageCountRecordMarkVO usageCountRecordMarkVO = UsageCountRecordMarkVO.create(usageCountRecordDO.getId(),
+				computeKey,
+				realCount,
+				usageCountConfigDO.getLimitCount(),
+				usageCountConfigDO.getExceedTip(),
+				usageCountRecordDO.getVersion());
 		return SingleResponse.of(usageCountRecordMarkVO);
 
 	}

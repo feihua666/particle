@@ -25,14 +25,27 @@ public class UsageCountRecordMarkVO extends AbstractBaseIdVO {
     @Schema(description = "最大限制次数，为空或0为不限制")
     private Integer maxLimitCount;
 
+    @Schema(description = "超出提示信息")
+    private String exceedTip;
+
+
+    @Schema(description = "是否超出")
+    private Boolean isExceed;
+
     public static UsageCountRecordMarkVO create(Long id,String usageCountKey,
                                                 Integer usageCount,
-                                                Integer maxLimitCount) {
+                                                Integer maxLimitCount,
+                                                String exceedTip,
+                                                Integer version) {
         UsageCountRecordMarkVO usageCountRecordMarkVO = new UsageCountRecordMarkVO();
         usageCountRecordMarkVO.setId(id);
         usageCountRecordMarkVO.usageCountKey = usageCountKey;
         usageCountRecordMarkVO.usageCount = usageCount;
         usageCountRecordMarkVO.maxLimitCount = maxLimitCount;
+        usageCountRecordMarkVO.exceedTip = exceedTip;
+        usageCountRecordMarkVO.setVersion(version);
+
+        usageCountRecordMarkVO.isExceed = usageCount > maxLimitCount;
 
         return usageCountRecordMarkVO;
     }

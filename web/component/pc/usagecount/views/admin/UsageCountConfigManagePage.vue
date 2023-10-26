@@ -41,6 +41,10 @@ const reactiveData = reactive({
       label: '限制租户名称',
     },
     {
+      prop: 'exceedTip',
+      label: '超出提示信息',
+    },
+    {
       prop: 'remark',
       label: '备注',
     },

@@ -20,13 +20,11 @@ public class UsageCountConfigPageQueryCommand extends AbstractBasePageQueryComma
 
 
     @Like
-        @Schema(description = "名称,左前缀匹配")
+    @Schema(description = "名称,左前缀匹配")
     private String name;
-
 
     @Schema(description = "使用次数定义id")
     private Long usageCountDefineId;
-
 
 
     @Schema(description = "限制规则类型字典id")
@@ -36,9 +34,7 @@ public class UsageCountConfigPageQueryCommand extends AbstractBasePageQueryComma
     @Schema(description = "限制周期字典id")
     private Long limitPeriodDictId;
 
-	@Schema(description = "限制租户id，如果为空代表是全局的设置")
-	private Long limitTenantId;
-
-
+    @Schema(description = "限制租户id，如果为空代表是全局的设置")
+    private Long limitTenantId;
 
 }

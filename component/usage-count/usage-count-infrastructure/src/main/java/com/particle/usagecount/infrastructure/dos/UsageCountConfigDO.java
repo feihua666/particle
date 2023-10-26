@@ -48,6 +48,11 @@ public class UsageCountConfigDO extends BaseDO {
 	 */
 	private Long limitTenantId;
 
+	/**
+	 * 超出提示信息
+	 */
+	private String exceedTip;
+
     /**
     * 备注
     */
