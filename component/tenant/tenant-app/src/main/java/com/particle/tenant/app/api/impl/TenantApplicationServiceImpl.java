@@ -80,6 +80,8 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 		tenantCreateApplyAuditCommand.setAuditStatusDictId(tenantCreateApplyAuditStatusPass);
 
 		SingleResponse<TenantCreateApplyVO> audit = tenantCreateApplyAuditCommandExecutor.audit(tenantCreateApplyAuditCommand);
+		// 审核完成重新获取审核状态
+		tenantCreateApply = tenantCreateApplyGateway.getById(TenantCreateApplyId.of(execute.getData().getId()));
 		if (tenantCreateApply.checkIsAuditPass()) {
 			// 返回租户信息
 			Tenant tenant = tenantGateway.getById(TenantId.of(tenantCreateApply.getAppliedTenantId()));
