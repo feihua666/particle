@@ -69,7 +69,7 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 		if (cachedTenantDOS == null) {
 
 			List<TenantDO> tenantDOS = getAllSimpleIgnoreTenantLimit();
-			cachedTenantDOS = UserTenantServiceImpl.filterAvailableTenantDOs(tenantDOS, LocalDateTime.now());
+			cachedTenantDOS = UserTenantServiceImpl.filterAvailableTenantDOs(tenantDOS, LocalDateTime.now(),null,true);
 			if (cachedTenantDOS == null) {
 				return null;
 			}
@@ -110,7 +110,8 @@ public class TenantResolveServiceImpl implements ITenantResolveService {
 		try {
 			// 设置忽略租户插件
 			InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
-			return tenantMapper.selectList(Wrappers.<TenantDO>lambdaQuery().select(TenantDO::getId,TenantDO::getCode,TenantDO::getName,TenantDO::getTenantDomain,TenantDO::getIsDisabled));
+			return tenantMapper.selectList(Wrappers.<TenantDO>lambdaQuery()
+					.select(TenantDO::getId,TenantDO::getCode,TenantDO::getName,TenantDO::getTenantDomain,TenantDO::getIsDisabled));
 		} finally {
 			InterceptorIgnoreHelper.clearIgnoreStrategy();
 		}

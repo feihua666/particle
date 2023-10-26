@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +40,10 @@ public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthentication
 
     @Autowired
     private GlobalSecurityAuthenticationHandler globalSecurityAuthenticationHandler;
+
+    @Autowired(required = false)
+    private List<IAuthenticationFailureUserTipHandler> iAuthenticationFailureUserTipHandlers;
+
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
@@ -86,9 +91,25 @@ public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthentication
 
         }
 
-        Response response = Response.buildFailure(iErrorCode);
+        Response response = Response.buildFailure(iErrorCode,handleUserTip(iErrorCode));
 
         return response;
+    }
+
+    /**
+     * 处理用户提示信息
+     * @param iErrorCode
+     * @return
+     */
+    private String handleUserTip(IErrorCode iErrorCode) {
+        if (iAuthenticationFailureUserTipHandlers != null) {
+            for (IAuthenticationFailureUserTipHandler iAuthenticationFailureUserTipHandler : iAuthenticationFailureUserTipHandlers) {
+                if (iAuthenticationFailureUserTipHandler.support(iErrorCode)) {
+                    return iAuthenticationFailureUserTipHandler.handle(iErrorCode);
+                }
+            }
+        }
+        return null;
     }
 
     private static Map<Class,IErrorCode> errorCodeMap = new HashMap();

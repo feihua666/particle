@@ -12,7 +12,8 @@ public interface UserTenantService {
     /**
      * 获取租户信息
      * @param userId
+     * @param limitedTenantId 限制的租户
      * @return
      */
-    List<GrantedTenant> retrieveUserTenantByUserId(Long userId);
+    List<GrantedTenant> retrieveUserTenantByUserId(Long userId,Long limitedTenantId);
 }

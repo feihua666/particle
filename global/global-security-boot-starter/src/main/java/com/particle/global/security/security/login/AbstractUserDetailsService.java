@@ -87,7 +87,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         if (userTenantService != null) {
             // limitedTenantId，这一般是通过 com.particle.global.security.security.config.TenantToolPersistentSecurityFilter 过滤器根据域名配置获取到的
             // 如果有值那么租户就锁定在该租户下
-            List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId());
+            List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId(),limitedTenantId);
             if (limitedTenantId != null) {
                 if (CollectionUtil.isNotEmpty(grantedTenants)) {
                     // 限定在已解析到的租户下
