@@ -1,6 +1,7 @@
 package com.particle.global.session.auto;
 
 import com.particle.global.session.GlobalSessionProperties;
+import com.particle.global.swagger.SwaggerInfo;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
 import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
@@ -33,8 +34,8 @@ public class GlobalSessionAutoConfiguration {
 
 	/**
 	 * 支持 token 和 cookie两种方式
-	 * 默认如果不使用任何配置请求头和COOKIE名称都为:SESSION
-	 * 可能过 server.servlet.session.cookie.name 修改
+	 * 默认如果不使用任何配置请求头和COOKIE名称都为:{@link SwaggerInfo#token}
+	 * 可通过 server.servlet.session.cookie.name 修改
 	 * @return
 	 */
 	@Bean
