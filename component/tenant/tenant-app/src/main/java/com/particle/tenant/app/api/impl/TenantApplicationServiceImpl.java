@@ -4,6 +4,7 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyAuditCommandExecutor;
 import com.particle.tenant.app.createapply.executor.TenantCreateApplyCreateCommandExecutor;
 import com.particle.tenant.app.executor.TenantCreateCommandExecutor;
@@ -84,7 +85,8 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 		tenantCreateApply = tenantCreateApplyGateway.getById(TenantCreateApplyId.of(execute.getData().getId()));
 		if (tenantCreateApply.checkIsAuditPass()) {
 			// 返回租户信息
-			Tenant tenant = tenantGateway.getById(TenantId.of(tenantCreateApply.getAppliedTenantId()));
+			TenantCreateApply finalTenantCreateApply = tenantCreateApply;
+			Tenant tenant = CustomTenantLineHandler.executeIgnoreTenant(() -> tenantGateway.getById(TenantId.of(finalTenantCreateApply.getAppliedTenantId())));
 			return SingleResponse.of(TenantAppStructMapping.instance.toTenantVO(tenant));
 		}
 		return SingleResponse.buildSuccess();
