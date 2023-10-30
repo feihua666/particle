@@ -1,6 +1,7 @@
 package com.particle.user.infrastructure.identifier.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
@@ -27,6 +28,16 @@ public interface IUserIdentifierPwdService extends IBaseService<UserIdentifierPw
 		Assert.notNull(identifierId,"identifierId不能为空");
 		return getOne(Wrappers.<UserIdentifierPwdDO>lambdaQuery().eq(UserIdentifierPwdDO::getIdentifierId, identifierId));
 	}
+
+	/**
+	 * 忽略租户限制查询，主要用于登录
+	 * @param identifierId
+	 * @return
+	 */
+	default UserIdentifierPwdDO getByIdentifierIdIgnoreTenantLimit(Long identifierId) {
+		return CustomTenantLineHandler.executeIgnoreTenant(() -> getByIdentifierId(identifierId));
+	}
+
 	/**
 	 * 根据编码查询多个
 	 * @param identifierIds
@@ -42,6 +53,15 @@ public interface IUserIdentifierPwdService extends IBaseService<UserIdentifierPw
 	 * @return
 	 */
 	List<UserIdentifierPwdDO> getByUserId(Long userId);
+
+	/**
+	 * 忽略租户限制查询，主要用于登录
+	 * @param userId
+	 * @return
+	 */
+	default List<UserIdentifierPwdDO> getByUserIdIgnoreTenantLimit(Long userId){
+		return CustomTenantLineHandler.executeIgnoreTenant(() -> getByUserId(userId));
+	}
 
 	/**
 	 * 根据用户id重置用户密码

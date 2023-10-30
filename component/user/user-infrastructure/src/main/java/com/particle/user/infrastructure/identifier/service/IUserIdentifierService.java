@@ -1,6 +1,9 @@
 package com.particle.user.infrastructure.identifier.service;
 
+import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
+import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
@@ -27,6 +30,15 @@ public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 	default UserIdentifierDO getByIdentifier(String identifier) {
 		Assert.hasText(identifier,"identifier不能为空");
 		return getOne(Wrappers.<UserIdentifierDO>lambdaQuery().eq(UserIdentifierDO::getIdentifier, identifier));
+	}
+
+	/**
+	 * 忽略租户限制查询，主要用于登录，在用户已经登录情况下，可能会复用之前租户
+	 * @param identifier
+	 * @return
+	 */
+	default UserIdentifierDO getByIdentifierIgnoreTenantLimit(String identifier) {
+		return CustomTenantLineHandler.executeIgnoreTenant(() -> getByIdentifier(identifier));
 	}
 	/**
 	 * 根据登录标识查询
