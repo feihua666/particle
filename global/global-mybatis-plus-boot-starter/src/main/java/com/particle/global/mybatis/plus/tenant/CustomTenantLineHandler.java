@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
+import com.particle.global.dto.basic.DO;
 import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
 import net.sf.jsqlparser.expression.Expression;
@@ -26,6 +27,8 @@ import java.util.function.Supplier;
 @Data
 public class CustomTenantLineHandler implements TenantLineHandler {
 
+	public static String columnTenantId = DO.COLUMN_TENANT_ID;
+
 
 	private List<String> ignoreTables;
 
@@ -40,7 +43,8 @@ public class CustomTenantLineHandler implements TenantLineHandler {
 
 	@Override
 	public String getTenantIdColumn() {
-		return TenantLineHandler.super.getTenantIdColumn();
+		// return TenantLineHandler.super.getTenantIdColumn();
+		return columnTenantId;
 	}
 
 	@Override

@@ -226,9 +226,21 @@ public interface IBaseService<DO> extends IService<DO> {
     default boolean existByColumn(Object columnValue, SFunction<DO, ?> column) {
         Assert.notNull(column,"column 不能为空");
         Assert.notNull(columnValue,"columnValue 不能为空");
-        return count( Wrappers.<DO>query().lambda().eq(column,columnValue)) > 0;
+        return existByColumnWithTenantId(columnValue,column,null);
     }
 
+    /**
+     * 判断数据是否存在，手动指定租户
+     * @param columnValue
+     * @param column
+     * @param tenantId
+     * @return
+     */
+    default boolean existByColumnWithTenantId(Object columnValue, SFunction<DO, ?> column,Long tenantId) {
+        Assert.notNull(column,"column 不能为空");
+        Assert.notNull(columnValue,"columnValue 不能为空");
+        return count( Wrappers.<DO>query().eq(tenantId != null,BaseDO.COLUMN_TENANT_ID,tenantId).lambda().eq(column,columnValue)) > 0;
+    }
     /**
      * 根据一个外键查询
      * @param columnId
@@ -348,7 +360,26 @@ public interface IBaseService<DO> extends IService<DO> {
     default void assertByColumn(Object columnValue, SFunction<DO, ?> column, boolean exist) {
         assertByColumn(columnValue, column, exist, null);
     }
-
+    /**
+     * 断言根据该列查询是否存在或不存在
+     * 参见：{@link IBaseService#assertByColumn(java.lang.Object, com.baomidou.mybatisplus.core.toolkit.support.SFunction, boolean, java.lang.String)}
+     * @param columnValue
+     * @param column
+     * @param exist
+     */
+    default void assertByColumn(Object columnValue, SFunction<DO, ?> column,Long tenantId, boolean exist) {
+        assertByColumnWithTenantId(columnValue, column,tenantId, exist, null);
+    }
+    /**
+     * 断言根据该列查询是否存在或不存在
+     * 参见：{@link IBaseService#assertByColumn(java.lang.Object, com.baomidou.mybatisplus.core.toolkit.support.SFunction, boolean, java.lang.String)}
+     * @param columnValue
+     * @param column
+     * @param exist
+     */
+    default void assertByColumnWithTenantId(Object columnValue, SFunction<DO, ?> column,Long tenantId, boolean exist) {
+        assertByColumnWithTenantId(columnValue, column,tenantId, exist, null);
+    }
     /**
      * 断言根据该列查询是否存在或不存在
      * @param columnValue
@@ -356,9 +387,19 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param exist true=断言存在，false=断言不存在
      */
     default void assertByColumn(Object columnValue, SFunction<DO, ?> column, boolean exist,String message) {
+        assertByColumnWithTenantId(columnValue, column, null, exist, message);
+    }
+
+    /**
+     * 断言根据该列查询是否存在或不存在
+     * @param columnValue
+     * @param column
+     * @param exist true=断言存在，false=断言不存在
+     */
+    default void assertByColumnWithTenantId(Object columnValue, SFunction<DO, ?> column,Long tenantId, boolean exist,String message) {
         Assert.notNull(column,"column 不能为空");
         Assert.notNull(columnValue,"columnValue 不能为空");
-        boolean existByColumn = existByColumn(columnValue, column);
+        boolean existByColumn = existByColumnWithTenantId(columnValue, column,tenantId);
         if(exist == existByColumn){
             return;
         }
@@ -391,7 +432,6 @@ public interface IBaseService<DO> extends IService<DO> {
             Assert.isTrue(!existByColumn,messageTemp);
         }
     }
-
     /**
      * 断言数据是否存在
      * @param queryWrapper

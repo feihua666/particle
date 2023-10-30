@@ -52,7 +52,8 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 	protected void preAdd(RoleDO po) {
 		// 编码已存在不能添加
 		if (StrUtil.isNotEmpty(po.getCode())) {
-			assertByColumn(po.getCode(),RoleDO::getCode,false);
+			// 一键添加租户指定了租户id，这里使用租户id断言
+			assertByColumn(po.getCode(),RoleDO::getCode,po.getTenantId(),false);
 		}
 	}
 

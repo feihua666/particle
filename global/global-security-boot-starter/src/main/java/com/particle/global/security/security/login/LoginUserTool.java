@@ -36,13 +36,22 @@ public class LoginUserTool {
         return (LoginUser) ThreadContextTool.get(LOGIN_USER_SESSION_KEY);
     }
     /**
-     * 获取当前登录用户
+     * 从session获取当前登录用户
      * @param request
      * @return
      */
     public static LoginUser retrieveFromSession(HttpServletRequest request) {
         Assert.notNull(request,"request为空，请查检传入参数");
         return (LoginUser) request.getSession().getAttribute(LOGIN_USER_SESSION_KEY);
+    }
+
+    /**
+     * 从session中删除
+     * @param request
+     */
+    public static void removeFromSession(HttpServletRequest request) {
+        Assert.notNull(request,"request为空，请查检传入参数");
+        request.getSession().removeAttribute(LOGIN_USER_SESSION_KEY);
     }
 
     /**

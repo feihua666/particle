@@ -3,6 +3,7 @@ package com.particle.global.security.security.logout;
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
+import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.json.JsonTool;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -49,5 +50,7 @@ public class DefaultLogoutSuccessHandler extends DefaultAbstractLogoutSuccessHan
 		if (securityContextLogoutHandler != null) {
 			securityContextLogoutHandler.logout(request,response,authentication);
 		}
+		LoginUserTool.clear();
+		LoginUserTool.removeFromSession(request);
 	}
 }
