@@ -19,6 +19,9 @@ import org.springframework.session.web.http.SessionRepositoryFilter;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -39,7 +42,7 @@ public class GlobalSessionAutoConfiguration {
 	 * @return
 	 */
 	@Bean
-	public HttpSessionIdResolver customDelegateHttpSessionIdResolver(ServerProperties serverProperties,
+	public HttpSessionIdResolver customDelegateHttpSessionIdResolver(ServerProperties serverProperties,GlobalSessionProperties globalSessionProperties,
 																	 ObjectProvider<DefaultCookieSerializerCustomizer> cookieSerializerCustomizers){
 		Session.Cookie cookie = serverProperties.getServlet().getSession().getCookie();
 		CustomDefaultCookieSerializer cookieSerializer = new CustomDefaultCookieSerializer();
@@ -61,13 +64,15 @@ public class GlobalSessionAutoConfiguration {
 		 * 默认会在响应返回时添加响应头session 头信息，参见：{@link SessionRepositoryFilter.SessionRepositoryRequestWrapper#commitSession()}
 		 */
 		HeaderHttpSessionIdResolver headerHttpSessionIdResolver = new HeaderHttpSessionIdResolver(cookieSerializer.getCookieName());
-
-		return new CustomDelegateHttpSessionIdResolver(
-				Arrays.asList(
-						headerHttpSessionIdResolver,
-						cookieHttpSessionIdResolver
-				)
-		);
+		List<HttpSessionIdResolver> httpSessionIdResolvers = null;
+		if (globalSessionProperties.getSessionIdResolver() == null || GlobalSessionProperties.SessionIdResolver.all.name().equals(globalSessionProperties.getSessionIdResolver())) {
+			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver, cookieHttpSessionIdResolver);
+		}else if (GlobalSessionProperties.SessionIdResolver.header.name().equals(globalSessionProperties.getSessionIdResolver())) {
+			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver);
+		}else if (GlobalSessionProperties.SessionIdResolver.cookie.name().equals(globalSessionProperties.getSessionIdResolver())) {
+			httpSessionIdResolvers = Arrays.asList(cookieHttpSessionIdResolver);
+		}
+		return new CustomDelegateHttpSessionIdResolver(httpSessionIdResolvers);
 	}
 
 
