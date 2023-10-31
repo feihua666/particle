@@ -1,6 +1,24 @@
 
 # Changelog
 
+# 2.1.0-beta(2023-10-31)
+### 新特性
+
+* 【前端】支持组件内容变更监听
+* 【report】新增支持开放接口配置、支持上传到oss及其它迎合报告业务组件的配套修
+* 【global-oss-boot-starter】支持程序传参控制是否拼接endpoint
+* 【global-exception-handle-boot-starter】修改全局异常捕获，尝试解析原始异常是否为BizException
+* 【usage-count】新增用于进行接口或功能访问计数和限制，其它配套功能微调
+* 【user】用户登录相关修改，主要是添加提示合理的异常信息适配，登录用户租户信息中添加是否正式字段
+* 【global-session-boot-starter】添加session支持可配置header或cookie存储，默认header
+### bug修复
+
+* 【global-big-datasource-boot-starter】修改大数据源执行器缓存配置不生效问
+* 【tenant】一键添加租户判断审核状态数据不正确问题
+* 【user】登录时使用参数拼接的方式如果有&字符会分隔成参数问题，登录时错误提示问题处理
+### 其它
+* 【global-tool】模板树渲染获取数据脚本去掉try catch 主要不转换异常，统一由全局异常处理  
+
 # 2.0.0-beta(2023-08-28)
 ### 新特性
 
