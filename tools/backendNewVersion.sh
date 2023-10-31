@@ -8,5 +8,5 @@ mvn versions:set -DnewVersion=1.0.0-beta
 # 尽量保持前后端版本一致 同步修改 web/project/xxx/package.json 和 doc/vuepress/package.json 中 version 版本
 
 # 如果是全局替换版本,按以下步骤比较精准
-# 1. pom.xml <version>2.1.0-beta</version> 替换为 <version>新版本</version>
-# 2. package.json "version": "2.1.0-beta", 替换为 "version": "新版本",
+# 1. pom.xml <version>2.1.1-beta-SNAPSHOT</version> 替换为 <version>新版本</version>
+# 2. package.json "version": "2.1.1-beta-SNAPSHOT", 替换为 "version": "新版本",
