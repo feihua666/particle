@@ -7,3 +7,5 @@ particle:
   session:
     jdbc:
       type: mysql
+    # 默认使用header不使用cookie
+    session-id-resolver: header
