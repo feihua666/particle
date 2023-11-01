@@ -46,15 +46,18 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
 
         UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(username);
         if (userIdentifierDO == null) {
+            if (TenantTool.getTenantId() != null) {
+                log.debug("userIdentifier not found. this is likely the userIdentifier(username={}) not exist in tenant(tenantId={})",username,TenantTool.getTenantId());
+            }
            return null;
         }
         UserDO userDO = iUserService.getById(userIdentifierDO.getUserId());
 
         if (userDO == null) {
             if (TenantTool.getTenantId() != null) {
-                    log.debug("UsernameNotFoundException was threw. this is likely the user(userId={}) not exist in tenant(tenantId={})",userIdentifierDO.getUserId(),TenantTool.getTenantId());
+                    log.debug("user not found. this is likely the user(userId={}) not exist in tenant(tenantId={})",userIdentifierDO.getUserId(),TenantTool.getTenantId());
             }
-            throw new UsernameNotFoundException("用户不存在");
+            return null;
         }
 
         UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());

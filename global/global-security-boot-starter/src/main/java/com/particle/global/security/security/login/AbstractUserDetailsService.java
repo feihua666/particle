@@ -60,11 +60,6 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        LoginUser loginUser = doLoadUserByUsername(username);
-        if (loginUser == null) {
-            throw new UsernameNotFoundException("用户不存在");
-        }
         GrantedTenant grantedTenant = null;
         if (LoginTool.checkIgnoreTenantResolveAndClearTenantLocal()) {
             // 在登录时重置租户解析，重新解析，因为在登录之前可能用户已经登录或配置了域名已经解析到租户了
@@ -73,6 +68,12 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         }else {
             grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
         }
+
+        LoginUser loginUser = doLoadUserByUsername(username);
+        if (loginUser == null) {
+            throw new UsernameNotFoundException("用户不存在");
+        }
+
         // 加载额外信息
         loginUserDetailsFill(loginUser,null,Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
 
