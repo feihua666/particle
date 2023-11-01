@@ -44,11 +44,11 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
     @Override
     public LoginUser doLoadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifierIgnoreTenantLimit(username);
+        UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(username);
         if (userIdentifierDO == null) {
            return null;
         }
-        UserDO userDO = iUserService.getByIdIgnoreTenantLimit(userIdentifierDO.getUserId());
+        UserDO userDO = iUserService.getById(userIdentifierDO.getUserId());
 
         if (userDO == null) {
             if (TenantTool.getTenantId() != null) {
@@ -57,10 +57,10 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
             throw new UsernameNotFoundException("用户不存在");
         }
 
-        UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierIdIgnoreTenantLimit(userIdentifierDO.getId());
+        UserIdentifierPwdDO userIdentifierPwdDO = iIdentifierPwdService.getByIdentifierId(userIdentifierDO.getId());
         if (userIdentifierPwdDO == null) {
             // 支持唯一密码登录
-            List<UserIdentifierPwdDO> userIdentifierPwdDOS = iIdentifierPwdService.getByUserIdIgnoreTenantLimit(userDO.getId());
+            List<UserIdentifierPwdDO> userIdentifierPwdDOS = iIdentifierPwdService.getByUserId(userDO.getId());
             if (CollectionUtil.isNotEmpty(userIdentifierPwdDOS) && userIdentifierPwdDOS.size() == 1) {
                 userIdentifierPwdDO = userIdentifierPwdDOS.iterator().next();
             }

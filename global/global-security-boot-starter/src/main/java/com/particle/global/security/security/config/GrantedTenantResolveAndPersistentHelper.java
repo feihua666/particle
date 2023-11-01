@@ -57,7 +57,7 @@ public class GrantedTenantResolveAndPersistentHelper {
 	/**
 	 * 删除持久化
 	 */
-	public void removeFromPsrsistent() {
+	public void removeFromPersistent() {
 		if (iUserTenantChangeListeners != null) {
 			for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
 				iUserTenantChangeListener.onTenantChanged(null, null);
