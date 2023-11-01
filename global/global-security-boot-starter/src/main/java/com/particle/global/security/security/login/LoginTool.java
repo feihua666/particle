@@ -19,7 +19,7 @@ public class LoginTool {
      * 用来判断是否忽略租户解析和清空本地线程已经解析到的租户信息
      * @return
      */
-    public static boolean checkIgnoreTenantResourceAndClearTenantLocal() {
+    public static boolean checkIgnoreTenantResolveAndClearTenantLocal() {
         Boolean b = (Boolean)ThreadContextTool.get(ignoreTenantResourceAndClearTenantLocalKey);
         return b != null && b;
     }
@@ -27,7 +27,7 @@ public class LoginTool {
     /**
      * 设置忽略租户解析和清空本地线程已经解析到的租户信息
      */
-    public static void doIgnoreTenantResourceAndClearTenantLocal() {
+    public static void doIgnoreTenantResolveAndClearTenantLocal() {
         ThreadContextTool.put(ignoreTenantResourceAndClearTenantLocalKey,true);
     }
 }

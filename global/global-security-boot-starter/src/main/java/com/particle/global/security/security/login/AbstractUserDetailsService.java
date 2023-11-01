@@ -66,7 +66,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         GrantedTenant grantedTenant = null;
-        if (LoginTool.checkIgnoreTenantResourceAndClearTenantLocal()) {
+        if (LoginTool.checkIgnoreTenantResolveAndClearTenantLocal()) {
             // 在登录时重置租户解析，重新解析，因为在登录之前可能用户已经登录或配置了域名已经解析到租户了
             TenantTool.clear();
             // 不再解析租户信息
