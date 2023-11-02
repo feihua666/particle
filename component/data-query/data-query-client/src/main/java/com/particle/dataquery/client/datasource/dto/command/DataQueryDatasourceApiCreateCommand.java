@@ -2,6 +2,7 @@ package com.particle.dataquery.client.datasource.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
+import com.particle.global.validation.props.PropValid;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author yw
  * @since 2023-03-14 22:21:40
  */
+@PropValid
 @Data
 @Schema
 public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
@@ -129,4 +131,15 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
     @Schema(description = "描述")
     private String remark;
 
+
+    /**
+     * 是否添加一对一直连数据查询接口
+     */
+    @NotNull(message = "是否添加一对一直连数据查询接口 不能为空")
+    @Schema(description = "是否添加一对一直连数据查询接口")
+    Boolean isAddSingleDirect;
+
+    @PropValid.DependCondition(message = "数据查询接口地址 不能为空",dependProp = "isAddSingleDirect",ifEqual = "true")
+    @Schema(title = "数据查询接口地址", description = "添加一对一直连数据查询接口必填")
+    private String dataQueryDataApiUrl;
 }

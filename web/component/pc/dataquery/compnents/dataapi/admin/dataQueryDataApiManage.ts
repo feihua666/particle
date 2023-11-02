@@ -133,6 +133,7 @@ export const pageFormItems = [
   },
 ]
 export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDataApiFormItemConfigsRef}) => {
+
   return [
     {
       field: {
@@ -178,7 +179,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         comp: 'PtDictFrontSelect',
         formItemProps: {
           label: '适配类型',
-          required: true
+          required: true,
+          tips: '注：选择一对一直连，接口适配及其后面字段将忽略（将使用数据查询数据源接口直连接口配置），请勿填写'
         },
         compProps: {
           // 字典查询
@@ -355,41 +357,6 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   ]
 }

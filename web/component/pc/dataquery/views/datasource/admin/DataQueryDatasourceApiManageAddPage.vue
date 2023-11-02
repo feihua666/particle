@@ -25,7 +25,8 @@ const formComps = ref(
           form: reactiveData.form,
           formData: reactiveData.formData,
           dataQueryDatasourceApiFormItemConfigsRef,
-          dataQueryDatasourceApiFormItemBasicConfigsRef
+          dataQueryDatasourceApiFormItemBasicConfigsRef,
+          addSingleDirectElements: true
         })
 )
 
@@ -55,7 +56,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[3,3,1,3,3,3,3,3]"
+          :layout="[3,3,1,3,3,3,3,3,3]"
           :comps="formComps">
   </PtForm>
   

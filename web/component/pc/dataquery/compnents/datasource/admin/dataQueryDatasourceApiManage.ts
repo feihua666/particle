@@ -372,7 +372,47 @@ export const pageFormItems = [
     }
   },
 ]
-export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDatasourceApiFormItemBasicConfigsRef})=>{
+export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDatasourceApiFormItemBasicConfigsRef,addSingleDirectElements = false})=>{
+
+  let temp = []
+  if(addSingleDirectElements){
+    temp = [
+      {
+        field: {
+          name: 'isAddSingleDirect',
+          value: false
+        },
+        element: {
+          comp: 'el-switch',
+          formItemProps: {
+            label: '添加一对一直连数据查询接口'
+          },
+          compProps: {
+            activeText: '添加',
+            inactiveText: '不添加',
+          }
+        }
+      },
+      {
+        field: {
+          name: 'dataQueryDataApiUrl',
+        },
+        element: {
+          comp: 'el-input',
+          formItemProps: {
+            label: '数据查询接口地址',
+            required: ({form}) => form.isAddSingleDirect,
+            tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq。开放接口前面拼接 /openapi/dq'
+          },
+          compProps: {
+            clearable: true,
+            placeholder: '接口地址，唯一'
+          }
+        }
+      },
+    ]
+  }
+
   return [
     {
       field: {
@@ -728,6 +768,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
+      ...temp
   ]
 }
 

@@ -49,6 +49,15 @@ public class DataQueryDictGatewayImpl implements DataQueryDictGateway {
 		return collect;
 	}
 
+	@Override
+	public Long getDictIdByGroupCodeAndItemValue(String groupCode, String value) {
+		SingleResponse<DictVO> byGroupCodeAndItemValue = dictRpcFeignClient.getByGroupCodeAndItemValue(groupCode, value);
+		if (byGroupCodeAndItemValue.getData() == null) {
+			return null;
+		}
+		return byGroupCodeAndItemValue.getData().getId();
+	}
+
 	@Autowired
 	public void setDictRpcFeignClient(DictRpcFeignClient dictRpcFeignClient) {
 		this.dictRpcFeignClient = dictRpcFeignClient;

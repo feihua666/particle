@@ -1,13 +1,18 @@
 package com.particle.dataquery.app.datasource.api.impl;
 
+import cn.hutool.core.util.BooleanUtil;
+import com.particle.dataquery.app.dataapi.executor.DataQueryDataApiCreateCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceApiCreateCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceApiDeleteCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceApiUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiCreateCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiUpdateCommand;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApiApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
+import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
+import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
@@ -35,10 +40,31 @@ public class DataQueryDatasourceApiApplicationServiceImpl extends AbstractBaseAp
 
 	private DataQueryDatasourceApiUpdateCommandExecutor dataQueryDatasourceApiUpdateCommandExecutor;
 
+	private DataQueryDataApiCreateCommandExecutor dataQueryDataApiCreateCommandExecutor;
+
+	private DataQueryDictGateway dataQueryDictGateway;
 
 	@Override
 	public SingleResponse<DataQueryDatasourceApiVO> create(DataQueryDatasourceApiCreateCommand dataQueryDatasourceApiCreateCommand) {
-		return dataQueryDatasourceApiCreateCommandExecutor.execute(dataQueryDatasourceApiCreateCommand);
+		SingleResponse<DataQueryDatasourceApiVO> execute = dataQueryDatasourceApiCreateCommandExecutor.execute(dataQueryDatasourceApiCreateCommand);
+
+		if (execute.isSuccess()) {
+			if (BooleanUtil.isTrue(dataQueryDatasourceApiCreateCommand.getIsAddSingleDirect())) {
+				Long singleDirectDictId = dataQueryDictGateway.getDictIdByGroupCodeAndItemValue(DataQueryDataApiAdaptType.Group.dataquery_data_api_adapt_type.groupCode(), DataQueryDataApiAdaptType.single_direct.itemValue());
+				Long dataQueryDatasourceApiId = execute.getData().getId();
+
+				DataQueryDataApiCreateCommand dataQueryDataApiCreateCommand = new DataQueryDataApiCreateCommand();
+				dataQueryDataApiCreateCommand.setUrl(dataQueryDatasourceApiCreateCommand.getDataQueryDataApiUrl());
+				dataQueryDataApiCreateCommand.setName(dataQueryDatasourceApiCreateCommand.getName());
+				dataQueryDataApiCreateCommand.setDataQueryDatasourceApiId(dataQueryDatasourceApiId);
+				dataQueryDataApiCreateCommand.setAdaptTypeDictId(singleDirectDictId);
+
+				dataQueryDataApiCreateCommandExecutor.execute(dataQueryDataApiCreateCommand);
+			}
+		}
+
+
+		return execute;
 	}
 
 	@Override
@@ -64,5 +90,12 @@ public class DataQueryDatasourceApiApplicationServiceImpl extends AbstractBaseAp
 	public void setDataQueryDatasourceApiUpdateCommandExecutor(DataQueryDatasourceApiUpdateCommandExecutor dataQueryDatasourceApiUpdateCommandExecutor) {
 		this.dataQueryDatasourceApiUpdateCommandExecutor = dataQueryDatasourceApiUpdateCommandExecutor;
 	}
-
+	@Autowired
+	public void setDataQueryDataApiCreateCommandExecutor(DataQueryDataApiCreateCommandExecutor dataQueryDataApiCreateCommandExecutor) {
+		this.dataQueryDataApiCreateCommandExecutor = dataQueryDataApiCreateCommandExecutor;
+	}
+	@Autowired
+	public void setDataQueryDictGateway(DataQueryDictGateway dataQueryDictGateway) {
+		this.dataQueryDictGateway = dataQueryDictGateway;
+	}
 }

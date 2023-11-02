@@ -25,4 +25,6 @@ public interface DataQueryDictGateway extends IGateway {
 	 * @return
 	 */
 	Map<Long,String> getMapDictValueByIds(List<Long> ids);
+
+	Long getDictIdByGroupCodeAndItemValue(String groupCode, String value);
 }
