@@ -39,20 +39,27 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 			}
 		}
 		preExe(bigDatasourceApi, command, queryString);
-		// 添加缓存支持
-		IBigDatasourceApiExecutorExeCache.CacheValue cacheValue = Optional.ofNullable(bigDatasourceApiExecutorExeCache).map(iBigDatasourceApiExecutorExeCache -> iBigDatasourceApiExecutorExeCache.get(bigDatasourceApi, command, queryString)).orElse(null);
-		Object o = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getData()).orElse(null);
-		boolean cacheHit = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getIsCacheHit()).orElse(false);
-		// 没有命中获取
-		if (!cacheHit) {
-			o = doExecute(bigDatasourceApi, command,queryString);
-			if (o != null) {
-				Object finalO = o;
-				Optional.ofNullable(bigDatasourceApiExecutorExeCache).ifPresent((iBigDatasourceApiExecutorExeCache)->{
-					iBigDatasourceApiExecutorExeCache.put(bigDatasourceApi, command, queryString, finalO);
-				});
+		Object o = null;
+		boolean cacheHit = false;
+		if (bigDatasourceApi.useCache()) {
+			// 添加缓存支持
+			IBigDatasourceApiExecutorExeCache.CacheValue cacheValue = Optional.ofNullable(bigDatasourceApiExecutorExeCache).map(iBigDatasourceApiExecutorExeCache -> iBigDatasourceApiExecutorExeCache.get(bigDatasourceApi, command, queryString)).orElse(null);
+			o = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getData()).orElse(null);
+			cacheHit = Optional.ofNullable(cacheValue).map(cacheValue1 -> cacheValue1.getIsCacheHit()).orElse(false);
+			// 没有命中获取
+			if (!cacheHit) {
+				o = doExecute(bigDatasourceApi, command,queryString);
+				if (o != null) {
+					Object finalO = o;
+					Optional.ofNullable(bigDatasourceApiExecutorExeCache).ifPresent((iBigDatasourceApiExecutorExeCache)->{
+						iBigDatasourceApiExecutorExeCache.put(bigDatasourceApi, command, queryString, finalO);
+					});
+				}
 			}
+		}else {
+			o = doExecute(bigDatasourceApi, command,queryString);
 		}
+
 
 		postExe(bigDatasourceApi, command,queryString, o);
 		boolean success = isSuccess(bigDatasourceApi,o);

@@ -73,4 +73,12 @@ public interface BigDatasourceApi {
 	default DynamicBigDatasourceRoutingKey routingKey() {
 		return null;
 	}
+
+	/**
+	 * 是否使用缓存，默认不使用
+	 * @return
+	 */
+	default boolean useCache(){
+		return false;
+	}
 }
