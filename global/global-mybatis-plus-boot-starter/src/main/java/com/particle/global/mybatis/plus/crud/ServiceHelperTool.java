@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -51,6 +53,9 @@ public class ServiceHelperTool {
      * @param pageSize     从 默认 100
      */
     public static <T> void pageExecute(Function<Page<T>, Page<T>> function, Consumer<Page<T>> pageConsumer, Long pageNo, Long pageSize, String logPrefix) {
+        if (logPrefix == null) {
+            logPrefix = "pageExecute";
+        }
         Page page = null;
         if (pageNo == null) {
             pageNo = 0L;
@@ -65,24 +70,15 @@ public class ServiceHelperTool {
 
             Page finalPage = page;
             page = function.apply(finalPage);
+            Page finalPage1 = page;
+            long recordSize = Optional.ofNullable(page).map(item -> finalPage1.getRecords()).map(Collection::size).orElse(0);
 
             if (page != null) {
-                if (CollectionUtil.isNotEmpty(page.getRecords())) {
-                    if (logPrefix != null) {
-                        log.info("{} {} 条", logPrefix, page.getRecords().size());
-                    }
-                    pageConsumer.accept(page);
-                } else {
-                    if (logPrefix != null) {
-                        log.info("{} {} 条,", logPrefix, 0);
-                    }
-                    break;
-                }
+                log.info("{} {} 条", logPrefix, recordSize);
+
+                pageConsumer.accept(page);
             }else {
-                if (logPrefix != null) {
-                    log.info(" page is null. {}{} 条,", logPrefix, 0);
-                }
-                break;
+                log.info(" page is null. {} {} 条,", logPrefix, recordSize);
             }
 
         } while (page != null && page.hasNext());
