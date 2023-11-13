@@ -66,17 +66,25 @@ public class ServiceHelperTool {
             Page finalPage = page;
             page = function.apply(finalPage);
 
-            if (CollectionUtil.isNotEmpty(page.getRecords())) {
-                if (logPrefix != null) {
-                    log.info("{} {} 条", logPrefix, page.getRecords().size());
+            if (page != null) {
+                if (CollectionUtil.isNotEmpty(page.getRecords())) {
+                    if (logPrefix != null) {
+                        log.info("{} {} 条", logPrefix, page.getRecords().size());
+                    }
+                    pageConsumer.accept(page);
+                } else {
+                    if (logPrefix != null) {
+                        log.info("{} {} 条,", logPrefix, 0);
+                    }
+                    break;
                 }
-                pageConsumer.accept(page);
-            } else {
+            }else {
                 if (logPrefix != null) {
-                    log.info("{} {} 条,", logPrefix, 0);
+                    log.info(" page is null. {}{} 条,", logPrefix, 0);
                 }
                 break;
             }
+
         } while (page != null && page.hasNext());
     }
 
