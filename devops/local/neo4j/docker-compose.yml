@@ -1,0 +1,31 @@
+version: '3'
+services:
+  neo4j:
+    image: 'neo4j'
+    container_name: 'particle-neo4j'
+    networks:
+      - particle-neo4j-net
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    volumes:
+      # 挂载数据目录到主机上
+      # neo4j 配置
+      - particle-neo4j-data:/data
+      - particle-neo4j-logs:/logs
+      - particle-neo4j-conf:/var/lib/neo4j/conf
+      - particle-neo4j-import:/var/lib/neo4j/import
+
+networks:
+  particle-neo4j-net:
+    driver: bridge
+
+volumes:
+  particle-neo4j-data:
+    driver: local
+  particle-neo4j-logs:
+    driver: local
+  particle-neo4j-conf:
+    driver: local
+  particle-neo4j-import:
+    driver: local

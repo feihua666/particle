@@ -19,3 +19,5 @@ networks:
 volumes:
   particle-redis-data:
     driver: local
+  particle-redis-logs:
+    driver: local

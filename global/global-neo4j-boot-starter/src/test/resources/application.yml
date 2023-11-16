@@ -1,0 +1,13 @@
+spring:
+  neo4j:
+    # 默认本地
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: neo4jneo4j
+  application:
+    # 应用名称
+    name: global-neo4j-test
+  profiles:
+    include:
+      - log4j2
