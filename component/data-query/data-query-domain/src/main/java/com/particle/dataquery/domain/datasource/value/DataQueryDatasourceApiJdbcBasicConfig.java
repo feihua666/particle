@@ -9,6 +9,7 @@ import lombok.Data;
 /**
  * <p>
  * jdbc 数据源接口基础配置
+ * 该配置大致与{@link com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig} 相对应
  * </p>
  *
  * @author yangwei

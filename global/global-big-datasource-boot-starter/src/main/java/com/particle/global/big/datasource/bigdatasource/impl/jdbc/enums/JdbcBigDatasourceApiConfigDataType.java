@@ -2,7 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums;
 
 /**
  * <p>
- * jdbc 大数据源接口 sql 模板类型
+ * jdbc 大数据源接口返回结果类型
  * </p>
  *
  * @author yangwei

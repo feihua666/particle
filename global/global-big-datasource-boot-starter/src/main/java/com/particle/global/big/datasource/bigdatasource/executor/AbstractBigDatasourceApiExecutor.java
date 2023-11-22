@@ -195,7 +195,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 				// 兼容一下数据库 mybatis plus 分页数据
 				if (resultData instanceof IPage) {
 					IPage<?> resultDataPage = (IPage<?>) resultData;
-					return PageResponse.of(resultDataPage.getRecords(), (int)resultDataPage.getTotal(), (int)resultDataPage.getCurrent(), (int)resultDataPage.getSize());
+					return PageResponse.of(resultDataPage.getRecords(), (int)resultDataPage.getTotal(), (int)resultDataPage.getSize(), (int)resultDataPage.getCurrent());
 				}
 				PageableAdapterConfig pageableAdapterConfig = bigDatasourceApi.pageableAdapterConfig();
 				if (pageableAdapterConfig == null) {
@@ -214,6 +214,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 				}
 				return RawResponse.of(resultData);
 			}
+			// 如果设置的为代理，意味着直接返回原始的数据结果
 			if (bigDatasourceApi.responseWrapType() == BigDatasourceApiResponseWrapType.proxy) {
 				return resultData;
 			}

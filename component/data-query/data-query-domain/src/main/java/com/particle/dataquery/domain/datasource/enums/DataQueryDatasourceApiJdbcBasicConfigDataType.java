@@ -6,6 +6,7 @@ import com.particle.component.light.share.dict.api.IDictItem;
 /**
  * <p>
  * jdbc基础配置数据类型 字典项
+ * 和大数据源{@link com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType} 相匹配
  * </p>
  *
  * @author yw

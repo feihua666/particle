@@ -63,15 +63,21 @@ public class DemoTest extends SuperTest {
         for (int i = 0; i < 10; i++) {
             String name = "电影电影" + i;
             MovieGDO movieGDO = new MovieGDO();
+            movieGDO.initAddData();
             movieGDO.setName(name);
 
             PersonGDO personGDO = new PersonGDO();
+            personGDO.initAddData();
             personGDO.setName("导演导演" + i);
             movieGDO.getDirectors().add(personGDO);
 
             PersonGDO personGDO1 = new PersonGDO();
+            personGDO1.initAddData();
             personGDO1.setName("演员演员" + i);
-            movieGDO.getActors().add(new ActorGRDO(personGDO1, Collections.singletonList("角色角色" + i)));
+
+            ActorGRDO actorGRDO = new ActorGRDO(personGDO1, Collections.singletonList("角色角色" + i));
+            actorGRDO.initAddData();
+            movieGDO.getActors().add(actorGRDO);
 
             list.add(movieGDO);
         }

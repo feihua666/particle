@@ -74,7 +74,7 @@ public abstract class AbstractJdbcBigDatasourceApiExecutor extends AbstractBigDa
 			return executePage(bigDatasourceApi, command,queryString);
 		}
 
-		throw new BigDatasourceException("this is like a bug,because here is unreachable");
+		throw new BigDatasourceException("this is like a bug,because here is unreachable for jdbc execute");
 
 	}
 

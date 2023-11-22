@@ -71,12 +71,6 @@ public class JdbcBigDatasource extends AbstractBigDatasource {
 		return jdbcBigDatasourceApiExecutor;
 	}
 
-	@Override
-	public BigDatasourceExecutor getExecutor(BigDatasourceApi bigDatasourceApi) throws BigDatasourceException {
-
-		return new DefaultBigDatasourceExecutor(bigDatasourceApi, jdbcBigDatasourceApiExecutor);
-	}
-
 	private static JdbcBigDatasource createBySimpleInstance(JdbcBigDatasource jdbcBigDatasource){
 		jdbcBigDatasource.sqlSessionFactory = initSqlSessionFactory(jdbcBigDatasource.getDynamicRoutingDataSource());
 

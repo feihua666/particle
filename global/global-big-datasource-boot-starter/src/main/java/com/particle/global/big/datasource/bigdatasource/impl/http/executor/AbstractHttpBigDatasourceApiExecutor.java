@@ -7,7 +7,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.Htt
 
 /**
  * <p>
- * http大数据源接口执行器抽象父类
+ * http大数据源接口执行器
  * </p>
  *
  * @author yangwei

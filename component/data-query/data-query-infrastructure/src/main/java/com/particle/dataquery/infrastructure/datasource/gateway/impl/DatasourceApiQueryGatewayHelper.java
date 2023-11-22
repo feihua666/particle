@@ -1,11 +1,9 @@
 package com.particle.dataquery.infrastructure.datasource.gateway.impl;
 
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
+import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4jBasicConfigCqlTemplateType;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiHttpBasicConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiJdbcBasicConfig;
+import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
@@ -25,6 +23,9 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigD
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigSqlTemplateType;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.api.config.Neo4jBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.enums.Neo4jBigDatasourceApiConfigCqlTemplateType;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.enums.Neo4jBigDatasourceApiConfigDataType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,6 +55,8 @@ public class DatasourceApiQueryGatewayHelper {
 			iBigDatasourceApiConfig = jdbcBigDatasourceApiConfig(datasourceApi);
 		}else if (DataQueryDatasourceType.datasource_http == dataQueryDatasourceType) {
 			iBigDatasourceApiConfig = httpBigDatasourceApiConfig(datasourceApi);
+		}else if (DataQueryDatasourceType.datasource_neo4j == dataQueryDatasourceType) {
+			iBigDatasourceApiConfig = neo4jBigDatasourceApiConfig(datasourceApi);
 		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
@@ -103,6 +106,20 @@ public class DatasourceApiQueryGatewayHelper {
 		);
 	}
 
+	/**
+	 * neo4j基础配置
+	 * @param datasourceApi
+	 * @return
+	 */
+	private Neo4jBigDatasourceApiConfig neo4jBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+		DataQueryDatasourceApiNeo4jBasicConfig config = datasourceApi.neo4jBasicConfig();
+		return Neo4jBigDatasourceApiConfig.create(
+				Neo4jBigDatasourceApiConfigCqlTemplateType.valueOf(config.getCqlTemplateType().itemValue()),
+				Neo4jBigDatasourceApiConfigDataType.valueOf(config.getDataType().itemValue()),
+				config.getCqlTemplate(),
+				config.getCqlCountTemplate()
+		);
+	}
 	/**
 	 * 分页解析信息配置
 	 * @param datasourceApi

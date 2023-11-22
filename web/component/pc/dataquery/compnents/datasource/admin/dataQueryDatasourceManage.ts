@@ -358,6 +358,24 @@ const datasource_http = [
     }
   },
 ]
+const datasource_neo4j = [
+  {
+    field: {
+      name: 'uri'
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '连接地址',
+        required: true
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '如：bolt://localhost:7687'
+      }
+    }
+  },
+]
 const datasource_not_support = [
   {
     field: {
@@ -383,5 +401,6 @@ const datasource_not_support = [
 export const datasourceTypeFormItems = {
   datasource_jdbc,
   datasource_http,
+  datasource_neo4j,
   datasource_not_support,
 }

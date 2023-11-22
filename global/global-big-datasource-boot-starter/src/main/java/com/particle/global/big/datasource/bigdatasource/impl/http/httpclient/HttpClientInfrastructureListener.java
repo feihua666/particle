@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * <p>
- * http大数据源调用基础监听
+ * http大数据源调用基础设施监听，主要提供一种可方便切入的额外处理逻辑
  * </p>
  *
  * @author yangwei

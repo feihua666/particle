@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceHttpConfig;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceNeo4jConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceJdbcConfig;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
@@ -21,6 +22,8 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBig
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceAuthScriptType;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBigDatasourceConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.Neo4jBigDatasource;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
 import com.particle.global.domain.ApplicationContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +119,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					DataQueryDatasourceJdbcConfig dataQueryDatasourceJdbcConfig = dataQueryDatasource.jdbcConfig();
 					// 以 id 做为路由key
 					jdbcBigDatasource.addDataSourceByJdbcBigDatasourceConfig(
-							// String dataSourceName
+							// String dataSourceName,注意这里使用id
 							dataQueryDatasource.getId().getId().toString(),
 
 							JdbcBigDatasourceConfig.create(dataQueryDatasourceJdbcConfig.getDriverClassName(),
@@ -141,6 +144,21 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 							BigDatasourceType.datasource_http,httpBigDatasourceConfig);
 
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), httpBigDatasource);
+				}
+			}if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_neo4j) {
+				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					DataQueryDatasourceNeo4jConfig config = dataQueryDatasource.neo4jConfig();
+					Neo4jBigDatasourceConfig neo4jBigDatasourceConfig = Neo4jBigDatasourceConfig.create(
+							config.getUri(),
+							config.getUsername(),
+							config.getPassword(),
+							null);
+					Neo4jBigDatasource neo4jBigDatasource = Neo4jBigDatasource.createByNeo4jBigDatasourceConfig(
+							dataQueryDatasource.getName(),
+							BigDatasourceType.datasource_neo4j,
+							neo4jBigDatasourceConfig);
+
+					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), neo4jBigDatasource);
 				}
 			}
 			else {

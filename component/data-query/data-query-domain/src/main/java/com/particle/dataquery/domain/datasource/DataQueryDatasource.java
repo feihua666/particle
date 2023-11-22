@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceHttpConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceJdbcConfig;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceNeo4jConfig;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
@@ -79,7 +80,12 @@ public class DataQueryDatasource extends AggreateRoot {
         fromJsonStr.setPassword(password);
         return fromJsonStr;
     }
-
+    public DataQueryDatasourceNeo4jConfig neo4jConfig(){
+        DataQueryDatasourceNeo4jConfig fromJsonStr = DataQueryDatasourceNeo4jConfig.createFromJsonStr(configJson);
+        fromJsonStr.setUsername(username);
+        fromJsonStr.setPassword(password);
+        return fromJsonStr;
+    }
 
     /**
      * 创建数据查询数据源领域模型对象

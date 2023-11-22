@@ -8,6 +8,7 @@ import lombok.Data;
 /**
  * <p>
  * http 数据源接口基础配置
+ * 该配置大致与{@link com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig} 相对应
  * </p>
  *
  * @author yangwei

@@ -63,6 +63,9 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 
 	/**
 	 * 返回渲染的sql
+	 * @param jdbcService 支持动态渲染结果，一般用于groovy脚本，在一定条件下，可以不使用sql模板，而直接在脚本中获取结果
+	 * @param command
+	 * @param queryString
 	 * @return
 	 */
 	@SneakyThrows
@@ -75,8 +78,13 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);
 			Object evalResult = GroovyTool.compileAndEval(sqlTemplate,bindings,true);
-			return RenderResult.createByResult(evalResult);
-
+			// 如果返回的是字符串表示为结果为模板渲染结果，否则认为为直接返回的数据
+			boolean isRenderedTemplateStr = evalResult instanceof String;
+			if (isRenderedTemplateStr) {
+				return RenderResult.createByStrTemplateResult(((String) evalResult));
+			}else {
+				return RenderResult.createByResult(evalResult);
+			}
 		}
 		if (sqlTemplateType == JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template) {
 			String result =  TemplateTool.render(sqlTemplate, TemplateRenderDataWrap.create(command));

@@ -30,6 +30,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 	public static JdbcBigDatasourceApiExecutor create( IJdbcService IJdbcService) {
 		JdbcBigDatasourceApiExecutor jdbcBigDatasourceApiExecutor = new JdbcBigDatasourceApiExecutor();
 		jdbcBigDatasourceApiExecutor.setJdbcService(IJdbcService);
+		// 初始化监听
 		jdbcBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
 		jdbcBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
 		return jdbcBigDatasourceApiExecutor;
@@ -37,6 +38,30 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 
 	@Override
 	public Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+		Page pageQuery = pageQuery(bigDatasourceApi, command, queryString);
+		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
+		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command,queryString);
+		if (renderResult.getResult() != null) {
+			boolean b = renderResult.getResult() instanceof Page;
+			if (b) {
+				return ((Page<?>) renderResult.getResult());
+			}else {
+				throw new BigDatasourceException(" jdbc render result must be instance of " + Page.class.getName());
+			}
+		}
+
+		Page<?> page = jdbcService.selectPage(renderResult.getStrTemplateResult(),command,pageQuery);
+		return page;
+	}
+
+	/**
+	 * 如果为分页数据时，提取分页查询信息
+	 * @param bigDatasourceApi
+	 * @param command
+	 * @param queryString
+	 * @return
+	 */
+	public static Page pageQuery(BigDatasourceApi bigDatasourceApi, Object command, String queryString) {
 		// 默认从第一页开始
 		Long pageNo = 1L;
 		// 默认每页10条
@@ -63,19 +88,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 			}
 		}
 		Page pageQuery = new Page(pageNo, pageSize);
-		JdbcBigDatasourceApiConfig config = (JdbcBigDatasourceApiConfig) bigDatasourceApi.config();
-		JdbcBigDatasourceApiConfig.RenderResult renderResult = config.render(jdbcService, command,queryString);
-		if (renderResult.getResult() != null) {
-			boolean b = renderResult.getResult() instanceof Page;
-			if (b) {
-				return ((Page<?>) renderResult.getResult());
-			}else {
-				throw new BigDatasourceException(" jdbc render result must be instance of " + Page.class.getName());
-			}
-		}
-
-		Page<?> page = jdbcService.selectPage(renderResult.getStrTemplateResult(),command,pageQuery);
-		return page;
+		return pageQuery;
 	}
 
 	@Override

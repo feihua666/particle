@@ -6,6 +6,7 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDataso
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingFallback;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceNotFoundException;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class DefaultDynamicBigDatasourceRouterImpl implements DynamicBigDatasour
 
 		}
 		if (routedBigDatasource == null) {
-			throw new BigDatasourceException("routing bigDatasource failed. none bigDatasource is available for routingKey " + routingKey);
+			throw new BigDatasourceNotFoundException("routing bigDatasource failed. none bigDatasource is available for routingKey " + routingKey);
 		}
 		return routedBigDatasource;
 	}

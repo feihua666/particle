@@ -59,9 +59,9 @@ const submitMethodSuccess = () => {
           :layout="[3,3,1,3,3,3,3,3,3]"
           :comps="formComps">
   </PtForm>
-  
+<!-- 用于一些 点击配置按钮弹窗全部放里面统一处理-->
   <DataQueryDatasourceApiFormItemConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDatasourceApiFormItemConfigsRef"></DataQueryDatasourceApiFormItemConfigs>
-<!--基础配置，因为不同的数据源，基础配置不同，这里单独抽离出来  -->
+<!-- 用于一些 点击配置按钮弹窗全部放里面统一处理 但基础配置，因为不同的数据源，基础配置不同，这里单独抽离出来  -->
   <DataQueryDatasourceApiFormItemBasicConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDatasourceApiFormItemBasicConfigsRef"></DataQueryDatasourceApiFormItemBasicConfigs>
 </template>
 

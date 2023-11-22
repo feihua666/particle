@@ -72,6 +72,13 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 主要用于大数据源http的实现 -->
@@ -79,6 +86,13 @@
             <groupId>org.jodd</groupId>
             <artifactId>jodd-http</artifactId>
             <version>${jodd.version}</version>
+        </dependency>
+
+        <!-- 大数据源支持neo4j数据，即图数据库 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-neo4j-boot-starter</artifactId>
+            <version>${particle.version}</version>
         </dependency>
     </dependencies>
 </project>

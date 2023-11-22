@@ -1,11 +1,8 @@
 package com.particle.global.neo4j.dto.basic;
 
-import org.springframework.data.annotation.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.RelationshipId;
 import org.springframework.data.neo4j.core.schema.RelationshipProperties;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -21,39 +18,4 @@ public class BaseGRDO extends GDO{
     @RelationshipId
     @GeneratedValue
     private Long id;
-
-    /**
-     * 创建时间
-     */
-    @CreatedDate
-    private LocalDateTime createAt;
-
-    /**
-     * 创建人
-     */
-    @CreatedBy
-    private Long createBy;
-
-    /**
-     * 修改时间
-     */
-    @LastModifiedDate
-    private LocalDateTime updateAt;
-
-    /**
-     * 修改人
-     */
-    @LastModifiedBy
-    private Long updateBy;
-
-    /**
-     * 乐观锁字段
-     */
-    @Version
-    private Long version;
-
-    /**
-     * 租户id
-     */
-    private Long tenantId;
 }

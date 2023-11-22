@@ -72,7 +72,7 @@ public class GlobalExceptionAdvice {
 
     /**
      * 断言 异常
-     * 该哦断言打印异常日志，方便由于参数不正确查找问题
+     * 使用断言打印异常日志，方便由于参数不正确查找问题
      *
      * @param request
      * @param ex

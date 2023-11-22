@@ -1,8 +1,12 @@
 package com.particle.global.big.datasource.bigdatasource;
 
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
+import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
+import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
+import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
+import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatasourceExecutor;
 import lombok.Data;
 
 /**
@@ -25,6 +29,8 @@ public abstract class AbstractBigDatasource implements BigDatasource {
 	 */
 	private BigDatasourceType type;
 
+	private BigDatasourceExecutor bigDatasourceExecutor;
+
 	@Override
 	public String getName() {
 		return name;
@@ -33,5 +39,14 @@ public abstract class AbstractBigDatasource implements BigDatasource {
 	@Override
 	public BigDatasourceType getType() {
 		return type;
+	}
+
+
+	@Override
+	public BigDatasourceExecutor getExecutor(BigDatasourceApi bigDatasourceApi) throws BigDatasourceException {
+		if (bigDatasourceExecutor == null) {
+			bigDatasourceExecutor = new DefaultBigDatasourceExecutor(bigDatasourceApi, getApiExecutor());
+		}
+		return bigDatasourceExecutor;
 	}
 }

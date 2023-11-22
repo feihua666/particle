@@ -33,10 +33,6 @@ public class HttpBigDatasource extends AbstractBigDatasource {
 		return httpBigDatasourceApiExecutor;
 	}
 
-	@Override
-	public BigDatasourceExecutor getExecutor(BigDatasourceApi bigDatasourceApi) throws BigDatasourceException {
-		return new DefaultBigDatasourceExecutor(bigDatasourceApi, httpBigDatasourceApiExecutor);
-	}
 
 	@Override
 	public void close() throws IOException {
@@ -51,7 +47,12 @@ public class HttpBigDatasource extends AbstractBigDatasource {
 		httpBigDatasource.setType(type);
 		httpBigDatasource.setHttpBigDatasourceConfig(httpBigDatasourceConfig);
 
-		HttpBigDatasourceApiExecutor httpBigDatasourceApiExecutor = HttpBigDatasourceApiExecutor.create(BigDatasourceHttpJoddClientImpl.create().httpClientInfrastructureListenersInitFromSpring(), httpBigDatasourceConfig);
+		/**
+		 * 这里暂时默认使用{@link BigDatasourceHttpJoddClientImpl} 实现
+		 */
+		HttpBigDatasourceApiExecutor httpBigDatasourceApiExecutor = HttpBigDatasourceApiExecutor.create(
+				BigDatasourceHttpJoddClientImpl.create().httpClientInfrastructureListenersInitFromSpring(),
+				httpBigDatasourceConfig);
 		httpBigDatasource.setHttpBigDatasourceApiExecutor(httpBigDatasourceApiExecutor);
 
 		return httpBigDatasource;
