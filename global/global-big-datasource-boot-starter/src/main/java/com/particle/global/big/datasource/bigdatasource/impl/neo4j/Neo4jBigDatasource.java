@@ -7,7 +7,9 @@ import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceE
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jDriverFallback;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.executor.Neo4jBigDatasourceApiExecutor;
+import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.Data;
 import org.neo4j.driver.Driver;
 import org.springframework.beans.BeansException;
@@ -115,7 +117,20 @@ public class Neo4jBigDatasource extends AbstractBigDatasource {
         Environment environment = BigDatasourceNeo4jDriverEnvironment.create();
         ObjectProvider<ConfigBuilderCustomizer> configBuilderCustomizers = BigDatasourceEmptyObjectProvider.create();
 
-        return neo4jAutoConfiguration.neo4jDriver(properties, environment, configBuilderCustomizers);
+        try {
+            return neo4jAutoConfiguration.neo4jDriver(properties, environment, configBuilderCustomizers);
+        } catch (Throwable e) {
+            // 发现 本项spring间接引入的版本和生产server版本有差异，这里兼容一下，进行额外处理，主要是排除对应的包
+            Neo4jDriverFallback bean = null;
+            try {
+                bean = SpringContextHolder.getBean(Neo4jDriverFallback.class);
+            } catch (Exception ex) {
+            }
+            if (bean != null) {
+                return bean.neo4jDriver(properties, e);
+            }
+            throw e;
+        }
     }
 
 
