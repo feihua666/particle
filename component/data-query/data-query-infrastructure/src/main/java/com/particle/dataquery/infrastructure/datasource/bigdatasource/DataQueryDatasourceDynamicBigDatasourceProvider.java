@@ -60,6 +60,9 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 	@Value("${"+ enableConfigKey +":false}")
 	private Boolean enable = false;
 
+	@Autowired(required = false)
+	private INeo4jBigDatasourceLoader iNeo4jBigDatasourceLoader;
+
 	@Override
 	public Map<DynamicBigDatasourceRoutingKey, BigDatasource> doLoadDataSources() {
 
@@ -153,10 +156,19 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 							config.getUsername(),
 							config.getPassword(),
 							null);
-					Neo4jBigDatasource neo4jBigDatasource = Neo4jBigDatasource.createByNeo4jBigDatasourceConfig(
-							dataQueryDatasource.getName(),
-							BigDatasourceType.datasource_neo4j,
-							neo4jBigDatasourceConfig);
+					Neo4jBigDatasource neo4jBigDatasource = null;
+					if (iNeo4jBigDatasourceLoader != null) {
+						log.debug("use neo4jBigDatasourceLoader load neo4jBigDatasource");
+						neo4jBigDatasource = iNeo4jBigDatasourceLoader.load(dataQueryDatasource.getName(),
+								BigDatasourceType.datasource_neo4j,
+								neo4jBigDatasourceConfig);
+					}else {
+						log.debug("use default neo4jBigDatasource");
+						neo4jBigDatasource = Neo4jBigDatasource.createByNeo4jBigDatasourceConfig(
+								dataQueryDatasource.getName(),
+								BigDatasourceType.datasource_neo4j,
+								neo4jBigDatasourceConfig);
+					}
 
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), neo4jBigDatasource);
 				}

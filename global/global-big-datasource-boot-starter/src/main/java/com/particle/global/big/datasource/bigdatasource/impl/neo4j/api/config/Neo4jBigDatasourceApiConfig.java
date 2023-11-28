@@ -80,6 +80,7 @@ public class Neo4jBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig 
 	public RenderResult render(Driver driver,
 							   Neo4jClient neo4jClient,
 							   Neo4jTemplate neo4jTemplate,
+							   Map<String, Object> neo4jBigDatasourceInstanceMap,
 							   Object command,
 							   String queryString){
 
@@ -89,6 +90,7 @@ public class Neo4jBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig 
 			renderMap.put("driver", driver);
 			renderMap.put("neo4jClient", neo4jClient);
 			renderMap.put("neo4jTemplate", neo4jTemplate);
+			renderMap.put("neo4jBigDatasourceInstanceMap", neo4jBigDatasourceInstanceMap);
 
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);

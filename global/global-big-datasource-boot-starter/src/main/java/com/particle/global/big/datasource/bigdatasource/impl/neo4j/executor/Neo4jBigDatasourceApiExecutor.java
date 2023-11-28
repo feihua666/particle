@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.neo4j.executor;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
@@ -20,10 +21,7 @@ import org.springframework.data.neo4j.core.PreparedQuery;
 import org.springframework.data.neo4j.repository.query.QueryFragmentsAndParameters;
 import org.springframework.data.support.PageableExecutionUtils;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.LongSupplier;
 
 /**
@@ -43,13 +41,22 @@ public class Neo4jBigDatasourceApiExecutor extends AbstractNeo4jBigDatasourceApi
 
     private Neo4jTemplate neo4jTemplate;
 
+    /**
+     * 实例数据，持有一些其它数据以供扩展使用，主要是解决生产和测试或框架系统版本不兼容，放置一些额外数据以做处理
+     * 该属性应该是{@link AbstractBigDatasource#instanceMap}的引用
+     */
+    private Map<String, Object> neo4jBigDatasourceInstanceMap;
+
+
     public static Neo4jBigDatasourceApiExecutor create(Driver driver,
                                                        Neo4jClient neo4jClient,
-                                                       Neo4jTemplate neo4jTemplate){
+                                                       Neo4jTemplate neo4jTemplate,
+                                                       Map<String, Object> neo4jBigDatasourceInstanceMap){
         Neo4jBigDatasourceApiExecutor neo4jBigDatasourceApiExecutor = new Neo4jBigDatasourceApiExecutor();
         neo4jBigDatasourceApiExecutor.setDriver(driver);
         neo4jBigDatasourceApiExecutor.setNeo4jClient(neo4jClient);
         neo4jBigDatasourceApiExecutor.setNeo4jTemplate(neo4jTemplate);
+        neo4jBigDatasourceApiExecutor.setNeo4jBigDatasourceInstanceMap(neo4jBigDatasourceInstanceMap);
         // 初始化监听
         neo4jBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
         neo4jBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
@@ -61,7 +68,7 @@ public class Neo4jBigDatasourceApiExecutor extends AbstractNeo4jBigDatasourceApi
     public Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         Page pageQuery = JdbcBigDatasourceApiExecutor.pageQuery(bigDatasourceApi, command, queryString);
         Neo4jBigDatasourceApiConfig config = (Neo4jBigDatasourceApiConfig) bigDatasourceApi.config();
-        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver, neo4jClient, neo4jTemplate, command, queryString);
+        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver, neo4jClient, neo4jTemplate,neo4jBigDatasourceInstanceMap, command, queryString);
         if (renderResult.getResult() != null) {
             boolean b = renderResult.getResult() instanceof Page;
             if (b) {
@@ -98,7 +105,7 @@ public class Neo4jBigDatasourceApiExecutor extends AbstractNeo4jBigDatasourceApi
     @Override
     public Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         Neo4jBigDatasourceApiConfig config = (Neo4jBigDatasourceApiConfig) bigDatasourceApi.config();
-        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver,neo4jClient,neo4jTemplate, command,queryString);
+        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver,neo4jClient,neo4jTemplate, neo4jBigDatasourceInstanceMap,command,queryString);
         if (renderResult.getResult() != null) {
             boolean b = renderResult.getResult() instanceof Collection;
             if (b) {
@@ -119,7 +126,7 @@ public class Neo4jBigDatasourceApiExecutor extends AbstractNeo4jBigDatasourceApi
     @Override
     public Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         Neo4jBigDatasourceApiConfig config = (Neo4jBigDatasourceApiConfig) bigDatasourceApi.config();
-        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver,neo4jClient,neo4jTemplate, command,queryString);
+        Neo4jBigDatasourceApiConfig.RenderResult renderResult = config.render(driver,neo4jClient,neo4jTemplate,neo4jBigDatasourceInstanceMap, command,queryString);
         if (renderResult.getResult() != null) {
             return renderResult.getResult();
         }

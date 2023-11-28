@@ -8,6 +8,7 @@ import com.particle.dataquery.domain.datasource.gateway.DatasourceApiQueryGatewa
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.dataquery.infrastructure.datasource.bigdatasource.DataQueryDatasourceDynamicBigDatasourceProvider;
+import com.particle.dataquery.infrastructure.datasource.bigdatasource.INeo4jBigDatasourceLoader;
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
@@ -54,6 +55,10 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	private DataQueryDictGateway dataQueryDictGateway;
 	@Autowired
 	private DatasourceApiQueryGatewayHelper datasourceApiQueryGatewayHelper;
+
+
+	@Autowired(required = false)
+	private INeo4jBigDatasourceLoader iNeo4jBigDatasourceLoader;
 
 	@Override
 	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
@@ -256,10 +261,19 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 							config.getUsername(),
 							config.getPassword(),
 							null);
-					Neo4jBigDatasource neo4jBigDatasource = Neo4jBigDatasource.createByNeo4jBigDatasourceConfig(
-							datasource.getName(),
-							BigDatasourceType.datasource_neo4j,
-							neo4jBigDatasourceConfig);
+					Neo4jBigDatasource neo4jBigDatasource = null;
+					if (iNeo4jBigDatasourceLoader != null) {
+						log.debug("use neo4jBigDatasourceLoader load neo4jBigDatasource");
+						neo4jBigDatasource = iNeo4jBigDatasourceLoader.load(datasource.getName(),
+								BigDatasourceType.datasource_neo4j,
+								neo4jBigDatasourceConfig);
+					}else {
+						log.debug("use default neo4jBigDatasource");
+						neo4jBigDatasource = Neo4jBigDatasource.createByNeo4jBigDatasourceConfig(
+								datasource.getName(),
+								BigDatasourceType.datasource_neo4j,
+								neo4jBigDatasourceConfig);
+					}
 
 					bigDatasourceMap.put(DynamicBigDatasourceRoutingKeyFactory.of(datasource.getId().getId().toString()), neo4jBigDatasource);
 					datasourceLoaded = true;

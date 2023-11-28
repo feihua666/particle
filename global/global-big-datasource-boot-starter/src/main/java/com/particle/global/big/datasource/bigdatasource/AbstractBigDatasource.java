@@ -9,6 +9,9 @@ import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceEx
 import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatasourceExecutor;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>
  * 大数据源抽象层
@@ -30,6 +33,13 @@ public abstract class AbstractBigDatasource implements BigDatasource {
 	private BigDatasourceType type;
 
 	private BigDatasourceExecutor bigDatasourceExecutor;
+
+
+	/**
+	 * 实例数据，持有一些其它数据以供扩展使用，主要是解决生产和测试或框架系统版本不兼容，放置一些额外数据以做处理
+	 */
+	private Map<String, Object> instanceMap = new HashMap<>();
+
 
 	@Override
 	public String getName() {

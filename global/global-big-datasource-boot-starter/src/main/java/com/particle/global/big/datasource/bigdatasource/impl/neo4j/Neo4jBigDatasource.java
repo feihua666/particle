@@ -26,6 +26,8 @@ import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -85,7 +87,7 @@ public class Neo4jBigDatasource extends AbstractBigDatasource {
         Neo4jTemplate neo4jTemplate = new Neo4jTemplate(neo4jClient);
         neo4jBigDatasource.setNeo4jTemplate(neo4jTemplate);
 
-        Neo4jBigDatasourceApiExecutor neo4jBigDatasourceApiExecutor = Neo4jBigDatasourceApiExecutor.create(neo4jDriver, neo4jClient, neo4jTemplate);
+        Neo4jBigDatasourceApiExecutor neo4jBigDatasourceApiExecutor = Neo4jBigDatasourceApiExecutor.create(neo4jDriver, neo4jClient, neo4jTemplate,null);
         neo4jBigDatasource.setNeo4jBigDatasourceApiExecutor(neo4jBigDatasourceApiExecutor);
 
 
