@@ -773,6 +773,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     {
       field: {
         name: 'isUseCache',
+        value: false
       },
       element: {
         comp: 'el-switch',

@@ -15,6 +15,7 @@ import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Data;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.function.Supplier;
@@ -27,7 +28,7 @@ import java.util.function.Supplier;
  * @author yangwei
  * @since 2023-08-23 16:05
  */
-
+@Slf4j
 @ConfigurationProperties(prefix = "particle.dataquery.openapi")
 public class DefaultDataApiForOpenapiRemoteQueryGatewayImpl implements DataApiRemoteQueryGateway {
 
@@ -39,7 +40,11 @@ public class DefaultDataApiForOpenapiRemoteQueryGatewayImpl implements DataApiRe
 		if (OpenapiCollectTool.isStartOpenApi()) {
 			return false;
 		}
+		if (!dataQueryDataApi.getIsUseRemote()) {
+			return false;
+		}
 		if (config != null) {
+			log.warn("dataQueryDataApi useRemote=true,but config disabled,url={}",dataQueryDataApi.getUrl());
 			return config.isEnabled();
 		}
 		return false;

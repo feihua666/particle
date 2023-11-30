@@ -15,6 +15,8 @@ import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasource
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiSuccessValidateConfig;
 import com.particle.global.big.datasource.bigdatasource.dynamic.*;
+import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRoutingKeyImpl;
+import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultJdbcBigDatasourceRoutingKeyImpl;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -154,8 +157,17 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 				if (bigDatasourceMap != null) {
 					for (DynamicBigDatasourceRoutingKey dynamicBigDatasourceRoutingKey : bigDatasourceMap.keySet()) {
 						if (routingKey.match(dynamicBigDatasourceRoutingKey)) {
-							isExistRoutingKey = true;
-							break;
+							// jdbc 特殊处理一下
+							if (routingKey instanceof DefaultJdbcBigDatasourceRoutingKeyImpl&& dynamicBigDatasourceRoutingKey instanceof DefaultJdbcBigDatasourceRoutingKeyImpl) {
+								if (Objects.equals(((DefaultJdbcBigDatasourceRoutingKeyImpl) routingKey).getSubKey(),((DefaultJdbcBigDatasourceRoutingKeyImpl) dynamicBigDatasourceRoutingKey).getSubKey())) {
+									isExistRoutingKey = true;
+									break;
+								}
+							}else {
+								isExistRoutingKey = true;
+								break;
+							}
+
 						}
 					}
 

@@ -116,6 +116,11 @@ public class DataQueryDataApi extends AggreateRoot {
     */
     private String dictConfigJson;
 
+	/**
+	 * 是否使用缓存
+	 */
+	private Boolean isUseRemote;
+
     /**
     * 描述,注意事项等
     */

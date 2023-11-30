@@ -19,6 +19,7 @@ CREATE TABLE `component_data_query_data_api` (
   `response_type_dict_id` bigint DEFAULT NULL COMMENT '输出类型，字典id，用来定义响应数据格式',
   `pageable_adapter_config_json` mediumtext COMMENT '分页适配信息配置json',
   `dict_config_json` text COMMENT '字典配置json，为入参和出参字典提供支持',
+  `is_use_remote` tinyint(1) NOT NULL COMMENT '是否使用远程服务',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `level` int NOT NULL COMMENT '层级、深度',
   `parent_id` bigint DEFAULT NULL COMMENT '父级',

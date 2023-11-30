@@ -107,6 +107,9 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
     @Schema(description = "字典配置json")
     private String dictConfigJson;
 
+	@Schema(description = "是否使用缓存")
+	private Boolean isUseRemote;
+
     @Schema(description = "描述")
     private String remark;
     

@@ -18,6 +18,9 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @Schema
 public class DataQueryDataApiPageQueryCommand extends AbstractBasePageQueryCommand {
 
+	@Schema(description = "是否使用缓存")
+	private Boolean isUseRemote;
+
     @Like
     @Schema(description = "接口地址,左前缀匹配")
     private String url;

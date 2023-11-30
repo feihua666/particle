@@ -38,7 +38,7 @@ const reactiveData = reactive({
         comp: 'el-input',
         formItemProps: {
           label: 'groovy脚本',
-          tips: '仅支持groovy脚本，对参数的处理，可以返回一个新参数，或对原来参数进行改写'
+          tips: '仅支持groovy脚本，对参数的处理，可以返回一个新参数，或对原来参数进行改写，如果对参数进行改写，请返回null，否则将返回值作为新参数，data变量为参数句柄'
         },
         compProps: {
           type: 'textarea',

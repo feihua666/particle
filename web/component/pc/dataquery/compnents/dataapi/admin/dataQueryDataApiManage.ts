@@ -345,7 +345,24 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-
+    {
+      field: {
+        name: 'isUseRemote',
+        value: false
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '是否使用远程服务',
+          tips: '远程服务意味着该数据查询使用配置的远程接口返回数据',
+          labelTips: '该配置项仅限默认的配置实现，com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl'
+        },
+        compProps: {
+          activeText: '使用',
+          inactiveText: '不使用',
+        }
+      }
+    },
     {
       field: {
         name: 'remark',
