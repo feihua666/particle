@@ -16,6 +16,9 @@ import java.util.Map;
  */
 public class BigDatasourceApiContext extends DTO {
 
+	/**
+	 * 收集的数据载体
+	 */
 	private Map<Object,Object> mapData;
 
 	public static BigDatasourceApiContext create() {

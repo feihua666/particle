@@ -71,8 +71,8 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 		// 接口参数，这里记为 body
 		global.put("body", reportApiGenerateCommand.getParam());
 		// 查询字符串，转为map，经查看源码，不会为null
-		global.put("queryStrMap", UrlQuery.of(reportApiGenerateCommand.getQueryString(), CharsetUtil.CHARSET_UTF_8).getQueryMap());
-		global.put("queryStr", reportApiGenerateCommand.getQueryString());
+		global.put("queryStringMap", UrlQuery.of(reportApiGenerateCommand.getQueryString(), CharsetUtil.CHARSET_UTF_8).getQueryMap());
+		global.put("queryString", reportApiGenerateCommand.getQueryString());
 
 		ReportReportApiDO reportReportApiDO = reportReportApiDOCache.get(reportApiGenerateCommand.getUrl(), () -> iReportReportApiService.getByUrl(reportApiGenerateCommand.getUrl()));
 

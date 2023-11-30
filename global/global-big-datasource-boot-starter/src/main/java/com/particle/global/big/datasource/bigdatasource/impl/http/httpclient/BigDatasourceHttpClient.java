@@ -24,7 +24,9 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object get(String url, Map<String,String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
+	Object get(String url, Map<String,String> headers, Object command, String commandJsonStr,
+			   String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+			   Integer readTimeout);
 
 	/**
 	 * post请求
@@ -35,7 +37,9 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object post(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
+	Object post(String url,Map<String,String> headers,Object command, String commandJsonStr,
+				String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+				Integer readTimeout);
 
 
 	/**
@@ -47,7 +51,9 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object delete(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
+	Object delete(String url,Map<String,String> headers,Object command, String commandJsonStr,
+				  String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+				  Integer readTimeout);
 
 
 	/**
@@ -59,7 +65,9 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object put(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
+	Object put(String url,Map<String,String> headers,Object command, String commandJsonStr,
+			   String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+			   Integer readTimeout);
 
 
 	/**
@@ -71,5 +79,7 @@ public interface BigDatasourceHttpClient {
 	 * @param contentType 请求内容类型
 	 * @return
 	 */
-	Object patch(String url,Map<String,String> headers,Object command, String commandJsonStr,String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext);
+	Object patch(String url,Map<String,String> headers,Object command, String commandJsonStr,
+				 String queryString,String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+				 Integer readTimeout);
 }

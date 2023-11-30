@@ -5,6 +5,7 @@ import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 /**
  * <p>
  * 大数据源接口执行器,默认实现
+ * 主要是执行{@link BigDatasourceApiExecutor}
  * </p>
  *
  * @author yangwei

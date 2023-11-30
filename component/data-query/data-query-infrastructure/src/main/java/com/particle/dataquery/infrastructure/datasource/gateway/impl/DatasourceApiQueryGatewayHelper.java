@@ -7,10 +7,7 @@ import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiSuccessValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.api.config.*;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
@@ -69,6 +66,28 @@ public class DatasourceApiQueryGatewayHelper {
 				commandValidateConfig(datasourceApi),
 				successValidateConfig(datasourceApi)
 		);
+		// 是否使用缓存
+		defaultBigDatasourceApi.setIsUseCache(datasourceApi.getIsUseCache());
+		// 扩展配置
+		DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = datasourceApi.inParamExtConfig();
+		if (dataQueryDatasourceApiInParamExtConfig != null) {
+			defaultBigDatasourceApi.setCommandExtConfig(BigDatasourceApiCommandExtConfig.create(dataQueryDatasourceApiInParamExtConfig.getGroovyScript()));
+		}
+		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = datasourceApi.outParamExtConfig();
+		if (dataQueryDatasourceApiOutParamExtConfig != null) {
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
+		}
+
+		// 时间配置
+		Integer connectTimeout = datasourceApi.getConnectTimeout();
+		if (connectTimeout != null) {
+			defaultBigDatasourceApi.setConnectTimeout(connectTimeout);
+		}
+		Integer readTimeout = datasourceApi.getReadTimeout();
+		if (readTimeout != null) {
+			defaultBigDatasourceApi.setReadTimeout(readTimeout);
+		}
+
 		// 传递一些数据，目前添加主要是收集调用过程中的关键数据，以支持开放接口收集供应商调用数据
 		BigDatasourceApiContext bigDatasourceApiContext = defaultBigDatasourceApi.apiContext();
 		bigDatasourceApiContext.putData("dataQueryProviderId",datasourceApi.getDataQueryProviderId());

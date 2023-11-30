@@ -92,6 +92,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		Long adaptTypeDictId = dataQueryDataApi.getAdaptTypeDictId();
 		String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
 		DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
+		// 如果是一对一直连，api配置使用数据源api配置，即数据查询api不生效
 		if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
 			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiCache.get(dataQueryDataApi.getDataQueryDatasourceApiId(),()-> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId())));
 			dataQueryDatasourceApi = singleDirectDataQueryDatasourceApi;

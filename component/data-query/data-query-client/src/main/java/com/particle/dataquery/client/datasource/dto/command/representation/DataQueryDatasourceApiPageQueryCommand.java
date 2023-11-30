@@ -17,6 +17,9 @@ import lombok.Data;
 @Schema
 public class DataQueryDatasourceApiPageQueryCommand extends AbstractBasePageQueryCommand {
 
+	@Schema(description = "是否使用缓存")
+	private Boolean isUseCache;
+
     @Like
     @Schema(description = "编码,左前缀匹配")
     private String code;

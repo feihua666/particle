@@ -18,6 +18,9 @@ import lombok.Data;
 @Schema
 public class DataQueryDatasourceApiQueryListCommand extends AbstractBaseQueryCommand {
 
+	@Schema(description = "是否使用缓存")
+	private Boolean isUseCache;
+
 
 
     @Like

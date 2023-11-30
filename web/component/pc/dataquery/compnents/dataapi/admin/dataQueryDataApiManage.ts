@@ -163,6 +163,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '接口名称',
           required: true,
+          tips: '标识接口的名称'
         },
         compProps: {
           clearable: true,
@@ -218,6 +219,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         comp: 'PtButton',
         formItemProps: {
           label: '接口适配',
+          tips: '在一对一直连时无需配置',
           required: ({formData})=>{
             if(!formData.adaptTypeDictId){
               return false
@@ -276,7 +278,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
               return false
             }
             return formData.adaptTypeDictId?.value !== 'single_direct'
-          }
+          },
+          tips: '对输出数据的包装类型，【代理响应数据接口】表示不包装'
         },
         compProps: {
           // 字典查询
@@ -297,7 +300,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
               return false
             }
             return formData.adaptTypeDictId?.value !== 'single_direct'
-          }
+          },
+          tips: '不填写表示无入参，该类型直接关系到接口调用的传参类型'
         },
         compProps: {
           // 字典查询

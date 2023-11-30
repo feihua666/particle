@@ -123,6 +123,9 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
     @Schema(description = "连接等待时间")
     private Integer connectTimeout;
 
+	@Schema(description = "是否使用缓存")
+	private Boolean isUseCache;
+
 
     @Schema(description = "等同标签")
     private String sameTag;

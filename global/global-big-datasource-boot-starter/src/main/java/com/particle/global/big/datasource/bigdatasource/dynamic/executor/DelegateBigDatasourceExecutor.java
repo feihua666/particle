@@ -13,6 +13,7 @@ import java.util.Optional;
 /**
  * <p>
  * 大数据源接口执行器代理
+ * 主要用来实现动态大数据源的执行器
  * </p>
  *
  * @author yangwei

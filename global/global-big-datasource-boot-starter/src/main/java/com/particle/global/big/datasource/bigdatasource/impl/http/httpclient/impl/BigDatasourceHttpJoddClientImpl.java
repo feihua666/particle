@@ -52,33 +52,43 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	private List<HttpClientInfrastructureListener> httpClientInfrastructureListeners;
 
 	@Override
-	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext) {
+	public Object get(String url, Map<String, String> headers, Object command, String commandJsonStr,
+					  String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+					  Integer readTimeout) {
 		HttpRequest httpRequest = HttpRequest.get(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "get",apiContext);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "get",apiContext,connectTimeout,readTimeout);
 	}
 
 	@Override
-	public Object post(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext) {
+	public Object post(String url, Map<String, String> headers, Object command, String commandJsonStr,
+					   String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+					   Integer readTimeout) {
 		HttpRequest httpRequest = HttpRequest.post(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "post",apiContext);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "post",apiContext,connectTimeout,readTimeout);
 	}
 
 	@Override
-	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext) {
+	public Object delete(String url, Map<String, String> headers, Object command, String commandJsonStr,
+						 String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+						 Integer readTimeout) {
 		HttpRequest httpRequest = HttpRequest.delete(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "delete",apiContext);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "delete",apiContext,connectTimeout,readTimeout);
 	}
 
 	@Override
-	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext) {
+	public Object put(String url, Map<String, String> headers, Object command, String commandJsonStr,
+					  String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+					  Integer readTimeout) {
 		HttpRequest httpRequest = HttpRequest.put(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "put",apiContext);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "put",apiContext,connectTimeout,readTimeout);
 	}
 
 	@Override
-	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext) {
+	public Object patch(String url, Map<String, String> headers, Object command, String commandJsonStr,
+						String queryString, String contentType, ProxyConfig proxyConfig, BigDatasourceApiContext apiContext,Integer connectTimeout,
+						Integer readTimeout) {
 		HttpRequest httpRequest = HttpRequest.patch(url);
-		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "patch",apiContext);
+		return request(httpRequest, url, headers, command, commandJsonStr, queryString, contentType,proxyConfig, "patch",apiContext,connectTimeout,readTimeout);
 	}
 
 	/**
@@ -93,7 +103,18 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	 * @param methodLog
 	 * @return
 	 */
-	private Object request(HttpRequest httpRequest,String url, Map<String, String> headers, Object command, String commandJsonStr, String queryString, String contentType, ProxyConfig proxyConfig,String methodLog, BigDatasourceApiContext apiContext) {
+	private Object request(HttpRequest httpRequest,
+						   String url,
+						   Map<String, String> headers,
+						   Object command,
+						   String commandJsonStr,
+						   String queryString,
+						   String contentType,
+						   ProxyConfig proxyConfig,
+						   String methodLog,
+						   BigDatasourceApiContext apiContext,
+						   Integer connectTimeout,
+						   Integer readTimeout) {
 		String body = commandJsonStr;
 		log.info("{}. url={},body={},queryString={},headers={},content-type={}",methodLog,url,body,queryString,JsonTool.toJsonStr(headers),contentType);
 
@@ -133,7 +154,10 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 
 		httpRequest = httpRequest
 				.queryString(queryString)
-				.header(headers);
+				.header(headers)
+				.connectionTimeout(connectTimeout)
+				.timeout(readTimeout)
+		;
 		ProxyConfig proxy = ProxyConfig.finalProxyConfig(proxyConfig);
 		if (proxy != null) {
 			HttpConnectionProvider connectionProvider=new SocketHttpConnectionProvider();

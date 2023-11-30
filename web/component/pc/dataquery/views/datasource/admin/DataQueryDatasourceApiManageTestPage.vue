@@ -112,9 +112,10 @@ const submitAttrs = ref({
         return
       }
       try {
+        // 尝试解析一下，如果不正确，给出提示
         param = inParamTypeHandler[inParamType.value](param)
       } catch (e) {
-        alert('参数格式错误，请检查！','error')
+        alert('参数格式错误，接口定义的入参类型和输入参数转换错误，请检查！','error')
         return
       }
     }

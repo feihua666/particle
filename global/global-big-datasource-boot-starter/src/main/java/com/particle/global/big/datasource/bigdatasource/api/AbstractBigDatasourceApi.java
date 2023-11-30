@@ -28,10 +28,23 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected DynamicBigDatasourceRoutingKey routingKey;
 
 	protected List<DictGroup> dictGroups;
-	protected BigDatasourceApiCommandValidateConfig queryCommandConfig;
 	protected BigDatasourceApiPageableAdapterConfig pageableAdapterConfig;
+	protected BigDatasourceApiCommandExtConfig commandExtConfig;
 	protected BigDatasourceApiCommandValidateConfig commandValidateConfig;
+	protected BigDatasourceApiResultExtConfig resultExtConfig;
 	protected BigDatasourceApiSuccessValidateConfig successValidateConfig;
+
+	private Boolean isUseCache = false;
+
+	/**
+	 * 读取等待时间，单位ms，超过该时间将会放弃
+	 */
+	private Integer readTimeout = 3000;
+
+	/**
+	 * 连接等待时间，单位ms，超过该时间将会放弃
+	 */
+	private Integer connectTimeout = 1000;
 
 	@Override
 	public String identifier() {
@@ -61,13 +74,23 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	}
 
 	@Override
+	public BigDatasourceApiCommandExtConfig commandExtConfig() {
+		return commandExtConfig;
+	}
+
+	@Override
+	public BigDatasourceApiResultExtConfig resultExtConfig() {
+		return resultExtConfig;
+	}
+
+	@Override
 	public List<DictGroup> dictGroups() {
 		return dictGroups;
 	}
 
 	@Override
 	public BigDatasourceApiCommandValidateConfig commandValidateConfig() {
-		return queryCommandConfig;
+		return commandValidateConfig;
 	}
 
 	@Override
@@ -78,5 +101,20 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	@Override
 	public BigDatasourceApiSuccessValidateConfig successValidateConfig() {
 		return successValidateConfig;
+	}
+
+	@Override
+	public boolean useCache() {
+		return isUseCache;
+	}
+
+	@Override
+	public Integer connectTimeout() {
+		return connectTimeout;
+	}
+
+	@Override
+	public Integer readTimeout() {
+		return readTimeout;
 	}
 }

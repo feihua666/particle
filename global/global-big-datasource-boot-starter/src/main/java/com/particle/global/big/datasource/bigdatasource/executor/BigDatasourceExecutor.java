@@ -11,8 +11,9 @@ package com.particle.global.big.datasource.bigdatasource.executor;
 public interface BigDatasourceExecutor<R> {
 	/**
 	 * 执行代理模式响应
-	 * @param command
-	 * @return
+	 * @param command 执行参数
+	 * @param queryString 针对http请求的请求地址参数字符串如：a=b&c=d
+	 * @return 返回结果
 	 */
 	Object execute(Object command,String queryString);
 

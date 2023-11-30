@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.api;
 
 import com.particle.global.big.datasource.bigdatasource.api.config.*;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 
@@ -42,6 +43,11 @@ public interface BigDatasourceApi {
 	PageableAdapterConfig pageableAdapterConfig();
 
 	/**
+	 * 请求参数扩展配置，主要是使用脚本处理一些请求参数数据
+	 * @return
+	 */
+	BigDatasourceApiCommandExtConfig commandExtConfig();
+	/**
 	 * 请求参数校验相关配置
 	 * @return
 	 */
@@ -55,6 +61,11 @@ public interface BigDatasourceApi {
 	IBigDatasourceApiConfig config();
 
 	/**
+	 * 返回结果扩展配置，主要是使用脚本处理一些返回结果数据
+	 * @return
+	 */
+	BigDatasourceApiResultExtConfig resultExtConfig();
+	/**
 	 * 返回结果成功判断配置
 	 * @return
 	 */
@@ -67,7 +78,7 @@ public interface BigDatasourceApi {
 	List<DictGroup> dictGroups();
 	/**
 	 * 在请求api时，可以指定路由
-	 * 仅适用于动态大数据源使用场景
+	 * 仅适用于动态大数据源使用场景，参考 {@link DynamicBigDatasource}
 	 * @return
 	 */
 	default DynamicBigDatasourceRoutingKey routingKey() {
@@ -81,4 +92,19 @@ public interface BigDatasourceApi {
 	default boolean useCache(){
 		return false;
 	}
+
+	/**
+	 * 连接超时时间，单位毫秒
+	 * @return
+	 */
+	default Integer connectTimeout(){
+		return 1000;
+	}
+
+	/**
+	 * 读取超时时间，单位毫秒
+	 * @return
+	 */
+	default Integer readTimeout(){
+		return 3000;}
 }

@@ -4,8 +4,10 @@ import InParamExampleConfig from './apiconfigs/InParamExampleConfig.vue'
 import InParamTestCaseDataConfig from './apiconfigs/InParamTestCaseDataConfig.vue'
 import InParamDocConfig from './apiconfigs/InParamDocConfig.vue'
 import InParamValidateConfig from './apiconfigs/InParamValidateConfig.vue'
+import InParamExtConfig from './apiconfigs/InParamExtConfig.vue'
 import OutParamExampleConfig from './apiconfigs/OutParamExampleConfig.vue'
 import OutParamSuccessConfig from './apiconfigs/OutParamSuccessConfig.vue'
+import OutParamExtConfig from './apiconfigs/OutParamExtConfig.vue'
 import OutParamDocConfig from './apiconfigs/OutParamDocConfig.vue'
 import DictConfig from './apiconfigs/DictConfig.vue'
 import PageableAdapterConfig from './apiconfigs/PageableAdapterConfig.vue'
@@ -15,8 +17,10 @@ const inParamExampleConfigRef = ref(null)
 const inParamTestCaseDataConfigRef = ref(null)
 const inParamDocConfigRef = ref(null)
 const inParamValidateConfigRef = ref(null)
+const inParamExtConfigRef = ref(null)
 const outParamExampleConfigRef = ref(null)
 const outParamSuccessConfigRef = ref(null)
+const outParamExtConfigRef = ref(null)
 const outParamDocConfigRef = ref(null)
 const dictConfigRef = ref(null)
 const pageableAdapterConfigConfigRef = ref(null)
@@ -48,10 +52,16 @@ const reactiveData = reactive({
   inParamValidate:{
     dialogVisible: false,
   },
+  inParamExtConfigJson:{
+    dialogVisible: false,
+  },
   outParamExampleConfigJson:{
     dialogVisible: false,
   },
   outParamSuccess:{
+    dialogVisible: false,
+  },
+  outParamExtConfigJson:{
     dialogVisible: false,
   },
   outParamDoc:{
@@ -104,7 +114,23 @@ const inParamValidateSubmit = ()=>{
   }
   reactiveData.inParamValidate.dialogVisible=false;
 }
-
+// 入参扩展配置确认提交
+const inParamExtConfigSubmit = ()=>{
+  if (inParamExtConfigRef.value.getInitJson().groovyScript) {
+    props.form.inParamExtConfigJson = toJsonStr(inParamExtConfigRef.value.getInitJson());
+  }else {
+    props.form.inParamExtConfigJson = ''
+  }
+  reactiveData.inParamExtConfigJson.dialogVisible=false;
+}
+// [Vue warn]: Failed to locate Teleport target with selector "#dataqueryDatasourceApipageableAdapterConfigDialogFooter". Note the target element must exist before the component is mounted - i.e. the target cannot be rendered by the component itself, and ideally should be outside of the entire Vue component tree.
+// 如上异常信息，如果不加控制表单中传送的按钮找不到目标位置，先让dialog渲染完成，再渲染内部表单即可
+const inParamExtConfigRender = ref(false)
+const inParamExtConfigDialogOpen = ()=>{
+  nextTick(()=>{
+    inParamExtConfigRender.value = true
+  })
+}
 
 // 出参示例确认提交
 const outParamExampleSubmit = ()=>{
@@ -124,6 +150,26 @@ const outParamSuccessSubmit = ()=>{
   }
   reactiveData.outParamSuccess.dialogVisible=false;
 }
+
+
+// 出参扩展配置确认提交
+const outParamExtConfigSubmit = ()=>{
+  if (outParamExtConfigRef.value.getInitJson().groovyScript) {
+    props.form.outParamExtConfigJson = toJsonStr(outParamExtConfigRef.value.getInitJson());
+  }else {
+    props.form.outParamExtConfigJson = ''
+  }
+  reactiveData.outParamExtConfigJson.dialogVisible=false;
+}
+// [Vue warn]: Failed to locate Teleport target with selector "#dataqueryDatasourceApipageableAdapterConfigDialogFooter". Note the target element must exist before the component is mounted - i.e. the target cannot be rendered by the component itself, and ideally should be outside of the entire Vue component tree.
+// 如上异常信息，如果不加控制表单中传送的按钮找不到目标位置，先让dialog渲染完成，再渲染内部表单即可
+const outParamExtConfigRender = ref(false)
+const outParamExtConfigDialogOpen = ()=>{
+  nextTick(()=>{
+    outParamExtConfigRender.value = true
+  })
+}
+
 
 // 出参文档确认提交
 const outParamDocSubmit = ()=>{
@@ -159,6 +205,7 @@ const pageableAdapterConfigDialogOpen = ()=>{
     pageableAdapterConfigRender.value = true
   })
 }
+
 // 暴露方法
 defineExpose({
   reactiveData
@@ -201,6 +248,16 @@ defineExpose({
     </template>
   </el-dialog>
 
+  <el-dialog v-model="reactiveData.inParamExtConfigJson.dialogVisible" width="70%" title="入参扩展配置Json" append-to-body destroy-on-close  @open="inParamExtConfigDialogOpen" @closed="inParamExtConfigRender=false">
+    <InParamExtConfig v-if="inParamExtConfigRender" ref="inParamExtConfigRef" :initJsonStr="form.inParamExtConfigJson"
+                      :onSubmit="inParamExtConfigSubmit"
+                      :buttonsTeleportProps="{disabled: false,to: '#dataqueryDatasourceApiInParamExtConfigDialogFooter'}"></InParamExtConfig>
+    <template #footer>
+      <!--   将表单按钮传送到这里   -->
+      <div id="dataqueryDatasourceApiInParamExtConfigDialogFooter"></div>
+    </template>
+  </el-dialog>
+
   <el-dialog v-model="reactiveData.outParamExampleConfigJson.dialogVisible" width="70%" title="出参示例配置Json" append-to-body destroy-on-close>
     <OutParamExampleConfig ref="outParamExampleConfigRef" :initJsonStr="form.outParamExampleConfigJson"></OutParamExampleConfig>
     <template #footer>
@@ -218,7 +275,15 @@ defineExpose({
       </span>
     </template>
   </el-dialog>
-
+  <el-dialog v-model="reactiveData.outParamExtConfigJson.dialogVisible" width="70%" title="出参扩展配置Json" append-to-body destroy-on-close  @open="outParamExtConfigDialogOpen" @closed="outParamExtConfigRender=false">
+    <OutParamExtConfig v-if="outParamExtConfigRender" ref="outParamExtConfigRef" :initJsonStr="form.outParamExtConfigJson"
+                       :onSubmit="outParamExtConfigSubmit"
+                       :buttonsTeleportProps="{disabled: false,to: '#dataqueryDatasourceApiOutParamExtConfigDialogFooter'}"></OutParamExtConfig>
+    <template #footer>
+      <!--   将表单按钮传送到这里   -->
+      <div id="dataqueryDatasourceApiOutParamExtConfigDialogFooter"></div>
+    </template>
+  </el-dialog>
 
   <el-dialog v-model="reactiveData.outParamDoc.dialogVisible" width="70%" title="出参文档配置Json" append-to-body destroy-on-close>
     <OutParamDocConfig ref="outParamDocConfigRef" :rootInParamType="formData.outParamTypeDictId?.value" :initJsonStr="form.outParamDocConfigJson"></OutParamDocConfig>

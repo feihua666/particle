@@ -144,6 +144,11 @@ public class DataQueryDatasourceApiDO extends BaseDO {
     */
     private Integer connectTimeout;
 
+	/**
+	 * 是否使用缓存
+	 */
+	private Boolean isUseCache;
+
     /**
     * 等同标签，如果两个api的入参和出参相同，对接口打一个标签，同时另一个相同的接口打同样的标签，以代表两个接口相同
     */

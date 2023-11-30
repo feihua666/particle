@@ -142,6 +142,11 @@ public class DataQueryDatasourceApi extends AggreateRoot {
     */
     private Integer connectTimeout;
 
+	/**
+	 * 是否使用缓存
+	 */
+	private Boolean isUseCache;
+
     /**
     * 等同标签，如果两个api的入参和出参相同，对接口打一个标签，同时另一个相同的接口打同样的标签，以代表两个接口相同
     */
@@ -181,7 +186,17 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         DataQueryDatasourceApiPageableAdapterConfig fromJsonStr = DataQueryDatasourceApiPageableAdapterConfig.createFromJsonStr(pageableAdapterConfigJson);
         return fromJsonStr;
     }
-
+    /**
+     * 入参扩展配置
+     * @return
+     */
+    public DataQueryDatasourceApiInParamExtConfig inParamExtConfig(){
+        if (StrUtil.isEmpty(inParamExtConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiInParamExtConfig fromJsonStr = DataQueryDatasourceApiInParamExtConfig.createFromJsonStr(inParamExtConfigJson);
+        return fromJsonStr;
+    }
     /**
      * 入参校验配置
      * @return
@@ -199,6 +214,17 @@ public class DataQueryDatasourceApi extends AggreateRoot {
             return null;
         }
         DataQueryDatasourceApiInSuccessValidateConfig fromJsonStr = DataQueryDatasourceApiInSuccessValidateConfig.createFromJsonStr(outParamSuccessConfigJson);
+        return fromJsonStr;
+    }
+    /**
+     * 出参扩展配置
+     * @return
+     */
+    public DataQueryDatasourceApiOutParamExtConfig outParamExtConfig(){
+        if (StrUtil.isEmpty(outParamExtConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiOutParamExtConfig fromJsonStr = DataQueryDatasourceApiOutParamExtConfig.createFromJsonStr(outParamExtConfigJson);
         return fromJsonStr;
     }
     /**
