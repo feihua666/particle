@@ -19,7 +19,7 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @Schema
 public class DataQueryDataApiQueryListCommand extends AbstractBaseQueryCommand {
 
-	@Schema(description = "是否使用缓存")
+	@Schema(description = "是否使用远程服务")
 	private Boolean isUseRemote;
 
     @Like

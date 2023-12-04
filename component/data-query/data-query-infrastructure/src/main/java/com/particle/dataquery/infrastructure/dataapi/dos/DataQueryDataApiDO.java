@@ -102,7 +102,7 @@ public class DataQueryDataApiDO extends BaseTreeDO {
     private String dictConfigJson;
 
 	/**
-	 * 是否使用缓存
+	 * 是否使用远程服务
 	 */
 	private Boolean isUseRemote;
 
