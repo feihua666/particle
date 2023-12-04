@@ -53,7 +53,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[[8,8],[8,8],[8,8],3,[8,8],3,[8]]"
+
           :comps="formComps">
   </PtForm>
   <DataQueryDatasourceApiFormItemConfigs :form="reactiveData.form" :formData="reactiveData.formData" ref="dataQueryDatasourceApiFormItemConfigsRef"></DataQueryDatasourceApiFormItemConfigs>

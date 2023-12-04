@@ -23,12 +23,13 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("dict_config_json"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("out_param_success_config_json"));
 		// 注意首字母要大写，应该是类名称，不带后缀
 		addFieldCommand.setDomainName("DataQueryDataApi");
 		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data-query");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("is_use_remote"),"是否使用缓存",Boolean.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("out_param_trans_config_json"),"出参翻译配置json",String.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("out_param_ext_config_json"),"出参扩展配置json",String.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

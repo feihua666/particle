@@ -30,7 +30,7 @@ export const inParamTypeHandler = {
   [paramType.float]: (rawParam) => parseFloat(rawParam),
   [paramType.boolean]: (rawParam) => JSON.parse(rawParam),
 }
-export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'inParamExampleConfigJson',
@@ -39,7 +39,7 @@ export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRe
       comp: 'PtButton',
       formItemProps: {
         label: '入参示例',
-        tips: '对接口的请求示例，仅做参考，不做为逻辑处理依据，表示在基本配置中接口或本地方法接收的参数示例'
+        tips: tips || '对接口的请求示例，仅做参考，不做为逻辑处理依据，表示接收的参数示例'
       },
       compProps: ({form})=>{
         return {
@@ -56,7 +56,7 @@ export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRe
     }
   }
 }
-export const inParamTestCaseDataConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const inParamTestCaseDataConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'inParamTestCaseDataConfigJson',
@@ -65,7 +65,7 @@ export const inParamTestCaseDataConfigJson = (dataQueryDatasourceApiFormItemConf
       comp: 'PtButton',
       formItemProps: {
         label: '入参测试用例数据',
-        tips: '对接口的请求标识数据，为做接口测试时，提供准确的依据'
+        tips: tips || '对接口的请求标识数据，为做接口测试时，提供准确的依据'
       },
       compProps: ({form,formData})=>{
         return {
@@ -82,7 +82,7 @@ export const inParamTestCaseDataConfigJson = (dataQueryDatasourceApiFormItemConf
     }
   }
 }
-export const inParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const inParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return {
     field: {
       name: 'inParamDocConfigJson',
@@ -91,7 +91,7 @@ export const inParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>
       comp: 'PtButton',
       formItemProps: {
         label: '入参文档配置',
-        tips: '对接口的参数字段说明，表示在基本配置中接口或本地方法接收的参数文档说明'
+        tips: tips || '对接口的参数字段说明，表示在基本配置中接口或本地方法接收的参数文档说明'
       },
       compProps: ({form,formData})=>{
         return {
@@ -114,7 +114,7 @@ export const inParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>
     }
   }
 }
-export const outParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const outParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'outParamExampleConfigJson',
@@ -123,7 +123,7 @@ export const outParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsR
       comp: 'PtButton',
       formItemProps: {
         label: '出参示例',
-        tips: '表示在出参类型的基础上对接口的响应示例，仅做参考，不做为逻辑处理依据'
+        tips: tips || '表示在出参类型的基础上对接口的响应示例，仅做参考，不做为逻辑处理依据'
       },
       compProps:  ({form})=>{
         return {
@@ -140,7 +140,7 @@ export const outParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsR
     }
   }
 }
-export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return {
     field: {
       name: 'outParamDocConfigJson',
@@ -149,7 +149,7 @@ export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
       comp: 'PtButton',
       formItemProps: {
         label: '出参文档配置',
-        tips: '表示在出参类型的基础上对接口的参数字段说明'
+        tips: tips || '表示在出参类型的基础上对接口的参数字段说明'
       },
       compProps: ({form,formData})=>{
         return {
@@ -172,7 +172,7 @@ export const outParamDocConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
     }
   }
 }
-export const inParamValidateConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const inParamValidateConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'inParamValidateConfigJson',
@@ -181,7 +181,7 @@ export const inParamValidateConfigJson = (dataQueryDatasourceApiFormItemConfigsR
       comp: 'PtButton',
       formItemProps: {
         label: '入参校验配置',
-        tips: '入参的校验规则，逻辑处理,支持多个配置，有一个校验失败表示失败，不配置代表不校验，表示基本配置中接口或本地方法调用前对参数校验'
+        tips: tips || '入参的校验规则，逻辑处理,支持多个配置，有一个校验失败表示失败，不配置代表不校验，表示对参数的校验'
       },
       compProps: ({form,formData})=>{
         return {
@@ -224,7 +224,7 @@ export const inParamExtConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>
     }
   }
 }
-export const outParamSuccessConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const outParamSuccessConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return {
     field: {
       name: 'outParamSuccessConfigJson',
@@ -233,7 +233,7 @@ export const outParamSuccessConfigJson = (dataQueryDatasourceApiFormItemConfigsR
       comp: 'PtButton',
       formItemProps: {
         label: '出参结果成功或失败配置',
-        tips: '表示在出参类型的基础上对该出参做一个成功或失败的判断，以处理告警或其它需要的逻辑，不配置代表都成功'
+        tips: tips || '表示在出参类型的基础上对该出参做一个成功或失败的判断，以处理告警或其它需要的逻辑，不配置代表都成功'
       },
       compProps: ({form})=>{
         return {
@@ -276,7 +276,24 @@ export const outParamExtConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
     }
   }
 }
-export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const outParamTransConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
+  return {
+    field: {
+      name: 'outParamTransConfigJson',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '出参翻译配置',
+        tips: tips || '针对响应数数据翻译数据字典支持'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  }
+}
+export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'dictConfigJson',
@@ -285,7 +302,7 @@ export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
       comp: 'PtButton',
       formItemProps: {
         label: '字典配置',
-        tips: '接口用到的字典数据配置，可配合文档使用'
+        tips: tips || '接口用到的字典数据配置，可配合文档使用'
       },
       compProps:  ({form})=>{
         return {
@@ -302,7 +319,7 @@ export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
     }
   }
 }
-export const pageableAdapterConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>{
+export const pageableAdapterConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
     field: {
       name: 'pageableAdapterConfigJson',
@@ -311,7 +328,7 @@ export const pageableAdapterConfigJson = (dataQueryDatasourceApiFormItemConfigsR
       comp: 'PtButton',
       formItemProps: {
         label: '分页信息配置',
-        tips: '用来解析分页请求和响应数据转换，仅适用于分页查询使用，主要用来提取请求的分页请求信息和返回数据的分页响应信息'
+        tips: tips || '用来解析分页请求和响应数据转换，仅适用于分页查询使用，主要用来提取请求的分页请求信息和返回数据的分页响应信息'
       },
       compProps:  ({form})=>{
         return {
@@ -591,32 +608,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       }
     },
     inParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-
-
-    {
-      field: {
-        name: 'inParamTestCaseDataConfigJson',
-      },
-      element: {
-        comp: 'PtButton',
-        formItemProps: {
-          label: '入参测试用例数据',
-          tips: '对接口的请求标识数据，为做接口测试时，提供准确的依据，表示在基本配置中接口或本地方法接收的参数用例数据'
-        },
-        compProps: ({form,formData})=>{
-          return {
-            text: true,
-            type: form.inParamTestCaseDataConfigJson ? 'primary' : 'default',
-            buttonText: '点击配置',
-            method: ()=>{
-              if(dataQueryDatasourceApiFormItemConfigsRef.value){
-                dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.inParamTestCaseDataConfigJson.dialogVisible = true
-              }
-            }
-          }
-        }
-      }
-    },
+    inParamTestCaseDataConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     inParamValidateConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     inParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
@@ -640,21 +632,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     outParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-    {
-      field: {
-        name: 'outParamTransConfigJson',
-      },
-      element: {
-        comp: 'el-input',
-        formItemProps: {
-          label: '出参翻译配置',
-          tips: '针对响应数数据翻译数据字典支持'
-        },
-        compProps: {
-          clearable: true,
-        }
-      }
-    },
+    outParamTransConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     outParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
@@ -761,7 +739,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         value: 6000
       },
       element: {
-        comp: 'el-input',
+        comp: 'el-input-number',
         formItemProps: {
           label: '读取等待时间',
           tips: '单位：ms。0为不限制，在接口调用时超过该值将丢弃'

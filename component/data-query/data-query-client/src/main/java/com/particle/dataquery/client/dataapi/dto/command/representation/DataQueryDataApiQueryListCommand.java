@@ -19,6 +19,15 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @Schema
 public class DataQueryDataApiQueryListCommand extends AbstractBaseQueryCommand {
 
+	@Schema(description = "出参翻译配置json")
+	private String outParamTransConfigJson;
+
+	@Schema(description = "出参扩展配置json")
+	private String outParamExtConfigJson;
+
+	@Schema(description = "入参扩展配置json")
+	private String inParamExtConfigJson;
+
 	@Schema(description = "是否使用远程服务")
 	private Boolean isUseRemote;
 

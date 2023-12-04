@@ -57,6 +57,9 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "入参校验配置json")
     private String inParamValidateConfigJson;
 
+	@Schema(description = "入参扩展配置json")
+	private String inParamExtConfigJson;
+
     @SetNullWhenNull
     @Schema(description = "出参类型,非一对一直连必填")
     private Long outParamTypeDictId;
@@ -69,6 +72,12 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
 
     @Schema(description = "出参成功或失败配置json")
     private String outParamSuccessConfigJson;
+
+	@Schema(description = "出参翻译配置json")
+	private String outParamTransConfigJson;
+
+	@Schema(description = "出参扩展配置json")
+	private String outParamExtConfigJson;
 
     @SetNullWhenNull
     @Schema(description = "输出类型,非一对一直连必填")

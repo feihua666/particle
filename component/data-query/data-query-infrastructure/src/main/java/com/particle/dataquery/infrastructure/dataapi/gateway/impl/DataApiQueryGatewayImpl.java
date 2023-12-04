@@ -97,8 +97,11 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiCache.get(dataQueryDataApi.getDataQueryDatasourceApiId(),()-> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId())));
 			dataQueryDatasourceApi = singleDirectDataQueryDatasourceApi;
 		}
-		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(dataQueryDatasourceApi,null);
+		// 正常来讲这里返回的对象的config应该是没有值的，确保万无一失，再设置一下null
+		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDataApi(dataQueryDataApi);
 		// 不需要config,因为这里只需要实现自己的逻辑，并不根据config配置进行逻辑处理
+		// 因为 {@link com.particle.dataquery.infrastructure.dataapi.gateway.impl.DataApiQueryExecutor.doExecute} 方法并没有取 config 数据进行处理
+		// 相关于数据查询api也是大数据源的一个执行器作为开始入口
 		defaultBigDatasourceApi.setConfig(null);
 
 		return new DataApiQueryExecutor((command) -> doExecute(dataQueryDataApi,command,queryString)).execute(defaultBigDatasourceApi, param,queryString);

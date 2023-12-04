@@ -6,9 +6,7 @@ import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiMultipleAggregationAdaptConfig;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInSuccessValidateConfig;
-import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiPageableAdapterConfig;
+import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -81,6 +79,11 @@ public class DataQueryDataApi extends AggreateRoot {
      * 入参校验配置json
      */
     private String inParamValidateConfigJson;
+
+	/**
+	 * 入参扩展配置json
+	 */
+	private String inParamExtConfigJson;
     /**
     * 出参类型，字典id
     */
@@ -100,6 +103,16 @@ public class DataQueryDataApi extends AggreateRoot {
     * 出参成功或失败配置json
     */
     private String outParamSuccessConfigJson;
+
+	/**
+	 * 出参翻译配置json
+	 */
+	private String outParamTransConfigJson;
+
+	/**
+	 * 出参扩展配置json
+	 */
+	private String outParamExtConfigJson;
 
     /**
     * 输出类型，字典id，用来定义响应数据格式
@@ -173,7 +186,17 @@ public class DataQueryDataApi extends AggreateRoot {
         DataQueryDatasourceApiInParamValidateConfig fromJsonStr = DataQueryDatasourceApiInParamValidateConfig.createFromJsonStr(inParamValidateConfigJson);
         return fromJsonStr;
     }
-
+    /**
+     * 入参扩展配置
+     * @return
+     */
+    public DataQueryDatasourceApiInParamExtConfig inParamExtConfig(){
+        if (StrUtil.isEmpty(inParamExtConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiInParamExtConfig fromJsonStr = DataQueryDatasourceApiInParamExtConfig.createFromJsonStr(inParamExtConfigJson);
+        return fromJsonStr;
+    }
     public DataQueryDatasourceApiInSuccessValidateConfig outParamSuccessConfigJson(){
         if (StrUtil.isEmpty(outParamSuccessConfigJson)) {
             return null;
@@ -181,7 +204,17 @@ public class DataQueryDataApi extends AggreateRoot {
         DataQueryDatasourceApiInSuccessValidateConfig fromJsonStr = DataQueryDatasourceApiInSuccessValidateConfig.createFromJsonStr(outParamSuccessConfigJson);
         return fromJsonStr;
     }
-
+    /**
+     * 出参扩展配置
+     * @return
+     */
+    public DataQueryDatasourceApiOutParamExtConfig outParamExtConfig(){
+        if (StrUtil.isEmpty(outParamExtConfigJson)) {
+            return null;
+        }
+        DataQueryDatasourceApiOutParamExtConfig fromJsonStr = DataQueryDatasourceApiOutParamExtConfig.createFromJsonStr(outParamExtConfigJson);
+        return fromJsonStr;
+    }
     /**
      * 在创建时校验参数
      */

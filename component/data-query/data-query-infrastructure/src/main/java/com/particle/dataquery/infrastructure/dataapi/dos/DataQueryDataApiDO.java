@@ -66,6 +66,11 @@ public class DataQueryDataApiDO extends BaseTreeDO {
      * 入参校验配置json
      */
     private String inParamValidateConfigJson;
+
+	/**
+	 * 入参扩展配置json
+	 */
+	private String inParamExtConfigJson;
     /**
     * 出参类型，字典id
     */
@@ -85,6 +90,16 @@ public class DataQueryDataApiDO extends BaseTreeDO {
     * 出参成功或失败配置json
     */
     private String outParamSuccessConfigJson;
+
+	/**
+	 * 出参翻译配置json
+	 */
+	private String outParamTransConfigJson;
+
+	/**
+	 * 出参扩展配置json
+	 */
+	private String outParamExtConfigJson;
 
     /**
     * 输出类型，字典id，用来定义响应数据格式

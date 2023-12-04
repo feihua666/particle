@@ -1,5 +1,6 @@
 package com.particle.dataquery.infrastructure.datasource.gateway.impl;
 
+import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4jBasicConfigCqlTemplateType;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
@@ -45,6 +46,44 @@ public class DatasourceApiQueryGatewayHelper {
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
 
+	/**
+	 * 根据数据查询api创建
+	 * @param dataQueryDataApi
+	 * @return
+	 */
+	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDataApi(DataQueryDataApi dataQueryDataApi) {
+		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(dataQueryDataApi.getResponseTypeDictId());
+
+		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				dataQueryDataApi.getId().toString()+ "_dataQueryDataApi_" + dataQueryDataApi.getName(),
+				// 响应包装
+				datasourceApiResponseTypeDictIdValue == null ? BigDatasourceApiResponseWrapType.proxy : BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),
+				null,
+				null,
+				pageableAdapterConfig(dataQueryDataApi),
+				commandValidateConfig(dataQueryDataApi),
+				successValidateConfig(dataQueryDataApi)
+		);
+		// 扩展配置
+		DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = dataQueryDataApi.inParamExtConfig();
+		if (dataQueryDatasourceApiInParamExtConfig != null) {
+			defaultBigDatasourceApi.setCommandExtConfig(BigDatasourceApiCommandExtConfig.create(dataQueryDatasourceApiInParamExtConfig.getGroovyScript()));
+		}
+		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = dataQueryDataApi.outParamExtConfig();
+		if (dataQueryDatasourceApiOutParamExtConfig != null) {
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
+		}
+
+		return defaultBigDatasourceApi;
+	}
+
+
+	/**
+	 * 数据源接口创建
+	 * @param datasourceApi
+	 * @param dataQueryDatasourceType
+	 * @return
+	 */
 	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDatasourceApi(DataQueryDatasourceApi datasourceApi, DataQueryDatasourceType dataQueryDatasourceType){
 		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasourceApi.getResponseTypeDictId());
 		IBigDatasourceApiConfig  iBigDatasourceApiConfig = null;
@@ -139,13 +178,57 @@ public class DatasourceApiQueryGatewayHelper {
 				config.getCqlCountTemplate()
 		);
 	}
+
+
 	/**
 	 * 分页解析信息配置
 	 * @param datasourceApi
 	 * @return
 	 */
 	private BigDatasourceApiPageableAdapterConfig pageableAdapterConfig(DataQueryDatasourceApi datasourceApi) {
-		return Optional.ofNullable(datasourceApi.pageableAdapterConfig()).map(
+		return pageableAdapterConfig(datasourceApi.pageableAdapterConfig());
+	}
+
+	private BigDatasourceApiCommandValidateConfig commandValidateConfig(DataQueryDatasourceApi datasourceApi) {
+		DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = datasourceApi.inParamValidateConfig();
+		return commandValidateConfig(dataQueryDatasourceApiInParamValidateConfig);
+	}
+
+	private BigDatasourceApiSuccessValidateConfig successValidateConfig(DataQueryDatasourceApi datasourceApi) {
+		DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = datasourceApi.outParamSuccessConfigJson();
+		return successValidateConfig(dataQueryDatasourceApiInSuccessValidateConfig);
+	}
+
+
+	/**
+	 * 分页解析信息配置
+	 * @param dataQueryDataApi
+	 * @return
+	 */
+	private BigDatasourceApiPageableAdapterConfig pageableAdapterConfig(DataQueryDataApi dataQueryDataApi) {
+		return pageableAdapterConfig(dataQueryDataApi.pageableAdapterConfig());
+	}
+
+	private BigDatasourceApiCommandValidateConfig commandValidateConfig(DataQueryDataApi dataQueryDataApi) {
+		DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = dataQueryDataApi.inParamValidateConfig();
+		return commandValidateConfig(dataQueryDatasourceApiInParamValidateConfig);
+	}
+
+	private BigDatasourceApiSuccessValidateConfig successValidateConfig(DataQueryDataApi dataQueryDataApi) {
+		DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = dataQueryDataApi.outParamSuccessConfigJson();
+		return successValidateConfig(dataQueryDatasourceApiInSuccessValidateConfig);
+	}
+
+
+
+
+	/**
+	 * 分页解析信息配置
+	 * @param pageableAdapterConfigObj
+	 * @return
+	 */
+	private BigDatasourceApiPageableAdapterConfig pageableAdapterConfig(DataQueryDatasourceApiPageableAdapterConfig pageableAdapterConfigObj) {
+		return Optional.ofNullable(pageableAdapterConfigObj).map(
 				pageableAdapterConfig -> BigDatasourceApiPageableAdapterConfig.create(
 						BigDatasourceApiPageableAdapterType.valueOf(pageableAdapterConfig.getInParamTemplateType().itemValue()),
 						pageableAdapterConfig.getInParamTemplate(),
@@ -155,8 +238,7 @@ public class DatasourceApiQueryGatewayHelper {
 		).orElse(null);
 	}
 
-	private BigDatasourceApiCommandValidateConfig commandValidateConfig(DataQueryDatasourceApi datasourceApi) {
-		DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = datasourceApi.inParamValidateConfig();
+	private BigDatasourceApiCommandValidateConfig commandValidateConfig(DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig) {
 		if (dataQueryDatasourceApiInParamValidateConfig != null) {
 			BigDatasourceApiCommandValidateConfig bigDatasourceApiCommandValidateConfig = BigDatasourceApiCommandValidateConfig.create();
 
@@ -174,8 +256,7 @@ public class DatasourceApiQueryGatewayHelper {
 		return null;
 	}
 
-	private BigDatasourceApiSuccessValidateConfig successValidateConfig(DataQueryDatasourceApi datasourceApi) {
-		DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = datasourceApi.outParamSuccessConfigJson();
+	private BigDatasourceApiSuccessValidateConfig successValidateConfig(DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig) {
 		if (dataQueryDatasourceApiInSuccessValidateConfig != null) {
 			BigDatasourceApiSuccessValidateConfig bigDatasourceApiSuccessValidateConfig = BigDatasourceApiSuccessValidateConfig.create();
 

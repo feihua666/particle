@@ -2,11 +2,11 @@ import {list as datasourceApiListApi} from "../../../api/datasource/admin/dataQu
 import {
   dictConfigJson,
   inParamDocConfigJson,
-  inParamExampleConfigJson,
+  inParamExampleConfigJson, inParamExtConfigJson,
   inParamTestCaseDataConfigJson, inParamValidateConfigJson,
   outParamDocConfigJson,
-  outParamExampleConfigJson,
-  outParamSuccessConfigJson,
+  outParamExampleConfigJson, outParamExtConfigJson,
+  outParamSuccessConfigJson, outParamTransConfigJson,
   pageableAdapterConfigJson
 } from "../../datasource/admin/dataQueryDatasourceApiManage";
 import {ElMessage} from 'element-plus'
@@ -181,7 +181,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '适配类型',
           required: true,
-          tips: '注：选择一对一直连，接口适配及其后面字段将忽略（将使用数据查询数据源接口直连接口配置），请勿填写'
+          tips: '针对数据源接口的适配，在一对一直连时，部分字段如果为空，将会引用数据源接口，具体以字段说明为准'
         },
         compProps: {
           // 字典查询
@@ -218,8 +218,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       element: {
         comp: 'PtButton',
         formItemProps: {
-          label: '接口适配',
-          tips: '在一对一直连时无需配置',
+          label: '接口复杂适配逻辑配置',
+          tips: '在一对一直连时该项及后面的字段项无需配置，如果配置会将数据源接口返回结果和入参为基准',
           required: ({formData})=>{
             if(!formData.adaptTypeDictId){
               return false
@@ -272,14 +272,14 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       element: {
         comp: 'PtDictFrontSelect',
         formItemProps: {
-          label: '输出类型',
+          label: '输出包装类型',
           required: ({formData})=>{
             if(!formData.adaptTypeDictId){
               return false
             }
             return formData.adaptTypeDictId?.value !== 'single_direct'
           },
-          tips: '对输出数据的包装类型，【代理响应数据接口】表示不包装'
+          tips: '对 数据源接口 输出数据的包装类型，【代理响应数据接口】或不填写，表示不包装'
         },
         compProps: {
           // 字典查询
@@ -301,7 +301,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
             }
             return formData.adaptTypeDictId?.value !== 'single_direct'
           },
-          tips: '不填写表示无入参，该类型直接关系到接口调用的传参类型'
+          tips: '数据查询入参类型，如果适配类型为 一对一直连，应该和数据源接口配置保持一致或不填写，除非有特殊处理除外'
         },
         compProps: {
           // 字典查询
@@ -310,12 +310,17 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       }
     },
 
-    inParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-
-    inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    inParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '对接口的请求示例，仅做参考，不做为逻辑处理依据，表示接收的参数示例,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
+    inParamTestCaseDataConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '对接口的请求标识数据，为做接口测试时，提供准确的依据,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
+    inParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '对接口的参数字段说明，表示在基本配置中接口或本地方法接收的参数文档说明,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
     inParamValidateConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-    inParamTestCaseDataConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-
+    inParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'outParamTypeDictId',
@@ -329,7 +334,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
               return false
             }
             return formData.adaptTypeDictId?.value !== 'single_direct'
-          }
+          },
+          tips: '对数据源接口返回结果的类型的声明'
         },
         compProps: {
           // 字典查询
@@ -338,13 +344,28 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       }
     },
 
-    outParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    outParamExampleConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '表示在出参类型的基础上对接口的响应示例，仅做参考，不做为逻辑处理依据,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
 
-    outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
 
-    outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-    pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
-    dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+
+    outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '表示在出参类型的基础上对接口的参数字段说明,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
+    outParamSuccessConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '注意数据查询接口配置是在数据源接口返回结果上进行的配置,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
+    }),
+    outParamTransConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '针对响应数数据翻译数据字典支持,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
+    }),
+    outParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
+    dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '接口用到的字典数据配置，可配合文档使用,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+    }),
+    pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
+      tips: '用来解析分页请求和响应数据转换，仅适用于分页查询使用，主要用来提取请求的分页请求信息和返回数据的分页响应信息,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
+    }),
     {
       field: {
         name: 'isUseRemote',
@@ -354,7 +375,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         comp: 'el-switch',
         formItemProps: {
           label: '是否使用远程服务',
-          tips: '远程服务意味着该数据查询使用配置的远程接口返回数据',
+          tips: '远程服务意味着该数据查询使用配置的远程接口返回数据，远程服务数据查询接口必须和本配置保持一致',
           labelTips: '该配置项仅限默认的配置实现，com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl'
         },
         compProps: {
