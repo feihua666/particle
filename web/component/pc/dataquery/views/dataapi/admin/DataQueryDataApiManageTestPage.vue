@@ -70,10 +70,15 @@ const reactiveData = reactive({
               url.value = detail.url
               // 如果是一对一直连，直接使用数据源接口数据
               let adaptTypeDictValue = detail.adaptTypeDictValue
+              let r = handleTestCasesData(detail)
               if ('single_direct' != adaptTypeDictValue) {
-                let r = handleTestCasesData(detail)
                 return Promise.resolve(r)
               }else {
+                // 如果一对一直连自己配置有值，直接使用
+                if(r && r.length > 0){
+                  return Promise.resolve(r)
+                }
+                // 如果一对一直连自己配置没有值，则使用数据源接口配置
                 return dataQueryDatasourceApiDetailApi({id: detail.dataQueryDatasourceApiId}).then(response =>{
                   let detail = response.data.data
                   let r = handleTestCasesData(detail)
