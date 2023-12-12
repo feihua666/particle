@@ -51,6 +51,8 @@
         <module>global-openapi-boot-starter</module>
         <module>global-cache-boot-starter</module>
         <module>global-neo4j-boot-starter</module>
+        <module>global-elasticsearch-boot-starter</module>
+
 
     </modules>
 

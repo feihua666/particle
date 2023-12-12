@@ -94,5 +94,12 @@
             <artifactId>global-neo4j-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 大数据源支持elasticsearch数据，即es -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-elasticsearch-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

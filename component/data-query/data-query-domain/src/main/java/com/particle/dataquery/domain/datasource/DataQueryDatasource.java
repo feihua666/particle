@@ -2,6 +2,7 @@ package com.particle.dataquery.domain.datasource;
 
 import com.particle.common.domain.AggreateRoot;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceEsConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceHttpConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceJdbcConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceNeo4jConfig;
@@ -86,7 +87,12 @@ public class DataQueryDatasource extends AggreateRoot {
         fromJsonStr.setPassword(password);
         return fromJsonStr;
     }
-
+    public DataQueryDatasourceEsConfig esConfig(){
+        DataQueryDatasourceEsConfig fromJsonStr = DataQueryDatasourceEsConfig.createFromJsonStr(configJson);
+        fromJsonStr.setUsername(username);
+        fromJsonStr.setPassword(password);
+        return fromJsonStr;
+    }
     /**
      * 创建数据查询数据源领域模型对象
      * @return 数据查询数据源领域模型对象，该对应所有属性为空，需要进行初始化操作

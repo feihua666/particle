@@ -3,6 +3,7 @@ package com.particle.dataquery.infrastructure.datasource.bigdatasource;
 import cn.hutool.core.map.MapUtil;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
+import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceEsConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceHttpConfig;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceNeo4jConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
@@ -17,6 +18,8 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDataso
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKeyFactory;
 import com.particle.global.big.datasource.bigdatasource.dynamic.provider.AbstractDynamicBigDatasourceProvider;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
+import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.ElasticsearchBigDatasource;
+import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.config.ElasticsearchBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.HttpBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceAuthScriptType;
@@ -31,9 +34,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -63,6 +68,23 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 	@Autowired(required = false)
 	private INeo4jBigDatasourceLoader iNeo4jBigDatasourceLoader;
 
+	/**
+	 * 定义一个记录器，记录已经加载的数据源
+	 * key=数据源id，value=是否已加载
+	 */
+	private static Map<String, Boolean> loadedBigDatasourceMap = new ConcurrentHashMap<>();
+
+	/**
+	 * 是否已加载jdbc大数据源，这里单独记录一下，因为jdbc大数据源比较特殊，是一个多数据源
+	 */
+	private static boolean hasLoadJdbcBigDatasource = false;
+
+	/**
+	 * jdbc大数据源实例
+	 */
+	private static JdbcBigDatasource jdbcBigDatasource;
+
+
 	@Override
 	public Map<DynamicBigDatasourceRoutingKey, BigDatasource> doLoadDataSources() {
 
@@ -85,7 +107,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 	 * @param list
 	 * @return
 	 */
-	public Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources(List<DataQueryDatasourceDO> list) {
+	public synchronized Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources(List<DataQueryDatasourceDO> list) {
 
 		// 已经禁用的供应商下面的数据源都不加载
 		List<Long> providerIds = list.stream().map(DataQueryDatasourceDO::getDataQueryProviderId).distinct().collect(Collectors.toList());
@@ -117,25 +139,44 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 			// jdbc数据源
 			if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_jdbc) {
 				// jdbc数据源统一使用一个
-				JdbcBigDatasource jdbcBigDatasource = JdbcBigDatasource.create(dataQueryGlobalBigDatasourceRoutingKey, BigDatasourceType.datasource_jdbc);
+				if (jdbcBigDatasource == null) {
+					jdbcBigDatasource = JdbcBigDatasource.create(dataQueryGlobalBigDatasourceRoutingKey, BigDatasourceType.datasource_jdbc);
+				}
 				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
+					// 如果已经存在，不再创建，防止并发问题导致多数据源
+					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
+						continue;
+					}
+
 					DataQueryDatasourceJdbcConfig dataQueryDatasourceJdbcConfig = dataQueryDatasource.jdbcConfig();
+
 					// 以 id 做为路由key
 					jdbcBigDatasource.addDataSourceByJdbcBigDatasourceConfig(
 							// String dataSourceName,注意这里使用id
-							dataQueryDatasource.getId().getId().toString(),
+							dataSourceKey,
 
 							JdbcBigDatasourceConfig.create(dataQueryDatasourceJdbcConfig.getDriverClassName(),
 									dataQueryDatasourceJdbcConfig.getUrl(),
 									dataQueryDatasourceJdbcConfig.getUsername(),
 									dataQueryDatasourceJdbcConfig.getPassword())
 					);
+					loadedBigDatasourceMap.put(dataSourceKey, true);
+
+				}
+				if (!hasLoadJdbcBigDatasource) {
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryGlobalBigDatasourceRoutingKey), jdbcBigDatasource);
+					hasLoadJdbcBigDatasource = !hasLoadJdbcBigDatasource;
 				}
 
 			}// end jdbc 数据源
-			if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_http) {
+			else if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_http) {
 				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
+					// 如果已经存在，不再创建，防止并发问题导致多数据源
+					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
+						continue;
+					}
 					DataQueryDatasourceHttpConfig config = dataQueryDatasource.httpConfig();
 					HttpBigDatasourceConfig httpBigDatasourceConfig = HttpBigDatasourceConfig.create(config.getDomainUrl(),
 							config.getAuthScriptType() == null ? null : HttpBigDatasourceAuthScriptType.valueOf(config.getAuthScriptType().itemValue()),
@@ -146,10 +187,18 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					HttpBigDatasource httpBigDatasource = HttpBigDatasource.create(dataQueryDatasource.getName(),
 							BigDatasourceType.datasource_http,httpBigDatasourceConfig);
 
-					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), httpBigDatasource);
+					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), httpBigDatasource);
+					loadedBigDatasourceMap.put(dataSourceKey, true);
+
 				}
-			}if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_neo4j) {
+			}// end http 数据源
+			else if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_neo4j) {
 				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
+					// 如果已经存在，不再创建，防止并发问题导致多数据源
+					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
+						continue;
+					}
 					DataQueryDatasourceNeo4jConfig config = dataQueryDatasource.neo4jConfig();
 					Neo4jBigDatasourceConfig neo4jBigDatasourceConfig = Neo4jBigDatasourceConfig.create(
 							config.getUri(),
@@ -170,9 +219,33 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 								neo4jBigDatasourceConfig);
 					}
 
-					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryDatasource.getId().getId().toString()), neo4jBigDatasource);
+					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), neo4jBigDatasource);
+					loadedBigDatasourceMap.put(dataSourceKey, true);
+
 				}
-			}
+			}// end neo4j 数据源
+			else if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_es) {
+				for (DataQueryDatasource dataQueryDatasource : entry.getValue()) {
+					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
+					// 如果已经存在，不再创建，防止并发问题导致多数据源
+					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
+						continue;
+					}
+					DataQueryDatasourceEsConfig config = dataQueryDatasource.esConfig();
+					ElasticsearchBigDatasourceConfig elasticsearchBigDatasourceConfig = ElasticsearchBigDatasourceConfig.create(
+							Arrays.stream(config.getUris().split(",")).collect(Collectors.toList()),
+							config.getUsername(),
+							config.getPassword());
+					ElasticsearchBigDatasource elasticsearchBigDatasource = ElasticsearchBigDatasource.createByElasticsearchBigDatasourceConfig(
+							dataQueryDatasource.getName(),
+							BigDatasourceType.datasource_es,
+							elasticsearchBigDatasourceConfig);
+
+					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), elasticsearchBigDatasource);
+					loadedBigDatasourceMap.put(dataSourceKey, true);
+
+				}
+			}// end es 数据源
 			else {
 				log.warn("datasource type for {} ignored. that not support now",dataQueryDatasourceType.itemValue());
 			}

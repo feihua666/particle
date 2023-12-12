@@ -33,11 +33,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.script.Bindings;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -87,16 +87,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
 	@Override
 	public Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
-		DataQueryDatasourceApi dataQueryDatasourceApi = DataQueryDataApiInfrastructureStructMapping.instance.dataQueryDataApiToDataQueryDatasourceApi(dataQueryDataApi);
-		// 一对一直连时判断直接取数据查询数据源接口配置
-		Long adaptTypeDictId = dataQueryDataApi.getAdaptTypeDictId();
-		String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
-		DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
-		// 如果是一对一直连，api配置使用数据源api配置，即数据查询api不生效
-		if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
-			DataQueryDatasourceApi singleDirectDataQueryDatasourceApi = dataQueryDatasourceApiCache.get(dataQueryDataApi.getDataQueryDatasourceApiId(),()-> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDataApi.getDataQueryDatasourceApiId())));
-			dataQueryDatasourceApi = singleDirectDataQueryDatasourceApi;
-		}
+
 		// 正常来讲这里返回的对象的config应该是没有值的，确保万无一失，再设置一下null
 		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDataApi(dataQueryDataApi);
 		// 不需要config,因为这里只需要实现自己的逻辑，并不根据config配置进行逻辑处理
@@ -123,24 +114,17 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		}
 		if (DataQueryDataApiAdaptType.multiple_aggregation == dataQueryDataApiAdaptType) {
 			DataQueryDataApiMultipleAggregationAdaptConfig config = dataQueryDataApi.multipleAggregationAdaptConfig();
-			Map<String, Object> result = new ConcurrentHashMap<>();
-			int size = config.getAggregationItems().size();
-			CountDownLatch countDownLatch = new CountDownLatch(size);
+			Map<String, Future<?>> resultFuture = new HashMap<>();
 
 			for (DataQueryDataApiMultipleAggregationAdaptConfig.AggregationItem aggregationItem : config.getAggregationItems()) {
-				dataQueryDataApiExecutor.submit(()->{
-					try {
-						Object o = doExecuteByDatasourceApiId(aggregationItem.getDataQueryDatasourceApiId(), param,queryString);
-						result.put(aggregationItem.getOutputKey(), o);
-					} finally {
-						countDownLatch.countDown();
-					}
-
-				});
+				Future<?> submit = dataQueryDataApiExecutor.submit(() -> doExecuteByDatasourceApiId(aggregationItem.getDataQueryDatasourceApiId(), param, queryString));
+				resultFuture.put(aggregationItem.getOutputKey(), submit);
 			}
 
-			// 默认等待两分钟
-			countDownLatch.await(2, TimeUnit.MINUTES);
+			Map<String, Object> result = new HashMap<>();
+			for (Map.Entry<String, Future<?>> stringObjectEntry : resultFuture.entrySet()) {
+				result.put(stringObjectEntry.getKey(), stringObjectEntry.getValue().get());
+			}
 
 			return result;
 		}

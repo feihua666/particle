@@ -51,7 +51,9 @@ public class DynamicJdbcBigDatasourceTest {
 		//
 		//Object jdbcExecuteMultiResponse1 = executor.execute(jdbcBigDatasourceMapPageQueryCommand());
 		//System.out.println("jdbcExecuteMultiResponse1 :" +  JsonTool.toJsonStr(jdbcExecuteMultiResponse1));
-		//
+
+		//executor = dynamicBigDatasource.getExecutor(jdbcBigDatasourcePageApi());
+
 		//Object jdbcExecutePageResponse1 = executor.execute(jdbcBigDatasourceMapPageQueryCommand());
 		//System.out.println("jdbcExecutePageResponse1 :" +  JsonTool.toJsonStr(jdbcExecutePageResponse1));
 

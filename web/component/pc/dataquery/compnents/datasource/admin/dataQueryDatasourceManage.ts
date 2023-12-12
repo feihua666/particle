@@ -376,6 +376,25 @@ const datasource_neo4j = [
     }
   },
 ]
+const datasource_es = [
+  {
+    field: {
+      name: 'uris'
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '连接地址',
+        required: true,
+        tips: '支持集群设置，多个以逗号分隔'
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '如：http://localhost:9200'
+      }
+    }
+  },
+]
 const datasource_not_support = [
   {
     field: {
@@ -402,5 +421,6 @@ export const datasourceTypeFormItems = {
   datasource_jdbc,
   datasource_http,
   datasource_neo4j,
+  datasource_es,
   datasource_not_support,
 }

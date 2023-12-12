@@ -52,6 +52,7 @@ public class DynamicNeo4jBigDatasourceTest {
 		Object neo4jExecuteMultiResponse1 = executor.execute(neo4jBigDatasourceMapPageQueryCommand(),null);
 		System.out.println("neo4jExecuteMultiResponse1 :" +  JsonTool.toJsonStr(neo4jExecuteMultiResponse1));
 
+		executor = dynamicBigDatasource.getExecutor(neo4jBigDatasourcePageApi());
 		Object neo4jExecutePageResponse1 = executor.execute(neo4jBigDatasourceMapPageQueryCommand(),null);
 		System.out.println("neo4jExecutePageResponse1 :" +  JsonTool.toJsonStr(neo4jExecutePageResponse1));
 

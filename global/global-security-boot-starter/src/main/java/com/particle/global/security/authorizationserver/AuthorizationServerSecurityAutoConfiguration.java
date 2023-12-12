@@ -10,6 +10,7 @@ import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.config.WebSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
@@ -52,6 +54,7 @@ import java.util.UUID;
 @AutoConfigureAfter(AuthorizationServerSecurityServiceAndRepositoryAutoConfiguration.class)
 @Configuration
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".authorization-server", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnBean(RegisteredClientRepository.class)
 public class AuthorizationServerSecurityAutoConfiguration {
 
 	@Autowired

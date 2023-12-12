@@ -673,6 +673,11 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
                     dataQueryDatasourceApiFormItemBasicConfigsRef.value.reactiveData.neo4j.dialogVisible = true
                   }
                 },
+                datasource_es(){
+                  if(dataQueryDatasourceApiFormItemBasicConfigsRef.value){
+                    dataQueryDatasourceApiFormItemBasicConfigsRef.value.reactiveData.es.dialogVisible = true
+                  }
+                },
               }// end map
               let datasourceTypeDictValue = formData.dataQueryDatasourceId.typeDictValue
               let method = map[datasourceTypeDictValue] || (()=>{

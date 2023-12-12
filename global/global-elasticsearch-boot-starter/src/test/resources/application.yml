@@ -1,0 +1,12 @@
+spring:
+  application:
+    # 应用名称
+    name: global-elasticsearch-test
+  profiles:
+    include:
+      - log4j2
+  elasticsearch:
+    uris:
+      - http://localhost:9200
+    username: ss
+    password: ss

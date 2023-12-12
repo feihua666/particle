@@ -90,7 +90,7 @@ public class ResourceServerSecurityAutoConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http, AuthenticationManagerBuilder authenticationManagerBuilder, PasswordEncoder passwordEncoder, CustomWebSecurityConfigureExt ext) throws Exception {
-			if (isJwt || isOpaqueToken) {
+			if ((isJwt && existBean(JwtDecoder.class,beanFactory) || (isOpaqueToken && existBean(OpaqueTokenIntrospector.class,beanFactory)))) {
 				http.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> {
 					if (isJwt && existBean(JwtDecoder.class,beanFactory)) {
 						httpSecurityOAuth2ResourceServerConfigurer.jwt();

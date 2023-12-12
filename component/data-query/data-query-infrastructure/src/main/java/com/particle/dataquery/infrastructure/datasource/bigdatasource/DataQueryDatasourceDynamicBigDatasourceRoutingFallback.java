@@ -38,16 +38,14 @@ public class DataQueryDatasourceDynamicBigDatasourceRoutingFallback implements D
 	public BigDatasource routedFailedFallback(DynamicBigDatasourceRoutingKey routingKey) {
 
 		if (routingKey instanceof JdbcBigDatasourceRoutingKey) {
-			String key = ((JdbcBigDatasourceRoutingKey) routingKey).toStringKey();
+			String key = routingKey.toStringKey();
 			String subKey = ((JdbcBigDatasourceRoutingKey) routingKey).subKey();
 			// dataquery使用一个大数据源
 			if (dataQueryGlobalBigDatasourceRoutingKey.equals(key)) {
 				// subKey 到这里就是一个数据查询数据源id
 				Long dataQueryDatasourceId = Long.parseLong(subKey);
 				BigDatasource bigDatasourceByDataQueryDatasourceId = getBigDatasourceByDataQueryDatasourceId(dataQueryDatasourceId);
-				if (bigDatasourceByDataQueryDatasourceId != null) {
-					return bigDatasourceByDataQueryDatasourceId;
-				}
+				return bigDatasourceByDataQueryDatasourceId;
 			}
 		}
 		// 这里的key就是数据源id

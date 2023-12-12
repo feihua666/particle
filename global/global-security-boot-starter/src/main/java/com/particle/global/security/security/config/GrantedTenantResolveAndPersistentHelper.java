@@ -21,10 +21,10 @@ import java.util.List;
  */
 public class GrantedTenantResolveAndPersistentHelper {
 
-	@Autowired
+	@Autowired(required = false)
 	@Setter
 	private List<IUserTenantChangeListener> iUserTenantChangeListeners;
-	@Autowired
+	@Autowired(required = false)
 	@Setter
 	private ITenantResolveService iTenantResolveService;
 

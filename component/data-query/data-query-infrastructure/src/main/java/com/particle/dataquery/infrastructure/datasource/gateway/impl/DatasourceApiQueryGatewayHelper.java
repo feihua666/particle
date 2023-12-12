@@ -13,6 +13,9 @@ import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPa
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
+import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.api.config.ElasticsearchBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.enums.ElasticsearchBigDatasourceApiConfigDataType;
+import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.enums.ElasticsearchBigDatasourceApiConfigDslTemplateType;
 import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.enums.HttpBigDatasourceApiConfigContentType;
@@ -93,6 +96,8 @@ public class DatasourceApiQueryGatewayHelper {
 			iBigDatasourceApiConfig = httpBigDatasourceApiConfig(datasourceApi);
 		}else if (DataQueryDatasourceType.datasource_neo4j == dataQueryDatasourceType) {
 			iBigDatasourceApiConfig = neo4jBigDatasourceApiConfig(datasourceApi);
+		}else if (DataQueryDatasourceType.datasource_es == dataQueryDatasourceType) {
+			iBigDatasourceApiConfig = esBigDatasourceApiConfig(datasourceApi);
 		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
@@ -178,7 +183,21 @@ public class DatasourceApiQueryGatewayHelper {
 				config.getCqlCountTemplate()
 		);
 	}
-
+	/**
+	 * es基础配置
+	 * @param datasourceApi
+	 * @return
+	 */
+	private ElasticsearchBigDatasourceApiConfig esBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+		DataQueryDatasourceApiEsBasicConfig config = datasourceApi.esBasicConfig();
+		return ElasticsearchBigDatasourceApiConfig.create(
+				ElasticsearchBigDatasourceApiConfigDslTemplateType.valueOf(config.getDslTemplateType().itemValue()),
+				ElasticsearchBigDatasourceApiConfigDataType.valueOf(config.getDataType().itemValue()),
+				config.getIndexNames(),
+				config.getDslTemplate(),
+				config.getDslCountTemplate()
+		);
+	}
 
 	/**
 	 * 分页解析信息配置

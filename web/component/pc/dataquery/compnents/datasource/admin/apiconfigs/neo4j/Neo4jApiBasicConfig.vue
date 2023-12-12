@@ -5,12 +5,14 @@ import {onMounted, reactive, ref} from 'vue'
 // 表单对象类型
 // 类型对应后端参见 {@link com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiNeo4jBasicConfig}
 interface FormType{
-  // 类型 enjoy模板、mybatisScript模板等
+  // 类型 enjoy模板、groovyScript模板等
   cqlTemplateType: string,
   // 表示返回的数据是单条、多条、还是分页
   dataType: string,
   // 模板内容
   cqlTemplate: string
+  // 计数模板
+  cqlCountTemplate: string
 }
 
 // 声明属性

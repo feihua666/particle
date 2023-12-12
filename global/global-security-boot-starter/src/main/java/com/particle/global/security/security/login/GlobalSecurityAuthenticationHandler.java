@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalSecurityAuthenticationHandler {
 
-	@Autowired
+	@Autowired(required = false)
 	protected List<IAuthenticationResultService> iAuthenticationResultServices;
 
 	/**

@@ -150,6 +150,9 @@ public class JdbcBigDatasource extends AbstractBigDatasource {
 		addDataSource(dataSourceName,dataSource);
 	}
 
+	public boolean existDs(String dataSourceName) {
+		return dynamicRoutingDataSource.getDataSource(dataSourceName) != null;
+	}
 
 	/**
 	 * 使用 mybatis SqlSessionFactory

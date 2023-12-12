@@ -1,6 +1,5 @@
 package com.particle.global.big.datasource.bigdatasource.dynamic.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.dynamic.JdbcBigDatasourceRoutingKey;
 import lombok.Data;

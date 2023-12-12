@@ -175,6 +175,10 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         DataQueryDatasourceApiNeo4jBasicConfig fromJsonStr = DataQueryDatasourceApiNeo4jBasicConfig.createFromJsonStr(configJson);
         return fromJsonStr;
     }
+    public DataQueryDatasourceApiEsBasicConfig esBasicConfig() {
+        DataQueryDatasourceApiEsBasicConfig fromJsonStr = DataQueryDatasourceApiEsBasicConfig.createFromJsonStr(configJson);
+        return fromJsonStr;
+    }
     /**
      * 除了数据源类型为 {@link DataQueryDatasourceType#datasource_jdbc}时可以不用配置（大数据源已经兼容），其它情形一般都需要配置
      * @return

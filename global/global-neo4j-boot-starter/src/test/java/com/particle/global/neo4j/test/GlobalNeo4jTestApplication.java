@@ -1,15 +1,9 @@
 package com.particle.global.neo4j.test;
 
-import com.particle.global.neo4j.dto.basic.INeo4jCurrentUserResolver;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.TenantTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
@@ -19,7 +13,7 @@ import static java.util.TimeZone.getTimeZone;
 
 /**
  * <p>
- *
+ * 全局 neo4j 测试应用启动类
  * </p>
  *
  * @author yangwei
