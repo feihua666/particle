@@ -150,7 +150,8 @@ public class DatasourceApiQueryGatewayHelper {
 		return JdbcBigDatasourceApiConfig.create(
 				JdbcBigDatasourceApiConfigSqlTemplateType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplateType().itemValue()),
 				JdbcBigDatasourceApiConfigDataType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getDataType().itemValue()),
-				dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplate());
+				dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplate(),
+				dataQueryDatasourceApiJdbcBasicConfig.getIsSearchCount());
 	}
 
 	/**

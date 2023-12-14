@@ -42,23 +42,32 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	 */
 	private String sqlTemplate;
 
+	/**
+	 * 是否在分页时，查询总数
+	 */
+	private Boolean isSearchCount;
 
-	public static JdbcBigDatasourceApiConfig create(JdbcBigDatasourceApiConfigSqlTemplateType type, JdbcBigDatasourceApiConfigDataType dataType, String sqlTemplate) {
+
+	public static JdbcBigDatasourceApiConfig create(JdbcBigDatasourceApiConfigSqlTemplateType type,
+													JdbcBigDatasourceApiConfigDataType dataType,
+													String sqlTemplate,
+													Boolean isSearchCount) {
 		JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig = new JdbcBigDatasourceApiConfig();
 		jdbcBigDatasourceApiConfig.setSqlTemplateType(type);
 		jdbcBigDatasourceApiConfig.setDataType(dataType);
 		jdbcBigDatasourceApiConfig.setSqlTemplate(sqlTemplate);
+		jdbcBigDatasourceApiConfig.setIsSearchCount(isSearchCount);
 		return jdbcBigDatasourceApiConfig;
 	}
 
-	public static JdbcBigDatasourceApiConfig createByWithRawType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate){
-		return create(JdbcBigDatasourceApiConfigSqlTemplateType.raw,dataType, sqlTemplate);
+	public static JdbcBigDatasourceApiConfig createByWithRawType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate,Boolean isSearchCount){
+		return create(JdbcBigDatasourceApiConfigSqlTemplateType.raw,dataType, sqlTemplate,isSearchCount);
 	}
-	public static JdbcBigDatasourceApiConfig createByWithEnjoyType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate){
-		return create(JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template,dataType, sqlTemplate);
+	public static JdbcBigDatasourceApiConfig createByWithEnjoyType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate,Boolean isSearchCount){
+		return create(JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template,dataType, sqlTemplate,isSearchCount);
 	}
-	public static JdbcBigDatasourceApiConfig createByWithMybatisXmlType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate){
-		return create(JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template,dataType, sqlTemplate);
+	public static JdbcBigDatasourceApiConfig createByWithMybatisXmlType(JdbcBigDatasourceApiConfigDataType dataType,String sqlTemplate,Boolean isSearchCount){
+		return create(JdbcBigDatasourceApiConfigSqlTemplateType.enjoy_template,dataType, sqlTemplate,isSearchCount);
 	}
 
 	/**

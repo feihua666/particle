@@ -2,6 +2,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.jdbc.executor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
+import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
@@ -88,6 +89,14 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 			}
 		}
 		Page pageQuery = new Page(pageNo, pageSize);
+		// 查询总数设置，默认查询
+		IBigDatasourceApiConfig config = bigDatasourceApi.config();
+		if (config instanceof JdbcBigDatasourceApiConfig) {
+			Boolean isSearchCount = ((JdbcBigDatasourceApiConfig) config).getIsSearchCount();
+			if (isSearchCount != null && !isSearchCount) {
+				pageQuery.setSearchCount(false);
+			}
+		}
 		return pageQuery;
 	}
 

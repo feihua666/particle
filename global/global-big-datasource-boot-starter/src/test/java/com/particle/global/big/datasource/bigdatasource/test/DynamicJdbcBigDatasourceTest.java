@@ -80,7 +80,7 @@ public class DynamicJdbcBigDatasourceTest {
 						"<script>" + "select * from component_func " +
 								"<where>" +
 								"<if test=\"data.data.name != null\"> name = #{data.data.name}</if>" +
-								"</where>" + "</script>")
+								"</where>" + "</script>",true)
 		);
 		return defaultBigDatasourceApi;
 	}
@@ -92,7 +92,7 @@ public class DynamicJdbcBigDatasourceTest {
 						"<script>" + "select * from component_func " +
 								"<where>" +
 								"<if test=\"data.data.name != null\"> name = #{data.data.name}</if>" +
-								"</where>" + "</script>"
+								"</where>" + "</script>",true
 				)
 		);
 		return defaultBigDatasourceApi;

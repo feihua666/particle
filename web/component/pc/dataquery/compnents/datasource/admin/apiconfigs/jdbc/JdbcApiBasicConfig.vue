@@ -10,7 +10,9 @@ interface FormType{
   // 表示返回的数据是单条、多条、还是分页
   dataType: string,
   // 模板内容
-  sqlTemplate: string
+  sqlTemplate: string,
+  // 是否查询总数
+  isSearchCount: true
 }
 
 // 声明属性
@@ -49,6 +51,24 @@ const formComps = [
         dictParam: {groupCode: 'dataquery_datasource_api_jdbc_basic_config_data_type'},
         // 选取value为选重值
         props: {value: 'value'},
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isSearchCount',
+      value: true
+
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '是否查询总数',
+        tips: '仅在分页时有效'
+      },
+      compProps: {
+        activeText: '查询总数',
+        inactiveText: '不查询总数',
       }
     }
   },

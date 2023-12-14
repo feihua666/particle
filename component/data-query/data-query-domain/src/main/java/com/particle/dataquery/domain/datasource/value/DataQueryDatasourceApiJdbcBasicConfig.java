@@ -28,16 +28,25 @@ public class DataQueryDatasourceApiJdbcBasicConfig extends Value {
 	 */
 	private String sqlTemplate;
 
+	/**
+	 * 是否在分页时，查询总数
+	 */
+	private Boolean isSearchCount;
+
 	public static DataQueryDatasourceApiJdbcBasicConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiJdbcBasicConfig.class);
 		return dataQueryDatasourceApiJdbcBasicConfig;
 	}
 
-	public static DataQueryDatasourceApiJdbcBasicConfig create(DataQueryDatasourceApiJdbcBasicConfigSqlTemplateType type,DataQueryDatasourceApiJdbcBasicConfigDataType dataType, String sqlTemplate) {
+	public static DataQueryDatasourceApiJdbcBasicConfig create(DataQueryDatasourceApiJdbcBasicConfigSqlTemplateType type,
+															   DataQueryDatasourceApiJdbcBasicConfigDataType dataType,
+															   String sqlTemplate,
+															   Boolean isSearchCount) {
 		DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = new DataQueryDatasourceApiJdbcBasicConfig();
 		dataQueryDatasourceApiJdbcBasicConfig.setSqlTemplateType(type);
 		dataQueryDatasourceApiJdbcBasicConfig.setDataType(dataType);
 		dataQueryDatasourceApiJdbcBasicConfig.setSqlTemplate(sqlTemplate);
+		dataQueryDatasourceApiJdbcBasicConfig.setIsSearchCount(isSearchCount);
 		return dataQueryDatasourceApiJdbcBasicConfig;
 	}
 }
