@@ -4,16 +4,12 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.io.IoStreamTool;
 import com.particle.global.tool.proxy.ProxyConfig;
-import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.*;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CookieStore;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -21,16 +17,12 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
@@ -113,7 +105,7 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static String posForm(String url,Map<String,String> params,ExtConfig extConfig) throws IOException {
+    public static String postForm(String url, Map<String,String> params, ExtConfig extConfig) throws IOException {
         HttpPost post = new HttpPost(url);
         // 创建参数列表
         if (params != null) {
@@ -166,7 +158,15 @@ public class HttpClientTool{
     public static String httpResponseContentToString(HttpResponse res) throws IOException {
         return IoUtil.read(res.getEntity().getContent(), Charset.forName(CHARSET));
     }
-
+    /**
+     * 响应内容转为字符串
+     * @param entity
+     * @return
+     * @throws IOException
+     */
+    public static String httpResponseEntityContentToString(HttpEntity entity) throws IOException {
+        return IoUtil.read(entity.getContent(), Charset.forName(CHARSET));
+    }
     /**
      * 下载并返回二进制数据
      * @param urlPath

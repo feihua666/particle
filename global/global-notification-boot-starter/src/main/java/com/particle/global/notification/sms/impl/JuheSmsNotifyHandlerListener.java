@@ -53,7 +53,7 @@ public class JuheSmsNotifyHandlerListener implements ISmsNotifyHandlerListener {
 		String url = smsAccount.concatDomain("/sms/send");
 		log.info("juhe sms send. url={},params={}",url, JsonTool.toJsonStr(params));
 		try {
-			String result = HttpClientTool.posForm(
+			String result = HttpClientTool.postForm(
 					url,
 					params,
 					HttpClientTool.ExtConfig.builder().proxyConfig(smsAccount.getProxy()).build()

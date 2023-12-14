@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
 
 /**
  * <p>
@@ -43,5 +45,11 @@ public class GlobalElasticsearchAutoConfiguration {
                 }
             };
         }
+    }
+
+    @Bean
+    public ElasticsearchRestTemplate elasticsearchTemplate(org.elasticsearch.client.RestHighLevelClient client,
+                                                    ElasticsearchConverter converter) {
+        return new ElasticsearchRestTemplate(client, converter);
     }
 }

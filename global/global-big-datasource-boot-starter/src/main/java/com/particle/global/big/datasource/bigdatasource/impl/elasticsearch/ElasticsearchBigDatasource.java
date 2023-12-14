@@ -1,5 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.impl.elasticsearch;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
@@ -77,6 +78,7 @@ public class ElasticsearchBigDatasource extends AbstractBigDatasource {
 
         RestClientBuilder restClientBuilder = elasticsearchRestClientBuilder(elasticsearchProperties, BigDatasourceEmptyObjectProvider.create());
         RestHighLevelClient restHighLevelClient = elasticsearchRestHighLevelClient(restClientBuilder);
+
         elasticsearchBigDatasource.restHighLevelClient = restHighLevelClient;
         RestClient lowLevelClient = restHighLevelClient.getLowLevelClient();
         elasticsearchBigDatasource.restClient = lowLevelClient;
@@ -179,7 +181,13 @@ public class ElasticsearchBigDatasource extends AbstractBigDatasource {
      */
     private static org.elasticsearch.client.RestHighLevelClient elasticsearchRestHighLevelClient(
             RestClientBuilder restClientBuilder) {
-        return new org.elasticsearch.client.RestHighLevelClient(restClientBuilder);
+        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(restClientBuilder);
+
+        ReflectUtil.setFieldValue(restHighLevelClient,"useAPICompatibility",true);
+
+        return restHighLevelClient;
+
+
     }
 
 

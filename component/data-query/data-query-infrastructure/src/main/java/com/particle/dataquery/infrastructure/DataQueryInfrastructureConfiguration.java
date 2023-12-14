@@ -1,8 +1,6 @@
 package com.particle.dataquery.infrastructure;
 
-import cn.hutool.core.util.ClassLoaderUtil;
 import com.particle.global.concurrency.threadpool.CustomExecutors;
-import com.particle.global.light.share.constant.ClassAdapterConstants;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

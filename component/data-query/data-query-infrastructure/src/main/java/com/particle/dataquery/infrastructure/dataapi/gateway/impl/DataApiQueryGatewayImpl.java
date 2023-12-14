@@ -132,7 +132,8 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(param).toRenderMap();
 			renderMap.put("datasourceApi", new DatasourceApiInvoker(this));
-			renderMap.put("queryStr", queryString);
+			renderMap.put("queryString", queryString);
+			renderMap.put("dataQueryDataApiExecutor", dataQueryDataApiExecutor);
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);
 			DataQueryDataApiCustomScriptAdaptConfig dataQueryDataApiCustomScriptAdaptConfig = dataQueryDataApi.customScriptAdaptConfig();
