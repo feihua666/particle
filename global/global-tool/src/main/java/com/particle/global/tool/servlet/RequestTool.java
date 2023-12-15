@@ -203,7 +203,12 @@ public class RequestTool {
      * @return
      */
     public static String[] resolveRequestURI(HttpServletRequest request, boolean includeContextPath) {
-        String[] r = null;
+        String str = resolveRequestURIStr(request, includeContextPath);
+        String[] r = str.split("/");
+        return r;
+    }
+
+    public static String resolveRequestURIStr(HttpServletRequest request, boolean includeContextPath) {
         String requestURI = request.getRequestURI();
         String contextPath = request.getContextPath();
 
@@ -211,8 +216,7 @@ public class RequestTool {
         if (!includeContextPath && !StrUtil.isEmpty(contextPath)) {
             siteRequestUri = siteRequestUri.substring(contextPath.length());
         }
-        r = siteRequestUri.split("/");
-        return r;
+        return siteRequestUri;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.particle.particledemo;
 
+import com.particle.global.captcha.security.DefaultCaptchaSecurityChecker;
 import com.particle.global.neo4j.GlobalNeo4jAutoConfiguration;
 import com.particle.global.session.SessionRepositoryConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
@@ -46,5 +48,10 @@ public class ParticleDemoApplication {
 	@PostConstruct
 	void started() {
 		TimeZone.setDefault(getTimeZone(of("Asia/Shanghai")));
+	}
+
+	@Bean
+	public DefaultCaptchaSecurityChecker defaultCaptchaSecurityChecker(){
+		return new DefaultCaptchaSecurityChecker();
 	}
 }

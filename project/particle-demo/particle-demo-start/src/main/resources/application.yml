@@ -127,10 +127,13 @@ particle:
   captcha:
     # 参见 com.particle.global.captcha.security.CaptchaSecurityFilter
     filter:
-      enabled: false
+      enabled: true
       uris:
         # 登录添加验证码校验
         - /login
+      #check:
+        #no-captcha-login-usernames:
+        #  - superadmin
   dynamic-captcha:
     # 参见 com.particle.global.captcha.security.DynamicCaptchaSecurityFilter
     filter:
