@@ -13,6 +13,7 @@ import com.particle.global.security.security.ApplicationContextForSecurityHelper
 import com.particle.global.tool.json.JsonTool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -49,10 +50,12 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 
 	private ICaptchaService captchaService;
 
+	@Autowired(required = false)
+	private ICaptchaSecurityCheck captchaSecurityCheck;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (enabled && CollectionUtil.isNotEmpty(uris)) {
+		if (enabled && CollectionUtil.isNotEmpty(uris) && check(request,response)) {
 			HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 			String requestURI = httpServletRequest.getRequestURI();
 			String contextPath = request.getServletContext().getContextPath();
@@ -96,6 +99,20 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 
 
 		chain.doFilter(request,response);
+	}
+
+	/**
+	 * 是否需要验证验证码
+	 * @param request
+	 * @param response
+	 * @return false=不需要验证验证码
+	 */
+	protected boolean check(ServletRequest request, ServletResponse response) {
+		if (captchaSecurityCheck != null) {
+			return captchaSecurityCheck.check(request, response);
+		}
+
+		return true;
 	}
 
 	/**
