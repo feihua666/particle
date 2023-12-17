@@ -12,6 +12,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.RawResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,37 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 
 	@Override
 	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+
+		long startAt = System.currentTimeMillis();
+		String commandJsonStr = null;
+		try {
+			commandJsonStr = JsonTool.toJsonStr(command);
+		} catch (Exception e) {
+			if (command != null) {
+				command.toString();
+			}
+		}
+		log.info("execute BigDatasourceApi start identifier={},command={},queryString={}",
+				Optional.ofNullable(bigDatasourceApi).map(BigDatasourceApi::identifier).orElse("empty"),
+				commandJsonStr,
+				queryString
+		);
+		try {
+			return handleExecute(bigDatasourceApi, command, queryString);
+		} finally {
+			log.info("execute BigDatasourceApi end duration={}ms",System.currentTimeMillis() - startAt);
+
+		}
+	}
+
+	/**
+	 * 处理执行
+	 * @param bigDatasourceApi
+	 * @param command
+	 * @param queryString
+	 * @return
+	 */
+	private Object handleExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 
 		// 监听调用
 		if (executorInfrastructureListenerList != null) {
