@@ -244,6 +244,18 @@ public class CustomEnjoyEngine implements TemplateEngine{
 			return null;
 		}
 
+		public static Map<Integer, String> strSplit(String str, String split) {
+			if (StrUtil.isEmpty(str)) {
+				return Collections.emptyMap();
+			}
+			String[] split1 = str.split(split);
+			Map<Integer, String> map = new HashMap<>(split1.length);
+			for (int i = 0; i < split1.length; i++) {
+				map.put(i, split1[i]);
+			}
+			return map;
+		}
+
 		/**
 		 * 新建一个map
 		 * @return

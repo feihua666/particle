@@ -2,9 +2,7 @@ package com.particle.global.tool.collection;
 
 import cn.hutool.core.util.NumberUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -83,4 +81,163 @@ public class CollectionTool {
 		iterable.forEach(e->list.add(e));
 		return list;
 	}
+
+
+	/**
+	 * 如果该属性的值对应的key为空，则清空该属性所在的对象
+	 */
+	private static final String __control_clear_when_empty_keys__ = "__control_clear_when_empty_keys__";
+	/**
+	 * 如果有该属性，则为true,则清空该属性所在的对象
+	 */
+	private static final String __control_clear__ = "__control_clear__";
+	/**
+	 * 如果该属性拼接属性名为true表示移除以该前缀为属性的属性
+	 */
+	private static final String __control_remove_key__ = "__control_remove_key__";
+	/**
+	 * 默认情况，会移除值为空的属性，该控制设置为false可以不移除
+	 * 如果该属性拼接属性名为false表示不移除以该前缀为属性的属性
+	 */
+	private static final String __control_not_remove_empty_key__ = "__control_not_remove_empty_key__";
+
+	/**
+	 * 针对map的处理入口，主要用于构建json参数，如用于es查询
+	 * 负责将map清空，和对应的key移除（如果key对应的值为map或集合为空）
+	 * @param map
+	 * @param <T>
+	 */
+	public static <T extends Map> void clearMap(T map) {
+		if (map == null) {
+			return;
+		}
+		boolean controlClearExist = map.containsKey(__control_clear__);
+		if (controlClearExist) {
+			Boolean controlClear = (Boolean)map.get(__control_clear__);
+			if (controlClear) {
+				map.clear();
+			}else {
+				map.remove(__control_clear__);
+			}
+		}
+		// else {
+			List<String> toBeRemovedKey = new ArrayList<>();
+			Iterator iterator = map.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Map.Entry next = (Map.Entry)iterator.next();
+				Object key = next.getKey();
+				String controlRemoveKeyPrefixKey = __control_remove_key__ + key;
+				boolean controlRemoveKeyPrefixKeyExist = map.containsKey(controlRemoveKeyPrefixKey);
+				if (controlRemoveKeyPrefixKeyExist) {
+					toBeRemovedKey.add(controlRemoveKeyPrefixKey);
+
+					Boolean controlRemovePrefix = (Boolean) map.get(controlRemoveKeyPrefixKey);
+					if (controlRemovePrefix) {
+						iterator.remove();
+						continue;
+					}
+				}
+
+				String controlRemoveEmptyKeyPrefixKey = __control_not_remove_empty_key__ + key;
+				boolean controlRemoveEmptyKeyPrefixKeyExist = map.containsKey(controlRemoveEmptyKeyPrefixKey);
+
+				if (controlRemoveEmptyKeyPrefixKeyExist) {
+					toBeRemovedKey.add(controlRemoveEmptyKeyPrefixKey);
+				}
+				Object value = next.getValue();
+
+				boolean iteratorRemove = false;
+				if (value instanceof Map) {
+					Map<?, ?> itemMap = (Map<?, ?>) value;
+					clearMap(itemMap);
+					if (itemMap == null || itemMap.isEmpty()) {
+						iterator.remove();
+					}
+				} else if (value instanceof Collection) {
+					Collection<?> itemCollection = (Collection<?>) value;
+					clearCollection(itemCollection);
+					if (itemCollection == null || itemCollection.isEmpty()) {
+						iterator.remove();
+					}
+				}
+
+				if (iteratorRemove) {
+					if (controlRemoveEmptyKeyPrefixKeyExist) {
+						Boolean controlRemovePrefix = (Boolean) map.get(controlRemoveEmptyKeyPrefixKey);
+						if (controlRemovePrefix == null || controlRemovePrefix) {
+							continue;
+						}
+					}
+					iterator.remove();
+				}
+			}
+			for (String key : toBeRemovedKey) {
+				map.remove(key);
+			}
+		// }
+		/**
+		 * 如果存在 {@link __control_clear_when_empty_keys__} 对应的值为key的值为空，那么清空
+ 		 */
+		
+		boolean controlClearWhenEmptyKeysExist = map.containsKey(__control_clear_when_empty_keys__);
+		if (controlClearWhenEmptyKeysExist) {
+			String controlClearWhenEmptyKeysStr = (String) map.get(__control_clear_when_empty_keys__);
+			for (String controlClearExistEmptyKey : controlClearWhenEmptyKeysStr.split(",")) {
+				if (map.containsKey(controlClearExistEmptyKey)) {
+					Object controlClearExistEmptyKeyValue = map.get(controlClearExistEmptyKey);
+					if (controlClearExistEmptyKeyValue == null) {
+						map.clear();
+						break;
+					}
+					if (controlClearExistEmptyKeyValue instanceof Map) {
+						if (((Map<?, ?>) controlClearExistEmptyKeyValue).isEmpty()) {
+							map.clear();
+							break;
+						}
+					} else if (controlClearExistEmptyKeyValue instanceof Collection) {
+						if (((Collection<?>) controlClearExistEmptyKeyValue).isEmpty()) {
+							map.clear();
+							break;
+						}
+					}
+				}else {
+					map.clear();
+					break;
+				}
+			}
+			map.remove(__control_clear_when_empty_keys__);
+		}
+
+	}
+
+
+	/**
+	 * 针对collection的处理入口
+	 * @param collection
+	 * @param <T>
+	 */
+	public static <T extends Collection> void clearCollection(T collection) {
+		if (collection == null) {
+			return;
+		}
+		Iterator iterator = collection.iterator();
+
+		while (iterator.hasNext()) {
+			Object next = iterator.next();
+			if (next instanceof Map) {
+				Map<?, ?> itemMap = (Map<?, ?>) next;
+				clearMap(itemMap);
+				if (itemMap == null || itemMap.isEmpty()) {
+					iterator.remove();
+				}
+			} else if (next instanceof Collection) {
+				Collection<?> itemCollection = (Collection<?>) next;
+				clearCollection(itemCollection);
+				if (itemCollection == null || itemCollection.isEmpty()) {
+					iterator.remove();
+				}
+			}
+		}
+	}
+
 }
