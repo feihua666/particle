@@ -3,10 +3,7 @@ package com.particle.global.tool.template;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.comparator.CompareUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.*;
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
@@ -254,6 +251,17 @@ public class CustomEnjoyEngine implements TemplateEngine{
 				map.put(i, split1[i]);
 			}
 			return map;
+		}
+
+		/**
+		 * 正则替换
+		 * @param content
+		 * @param regex
+		 * @param replacementTemplate
+		 * @return
+		 */
+		public static String regReplaceAll(CharSequence content, String regex, String replacementTemplate) {
+			return ReUtil.replaceAll(content, regex, replacementTemplate);
 		}
 
 		/**
