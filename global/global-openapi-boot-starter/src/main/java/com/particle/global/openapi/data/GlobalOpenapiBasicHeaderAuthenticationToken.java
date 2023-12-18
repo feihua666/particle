@@ -33,7 +33,7 @@ public class GlobalOpenapiBasicHeaderAuthenticationToken extends AbstractAuthent
 
 	@Override
 	public Object getPrincipal() {
-		return basicHeaderDTO;
+		return basicHeaderDTO.getClientId();
 	}
 
 }
