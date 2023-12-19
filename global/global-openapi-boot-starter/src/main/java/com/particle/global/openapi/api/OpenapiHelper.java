@@ -22,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.TransientSecurityContext;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
@@ -154,7 +155,11 @@ public class OpenapiHelper {
 			GlobalOpenapiBasicHeaderAuthenticationToken globalOpenapiBasicHeaderAuthenticationToken
 					= new GlobalOpenapiBasicHeaderAuthenticationToken(basicHeaderDTO, createAuthorityList(openapiClient.getAuthorities()));
 			globalOpenapiBasicHeaderAuthenticationToken.setAuthenticated(true);
-			SecurityContext context = SecurityContextHolder.createEmptyContext();
+			/**
+			 * 创建不使用session存储的上下文，这一点spring security很厉害，考虑到了
+			 * 我们一般默认都使用{@link SecurityContextHolder#createEmptyContext()} 来创建
+			 */
+			SecurityContext context = new TransientSecurityContext();
 			context.setAuthentication(globalOpenapiBasicHeaderAuthenticationToken);
 			SecurityContextHolder.setContext(context);
 		}
