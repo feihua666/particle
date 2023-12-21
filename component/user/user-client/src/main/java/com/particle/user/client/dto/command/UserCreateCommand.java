@@ -94,6 +94,9 @@ public class UserCreateCommand extends AbstractBaseCommand {
 	@Schema(description = "有效天数,0或空为不限制")
 	private Integer effectiveDays;
 
+	@Schema(description = "备注")
+	private String remark;
+
     /**
      * 账号信息
      */

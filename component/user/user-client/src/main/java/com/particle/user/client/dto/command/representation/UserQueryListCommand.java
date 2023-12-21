@@ -29,6 +29,9 @@ public class UserQueryListCommand extends AbstractBaseQueryCommand {
 	@Schema(description = "有效天数,0或空为不限制")
 	private Integer effectiveDays;
 
+	@Schema(description = "备注")
+	private String remark;
+
     @Like
     @Schema(description = "姓名，左前缀匹配")
     private String name;

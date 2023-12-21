@@ -87,5 +87,10 @@ public class TenantUserDO extends BaseDO {
 	 */
 	private Boolean isFormal;
 
+	/**
+	 * 备注
+	 */
+	private String remark;
+
 
 }

@@ -77,6 +77,9 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     @Schema(description = "是否正式，1=正式，0=试用")
     private Boolean isFormal;
 
+	@Schema(description = "备注")
+	private String remark;
+
     @Schema(description = "租户id，不填写默认当前租户")
     private Long tenantId;
 

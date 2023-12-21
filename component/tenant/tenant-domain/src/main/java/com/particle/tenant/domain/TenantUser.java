@@ -84,6 +84,11 @@ public class TenantUser extends AggreateRoot {
 	 */
 	private Boolean isFormal;
 
+	/**
+	 * 备注
+	 */
+	private String remark;
+
 
     /**
      * 租户id

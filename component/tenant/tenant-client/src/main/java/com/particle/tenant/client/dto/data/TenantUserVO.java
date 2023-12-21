@@ -62,6 +62,9 @@ public class TenantUserVO extends AbstractBaseIdVO {
 	@Schema(description = "是否正式，1=正式，0=试用")
 	private Boolean isFormal;
 
+	@Schema(description = "备注")
+	private String remark;
+
 
     @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "nickname")
     @Schema(description = "昵称，模糊查询")

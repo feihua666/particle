@@ -332,6 +332,20 @@ export const addPageFormItems = [
             label: '部门'
         }
         ) : null,
+    {
+        field: {
+            name: 'remark'
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '备注'
+            },
+            compProps: {
+                clearable: true,
+            }
+        }
+    },
     //  以下为账号信息
     {
         field: {
@@ -611,4 +625,18 @@ export const updatePageFormItems = [
             label: '部门'
         }
     ) : null,
+    {
+        field: {
+            name: 'remark'
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '备注'
+            },
+            compProps: {
+                clearable: true,
+            }
+        }
+    },
 ]

@@ -24,6 +24,9 @@ public class TenantUserUpdateCommand extends AbstractBaseUpdateCommand {
 	@Schema(description = "是否正式，1=正式，0=试用")
 	private Boolean isFormal;
 
+	@Schema(description = "备注")
+	private String remark;
+
     @NotNull(message = "用户id 不能为空")
     @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;

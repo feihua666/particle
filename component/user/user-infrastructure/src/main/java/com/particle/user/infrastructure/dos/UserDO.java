@@ -105,4 +105,9 @@ public class UserDO extends BaseDO {
 	 */
 	private Integer effectiveDays;
 
+	/**
+	 * 备注
+	 */
+	private String remark;
+
 }

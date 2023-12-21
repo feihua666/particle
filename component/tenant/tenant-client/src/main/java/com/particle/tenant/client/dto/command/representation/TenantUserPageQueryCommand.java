@@ -33,6 +33,9 @@ public class TenantUserPageQueryCommand extends AbstractBasePageQueryCommand {
 	@Schema(description = "是否正式，1=正式，0=试用")
 	private Boolean isFormal;
 
+	@Schema(description = "备注")
+	private String remark;
+
     @Schema(description = "用户id")
     private Long userId;
 

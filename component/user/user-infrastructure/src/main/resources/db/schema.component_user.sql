@@ -20,6 +20,7 @@ CREATE TABLE `component_user` (
   `effective_at` datetime NULL DEFAULT NULL COMMENT '生效日期，从什么时候开始生效',
   `effective_at_trigger_dict_id` bigint NULL DEFAULT NULL COMMENT '生效日期，触发方式，一般为首次登录触发',
   `effective_days` int NULL DEFAULT NULL COMMENT '有效天数,0或空为不限制',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',

@@ -101,6 +101,11 @@ public class User extends AggreateRoot {
 	 */
 	private Integer effectiveDays;
 
+	/**
+	 * 备注
+	 */
+	private String remark;
+
 
 	/**
 	 * 创建用户领域模型对象

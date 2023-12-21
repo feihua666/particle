@@ -45,6 +45,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
+          :layout="[3,3,3,[8,8]]"
           :comps="formComps">
   </PtForm>
 </template>

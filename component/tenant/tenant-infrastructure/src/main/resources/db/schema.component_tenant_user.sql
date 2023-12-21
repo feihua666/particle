@@ -15,6 +15,7 @@ CREATE TABLE `component_tenant_user` (
   `leave_at` datetime DEFAULT NULL COMMENT '离职或退出时间',
   `join_at` datetime DEFAULT NULL COMMENT '用户加入时间',
   `is_formal` tinyint(1) NOT NULL COMMENT '是否正式，1=正式，0=试用',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',

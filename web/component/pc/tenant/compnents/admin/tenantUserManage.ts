@@ -172,7 +172,20 @@ export const useAddPageFormItems = ({props,isForAdd = false})=>{
         }
       }
     },
-
+    {
+      field: {
+        name: 'remark'
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '备注'
+        },
+        compProps: {
+          clearable: true,
+        }
+      }
+    },
   ]
 
   let addOnly = [
