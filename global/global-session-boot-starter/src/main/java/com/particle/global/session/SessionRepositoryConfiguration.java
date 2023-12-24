@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.session.JdbcSessionProperties;
+import org.springframework.boot.autoconfigure.session.SessionProperties;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.MapSessionRepository;
@@ -18,6 +20,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.session.jdbc.*;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,8 +60,16 @@ public class SessionRepositoryConfiguration {
 		 */
 		//@ConditionalOnMissingBean(SessionRepository.class)
 		@Bean
-		public MapSessionRepository sessionRepository() {
-			return new MapSessionRepository(new ConcurrentHashMap<>());
+		public MapSessionRepository sessionRepository(SessionProperties sessionProperties,
+													  ServerProperties serverProperties) {
+			MapSessionRepository mapSessionRepository = new MapSessionRepository(new ConcurrentHashMap<>());
+			// 兼容一下过期时间配置
+			Duration timeout = sessionProperties
+					.determineTimeout(() -> serverProperties.getServlet().getSession().getTimeout());
+			if (timeout != null) {
+				mapSessionRepository.setDefaultMaxInactiveInterval((int) timeout.getSeconds());
+			}
+			return mapSessionRepository;
 		}
 	}
 	/**

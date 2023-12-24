@@ -64,14 +64,9 @@ public class TemplateToolTest {
 		System.out.println("sstring=" + string);
 
 		String paramsJson = "{\n" +
-				"  \"regionId\": \"330000\",\n" +
-				"  \"pageIndex\": \"3\",\n" +
-				"  \"regcap\": \"50$\",\n" +
-				"  \"pageSize\": \"20\",\n" +
-				"  \"entStatus\": \"1\",\n" +
-				"  \"vendinc\": \"500$600\",\n" +
-				"  \"revenue\": \"20$\",\n" +
-				"  \"nicId\": \"G\"\n" +
+				"\"entName\": \"诸暨浦阳机械科技有限公司\",\n" +
+				"\"caseNo\": null,\n" +
+				"\"sDate\": \"2022-03-16\"\n" +
 				"}";
 
 		JSONObject entries = JSONUtil.parseObj(paramsJson);
