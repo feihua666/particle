@@ -40,7 +40,7 @@ public enum CaptchaSceneEnum implements ICaptchaScene{
 	web_front_login;
 
 	@Override
-	public String scene() {
+	public String getScene() {
 		return this.name();
 	}
 

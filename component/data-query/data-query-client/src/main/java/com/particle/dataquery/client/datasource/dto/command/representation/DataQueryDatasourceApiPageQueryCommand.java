@@ -44,4 +44,7 @@ public class DataQueryDatasourceApiPageQueryCommand extends AbstractBasePageQuer
     @Schema(description = "等同标签")
     private String sameTag;
 
+	@Schema(description = "是否支持翻译数据")
+	private Boolean isSupportTrans;
+
 }

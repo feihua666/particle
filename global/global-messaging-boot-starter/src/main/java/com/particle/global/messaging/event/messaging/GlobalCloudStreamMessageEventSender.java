@@ -2,15 +2,18 @@ package com.particle.global.messaging.event.messaging;
 
 import com.google.common.collect.Lists;
 import com.particle.global.dto.messaging.event.AbstractMessageEvent;
+import com.particle.global.messaging.event.GlobalMessageEventConfiguration;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.messaging.event.api.MessageEventSender;
 import com.particle.global.tool.json.JsonTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p>
@@ -29,6 +32,10 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 	private StreamBridge streamBridge;
 	@Autowired(required = false)
 	private MessageEventRepository messageEventRepository;
+
+	@Qualifier(GlobalMessageEventConfiguration.globalMessageEventExecutor)
+	@Autowired
+	private ExecutorService executorService;
 
 	@Override
 	public boolean send(AbstractMessageEvent event) {
@@ -51,5 +58,12 @@ public class GlobalCloudStreamMessageEventSender implements MessageEventSender {
 			}
 			return false;
 		}
+	}
+
+	@Override
+	public boolean sendAsync(AbstractMessageEvent event) {
+		log.info("sendAsync cloud stream message.messageId={},identifier={},mq={}",event.getMessageId(),event.getIdentifier(),event.getMq());
+		executorService.execute(()-> send(event));
+		return true;
 	}
 }

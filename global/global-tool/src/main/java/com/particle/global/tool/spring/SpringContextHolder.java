@@ -19,8 +19,10 @@ import java.util.Set;
  * @author yangwei
  * @since 2022-04-13 19:52
  */
-@Component
+@Component(SpringContextHolder.springContextHolderName)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
+
+	public final static String springContextHolderName = "springContextHolder";
 
 	private static ApplicationContext applicationContext = null;
 

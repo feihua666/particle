@@ -131,6 +131,9 @@ public class DataQueryDatasourceApiUpdateCommand extends AbstractBaseUpdateComma
     @Schema(description = "等同标签")
     private String sameTag;
 
+	@Schema(description = "是否支持翻译数据")
+	private Boolean isSupportTrans;
+
 
     @Schema(description = "描述")
     private String remark;

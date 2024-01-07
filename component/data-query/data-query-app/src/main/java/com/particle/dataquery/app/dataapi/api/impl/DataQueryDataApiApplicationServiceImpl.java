@@ -42,6 +42,11 @@ public class DataQueryDataApiApplicationServiceImpl extends AbstractBaseApplicat
 	}
 
 	@Override
+	public SingleResponse<DataQueryDataApiVO> copy(IdCommand copyCommand) {
+		return dataQueryDataApiCreateCommandExecutor.copy(copyCommand);
+	}
+
+	@Override
 	public SingleResponse<DataQueryDataApiVO> delete(IdCommand deleteCommand) {
 		return dataQueryDataApiDeleteCommandExecutor.execute(deleteCommand);
 	}

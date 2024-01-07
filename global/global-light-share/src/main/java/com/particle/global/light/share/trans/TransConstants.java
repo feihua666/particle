@@ -15,4 +15,7 @@ public class TransConstants {
 	 */
 	public static final String defaultTransType = "trans_by_table_name";
 
+	public static final String TRANS_DATE = "date";
+	public static final String TRANS_DATETIME = "datetime";
+	public static final String TRANS_BY_THREAD_LOCAL = "trans_by_thread_local";
 }

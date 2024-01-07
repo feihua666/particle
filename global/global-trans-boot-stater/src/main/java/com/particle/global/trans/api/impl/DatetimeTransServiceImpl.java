@@ -2,6 +2,7 @@ package com.particle.global.trans.api.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import org.springframework.stereotype.Component;
@@ -16,8 +17,8 @@ import java.util.Date;
 @Component
 public class DatetimeTransServiceImpl implements ITransService<String,Object> {
 
-    public static final String TRANS_DATE = "date";
-    public static final String TRANS_DATETIME = "datetime";
+    public static final String TRANS_DATE = TransConstants.TRANS_DATE;
+    public static final String TRANS_DATETIME = TransConstants.TRANS_DATETIME;
 
     @Override
     public boolean support(String type) {

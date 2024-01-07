@@ -70,6 +70,12 @@ public interface BigDatasourceApi {
 	 * @return
 	 */
 	BigDatasourceApiSuccessValidateConfig successValidateConfig();
+
+	/**
+	 * 翻译配置
+	 * @return
+	 */
+	BigDatasourceApiTransConfig transConfig();
 	/**
 	 * 接口涉及的字典
 	 * 可对响应结果添加翻译支持

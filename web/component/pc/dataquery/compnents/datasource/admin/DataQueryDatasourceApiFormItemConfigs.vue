@@ -9,6 +9,7 @@ import OutParamExampleConfig from './apiconfigs/OutParamExampleConfig.vue'
 import OutParamSuccessConfig from './apiconfigs/OutParamSuccessConfig.vue'
 import OutParamExtConfig from './apiconfigs/OutParamExtConfig.vue'
 import OutParamDocConfig from './apiconfigs/OutParamDocConfig.vue'
+import OutParamTransConfig from './apiconfigs/OutParamTransConfig.vue'
 import DictConfig from './apiconfigs/DictConfig.vue'
 import PageableAdapterConfig from './apiconfigs/PageableAdapterConfig.vue'
 
@@ -22,6 +23,7 @@ const outParamExampleConfigRef = ref(null)
 const outParamSuccessConfigRef = ref(null)
 const outParamExtConfigRef = ref(null)
 const outParamDocConfigRef = ref(null)
+const outParamTransConfigRef = ref(null)
 const dictConfigRef = ref(null)
 const pageableAdapterConfigConfigRef = ref(null)
 
@@ -65,6 +67,9 @@ const reactiveData = reactive({
     dialogVisible: false,
   },
   outParamDoc:{
+    dialogVisible: false,
+  },
+  outParamTransConfig:{
     dialogVisible: false,
   },
   dictConfig:{
@@ -181,6 +186,15 @@ const outParamDocSubmit = ()=>{
   reactiveData.outParamDoc.dialogVisible=false;
 }
 
+// 出参翻译配置确认提交
+const outParamTransConfigSubmit = ()=>{
+  if (outParamTransConfigRef.value.getInitJson().transItems.length > 0) {
+    props.form.outParamTransConfigJson = toJsonStr(outParamTransConfigRef.value.getInitJson());
+  }else {
+    props.form.outParamTransConfigJson = ''
+  }
+  reactiveData.outParamTransConfig.dialogVisible=false;
+}
 // 字典配置确认提交
 const dictConfigSubmit = ()=>{
   if (dictConfigRef.value.getInitJson().dictItems.length > 0) {
@@ -294,6 +308,14 @@ defineExpose({
     </template>
   </el-dialog>
 
+  <el-dialog v-model="reactiveData.outParamTransConfig.dialogVisible" width="70%" title="出参翻译配置Json" append-to-body destroy-on-close>
+    <OutParamTransConfig ref="outParamTransConfigRef" :initJsonStr="form.outParamTransConfigJson"></OutParamTransConfig>
+    <template #footer>
+      <span>
+        <PtButton type="primary" @click="outParamTransConfigSubmit" >确认</PtButton>
+      </span>
+    </template>
+  </el-dialog>
 
   <el-dialog v-model="reactiveData.dictConfig.dialogVisible" width="70%" title="字典配置Json" append-to-body destroy-on-close>
     <DictConfig ref="dictConfigRef" :initJsonStr="form.dictConfigJson"></DictConfig>

@@ -1,10 +1,14 @@
 package com.particle.dataquery.app.datasource.executor;
 
+import cn.hutool.core.util.StrUtil;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceApiGateway;
+import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceApiDO;
+import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDatasourceApiService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
@@ -31,6 +35,9 @@ public class DataQueryDatasourceApiCreateCommandExecutor  extends AbstractBaseEx
 
 	private DataQueryDatasourceApiGateway dataQueryDatasourceApiGateway;
 
+
+	private IDataQueryDatasourceApiService iDataQueryDatasourceApiService;
+
 	/**
 	 * 执行数据查询数据源接口添加指令
 	 * @param dataQueryDatasourceApiCreateCommand
@@ -45,7 +52,28 @@ public class DataQueryDatasourceApiCreateCommandExecutor  extends AbstractBaseEx
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
+	/**
+	 * 复制一个新数据
+	 * @param idCommand
+	 * @return
+	 */
+	public SingleResponse<DataQueryDatasourceApiVO> copy(@Valid IdCommand idCommand) {
+		DataQueryDatasourceApiDO copy = iDataQueryDatasourceApiService.copy(idCommand.getId(), item -> {
+			String copySuffix = "Copy";
+			if (StrUtil.isNotEmpty(item.getCode())) {
+				item.setCode(item.getCode() + copySuffix);
+			}
+			item.setName(item.getName() + copySuffix);
 
+			return item;
+		});
+
+		if (copy == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+		}
+
+		return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.dataQueryDatasourceApiDOToDataQueryDatasourceApiVO(copy));
+	}
 	/**
 	 * 根据数据查询数据源接口创建指令创建数据查询数据源接口模型
 	 * @param dataQueryDatasourceApiCreateCommand
@@ -76,5 +104,10 @@ public class DataQueryDatasourceApiCreateCommandExecutor  extends AbstractBaseEx
 	@Autowired
 	public void setDataQueryDatasourceApiGateway(DataQueryDatasourceApiGateway dataQueryDatasourceApiGateway) {
 		this.dataQueryDatasourceApiGateway = dataQueryDatasourceApiGateway;
+	}
+
+	@Autowired
+	public void setiDataQueryDatasourceApiService(IDataQueryDatasourceApiService iDataQueryDatasourceApiService) {
+		this.iDataQueryDatasourceApiService = iDataQueryDatasourceApiService;
 	}
 }

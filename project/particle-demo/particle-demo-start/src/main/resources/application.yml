@@ -53,6 +53,7 @@ spring:
         - classpath:db/schema.open-platform.sql
         - classpath:db/schema.report.sql
         - classpath:db/schema.usage-count.sql
+        - classpath:db/schema.global_captcha.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql

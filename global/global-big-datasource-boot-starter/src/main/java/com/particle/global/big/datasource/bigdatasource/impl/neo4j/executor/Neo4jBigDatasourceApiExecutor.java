@@ -60,6 +60,7 @@ public class Neo4jBigDatasourceApiExecutor extends AbstractNeo4jBigDatasourceApi
         // 初始化监听
         neo4jBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
         neo4jBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
+        neo4jBigDatasourceApiExecutor.bigDatasourceTransSupportServiceInitFromSpring();
 
         return neo4jBigDatasourceApiExecutor;
     }

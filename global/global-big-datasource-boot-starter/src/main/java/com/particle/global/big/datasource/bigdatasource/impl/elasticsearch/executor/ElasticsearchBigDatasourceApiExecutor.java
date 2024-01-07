@@ -76,6 +76,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
         // 初始化监听
         elasticsearchBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
         elasticsearchBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
+        elasticsearchBigDatasourceApiExecutor.bigDatasourceTransSupportServiceInitFromSpring();
 
         return elasticsearchBigDatasourceApiExecutor;
     }

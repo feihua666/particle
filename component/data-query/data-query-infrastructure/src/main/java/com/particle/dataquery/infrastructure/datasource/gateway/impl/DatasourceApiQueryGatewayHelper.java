@@ -1,5 +1,6 @@
 package com.particle.dataquery.infrastructure.datasource.gateway.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4jBasicConfigCqlTemplateType;
@@ -30,7 +31,9 @@ import com.particle.global.big.datasource.bigdatasource.impl.neo4j.enums.Neo4jBi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -76,6 +79,16 @@ public class DatasourceApiQueryGatewayHelper {
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
 			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
 		}
+		// 翻译配置
+		DataQueryDatasourceApiTransConfig dataQueryDatasourceApiTransConfig = dataQueryDataApi.outParamTransConfig();
+		if (dataQueryDatasourceApiTransConfig != null) {
+			defaultBigDatasourceApi.setTransConfig(transConfig(dataQueryDatasourceApiTransConfig));
+		}
+		// 字典配置
+		DataQueryDatasourceApiDictConfig dataQueryDatasourceApiDictConfig = dataQueryDataApi.dictConfig();
+		if (dataQueryDatasourceApiDictConfig != null) {
+			defaultBigDatasourceApi.setDictGroups(dictGroups(dataQueryDatasourceApiDictConfig));
+		}
 
 		return defaultBigDatasourceApi;
 	}
@@ -120,6 +133,21 @@ public class DatasourceApiQueryGatewayHelper {
 		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = datasourceApi.outParamExtConfig();
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
 			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
+		}
+
+		// 翻译配置
+		DataQueryDatasourceApiTransConfig dataQueryDatasourceApiTransConfig = datasourceApi.outParamTransConfig();
+		if (dataQueryDatasourceApiTransConfig != null) {
+			BigDatasourceApiTransConfig bigDatasourceApiTransConfig = transConfig(dataQueryDatasourceApiTransConfig);
+			defaultBigDatasourceApi.setTransConfig(bigDatasourceApiTransConfig);
+			// 	数据源接口暂不支持设置类型，以名引起相互调用麻烦
+			Optional.ofNullable(bigDatasourceApiTransConfig).map(BigDatasourceApiTransConfig::getTransItems)
+					.ifPresent(items -> items.forEach(transItem -> transItem.setType(null)));
+		}
+		// 字典配置
+		DataQueryDatasourceApiDictConfig dataQueryDatasourceApiDictConfig = datasourceApi.dictConfig();
+		if (dataQueryDatasourceApiDictConfig != null) {
+			defaultBigDatasourceApi.setDictGroups(dictGroups(dataQueryDatasourceApiDictConfig));
 		}
 
 		// 时间配置
@@ -292,5 +320,60 @@ public class DatasourceApiQueryGatewayHelper {
 			return bigDatasourceApiSuccessValidateConfig;
 		}
 		return null;
+	}
+
+
+	/**
+	 * 翻译配置
+	 * @param dataQueryDatasourceApiTransConfig
+	 * @return
+	 */
+	private BigDatasourceApiTransConfig transConfig(DataQueryDatasourceApiTransConfig dataQueryDatasourceApiTransConfig) {
+		if (dataQueryDatasourceApiTransConfig == null) {
+			return null;
+		}
+		List<DataQueryDatasourceApiTransConfig.TransItem> configTransItems = dataQueryDatasourceApiTransConfig.getTransItems();
+		if (CollectionUtil.isEmpty(configTransItems)) {
+			return null;
+		}
+		List<BigDatasourceApiTransConfig.TransItem> transItemList = configTransItems.stream().map(item -> BigDatasourceApiTransConfig.TransItem.create(
+				item.getType(),
+				item.getByFieldName(),
+				item.getForFieldName(),
+				item.getMapValueField(),
+				item.getIsJoin(),
+				item.getMapJoinSeparator(),
+				item.getIsNotTransWhenExist(),
+				item.getMapKeyField(),
+				item.getDicGroupCode()
+		)).collect(Collectors.toList());
+
+		return BigDatasourceApiTransConfig.create(transItemList);
+
+	}
+
+	/**
+	 * 字典配置
+	 * @param dataQueryDatasourceApiDictConfig
+	 * @return
+	 */
+	private List<DictGroup> dictGroups(DataQueryDatasourceApiDictConfig dataQueryDatasourceApiDictConfig) {
+		if (dataQueryDatasourceApiDictConfig == null) {
+			return null;
+		}
+		List<DataQueryDatasourceApiDictConfig.DictItem> configDictItems = dataQueryDatasourceApiDictConfig.getDictItems();
+		if (CollectionUtil.isEmpty(configDictItems)) {
+			return null;
+		}
+		return configDictItems.stream().map(item -> DictGroup.create(
+				item.getId(),
+				item.getName(),
+				item.getValue(),
+				CollectionUtil.isEmpty(item.getChildren()) ? null : item.getChildren().stream().map(
+								item1 ->
+										DictItem.create(item1.getId(), item1.getName(), item1.getValue(), null)
+						)
+						.collect(Collectors.toList())
+		)).collect(Collectors.toList());
 	}
 }

@@ -2,6 +2,7 @@ const dataQueryDataApiAdminRoutes = [
     {
         path: '/admin/dataQueryDataApiManagePage',
         component: () => import('./DataQueryDataApiManagePage.vue'),
+        props: route => ({ url: route.query.dqUrl }),
         meta: {
             root: true,
             code:'adminDataQueryDataApiManagePage',

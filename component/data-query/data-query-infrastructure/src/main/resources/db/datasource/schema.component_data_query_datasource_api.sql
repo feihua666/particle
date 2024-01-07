@@ -30,6 +30,7 @@ CREATE TABLE `component_data_query_datasource_api` (
   `connect_timeout` int DEFAULT NULL COMMENT '连接等待时间，单位ms，超过该时间将会放弃',
   `is_use_cache` tinyint(1) NOT NULL COMMENT '是否使用缓存',
   `same_tag` varchar(255) DEFAULT NULL COMMENT '等同标签，如果两个api的入参和出参相同，对接口打一个标签，同时另一个相同的接口打同样的标签，以代表两个接口相同',
+  `is_support_trans` tinyint(1) NOT NULL COMMENT '是否支持翻译数据',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述,注意事项等',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

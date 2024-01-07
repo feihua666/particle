@@ -1,12 +1,11 @@
 package com.particle.global.big.datasource.bigdatasource.api;
 
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiSuccessValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
+import com.particle.global.big.datasource.bigdatasource.api.config.*;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * <p>
@@ -67,6 +66,20 @@ public class DefaultBigDatasourceApi extends AbstractBigDatasourceApi{
 												 BigDatasourceApiSuccessValidateConfig successValidateConfig){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config,routingKey,pageableAdapterConfig,commandValidateConfig);
 		defaultBigDatasourceApi.setSuccessValidateConfig(successValidateConfig);
+
+		return defaultBigDatasourceApi;
+	}
+	public static DefaultBigDatasourceApi create(String identifier, BigDatasourceApiResponseWrapType responseAssertType,
+												 IBigDatasourceApiConfig config,
+												 DynamicBigDatasourceRoutingKey routingKey,
+												 BigDatasourceApiPageableAdapterConfig pageableAdapterConfig,
+												 BigDatasourceApiCommandValidateConfig commandValidateConfig,
+												 BigDatasourceApiSuccessValidateConfig successValidateConfig,
+												 BigDatasourceApiTransConfig transConfig,
+												 List<DictGroup> dictGroups){
+		DefaultBigDatasourceApi defaultBigDatasourceApi = create(identifier,responseAssertType, config,routingKey,pageableAdapterConfig,commandValidateConfig,successValidateConfig);
+		defaultBigDatasourceApi.setTransConfig(transConfig);
+		defaultBigDatasourceApi.setDictGroups(dictGroups);
 
 		return defaultBigDatasourceApi;
 	}

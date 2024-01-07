@@ -41,9 +41,9 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 											 Integer length,
 											 Integer charType,
 											 LocalDateTime expireAt,
-											 String base64,String captchaValue) {
+											 String base64,String captchaValue,Boolean isDynamic) {
 		CaptchaGenResultDTO captchaGenResultDTO = new CaptchaGenResultDTO();
-		captchaGenResultDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType, expireAt);
+		captchaGenResultDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType, expireAt,isDynamic);
 		captchaGenResultDTO.setBase64(base64);
 		captchaGenResultDTO.setCaptchaValue(captchaValue);
 		return captchaGenResultDTO;
@@ -60,7 +60,7 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 				captchaGenDTO.getLength(),
 				captchaGenDTO.getCharType(),
 				captchaGenDTO.getExpireAt(),
-				base64,captchaValue);
+				base64,captchaValue,captchaGenDTO.getIsDynamic());
 	}
 
 
@@ -73,6 +73,6 @@ public class CaptchaGenResultDTO extends CaptchaGenDTO{
 				getCaptchaScene(),
 				getCaptchaType(),
 				getWidth(),
-				getHeight(), getLength(),getCharType(), getExpireAt(), null, getCaptchaValue());
+				getHeight(), getLength(),getCharType(), getExpireAt(), null, getCaptchaValue(),getIsDynamic());
 	}
 }

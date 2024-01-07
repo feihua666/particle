@@ -24,6 +24,13 @@ public interface IDataQueryDatasourceApiApplicationService extends IBaseApplicat
 	SingleResponse<DataQueryDatasourceApiVO> create(DataQueryDatasourceApiCreateCommand dataQueryDatasourceApiCreateCommand);
 
 	/**
+	 * 复制
+	 * @param copyCommand
+	 * @return
+	 */
+	SingleResponse<DataQueryDatasourceApiVO> copy(IdCommand copyCommand);
+
+	/**
 	 * 删除领域对象
 	 * @param deleteCommand
 	 * @return

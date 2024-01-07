@@ -94,7 +94,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let tableRowButtons = [
+  let tableRowButtons: Array<any> = [
     {
       txt: '编辑',
       text: true,
@@ -117,6 +117,21 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     }
   ]
+
+  let prefix = '/openapi/dq'
+  if(row.url && row.url.indexOf(prefix) == 0){
+    let dqUrlData = {dqUrl: row.url.replace(prefix,'')}
+    tableRowButtons.push(
+        {
+          txt: '查看查询接口',
+          text: true,
+          permission: 'admin:web:dataQueryDataApi:pageQuery',
+          // 跳转到编辑
+          route: {path: '/admin/dataQueryDataApiManagePage',query: dqUrlData}
+        }
+    )
+  }
+
   return tableRowButtons
 }
 </script>

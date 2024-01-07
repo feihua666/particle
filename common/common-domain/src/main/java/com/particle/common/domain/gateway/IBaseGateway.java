@@ -55,4 +55,18 @@ public interface IBaseGateway<ID extends Id,AR extends AggreateRoot> extends IGa
 	default void sendDomainEvent(DomainEvent domainEvent) {
 		sendDomainEvents(Lists.newArrayList(domainEvent));
 	}
+
+	/**
+	 * 异步单独发送领城事件多条
+	 * @param domainEventList
+	 */
+	void sendDomainEventsAsync(List<DomainEvent> domainEventList);
+
+	/**
+	 * 异步单独发送领城事件单条
+	 * @param domainEvent
+	 */
+	default void sendDomainEventAsync(DomainEvent domainEvent) {
+		sendDomainEventsAsync(Lists.newArrayList(domainEvent));
+	}
 }

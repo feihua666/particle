@@ -111,7 +111,10 @@ public class OpenapiContext extends DTO {
 	 * 异常
 	 */
 	private Throwable throwable;
-
+	/**
+	 * 是否命中缓存
+	 */
+	private Boolean isCacheHit;
 	/**
 	 * 描述说明，备注
 	 */

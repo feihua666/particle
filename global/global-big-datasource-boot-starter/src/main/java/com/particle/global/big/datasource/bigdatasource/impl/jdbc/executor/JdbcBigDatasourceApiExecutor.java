@@ -34,6 +34,7 @@ public class JdbcBigDatasourceApiExecutor extends AbstractJdbcBigDatasourceApiEx
 		// 初始化监听
 		jdbcBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
 		jdbcBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
+		jdbcBigDatasourceApiExecutor.bigDatasourceTransSupportServiceInitFromSpring();
 		return jdbcBigDatasourceApiExecutor;
 	}
 

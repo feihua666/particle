@@ -16,11 +16,28 @@ import java.util.List;
 public class DictGroup {
 
 	/**
-	 * 字典组描述
+	 * 字典id
 	 */
-	private String remark;
+	private String id;
+	/**
+	 * 字典名称
+	 */
+	private String code;
+	/**
+	 * 字典名称
+	 */
+	private String name;
 	/**
 	 * 字典项
 	 */
 	private List<DictItem> dictItems;
+
+	public static DictGroup create(String id, String name,String code, List<DictItem> dictItems) {
+		DictGroup dictGroup = new DictGroup();
+		dictGroup.id = id;
+		dictGroup.name = name;
+		dictGroup.code = code;
+		dictGroup.dictItems = dictItems;
+		return dictGroup;
+	}
 }

@@ -13,7 +13,7 @@ public class CustomCaptchaScene implements ICaptchaScene{
 	private String scene;
 
 	@Override
-	public String scene() {
+	public String getScene() {
 		return scene;
 	}
 

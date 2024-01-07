@@ -65,16 +65,21 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 	private LocalDateTime expireAt;
 
 	/**
+	 * 是否为动态码
+	 */
+	private Boolean isDynamic;
+	/**
 	 * 使用默认数据
 	 * @param captchaUniqueIdentifier
 	 * @param captchaScene
 	 * @return
 	 */
 	public static CaptchaGenDTO create(String captchaUniqueIdentifier,
-									   ICaptchaScene captchaScene
+									   ICaptchaScene captchaScene,
+									   Boolean isDynamic
 
 	) {
-		return create(captchaUniqueIdentifier,captchaScene,null,null,null,null,null,null);
+		return create(captchaUniqueIdentifier,captchaScene,null,null,null,null,null,null,isDynamic);
 	}
 
 	/**
@@ -95,11 +100,12 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 									   Integer height,
 									   Integer length,
 									   Integer charType,
-									   LocalDateTime expireAt
+									   LocalDateTime expireAt,
+									   Boolean isDynamic
 
 	) {
 		CaptchaGenDTO captchaGenDTO = new CaptchaGenDTO();
-		captchaGenDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType,expireAt);
+		captchaGenDTO.fill(captchaUniqueIdentifier, captchaScene, captchaType,width,height,length,charType,expireAt,isDynamic);
 		return captchaGenDTO;
 	}
 
@@ -110,7 +116,8 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 					 Integer height,
 					 Integer length,
 					 Integer charType,
-					 LocalDateTime expireAt
+					 LocalDateTime expireAt,
+					 Boolean isDynamic
 	) {
 		fill(captchaUniqueIdentifier);
 		this.captchaScene = captchaScene;
@@ -133,5 +140,6 @@ public class CaptchaGenDTO extends CaptchaBaseDTO {
 		}else {
 			this.expireAt = expireAt;
 		}
+		this.isDynamic = isDynamic;
 	}
 }

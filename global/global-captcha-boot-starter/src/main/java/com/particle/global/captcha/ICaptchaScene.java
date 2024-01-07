@@ -13,5 +13,5 @@ public interface ICaptchaScene {
 	 * 场景值
 	 * @return
 	 */
-	String scene();
+	String getScene();
 }

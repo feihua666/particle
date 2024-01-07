@@ -27,4 +27,13 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @return
 	 */
 	Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param,String queryString);
+
+	/**
+	 * 仅为使用数据源接口提供翻译使用
+	 * @param code
+	 * @param param
+	 * @param queryString
+	 * @return
+	 */
+	public Object doExecuteByDatasourceApiCode(String code, Object param, String queryString);
 }

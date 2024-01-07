@@ -101,5 +101,14 @@
             <artifactId>global-elasticsearch-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 针对数据源接口字典配置翻译和数据查询接口翻译提供支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-trans-boot-stater</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

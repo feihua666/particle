@@ -111,6 +111,14 @@ const reactiveData = reactive({
       label: '业务状态码',
       showOverflowTooltip: true
     },
+    {
+      prop: 'isCacheHit',
+      label: '缓存命中',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? '是' : '否'
+        return r
+      },
+    },
   ],
 
 })

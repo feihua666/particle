@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.common.domain.id.Id;
+import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.messaging.event.api.MessageEventSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,16 @@ public abstract class AbstractBaseGatewayImpl<ID extends Id,AR extends AggreateR
 		if (messageEventSender != null) {
 			log.info("send domain events only size={}",domainEventList.size());
 			messageEventSender.sendBatch((List)domainEventList);
+		}else {
+			log.warn("messageEventSender is null. enable global message first");
+		}
+	}
+
+	@Override
+	public void sendDomainEventsAsync(List<DomainEvent> domainEventList) {
+		if (messageEventSender != null) {
+			log.info("send domain events async only size={}",domainEventList.size());
+			messageEventSender.sendBatchAsync((List)domainEventList);
 		}else {
 			log.warn("messageEventSender is null. enable global message first");
 		}

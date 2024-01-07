@@ -52,7 +52,7 @@ public class CaptchaController {
 	@GetMapping("/getCaptcha")
 	public SingleResponse<CaptchaVO> getCaptcha(@Valid CaptchaGenCommand genCommand){
 
-		CaptchaGenResultDTO gen = gen(genCommand,null);
+		CaptchaGenResultDTO gen = gen(genCommand,null,false);
 
 		CaptchaVO captchaVO = CaptchaVO.create(gen.getCaptchaUniqueIdentifier(), gen.getBase64());
 		return SingleResponse.of(captchaVO);
@@ -98,7 +98,7 @@ public class CaptchaController {
 		}
 		String fastSimpleUUID = IdUtil.fastSimpleUUID();
 		String md5Hex = DigestUtil.md5Hex(fastSimpleUUID + dynamic_suffix + identifier);
-		CaptchaGenResultDTO gen = gen(genCommand,md5Hex);
+		CaptchaGenResultDTO gen = gen(genCommand,md5Hex,true);
 
 		if (dynamicCaptchaNotify != null) {
 			String identifierType = null;
@@ -127,7 +127,7 @@ public class CaptchaController {
 	 * @param genCommand
 	 * @return
 	 */
-	private CaptchaGenResultDTO gen(CaptchaGenCommand genCommand,String captchaUniqueIdentifier) {
+	private CaptchaGenResultDTO gen(CaptchaGenCommand genCommand,String captchaUniqueIdentifier,Boolean isDynamic) {
 
 		ICaptchaType captchaType = CaptchaTypeEnum.arithmetic;
 		if (StrUtil.isNotEmpty(genCommand.getCaptchaType())) {
@@ -156,7 +156,7 @@ public class CaptchaController {
 				genCommand.getLength(),
 				genCommand.getCharType(),
 				// 默认超时5分钟
-				LocalDateTime.now().plusMinutes(5));
+				LocalDateTime.now().plusMinutes(5),isDynamic);
 		CaptchaGenResultDTO gen = captchaService.gen(captchaGenDTO);
 		return gen;
 	}

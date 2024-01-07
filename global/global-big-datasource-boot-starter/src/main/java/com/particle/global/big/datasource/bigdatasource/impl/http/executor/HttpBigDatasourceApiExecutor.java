@@ -69,6 +69,7 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 		// 初始化监听
 		httpBigDatasourceApiExecutor.executorInfrastructureListenerInitFromSpring();
 		httpBigDatasourceApiExecutor.bigDatasourceApiExecutorExeCacheInitFromSpring();
+		httpBigDatasourceApiExecutor.bigDatasourceTransSupportServiceInitFromSpring();
 		return httpBigDatasourceApiExecutor;
 	}
 

@@ -62,7 +62,8 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 	private IDataQueryProviderService iDataQueryProviderService;
 	private DataQueryDictGateway dataQueryDictGateway;
 
-	@Value("${"+ enableConfigKey +":false}")
+	// 默认为true启用时加载数据源
+	@Value("${"+ enableConfigKey +":true}")
 	private Boolean enable = false;
 
 	@Autowired(required = false)

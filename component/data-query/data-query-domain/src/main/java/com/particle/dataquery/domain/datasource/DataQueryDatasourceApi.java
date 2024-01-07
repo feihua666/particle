@@ -152,6 +152,11 @@ public class DataQueryDatasourceApi extends AggreateRoot {
     */
     private String sameTag;
 
+	/**
+	 * 是否支持翻译数据
+	 */
+	private Boolean isSupportTrans;
+
     /**
     * 描述,注意事项等
     */
@@ -219,6 +224,28 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         }
         DataQueryDatasourceApiInSuccessValidateConfig fromJsonStr = DataQueryDatasourceApiInSuccessValidateConfig.createFromJsonStr(outParamSuccessConfigJson);
         return fromJsonStr;
+    }
+
+    /**
+     * 出参翻译配置
+     * @return
+     */
+    public DataQueryDatasourceApiTransConfig outParamTransConfig() {
+        if (StrUtil.isEmpty(outParamTransConfigJson)) {
+            return null;
+        }
+        return DataQueryDatasourceApiTransConfig.createFromJsonStr(outParamTransConfigJson);
+    }
+
+    /**
+     * 字典配置
+     * @return
+     */
+    public DataQueryDatasourceApiDictConfig dictConfig() {
+        if (StrUtil.isEmpty(dictConfigJson)) {
+            return null;
+        }
+        return DataQueryDatasourceApiDictConfig.createFromJsonStr(dictConfigJson);
     }
     /**
      * 出参扩展配置

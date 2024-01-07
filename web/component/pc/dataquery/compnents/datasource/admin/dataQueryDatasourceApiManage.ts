@@ -259,7 +259,7 @@ export const outParamExtConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
       comp: 'PtButton',
       formItemProps: {
         label: '出参扩展配置',
-        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理请求参数'
+        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理返回结果，额外支持datasourceApi调用数据源接口和dataQueryDataApiExecutor线程池句柄'
       },
       compProps: ({form,formData})=>{
         return {
@@ -282,13 +282,22 @@ export const outParamTransConfigJson = (dataQueryDatasourceApiFormItemConfigsRef
       name: 'outParamTransConfigJson',
     },
     element: {
-      comp: 'el-input',
+      comp: 'PtButton',
       formItemProps: {
         label: '出参翻译配置',
         tips: tips || '针对响应数数据翻译数据字典支持'
       },
-      compProps: {
-        clearable: true,
+      compProps:  ({form})=>{
+        return {
+          text: true,
+          type: form.outParamTransConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.outParamTransConfig.dialogVisible = true
+            }
+          }
+        }
       }
     }
   }
@@ -783,6 +792,23 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         },
         compProps: {
           clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'isSupportTrans',
+        value: false
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '翻译支持',
+          tips: '提供翻译数据支持，必须入参为数组，出参为数组，不能设置包装类型，出参数组项必须包含要翻译的键和值字段，设置不当可能翻译不出数据或出现运行时错误！！，仅对批量翻译提供支持'
+        },
+        compProps: {
+          activeText: '支持',
+          inactiveText: '不支持',
         }
       }
     },

@@ -40,7 +40,7 @@ public class BigDatasourceApiResultExtConfig {
 	 * @return 返回的结果将用来替换 参数 o,如果返回null将不替换
 	 */
 	@SneakyThrows
-	public Object handle(Object o,Object command, String queryString) {
+	public Object handle(Object o,Object command, String queryString,Map<String,Object> extBindings) {
 		if (StrUtil.isEmpty(groovyScript)) {
 			return null;
 		}
@@ -49,6 +49,11 @@ public class BigDatasourceApiResultExtConfig {
 		Map<String, Object> objectMap = objectTemplateRenderDataWrap.toRenderMap();
 		objectMap.put("command", command);
 		objectMap.put("queryString", queryString);
+
+		if (extBindings != null) {
+			objectMap.putAll(extBindings);
+		}
+
 		Bindings bindings = GroovyTool.createBindings();
 		bindings.putAll(objectMap);
 		Object eval = GroovyTool.compileAndEval(groovyScript, bindings, true);

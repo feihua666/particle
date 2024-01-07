@@ -3,7 +3,7 @@
  * 数据查询数据源接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDatasourceApiPageApi, remove as DataQueryDatasourceApiRemoveApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
+import { page as DataQueryDatasourceApiPageApi, remove as DataQueryDatasourceApiRemoveApi, copy as DataQueryDatasourceApiCopyApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 import {pageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
 
 
@@ -95,12 +95,25 @@ const getTableRowButtons = ({row, column, $index}) => {
       txt: '删除',
       text: true,
       permission: 'admin:web:dataQueryDatasourceApi:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `可能存在数据查询引用（包括直连引用或通过编码脚本调用）请确保安全，确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
         return DataQueryDatasourceApiRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '复制',
+      text: true,
+      permission: 'admin:web:dataQueryDatasourceApi:copy',
+      methodConfirmText: `确定要复制 ${row.name} 吗？`,
+      methodSuccess: '复制成功，请刷新数据后查看',
+      // 复制操作
+      method(){
+        return DataQueryDatasourceApiCopyApi({id: row.id}).then(res => {
           return Promise.resolve(res)
         })
       }

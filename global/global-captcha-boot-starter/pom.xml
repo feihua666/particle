@@ -64,10 +64,18 @@
         </dependency>
 
         <!-- 为动态验证码提供支持 -->
+        <!--<dependency>-->
+        <!--    <groupId>com.particle</groupId>-->
+        <!--    <artifactId>global-messaging-boot-starter</artifactId>-->
+        <!--    <version>${particle.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- 依赖数据源,在启用多实例时，使用jdbc支持 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-messaging-boot-starter</artifactId>
+            <artifactId>global-datasource-boot-starter</artifactId>
             <version>${particle.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

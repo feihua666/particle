@@ -2,12 +2,10 @@ package com.particle.global.big.datasource.bigdatasource.executor;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandExtConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiResultExtConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
+import com.particle.global.big.datasource.bigdatasource.api.config.*;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
+import com.particle.global.big.datasource.bigdatasource.trans.IBigDatasourceApiTransSupportService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.RawResponse;
@@ -33,6 +31,8 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 
 	protected List<ExecutorInfrastructureListener> executorInfrastructureListenerList;
 	protected IBigDatasourceApiExecutorExeCache bigDatasourceApiExecutorExeCache;
+
+	protected IBigDatasourceApiTransSupportService iBigDatasourceApiTransSupportService;
 
 	@Override
 	public Object execute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
@@ -169,6 +169,26 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 			log.warn("can not init bigDatasourceApiExecutorExeCache from spring because of exception",e);
 		}
 	}
+
+	/**
+	 * 初始化翻译支持
+	 * @param iBigDatasourceApiTransSupportService
+	 */
+	protected void bigDatasourceTransSupportServiceInit(IBigDatasourceApiTransSupportService iBigDatasourceApiTransSupportService) {
+		this.iBigDatasourceApiTransSupportService = iBigDatasourceApiTransSupportService;
+	}
+
+	/**
+	 * 从spring初始化翻译支持
+	 */
+	protected void bigDatasourceTransSupportServiceInitFromSpring() {
+		try {
+			this.iBigDatasourceApiTransSupportService = SpringContextHolder.getBean(IBigDatasourceApiTransSupportService.class);
+		} catch (Exception e) {
+			log.warn("can not init iBigDatasourceTransSupportService from spring because of exception",e);
+		}
+	}
+
 	/**
 	 * 真正执行
 	 * @param bigDatasourceApi
@@ -199,6 +219,8 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @return
 	 */
 	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object o,Map<String,Object> postExeResultHolder) {
+		transHandle(bigDatasourceApi, o);
+
 		Object newResult = resultExtConfigHandle(bigDatasourceApi, command, queryString, o);
 		if (newResult != null) {
 			postExeResultHolder.put("result", newResult);
@@ -231,11 +253,27 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	protected Object resultExtConfigHandle(BigDatasourceApi bigDatasourceApi,Object command,String queryString, Object o) {
 		BigDatasourceApiResultExtConfig bigDatasourceApiResultExtConfig = bigDatasourceApi.resultExtConfig();
 		if (bigDatasourceApiResultExtConfig != null) {
-			Object handle = bigDatasourceApiResultExtConfig.handle(o,command, queryString);
+			Object handle = bigDatasourceApiResultExtConfig.handle(o,command, queryString,null);
 			return handle;
 		}
 		return null;
 	}
+	/**
+	 * 翻译处理
+	 * @param bigDatasourceApi
+	 */
+	protected void transHandle(BigDatasourceApi bigDatasourceApi, Object o) {
+		if (iBigDatasourceApiTransSupportService == null || o == null) {
+			return;
+		}
+		BigDatasourceApiTransConfig bigDatasourceApiTransConfig = bigDatasourceApi.transConfig();
+		if (bigDatasourceApiTransConfig == null) {
+			return;
+		}
+		List<DictGroup> dictGroups = bigDatasourceApi.dictGroups();
+		iBigDatasourceApiTransSupportService.trans(o, bigDatasourceApiTransConfig, dictGroups);
+	}
+
 	/**
 	 * 参数校验
 	 * 一般是是否必填，正则匹配等

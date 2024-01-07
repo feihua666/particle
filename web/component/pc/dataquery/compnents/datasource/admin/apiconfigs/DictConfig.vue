@@ -20,6 +20,8 @@ const selfFormRef = ref(null)
  */
 interface DictItem{
   // 字典名，文本时可能没有
+  id: [string,number],
+  // 字典名，文本时可能没有
   name: string,
   // 字典描述
   value:string,
@@ -57,22 +59,44 @@ const reactiveData = reactive({
   },
   tableColumns: [
     {
+      prop: 'id',
+      label: '主键',
+    },
+    {
       prop: 'name',
       label: '字典名称',
     },
     {
       prop: 'value',
-      label: '字典值',
+      label: '字典值/编码',
     },
     {
       prop: 'isGroup',
       label: '是否字典组',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '字典组' : '字典项'
+      }
     },
   ],
 
 
 })
 const formComps = [
+  {
+    field: {
+      name: 'id',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '主键',
+        tips: '不填写自动生成'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
   {
     field: {
       name: 'isGroup',
@@ -112,7 +136,7 @@ const formComps = [
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '字典值',
+        label: '字典值/编码',
         required: true,
       },
       compProps: {
@@ -141,7 +165,7 @@ const formComps = [
 onMounted(()=>{
   // 挂载后初始化数据
   if(props.initJsonStr){
-    reactiveData.initJson.dictItems = JSON.parse(props.initJsonStr).dictItems
+    reactiveData.initJson.dictItems.push(...(JSON.parse(props.initJsonStr).dictItems))
   }
 })
 // 提交按钮属性
@@ -173,18 +197,18 @@ const add = ()=>{
 
   let obj = {
     // 生成一个唯一id
-    id: uuidv4(),
+    id: reactiveData.form.id || uuidv4(),
     parentId: reactiveData.form.parentId,
     children: []
   }
   formFillItem(reactiveData.form, obj)
 
-  let contener = reactiveData.initJson.dictItems
+  let container = reactiveData.initJson.dictItems
   if(obj.parentId){
     let parent = getById(obj.parentId,reactiveData.initJson.dictItems)
-    contener = parent.children
+    container = parent.children
   }
-  contener.push(obj)
+  container.push(obj)
 }
 const update = ()=>{
   let item = getById(reactiveData.form.id,reactiveData.initJson.dictItems)
@@ -232,10 +256,7 @@ const getTableRowButtons = ({row, column, $index}) => {
         nextTick(()=>{
 
           reactiveData.form.id = item.id
-          reactiveData.form.name = item.name
-          reactiveData.form.value = item.value
-          reactiveData.form.isGroup = item.isGroup
-          reactiveData.form.unit = item.unit
+          formFillItem(item,reactiveData.form)
           reactiveData.form.parentId = item.parentId
         })
       }

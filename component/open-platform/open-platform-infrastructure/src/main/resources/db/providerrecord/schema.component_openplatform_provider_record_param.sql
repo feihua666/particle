@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS component_openplatform_provider_record_param;
 CREATE TABLE `component_openplatform_provider_record_param` (
   `id` bigint NOT NULL COMMENT '表主键',
   `openplatform_provider_record_id` bigint NOT NULL COMMENT '供应商调用记录id',
-  `request_param` text COMMENT '请求参数',
+  `request_param` longtext COMMENT '请求参数',
   `response_result` longtext COMMENT '响应结果',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

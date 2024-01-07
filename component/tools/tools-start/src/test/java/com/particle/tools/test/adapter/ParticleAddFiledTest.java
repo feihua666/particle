@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("is_formal"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("same_tag"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("TenantUser");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/tenant");
+		addFieldCommand.setDomainName("DataQueryDatasourceApi");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data-query");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("remark"),"备注",String.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("is_support_trans"),"是否支持翻译数据",Boolean.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

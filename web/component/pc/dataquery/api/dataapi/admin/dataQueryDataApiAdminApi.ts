@@ -11,6 +11,13 @@ export const create = (data: anyObj): AxiosPromise => {
     return axios.post(dataQueryDataApiPrefix + '/create',data)
 }
 /**
+ * 复制数据查询数据接口
+ * @param data
+ */
+export const copy = (data: anyObj): AxiosPromise => {
+    return axios.post(dataQueryDataApiPrefix + '/copy',data)
+}
+/**
  * 删除数据查询数据接口
  * @param data
  */

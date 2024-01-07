@@ -35,7 +35,10 @@ public class GlobalCaptchaTest {
 				captchaGenService, captchaVerifyService, memoryStoreService);
 
 
-		CaptchaGenDTO captchaGenDTO = CaptchaGenDTO.create(IdUtil.fastSimpleUUID(), CaptchaSceneEnum.api, CaptchaTypeEnum.arithmetic, 300, 60, 4,null, null);
+		CaptchaGenDTO captchaGenDTO = CaptchaGenDTO.create(IdUtil.fastSimpleUUID(),
+				CaptchaSceneEnum.api,
+				CaptchaTypeEnum.arithmetic,
+				300, 60, 4,null, null,false);
 		CaptchaGenResultDTO gen = iCaptchaService.gen(captchaGenDTO);
 		System.out.println(gen.getBase64());
 		gen.setBase64(null);

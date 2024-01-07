@@ -35,7 +35,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	/**
 	 * 缓存13分钟,13为质数
 	 */
-	public static WeakCache<String, DataQueryDataApi> dataQueryDataApiCache = CacheUtil.newWeakCache(13 * 1 * 60000);
+	private static WeakCache<String, DataQueryDataApi> dataQueryDataApiCache = CacheUtil.newWeakCache(13 * 1 * 60000);
 
 
 	/**

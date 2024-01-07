@@ -1,10 +1,19 @@
 package com.particle.dataquery.app.dataapi.executor;
 
+import cn.hutool.core.util.StrUtil;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.app.dataapi.structmapping.DataQueryDataApiAppStructMapping;
+import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiCreateCommand;
 import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
+import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
+import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
+import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
+import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
+import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceApiDO;
+import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDatasourceApiService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
@@ -31,6 +40,8 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 
 	private DataQueryDataApiGateway dataQueryDataApiGateway;
 
+	private IDataQueryDataApiService iDataQueryDataApiService;
+
 	/**
 	 * 执行数据查询数据接口添加指令
 	 * @param dataQueryDataApiCreateCommand
@@ -50,10 +61,30 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 	}
 
 	/**
-	 * 根据数据查询数据接口创建指令创建数据查询数据接口模型
-	 * @param dataQueryDataApiCreateCommand
+	 * 复制一个新数据
+	 * @param idCommand
 	 * @return
 	 */
+	public SingleResponse<DataQueryDataApiVO> copy(@Valid IdCommand idCommand) {
+		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(idCommand.getId(), item -> {
+			String copySuffix = "Copy";
+			item.setUrl(item.getUrl() + copySuffix);
+			item.setName(item.getName() + copySuffix);
+			return item;
+		});
+		if (copy == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+		}
+		return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.dataQueryDataApiDOToDataQueryDataApiVO(copy));
+	}
+
+
+
+		/**
+         * 根据数据查询数据接口创建指令创建数据查询数据接口模型
+         * @param dataQueryDataApiCreateCommand
+         * @return
+         */
 	private DataQueryDataApi createByDataQueryDataApiCreateCommand(DataQueryDataApiCreateCommand dataQueryDataApiCreateCommand){
 		DataQueryDataApi dataQueryDataApi = DataQueryDataApi.create();
 		DataQueryDataApiCreateCommandToDataQueryDataApiMapping.instance.fillDataQueryDataApiByDataQueryDataApiCreateCommand(dataQueryDataApi, dataQueryDataApiCreateCommand);
@@ -79,5 +110,9 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 	@Autowired
 	public void setDataQueryDataApiGateway(DataQueryDataApiGateway dataQueryDataApiGateway) {
 		this.dataQueryDataApiGateway = dataQueryDataApiGateway;
+	}
+	@Autowired
+	public void setiDataQueryDataApiService(IDataQueryDataApiService iDataQueryDataApiService) {
+		this.iDataQueryDataApiService = iDataQueryDataApiService;
 	}
 }

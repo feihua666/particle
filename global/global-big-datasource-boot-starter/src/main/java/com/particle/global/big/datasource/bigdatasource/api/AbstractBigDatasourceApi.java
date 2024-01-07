@@ -27,6 +27,7 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected IBigDatasourceApiConfig config;
 	protected DynamicBigDatasourceRoutingKey routingKey;
 
+	protected BigDatasourceApiTransConfig transConfig;
 	protected List<DictGroup> dictGroups;
 	protected BigDatasourceApiPageableAdapterConfig pageableAdapterConfig;
 	protected BigDatasourceApiCommandExtConfig commandExtConfig;
@@ -34,6 +35,9 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected BigDatasourceApiResultExtConfig resultExtConfig;
 	protected BigDatasourceApiSuccessValidateConfig successValidateConfig;
 
+	/**
+	 * 使用缓存配置
+	 */
 	private Boolean isUseCache = false;
 
 	/**
@@ -84,6 +88,10 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	}
 
 	@Override
+	public BigDatasourceApiTransConfig transConfig() {
+		return transConfig;
+	}
+	@Override
 	public List<DictGroup> dictGroups() {
 		return dictGroups;
 	}
@@ -97,6 +105,7 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	public PageableAdapterConfig pageableAdapterConfig() {
 		return pageableAdapterConfig;
 	}
+
 
 	@Override
 	public BigDatasourceApiSuccessValidateConfig successValidateConfig() {

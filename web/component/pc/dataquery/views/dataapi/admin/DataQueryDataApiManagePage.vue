@@ -3,16 +3,25 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
+import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
 
 
 const tableRef = ref(null)
 
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 加载数据初始化参数,路由传参
+  url: {
+    type: String
+  }
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
+    url: props.url || null
   },
   formComps: pageFormItems,
   tableColumns: [
@@ -97,6 +106,19 @@ const getTableRowButtons = ({row, column, $index}) => {
         return DataQueryDataApiRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '复制',
+      text: true,
+      permission: 'admin:web:dataQueryDataApi:copy',
+      methodConfirmText: `确定要复制 ${row.name} 吗？`,
+      methodSuccess: '复制成功，请刷新数据后查看',
+      // 复制操作
+      method(){
+        return DataQueryDataApiCopyApi({id: row.id}).then(res => {
           return Promise.resolve(res)
         })
       }

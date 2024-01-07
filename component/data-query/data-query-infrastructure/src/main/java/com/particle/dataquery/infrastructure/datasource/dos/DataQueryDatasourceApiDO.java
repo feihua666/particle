@@ -154,6 +154,11 @@ public class DataQueryDatasourceApiDO extends BaseDO {
     */
     private String sameTag;
 
+	/**
+	 * 是否支持翻译数据
+	 */
+	private Boolean isSupportTrans;
+
     /**
     * 描述,注意事项等
     */

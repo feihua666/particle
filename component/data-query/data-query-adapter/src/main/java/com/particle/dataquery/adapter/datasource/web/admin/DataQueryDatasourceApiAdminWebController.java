@@ -94,4 +94,12 @@ public class DataQueryDatasourceApiAdminWebController extends AbstractBaseWebAda
 		return iDataQueryDatasourceApiRepresentationApplicationService.pageQuery(dataQueryDatasourceApiPageQueryCommand);
 	}
 
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasourceApi:copy')")
+	@Operation(summary = "数据查询数据源接口复制")
+	@PostMapping("/copy")
+	@OpLog(name = "数据查询数据源接口复制",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
+	public SingleResponse<DataQueryDatasourceApiVO> copy(@RequestBody IdCommand idCommand){
+		return iDataQueryDatasourceApiApplicationService.copy(idCommand);
+	}
+
 }
