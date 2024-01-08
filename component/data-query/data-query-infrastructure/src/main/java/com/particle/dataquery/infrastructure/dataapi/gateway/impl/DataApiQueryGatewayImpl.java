@@ -180,6 +180,16 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		return doExecuteByDatasourceApiId(byCode.getId(),param,queryString);
 	}
 
+	@Override
+	public Object doExecuteByDatasourceApiCodeForTrans(String code, Object param, String queryString) {
+		DataQueryDatasourceApiDO byCode = iDataQueryDatasourceApiService.getByCode(code);
+		Assert.notNull(byCode,"数据查询数据源接口编码 "+ code +" 不存在");
+		if (byCode.getIsSupportTrans() == null || !byCode.getIsSupportTrans()) {
+			return null;
+		}
+		return doExecuteByDatasourceApiId(byCode.getId(),param,queryString);
+	}
+
 	/**
 	 * 脚本支持，可以直接根据 code 调用数据查询数据源接口
 	 */

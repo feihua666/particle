@@ -58,7 +58,7 @@ public class DataQueryDatasourceApiTransServiceImpl implements ITransService<Obj
         if (StrUtil.isEmpty(mapKeyField)) {
             return null;
         }
-        Object o = dataApiQueryGateway.doExecuteByDatasourceApiCode(code, keys, null);
+        Object o = dataApiQueryGateway.doExecuteByDatasourceApiCodeForTrans(code, keys, null);
         if (o == null) {
             return null;
         }

@@ -35,5 +35,5 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @param queryString
 	 * @return
 	 */
-	public Object doExecuteByDatasourceApiCode(String code, Object param, String queryString);
+	public Object doExecuteByDatasourceApiCodeForTrans(String code, Object param, String queryString);
 }

@@ -8,11 +8,19 @@ import {pageFormItems} from "../../../compnents/datasource/admin/dataQueryDataso
 
 
 const tableRef = ref(null)
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+  // 加载数据初始化参数,路由传参
+  name: {
+    type: String
+  }
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
+    name: props.name
   },
   formComps: pageFormItems,
   tableColumns: [
@@ -51,6 +59,13 @@ const reactiveData = reactive({
     {
       prop: 'sameTag',
       label: '等同标签',
+    },
+    {
+      prop: 'isSupportTrans',
+      label: '翻译支持',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '支持' : '不支持'
+      }
     },
     {
       prop: 'remark',

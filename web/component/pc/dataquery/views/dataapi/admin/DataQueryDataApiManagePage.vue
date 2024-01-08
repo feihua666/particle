@@ -88,7 +88,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let tableRowButtons = [
+  let tableRowButtons: Array<any> = [
     {
       txt: '编辑',
       text: true,
@@ -131,6 +131,17 @@ const getTableRowButtons = ({row, column, $index}) => {
       route: {path: '/admin/DataQueryDataApiManageTest',query: idData}
     },
   ]
+  if('single_direct' == row.adaptTypeDictValue){
+    tableRowButtons.push(
+        {
+          txt: '查看数据源接口',
+          text: true,
+          permission: 'admin:web:dataQueryDatasourceApi:pageQuery',
+          // 跳转到编辑
+          route: {path: '/admin/dataQueryDatasourceApiManagePage',query: {dataQueryDatasourceApiName: row.dataQueryDatasourceApiName}}
+        }
+    )
+  }
   return tableRowButtons
 }
 </script>
