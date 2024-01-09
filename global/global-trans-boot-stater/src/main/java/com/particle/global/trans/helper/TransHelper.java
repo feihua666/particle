@@ -352,6 +352,37 @@ public class TransHelper {
     }
 
     /**
+     * 复制
+     * @param transMetaP
+     * @return
+     */
+    private TransMeta copyNewTransMeta (TransMeta transMetaP){
+        TransMeta transMeta = new TransMeta();
+        transMeta.setType(transMetaP.getType());
+        transMeta.setTableName(transMetaP.getTableName());
+        transMeta.setTableNameClass(transMetaP.getTableNameClass());
+        transMeta.setTableField(transMetaP.getTableField());
+
+        transMeta.setByFieldName(transMetaP.getByFieldName());
+        transMeta.setByFieldValue(transMetaP.getByFieldValue());
+        transMeta.setByFieldValues(transMetaP.getByFieldValues());
+
+        transMeta.setForFieldName(transMetaP.getForFieldName());
+        transMeta.setForFieldNameType(transMetaP.getForFieldNameType());
+
+        transMeta.setMapValueField(transMetaP.getMapValueField());
+        transMeta.setMapKeyField(transMetaP.getMapKeyField());
+
+        transMeta.setJoin(transMetaP.isJoin());
+        transMeta.setMapJoinSeparator(transMetaP.getMapJoinSeparator());
+
+        transMeta.setGroup(transMetaP.isGroup());
+        transMeta.setBatchOnly(transMetaP.isBatchOnly());
+        transMeta.setNotTransWhenExist(transMetaP.isNotTransWhenExist());
+
+        return transMeta;
+    }
+    /**
      * 将TransItem注解生成对应元数据
      * @param transItem
      * @param body
@@ -624,15 +655,16 @@ public class TransHelper {
             List<TransMeta> transMetaList = threadLocalTransData.getTransMetaList();
             if (CollectionUtil.isNotEmpty(transMetaList)) {
                 for (TransMeta transMeta : transMetaList) {
-                    Object item = transMeta.getItem();
+                    TransMeta transMeta1 = copyNewTransMeta(transMeta);
+                    Object item = transMeta1.getItem();
                     if (item == null) {
-                        transMeta.setItem(body);
+                        transMeta1.setItem(body);
                     }
-                    Object byFieldValue = transMeta.getByFieldValue();
+                    Object byFieldValue = transMeta1.getByFieldValue();
                     if (byFieldValue == null) {
-                        transMeta.setByFieldValue(getObjValue(body,transMeta.getByFieldName()));
+                        transMeta1.setByFieldValue(getObjValue(body,transMeta1.getByFieldName()));
                     }
-                    transContext.addTransMeta(transMeta);
+                    transContext.addTransMeta(transMeta1);
                 }
             }
         }
@@ -838,19 +870,15 @@ public class TransHelper {
      * @return
      */
     private ITransService getITransServiceByType (String type,boolean isBatch){
-        ITransService iTransService = TRANS_SERVICE_CACHE.get(type + isBatch);
-        if (iTransService != null) {
-            return iTransService;
-        }
-        if (!isEmpty(transServices)) {
-            iTransService = transServices.stream().filter(iTransServiceItem -> isBatch ? iTransServiceItem.supportBatch(type) : iTransServiceItem.support(type)).findFirst().orElse(null);
-            if (iTransService == null) {
-                log.warn("can not find iTransService for trans type={} isBatch={} ",type,isBatch);
-                return null;
+        ITransService iTransService = TRANS_SERVICE_CACHE.get(type + isBatch,() ->{
+            if (!isEmpty(transServices)) {
+                return transServices.stream()
+                        .filter(iTransServiceItem -> isBatch ? iTransServiceItem.supportBatch(type) : iTransServiceItem.support(type))
+                        .findFirst().orElse(ITransService.emptyTransService);
             }
-            return TRANS_SERVICE_CACHE.put(type + isBatch, iTransService);
-        }
-        return null;
+            return ITransService.emptyTransService;
+        });
+        return iTransService;
     }
 
     /**

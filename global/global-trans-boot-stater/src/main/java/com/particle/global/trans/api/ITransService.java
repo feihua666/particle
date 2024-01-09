@@ -17,6 +17,10 @@ import java.util.Set;
  * Created at 2019/10/9 9:24
  */
 public interface ITransService<R, K> {
+
+
+    public static final ITransService emptyTransService = new ITransService(){};
+
     /**
      * 是否支持
      * @param type 一个翻译的标识
