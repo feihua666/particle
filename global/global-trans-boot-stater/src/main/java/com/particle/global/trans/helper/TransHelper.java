@@ -547,9 +547,6 @@ public class TransHelper {
         if (body == null) {
             return;
         }
-        if (body instanceof Map) {
-            return;
-        }
 
         Class<?> bodyClass = body.getClass();
         for (Field field : ReflectUtil.getFields(bodyClass)) {
@@ -573,11 +570,7 @@ public class TransHelper {
         }
         // threadLocal
         handleTransItemThreadLocal(body, transContext);
-        // map不处理
-        if (body instanceof Map) {
 
-            return;
-        }
         Class<?> bodyClass = body.getClass();
 
         // @Trans

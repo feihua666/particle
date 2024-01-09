@@ -1,9 +1,12 @@
 package com.particle.global.trans.helper;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import com.particle.global.dto.basic.VO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.tool.servlet.RequestTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -12,6 +15,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,6 +60,13 @@ public class GlobalTransResponseBodyAdvice implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
+        // 忽略开放接口翻译
+        // if (request instanceof HttpServletRequest) {
+        //     String requestURIStr = RequestTool.resolveRequestURIStr((HttpServletRequest) request, false);
+        //     if (StrUtil.startWith(requestURIStr,"/openapi")) {
+        //         return body;
+        //     }
+        // }
         if (body != null) {
             return TransTool.trans(body);
         }
@@ -63,4 +74,5 @@ public class GlobalTransResponseBodyAdvice implements ResponseBodyAdvice {
         // 正常数据不再包装
         return body;
     }
+
 }
