@@ -726,15 +726,15 @@ public class TransHelper {
         ITransService iTransServiceByType = getITransServiceByType(type, false);
 
         // 如果批量支持不再单个支持处理，因为上面已经调用批量，没有返回数据，因此认为单个也不会有数据
-        if (iTransServiceByType.supportBatch(type)) {
-            return null;
-        }
-
         if (iTransServiceByType != null) {
+            if (iTransServiceByType.supportBatch(type)) {
+                return null;
+            }
             if (byFieldValue != null) {
                 transResult = iTransServiceByType.trans(type, byFieldValue);
             }
         }
+
         return transResult;
     }
 
