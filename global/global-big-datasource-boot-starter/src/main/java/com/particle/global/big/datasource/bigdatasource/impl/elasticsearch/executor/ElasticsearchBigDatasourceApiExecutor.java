@@ -20,6 +20,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.BaseQuery;
 import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.data.elasticsearch.core.query.StringQueryBuilder;
 
@@ -47,6 +48,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
 
     private static final String sort = "sort";
     private static final String order = "order";
+    private static final String TRACK_TOTAL_HITS = "track_total_hits";
 
     protected ElasticsearchRestTemplate elasticsearchRestTemplate;
 
@@ -122,6 +124,8 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
                 stringQuery.addSort(sort);
             }
         }
+
+        putTrackTotalHits(stringQuery, extractTrackTotalHits(strTemplateResultObj));
 
 
         // 执行查询
@@ -358,5 +362,25 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
         PageRequest pageRequest = PageRequest.of(pageNo.intValue(), size.intValue());
 
         return pageRequest;
+    }
+
+    private Object extractTrackTotalHits(JSONObject templateMap) {
+        if (!templateMap.containsKey(TRACK_TOTAL_HITS)) {
+            return null;
+        }
+        return templateMap.get(TRACK_TOTAL_HITS);
+    }
+    private void putTrackTotalHits(BaseQuery query, Object trackTotalHits) {
+        if (trackTotalHits == null) {
+            query.setTrackTotalHits(true);
+            return;
+        }
+        if (trackTotalHits instanceof Boolean) {
+            query.setTrackTotalHits(((Boolean) trackTotalHits));
+        } else if (trackTotalHits instanceof Integer) {
+            query.setTrackTotalHitsUpTo(((Integer) trackTotalHits));
+        } else if (trackTotalHits instanceof Long) {
+            query.setTrackTotalHitsUpTo(((Long) trackTotalHits).intValue());
+        }
     }
 }
