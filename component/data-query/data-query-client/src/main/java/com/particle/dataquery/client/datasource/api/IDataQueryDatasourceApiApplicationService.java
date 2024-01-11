@@ -38,6 +38,13 @@ public interface IDataQueryDatasourceApiApplicationService extends IBaseApplicat
 	SingleResponse<DataQueryDatasourceApiVO> delete(IdCommand deleteCommand);
 
 	/**
+	 * 删除缓存
+	 * @param deleteCommand
+	 * @return
+	 */
+	SingleResponse<String> deleteCache(IdCommand deleteCommand);
+
+	/**
 	 * 更新领域对象
 	 * @param dataQueryDatasourceApiUpdateCommand
 	 * @return

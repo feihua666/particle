@@ -1,17 +1,23 @@
 package com.particle.dataquery.app.dataapi.executor.representation;
 
 import cn.hutool.cache.CacheUtil;
-import cn.hutool.cache.impl.WeakCache;
+import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.dataquery.app.dataapi.structmapping.DataQueryDataApiAppStructMapping;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
+import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
 import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +41,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	/**
 	 * 缓存13分钟,13为质数
 	 */
-	private static WeakCache<String, DataQueryDataApi> dataQueryDataApiCache = CacheUtil.newWeakCache(13 * 1 * 60000);
+	private static TimedCache<String, DataQueryDataApi> dataQueryDataApiCache = CacheUtil.newTimedCache(13 * 1 * 60000);
 
 
 	/**
@@ -45,11 +51,30 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 */
 	public Object dataApiQuery(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
 		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
-		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(dataQueryDataApiQueryCommand.getUrl(),
-				() -> dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl()));
+		String cacheUrlKey = cacheUrlKey(dataQueryDataApiQueryCommand.getUrl());
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(cacheUrlKey,
+				() -> dataQueryDataApi(cacheUrlKey));
 		Assert.notNull(dataQueryDataApi,"数据接口地址不存在" + dataQueryDataApiQueryCommand.getUrl());
 
 		return dataApiQueryGateway.query(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(),dataQueryDataApiQueryCommand.getQueryString());
+	}
+
+	private String cacheUrlKey(String url) {
+		return url;
+	}
+
+	/**
+	 * 执行 数据查询数据接口 删除缓存指令
+	 * @param deleteCommand
+	 * @return
+	 */
+	public SingleResponse<String> deleteCache(@Valid IdCommand deleteCommand) {
+		DataQueryDataApiId dataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(dataQueryDataApiId);
+		Assert.notNull(dataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		String cacheUrlKey = dataQueryDataApi.getUrl();
+		dataQueryDataApiCache.remove(cacheUrlKey);
+		return SingleResponse.of(NetUtil.getLocalhostStr());
 	}
 
 	/**

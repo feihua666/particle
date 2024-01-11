@@ -2,6 +2,8 @@ package com.particle.dataquery.domain.dataapi.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
+import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
+import com.particle.dataquery.domain.datasource.DataQueryDatasourceApiId;
 
 /**
  * <p>
@@ -36,4 +38,12 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @return
 	 */
 	public Object doExecuteByDatasourceApiCodeForTrans(String code, Object param, String queryString);
+
+
+	/**
+	 * 删除缓存
+	 * @param dataQueryDatasourceApiId
+	 * @return
+	 */
+	boolean deleteCache(DataQueryDatasourceApiId dataQueryDatasourceApiId);
 }

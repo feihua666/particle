@@ -3,7 +3,7 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
+import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
 
 
@@ -106,6 +106,19 @@ const getTableRowButtons = ({row, column, $index}) => {
         return DataQueryDataApiRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '删除缓存',
+      text: true,
+      permission: 'admin:web:dataQueryDataApi:deleteCache',
+      methodConfirmText: `确定要删除 ${row.name} 缓存吗？如果部署多个实例可能要多次执行`,
+      methodSuccess: (res) => '删除缓存成功 ' + res.data.data,
+      // 删除缓存操作
+      method(){
+        return DataQueryDataApiRemoveCacheApi({id: row.id}).then(res => {
           return Promise.resolve(res)
         })
       }

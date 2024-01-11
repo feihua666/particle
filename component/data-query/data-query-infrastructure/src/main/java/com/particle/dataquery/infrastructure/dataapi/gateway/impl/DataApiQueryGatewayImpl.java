@@ -1,8 +1,10 @@
 package com.particle.dataquery.infrastructure.dataapi.gateway.impl;
 
 import cn.hutool.cache.CacheUtil;
-import cn.hutool.cache.impl.WeakCache;
+import cn.hutool.cache.impl.TimedCache;
+import cn.hutool.core.util.StrUtil;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
+import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiCustomScriptType;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
@@ -18,7 +20,6 @@ import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceGatew
 import com.particle.dataquery.domain.datasource.gateway.DatasourceApiQueryGateway;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.dataquery.infrastructure.DataQueryInfrastructureConfiguration;
-import com.particle.dataquery.infrastructure.dataapi.structmapping.DataQueryDataApiInfrastructureStructMapping;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceApiDO;
 import com.particle.dataquery.infrastructure.datasource.gateway.impl.DatasourceApiQueryGatewayHelper;
 import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDatasourceApiService;
@@ -29,13 +30,10 @@ import com.particle.global.tool.template.TemplateRenderDataWrap;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.script.Bindings;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -50,8 +48,9 @@ import java.util.concurrent.*;
 @Component
 public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
-	private static WeakCache<Object, DataQueryDatasourceApi> dataQueryDatasourceApiCache = CacheUtil.newWeakCache(17 * 1 * 60000);
-	private static WeakCache<Object, DataQueryDatasource> dataQueryDatasourceCache = CacheUtil.newWeakCache(19 * 1 * 60000);
+	private static TimedCache<Object, DataQueryDatasourceApi> dataQueryDatasourceApiByIdCache = CacheUtil.newTimedCache(17 * 1 * 60000);
+	private static TimedCache<Object, DataQueryDatasourceApiDO> dataQueryDatasourceApiByCodeCache = CacheUtil.newTimedCache(23 * 1 * 60000);
+	private static TimedCache<Object, DataQueryDatasource> dataQueryDatasourceByIdCache = CacheUtil.newTimedCache(19 * 1 * 60000);
 
 	@Autowired
 	private DatasourceApiQueryGateway datasourceApiQueryGateway;
@@ -169,25 +168,38 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	}
 
 	public Object doExecuteByDatasourceApiId(Long datasourceApiId,Object param,String queryString){
-		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiCache.get(datasourceApiId, () -> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId)));
-		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceCache.get(dataQueryDatasourceApi.getDataQueryDatasourceId(), () -> dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId())));
+		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiByIdCache.get(datasourceApiId, () -> dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId)));
+		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceByIdCache.get(dataQueryDatasourceApi.getDataQueryDatasourceId(), () -> dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId())));
 		return datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, param,queryString);
 	}
 
-	public Object doExecuteByDatasourceApiCode(String code, Object param,String queryString) {
-		DataQueryDatasourceApiDO byCode = iDataQueryDatasourceApiService.getByCode(code);
+	private Object doExecuteByDatasourceApiCode(String code, Object param,String queryString) {
+		DataQueryDatasourceApiDO byCode = dataQueryDatasourceApiByCodeCache.get(code, () -> iDataQueryDatasourceApiService.getByCode(code));
 		Assert.notNull(byCode,"数据查询数据源接口编码 "+ code +" 不存在");
 		return doExecuteByDatasourceApiId(byCode.getId(),param,queryString);
 	}
 
 	@Override
 	public Object doExecuteByDatasourceApiCodeForTrans(String code, Object param, String queryString) {
-		DataQueryDatasourceApiDO byCode = iDataQueryDatasourceApiService.getByCode(code);
+		DataQueryDatasourceApiDO byCode = dataQueryDatasourceApiByCodeCache.get(code, () -> iDataQueryDatasourceApiService.getByCode(code));
 		Assert.notNull(byCode,"数据查询数据源接口编码 "+ code +" 不存在");
 		if (byCode.getIsSupportTrans() == null || !byCode.getIsSupportTrans()) {
 			return null;
 		}
 		return doExecuteByDatasourceApiId(byCode.getId(),param,queryString);
+	}
+
+	@Override
+	public boolean deleteCache(DataQueryDatasourceApiId dataQueryDatasourceApiId) {
+		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
+		Assert.notNull(byId,"数据查询数据源接口编码 "+ dataQueryDatasourceApiId.getId() +" 不存在");
+		dataQueryDatasourceApiByIdCache.remove(dataQueryDatasourceApiId.getId());
+		if (StrUtil.isNotEmpty(byId.getCode())) {
+			dataQueryDatasourceApiByCodeCache.remove(byId.getCode());
+		}
+		dataQueryDatasourceByIdCache.remove(byId.getDataQueryDatasourceId());
+
+		return true;
 	}
 
 	/**

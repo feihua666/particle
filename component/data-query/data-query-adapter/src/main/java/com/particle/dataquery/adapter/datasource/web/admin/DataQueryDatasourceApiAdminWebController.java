@@ -102,4 +102,11 @@ public class DataQueryDatasourceApiAdminWebController extends AbstractBaseWebAda
 		return iDataQueryDatasourceApiApplicationService.copy(idCommand);
 	}
 
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasourceApi:deleteCache')")
+	@Operation(summary = "删除数据查询数据源接口缓存")
+	@DeleteMapping("/deleteCache")
+	@OpLog(name = "删除数据查询数据源接口缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
+	public SingleResponse<String> deleteCache(@RequestBody IdCommand deleteCommand){
+		return iDataQueryDatasourceApiApplicationService.deleteCache(deleteCommand);
+	}
 }
