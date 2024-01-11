@@ -53,5 +53,19 @@
             <artifactId>spring-boot-admin-starter-server</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 全局dto依赖类 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

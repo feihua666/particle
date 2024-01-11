@@ -11,3 +11,7 @@ management:
   endpoint:
     prometheus:
       enabled: true
+    health:
+      show-details: always
+      probes:
+        enabled: true

@@ -4,6 +4,7 @@ import com.particle.global.actuator.monitor.IMonitor;
 import com.particle.global.actuator.monitor.MicrometerMonitorImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-08-05 15:06
  */
 @Configuration
+@ComponentScan("com.particle.global.actuator.endpoint")
 public class GlobalActuatorAutoConfiguration {
 
 	/**
