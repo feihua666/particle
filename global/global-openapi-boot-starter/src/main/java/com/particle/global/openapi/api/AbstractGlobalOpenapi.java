@@ -33,20 +33,20 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 	/**
 	 * apiInfo缓存key
 	 */
-	private static final String globalOpenapiApiInfo_key = "globalOpenapiApiInfo_key";
+	private static final String globalOpenapiApiInfo_key_prefix = "globalOpenapiApiInfo_key";
 	/**
-	 * apiInfo缓存时间
+	 * apiInfo缓存时间 30 分钟
 	 */
-	private static Long globalOpenapiApiInfoExpire = 3L * 60L *1000L;
+	private static Long globalOpenapiApiInfoExpire = 30L * 60L *1000L;
 
 	/**
 	 * 客户端缓存key
 	 */
-	private static final String globalOpenapiClient_key = "globalOpenapiClient_key";
+	private static final String globalOpenapiClient_key_prefix = "globalOpenapiClient_key";
 	/**
-	 * 客户端缓存时间 5 分钟
+	 * 客户端缓存时间 50 分钟
 	 */
-	private static Long globalOpenapiClientExpire = 5L * 60L *1000L;
+	private static Long globalOpenapiClientExpire = 50L * 60L *1000L;
 
 	/**
 	 * 用来匹配请求
@@ -104,8 +104,10 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 	@Override
 	public OpenapiClient getOpenapiClient(String clientId,boolean includeSecret,boolean includeAuthorities) {
 
+		String cacheKey = globalOpenapiClient_key_prefix + "_" + clientId + "_" + includeSecret + "_" + includeAuthorities;
+
 		if (globalOpenapiCache !=null) {
-			OpenapiClient openapiClient = (OpenapiClient)globalOpenapiCache.get(globalOpenapiClient_key);
+			OpenapiClient openapiClient = (OpenapiClient)globalOpenapiCache.get(cacheKey);
 			if (openapiClient != null) {
 				return openapiClient;
 			}
@@ -113,7 +115,7 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 
 		OpenapiClient openapiClient = globalOpenapiClientProvider.getOpenapiClientByClientId(clientId,includeSecret,includeAuthorities);
 		if (openapiClient != null && globalOpenapiCache != null) {
-			globalOpenapiCache.put(globalOpenapiClient_key,openapiClient,globalOpenapiClientExpire);
+			globalOpenapiCache.put(cacheKey,openapiClient,globalOpenapiClientExpire);
 		}
 		return openapiClient;
 	}
@@ -123,15 +125,17 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 		if (globalOpenapiApiInfoProvider == null) {
 			return null;
 		}
+		String cacheKey = globalOpenapiApiInfo_key_prefix + "_" + apiUrl + "_" + appId;
+
 		if (globalOpenapiCache !=null) {
-			ApiInfo globalOpenapiApiInfo = (ApiInfo)globalOpenapiCache.get(globalOpenapiApiInfo_key);
+			ApiInfo globalOpenapiApiInfo = (ApiInfo)globalOpenapiCache.get(cacheKey);
 			if (globalOpenapiApiInfo != null) {
 				return globalOpenapiApiInfo;
 			}
 		}
 		ApiInfo apiInfo = globalOpenapiApiInfoProvider.getApiInfo(apiUrl, appId);
 		if (apiInfo != null && globalOpenapiCache != null) {
-			globalOpenapiCache.put(globalOpenapiApiInfo_key,apiInfo,globalOpenapiApiInfoExpire);
+			globalOpenapiCache.put(cacheKey,apiInfo,globalOpenapiApiInfoExpire);
 		}
 
 		return apiInfo;

@@ -1,6 +1,7 @@
 package com.particle.report.infrastructure.template.service.impl;
 
 import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
@@ -40,8 +41,8 @@ import java.util.stream.Collectors;
 @Component
 public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTemplateRenderService {
 
-	public static WeakCache<Long, ReportSegmentTemplateDO> reportSegmentTemplateDOCache = CacheUtil.newWeakCache(16 * 1 * 60000);
-	public static WeakCache<Long, List<ReportSegmentTemplateDO>> childrenReportSegmentTemplateDOsCache = CacheUtil.newWeakCache(17 * 1 * 60000);
+	public static TimedCache<Long, ReportSegmentTemplateDO> reportSegmentTemplateDOCache = CacheUtil.newTimedCache(16 * 1 * 60000);
+	public static TimedCache<Long, List<ReportSegmentTemplateDO>> childrenReportSegmentTemplateDOsCache = CacheUtil.newTimedCache(17 * 1 * 60000);
 
 	@Autowired
 	private IReportSegmentTemplateService iReportSegmentTemplateService;

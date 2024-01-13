@@ -2,6 +2,7 @@ package com.particle.global.notification.notify;
 
 import brave.Tracer;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
@@ -84,8 +85,10 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 		}
 		// 添加时间
 		result.add(StrUtil.format("[通知时间] : {}", DateUtil.now()));
+		if (includeHost()) {
+			result.add(StrUtil.format("[host] : {}", NetUtil.getLocalhostStr()));
+		}
 		if (includeTraceInfo()) {
-
 			if (tracer != null) {
 				String traceId = Optional.ofNullable(tracer).map(Tracer::currentSpan).map(i -> i.context()).map(i -> i.traceIdString()).orElse(null);
 				if (StrUtil.isNotEmpty(traceId)) {
@@ -115,6 +118,14 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 	 * @return
 	 */
 	protected boolean includeTraceInfo(){
+		return true;
+	}
+
+	/**
+	 * 包含host信息即：当前实例的ip
+	 * @return
+	 */
+	protected boolean includeHost(){
 		return true;
 	}
 

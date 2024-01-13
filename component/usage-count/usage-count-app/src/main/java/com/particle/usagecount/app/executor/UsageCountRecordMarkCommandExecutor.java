@@ -1,6 +1,7 @@
 package com.particle.usagecount.app.executor;
 
 import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
@@ -59,9 +60,9 @@ public class UsageCountRecordMarkCommandExecutor extends AbstractBaseExecutor {
 
 	private ExecutorService commonDbTaskExecutor;
 
-	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByCodeCache = CacheUtil.newWeakCache(30 * 60 * 1000);
-	private static WeakCache<String, UsageCountDefineDO> usageCountDefineByUrlPatternCache = CacheUtil.newWeakCache(31 * 60 * 1000);
-	private static WeakCache<Long, List<UsageCountConfigDO>> usageCountConfigByUsageCountDefineIdCache = CacheUtil.newWeakCache(32 * 60 * 1000);
+	private static TimedCache<String, UsageCountDefineDO> usageCountDefineByCodeCache = CacheUtil.newTimedCache(30 * 60 * 1000);
+	private static TimedCache<String, UsageCountDefineDO> usageCountDefineByUrlPatternCache = CacheUtil.newTimedCache(31 * 60 * 1000);
+	private static TimedCache<Long, List<UsageCountConfigDO>> usageCountConfigByUsageCountDefineIdCache = CacheUtil.newTimedCache(32 * 60 * 1000);
 
 
 	/**

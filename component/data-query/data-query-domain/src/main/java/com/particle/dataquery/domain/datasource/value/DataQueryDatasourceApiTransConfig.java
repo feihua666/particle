@@ -1,12 +1,9 @@
 package com.particle.dataquery.domain.datasource.value;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONUtil;
-import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiParamValidateType;
 import com.particle.global.dto.basic.Value;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,11 +53,34 @@ public class DataQueryDatasourceApiTransConfig extends Value {
 		/**
 		 * 如果是集合是否转为字符串拼接，仅支持字符串字段
 		 */
-		private Boolean isJoin;
+		private Boolean isMapValueCollectionJoin;
 		/**
 		 * 当翻译结果是一个集合时，可以使用的分隔符
 		 */
-		private String mapJoinSeparator;
+		private String mapValueCollectionJoinSeparator;
+
+		/**
+		 * 是否是一组翻译，如果为true表示翻译的key对应的值是一个以英文逗号分隔的，翻译的结果以逗号拼接，如果翻译的结果字段类型不是字符串，以改用集合，只支持key为字符串
+		 * @return
+		 */
+		Boolean isByFieldValueGroup;
+
+		/**
+		 * 配合{@link TransHelper.TransMeta#byFieldValueGroup} 分隔符
+		 */
+		String byFieldValueGroupSeparator;
+
+		/**
+		 * 配合{@link TransHelper.TransMeta#byFieldValueGroup} 分隔符
+		 */
+		String mapFieldValueGroupSeparator;
+
+		/**
+		 * 只使用批量翻译，在未实现批量翻译接口，或批量翻译结果为空是，会尝试使用单个翻译，设置为true会提高性能且保存已经实现了对应类型的批量翻译接口
+		 * @return
+		 */
+		Boolean isBatchOnly;
+
 		/**
 		 * 当值存在时不翻译
 		 */
@@ -80,8 +100,12 @@ public class DataQueryDatasourceApiTransConfig extends Value {
 									   String byFieldName,
 									   String forFieldName,
 									   String mapValueField,
-									   Boolean isJoin,
-									   String mapJoinSeparator,
+									   Boolean isMapValueCollectionJoin,
+									   String mapValueCollectionJoinSeparator,
+									   Boolean isByFieldValueGroup,
+									   String byFieldValueGroupSeparator,
+									   String mapFieldValueGroupSeparator,
+									   Boolean isBatchOnly,
 									   Boolean isNotTransWhenExist,
 									   String mapKeyField,
 									   String dicGroupCode){
@@ -91,8 +115,12 @@ public class DataQueryDatasourceApiTransConfig extends Value {
 			transItem.byFieldName = byFieldName;
 			transItem.forFieldName = forFieldName;
 			transItem.mapValueField = mapValueField;
-			transItem.isJoin = isJoin;
-			transItem.mapJoinSeparator =  mapJoinSeparator;
+			transItem.isMapValueCollectionJoin = isMapValueCollectionJoin;
+			transItem.mapValueCollectionJoinSeparator =  mapValueCollectionJoinSeparator;
+			transItem.isByFieldValueGroup =  isByFieldValueGroup;
+			transItem.byFieldValueGroupSeparator =  byFieldValueGroupSeparator;
+			transItem.mapFieldValueGroupSeparator =  mapFieldValueGroupSeparator;
+			transItem.isBatchOnly =  isBatchOnly;
 			transItem.isNotTransWhenExist = isNotTransWhenExist;
 			transItem.mapKeyField = mapKeyField;
 			transItem.dicGroupCode = dicGroupCode;

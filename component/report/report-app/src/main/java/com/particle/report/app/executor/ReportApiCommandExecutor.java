@@ -1,6 +1,7 @@
 package com.particle.report.app.executor;
 
 import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
@@ -45,7 +46,7 @@ import java.util.Optional;
 @Validated
 public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 
-	public static WeakCache<String, ReportReportApiDO> reportReportApiDOCache = CacheUtil.newWeakCache(14 * 1 * 60000);
+	public static TimedCache<String, ReportReportApiDO> reportReportApiDOCache = CacheUtil.newTimedCache(14 * 1 * 60000);
 
 
 	@Autowired

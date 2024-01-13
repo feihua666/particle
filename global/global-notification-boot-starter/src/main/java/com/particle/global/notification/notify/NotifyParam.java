@@ -26,35 +26,38 @@ import java.util.stream.Collectors;
 @Getter
 @Accessors(chain = true)
 public class NotifyParam implements Serializable {
-
-	/**
-	 * 通知类型，支持多个，以逗号分隔
-	 * 如：企业微信通知=wx_cp,邮件通知=email
-	 */
-	private String types;
 	/**
 	 * 通知标题
 	 */
 	private String title;
 	/**
-	 * 通知内容
+	 * 通知内容类型，这是一个自定义一个字符串，用来标识内容类型可以根据具体的内容场景处理
 	 */
-	private String content;
-
-	/**
-	 * 通知内容是否为html
-	 */
-	private Boolean isHtml = false;
+	private String contentType;
 
 	/**
 	 * 建议，主要用来提示或改进意见
 	 * 内容之外的额外信息
 	 */
 	private String suggest;
+
 	/**
-	 * 通知内容类型，这是一个自定义一个字符串，用来标识内容类型可以根据具体的内容场景处理
+	 * 通知内容
 	 */
-	private String contentType;
+	private String content;
+
+	/**
+	 * 通知类型，支持多个，以逗号分隔
+	 * 如：企业微信通知=wx_cp,邮件通知=email
+	 */
+	private String types;
+
+	/**
+	 * 通知内容是否为html
+	 */
+	private Boolean isHtml = false;
+
+
 
 	/**
 	 * 业务类型，这是一个分类，标识是业务还是系统的通知

@@ -75,20 +75,27 @@ public @interface TransItem {
      * 如果是集合是否转为字符串拼接，仅支持字符串字段
      * @return
      */
-    boolean isJoin()  default true;
+    boolean mapValueCollectionJoin()  default true;
 
     /**
      * 当翻译结果是一个集合时，可以使用的分隔符
      * @return
      */
-    String mapJoinSeparator() default "/";
+    String mapValueCollectionJoinSeparator() default "/";
 
     /**
      * 是否是一组翻译，如果为true表示翻译的key是一个以英文逗号分隔的，翻译的结果以逗号拼接，如果翻译的结果字段类型不是字符串，以改用集合，只支持key为字符串
      * @return
      */
-    boolean isGroup() default false;
-
+    boolean byFieldValueGroup() default false;
+    /**
+     * 配合{@link com.particle.global.trans.helper.TransHelper.TransMeta#byFieldValueGroup} 分隔符
+     */
+    String byFieldValueGroupSeparator() default ",";
+    /**
+     * 配合{@link com.particle.global.trans.helper.TransHelper.TransMeta#byFieldValueGroup} 分隔符
+     */
+    String mapFieldValueGroupSeparator() default ",";
     /**
      * 只使用批量翻译，在未实现批量翻译接口，或批量翻译结果为空是，会尝试使用单个翻译，设置为true会提高性能且保存已经实现了对应类型的批量翻译接口
      * @return

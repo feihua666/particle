@@ -285,7 +285,7 @@ export const outParamTransConfigJson = (dataQueryDatasourceApiFormItemConfigsRef
       comp: 'PtButton',
       formItemProps: {
         label: '出参翻译配置',
-        tips: tips || '针对响应数数据翻译数据字典支持'
+        tips: tips || '针对响应数数据翻译数据字典支持,翻译执行在出参扩展配置之前'
       },
       compProps:  ({form})=>{
         return {

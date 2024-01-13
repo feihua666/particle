@@ -1,6 +1,7 @@
 package com.particle.global.openapi.api.impl;
 
 import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.cache.impl.WeakCache;
 import com.particle.global.openapi.api.GlobalOpenapiCache;
 
@@ -14,7 +15,7 @@ import com.particle.global.openapi.api.GlobalOpenapiCache;
  */
 public class InMemoryGlobalOpenapiCacheImpl implements GlobalOpenapiCache {
 
-	private WeakCache<String, CacheObj> objectTimedCache = CacheUtil.newWeakCache(10 * 60 * 1000);
+	private TimedCache<String, CacheObj> objectTimedCache = CacheUtil.newTimedCache(60 * 60 * 1000);
 
 	@Override
 	public void put(String key, Object value, Long cacheTime) {

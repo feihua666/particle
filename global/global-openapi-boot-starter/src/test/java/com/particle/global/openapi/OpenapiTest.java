@@ -36,11 +36,11 @@ public class OpenapiTest {
 	/**
 	 * 客户端id全局配置
 	 */
-	private static String clientId = "11";
+	private static String clientId = "1688811472965656576";
 	/**
 	 * 客户端密码全局配置
 	 */
-	private static String clientSecret = "22";
+	private static String clientSecret = "03b109817ddc4269a40d30ca12459511";
 
 	private static String apiPrefix = "http://localhost:8080";
 

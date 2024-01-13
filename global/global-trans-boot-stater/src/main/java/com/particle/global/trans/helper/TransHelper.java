@@ -170,9 +170,9 @@ public class TransHelper {
 
                 HashSet<Object> byFieldValues = new HashSet<>();
                 // 对isGroup支持
-                if (transMeta.isGroup()) {
+                if (transMeta.isByFieldValueGroup()) {
                     if (transMeta.byFieldValue instanceof String) {
-                        for (String value : ((String) transMeta.byFieldValue).split(",")) {
+                        for (String value : ((String) transMeta.byFieldValue).split(transMeta.getByFieldValueGroupSeparator())) {
                             byFieldValues.add(value);
                         }
                     } else if (transMeta.byFieldValue instanceof String[]) {
@@ -235,16 +235,17 @@ public class TransHelper {
 
     /**
      * 翻译描述元数据信息
+     * 如修改考虑其它使用如：{@link com.particle.global.big.datasource.bigdatasource.trans.DefaultBigDatasourceApiTransSupportServiceImpl#newTransMeta(com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiTransConfig.TransItem)}
      */
     @Setter
     @Getter
     public static class TransMeta {
         /**
-         * 翻译注解所在的对象
+         * 翻译注解所在的对象,数据项
          */
         private Object item;
         /**
-         * 翻译的类型
+         * 翻译的类型，被{@link ITransService#support(String)} 或 {@link ITransService#supportBatch(String)} 支持的类型
          */
         private String type;
 
@@ -274,25 +275,25 @@ public class TransHelper {
         private String tableField = "id";
 
         /**
-         * 提供值的字段
+         * 提供值的字段，该字段的值将被使用获取对应的翻译名称
          */
         private String byFieldName;
         /**
-         * 字段值
+         * byFieldName 对应的字段值
          */
         private Object byFieldValue;
 
         /**
-         * 字段值，目前仅group翻译时使用
+         * 字段值，目前仅group翻译时使用，即{@link TransMeta#byFieldValueGroup} = true
          */
         private HashSet<Object> byFieldValues;
 
         /**
-         * 目标字段名
+         * 目标字段名，翻译后需要设置的字段名
          */
         private String forFieldName;
         /**
-         * 目标字段类型
+         * 目标字段类型，可选
          */
         private Class forFieldNameType;
 
@@ -307,20 +308,30 @@ public class TransHelper {
         private String mapKeyField;
 
         /**
-         * 如果是集合是否转为字符串拼接，仅支持字符串字段
+         * 当翻译结果是集合是否转为字符串拼接，仅支持{@link TransMeta#forFieldName}为字符串类型
          */
-        private boolean join;
+        private boolean mapValueCollectionJoin;
 
         /**
          * 当翻译结果是一个集合时，可以使用的分隔符
          */
-        private String mapJoinSeparator;
+        private String mapValueCollectionJoinSeparator = "/";
 
         /**
-         * 是否是一组翻译，如果为true表示翻译的key是一个以英文逗号分隔的，翻译的结果以逗号拼接，如果翻译的结果字段类型不是字符串，以改用集合，只支持key为字符串
+         * 是否是一组翻译，如果为true表示翻译的key对应的值是一个以英文逗号分隔的，翻译的结果以逗号拼接，如果翻译的结果字段类型不是字符串，以改用集合，只支持key为字符串
          * @return
          */
-        boolean group;
+        boolean byFieldValueGroup;
+
+        /**
+         * 配合{@link TransMeta#byFieldValueGroup} 分隔符
+         */
+        String byFieldValueGroupSeparator = ",";
+
+        /**
+         * 配合{@link TransMeta#byFieldValueGroup} 分隔符
+         */
+        String mapFieldValueGroupSeparator = ",";
 
         /**
          * 只使用批量翻译，在未实现批量翻译接口，或批量翻译结果为空是，会尝试使用单个翻译，设置为true会提高性能且保存已经实现了对应类型的批量翻译接口
@@ -359,6 +370,7 @@ public class TransHelper {
     private TransMeta copyNewTransMeta (TransMeta transMetaP){
         TransMeta transMeta = new TransMeta();
         transMeta.setType(transMetaP.getType());
+
         transMeta.setTableName(transMetaP.getTableName());
         transMeta.setTableNameClass(transMetaP.getTableNameClass());
         transMeta.setTableField(transMetaP.getTableField());
@@ -373,12 +385,17 @@ public class TransHelper {
         transMeta.setMapValueField(transMetaP.getMapValueField());
         transMeta.setMapKeyField(transMetaP.getMapKeyField());
 
-        transMeta.setJoin(transMetaP.isJoin());
-        transMeta.setMapJoinSeparator(transMetaP.getMapJoinSeparator());
+        transMeta.setMapValueCollectionJoin(transMetaP.isMapValueCollectionJoin());
+        transMeta.setMapValueCollectionJoinSeparator(transMetaP.getMapValueCollectionJoinSeparator());
 
-        transMeta.setGroup(transMetaP.isGroup());
+        transMeta.setByFieldValueGroup(transMetaP.isByFieldValueGroup());
+        transMeta.setByFieldValueGroupSeparator(transMetaP.getByFieldValueGroupSeparator());
+        transMeta.setMapFieldValueGroupSeparator(transMetaP.getMapFieldValueGroupSeparator());
+
         transMeta.setBatchOnly(transMetaP.isBatchOnly());
         transMeta.setNotTransWhenExist(transMetaP.isNotTransWhenExist());
+
+        transMeta.setItem(transMetaP.getItem());
 
         return transMeta;
     }
@@ -390,30 +407,38 @@ public class TransHelper {
      */
     private TransMeta newTransMeta (TransItem transItem, Object body){
         TransMeta transMeta = new TransMeta();
-        transMeta.setByFieldName(transItem.byFieldName());
         transMeta.setType(transItem.type());
 
         transMeta.setTableName(transItem.tableName());
         transMeta.setTableNameClass(transItem.tableNameClass());
         transMeta.setTableField(transItem.tableField());
 
-        transMeta.setForFieldName(transItem.forFieldName());
-        transMeta.setMapValueField(transItem.mapValueField());
-        transMeta.setJoin(transItem.isJoin());
-        transMeta.setMapJoinSeparator(transItem.mapJoinSeparator());
-        transMeta.setGroup(transItem.isGroup());
-        transMeta.setBatchOnly(transItem.batchOnly());
-        transMeta.setNotTransWhenExist(transItem.notTransWhenExist());
-        transMeta.setItem(body);
+        transMeta.setByFieldName(transItem.byFieldName());
         Object fieldValue = ReflectUtil.getFieldValue(body, transItem.byFieldName());
         transMeta.setByFieldValue(fieldValue);
+        transMeta.setByFieldValues(null);
 
-        // 如果不是对应的表解析类型，也就不用获取了
-        if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
-            transMeta.setTableName(tableNameResolve(transMeta));
-            // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
-            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
-        }
+
+        transMeta.setForFieldName(transItem.forFieldName());
+        transMeta.setForFieldNameType(null);
+
+        transMeta.setMapValueField(transItem.mapValueField());
+        transMeta.setMapKeyField(null);
+
+        transMeta.setMapValueCollectionJoin(transItem.mapValueCollectionJoin());
+        transMeta.setMapValueCollectionJoinSeparator(transItem.mapValueCollectionJoinSeparator());
+
+        transMeta.setByFieldValueGroup(transItem.byFieldValueGroup());
+        transMeta.setByFieldValueGroupSeparator(transItem.byFieldValueGroupSeparator());
+        transMeta.setMapFieldValueGroupSeparator(transItem.mapFieldValueGroupSeparator());
+
+        transMeta.setBatchOnly(transItem.batchOnly());
+        transMeta.setNotTransWhenExist(transItem.notTransWhenExist());
+
+        transMeta.setItem(body);
+
+
+        transByTableNameSupport(transMeta);
 
         return transMeta;
     }
@@ -428,31 +453,37 @@ public class TransHelper {
      */
     private TransMeta newTransMeta (TransBy transBy, String forFieldName, Object body){
         TransMeta transMeta = new TransMeta();
-        transMeta.setByFieldName(transBy.byFieldName());
         transMeta.setType(transBy.type());
 
         transMeta.setTableName(transBy.tableName());
         transMeta.setTableNameClass(transBy.tableNameClass());
         transMeta.setTableField(transBy.tableField());
 
-
-        transMeta.setForFieldName(forFieldName);
-        transMeta.setMapValueField(transBy.mapValueField());
-        transMeta.setJoin(transBy.isJoin());
-        transMeta.setMapJoinSeparator(transBy.mapJoinSeparator());
-        transMeta.setGroup(transBy.isGroup());
-        transMeta.setBatchOnly(transBy.batchOnly());
-        transMeta.setNotTransWhenExist(transBy.notTransWhenExist());
-        transMeta.setItem(body);
+        transMeta.setByFieldName(transBy.byFieldName());
         Object fieldValue = ReflectUtil.getFieldValue(body, transBy.byFieldName());
         transMeta.setByFieldValue(fieldValue);
+        transMeta.setByFieldValues(null);
 
-        // 如果不是对应的表解析类型，也就不用获取了
-        if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
-            transMeta.setTableName(tableNameResolve(transMeta));
-            // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
-            transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
-        }
+        transMeta.setForFieldName(forFieldName);
+        transMeta.setForFieldNameType(null);
+
+        transMeta.setMapValueField(transBy.mapValueField());
+        transMeta.setMapKeyField(null);
+
+        transMeta.setMapValueCollectionJoin(transBy.mapValueCollectionJoin());
+        transMeta.setMapValueCollectionJoinSeparator(transBy.mapValueCollectionJoinSeparator());
+
+        transMeta.setByFieldValueGroup(transBy.byFieldValueGroup());
+        transMeta.setByFieldValueGroupSeparator(transBy.byFieldValueGroupSeparator());
+        transMeta.setMapFieldValueGroupSeparator(transBy.mapFieldValueGroupSeparator());
+
+        transMeta.setBatchOnly(transBy.batchOnly());
+        transMeta.setNotTransWhenExist(transBy.notTransWhenExist());
+
+        transMeta.setItem(body);
+
+
+        transByTableNameSupport(transMeta);
 
         return transMeta;
     }
@@ -475,22 +506,30 @@ public class TransHelper {
 
         transMeta.setForFieldName(transFor.forFieldName());
         transMeta.setMapValueField(transFor.mapValueField());
-        transMeta.setJoin(transFor.isJoin());
-        transMeta.setMapJoinSeparator(transFor.mapJoinSeparator());
-        transMeta.setGroup(transFor.isGroup());
+        transMeta.setMapValueCollectionJoin(transFor.mapValueCollectionJoin());
+        transMeta.setMapValueCollectionJoinSeparator(transFor.mapValueCollectionJoinSeparator());
+        transMeta.setByFieldValueGroup(transFor.byFieldValueGroup());
         transMeta.setBatchOnly(transFor.batchOnly());
         transMeta.setNotTransWhenExist(transFor.notTransWhenExist());
         transMeta.setItem(body);
         Object fieldValue = ReflectUtil.getFieldValue(body, byFieldName);
         transMeta.setByFieldValue(fieldValue);
 
+        transByTableNameSupport(transMeta);
+        return transMeta;
+    }
+
+    /**
+     * 表翻译支持设置
+     * @param transMeta
+     */
+    private void transByTableNameSupport(TransMeta transMeta) {
         // 如果不是对应的表解析类型，也就不用获取了
         if (transMeta.getType().equals(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME)) {
             transMeta.setTableName(tableNameResolve(transMeta));
             // 特殊化type,将查询的字段名称和表名、字段列拼接成一个类型
             transMeta.setType(TableNameTransServiceImpl.TRANS_BY_TABLE_NAME + StrUtil.format("{}:{}:{}", transMeta.getMapValueField(), transMeta.getTableName(), transMeta.getTableField()));
         }
-        return transMeta;
     }
 
     /**
@@ -700,12 +739,12 @@ public class TransHelper {
      * @param transContext
      */
     private void doTrans (TransMeta transMeta, TransContext transContext){
-        log.trace("doTrans: type={},byFieldName={},forFieldName={},mapValueField={},jsJoin={}", transMeta.getType(), transMeta.getByFieldName(), transMeta.forFieldName, transMeta.getMapValueField(), transMeta.isJoin());
+        log.trace("doTrans: type={},byFieldName={},forFieldName={},mapValueField={},jsJoin={}", transMeta.getType(), transMeta.getByFieldName(), transMeta.forFieldName, transMeta.getMapValueField(), transMeta.isMapValueCollectionJoin());
         if (transMeta.byFieldValue == null) {
             return;
         }
         // 批量翻译的结果中有值，则使用批量翻译的结果
-        if (transMeta.isGroup()) {
+        if (transMeta.isByFieldValueGroup()) {
             HashSet<Object> byFieldValues = transMeta.getByFieldValues();
             List<TransResult> transResults = new ArrayList<>(byFieldValues.size());
             for (Object byFieldValue : byFieldValues) {
@@ -773,13 +812,20 @@ public class TransHelper {
         Object transValue = transResult.getTransValue();
         // 这里不作任何判断，请谨慎使用
         if (!StrUtil.isEmpty(transMeta.getMapValueField())) {
+            // 如果是集合尝试join
             if (transValue instanceof Collection) {
-                transValue = ((Collection) transValue).stream().map(obj -> getObjValue(obj, transMeta.getMapValueField())).filter(Objects::nonNull).collect(Collectors.toList());
-                if (transMeta.isJoin()) {
-                    transValue = ((Collection) transValue).stream().collect(Collectors.joining(transMeta.getMapJoinSeparator()));
+                transValue = ((Collection) transValue).stream().filter(Objects::nonNull).map(obj -> getObjValue(obj, transMeta.getMapValueField())).filter(Objects::nonNull).collect(Collectors.toList());
+                if (transMeta.isMapValueCollectionJoin()) {
+                    transValue = ((Collection) transValue).stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapValueCollectionJoinSeparator()));
                 }
             } else {
+                // 不是集合按对象处理
                 transValue = getObjValue(transValue, transMeta.getMapValueField());
+                if (transValue instanceof Collection) {
+                    if (transMeta.isMapValueCollectionJoin()) {
+                        transValue = ((Collection) transValue).stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapValueCollectionJoinSeparator()));
+                    }
+                }
             }
         }
         return transValue;
@@ -820,7 +866,7 @@ public class TransHelper {
         }
     }
     /**
-     * 设置翻译值
+     * 设置翻译值，在{@link byFieldValueGroup} = true 都会设置值
      * @param transMeta
      * @param transResults
      */
@@ -846,13 +892,13 @@ public class TransHelper {
             }
             if (forFieldNameType != null) {
                 if (forFieldNameType.isAssignableFrom(String.class)) {
-                    fieldValue = transValues.stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapJoinSeparator()));
+                    fieldValue = transValues.stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapFieldValueGroupSeparator()));
                 } else if (forFieldNameType.isAssignableFrom(String[].class)) {
                     fieldValue = transValues.stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.toList());
                 }
             }else {
                 // 按字符串处理
-                fieldValue = transValues.stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapJoinSeparator()));
+                fieldValue = transValues.stream().filter(Objects::nonNull).map(item -> item.toString()).collect(Collectors.joining(transMeta.getMapFieldValueGroupSeparator()));
             }
 
             if (item1 instanceof Map) {

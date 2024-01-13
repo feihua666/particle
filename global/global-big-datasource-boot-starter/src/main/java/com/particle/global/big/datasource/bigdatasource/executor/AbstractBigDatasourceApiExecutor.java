@@ -219,8 +219,9 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @return
 	 */
 	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object o,Map<String,Object> postExeResultHolder) {
+		// 翻译
 		transHandle(bigDatasourceApi, o);
-
+		// 出参扩展配置执行
 		Object newResult = resultExtConfigHandle(bigDatasourceApi, command, queryString, o);
 		if (newResult != null) {
 			postExeResultHolder.put("result", newResult);

@@ -30,9 +30,17 @@ interface TransItem{
   // 当翻译结果是一个对象时，可以使用该字段取对象的一个属性值
   mapValueField: string,
   // 如果是集合是否转为字符串拼接，仅支持字符串字段
-  isJoin: boolean,
+  isMapValueCollectionJoin: boolean,
   // 当翻译结果是一个集合时，可以使用的分隔符
-  mapJoinSeparator: string
+  mapValueCollectionJoinSeparator: string,
+
+  // 是否是一组翻译，如果为true表示翻译的key对应的值是一个以英文逗号分隔的，翻译的结果以逗号拼接，如果翻译的结果字段类型不是字符串，以改用集合，只支持key为字符串
+  isByFieldValueGroup: boolean,
+
+  // 配合{@link TransMeta#byFieldValueGroup} 分隔符
+  byFieldValueGroupSeparator: string,
+  // 配合{@link TransMeta#byFieldValueGroup} 分隔符
+  mapFieldValueGroupSeparator: string,
   // 当值存在时不翻译
   isNotTransWhenExist: boolean,
   // 因为该翻译配置仅支持以字典配置为数据，所以这里添加加两个字段以提示字典数据，和翻译结果对应的key字段为唯一标识
@@ -82,6 +90,32 @@ const reactiveData = reactive({
     {
       prop: 'mapValueField',
       label: '映射字段名',
+    },
+    {
+      prop: 'isMapValueCollectionJoin',
+      label: '映射字段值集合拼接',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '拼接' : '不拼接'
+      }
+    },
+    {
+      prop: 'mapValueCollectionJoinSeparator',
+      label: '映射字段值集合拼接符',
+    },
+    {
+      prop: 'isByFieldValueGroup',
+      label: '翻译字段值是否为一组数据',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '是' : '否'
+      }
+    },
+    {
+      prop: 'byFieldValueGroupSeparator',
+      label: '翻译字段值是一组数据分隔符',
+    },
+    {
+      prop: 'mapFieldValueGroupSeparator',
+      label: '映射字段值是一组数据分隔符',
     },
     {
       prop: 'isNotTransWhenExist',
@@ -162,6 +196,85 @@ const formComps = [
         label: '映射字段名',
         required: true,
         tips: '一般需要填写，不填写默认为name,当翻译结果是一个对象时，可以使用该字段取对象的一个属性值'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isMapValueCollectionJoin',
+      value: false
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '映射字段值集合拼接',
+        tips: '映射字段值为集合时，拼接成字符串,否则将按集合设置，请确保目标数据类型一致，注意，如果为分组翻译，请设置为false，否则会有影响'
+      },
+      compProps: {
+        activeText: '拼接',
+        inactiveText: '不拼接',
+      }
+    }
+  },
+  {
+    field: {
+      name: 'mapValueCollectionJoinSeparator',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '映射字段值集合拼接符',
+        tips: '映射字段值为集合时，拼接成字符串的分隔符，不填写默认斜杠(即：/)'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isByFieldValueGroup',
+      value: false
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '翻译字段值是否为一组数据',
+        tips: '一般来讲，为一组以逗号分隔（可以自定义）的字符串，也支持数组类型'
+      },
+      compProps: {
+        activeText: '是',
+        inactiveText: '否',
+      }
+    }
+  },
+  {
+    field: {
+      name: 'byFieldValueGroupSeparator',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '翻译字段值是一组数据分隔符',
+        tips: '翻译字段值为一组数据，指定数据分隔符，不填写默认为英文逗号(即：,)'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'mapFieldValueGroupSeparator',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '映射字段值是一组数据分隔符',
+        tips: '映射字段值为一组数据，指定数据分隔符，仅限为集合类型时使用，不填写默认为英文逗号(即：,)'
       },
       compProps: {
         clearable: true,
@@ -281,6 +394,11 @@ const formFillItem = (form,item)=>{
   item.byFieldName = form.byFieldName
   item.forFieldName = form.forFieldName
   item.mapValueField = form.mapValueField
+  item.isMapValueCollectionJoin = form.isMapValueCollectionJoin
+  item.mapValueCollectionJoinSeparator = form.mapValueCollectionJoinSeparator
+  item.isByFieldValueGroup = form.isByFieldValueGroup
+  item.byFieldValueGroupSeparator = form.byFieldValueGroupSeparator
+  item.mapFieldValueGroupSeparator = form.mapFieldValueGroupSeparator
   item.isNotTransWhenExist = form.isNotTransWhenExist
   item.mapKeyField = form.mapKeyField
   item.dicGroupCode = form.dicGroupCode

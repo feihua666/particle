@@ -111,7 +111,7 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 
 		OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent = new OpenplatformOpenapiRecordDomainEvent(openplatformOpenapiRecordDomainEventContent);
 		//	将该事件发布到mq并不直接保存
-		openplatformOpenapiRecordGateway.sendDomainEvent(openplatformOpenapiRecordDomainEvent);
+		openplatformOpenapiRecordGateway.sendDomainEventAsync(openplatformOpenapiRecordDomainEvent);
 	}
 
 

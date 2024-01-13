@@ -75,15 +75,20 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 			MappedStatement ms = (MappedStatement) args[0];
 			Object parameter = args[1];
 
+			String finalSql = null;
+
 			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
 
 				// 超过阈值通知
 				if (duration > slowSqlNotifyThreshold) {
+					if (finalSql == null) {
+						finalSql = finalSql(ms, parameter);
+					}
 					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system()
 								.setTitle("慢sql")
 								.setContentType("mybatis.interceptor.slowSql")
 								.setSuggest("您可以修改配置 " + slowSqlNotifyThresholdValueKey + " 来改变阈值")
-								.setContent(StrUtil.format("sql执行时间{}ms,超过阈值{}ms，sql={}", duration, slowSqlNotifyThreshold, finalSql(ms,parameter)));
+								.setContent(StrUtil.format("sql执行时间{}ms,超过阈值{}ms，sql={}", duration, slowSqlNotifyThreshold, finalSql));
 					com.particle.global.notification.notify.NotifyTool.notify(notifyParam);
 					}
 
@@ -104,7 +109,10 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 
 			if (logSqlEnable) {
-				log.info("sql={}",finalSql(ms,parameter));
+				if (finalSql == null) {
+					finalSql = finalSql(ms, parameter);
+				}
+				log.info("sql={}",finalSql);
 			}
 			log.debug("mapperMethod={},duration={}ms",ms.getId(),duration);
 

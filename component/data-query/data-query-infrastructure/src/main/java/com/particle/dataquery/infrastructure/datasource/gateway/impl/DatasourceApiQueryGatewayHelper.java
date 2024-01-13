@@ -141,8 +141,9 @@ public class DatasourceApiQueryGatewayHelper {
 			BigDatasourceApiTransConfig bigDatasourceApiTransConfig = transConfig(dataQueryDatasourceApiTransConfig);
 			defaultBigDatasourceApi.setTransConfig(bigDatasourceApiTransConfig);
 			// 	数据源接口暂不支持设置类型，以名引起相互调用麻烦
-			Optional.ofNullable(bigDatasourceApiTransConfig).map(BigDatasourceApiTransConfig::getTransItems)
-					.ifPresent(items -> items.forEach(transItem -> transItem.setType(null)));
+			// 本来不想支持，但感觉不太灵活，这里先放开，尽量建立翻译数据不做任何处理，以免引起相互调用死循环
+			// Optional.ofNullable(bigDatasourceApiTransConfig).map(BigDatasourceApiTransConfig::getTransItems)
+			// 		.ifPresent(items -> items.forEach(transItem -> transItem.setType(null)));
 		}
 		// 字典配置
 		DataQueryDatasourceApiDictConfig dataQueryDatasourceApiDictConfig = datasourceApi.dictConfig();
@@ -341,8 +342,12 @@ public class DatasourceApiQueryGatewayHelper {
 				item.getByFieldName(),
 				item.getForFieldName(),
 				item.getMapValueField(),
-				item.getIsJoin(),
-				item.getMapJoinSeparator(),
+				item.getIsMapValueCollectionJoin(),
+				item.getMapValueCollectionJoinSeparator(),
+				item.getIsByFieldValueGroup(),
+				item.getByFieldValueGroupSeparator(),
+				item.getMapFieldValueGroupSeparator(),
+				item.getIsBatchOnly(),
 				item.getIsNotTransWhenExist(),
 				item.getMapKeyField(),
 				item.getDicGroupCode()

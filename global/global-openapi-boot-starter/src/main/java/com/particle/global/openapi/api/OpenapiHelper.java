@@ -129,6 +129,7 @@ public class OpenapiHelper {
 
 		// 到这里 clientId 肯定是不为空的
 		OpenapiClient openapiClient = openApi.getOpenapiClient(clientId,true,isNeedAuthenticate);
+
 		Assert.notNull(openapiClient,ErrorCodeOpenapiEnum.OPENAPI_CLIENT_ID_NOT_EXIST);
 		Assert.isTrue(openapiClient.getIsDisabled() != null && !openapiClient.getIsDisabled(),ErrorCodeOpenapiEnum.OPENAPI_CLIENT_DISABLED);
 		openapiContext.setOpenapiClient(openapiClient);

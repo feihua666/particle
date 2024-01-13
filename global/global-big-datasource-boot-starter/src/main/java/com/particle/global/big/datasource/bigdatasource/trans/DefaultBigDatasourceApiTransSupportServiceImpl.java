@@ -77,6 +77,7 @@ public class DefaultBigDatasourceApiTransSupportServiceImpl implements IBigDatas
         transMeta.setByFieldName(transItem.getByFieldName());
         transMeta.setType(transItem.getType());
 
+        // 暂不支持
         // transMeta.setTableName(transItem.tableName());
         // transMeta.setTableNameClass(transItem.tableNameClass());
         // transMeta.setTableField(transItem.tableField());
@@ -94,17 +95,33 @@ public class DefaultBigDatasourceApiTransSupportServiceImpl implements IBigDatas
             transMeta.setMapKeyField(transItem.getMapKeyField());
         }
 
-        if (transItem.getIsJoin() != null) {
-            transMeta.setJoin(transItem.getIsJoin());
+        if (transItem.getIsMapValueCollectionJoin() != null) {
+            transMeta.setMapValueCollectionJoin(transItem.getIsMapValueCollectionJoin());
         }
 
-        if (StrUtil.isEmpty(transItem.getMapJoinSeparator())) {
-            transMeta.setMapJoinSeparator("/");
+        if (StrUtil.isEmpty(transItem.getMapValueCollectionJoinSeparator())) {
+            transMeta.setMapValueCollectionJoinSeparator("/");
         }else {
-            transMeta.setMapJoinSeparator(transItem.getMapJoinSeparator());
+            transMeta.setMapValueCollectionJoinSeparator(transItem.getMapValueCollectionJoinSeparator());
         }
 
-        // transMeta.setGroup(transItem.isGroup());
+        if (transItem.getIsByFieldValueGroup() != null) {
+            transMeta.setByFieldValueGroup(transItem.getIsByFieldValueGroup());
+        }
+
+        if (StrUtil.isEmpty(transItem.getByFieldValueGroupSeparator())) {
+            transItem.setByFieldValueGroupSeparator(",");
+        }else {
+            transItem.setByFieldValueGroupSeparator(transItem.getByFieldValueGroupSeparator());
+        }
+
+        if (StrUtil.isEmpty(transItem.getMapFieldValueGroupSeparator())) {
+            transItem.setMapFieldValueGroupSeparator(",");
+        }else {
+            transItem.setMapFieldValueGroupSeparator(transItem.getMapFieldValueGroupSeparator());
+        }
+
+
         // transMeta.setBatchOnly(transItem.batchOnly());
         if (transItem.getIsNotTransWhenExist() != null) {
             transMeta.setNotTransWhenExist(transItem.getIsNotTransWhenExist());
