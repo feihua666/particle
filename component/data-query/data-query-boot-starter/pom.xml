@@ -36,5 +36,12 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 启动时预热使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

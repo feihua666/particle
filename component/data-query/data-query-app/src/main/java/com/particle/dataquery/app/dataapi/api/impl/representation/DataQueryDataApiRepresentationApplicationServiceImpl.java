@@ -7,6 +7,7 @@ import com.particle.dataquery.client.dataapi.dto.command.representation.DataQuer
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiQueryCommandExecutor;
 import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
@@ -53,6 +54,11 @@ public class DataQueryDataApiRepresentationApplicationServiceImpl extends Abstra
     @Override
     public Object dataApiQueryTest(DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand) {
         return dataQueryDataApiDataApiQueryCommandExecutor.dataApiQueryTest(dataQueryDataApiQueryCommand);
+    }
+
+    @Override
+    public Response warmUp() {
+        return dataQueryDataApiDataApiQueryCommandExecutor.warmUp();
     }
 
     @Override

@@ -62,6 +62,8 @@ public class DataQueryDatasourceApiCreateCommandExecutor  extends AbstractBaseEx
 			String copySuffix = "Copy";
 			if (StrUtil.isNotEmpty(item.getCode())) {
 				item.setCode(item.getCode() + copySuffix);
+			}else {
+				item.setCode(null);
 			}
 			item.setName(item.getName() + copySuffix);
 
