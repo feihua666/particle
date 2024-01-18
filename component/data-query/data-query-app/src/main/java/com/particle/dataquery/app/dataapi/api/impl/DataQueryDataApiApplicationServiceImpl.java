@@ -58,6 +58,10 @@ public class DataQueryDataApiApplicationServiceImpl extends AbstractBaseApplicat
 	public SingleResponse<String> deleteCache(IdCommand deleteCommand) {
 		return dataQueryDataApiDataApiQueryCommandExecutor.deleteCache(deleteCommand);
 	}
+	@Override
+	public SingleResponse<String> refreshCache(IdCommand deleteCommand) {
+		return dataQueryDataApiDataApiQueryCommandExecutor.refreshCache(deleteCommand);
+	}
 
 	@Override
 	public SingleResponse<DataQueryDataApiVO> update(DataQueryDataApiUpdateCommand dataQueryDataApiUpdateCommand) {

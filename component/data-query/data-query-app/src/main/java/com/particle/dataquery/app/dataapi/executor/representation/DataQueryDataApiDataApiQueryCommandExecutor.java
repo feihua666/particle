@@ -173,6 +173,19 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		dataQueryDataApiCache.remove(cacheUrlKey);
 		return SingleResponse.of(NetUtil.getLocalhostStr());
 	}
+	/**
+	 * 执行 数据查询数据接口 刷新缓存指令
+	 * @param deleteCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(@Valid IdCommand deleteCommand) {
+		DataQueryDataApiId dataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(dataQueryDataApiId);
+		Assert.notNull(dataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		String cacheUrlKey = dataQueryDataApi.getUrl();
+		dataQueryDataApiCache.put(cacheUrlKey,dataQueryDataApi);
+		return SingleResponse.of(NetUtil.getLocalhostStr());
+	}
 
 	/**
 	 * 预热调用

@@ -201,6 +201,20 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
 		return true;
 	}
+	@Override
+	public boolean refreshCache(DataQueryDatasourceApiId dataQueryDatasourceApiId) {
+		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
+		Assert.notNull(byId,"数据查询数据源接口编码 "+ dataQueryDatasourceApiId.getId() +" 不存在");
+		dataQueryDatasourceApiByIdCache.put(dataQueryDatasourceApiId.getId(),byId);
+		if (StrUtil.isNotEmpty(byId.getCode())) {
+			DataQueryDatasourceApiDO dataQueryDatasourceApiDO = iDataQueryDatasourceApiService.getById(byId.getId().getId());
+			dataQueryDatasourceApiByCodeCache.put(byId.getCode(),dataQueryDatasourceApiDO);
+		}
+		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(byId.getDataQueryDatasourceId()));
+		dataQueryDatasourceByIdCache.put(byId.getDataQueryDatasourceId(),dataQueryDatasource);
+
+		return true;
+	}
 
 	/**
 	 * 脚本支持，可以直接根据 code 调用数据查询数据源接口

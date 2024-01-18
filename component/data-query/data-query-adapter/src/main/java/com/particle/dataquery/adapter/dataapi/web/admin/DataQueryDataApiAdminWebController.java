@@ -110,4 +110,12 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	public SingleResponse<String> deleteCache(@RequestBody IdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.deleteCache(deleteCommand);
 	}
+
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:refreshCache')")
+	@Operation(summary = "刷新数据查询数据接口缓存")
+	@PutMapping("/refreshCache")
+	@OpLog(name = "刷新数据查询数据接口缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
+	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+		return iDataQueryDataApiApplicationService.refreshCache(deleteCommand);
+	}
 }

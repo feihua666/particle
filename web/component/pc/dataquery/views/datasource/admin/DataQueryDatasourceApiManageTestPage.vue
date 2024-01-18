@@ -55,10 +55,12 @@ const reactiveData = reactive({
         comp: 'PtSelect',
         formItemProps: {
           label: '用例名称',
-          tips: '选择一个用例数据作为参数'
+          tips: '选择一个用例数据作为参数，默认选中第一个'
         },
         compProps: {
           clearable: true,
+          // 匹配第一个默认选中
+          defaultValueItem: (item) => true,
           props: {
             value: 'name'
           },

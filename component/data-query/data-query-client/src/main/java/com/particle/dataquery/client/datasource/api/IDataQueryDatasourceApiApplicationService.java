@@ -43,6 +43,7 @@ public interface IDataQueryDatasourceApiApplicationService extends IBaseApplicat
 	 * @return
 	 */
 	SingleResponse<String> deleteCache(IdCommand deleteCommand);
+	SingleResponse<String> refreshCache(IdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

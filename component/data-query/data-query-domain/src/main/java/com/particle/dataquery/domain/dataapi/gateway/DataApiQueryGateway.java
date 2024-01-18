@@ -46,4 +46,5 @@ public interface DataApiQueryGateway extends IGateway {
 	 * @return
 	 */
 	boolean deleteCache(DataQueryDatasourceApiId dataQueryDatasourceApiId);
+	boolean refreshCache(DataQueryDatasourceApiId dataQueryDatasourceApiId);
 }

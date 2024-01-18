@@ -3,7 +3,7 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
+import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi,refreshCache as DataQueryDataApiRefreshCacheApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
 
 
@@ -90,8 +90,16 @@ const getTableRowButtons = ({row, column, $index}) => {
   let idData = {id: row.id}
   let tableRowButtons: Array<any> = [
     {
+      txt: '接口测试',
+      text: true,
+      permission: 'admin:web:dataQueryDataApi:test',
+      // 跳转到编辑
+      route: {path: '/admin/DataQueryDataApiManageTest',query: idData}
+    },
+    {
       txt: '编辑',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataQueryDataApi:update',
       // 跳转到编辑
       route: {path: '/admin/DataQueryDataApiManageUpdate',query: idData}
@@ -99,6 +107,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataQueryDataApi:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -113,6 +122,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除缓存',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataQueryDataApi:deleteCache',
       methodConfirmText: `确定要删除 ${row.name} 缓存吗？如果部署多个实例可能要多次执行`,
       methodSuccess: (res) => '删除缓存成功 ' + res.data.data,
@@ -124,11 +134,29 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     },
     {
+      txt: '刷新缓存',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:dataQueryDataApi:refreshCache',
+      methodSuccess: (res) => '刷新缓存成功,如果部署多个实例可能要多次执行。 ' + res.data.data,
+      // 刷新缓存
+      method(){
+        return DataQueryDataApiRefreshCacheApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
       txt: '复制',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataQueryDataApi:copy',
       methodConfirmText: `确定要复制 ${row.name} 吗？`,
-      methodSuccess: '复制成功，请刷新数据后查看',
+      methodSuccess: (res) => {
+        reactiveData.form.name = res.data.data.name
+        // 复制成功后刷新一下表格
+        submitMethod()
+      },
       // 复制操作
       method(){
         return DataQueryDataApiCopyApi({id: row.id}).then(res => {
@@ -136,19 +164,14 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
-    {
-      txt: '接口测试',
-      text: true,
-      permission: 'admin:web:dataQueryDataApi:test',
-      // 跳转到编辑
-      route: {path: '/admin/DataQueryDataApiManageTest',query: idData}
-    },
+
   ]
   if('single_direct' == row.adaptTypeDictValue){
     tableRowButtons.push(
         {
           txt: '查看数据源接口',
           text: true,
+          position: 'more',
           permission: 'admin:web:dataQueryDatasourceApi:pageQuery',
           // 跳转到编辑
           route: {path: '/admin/dataQueryDatasourceApiManagePage',query: {dataQueryDatasourceApiName: row.dataQueryDatasourceApiName}}
@@ -183,7 +206,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>
