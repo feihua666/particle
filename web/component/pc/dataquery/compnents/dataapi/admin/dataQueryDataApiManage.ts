@@ -361,7 +361,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     }),
     outParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
-      tips: '接口用到的字典数据配置，可配合文档使用,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
+      tips: '接口用到的字典数据配置，可配合文档和翻译等使用,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
     }),
     pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
       tips: '用来解析分页请求和响应数据转换，仅适用于分页查询使用，主要用来提取请求的分页请求信息和返回数据的分页响应信息,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'

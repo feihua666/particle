@@ -311,7 +311,7 @@ export const dictConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''
       comp: 'PtButton',
       formItemProps: {
         label: '字典配置',
-        tips: tips || '接口用到的字典数据配置，可配合文档使用'
+        tips: tips || '接口用到的字典数据配置，可配合文档和翻译等使用'
       },
       compProps:  ({form})=>{
         return {

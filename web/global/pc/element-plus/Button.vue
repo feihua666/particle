@@ -88,6 +88,10 @@ const type = computed(() => {
 const icon = computed(() => {
   return props.icon || reactiveData.buttonStyle.icon
 })
+// 这里和 props.buttonText 重名了，但在模板是使用 buttonText 变量是这个值，也就是说这里会覆盖在模板中的值
+const buttonText = computed(() => {
+  return props.buttonText || reactiveData.buttonText
+})
 const injectPermissions = inject('permissions', [])
 
 // 是否有权限
@@ -158,7 +162,7 @@ const submit = method({props,reactiveData,emit,hasPermission,doMethod: doSubmit}
              :title="hasDisabled.disabledReason || title"
              @click="submit" >
       <el-icon v-if="loading" class="is-loading"><Loading /></el-icon>
-      <slot>{{reactiveData.buttonText}}</slot>
+      <slot>{{buttonText}}</slot>
     </el-link>
     <el-button v-else-if="view == 'button' && hasPermission.render"
                v-bind="$attrs"
@@ -168,7 +172,7 @@ const submit = method({props,reactiveData,emit,hasPermission,doMethod: doSubmit}
                :disabled="hasDisabled.disabled"
                :title="hasDisabled.disabledReason || title"
                @click="submit">
-      <slot>{{reactiveData.buttonText}}</slot>
+      <slot>{{buttonText}}</slot>
     </el-button>
 </template>
 <style scoped>

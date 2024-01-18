@@ -1,5 +1,5 @@
 <script setup name="OutParamExampleConfig" lang="ts">
-import {onMounted, reactive, ref} from 'vue'
+import {onMounted, reactive, ref,nextTick,watch} from 'vue'
 
 /**
  * 示例项
@@ -17,7 +17,13 @@ interface InitJson{
 }
 
 
+const selfFormRef = ref(null)
 const tableRef = ref(null)
+
+// 用来判断是否添加，true=添加，false=修改
+const isAdd = ref(true)
+// 修改时，记录修改的位置
+const updateIndex = ref(null)
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -47,7 +53,7 @@ const reactiveData = reactive({
             { validator: (rule: any, value: any, callback: any) => {
                 if (value) {
                   let exist = reactiveData.initJson.outParamExamples.some(item => item.name == value)
-                  if (exist) {
+                  if (exist && isAdd.value) {
                     callback(new Error('示例名称已存在'))
                   }else {
                     callback()
@@ -103,22 +109,53 @@ onMounted(()=>{
 })
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '添加示例',
+  buttonText: isAdd.value ? '添加示例' : '修改示例',
 })
+// 侦听
+watch(
+    () => isAdd.value,
+    (val,valOld) => {
+      submitAttrs.value = ({
+        buttonText: val ? '添加示例' : '修改示例',
+      })
+    }
+)
+
 // 添加示例按钮
 const submitMethod = ():void => {
-  reactiveData.initJson.outParamExamples.push({
-  name: reactiveData.form.name,
-  content: reactiveData.form.content
-  })
-}
+  let data = {
+    name: reactiveData.form.name,
+    content: reactiveData.form.content
+  }
 
+  if(isAdd.value){
+    reactiveData.initJson.outParamExamples.push(data)
+  }else {
+    reactiveData.initJson.outParamExamples.splice(updateIndex.value,1,data)
+  }
+}
 // 表格操作按钮
 const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
   let tableRowButtons = [
+    {
+      txt: '修改',
+      text: true,
+      // 删除操作
+      method(){
+        let item = row
+        resetForm()
+
+        updateIndex.value = $index
+        nextTick(()=>{
+          isAdd.value = false
+          reactiveData.form.name = item.name
+          reactiveData.form.content = item.content
+        })
+      }
+    },
     {
       txt: '删除',
       text: true,
@@ -131,6 +168,13 @@ const getTableRowButtons = ({row, column, $index}) => {
   ]
   return tableRowButtons
 }
+const resetForm = ()=> {
+  // selfFormRef.value?.resetForm()
+  selfFormRef.value?.formRef.value?.resetFields()
+}
+const onResetForm = () => {
+  isAdd.value = true
+}
 // 暴露方法
 defineExpose({
   getInitJson: () => reactiveData.initJson
@@ -138,10 +182,11 @@ defineExpose({
 </script>
 <template>
   <!-- 添加表单 -->
-  <PtForm :form="reactiveData.form" class="pt-wdith-100-pc"
+  <PtForm ref="selfFormRef" :form="reactiveData.form" class="pt-wdith-100-pc"
           :method="submitMethod"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
+          :onResetForm="onResetForm"
           :layout="1"
           :comps="reactiveData.formComps">
   </PtForm>
