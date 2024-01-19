@@ -53,6 +53,14 @@
             <artifactId>global-openapi-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- 预热异常通知-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

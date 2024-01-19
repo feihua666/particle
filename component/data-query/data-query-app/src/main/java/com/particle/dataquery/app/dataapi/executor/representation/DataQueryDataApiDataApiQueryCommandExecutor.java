@@ -16,6 +16,7 @@ import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiParamType;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamTestCaseConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
+import com.particle.dataquery.domain.gateway.DataQueryNotifyGateway;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceApiDO;
@@ -50,6 +51,8 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	private DataQueryDictGateway dataQueryDictGateway;
 
 	private IDataQueryDatasourceApiService iDataQueryDatasourceApiService;
+
+	private DataQueryNotifyGateway dataQueryNotifyGateway;
 	/**
 	 * 缓存13分钟,13为质数
 	 */
@@ -97,6 +100,12 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		}
 		int current = 0;
 		int size = list.size();
+
+		dataQueryNotifyGateway.notifySystem("数据查询接口预热开始",
+				"dataquery.warmup.start",
+				"您可以通过添加配置 com.particle.dataquery.api.warm-up=false 来关闭应用启动预热",
+				StrUtil.format("需要预热的数据查询接口数量，size={}",size));
+
 		// 遍历接口
 		for (DataQueryDataApiDO dataQueryDataApiDO : list) {
 			log.warn("dataquery api warmUp process,current url={},{}/{}",dataQueryDataApiDO.getUrl(),++current,size);
@@ -118,7 +127,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 			}
 			// 入参类型为空，代表无入参
 			if (inParamTypeDictId == null) {
-				warmUp(dataQueryDataApiDO.getUrl(), null);
+				doSingleWarmUp(dataQueryDataApiDO.getUrl(), null);
 				continue;
 			}
 
@@ -141,8 +150,17 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 				DataQueryDatasourceApiInParamTestCaseConfig fromJsonStr = DataQueryDatasourceApiInParamTestCaseConfig.createFromJsonStr(inParamTestCaseDataConfigJson);
 				List<DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem> inParamTestCases = fromJsonStr.getInParamTestCases();
 				for (DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem inParamTestCase : inParamTestCases) {
-					Object object = inParamTestCase.contentToObj(dataQueryDatasourceApiParamType);
-					warmUp(dataQueryDataApiDO.getUrl(), object);
+					Object object = null;
+					try {
+						object = inParamTestCase.contentToObj(dataQueryDatasourceApiParamType);
+					} catch (Exception e) {
+						log.warn("dataquery api warmUp error,contentToObj,url={}",dataQueryDataApiDO.getUrl(),e);
+						dataQueryNotifyGateway.notifySystem("数据查询接口预热异常",
+								"dataquery.warmup.contentToObj",
+								"您可以通过添加配置 com.particle.dataquery.api.warm-up=false 来关闭应用启动预热",
+								StrUtil.format("testCase={},url={}", inParamTestCase.getName(), dataQueryDataApiDO.getUrl()));
+					}
+					doSingleWarmUp(dataQueryDataApiDO.getUrl(), object);
 				}
 
 			}else {
@@ -154,6 +172,11 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 
 		long end = System.currentTimeMillis();
 		log.info("dataquery api warmUp end,duration={}ms",end - start);
+
+		dataQueryNotifyGateway.notifySystem("数据查询接口预热完成",
+				"dataquery.warmup.finished",
+				"您可以通过添加配置 com.particle.dataquery.api.warm-up=false 来关闭应用启动预热",
+				StrUtil.format("duration={}ms",end - start));
 		return Response.buildSuccess();
 	}
 
@@ -189,7 +212,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @param url
 	 * @param object
 	 */
-	private void warmUp(String url, Object object) {
+	private void doSingleWarmUp(String url, Object object) {
 		DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();
 		dataQueryDataApiQueryCommand.setParam(object);
 		dataQueryDataApiQueryCommand.setUrl(url);
@@ -252,5 +275,10 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	@Autowired
 	public void setiDataQueryDatasourceApiService(IDataQueryDatasourceApiService iDataQueryDatasourceApiService) {
 		this.iDataQueryDatasourceApiService = iDataQueryDatasourceApiService;
+	}
+
+	@Autowired
+	public void setDataQueryNotifyGateway(DataQueryNotifyGateway dataQueryNotifyGateway) {
+		this.dataQueryNotifyGateway = dataQueryNotifyGateway;
 	}
 }

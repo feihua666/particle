@@ -5,12 +5,15 @@ import com.google.common.collect.Sets;
 import com.particle.dataquery.adapter.dataapi.api.DataQueryDataApiController;
 import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl;
 import com.particle.dataquery.infrastructure.datasource.gateway.impl.DatasourceApiQueryGatewayHelper;
+import com.particle.dataquery.infrastructure.gateway.impl.DataQueryDoNotifyServiceImpl;
+import com.particle.dataquery.infrastructure.gateway.impl.IDataQueryDoNotifyService;
 import com.particle.dataquery.warmup.ApplicationStartDataQueryDataApiWarmUpListener;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.executor.ExecutorInfrastructureListener;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.HttpClientInfrastructureListener;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.BigDatasourceHttpJoddClientImpl;
 import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
+import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.openapi.api.GlobalOpenapiUrlPatternConfigure;
 import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
@@ -99,6 +102,16 @@ public class DataqueryAutoConfiguration {
         @Bean
         public OnApplicationRunnerListener applicationStartDataQueryDataApiWarmUpListener(){
             return new ApplicationStartDataQueryDataApiWarmUpListener();
+        }
+    }
+
+    @Configuration
+    @ConditionalOnClass(name = ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)
+    public static class NotifyConfiguration{
+
+        @Bean
+        public IDataQueryDoNotifyService dataQueryDoNotifyService(){
+            return new DataQueryDoNotifyServiceImpl();
         }
     }
 }
