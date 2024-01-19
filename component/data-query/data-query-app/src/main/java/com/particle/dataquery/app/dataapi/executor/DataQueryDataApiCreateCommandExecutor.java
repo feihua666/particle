@@ -49,6 +49,7 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 	 */
 	public SingleResponse<DataQueryDataApiVO> execute(@Valid DataQueryDataApiCreateCommand dataQueryDataApiCreateCommand) {
 		DataQueryDataApi dataQueryDataApi = createByDataQueryDataApiCreateCommand(dataQueryDataApiCreateCommand);
+		dataQueryDataApi.initForAdd();
 		dataQueryDataApi.setAddControl(dataQueryDataApiCreateCommand);
 		// 添加参数校验
 		dataQueryDataApi.validateOnCreate();
@@ -70,6 +71,35 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 			String copySuffix = "Copy";
 			item.setUrl(item.getUrl() + copySuffix);
 			item.setName(item.getName() + copySuffix);
+
+			// 开发配置相关
+			item.setIsPublished(false);
+			item.setIsMaster(true);
+			item.setMasterId(null);
+			item.setIsTestPassed(false);
+			return item;
+		});
+		if (copy == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+		}
+		return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.dataQueryDataApiDOToDataQueryDataApiVO(copy));
+	}
+	/**
+	 * 复制一个新数据作为开发版本
+	 * @param idCommand
+	 * @return
+	 */
+	public SingleResponse<DataQueryDataApiVO> copydev(@Valid IdCommand idCommand) {
+		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(idCommand.getId(), item -> {
+			String copySuffix = "Copydev";
+			item.setUrl(item.getUrl() + copySuffix);
+			item.setName(item.getName() + copySuffix);
+
+			// 开发配置相关
+			item.setIsPublished(false);
+			item.setIsMaster(false);
+			item.setMasterId(idCommand.getId());
+			item.setIsTestPassed(false);
 			return item;
 		});
 		if (copy == null) {

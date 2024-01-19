@@ -92,6 +92,9 @@ public class DataQueryDataApiUpdateCommand extends AbstractBaseUpdateCommand {
 	@Schema(description = "是否使用远程服务")
 	private Boolean isUseRemote;
 
+	@Schema(description = "是否已发布，已发布不能修改和删除")
+	private Boolean isPublished;
+
     @Schema(description = "描述")
     private String remark;
 

@@ -3,7 +3,7 @@
  * 数据查询数据源接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDatasourceApiPageApi, remove as DataQueryDatasourceApiRemoveApi,deleteCache as DataQueryDatasourceApiRemoveCacheApi,refreshCache as DataQueryDatasourceApiRefreshCacheApi, copy as DataQueryDatasourceApiCopyApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
+import { page as DataQueryDatasourceApiPageApi, remove as DataQueryDatasourceApiRemoveApi,deleteCache as DataQueryDatasourceApiRemoveCacheApi,refreshCache as DataQueryDatasourceApiRefreshCacheApi, copy as DataQueryDatasourceApiCopyApi, copydev as DataQueryDatasourceApiCopydevApi,devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 import {pageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
 
 
@@ -68,6 +68,27 @@ const reactiveData = reactive({
       }
     },
     {
+      prop: 'isPublished',
+      label: '是否发布',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '已发布' : '未发布'
+      }
+    },
+    {
+      prop: 'isMaster',
+      label: '配置分支',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? 'master' : 'dev'
+      }
+    },
+    {
+      prop: 'isTestPassed',
+      label: '是否测试通过',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '测试通过' : '未测试通过'
+      }
+    },
+    {
       prop: 'remark',
       label: '描述',
     },
@@ -109,6 +130,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      disabled: row.isPublished,
+      disabledReason: row.isPublished ? '已发布不能编辑，可以通过复制dev来修改提交': undefined,
       permission: 'admin:web:dataQueryDatasourceApi:update',
       position: 'more',
       // 跳转到编辑
@@ -117,6 +140,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      disabled: row.isPublished,
+      disabledReason: row.isPublished ? '已发布不能删除': undefined,
       position: 'more',
       permission: 'admin:web:dataQueryDatasourceApi:delete',
       methodConfirmText: `可能存在数据查询引用（包括直连引用或通过编码脚本调用）请确保安全，确定要删除 ${row.name} 吗？`,
@@ -159,6 +184,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '复制',
       text: true,
+      disabled: !row.isMaster,
+      disabledReason: !row.isMaster ? '仅支持master复制': undefined,
       position: 'more',
       permission: 'admin:web:dataQueryDatasourceApi:copy',
       methodConfirmText: `确定要复制 ${row.name} 吗？`,
@@ -174,9 +201,52 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
+    {
+      txt: '复制dev',
+      text: true,
+      disabled: !row.isMaster,
+      disabledReason: !row.isMaster ? '仅支持master复制': undefined,
+      position: 'more',
+      permission: 'admin:web:dataQueryDatasourceApi:copydev',
+      methodConfirmText: `确定要复制 ${row.name} 吗？复制后可以修改并提交到主分支`,
+      methodSuccess: (res) => {
+        reactiveData.form.name = res.data.data.name
+        // 复制成功后刷新一下表格
+        submitMethod()
+      },
+      // 复制操作
+      method(){
+        return DataQueryDatasourceApiCopydevApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
 
   ]
-  return tableRowButtons
+  if (!row.isMaster) {
+    tableRowButtons.push(
+        {
+          txt: '提交至master',
+          text: true,
+          disabled: row.isMaster,
+          disabledReason: row.isMaster ? '仅支持dev': undefined,
+          position: 'more',
+          permission: 'admin:web:dataQueryDatasourceApi:devMergeToMaster',
+          methodConfirmText: `确定要将 ${row.name} 提交至master吗？提交成功后本数据将会被删除！`,
+          methodSuccess: (res) => {
+            // 复制成功后刷新一下表格
+            submitMethod()
+          },
+          // 复制操作
+          method(){
+            return DataQueryDatasourceApidevMergeToMasterApi({id: row.id}).then(res => {
+              return Promise.resolve(res)
+            })
+          }
+        },
+    )
+  }
+  return tableRowButtons;
 }
 </script>
 <template>

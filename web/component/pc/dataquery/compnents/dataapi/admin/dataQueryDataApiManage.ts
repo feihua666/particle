@@ -132,8 +132,37 @@ export const pageFormItems = [
     }
   },
 ]
-export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDataApiFormItemConfigsRef}) => {
+export const useAddPageFormItems = ({form,formData,
+                                      dataQueryDatasourceApiFormItemConfigsRef,
+                                      dataQueryDataApiFormItemConfigsRef,
+                                      addPublished = false}) => {
+  let publishedItmes = []
+  if (addPublished) {
+    publishedItmes = [
+      {
+        field: {
+          name: 'isPublished',
+          value: false
+        },
+        element: {
+          comp: 'el-switch',
+          formItemProps: {
+            label: '是否发布',
+            tips: '发布后将不能修改和删除'
+          },
+          compProps: ({form}) => {
 
+            return {
+              disabled: !form.isMaster && !form.isPublished,
+              disabledReason: !form.isMaster && !form.isPublished ? 'dev不允许发布': undefined,
+              activeText: '发布',
+              inactiveText: '不发布',
+            }
+          }
+        }
+      },
+    ]
+  }
   return [
     {
       field: {
@@ -144,7 +173,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '接口地址',
           required: true,
-          tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq。开放接口前面拼接 /openapi/dq'
+          tips: '请以 / 开头,前端调用地址需要前面拼接 /api/dq。开放接口前面拼接 /openapi/dq,如要修改并提交至master请以 __dev 结尾'
         },
         compProps: {
           clearable: true,
@@ -163,7 +192,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '接口名称',
           required: true,
-          tips: '标识接口的名称'
+          tips: '标识接口的名称,如要修改并提交至master请以 __dev 结尾'
         },
         compProps: {
           clearable: true,
@@ -348,8 +377,6 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
       tips: '表示在出参类型的基础上对接口的响应示例，仅做参考，不做为逻辑处理依据,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
     }),
 
-
-
     outParamDocConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
       tips: '表示在出参类型的基础上对接口的参数字段说明,如果不填写且适配类型为 一对一直连，将使用数据源接口对应配置'
     }),
@@ -366,6 +393,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     pageableAdapterConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
       tips: '用来解析分页请求和响应数据转换，仅适用于分页查询使用，主要用来提取请求的分页请求信息和返回数据的分页响应信息,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
     }),
+    // 发布字段
+      ...publishedItmes,
     {
       field: {
         name: 'isUseRemote',

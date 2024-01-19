@@ -119,6 +119,22 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
 	@Schema(description = "是否使用远程服务")
 	private Boolean isUseRemote;
 
+	@Schema(description = "是否已发布，已发布不能修改和删除")
+	private Boolean isPublished;
+
+	@Schema(description = "是否为主版本，非主版本视为开发版本")
+	private Boolean isMaster;
+
+	@Schema(description = "主版本id")
+	private Long masterId;
+
+    @TransBy(tableName = TransTableNameConstants.component_data_query_data_api, byFieldName = "masterId", mapValueField = "name")
+    @Schema(description = "主版本名称")
+    private String masterName;
+
+	@Schema(description = "是否测试通过，测试通过才能发布")
+	private Boolean isTestPassed;
+
     @Schema(description = "描述")
     private String remark;
     

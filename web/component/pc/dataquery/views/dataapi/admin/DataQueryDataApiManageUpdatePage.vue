@@ -28,7 +28,8 @@ const reactiveData = reactive({
   // 表单
   form: {
     id: props.dataQueryDataApiId,
-    version: 1
+    version: 1,
+    isMaster: true
   },
   // 表单数据对象
   formData: {},
@@ -37,9 +38,10 @@ const reactiveData = reactive({
 const formComps = ref(
     useUpdatePageFormItems(
         {form: reactiveData.form,
-      formData: reactiveData.formData,
+          formData: reactiveData.formData,
           dataQueryDatasourceApiFormItemConfigsRef,
-      dataQueryDataApiFormItemConfigsRef})
+          dataQueryDataApiFormItemConfigsRef,
+          addPublished: true})
 )
 
 // 提交按钮属性

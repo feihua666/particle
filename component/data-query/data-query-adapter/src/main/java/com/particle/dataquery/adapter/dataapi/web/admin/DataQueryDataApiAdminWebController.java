@@ -102,7 +102,13 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	public SingleResponse<DataQueryDataApiVO> copy(@RequestBody IdCommand copyCommand){
 		return iDataQueryDataApiApplicationService.copy(copyCommand);
 	}
-
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:copydev')")
+	@Operation(summary = "数据查询数据接口复制dev")
+	@PostMapping("/copydev")
+	@OpLog(name = "数据查询数据接口复制dev",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
+	public SingleResponse<DataQueryDataApiVO> copydev(@RequestBody IdCommand copyCommand){
+		return iDataQueryDataApiApplicationService.copydev(copyCommand);
+	}
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:deleteCache')")
 	@Operation(summary = "删除数据查询数据接口缓存")
 	@DeleteMapping("/deleteCache")
@@ -117,5 +123,13 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@OpLog(name = "刷新数据查询数据接口缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
 	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.refreshCache(deleteCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:devMergeToMaster')")
+	@Operation(summary = "dev合并到master")
+	@PutMapping("/devMergeToMaster")
+	@OpLog(name = "数据查询数据接口dev合并到master",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
+	public SingleResponse<DataQueryDataApiVO> devMergeToMaster(@RequestBody IdCommand deleteCommand){
+		return iDataQueryDataApiApplicationService.devMergeToMaster(deleteCommand);
 	}
 }

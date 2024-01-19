@@ -23,6 +23,7 @@ public class DataQueryDatasourceApiUpdateCommand extends AbstractBaseUpdateComma
 
 
 
+    @SetNullWhenNull
     @Schema(description = "编码")
     private String code;
 
@@ -134,6 +135,8 @@ public class DataQueryDatasourceApiUpdateCommand extends AbstractBaseUpdateComma
 	@Schema(description = "是否支持翻译数据")
 	private Boolean isSupportTrans;
 
+	@Schema(description = "是否已发布，已发布不能修改和删除")
+	private Boolean isPublished;
 
     @Schema(description = "描述")
     private String remark;

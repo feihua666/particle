@@ -3,8 +3,11 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi,refreshCache as DataQueryDataApiRefreshCacheApi, copy as DataQueryDataApiCopyApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
+import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi,refreshCache as DataQueryDataApiRefreshCacheApi, copy as DataQueryDataApiCopyApi, copydev as DataQueryDataApiCopydevApi,devMergeToMaster as DataQueryDataApiDevMergeToMasterApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
+import {
+  devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi
+} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
 
 
 const tableRef = ref(null)
@@ -56,7 +59,27 @@ const reactiveData = reactive({
       prop: 'responseTypeDictName',
       label: '输出类型',
     },
-
+    {
+      prop: 'isPublished',
+      label: '是否发布',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '已发布' : '未发布'
+      }
+    },
+    {
+      prop: 'isMaster',
+      label: '配置分支',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? 'master' : 'dev'
+      }
+    },
+    {
+      prop: 'isTestPassed',
+      label: '是否测试通过',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '测试通过' : '未测试通过'
+      }
+    },
     {
       prop: 'remark',
       label: '描述',
@@ -99,6 +122,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
+      disabled: row.isPublished,
+      disabledReason: row.isPublished ? '已发布不能编辑，可以通过复制dev来修改提交': undefined,
       position: 'more',
       permission: 'admin:web:dataQueryDataApi:update',
       // 跳转到编辑
@@ -107,6 +132,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      disabled: row.isPublished,
+      disabledReason: row.isPublished ? '已发布不能删除': undefined,
       position: 'more',
       permission: 'admin:web:dataQueryDataApi:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
@@ -149,6 +176,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '复制',
       text: true,
+      disabled: !row.isMaster,
+      disabledReason: !row.isMaster ? '仅支持master复制': undefined,
       position: 'more',
       permission: 'admin:web:dataQueryDataApi:copy',
       methodConfirmText: `确定要复制 ${row.name} 吗？`,
@@ -164,8 +193,50 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
-
+    {
+      txt: '复制dev',
+      text: true,
+      disabled: !row.isMaster,
+      disabledReason: !row.isMaster ? '仅支持master复制': undefined,
+      position: 'more',
+      permission: 'admin:web:dataQueryDataApi:copydev',
+      methodConfirmText: `确定要复制 ${row.name} 吗？复制后可以修改并提交到主分支`,
+      methodSuccess: (res) => {
+        reactiveData.form.name = res.data.data.name
+        // 复制成功后刷新一下表格
+        submitMethod()
+      },
+      // 复制操作
+      method(){
+        return DataQueryDataApiCopydevApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
   ]
+  if (!row.isMaster) {
+    tableRowButtons.push(
+        {
+          txt: '提交至master',
+          text: true,
+          disabled: row.isMaster,
+          disabledReason: row.isMaster ? '仅支持dev': undefined,
+          position: 'more',
+          permission: 'admin:web:dataQueryDatasourceApi:devMergeToMaster',
+          methodConfirmText: `确定要将 ${row.name} 提交至master吗？提交成功后本数据将会被删除！`,
+          methodSuccess: (res) => {
+            // 复制成功后刷新一下表格
+            submitMethod()
+          },
+          // 复制操作
+          method(){
+            return DataQueryDataApiDevMergeToMasterApi({id: row.id}).then(res => {
+              return Promise.resolve(res)
+            })
+          }
+        },
+    )
+  }
   if('single_direct' == row.adaptTypeDictValue){
     tableRowButtons.push(
         {

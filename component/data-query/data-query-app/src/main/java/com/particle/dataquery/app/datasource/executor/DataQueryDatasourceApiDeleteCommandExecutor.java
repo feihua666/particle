@@ -63,19 +63,7 @@ public class DataQueryDatasourceApiDeleteCommandExecutor  extends AbstractBaseEx
 		dataApiQueryGateway.deleteCache(dataQueryDatasourceApiId);
 		return SingleResponse.of(NetUtil.getLocalhostStr());
 	}
-	/**
-	 * 删除缓存
-	 * @param deleteCommand
-	 * @return
-	 */
-	public SingleResponse<String> refreshCache(@Valid IdCommand deleteCommand) {
-		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
-		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
 
-		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		dataApiQueryGateway.refreshCache(dataQueryDatasourceApiId);
-		return SingleResponse.of(NetUtil.getLocalhostStr());
-	}
 	/**
 	 * 注入使用set方法
 	 * @param dataQueryDatasourceApiGateway

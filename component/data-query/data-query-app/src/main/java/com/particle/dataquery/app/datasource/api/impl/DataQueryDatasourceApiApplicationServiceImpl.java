@@ -71,6 +71,10 @@ public class DataQueryDatasourceApiApplicationServiceImpl extends AbstractBaseAp
 	public SingleResponse<DataQueryDatasourceApiVO> copy(IdCommand copyCommand) {
 		return dataQueryDatasourceApiCreateCommandExecutor.copy(copyCommand);
 	}
+	@Override
+	public SingleResponse<DataQueryDatasourceApiVO> copydev(IdCommand copyCommand) {
+		return dataQueryDatasourceApiCreateCommandExecutor.copydev(copyCommand);
+	}
 
 	@Override
 	public SingleResponse<DataQueryDatasourceApiVO> delete(IdCommand deleteCommand) {
@@ -82,7 +86,11 @@ public class DataQueryDatasourceApiApplicationServiceImpl extends AbstractBaseAp
 	}
 	@Override
 	public SingleResponse<String> refreshCache(IdCommand deleteCommand) {
-		return dataQueryDatasourceApiDeleteCommandExecutor.refreshCache(deleteCommand);
+		return dataQueryDatasourceApiUpdateCommandExecutor.refreshCache(deleteCommand);
+	}
+	@Override
+	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(IdCommand deleteCommand) {
+		return dataQueryDatasourceApiUpdateCommandExecutor.devMergeToMaster(deleteCommand);
 	}
 
 	@Override

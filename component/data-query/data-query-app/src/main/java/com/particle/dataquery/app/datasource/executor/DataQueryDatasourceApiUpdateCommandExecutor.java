@@ -1,14 +1,18 @@
 package com.particle.dataquery.app.datasource.executor;
 
+import cn.hutool.core.net.NetUtil;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
+import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApiId;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceApiGateway;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -31,14 +35,34 @@ import javax.validation.Valid;
 public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private DataQueryDatasourceApiGateway dataQueryDatasourceApiGateway;
-
+	private DataApiQueryGateway dataApiQueryGateway;
 	/**
 	 * 执行 数据查询数据源接口 更新指令
 	 * @param dataQueryDatasourceApiUpdateCommand
 	 * @return
 	 */
 	public SingleResponse<DataQueryDatasourceApiVO> execute(@Valid DataQueryDatasourceApiUpdateCommand dataQueryDatasourceApiUpdateCommand) {
+
+		boolean changeTestPassedToFalse = true;
+
+		// 如果由未发布改为发布，必须测试通过
+		if (dataQueryDatasourceApiUpdateCommand.getIsPublished() != null && dataQueryDatasourceApiUpdateCommand.getIsPublished()) {
+			DataQueryDatasourceApi queryDatasourceApiDb = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDatasourceApiUpdateCommand.getId()));
+			// 以前状态是false
+			if (!queryDatasourceApiDb.getIsPublished()) {
+				Assert.isTrue(queryDatasourceApiDb.getIsTestPassed(),"测试通过后才能发布数据源接口");
+				changeTestPassedToFalse = false;
+			}
+		}
+
+
 		DataQueryDatasourceApi dataQueryDatasourceApi = createByDataQueryDatasourceApiUpdateCommand(dataQueryDatasourceApiUpdateCommand);
+
+		// 变为测试不通过
+		if (changeTestPassedToFalse) {
+			dataQueryDatasourceApi.changeTestNotPassed();
+		}
+
 		dataQueryDatasourceApi.setUpdateControl(dataQueryDatasourceApiUpdateCommand);
 		boolean save = dataQueryDatasourceApiGateway.save(dataQueryDatasourceApi);
 		if (save) {
@@ -47,6 +71,45 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
 
+	/**
+	 * 刷新缓存
+	 * @param deleteCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(@Valid IdCommand deleteCommand) {
+		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
+		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
+
+		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		dataApiQueryGateway.refreshCache(dataQueryDatasourceApiId);
+		return SingleResponse.of(NetUtil.getLocalhostStr());
+	}
+
+
+	/**
+	 * dev合并到主分支
+	 * @param deleteCommand
+	 * @return
+	 */
+	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(@Valid IdCommand deleteCommand) {
+		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
+		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
+
+		Assert.notNull(dataQueryDatasourceApi,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		Assert.isTrue(dataQueryDatasourceApi.getIsTestPassed(),"测试通过后才能提交至master");
+		Assert.notNull(dataQueryDatasourceApi.getMasterId(), "master不存在");
+
+		DataQueryDatasourceApiId dataQueryDatasourceApiIdNew = DataQueryDatasourceApiId.of(dataQueryDatasourceApi.getMasterId());
+		dataQueryDatasourceApi.changeIdTo(dataQueryDatasourceApiIdNew);
+		dataQueryDatasourceApi.devMergeToMaster(dataQueryDatasourceApi.getCode(),dataQueryDatasourceApi.getName());
+		boolean save = dataQueryDatasourceApiGateway.save(dataQueryDatasourceApi);
+		if (save) {
+			// merge完成后删除本dev数据
+			dataQueryDatasourceApiGateway.delete(dataQueryDatasourceApiId);
+			return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.toDataQueryDatasourceApiVO(dataQueryDatasourceApi));
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
 	/**
 	 * 根据数据查询数据源接口更新指令创建数据查询数据源接口模型
 	 * @param dataQueryDatasourceApiUpdateCommand
@@ -83,5 +146,9 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 	@Autowired
 	public void setDataQueryDatasourceApiGateway(DataQueryDatasourceApiGateway dataQueryDatasourceApiGateway) {
 		this.dataQueryDatasourceApiGateway = dataQueryDatasourceApiGateway;
+	}
+	@Autowired
+	public void setDataApiQueryGateway(DataApiQueryGateway dataApiQueryGateway) {
+		this.dataApiQueryGateway = dataApiQueryGateway;
 	}
 }

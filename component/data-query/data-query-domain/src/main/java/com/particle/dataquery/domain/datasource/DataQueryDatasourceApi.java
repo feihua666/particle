@@ -2,6 +2,7 @@ package com.particle.dataquery.domain.datasource;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
+import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.global.domain.DomainFactory;
@@ -157,12 +158,87 @@ public class DataQueryDatasourceApi extends AggreateRoot {
 	 */
 	private Boolean isSupportTrans;
 
+	/**
+	 * 是否已发布，已发布不能修改和删除
+	 */
+	private Boolean isPublished;
+
+	/**
+	 * 是否为主版本，非主版本视为开发版本
+	 */
+	private Boolean isMaster;
+
+	/**
+	 * 主版本id
+	 */
+	private Long masterId;
+
+	/**
+	 * 是否测试通过，测试通过才能发布
+	 */
+	private Boolean isTestPassed;
+
     /**
     * 描述,注意事项等
     */
     private String remark;
 
 
+    /**
+     * 开发配置相关
+     * 在添加时使用，
+     */
+    public void initForAdd() {
+        this.isPublished = false;
+        this.isMaster = true;
+        this.masterId = null;
+        this.isTestPassed = false;
+    }
+
+    /**
+     * 修改为测试通过
+     */
+    public void changeTestPassed() {
+        this.isTestPassed = true;
+    }
+
+    /**
+     * 修改为未测试通过
+     */
+    public void changeTestNotPassed() {
+        this.isTestPassed = false;
+    }
+
+    /**
+     * 变更id
+     * @param id
+     */
+    public void changeIdTo(DataQueryDatasourceApiId id) {
+        this.id = id;
+    }
+
+    /**
+     * dev合并到本master时，处理一些数据
+     * @param code
+     * @param name
+     */
+    public void devMergeToMaster(String code, String name) {
+        String suffix = "__dev";
+        if (StrUtil.endWith(code, suffix)) {
+            this.code = StrUtil.strip(code, null, suffix);
+        }else {
+            this.code = null;
+        }
+        if (StrUtil.endWith(name, suffix)) {
+            this.name = StrUtil.strip(name, null, suffix);
+        }else {
+            this.name = null;
+        }
+        this.isPublished = null;
+        this.isMaster = null;
+        this.masterId = null;
+        this.isTestPassed = null;
+    }
     /**
      * 在调用之前确保对应的数据源类型为 {@link DataQueryDatasourceType#datasource_jdbc}
      * @return

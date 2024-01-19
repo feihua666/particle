@@ -7,15 +7,12 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.dataquery.app.dataapi.structmapping.DataQueryDataApiAppStructMapping;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
-import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
 import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
-import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiParamType;
 import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceApiInParamTestCaseConfig;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
@@ -213,7 +210,10 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl());
 		Assert.notNull(dataQueryDataApi,"数据接口地址不存在" + dataQueryDataApiQueryCommand.getUrl());
 
-		return dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(),dataQueryDataApiQueryCommand.getQueryString());
+		Object o = dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(), dataQueryDataApiQueryCommand.getQueryString());
+		dataQueryDataApi.changeTestPassed();
+		dataQueryDataApiGateway.save(dataQueryDataApi);
+		return o;
 	}
 
 	/**

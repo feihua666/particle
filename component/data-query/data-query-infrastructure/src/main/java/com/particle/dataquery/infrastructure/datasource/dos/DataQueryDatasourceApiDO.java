@@ -159,6 +159,26 @@ public class DataQueryDatasourceApiDO extends BaseDO {
 	 */
 	private Boolean isSupportTrans;
 
+	/**
+	 * 是否已发布，已发布不能修改和删除
+	 */
+	private Boolean isPublished;
+
+	/**
+	 * 是否为主版本，非主版本视为开发版本
+	 */
+	private Boolean isMaster;
+
+	/**
+	 * 主版本id
+	 */
+	private Long masterId;
+
+	/**
+	 * 是否测试通过，测试通过才能发布
+	 */
+	private Boolean isTestPassed;
+
     /**
     * 描述,注意事项等
     */

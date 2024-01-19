@@ -477,6 +477,13 @@ public interface IBaseService<DO> extends IService<DO> {
                 if (setNullWhenNull != null) {
                     updateWrapper.set(columnName, null);
                 }
+            }else {
+                if (fieldValue instanceof String && StrUtil.isEmpty((String)fieldValue)) {
+                    SetNullWhenNull setNullWhenNull = AnnotationUtil.getAnnotation(field, SetNullWhenNull.class);
+                    if (setNullWhenNull != null && setNullWhenNull.includeEmpty()) {
+                        updateWrapper.set(columnName, null);
+                    }
+                }
             }
 
         }// end for

@@ -28,7 +28,8 @@ const reactiveData = reactive({
   // 表单
   form: {
     id: props.dataQueryDatasourceApiId,
-    version: 1
+    version: 1,
+    isMaster: true
   },
   // 表单数据对象
   formData: {},
@@ -40,7 +41,8 @@ const formComps = ref(
           form: reactiveData.form,
           formData: reactiveData.formData,
           dataQueryDatasourceApiFormItemConfigsRef,
-          dataQueryDatasourceApiFormItemBasicConfigsRef
+          dataQueryDatasourceApiFormItemBasicConfigsRef,
+          addPublished: true
         })
 )
 

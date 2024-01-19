@@ -15,4 +15,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface SetNullWhenNull {
+
+    /**
+     * 如果为字符串类型时，是否包括为空是设置为null
+     * @return
+     */
+    boolean includeEmpty() default true;
 }

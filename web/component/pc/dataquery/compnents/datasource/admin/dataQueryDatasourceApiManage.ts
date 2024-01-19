@@ -448,7 +448,12 @@ export const pageFormItems = [
     }
   },
 ]
-export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormItemConfigsRef,dataQueryDatasourceApiFormItemBasicConfigsRef,addSingleDirectElements = false})=>{
+export const useAddPageFormItems = ({form,formData,
+                                      dataQueryDatasourceApiFormItemConfigsRef,
+                                      dataQueryDatasourceApiFormItemBasicConfigsRef,
+                                      addSingleDirectElements = false,
+                                      addPublished = false
+})=>{
 
   let temp = []
   if(addSingleDirectElements){
@@ -489,6 +494,33 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
     ]
   }
 
+  let publishedItmes = []
+  if (addPublished) {
+    publishedItmes = [
+      {
+        field: {
+          name: 'isPublished',
+          value: false
+        },
+        element: {
+          comp: 'el-switch',
+          formItemProps: {
+            label: '是否发布',
+            tips: '发布后将不能修改和删除'
+          },
+          compProps: ({form}) => {
+            return {
+              disabled: !form.isMaster && !form.isPublished,
+              disabledReason: !form.isMaster && !form.isPublished ? 'dev不允许发布': undefined,
+              activeText: '发布',
+              inactiveText: '不发布',
+            }
+          }
+        }
+      },
+    ]
+  }
+
   return [
     {
       field: {
@@ -498,7 +530,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         comp: 'el-input',
         formItemProps: {
           label: '编码',
-          tips: '为接口定义一个编码，建议符合变量命名规划'
+          tips: '为接口定义一个编码，建议符合变量命名规划,如要修改并提交至master请以 __dev 结尾'
         },
         compProps: {
           placeholder: '编码，唯一',
@@ -515,7 +547,7 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         formItemProps: {
           label: '名称',
           required: true,
-          tips: '接口名称，任意输入，代表一个可人眼识别的字符串'
+          tips: '接口名称，任意输入，代表一个可人眼识别的字符串,如要修改并提交至master请以 __dev 结尾'
         },
         compProps: {
           clearable: true,
@@ -812,6 +844,8 @@ export const useAddPageFormItems = ({form,formData,dataQueryDatasourceApiFormIte
         }
       }
     },
+      // 发布字段
+      ...publishedItmes,
     {
       field: {
         name: 'remark',

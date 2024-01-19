@@ -29,6 +29,7 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	 * @return
 	 */
 	SingleResponse<DataQueryDataApiVO> copy(IdCommand copyCommand);
+	SingleResponse<DataQueryDataApiVO> copydev(IdCommand copyCommand);
 
 	/**
 	 * 删除领域对象
@@ -43,7 +44,20 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	 * @return
 	 */
 	SingleResponse<String> deleteCache(IdCommand deleteCommand);
+
+	/**
+	 * 更新缓存
+	 * @param deleteCommand
+	 * @return
+	 */
 	SingleResponse<String> refreshCache(IdCommand deleteCommand);
+
+	/**
+	 * dev合并到master
+	 * @param deleteCommand
+	 * @return
+	 */
+	SingleResponse<DataQueryDataApiVO> devMergeToMaster(IdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

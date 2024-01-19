@@ -134,11 +134,85 @@ public class DataQueryDataApi extends AggreateRoot {
 	 */
 	private Boolean isUseRemote;
 
+	/**
+	 * 是否已发布，已发布不能修改和删除
+	 */
+	private Boolean isPublished;
+
+	/**
+	 * 是否为主版本，非主版本视为开发版本
+	 */
+	private Boolean isMaster;
+
+	/**
+	 * 主版本id
+	 */
+	private Long masterId;
+
+	/**
+	 * 是否测试通过，测试通过才能发布
+	 */
+	private Boolean isTestPassed;
+
     /**
     * 描述,注意事项等
     */
     private String remark;
 
+    /**
+     * 开发配置相关
+     * 在添加时使用，
+     */
+    public void initForAdd() {
+        this.isPublished = false;
+        this.isMaster = true;
+        this.masterId = null;
+        changeTestNotPassed();
+    }
+
+    /**
+     * 设置为测试通过
+     */
+    public void changeTestPassed() {
+        this.isTestPassed = true;
+    }
+
+    /**
+     * 设置为未测试通过
+     */
+    public void changeTestNotPassed() {
+        this.isTestPassed = false;
+    }
+
+    /**
+     * 变更id
+     * @param id
+     */
+    public void changeIdTo(DataQueryDataApiId id) {
+        this.id = id;
+    }
+    /**
+     * dev合并到本master时，处理一些数据
+     * @param url
+     * @param name
+     */
+    public void devMergeToMaster(String url, String name) {
+        String suffix = "__dev";
+        if (StrUtil.endWith(url, suffix)) {
+            this.url = StrUtil.strip(url, null, suffix);
+        }else {
+            this.url = null;
+        }
+        if (StrUtil.endWith(name, suffix)) {
+            this.name = StrUtil.strip(name, null, suffix);
+        }else {
+            this.name = null;
+        }
+        this.isPublished = null;
+        this.isMaster = null;
+        this.masterId = null;
+        this.isTestPassed = null;
+    }
     /**
      * 调用该方法，确保 {@link DataQueryDataApi#adaptTypeDictId} 为多接口聚合类型
      * 注意：{@link DataQueryDataApiMultipleAggregationAdaptConfig.AggregationItem#dataQueryDatasourceApiId} 类型为 Long，但{@link DataQueryDataApi#adaptConfigJson}中数据为字符串

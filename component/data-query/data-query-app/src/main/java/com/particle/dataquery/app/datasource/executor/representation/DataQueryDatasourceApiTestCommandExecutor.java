@@ -39,6 +39,9 @@ public class DataQueryDatasourceApiTestCommandExecutor extends AbstractBaseQuery
 		Assert.notNull(dataQueryDatasourceApi,"接口不存在");
 		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId()));
 		Object query = datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, dataQueryDatasourceApiQueryCommand.getParam(),dataQueryDatasourceApiQueryCommand.getQueryString());
+
+		dataQueryDatasourceApi.changeTestPassed();
+		dataQueryDatasourceApiGateway.save(dataQueryDatasourceApi);
 		return query;
 	}
 

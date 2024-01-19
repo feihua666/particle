@@ -18,6 +18,20 @@ export const copy = (data: anyObj): AxiosPromise => {
     return axios.post(dataQueryDatasourceApiPrefix + '/copy',data)
 }
 /**
+ * 复制数据查询数据源接口
+ * @param data
+ */
+export const copydev = (data: anyObj): AxiosPromise => {
+    return axios.post(dataQueryDatasourceApiPrefix + '/copydev',data)
+}
+/**
+ * dev提交至master
+ * @param data
+ */
+export const devMergeToMaster = (data: anyObj): AxiosPromise => {
+    return axios.put(dataQueryDatasourceApiPrefix + '/devMergeToMaster',data)
+}
+/**
  * 删除数据查询数据源接口
  * @param data
  */
