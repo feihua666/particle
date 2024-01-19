@@ -32,6 +32,14 @@ public abstract class AggreateRoot extends DTO {
 	 */
 	private List<DomainEvent> domainEvents;
 
+
+	/**
+	 * 修改版本
+	 * @param version
+	 */
+	public void changeVersionTo(Integer version) {
+		this.version = version;
+	}
 	/**
 	 * 发布领域事件
 	 * @param event

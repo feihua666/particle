@@ -92,21 +92,27 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 	 * @return
 	 */
 	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(@Valid IdCommand deleteCommand) {
-		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
-		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
+		DataQueryDatasourceApiId devDataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
+		DataQueryDatasourceApi devDataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(devDataQueryDatasourceApiId);
 
-		Assert.notNull(dataQueryDatasourceApi,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		Assert.isTrue(dataQueryDatasourceApi.getIsTestPassed(),"测试通过后才能提交至master");
-		Assert.notNull(dataQueryDatasourceApi.getMasterId(), "master不存在");
+		Assert.notNull(devDataQueryDatasourceApi,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		Assert.isTrue(devDataQueryDatasourceApi.getIsTestPassed(),"测试通过后才能提交至master");
+		Assert.notNull(devDataQueryDatasourceApi.getMasterId(), "master不存在");
 
-		DataQueryDatasourceApiId dataQueryDatasourceApiIdNew = DataQueryDatasourceApiId.of(dataQueryDatasourceApi.getMasterId());
-		dataQueryDatasourceApi.changeIdTo(dataQueryDatasourceApiIdNew);
-		dataQueryDatasourceApi.devMergeToMaster(dataQueryDatasourceApi.getCode(),dataQueryDatasourceApi.getName());
-		boolean save = dataQueryDatasourceApiGateway.save(dataQueryDatasourceApi);
+		DataQueryDatasourceApiId masterDataQueryDatasourceApiIdNew = DataQueryDatasourceApiId.of(devDataQueryDatasourceApi.getMasterId());
+		devDataQueryDatasourceApi.changeIdTo(masterDataQueryDatasourceApiIdNew);
+		devDataQueryDatasourceApi.devMergeToMaster(devDataQueryDatasourceApi.getCode(),devDataQueryDatasourceApi.getName());
+
+
+		// 获取数据版本以更新
+		DataQueryDatasourceApi masterQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(masterDataQueryDatasourceApiIdNew);
+		devDataQueryDatasourceApi.changeVersionTo(masterQueryDatasourceApi.getVersion());
+
+		boolean save = dataQueryDatasourceApiGateway.save(devDataQueryDatasourceApi);
 		if (save) {
 			// merge完成后删除本dev数据
-			dataQueryDatasourceApiGateway.delete(dataQueryDatasourceApiId);
-			return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.toDataQueryDatasourceApiVO(dataQueryDatasourceApi));
+			dataQueryDatasourceApiGateway.delete(devDataQueryDatasourceApiId);
+			return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.toDataQueryDatasourceApiVO(devDataQueryDatasourceApi));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}

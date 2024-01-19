@@ -71,21 +71,25 @@ public class DataQueryDataApiUpdateCommandExecutor  extends AbstractBaseExecutor
 	 * @return
 	 */
 	public SingleResponse<DataQueryDataApiVO> devMergeToMaster(@Valid IdCommand deleteCommand) {
-		DataQueryDataApiId dataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
-		DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(dataQueryDataApiId);
-		Assert.notNull(dataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		Assert.isTrue(dataQueryDataApi.getIsTestPassed(),"测试通过后才能提交至master");
-		Assert.notNull(dataQueryDataApi.getMasterId(), "master不存在");
+		DataQueryDataApiId devDataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
+		DataQueryDataApi devDataQueryDataApi = dataQueryDataApiGateway.getById(devDataQueryDataApiId);
+		Assert.notNull(devDataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		Assert.isTrue(devDataQueryDataApi.getIsTestPassed(),"测试通过后才能提交至master");
+		Assert.notNull(devDataQueryDataApi.getMasterId(), "master不存在");
 
-		DataQueryDataApiId dataQueryDataApiIdNew = DataQueryDataApiId.of(dataQueryDataApi.getMasterId());
-		dataQueryDataApi.changeIdTo(dataQueryDataApiIdNew);
-		dataQueryDataApi.devMergeToMaster(dataQueryDataApi.getUrl(),dataQueryDataApi.getName());
+		DataQueryDataApiId masterDataQueryDataApiIdNew = DataQueryDataApiId.of(devDataQueryDataApi.getMasterId());
+		devDataQueryDataApi.changeIdTo(masterDataQueryDataApiIdNew);
+		devDataQueryDataApi.devMergeToMaster(devDataQueryDataApi.getUrl(),devDataQueryDataApi.getName());
 
-		boolean save = dataQueryDataApiGateway.save(dataQueryDataApi);
+		// 设置数据版本，以更新
+		DataQueryDataApi masterDataQueryDataApi = dataQueryDataApiGateway.getById(masterDataQueryDataApiIdNew);
+		devDataQueryDataApi.changeVersionTo(masterDataQueryDataApi.getVersion());
+
+		boolean save = dataQueryDataApiGateway.save(devDataQueryDataApi);
 		if (save) {
 			// merge完成后删除本dev数据
-			dataQueryDataApiGateway.delete(dataQueryDataApiId);
-			return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.toDataQueryDataApiVO(dataQueryDataApi));
+			dataQueryDataApiGateway.delete(devDataQueryDataApiId);
+			return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.toDataQueryDataApiVO(devDataQueryDataApi));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
