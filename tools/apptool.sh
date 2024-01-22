@@ -10,22 +10,22 @@
 # java home
 JAVA_HOME=$JAVA_HOME
 # 自定义 java home
-CUSTOM_JAVA_HOME=""
+CUSTOM_JAVA_HOME=
 
 # 应用名称
-APP_NAME=wwd-server-1.0.0-SNAPSHOT.jar
+APP_NAME=particle-demo-start-2.1.1-beta-SNAPSHOT.jar
 # 应用所在目录
-APP_HOME=/Users/yw/fh/git-source/scatter/modules/wwd/wwd-server/target
+APP_HOME=$(pwd)
 # 应用全路径
-APP_PATH=$APP_HOME/APP_NAME
+APP_PATH=$APP_HOME/$APP_NAME
 
 # 日志
 #日志文件名称
-APP_LOG_NAME=
+APP_LOG_NAME=particle-demo-start/particle-demo-start.log
 # log所在目录
-APP_LOG_HOME=
+APP_LOG_HOME=$APP_HOME/logs
 # 日志全路径
-APP_LOG_PATH=
+APP_LOG_PATH=$APP_LOG_HOME/$APP_LOG_NAME
 
 
 #应用参数定义
@@ -35,7 +35,7 @@ APP_PARAMS=""
 ERROR_MSG="参数错误，当前只支持一个参数，请参照以下参数传递： [start|stop|restart|status|info]"
 
 # java 启动参数
-JAVA_OPTS="-server -Dfile.encoding=UTF-8 -Xms100m -Xmx100m -XX:MaxPermSize=256m"
+JAVA_OPTS="-server -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8  -Xms5g -Xmx5g -Xmn3g -Xss256k -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=500m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSScavengeBeforeRemark -XX:+ExplicitGCInvokesConcurrent -XX:+CMSClassUnloadingEnabled -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=5 -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+UseCompressedOops -XX:StringTableSize=100013"
 
 # 10 秒后判断应用是否停止, 否则 kill -9
 SHUTDOWN_WAIT=10
@@ -88,9 +88,10 @@ user_exists(){
 # tail -f 日志
 taillog(){
   if [ -n "$APP_LOG_PATH" ];then
-    echo "3s后自动打开tail日志"
-    sleep 3
+    echo "5s后自动打开tail日志"
+    sleep 5
     if test -f "$APP_LOG_PATH"; then
+        echo "$APP_LOG_PATH"
         tail -f $APP_LOG_PATH
     else
       echo -e "日志文件不存在：$APP_LOG_PATH"
@@ -108,6 +109,7 @@ status(){
 }
 # 真正启动
 dorun(){
+  echo "$JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_PATH $APP_PARAMS >/dev/null 2>&1 &"
 	nohup  $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_PATH $APP_PARAMS >/dev/null 2>&1 &
 	taillog
 }
