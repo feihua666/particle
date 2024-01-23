@@ -77,13 +77,17 @@ const reactiveData = reactive({
                 return Promise.resolve(r)
               }else {
                 // 如果一对一直连自己配置有值，直接使用
-                if(r && r.length > 0){
-                  return Promise.resolve(r)
-                }
                 // 如果一对一直连自己配置没有值，则使用数据源接口配置
                 return dataQueryDatasourceApiDetailApi({id: detail.dataQueryDatasourceApiId}).then(response =>{
-                  let detail = response.data.data
-                  let r = handleTestCasesData(detail)
+                  let detailSingle_direct = response.data.data
+                  // 如果自己配置了就使用自己的
+                  if(detail.inParamTypeDictValue){
+                    detailSingle_direct.inParamTypeDictValue = detail.inParamTypeDictValue
+                  }
+                  if(detail.inParamTestCaseDataConfigJson){
+                    detailSingle_direct.inParamTestCaseDataConfigJson = detail.inParamTestCaseDataConfigJson
+                  }
+                  let r = handleTestCasesData(detailSingle_direct)
                   return Promise.resolve(r)
                 })
               }
