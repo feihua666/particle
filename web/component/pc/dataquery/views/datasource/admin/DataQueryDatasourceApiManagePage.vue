@@ -221,6 +221,14 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
+    {
+      txt: '查看',
+      text: true,
+      permission: 'admin:web:dataQueryDatasourceApi:detail',
+      position: 'more',
+      // 跳转到查看
+      route: {path: '/admin/DataQueryDatasourceApiManageView',query: idData}
+    },
 
   ]
   if (!row.isMaster) {

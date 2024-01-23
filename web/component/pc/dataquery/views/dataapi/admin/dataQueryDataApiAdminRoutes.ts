@@ -49,6 +49,21 @@ const dataQueryDataApiAdminRoutes = [
                 }
             },
             {
+                path: '/admin/dataQueryDataApiManageView',
+                component: () => import('./DataQueryDataApiManageViewPage.vue'),
+                props: route => ({ dataQueryDataApiId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminDataQueryDataApiManageView',
+                    name: '数据查询数据接口查看',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminDataQueryDataApiManageView',
+                        size: '60%'
+                    },
+                }
+            },
+            {
                 path: '/admin/dataQueryDataApiManageTest',
                 component: () => import('./DataQueryDataApiManageTestPage.vue'),
                 props: route => ({ dataQueryDataApiId: route.query.id }),

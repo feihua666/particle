@@ -39,12 +39,23 @@ import java.util.Map;
  */
 @Slf4j
 public class HttpClientTool{
-    // 建立链接超时时间,毫秒
+    /**
+     * 建立链接超时时间,毫秒
+     * 连接建立时间，三次握手完成时间
+     */
     public static final int CONN_TIMEOUT = 5000;
     // 响应超时时间,毫秒
-    public static final int READ_TIMEOUT = 5000;
-    // 响应超时时间,毫秒
+    /**
+     * 从池中获取链接超时时间,毫秒
+     * 和网络无关，这是httpClient池化技术的超时时间
+     */
+    public static final int CONN_REQUEST_TIMEOUT = 5000;
+    /**
+     * 读取超时时间，毫秒
+     * 数据传输过程中数据包之间间隔的最大时间也可以理解为READ_TIMEOUT
+     */
     public static final int SOCKET_TIMEOUT = 5000;
+
     public static final String CHARSET = "UTF-8";
     private static volatile HttpClient CLIENT = null;
     // cookie默认存储
@@ -58,7 +69,10 @@ public class HttpClientTool{
                     PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
                     cm.setMaxTotal(128);
                     cm.setDefaultMaxPerRoute(128);
-                    RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONN_TIMEOUT).setConnectionRequestTimeout(READ_TIMEOUT).setSocketTimeout(SOCKET_TIMEOUT).build();
+                    RequestConfig requestConfig = RequestConfig.custom()
+                            .setConnectTimeout(CONN_TIMEOUT)
+                            .setConnectionRequestTimeout(CONN_REQUEST_TIMEOUT)
+                            .setSocketTimeout(SOCKET_TIMEOUT).build();
                     CLIENT = HttpClients.custom()
                             .setConnectionManager(cm)
                             .setDefaultRequestConfig(requestConfig)
@@ -232,18 +246,41 @@ public class HttpClientTool{
                         String authHeader = "Basic " + new String(encodedAuth);
                         request.addHeader("Proxy-Authorization", authHeader);
                     }
+                    RequestConfig.Builder custom = null;
                     if (requestConfig == null) {
-                        requestConfig = RequestConfig.custom()
-                                .setProxy(proxy)
-                                .build();
+                        custom = RequestConfig.custom();
                     }else {
-                        requestConfig = RequestConfig.copy(requestConfig).setProxy(proxy).build();
+                        custom = RequestConfig.copy(requestConfig);
                     }
-
+                    custom.setProxy(proxy);
+                    requestConfig = custom.build();
                     request.setConfig(requestConfig);
                 }
 
             }
+            // 超时时间处理
+
+            if (extConfig.getConnTimeout() != null || extConfig.getConnRequestTimeout() != null || extConfig.getSocketTimeout() != null) {
+                RequestConfig.Builder custom = null;
+                if (requestConfig == null) {
+                    custom = RequestConfig.custom();
+                }else {
+                    custom = RequestConfig.copy(requestConfig);
+                }
+                if (extConfig.getConnTimeout() != null) {
+                    custom.setConnectTimeout(extConfig.getConnTimeout());
+                }
+                if (extConfig.getConnRequestTimeout() != null) {
+                    custom.setConnectionRequestTimeout(extConfig.getConnRequestTimeout());
+                }
+                if (extConfig.getSocketTimeout() != null) {
+                    custom.setSocketTimeout(extConfig.getSocketTimeout());
+                }
+                requestConfig = custom.build();
+                request.setConfig(requestConfig);
+            }
+
+
             // cookie 处理
             if (extConfig.getCookie() != null) {
                 request.addHeader("Cookie", extConfig.getCookie());
@@ -300,6 +337,20 @@ public class HttpClientTool{
          * 请求头
          */
         private List<Header> headers;
+
+        /**
+         * 连接超时时间
+         */
+        private Integer connTimeout;
+        /**
+         * 读取超时时间
+         */
+        private Integer connRequestTimeout;
+        /**
+         * 读取超时时间
+         */
+        private Integer socketTimeout;
+
 
         public ExtConfig withProxy(String proxyId, Integer proxyPort) {
             this.proxy = HttpHost.create(proxyId + ":" + proxyPort);

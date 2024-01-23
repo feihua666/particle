@@ -213,6 +213,14 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
+    {
+      txt: '查看',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:dataQueryDataApi:view',
+      // 跳转到查看
+      route: {path: '/admin/DataQueryDataApiManageView',query: idData}
+    },
   ]
   if (!row.isMaster) {
     tableRowButtons.push(
