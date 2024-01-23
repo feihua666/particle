@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.particle</groupId>
         <artifactId>global</artifactId>
-        <version>3.0.0-beta</version>
+        <version>3.0.1-beta-SNAPSHOT</version>
     </parent>
 
     <artifactId>global-neo4j-boot-starter</artifactId>
