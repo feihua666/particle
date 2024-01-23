@@ -5,7 +5,7 @@
     <parent>
         <artifactId>op-log</artifactId>
         <groupId>com.particle</groupId>
-        <version>2.1.1-beta-SNAPSHOT</version>
+        <version>3.0.0-beta</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

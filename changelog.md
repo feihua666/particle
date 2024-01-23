@@ -1,6 +1,21 @@
 
 # Changelog
 
+# 3.0.0-beta(2024-01-23)
+### 新特性
+
+* 【global-security-boot-starter】添加LoginTool工具类，以支持在租户区分时的差异
+* 【global-big-datasource-boot-starter】大数据源添加接口是否使用缓存，默认不使用，入参与出参扩展配置，neo4j支持、es支持，jdbc分页查询时是否查询总数，可配置、响应结果数据翻译支持
+* 【global-neo4j-boot-starter】图数据库基础规范类组件，以支持对图数据库neo4j的访问
+* 【data-query】支持开发模式，以防止误操作删除等带来问题，支持了刷新缓存功能，数据查询接口预热支持，修改大部分weekCache为timeCache这些缓存一般必须存在，提升性能
+* 【global-elasticsearch-boot-starter】es模块对接
+### bug修复
+
+* 【global-openapi-boot-starter】缓存key问题修改，否则导致数据错乱
+### 其它
+* 无
+
+
 # 2.1.0-beta(2023-10-31)
 ### 新特性
 
