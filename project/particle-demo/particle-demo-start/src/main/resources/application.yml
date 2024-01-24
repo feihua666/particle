@@ -51,6 +51,7 @@ spring:
         - classpath:db/schema.global_oauth2_authorization_consent.sql
         - classpath:db/schema.global_oauth2_registered_client.sql
         - classpath:db/schema.global_spring_session.sql
+        - classpath:db/schema.global_concurrency_shedlock.sql
         - classpath:db/schema.open-platform.sql
         - classpath:db/schema.report.sql
         - classpath:db/schema.usage-count.sql
