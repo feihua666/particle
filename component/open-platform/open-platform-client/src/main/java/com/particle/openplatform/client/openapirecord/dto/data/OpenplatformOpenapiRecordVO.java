@@ -58,6 +58,10 @@ public class OpenplatformOpenapiRecordVO extends AbstractBaseIdVO {
     
     @Schema(description = "请求时间戳")
     private Long requestTimestamp;
+
+    @TransBy(type = com.particle.global.light.share.trans.TransConstants.TRANS_DATETIME,byFieldName = "requestTimestamp")
+    @Schema(description = "请求时间戳日期字符串")
+    private String requestTimestampDateTimeStr;
     
     @Schema(description = "请求流水号")
     private String requestNonce;
@@ -67,6 +71,9 @@ public class OpenplatformOpenapiRecordVO extends AbstractBaseIdVO {
     
     @Schema(description = "请求参数md5")
     private String requestParameterMd5;
+
+	@Schema(description = "开始处理时间")
+	private LocalDateTime requestHandleAt;
     
     @Schema(description = "响应结果md5")
     private String responseResultMd5;
@@ -91,7 +98,8 @@ public class OpenplatformOpenapiRecordVO extends AbstractBaseIdVO {
 
 	@Schema(description = "描述")
 	private String remark;
-    
 
+    @Schema(description = "创建时间")
+    private LocalDateTime createAt;
 
 }

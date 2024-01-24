@@ -109,6 +109,9 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		openplatformOpenapiRecordDO.setRequestNonce(contentRecord.getRequestNonce());
 		openplatformOpenapiRecordDO.setRequestSignature(contentRecord.getRequestSignature());
 		openplatformOpenapiRecordDO.setRequestParameterMd5(contentRecord.getRequestParameterMd5());
+
+		openplatformOpenapiRecordDO.setRequestHandleAt(contentRecord.getRequestStartAt());
+
 		openplatformOpenapiRecordDO.setResponseResultMd5(contentRecord.getResponseResultMd5());
 		openplatformOpenapiRecordDO.setTraceId(contentRecord.getTraceId());
 		openplatformOpenapiRecordDO.setHandleDuration(contentRecord.getHandleDuration());
@@ -141,6 +144,9 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 				openplatformProviderRecordDO.setCustomerId(ownerCustomerId);
 				openplatformProviderRecordDO.setRequestUrl(providerRecord.getRequestUrl());
 				openplatformProviderRecordDO.setRequestParameterMd5(providerRecord.getRequestParameterMd5());
+
+				openplatformProviderRecordDO.setRequestAt(providerRecord.getRequestStartAt());
+
 				openplatformProviderRecordDO.setResponseResultMd5(providerRecord.getResponseResultMd5());
 				openplatformProviderRecordDO.setTraceId(providerRecord.getTraceId());
 				openplatformProviderRecordDO.setHandleDuration(providerRecord.getHandleDuration());

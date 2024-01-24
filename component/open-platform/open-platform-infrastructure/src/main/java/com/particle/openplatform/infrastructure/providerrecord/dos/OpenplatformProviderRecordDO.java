@@ -5,6 +5,8 @@ import com.particle.global.mybatis.plus.dto.BaseDO;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 /**
  * <p>
@@ -37,6 +39,11 @@ public class OpenplatformProviderRecordDO extends BaseDO {
     * 请求参数md5
     */
     private String requestParameterMd5;
+
+	/**
+	 * 开始请求时间
+	 */
+	private LocalDateTime requestAt;
 
     /**
     * 响应结果md5

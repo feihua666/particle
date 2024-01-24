@@ -61,6 +61,10 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 		if (StrUtil.isNotEmpty(openplatformOpenapiRecordDomainEventContentRecordParam.getRequestParam())) {
 			openplatformOpenapiRecordDomainEventContentRecord.setRequestParameterMd5(DigestUtil.md5Hex(openplatformOpenapiRecordDomainEventContentRecordParam.getRequestParam()));
 		}
+		openplatformOpenapiRecordDomainEventContentRecord.setRequestStartAt(openapiContext.getRequestStartAt());
+		openplatformOpenapiRecordDomainEventContentRecord.setRequestEndAt(openapiContext.getRequestEndAt());
+
+
 		if (StrUtil.isNotEmpty(openplatformOpenapiRecordDomainEventContentRecordParam.getResponseResult())) {
 			openplatformOpenapiRecordDomainEventContentRecord.setResponseResultMd5(DigestUtil.md5Hex(openplatformOpenapiRecordDomainEventContentRecordParam.getResponseResult()));
 		}
@@ -90,9 +94,13 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 				if (StrUtil.isNotEmpty(openplatformRecordDomainEventContentProviderRecordParam.getRequestParam())) {
 					openplatformOpenapiRecordDomainEventContentProviderRecord.setRequestParameterMd5(DigestUtil.md5Hex(openplatformRecordDomainEventContentProviderRecordParam.getRequestParam()));
 				}
+
 				if (StrUtil.isNotEmpty(openplatformRecordDomainEventContentProviderRecordParam.getResponseResult())) {
 					openplatformOpenapiRecordDomainEventContentProviderRecord.setResponseResultMd5(DigestUtil.md5Hex(openplatformRecordDomainEventContentProviderRecordParam.getResponseResult()));
 				}
+
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setRequestStartAt(providerDTO.getRequestStartAt());
+
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setTraceId(openapiContext.getTraceId());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setHandleDuration(providerDTO.getHandleDuration());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setIsResponseHasEffectiveValue(Optional.ofNullable(providerDTO.getIsResponseHasEffectiveValue()).orElse(true));

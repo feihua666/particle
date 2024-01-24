@@ -1,5 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.BigDatasourceHttpClient;
@@ -17,6 +18,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeansException;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,8 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 
 	public static final String apiContext_root_http = "http";
 
+	public static final String apiContext_requestStartAt = "requestStartAt";
+	public static final String apiContext_requestEndAt = "requestEndAt";
 	public static final String apiContext_requestUrl = "requestUrl";
 	public static final String apiContext_headers = "headers";
 	public static final String apiContext_command = "command";
@@ -150,7 +154,8 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 			}
 		}
 
-		long start = System.currentTimeMillis();
+		LocalDateTime startLocalDateTime = LocalDateTime.now();
+		httpData.put(apiContext_requestStartAt,startLocalDateTime);
 
 		httpRequest = httpRequest
 				.queryString(queryString)
@@ -173,11 +178,28 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 			httpRequest = httpRequest.withConnectionProvider(connectionProvider);
 		}
 
-		HttpResponse httpResponse = httpRequest.send();
-		String result = httpResponse.charset("utf-8").bodyText();
-		int statusCode = httpResponse.statusCode();
-		long duration = System.currentTimeMillis() - start;
-		log.info("{} result. duration={}ms, result={}",methodLog, duration,result);
+		HttpResponse httpResponse = null;
+		String result = null;
+		Integer statusCode = null;
+		Integer handleDuration = null;
+		try {
+			httpResponse = httpRequest.send();
+		} finally {
+			if (httpResponse != null) {
+				result = httpResponse.charset("utf-8").bodyText();
+				statusCode = httpResponse.statusCode();
+			}
+			LocalDateTime endLocalDateTime = LocalDateTime.now();
+			handleDuration = (int) LocalDateTimeUtil.between(startLocalDateTime,endLocalDateTime).toMillis();
+			log.info("{} result. duration={}ms, result={}",methodLog, handleDuration,result);
+
+
+			httpData.put(apiContext_responseResult,result);
+			httpData.put(apiContext_responseStatus,statusCode);
+			httpData.put(apiContext_responseBusinessStatus,null);
+			httpData.put(apiContext_handleDuration,handleDuration);
+			httpData.put(apiContext_requestEndAt,endLocalDateTime);
+		}
 
 		/**
 		 * 添加基础设施的监听
@@ -185,14 +207,10 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		if (httpClientInfrastructureListeners != null) {
 			for (HttpClientInfrastructureListener httpClientInfrastructureListener : httpClientInfrastructureListeners) {
 				httpClientInfrastructureListener.afterResponse(url,headers, command, commandJsonStr, queryString, contentType,httpRequest.method(), result,
-						statusCode,null, ((int) duration));
+						statusCode,null, handleDuration);
 			}
 		}
 
-		httpData.put(apiContext_responseResult,result);
-		httpData.put(apiContext_responseStatus,statusCode);
-		httpData.put(apiContext_responseBusinessStatus,null);
-		httpData.put(apiContext_handleDuration,(int) duration);
 
 		return adaptResult(httpResponse.contentType(), result);
 

@@ -3,6 +3,7 @@ package com.particle.gobal.elasticsearch;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.gobal.elasticsearch.dto.basic.IElasticsearchCurrentUserResolver;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,6 +49,7 @@ public class GlobalElasticsearchAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean(value = {org.elasticsearch.client.RestHighLevelClient.class,ElasticsearchConverter.class})
     public ElasticsearchRestTemplate elasticsearchTemplate(org.elasticsearch.client.RestHighLevelClient client,
                                                     ElasticsearchConverter converter) {
         return new ElasticsearchRestTemplate(client, converter);

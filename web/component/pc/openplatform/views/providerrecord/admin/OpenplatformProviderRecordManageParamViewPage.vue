@@ -44,6 +44,7 @@ const dataMethod = () => {
           :formData="reactiveData.formData"
           labelWidth="80"
           :dataMethod="dataMethod"
+          defaultButtonsShow=""
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
           :layout="1"

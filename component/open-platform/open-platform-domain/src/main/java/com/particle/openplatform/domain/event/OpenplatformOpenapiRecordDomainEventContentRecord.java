@@ -3,6 +3,8 @@ package com.particle.openplatform.domain.event;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 请求调用记录
@@ -54,7 +56,14 @@ public class OpenplatformOpenapiRecordDomainEventContentRecord extends DTO {
 	 * 请求参数md5
 	 */
 	private String requestParameterMd5;
-
+	/**
+	 * 请求开始时间
+	 */
+	private LocalDateTime requestStartAt;
+	/**
+	 * 请求结束时间
+	 */
+	private LocalDateTime requestEndAt;
 	/**
 	 * 响应结果md5
 	 */

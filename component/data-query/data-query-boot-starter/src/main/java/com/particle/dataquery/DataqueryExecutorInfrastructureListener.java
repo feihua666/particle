@@ -8,6 +8,7 @@ import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.OpenapiCollectProviderDTO;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -46,6 +47,10 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 					Object responseResult = httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseResult);
 					Integer responseStatus = (Integer)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseStatus);
 					String responseBusinessStatus = (String)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseBusinessStatus);
+
+
+					LocalDateTime requestStartAt = (LocalDateTime)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_requestStartAt);
+					LocalDateTime requestEndAt = (LocalDateTime)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_requestEndAt);
 					Integer handleDuration = (Integer)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_handleDuration);
 
 					/**
@@ -53,7 +58,7 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 					 */
 					Long dataQueryProviderId = (Long)bigDatasourceApi.apiContext().getData(DatasourceApiQueryGatewayHelper.apiContext_dataQueryProviderId);
 
-					OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(requestUrl,
+					OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(requestStartAt,requestEndAt,requestUrl,
 							handleDuration,
 							success,
 							responseStatus,

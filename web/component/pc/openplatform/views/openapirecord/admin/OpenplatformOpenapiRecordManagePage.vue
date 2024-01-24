@@ -79,6 +79,24 @@ const reactiveData = reactive({
       label: '请求md5',
       showOverflowTooltip: true
     },
+    //   请求时间戳对应的时间格式
+    {
+      prop: 'requestTimestampDateTimeStr',
+      label: '请求时间',
+      showOverflowTooltip: true
+    },
+    //   请求时间戳对应的时间格式
+    {
+      prop: 'requestHandleAt',
+      label: '请求处理时间',
+      showOverflowTooltip: true
+    },
+    //   插入数据库时间
+    {
+      prop: 'createAt',
+      label: '创建时间',
+      showOverflowTooltip: true
+    },
     {
       prop: 'responseResultMd5',
       label: '响应md5',
@@ -159,7 +177,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   ]
   if (row.isExistProviderRecord) {
    tableRowButtons.push(    {
-     txt: '查看供应商',
+     txt: '查看供应商调用记录',
      text: true,
      permission: 'admin:web:OpenplatformProviderRecord:pageQuery',
      // 跳转到编辑

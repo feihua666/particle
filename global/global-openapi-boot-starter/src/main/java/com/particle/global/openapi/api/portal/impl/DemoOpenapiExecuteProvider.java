@@ -6,6 +6,7 @@ import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.OpenapiCollectProviderDTO;
 import com.particle.global.openapi.endpoint.command.OpenapiCommand;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class DemoOpenapiExecuteProvider implements OpenapiExecuteProvider {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("param", openapiCommand.getParam());
 		paramMap.put("queryString", openapiCommand.getQueryString());
-		OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create("/test_provider_demo_none",
+		OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(LocalDateTime.now(),LocalDateTime.now(),"/test_provider_demo_none",
 				50,
 				true,
 				200, null, paramMap, paramMap, test_provider_code,false);

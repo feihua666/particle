@@ -4,6 +4,9 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 开放平台开放接口供应商调用记录 领域模型
@@ -37,6 +40,11 @@ public class OpenplatformProviderRecord extends AggreateRoot {
     * 请求参数md5
     */
     private String requestParameterMd5;
+
+	/**
+	 * 开始请求时间
+	 */
+	private LocalDateTime requestAt;
 
     /**
     * 响应结果md5
@@ -87,7 +95,10 @@ public class OpenplatformProviderRecord extends AggreateRoot {
 	 * 描述
 	 */
 	private String remark;
-
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createAt;
 
 
     /**

@@ -45,6 +45,17 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'requestAt',
+      label: '请求时间',
+      showOverflowTooltip: true
+    },
+    //   插入数据库时间
+    {
+      prop: 'createAt',
+      label: '创建时间',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'responseResultMd5',
       label: '响应结果md5',
       showOverflowTooltip: true

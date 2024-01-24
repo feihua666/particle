@@ -1,10 +1,15 @@
 package com.particle.openplatform.client.openapirecord.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Gt;
 import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 开放平台开放接口调用记录 通用列表查询指令对象
@@ -56,6 +61,14 @@ public class OpenplatformOpenapiRecordQueryListCommand extends AbstractBaseQuery
     @Schema(description = "请求参数md5")
     private String requestParameterMd5;
 
+    @Gt("requestHandleAt")
+    @Schema(description = "开始处理时间开始")
+    private LocalDateTime requestHandleAtStart;
+
+    @Lt("requestHandleAt")
+    @Schema(description = "开始处理时间结束")
+    private LocalDateTime requestHandleAtEnd;
+
 
     @Schema(description = "响应结果md5")
     private String responseResultMd5;
@@ -65,8 +78,14 @@ public class OpenplatformOpenapiRecordQueryListCommand extends AbstractBaseQuery
     private String traceId;
 
 
-    @Schema(description = "处理时长")
-    private Integer handleDuration;
+
+    @Gt("handleDuration")
+    @Schema(description = "处理时长开始")
+    private Integer handleDurationStart;
+
+    @Lt("handleDuration")
+    @Schema(description = "处理时长结束")
+    private Integer handleDurationEnd;
 
 
     @Schema(description = "是否包含有效响应数据")

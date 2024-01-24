@@ -3,6 +3,8 @@ package com.particle.global.openapi.data;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 供应商数据收集
@@ -14,7 +16,14 @@ import lombok.Data;
 @Data
 public class OpenapiCollectProviderDTO {
 
-
+	/**
+	 * 请求开始时间
+	 */
+	private LocalDateTime requestStartAt;
+	/**
+	 * 请求结束时间
+	 */
+	private LocalDateTime requestEndAt;
 	/**
 	 * 请求地址
 	 */
@@ -67,7 +76,9 @@ public class OpenapiCollectProviderDTO {
 	 */
 	private String remark;
 
-	public static OpenapiCollectProviderDTO create(String requestUrl,
+	public static OpenapiCollectProviderDTO create(LocalDateTime requestStartAt,
+												   LocalDateTime requestEndAt,
+												   String requestUrl,
 												   Integer handleDuration,
 												   Boolean isResponseHasEffectiveValue,
 												   Integer responseHttpStatus,
@@ -78,6 +89,8 @@ public class OpenapiCollectProviderDTO {
 												   Boolean isCacheHit) {
 		OpenapiCollectProviderDTO openapiCollectProviderDTO = new OpenapiCollectProviderDTO();
 
+		openapiCollectProviderDTO.requestStartAt = requestStartAt;
+		openapiCollectProviderDTO.requestEndAt = requestEndAt;
 		openapiCollectProviderDTO.requestUrl = requestUrl;
 		openapiCollectProviderDTO.handleDuration = handleDuration;
 		openapiCollectProviderDTO.isResponseHasEffectiveValue = isResponseHasEffectiveValue;

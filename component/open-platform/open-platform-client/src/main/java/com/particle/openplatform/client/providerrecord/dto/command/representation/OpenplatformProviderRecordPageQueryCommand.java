@@ -1,7 +1,9 @@
 package com.particle.openplatform.client.providerrecord.dto.command.representation;
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
 
+import java.time.LocalDateTime;
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Gt;
+import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
@@ -33,6 +35,13 @@ public class OpenplatformProviderRecordPageQueryCommand extends AbstractBasePage
     @Schema(description = "请求参数md5")
     private String requestParameterMd5;
 
+    @Gt("requestAt")
+	@Schema(description = "开始请求时间")
+	private LocalDateTime requestAtStart;
+
+    @Lt("requestAt")
+    @Schema(description = "开始请求时间")
+    private LocalDateTime requestAtEnd;
 
     @Schema(description = "响应结果md5")
     private String responseResultMd5;
@@ -42,6 +51,13 @@ public class OpenplatformProviderRecordPageQueryCommand extends AbstractBasePage
     private String traceId;
 
 
+    @Gt("handleDuration")
+    @Schema(description = "处理时长开始")
+    private Integer handleDurationStart;
+
+    @Lt("handleDuration")
+    @Schema(description = "处理时长结束")
+    private Integer handleDurationEnd;
 
     @Schema(description = "是否包含有效响应数据")
     private Boolean isResponseHasEffectiveValue;
@@ -67,12 +83,6 @@ public class OpenplatformProviderRecordPageQueryCommand extends AbstractBasePage
 
 	@Schema(description = "描述")
 	private String remark;
-
-
-
-
-
-
 
 
 
