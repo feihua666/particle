@@ -50,6 +50,7 @@ spring:
         - classpath:db/schema.global_oauth2_authorization.sql
         - classpath:db/schema.global_oauth2_authorization_consent.sql
         - classpath:db/schema.global_oauth2_registered_client.sql
+        - classpath:db/schema.global_spring_session.sql
         - classpath:db/schema.open-platform.sql
         - classpath:db/schema.report.sql
         - classpath:db/schema.usage-count.sql
@@ -107,6 +108,9 @@ spring:
     function:
       # 实现了 java.util.function.Consumer 接口的bean名称消费类，要与bindings的消费或生产者名称前缀一致（如：templatingNoticeMessageConsumer-in-0 的前缀应该是 templatingNoticeMessageConsumer）
       definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer
+  session:
+    # 使用jdbc存储session，如果单机部署可以使用内存存储，改为 none
+    store-type: jdbc
 server:
   servlet:
     encoding:

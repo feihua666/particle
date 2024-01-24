@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.session.JdbcSessionProperties;
 import org.springframework.boot.autoconfigure.session.SessionProperties;
+import org.springframework.boot.autoconfigure.session.StoreType;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,6 +88,7 @@ public class SessionRepositoryConfiguration {
 	}
 	/**
 	 * 使用 jdbc存储session时生效
+	 * {@link StoreType}
 	 */
 	@Configuration
 	//@EnableJdbcHttpSession

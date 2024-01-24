@@ -204,6 +204,17 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
+
+        <!-- 使用数据库分布式锁 一般用于定时任务，高并发中可以使用redis，如果不使用数据库分页式锁，可以删除该依赖即可-->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+        </dependency>
+        <!-- 使用jdbc存储session 这样可以使用多实例部署，如果不使用jdbc session可以删除该依赖，并修改配置 spring.session.store-type=none 或不配置-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
