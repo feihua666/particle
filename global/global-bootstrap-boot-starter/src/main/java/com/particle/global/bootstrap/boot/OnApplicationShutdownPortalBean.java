@@ -24,11 +24,24 @@ public class OnApplicationShutdownPortalBean implements DisposableBean {
 	List<OnApplicationShutdownListener> onApplicationShutdownListenerList;
 
 	/**
+	 * 使用该接口在bean被销毁时（应用正常关闭）会被调用多次，这里记录，只调用一次
+	 */
+	private volatile boolean hasCalled = false;
+
+	/**
 	 * 应用关闭调用
 	 * @throws Exception
 	 */
 	@Override
 	public void destroy() throws Exception {
+		synchronized (this) {
+			if (hasCalled) {
+				return;
+			}
+			if (!hasCalled) {
+				hasCalled = true;
+			}
+		}
 		log.debug("app shutdown，listener count={}", Optional.ofNullable(onApplicationShutdownListenerList).map(List::size).orElse(0));
 		if (onApplicationShutdownListenerList != null) {
 			for (OnApplicationShutdownListener onApplicationShutdownListener : onApplicationShutdownListenerList) {
