@@ -78,7 +78,8 @@ const reactiveData = reactive({
         comp: 'el-input',
         formItemProps: {
           label: '用例内容',
-          required: true
+          required: true,
+          tips: '如果入参类型为查询字符串，示例：name=xxxx&code=xxxxx'
         },
         compProps: {
           type: 'textarea',

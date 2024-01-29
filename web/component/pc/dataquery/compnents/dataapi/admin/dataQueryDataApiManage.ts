@@ -384,7 +384,7 @@ export const useAddPageFormItems = ({form,formData,
       tips: '注意数据查询接口配置是在数据源接口返回结果上进行的配置,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
     }),
     outParamTransConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{
-      tips: '针对响应数数据翻译数据字典支持,翻译执行在出参扩展配置之前,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
+      tips: '针对响应数数据翻译数据字典支持,翻译执行在出参扩展配置之后执行,如果适配类型为 一对一直连，注意不要重复配置，以导致错误'
     }),
     outParamExtConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     dictConfigJson(dataQueryDatasourceApiFormItemConfigsRef,{

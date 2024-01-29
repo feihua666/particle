@@ -5,6 +5,7 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiPageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryListCommand;
@@ -54,4 +55,10 @@ public interface IDataQueryDatasourceApiRepresentationApplicationService extends
 	 * @return
 	 */
 	Object test(DataQueryDatasourceApiQueryCommand dataQueryDatasourceApiQueryCommand);
+
+	/**
+	 * 对数据查询接口经量级预热，由于有脚本逻辑，和数据源初始化逻辑，需要预热以加快访问速度，仅编译脚本
+	 * @return
+	 */
+	public Response warmUpForLight();
 }

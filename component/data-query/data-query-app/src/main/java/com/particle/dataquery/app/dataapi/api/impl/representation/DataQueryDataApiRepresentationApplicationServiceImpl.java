@@ -62,6 +62,12 @@ public class DataQueryDataApiRepresentationApplicationServiceImpl extends Abstra
     }
 
     @Override
+    public Response warmUpForLight() {
+        Response response = dataQueryDataApiDataApiQueryCommandExecutor.warmUpLightForDataqueryApi();
+        return response;
+    }
+
+    @Override
     public MultiResponse<DataQueryDataApiVO> queryList(DataQueryDataApiQueryListCommand dataQueryDataApiQueryListCommand) {
         return dataQueryDataApiQueryCommandExecutor.execute(dataQueryDataApiQueryListCommand);
     }

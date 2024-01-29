@@ -154,6 +154,12 @@ const submitMethod = (form) => {
     url: url.value,
     param: param
   }
+  if ('queryString' == inParamType.value) {
+    data = {
+      url: url.value,
+      queryString: param
+    }
+  }
   return dataQueryDataApiTestApi(data)
 }
 // 成功提示语

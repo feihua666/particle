@@ -19,6 +19,8 @@ export const paramType = {
   number: 'number',
   float: 'float',
   boolean: 'boolean',
+  // 查询字符串拼接在url后面
+  queryString: 'queryString',
 }
 /**
  * 根据不同的参数类型转换对象
@@ -26,9 +28,19 @@ export const paramType = {
 export const inParamTypeHandler = {
   [paramType.object]: (rawParam) => JSON.parse(rawParam),
   [paramType.array]: (rawParam) => JSON.parse(rawParam),
+  [paramType.string]: (rawParam) => (rawParam),
   [paramType.number]: (rawParam) => parseInt(rawParam),
   [paramType.float]: (rawParam) => parseFloat(rawParam),
-  [paramType.boolean]: (rawParam) => JSON.parse(rawParam),
+  [paramType.boolean]: (rawParam) => {
+    if ("true" == rawParam) {
+      return true
+    }
+    if ("false" == rawParam) {
+      return false
+    }
+    return null
+  },
+  [paramType.queryString]: (rawParam) => (rawParam),
 }
 export const inParamExampleConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
   return     {
@@ -207,7 +219,7 @@ export const inParamExtConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=>
       comp: 'PtButton',
       formItemProps: {
         label: '入参扩展配置',
-        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理请求参数'
+        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理请求参数，该配置在基本配置之前执行'
       },
       compProps: ({form,formData})=>{
         return {
@@ -259,7 +271,7 @@ export const outParamExtConfigJson = (dataQueryDatasourceApiFormItemConfigsRef)=
       comp: 'PtButton',
       formItemProps: {
         label: '出参扩展配置',
-        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理返回结果，额外支持datasourceApi调用数据源接口和dataQueryDataApiExecutor线程池句柄'
+        tips: '扩展配置支持，针对不同的接口可能有更个性的配置，主要用来处理返回结果，额外支持datasourceApi调用数据源接口和dataQueryDataApiExecutor线程池句柄,支持设置业务状态码如：ext.put("responseBusinessStatus","200")'
       },
       compProps: ({form,formData})=>{
         return {
@@ -285,7 +297,7 @@ export const outParamTransConfigJson = (dataQueryDatasourceApiFormItemConfigsRef
       comp: 'PtButton',
       formItemProps: {
         label: '出参翻译配置',
-        tips: tips || '针对响应数数据翻译数据字典支持,翻译执行在出参扩展配置之前'
+        tips: tips || '针对响应数数据翻译数据字典支持,翻译执行在出参扩展配置之后执行'
       },
       compProps:  ({form})=>{
         return {
@@ -640,7 +652,7 @@ export const useAddPageFormItems = ({form,formData,
         comp: 'PtDictFrontSelect',
         formItemProps: {
           label: '入参类型',
-          tips: '不选择则表示无入参,须和基础配置中的使用保持一致，该类型可以向上追溯到接口测试、数据查询入参保持一致'
+          tips: '不选择则表示无入参,须和基础配置中的使用保持一致，该类型可以向上追溯到接口测试、数据查询入参保持一致，查询字符串仅表示入参使用 queryString查询，一般仅对接的http请求支持'
         },
         compProps: {
           // 字典查询

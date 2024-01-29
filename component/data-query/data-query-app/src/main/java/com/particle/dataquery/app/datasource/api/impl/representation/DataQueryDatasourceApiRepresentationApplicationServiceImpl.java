@@ -2,11 +2,13 @@ package com.particle.dataquery.app.datasource.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiDataApiQueryCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceApiTestCommandExecutor;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceApiQueryCommandExecutor;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceApiRepresentationApplicationService;
@@ -29,7 +31,7 @@ public class DataQueryDatasourceApiRepresentationApplicationServiceImpl extends 
 
     private DataQueryDatasourceApiQueryCommandExecutor dataQueryDatasourceApiQueryCommandExecutor;
     private DataQueryDatasourceApiTestCommandExecutor dataQueryDatasourceApiTestCommandExecutor;
-
+    private DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor;
     @Override
     public SingleResponse<DataQueryDatasourceApiVO> queryDetail(IdCommand detailCommand) {
         return dataQueryDatasourceApiQueryCommandExecutor.executeDetail(detailCommand);
@@ -51,6 +53,11 @@ public class DataQueryDatasourceApiRepresentationApplicationServiceImpl extends 
     }
 
     @Override
+    public Response warmUpForLight() {
+        return dataQueryDataApiDataApiQueryCommandExecutor.warmUpLightForDataqueryDatasourceApi();
+    }
+
+    @Override
     public MultiResponse<DataQueryDatasourceApiVO> queryList(DataQueryDatasourceApiQueryListCommand dataQueryDatasourceApiQueryListCommand) {
         return dataQueryDatasourceApiQueryCommandExecutor.execute(dataQueryDatasourceApiQueryListCommand);
     }
@@ -63,5 +70,9 @@ public class DataQueryDatasourceApiRepresentationApplicationServiceImpl extends 
     @Autowired
     public void setDataQueryDatasourceApiTestCommandExecutor(DataQueryDatasourceApiTestCommandExecutor dataQueryDatasourceApiTestCommandExecutor) {
         this.dataQueryDatasourceApiTestCommandExecutor = dataQueryDatasourceApiTestCommandExecutor;
+    }
+    @Autowired
+    public void setDataQueryDataApiDataApiQueryCommandExecutor(DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor) {
+        this.dataQueryDataApiDataApiQueryCommandExecutor = dataQueryDataApiDataApiQueryCommandExecutor;
     }
 }

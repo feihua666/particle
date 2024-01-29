@@ -4,6 +4,7 @@ import cn.hutool.json.JSONNull;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.obj.NullObj;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +29,15 @@ public class JsonToolTest {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("aaa", null);
+		map.put("bbb", NullObj.NULL);
 
 		String toJsonStr = JsonTool.toJsonStr(map);
 
 		System.out.println(toJsonStr);
+
 		JSONObject jsonObject = JSONUtil.parseObj(toJsonStr);
 		// debug查看aaa为null而不是JSONNull
+		// debug查看bbb为null而不是JSONNull
 		System.out.println(jsonObject);
 	}
 }

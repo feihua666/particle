@@ -1,5 +1,6 @@
 package com.particle.dataquery;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.dataquery.infrastructure.datasource.gateway.impl.DatasourceApiQueryGatewayHelper;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.executor.ExecutorInfrastructureListener;
@@ -26,7 +27,7 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 	}
 
 	@Override
-	public void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString, boolean success, Object resultData, Object resultDataConverted,Boolean isCacheHit) {
+	public void afterResponse(BigDatasourceApi bigDatasourceApi, Object command, String queryString, boolean success,String responseBusinessStatus, Object resultData, Object resultDataConverted,Boolean isCacheHit) {
 		if (OpenapiCollectTool.isStartOpenApi()) {
 			OpenapiContext context = OpenapiCollectTool.getContext();
 			if (context != null) {
@@ -46,8 +47,10 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 					//httpData.put("httpMethod",httpRequest.method());
 					Object responseResult = httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseResult);
 					Integer responseStatus = (Integer)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseStatus);
-					String responseBusinessStatus = (String)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseBusinessStatus);
-
+					String responseBusinessStatusFromHttp = (String)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_responseBusinessStatus);
+					if (StrUtil.isNotEmpty(responseBusinessStatusFromHttp)) {
+						responseBusinessStatus = responseBusinessStatusFromHttp;
+					}
 
 					LocalDateTime requestStartAt = (LocalDateTime)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_requestStartAt);
 					LocalDateTime requestEndAt = (LocalDateTime)httpData.get(BigDatasourceHttpJoddClientImpl.apiContext_requestEndAt);
@@ -62,7 +65,7 @@ public class DataqueryExecutorInfrastructureListener implements ExecutorInfrastr
 							handleDuration,
 							success,
 							responseStatus,
-							responseBusinessStatus, command, responseResult, dataQueryProviderId.toString(),isCacheHit);
+							responseBusinessStatus, command, queryString, responseResult, dataQueryProviderId.toString(),isCacheHit);
 					context.addProviderDTO(openapiCollectProviderDTO);
 				}
 

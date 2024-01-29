@@ -79,7 +79,7 @@ const reactiveData = reactive({
     {
       field: {
         name: 'type',
-        value: 'groovy_script'
+        value: 'groovy_template'
       },
       element: {
         comp: 'PtDictFrontSelect',

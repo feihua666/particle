@@ -4,7 +4,13 @@ import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiJdbcBasicConfigDataType;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiJdbcBasicConfigSqlTemplateType;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.template.TemplateTool;
+import com.particle.global.validation.ValidateTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
+import java.util.Collections;
 
 /**
  * <p>
@@ -32,6 +38,26 @@ public class DataQueryDatasourceApiJdbcBasicConfig extends Value {
 	 * 是否在分页时，查询总数
 	 */
 	private Boolean isSearchCount;
+
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (sqlTemplateType != null && sqlTemplate != null) {
+			switch (sqlTemplateType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(sqlTemplate);
+					break;
+				case groovy_script_template:
+					GroovyTool.compile(sqlTemplate,true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
 
 	public static DataQueryDatasourceApiJdbcBasicConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiJdbcBasicConfig.class);

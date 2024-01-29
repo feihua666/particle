@@ -33,7 +33,7 @@ public class GroovyParamValidator implements ParamValidator {
 		bindings.putAll(objectMap);
 		Object eval = GroovyTool.compileAndEval(template, bindings, true);
 		boolean b = eval instanceof Boolean;
-		if(!b){
+		if(b){
 			return ((Boolean) eval);
 		}
 		throw new BigDatasourceException("groovy script must render true or false value.for " + template + " renderResult=" + eval);

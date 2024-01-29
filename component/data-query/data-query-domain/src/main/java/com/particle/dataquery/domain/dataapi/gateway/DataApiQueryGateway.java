@@ -39,12 +39,16 @@ public interface DataApiQueryGateway extends IGateway {
 	 */
 	public Object doExecuteByDatasourceApiCodeForTrans(String code, Object param, String queryString);
 
-
 	/**
 	 * 删除缓存
 	 * @param dataQueryDatasourceApiId
 	 * @return
 	 */
 	boolean deleteCache(DataQueryDatasourceApiId dataQueryDatasourceApiId);
+	/**
+	 * 刷新缓存
+	 * @param dataQueryDatasourceApiId
+	 * @return
+	 */
 	boolean refreshCache(DataQueryDatasourceApiId dataQueryDatasourceApiId);
 }

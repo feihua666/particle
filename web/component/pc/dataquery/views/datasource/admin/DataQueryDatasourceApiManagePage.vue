@@ -43,6 +43,7 @@ const reactiveData = reactive({
     {
       prop: 'dataQueryProviderDocLinkUrl',
       label: '文档链接',
+      showOverflowTooltip: true
     },
     {
       prop: 'dataQueryDatasourceName',

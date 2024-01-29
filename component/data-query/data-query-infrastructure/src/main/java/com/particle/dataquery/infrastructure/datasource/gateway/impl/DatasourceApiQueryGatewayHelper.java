@@ -7,6 +7,8 @@ import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
+import com.particle.dataquery.infrastructure.DataQueryInfrastructureConfiguration;
+import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DataApiQueryGatewayImpl;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.*;
@@ -28,11 +30,16 @@ import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigD
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.api.config.Neo4jBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.enums.Neo4jBigDatasourceApiConfigCqlTemplateType;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.enums.Neo4jBigDatasourceApiConfigDataType;
+import com.particle.global.tool.spring.SpringContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
 /**
@@ -48,10 +55,43 @@ public class DatasourceApiQueryGatewayHelper {
 
 	public static final String apiContext_dataQueryProviderId = "dataQueryProviderId";
 
-
+	private static Map<String, Object> outExtConfigBindingsMap;
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
 
+	@Qualifier(DataQueryInfrastructureConfiguration.dataQueryDataApiExecutor)
+	@Autowired
+	private ExecutorService dataQueryDataApiExecutor;
+
+
+	private static DataApiQueryGatewayImpl.DatasourceApiInvoker datasourceApiInvoker;
+	/**
+	 * 初始化出参扩展配置全局使用
+	 */
+	private void initOutExtConfigBindingsMap() {
+		if (outExtConfigBindingsMap == null) {
+			// 少 new 几个对象
+			if (datasourceApiInvoker == null) {
+				datasourceApiInvoker = new DataApiQueryGatewayImpl.DatasourceApiInvoker(SpringContextHolder.getBean(DataApiQueryGatewayImpl.class));
+			}
+			// 对出参扩展配置支持调用数据源接口
+			if (outExtConfigBindingsMap == null) {
+				Map<String, Object> newOutExtConfigBindingsMap = new HashMap<>();
+				newOutExtConfigBindingsMap.put("datasourceApi", datasourceApiInvoker);
+				newOutExtConfigBindingsMap.put("dataQueryDataApiExecutor", dataQueryDataApiExecutor);
+				outExtConfigBindingsMap = newOutExtConfigBindingsMap;
+			}
+		}
+	}
+
+	/**
+	 * 专门针对出参扩展配置全局使用
+	 * @return
+	 */
+	public Map<String, Object> outExtConfigBindingsMap(){
+		initOutExtConfigBindingsMap();
+		return outExtConfigBindingsMap;
+	}
 	/**
 	 * 根据数据查询api创建
 	 * @param dataQueryDataApi
@@ -77,7 +117,7 @@ public class DatasourceApiQueryGatewayHelper {
 		}
 		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = dataQueryDataApi.outParamExtConfig();
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
-			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap()));
 		}
 		// 翻译配置
 		DataQueryDatasourceApiTransConfig dataQueryDatasourceApiTransConfig = dataQueryDataApi.outParamTransConfig();
@@ -132,7 +172,7 @@ public class DatasourceApiQueryGatewayHelper {
 		}
 		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = datasourceApi.outParamExtConfig();
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
-			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript()));
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap()));
 		}
 
 		// 翻译配置

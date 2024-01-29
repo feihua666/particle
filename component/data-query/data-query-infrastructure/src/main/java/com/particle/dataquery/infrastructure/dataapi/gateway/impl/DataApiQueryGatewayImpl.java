@@ -4,7 +4,6 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.util.StrUtil;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
-import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiCustomScriptType;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
@@ -35,7 +34,8 @@ import org.springframework.stereotype.Component;
 import javax.script.Bindings;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -63,17 +63,15 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	private DataQueryDatasourceGateway dataQueryDatasourceGateway;
 	@Autowired
 	private DatasourceApiQueryGatewayHelper datasourceApiQueryGatewayHelper;
-	@Qualifier(DataQueryInfrastructureConfiguration.dataQueryDataApiExecutor)
-	@Autowired
-	private ExecutorService dataQueryDataApiExecutor;
+
 	@Autowired
 	private IDataQueryDatasourceApiService iDataQueryDatasourceApiService;
 	@Autowired(required = false)
 	private DataApiRemoteQueryGateway dataApiRemoteQueryGateway;
 
-	private static DatasourceApiInvoker datasourceApiInvoker;
-
-	private static Map<String, Object> outExtConfigBindingsMap;
+	@Qualifier(DataQueryInfrastructureConfiguration.dataQueryDataApiExecutor)
+	@Autowired
+	private ExecutorService dataQueryDataApiExecutor;
 
 	@Override
 	public Object query(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
@@ -90,7 +88,6 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 
 	@Override
 	public Object queryRealtime(DataQueryDataApi dataQueryDataApi, Object param,String queryString) {
-
 		// 正常来讲这里返回的对象的config应该是没有值的，确保万无一失，再设置一下null
 		DefaultBigDatasourceApi defaultBigDatasourceApi = datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDataApi(dataQueryDataApi);
 		// 不需要config,因为这里只需要实现自己的逻辑，并不根据config配置进行逻辑处理
@@ -98,18 +95,7 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		// 相关于数据查询api也是大数据源的一个执行器作为开始入口
 		defaultBigDatasourceApi.setConfig(null);
 
-		// 少 new 几个对象
-		if (datasourceApiInvoker == null) {
-			datasourceApiInvoker = new DatasourceApiInvoker(this);
-		}
-		// 对出参扩展配置支持调用数据源接口
-		if (outExtConfigBindingsMap == null) {
-			Map<String, Object> newOutExtConfigBindingsMap = new HashMap<>();
-			newOutExtConfigBindingsMap.put("datasourceApi", datasourceApiInvoker);
-			newOutExtConfigBindingsMap.put("dataQueryDataApiExecutor", dataQueryDataApiExecutor);
-			outExtConfigBindingsMap = newOutExtConfigBindingsMap;
-		}
-		return new DataApiQueryExecutor((command) -> doExecute(dataQueryDataApi,command,queryString),outExtConfigBindingsMap)
+		return new DataApiQueryExecutor((command) -> doExecute(dataQueryDataApi,command,queryString))
 				.execute(defaultBigDatasourceApi, param,queryString);
 	}
 
@@ -146,9 +132,8 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 		if (DataQueryDataApiAdaptType.custom_script == dataQueryDataApiAdaptType) {
 
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(param).toRenderMap();
-			renderMap.put("datasourceApi", datasourceApiInvoker);
 			renderMap.put("queryString", queryString);
-			renderMap.put("dataQueryDataApiExecutor", dataQueryDataApiExecutor);
+			renderMap.putAll(datasourceApiQueryGatewayHelper.outExtConfigBindingsMap());
 			Bindings bindings = GroovyTool.createBindings();
 			bindings.putAll(renderMap);
 			DataQueryDataApiCustomScriptAdaptConfig dataQueryDataApiCustomScriptAdaptConfig = dataQueryDataApi.customScriptAdaptConfig();

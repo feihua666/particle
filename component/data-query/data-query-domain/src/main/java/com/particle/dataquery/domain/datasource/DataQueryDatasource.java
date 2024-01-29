@@ -9,6 +9,9 @@ import com.particle.dataquery.domain.datasource.value.DataQueryDatasourceNeo4jCo
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import javax.script.ScriptException;
+
 /**
  * <p>
  * 数据查询数据源 领域模型
@@ -92,6 +95,20 @@ public class DataQueryDatasource extends AggreateRoot {
         fromJsonStr.setUsername(username);
         fromJsonStr.setPassword(password);
         return fromJsonStr;
+    }
+
+    /**
+     * 经量级预热，主要是编译脚本
+     */
+    public void warmUpLight() {
+        DataQueryDatasourceHttpConfig dataQueryDatasourceHttpConfig = httpConfig();
+        if (dataQueryDatasourceHttpConfig != null) {
+            try {
+                dataQueryDatasourceHttpConfig.warmUpLight();
+            } catch (ScriptException e) {
+
+            }
+        }
     }
     /**
      * 创建数据查询数据源领域模型对象

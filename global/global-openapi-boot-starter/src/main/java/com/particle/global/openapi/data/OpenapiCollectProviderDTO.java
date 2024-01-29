@@ -57,6 +57,11 @@ public class OpenapiCollectProviderDTO {
 	private Object requestParam;
 
 	/**
+	 * 查询参数，查询字符串
+	 */
+	private String queryString;
+
+	/**
 	 * 响应结果
 	 */
 	private Object responseResult;
@@ -84,6 +89,7 @@ public class OpenapiCollectProviderDTO {
 												   Integer responseHttpStatus,
 												   String responseBusinessStatus,
 												   Object requestParam,
+												   String queryString,
 												   Object responseResult,
 												   String providerIdentifier,
 												   Boolean isCacheHit) {
@@ -97,6 +103,7 @@ public class OpenapiCollectProviderDTO {
 		openapiCollectProviderDTO.responseHttpStatus = responseHttpStatus;
 		openapiCollectProviderDTO.responseBusinessStatus = responseBusinessStatus;
 		openapiCollectProviderDTO.requestParam = requestParam;
+		openapiCollectProviderDTO.queryString = queryString;
 		openapiCollectProviderDTO.responseResult = responseResult;
 		openapiCollectProviderDTO.providerIdentifier = providerIdentifier;
 		openapiCollectProviderDTO.isCacheHit = isCacheHit;

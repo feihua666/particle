@@ -1,6 +1,8 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.BigDatasourceHttpClient;
@@ -8,10 +10,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.Htt
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.proxy.ProxyConfig;
 import com.particle.global.tool.spring.SpringContextHolder;
-import jodd.http.HttpConnectionProvider;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
-import jodd.http.ProxyInfo;
+import jodd.http.*;
 import jodd.http.net.SocketHttpConnectionProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -157,10 +156,22 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		LocalDateTime startLocalDateTime = LocalDateTime.now();
 		httpData.put(apiContext_requestStartAt,startLocalDateTime);
 
+		// 处理一下query
+		if (StrUtil.isNotEmpty(queryString)) {
+			HttpMultiMap<String> parsedQuery = HttpUtil.parseQuery(queryString, true);
+			HttpMultiMap<String> query = httpRequest.query();
+			if (query == null) {
+				httpRequest = httpRequest
+						.queryString("");
+			}
+			for (Map.Entry<String, String> entry : parsedQuery.entries()) {
+				httpRequest = httpRequest.query(entry.getKey(), entry.getValue());
+			}
+		}
 		httpRequest = httpRequest
-				.queryString(queryString)
 				.header(headers)
 				.connectionTimeout(connectTimeout)
+				.followRedirects(true)
 				.timeout(readTimeout)
 		;
 		ProxyConfig proxy = ProxyConfig.finalProxyConfig(proxyConfig);

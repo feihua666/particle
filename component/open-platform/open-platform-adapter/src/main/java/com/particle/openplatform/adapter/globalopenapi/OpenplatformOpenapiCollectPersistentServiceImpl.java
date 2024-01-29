@@ -15,9 +15,7 @@ import com.particle.openplatform.domain.openapirecord.gateway.OpenplatformOpenap
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * <p>
@@ -85,8 +83,21 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 
 			for (OpenapiCollectProviderDTO providerDTO : openapiContext.getProviderDTOS()) {
 				openplatformOpenapiRecordDomainEventContentProviderRecord = new OpenplatformOpenapiRecordDomainEventContentProviderRecord();
+				String requestParamString = parseObjToString(providerDTO.getRequestParam());
+				String queryString = providerDTO.getQueryString();
+				String requestParam = null;
+				if (StrUtil.isNotEmpty(queryString) && StrUtil.isNotEmpty(requestParamString)) {
+					Map<String, String> requestParamMap = new HashMap<>(2);
+					requestParamMap.put("requestParam", requestParamString);
+					requestParamMap.put("queryString", queryString);
+					requestParam = JsonTool.toJsonStr(requestParamMap);
+				} else if(StrUtil.isNotEmpty(requestParamString)){
+					requestParam = requestParamString;
+				} else if(StrUtil.isNotEmpty(queryString)){
+					requestParam = queryString;
+				}
 				openplatformRecordDomainEventContentProviderRecordParam
-						= OpenplatformOpenapiRecordDomainEventContentRecordParam.create(parseObjToString(providerDTO.getRequestParam()),
+						= OpenplatformOpenapiRecordDomainEventContentRecordParam.create(requestParam,
 						parseObjToString(providerDTO.getResponseResult()));
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setRecordParam(openplatformRecordDomainEventContentProviderRecordParam);
 

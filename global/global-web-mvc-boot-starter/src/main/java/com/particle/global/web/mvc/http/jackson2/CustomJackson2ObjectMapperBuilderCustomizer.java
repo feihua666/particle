@@ -15,6 +15,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.particle.global.tool.calendar.CalendarTool;
+import com.particle.global.tool.obj.NullObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -102,6 +103,8 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 		jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
 		// hutool在将json字符串转为map时，如果有空值会转为JSONNull，这里直接转为null
 		jacksonObjectMapperBuilder.serializerByType(JSONNull.class, NullSerializer.instance);
+		// 在数据响应中返回NullObj时，序列化问题
+		jacksonObjectMapperBuilder.serializerByType(NullObj.class, NullSerializer.instance);
 
 		if (customAdditionalJackson2ObjectMapperBuilderCustomizerList != null) {
 			for (ICustomAdditionalJackson2ObjectMapperBuilderCustomizer iCustomAdditionalJackson2ObjectMapperBuilderCustomizer : customAdditionalJackson2ObjectMapperBuilderCustomizerList) {

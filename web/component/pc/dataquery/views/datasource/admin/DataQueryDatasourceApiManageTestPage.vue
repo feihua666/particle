@@ -8,7 +8,7 @@ import {
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {ElMessage} from 'element-plus'
-import {inParamTypeHandler} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
+import {inParamTypeHandler, paramType} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
 
 let alert = (message,type='success')=>{
   ElMessage({
@@ -44,11 +44,13 @@ const reactiveData = reactive({
         valueChange({form,formData}){
           nextTick(()=>{
            if(formData.name){
-             form.param = formData.name.content
+             if('queryString' === inParamType.value){
+               form.queryString = formData.name.content
+             }else {
+               form.param = formData.name.content
+             }
            }
          })
-
-
         }
       },
       element: {
@@ -97,6 +99,22 @@ const reactiveData = reactive({
         }
       }
     },
+    {
+      field: {
+        name: 'queryString'
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '查询字符串',
+          displayBlock: true
+        },
+        compProps: {
+          clearable: true,
+          placeholder: '仅http支持'
+        }
+      }
+    },
   ],
   testResult: {
     value: ''
@@ -108,14 +126,32 @@ const submitAttrs = ref({
   permission: 'admin:web:dataQueryDatasourceApi:test',
   beforeMethod:()=>{
     let param = reactiveData.form.param
+    let queryString = reactiveData.form.queryString
     if (inParamType.value) {
-      if(!param){
+      if(!param && !queryString){
         alert('接口需要请求参数，请填写','error')
         return
       }
       try {
         // 尝试解析一下，如果不正确，给出提示
-        param = inParamTypeHandler[inParamType.value](param)
+        // 如果数据查询参数有值，就尝试解析
+        if (queryString) {
+          inParamTypeHandler['queryString'](queryString)
+        }
+
+      } catch (e) {
+        alert('数据查询参数格式错误，接口定义的入参类型和输入参数转换错误，请检查！','error')
+        return
+      }
+      try {
+
+        // 如果查询参数有值，且不是入参
+        if (param) {
+          if ('queryString' != inParamType.value) {
+            // 尝试解析一下，如果不正确，给出提示
+            inParamTypeHandler[inParamType.value](param);
+          }
+        }
       } catch (e) {
         alert('参数格式错误，接口定义的入参类型和输入参数转换错误，请检查！','error')
         return
@@ -128,18 +164,58 @@ const submitAttrs = ref({
 // 查询按钮
 const submitMethod = (form) => {
   let param = form.param
-  if (inParamType.value) {
-    param = JSON.parse(param)
-  }
-  // 不需要参数，直接设置为空
-  else {
-    param = null
-  }
+  let queryString = form.queryString
   let data:ApiTestParam = {
     dataQueryDatasourceApiId: props.dataQueryDatasourceApiId,
-    param: param
+    param: null,
+    queryString: queryString || null
   }
-  return dataQueryDatasourceApiTestApi(data)
+
+  if (inParamType.value) {
+    if ('queryString' != inParamType.value) {
+      data.param = inParamTypeHandler[inParamType.value](param)
+    }else {
+    // 全部解析一下，哪个对，用哪个
+    //   对象
+      try {
+        data.param = inParamTypeHandler[paramType.object](param)
+      } catch (e) {}
+      // 数组
+      if (!data.param) {
+        try {
+          data.param = inParamTypeHandler[paramType.array](param)
+        } catch (e) {}
+      }
+      // 浮点数
+      if (!data.param) {
+        try {
+          data.param = inParamTypeHandler[paramType.float](param)
+        } catch (e) {}
+      }
+      // 数字
+      if (!data.param) {
+        try {
+          data.param = inParamTypeHandler[paramType.number](param)
+        } catch (e) {}
+      }
+      // 布尔
+      if (!data.param) {
+        try {
+          data.param = inParamTypeHandler[paramType.boolean](param)
+        } catch (e) {}
+      }
+      // 字符串
+      if (!(data.param === true || data.param === false)) {
+        try {
+          data.param = inParamTypeHandler[paramType.string](param)
+        } catch (e) {}
+      }
+    }
+
+  }
+
+
+  return dataQueryDatasourceApiTestApi(data);
 }
 // 成功提示语
 const submitMethodSuccess = (res) => {

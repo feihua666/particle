@@ -753,7 +753,9 @@ public class JSONUtil {
 	 * @return 包装后的值，null表示此值需被忽略
 	 */
 	public static Object wrap(Object object, JSONConfig jsonConfig) {
-		if (object == null) {
+		// if (object == null) {
+		// 注释掉上面的，添加 object.equals(null)判断
+		if (object == null || object.equals(null)) {
 			// return jsonConfig.isIgnoreNullValue() ? null : JSONNull.NULL;
 			// 注释掉上面的直接返回null
 			return null;

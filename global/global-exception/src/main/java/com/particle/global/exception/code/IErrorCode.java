@@ -12,17 +12,24 @@ import java.util.Optional;
  */
 public interface IErrorCode {
 
+	/**
+	 * 对应httpStatus,一般取 {@link IErrorCode#getStatus()} 的前三位即为http状态码
+	 * @return
+	 */
+	public static int httpStatusResolve(long status){
+		return Optional.of(status)
+				.map(s->String.valueOf(s))
+				.map(s->s.substring(0,3))
+				.map(Integer::valueOf)
+				.get();
+	}
 
 	/**
 	 * 对应httpStatus,一般取 {@link IErrorCode#getStatus()} 的前三位即为http状态码
 	 * @return
 	 */
 	default int getHttpStatus(){
-		return Optional.of(getStatus())
-				.map(String::valueOf)
-				.map(status->status.substring(0,3))
-				.map(Integer::valueOf)
-				.get();
+		return httpStatusResolve(getStatus());
 	}
 
 	/**

@@ -1,41 +1,32 @@
  package com.particle.dataquery;
 
 
-import com.google.common.collect.Sets;
-import com.particle.dataquery.adapter.dataapi.api.DataQueryDataApiController;
-import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl;
-import com.particle.dataquery.infrastructure.datasource.gateway.impl.DatasourceApiQueryGatewayHelper;
-import com.particle.dataquery.infrastructure.gateway.impl.DataQueryDoNotifyServiceImpl;
-import com.particle.dataquery.infrastructure.gateway.impl.IDataQueryDoNotifyService;
-import com.particle.dataquery.warmup.ApplicationStartDataQueryDataApiWarmUpListener;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.executor.ExecutorInfrastructureListener;
-import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.HttpClientInfrastructureListener;
-import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.BigDatasourceHttpJoddClientImpl;
-import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
-import com.particle.global.light.share.constant.ClassAdapterConstants;
-import com.particle.global.openapi.api.GlobalOpenapiUrlPatternConfigure;
-import com.particle.global.openapi.collect.OpenapiCollectTool;
-import com.particle.global.openapi.collect.OpenapiContext;
-import com.particle.global.openapi.data.OpenapiCollectProviderDTO;
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.swagger.ApplicationContexSwaggertHelper;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+ import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DefaultDataApiForOpenapiRemoteQueryGatewayImpl;
+ import com.particle.dataquery.infrastructure.gateway.impl.DataQueryDoNotifyServiceImpl;
+ import com.particle.dataquery.infrastructure.gateway.impl.IDataQueryDoNotifyService;
+ import com.particle.dataquery.warmup.ApplicationStartDataQueryDataApiWarmUpLightListener;
+ import com.particle.dataquery.warmup.ApplicationStartDataQueryDataApiWarmUpListener;
+ import com.particle.dataquery.warmup.ApplicationStartDataQueryDatasourceApiWarmUpLightListener;
+ import com.particle.dataquery.warmup.ApplicationStartDataQueryDatasourceWarmUpLightListener;
+ import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
+ import com.particle.global.light.share.constant.ClassAdapterConstants;
+ import com.particle.global.openapi.api.GlobalOpenapiUrlPatternConfigure;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+ import java.util.ArrayList;
+ import java.util.List;
 
  /**
  * <p>
@@ -96,7 +87,10 @@ public class DataqueryAutoConfiguration {
         }
     }
 
-    @ConditionalOnProperty(prefix = "com.particle.dataquery.api",name = "warm-up",havingValue = "true",matchIfMissing = true)
+     /**
+      * 数据查询接口调用预热，建议使用经量级预热，因为该预热会产生实际
+      */
+    @ConditionalOnProperty(prefix = "com.particle.dataquery.api",name = "warm-up",havingValue = "true",matchIfMissing = false)
     @Configuration
     public static class DataQueryApiWarmUpConfiguration{
         @Bean
@@ -105,6 +99,39 @@ public class DataqueryAutoConfiguration {
         }
     }
 
+     /**
+      * 数据查询接口经量级预热
+      */
+     @ConditionalOnProperty(prefix = "com.particle.dataquery.api",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
+     @Configuration
+     public static class DataQueryApiWarmUpForLightConfiguration{
+         @Bean
+         public OnApplicationRunnerListener applicationStartDataQueryDataApiWarmUpLightListener(){
+             return new ApplicationStartDataQueryDataApiWarmUpLightListener();
+         }
+     }
+     /**
+      * 数据源接口经量级预热
+      */
+     @ConditionalOnProperty(prefix = "com.particle.dataqueryDatasource.api",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
+     @Configuration
+     public static class DataQueryDatasourceApiWarmUpForLightConfiguration{
+         @Bean
+         public OnApplicationRunnerListener applicationStartDataQueryDatasourceApiWarmUpLightListener(){
+             return new ApplicationStartDataQueryDatasourceApiWarmUpLightListener();
+         }
+     }
+     /**
+      * 数据源接口经量级预热
+      */
+     @ConditionalOnProperty(prefix = "com.particle.dataqueryDatasource",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
+     @Configuration
+     public static class DataQueryDatasourceWarmUpForLightConfiguration{
+         @Bean
+         public OnApplicationRunnerListener applicationStartDataQueryDatasourceWarmUpLightListener(){
+             return new ApplicationStartDataQueryDatasourceWarmUpLightListener();
+         }
+     }
     @Configuration
     @ConditionalOnClass(name = ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)
     public static class NotifyConfiguration{

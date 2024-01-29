@@ -15,7 +15,9 @@ import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.script.ScriptException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -326,6 +328,80 @@ public class DataQueryDataApi extends AggreateRoot {
             Assert.notNull(outParamTypeDictId,"出参类型不能为空");
             Assert.notNull(responseTypeDictId,"输出类型不能为空");
             Assert.isTrue(StrUtil.isNotEmpty(adaptConfigJson),"接口适配配置不能为空");
+        }
+    }
+
+
+    /**
+     * 经量级预热，主要是编译脚本
+     */
+    public void warmUpLight() {
+        // 自定义脚本，适配类型
+        DataQueryDataApiCustomScriptAdaptConfig dataQueryDataApiCustomScriptAdaptConfig = customScriptAdaptConfig();
+        if (dataQueryDataApiCustomScriptAdaptConfig != null) {
+            try {
+                dataQueryDataApiCustomScriptAdaptConfig.warmUpLight();
+            } catch (ScriptException e) {
+            }
+
+        }
+        // 入参校验
+        DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = inParamValidateConfig();
+        if (dataQueryDatasourceApiInParamValidateConfig != null) {
+            List<DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem> inParamValidateItems = dataQueryDatasourceApiInParamValidateConfig.getInParamValidateItems();
+            if (inParamValidateItems != null) {
+                for (DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem inParamValidateItem : inParamValidateItems) {
+                    try {
+                        inParamValidateItem.warmUpLight();
+                    } catch (ScriptException e) {
+                    }
+                }
+            }
+        }
+
+        // 入参扩展配置
+        DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = inParamExtConfig();
+        if (dataQueryDatasourceApiInParamExtConfig != null) {
+            try {
+                dataQueryDatasourceApiInParamExtConfig.warmUpLight();
+            } catch (ScriptException e) {
+            }
+        }
+
+        // 出参成功校验配置
+        DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = outParamSuccessConfigJson();
+        if (dataQueryDatasourceApiInSuccessValidateConfig != null) {
+            List<DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem> outParamValidateItems = dataQueryDatasourceApiInSuccessValidateConfig.getOutParamValidateItems();
+            if (outParamValidateItems != null) {
+                for (DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem outParamValidateItem : outParamValidateItems) {
+                    try {
+                        outParamValidateItem.warmUpLight();
+                    } catch (ScriptException e) {
+                    }
+                }
+            }
+
+        }
+        // 出参扩展配置
+        DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = outParamExtConfig();
+        if (dataQueryDatasourceApiOutParamExtConfig != null) {
+            try {
+                dataQueryDatasourceApiOutParamExtConfig.warmUpLight();
+            } catch (ScriptException e) {
+            }
+        }
+
+        // 分页信息配置
+        DataQueryDatasourceApiPageableAdapterConfig dataQueryDatasourceApiPageableAdapterConfig = pageableAdapterConfig();
+        if (dataQueryDatasourceApiPageableAdapterConfig != null) {
+            try {
+                dataQueryDatasourceApiPageableAdapterConfig.warmUpLightInParam();
+            } catch (ScriptException e) {
+            }
+            try {
+                dataQueryDatasourceApiPageableAdapterConfig.warmUpLightOutParam();
+            } catch (ScriptException e) {
+            }
         }
     }
 

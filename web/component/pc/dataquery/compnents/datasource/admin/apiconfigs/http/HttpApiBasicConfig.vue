@@ -101,7 +101,7 @@ const formComps = [
       comp: 'PtDictFrontSelect',
       formItemProps: {
         label: '请求地址渲染类型',
-        required: true
+        required: true,
       },
       compProps: {
         // 字典查询
@@ -119,7 +119,8 @@ const formComps = [
       comp: 'el-input',
       formItemProps: {
         label: '请求地址',
-        required: true
+        required: true,
+        tips: '必须返回地址字符串，data为请求参数句柄，queryString 为查询参数句柄,username和password为用户名和密码来源为数据源配置'
       },
       compProps: {
         clearable: true,

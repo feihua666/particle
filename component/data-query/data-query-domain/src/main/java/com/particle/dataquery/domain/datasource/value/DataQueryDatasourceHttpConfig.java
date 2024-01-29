@@ -2,7 +2,11 @@ package com.particle.dataquery.domain.datasource.value;
 
 import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceHttpAuthScriptType;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.template.TemplateTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
 
 /**
  * <p>
@@ -31,6 +35,24 @@ public class DataQueryDatasourceHttpConfig extends DataQueryDatasourceAccountCon
 	 */
 	private String authScriptTemplate;
 
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (authScriptType != null && authScriptTemplate != null) {
+			switch (authScriptType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(authScriptTemplate);
+					break;
+				case groovy_script:
+					GroovyTool.compile(authScriptTemplate,true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 	public static DataQueryDatasourceHttpConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceHttpConfig config = JSONUtil.toBean(jsonStr, DataQueryDatasourceHttpConfig.class);
 		return config;

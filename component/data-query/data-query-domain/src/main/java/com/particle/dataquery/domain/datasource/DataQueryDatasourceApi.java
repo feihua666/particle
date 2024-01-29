@@ -2,12 +2,16 @@ package com.particle.dataquery.domain.datasource;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
-import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
+import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import javax.script.ScriptException;
+import java.util.List;
+
 /**
  * <p>
  * 数据查询数据源接口 领域模型
@@ -334,6 +338,121 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         DataQueryDatasourceApiOutParamExtConfig fromJsonStr = DataQueryDatasourceApiOutParamExtConfig.createFromJsonStr(outParamExtConfigJson);
         return fromJsonStr;
     }
+
+
+
+    /**
+     * 经量级预热，主要是编译脚本
+     */
+    public void warmUpLight() {
+        // 基本配置
+        // jdbc基本配置
+        DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = jdbcBasicConfig();
+        if (dataQueryDatasourceApiJdbcBasicConfig != null) {
+            try {
+                dataQueryDatasourceApiJdbcBasicConfig.warmUpLight();
+            } catch (ScriptException e) {
+
+            }
+        }
+        // http基本配置
+        DataQueryDatasourceApiHttpBasicConfig dataQueryDatasourceApiHttpBasicConfig = httpBasicConfig();
+        if (dataQueryDatasourceApiHttpBasicConfig != null) {
+            try {
+                dataQueryDatasourceApiHttpBasicConfig.warmUpLight();
+            } catch (ScriptException e) {
+
+            }
+        }
+        // neo4j基本配置
+        DataQueryDatasourceApiNeo4jBasicConfig dataQueryDatasourceApiNeo4jBasicConfig = neo4jBasicConfig();
+        if (dataQueryDatasourceApiNeo4jBasicConfig != null) {
+            try {
+                dataQueryDatasourceApiNeo4jBasicConfig.warmUpLight();
+            } catch (ScriptException e) {
+
+            }
+            try {
+                dataQueryDatasourceApiNeo4jBasicConfig.warmUpLightForCount();
+            } catch (ScriptException e) {
+
+            }
+        }
+        // es基本配置
+        DataQueryDatasourceApiEsBasicConfig dataQueryDatasourceApiEsBasicConfig = esBasicConfig();
+        if (dataQueryDatasourceApiEsBasicConfig != null) {
+            try {
+                dataQueryDatasourceApiEsBasicConfig.warmUpLight();
+            } catch (ScriptException e) {
+
+            }
+            try {
+                dataQueryDatasourceApiEsBasicConfig.warmUpLightForCount();
+            } catch (ScriptException e) {
+
+            }
+        }
+        // 入参校验
+        DataQueryDatasourceApiInParamValidateConfig dataQueryDatasourceApiInParamValidateConfig = inParamValidateConfig();
+        if (dataQueryDatasourceApiInParamValidateConfig != null) {
+            List<DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem> inParamValidateItems = dataQueryDatasourceApiInParamValidateConfig.getInParamValidateItems();
+            if (inParamValidateItems != null) {
+                for (DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem inParamValidateItem : inParamValidateItems) {
+                    try {
+                        inParamValidateItem.warmUpLight();
+                    } catch (ScriptException e) {
+                    }
+                }
+            }
+        }
+
+        // 入参扩展配置
+        DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = inParamExtConfig();
+        if (dataQueryDatasourceApiInParamExtConfig != null) {
+            try {
+                dataQueryDatasourceApiInParamExtConfig.warmUpLight();
+            } catch (ScriptException e) {
+            }
+        }
+
+        // 出参成功校验配置
+        DataQueryDatasourceApiInSuccessValidateConfig dataQueryDatasourceApiInSuccessValidateConfig = outParamSuccessConfigJson();
+        if (dataQueryDatasourceApiInSuccessValidateConfig != null) {
+            List<DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem> outParamValidateItems = dataQueryDatasourceApiInSuccessValidateConfig.getOutParamValidateItems();
+            if (outParamValidateItems != null) {
+                for (DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem outParamValidateItem : outParamValidateItems) {
+                    try {
+                        outParamValidateItem.warmUpLight();
+                    } catch (ScriptException e) {
+                    }
+                }
+            }
+
+        }
+        // 出参扩展配置
+        DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = outParamExtConfig();
+        if (dataQueryDatasourceApiOutParamExtConfig != null) {
+            try {
+                dataQueryDatasourceApiOutParamExtConfig.warmUpLight();
+            } catch (ScriptException e) {
+            }
+        }
+
+        // 分页信息配置
+        DataQueryDatasourceApiPageableAdapterConfig dataQueryDatasourceApiPageableAdapterConfig = pageableAdapterConfig();
+        if (dataQueryDatasourceApiPageableAdapterConfig != null) {
+            try {
+                dataQueryDatasourceApiPageableAdapterConfig.warmUpLightInParam();
+            } catch (ScriptException e) {
+            }
+            try {
+                dataQueryDatasourceApiPageableAdapterConfig.warmUpLightOutParam();
+            } catch (ScriptException e) {
+            }
+        }
+    }
+
+
     /**
      * 创建数据查询数据源接口领域模型对象
      * @return 数据查询数据源接口领域模型对象，该对应所有属性为空，需要进行初始化操作

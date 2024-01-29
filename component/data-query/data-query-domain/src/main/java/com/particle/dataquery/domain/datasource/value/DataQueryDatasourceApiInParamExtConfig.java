@@ -1,8 +1,12 @@
 package com.particle.dataquery.domain.datasource.value;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.script.GroovyTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
 
 /**
  * <p>
@@ -20,7 +24,15 @@ public class DataQueryDatasourceApiInParamExtConfig extends Value {
 	 */
 	private String groovyScript;
 
-
+	/**
+	 * 编译预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (StrUtil.isNotEmpty(groovyScript)) {
+			GroovyTool.compile(groovyScript,true);
+		}
+	}
 	public static DataQueryDatasourceApiInParamExtConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiInParamExtConfig.class);
 		return dataQueryDatasourceApiInParamExtConfig;

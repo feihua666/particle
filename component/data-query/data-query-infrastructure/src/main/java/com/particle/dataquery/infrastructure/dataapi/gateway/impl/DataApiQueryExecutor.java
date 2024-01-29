@@ -1,11 +1,9 @@
 package com.particle.dataquery.infrastructure.dataapi.gateway.impl;
 
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiResultExtConfig;
 import com.particle.global.big.datasource.bigdatasource.executor.AbstractBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.trans.IBigDatasourceApiTransSupportService;
 
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -23,14 +21,10 @@ public class DataApiQueryExecutor extends AbstractBigDatasourceApiExecutor {
 
 
 	private Function executorFunction;
-	/**
-	 * 用于出参扩展配置
-	 */
-	private Map<String, Object> outExtConfigBindingsMap;
 
-	public DataApiQueryExecutor(Function executorFunction, Map<String, Object> outExtConfigBindingsMap) {
+	public DataApiQueryExecutor(Function executorFunction) {
 		this.executorFunction = executorFunction;
-		this.outExtConfigBindingsMap = outExtConfigBindingsMap;
+
 		if (iBigDatasourceApiTransSupportService == null && !hasInitBigDatasourceApiTransSupportService) {
 			bigDatasourceTransSupportServiceInitFromSpring();
 			iBigDatasourceApiTransSupportService = super.iBigDatasourceApiTransSupportService;
@@ -44,22 +38,6 @@ public class DataApiQueryExecutor extends AbstractBigDatasourceApiExecutor {
 	@Override
 	public Object doExecute(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
 		return executorFunction.apply(command);
-	}
-
-	/**
-	 * 出参数扩展处理
-	 * @param bigDatasourceApi
-	 * @param command
-	 * @param queryString
-	 * @return  如果返回结果有值将替换原始参数command
-	 */
-	protected Object resultExtConfigHandle(BigDatasourceApi bigDatasourceApi,Object command,String queryString, Object o) {
-		BigDatasourceApiResultExtConfig bigDatasourceApiResultExtConfig = bigDatasourceApi.resultExtConfig();
-		if (bigDatasourceApiResultExtConfig != null) {
-			Object handle = bigDatasourceApiResultExtConfig.handle(o,command, queryString,this.outExtConfigBindingsMap);
-			return handle;
-		}
-		return null;
 	}
 
 }

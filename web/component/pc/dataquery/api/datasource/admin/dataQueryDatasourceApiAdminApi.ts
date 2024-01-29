@@ -93,7 +93,8 @@ export interface ApiTestParam{
     // 接口id
     dataQueryDatasourceApiId: string,
     // 数据
-    param: any
+    param?: any,
+    queryString?: string
 }
 export const apiTest = (data: ApiTestParam): AxiosPromise => {
     return axios.post(dataQueryDatasourceApiTestPrefix + '/api_test',data)

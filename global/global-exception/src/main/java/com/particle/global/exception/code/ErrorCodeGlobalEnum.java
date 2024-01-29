@@ -104,7 +104,7 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	USAGE_COUNT_LIMIT_ERROR(40300000005L,"使用次数已达上限"),
 
 	/**
-	 * 数据不存在
+	 * 数据不存在，如果没有数据时建议使用
 	 */
 	DATA_NOT_FOUND(40400000001L,"数据不存在"),
 	/**

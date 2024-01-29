@@ -1,11 +1,11 @@
 package com.particle.global.web.mvc.advice;
 
 import com.particle.global.dto.basic.VO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.dto.response.*;
+import com.particle.global.exception.code.IErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -35,7 +35,10 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice {
             PageResponse.class,
             SingleResponse.class,
             MultiResponse.class,
-            List.class
+            RawResponse.class,
+            List.class,
+            Response.class,
+            Object.class,
     };
 
     @Override
@@ -55,6 +58,15 @@ public class GlobalResponseBodyAdvice implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
+        // 根据响应数据设置响应状态码，以反应再加准备的数据
+        if (body instanceof Response) {
+            Long status = ((Response) body).getStatus();
+            if (status != null) {
+                int statusCode = IErrorCode.httpStatusResolve(status);
+                response.setStatusCode(HttpStatus.valueOf(statusCode));
+            }
+
+        }
         // 正常数据不再包装
         return body;
     }

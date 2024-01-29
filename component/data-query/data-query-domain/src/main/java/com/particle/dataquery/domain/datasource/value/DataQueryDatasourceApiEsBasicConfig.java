@@ -4,7 +4,11 @@ import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiEsBasicConfigDataType;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiEsBasicConfigDslTemplateType;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.template.TemplateTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
 
 /**
  * <p>
@@ -39,6 +43,40 @@ public class DataQueryDatasourceApiEsBasicConfig extends Value {
 	 */
 	private String dslCountTemplate;
 
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (dslTemplateType != null && dslTemplate != null) {
+			switch (dslTemplateType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(dslTemplate);
+					break;
+				case groovy_script_template:
+					GroovyTool.compile(dslTemplate,true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLightForCount() throws ScriptException {
+		if (dslTemplateType != null && dslCountTemplate != null) {
+			switch (dslTemplateType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(dslCountTemplate);
+				case groovy_script_template:
+					GroovyTool.compile(dslCountTemplate,true);
+				default:
+					break;
+			}
+		}
+	}
 	public static DataQueryDatasourceApiEsBasicConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiEsBasicConfig dataQueryDatasourceApiEsBasicConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiEsBasicConfig.class);
 		return dataQueryDatasourceApiEsBasicConfig;

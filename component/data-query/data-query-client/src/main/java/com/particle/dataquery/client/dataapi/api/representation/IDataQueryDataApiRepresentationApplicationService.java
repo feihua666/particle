@@ -69,4 +69,10 @@ public interface IDataQueryDataApiRepresentationApplicationService extends IBase
 	 * @return
 	 */
 	public Response warmUp();
+
+	/**
+	 * 对数据查询接口经量级预热，由于有脚本逻辑，和数据源初始化逻辑，需要预热以加快访问速度，仅编译脚本
+	 * @return
+	 */
+	public Response warmUpForLight();
 }

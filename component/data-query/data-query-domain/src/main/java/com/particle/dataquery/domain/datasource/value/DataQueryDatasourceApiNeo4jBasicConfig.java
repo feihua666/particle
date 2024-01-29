@@ -4,7 +4,11 @@ import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4jBasicConfigCqlTemplateType;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiNeo4jBasicConfigDataType;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.template.TemplateTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
 
 /**
  * <p>
@@ -33,6 +37,40 @@ public class DataQueryDatasourceApiNeo4jBasicConfig extends Value {
 	 */
 	private String cqlCountTemplate;
 
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (cqlTemplateType != null && cqlTemplate != null) {
+			switch (cqlTemplateType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(cqlTemplate);
+					break;
+				case groovy_script_template:
+					GroovyTool.compile(cqlTemplate,true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLightForCount() throws ScriptException {
+		if (cqlTemplateType != null && cqlCountTemplate != null) {
+			switch (cqlTemplateType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(cqlCountTemplate);
+				case groovy_script_template:
+					GroovyTool.compile(cqlCountTemplate,true);
+				default:
+					break;
+			}
+		}
+	}
 	public static DataQueryDatasourceApiNeo4jBasicConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiNeo4jBasicConfig dataQueryDatasourceApiNeo4jBasicConfig = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiNeo4jBasicConfig.class);
 		return dataQueryDatasourceApiNeo4jBasicConfig;

@@ -91,7 +91,8 @@ export interface ApiTestParam{
     // 接口地址
     url: string,
     // 数据
-    param: any
+    param?: any,
+    queryString?: string
 }
 export const apiTest = (data: ApiTestParam): AxiosPromise => {
     return axios.post(dataQueryDataApiTestPrefix + '/api_test',data)

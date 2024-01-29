@@ -40,7 +40,7 @@ public class DemoOpenapiExecuteProvider implements OpenapiExecuteProvider {
 		OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(LocalDateTime.now(),LocalDateTime.now(),"/test_provider_demo_none",
 				50,
 				true,
-				200, null, paramMap, paramMap, test_provider_code,false);
+				200, null, paramMap,null, paramMap, test_provider_code,false);
 		openapiContext.addProviderDTO(openapiCollectProviderDTO);
 		return SingleResponse.of(paramMap);
 	}

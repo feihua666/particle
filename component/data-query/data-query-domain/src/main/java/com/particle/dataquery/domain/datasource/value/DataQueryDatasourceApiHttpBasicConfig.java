@@ -3,7 +3,11 @@ package com.particle.dataquery.domain.datasource.value;
 import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.*;
 import com.particle.global.dto.basic.Value;
+import com.particle.global.tool.script.GroovyTool;
+import com.particle.global.tool.template.TemplateTool;
 import lombok.Data;
+
+import javax.script.ScriptException;
 
 /**
  * <p>
@@ -26,6 +30,25 @@ public class DataQueryDatasourceApiHttpBasicConfig extends Value {
 	private DataQueryDatasourceApiHttpBasicConfigRequestUrlRenderType requestUrlRenderType;
 
 	private String requestUrlTemplate;
+
+	/**
+	 * 脚本预热
+	 * @throws ScriptException
+	 */
+	public void warmUpLight() throws ScriptException {
+		if (requestUrlRenderType != null && requestUrlTemplate != null) {
+			switch (requestUrlRenderType) {
+				case enjoy_template:
+					TemplateTool.templateCompile(requestUrlTemplate);
+					break;
+				case groovy_script:
+					GroovyTool.compile(requestUrlTemplate,true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
 	public static DataQueryDatasourceApiHttpBasicConfig createFromJsonStr(String jsonStr) {
 		DataQueryDatasourceApiHttpBasicConfig config = JSONUtil.toBean(jsonStr, DataQueryDatasourceApiHttpBasicConfig.class);

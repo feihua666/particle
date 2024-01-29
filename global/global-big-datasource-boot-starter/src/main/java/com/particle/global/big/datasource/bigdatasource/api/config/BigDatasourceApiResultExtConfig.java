@@ -24,10 +24,14 @@ public class BigDatasourceApiResultExtConfig {
      * groovy脚本
 	 */
 	private String groovyScript;
-
-	public static BigDatasourceApiResultExtConfig create(String groovyScript) {
+	/**
+	 * 额外扩展配置
+	 */
+	private Map<String, Object> extBindings;
+	public static BigDatasourceApiResultExtConfig create(String groovyScript,Map<String,Object> extBindings) {
 		BigDatasourceApiResultExtConfig bigDatasourceApiCommandExtConfig = new BigDatasourceApiResultExtConfig();
 		bigDatasourceApiCommandExtConfig.groovyScript = groovyScript;
+		bigDatasourceApiCommandExtConfig.extBindings = extBindings;
 		return bigDatasourceApiCommandExtConfig;
 	}
 
@@ -52,6 +56,9 @@ public class BigDatasourceApiResultExtConfig {
 
 		if (extBindings != null) {
 			objectMap.putAll(extBindings);
+		}
+		if (this.extBindings != null) {
+			objectMap.putAll(this.extBindings);
 		}
 
 		Bindings bindings = GroovyTool.createBindings();

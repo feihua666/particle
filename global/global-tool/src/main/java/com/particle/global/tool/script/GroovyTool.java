@@ -61,16 +61,27 @@ public class GroovyTool {
 		CompiledScript compiledScript = null;
 		Object evalResult = null;
 		try {
-			if (useCache) {
-				compiledScript = compiledScriptCache.get(script, () -> compilable.compile(script));
-			}else {
-				compiledScript = compilable.compile(script);
-			}
+			compiledScript = compile(script, useCache);
 			evalResult = compiledScript.eval(bindings);
 		} catch (ScriptException e) {
 			throw new RuntimeException("groovyScript error script="+script,e);
 		}
 		return evalResult;
 
+	}
+
+	/**
+	 * 编码
+	 * @param script
+	 */
+	public static CompiledScript compile(String script,boolean useCache) throws ScriptException {
+		Compilable compilable = ((Compilable) getGroovyEngine());
+		CompiledScript compiledScript = null;
+		if (useCache) {
+			compiledScript = compiledScriptCache.get(script, () -> compilable.compile(script));
+		}else {
+			compiledScript = compilable.compile(script);
+		}
+		return compiledScript;
 	}
 }

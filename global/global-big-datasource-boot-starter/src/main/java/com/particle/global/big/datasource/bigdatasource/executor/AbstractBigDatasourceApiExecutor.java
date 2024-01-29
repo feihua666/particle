@@ -78,6 +78,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 
 		// 接口执行前处理
 		preExe(bigDatasourceApi, command, queryString, preExeResultHolder);
+
 		// 如果有修改，使用返回的结果作为新的command
 		if (preExeResultHolder.containsKey("command")) {
 			command = preExeResultHolder.get("command");
@@ -108,12 +109,22 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 
 		Map<String,Object> postExeResultHolder = new HashMap<>(2);
 
-		// 请求完处理
+		// 请求完处理，主要处理了出参扩展配置
 		postExe(bigDatasourceApi, command,queryString, o,postExeResultHolder);
+
 		// 如果有修改，使用返回的结果作为新的command
-		if (preExeResultHolder.containsKey("result")) {
-			o = preExeResultHolder.get("result");
+		if (postExeResultHolder.containsKey("result")) {
+			o = postExeResultHolder.get("result");
 		}
+		String responseBusinessStatus = null;
+		if (postExeResultHolder.containsKey("responseBusinessStatus")) {
+			Object responseBusinessStatusObj = postExeResultHolder.get("responseBusinessStatus");
+			if (responseBusinessStatusObj != null) {
+				responseBusinessStatus = responseBusinessStatusObj.toString();
+			}
+		}
+		// 翻译
+		transHandle(bigDatasourceApi, o);
 		// 判断是否成功
 		boolean success = isSuccess(bigDatasourceApi,o);
 		// 收集是否成功的数据，主要用于开放接口使用
@@ -126,7 +137,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 		// 监听调用
 		if (executorInfrastructureListenerList != null) {
 			for (ExecutorInfrastructureListener executorInfrastructureListener : executorInfrastructureListenerList) {
-				executorInfrastructureListener.afterResponse(bigDatasourceApi,command,queryString,success,resultData,resultDataConverted,cacheHit);
+				executorInfrastructureListener.afterResponse(bigDatasourceApi,command,queryString,success,responseBusinessStatus,resultData,resultDataConverted,cacheHit);
 			}
 		}
 		return resultDataConverted;
@@ -219,10 +230,13 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @return
 	 */
 	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object o,Map<String,Object> postExeResultHolder) {
-		// 翻译
-		transHandle(bigDatasourceApi, o);
+
 		// 出参扩展配置执行
-		Object newResult = resultExtConfigHandle(bigDatasourceApi, command, queryString, o);
+		Object newResult = resultExtConfigHandle(bigDatasourceApi, command, queryString, o,postExeResultHolder);
+		Object result = postExeResultHolder.get("result");
+		if (result != null) {
+			return;
+		}
 		if (newResult != null) {
 			postExeResultHolder.put("result", newResult);
 		}
@@ -251,10 +265,13 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @param queryString
 	 * @return  如果返回结果有值将替换原始参数command
 	 */
-	protected Object resultExtConfigHandle(BigDatasourceApi bigDatasourceApi,Object command,String queryString, Object o) {
+	protected Object resultExtConfigHandle(BigDatasourceApi bigDatasourceApi,Object command,String queryString, Object o,Map<String,Object> postExeResultHolder) {
 		BigDatasourceApiResultExtConfig bigDatasourceApiResultExtConfig = bigDatasourceApi.resultExtConfig();
 		if (bigDatasourceApiResultExtConfig != null) {
-			Object handle = bigDatasourceApiResultExtConfig.handle(o,command, queryString,null);
+			// 扩展配置
+			Map<String, Object> ext = new HashMap<>(1);
+			ext.put("ext", postExeResultHolder);
+			Object handle = bigDatasourceApiResultExtConfig.handle(o,command, queryString,ext);
 			return handle;
 		}
 		return null;

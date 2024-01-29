@@ -2,9 +2,11 @@ package com.particle.dataquery.app.datasource.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiDataApiQueryCommandExecutor;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceQueryCommandExecutor;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceRepresentationApplicationService;
@@ -26,7 +28,7 @@ import org.springframework.stereotype.Service;
 public class DataQueryDatasourceRepresentationApplicationServiceImpl extends AbstractBaseApplicationServiceImpl implements IDataQueryDatasourceRepresentationApplicationService {
 
     private DataQueryDatasourceQueryCommandExecutor dataQueryDatasourceQueryCommandExecutor;
-
+    private DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor;
     @Override
     public SingleResponse<DataQueryDatasourceVO> queryDetail(IdCommand detailCommand) {
         return dataQueryDatasourceQueryCommandExecutor.executeDetail(detailCommand);
@@ -43,6 +45,11 @@ public class DataQueryDatasourceRepresentationApplicationServiceImpl extends Abs
     }
 
     @Override
+    public Response warmUpForLight() {
+        return dataQueryDataApiDataApiQueryCommandExecutor.warmUpLightForDataqueryDatasource();
+    }
+
+    @Override
     public MultiResponse<DataQueryDatasourceVO> queryList(DataQueryDatasourceQueryListCommand dataQueryDatasourceQueryListCommand) {
         return dataQueryDatasourceQueryCommandExecutor.execute(dataQueryDatasourceQueryListCommand);
     }
@@ -50,5 +57,9 @@ public class DataQueryDatasourceRepresentationApplicationServiceImpl extends Abs
     @Autowired
     public void setDataQueryDatasourceQueryCommandExecutor(DataQueryDatasourceQueryCommandExecutor dataQueryDatasourceQueryCommandExecutor) {
         this.dataQueryDatasourceQueryCommandExecutor = dataQueryDatasourceQueryCommandExecutor;
+    }
+    @Autowired
+    public void setDataQueryDataApiDataApiQueryCommandExecutor(DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor) {
+        this.dataQueryDataApiDataApiQueryCommandExecutor = dataQueryDataApiDataApiQueryCommandExecutor;
     }
 }

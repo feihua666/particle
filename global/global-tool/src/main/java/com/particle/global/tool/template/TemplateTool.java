@@ -38,6 +38,9 @@ public class TemplateTool {
 		return render(template,data.toRenderMap(),defaultTemplateEngine);
 
 	}
+	public static Template templateCompile(String template){
+		return defaultTemplateEngine.getTemplate(template);
+	}
 	/**
 	 * 渲染字符串模板和数据
 	 * @param template

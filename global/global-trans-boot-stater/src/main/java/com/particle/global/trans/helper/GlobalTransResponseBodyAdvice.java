@@ -5,6 +5,7 @@ import cn.hutool.core.util.URLUtil;
 import com.particle.global.dto.basic.VO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.RawResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.tool.servlet.RequestTool;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class GlobalTransResponseBodyAdvice implements ResponseBodyAdvice {
             PageResponse.class,
             SingleResponse.class,
             MultiResponse.class,
+            RawResponse.class,
             List.class
     };
 
