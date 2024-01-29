@@ -2,14 +2,12 @@ package com.particle.dataquery.domain.datasource;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
-import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
 
-import javax.script.ScriptException;
 import java.util.List;
 
 /**
@@ -351,7 +349,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiJdbcBasicConfig != null) {
             try {
                 dataQueryDatasourceApiJdbcBasicConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
         }
@@ -360,7 +358,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiHttpBasicConfig != null) {
             try {
                 dataQueryDatasourceApiHttpBasicConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
         }
@@ -369,12 +367,12 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiNeo4jBasicConfig != null) {
             try {
                 dataQueryDatasourceApiNeo4jBasicConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
             try {
                 dataQueryDatasourceApiNeo4jBasicConfig.warmUpLightForCount();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
         }
@@ -383,12 +381,12 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiEsBasicConfig != null) {
             try {
                 dataQueryDatasourceApiEsBasicConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
             try {
                 dataQueryDatasourceApiEsBasicConfig.warmUpLightForCount();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
         }
@@ -400,7 +398,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
                 for (DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem inParamValidateItem : inParamValidateItems) {
                     try {
                         inParamValidateItem.warmUpLight();
-                    } catch (ScriptException e) {
+                    } catch (Exception e) {
                     }
                 }
             }
@@ -411,7 +409,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiInParamExtConfig != null) {
             try {
                 dataQueryDatasourceApiInParamExtConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
 
@@ -423,7 +421,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
                 for (DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem outParamValidateItem : outParamValidateItems) {
                     try {
                         outParamValidateItem.warmUpLight();
-                    } catch (ScriptException e) {
+                    } catch (Exception e) {
                     }
                 }
             }
@@ -434,7 +432,7 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiOutParamExtConfig != null) {
             try {
                 dataQueryDatasourceApiOutParamExtConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
 
@@ -443,11 +441,11 @@ public class DataQueryDatasourceApi extends AggreateRoot {
         if (dataQueryDatasourceApiPageableAdapterConfig != null) {
             try {
                 dataQueryDatasourceApiPageableAdapterConfig.warmUpLightInParam();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
             try {
                 dataQueryDatasourceApiPageableAdapterConfig.warmUpLightOutParam();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
     }

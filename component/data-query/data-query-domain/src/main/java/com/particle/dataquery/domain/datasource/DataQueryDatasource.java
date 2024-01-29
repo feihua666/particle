@@ -10,8 +10,6 @@ import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
 
-import javax.script.ScriptException;
-
 /**
  * <p>
  * 数据查询数据源 领域模型
@@ -105,7 +103,7 @@ public class DataQueryDatasource extends AggreateRoot {
         if (dataQueryDatasourceHttpConfig != null) {
             try {
                 dataQueryDatasourceHttpConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
 
             }
         }

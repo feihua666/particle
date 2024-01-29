@@ -5,18 +5,14 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.dataquery.domain.dataapi.enums.DataQueryDataApiAdaptType;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiCustomScriptAdaptConfig;
 import com.particle.dataquery.domain.dataapi.value.DataQueryDataApiMultipleAggregationAdaptConfig;
-import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import com.particle.global.exception.Assert;
-import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.script.ScriptException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -341,7 +337,7 @@ public class DataQueryDataApi extends AggreateRoot {
         if (dataQueryDataApiCustomScriptAdaptConfig != null) {
             try {
                 dataQueryDataApiCustomScriptAdaptConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
 
         }
@@ -353,7 +349,7 @@ public class DataQueryDataApi extends AggreateRoot {
                 for (DataQueryDatasourceApiInParamValidateConfig.ApiValidateItem inParamValidateItem : inParamValidateItems) {
                     try {
                         inParamValidateItem.warmUpLight();
-                    } catch (ScriptException e) {
+                    } catch (Exception e) {
                     }
                 }
             }
@@ -364,7 +360,7 @@ public class DataQueryDataApi extends AggreateRoot {
         if (dataQueryDatasourceApiInParamExtConfig != null) {
             try {
                 dataQueryDatasourceApiInParamExtConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
 
@@ -376,7 +372,7 @@ public class DataQueryDataApi extends AggreateRoot {
                 for (DataQueryDatasourceApiInSuccessValidateConfig.ApiValidateItem outParamValidateItem : outParamValidateItems) {
                     try {
                         outParamValidateItem.warmUpLight();
-                    } catch (ScriptException e) {
+                    } catch (Exception e) {
                     }
                 }
             }
@@ -387,7 +383,7 @@ public class DataQueryDataApi extends AggreateRoot {
         if (dataQueryDatasourceApiOutParamExtConfig != null) {
             try {
                 dataQueryDatasourceApiOutParamExtConfig.warmUpLight();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
 
@@ -396,11 +392,11 @@ public class DataQueryDataApi extends AggreateRoot {
         if (dataQueryDatasourceApiPageableAdapterConfig != null) {
             try {
                 dataQueryDatasourceApiPageableAdapterConfig.warmUpLightInParam();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
             try {
                 dataQueryDatasourceApiPageableAdapterConfig.warmUpLightOutParam();
-            } catch (ScriptException e) {
+            } catch (Exception e) {
             }
         }
     }
