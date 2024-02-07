@@ -15,7 +15,7 @@ import com.particle.global.bootstrap.boot.OnApplicationShutdownListener;
 public class ApplicationShutdownNotifyListener implements OnApplicationShutdownListener {
 
 	@Override
-	public void shutdown() {
+	public void appShutdown() {
 		NotifyParam notifyParam = NotifyParam.system()
 				.setTitle("应用已停止")
 				.setContentType("application.boot.shutdown")

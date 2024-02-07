@@ -40,12 +40,14 @@ public class OnApplicationShutdownPortalBean implements DisposableBean {
 			}
 			if (!hasCalled) {
 				hasCalled = true;
+			}else {
+				return;
 			}
 		}
 		log.debug("app shutdown，listener count={}", Optional.ofNullable(onApplicationShutdownListenerList).map(List::size).orElse(0));
 		if (onApplicationShutdownListenerList != null) {
 			for (OnApplicationShutdownListener onApplicationShutdownListener : onApplicationShutdownListenerList) {
-				onApplicationShutdownListener.shutdown();
+				onApplicationShutdownListener.appShutdown();
 			}
 		}
 		log.debug("app shutdown destroy finished.");

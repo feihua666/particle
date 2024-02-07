@@ -11,6 +11,8 @@ package com.particle.global.bootstrap.boot;
 public interface OnApplicationShutdownListener {
 	/**
 	 * 应用关闭调用
+	 * 注意：不能使用 shutdown，因为使用shutdown可能会导致容器在关闭时自动调用 shutdown 方法，导致问题
+	 * 参考：https://blog.csdn.net/Zong_0915/article/details/126440729
 	 */
-	public void shutdown();
+	public void appShutdown();
 }

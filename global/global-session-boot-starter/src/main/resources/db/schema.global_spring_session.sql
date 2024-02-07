@@ -23,7 +23,7 @@ create index spring_session_ix3 on global_spring_session (principal_name);
 create table global_spring_session_attributes (
 	session_primary_id char(36) not null,
 	attribute_name varchar(200) not null,
-	attribute_bytes blob not null,
+	attribute_bytes longblob not null,
 	constraint spring_session_attributes_pk primary key (session_primary_id, attribute_name),
 	constraint spring_session_attributes_fk foreign key (session_primary_id) references global_spring_session(primary_id) on delete cascade
 ) engine=innodb row_format=dynamic;
