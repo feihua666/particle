@@ -28,7 +28,6 @@ public class UsageCountRecordMarkVO extends AbstractBaseIdVO {
     @Schema(description = "超出提示信息")
     private String exceedTip;
 
-
     @Schema(description = "是否超出")
     private Boolean isExceed;
 
@@ -46,6 +45,14 @@ public class UsageCountRecordMarkVO extends AbstractBaseIdVO {
         usageCountRecordMarkVO.setVersion(version);
 
         usageCountRecordMarkVO.isExceed = usageCount > maxLimitCount;
+
+        return usageCountRecordMarkVO;
+    }
+
+
+    public static UsageCountRecordMarkVO createEmpty() {
+        UsageCountRecordMarkVO usageCountRecordMarkVO = new UsageCountRecordMarkVO();
+        usageCountRecordMarkVO.isExceed = false;
 
         return usageCountRecordMarkVO;
     }

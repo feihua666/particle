@@ -3,7 +3,9 @@ package com.particle.usagecount.adapter.web.front;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.usagecount.client.api.IUsageCountRecordApplicationService;
 import com.particle.usagecount.client.dto.command.UsageCountRecordMarkCommand;
@@ -46,6 +48,13 @@ public class UsageCountRecordFrontWebController extends AbstractBaseWebAdapter {
 		if (loginUser.getCurrentTenant() != null) {
 			usageCountRecordMarkCommand.setCurrentTenantId(loginUser.getCurrentTenant().getId());
 		}
-		return iUsageCountRecordApplicationService.mark(usageCountRecordMarkCommand);
+
+		SingleResponse<UsageCountRecordMarkVO> mark = iUsageCountRecordApplicationService.mark(usageCountRecordMarkCommand);
+		if (!mark.isSuccess() && ErrorCodeGlobalEnum.CONFIG_ERROR.getErrCode().equals(mark.getErrCode())) {
+			// 如果没有配置时，直接不限制，不报 500 错误
+			return SingleResponse.of(UsageCountRecordMarkVO.createEmpty());
+		}
+
+		return mark;
 	}
 }
