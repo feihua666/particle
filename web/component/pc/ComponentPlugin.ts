@@ -15,6 +15,7 @@ import Oauth2authorizationPlugin from './oauth2authorization/Oauth2authorization
 import OpenPlatformPlugin from './openplatform/OpenPlatformPlugin'
 import ReportPlugin from './report/ReportPlugin'
 import UsageCountPlugin from './usagecount/UsageCountPlugin'
+import FeedbackPlugin from './feedback/FeedbackPlugin'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -34,5 +35,6 @@ export default {
         OpenPlatformPlugin.install(app,options)
         ReportPlugin.install(app,options)
         UsageCountPlugin.install(app,options)
+        FeedbackPlugin.install(app,options)
     }
 }

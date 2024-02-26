@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("request_parameter_md5"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("feedback_user_rate_memo"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("OpenplatformProviderRecord");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/open-platform");
+		addFieldCommand.setDomainName("FeedbackReply");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/feedback");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("request_at"),"开始请求时间",LocalDateTime.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("feedback_user_rate_at"),"用户评价时间",LocalDateTime.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

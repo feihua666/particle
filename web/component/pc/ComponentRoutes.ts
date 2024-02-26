@@ -15,6 +15,7 @@ import Oauth2authorizationRoutes from "./oauth2authorization/Oauth2authorization
 import OpenPlatformRoutes from "./openplatform/OpenPlatformRoutes";
 import ReportRoutes from "./report/ReportRoutes";
 import UsageCountRoutes from "./usagecount/UsageCountRoutes";
+import FeedbackRoutes from "./feedback/FeedbackRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -34,4 +35,5 @@ let ComponentRoutes = []
     .concat(OpenPlatformRoutes)
     .concat(ReportRoutes)
     .concat(UsageCountRoutes)
+    .concat(FeedbackRoutes)
 export default ComponentRoutes

@@ -36,6 +36,7 @@
         <module>open-platform</module>
         <module>report</module>
         <module>usage-count</module>
+        <module>feedback</module>
     </modules>
 
     <properties>

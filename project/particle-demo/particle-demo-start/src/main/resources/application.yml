@@ -56,6 +56,7 @@ spring:
         - classpath:db/schema.report.sql
         - classpath:db/schema.usage-count.sql
         - classpath:db/schema.global_captcha.sql
+        - classpath:db/schema.feedback.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -78,6 +79,7 @@ spring:
         - classpath:db/data.open-platform.sql
         - classpath:db/data.report.sql
         - classpath:db/data.usage-count.sql
+        - classpath:db/data.feedback.sql
       # 默认 NEVER，太危险了，因为本机开发有部分是脚本配置依赖数据，比如数据查询和报告模板等，换了一个环境，全部数据没有了，还好通过binlog恢复了
       mode: NEVER # ALWAYS NEVER
   servlet:

@@ -30,6 +30,9 @@ public class OpLogConstants {
 		public static final String report = "report";
 		public static final String usageCount = "usageCount";
 
+
+		public static final String feedback = "feedback";
+
 		public static final String unknown = "unknown";
 
 	}

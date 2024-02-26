@@ -87,7 +87,16 @@ const d = [
         icon: 'Switch',
         type:'primary'
     },
-
+    {
+        pattern:['处理'],
+        icon: 'Operation',
+        type:'primary'
+    },
+    {
+        pattern:['回复'],
+        icon: 'ChatLineRound',
+        type:'primary'
+    },
 ]
 
 /**
