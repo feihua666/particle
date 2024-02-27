@@ -1,5 +1,6 @@
 package com.particle.area.client.api.representation;
 
+import com.particle.area.client.dto.command.representation.AreaItemsQueryListCommonCommand;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
@@ -39,6 +40,13 @@ public interface IAreaRepresentationApplicationService extends IBaseApplicationS
 	 * @return
 	 */
 	MultiResponse<AreaVO> queryList(AreaQueryListCommand areaQueryListCommand);
+
+	/**
+	 * 列表查询，主要用于下拉选择
+	 * @param areaItemsQueryListCommonCommand
+	 * @return
+	 */
+	MultiResponse<AreaVO> queryItems(AreaItemsQueryListCommonCommand areaItemsQueryListCommonCommand);
 
 	/**
 	 * 分页查询

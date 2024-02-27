@@ -2,6 +2,7 @@ package com.particle.area.app.api.impl.representation;
 
 import com.particle.area.app.executor.representation.AreaQueryCommandExecutor;
 import com.particle.area.client.api.representation.IAreaRepresentationApplicationService;
+import com.particle.area.client.dto.command.representation.AreaItemsQueryListCommonCommand;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
@@ -46,6 +47,11 @@ public class AreaRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	@Override
 	public MultiResponse<AreaVO> queryList(AreaQueryListCommand areaQueryListCommand) {
 		return areaQueryCommandExecutor.execute(areaQueryListCommand);
+	}
+
+	@Override
+	public MultiResponse<AreaVO> queryItems(AreaItemsQueryListCommonCommand areaItemsQueryListCommonCommand) {
+		return areaQueryCommandExecutor.queryItems(areaItemsQueryListCommonCommand);
 	}
 
 	@Autowired

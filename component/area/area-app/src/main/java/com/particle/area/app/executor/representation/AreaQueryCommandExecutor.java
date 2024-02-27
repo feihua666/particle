@@ -1,10 +1,15 @@
 package com.particle.area.app.executor.representation;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.area.app.structmapping.AreaAppStructMapping;
+import com.particle.area.client.dto.command.representation.AreaItemsQueryListCommonCommand;
 import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
+import com.particle.area.domain.enums.AreaType;
+import com.particle.area.domain.gateway.AreaDictGateway;
 import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
@@ -12,6 +17,7 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +37,8 @@ import java.util.List;
 public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 
 	private IAreaService iAreaService;
+
+	private AreaDictGateway areaDictGateway;
 
 	/**
 	 * 执行 区域 列表查询指令
@@ -73,8 +81,36 @@ public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 		return SingleResponse.of(areaVO);
 	}
 
+	/**
+	 * 列表查询，主要用于下拉选择
+	 * @param areaItemsQueryListCommonCommand
+	 * @return
+	 */
+	public MultiResponse<AreaVO> queryItems(AreaItemsQueryListCommonCommand areaItemsQueryListCommonCommand) {
+		Long parentId = areaItemsQueryListCommonCommand.getParentId();
+		Long typeDictId = areaItemsQueryListCommonCommand.getTypeDictId();
+		if (typeDictId == null && StrUtil.isNotEmpty(areaItemsQueryListCommonCommand.getTypeDictValue())) {
+			typeDictId = areaDictGateway.getDictIdByGroupCodeAndItemValue(AreaType.Group.area_type.groupCode(),  areaItemsQueryListCommonCommand.getTypeDictValue());
+		}
+
+		Assert.isTrue(parentId != null || typeDictId != null, "parentId和typeDictId或typeDictValue不能同时为空");
+
+		List<AreaDO> list = iAreaService.list(
+				Wrappers.<AreaDO>lambdaQuery()
+						.eq(parentId != null,AreaDO::getParentId, parentId)
+						.eq(typeDictId != null,AreaDO::getTypeDictId, typeDictId)
+						.orderByAsc(AreaDO::getSeq)
+
+		);
+		List<AreaVO> areaVOs = AreaAppStructMapping.instance.areaDOsToAreaVOs(list);
+		return MultiResponse.of(areaVOs);
+	}
 	@Autowired
 	public void setIAreaService(IAreaService iAreaService) {
 		this.iAreaService = iAreaService;
+	}
+	@Autowired
+	public void setAreaDictGateway(AreaDictGateway areaDictGateway) {
+		this.areaDictGateway = areaDictGateway;
 	}
 }
