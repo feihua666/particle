@@ -39,7 +39,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认修改',
-  permission: 'admin:web:OpenplatformOpenapi:update',
+  permission: 'admin:web:openplatformOpenapi:update',
   // 由于开放接口缓存，提示一下，参见后端 com.particle.global.openapi.api.AbstractGlobalOpenapi.getApiInfo
   methodConfirmText: `修改后大概3分钟后生效，确认修改吗？`,
 })

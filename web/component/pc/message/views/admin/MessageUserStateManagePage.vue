@@ -40,7 +40,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:MessageUserState:pageQuery'
+  permission: 'admin:web:messageUserState:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -63,14 +63,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:MessageUserState:update',
+      permission: 'admin:web:messageUserState:update',
       // 跳转到编辑
       route: {path: '/admin/MessageUserStateManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:MessageUserState:delete',
+      permission: 'admin:web:messageUserState:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -94,7 +94,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:MessageUserState:create" route="/admin/MessageUserStateManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:messageUserState:create" route="/admin/MessageUserStateManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

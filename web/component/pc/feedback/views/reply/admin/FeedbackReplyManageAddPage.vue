@@ -31,7 +31,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认回复',
-  permission: 'admin:web:FeedbackReply:create',
+  permission: 'admin:web:feedbackReply:create',
 })
 // 提交按钮
 const submitMethod = () => {

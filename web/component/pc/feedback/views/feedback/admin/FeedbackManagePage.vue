@@ -73,7 +73,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:Feedback:pageQuery'
+  permission: 'admin:web:feedback:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -115,7 +115,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '手动处理',
       text: true,
-      permission: 'admin:web:Feedback:manualHandle',
+      permission: 'admin:web:feedback:manualHandle',
       position: 'more',
       disabled: row.isHandle,
       disabledReason: row.isHandle ? '已处理,不能再次处理' : undefined,
@@ -126,7 +126,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:Feedback:delete',
+      permission: 'admin:web:feedback:delete',
       position: 'more',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作

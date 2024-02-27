@@ -68,7 +68,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:TrackingPage:pageQuery'
+  permission: 'admin:web:trackingPage:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -92,7 +92,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:TrackingPage:update',
+      permission: 'admin:web:trackingPage:update',
       // 跳转到编辑
       route: {path: '/admin/TrackingPageManageUpdate',query: idData}
     },
@@ -101,14 +101,14 @@ const getTableRowButtons = ({row, column, $index}) => {
       text: true,
       icon: 'View',
       type: 'primary',
-      permission: 'admin:web:TrackingPageRecord:pageQuery',
+      permission: 'admin:web:trackingPageRecord:pageQuery',
       // 跳转到埋点数据
       route: {path: '/admin/trackingPageRecordPopoverManagePage',query: codeData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:TrackingPage:delete',
+      permission: 'admin:web:trackingPage:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -132,7 +132,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:TrackingPage:create" route="/admin/TrackingPageManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:trackingPage:create" route="/admin/TrackingPageManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

@@ -38,7 +38,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认修改',
-  permission: 'admin:web:DeptTreeUserRel:update',
+  permission: 'admin:web:deptTreeUserRel:update',
 })
 // 提交按钮
 const submitMethod = () => {

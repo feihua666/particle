@@ -80,7 +80,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:OpenplatformApp:pageQuery'
+  permission: 'admin:web:openplatformApp:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -103,14 +103,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '编辑',
       text: true,
-      permission: 'admin:web:OpenplatformApp:update',
+      permission: 'admin:web:openplatformApp:update',
       // 跳转到编辑
       route: {path: '/admin/OpenplatformAppManageUpdate',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:OpenplatformApp:delete',
+      permission: 'admin:web:openplatformApp:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){
@@ -135,7 +135,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:OpenplatformApp:create" route="/admin/OpenplatformAppManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:openplatformApp:create" route="/admin/OpenplatformAppManageAdd">添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

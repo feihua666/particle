@@ -159,7 +159,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:TrackingPageRecord:pageQuery'
+  permission: 'admin:web:trackingPageRecord:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -183,7 +183,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:TrackingPageRecord:delete',
+      permission: 'admin:web:trackingPageRecord:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){

@@ -145,7 +145,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:OpenplatformOpenapiRecord:pageQuery'
+  permission: 'admin:web:openplatformOpenapiRecord:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -179,7 +179,7 @@ const getTableRowButtons = ({row, column, $index}) => {
    tableRowButtons.push(    {
      txt: '查看供应商调用记录',
      text: true,
-     permission: 'admin:web:OpenplatformProviderRecord:pageQuery',
+     permission: 'admin:web:openplatformProviderRecord:pageQuery',
      // 跳转到编辑
      route: {path: '/admin/openplatformProviderRecordManagePage',query: openplatformOpenapiRecordIdData}
    })

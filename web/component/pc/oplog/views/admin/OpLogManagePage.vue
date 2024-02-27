@@ -99,7 +99,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:OpLog:pageQuery'
+  permission: 'admin:web:opLog:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -123,14 +123,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '审计数据',
       text: true,
-      permission: 'admin:web:OpLogAuditData:pageQuery',
+      permission: 'admin:web:opLogAuditData:pageQuery',
       // 跳转到编辑
       route: {path: '/admin/opLogAuditDataManagePopoverPage',query: opLogIdData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:OpLog:delete',
+      permission: 'admin:web:opLog:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){

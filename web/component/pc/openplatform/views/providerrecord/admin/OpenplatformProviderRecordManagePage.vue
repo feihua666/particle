@@ -113,7 +113,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:OpenplatformProviderRecord:pageQuery'
+  permission: 'admin:web:openplatformProviderRecord:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {

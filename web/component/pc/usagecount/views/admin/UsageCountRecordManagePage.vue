@@ -49,7 +49,7 @@ const reactiveData = reactive({
 const submitAttrs = ref({
   buttonText: '查询',
   loading: false,
-  permission: 'admin:web:UsageCountRecord:pageQuery'
+  permission: 'admin:web:usageCountRecord:pageQuery'
 })
 // 查询按钮
 const submitMethod = ():void => {
@@ -72,14 +72,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '查看明细',
       text: true,
-      permission: 'admin:web:UsageCountRecordDetail:pageQuery',
+      permission: 'admin:web:usageCountRecordDetail:pageQuery',
       // 跳转到编辑
       route: {path: '/admin/usageCountRecordDetailPage',query: idData}
     },
     {
       txt: '删除',
       text: true,
-      permission: 'admin:web:UsageCountRecord:delete',
+      permission: 'admin:web:usageCountRecord:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
       method(){

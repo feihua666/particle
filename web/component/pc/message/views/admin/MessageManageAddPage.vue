@@ -21,7 +21,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认添加',
-  permission: 'admin:web:Message:create',
+  permission: 'admin:web:message:create',
 })
 // 提交按钮
 const submitMethod = () => {

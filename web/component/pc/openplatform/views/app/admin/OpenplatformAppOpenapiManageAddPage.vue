@@ -22,7 +22,7 @@ const formComps = ref(
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '确认添加',
-  permission: 'admin:web:OpenplatformAppOpenapi:create',
+  permission: 'admin:web:openplatformAppOpenapi:create',
   // 由于开放接口缓存，提示一下，参见后端 com.particle.global.openapi.api.AbstractGlobalOpenapi.getOpenapiClient
   methodConfirmText: `添加后大概5分钟后生效，确认添加吗？`,
 })
