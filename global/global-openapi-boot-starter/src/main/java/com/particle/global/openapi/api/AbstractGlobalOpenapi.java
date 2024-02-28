@@ -1,5 +1,8 @@
 package com.particle.global.openapi.api;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.FIFOCache;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.exception.Assert;
@@ -25,6 +28,11 @@ import java.util.*;
 @Slf4j
 public abstract class AbstractGlobalOpenapi implements OpenApi{
 
+
+	/**
+	 * 用于流水号的缓存，100000个，按qps=100算，能缓存1000秒
+	 */
+	protected static FIFOCache<String, String> nonceFIFOCache = CacheUtil.newFIFOCache(100000);
 	/**
 	 * 请求时间戳，时间差不能超过 2 分钟
 	 */
@@ -172,16 +180,12 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 
 	@Override
 	public boolean verifyNonce(BasicHeaderDTO basicHeaderDTO) {
-		if (globalOpenapiCache == null) {
-			log.warn("globalOpenapiCache is null. verifyNonce ignored.");
-			return true;
-		}
 
-		String key = basicHeaderDTO.getClientId() + basicHeaderDTO.getNonce();
-		String flag = (String) globalOpenapiCache.get(key);
+		String key = basicHeaderDTO.getClientId()+ "_" + basicHeaderDTO.getNonce();
+		String flag = (String) nonceFIFOCache.get(key);
 		if (StrUtil.isEmpty(flag)) {
 			// 这里value存储一个1即可，代表有值
-			globalOpenapiCache.put(key,"1",timestampExpire);
+			nonceFIFOCache.put(key,"1",timestampExpire);
 			return true;
 		}
 

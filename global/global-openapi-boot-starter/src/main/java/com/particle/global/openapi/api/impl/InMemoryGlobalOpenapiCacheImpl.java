@@ -15,39 +15,19 @@ import com.particle.global.openapi.api.GlobalOpenapiCache;
  */
 public class InMemoryGlobalOpenapiCacheImpl implements GlobalOpenapiCache {
 
-	private TimedCache<String, CacheObj> objectTimedCache = CacheUtil.newTimedCache(60 * 60 * 1000);
+	/**
+	 * 缓存1小时
+	 */
+	private TimedCache<String, Object> objectTimedCache = CacheUtil.newTimedCache(60 * 60 * 1000);
 
 	@Override
 	public void put(String key, Object value, Long cacheTime) {
-		objectTimedCache.put(key,CacheObj.create(value,cacheTime));
+		objectTimedCache.put(key,value,cacheTime);
 	}
 
 	@Override
 	public Object get(String key) {
-		CacheObj cacheObj = objectTimedCache.get(key);
-		if (cacheObj == null) {
-			return null;
-		}
-		// 已过期
-		if (cacheObj.expireAt < System.currentTimeMillis()) {
-			objectTimedCache.remove(key);
-			return null;
-		}
-		return cacheObj.value;
+		return objectTimedCache.get(key);
 	}
 
-	private static class CacheObj{
-		private Object value;
-		/**
-		 * 过期时间戳，单位毫秒
-		 */
-		private Long expireAt;
-
-		public static CacheObj create(Object value, Long cacheTime) {
-			CacheObj cacheObj = new CacheObj();
-			cacheObj.value = value;
-			cacheObj.expireAt = cacheTime + System.currentTimeMillis();
-			return cacheObj;
-		}
-	}
 }
