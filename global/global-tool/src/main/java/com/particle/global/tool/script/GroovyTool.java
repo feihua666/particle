@@ -57,14 +57,13 @@ public class GroovyTool {
 	 * @return
 	 */
 	public static Object compileAndEval(String script, Bindings bindings,boolean useCache) throws ScriptException {
-		Compilable compilable = ((Compilable) getGroovyEngine());
 		CompiledScript compiledScript = null;
 		Object evalResult = null;
 		try {
 			compiledScript = compile(script, useCache);
 			evalResult = compiledScript.eval(bindings);
 		} catch (ScriptException e) {
-			throw new RuntimeException("groovyScript error script="+script,e);
+			throw new RuntimeException("groovyScript error script=" + script,e);
 		}
 		return evalResult;
 
