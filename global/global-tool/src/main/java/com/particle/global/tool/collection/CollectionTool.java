@@ -1,6 +1,7 @@
 package com.particle.global.tool.collection;
 
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -237,6 +238,35 @@ public class CollectionTool {
 					iterator.remove();
 				}
 			}
+		}
+	}
+
+	/**
+	 * 将map中的每一个value值为字符串的，且以prefix开头的，替换为replaceValue
+	 * @param object
+	 * @param prefixReplaceValueMap key=prefix,value=replaceValue
+	 */
+	public static void replaceMapValueByPrefix(Object object,Map<String, String> prefixReplaceValueMap) {
+		if (object instanceof Map) {
+			((Map<Object, Object>) object).entrySet().forEach(entry ->{
+				Object valueObj = entry.getValue();
+				if (valueObj instanceof String) {
+					String value = ((String) valueObj);
+					for (Map.Entry<String, String> stringStringEntry : prefixReplaceValueMap.entrySet()) {
+						String prefix = stringStringEntry.getKey();
+						String replaceValue = stringStringEntry.getValue();
+						if (StrUtil.startWith(value,prefix)) {
+							entry.setValue(replaceValue + (value.substring(prefix.length())));
+						}
+					}
+				}else if (valueObj instanceof Collection) {
+					((Collection<?>) valueObj).forEach(item -> replaceMapValueByPrefix(item,prefixReplaceValueMap));
+				}else if (valueObj instanceof Map) {
+					replaceMapValueByPrefix(valueObj, prefixReplaceValueMap);
+				}
+			});
+		}else if (object instanceof Collection) {
+			((Collection<?>) object).forEach(item -> replaceMapValueByPrefix(item,prefixReplaceValueMap));
 		}
 	}
 
