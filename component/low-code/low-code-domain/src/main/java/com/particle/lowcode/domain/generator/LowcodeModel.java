@@ -59,7 +59,7 @@ public class LowcodeModel extends AggreateRoot {
 
 
     public void changeTableCreateSql( String tableCreateSql){
-    	this.tableCreateSql = tableCreateSql;
+		this.tableCreateSql = tableCreateSql.replace(" CHARACTER SET utf8 COLLATE utf8_bin", "").replace("CHARSET=utf8mb3","CHARSET=utf8");
 	}
 	/**
 	 * 创建低代码模型领域模型对象

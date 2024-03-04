@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +37,12 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 	public List<LowcodeModelItem> loadByTableName(String tableName ,String url,String username,String password) {
 		TableInfo tableInfo = loadTableInfo(tableName, url, username, password);
 		List<LowcodeModelItem> lowcodeModelItems = tableInfoToLowcodeModelItems(tableInfo);
+		List<String> strings = mysqlLoadUniqueIndexes(tableName, url, username, password);
+		lowcodeModelItems.forEach(item -> {
+			if (strings.contains(item.getColumnName().toLowerCase())) {
+				item.setIsUnique(true);
+			}
+		});
 		return lowcodeModelItems;
 	}
 
@@ -71,6 +78,73 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 			}
 		}
 		return "仅支持mysql";
+	}
+	private List<String> mysqlLoadUniqueIndexes(String tableName ,String url,String username,String password) {
+		// dataSourceConfig
+		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
+		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
+		String sql = "select\n" +
+				"    table_name,\n" +
+				"    index_name,\n" +
+				"    non_unique,\n" +
+				"    column_name\n" +
+				"from\n" +
+				"    information_schema.statistics\n" +
+				"where\n" +
+				"     table_name = '"+ tableName +"'\n" +
+				"    and non_unique = 0";
+		List<String> result = new ArrayList<>();
+		try (
+				Connection conn = dataSourceConfig.getConn();
+				PreparedStatement preparedStatement = conn.prepareStatement(sql);
+				ResultSet results = preparedStatement.executeQuery()) {
+			while (results.next()) {
+				String columnName = results.getString("column_name");
+				result.add(columnName);
+			}
+		} catch (SQLException e) {
+			log.error("SQL Exception：" + e.getMessage(),e);
+		}finally {
+			try {
+				dataSourceConfig.getConn().close();
+			} catch (SQLException throwables) {
+				log.error(throwables.getMessage(),throwables);
+			}
+		}
+		return result;
+	}
+	private Boolean mysqlLoadIsUniqueIndex(String tableName,String columnName, String url, String username, String password) {
+		// dataSourceConfig
+		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
+		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
+		String sql = "select\n" +
+				"    table_name,\n" +
+				"    index_name,\n" +
+				"    non_unique,\n" +
+				"    column_name\n" +
+				"from\n" +
+				"    information_schema.statistics\n" +
+				"where\n" +
+				"     table_name = '"+ tableName +"'\n" +
+				"  and column_name = '"+ columnName +"'\n" +
+				"    and non_unique = 0";
+		try (
+				Connection conn = dataSourceConfig.getConn();
+
+				PreparedStatement preparedStatement = conn.prepareStatement(sql);
+				ResultSet results = preparedStatement.executeQuery()) {
+			return results.first();
+		} catch (SQLException e) {
+			log.error("SQL Exception：" + e.getMessage(),e);
+		}finally {
+			try {
+				dataSourceConfig.getConn().close();
+			} catch (SQLException throwables) {
+				log.error(throwables.getMessage(),throwables);
+			}
+		}
+		// 仅支持mysql
+		return false;
 	}
 
 	/**
@@ -151,6 +225,10 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 
 		lowcodeModelItem.setDefaultValue(metaInfo.getDefaultValue());
 		// 是否唯一字段判断，目前mybatis plus generator不支持，如果自己写的话也是可以的，但要兼容多种数据库也很费劲，暂不添加，放到前端设置
+		// 已支持mysql唯一单字段索引
+		/**
+		 * {@link LowcodeDbTableInfoGatewayImpl#mysqlLoadUniqueIndexes(String, String, String, String)}
+		 */
 		lowcodeModelItem.setIsUnique(false);
 		lowcodeModelItem.setIsRequired(!metaInfo.isNullable());
 		lowcodeModelItem.setIsKey(field.isKeyFlag());
