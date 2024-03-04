@@ -40,7 +40,7 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 		List<String> strings = mysqlLoadUniqueIndexes(tableName, url, username, password);
 		lowcodeModelItems.forEach(item -> {
 			if (strings.contains(item.getColumnName().toLowerCase())) {
-				item.setIsUnique(true);
+				item.changeUniqueTo(true);
 			}
 		});
 		return lowcodeModelItems;
