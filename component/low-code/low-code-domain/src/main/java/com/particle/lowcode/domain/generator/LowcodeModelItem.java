@@ -169,6 +169,23 @@ public class LowcodeModelItem extends AggreateRoot {
         commentSimple = commentFull.split(",")[0];
         commentSimple = commentSimple.split("，")[0];
     }
+
+    /**
+     *
+     */
+    public void changeUniqueTo(boolean isUnique) {
+        if (isUnique == false) {
+            this.isUnique = false;
+        }else {
+            // 主键不设置为unique，在代码生成时会使用是否唯一字段以判断是否为唯一
+            if (isKey) {
+                this.isUnique = false;
+            }else {
+                this.isUnique = true;
+            }
+        }
+    }
+
 	/**
 	 * 创建低代码模型项目领域模型对象
 	 * @return 低代码模型项目领域模型对象，该对应所有属性为空，需要进行初始化操作
