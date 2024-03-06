@@ -30,7 +30,7 @@ public class DataQueryInfrastructureConfiguration {
 	public ExecutorService dataQueryDataApiExecutor(BeanFactory beanFactory) {
 		return CustomExecutors.newExecutorService(beanFactory,
 				dataQueryDataApiExecutor,
-				5,
+				15,
 				100,
 				1000 * 60,
 				new LinkedBlockingQueue<>(1000),
