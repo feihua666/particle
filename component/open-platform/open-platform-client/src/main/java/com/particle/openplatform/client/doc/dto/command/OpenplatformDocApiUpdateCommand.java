@@ -35,6 +35,9 @@ public class OpenplatformDocApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "简称")
     private String nameSimple;
 
+	@Schema(description = "图标地址")
+	private String logoUrl;
+
 
     @SetNullWhenNull
     @Schema(description = "每次价格")

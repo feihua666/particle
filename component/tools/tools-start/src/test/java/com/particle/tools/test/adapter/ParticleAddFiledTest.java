@@ -23,12 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("response_param_example"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("name_simple"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("OpenplatformDocApiDoc");
+		addFieldCommand.setDomainName("OpenplatformDocApi");
 		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/open-platform");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("openplatform_doc_api_doc_template_id"),"开放接口文档模板id",Long.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("logo_url"),"图标地址",String.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

@@ -42,6 +42,7 @@ const reactiveData = reactive({
     {
       prop: 'explanation',
       label: '字段说明',
+      showOverflowTooltip: true,
     },
     {
       prop: 'openplatformDocApiName',

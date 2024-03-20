@@ -33,6 +33,11 @@ public class OpenplatformDocApiDO extends BaseDO {
     */
     private String nameSimple;
 
+	/**
+	 * 图标地址
+	 */
+	private String logoUrl;
+
     /**
     * 每次价格，单位元
     */

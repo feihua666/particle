@@ -5,6 +5,7 @@ CREATE TABLE `component_openplatform_doc_api` (
   `code` varchar(255) NOT NULL COMMENT '编码，唯一',
   `name` varchar(100) NOT NULL COMMENT '名称',
   `name_simple` varchar(100) DEFAULT NULL COMMENT '简称',
+  `logo_url` varchar(300) DEFAULT NULL COMMENT '图标地址',
   `price_per_time` float(10,2) DEFAULT NULL COMMENT '每次价格，单位元',
   `price_per_time_desc` varchar(255) DEFAULT NULL COMMENT '价格文本，price_per_time不支持时可以作为备用',
   `description` varchar(2000) DEFAULT NULL COMMENT '描述',

@@ -88,7 +88,6 @@ export const addPageFormItems = [
         }
       },
 
-
       {
         field: {
           name: 'nameSimple',
@@ -105,6 +104,21 @@ export const addPageFormItems = [
         }
       },
 
+  {
+    field: {
+      name: 'logoUrl',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '图标地址',
+        tips: '一个图标地址，需要绝对路径',
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
 
       {
         field: {

@@ -32,6 +32,9 @@ public class OpenplatformDocApiPageQueryCommand extends AbstractBasePageQueryCom
     @Schema(description = "简称")
     private String nameSimple;
 
+	@Schema(description = "图标地址")
+	private String logoUrl;
+
     @Schema(description = "排序")
     private Integer seq;
 

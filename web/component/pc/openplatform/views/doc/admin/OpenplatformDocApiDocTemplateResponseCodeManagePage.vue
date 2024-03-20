@@ -34,6 +34,7 @@ const reactiveData = reactive({
     {
       prop: 'explanation',
       label: '字段说明',
+      showOverflowTooltip: true,
     },
     {
       prop: 'openplatformDocApiDocTemplateName',
@@ -53,6 +54,7 @@ const reactiveData = reactive({
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true,
     },
   ],
 

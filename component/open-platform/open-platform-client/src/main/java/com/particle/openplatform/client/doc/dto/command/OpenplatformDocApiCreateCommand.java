@@ -33,6 +33,9 @@ public class OpenplatformDocApiCreateCommand extends AbstractBaseCommand {
     @Schema(description = "简称")
     private String nameSimple;
 
+	@Schema(description = "图标地址")
+	private String logoUrl;
+
 
     @Schema(description = "每次价格")
     private Double pricePerTime;

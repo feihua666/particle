@@ -29,16 +29,23 @@ const reactiveData = reactive({
       label: '简称',
     },
     {
+      prop: 'logoUrl',
+      label: '图标',
+      columnView: 'image'
+    },
+    {
       prop: 'pricePerTime',
       label: '每次价格(元)',
     },
     {
       prop: 'pricePerTimeDesc',
       label: '价格文本',
+      showOverflowTooltip: true,
     },
     {
       prop: 'description',
       label: '描述',
+      showOverflowTooltip: true,
     },
     {
       prop: 'seq',

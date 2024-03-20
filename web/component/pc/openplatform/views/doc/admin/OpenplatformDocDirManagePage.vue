@@ -39,6 +39,7 @@ const reactiveData = reactive({
     {
       prop: 'remark',
       label: '备注',
+      showOverflowTooltip: true,
     },
 
   ],
