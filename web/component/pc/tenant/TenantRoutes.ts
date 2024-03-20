@@ -1,10 +1,10 @@
-import tenantAdminRoutes from './views/admin/tenantAdminRoutes.ts'
-import tenantUserAdminRoutes from './views/admin/tenantUserAdminRoutes.ts'
-import tenantFuncAdminRoutes from './views/tenantfunc/admin/tenantFuncAdminRoutes.ts'
-import tenantFuncApplicationAdminRoutes from './views/tenantfuncapplication/admin/tenantFuncApplicationAdminRoutes.ts'
-import tenantCreateApplyAdminRoutes from './views/createapply/admin/tenantCreateApplyAdminRoutes.ts'
-import tenantUserInviteAdminRoutes from './views/userinvite/admin/tenantUserInviteAdminRoutes.ts'
-import tenantUserInviteUserRecordAdminRoutes from './views/userinvite/admin/tenantUserInviteUserRecordAdminRoutes.ts'
+import tenantAdminRoutes from './views/admin/tenantAdminRoutes'
+import tenantUserAdminRoutes from './views/admin/tenantUserAdminRoutes'
+import tenantFuncAdminRoutes from './views/tenantfunc/admin/tenantFuncAdminRoutes'
+import tenantFuncApplicationAdminRoutes from './views/tenantfuncapplication/admin/tenantFuncApplicationAdminRoutes'
+import tenantCreateApplyAdminRoutes from './views/createapply/admin/tenantCreateApplyAdminRoutes'
+import tenantUserInviteAdminRoutes from './views/userinvite/admin/tenantUserInviteAdminRoutes'
+import tenantUserInviteUserRecordAdminRoutes from './views/userinvite/admin/tenantUserInviteUserRecordAdminRoutes'
 const TenantRoutes = []
     .concat(tenantAdminRoutes)
     .concat(tenantUserAdminRoutes)

@@ -31,6 +31,7 @@ import java.util.List;
         "com.particle.openplatform.infrastructure.openapirecord.mapper",
         "com.particle.openplatform.infrastructure.provider.mapper",
         "com.particle.openplatform.infrastructure.providerrecord.mapper",
+        "com.particle.openplatform.infrastructure.doc.mapper",
 })
 public class OpenPlatformAutoConfiguration {
 

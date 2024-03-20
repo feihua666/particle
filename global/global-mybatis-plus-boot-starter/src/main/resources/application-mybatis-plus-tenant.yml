@@ -47,6 +47,18 @@ particle:
       - component_openplatform_provider
       - component_openplatform_provider_record
       - component_openplatform_provider_record_param
+      - component_openplatform_doc_api
+      - component_openplatform_doc_api_dir_rel
+      - component_openplatform_doc_api_doc
+      - component_openplatform_doc_api_doc_example_code
+      - component_openplatform_doc_api_doc_param_field
+      - component_openplatform_doc_api_doc_response_code
+      - component_openplatform_doc_api_doc_template
+      - component_openplatform_doc_api_doc_template_example_code
+      - component_openplatform_doc_api_doc_template_param_field
+      - component_openplatform_doc_api_doc_template_response_code
+      - component_openplatform_doc_dir
+      - component_openplatform_doc_dir_name
       # 报告相关表
       - component_report_report_api
       - component_report_segment_template

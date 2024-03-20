@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 仅用来标识字段本身是需要翻译的
- *
+ * 如果是标注在map类型的字段上，仅翻译map的值
  *
  * @author yangwei
  * Created at 2019/10/9 9:59

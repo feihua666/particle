@@ -41,6 +41,13 @@ public class TransTableNameConstants {
 	public static final String component_openplatform_openapi = "component_openplatform_openapi";
 	public static final String component_openplatform_openapi_fee = "component_openplatform_openapi_fee";
 	public static final String component_openplatform_provider = "component_openplatform_provider";
+	public static final String component_openplatform_doc_dir_name = "component_openplatform_doc_dir_name";
+	public static final String component_openplatform_doc_dir = "component_openplatform_doc_dir";
+	public static final String component_openplatform_doc_api = "component_openplatform_doc_api";
+	public static final String component_openplatform_doc_api_doc = "component_openplatform_doc_api_doc";
+	public static final String component_openplatform_doc_api_doc_param_field = "component_openplatform_doc_api_doc_param_field";
+	public static final String component_openplatform_doc_api_doc_template = "component_openplatform_doc_api_doc_template";
+	public static final String component_openplatform_doc_api_doc_template_param_field = "component_openplatform_doc_api_doc_template_param_field";
 
 	public static final String component_report_segment_template = "component_report_segment_template";
 	public static final String component_report_report_api = "component_report_report_api";

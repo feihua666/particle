@@ -73,7 +73,7 @@ export const useAddPageFormItems = ({formData}) => {
                 }
             }
         },
-        useSelectFuncGroupCompItem({required: true}),
+        useSelectFuncGroupCompItem({required: true,tips: '选择父级后自动联动'}),
         {
             field: {
                 name: 'icon',
@@ -234,7 +234,8 @@ export const useAddPageFormItems = ({formData}) => {
                 comp: 'el-input',
                 formItemProps: {
                     label: '归属组件',
-                    required: true
+                    required: true,
+                    tips: '选择父级后自动联动'
                 },
                 compProps: {
                     clearable: true,

@@ -37,7 +37,7 @@ public class DeptVO extends AbstractBaseIdTreeVO {
 
     @TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "masterUserId",mapValueField = "name")
     @Schema(description = "负责人用户姓名")
-    private Long masterUserName;
+    private String masterUserName;
     
     @Schema(description = "是否虚拟部门")
     private Boolean isVirtual;

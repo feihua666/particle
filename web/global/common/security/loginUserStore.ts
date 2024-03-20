@@ -4,7 +4,7 @@
 import { ref } from '@nm/vue'
 import { defineStore } from '@nm/pinia'
 import {anyObj, isEmpty} from '../tools/ObjectTools'
-import {get, getRaw, set, setRaw} from '../tools/StorageTools.ts'
+import {get, getRaw, set, setRaw} from '../tools/StorageTools'
 
 export interface LoginUserStore{
     // 是否强制登录

@@ -8,3 +8,15 @@
 -- import classpath:db/provider/schema.component_openplatform_provider.sql
 -- import classpath:db/providerrecord/schema.component_openplatform_provider_record.sql
 -- import classpath:db/providerrecord/schema.component_openplatform_provider_record_param.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_dir_rel.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_param_field.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_dir.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_dir_name.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_response_code.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_example_code.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_example_code.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_param_field.sql
+-- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_response_code.sql

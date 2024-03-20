@@ -1,0 +1,96 @@
+package com.particle.openplatform.domain.doc;
+
+import com.particle.common.domain.AggreateRoot;
+import com.particle.global.domain.DomainFactory;
+import com.particle.global.domain.Entity;
+import lombok.Data;
+/**
+ * <p>
+ * 开放接口文档 领域模型
+ * </p>
+ *
+ * @author yw
+ * @since 2024-03-14 14:56:37
+ */
+@Data
+@Entity
+public class OpenplatformDocApiDoc extends AggreateRoot {
+
+
+    private OpenplatformDocApiDocId id;
+
+    /**
+     * 开放接口文档接口id
+     */
+    private Long openplatformDocApiId;
+
+    /**
+    * 请求地址前缀，可全局配置
+    */
+    private String requestUrlPrefix;
+
+    /**
+    * 请求地址
+    */
+    private String requestUrl;
+
+    /**
+    * 请求类型，字典id，如：post、get
+    */
+    private Long requestTypeDictId;
+
+    /**
+    * 请求体类型，字典id，如：json、xml
+    */
+    private Long requestBodyTypeDictId;
+
+    /**
+    * 响应体类型，字典id，如：json、xml
+    */
+    private Long responseBodyTypeDictId;
+
+    /**
+    * 最大响应时长，单位ms
+    */
+    private Integer responseMaxDuration;
+
+    /**
+    * 响应时长文本，response_max_duration不支持时作为备用
+    */
+    private Integer responseMaxDurationDesc;
+
+    /**
+    * 认证方式
+    */
+    private String authenticationType;
+
+    /**
+    * 详细描述，详细描述文档内容或返回参数信息
+    */
+    private String descriptionDetail;
+
+    /**
+    * 请求参数示例
+    */
+    private String requestParamExample;
+
+    /**
+    * 响应参数示例
+    */
+    private String responseParamExample;
+
+	/**
+	 * 开放接口文档模板id
+	 */
+	private Long openplatformDocApiDocTemplateId;
+
+
+
+    /**
+     * 创建开放接口文档领域模型对象
+     * @return 开放接口文档领域模型对象，该对应所有属性为空，需要进行初始化操作
+     */
+    public static OpenplatformDocApiDoc create(){
+        return DomainFactory.create(OpenplatformDocApiDoc.class);
+    }
+}

@@ -1,5 +1,6 @@
 package com.particle.dataquery.infrastructure.dataapi.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
@@ -21,7 +22,7 @@ public interface IDataQueryDataApiService extends IBaseService<DataQueryDataApiD
 	 */
 	default DataQueryDataApiDO getByUrl(String url) {
 		Assert.notNull(url,"url 不能为空");
-		return getOneByColumn(url, DataQueryDataApiDO::getUrl);
+		return getOne(Wrappers.<DataQueryDataApiDO>lambdaQuery().eq(DataQueryDataApiDO::getUrl,url));
 	}
 
 

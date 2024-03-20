@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.openapirecord.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.openplatform.infrastructure.openapirecord.dos.OpenplatformOpenapiRecordParamDO;
 
@@ -20,7 +21,7 @@ public interface IOpenplatformOpenapiRecordParamService extends IBaseService<Ope
 	 * @return
 	 */
 	default OpenplatformOpenapiRecordParamDO getByOpenplatformOpenapiRecordId(Long openplatformOpenapiRecordId) {
-		return getOneByColumn(openplatformOpenapiRecordId, OpenplatformOpenapiRecordParamDO::getOpenplatformOpenapiRecordId);
+		return getOne(Wrappers.<OpenplatformOpenapiRecordParamDO>lambdaQuery().eq(OpenplatformOpenapiRecordParamDO::getOpenplatformOpenapiRecordId, openplatformOpenapiRecordId));
 	}
 
 }

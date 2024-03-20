@@ -1,4 +1,4 @@
-import ComponentRoutes from '../../../../component/pc/ComponentRoutes.ts'
+import ComponentRoutes from '../../../../component/pc/ComponentRoutes'
 
 let routes = [].concat(ComponentRoutes)
 

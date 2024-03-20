@@ -40,7 +40,7 @@ public class OpenplatformAppVO extends AbstractBaseIdVO {
 	 * todo 待添加crm模块后可用
 	 */
 	@Schema(description = "归属客户名称")
-	private Long ownerCustomerName;
+	private String ownerCustomerName;
     
     @Schema(description = "请求算法与密钥等相关配置")
     private String requestAlgorithmSecretJson;

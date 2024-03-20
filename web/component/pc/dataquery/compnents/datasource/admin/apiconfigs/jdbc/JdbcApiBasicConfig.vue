@@ -102,7 +102,7 @@ const formComps = [
         tips: "1. enjoy模板 最终会渲染为sql语句， 取值示例 where name = '#(data.name)' data为请求参数句柄，<br/>" +
             "2. mybatisScript模板 最终会渲染为sql语句， 需要以&lt;script&gt;开头，注意前面不能有空格 取值示例&lt;script&gt;&lt;if test=\"data.data.name != null\"&gt;where name = #{data.data.name}&lt;/if&gt;&lt;/script&gt; 注意：data.data(两个data)为请求参数句柄<br/>" +
             "3. raw模式 请直接写sql，不具备变量渲染能力<br/>" +
-            "4. groovy脚本支持，具有编程的能力最终结果将使用该脚本的返回值直接返回数据,注意：如果返回数据类型为字符串则做为sql直接使用，否则直接做为返回数据，内置句柄为 neo4jService 和 data，neo4jService为查询数据服务，data为持有请求参数句柄"      },
+            "4. groovy脚本支持，具有编程的能力最终结果将使用该脚本的返回值直接返回数据,注意：如果返回数据类型为字符串则做为sql直接使用，否则直接做为返回数据，内置句柄为 jdbcService 和 data，jdbcService 为查询数据服务，data为持有请求参数句柄"      },
       compProps: {
         type: 'textarea',
         rows: 15,

@@ -2,7 +2,7 @@
 import {provide,watch,ref,onMounted} from 'vue'
 
 import { useRouter } from 'vue-router'
-import {useLoginUserStore} from '../../../global/common/security/loginUserStore.ts'
+import {useLoginUserStore} from '../../../global/common/security/loginUserStore'
 
 const loginUserStore = useLoginUserStore()
 // 刷新后从 localStorage 加载

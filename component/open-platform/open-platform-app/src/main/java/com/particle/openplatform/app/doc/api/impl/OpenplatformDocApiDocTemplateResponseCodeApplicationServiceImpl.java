@@ -1,0 +1,68 @@
+package com.particle.openplatform.app.doc.api.impl;
+
+import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateResponseCodeCreateCommandExecutor;
+import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor;
+import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateResponseCodeUpdateCommand;
+import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocTemplateResponseCodeApplicationService;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateResponseCodeCreateCommand;
+import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateResponseCodeVO;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.global.catchlog.CatchAndLog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import org.springframework.transaction.annotation.Transactional;
+/**
+ * <p>
+ * 开放接口文档模板响应码 门面服务实现类
+ * </p>
+ *
+ * @author yw
+ * @since 2024-03-18 16:49:10
+ */
+@Transactional
+@Service
+@CatchAndLog
+public class OpenplatformDocApiDocTemplateResponseCodeApplicationServiceImpl extends AbstractBaseApplicationServiceImpl implements IOpenplatformDocApiDocTemplateResponseCodeApplicationService {
+
+	private OpenplatformDocApiDocTemplateResponseCodeCreateCommandExecutor openplatformDocApiDocTemplateResponseCodeCreateCommandExecutor;
+
+	private OpenplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor;
+
+	private OpenplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor openplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor;
+
+
+	@Override
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> create(OpenplatformDocApiDocTemplateResponseCodeCreateCommand openplatformDocApiDocTemplateResponseCodeCreateCommand) {
+		return openplatformDocApiDocTemplateResponseCodeCreateCommandExecutor.execute(openplatformDocApiDocTemplateResponseCodeCreateCommand);
+	}
+
+	@Override
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> delete(IdCommand deleteCommand) {
+		return openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor.execute(deleteCommand);
+	}
+
+	@Override
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> update(OpenplatformDocApiDocTemplateResponseCodeUpdateCommand openplatformDocApiDocTemplateResponseCodeUpdateCommand) {
+		return openplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor.execute(openplatformDocApiDocTemplateResponseCodeUpdateCommand);
+	}
+
+	@Autowired
+	public void setOpenplatformDocApiDocTemplateResponseCodeCreateCommandExecutor(OpenplatformDocApiDocTemplateResponseCodeCreateCommandExecutor openplatformDocApiDocTemplateResponseCodeCreateCommandExecutor) {
+		this.openplatformDocApiDocTemplateResponseCodeCreateCommandExecutor = openplatformDocApiDocTemplateResponseCodeCreateCommandExecutor;
+	}
+
+	@Autowired
+	public void setOpenplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor(OpenplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor) {
+		this.openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor = openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor;
+	}
+	@Autowired
+	public void setOpenplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor(OpenplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor openplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor) {
+		this.openplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor = openplatformDocApiDocTemplateResponseCodeUpdateCommandExecutor;
+	}
+
+}

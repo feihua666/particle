@@ -146,9 +146,9 @@ public class ScatterhelloServerApplication {
 ``` javascript
 import Vue from 'vue'
 ...
-import ToolsPlugin from '../../../../../components/common/web/tools/AllToolsPlugin.ts'
-import ElementPlugin from '../../../../../components/common/web/components/pc/element/ElementPlusPlugin.ts'
-import CommonPlugin from '../../../../../components/common/web/components/pc/common/CommonPlugin.ts'
+import ToolsPlugin from '../../../../../components/common/web/tools/AllToolsPlugin'
+import ElementPlugin from '../../../../../components/common/web/components/pc/element/ElementPlusPlugin'
+import CommonPlugin from '../../../../../components/common/web/components/pc/common/CommonPlugin'
 // 自定义工具插件
 Vue.use(ToolsPlugin)
 // 自定义基于element组件

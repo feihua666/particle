@@ -80,7 +80,7 @@ export const useCascaderFuncCompItem = ({fieldName= 'parentId',required=false,la
     }
 }
 
-export const useSelectFuncGroupCompItem = ({required=false})=>{
+export const useSelectFuncGroupCompItem = ({required= false,tips = ''})=>{
     return     {
         field: {
             name: 'funcGroupId'
@@ -89,7 +89,8 @@ export const useSelectFuncGroupCompItem = ({required=false})=>{
             comp: 'PtSelect',
             formItemProps: {
                 label: '功能分组',
-                required: required
+                required: required,
+                tips: tips || undefined
             },
             compProps: {
                 dataMethod: funcGroupListApi

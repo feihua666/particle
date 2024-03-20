@@ -939,7 +939,7 @@ public interface IBaseService<DO> extends IService<DO> {
     }
 
     /**
-     * 根据风节点，设置子节点parentIdx的值包括parentId本身
+     * 根据父节点，设置子节点parentIdx的值包括parentId本身
      * @param child
      * @param parentId
      * @return

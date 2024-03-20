@@ -42,7 +42,7 @@ public class AreaVO extends AbstractBaseIdTreeVO {
     @Schema(description = "类型，字典id")
     private Long typeDictId;
 
-    @TransBy(tableName = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     @Schema(description = "类型，字典名称")
     private String typeDictName;
 

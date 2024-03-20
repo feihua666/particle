@@ -81,8 +81,8 @@ public class TransHelper {
         }
         long start = System.currentTimeMillis();
         log.debug("翻译开始:bodyClass={}",body.getClass().getName());
-
-        transObj(body);
+        boolean transMapValue = !(body instanceof Map);
+        transObj(body,transMapValue);
 
         long transDuration = System.currentTimeMillis() - start;
         log.debug("翻译结束:duration={}ms",transDuration);
@@ -107,7 +107,10 @@ public class TransHelper {
         return body;
     }
 
-    public Object transObj(Object body) {
+    private Object transObj(Object body,boolean transMapValue) {
+        if (body == null) {
+            return body;
+        }
         // 翻译支持
         if (!isEmpty(transServices)){
             if (body instanceof PageResponse) {
@@ -115,12 +118,12 @@ public class TransHelper {
                 if (!isEmpty(records)) {
                     transCollection(records);
                 }
-            } if (body instanceof MultiResponse) {
+            }else if (body instanceof MultiResponse) {
                 List records = ((MultiResponse) body).getData();
                 if (!isEmpty(records)) {
                     transCollection(records);
                 }
-            } if (body instanceof SingleResponse) {
+            }else if (body instanceof SingleResponse) {
                 Object obj = ((SingleResponse) body).getData();
                 if (obj != null) {
                     transCollection(CollectionTool.newArrayList(obj));
@@ -128,6 +131,13 @@ public class TransHelper {
             }else if(body instanceof Collection) {
                 transCollection((Collection)body);
 
+            }else if(transMapValue && body instanceof Map) {
+                // 如果为map，尝试翻译map中的value
+                for (Map.Entry<?, ?> entry : ((Map<?, ?>) body).entrySet()) {
+                    if (entry.getValue() != null) {
+                        transObj(entry.getValue(),transMapValue);
+                    }
+                }
             }else{
                 transCollection(CollectionTool.newArrayList(body));
             }
@@ -624,7 +634,7 @@ public class TransHelper {
             TransField transField = getAnnotation(field, TransField.class);
             if (transField != null) {
                 //  每一个transField单独翻译
-                trans(ReflectUtil.getFieldValue(body, field));
+                transObj(ReflectUtil.getFieldValue(body, field),true);
             }
         }
     }
