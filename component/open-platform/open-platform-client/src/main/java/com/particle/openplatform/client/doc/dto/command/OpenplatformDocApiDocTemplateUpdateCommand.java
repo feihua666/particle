@@ -47,7 +47,7 @@ public class OpenplatformDocApiDocTemplateUpdateCommand extends AbstractBaseUpda
 
 
     @Schema(description = "响应时长文本")
-    private Integer responseMaxDurationDesc;
+    private String responseMaxDurationDesc;
 
 
     @Schema(description = "认证方式")

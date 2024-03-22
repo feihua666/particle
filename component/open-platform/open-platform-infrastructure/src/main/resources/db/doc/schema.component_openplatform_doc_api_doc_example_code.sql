@@ -3,8 +3,8 @@ DROP TABLE IF EXISTS component_openplatform_doc_api_doc_example_code;
 CREATE TABLE `component_openplatform_doc_api_doc_example_code` (
   `id` bigint NOT NULL COMMENT '主键id',
   `lang_dict_id` bigint NOT NULL COMMENT '开发语言，字典id',
-  `example_code` longtext COLLATE utf8_bin NOT NULL COMMENT '示例代码片段',
-  `example_download_url` varchar(300) COLLATE utf8_bin DEFAULT NULL COMMENT '示例代码下载地址',
+  `example_code` longtext NOT NULL COMMENT '示例代码片段',
+  `example_download_url` varchar(300) DEFAULT NULL COMMENT '示例代码下载地址',
   `openplatform_doc_api_id` bigint NOT NULL COMMENT '开放接口文档接口id',
   `openplatform_doc_api_doc_id` bigint NOT NULL COMMENT '开放接口文档id',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',

@@ -32,7 +32,19 @@ public interface IDictService extends IBaseService<DictDO> {
 		Assert.hasText(code,"code 不能为空");
 		return getOne(Wrappers.<DictDO>lambdaQuery().eq(DictDO::getCode, code));
 	}
-
+	/**
+	 * 根据id查询子一级
+	 * @param groupId
+	 * @return
+	 */
+	@Cacheable(cacheNames = {"DictServiceImplCache_getItemsByGroupId"})
+	default List<DictDO> getItemsByGroupId(Long groupId){
+		DictDO byCode = getById(groupId);
+		if (byCode == null) {
+			return Collections.EMPTY_LIST;
+		}
+		return getChildren(byCode.getId());
+	}
 	/**
 	 * 根据编码查询子一级
 	 * @param groupCode

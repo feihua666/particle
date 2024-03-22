@@ -7,6 +7,8 @@ import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * <p>
  * 开放接口文档参数字段 数据通用响应对象
@@ -68,7 +70,34 @@ public class OpenplatformDocApiDocParamFieldBasicVO extends AbstractBaseIdTreeVO
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "categoryDictId",mapValueField = "name")
     @Schema(description = "分类对应字典名称")
     private String categoryDictName;
-        
+
+    @Schema(description = "默认值")
+    private String defaultValue;
+
+    @Schema(description = "最大长度")
+    private Integer maxLength;
+
+    @Schema(description = "字典组字典，字典组id，字典组下面的字典项为字段枚举")
+    private Long dictGroupDictId;
+
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "dictGroupDictId",mapValueField = "code")
+    @Schema(description = "字典组字典编码")
+    private String dictGroupDictCode;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "dictGroupDictId",mapValueField = "name")
+    @Schema(description = "字典组字典名称")
+    private String dictGroupDictName;
+
+    @Schema(description = "字典项标签，如果某一个字典组下的字典项过多可以根据标签过滤")
+    private String dictItemTags;
+
+    /**
+     * 由{@link OpenplatformDocApiDocParamFieldBasicVO#dictGroupDictId} 和 {@link OpenplatformDocApiDocParamFieldBasicVO#dictItemTags} 翻译而来
+     */
+    @Schema(description = "字典组对应的字典项")
+    private List<OpenplatformDocParamFieldDictItemVO> dictItemVOs;
+
     @Schema(description = "排序")
     private Integer seq;
 
@@ -89,6 +118,10 @@ public class OpenplatformDocApiDocParamFieldBasicVO extends AbstractBaseIdTreeVO
         openplatformDocApiDocParamFieldBasicVO.isRequired = docApiDocTemplateParamFieldVO.getIsRequired();
         openplatformDocApiDocParamFieldBasicVO.explanation = docApiDocTemplateParamFieldVO.getExplanation();
         openplatformDocApiDocParamFieldBasicVO.categoryDictId = docApiDocTemplateParamFieldVO.getCategoryDictId();
+        openplatformDocApiDocParamFieldBasicVO.defaultValue = docApiDocTemplateParamFieldVO.getDefaultValue();
+        openplatformDocApiDocParamFieldBasicVO.maxLength = docApiDocTemplateParamFieldVO.getMaxLength();
+        openplatformDocApiDocParamFieldBasicVO.dictGroupDictId = docApiDocTemplateParamFieldVO.getDictGroupDictId();
+        openplatformDocApiDocParamFieldBasicVO.dictItemTags = docApiDocTemplateParamFieldVO.getDictItemTags();
         openplatformDocApiDocParamFieldBasicVO.seq = docApiDocTemplateParamFieldVO.getSeq();
         return openplatformDocApiDocParamFieldBasicVO;
 

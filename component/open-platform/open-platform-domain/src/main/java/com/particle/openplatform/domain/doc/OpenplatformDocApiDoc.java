@@ -57,7 +57,7 @@ public class OpenplatformDocApiDoc extends AggreateRoot {
     /**
     * 响应时长文本，response_max_duration不支持时作为备用
     */
-    private Integer responseMaxDurationDesc;
+    private String responseMaxDurationDesc;
 
     /**
     * 认证方式

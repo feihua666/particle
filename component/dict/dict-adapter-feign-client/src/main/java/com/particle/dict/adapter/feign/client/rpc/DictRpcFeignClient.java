@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,6 +21,21 @@ import java.util.List;
 @FeignClient(name = "${particle.feign-client.name.dict:dict}",path = "/rpc/dict")
 public interface DictRpcFeignClient{
 
+	/**
+	 * 根据字典id查询子级
+	 * @param groupId
+	 * @return
+	 */
+	@GetMapping("/getItemsByGroupId")
+	public MultiResponse<DictVO> getItemsByGroupId(Long groupId);
+
+	/**
+	 * 根据字典id查询子级
+	 * @param groupIds
+	 * @return key为字典id，value为字典子级
+	 */
+	@GetMapping("/getItemsByGroupIds")
+	public SingleResponse<Map<Long,List<DictVO>>> getItemsByGroupIds(List<Long> groupIds);
 	/**
 	 * 根据字典编码查询子级
 	 * @param groupCode
@@ -45,6 +61,13 @@ public interface DictRpcFeignClient{
 	@GetMapping("/queryById")
 	public SingleResponse<DictVO> queryById(Long id);
 
+	/**
+	 * 根据code获取字典
+	 * @param code
+	 * @return
+	 */
+	@GetMapping("/queryByCode")
+	public SingleResponse<DictVO> queryByCode(String code);
 	/**
 	 * 根据字典id获取字典，多个
 	 * @param ids

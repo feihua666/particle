@@ -58,6 +58,26 @@ public class OpenplatformDocApiDocParamField extends AggreateRoot {
     */
     private Long categoryDictId;
 
+	/**
+	 * 默认值
+	 */
+	private String defaultValue;
+
+	/**
+	 * 最大长度
+	 */
+	private Integer maxLength;
+
+	/**
+	 * 字典组字典，字典组id，字典组下面的字典项为字段枚举
+	 */
+	private Long dictGroupDictId;
+
+	/**
+	 * 字典项标签，如果某一个字典组下的字典项过多可以根据标签过滤
+	 */
+	private String dictItemTags;
+
     /**
     * 排序,默认按该字段升序排序
     */
@@ -71,6 +91,10 @@ public class OpenplatformDocApiDocParamField extends AggreateRoot {
 
     public void changeOpenplatformDocApiId(Long openplatformDocApiId) {
         this.openplatformDocApiId = openplatformDocApiId;
+    }
+
+    public void changeDictGroupDictId(Long dictGroupDictId) {
+        this.dictGroupDictId = dictGroupDictId;
     }
 
     /**

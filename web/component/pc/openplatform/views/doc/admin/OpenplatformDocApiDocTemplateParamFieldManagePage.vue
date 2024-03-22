@@ -45,6 +45,22 @@ const reactiveData = reactive({
       showOverflowTooltip: true,
     },
     {
+      prop: 'defaultValue',
+      label: '默认值',
+    },
+    {
+      prop: 'maxLength',
+      label: '最大长度',
+    },
+    {
+      prop: 'dictGroupDictName',
+      label: '字典组',
+    },
+    {
+      prop: 'dictTemTags',
+      label: '字典标签',
+    },
+    {
       prop: 'openplatformDocApiDocTemplateName',
       label: '文档内容模板',
     },

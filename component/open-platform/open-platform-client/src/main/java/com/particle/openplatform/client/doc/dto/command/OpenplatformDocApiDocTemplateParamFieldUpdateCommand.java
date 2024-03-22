@@ -2,6 +2,7 @@ package com.particle.openplatform.client.doc.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -54,6 +55,22 @@ public class OpenplatformDocApiDocTemplateParamFieldUpdateCommand extends Abstra
     @NotNull(message = "分类 不能为空")
         @Schema(description = "分类",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long categoryDictId;
+
+	@Schema(description = "默认值")
+	private String defaultValue;
+
+    @SetNullWhenNull
+	@Schema(description = "最大长度")
+	private Integer maxLength;
+
+	@Schema(description = "字典组字典，字典组id，字典组下面的字典项为字段枚举")
+	private Long dictGroupDictId;
+
+    @Schema(description = "字典组字典，字典组编码，dictGroupDictId二选一")
+    private String dictGroupDictCode;
+
+	@Schema(description = "字典项标签，如果某一个字典组下的字典项过多可以根据标签过滤")
+	private String dictItemTags;
 
 
     @NotNull(message = "排序 不能为空")

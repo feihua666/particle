@@ -1,5 +1,6 @@
 package com.particle.openplatform.app.doc.executor;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocTemplateParamFieldAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldCreateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateParamFieldVO;
@@ -8,6 +9,7 @@ import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplat
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -31,6 +33,7 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 
 	private OpenplatformDocApiDocTemplateParamFieldGateway openplatformDocApiDocTemplateParamFieldGateway;
 
+	private OpenplatformDictGateway openplatformDictGateway;
 	/**
 	 * 执行开放接口文档模板参数字段添加指令
 	 * @param openplatformDocApiDocTemplateParamFieldCreateCommand
@@ -38,6 +41,16 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 	 */
 	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> execute(@Valid OpenplatformDocApiDocTemplateParamFieldCreateCommand openplatformDocApiDocTemplateParamFieldCreateCommand) {
 		OpenplatformDocApiDocTemplateParamField openplatformDocApiDocTemplateParamField = createByOpenplatformDocApiDocTemplateParamFieldCreateCommand(openplatformDocApiDocTemplateParamFieldCreateCommand);
+
+		Long dictGroupDictId = openplatformDocApiDocTemplateParamFieldCreateCommand.getDictGroupDictId();
+		String dictGroupDictCode = openplatformDocApiDocTemplateParamFieldCreateCommand.getDictGroupDictCode();
+		if (dictGroupDictId == null && StrUtil.isNotEmpty(dictGroupDictCode)) {
+			Long idByCode = openplatformDictGateway.getIdByCode(dictGroupDictCode);
+			if (idByCode != null) {
+				openplatformDocApiDocTemplateParamField.changeDictGroupDictId(idByCode);
+			}
+		}
+
 		openplatformDocApiDocTemplateParamField.setAddControl(openplatformDocApiDocTemplateParamFieldCreateCommand);
 		boolean save = openplatformDocApiDocTemplateParamFieldGateway.save(openplatformDocApiDocTemplateParamField);
 		if (save) {
@@ -76,5 +89,13 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 	@Autowired
 	public void setOpenplatformDocApiDocTemplateParamFieldGateway(OpenplatformDocApiDocTemplateParamFieldGateway openplatformDocApiDocTemplateParamFieldGateway) {
 		this.openplatformDocApiDocTemplateParamFieldGateway = openplatformDocApiDocTemplateParamFieldGateway;
+	}
+	/**
+	 * 注入使用set方法
+	 * @param openplatformDictGateway
+	 */
+	@Autowired
+	public void setOpenplatformDictGateway(OpenplatformDictGateway openplatformDictGateway) {
+		this.openplatformDictGateway = openplatformDictGateway;
 	}
 }

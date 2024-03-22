@@ -166,7 +166,65 @@ export const addPageFormItems = [
     }
   },
 
-
+  {
+    field: {
+      name: 'defaultValue',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '默认值',
+        tips: '如果参数有默认值可以填写'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'max_length'
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '最大长度'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'dictGroupDictCode',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '字典组编码',
+        tips: '绑定字典，如果参数为一个字典项'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'dictItemTags',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '字典标签',
+        tips: '绑定字典，如果参数为一个字典项，可以根据标签过滤，多个以逗号分隔'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
   useSelectOpenplatformDocApiDocTemplateCompItem({required: true,tips: '字段绑定的文档内容模板'}),
 
 

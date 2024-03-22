@@ -5,7 +5,7 @@ CREATE TABLE `component_openplatform_doc_api_doc_response_code` (
   `code` varchar(100) NOT NULL COMMENT '编码，码值',
   `http_code` int default NULL COMMENT 'http响应码,如：200、500',
   `is_charge` tinyint(1) NOT NULL COMMENT '是否计费',
-  `explanation` varchar(2000) COLLATE utf8_bin NOT NULL COMMENT '字段说明',
+  `explanation` varchar(2000) NOT NULL COMMENT '字段说明',
   `openplatform_doc_api_id` bigint NOT NULL COMMENT '开放接口文档接口id',
   `openplatform_doc_api_doc_id` bigint NOT NULL COMMENT '开放接口文档id',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',

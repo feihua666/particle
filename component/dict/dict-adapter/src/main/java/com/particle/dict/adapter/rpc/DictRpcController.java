@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -60,7 +62,21 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 		return dictTransService.transBatch(type, keys);
 	}
 
+	@Operation(summary = "根据id查询字段子一级")
+	@Override
+	public MultiResponse<DictVO> getItemsByGroupId(Long groupId) {
+		List<DictDO> byCode = iDictService.getItemsByGroupId(groupId);
 
+		List<DictVO> dictVOS = DictAppStructMapping.instance.dictDOsToDictVOs(byCode);
+		return MultiResponse.of(dictVOS);
+	}
+
+	@Override
+	public SingleResponse<Map<Long, List<DictVO>>> getItemsByGroupIds(List<Long> groupIds) {
+		List<DictDO> list = iDictService.list(Wrappers.<DictDO>lambdaQuery().in(DictDO::getParentId, groupIds));
+		Map<Long, List<DictVO>> collect = list.stream().collect(Collectors.groupingBy(DictDO::getParentId, Collectors.mapping(DictAppStructMapping.instance::dictDOToDictVO, Collectors.toList())));
+		return SingleResponse.of(collect);
+	}
 
 	@Operation(summary = "根据编号查询字段子一级")
 	@Override
@@ -86,7 +102,13 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 		DictDO dictDO = iDictService.getById(id);
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
-
+	@Cacheable(cacheNames = {"DictRpcControllerCache_queryByCode"})
+	@Operation(summary = "根据字典code查询")
+	@Override
+	public SingleResponse<DictVO> queryByCode(String code) {
+		DictDO dictDO = iDictService.getByCode(code);
+		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
+	}
 	@Operation(summary = "根据字典id查询,多个")
 	@Override
 	public MultiResponse<DictVO> queryByIds(List<Long> ids) {

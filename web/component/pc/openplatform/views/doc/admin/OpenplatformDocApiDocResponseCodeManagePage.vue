@@ -104,7 +104,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       txt: '删除',
       text: true,
       permission: 'admin:web:openplatformDocApiDocResponseCode:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `确定要删除 ${row.code} 吗？`,
       // 删除操作
       method(){
         return openplatformDocApiDocResponseCodeRemoveApi({id: row.id}).then(res => {
