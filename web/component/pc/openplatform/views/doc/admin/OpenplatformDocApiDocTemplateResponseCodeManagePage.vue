@@ -39,6 +39,7 @@ const reactiveData = reactive({
     {
       prop: 'openplatformDocApiDocTemplateName',
       label: '文档内容模板',
+      showOverflowTooltip: true
     },
     {
       prop: 'isGlobal',

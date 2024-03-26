@@ -48,6 +48,7 @@ const reactiveData = reactive({
     {
       prop: 'openplatformDocApiDocRequestUrl',
       label: '文档内容',
+      showOverflowTooltip: true
     },
     {
       prop: 'isGlobal',
