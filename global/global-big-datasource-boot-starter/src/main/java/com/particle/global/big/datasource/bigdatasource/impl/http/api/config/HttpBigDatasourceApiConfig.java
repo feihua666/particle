@@ -35,8 +35,13 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	private HttpBigDatasourceApiConfigRequestUrlRenderType requestUrlRenderType;
 	
 	private String requestUrlTemplate;
-	
-	
+
+
+	/**
+	 * 额外的数据绑定，主要用于在处理groovy脚本时，进行全局的一些脚本数据绑定
+	 */
+	protected Map<String, Object> extBindings;
+
 	public static HttpBigDatasourceApiConfig create(
 			HttpBigDatasourceApiConfigRequestMethod requestMethod,
 			HttpBigDatasourceApiConfigContentType requestContentType,
@@ -75,6 +80,9 @@ public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 		if(requestUrlRenderType == HttpBigDatasourceApiConfigRequestUrlRenderType.groovy_script){
 
 			Bindings bindings = GroovyTool.createBindings();
+			if (extBindings != null) {
+				bindings.putAll(extBindings);
+			}
 			bindings.putAll(renderMap);
 			Object evalResult = GroovyTool.compileAndEval(requestUrlTemplate,bindings,true);
 			boolean b = evalResult instanceof String;

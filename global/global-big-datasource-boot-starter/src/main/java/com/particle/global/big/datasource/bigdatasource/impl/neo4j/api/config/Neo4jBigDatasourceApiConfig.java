@@ -48,6 +48,10 @@ public class Neo4jBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig 
 	 */
 	private String cqlCountTemplate;
 
+	/**
+	 * 额外的数据绑定，主要用于在处理groovy脚本时，进行全局的一些脚本数据绑定
+	 */
+	protected Map<String, Object> extBindings;
 	public static Neo4jBigDatasourceApiConfig create(Neo4jBigDatasourceApiConfigCqlTemplateType type, Neo4jBigDatasourceApiConfigDataType dataType, String cqlTemplate,String cqlCountTemplate) {
 		Neo4jBigDatasourceApiConfig neo4jBigDatasourceApiConfig = new Neo4jBigDatasourceApiConfig();
 		neo4jBigDatasourceApiConfig.setCqlTemplateType(type);
@@ -93,6 +97,9 @@ public class Neo4jBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig 
 			renderMap.put("neo4jBigDatasourceInstanceMap", neo4jBigDatasourceInstanceMap);
 
 			Bindings bindings = GroovyTool.createBindings();
+			if (extBindings != null) {
+				bindings.putAll(extBindings);
+			}
 			bindings.putAll(renderMap);
 			Object evalResult = GroovyTool.compileAndEval(cqlTemplate,bindings,true);
 

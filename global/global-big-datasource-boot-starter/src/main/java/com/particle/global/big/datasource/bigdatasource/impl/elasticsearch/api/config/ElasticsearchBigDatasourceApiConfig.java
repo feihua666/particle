@@ -62,6 +62,10 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 
 
 	/**
+	 * 额外的数据绑定，主要用于在处理groovy脚本时，进行全局的一些脚本数据绑定
+	 */
+	protected Map<String, Object> extBindings;
+	/**
 	 * 添加一个添加indexNames方法
 	 * @param indexNames
 	 */
@@ -141,6 +145,9 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 			renderMap.put("elasticsearchBigDatasourceInstanceMap", elasticsearchBigDatasourceInstanceMap);
 
 			Bindings bindings = GroovyTool.createBindings();
+			if (extBindings != null) {
+				bindings.putAll(extBindings);
+			}
 			bindings.putAll(renderMap);
 			Object evalResult = GroovyTool.compileAndEval(dslTemplate,bindings,true);
 

@@ -3,7 +3,11 @@
  * 开放平台应用与开放接口配置管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformAppOpenapiPageApi, remove as openplatformAppOpenapiRemoveApi} from "../../../api/app/admin/openplatformAppOpenapiAdminApi"
+import {
+  page as openplatformAppOpenapiPageApi,
+  refreshCache as openplatformAppOpenapiRefreshCacheApi,
+  remove as openplatformAppOpenapiRemoveApi
+} from "../../../api/app/admin/openplatformAppOpenapiAdminApi"
 import {pageFormItems} from "../../../compnents/app/admin/openplatformAppOpenapiManage";
 
 
@@ -66,8 +70,9 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformAppOpenapi:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `确定要删除 ${row.openplatformAppName} 和 ${row.openplatformOpenapiName} 吗？`,
       // 删除操作
       method(){
         return openplatformAppOpenapiRemoveApi({id: row.id}).then(res => {
@@ -76,7 +81,20 @@ const getTableRowButtons = ({row, column, $index}) => {
           return Promise.resolve(res)
         })
       }
-    }
+    },
+    {
+      txt: '刷新缓存',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:openplatformAppOpenapi:refreshCache',
+      methodSuccess: (res) => '刷新缓存成功,如果部署多个实例可能要多次执行。 ' + res.data.data,
+      // 刷新缓存
+      method(){
+        return openplatformAppOpenapiRefreshCacheApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
   ]
   return tableRowButtons
 }
@@ -106,7 +124,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

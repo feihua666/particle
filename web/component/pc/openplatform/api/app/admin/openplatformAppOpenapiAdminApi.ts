@@ -18,6 +18,13 @@ export const remove = (data: IdParam): AxiosPromise => {
     return axios.delete(openplatformAppOpenapiPrefix + '/delete',{data: data})
 }
 /**
+ * 刷新开放平台应用配置的单个开放接口信息缓存
+ * @param data
+ */
+export const refreshCache = (data: IdParam): AxiosPromise => {
+    return axios.put(openplatformAppOpenapiPrefix + '/refreshCache',data)
+}
+/**
  * 更新开放平台应用与开放接口配置
  * @param data
  */

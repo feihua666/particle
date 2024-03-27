@@ -1,43 +1,20 @@
 package com.particle.dataquery.infrastructure.datasource.gateway.impl;
 
-import com.baomidou.dynamic.datasource.exception.CannotFindDataSourceException;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
 import com.particle.dataquery.domain.datasource.gateway.DatasourceApiQueryGateway;
-import com.particle.dataquery.domain.datasource.value.*;
 import com.particle.dataquery.domain.gateway.DataQueryDictGateway;
 import com.particle.dataquery.infrastructure.datasource.bigdatasource.DataQueryDatasourceDynamicBigDatasourceProvider;
-import com.particle.dataquery.infrastructure.datasource.bigdatasource.INeo4jBigDatasourceLoader;
-import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiCommandValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiPageableAdapterConfig;
-import com.particle.global.big.datasource.bigdatasource.api.config.BigDatasourceApiSuccessValidateConfig;
-import com.particle.global.big.datasource.bigdatasource.dynamic.*;
-import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultDynamicBigDatasourceRoutingKeyImpl;
-import com.particle.global.big.datasource.bigdatasource.dynamic.impl.DefaultJdbcBigDatasourceRoutingKeyImpl;
-import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
-import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
-import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
-import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
-import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceNotFoundException;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasource;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKeyFactory;
+import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKeyHolder;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBigDatasourceConfig;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigSqlTemplateType;
-import com.particle.global.big.datasource.bigdatasource.impl.neo4j.Neo4jBigDatasource;
-import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * <p>
@@ -60,27 +37,27 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	private DatasourceApiQueryGatewayHelper datasourceApiQueryGatewayHelper;
 
 	@Override
-	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
+	public Object queryRealtime(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean isTest) {
 		String datasourceTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasource.getTypeDictId());
 		DataQueryDatasourceType dataQueryDatasourceType = DataQueryDatasourceType.valueOf(datasourceTypeDictIdValue);
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_jdbc) {
-			return doJdbcQuery(datasource, datasourceApi, param,queryString);
+			return doJdbcQuery(datasource, datasourceApi, param,queryString,isTest);
 		}
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_http) {
-			return doHttpQuery(datasource, datasourceApi, param,queryString);
+			return doHttpQuery(datasource, datasourceApi, param,queryString,isTest);
 		}
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_neo4j) {
-			return doNeo4jQuery(datasource, datasourceApi, param,queryString);
+			return doNeo4jQuery(datasource, datasourceApi, param,queryString,isTest);
 		}
 		if (dataQueryDatasourceType == DataQueryDatasourceType.datasource_es) {
-			return doEsQuery(datasource, datasourceApi, param,queryString);
+			return doEsQuery(datasource, datasourceApi, param,queryString,isTest);
 		}
 		throw  new RuntimeException("can not support datasource type of " + dataQueryDatasourceType.itemValue());
 	}
 
 	@Override
 	public Object query(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
-		return queryRealtime(datasource,datasourceApi,param,queryString);
+		return queryRealtime(datasource,datasourceApi,param,queryString,false);
 	}
 
 	/**
@@ -91,7 +68,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	 * @param queryString
 	 * @return
 	 */
-	Object doHttpQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString){
+	Object doHttpQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean isTest){
 		try {
 			// 路由数据源
 			DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(datasource.getId().getId().toString());
@@ -100,7 +77,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
 			DefaultBigDatasourceApi defaultBigDatasourceApi =
-					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_http);
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_http,isTest);
 
 			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
 		}finally {
@@ -114,7 +91,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	 * @param param
 	 * @return
 	 */
-	Object doJdbcQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString) {
+	Object doJdbcQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean isTest) {
 		// 路由数据源
 		DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(jdbc, datasource.getId().getId().toString());
 
@@ -124,7 +101,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
 			DefaultBigDatasourceApi defaultBigDatasourceApi =
-					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_jdbc);
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_jdbc,isTest);
 
 			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
 		}
@@ -140,7 +117,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	 * @param queryString
 	 * @return
 	 */
-	Object doNeo4jQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString){
+	Object doNeo4jQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean isTest){
 
 		// 路由数据源
 		DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(datasource.getId().getId().toString());
@@ -150,7 +127,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
 			DefaultBigDatasourceApi defaultBigDatasourceApi =
-					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_neo4j);
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_neo4j,isTest);
 
 			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
 		}
@@ -167,7 +144,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 	 * @param queryString
 	 * @return
 	 */
-	Object doEsQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString){
+	Object doEsQuery(DataQueryDatasource datasource, DataQueryDatasourceApi datasourceApi, Object param,String queryString,boolean isTest){
 
 		// 路由数据源
 		DynamicBigDatasourceRoutingKey routingKey = DynamicBigDatasourceRoutingKeyFactory.of(datasource.getId().getId().toString());
@@ -177,7 +154,7 @@ public class DatasourceApiQueryGatewayImpl implements DatasourceApiQueryGateway 
 			DynamicBigDatasourceRoutingKeyHolder.set(routingKey);
 			BigDatasourceApiExecutor apiExecutor = dynamicBigDatasource.getApiExecutor();
 			DefaultBigDatasourceApi defaultBigDatasourceApi =
-					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_es);
+					datasourceApiQueryGatewayHelper.createDefaultBigDatasourceApiByDataQueryDatasourceApi(datasourceApi,DataQueryDatasourceType.datasource_es,isTest);
 
 			return apiExecutor.execute(defaultBigDatasourceApi, param,queryString);
 		}

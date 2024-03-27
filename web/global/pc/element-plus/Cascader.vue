@@ -45,7 +45,7 @@ const props = defineProps({
   // 该选项是否可以被搜索
   filterable: {
     type: Boolean,
-    default: false
+    default: true
   },
   // 数据
   options: {

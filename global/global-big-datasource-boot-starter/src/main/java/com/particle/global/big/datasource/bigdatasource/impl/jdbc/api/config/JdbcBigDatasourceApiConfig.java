@@ -47,6 +47,10 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	 */
 	private Boolean isSearchCount;
 
+	/**
+	 * 额外的数据绑定，主要用于在处理groovy脚本时，进行全局的一些脚本数据绑定
+	 */
+	protected Map<String, Object> extBindings;
 
 	public static JdbcBigDatasourceApiConfig create(JdbcBigDatasourceApiConfigSqlTemplateType type,
 													JdbcBigDatasourceApiConfigDataType dataType,
@@ -85,6 +89,9 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(command).toRenderMap();
 			renderMap.put("jdbcService", jdbcService);
 			Bindings bindings = GroovyTool.createBindings();
+			if (extBindings != null) {
+				bindings.putAll(extBindings);
+			}
 			bindings.putAll(renderMap);
 			Object evalResult = GroovyTool.compileAndEval(sqlTemplate,bindings,true);
 			// 如果返回的是字符串表示为结果为模板渲染结果，否则认为为直接返回的数据

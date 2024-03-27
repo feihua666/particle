@@ -1,28 +1,30 @@
 package com.particle.openplatform.adapter.app.web.admin;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.net.NetUtil;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.openapi.api.AbstractGlobalOpenapi;
 import com.particle.openplatform.client.app.api.IOpenplatformAppApplicationService;
 import com.particle.openplatform.client.app.api.representation.IOpenplatformAppRepresentationApplicationService;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppCreateCommand;
-import com.particle.openplatform.client.app.dto.data.OpenplatformAppVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppUpdateCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppPageQueryCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.particle.openplatform.client.app.dto.data.OpenplatformAppVO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dataaudit.op.OpLog;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
+
+import java.util.List;
+
 /**
  * <p>
  * 开放平台应用后台管理pc或平板端前端适配器
@@ -41,6 +43,9 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 	private IOpenplatformAppApplicationService iOpenplatformAppApplicationService;
 	@Autowired
 	private IOpenplatformAppRepresentationApplicationService iOpenplatformAppRepresentationApplicationService;
+
+	@Autowired(required = false)
+	private List<AbstractGlobalOpenapi> globalOpenapiList;
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformApp:create')")
 	@Operation(summary = "添加开放平台应用")
@@ -94,4 +99,18 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 		return iOpenplatformAppRepresentationApplicationService.pageQuery(openplatformAppPageQueryCommand);
 	}
 
+	@PreAuthorize("hasAuthority('admin:web:openplatformApp:refreshCache')")
+	@Operation(summary = "刷新开放平台应用缓存")
+	@PutMapping("/refreshCache")
+	@OpLog(name = "刷新开放平台应用缓存",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
+	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+		SingleResponse<OpenplatformAppVO> openplatformAppVOSingleResponse = iOpenplatformAppRepresentationApplicationService.queryDetail(deleteCommand);
+		if (CollectionUtil.isNotEmpty(globalOpenapiList)) {
+			for (AbstractGlobalOpenapi abstractGlobalOpenapi : globalOpenapiList) {
+				abstractGlobalOpenapi.refreshOpenapiClientCache(openplatformAppVOSingleResponse.getData().getAppId());
+			}
+		}
+		// 返回服务的地址，以方便在多实例部署时，区分机器已刷新
+		return SingleResponse.of(NetUtil.getLocalhostStr());
+	}
 }

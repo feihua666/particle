@@ -24,4 +24,10 @@ public interface GlobalOpenapiCache {
 	 * @return
 	 */
 	Object get(String key);
+
+	/**
+	 * 删除缓存
+	 * @param key
+	 */
+	void remove(String key);
 }

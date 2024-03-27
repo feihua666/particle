@@ -5,8 +5,7 @@
 import {reactive, ref} from 'vue'
 import { page as oauth2RegisteredClientPageApi, remove as oauth2RegisteredClientRemoveApi} from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
 import {pageFormItems} from "../../../compnents/client/admin/oauth2RegisteredClientManage";
-
-
+import {copy} from "../../../../../../global/pc/element-plus/ElClipboardTools";
 const tableRef = ref(null)
 
 // 属性
@@ -91,6 +90,7 @@ const doOauth2RegisteredClientPageApi = ({pageQuery}: {param: object,pageQuery: 
 const tablePaginationProps = {
   permission: submitAttrs.value.permission
 }
+
 // 表格操作按钮
 const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
@@ -108,6 +108,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:oauth2RegisteredClient:delete',
       methodConfirmText: `确定要删除 ${row.clientName} 吗？`,
       // 删除操作
@@ -117,6 +118,15 @@ const getTableRowButtons = ({row, column, $index}) => {
           submitMethod()
           return Promise.resolve(res)
         })
+      }
+    },
+    {
+      txt: '复制',
+      text: true,
+      position: 'more',
+      // 删除操作
+      method(){
+        copy(`clientId: ${row.clientId}\n clientSecret: ${row.clientSecret}`)
       }
     }
   ]
@@ -148,7 +158,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

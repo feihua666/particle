@@ -25,6 +25,13 @@ export const update = (data: updateParam): AxiosPromise => {
     return axios.put(openplatformAppPrefix + '/update',data)
 }
 /**
+ * 刷新开放平台应用缓存
+ * @param data
+ */
+export const refreshCache = (data: IdParam): AxiosPromise => {
+    return axios.put(openplatformAppPrefix + '/refreshCache',data)
+}
+/**
  * 更新时使用，加载要更新的数据
  * @param data
  */

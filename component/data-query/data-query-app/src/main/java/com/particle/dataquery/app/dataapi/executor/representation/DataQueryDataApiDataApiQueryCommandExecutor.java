@@ -77,12 +77,16 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @return
 	 */
 	public Object dataApiQuery(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
-		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
 		String cacheUrlKey = cacheUrlKey(dataQueryDataApiQueryCommand.getUrl());
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(cacheUrlKey,
-				() -> Optional.ofNullable(dataQueryDataApi(cacheUrlKey)).filter(dataQueryDataApi1 -> dataQueryDataApi1.getIsPublished()).orElse(null));
+				() -> {
+					DataQueryDataApi dataQueryDataApi1 = Optional.ofNullable(dataQueryDataApi(cacheUrlKey)).orElse(null);
+					Assert.notNull(dataQueryDataApi1,"数据接口地址不存" + dataQueryDataApiQueryCommand.getUrl());
+					Assert.isTrue(dataQueryDataApi1.getIsPublished(),"数据接口尚未发布" + dataQueryDataApiQueryCommand.getUrl());
+					return dataQueryDataApi1;
+				});
 
-		Assert.notNull(dataQueryDataApi,"数据接口地址不存在或尚未发布" + dataQueryDataApiQueryCommand.getUrl());
+
 
 		return dataApiQueryGateway.query(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(),dataQueryDataApiQueryCommand.getQueryString());
 	}
@@ -357,7 +361,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl());
 		Assert.notNull(dataQueryDataApi,"数据接口地址不存在" + dataQueryDataApiQueryCommand.getUrl());
 
-		Object o = dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(), dataQueryDataApiQueryCommand.getQueryString());
+		Object o = dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(), dataQueryDataApiQueryCommand.getQueryString(),true);
 		dataQueryDataApi.changeTestPassed();
 		dataQueryDataApiGateway.save(dataQueryDataApi);
 		return o;

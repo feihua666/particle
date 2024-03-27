@@ -56,6 +56,7 @@ public class DatasourceApiQueryGatewayHelper {
 	public static final String apiContext_dataQueryProviderId = "dataQueryProviderId";
 
 	private static Map<String, Object> outExtConfigBindingsMap;
+	private static Map<String, Object> outExtConfigBindingsMapTest;
 	@Autowired
 	private DataQueryDictGateway dataQueryDictGateway;
 
@@ -65,14 +66,15 @@ public class DatasourceApiQueryGatewayHelper {
 
 
 	private static DataApiQueryGatewayImpl.DatasourceApiInvoker datasourceApiInvoker;
+	private static DataApiQueryGatewayImpl.DatasourceApiInvoker datasourceApiInvokerTest;
 	/**
 	 * 初始化出参扩展配置全局使用
 	 */
-	private void initOutExtConfigBindingsMap() {
-		if (outExtConfigBindingsMap == null) {
+	private void initOutExtConfigBindingsMap(boolean isTest) {
+		if (!isTest && outExtConfigBindingsMap == null) {
 			// 少 new 几个对象
 			if (datasourceApiInvoker == null) {
-				datasourceApiInvoker = new DataApiQueryGatewayImpl.DatasourceApiInvoker(SpringContextHolder.getBean(DataApiQueryGatewayImpl.class));
+				datasourceApiInvoker = new DataApiQueryGatewayImpl.DatasourceApiInvoker(SpringContextHolder.getBean(DataApiQueryGatewayImpl.class),false);
 			}
 			// 对出参扩展配置支持调用数据源接口
 			if (outExtConfigBindingsMap == null) {
@@ -82,22 +84,34 @@ public class DatasourceApiQueryGatewayHelper {
 				outExtConfigBindingsMap = newOutExtConfigBindingsMap;
 			}
 		}
+
+		if (isTest && outExtConfigBindingsMapTest == null) {
+			if (datasourceApiInvokerTest == null) {
+				datasourceApiInvokerTest = new DataApiQueryGatewayImpl.DatasourceApiInvoker(SpringContextHolder.getBean(DataApiQueryGatewayImpl.class),true);
+			}
+			if (outExtConfigBindingsMapTest == null) {
+				Map<String, Object> newOutExtConfigBindingsMap = new HashMap<>();
+				newOutExtConfigBindingsMap.put("datasourceApi", datasourceApiInvokerTest);
+				newOutExtConfigBindingsMap.put("dataQueryDataApiExecutor", dataQueryDataApiExecutor);
+				outExtConfigBindingsMapTest = newOutExtConfigBindingsMap;
+			}
+		}
 	}
 
 	/**
 	 * 专门针对出参扩展配置全局使用
 	 * @return
 	 */
-	public Map<String, Object> outExtConfigBindingsMap(){
-		initOutExtConfigBindingsMap();
-		return outExtConfigBindingsMap;
+	public Map<String, Object> outExtConfigBindingsMap(boolean isTest){
+		initOutExtConfigBindingsMap(isTest);
+		return isTest ? outExtConfigBindingsMapTest : outExtConfigBindingsMap;
 	}
 	/**
 	 * 根据数据查询api创建
 	 * @param dataQueryDataApi
 	 * @return
 	 */
-	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDataApi(DataQueryDataApi dataQueryDataApi) {
+	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDataApi(DataQueryDataApi dataQueryDataApi,boolean isTest) {
 		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(dataQueryDataApi.getResponseTypeDictId());
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
@@ -117,7 +131,7 @@ public class DatasourceApiQueryGatewayHelper {
 		}
 		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = dataQueryDataApi.outParamExtConfig();
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
-			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap()));
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap(isTest)));
 		}
 		// 翻译配置
 		DataQueryDatasourceApiTransConfig dataQueryDatasourceApiTransConfig = dataQueryDataApi.outParamTransConfig();
@@ -140,17 +154,19 @@ public class DatasourceApiQueryGatewayHelper {
 	 * @param dataQueryDatasourceType
 	 * @return
 	 */
-	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDatasourceApi(DataQueryDatasourceApi datasourceApi, DataQueryDatasourceType dataQueryDatasourceType){
+	public DefaultBigDatasourceApi createDefaultBigDatasourceApiByDataQueryDatasourceApi(DataQueryDatasourceApi datasourceApi,
+																						 DataQueryDatasourceType dataQueryDatasourceType,
+																						 boolean isTest){
 		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(datasourceApi.getResponseTypeDictId());
 		IBigDatasourceApiConfig  iBigDatasourceApiConfig = null;
 		if (DataQueryDatasourceType.datasource_jdbc == dataQueryDatasourceType) {
-			iBigDatasourceApiConfig = jdbcBigDatasourceApiConfig(datasourceApi);
+			iBigDatasourceApiConfig = jdbcBigDatasourceApiConfig(datasourceApi,isTest);
 		}else if (DataQueryDatasourceType.datasource_http == dataQueryDatasourceType) {
-			iBigDatasourceApiConfig = httpBigDatasourceApiConfig(datasourceApi);
+			iBigDatasourceApiConfig = httpBigDatasourceApiConfig(datasourceApi,isTest);
 		}else if (DataQueryDatasourceType.datasource_neo4j == dataQueryDatasourceType) {
-			iBigDatasourceApiConfig = neo4jBigDatasourceApiConfig(datasourceApi);
+			iBigDatasourceApiConfig = neo4jBigDatasourceApiConfig(datasourceApi,isTest);
 		}else if (DataQueryDatasourceType.datasource_es == dataQueryDatasourceType) {
-			iBigDatasourceApiConfig = esBigDatasourceApiConfig(datasourceApi);
+			iBigDatasourceApiConfig = esBigDatasourceApiConfig(datasourceApi,isTest);
 		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
@@ -170,9 +186,10 @@ public class DatasourceApiQueryGatewayHelper {
 		if (dataQueryDatasourceApiInParamExtConfig != null) {
 			defaultBigDatasourceApi.setCommandExtConfig(BigDatasourceApiCommandExtConfig.create(dataQueryDatasourceApiInParamExtConfig.getGroovyScript()));
 		}
+		// 出参扩展配置
 		DataQueryDatasourceApiOutParamExtConfig dataQueryDatasourceApiOutParamExtConfig = datasourceApi.outParamExtConfig();
 		if (dataQueryDatasourceApiOutParamExtConfig != null) {
-			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap()));
+			defaultBigDatasourceApi.setResultExtConfig(BigDatasourceApiResultExtConfig.create(dataQueryDatasourceApiOutParamExtConfig.getGroovyScript(),outExtConfigBindingsMap(isTest)));
 		}
 
 		// 翻译配置
@@ -213,14 +230,16 @@ public class DatasourceApiQueryGatewayHelper {
 	 * @param datasourceApi
 	 * @return
 	 */
-	private JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+	private JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi,boolean isTest) {
 		DataQueryDatasourceApiJdbcBasicConfig dataQueryDatasourceApiJdbcBasicConfig = datasourceApi.jdbcBasicConfig();
 
-		return JdbcBigDatasourceApiConfig.create(
+		JdbcBigDatasourceApiConfig jdbcBigDatasourceApiConfig = JdbcBigDatasourceApiConfig.create(
 				JdbcBigDatasourceApiConfigSqlTemplateType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplateType().itemValue()),
 				JdbcBigDatasourceApiConfigDataType.valueOf(dataQueryDatasourceApiJdbcBasicConfig.getDataType().itemValue()),
 				dataQueryDatasourceApiJdbcBasicConfig.getSqlTemplate(),
 				dataQueryDatasourceApiJdbcBasicConfig.getIsSearchCount());
+		jdbcBigDatasourceApiConfig.setExtBindings(outExtConfigBindingsMap(isTest));
+		return jdbcBigDatasourceApiConfig;
 	}
 
 	/**
@@ -228,15 +247,17 @@ public class DatasourceApiQueryGatewayHelper {
 	 * @param datasourceApi
 	 * @return
 	 */
-	private HttpBigDatasourceApiConfig httpBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+	private HttpBigDatasourceApiConfig httpBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi,boolean isTest) {
 		DataQueryDatasourceApiHttpBasicConfig config = datasourceApi.httpBasicConfig();
-		return HttpBigDatasourceApiConfig.create(
+		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = HttpBigDatasourceApiConfig.create(
 				HttpBigDatasourceApiConfigRequestMethod.valueOf(config.getRequestMethod().itemValue()),
 				HttpBigDatasourceApiConfigContentType.valueOf(config.getRequestContentType().itemValue()),
 				HttpBigDatasourceApiConfigContentType.valueOf(config.getResponseContentType().itemValue()),
 				HttpBigDatasourceApiConfigRequestUrlRenderType.valueOf(config.getRequestUrlRenderType().itemValue()),
 				config.getRequestUrlTemplate()
 		);
+		httpBigDatasourceApiConfig.setExtBindings(outExtConfigBindingsMap(isTest));
+		return httpBigDatasourceApiConfig;
 	}
 
 	/**
@@ -244,29 +265,33 @@ public class DatasourceApiQueryGatewayHelper {
 	 * @param datasourceApi
 	 * @return
 	 */
-	private Neo4jBigDatasourceApiConfig neo4jBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+	private Neo4jBigDatasourceApiConfig neo4jBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi,boolean isTest) {
 		DataQueryDatasourceApiNeo4jBasicConfig config = datasourceApi.neo4jBasicConfig();
-		return Neo4jBigDatasourceApiConfig.create(
+		Neo4jBigDatasourceApiConfig neo4jBigDatasourceApiConfig = Neo4jBigDatasourceApiConfig.create(
 				Neo4jBigDatasourceApiConfigCqlTemplateType.valueOf(config.getCqlTemplateType().itemValue()),
 				Neo4jBigDatasourceApiConfigDataType.valueOf(config.getDataType().itemValue()),
 				config.getCqlTemplate(),
 				config.getCqlCountTemplate()
 		);
+		neo4jBigDatasourceApiConfig.setExtBindings(outExtConfigBindingsMap(isTest));
+		return neo4jBigDatasourceApiConfig;
 	}
 	/**
 	 * es基础配置
 	 * @param datasourceApi
 	 * @return
 	 */
-	private ElasticsearchBigDatasourceApiConfig esBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi) {
+	private ElasticsearchBigDatasourceApiConfig esBigDatasourceApiConfig(DataQueryDatasourceApi datasourceApi,boolean isTest) {
 		DataQueryDatasourceApiEsBasicConfig config = datasourceApi.esBasicConfig();
-		return ElasticsearchBigDatasourceApiConfig.create(
+		ElasticsearchBigDatasourceApiConfig elasticsearchBigDatasourceApiConfig = ElasticsearchBigDatasourceApiConfig.create(
 				ElasticsearchBigDatasourceApiConfigDslTemplateType.valueOf(config.getDslTemplateType().itemValue()),
 				ElasticsearchBigDatasourceApiConfigDataType.valueOf(config.getDataType().itemValue()),
 				config.getIndexNames(),
 				config.getDslTemplate(),
 				config.getDslCountTemplate()
 		);
+		elasticsearchBigDatasourceApiConfig.setExtBindings(outExtConfigBindingsMap(isTest));
+		return elasticsearchBigDatasourceApiConfig;
 	}
 
 	/**

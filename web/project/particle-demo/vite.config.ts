@@ -35,6 +35,7 @@ export default defineConfig({
       aliasItem('vuedraggable'),
       aliasItem('@element-plus/icons-vue'),
       aliasItem('dayjs'),
+      aliasItem('clipboard'),
     ]
   },
   server: {

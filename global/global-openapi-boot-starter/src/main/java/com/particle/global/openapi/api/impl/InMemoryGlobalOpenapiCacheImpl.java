@@ -30,4 +30,9 @@ public class InMemoryGlobalOpenapiCacheImpl implements GlobalOpenapiCache {
 		return objectTimedCache.get(key);
 	}
 
+	@Override
+	public void remove(String key) {
+		objectTimedCache.remove(key);
+	}
+
 }

@@ -3,9 +3,12 @@
  * 开放平台应用管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformAppPageApi, remove as openplatformAppRemoveApi} from "../../../api/app/admin/openplatformAppAdminApi"
+import {
+  page as openplatformAppPageApi,
+  refreshCache as openplatformAppRefreshCacheApi,
+  remove as openplatformAppRemoveApi
+} from "../../../api/app/admin/openplatformAppAdminApi"
 import {pageFormItems} from "../../../compnents/app/admin/openplatformAppManage";
-
 
 const tableRef = ref(null)
 
@@ -110,6 +113,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformApp:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -120,7 +124,20 @@ const getTableRowButtons = ({row, column, $index}) => {
           return Promise.resolve(res)
         })
       }
-    }
+    },
+    {
+      txt: '刷新缓存',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:openplatformApp:refreshCache',
+      methodSuccess: (res) => '刷新缓存成功,如果部署多个实例可能要多次执行。 ' + res.data.data,
+      // 刷新缓存
+      method(){
+        return openplatformAppRefreshCacheApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
   ]
   return tableRowButtons
 }
@@ -151,7 +168,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

@@ -112,8 +112,7 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 	@Override
 	public OpenapiClient getOpenapiClient(String clientId,boolean includeSecret,boolean includeAuthorities) {
 
-		String cacheKey = globalOpenapiClient_key_prefix + "_" + clientId + "_" + includeSecret + "_" + includeAuthorities;
-
+		String cacheKey = getOpenapiClientCacheKey(clientId, includeSecret, includeAuthorities);
 		if (globalOpenapiCache !=null) {
 			OpenapiClient openapiClient = (OpenapiClient)globalOpenapiCache.get(cacheKey);
 			if (openapiClient != null) {
@@ -121,11 +120,46 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 			}
 		}
 
+		OpenapiClient openapiClient = doGetOpenapiClient(clientId, includeSecret, includeAuthorities, cacheKey);
+		return openapiClient;
+	}
+	private String getOpenapiClientCacheKey(String clientId,boolean includeSecret,boolean includeAuthorities) {
+		return globalOpenapiClient_key_prefix + "_" + clientId + "_" + includeSecret + "_" + includeAuthorities;
+	}
+	private OpenapiClient doGetOpenapiClient(String clientId,boolean includeSecret,boolean includeAuthorities,String cacheKey) {
 		OpenapiClient openapiClient = globalOpenapiClientProvider.getOpenapiClientByClientId(clientId,includeSecret,includeAuthorities);
 		if (openapiClient != null && globalOpenapiCache != null) {
 			globalOpenapiCache.put(cacheKey,openapiClient,globalOpenapiClientExpire);
 		}
 		return openapiClient;
+	}
+	/**
+	 * 刷新客户端缓存
+	 * @param clientId
+	 */
+	public void refreshOpenapiClientCache(String clientId) {
+		if (globalOpenapiCache == null) {
+			log.warn("refreshOpenapiClient but globalOpenapiCache is null.");
+			return;
+		}
+		doRefreshOpenapiClient(clientId, true, true);
+		doRefreshOpenapiClient(clientId, true, false);
+		doRefreshOpenapiClient(clientId, false, true);
+		doRefreshOpenapiClient(clientId, false, false);
+	}
+
+	/**
+	 * 如果缓存中还在，就刷新一下
+	 * @param clientId
+	 * @param includeSecret
+	 * @param includeAuthorities
+	 */
+	private void doRefreshOpenapiClient(String clientId,boolean includeSecret,boolean includeAuthorities) {
+		String cacheKey = getOpenapiClientCacheKey(clientId, includeSecret, includeAuthorities);
+		Object o = globalOpenapiCache.get(cacheKey);
+		if (o != null) {
+			OpenapiClient openapiClient = doGetOpenapiClient(clientId, includeSecret, includeAuthorities, cacheKey);
+		}
 	}
 
 	@Override
@@ -133,7 +167,7 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 		if (globalOpenapiApiInfoProvider == null) {
 			return null;
 		}
-		String cacheKey = globalOpenapiApiInfo_key_prefix + "_" + apiUrl + "_" + appId;
+		String cacheKey = getApiInfoCacheKey(apiUrl, appId);
 
 		if (globalOpenapiCache !=null) {
 			ApiInfo globalOpenapiApiInfo = (ApiInfo)globalOpenapiCache.get(cacheKey);
@@ -141,14 +175,43 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 				return globalOpenapiApiInfo;
 			}
 		}
+
+		ApiInfo apiInfo = doGetApiInfo(apiUrl, appId, cacheKey);
+		return apiInfo;
+	}
+
+	private String getApiInfoCacheKey(String apiUrl,String appId) {
+		return globalOpenapiApiInfo_key_prefix + "_" + apiUrl + "_" + appId;
+	}
+
+	private ApiInfo doGetApiInfo(String apiUrl, String appId,String cacheKey) {
+		if (globalOpenapiApiInfoProvider == null) {
+			return null;
+		}
 		ApiInfo apiInfo = globalOpenapiApiInfoProvider.getApiInfo(apiUrl, appId);
 		if (apiInfo != null && globalOpenapiCache != null) {
 			globalOpenapiCache.put(cacheKey,apiInfo,globalOpenapiApiInfoExpire);
 		}
-
 		return apiInfo;
 	}
 
+	/**
+	 * 刷新接口信息缓存
+	 * @param apiUrl
+	 * @param appId
+	 */
+	public void refreshApiInfoCache(String apiUrl, String appId) {
+		if (globalOpenapiCache == null) {
+			log.warn("refreshApiInfo but globalOpenapiCache is null.");
+			return;
+		}
+		String apiInfoCacheKey = getApiInfoCacheKey(apiUrl, appId);
+
+		Object o = globalOpenapiCache.get(apiInfoCacheKey);
+		if (o != null) {
+			ApiInfo apiInfo = doGetApiInfo(apiUrl, appId, apiInfoCacheKey);
+		}
+	}
 	/**
 	 * 将三部分拼接起来一起参与摘要计算
 	 * @param basicHeaderDTO
