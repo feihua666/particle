@@ -262,7 +262,47 @@ export const addPageFormItems = [
     useCascaderOpenplatformDocApiDocParamFieldCompItem({})
 
 ]
+export const parseAndAddPageFormItems = [
+    useSelectOpenplatformDocApiDocCompItem({required: true,tips: '字段绑定的文档内容'}),
 
+    {
+        field: {
+            name: 'categoryDictId',
+        },
+        element: {
+            comp: 'PtDictFrontSelect',
+            formItemProps: {
+                label: '分类',
+                required: true,
+                tips: '分类，旨在以通用的形式对各请求参数或响应参数、请求头进行分类'
+            },
+            compProps: {
+                // 字典查询
+                dictParam: {groupCode: 'open_platform_doc_param_field_type'}
+            }
+        }
+    },
+
+    {
+        field: {
+            name: 'jsonDataStr',
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: 'json数据',
+                displayBlock: true,
+                tips: 'json数据，用于解析json数据,请严格使用json标准格式即带双引号的键值对',
+            },
+            compProps: {
+                type: 'textarea',
+                rows: 20,
+                clearable: true,
+            }
+        }
+    },
+
+]
 // 更新和添加一致
 export const updatePageFormItems = addPageFormItems
 

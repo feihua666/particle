@@ -1,1 +1,0 @@
-import{l as o}from"./openplatformAppAdminApi.56b51da0.js";const r=({fieldName:e="openplatformAppId",required:p=!1,label:t="app"})=>({field:{name:e},element:{comp:"PtSelect",formItemProps:{label:t,required:p},compProps:{clearable:!0,dataMethod:o}}});export{r as u};

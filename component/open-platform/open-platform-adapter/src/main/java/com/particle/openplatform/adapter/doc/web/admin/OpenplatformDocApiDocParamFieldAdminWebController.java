@@ -1,8 +1,10 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
+import com.particle.global.dto.response.Response;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocParamFieldApplicationService;
 import com.particle.openplatform.client.doc.api.representation.IOpenplatformDocApiDocParamFieldRepresentationApplicationService;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldCreateCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocParamFieldVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldUpdateCommand;
@@ -94,4 +96,11 @@ public class OpenplatformDocApiDocParamFieldAdminWebController extends AbstractB
 		return iOpenplatformDocApiDocParamFieldRepresentationApplicationService.pageQuery(openplatformDocApiDocParamFieldPageQueryCommand);
 	}
 
+	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocParamField:create')")
+	@Operation(summary = "解析并添加开放接口文档参数字段")
+	@PostMapping("/parse-and-create")
+	@OpLog(name = "解析并添加开放接口文档参数字段",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+	public Response parseAndCreate(@RequestBody OpenplatformDocApiDocParamFieldParseAndCreateCommand command){
+		return iOpenplatformDocApiDocParamFieldApplicationService.parseAndCreate(command);
+	}
 }

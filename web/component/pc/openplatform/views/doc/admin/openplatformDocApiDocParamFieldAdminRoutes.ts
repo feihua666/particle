@@ -26,7 +26,23 @@ const openplatformDocApiDocParamFieldAdminRoutes = [
                     }
                 }
             },
-
+            {
+                path: '/admin/openplatformDocApiDocParamFieldManageParseAndAdd',
+                component: () => import('./OpenplatformDocApiDocParamFieldManageParseAndAddPage.vue'),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminOpenplatformDocApiDocParamFieldManageAdd',
+                    name: '开放接口文档参数字段解析并添加',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminOpenplatformDocApiDocParamFieldManageParseAndAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminOpenplatformDocApiDocParamFieldManageParseAndAdd'
+                    }
+                }
+            },
             {
                 path: '/admin/openplatformDocApiDocParamFieldManageUpdate',
                 component: () => import('./OpenplatformDocApiDocParamFieldManageUpdatePage.vue'),

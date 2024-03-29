@@ -2,8 +2,10 @@ package com.particle.openplatform.client.doc.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldCreateCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldUpdateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateParamFieldVO;
 
@@ -36,5 +38,10 @@ public interface IOpenplatformDocApiDocTemplateParamFieldApplicationService exte
 	 * @return
 	 */
 	SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> update(OpenplatformDocApiDocTemplateParamFieldUpdateCommand openplatformDocApiDocTemplateParamFieldUpdateCommand);
-
+	/**
+	 * 解析并创建
+	 * @param command
+	 * @return
+	 */
+	Response parseAndCreate(OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand command);
 }

@@ -2,8 +2,10 @@ package com.particle.openplatform.client.doc.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldCreateCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldUpdateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocParamFieldVO;
 
@@ -36,5 +38,12 @@ public interface IOpenplatformDocApiDocParamFieldApplicationService extends IBas
 	 * @return
 	 */
 	SingleResponse<OpenplatformDocApiDocParamFieldVO> update(OpenplatformDocApiDocParamFieldUpdateCommand openplatformDocApiDocParamFieldUpdateCommand);
+
+	/**
+	 * 解析并创建
+	 * @param command
+	 * @return
+	 */
+	Response parseAndCreate(OpenplatformDocApiDocParamFieldParseAndCreateCommand command);
 
 }

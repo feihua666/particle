@@ -135,7 +135,8 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:openplatformDocApiDocTemplateParamField:create" route="/admin/OpenplatformDocApiDocTemplateParamFieldManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:openplatformDocApiDocTemplateParamField:create" route="/admin/openplatformDocApiDocTemplateParamFieldManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:openplatformDocApiDocTemplateParamField:create" route="/admin/openplatformDocApiDocTemplateParamFieldManageParseAndAdd">解析并添加</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

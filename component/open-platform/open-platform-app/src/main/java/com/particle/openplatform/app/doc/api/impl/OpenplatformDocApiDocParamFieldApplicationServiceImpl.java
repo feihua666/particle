@@ -1,9 +1,11 @@
 package com.particle.openplatform.app.doc.api.impl;
 
+import com.particle.global.dto.response.Response;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocParamFieldCreateCommandExecutor;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocParamFieldDeleteCommandExecutor;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocParamFieldUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldUpdateCommand;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocParamFieldApplicationService;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldCreateCommand;
@@ -41,6 +43,7 @@ public class OpenplatformDocApiDocParamFieldApplicationServiceImpl extends Abstr
 		return openplatformDocApiDocParamFieldCreateCommandExecutor.execute(openplatformDocApiDocParamFieldCreateCommand);
 	}
 
+
 	@Override
 	public SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(IdCommand deleteCommand) {
 		return openplatformDocApiDocParamFieldDeleteCommandExecutor.execute(deleteCommand);
@@ -51,6 +54,10 @@ public class OpenplatformDocApiDocParamFieldApplicationServiceImpl extends Abstr
 		return openplatformDocApiDocParamFieldUpdateCommandExecutor.execute(openplatformDocApiDocParamFieldUpdateCommand);
 	}
 
+	@Override
+	public Response parseAndCreate(OpenplatformDocApiDocParamFieldParseAndCreateCommand command) {
+		return openplatformDocApiDocParamFieldCreateCommandExecutor.parseAndCreate(command);
+	}
 	@Autowired
 	public void setOpenplatformDocApiDocParamFieldCreateCommandExecutor(OpenplatformDocApiDocParamFieldCreateCommandExecutor openplatformDocApiDocParamFieldCreateCommandExecutor) {
 		this.openplatformDocApiDocParamFieldCreateCommandExecutor = openplatformDocApiDocParamFieldCreateCommandExecutor;

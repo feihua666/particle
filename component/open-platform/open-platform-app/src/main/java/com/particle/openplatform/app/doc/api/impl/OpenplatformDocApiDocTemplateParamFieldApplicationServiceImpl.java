@@ -1,9 +1,11 @@
 package com.particle.openplatform.app.doc.api.impl;
 
+import com.particle.global.dto.response.Response;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateParamFieldDeleteCommandExecutor;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateParamFieldUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldUpdateCommand;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocTemplateParamFieldApplicationService;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldCreateCommand;
@@ -49,6 +51,11 @@ public class OpenplatformDocApiDocTemplateParamFieldApplicationServiceImpl exten
 	@Override
 	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> update(OpenplatformDocApiDocTemplateParamFieldUpdateCommand openplatformDocApiDocTemplateParamFieldUpdateCommand) {
 		return openplatformDocApiDocTemplateParamFieldUpdateCommandExecutor.execute(openplatformDocApiDocTemplateParamFieldUpdateCommand);
+	}
+
+	@Override
+	public Response parseAndCreate(OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand command) {
+		return openplatformDocApiDocTemplateParamFieldCreateCommandExecutor.parseAndCreate(command);
 	}
 
 	@Autowired

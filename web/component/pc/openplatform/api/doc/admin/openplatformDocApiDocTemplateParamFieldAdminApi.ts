@@ -11,6 +11,13 @@ export const create = (data: anyObj): AxiosPromise => {
     return axios.post(openplatformDocApiDocTemplateParamFieldPrefix + '/create',data)
 }
 /**
+ * 解析并添加开放接口文档模板参数字段
+ * @param data
+ */
+export const parseAndCreate = (data: anyObj): AxiosPromise => {
+    return axios.post(openplatformDocApiDocTemplateParamFieldPrefix + '/parse-and-create',data)
+}
+/**
  * 删除开放接口文档模板参数字段
  * @param data
  */

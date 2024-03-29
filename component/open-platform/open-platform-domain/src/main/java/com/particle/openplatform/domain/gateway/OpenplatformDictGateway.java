@@ -19,6 +19,9 @@ public interface OpenplatformDictGateway extends IGateway {
 
 	String getDictValueById(Long typeDictId);
 
+	Long getDictIdByGroupCodeAndItemValue(String groupCode, String value);
+
+
 	Long getIdByCode(String code);
 	/**
 	 * key为id，value为value

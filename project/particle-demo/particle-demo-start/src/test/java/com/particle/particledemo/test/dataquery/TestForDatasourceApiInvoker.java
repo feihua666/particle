@@ -14,6 +14,7 @@ import com.particle.global.tool.json.JsonTool;
 import lombok.SneakyThrows;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -108,7 +109,7 @@ public class TestForDatasourceApiInvoker {
         if (CollectionUtil.isEmpty(jsonArray)) {
             return null;
         }
-        Object next = jsonArray.stream().iterator().next();
+        Object next = jsonArray.stream().filter(o -> Objects.equals(datasourceApiCode, ((JSONObject) o).get("code"))).iterator().next();
         JSONObject firstItem = (JSONObject) next;
 
         return Long.parseLong(firstItem.get("id").toString());

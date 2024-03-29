@@ -43,6 +43,15 @@ public class OpenplatformDictGatewayImpl implements OpenplatformDictGateway {
     }
 
     @Override
+    public Long getDictIdByGroupCodeAndItemValue(String groupCode, String value) {
+        SingleResponse<DictVO> byGroupCodeAndItemValue = dictRpcFeignClient.getByGroupCodeAndItemValue(groupCode, value);
+        if (byGroupCodeAndItemValue.getData() == null) {
+            return null;
+        }
+        return byGroupCodeAndItemValue.getData().getId();
+    }
+
+    @Override
     public Long getIdByCode(String code) {
         SingleResponse<DictVO> dictVOSingleResponse = dictRpcFeignClient.queryByCode(code);
         return Optional.ofNullable(dictVOSingleResponse)
