@@ -1,6 +1,9 @@
 package com.particle.global.tool.collection;
 
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.util.*;
@@ -114,7 +117,7 @@ public class CollectionTool {
 		}
 		boolean controlClearExist = map.containsKey(__control_clear__);
 		if (controlClearExist) {
-			Boolean controlClear = (Boolean)map.get(__control_clear__);
+			Boolean controlClear = getFromMap(map, __control_clear__);
 			if (controlClear) {
 				map.clear();
 			}else {
@@ -132,7 +135,7 @@ public class CollectionTool {
 				if (controlRemoveKeyPrefixKeyExist) {
 					toBeRemovedKey.add(controlRemoveKeyPrefixKey);
 
-					Boolean controlRemovePrefix = (Boolean) map.get(controlRemoveKeyPrefixKey);
+					Boolean controlRemovePrefix = getFromMap(map, controlRemoveKeyPrefixKey);
 					if (controlRemovePrefix) {
 						iterator.remove();
 						continue;
@@ -164,7 +167,8 @@ public class CollectionTool {
 
 				if (iteratorRemove) {
 					if (controlRemoveEmptyKeyPrefixKeyExist) {
-						Boolean controlRemovePrefix = (Boolean) map.get(controlRemoveEmptyKeyPrefixKey);
+
+						Boolean controlRemovePrefix = getFromMap(map, controlRemoveEmptyKeyPrefixKey);
 						if (controlRemovePrefix == null || controlRemovePrefix) {
 							continue;
 						}
@@ -241,6 +245,22 @@ public class CollectionTool {
 		}
 	}
 
+	private static boolean getFromMap(Map map, String key) {
+		if (map == null) {
+			return false;
+		}
+		Object value = map.get(key);
+		if (value == null) {
+			return false;
+		}
+		if (value instanceof Boolean) {
+			return (Boolean) value;
+		}
+		if (value instanceof String) {
+			return Boolean.parseBoolean((String) value);
+		}
+		return false;
+	}
 	/**
 	 * 将map中的每一个value值为字符串的，且以prefix开头的，替换为replaceValue
 	 * @param object
