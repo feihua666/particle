@@ -88,10 +88,13 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
         Page pageQuery = JdbcBigDatasourceApiExecutor.pageQuery(bigDatasourceApi, command, queryString);
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
         ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient,elasticsearchBigDatasourceInstanceMap, command, queryString);
-        if (renderResult.getResult() != null) {
-            boolean b = renderResult.getResult() instanceof Page;
-            if (b) {
-                return ((Page<?>) renderResult.getResult());
+        BaseQuery baseQuery = null;
+        Object result = renderResult.getResult();
+        if (result != null) {
+            if (result instanceof Page) {
+                return ((Page<?>) result);
+            }else if(result instanceof BaseQuery){
+                baseQuery = ((BaseQuery) result);
             } else {
                 throw new BigDatasourceException(" elasticsearch render result must be instance of " + Page.class.getName());
             }
@@ -104,34 +107,35 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
 
         // 索引名称
         List<String> strIndexNameList = extractIndexNames(strTemplateResultObj,config.obtainIndexNames());
-
-        StringQuery stringQuery = extractStringQuery(strTemplateResultObj);
+        if (baseQuery == null) {
+            baseQuery = extractStringQuery(strTemplateResultObj);;
+        }
 
         // 支持截取数据查询
         PageRequest pageRequestExtracted = extractPageRequest(strTemplateResultObj);
         if (pageRequestExtracted != null) {
-            stringQuery.setPageable(pageRequestExtracted);
+            baseQuery.setPageable(pageRequestExtracted);
             pageQuery = new Page(pageRequestExtracted.getPageNumber(), pageRequestExtracted.getPageSize());
         }else {
             // 设置分页
-            stringQuery.setPageable(pageRequest);
+            baseQuery.setPageable(pageRequest);
         }
 
         // 设置排序
         List<Sort> sorts = extractSorts(strTemplateResultObj);
         if (CollectionUtil.isNotEmpty(sorts)) {
             for (Sort sort : sorts) {
-                stringQuery.addSort(sort);
+                baseQuery.addSort(sort);
             }
         }
 
-        putTrackTotalHits(stringQuery, extractTrackTotalHits(strTemplateResultObj));
+        putTrackTotalHits(baseQuery, extractTrackTotalHits(strTemplateResultObj));
 
 
         // 执行查询
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(stringQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();
@@ -165,11 +169,14 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     public Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
         ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient, elasticsearchBigDatasourceInstanceMap,command,queryString);
-        if (renderResult.getResult() != null) {
-            boolean b = renderResult.getResult() instanceof Collection;
-            if (b) {
-                return ((Collection) renderResult.getResult());
-            }else {
+        BaseQuery baseQuery = null;
+        Object result = renderResult.getResult();
+        if (result != null) {
+            if (result instanceof Collection) {
+                return ((Collection) result);
+            }else if(result instanceof BaseQuery){
+                baseQuery = ((BaseQuery) result);
+            } else {
                 throw new BigDatasourceException(" elasticsearch render result must be instance of " + Collection.class.getName());
             }
         }
@@ -178,26 +185,28 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
         String strTemplateResult = renderResult.getStrTemplateResult();
         JSONObject strTemplateResultObj = JSONUtil.parseObj(strTemplateResult);
         List<String> strIndexNameList = extractIndexNames(strTemplateResultObj,config.obtainIndexNames());
+        if (baseQuery == null) {
 
-        StringQuery stringQuery = extractStringQuery(strTemplateResultObj);
+            baseQuery = extractStringQuery(strTemplateResultObj);
+        }
 
         // 支持截取数据查询
         PageRequest pageRequest = extractPageRequest(strTemplateResultObj);
         if (pageRequest != null) {
-            stringQuery.setPageable(pageRequest);
+            baseQuery.setPageable(pageRequest);
         }
 
         // 设置排序
         List<Sort> sorts = extractSorts(strTemplateResultObj);
         if (CollectionUtil.isNotEmpty(sorts)) {
             for (Sort sort : sorts) {
-                stringQuery.addSort(sort);
+                baseQuery.addSort(sort);
             }
         }
 
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(stringQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();
@@ -210,39 +219,48 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     public Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
         ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient,elasticsearchBigDatasourceInstanceMap, command,queryString);
-        if (renderResult.getResult() != null) {
-            return renderResult.getResult();
+        BaseQuery baseQuery = null;
+        Object result = renderResult.getResult();
+        if (result != null) {
+            if(result instanceof BaseQuery){
+                baseQuery = ((BaseQuery) result);
+            }else {
+                return result;
+            }
         }
 
         String strTemplateResult = renderResult.getStrTemplateResult();
         JSONObject strTemplateResultObj = JSONUtil.parseObj(strTemplateResult);
         List<String> strIndexNameList = extractIndexNames(strTemplateResultObj,config.obtainIndexNames());
 
-        StringQuery stringQuery = extractStringQuery(strTemplateResultObj);
+        if (baseQuery == null) {
+
+            baseQuery = extractStringQuery(strTemplateResultObj);
+        }
 
         // 支持截取数据查询
         PageRequest pageRequest = extractPageRequest(strTemplateResultObj);
         if (pageRequest != null) {
-            stringQuery.setPageable(pageRequest);
+            baseQuery.setPageable(pageRequest);
         }
         // 设置排序
         List<Sort> sorts = extractSorts(strTemplateResultObj);
         if (CollectionUtil.isNotEmpty(sorts)) {
             for (Sort sort : sorts) {
-                stringQuery.addSort(sort);
+                baseQuery.addSort(sort);
             }
         }
 
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(stringQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();
         List<Map> allResult = searchHits.stream().map(item -> item.getContent()).collect(Collectors.toList());
 
-        Map result = allResult.iterator().next();
-        return result;
+        Map resultFinal = allResult.iterator().next();
+        return resultFinal;
     }
 
 
