@@ -81,11 +81,11 @@ const activeName = ref('tenant')
         <UserinfoRole :data="roles" :currentRole="currentRole"></UserinfoRole>
       </el-tab-pane>
       <el-tab-pane label="租户应用" name="application"  v-if="componentEnabled('tenant')">
-        <div>以下数据为您当前租户已获取的应用</div>
+        <div>以下数据为您当前租户已获取的全部应用</div>
         <UserinfoApplication></UserinfoApplication>
       </el-tab-pane>
       <el-tab-pane label="功能权限" name="permission"  v-if="componentEnabled('func')"  class="pt-height-100-pc">
-        <div>以下数据为您当前角色已获取的所以功能权限</div>
+        <div>以下数据为您当前角色已获取的全部功能权限</div>
         <UserinfoFunc></UserinfoFunc>
       </el-tab-pane>
     </el-tabs>

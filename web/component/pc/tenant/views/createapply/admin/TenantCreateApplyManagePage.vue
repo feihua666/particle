@@ -19,6 +19,7 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '租户名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'tenantTypeDictName',
@@ -81,10 +82,12 @@ const reactiveData = reactive({
     {
       prop: 'userName',
       label: '姓名',
+      showOverflowTooltip: true
     },
     {
       prop: 'mobile',
       label: '手机号',
+      showOverflowTooltip: true
     },
 
     {
@@ -99,10 +102,12 @@ const reactiveData = reactive({
     {
       prop: 'auditUserNickname',
       label: '审核人',
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
   ],
 

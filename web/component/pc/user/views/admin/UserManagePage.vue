@@ -139,6 +139,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:user:delete',
       methodConfirmText: `删除用户将可能造成不可预知的后果，一般不建议删除，可以将用户锁定处理，如果是新用户可以放心删除。确定要删除 ${row.nickname} 吗？`,
       // 删除操作
@@ -202,7 +203,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   if (componentEnabled('role')) {
     tableRowButtons.push(
         {
-          txt: '用户分配角色',
+          txt: '分配角色',
           text: true,
           position: 'more',
           permission: 'admin:web:roleUserRel:userAssignRole',
@@ -238,7 +239,7 @@ const dropdownTriggerButtonOptions = {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="220">
+      <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="dropdownTriggerButtonOptions">
           </PtButtonGroup>

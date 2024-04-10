@@ -131,7 +131,7 @@ export const usePageFormItems = ({props})=>{
 
     {
       field: {
-        name: 'mainDataId',
+        name: 'dataId',
       },
       element: {
         comp: 'el-input',
@@ -145,7 +145,7 @@ export const usePageFormItems = ({props})=>{
     },
     {
       field: {
-        name: 'mainDataTable',
+        name: 'dataTable',
       },
       element: {
         comp: 'el-input',
@@ -160,7 +160,7 @@ export const usePageFormItems = ({props})=>{
     },
     {
       field: {
-        name: 'mainDataEntity',
+        name: 'dataEntity',
       },
       element: {
         comp: 'el-input',

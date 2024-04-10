@@ -44,7 +44,16 @@ const getTableRowButtons = ({row, column, $index}) => {
   let idData = {id: row.id}
   let tableRowButtons = [
     {
+      txt: '添加子级',
+      text: true,
+      permission: 'admin:web:func:create',
+      // 跳转到编辑
+      route: {path: '/admin/funcManageAdd',query: idData}
+    },
+    {
       txt: '编辑',
+
+      position: 'more',
       text: true,
       permission: 'admin:web:func:update',
       // 跳转到编辑
@@ -52,6 +61,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
     {
       txt: '删除',
+
+      position: 'more',
       text: true,
       permission: 'admin:web:func:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
@@ -64,14 +75,7 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
-    {
-      txt: '添加子级',
-      position: 'more',
-      text: true,
-      permission: 'admin:web:func:create',
-      // 跳转到编辑
-      route: {path: '/admin/funcManageAdd',query: idData}
-    },
+
   ]
   let isPage = row.typeDictValue == 'page'
   isPage && tableRowButtons.push(

@@ -34,6 +34,7 @@ export const tenantFuncApplicationColumns = [
     {
         prop: 'name',
         label: '名称',
+        showOverflowTooltip: true
     },
     {
         prop: 'isGroup',
@@ -54,6 +55,7 @@ export const tenantFuncApplicationColumns = [
     {
         prop: 'applicationDefaultRoute',
         label: '默认路由',
+        showOverflowTooltip: true
     },
     {
         prop: 'applicationLogoUrl',
@@ -68,9 +70,11 @@ export const tenantFuncApplicationColumns = [
     {
         prop: 'configJson',
         label: '额外配置json',
+        showOverflowTooltip: true
     },
     {
         prop: 'tenantName',
         label: '租户名称',
+        showOverflowTooltip: true
     },
 ]

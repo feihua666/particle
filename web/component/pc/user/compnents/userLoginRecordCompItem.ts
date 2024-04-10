@@ -10,6 +10,7 @@ export const userLoginRecordColumns = [
     {
         prop: 'loginAt',
         label: '登录时间',
+        showOverflowTooltip: true
     },
     {
         prop: 'loginIp',
@@ -30,10 +31,9 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'isSuccess',
-        label: '登录是否成功(失败原因)',
-        width: 70,
+        label: '登录结果',
         formatter: (row, column, cellValue, index) => {
-            let r = cellValue ? '成功' : '失败'
+            let r = cellValue ? '登录成功' : '登录失败'
             if(!cellValue && row.failedReason){
                 r = r + `(${row.failedReason})`
             }
@@ -51,10 +51,12 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'lastActiveAt',
-        label: '最后活跃时间'
+        label: '最后活跃时间',
+        showOverflowTooltip: true
     },
     {
         prop: 'logoutAt',
-        label: '退出登录时间'
+        label: '退出登录时间',
+        showOverflowTooltip: true
     },
 ]

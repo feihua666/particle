@@ -34,7 +34,8 @@ const reactiveData = reactive({
     },
     {
       label: "输出类型",
-      prop: "outputTypeDictName"
+      prop: "outputTypeDictName",
+      showOverflowTooltip: true
     },
     {
       label: "父级",

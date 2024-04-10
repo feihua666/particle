@@ -113,20 +113,23 @@ const getTableRowButtons = ({row, column, $index}) => {
 
   let tableRowButtons = [
     {
-      txt: '编辑',
-      text: true,
-      permission: 'admin:web:funcApplication:update',
-      // 跳转到编辑
-      route: {path: '/admin/FuncApplicationManageUpdate',query: idData}
-    },
-    {
-      txt: '为该功能应用分配功能',
+      txt: '分配功能',
       text: true,
       permission: 'admin:web:funcApplicationFuncRel:funcApplicationAssignFunc',
       route: {path: '/admin/funcApplicationAssignFunc',query: funcApplicationAssignFuncRouteQuery}
     },
     {
+      txt: '编辑',
+      position: 'more',
+      text: true,
+      permission: 'admin:web:funcApplication:update',
+      // 跳转到编辑
+      route: {path: '/admin/FuncApplicationManageUpdate',query: idData}
+    },
+
+    {
       txt: '删除',
+      position: 'more',
       text: true,
       permission: 'admin:web:funcApplication:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
@@ -168,7 +171,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})"  :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

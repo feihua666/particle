@@ -46,14 +46,17 @@ const reactiveData = reactive({
     {
       prop: 'effectiveAt',
       label: '生效日期',
+      showOverflowTooltip: true
     },
     {
       prop: 'expireAt',
       label: '过期时间',
+      showOverflowTooltip: true
     },
     {
       prop: 'masterUserNickname',
       label: '主用户昵称',
+      showOverflowTooltip: true
     },
     {
       prop: 'isDisabled',
@@ -69,10 +72,12 @@ const reactiveData = reactive({
     {
       prop: 'userName',
       label: '姓名',
+      showOverflowTooltip: true
     },
     {
       prop: 'email',
       label: '邮箱',
+      showOverflowTooltip: true
     },
     {
       prop: 'mobile',
@@ -81,6 +86,7 @@ const reactiveData = reactive({
     {
       prop: 'tenantDomain',
       label: '租户域名',
+      showOverflowTooltip: true
     },
     {
       prop: 'tenantThemeJson',
@@ -89,15 +95,17 @@ const reactiveData = reactive({
     {
       prop: 'tenantDefaultRouteJson',
       label: '默认路由',
+      showOverflowTooltip: true
     },
     {
       prop: 'configJson',
-      label: '额外配置json',
+      label: '配置json',
       showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
 
   ],

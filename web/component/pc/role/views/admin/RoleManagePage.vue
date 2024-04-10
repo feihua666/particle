@@ -34,10 +34,14 @@ const reactiveData = reactive({
     },
     {
       prop: 'isDisabled',
-      label: '是否系统',
+      label: '是否禁用',
       width: 80,
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '系统字典' : '自定义字典'
+        let r = cellValue ? '禁用' : '启用'
+        if(cellValue && row.disabledReason){
+          r = r + `(${row.disabledReason})`
+        }
+        return r
       }
     },
     {
@@ -86,6 +90,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
     {
       txt: '删除',
+      position: 'more',
       text: true,
       permission: 'admin:web:role:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
@@ -105,6 +110,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     tableRowButtons.push(
         {
           txt: '角色分配功能菜单',
+          position: 'more',
           text: true,
           permission: 'admin:web:roleFuncRel:roleAssignFunc',
           route: {path: '/admin/roleManageRoleAssignFunc',query: roleAssignFuncRouteQuery}
@@ -139,7 +145,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

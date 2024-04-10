@@ -141,7 +141,15 @@ const getTableRowButtons = ({row, column, $index}) => {
   let idData = {id: row.id}
   let tableRowButtons = [
     {
+      txt: '添加子级',
+      text: true,
+      permission: 'admin:web:dict:create',
+      // 跳转到编辑
+      route: {path: '/admin/dictManageAdd',query: idData}
+    },
+    {
       txt: '编辑',
+      position: 'more',
       text: true,
       permission: 'admin:web:dict:update',
       // 跳转到编辑
@@ -149,6 +157,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
     {
       txt: '删除',
+      position: 'more',
       text: true,
       permission: 'admin:web:dict:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
@@ -161,13 +170,7 @@ const getTableRowButtons = ({row, column, $index}) => {
         })
       }
     },
-    {
-      txt: '添加子级',
-      text: true,
-      permission: 'admin:web:dict:create',
-      // 跳转到编辑
-      route: {path: '/admin/dictManageAdd',query: idData}
-    },
+
   ]
   return tableRowButtons
 }
@@ -198,7 +201,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

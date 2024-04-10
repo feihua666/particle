@@ -25,18 +25,22 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '字段名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'propertyName',
       label: '数据字段',
+      showOverflowTooltip: true
     },
     {
       prop: 'oldValue',
       label: '旧值',
+      showOverflowTooltip: true
     },
     {
       prop: 'newValue',
       label: '新值',
+      showOverflowTooltip: true
     },
     {
       prop: 'changeTypeDictName',
@@ -73,6 +77,7 @@ const reactiveData = reactive({
     {
       prop: 'opLogName',
       label: '操作日志',
+      showOverflowTooltip: true
     },
   ],
 

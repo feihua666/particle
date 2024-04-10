@@ -40,7 +40,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '修改密码',
       text: true,
-      methodConfirmText: `修改密码只对您点击的当前登录账号有效。确定要 ${row.userIdentifier} 的密码吗？`,
+      methodConfirmText: `修改密码只对您点击的当前登录标识账号有效。确定要修改 ${row.userIdentifier} 的密码吗？`,
       // 修改密码,弹窗
       method(){
         selectedUserIdentifierId.value = row.identifierId
