@@ -179,6 +179,7 @@ const getTableRowButtons = ({row, column, $index}) => {
    tableRowButtons.push(    {
      txt: '查看供应商调用记录',
      text: true,
+     position: 'more',
      permission: 'admin:web:openplatformProviderRecord:pageQuery',
      // 跳转到编辑
      route: {path: '/admin/openplatformProviderRecordManagePage',query: openplatformOpenapiRecordIdData}
@@ -210,7 +211,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="200">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>
