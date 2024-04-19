@@ -34,7 +34,11 @@ import java.util.Map;
  * @since 2023-04-26 14:07
  */
 public class ExcelTest {
+
+	static String excelTestTemplate = "/Users/yw/fh/git-source/particle/global/global-tool/src/test/java/com/particle/global/tool/template/ExcelTestTemplate.xlsx";
+
 	public static void main(String[] args) throws FileNotFoundException {
+		// testBeanRead();
 		testWriteTool();
 		//testWrite();
 	}
@@ -56,7 +60,7 @@ public class ExcelTest {
 		bean2.setExamDate(DateUtil.date());
 
 		List<TestBean> rows = CollUtil.newArrayList(bean1, bean2);
-		BufferedInputStream inputStream = FileUtil.getInputStream("/Users/yw/temp/test.xlsx");
+		BufferedInputStream inputStream = FileUtil.getInputStream(excelTestTemplate);
 		FileOutputStream fileOutputStream = new FileOutputStream("/Users/yw/temp/test1.xlsx");
 		ExcelTool.writeBeanAll(inputStream, rows, TestBean.class, fileOutputStream);
 	}
@@ -98,59 +102,16 @@ public class ExcelTest {
 		writer.close();
 	}
 
-	private static void testBean(){
+	private static void testBeanRead(){
 
 		Map of = Dict.of("A", TestBean.nameProperty, "B", TestBean.name1Property);
 
-		List<TestBean> ts = ExcelTool.readBeanAll(FileUtil.getInputStream("/Users/yw/temp/test.xlsx"), TestBean.class, of);
+		List<TestBean> ts = ExcelTool.readBeanAll(FileUtil.getInputStream(excelTestTemplate), TestBean.class, of);
 
 		System.out.println(ts);
 
 		ts = ExcelTool.readBeanAll(FileUtil.getInputStream("/Users/yw/temp/test.xlsx"), TestBean.class);
 		System.out.println(ts);
-	}
-
-	private static void test(){
-		ExcelReader reader = ExcelUtil.getReader(FileUtil.file("/Users/yw/yuansu/temp/component_user.xlsx"));
-		List<List<Object>> read = reader.read(1);
-		for (List<Object> objectList : read) {
-			JSONObject jsonObject = get();
-			String userId = objectList.get(0).toString();
-
-			jsonObject.set("userId", userId);
-			jsonObject.set("tenantId", "1649388860938944514");
-
-
-			try {
-				String s = HttpClientTool.postJson("http://10.15.20.142:8080/admin/web/tenant_user/create", jsonObject.toString(),
-						HttpClientTool.ExtConfig.builder().build().addHeader("c-token-id", "a4824c94-4c66-4f1d-9d5c-6f3bfc95e8a5")
-				);
-				JSONObject jsonObject1 = JSONUtil.parseObj(s);
-				if (!jsonObject1.getBool("success")) {
-					System.err.println(jsonObject.toString());
-					System.err.println(s);
-
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-	private static JSONObject get(){
-		String str = "{\n" +
-				"    \"userId\": \"1651119271870377986\",\n" +
-				"    \"name\": \"hgzsyjzx\",\n" +
-				"    \"tenantId\": \"1649388860938944514\",\n" +
-				"    \"isExpired\": false,\n" +
-				"    \"expiredReason\": null,\n" +
-				"    \"expireAt\": null,\n" +
-				"    \"isLeave\": false,\n" +
-				"    \"leaveReason\": null,\n" +
-				"    \"leaveAt\": null\n" +
-				"}";
-		return JSONUtil.parseObj(str);
 	}
 
 
@@ -159,12 +120,12 @@ public class ExcelTest {
 		public static String nameProperty = "name";
 		public static String name1Property = "name1";
 
-		@ExcelHead(readAlias = "A")
+		@ExcelHead(readAlias = "姓名", writeAlias = "姓名")
 		private String name;
-		@ExcelHead(readAlias = "B")
+
 		private String name1;
 
-
+		@ExcelHead(readAlias = "B")
 		private int age;
 		private double score;
 		private boolean isPass;

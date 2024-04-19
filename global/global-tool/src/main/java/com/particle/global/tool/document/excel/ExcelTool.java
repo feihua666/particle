@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +107,7 @@ public class ExcelTool {
 	public static Map<String, String> resolveAlias(Class<?> beanType,boolean isRead) {
 		// 适配别名
 		Field[] fields = ReflectUtil.getFields(beanType);
-		Map<String, String> headerAlias = new HashMap<>();
+		Map<String, String> headerAlias = new LinkedHashMap<>();
 		for (Field field : fields) {
 			ExcelHead annotation = AnnotationUtil.getAnnotation(field, ExcelHead.class);
 			if (annotation != null) {
