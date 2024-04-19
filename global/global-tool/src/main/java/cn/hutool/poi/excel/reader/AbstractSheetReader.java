@@ -142,7 +142,8 @@ public abstract class AbstractSheetReader<T> implements SheetReader<T> {
 
 		final String header = headerObj.toString();
 		if(null != this.headerAlias){
-			return ObjectUtil.defaultIfNull(this.headerAlias.get(header), ObjectUtil.defaultIfNull(this.headerAlias.get(ExcelUtil.indexToColName(index)), header));
+			return ObjectUtil.defaultIfNull(this.headerAlias.get(header),
+					ObjectUtil.defaultIfNull(this.headerAlias.get(ExcelUtil.indexToColName(index)), header));
 		}
 		return header;
 	}

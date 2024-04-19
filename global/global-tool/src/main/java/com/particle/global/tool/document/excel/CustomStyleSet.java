@@ -34,7 +34,7 @@ public class CustomStyleSet extends StyleSet {
 	 */
 	public CustomStyleSet(Workbook workbook,int sheetIndex) {
 		super(workbook);
-		Sheet sheetAt = workbook.getSheetAt(0);
+		Sheet sheetAt = workbook.getSheetAt(sheetIndex);
 		// 表头样式
 		Row row = sheetAt.getRow(0);
 		Short firstCellNum = null;
@@ -44,7 +44,7 @@ public class CustomStyleSet extends StyleSet {
 			lastCellNum = row.getLastCellNum();
 			headCellStyles = new ArrayList<>(lastCellNum);
 			for (int i = firstCellNum; i < lastCellNum; i++) {
-				headCellStyles.add(row.getCell(i).getCellStyle());
+				headCellStyles.add(row.getCell(i) == null ? null : row.getCell(i).getCellStyle());
 			}
 		}
 
@@ -53,7 +53,7 @@ public class CustomStyleSet extends StyleSet {
 		if (row != null && firstCellNum != null && lastCellNum != null) {
 			cellStyles = new ArrayList<>(lastCellNum);
 			for (int i = firstCellNum; i < lastCellNum; i++) {
-				cellStyles.add(row.getCell(i).getCellStyle());
+				cellStyles.add(row.getCell(i) == null ? null : row.getCell(i).getCellStyle());
 			}
 		}
 

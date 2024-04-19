@@ -42,7 +42,7 @@ public class ExcelTool {
 	}
 
 	/**
-	 * 自动设置表头，需要配置注解 {@link ExcelHead}
+	 * 自动设置表头，需要配置注解 {@link ExcelHead#readAlias()}
 	 * @param inputStream
 	 * @param beanType
 	 * @param <T>
@@ -55,7 +55,7 @@ public class ExcelTool {
 	}
 
 	/**
-	 * 根据excel模板，写出到输出流，具有保留模板样式的能力,主要是满足最见的导入的功能
+	 * 根据excel模板，写出到输出流，具有保留模板样式的能力,主要是满足最见的导出的功能
 	 * 默认读取第0个sheet
 	 * 注意：该方法必须得指定标题，默认第0行为标题行，第1行为数据行
 	 * @param inputStream excel输入流模板，只支持一个sheet，且需要带表头（表头必须在第一行）
@@ -72,8 +72,12 @@ public class ExcelTool {
 
 		writer.setStyleSet(new CustomStyleSet(book,sheetIndex));
 		writer.setHeaderAlias(columnAndPropertyMapping);
+
 		writer.setOnlyAlias(true);
-		writer.write(data);
+		// 不写首行，因为模板已经有了表头，跳转第一行
+		writer.passRows(1);
+		// 不写首行，因为模板已经有了表头，设置为false
+		writer.write(data,false);
 		writer.flush(out, true);
 		writer.close();
 		IoUtil.close(out);
@@ -106,10 +110,12 @@ public class ExcelTool {
 		for (Field field : fields) {
 			ExcelHead annotation = AnnotationUtil.getAnnotation(field, ExcelHead.class);
 			if (annotation != null) {
+				// 读取是key为别名，vakue为字段名
 				if(isRead) {
 					headerAlias.put(annotation.readAlias(), field.getName());
 				}else {
-					headerAlias.put( field.getName(),annotation.readAlias());
+					// 写出是key为字段名，value为别名（将输出为表头）
+					headerAlias.put( field.getName(),annotation.writeAlias());
 				}
 			}
 		}

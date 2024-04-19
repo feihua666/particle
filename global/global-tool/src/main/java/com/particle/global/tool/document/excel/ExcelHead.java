@@ -22,12 +22,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ExcelHead {
 	/**
 	 * 表头别名，主要用于读取excel,主要用于 {@link ExcelTool#readBeanAll(java.io.InputStream, java.lang.Class)}
+	 * 值可以是excel的列名如：A、B等，也可以是第一行表头的值，如：姓名、性别等
 	 * @return
 	 */
 	String readAlias() default "";
 
 	/**
 	 * 表头别名，主要用于写出excel,主要用于 {@link ExcelTool#writeBeanAll(java.io.OutputStream, java.util.List, java.lang.Class, boolean)}
+	 * 注意：这是写出方向，值将做为表头行的值
 	 * @return
 	 */
 	String writeAlias() default "";
