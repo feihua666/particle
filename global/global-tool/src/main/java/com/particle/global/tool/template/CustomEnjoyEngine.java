@@ -12,6 +12,7 @@ import cn.hutool.json.JSONNull;
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Comparators;
 import com.jfinal.template.source.FileSourceFactory;
+import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;
 import com.particle.global.tool.str.NetPathTool;
@@ -279,6 +280,15 @@ public class CustomEnjoyEngine implements TemplateEngine{
 		 */
 		public static List<Object> newArrayList() {
 			return new ArrayList<>();
+		}
+
+		/**
+		 * 将对象转为jsonStr
+		 * @param obj
+		 * @return
+		 */
+		public static String toJsonStr(Object obj) {
+			return JsonTool.toJsonStr(obj);
 		}
 
 		/**
