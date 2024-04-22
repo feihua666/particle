@@ -31,7 +31,6 @@ public class ExcelTool {
 	 * @param inputStream
 	 * @param beanType
 	 * @param columnAndPropertyMapping 列与bean的字段映射关系，key=标题，value=值
-	 * @param <T>
 	 * @return
 	 */
 	public static  <T> List<T> readBeanAll(InputStream inputStream,Class<T> beanType,Map<String,String> columnAndPropertyMapping) {
@@ -44,7 +43,6 @@ public class ExcelTool {
 	 * 自动设置表头，需要配置注解 {@link ExcelHead#readAlias()}
 	 * @param inputStream
 	 * @param beanType
-	 * @param <T>
 	 * @return
 	 */
 	public static  <T> List<T> readBeanAll(InputStream inputStream,Class<T> beanType) {
@@ -56,7 +54,7 @@ public class ExcelTool {
 	 * 自动设置表头，需要配置注解 {@link ExcelHead#readAlias()}
 	 * @param inputStream
 	 * @param beanType
-	 * @param <T>
+	 * @param order 一般按beanType指标的ExcelHead的别名为A、B、C...等，按key进行排序
 	 * @return
 	 */
 	public static  <T> List<T> readBeanAll(InputStream inputStream,Class<T> beanType,Order order) {
@@ -72,7 +70,6 @@ public class ExcelTool {
 	 * @param inputStream excel输入流模板，只支持一个sheet，且需要带表头（表头必须在第一行）
 	 * @param data 数据 bean 对象， 支持map
 	 * @param columnAndPropertyMapping，key为字段名，value为别名（一般为表头中文或A、B、C...等列名）
-	 * @param <T>
 	 * @return
 	 */
 	public static  <T> void writeBeanAll(InputStream inputStream, List<T> data, Map<String,String> columnAndPropertyMapping, OutputStream out) {
@@ -101,7 +98,6 @@ public class ExcelTool {
 	 * @param data
 	 * @param beanType
 	 * @param out
-	 * @param <T>
 	 */
 	public static  <T> void writeBeanAll(InputStream inputStream, List<T> data, Class<T> beanType, OutputStream out) {
 		Map<String, String> headerAlias = resolveAlias(beanType,false,null);
@@ -114,7 +110,7 @@ public class ExcelTool {
 	 * @param data
 	 * @param beanType
 	 * @param out
-	 * @param order 排序，如果 beanType
+	 * @param order 排序，如果 beanType 指定了 excelHead 别名为 A、B、C...等，一般按value正序排序
 	 */
 	public static  <T> void writeBeanAll(InputStream inputStream, List<T> data, Class<T> beanType, OutputStream out,Order order) {
 		Map<String, String> headerAlias = resolveAlias(beanType,false,order);
