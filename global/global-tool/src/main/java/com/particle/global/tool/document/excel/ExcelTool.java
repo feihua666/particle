@@ -10,10 +10,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -51,17 +49,29 @@ public class ExcelTool {
 	 */
 	public static  <T> List<T> readBeanAll(InputStream inputStream,Class<T> beanType) {
 
-		Map<String, String> headerAlias = resolveAlias(beanType,true);
+		Map<String, String> headerAlias = resolveAlias(beanType,true,null);
+		return readBeanAll(inputStream, beanType, headerAlias);
+	}
+	/**
+	 * 自动设置表头，需要配置注解 {@link ExcelHead#readAlias()}
+	 * @param inputStream
+	 * @param beanType
+	 * @param <T>
+	 * @return
+	 */
+	public static  <T> List<T> readBeanAll(InputStream inputStream,Class<T> beanType,Order order) {
+
+		Map<String, String> headerAlias = resolveAlias(beanType,true,order);
 		return readBeanAll(inputStream, beanType, headerAlias);
 	}
 
 	/**
 	 * 根据excel模板，写出到输出流，具有保留模板样式的能力,主要是满足最见的导出的功能
 	 * 默认读取第0个sheet
-	 * 注意：该方法必须得指定标题，默认第0行为标题行，第1行为数据行
+	 * 注意：该方法必须得指定标题，默认第0行为标题行，第1行为数据行（会沿用数据行的格式，如果有如LocalDate等字段在输出的excel中展示数字情况，请将模板对应的单元格设置为日期格式即可）
 	 * @param inputStream excel输入流模板，只支持一个sheet，且需要带表头（表头必须在第一行）
 	 * @param data 数据 bean 对象， 支持map
-	 * @param columnAndPropertyMapping
+	 * @param columnAndPropertyMapping，key为字段名，value为别名（一般为表头中文或A、B、C...等列名）
 	 * @param <T>
 	 * @return
 	 */
@@ -94,17 +104,29 @@ public class ExcelTool {
 	 * @param <T>
 	 */
 	public static  <T> void writeBeanAll(InputStream inputStream, List<T> data, Class<T> beanType, OutputStream out) {
-		Map<String, String> headerAlias = resolveAlias(beanType,false);
+		Map<String, String> headerAlias = resolveAlias(beanType,false,null);
 		writeBeanAll(inputStream, data,headerAlias, out);
 	}
-
+	/**
+	 * 自动获取标题
+	 * 功能同 {@link ExcelTool#writeBeanAll(java.io.InputStream, java.util.List, java.util.Map, java.io.OutputStream)}
+	 * @param inputStream
+	 * @param data
+	 * @param beanType
+	 * @param out
+	 * @param order 排序，如果 beanType
+	 */
+	public static  <T> void writeBeanAll(InputStream inputStream, List<T> data, Class<T> beanType, OutputStream out,Order order) {
+		Map<String, String> headerAlias = resolveAlias(beanType,false,order);
+		writeBeanAll(inputStream, data,headerAlias, out);
+	}
 	/**
 	 * 获取别名，获取bean class自定义的表头别名,主要用于读取或写出时使用
 	 * @param beanType
 	 * @param isRead true=读取，false=写出
 	 * @return
 	 */
-	public static Map<String, String> resolveAlias(Class<?> beanType,boolean isRead) {
+	public static Map<String, String> resolveAlias(Class<?> beanType,boolean isRead,Order order) {
 		// 适配别名
 		Field[] fields = ReflectUtil.getFields(beanType);
 		Map<String, String> headerAlias = new LinkedHashMap<>();
@@ -120,6 +142,36 @@ public class ExcelTool {
 				}
 			}
 		}
+		if (order != null) {
+			headerAlias = headerAlias.entrySet().stream()
+					.sorted(order.getComparator())
+					.collect(Collectors.toMap(
+							Map.Entry::getKey,
+							Map.Entry::getValue,
+							(e1, e2) -> e1,
+							LinkedHashMap::new));
+		}
 		return headerAlias;
+	}
+
+
+	/**
+	 * 指定一个排序方式，用来针对key或value排序，主要用来输出排序后的指定的表头
+	 */
+	public static enum Order{
+		key_asc(Map.Entry.comparingByKey()),
+		key_desc(Map.Entry.comparingByKey(java.util.Comparator.reverseOrder())),
+		value_asc(Map.Entry.comparingByValue()),
+		value_desc(Map.Entry.comparingByValue(java.util.Comparator.reverseOrder()));
+
+		private Comparator comparator;
+
+		Order(Comparator comparator) {
+			this.comparator = comparator;
+		}
+
+		public <K extends Comparable<? super K>, V> Comparator<Map.Entry<K,V>> getComparator() {
+			return comparator;
+		}
 	}
 }
