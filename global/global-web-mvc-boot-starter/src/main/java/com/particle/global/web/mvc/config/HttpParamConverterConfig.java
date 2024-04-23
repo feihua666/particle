@@ -1,5 +1,6 @@
 package com.particle.global.web.mvc.config;
 
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.calendar.CalendarTool;
@@ -23,6 +24,7 @@ import java.util.Date;
 @Configuration
 public class HttpParamConverterConfig {
 
+    private static DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD.getValue());
 
     /**
      * LocalDate转换器，用于转换RequestParam和PathVariable参数
@@ -36,14 +38,14 @@ public class HttpParamConverterConfig {
                     return null;
                 }
                 try {
-                    Date date = DateUtil.parse(source, CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue(), CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue());
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue());
-                    source = simpleDateFormat.format(date);
+                    return LocalDate.parse(source,localDateFormatter);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    Date date = DateUtil.parse(source, CalendarTool.DateStyle.YYYY_MM_DD.getValue(), CalendarTool.DateStyle.YYYY_MM_DD_EN.getValue());
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CalendarTool.DateStyle.YYYY_MM_DD.getValue());
+                    source = simpleDateFormat.format(date);
+                    return LocalDate.parse(source, DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD.getValue()));
                 }
 
-                return LocalDate.parse(source, DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
             }
         };
     }
@@ -59,9 +61,13 @@ public class HttpParamConverterConfig {
                 if(StrUtil.isBlank(source)){
                     return null;
                 }
-                Date date = DateUtil.parse(source, CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue(), CalendarTool.DateStyle.YYYY_MM_DD.getValue());
-                source = DateUtil.format(date,CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue());
-                return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+                try {
+                    return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+                } catch (Exception e) {
+                    Date date = DateUtil.parse(source, DatePattern.UTC_SIMPLE_PATTERN,DatePattern.UTC_SIMPLE_MS_PATTERN,DatePattern.UTC_PATTERN, CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue(), CalendarTool.DateStyle.YYYY_MM_DD.getValue());
+                    source = DateUtil.format(date,CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue());
+                    return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+                }
             }
         };
     }
