@@ -3,12 +3,16 @@ package com.particle.global.mybatis.plus.crud;
 import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.Update;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
@@ -503,8 +507,11 @@ public interface IBaseService<DO> extends IService<DO> {
         // 补充一个条件，否则在拼接or的时候会拼接不对，而是and
         ((AbstractWrapper) queryWrapper).apply(true, "true");
         boolean userCustomOrderBy = false;
+        // 标识是否为查询场景
+        boolean isQuery = false;
         if (QueryCommand.class.isAssignableFrom(query.getClass())) {
 
+            isQuery = true;
 
             String orderBy = ((QueryCommand) query).getOrderBy();
             if (StrUtil.isNotEmpty(orderBy)) {
@@ -583,6 +590,19 @@ public interface IBaseService<DO> extends IService<DO> {
             // like 处理
             Like like = AnnotationUtil.getAnnotation(field, Like.class);
             if(like != null){
+                // 在查询时，一般前端请求都可能传了空字符串，这里也是拼接，导致查询有问题，这里根据全局配置来决定
+                if (fieldValue instanceof String && StrUtil.isEmpty((String)fieldValue) && isQuery) {
+                    Class<?> entityClass = ((AbstractWrapper<?, ?, ?>) queryWrapper).getEntityClass();
+                    TableFieldInfo tableFieldInfo = Optional.ofNullable(entityClass)
+                            .map(clazz -> TableInfoHelper.getTableInfo(entityClass))
+                            .map(tableInfo -> tableInfo.getFieldList())
+                            .map(fieldList -> fieldList.stream().filter(fieldInfo -> fieldInfo.getProperty().equals(field.getName())).findFirst().orElse(null))
+                            .orElse(null);
+                    if (tableFieldInfo != null && tableFieldInfo.getWhereStrategy() == FieldStrategy.NOT_EMPTY) {
+                        continue;
+                    }
+                }
+
                 if (like.left() && like.right()) {
                     ((AbstractWrapper) queryWrapper).like( StringTool.humpToLine(field.getName()), fieldValue);
                 }else if (like.left()){
@@ -946,7 +966,7 @@ public interface IBaseService<DO> extends IService<DO> {
      */
     default DO initParentIdXByParent(DO child, Long parentId){
         if (parentId == null) {
-            return child;
+            return TreeServiceHelperTool.initParentIdXByParent(child, null);
         }
         DO parent = (DO) getById(parentId);
         return TreeServiceHelperTool.initParentIdXByParent(child, parent);
