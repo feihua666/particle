@@ -145,6 +145,7 @@ public class OssController {
 			filePath = objectName;
 			// 不能为空或直接拼接在请求地址上
 			Assert.hasText(objectName, "objectName can not be null");
+			filePath = URLUtil.decode(filePath);
 		}
 		return filePath;
 	}
