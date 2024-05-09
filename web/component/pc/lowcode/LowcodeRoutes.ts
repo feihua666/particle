@@ -298,7 +298,7 @@ const LowcodeRoutes = [
             {
                 path: '/admin/lowcodeSegmentGenModuleDesignAndGenerate',
                 component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenModuleDesignAndGeneratePage.vue'),
-                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId}),
+                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId,isGenerated: route.query.isGenerated=='true'}),
                 meta: {
                     showInDrawer: true,
                     code:'adminLowcodeSegmentGenModuleDesignAndGenerate',
@@ -316,7 +316,7 @@ const LowcodeRoutes = [
             {
                 path: '/admin/lowcodeSegmentGenModelServiceDesignAndGenerate',
                 component: () => import('./views/generator/admin/segmentgen/designandgenerate/LowcodeSegmentGenModelServiceDesignAndGeneratePage.vue'),
-                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId}),
+                props: route => ({ lowcodeSegmentGenId: route.query.id ,refrenceSegmentGenId: route.query.refrenceSegmentGenId,isGenerated: route.query.isGenerated == 'true'}),
                 meta: {
                     showInDrawer: true,
                     code:'adminLowcodeSegmentGenModelServiceDesignAndGenerate',
@@ -328,6 +328,34 @@ const LowcodeRoutes = [
                     formButtonsTeleportProps: {
                         disabled: false,
                         to: '#adminLowcodeSegmentGenModelServiceDesignAndGenerate'
+                    }
+                }
+            },
+            {
+                path: '/admin/lowcodeSegmentGen_funcManageAdd',
+                component: () => import('../func/views/admin/FuncManageAddPage.vue'),
+                props: route => ({ parentId: route.query.id, ...route.query}),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminFuncManageAdd',
+                    name: '菜单功能添加',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
+            {
+                path: '/admin/lowcodeSegmentGen_funcManageCrudAdd',
+                component: () => import('../func/views/admin/FuncManageCrudAddPage.vue'),
+                props: route => ({ parentId: route.query.id , ...route.query,isTree: route.query.isTree=='true'}),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminFuncManageCrudAdd',
+                    name: '菜单功能添加Crud',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
                     }
                 }
             },

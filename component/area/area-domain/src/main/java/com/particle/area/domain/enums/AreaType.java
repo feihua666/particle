@@ -29,6 +29,16 @@ public enum AreaType implements IDictItem {
     county
     ,
     /**
+     * 乡镇、街道
+     */
+    town
+    ,
+    /**
+     * 村
+     */
+    village
+    ,
+    /**
      * 国家
      */
     country

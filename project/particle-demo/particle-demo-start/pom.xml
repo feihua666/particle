@@ -170,6 +170,17 @@
             <artifactId>feedback-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>crm-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+
+
+
+
         <!-- 文档相关 支持 -->
         <dependency>
             <groupId>com.particle</groupId>

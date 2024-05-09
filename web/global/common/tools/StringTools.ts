@@ -22,6 +22,20 @@ export function trim(str: string): string {
     }
 }
 /**
+ * 去掉指定后缀
+ * @param str
+ * @return {string}
+ */
+export function removeSuffix(str: string,suffix: string): string {
+    if(!str){
+        return str
+    }
+    if (str.endsWith(suffix)) {
+        return str.substring(0, str.length - suffix.length)
+    }
+    return str
+}
+/**
  * 首字母大写
  * @param str
  * @returns {string}

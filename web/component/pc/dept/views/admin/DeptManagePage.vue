@@ -32,6 +32,10 @@ const reactiveData = reactive({
     {
       prop: 'masterUserName',
       label: '负责人',
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue || row.masterUserNickname
+        return r
+      },
     },
     {
       prop: 'isVirtual',
@@ -82,13 +86,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
       permission: 'admin:web:dept:update',
       // 跳转到编辑
-      route: {path: '/admin/DeptManageUpdate',query: idData}
+      route: {path: '/admin/DeptManageUpdate',query: {id: row.id,masterUserId: row.masterUserId,masterUserName: row.masterUserName || row.masterUserNickname}}
     },
     {
       txt: '删除',

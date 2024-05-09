@@ -165,5 +165,12 @@
             <artifactId>global-logging-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+        <!-- htmlparser -->
+        <dependency>
+            <groupId>org.htmlparser</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>${htmlparser.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -11,14 +11,19 @@ import {
 
 import {useUpdatePageFormItems} from "../../compnents/admin/deptManage";
 
-
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
   // 加载数据初始化参数,路由传参
   deptId: {
     type: String
-  }
+  },
+  masterUserId: {
+    type: String
+  },
+  masterUserName: {
+    type: String
+  },
 })
 // 属性
 const reactiveData = reactive({
@@ -32,7 +37,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    useUpdatePageFormItems({props: {}})
+    useUpdatePageFormItems({props})
 )
 
 // 提交按钮属性

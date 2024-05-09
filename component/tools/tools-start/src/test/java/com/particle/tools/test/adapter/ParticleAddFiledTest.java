@@ -23,13 +23,13 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("max_length"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("name"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("OpenplatformDocApiDocParamField");
-		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/open-platform");
+		addFieldCommand.setDomainName("CrmCustomerRelationDefine");
+		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/crm");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("dict_group_dict_id"),"字典组字典，字典组id，字典组下面的字典项为字段枚举",Long.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("dict_item_tags"),"字典项标签，如果某一个字典组下的字典项过多可以根据标签过滤",String.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("is_bidirectional"),"是否为双向关系,不是双向就是单身",Boolean.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("bidirectional_id"),"双向关系id，如果为单向关系，则必填，存储对应的双向关系id",Long.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

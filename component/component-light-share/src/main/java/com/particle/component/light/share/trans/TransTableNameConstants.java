@@ -56,4 +56,11 @@ public class TransTableNameConstants {
 	public static final String component_usage_count_record = "component_usage_count_record";
 
 
+	public static final String component_crm_company = "component_crm_company";
+	public static final String component_crm_dept = "component_crm_dept";
+	public static final String component_crm_customer = "component_crm_customer";
+	public static final String component_crm_customer_relation_define = "component_crm_customer_relation_define";
+	public static final String component_crm_customer_tag = "component_crm_customer_tag";
+
+
 }

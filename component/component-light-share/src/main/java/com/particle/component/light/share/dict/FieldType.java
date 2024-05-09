@@ -1,7 +1,6 @@
 package com.particle.component.light.share.dict;
 
 
-import com.google.common.collect.Maps;
 import com.particle.component.light.share.dict.api.IDictGroup;
 import com.particle.component.light.share.dict.api.IDictItem;
 

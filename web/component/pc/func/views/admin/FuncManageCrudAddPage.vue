@@ -18,36 +18,94 @@ const props = defineProps({
   // 父级，主要用来自动填充表单
   parentId: {
     type: String
+  },
+  // 编码前缀
+  codePrefix: {
+    type: String
+  },
+  // 名称前缀
+  namePrefix: {
+    type: String
+  },
+  // 权限码前缀
+  permissionPrefix: {
+    type: String
+  },
+  // 功能分组
+  funcGroupId: {
+    type: String
+  },
+  // 类型字典id，如：页面、按钮
+  typeDictId: {
+    type: String
+  },
+  // 归属组件
+  componentOf: {
+    type: String
+  },
+  // 下面为crud额外的权限
+  createExtPermission: {
+    type: String
+  },
+  deleteExtPermission: {
+    type: String
+  },
+  updateExtPermission: {
+    type: String
+  },
+  queryPageExtPermission: {
+    type: String
+  },
+  // 是否为树，如果为树表则会在，添加查询和修改时，添加queryList权限
+  isTree: {
+    type: Boolean,
+    default: false
   }
 })
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
-  form: {},
+  form: {
+    codePrefix: props.codePrefix,
+    namePrefix: props.namePrefix,
+    permissionPrefix: props.permissionPrefix,
+    funcGroupId: props.funcGroupId,
+    typeDictId: props.typeDictId,
+    componentOf: props.componentOf,
+  },
   // 表单数据对象
   formData: {},
 })
+
+
 
 const data = [
   {
     codeSuffix: 'query',
     nameSuffix: '查询',
     permissionSuffix: 'pageQuery',
+    treePermissionSuffix: 'queryList',
+    extPermission: props.queryPageExtPermission || null
   },
   {
     codeSuffix: 'create',
     nameSuffix: '添加',
     permissionSuffix: 'create',
+    treePermissionSuffix: 'queryList',
+    extPermission: props.createExtPermission || null
   },
   {
     codeSuffix: 'delete',
     nameSuffix: '删除',
     permissionSuffix: 'delete',
+    extPermission: props.deleteExtPermission || null
   },
   {
     codeSuffix: 'update',
     nameSuffix: '修改',
     permissionSuffix: 'update',
+    treePermissionSuffix: 'queryList',
+    extPermission: props.updateExtPermission || null
   }
 ]
 // 表单项
@@ -329,6 +387,12 @@ const submitAttrs = ref({
   buttonText: '确认添加',
   permission: 'admin:web:func:create'
 })
+const appendCommaIfNotEmpty = (str: string) => {
+  if (!str) {
+    return ''
+  }
+  return str + ','
+}
 // 提交按钮
 const submitMethod = async (form) => {
   let items = form.items
@@ -348,8 +412,16 @@ const submitMethod = async (form) => {
     let item = data.find(it => it.nameSuffix == items[i])
     newForm.code = form.codePrefix + item.codeSuffix
     newForm.name = form.namePrefix + item.nameSuffix
-    newForm.permissions = form.permissionPrefix + item.permissionSuffix
-    await funcCreateApi(newForm)
+
+    // 针对树表添加额外处理
+    let permissionForTree = ''
+    if (props.isTree && item.treePermissionSuffix) {
+      permissionForTree = (form.permissionPrefix + item.treePermissionSuffix)
+    }
+
+    newForm.permissions = appendCommaIfNotEmpty(item.extPermission)+ appendCommaIfNotEmpty(permissionForTree) + (form.permissionPrefix + item.permissionSuffix)
+
+    await funcCreateApi(newForm);
   }
 
 }

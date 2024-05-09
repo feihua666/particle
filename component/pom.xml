@@ -37,6 +37,7 @@
         <module>report</module>
         <module>usage-count</module>
         <module>feedback</module>
+        <module>crm</module>
     </modules>
 
     <properties>

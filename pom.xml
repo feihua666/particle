@@ -126,6 +126,8 @@
 
         <!-- springboot 本身依赖了该包，在升级和新版本的idea后，提示原来springboot依赖的是1.3版本，有漏洞这里升级一下 -->
         <snakeyaml.version>2.0</snakeyaml.version>
+        <!-- htmlparser 添加主要用于解析国家统计局 统计用区划代码和城乡划分代码-->
+        <htmlparser.version>2.1</htmlparser.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

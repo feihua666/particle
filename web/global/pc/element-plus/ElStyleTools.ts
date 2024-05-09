@@ -97,6 +97,11 @@ const d = [
         icon: 'ChatLineRound',
         type:'primary'
     },
+    {
+        pattern:['联系方式'],
+        icon: 'Tickets',
+        type:'primary'
+    },
 ]
 
 /**

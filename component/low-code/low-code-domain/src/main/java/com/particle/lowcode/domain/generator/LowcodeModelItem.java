@@ -1,5 +1,6 @@
 package com.particle.lowcode.domain.generator;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
@@ -129,7 +130,8 @@ public class LowcodeModelItem extends AggreateRoot {
      * @param ignorePropertyNames
      */
     public void initDesignJson( Set<String> ignorePropertyNames) {
-        Map<LowcodeModelItemDesignJsonScope, LowcodeModelItem.DesignJsonItem> designJsonItemMap = Arrays.stream(LowcodeModelItemDesignJsonScope.values()).collect(Collectors.toMap(Function.identity(), (scope) -> {
+        Map<LowcodeModelItemDesignJsonScope, LowcodeModelItem.DesignJsonItem> designJsonItemMap = Arrays.stream(LowcodeModelItemDesignJsonScope.values())
+                .collect(Collectors.toMap(Function.identity(), (scope) -> {
 
             boolean isRequired = getIsRequired();
             boolean isTransDictId = false;
@@ -137,6 +139,14 @@ public class LowcodeModelItem extends AggreateRoot {
             // 默认查询不必填
             if(scope == LowcodeModelItemDesignJsonScope.QUERY_LIST || scope == LowcodeModelItemDesignJsonScope.QUERY_PAGE){
                 isRequired = false;
+                // 备注默认不使用
+                if (StrUtil.equals("remark", getColumnName())) {
+                    isUse = false;
+                }
+                // 排序默认不使用
+                if (StrUtil.equals("seq", getPropertyType())) {
+                    isUse = false;
+                }
             }
             // vo 匹配是否为字典，如果是字典，默认翻译
             if(scope == LowcodeModelItemDesignJsonScope.VO && getColumnName().endsWith("_dict_id")){

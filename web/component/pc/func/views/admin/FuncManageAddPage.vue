@@ -11,13 +11,53 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   parentId: {
     type: String
-  }
+  },
+  // 编码，添加时使用，主要为了低代码添加
+  code: {
+    type: String
+  },
+  // 名称
+  name: {
+    type: String
+  },
+  // 功能分组
+  funcGroupId: {
+    type: String
+  },
+  // 图标，一般为element ui 的图标字符串如：Avatar
+  icon: {
+    type: String
+  },
+  // 类型字典id，如：页面、按钮
+  typeDictId: {
+    type: String
+  },
+  // 路由
+  url: {
+    type: String
+  },
+  // 权限码，多个以逗号分隔
+  permissions: {
+    type: String
+  },
+  // 归属组件
+  componentOf: {
+    type: String
+  },
 })
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
-    parentId: props.parentId
+    parentId: props.parentId,
+    code: props.code,
+    name: props.name,
+    funcGroupId: props.funcGroupId,
+    icon: props.icon,
+    typeDictId: props.typeDictId,
+    url: props.url,
+    permissions: props.permissions,
+    componentOf: props.componentOf,
   },
   // 表单数据对象
   formData: {},

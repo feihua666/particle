@@ -19,6 +19,11 @@ const props = defineProps({
   refrenceSegmentGenId:{
     type: String
   },
+  // 是否已生成，如果已生成使用自己之前生成的数据作为引用生成数据
+  isGenerated:{
+    type: Boolean,
+    default: false
+  }
 })
 
 // 表单项

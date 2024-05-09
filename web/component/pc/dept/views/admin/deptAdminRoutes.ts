@@ -30,7 +30,7 @@ const deptAdminRoutes = [
             {
                 path: '/admin/deptManageUpdate',
                 component: () => import('./DeptManageUpdatePage.vue'),
-                props: route => ({ deptId: route.query.id }),
+                props: route => ({ deptId: route.query.id,masterUserId: route.query.masterUserId,masterUserName: route.query.masterUserName}),
                 meta: {
                     showInDrawer: true,
                     code:'adminDeptManageUpdate',

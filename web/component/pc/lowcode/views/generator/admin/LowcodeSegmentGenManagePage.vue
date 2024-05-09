@@ -101,7 +101,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-  let idDataWithRefrenceSegmentGenId = {id: row.id,refrenceSegmentGenId: row.refrenceSegmentGenId}
+  let idDataWithRefrenceSegmentGenId = {id: row.id,refrenceSegmentGenId: row.refrenceSegmentGenId,isGenerated: row.isGenerated}
 
   let tableRowButtons: Array<any> = [
     {
@@ -178,6 +178,79 @@ const getTableRowButtons = ({row, column, $index}) => {
         permission: 'admin:web:lowcodeSegmentGen:renderGen',
         // 跳转到设计和渲染
         route: {path: '/admin/lowcodeSegmentGenGenericDesignAndGenerate',query: idDataWithRefrenceSegmentGenId}
+      },
+  )
+  let globalJsonStr = row.globalJson
+  let globalJson = JSON.parse(row.globalJson) || {}
+  let lowcodeModelJsonStr = row.lowcodeModelJson
+  let lowcodeModelJson = JSON.parse(row.lowcodeModelJson) || {}
+
+  let code = globalJson.moduleNamePackage + "_manage"
+  let name = row.name.split('_')[0] + "管理"
+  // pc或平板后台管理为1，如果数据有变更请修改
+  let funcGroupId = '1'
+  // 菜单=21，页面=22，按钮=1605497232817737729
+  let typeDictId = ''
+  let componentOf = globalJson.moduleName
+  tableRowButtons.push(
+      {
+        txt: '添加根功能菜单',
+        text: true,
+        position: 'more',
+        disabled: !row.isGenerated,
+        disabledReason: !row.isGenerated ? '生成后才可以添加根功能菜单' : undefined,
+        permission: 'admin:web:func:create',
+        // 跳转到菜单添加页面
+        route: {path: '/admin/lowcodeSegmentGen_funcManageAdd',query: {
+            code,
+            name,
+            funcGroupId,
+            typeDictId: '21',
+            componentOf
+          }}
+      },
+  )
+  let pageCode = lowcodeModelJson.model?.nameEn + '_manage_page'
+  tableRowButtons.push(
+      {
+        txt: '添加功能菜单页面',
+        text: true,
+        position: 'more',
+        disabled: !row.isGenerated,
+        disabledReason: !row.isGenerated ? '生成后才可以添加功能菜单页面' : undefined,
+        permission: 'admin:web:func:create',
+        // 跳转到菜单添加页面
+        route: {path: '/admin/lowcodeSegmentGen_funcManageAdd',query: {
+            code: pageCode,
+            name,
+            funcGroupId,
+            typeDictId: '22',
+            url: `/admin/${lowcodeModelJson.model?.nameEnEntityVar}ManagePage`,
+            componentOf,
+          }}
+      },
+  ),  tableRowButtons.push(
+      {
+        txt: '添加功能菜单页面CRUD',
+        text: true,
+        position: 'more',
+        disabled: !row.isGenerated,
+        disabledReason: !row.isGenerated ? '生成后才可以添加功能菜单页面CRUD' : undefined,
+        permission: 'admin:web:func:create',
+        // 跳转到菜单添加页面
+        route: {path: '/admin/lowcodeSegmentGen_funcManageCrudAdd',query: {
+            codePrefix: lowcodeModelJson.model?.nameEn + '_manage_page' + '_',
+            namePrefix: name,
+            permissionPrefix: `admin:web:${lowcodeModelJson.model?.nameEnEntityVar}:`,
+            funcGroupId,
+            // 按钮=1605497232817737729
+            typeDictId: '1605497232817737729',
+            componentOf,
+            createExtPermission: `admin${lowcodeModelJson.model?.nameEnEntity}ManageAdd`,
+            updateExtPermission: `admin${lowcodeModelJson.model?.nameEnEntity}ManageUpdate`,
+            queryPageExtPermission: `admin${lowcodeModelJson.model?.nameEnEntity}ManagePage`,
+            isTree: lowcodeModelJson.model?.tableTypeDictValue == 'TREE'
+          }}
       },
   )
   return tableRowButtons

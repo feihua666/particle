@@ -13,10 +13,7 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.HttpClients;
@@ -153,7 +150,24 @@ public class HttpClientTool{
 
         return executeRequestAsString(post,getCLIENT(),extConfig);
     }
+    /**
+     * 以 json 形式请求
+     * @param url
+     * @param body
+     * @return
+     * @throws IOException
+     */
+    public static String putJson(String url, String body,ExtConfig extConfig) throws IOException {
+        HttpPut put = new HttpPut(url);
+        put.addHeader("Content-Type", "application/json");
 
+        // 创建参数列表
+        if(StrUtil.isNotEmpty(body)){
+            put.setEntity(new StringEntity(body,CHARSET));
+        }
+
+        return executeRequestAsString(put,getCLIENT(),extConfig);
+    }
     /**
      * 获取状态码
      * @param res

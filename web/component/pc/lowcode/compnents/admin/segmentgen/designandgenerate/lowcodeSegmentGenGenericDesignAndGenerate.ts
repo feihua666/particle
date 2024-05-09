@@ -154,19 +154,20 @@ export const useModuleFormComps = ({props}) => {
                                 attrs: {
                                     icon: 'Search',
                                     beforeMethod:()=>{
-                                        if(props.refrenceSegmentGenId > 0){
+                                        if(props.refrenceSegmentGenId > 0 || props.isGenerated){
                                             return true
                                         }
-                                        return '未引用生成数据'
+                                        return '未引用生成数据或尚未生成，请先引用生成数据或生成'
                                     },
                                     method:()=> {
-                                        return segmentGenDetailApi({id: props.refrenceSegmentGenId}).then(res => {
+                                        console.log(props.isGenerated)
+                                        return segmentGenDetailApi({id: (props.isGenerated ? props.lowcodeSegmentGenId : props.refrenceSegmentGenId)}).then(res => {
                                             let data = res.data.data
                                             loadRefrenceSegmentGen(data,form)
                                             return  Promise.resolve(res)
                                         })
                                     },
-                                    title: '加载引用生成数据'
+                                    title: '加载引用生成数据,如果已经生成则加载上次生成的填写数据'
                                 }
                             }
                         }

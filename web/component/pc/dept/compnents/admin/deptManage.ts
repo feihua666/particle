@@ -27,7 +27,6 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '部门名称',
-            
           },
           compProps: {
             clearable: true,
@@ -105,9 +104,15 @@ export const useAddPageFormItems = ({props})=>{
       }
     },
 
-    useRemoteSelectUserCompItem({props, required: false,fieldName: 'masterUserId',label: '负责人'}),
-
-
+    useRemoteSelectUserCompItem({
+      props,
+      required: false,
+      fieldName: 'masterUserId',
+      propUserIdFieldName: 'masterUserId',
+      propUserNicknameFieldName: 'masterUserName',
+      disabled: false,
+      label: '负责人'
+    }),
 
     {
       field: {

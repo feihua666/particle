@@ -16,6 +16,7 @@ import OpenPlatformRoutes from "./openplatform/OpenPlatformRoutes";
 import ReportRoutes from "./report/ReportRoutes";
 import UsageCountRoutes from "./usagecount/UsageCountRoutes";
 import FeedbackRoutes from "./feedback/FeedbackRoutes";
+import CrmRoutes from "./crm/CrmRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -36,4 +37,5 @@ let ComponentRoutes = []
     .concat(ReportRoutes)
     .concat(UsageCountRoutes)
     .concat(FeedbackRoutes)
+    .concat(CrmRoutes)
 export default ComponentRoutes

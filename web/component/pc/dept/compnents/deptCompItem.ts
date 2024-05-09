@@ -2,7 +2,7 @@ import {list as deptListApi} from "../api/admin/deptAdminApi";
 import {list as deptTreeListApi} from "../api/admin/deptTreeAdminApi";
 import {list as deptTreeNameListApi} from "../api/admin/deptTreeNameAdminApi";
 
-export const useCascaderDeptCompItem = ({fieldName= 'parentId',required=false,label= '父级'})=>{
+export const useCascaderDeptCompItem = ({fieldName= 'parentId',required=false,label= '父级',isComp = null})=>{
     return         {
         field: {
             name: fieldName
@@ -16,12 +16,13 @@ export const useCascaderDeptCompItem = ({fieldName= 'parentId',required=false,la
             compProps: {
                 clearable: true,
                 // 加载数据
-                dataMethod: () => { return deptListApi({})},
+                dataMethod: () => { return deptListApi({isComp})},
                 dataMethodResultHandleConvertToTree: true,
             }
         }
     }
 }
+
 export const useCascaderDeptTreeCompItem = ({fieldName= 'parentId',required=false,label= '父级',propsAttr={}})=>{
     return {
         field: {

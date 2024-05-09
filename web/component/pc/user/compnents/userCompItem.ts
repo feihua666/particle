@@ -20,7 +20,7 @@ export const useRemoteSelectUserCompItem = ({props,
                                                 propUserIdFieldName='userId',
                                                 propUserNicknameFieldName='userNickname',
                                                 label='用户',
-                                                valueChange = ()=>{},tips = ''})=>{
+                                                valueChange = ()=>{},tips = '',disabled = null})=>{
 
   return   {
         field: {
@@ -37,9 +37,13 @@ export const useRemoteSelectUserCompItem = ({props,
             },
             compProps: ()=> {
                 let paramsExist = !!(props[propUserIdFieldName] && props[propUserNicknameFieldName])
+                let isDisabled = disabled
+                if (isDisabled === null) {
+                    isDisabled = paramsExist
+                }
                 let r = {
                     placeholder: '输入用户昵称搜索',
-                    disabled: paramsExist,
+                    disabled: isDisabled,
                     // 给定默认数据
                     dataMethod: ()=> {
                         if(paramsExist){
@@ -51,7 +55,7 @@ export const useRemoteSelectUserCompItem = ({props,
                         return {data: []}
                     },
                     // 路由中没有数据，开启远程搜索
-                    remote: !paramsExist,
+                    remote: true,
                     remoteMethod: (query: string) => {
                         if(!query){
                             return {data: []}
@@ -60,7 +64,7 @@ export const useRemoteSelectUserCompItem = ({props,
                     },
                     // 下拉显示昵称
                     props: {label: 'nickname'}
-                }// r
+                };// r
 
                 return r
             }

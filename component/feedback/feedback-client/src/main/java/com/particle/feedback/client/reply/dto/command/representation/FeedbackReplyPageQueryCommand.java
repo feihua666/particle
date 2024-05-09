@@ -4,6 +4,8 @@ import com.particle.global.light.share.mybatis.anno.Like;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -16,6 +18,9 @@ import java.time.LocalDateTime;
 @Data
 @Schema
 public class FeedbackReplyPageQueryCommand extends AbstractBasePageQueryCommand {
+
+    @Schema(description = "用户评价时间")
+    private LocalDate feedbackUserRateAt1;
 
 	@Schema(description = "用户评价时间")
 	private LocalDateTime feedbackUserRateAt;
