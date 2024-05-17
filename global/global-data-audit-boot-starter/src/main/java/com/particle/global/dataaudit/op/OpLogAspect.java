@@ -1,7 +1,6 @@
 package com.particle.global.dataaudit.op;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.dataaudit.audit.DataAuditCollectTool;
 import com.particle.global.dataaudit.audit.dto.DataAuditResultDTO;
@@ -17,7 +16,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.javers.common.collections.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Future;
+import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool ;
 
 /**
  * <p>
@@ -67,8 +66,11 @@ public class OpLogAspect {
 	public Object around(ProceedingJoinPoint joinPoint ) throws Throwable {
 		// 记录处理开始时间
 		long startTime =  0;
+		MethodSignature ms = (MethodSignature)joinPoint.getSignature();
+		Method method = ms.getMethod();
+		OpLog annotation = method.getAnnotation(OpLog.class);
 		// 前置处理
-		before();
+		before(joinPoint,annotation);
 		Object response = null;
 		try {
 
@@ -76,7 +78,7 @@ public class OpLogAspect {
 			// 从这里开始计时，计算oplog实际消耗
 			startTime =  System.currentTimeMillis();
 			// 后置处理
-			after(joinPoint);
+			after(joinPoint,annotation);
 		}
 		catch (Throwable e){
 			throw e;
@@ -97,7 +99,7 @@ public class OpLogAspect {
 	 * 前置处理
 	 * 设置父级及当前id
 	 */
-	private void before() {
+	private void before(ProceedingJoinPoint joinPoint, OpLog annotation) {
 
 		// todo 暂不支持 OpLog 嵌套的情况，比如在controller的方法上加了OpLog注解，又在下面调用的service上加了OpLog注解，这时service层的注解会优先于controller层的注释嵌套生效
 		// 但父级id问题会混乱，我认为这种情况本应该会形成父子关系，但实际上落地的数据是平级关系，甚至数据混乱，目前建议只在controller 层 添加 OpLog 注解
@@ -111,6 +113,9 @@ public class OpLogAspect {
 		// todo 在远程调用时，需要将当前id传递到下游
 		OpLogTool.setCurrentId(SnowflakeIdTool.nextId());
 		OpLogTool.setStart();
+		if (annotation.ignoreDataAuditPublish()) {
+			DataAuditCollectTool.setIgnorePublish();
+		}
 	}
 
 	/**
@@ -118,19 +123,14 @@ public class OpLogAspect {
 	 * 如果只收集了审计数据，没有操作日志，根本原因是在收集时没有指定操作日志对象
 	 */
 	@SneakyThrows
-	private void after(ProceedingJoinPoint joinPoint ) {
-		MethodSignature ms = (MethodSignature)joinPoint.getSignature();
-		Method method = ms.getMethod();
-		OpLogDTO opLogDTO = null;
+	private void after(ProceedingJoinPoint joinPoint, OpLog annotation ) {
 
-		if (method != null) {
-			OpLog annotation = method.getAnnotation(OpLog.class);
-			String name = annotation.name();
-			if (StrUtil.isEmpty(name)) {
+		OpLogDTO opLogDTO = null;
+		String name = annotation.name();
+		if (StrUtil.isEmpty(name)) {
 			//	todo 如果为空，尝试获取 swagget apiAction 注解
-			}
-			opLogDTO = OpLogDTO.create(SnowflakeIdTool.nextId(),name, annotation.module(), annotation.type(),OpLogTool.getParentId(),OpLogTool.getMainDataId(),null,null);
 		}
+		opLogDTO = OpLogDTO.create(SnowflakeIdTool.nextId(),name, annotation.module(), annotation.type(),OpLogTool.getParentId(),OpLogTool.getMainDataId(),null,null);
 
 		// 被处理的最终结果存储在这里
 		List<OpLogAndDataAuditResultsDTO> opLogAndDataAuditResultsDTOList = new ArrayList<>();

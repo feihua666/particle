@@ -44,5 +44,7 @@ CREATE TABLE `component_dream_ssq_code` (
   KEY `red4` (`red4`) USING BTREE,
   KEY `red5` (`red5`) USING BTREE,
   KEY `red6` (`red6`) USING BTREE,
-  KEY `blue` (`blue`) USING BTREE
+  KEY `blue` (`blue`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='双色球号码表';

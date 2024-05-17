@@ -41,5 +41,7 @@ CREATE TABLE `component_op_log` (
   KEY `user_id` (`user_id`),
   KEY `module_dict_id` (`module_dict_id`),
   KEY `type_dict_id` (`type_dict_id`),
-  KEY `main_data_id` (`main_data_id`)
+  KEY `main_data_id` (`main_data_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='操作日志表';

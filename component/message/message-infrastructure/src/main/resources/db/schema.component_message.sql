@@ -23,5 +23,7 @@ CREATE TABLE `component_message` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `type_dict_id` (`type_dict_id`) USING BTREE,
   KEY `send_status_dict_id` (`send_status_dict_id`) USING BTREE,
-  KEY `business_id` (`business_id`) USING BTREE
+  KEY `business_id` (`business_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='消息表';

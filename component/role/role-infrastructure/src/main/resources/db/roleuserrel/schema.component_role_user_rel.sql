@@ -12,5 +12,7 @@ CREATE TABLE `component_role_user_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_role_id_user_id` (`role_id`,`user_id`) USING BTREE,
   KEY `idx_role_id` (`role_id`) USING BTREE,
-  KEY `idx_func_id` (`user_id`) USING BTREE
+  KEY `idx_func_id` (`user_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='角色用户关系表';

@@ -13,5 +13,7 @@ CREATE TABLE `component_openplatform_doc_dir_name` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_code` (`code`) USING BTREE,
-  KEY `idx_name` (`name`) USING BTREE
+  KEY `idx_name` (`name`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口目录名称表';

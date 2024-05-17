@@ -26,5 +26,7 @@ CREATE TABLE `component_user_login_record` (
   KEY `user_id` (`user_id`),
   KEY `user_id__user_identifier_id` (`user_id`,`user_identifier_id`),
   KEY `session` (`session`),
-  KEY `session_md5` (`session_md5`)
+  KEY `session_md5` (`session_md5`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户登录记录表';

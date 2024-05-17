@@ -30,5 +30,7 @@ CREATE TABLE `component_tenant_create_apply` (
   `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `name` (`name`) USING BTREE
+  KEY `name` (`name`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户创建申请表';

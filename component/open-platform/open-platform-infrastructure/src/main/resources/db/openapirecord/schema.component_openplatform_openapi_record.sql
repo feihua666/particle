@@ -37,5 +37,7 @@ CREATE TABLE `component_openplatform_openapi_record` (
   KEY `request_parameter_md5` (`request_parameter_md5`),
   KEY `response_result_md5` (`response_result_md5`),
   KEY `request_nonce` (`request_nonce`),
-  KEY `trace_id` (`trace_id`)
+  KEY `trace_id` (`trace_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台开放接口调用记录表';

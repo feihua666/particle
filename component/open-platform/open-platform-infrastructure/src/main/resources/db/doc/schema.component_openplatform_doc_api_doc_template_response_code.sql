@@ -18,5 +18,7 @@ CREATE TABLE `component_openplatform_doc_api_doc_template_response_code` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `code` (`code`) USING BTREE,
-  KEY `openplatform_doc_api_doc_template_id` (`openplatform_doc_api_doc_template_id`) USING BTREE
+  KEY `openplatform_doc_api_doc_template_id` (`openplatform_doc_api_doc_template_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口文档模板响应码表';

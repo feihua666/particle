@@ -21,5 +21,7 @@ CREATE TABLE `component_oauth2_registered_client` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `client_id` (`client_id`) USING BTREE,
-  KEY `client_name` (`client_name`) USING BTREE
+  KEY `client_name` (`client_name`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='开放平台客户端表';

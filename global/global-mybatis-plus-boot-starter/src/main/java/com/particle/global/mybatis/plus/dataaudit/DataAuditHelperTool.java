@@ -28,7 +28,7 @@ public class DataAuditHelperTool {
 	/**
 	 * 允许手动控制是否忽略发布
 	 */
-	private static String ignorePublishKey = "DataAuditHelperTool_ignorePublishKey";
+	private static String ignorePublishKey = DataAuditCollectTool.ignorePublishKey;
 
 	/**
 	 * 获取DO的表名
@@ -182,14 +182,12 @@ public class DataAuditHelperTool {
 	 * 设置忽略
 	 */
 	public static void setIgnorePublish() {
-		ThreadContextTool.put(ignorePublishKey,true);
+		DataAuditCollectTool.setIgnorePublish();
 	}
 	public static boolean isIgnorePublish(){
-		Object o = ThreadContextTool.get(ignorePublishKey);
-
-		return o != null && ((Boolean) o);
+		return DataAuditCollectTool.isIgnorePublish();
 	}
 	public static void clearIgnorePublish(){
-		ThreadContextTool.remove(ignorePublishKey);
+		DataAuditCollectTool.clearIgnorePublish();
 	}
 }

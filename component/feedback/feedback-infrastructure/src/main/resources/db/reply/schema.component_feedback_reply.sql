@@ -23,5 +23,7 @@ CREATE TABLE `component_feedback_reply` (
   KEY `feedback_id` (`feedback_id`) USING BTREE,
   KEY `reply_user_id` (`reply_user_id`) USING BTREE,
   KEY `is_feedback_user_read` (`is_feedback_user_read`) USING BTREE,
-  KEY `feedback_user_rate_dict_id` (`feedback_user_rate_dict_id`) USING BTREE
+  KEY `feedback_user_rate_dict_id` (`feedback_user_rate_dict_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='意见反馈回复表';

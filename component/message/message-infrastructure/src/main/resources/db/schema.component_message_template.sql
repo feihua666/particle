@@ -37,5 +37,7 @@ CREATE TABLE `component_message_template` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `code` (`code`,`tenant_id`) USING BTREE,
-  KEY `type_dict_id` (`type_dict_id`) USING BTREE
+  KEY `type_dict_id` (`type_dict_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='消息内容模板表';

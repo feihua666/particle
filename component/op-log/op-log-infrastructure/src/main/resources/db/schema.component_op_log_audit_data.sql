@@ -27,5 +27,7 @@ CREATE TABLE `component_op_log_audit_data` (
   KEY `property_name` (`property_name`),
   KEY `type_dict_id` (`type_dict_id`),
   KEY `data_id` (`data_id`),
-  KEY `op_log_id` (`op_log_id`)
+  KEY `op_log_id` (`op_log_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='操作日志审计数据表';

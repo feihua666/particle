@@ -22,5 +22,7 @@ CREATE TABLE `component_feedback` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `contact_username` (`contact_username`) USING BTREE,
-  KEY `contact_telephone` (`contact_telephone`) USING BTREE
+  KEY `contact_telephone` (`contact_telephone`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='意见反馈表';

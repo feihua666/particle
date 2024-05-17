@@ -13,5 +13,7 @@ CREATE TABLE `component_dept_tree_user_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_dept_id_user_tree_id` (`user_id`,`dept_tree_id`) USING BTREE,
   KEY `idx_dept_tree_id` (`dept_tree_id`) USING BTREE,
-  KEY `idx_user_id` (`user_id`) USING BTREE
+  KEY `idx_user_id` (`user_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='部门树用户关系表';

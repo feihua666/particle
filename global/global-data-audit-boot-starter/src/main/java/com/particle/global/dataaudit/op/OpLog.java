@@ -40,4 +40,11 @@ public @interface OpLog {
 	String type();
 
 
+	/**
+	 * 忽略数据审计功能，默认不忽略
+	 * 在一些处理多数据时，只记录操作日志，但不想记录数据审计日志，可以忽略
+	 * @return
+	 */
+	boolean ignoreDataAuditPublish() default false;
+
 }

@@ -24,5 +24,7 @@ CREATE TABLE `component_tenant_user` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_user_id_tenant_id` (`user_id`,`tenant_id`),
-  KEY `idx_func_id` (`user_id`) USING BTREE
+  KEY `idx_func_id` (`user_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户用户表';

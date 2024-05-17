@@ -51,5 +51,7 @@ CREATE TABLE `component_func` (
   KEY `parent_id10` (`parent_id10`) USING BTREE,
   KEY `level` (`level`) USING BTREE,
   KEY `parent_id` (`parent_id`) USING BTREE,
-  KEY `func_group_id` (`func_group_id`)
+  KEY `func_group_id` (`func_group_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单功能表';

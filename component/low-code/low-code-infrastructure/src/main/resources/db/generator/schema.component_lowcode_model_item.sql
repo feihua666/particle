@@ -28,5 +28,7 @@ CREATE TABLE `component_lowcode_model_item` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `version` (`version`) USING BTREE,
-  KEY `lowcode_model_id` (`lowcode_model_id`) USING BTREE
+  KEY `lowcode_model_id` (`lowcode_model_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='低代码模型项目表';

@@ -32,5 +32,7 @@ CREATE TABLE `component_tracking_page` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_code` (`code`) USING BTREE,
   KEY `idx_name` (`name`) USING BTREE,
-  KEY `seq` (`seq`) USING BTREE
+  KEY `seq` (`seq`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='埋点页面表';

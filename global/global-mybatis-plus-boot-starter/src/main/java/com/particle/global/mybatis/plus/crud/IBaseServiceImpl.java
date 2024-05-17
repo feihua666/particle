@@ -417,13 +417,8 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         List<DO> list = list(queryWrapper);
         preDeleteByColumn(columnId,column,list,null);
 
-        boolean r;
-        try {
-            DataAuditHelperTool.isIgnorePublish();
-            r = remove(queryWrapper);
-        } finally {
-            DataAuditHelperTool.clearIgnorePublish();
-        }
+        boolean r = remove(queryWrapper);
+
         if(r){
             if (CollectionUtil.isNotEmpty(list)) {
                 // todo 删除多条时，数据主体不匹配问题，这里取条件
@@ -460,6 +455,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @param list
      */
     protected void publishDelete(List<DO> list) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
 
         // 这里使用异步方法处理，降低性能消耗
         Long tenantId = TenantTool.getTenantId();

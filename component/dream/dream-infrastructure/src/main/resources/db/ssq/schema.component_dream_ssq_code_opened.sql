@@ -63,5 +63,7 @@ CREATE TABLE `component_dream_ssq_code_opened` (
   KEY `opened_date` (`opened_date`) USING BTREE,
   KEY `opened_phase_year` (`opened_phase_year`) USING BTREE,
   KEY `opened_phase_num` (`opened_phase_num`) USING BTREE,
-  KEY `opened_phase` (`opened_phase`) USING BTREE
+  KEY `opened_phase` (`opened_phase`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='双色球开奖表';

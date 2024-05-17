@@ -15,5 +15,7 @@ CREATE TABLE `component_message_user_state` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `message_id` (`message_id`),
   KEY `user_id` (`user_id`),
-  KEY `user_id_2` (`user_id`,`is_read`)
+  KEY `user_id_is_read` (`user_id`,`is_read`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户消息读取状态表';

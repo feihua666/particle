@@ -31,5 +31,7 @@ CREATE TABLE `component_openplatform_provider_record` (
   KEY `response_result_md5` (`response_result_md5`),
   KEY `trace_id` (`trace_id`),
   KEY `openplatform_provider_id` (`openplatform_provider_id`),
-  KEY `data_query_provider_id` (`data_query_provider_id`)
+  KEY `data_query_provider_id` (`data_query_provider_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台开放接口供应商调用记录表';

@@ -23,5 +23,7 @@ CREATE TABLE `component_user_identifier` (
   UNIQUE KEY `identifier` (`identifier`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `identity_type` (`identity_type_dict_id`) USING BTREE,
-  KEY `group_flag` (`group_flag`) USING BTREE
+  KEY `group_flag` (`group_flag`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户登录标识表';

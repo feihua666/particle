@@ -44,5 +44,7 @@ CREATE TABLE `component_report_report_api` (
   KEY `parent_id9` (`parent_id9`) USING BTREE,
   KEY `parent_id10` (`parent_id10`) USING BTREE,
   KEY `level` (`level`) USING BTREE,
-  KEY `parent_id` (`parent_id`) USING BTREE
+  KEY `parent_id` (`parent_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='报告接口表';

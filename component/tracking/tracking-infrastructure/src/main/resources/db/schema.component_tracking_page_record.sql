@@ -42,5 +42,7 @@ CREATE TABLE `component_tracking_page_record` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `tracking_page_code` (`tracking_page_code`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
-  KEY `action_type_dict_id` (`action_type`) USING BTREE
+  KEY `action_type_dict_id` (`action_type`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='页面埋点记录表';

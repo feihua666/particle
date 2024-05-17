@@ -13,5 +13,7 @@ CREATE TABLE `component_openplatform_doc_api_dir_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_openplatform_doc_api_id__openplatform_doc_dir_id` (`openplatform_doc_api_id`,`openplatform_doc_dir_id`) USING BTREE,
   KEY `openplatform_doc_api_id` (`openplatform_doc_api_id`) USING BTREE,
-  KEY `openplatform_doc_dir_id` (`openplatform_doc_dir_id`) USING BTREE
+  KEY `openplatform_doc_dir_id` (`openplatform_doc_dir_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口文档接口与目录关系表';

@@ -18,5 +18,7 @@ CREATE TABLE `component_test` (
   KEY `gender` (`gender_dict_id`) USING BTREE,
   KEY `is_lock` (`is_lock`) USING BTREE,
   KEY `nickname` (`nickname`) USING BTREE,
-  KEY `group_flag` (`group_flag`) USING BTREE
+  KEY `group_flag` (`group_flag`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='测试表';

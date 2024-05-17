@@ -13,5 +13,7 @@ CREATE TABLE `component_func_application_func_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_func_application_id_func_id` (`func_application_id`,`func_id`) USING BTREE,
   KEY `idx_func_application_id` (`func_application_id`) USING BTREE,
-  KEY `idx_func_id` (`func_id`) USING BTREE
+  KEY `idx_func_id` (`func_id`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='功能应用功能关系表';

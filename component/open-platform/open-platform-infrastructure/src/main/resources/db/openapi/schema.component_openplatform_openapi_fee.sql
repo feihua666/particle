@@ -21,5 +21,7 @@ CREATE TABLE `component_openplatform_openapi_fee` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `fee_type_dict_id` (`fee_type_dict_id`),
-  KEY `price` (`price`) USING BTREE
+  KEY `price` (`price`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台开放接口费用表';

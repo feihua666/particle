@@ -27,6 +27,10 @@ public class DataAuditCollectTool {
 	private static final String dataAuditCollectResultKey = "dataAuditCollectResultKey";
 	private static final String dataAuditCollectResultWithOpLogKey = "dataAuditCollectResultWithOpLogKey";
 	private static final String dataAuditCollectResultWithOpLogFutureKey = "dataAuditCollectResultWithOpLogFutureKey";
+	/**
+	 * 允许手动控制是否忽略发布
+	 */
+	public static String ignorePublishKey = "DataAuditCollectTool_ignorePublishKey";
 
 	/**
 	 * 表示是否开启了数据审计功能，启用收集，该开关是通过配置，结合spring boot自动配置，请不到手动修改
@@ -52,7 +56,20 @@ public class DataAuditCollectTool {
 			DataAuditCollectTool.isEnabled = isEnabled;
 		}
 	}
+	/**
+	 * 设置忽略
+	 */
+	public static void setIgnorePublish() {
+		ThreadContextTool.put(ignorePublishKey,true);
+	}
+	public static boolean isIgnorePublish(){
+		Object o = ThreadContextTool.get(ignorePublishKey);
 
+		return o != null && ((Boolean) o);
+	}
+	public static void clearIgnorePublish(){
+		ThreadContextTool.remove(ignorePublishKey);
+	}
 	/**
 	 * 收集数据审计结果到线程变量中
 	 * @param dataAuditResultDTOs
