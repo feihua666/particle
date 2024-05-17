@@ -280,6 +280,19 @@ public interface IBaseService<DO> extends IService<DO> {
     }
 
     /**
+     * 获取更新时间最新的一条数据
+     * @return
+     */
+    default DO getLastestUpdate(){
+        Page<DO> page = page(
+                new Page<>(1, 1),
+                Wrappers.<DO>query().orderByDesc(BaseDO.COLUMN_UPDATE_AT)
+        );
+        List<DO> records = page.getRecords();
+        return records.stream().findFirst().orElse(null);
+    }
+
+    /**
      * 查询单个字段，并返回property
      * @param selectColumn
      * @param columnId

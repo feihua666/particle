@@ -45,7 +45,7 @@ public class BaseDO extends DO {
 	/**
 	 * 修改时间
 	 */
-	@TableField(fill = FieldFill.UPDATE)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private LocalDateTime updateAt;
 
 	/**

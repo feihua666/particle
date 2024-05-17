@@ -17,6 +17,7 @@ import ReportPlugin from './report/ReportPlugin'
 import UsageCountPlugin from './usagecount/UsageCountPlugin'
 import FeedbackPlugin from './feedback/FeedbackPlugin'
 import CrmPlugin from './crm/CrmPlugin'
+import DreamPlugin from './dream/DreamPlugin'
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)
@@ -38,5 +39,6 @@ export default {
         UsageCountPlugin.install(app,options)
         FeedbackPlugin.install(app,options)
         CrmPlugin.install(app,options)
+        DreamPlugin.install(app,options)
     }
 }

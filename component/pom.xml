@@ -38,6 +38,7 @@
         <module>usage-count</module>
         <module>feedback</module>
         <module>crm</module>
+        <module>dream</module>
     </modules>
 
     <properties>

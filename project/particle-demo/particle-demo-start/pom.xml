@@ -176,7 +176,11 @@
             <artifactId>crm-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dream-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
 
 
 

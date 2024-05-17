@@ -37,7 +37,7 @@ public class MpFillConfig {
         configDynamic.add(new MpFillConfig(DO.PROPERTY_CREATE_BY, loginUserId,true,false));
         configDynamic.add(new MpFillConfig(DO.PROPERTY_CREATE_AT, now,true,false));
         configDynamic.add(new MpFillConfig(DO.PROPERTY_UPDATE_BY, loginUserId,false,true));
-        configDynamic.add(new MpFillConfig(DO.PROPERTY_UPDATE_AT,now,false,true));
+        configDynamic.add(new MpFillConfig(DO.PROPERTY_UPDATE_AT,now,true,true));
         configDynamic.addAll(config);
         return configDynamic;
     }
