@@ -22,6 +22,9 @@ public class SsqCodeQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "序号")
     private Integer seqNo;
 
+	@Schema(description = "红球序号，从1开始递增")
+	private Integer redSeqNo;
+
 
     @Schema(description = "红球1")
     private Integer red1;

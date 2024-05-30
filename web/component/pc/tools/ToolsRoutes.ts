@@ -50,5 +50,15 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/AddFieldPage',
+        component: () => import('./views/front/AddFieldPage.vue'),
+        meta: {
+            root: true,
+            code:'AddFieldPage',
+            name: '添加字段',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

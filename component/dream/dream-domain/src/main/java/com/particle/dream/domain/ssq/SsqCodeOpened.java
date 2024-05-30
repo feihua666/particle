@@ -1,10 +1,13 @@
 package com.particle.dream.domain.ssq;
 
 import com.particle.common.domain.AggreateRoot;
+import com.particle.dream.domain.ssq.value.SsqCodeCrawlingResult;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.Optional;
+
 /**
  * <p>
  * 双色球开奖 领域模型
@@ -79,6 +82,11 @@ public class SsqCodeOpened extends AggreateRoot {
     */
     private Integer openedRed6;
 
+	/**
+	 * 开奖蓝球
+	 */
+	private Integer openedBlue;
+
     /**
     * 中1等奖注数
     */
@@ -92,7 +100,7 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中1等奖总金额，单位元
     */
-    private Integer win1TotalAmount;
+    private Long win1TotalAmount;
 
     /**
     * 中2等奖注数
@@ -107,7 +115,7 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中2等奖总金额，单位元
     */
-    private Integer win2TotalAmount;
+    private Long win2TotalAmount;
 
     /**
     * 中3等奖注数
@@ -122,7 +130,7 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中3等奖总金额，单位元
     */
-    private Integer win3TotalAmount;
+    private Long win3TotalAmount;
 
     /**
     * 中4等奖注数
@@ -137,7 +145,7 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中4等奖总金额，单位元
     */
-    private Integer win4TotalAmount;
+    private Long win4TotalAmount;
 
     /**
     * 中5等奖注数
@@ -152,7 +160,7 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中5等奖总金额，单位元
     */
-    private Integer win5TotalAmount;
+    private Long win5TotalAmount;
 
     /**
     * 中6等奖注数
@@ -167,22 +175,27 @@ public class SsqCodeOpened extends AggreateRoot {
     /**
     * 中6等奖总金额，单位元
     */
-    private Integer win6TotalAmount;
+    private Long win6TotalAmount;
 
     /**
     * 中奖总金额，单位元
     */
-    private Integer winTotalAmount;
+    private Long winTotalAmount;
 
     /**
     * 奖池金额，单位元
     */
-    private Integer prizePoolAmount;
+    private Long prizePoolAmount;
+
+	/**
+	 * 下一期奖池金额，单位元
+	 */
+	private Long nextPrizePoolAmount;
 
     /**
     * 销售额，单位元
     */
-    private Integer saleAmount;
+    private Long saleAmount;
 
     /**
     * 红冷号个数，最近2期以内未出现的号码
@@ -276,11 +289,250 @@ public class SsqCodeOpened extends AggreateRoot {
 
 
 
+
+    /**
+     * 序号，从1开始递增
+     */
+    private Integer seqNo;
+
+	/**
+	 * 红球序号，从1开始递增
+	 */
+	private Integer redSeqNo;
+
+    /**
+     * 红球1
+     */
+    private Integer red1;
+
+    /**
+     * 红球2
+     */
+    private Integer red2;
+
+    /**
+     * 红球3
+     */
+    private Integer red3;
+
+    /**
+     * 红球4
+     */
+    private Integer red4;
+
+    /**
+     * 红球5
+     */
+    private Integer red5;
+
+    /**
+     * 红球6
+     */
+    private Integer red6;
+
+    /**
+     * 蓝球
+     */
+    private Integer blue;
+
+    /**
+     * 红球和值，红球开奖号码相加之和
+     */
+    private Integer redSum;
+
+    /**
+     * 红球和尾值，开奖号码和值的个位数，范围为0-9。示例：和值15的和尾为5
+     */
+    private Integer redSumLast;
+
+    /**
+     * 总和值，红蓝球开奖号码相加之和
+     */
+    private Integer redBlueSum;
+
+    /**
+     * 总和尾值，开奖号码和值的个位数，范围为0-9。示例：和值15的和尾为5
+     */
+    private Integer redBlueSumLast;
+
+    /**
+     * 红球跨度，红球开奖号码中最大号与最小号的差值
+     */
+    private Integer redSpan;
+
+    /**
+     * ac值，也可称为数字复杂度，是指在一组号码组合中，任意两个数字之间不相同的正差值的总个数再减去“正选号码数量-1”的值
+     */
+    private Integer redAc;
+
+    /**
+     * 红1区个数，1-11
+     */
+    private Integer redRegion1Ratio;
+
+    /**
+     * 红2区个数，12-22
+     */
+    private Integer redRegion2Ratio;
+
+    /**
+     * 红3区个数，23-33
+     */
+    private Integer redRegion3Ratio;
+
+    /**
+     * 红奇数个数
+     */
+    private Integer redOddRatio;
+
+    /**
+     * 红偶数个数
+     */
+    private Integer redEvenRatio;
+
+    /**
+     * 是否包含连号
+     */
+    private Boolean isHasSerialNum;
+
+    /**
+     * 连号个数，如：2 3 22 23 25 33 7则为2，因为2 3算一个，22 23 算一个
+     */
+    private Integer serialTimes;
+
+    /**
+     * 最大连号长度
+     */
+    private Integer maxSerialLength;
+
+    /**
+     * 是否包含偶连号，即间隔2
+     */
+    private Boolean isHasEvenSerialNum;
+
+    /**
+     * 偶连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个
+     */
+    private Integer evenSerialTimes;
+
+    /**
+     * 最大偶连号长度
+     */
+    private Integer evenMaxSerialLength;
+
+    /**
+     * 是否红蓝重号，是否红球有和蓝球相等
+     */
+    private Boolean isRedIncludeBlue;
+
+    /**
+     * 是否蓝球为奇数，1=奇数，0=偶数
+     */
+    private Boolean isBlueOdd;
+
+    public void fill(SsqCodeCrawlingResult ssqCodeCrawlingResult) {
+        this.openedDate = ssqCodeCrawlingResult.getOpenedDate();
+        this.openedPhaseYear = ssqCodeCrawlingResult.getOpenedPhaseYear();
+        this.openedPhaseNum = ssqCodeCrawlingResult.getOpenedPhaseNum();
+        this.openedWeekDay = ssqCodeCrawlingResult.getOpenedWeekDay();
+        this.openedPhase = ssqCodeCrawlingResult.getOpenedPhase();
+
+        this.openedRed1 = ssqCodeCrawlingResult.getOpenedRed1();
+        this.openedRed2 = ssqCodeCrawlingResult.getOpenedRed2();
+        this.openedRed3 = ssqCodeCrawlingResult.getOpenedRed3();
+        this.openedRed4 = ssqCodeCrawlingResult.getOpenedRed4();
+        this.openedRed5 = ssqCodeCrawlingResult.getOpenedRed5();
+        this.openedRed6 = ssqCodeCrawlingResult.getOpenedRed6();
+
+        this.openedBlue = ssqCodeCrawlingResult.getOpenedBlue();
+        this.win1Num = ssqCodeCrawlingResult.getWin1Num();
+        this.win1Amount = ssqCodeCrawlingResult.getWin1Amount();
+        this.win1TotalAmount = ssqCodeCrawlingResult.getWin1TotalAmount();
+        this.win2Num = ssqCodeCrawlingResult.getWin2Num();
+        this.win2Amount = ssqCodeCrawlingResult.getWin2Amount();
+        this.win2TotalAmount = ssqCodeCrawlingResult.getWin2TotalAmount();
+        this.win3Num = ssqCodeCrawlingResult.getWin3Num();
+        this.win3Amount = ssqCodeCrawlingResult.getWin3Amount();
+        this.win3TotalAmount = ssqCodeCrawlingResult.getWin3TotalAmount();
+        this.win4Num = ssqCodeCrawlingResult.getWin4Num();
+        this.win4Amount = ssqCodeCrawlingResult.getWin4Amount();
+        this.win4TotalAmount = ssqCodeCrawlingResult.getWin4TotalAmount();
+        this.win5Num = ssqCodeCrawlingResult.getWin5Num();
+        this.win5Amount = ssqCodeCrawlingResult.getWin5Amount();
+        this.win5TotalAmount = ssqCodeCrawlingResult.getWin5TotalAmount();
+        this.win6Num = ssqCodeCrawlingResult.getWin6Num();
+        this.win6Amount = ssqCodeCrawlingResult.getWin6Amount();
+        this.win6TotalAmount = ssqCodeCrawlingResult.getWin6TotalAmount();
+        Long winTotalAmount1 = ssqCodeCrawlingResult.getWinTotalAmount();
+        if (winTotalAmount1 != null) {
+            this.winTotalAmount = winTotalAmount1;
+        }else {
+            this.winTotalAmount = Optional.of(this.win1TotalAmount).orElse(0L)+
+                    Optional.of(this.win2TotalAmount).orElse(0L)+
+                    Optional.of(this.win3TotalAmount).orElse(0L)+
+                    Optional.of(this.win4TotalAmount).orElse(0L)+
+                    Optional.of(this.win5TotalAmount).orElse(0L)+
+                    Optional.of(this.win6TotalAmount).orElse(0L);
+
+
+        }
+        this.prizePoolAmount = ssqCodeCrawlingResult.getPrizePoolAmount();
+        this.saleAmount = ssqCodeCrawlingResult.getSaleAmount();
+        this.nextPrizePoolAmount = ssqCodeCrawlingResult.getNextPrizePoolAmount();
+
+
+    }
+
+    public void changeSsqCodeId(Long ssqCodeId) {
+        this.ssqCodeId = ssqCodeId;
+    }
+
+    public void fillWithSsqCode(SsqCode ssqCode) {
+        this.seqNo = ssqCode.getSeqNo();
+        this.redSeqNo = ssqCode.getRedSeqNo();
+        this.red1 = ssqCode.getRed1();
+        this.red2 = ssqCode.getRed2();
+        this.red3 = ssqCode.getRed3();
+        this.red4 = ssqCode.getRed4();
+        this.red5 = ssqCode.getRed5();
+        this.red6 = ssqCode.getRed6();
+        this.blue = ssqCode.getBlue();
+        this.redSum = ssqCode.getRedSum();
+        this.redSumLast = ssqCode.getRedSumLast();
+        this.redBlueSum = ssqCode.getRedBlueSum();
+        this.redBlueSumLast = ssqCode.getRedBlueSumLast();
+        this.redSpan = ssqCode.getRedSpan();
+        this.redAc = ssqCode.getRedAc();
+        this.redRegion1Ratio = ssqCode.getRedRegion1Ratio();
+        this.redRegion2Ratio = ssqCode.getRedRegion2Ratio();
+        this.redRegion3Ratio = ssqCode.getRedRegion3Ratio();
+        this.redOddRatio = ssqCode.getRedOddRatio();
+        this.redEvenRatio = ssqCode.getRedEvenRatio();
+        this.isHasSerialNum = ssqCode.getIsHasSerialNum();
+        this.serialTimes = ssqCode.getSerialTimes();
+        this.maxSerialLength = ssqCode.getMaxSerialLength();
+        this.isHasEvenSerialNum = ssqCode.getIsHasEvenSerialNum();
+        this.evenSerialTimes = ssqCode.getEvenSerialTimes();
+        this.evenMaxSerialLength = ssqCode.getEvenMaxSerialLength();
+        this.isRedIncludeBlue = ssqCode.getIsRedIncludeBlue();
+        this.isBlueOdd = ssqCode.getIsBlueOdd();
+
+
+    }
+
     /**
      * 创建双色球开奖领域模型对象
      * @return 双色球开奖领域模型对象，该对应所有属性为空，需要进行初始化操作
      */
     public static SsqCodeOpened create(){
         return DomainFactory.create(SsqCodeOpened.class);
+    }
+
+
+    public static SsqCodeOpened create(SsqCodeCrawlingResult ssqCodeCrawlingResult) {
+        SsqCodeOpened ssqCodeOpened = create();
+        ssqCodeOpened.fill(ssqCodeCrawlingResult);
+
+        return ssqCodeOpened;
     }
 }

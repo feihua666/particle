@@ -1,15 +1,18 @@
 package com.particle.dream.infrastructure.ssq.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dream.domain.ssq.SsqCodeOpened;
 import com.particle.dream.domain.ssq.SsqCodeOpenedId;
 import com.particle.dream.domain.ssq.gateway.SsqCodeOpenedGateway;
-import com.particle.dream.infrastructure.ssq.service.ISsqCodeOpenedService;
 import com.particle.dream.infrastructure.ssq.dos.SsqCodeOpenedDO;
+import com.particle.dream.infrastructure.ssq.service.ISsqCodeOpenedService;
 import com.particle.dream.infrastructure.ssq.structmapping.SsqCodeOpenedInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -51,6 +54,22 @@ public class SsqCodeOpenedGatewayImpl extends AbstractBaseGatewayImpl<SsqCodeOpe
 		return iSsqCodeOpenedService.deleteById(ssqCodeOpenedId.getId());
 	}
 
+	@Override
+	public boolean addBatch(List<SsqCodeOpened> aggreateRoots) {
+		List<SsqCodeOpenedDO> SsqCodeOpenedDOList = aggreateRoots.stream()
+				.map(SsqCodeOpenedInfrastructureStructMapping.instance::ssqCodeOpenedToSsqCodeOpenedDO)
+				.collect(Collectors.toList());
+		return iSsqCodeOpenedService.saveBatch(SsqCodeOpenedDOList);
+	}
+
+	@Override
+	public boolean updateBatch(List<SsqCodeOpened> aggreateRoots) {
+
+		List<SsqCodeOpenedDO> SsqCodeOpenedDOList = aggreateRoots.stream()
+				.map(SsqCodeOpenedInfrastructureStructMapping.instance::ssqCodeOpenedToSsqCodeOpenedDO)
+				.collect(Collectors.toList());
+		return iSsqCodeOpenedService.updateBatchById(SsqCodeOpenedDOList);
+	}
 
 	@Autowired
 	public void setISsqCodeOpenedService(ISsqCodeOpenedService iSsqCodeOpenedService) {

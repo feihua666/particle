@@ -23,15 +23,12 @@ public class ParticleAddFiledTest {
 
 		AddFieldCommand addFieldCommand = new AddFieldCommand();
 
-		addFieldCommand.setAfterFieldName(StringTool.lineToHump("serial_times"));
+		addFieldCommand.setAfterFieldName(StringTool.lineToHump("red_hot10_ratio"));
 		// 注意首字母要大写，应该是类名称，不带后缀
-		addFieldCommand.setDomainName("SsqCode");
+		addFieldCommand.setDomainName("SsqCodeOpened");
 		addFieldCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/dream");
 
-		addFieldCommand.addFieldItem(StringTool.lineToHump("max_serial_length"),"最大连号长度",Integer.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("is_has_even_serial_num"),"是否包含偶连号，即间隔2",Boolean.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("even_serial_times"),"偶连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个",Integer.class.getSimpleName());
-		addFieldCommand.addFieldItem(StringTool.lineToHump("even_max_serial_length"),"最大偶连号长度",Integer.class.getSimpleName());
+		addFieldCommand.addFieldItem(StringTool.lineToHump("seq_no"),"序号，从1开始递增",Integer.class.getSimpleName());
 
 		Response response = particleController.addField(addFieldCommand);
 		System.out.println(JsonTool.toJsonStr(response));

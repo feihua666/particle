@@ -36,6 +36,8 @@ export default defineConfig({
       aliasItem('@element-plus/icons-vue'),
       aliasItem('dayjs'),
       aliasItem('clipboard'),
+      aliasItem('echarts'),
+      aliasItem('vue-echarts'),
     ]
   },
   server: {

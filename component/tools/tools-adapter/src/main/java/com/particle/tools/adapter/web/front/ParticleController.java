@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class ParticleController extends AbstractBaseWebAdapter {
     @Operation(summary = "添加字段")
     @PostMapping("/addField")
     @ResponseStatus(HttpStatus.OK)
-    public Response addField(@Validated AddFieldCommand addFieldCommand) {
+    public Response addField(@RequestBody @Validated AddFieldCommand addFieldCommand) {
 
         // 后端处理
         handleBackend(addFieldCommand);

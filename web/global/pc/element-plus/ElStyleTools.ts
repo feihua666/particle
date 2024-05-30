@@ -102,6 +102,16 @@ const d = [
         icon: 'Tickets',
         type:'primary'
     },
+    {
+        pattern:['统计','图表'],
+        icon: 'Histogram',
+        type:'primary'
+    },
+    {
+        pattern:['停止'],
+        icon: 'VideoPause',
+        type:'primary'
+    },
 ]
 
 /**

@@ -127,7 +127,13 @@
         <!-- springboot 本身依赖了该包，在升级和新版本的idea后，提示原来springboot依赖的是1.3版本，有漏洞这里升级一下 -->
         <snakeyaml.version>2.0</snakeyaml.version>
         <!-- htmlparser 添加主要用于解析国家统计局 统计用区划代码和城乡划分代码-->
+        <!-- 以后建议使用 jsoup -->
         <htmlparser.version>2.1</htmlparser.version>
+        <!-- jsoup html解析工具，主要用于抓取一些数据如：ssq历史开奖记录 -->
+        <jsoup.version>1.17.2</jsoup.version>
+        <!-- 地理空间的计算相关依赖版本，添加要是要临时计算一个需求：有一个geojson文件，https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full -->
+        <!-- 该文件坐标应该是高德地图的标签，给定一个经纬度，计算出该经纬度对应的区域 -->
+        <geotools.version>28.2</geotools.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

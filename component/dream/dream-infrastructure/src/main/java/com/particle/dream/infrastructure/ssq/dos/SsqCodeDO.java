@@ -23,6 +23,11 @@ public class SsqCodeDO extends BaseDO {
     */
     private Integer seqNo;
 
+	/**
+	 * 红球序号，从1开始递增
+	 */
+	private Integer redSeqNo;
+
     /**
     * 红球1
     */

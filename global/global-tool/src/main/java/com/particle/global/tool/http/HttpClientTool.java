@@ -3,6 +3,7 @@ package com.particle.global.tool.http;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.io.IoStreamTool;
+import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Builder;
 import lombok.Data;
@@ -14,12 +15,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
@@ -28,6 +31,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * http Client工具类
@@ -104,8 +108,11 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String get(String url,ExtConfig extConfig) throws IOException {
+        log.debug("start get.url={},extConfig={}",url,extConfig == null? null : extConfig.toJsonString());
         HttpGet get = new HttpGet(url);
-        return executeRequestAsString(get,getCLIENT(),extConfig);
+        String result = executeRequestAsString(get, getCLIENT(), extConfig);
+        log.debug("end get.url={},result={}",url,result);
+        return result;
     }
 
 
@@ -117,6 +124,7 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String postForm(String url, Map<String,String> params, ExtConfig extConfig) throws IOException {
+        log.debug("start postForm.url={},params={},extConfig={}",url,params,extConfig == null? null : extConfig.toJsonString());
         HttpPost post = new HttpPost(url);
         // 创建参数列表
         if (params != null) {
@@ -128,7 +136,9 @@ public class HttpClientTool{
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, CHARSET);
             post.setEntity(entity);
         }
-        return executeRequestAsString(post,getCLIENT(),extConfig);
+        String result = executeRequestAsString(post, getCLIENT(), extConfig);
+        log.debug("end postForm.url={},result={}",url,result);
+        return result;
 
     }
 
@@ -140,6 +150,7 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String postJson(String url, String body,ExtConfig extConfig) throws IOException {
+        log.debug("start postJson.url={},body={},extConfig={}",url,body,extConfig == null? null : extConfig.toJsonString());
         HttpPost post = new HttpPost(url);
         post.addHeader("Content-Type", "application/json");
 
@@ -148,7 +159,9 @@ public class HttpClientTool{
             post.setEntity(new StringEntity(body,CHARSET));
         }
 
-        return executeRequestAsString(post,getCLIENT(),extConfig);
+        String result = executeRequestAsString(post,getCLIENT(),extConfig);
+        log.debug("end postJson.url={},result={}",url,result);
+        return result;
     }
     /**
      * 以 json 形式请求
@@ -158,6 +171,7 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String putJson(String url, String body,ExtConfig extConfig) throws IOException {
+        log.debug("start putJson.url={},body={},extConfig={}",url,body,extConfig == null? null : extConfig.toJsonString());
         HttpPut put = new HttpPut(url);
         put.addHeader("Content-Type", "application/json");
 
@@ -166,7 +180,9 @@ public class HttpClientTool{
             put.setEntity(new StringEntity(body,CHARSET));
         }
 
-        return executeRequestAsString(put,getCLIENT(),extConfig);
+        String result = executeRequestAsString(put,getCLIENT(),extConfig);
+        log.debug("end putJson.url={},result={}",url,result);
+        return result;
     }
     /**
      * 获取状态码
@@ -184,7 +200,11 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String httpResponseContentToString(HttpResponse res) throws IOException {
-        return IoUtil.read(res.getEntity().getContent(), Charset.forName(CHARSET));
+        HttpEntity entity = res.getEntity();
+        ContentType contentType = ContentType.get(entity);
+        Charset charset = Optional.ofNullable(contentType).map(ContentType::getCharset).orElse(Charset.forName(CHARSET));
+
+        return IoUtil.read(entity.getContent(), charset);
     }
     /**
      * 响应内容转为字符串
@@ -193,7 +213,9 @@ public class HttpClientTool{
      * @throws IOException
      */
     public static String httpResponseEntityContentToString(HttpEntity entity) throws IOException {
-        return IoUtil.read(entity.getContent(), Charset.forName(CHARSET));
+        ContentType contentType = ContentType.get(entity);
+        Charset charset = Optional.ofNullable(contentType).map(ContentType::getCharset).orElse(Charset.forName(CHARSET));
+        return IoUtil.read(entity.getContent(), charset);
     }
     /**
      * 下载并返回二进制数据
@@ -384,6 +406,9 @@ public class HttpClientTool{
             return this;
         }
 
+        public String toJsonString() {
+            return JsonTool.toJsonStr(this);
+        }
         public static ExtConfig create() {
             return ExtConfig.builder().build();
         }

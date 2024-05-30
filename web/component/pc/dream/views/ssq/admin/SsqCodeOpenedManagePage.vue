@@ -3,8 +3,9 @@
  * 双色球开奖管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as ssqCodeOpenedPageApi, remove as ssqCodeOpenedRemoveApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
+import { page as ssqCodeOpenedPageApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
 import {pageFormItems} from "../../../compnents/ssq/admin/ssqCodeOpenedManage";
+import {allCodeInit, allCodeStop, allCodeUpdate} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 
 
 const tableRef = ref(null)
@@ -16,21 +17,18 @@ const reactiveData = reactive({
   },
   formComps: pageFormItems,
   tableColumns: [
+
     {
-      prop: 'ssqCodeId',
-      label: '双色球号码id',
+      prop: 'seqNo',
+      label: '号码序号',
+    },
+    {
+      prop: 'redSeqNo',
+      label: '红球号码序号',
     },
     {
       prop: 'openedDate',
       label: '开奖日期',
-    },
-    {
-      prop: 'openedPhaseYear',
-      label: '开奖期号年份',
-    },
-    {
-      prop: 'openedPhaseNum',
-      label: '开奖期号数',
     },
     {
       prop: 'openedWeekDay',
@@ -39,6 +37,30 @@ const reactiveData = reactive({
     {
       prop: 'openedPhase',
       label: '开奖期号',
+    },
+    {
+      prop: 'red1',
+      label: '红球1',
+    },
+    {
+      prop: 'red2',
+      label: '红球2',
+    },
+    {
+      prop: 'red3',
+      label: '红球3',
+    },
+    {
+      prop: 'red4',
+      label: '红球4',
+    },
+    {
+      prop: 'red5',
+      label: '红球5',
+    },
+    {
+      prop: 'red6',
+      label: '红球6',
     },
     {
       prop: 'openedRed1',
@@ -63,6 +85,10 @@ const reactiveData = reactive({
     {
       prop: 'openedRed6',
       label: '开奖红球6',
+    },
+    {
+      prop: 'openedBlue',
+      label: '开奖蓝球',
     },
     {
       prop: 'win1Num',
@@ -143,6 +169,10 @@ const reactiveData = reactive({
     {
       prop: 'prizePoolAmount',
       label: '奖池金额',
+    },
+    {
+      prop: 'nextPrizePoolAmount',
+      label: '下期奖池金额',
     },
     {
       prop: 'saleAmount',
@@ -255,20 +285,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       // 跳转到编辑
       route: {path: '/admin/SsqCodeOpenedManageUpdate',query: idData}
     },
-    {
-      txt: '删除',
-      text: true,
-      permission: 'admin:web:ssqCodeOpened:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
-      // 删除操作
-      method(){
-        return ssqCodeOpenedRemoveApi({id: row.id}).then(res => {
-          // 删除成功后刷新一下表格
-          submitMethod()
-          return Promise.resolve(res)
-        })
-      }
-    }
+
   ]
   return tableRowButtons
 }
@@ -282,7 +299,9 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:ssqCodeOpened:create" route="/admin/SsqCodeOpenedManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:ssqCodeOpened:allCodeInit" methodSuccess="恭喜，初始化添加完成！" :method="allCodeInit" methodConfirmText="确定要初始化所有号码吗？初始化不影响历史已经初始化的数据，当有新数据时会更新到最新">初始化添加所有开奖号码</PtButton>
+      <PtButton permission="admin:web:ssqCodeOpened:allCodeStop" methodSuccess="恭喜，停止完成！" :method="allCodeStop" methodConfirmText="确定要停止正在运行的初始化任务吗？停止仍可半继续运行，已经处理过的数据将会跳过">停止初始化所有开奖号码</PtButton>
+      <PtButton permission="admin:web:ssqCodeOpened:queryList" route="/admin/SsqCodeOpenedStatisticsPage">开奖统计</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

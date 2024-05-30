@@ -17,6 +17,19 @@ import java.util.List;
 public interface SsqCodeGateway extends IBaseGateway<SsqCodeId,SsqCode> {
 
     /**
+     * 根据球号查询
+     * @param red1
+     * @param red2
+     * @param red3
+     * @param red4
+     * @param red5
+     * @param red6
+     * @param blue
+     * @return
+     */
+    SsqCode getByBall(Integer red1,Integer red2,Integer red3,Integer red4,Integer red5,Integer red6,Integer blue);
+
+    /**
      * 批量添加，在生成全部号码时保存太慢了，这里加一个指保存
      * @param aggreateRoots
      * @return

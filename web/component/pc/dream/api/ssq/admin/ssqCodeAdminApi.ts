@@ -1,6 +1,5 @@
 import axios, { AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
-import {IdParam, updateParam} from "../../../../../../common/api/api";
 
 let ssqCodePrefix = '/admin/web/ssq_code'
 
@@ -37,6 +36,6 @@ export const list = (data: anyObj): AxiosPromise => {
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(ssqCodePrefix + '/page',{params: data})
+    return axios.get(ssqCodePrefix + '/page',{params: data,timeout: 600000})
 }
 

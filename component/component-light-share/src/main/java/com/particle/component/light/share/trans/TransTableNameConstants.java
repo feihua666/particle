@@ -63,4 +63,7 @@ public class TransTableNameConstants {
 	public static final String component_crm_customer_tag = "component_crm_customer_tag";
 
 
+	public static final String component_dream_ssq_code = "component_dream_ssq_code";
+
+
 }

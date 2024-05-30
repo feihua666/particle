@@ -90,7 +90,7 @@ public class SsqCodeCreateCommandExecutor  extends AbstractBaseExecutor {
 					if (toBeInsert.size() > 0) {
 						ssqCodeGateway.addBatch(toBeInsert);
 					}
-					throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.PLACEHOLDER_ERROR, "程序被中断");
+					throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.PLACEHOLDER_ERROR, "初始化所有号码程序被中断");
 				}
 
 
@@ -150,7 +150,7 @@ public class SsqCodeCreateCommandExecutor  extends AbstractBaseExecutor {
 				}
 				if (isInterrupt) {
 					isRunning = false;
-					throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.PLACEHOLDER_ERROR, "程序被中断");
+					throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.PLACEHOLDER_ERROR, "更新所有号码程序被中断");
 				}
 
 			} while (records != null && !records.isEmpty());

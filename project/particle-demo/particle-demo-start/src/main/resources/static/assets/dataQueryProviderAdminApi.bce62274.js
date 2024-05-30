@@ -1,0 +1,1 @@
+import{g as t}from"./index.90b05f11.js";let r="/admin/web/data_query_provider";const s=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),p=e=>t.put(r+"/update",e),d=e=>t.get(r+"/detail-for-update",{params:e}),n=e=>t.get(r+"/list",{params:e}),u=e=>t.get(r+"/page",{params:e});export{s as c,d,n as l,u as p,o as r,p as u};

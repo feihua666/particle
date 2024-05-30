@@ -1,4 +1,5 @@
 import axios, { AxiosPromise} from 'axios'
+import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 let dictPrefix = '/front/web/dict'
 export interface CronQueryParam{
     // 开始时间，不填写默认按服务器当前时间
@@ -14,4 +15,11 @@ export interface CronQueryParam{
  */
 export const cronRunTimes = (data: CronQueryParam): AxiosPromise => {
     return axios.get('front/web/cron' + '/cronRunTimes',{params: data})
+}
+/**
+ * 添加字段
+ * @param data
+ */
+export const addField = (data: anyObj): AxiosPromise => {
+    return axios.post('front/web/particle' + '/addField',data)
 }

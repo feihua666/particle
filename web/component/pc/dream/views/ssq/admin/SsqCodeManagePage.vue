@@ -21,6 +21,10 @@ const reactiveData = reactive({
       label: '序号',
     },
     {
+      prop: 'redSeqNo',
+      label: '红球序号',
+    },
+    {
       prop: 'red1',
       label: '红球1',
     },

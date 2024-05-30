@@ -30,6 +30,11 @@ public class SsqCode extends AggreateRoot {
     */
     private Integer seqNo;
 
+	/**
+	 * 红球序号，从1开始递增
+	 */
+	private Integer redSeqNo;
+
     /**
     * 红球1
     */
@@ -178,15 +183,17 @@ public class SsqCode extends AggreateRoot {
         int MAX_BLUE_BALL = 16;
 
         int seqNo = 0;
+        int redSeqNo = 0;
         for (int red1 = MIN_RED_BALL; red1 <= MAX_RED_BALL - 5; red1++) {
             for (int red2 = red1 + 1; red2 <= MAX_RED_BALL - 4; red2++) {
                 for (int red3 = red2 + 1; red3 <= MAX_RED_BALL - 3; red3++) {
                     for (int red4 = red3 + 1; red4 <= MAX_RED_BALL - 2; red4++) {
                         for (int red5 = red4 + 1; red5 <= MAX_RED_BALL - 1; red5++) {
                             for (int red6 = red5 + 1; red6 <= MAX_RED_BALL; red6++) {
+                                redSeqNo++;
                                 for (int blue = MIN_BLUE_BALL; blue <= MAX_BLUE_BALL; blue++) {
                                     seqNo++;
-                                    SsqCodeValue ssqCodeValue = SsqCodeValue.create(seqNo, red1, red2, red3, red4, red5, red6, blue);
+                                    SsqCodeValue ssqCodeValue = SsqCodeValue.create(seqNo,redSeqNo, red1, red2, red3, red4, red5, red6, blue);
                                     if (ssqCodeValueConsumer != null) {
                                         ssqCodeValueConsumer.accept(ssqCodeValue);
                                     }
@@ -203,7 +210,7 @@ public class SsqCode extends AggreateRoot {
      * 自我填充，主要用于更新
      */
     public void fillSelf(){
-        fill(SsqCodeValue.create(this.seqNo, this.red1, this.red2, this.red3, this.red4, this.red5, this.red6, this.blue));
+        fill(SsqCodeValue.create(this.seqNo,this.redSeqNo, this.red1, this.red2, this.red3, this.red4, this.red5, this.red6, this.blue));
     }
     /**
      * 根据生成的号码填充
@@ -211,6 +218,7 @@ public class SsqCode extends AggreateRoot {
      */
     public void fill(SsqCodeValue ssqCodeValue){
         this.seqNo = ssqCodeValue.getSeqNo();
+        this.redSeqNo = ssqCodeValue.getRedSeqNo();
         this.red1 = ssqCodeValue.getRed1();
         this.red2 = ssqCodeValue.getRed2();
         this.red3 = ssqCodeValue.getRed3();
@@ -422,6 +430,11 @@ public class SsqCode extends AggreateRoot {
         private Integer seqNo;
 
         /**
+         * 红球序号，从1开始递增
+         */
+        private Integer redSeqNo;
+
+        /**
          * 红球1
          */
         private Integer red1;
@@ -456,7 +469,7 @@ public class SsqCode extends AggreateRoot {
          */
         private Integer blue;
 
-        public static SsqCodeValue create(Integer seqNo,
+        public static SsqCodeValue create(Integer seqNo,Integer redSeqNo,
                                           Integer red1,
                                           Integer red2,
                                           Integer red3,
@@ -467,6 +480,7 @@ public class SsqCode extends AggreateRoot {
                                           ){
             SsqCodeValue ssqCodeValue = new SsqCodeValue();
             ssqCodeValue.setSeqNo(seqNo);
+            ssqCodeValue.setRedSeqNo(redSeqNo);
             ssqCodeValue.setRed1(red1);
             ssqCodeValue.setRed2(red2);
             ssqCodeValue.setRed3(red3);

@@ -1,13 +1,13 @@
 package com.particle.dream.infrastructure.ssq.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dream.domain.ssq.SsqCode;
 import com.particle.dream.domain.ssq.SsqCodeId;
 import com.particle.dream.domain.ssq.gateway.SsqCodeGateway;
-import com.particle.dream.infrastructure.ssq.service.ISsqCodeService;
 import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
+import com.particle.dream.infrastructure.ssq.service.ISsqCodeService;
 import com.particle.dream.infrastructure.ssq.structmapping.SsqCodeInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,10 +54,13 @@ public class SsqCodeGatewayImpl extends AbstractBaseGatewayImpl<SsqCodeId,SsqCod
 		return iSsqCodeService.deleteById(ssqCodeId.getId());
 	}
 
+	@Override
+	public SsqCode getByBall(Integer red1, Integer red2, Integer red3, Integer red4, Integer red5, Integer red6, Integer blue) {
+		SsqCodeDO ssqCodeDO = iSsqCodeService.getByBall(red1, red2, red3, red4, red5, red6, blue);
+		SsqCode ssqCode = DomainFactory.create(SsqCode.class);
+		ssqCode = SsqCodeInfrastructureStructMapping.instance. ssqCodeDOToSsqCode(ssqCode,ssqCodeDO);
 
-	@Autowired
-	public void setISsqCodeService(ISsqCodeService iSsqCodeService) {
-		this.iSsqCodeService = iSsqCodeService;
+		return ssqCode;
 	}
 
 	@Override
@@ -76,4 +79,10 @@ public class SsqCodeGatewayImpl extends AbstractBaseGatewayImpl<SsqCodeId,SsqCod
 				.collect(Collectors.toList());
 		return iSsqCodeService.updateBatchById(ssqCodeDOList);
 	}
+
+	@Autowired
+	public void setISsqCodeService(ISsqCodeService iSsqCodeService) {
+		this.iSsqCodeService = iSsqCodeService;
+	}
+
 }

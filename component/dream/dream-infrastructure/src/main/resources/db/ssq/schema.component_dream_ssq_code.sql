@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS component_dream_ssq_code;
 CREATE TABLE `component_dream_ssq_code` (
   `id` bigint NOT NULL COMMENT '主键ID',
   `seq_no` int NOT NULL COMMENT '序号，从1开始递增',
+  `red_seq_no` int NOT NULL COMMENT '红球序号，从1开始递增',
   `red1` int NOT NULL COMMENT '红球1',
   `red2` int NOT NULL COMMENT '红球2',
   `red3` int NOT NULL COMMENT '红球3',
@@ -38,6 +39,7 @@ CREATE TABLE `component_dream_ssq_code` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `seq_no` (`seq_no`) USING BTREE,
+  KEY `red_seq_no` (`red_seq_no`) USING BTREE,
   KEY `red1` (`red1`) USING BTREE,
   KEY `red2` (`red2`) USING BTREE,
   KEY `red3` (`red3`) USING BTREE,
@@ -45,6 +47,7 @@ CREATE TABLE `component_dream_ssq_code` (
   KEY `red5` (`red5`) USING BTREE,
   KEY `red6` (`red6`) USING BTREE,
   KEY `blue` (`blue`) USING BTREE,
+  KEY `is_opened` (`is_opened`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='双色球号码表';

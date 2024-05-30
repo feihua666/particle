@@ -24,6 +24,11 @@ public interface ISsqCodeApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	public Response allCodeUpdate();
+
+	/**
+	 * 停止初始化或更新所有号码
+	 * @return
+	 */
 	public Response allCodeStop();
 
 }

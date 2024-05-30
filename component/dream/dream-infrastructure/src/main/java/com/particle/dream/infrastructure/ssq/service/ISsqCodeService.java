@@ -74,7 +74,20 @@ public interface ISsqCodeService extends IBaseService<SsqCodeDO> {
         Assert.notEmpty(seqNos,"seqNos 不能为空");
         return list(Wrappers.<SsqCodeDO>lambdaQuery().in(SsqCodeDO::getSeqNo, seqNos));
     }
-            
+
+    /**
+     * 更新是否开奖状态
+     * @param id
+     * @param idOpened
+     * @return
+     */
+    default boolean updateSetIsOpened(Long id, Boolean idOpened) {
+        SsqCodeDO ssqCodeDO = new SsqCodeDO();
+        ssqCodeDO.setId(id);
+
+        ssqCodeDO.setIsOpened(idOpened);
+        return updateById(ssqCodeDO);
+    }
 
 
 
