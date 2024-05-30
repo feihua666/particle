@@ -60,7 +60,7 @@ public class SsqCodeOpenedAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCodeOpened:allCodeInit')")
 	@Operation(summary = "初始化所有双色球开奖号码")
 	@PostMapping("/allCodeInit")
-	@OpLog(name = "初始化所有双色球开奖号码",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create,ignoreDataAuditPublish = true)
+	@OpLog(name = "初始化所有双色球开奖号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.create,ignoreDataAuditPublish = true)
 	public Response allCodeInit(){
 		return iSsqCodeOpenedApplicationService.allCodeInit();
 	}
@@ -72,7 +72,7 @@ public class SsqCodeOpenedAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCodeOpened:allCodeStop')")
 	@Operation(summary = "停止初始化所有双色球开奖号码")
 	@PutMapping("/allCodeStop")
-	@OpLog(name = "停止初始化所有双色球开奖号码",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update,ignoreDataAuditPublish = true)
+	@OpLog(name = "停止初始化所有双色球开奖号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.update,ignoreDataAuditPublish = true)
 	public Response allCodeStop(){
 		return iSsqCodeOpenedApplicationService.allCodeStop();
 	}

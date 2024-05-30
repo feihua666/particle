@@ -45,7 +45,7 @@ public class CrmCustomerRelationAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerRelation:create')")
 	@Operation(summary = "添加客户与客户关系")
 	@PostMapping("/create")
-	@OpLog(name = "添加客户与客户关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加客户与客户关系",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.create)
 	public SingleResponse<CrmCustomerRelationVO> create(@RequestBody CrmCustomerRelationCreateCommand crmCustomerRelationCreateCommand){
 		return iCrmCustomerRelationApplicationService.create(crmCustomerRelationCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class CrmCustomerRelationAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerRelation:delete')")
 	@Operation(summary = "删除客户与客户关系")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除客户与客户关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除客户与客户关系",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
 	public SingleResponse<CrmCustomerRelationVO> delete(@RequestBody IdCommand deleteCommand){
 		return iCrmCustomerRelationApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class CrmCustomerRelationAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerRelation:update')")
 	@Operation(summary = "更新客户与客户关系")
 	@PutMapping("/update")
-	@OpLog(name = "更新客户与客户关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新客户与客户关系",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.update)
 	public SingleResponse<CrmCustomerRelationVO> update(@RequestBody CrmCustomerRelationUpdateCommand crmCustomerRelationUpdateCommand){
 		return iCrmCustomerRelationApplicationService.update(crmCustomerRelationUpdateCommand);
 	}

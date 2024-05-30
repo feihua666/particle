@@ -18,6 +18,7 @@ import UsageCountRoutes from "./usagecount/UsageCountRoutes";
 import FeedbackRoutes from "./feedback/FeedbackRoutes";
 import CrmRoutes from "./crm/CrmRoutes";
 import DreamRoutes from "./dream/DreamRoutes";
+import ConfigRoutes from "./config/ConfigRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -40,4 +41,5 @@ let ComponentRoutes = []
     .concat(FeedbackRoutes)
     .concat(CrmRoutes)
     .concat(DreamRoutes)
+    .concat(ConfigRoutes)
 export default ComponentRoutes

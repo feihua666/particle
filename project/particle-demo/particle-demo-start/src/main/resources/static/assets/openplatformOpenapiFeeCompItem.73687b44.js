@@ -1,1 +1,0 @@
-import{l as r}from"./openplatformOpenapiFeeAdminApi.346fe3b4.js";const l=({props:a={},required:e=!1,fieldName:p="openplatformOpenapiFeeId",label:o="\u8BA1\u8D39\u89C4\u5219",valueChange:t=()=>{},tips:m=""})=>({field:{name:p,valueChange:t},element:{comp:"PtSelect",formItemProps:{label:o,required:e,tips:m},compProps:{dataMethod:r}}});export{l as u};

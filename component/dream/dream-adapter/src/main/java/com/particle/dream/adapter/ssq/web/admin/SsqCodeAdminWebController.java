@@ -67,7 +67,7 @@ public class SsqCodeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCode:allCodeInit')")
 	@Operation(summary = "初始化全部双色球号码")
 	@PostMapping("/allCodeInit")
-	@OpLog(name = "初始化全部双色球号码",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create,ignoreDataAuditPublish = true)
+	@OpLog(name = "初始化全部双色球号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.create,ignoreDataAuditPublish = true)
 	public Response allCodeInit(){
 		return iSsqCodeApplicationService.allCodeInit();
 	}
@@ -79,7 +79,7 @@ public class SsqCodeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCode:allCodeUpdate')")
 	@Operation(summary = "更新全部双色球号码")
 	@PutMapping("/allCodeUpdate")
-	@OpLog(name = "更新全部双色球号码",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update,ignoreDataAuditPublish = true)
+	@OpLog(name = "更新全部双色球号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.update,ignoreDataAuditPublish = true)
 	public Response allCodeUpdate(){
 		return iSsqCodeApplicationService.allCodeUpdate();
 	}
@@ -90,7 +90,7 @@ public class SsqCodeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCode:allCodeStop')")
 	@Operation(summary = "停止初始化或更新全部双色球号码")
 	@PutMapping("/allCodeStop")
-	@OpLog(name = "停止初始化或更新全部双色球号码",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "停止初始化或更新全部双色球号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.update)
 	public Response allCodeStop(){
 		return iSsqCodeApplicationService.allCodeStop();
 	}

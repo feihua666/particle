@@ -32,6 +32,12 @@ public class OpLogConstants {
 
 
 		public static final String feedback = "feedback";
+		// 梦想之源
+		public static final String dream = "dream";
+		// 参数配置
+		public static final String config = "config";
+		// 客户
+		public static final String crm = "crm";
 
 		public static final String unknown = "unknown";
 

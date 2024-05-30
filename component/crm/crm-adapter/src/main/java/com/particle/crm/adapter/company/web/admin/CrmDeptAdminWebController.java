@@ -45,7 +45,7 @@ public class CrmDeptAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:crmDept:create')")
 	@Operation(summary = "添加客户公司部门")
 	@PostMapping("/create")
-	@OpLog(name = "添加客户公司部门",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加客户公司部门",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.create)
 	public SingleResponse<CrmDeptVO> create(@RequestBody CrmDeptCreateCommand crmDeptCreateCommand){
 		return iCrmDeptApplicationService.create(crmDeptCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class CrmDeptAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:crmDept:delete')")
 	@Operation(summary = "删除客户公司部门")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除客户公司部门",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除客户公司部门",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
 	public SingleResponse<CrmDeptVO> delete(@RequestBody IdCommand deleteCommand){
 		return iCrmDeptApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class CrmDeptAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:crmDept:update')")
 	@Operation(summary = "更新客户公司部门")
 	@PutMapping("/update")
-	@OpLog(name = "更新客户公司部门",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新客户公司部门",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.update)
 	public SingleResponse<CrmDeptVO> update(@RequestBody CrmDeptUpdateCommand crmDeptUpdateCommand){
 		return iCrmDeptApplicationService.update(crmDeptUpdateCommand);
 	}

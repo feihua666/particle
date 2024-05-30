@@ -39,6 +39,7 @@
         <module>feedback</module>
         <module>crm</module>
         <module>dream</module>
+        <module>config</module>
     </modules>
 
     <properties>

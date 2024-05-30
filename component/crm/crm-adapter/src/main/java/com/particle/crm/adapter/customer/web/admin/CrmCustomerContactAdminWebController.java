@@ -45,7 +45,7 @@ public class CrmCustomerContactAdminWebController extends AbstractBaseWebAdapter
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerContact:create')")
 	@Operation(summary = "添加客户联系方式")
 	@PostMapping("/create")
-	@OpLog(name = "添加客户联系方式",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加客户联系方式",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.create)
 	public SingleResponse<CrmCustomerContactVO> create(@RequestBody CrmCustomerContactCreateCommand crmCustomerContactCreateCommand){
 		return iCrmCustomerContactApplicationService.create(crmCustomerContactCreateCommand);
 	}
@@ -53,7 +53,7 @@ public class CrmCustomerContactAdminWebController extends AbstractBaseWebAdapter
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerContact:delete')")
 	@Operation(summary = "删除客户联系方式")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除客户联系方式",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除客户联系方式",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
 	public SingleResponse<CrmCustomerContactVO> delete(@RequestBody IdCommand deleteCommand){
 		return iCrmCustomerContactApplicationService.delete(deleteCommand);
 	}
@@ -61,7 +61,7 @@ public class CrmCustomerContactAdminWebController extends AbstractBaseWebAdapter
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerContact:update')")
 	@Operation(summary = "更新客户联系方式")
 	@PutMapping("/update")
-	@OpLog(name = "更新客户联系方式",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新客户联系方式",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.update)
 	public SingleResponse<CrmCustomerContactVO> update(@RequestBody CrmCustomerContactUpdateCommand crmCustomerContactUpdateCommand){
 		return iCrmCustomerContactApplicationService.update(crmCustomerContactUpdateCommand);
 	}

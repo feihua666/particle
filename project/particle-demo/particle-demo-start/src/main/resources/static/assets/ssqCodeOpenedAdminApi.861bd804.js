@@ -1,1 +1,0 @@
-import{g as t}from"./index.90b05f11.js";let o="/admin/web/ssq_code_opened";const a=e=>t.post(o+"/allCodeInit",e,{timeout:6e5}),r=e=>t.put(o+"/allCodeStop",e),n=e=>t.get(o+"/list",{params:e,timeout:6e5}),p=e=>t.get(o+"/page",{params:e,timeout:6e5});export{a,r as b,n as l,p};

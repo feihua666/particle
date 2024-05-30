@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>component</artifactId>
+        <groupId>com.particle</groupId>
+        <version>3.0.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>config</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>config-adapter</module>
+        <module>config-adapter-feign-client</module>
+        <module>config-app</module>
+        <module>config-boot-starter</module>
+        <module>config-client</module>
+        <module>config-domain</module>
+        <module>config-infrastructure</module>
+        <module>config-start</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>
