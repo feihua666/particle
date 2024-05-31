@@ -38,5 +38,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- rpc 翻译实现这使得使用翻译和本地同样的使用方式 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-trans-boot-stater</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

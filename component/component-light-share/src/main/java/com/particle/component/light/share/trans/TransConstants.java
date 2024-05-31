@@ -15,6 +15,7 @@ public class TransConstants {
 	 * 字典翻译
 	 */
 	public static final String TRANS_DICT_BY_ID = "TRANS_DICT_BY_ID";
+	public static final String TRANS_AREA_BY_ID = "TRANS_AREA_BY_ID";
 	public static final String TRANS_USER_BY_ID = "TRANS_USER_BY_ID";
 	// 比直接翻译用户多了其它属性，如邮箱，手机号
 	public static final String TRANS_USER_INFO_BY_ID = "TRANS_USER_INFO_BY_ID";
