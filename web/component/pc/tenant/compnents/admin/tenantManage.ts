@@ -363,6 +363,22 @@ export const useAddPageFormItems = ({props})=>{
         }
       }
     },
+    {
+      field: {
+        name: 'tenantfaviconJson',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: 'favicon图标',
+          tips: '支持base64编码,支持http://开头的图片地址,支持本地文件路径地址，支持classpath文件路径'
+        },
+        compProps: {
+          clearable: true,
+          placeholder: 'base64编码'
+        }
+      }
+    },
 
     {
       field: {

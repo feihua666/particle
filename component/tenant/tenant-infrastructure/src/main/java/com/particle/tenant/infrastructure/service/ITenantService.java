@@ -73,6 +73,21 @@ public interface ITenantService extends IBaseService<TenantDO> {
 
     /**
      * 获取租户，不考虑租户的mybatis plus 插件限制
+     * @param tenantId
+     * @return
+     */
+    default TenantDO getByIdIgnoreTenantLimit(Long tenantId) {
+        try {
+            // 设置忽略租户插件
+            InterceptorIgnoreHelper.handle(IgnoreStrategy.builder().tenantLine(true).dataPermission(true).build());
+            return getById(tenantId);
+        } finally {
+            InterceptorIgnoreHelper.clearIgnoreStrategy();
+        }
+    }
+
+    /**
+     * 获取租户，不考虑租户的mybatis plus 插件限制
      * @return
      */
     default List<TenantDO> getAllIgnoreTenantLimit() {

@@ -97,6 +97,11 @@ public class TenantDO extends BaseTreeDO {
      */
     private String tenantLogoJson;
 
+	/**
+	 * 图标,支持base64编码,支持http://开头的图片地址,支持本地文件路径地址，支持classpath文件路径
+	 */
+	private String tenantFaviconJson;
+
     /**
     * 额外配置json
     */

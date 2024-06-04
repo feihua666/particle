@@ -33,6 +33,11 @@ const reactiveData = reactive({
       columnView: 'image'
     },
     {
+      prop: 'tenantfaviconJson',
+      label: 'favicon图标',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'isFormal',
       label: '是否正式',
       formatter: (row, column, cellValue, index) => {

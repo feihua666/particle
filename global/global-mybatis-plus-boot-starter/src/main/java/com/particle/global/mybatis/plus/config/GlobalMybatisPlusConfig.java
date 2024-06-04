@@ -56,7 +56,7 @@ public class GlobalMybatisPlusConfig {
 	/**
 	 * 启动多租户，支持，默认不启动
 	 */
-	private Boolean tenantEnable = true;
+	private Boolean tenantEnable = false;
 	/**
 	 * 多租户忽略的表
 	 */

@@ -7,6 +7,7 @@ import org.springframework.cloud.sleuth.autoconfig.TraceConfiguration;
 import org.springframework.cloud.sleuth.autoconfig.instrument.web.SleuthWebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -51,6 +52,10 @@ public class GlobalWebFilterAutoConfiguration {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return new CorsFilter(source);
+	}
+	@Bean
+	public FaviconFilter faviconFilterBean() {
+		return new FaviconFilter();
 	}
 
 	@Configuration
@@ -117,6 +122,14 @@ public class GlobalWebFilterAutoConfiguration {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(corsFilterBean());
 		registrationBean.setOrder(SleuthWebProperties.TRACING_FILTER_ORDER + span +2);
+		return registrationBean;
+	}
+	@Bean
+	public FilterRegistrationBean faviconFilter() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(faviconFilterBean());
+		registrationBean.setUrlPatterns(Arrays.asList("/favicon.ico"));
+		registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return registrationBean;
 	}
 }
