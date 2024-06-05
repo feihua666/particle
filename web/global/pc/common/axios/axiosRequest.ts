@@ -38,6 +38,30 @@ export const getDownloadPrefixUrl = () => {
     return (getUrl() + '/oss/download')
 }
 /**
+ * 获取 favicon.ico，后端支持动态配置图标
+ */
+export const getFaviconUrl = () => {
+    return (getUrl() + '/favicon.ico')
+}
+/**
+ * 获取 logo 地址
+ */
+export const getLogoUrl = () => {
+    return (getUrl() + '/logo')
+}
+/**
+ * 获取 logo text 地址
+ */
+export const getLogoTextUrl = () => {
+    return (getUrl() + '/logo-text')
+}
+/**
+ * 获取 web title 地址
+ */
+export const getWebTitleUrl = () => {
+    return (getUrl() + '/web-title')
+}
+/**
  * 获取预览的url
  * @param url
  */
@@ -210,6 +234,10 @@ export function requestPayload(method: string, data: anyObj): anyObj {
 export const interceptRequest = (axiosInstance,configOptions: Config) => {
     axiosInstance.interceptors.request.use(
         (config) => {
+
+            // 默认配置覆盖
+            configOptions = Object.assign(configOptions,config.configOptions || {})
+
             removePending(config)
             // 如果取消请求添加
             configOptions.cancelDuplicateRequest && addPending(config)
@@ -237,6 +265,9 @@ export const interceptRequest = (axiosInstance,configOptions: Config) => {
 export const interceptResponse = (axiosInstance, configOptions: Config) => {
     axiosInstance.interceptors.response.use(
         (response) => {
+
+            // 默认配置覆盖
+            configOptions = Object.assign(configOptions,response.config.configOptions || {})
             removePending(response.config)
 
             if (response.config.responseType == 'json') {
@@ -252,6 +283,8 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
             return configOptions.reductDataFormat ? response.data : response
         },
         (error) => {
+            // 默认配置覆盖
+            configOptions = Object.assign(configOptions,error.config.configOptions || {})
             error.config && removePending(error.config)
 
             if (error && error.response) {

@@ -1,4 +1,5 @@
 <script setup name="Logo">
+import {ref} from "vue"
 import defaultImagSrc from '@/assets/logo.png'
 // 声明属性
 defineProps({
@@ -24,12 +25,17 @@ defineProps({
       }
     }
 )
+const logoImg = ref(null)
+const defaultImg = () =>{
+  logoImg.value.src = defaultImagSrc
+
+}
 </script>
 
 <template>
   <div class="logo pt-flex-center-all">
     <slot>
-      <img class="logo-img" :src="imgSrc" v-bind="imgAttr"/> <span class="logo-text" v-if="text" v-show="showText" v-bind="textAttr">{{text}}</span>
+      <img ref="logoImg" class="logo-img" :src="imgSrc" v-bind="imgAttr" :onerror="defaultImg"/> <span class="logo-text" v-if="text" v-show="showText" v-bind="textAttr">{{text}}</span>
     </slot>
   </div>
 </template>

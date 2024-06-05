@@ -33,8 +33,18 @@ const reactiveData = reactive({
       columnView: 'image'
     },
     {
+      prop: 'tenantLogoTextJson',
+      label: '租户logo文本',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'tenantfaviconJson',
       label: 'favicon图标',
+      showOverflowTooltip: true
+    },
+    {
+      prop: 'tenantWebTitleJson',
+      label: '网页标题',
       showOverflowTooltip: true
     },
     {

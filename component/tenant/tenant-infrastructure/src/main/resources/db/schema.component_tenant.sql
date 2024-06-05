@@ -13,6 +13,8 @@ CREATE TABLE `component_tenant` (
   `tenant_theme_json` varchar(2000) DEFAULT NULL COMMENT '租户主题，一个代表客户端主题样式的字符串',
   `tenant_default_route_json` varchar(2000) DEFAULT NULL COMMENT '租户默认的页面路由',
   `tenant_logo_json` varchar(2000) DEFAULT NULL COMMENT '租户logo地址',
+  `tenant_logo_text_json` varchar(2000) DEFAULT NULL COMMENT '租户logo文本',
+  `tenant_web_title_json` varchar(2000) DEFAULT NULL COMMENT '租户web页面标题文本，添加主要是后台管理的页面标题',
   `tenant_favicon_json` varchar(2000) DEFAULT NULL COMMENT '图标,支持base64编码,支持http://开头的图片地址,支持本地文件路径地址，支持classpath文件路径',
   `is_formal` tinyint(1) NOT NULL COMMENT '是否正式，1=正式，0=试用',
   `user_limit_count` int NULL DEFAULT NULL COMMENT '用户数量限制',

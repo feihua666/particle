@@ -58,6 +58,21 @@ public class GlobalWebFilterAutoConfiguration {
 		return new FaviconFilter();
 	}
 
+	@Bean
+	public LogoFilter logoFilterBean() {
+		return new LogoFilter();
+	}
+
+	@Bean
+	public LogoTextFilter logoTextFilterBean() {
+		return new LogoTextFilter();
+	}
+
+	@Bean
+	public WebTitleFilter webTitleFilterBean() {
+		return new WebTitleFilter();
+	}
+
 	@Configuration
 	@ConditionalOnClass(TraceConfiguration.class)
 	protected static class TraceConfigurationDependConfig{
@@ -129,7 +144,31 @@ public class GlobalWebFilterAutoConfiguration {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(faviconFilterBean());
 		registrationBean.setUrlPatterns(Arrays.asList("/favicon.ico"));
-		registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
+		return registrationBean;
+	}
+	@Bean
+	public FilterRegistrationBean logoFilter() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(logoFilterBean());
+		registrationBean.setUrlPatterns(Arrays.asList("/logo"));
+		registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
+		return registrationBean;
+	}
+	@Bean
+	public FilterRegistrationBean logoTextFilter() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(logoTextFilterBean());
+		registrationBean.setUrlPatterns(Arrays.asList("/logo-text"));
+		registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
+		return registrationBean;
+	}
+	@Bean
+	public FilterRegistrationBean webTitleFilter() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(webTitleFilterBean());
+		registrationBean.setUrlPatterns(Arrays.asList("/web-title"));
+		registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
 		return registrationBean;
 	}
 }

@@ -40,5 +40,11 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 全局数据传输对象 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

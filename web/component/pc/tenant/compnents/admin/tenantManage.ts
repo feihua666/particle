@@ -356,10 +356,25 @@ export const useAddPageFormItems = ({props})=>{
         comp: 'el-input',
         formItemProps: {
           label: '租户logo',
+          tips: '支持base64编码,支持http://开头的图片地址,支持本地文件路径地址，支持classpath文件路径'
         },
         compProps: {
           clearable: true,
-          placeholder: '以 http 开关'
+          placeholder: '如：base64编码'
+        }
+      }
+    },
+    {
+      field: {
+        name: 'tenantLogoTextJson',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '租户logo文本',
+        },
+        compProps: {
+          clearable: true,
         }
       }
     },
@@ -375,11 +390,25 @@ export const useAddPageFormItems = ({props})=>{
         },
         compProps: {
           clearable: true,
-          placeholder: 'base64编码'
+          placeholder: '如：base64编码'
         }
       }
     },
-
+    {
+      field: {
+        name: 'tenantWebTitleJson',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '租户网页标题',
+          tips: '主要用于网页标题'
+        },
+        compProps: {
+          clearable: true,
+        }
+      }
+    },
     {
       field: {
         name: 'remark',
@@ -388,7 +417,6 @@ export const useAddPageFormItems = ({props})=>{
         comp: 'el-input',
         formItemProps: {
           label: '描述',
-
         },
         compProps: {
           clearable: true,

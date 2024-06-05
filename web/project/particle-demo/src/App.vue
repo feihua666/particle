@@ -3,6 +3,9 @@ import {provide,watch,ref,onMounted} from 'vue'
 
 import { useRouter } from 'vue-router'
 import {useLoginUserStore} from '../../../global/common/security/loginUserStore'
+import {useLogoTextStore} from "../../../global/common/api/LogoTextStore";
+import {useWebTitleStore} from "../../../global/common/api/WebTitleStore";
+import {getFavicon, getFaviconUrl, getLogoText, getWebTitle} from "../../../global/common/api/globalApi";
 
 const loginUserStore = useLoginUserStore()
 // 刷新后从 localStorage 加载
@@ -19,6 +22,47 @@ provide('permissions',permissions)
 watch(()=> loginUserStore.loginUser,(val)=> {
   permissions.value = val.isSuperAdmin? ['*']: val.permissions
 })
+
+
+const logoTextStore = useLogoTextStore()
+// 刷新后从 localStorage 加载
+logoTextStore.loadFromLocal()
+getLogoText().then(res => {
+  let logoText = res.data.data.logoText
+  if (logoText) {
+    logoTextStore.changeLogoText(logoText);
+  }
+}).catch(error => {
+  logoTextStore.changeLogoText('');
+});
+
+const webTitleStore = useWebTitleStore()
+
+watch(()=> webTitleStore.webTitle,(val)=> {
+  if(val){
+    document.title = val
+  }
+})
+// 刷新后从 localStorage 加载
+webTitleStore.loadFromLocal()
+getWebTitle().then(res => {
+  let webTitle = res.data.data.webTitle
+  if (webTitle) {
+    webTitleStore.changeWebTitle(webTitle);
+  }
+}).catch(error => {
+  webTitleStore.changeWebTitle('');
+});
+
+getFavicon().then(res => {
+
+  let backendIconElement = document.getElementById("backend-icon")
+  backendIconElement && (backendIconElement.href = getFaviconUrl())
+}).catch(error => {
+
+
+});
+
 
 onMounted(()=>{
   // First we get the viewport height and we multiple it by 1% to get a value for a vh unit

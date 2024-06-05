@@ -71,6 +71,12 @@ public class TenantVO extends AbstractBaseIdVO {
     @Schema(description = "租户logo地址")
     private String tenantLogoJson;
 
+	@Schema(description = "租户logo文本")
+	private String tenantLogoTextJson;
+
+	@Schema(description = "租户web页面标题文本，添加主要是后台管理的页面标题")
+	private String tenantWebTitleJson;
+
 	@Schema(description = "图标,支持base64编码,支持http://开头的图片地址,支持本地文件路径地址，支持classpath文件路径")
 	private String tenantFaviconJson;
 

@@ -1,0 +1,1 @@
+import{g as t}from"./index.6c1bd566.js";let r="/admin/web/oauth2_registered_client";const s=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),n=e=>t.put(r+"/update",e),p=e=>t.get(r+"/detail-for-update",{params:e}),u=e=>t.get(r+"/list",{params:e}),d=e=>t.get(r+"/page",{params:e});export{s as c,p as d,u as l,d as p,o as r,n as u};
