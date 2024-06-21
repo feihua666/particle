@@ -1,1 +1,0 @@
-import{l as u}from"./dataQueryProviderAdminApi.356ee5b0.js";const m=({fieldName:e="dataQueryProviderId",required:r=!1,label:t="\u6570\u636E\u67E5\u8BE2\u4F9B\u5E94\u5546",tips:o=""})=>({field:{name:e},element:{comp:"PtSelect",formItemProps:{label:t,required:r,tips:o},compProps:{clearable:!0,dataMethod:u}}});export{m as u};
