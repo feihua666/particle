@@ -1,8 +1,10 @@
 package com.particle.dream.client.ssq.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Gt;
 import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDate;
@@ -26,11 +28,36 @@ public class SsqCodeOpenedQueryListCommand extends AbstractBaseQueryCommand {
 
     @Schema(description = "开奖日期")
     private LocalDate openedDate;
-    
+
+    @Gt("openedDate")
+    @Schema(description = "开奖日期开始")
+    private Integer openedDateStart;
+
+    @Lt("openedDate")
+    @Schema(description = "开奖日期结束")
+    private Integer openedDateEnd;
 
     @Schema(description = "开奖期号年份")
     private Integer openedPhaseYear;
 
+    @Gt("openedPhaseYear")
+    @Schema(description = "开奖期号年份开始")
+    private Integer openedPhaseYearStart;
+
+    @Lt("openedPhaseYear")
+    @Schema(description = "开奖期号年份结束")
+    private Integer openedPhaseYearEnd;
+
+    @Schema(description = "开奖期号月份")
+    private Integer openedPhaseMonth;
+
+    @Gt("openedPhaseMonth")
+    @Schema(description = "开奖期号月份开始")
+    private Integer openedPhaseMonthStart;
+
+    @Lt("openedPhaseMonth")
+    @Schema(description = "开奖期号月份结束")
+    private Integer openedPhaseMonthEnd;
 
     @Schema(description = "开奖期号数")
     private Integer openedPhaseNum;
@@ -41,7 +68,15 @@ public class SsqCodeOpenedQueryListCommand extends AbstractBaseQueryCommand {
 
 
     @Schema(description = "开奖期号")
-    private String openedPhase;
+    private Integer openedPhase;
+
+    @Gt("openedPhase")
+    @Schema(description = "开奖期号开始")
+    private Integer openedPhaseStart;
+
+    @Lt("openedPhase")
+    @Schema(description = "开奖期号结束")
+    private Integer openedPhaseEnd;
 
 
     @Schema(description = "开奖红球1")
@@ -289,7 +324,7 @@ public class SsqCodeOpenedQueryListCommand extends AbstractBaseQueryCommand {
     private Integer redSpan;
 
 
-    @Schema(description = "ac值")
+    @Schema(description = "红球ac值")
     private Integer redAc;
 
 
@@ -317,7 +352,7 @@ public class SsqCodeOpenedQueryListCommand extends AbstractBaseQueryCommand {
     private Boolean isHasSerialNum;
 
 
-    @Schema(description = "连号个数")
+    @Schema(description = "红连号个数")
     private Integer serialTimes;
 
     @Schema(description = "最大连号长度")
@@ -326,10 +361,10 @@ public class SsqCodeOpenedQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "是否包含偶连号，即间隔2")
     private Boolean isHasEvenSerialNum;
 
-    @Schema(description = "偶连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个")
+    @Schema(description = "偶红连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个")
     private Integer evenSerialTimes;
 
-    @Schema(description = "最大偶连号长度")
+    @Schema(description = "最大偶红连号长度")
     private Integer evenMaxSerialLength;
 
 

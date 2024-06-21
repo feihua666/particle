@@ -1,7 +1,12 @@
 package com.particle.dream.client.ssq.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedPredictionParameterTuningCommand;
+import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTuningRegionVO;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -25,4 +30,10 @@ public interface ISsqCodeOpenedApplicationService extends IBaseApplicationServic
 	 */
 	public Response allCodeStop();
 
+	/**
+	 * 根据双色球开奖号码调参预测
+	 * @param predictionParameterTuningCommand
+	 * @return
+	 */
+	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(@RequestBody SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand);
 }

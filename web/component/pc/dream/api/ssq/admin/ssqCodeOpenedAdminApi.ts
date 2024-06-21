@@ -37,4 +37,11 @@ export const list = (data: anyObj): AxiosPromise => {
 export const page = (data: anyObj): AxiosPromise => {
     return axios.get(ssqCodeOpenedPrefix + '/page',{params: data,timeout: 600000})
 }
+/**
+ * 预测调参
+ * @param data
+ */
+export const predictionParameterTuning = (data: anyObj): AxiosPromise => {
+    return axios.post(ssqCodeOpenedPrefix + '/predictionParameterTuning',data,{timeout: 600000})
+}
 

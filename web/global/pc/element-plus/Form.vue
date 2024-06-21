@@ -104,7 +104,11 @@ const props = defineProps({
   onResetForm: {
     type: Function,
     default: (form)=>{}
-  }
+  },
+  doDataMethodOnMounted: {
+    type: Boolean,
+    default: true
+  },
 })
 /*********** form 初始化属性 开始***************/
 const form = props.form
@@ -212,7 +216,9 @@ const emit = defineEmits([
 // 挂载
 onMounted(() => {
   // 加载初始数据,并通过 watch reactiveData.dataMethodData 来设置表单
-  doDataMethod({props,reactiveData,emit})
+  if(props.doDataMethodOnMounted){
+    doDataMethod({props,reactiveData,emit})
+  }
 })
 
 // 表单提交
@@ -269,10 +275,10 @@ defineExpose({
       </template>
       <el-form-item v-if="comps && comps.length > 0" class="pt-button-form-item" v-bind="submitFormItemAttrs">
         <!--    一个空的提交按钮占位，在传送开启时保证可以回车提交    -->
-        <PtButton style="visibility: hidden;" v-if="buttonsTeleportProps.disabled == false && defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
+        <PtButton style="visibility: hidden;" v-if="buttonsTeleportProps.disabled == false && defaultButtonsShowComputed.submit" type="primary" v-bind="submitAttrs" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" native-type="submit" @click="submitForm"></PtButton>
 
         <Teleport v-bind="buttonsTeleportProps">
-        <PtButton v-if="defaultButtonsShowComputed.submit" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" type="primary" v-bind="submitAttrs" native-type="submit" @click="submitForm"></PtButton>
+        <PtButton v-if="defaultButtonsShowComputed.submit" type="primary" v-bind="submitAttrs" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" native-type="submit" @click="submitForm"></PtButton>
         <PtButton v-if="defaultButtonsShowComputed.reset" @click="resetForm">重置</PtButton>
         <PtButton v-if="defaultButtonsShowComputed.back" :route="(router) => { router.back() }">返回</PtButton>
 

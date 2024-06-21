@@ -56,7 +56,11 @@ const props = defineProps({
   // 分页组件属性
   paginationProps: {
     type: Object
-  }
+  },
+  doDataMethodOnMounted: {
+    type: Boolean,
+    default: true
+  },
 })
 // 属性
 const reactiveData = reactive({
@@ -108,7 +112,9 @@ const emit = defineEmits([
 ])
 // 挂载
 onMounted(() => {
-  doDataMethod({props,reactiveData,emit})
+  if(props.doDataMethodOnMounted){
+    doDataMethod({props,reactiveData,emit})
+  }
 })
 // 方法
 

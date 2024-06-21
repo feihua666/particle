@@ -54,5 +54,6 @@ public class OpLogConstants {
 		public static final String relAsign = "relAsign";
 		public static final String audit = "audit";
 		public static final String unknown = "unknown";
+		public static final String other = "other";
 	}
 }

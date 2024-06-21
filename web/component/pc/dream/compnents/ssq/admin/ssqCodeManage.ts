@@ -13,6 +13,20 @@ export const pageFormItems = [
           }
         }
       },
+  {
+    field: {
+      name: 'redSeqNo',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '红球序号',
+
+      },
+      compProps: {
+      }
+    }
+  },
       {
         field: {
           name: 'red1',
@@ -188,7 +202,7 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: 'ac值',
+            label: '红球ac值',
             
           },
           compProps: {
@@ -286,7 +300,7 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '连号个数',
+            label: '红连号个数',
             
           },
           compProps: {

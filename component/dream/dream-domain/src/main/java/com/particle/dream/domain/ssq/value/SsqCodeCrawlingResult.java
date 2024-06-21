@@ -47,7 +47,7 @@ public class SsqCodeCrawlingResult extends Value {
     /**
      * 开奖期号
      */
-    private String openedPhase;
+    private Integer openedPhase;
 
     /**
      * 开奖红球1

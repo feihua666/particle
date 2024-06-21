@@ -30,6 +30,9 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     @Schema(description = "开奖期号年份")
     private Integer openedPhaseYear;
 
+	@Schema(description = "开奖期号月份")
+	private Integer openedPhaseMonth;
+
 
     @Schema(description = "开奖期号数")
     private Integer openedPhaseNum;
@@ -40,7 +43,7 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
 
 
     @Schema(description = "开奖期号")
-    private String openedPhase;
+    private Integer openedPhase;
 
 
     @Schema(description = "开奖红球1")
@@ -287,7 +290,7 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     private Integer redSpan;
 
 
-    @Schema(description = "ac值")
+    @Schema(description = "红球ac值")
     private Integer redAc;
 
 
@@ -315,7 +318,7 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     private Boolean isHasSerialNum;
 
 
-    @Schema(description = "连号个数")
+    @Schema(description = "红连号个数")
     private Integer serialTimes;
 
     @Schema(description = "最大连号长度")
@@ -324,10 +327,10 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     @Schema(description = "是否包含偶连号，即间隔2")
     private Boolean isHasEvenSerialNum;
 
-    @Schema(description = "偶连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个")
+    @Schema(description = "偶红连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个")
     private Integer evenSerialTimes;
 
-    @Schema(description = "最大偶连号长度")
+    @Schema(description = "最大偶红连号长度")
     private Integer evenMaxSerialLength;
 
 

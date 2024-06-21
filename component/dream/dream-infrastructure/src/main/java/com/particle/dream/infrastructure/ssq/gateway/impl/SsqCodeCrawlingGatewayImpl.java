@@ -131,7 +131,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
                         // ssqCodeCrawlingResult.setOpenedDate();
                         ssqCodeCrawlingResult.setOpenedPhaseYear(Integer.valueOf(openedPhaseYearStr));
                         ssqCodeCrawlingResult.setOpenedPhaseNum(Integer.valueOf(openedPhaseNumStr));
-                        ssqCodeCrawlingResult.setOpenedPhase(openedPhaseStr);
+                        ssqCodeCrawlingResult.setOpenedPhase(Integer.valueOf(openedPhaseStr));
                     }
                     if (i1 == 2) {
                         String openedWeekDayStr = tdElement.text();
@@ -204,7 +204,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
 
                         ssqCodeCrawlingResult.setOpenedPhaseYear(Integer.valueOf(openedPhaseYearStr));
                         ssqCodeCrawlingResult.setOpenedPhaseNum(Integer.valueOf(openedPhaseNumStr));
-                        ssqCodeCrawlingResult.setOpenedPhase(openedPhaseStr);
+                        ssqCodeCrawlingResult.setOpenedPhase(Integer.valueOf(openedPhaseStr));
                     }else if (i1 == 1) {
                         // 开奖日期：2024-05-21
                         String openedDateStr = tdElement.text();
@@ -268,7 +268,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
 
                     } else if (i1 == 11) {
                         // 开奖详情，因列表中没有四、五、六等将信息，抓取详情页面获取
-                        SsqCodeCrawlingResult ssqCodeCrawlingResultDetail = crawlingDetailFromCbb(ssqCodeCrawlingResult.getOpenedPhase());
+                        SsqCodeCrawlingResult ssqCodeCrawlingResultDetail = crawlingDetailFromCbb(ssqCodeCrawlingResult.getOpenedPhase().toString());
                         if (ssqCodeCrawlingResultDetail != null) {
                             ssqCodeCrawlingResult.setWin4Num(ssqCodeCrawlingResultDetail.getWin4Num());
                             ssqCodeCrawlingResult.setWin4Amount(ssqCodeCrawlingResultDetail.getWin4Amount());
@@ -562,7 +562,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
                 }
 
                 ssqCodeCrawlingResult.setOpenedPhaseNum(Integer.valueOf(openedPhaseNumStr));
-                ssqCodeCrawlingResult.setOpenedPhase(openedPhaseStr);
+                ssqCodeCrawlingResult.setOpenedPhase(Integer.valueOf(openedPhaseStr));
 
 
                 String openedWeekDayStr = jsonObject.getStr("week");

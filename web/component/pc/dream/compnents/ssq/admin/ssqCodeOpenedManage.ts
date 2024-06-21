@@ -715,6 +715,268 @@ export const pageFormItems = [
         }
       },
 ]
+export const predictionParameterTuningFormItems = [
+  {
+    field: {
+      name: 'openedPhaseYear',
+      value: '2022'
+    },
+    element: {
+      comp: 'PtDatePicker',
+      formItemProps: {
+        label: 'openedPhaseYear',
+        tips: '使用该年份数据作为训练数据',
+        required: true,
+      },
+      compProps: {
+        type: 'year',
+        valueFormat: 'YYYY'
+      }
+    }
+  },
+
+  {
+    field: {
+      name: 'regionCountMin',
+      value: 77
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '分区最小值',
+        tips: '将穷举所有号码分区，建议最小为2',
+        required: true,
+      },
+      compProps: {
+        min: 2
+      }
+    }
+  },
+  {
+    field: {
+      name: 'regionCountMax',
+      value: 77
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '分区最大值',
+        tips: '将穷举所有号码分区，最大值不限制，但最终数量会指数增加，请谨慎设置',
+        required: true,
+      },
+      compProps: {
+
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isUserRedSeqNo',
+      value: false
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '是否使用红球序号',
+        tips: '使用红球序号计算，使用红球序号将不考虑蓝球，不建议使用，终的结果感觉不好',
+        required: true,
+      },
+      compProps: {
+
+      }
+    }
+  },
+  {
+    field: {
+      name: 'openedCountMin',
+      value: 0
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '分区开奖数量最小值',
+        tips: '数值越小，代表落在对应区域的概率越大，建议设置为0',
+        required: true,
+      },
+      compProps: {
+        min: 0
+      }
+    }
+  },
+  {
+    field: {
+      name: 'openedCountMax',
+      value: 1
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '分区开奖数量最大值',
+        tips: '数值越小，代表落在对应区域的概率越大，建议设置为0',
+        required: true,
+      },
+      compProps: {
+        min: 0
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictBasePercentStart',
+      value: 50
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '预测范围基线百分数开始',
+        tips: '分区范围内预测的百分数',
+        required: true,
+      },
+      compProps: {
+        min: 0.01,
+        max: 100,
+        step: 0.01
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictBasePercentEnd',
+      value: 100
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '预测范围基线百分数结束',
+        required: true,
+      },
+      compProps: {
+        min: 0.01,
+        max: 100,
+        step: 0.01
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictBasePercentStep',
+      value: 0.01
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '预测范围基线百分数步长',
+        required: true,
+      },
+      compProps: {
+        min: 0.00000001,
+        max: 1,
+        step: 0.00000001
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictPerRegionCount',
+      value: 3
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '分区内预测个数',
+        tips: '分区内预测未来开出的号码组数，建议设置为3，越小越预测准确,如果越大分区区间差越小有可能会在每个区间有重复，不过一般不会因为区间差一般会过万，只要分区数不太大',
+        required: true,
+      },
+      compProps: {
+        min: 1,
+        max: 100,
+      }
+    }
+  },
+
+  {
+    field: {
+      name: 'predictOpenedPhaseYearStart',
+      value: '2023'
+    },
+    element: {
+      comp: 'PtDatePicker',
+      formItemProps: {
+        label: '预测未来的开奖期号年份开始',
+        tips: '包括数值本身',
+        required: true,
+      },
+      compProps: {
+        type: 'year',
+        valueFormat: 'YYYY'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictOpenedPhaseNumStart',
+      value: 1
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '预测未来的开奖期号数开始',
+        tips: '包括数值本身',
+        required: true,
+      },
+      compProps: {
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictOpenedPhaseYearEnd',
+    },
+    element: {
+      comp: 'PtDatePicker',
+      formItemProps: {
+        label: '预测未来的开奖期号年份结束',
+        tips: '包括数值本身，不填写表示不限制',
+      },
+      compProps: {
+        type: 'year',
+        valueFormat: 'YYYY'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'predictOpenedPhaseNumEnd',
+    },
+    element: {
+      comp: 'el-input-number',
+      formItemProps: {
+        label: '预测未来的开奖期号数开始',
+        tips: '包括数值本身，不填写表示不限制',
+      },
+      compProps: {
+        min: 0
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isTrainingMode',
+      value: true
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '计算模式',
+      },
+      compProps: {
+        activeText: '训练模式',
+        inactiveText: '预测模式',
+      }
+    }
+  },
+]
+
 export const addPageFormItems = [
 
 

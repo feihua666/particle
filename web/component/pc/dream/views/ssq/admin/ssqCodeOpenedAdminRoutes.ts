@@ -12,12 +12,42 @@ const ssqCodeOpenedAdminRoutes = [
         ]
     },
     {
-        path: '/admin/SsqCodeOpenedStatisticsPage',
-        component: () => import('./SsqCodeOpenedStatisticsPage.vue'),
+        path: '/admin/SsqCodeOpenedSeqNoTrendPage',
+        component: () => import('./SsqCodeOpenedSeqNoTrendPage.vue'),
         meta: {
             root: true,
-            code:'adminSsqCodeOpenedStatisticsPage',
-            name: '双色球开奖统计',
+            code:'SsqCodeOpenedSeqNoTrendPage',
+            name: '双色球开奖序号趋势',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/admin/SsqCodeOpenedRegionTrendPage',
+        component: () => import('./SsqCodeOpenedRegionTrendPage.vue'),
+        meta: {
+            root: true,
+            code:'SsqCodeOpenedRegionTrendPage',
+            name: '双色球开奖区域分布趋势',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/admin/SsqCodeOpenedParameterTuningPredictionManagePage',
+        component: () => import('./SsqCodeOpenedParameterTuningPredictionManagePage.vue'),
+        meta: {
+            root: true,
+            code:'SsqCodeOpenedParameterTuningPredictionManagePage',
+            name: '双色球开奖预测调参',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/admin/SsqCodeOpenedSlidingWindowTrendPage',
+        component: () => import('./SsqCodeOpenedSlidingWindowTrendPage.vue'),
+        meta: {
+            root: true,
+            code:'SsqCodeOpenedSlidingWindowTrendPage',
+            name: '双色球开奖滑动窗口趋势',
             keepAlive: true
         },
     }

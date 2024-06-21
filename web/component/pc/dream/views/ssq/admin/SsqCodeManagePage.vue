@@ -74,7 +74,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'redAc',
-      label: 'ac值',
+      label: '红球ac值',
     },
     {
       prop: 'redRegion1Ratio',
@@ -105,7 +105,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'serialTimes',
-      label: '连号个数',
+      label: '红连号个数',
     },
     {
       prop: 'maxSerialLength',
@@ -120,7 +120,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'evenSerialTimes',
-      label: '偶连号个数',
+      label: '偶红连号个数',
     },
     {
       prop: 'evenMaxSerialLength',

@@ -112,6 +112,11 @@ const d = [
         icon: 'VideoPause',
         type:'primary'
     },
+    {
+        pattern:['计算'],
+        icon: 'Cpu',
+        type:'primary'
+    },
 ]
 
 /**

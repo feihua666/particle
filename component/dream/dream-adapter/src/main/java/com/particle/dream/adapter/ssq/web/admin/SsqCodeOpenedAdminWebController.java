@@ -5,8 +5,10 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
 import com.particle.dream.client.ssq.api.representation.ISsqCodeOpenedRepresentationApplicationService;
+import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedPredictionParameterTuningCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedPageQueryCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedQueryListCommand;
+import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTuningRegionVO;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedVO;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -76,4 +78,13 @@ public class SsqCodeOpenedAdminWebController extends AbstractBaseWebAdapter {
 	public Response allCodeStop(){
 		return iSsqCodeOpenedApplicationService.allCodeStop();
 	}
+
+	@PreAuthorize("hasAuthority('admin:web:ssqCodeOpened:predictionParameterTuning')")
+	@Operation(summary = "根据双色球开奖号码调参预测")
+	@PostMapping("/predictionParameterTuning")
+	@OpLog(name = "初始化所有双色球开奖号码",module = OpLogConstants.Module.dream,type = OpLogConstants.Type.other,ignoreDataAuditPublish = true)
+	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(@RequestBody SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand){
+		return iSsqCodeOpenedApplicationService.predictionParameterTuning(predictionParameterTuningCommand);
+	}
+
 }

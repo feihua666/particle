@@ -34,6 +34,11 @@ public class SsqCodeOpenedDO extends BaseDO {
     */
     private Integer openedPhaseYear;
 
+	/**
+	 * 开奖期号月份
+	 */
+	private Integer openedPhaseMonth;
+
     /**
     * 开奖期号数
     */
@@ -47,7 +52,7 @@ public class SsqCodeOpenedDO extends BaseDO {
     /**
     * 开奖期号
     */
-    private String openedPhase;
+    private Integer openedPhase;
 
     /**
     * 开奖红球1
@@ -357,7 +362,7 @@ public class SsqCodeOpenedDO extends BaseDO {
     private Integer redSpan;
 
     /**
-     * ac值，也可称为数字复杂度，是指在一组号码组合中，任意两个数字之间不相同的正差值的总个数再减去“正选号码数量-1”的值
+     * 红球ac值，也可称为数字复杂度，是指在一组号码组合中，任意两个数字之间不相同的正差值的总个数再减去“正选号码数量-1”的值
      */
     private Integer redAc;
 
@@ -392,7 +397,7 @@ public class SsqCodeOpenedDO extends BaseDO {
     private Boolean isHasSerialNum;
 
     /**
-     * 连号个数，如：2 3 22 23 25 33 7则为2，因为2 3算一个，22 23 算一个
+     * 红连号个数，如：2 3 22 23 25 33 7则为2，因为2 3算一个，22 23 算一个
      */
     private Integer serialTimes;
 
@@ -407,12 +412,12 @@ public class SsqCodeOpenedDO extends BaseDO {
     private Boolean isHasEvenSerialNum;
 
     /**
-     * 偶连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个
+     * 偶红连号个数，如：2 4 22 24 25 33 7则为2，因为2 4算一个，22 24 算一个
      */
     private Integer evenSerialTimes;
 
     /**
-     * 最大偶连号长度
+     * 最大偶红连号长度
      */
     private Integer evenMaxSerialLength;
 
