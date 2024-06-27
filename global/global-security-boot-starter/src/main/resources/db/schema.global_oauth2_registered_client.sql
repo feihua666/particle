@@ -5,7 +5,7 @@ CREATE TABLE oauth2_registered_client (
     client_id varchar(100) NOT NULL,
     client_id_issued_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     client_secret varchar(200) DEFAULT NULL,
-    client_secret_expires_at timestamp DEFAULT NULL,
+    client_secret_expires_at datetime DEFAULT NULL,
     client_name varchar(200) NOT NULL,
     client_authentication_methods varchar(1000) NOT NULL,
     authorization_grant_types varchar(1000) NOT NULL,
