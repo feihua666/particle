@@ -719,12 +719,12 @@ export const predictionParameterTuningFormItems = [
   {
     field: {
       name: 'openedPhaseYear',
-      value: '2022'
+      value: new Date().getFullYear() + '',
     },
     element: {
       comp: 'PtDatePicker',
       formItemProps: {
-        label: 'openedPhaseYear',
+        label: '开奖期号年份',
         tips: '使用该年份数据作为训练数据',
         required: true,
       },

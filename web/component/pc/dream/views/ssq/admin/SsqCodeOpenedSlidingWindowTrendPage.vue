@@ -13,7 +13,7 @@ import {reactive, ref, onMounted, } from 'vue';
 import {list} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 
 use([GridComponent,TooltipComponent,TitleComponent, LineChart,BarChart, CanvasRenderer])
-const computedSlidingWindowOptions = ref()
+const computedSlidingWindowOption = ref({})
 
 // 属性
 const reactiveData = reactive({
@@ -24,7 +24,7 @@ const reactiveData = reactive({
     {
       field: {
         name: 'openedPhaseYearStart',
-        value: '2013'
+        value: new Date().getFullYear() + '',
       },
       element: {
         comp: 'PtDatePicker',
@@ -57,7 +57,7 @@ const reactiveData = reactive({
     {
       field: {
         name: 'slidingWindowSize',
-        value: 5
+        value: 4
       },
       element: {
         comp: 'el-input-number',
@@ -106,8 +106,6 @@ const submitAttrs = ref({
   permission: 'admin:web:ssqCodeOpened:queryList'
 })
 
-const minWindowSizeRef = ref({})
-const finalMaxOffsetRef = ref([])
 const currentComputeObjectConfigRef = ref({})
 // 计算按钮
 const submitMethod = ():void => {
@@ -116,53 +114,19 @@ const submitMethod = ():void => {
     let data = res.data.data;
     // 计算图表选项数据
     currentComputeObjectConfigRef.value = computeObjectConfig[reactiveData.form.computeObject]
-    let result = computeMultipleSlidingWindow(data,reactiveData.form.slidingWindowSize,
-        currentComputeObjectConfigRef.value.fieldName,
-        currentComputeObjectConfigRef.value.max,
-        currentComputeObjectConfigRef.value.valueFormat,true)
-    computedSlidingWindowOptions.value = result
+    let result = computeSlidingWindow(data,
+        reactiveData.form.slidingWindowSize,
+        currentComputeObjectConfigRef.value)
+    computedSlidingWindowOption.value = result
 
-    // 计算最大偏移系数
-    let a = []
-    for (let i = 0; i < result.length; i++) {
-      a = a.concat(result[i].myCustom.maxOffset)
-    }
-    finalMaxOffsetRef.value = computeFinalMaxOffset(a)
-
-    // 计算最优的滑动窗口
-    autoComputeMultipleSlidingWindow(data,currentComputeObjectConfigRef.value.fieldName,
-        currentComputeObjectConfigRef.value.max,
-        currentComputeObjectConfigRef.value.valueFormat)
     return Promise.resolve(res)
   })
 }
 // 挂载
 onMounted(() => {
-  let predictBuleResult = predictBlue([7,13,8,6,3,3,7,3,6,2,11,2,15,15,3],[8.8,8.2,8.9,8.1,9.1,9.3,9.6])
-  console.log(predictBuleResult)
+
 })
 
-/**
- * 所统计，最佳7个偏移量：0.3 -0.3  0.4 -0.4 0.6 0.8 1.1
- * 根据已开奖蓝球和预测偏移系数预测蓝球
- * @param arr 长度必须15如：[2,15,7,13,8,6,3,3,7,3,6,2,11,2,15]
- * @param arr1 长度代表在指个位置上预测一个号，如：[5.5,6.5,7.5,8.5,9.5]
- */
-const predictBlue = (arr,arr1) => {
-
-  let resultArr = []
-
-  for (let i = 1; i < 17; i++) {
-    let arrTemp = arr.concat([i])
-    let sum = arrTemp.reduce((a,b) => a  + b )
-    let avg = sum/16
-    avg = avg.toFixed(1)
-    if (arr1.some((item, index) => avg >=7.5 && avg <= 9.5)) {
-      resultArr.push(i)
-    }
-  }
-  return resultArr
-}
 
 /**
  * 计算对象配置，用来提前定义几个在切换计算对象的差异参数
@@ -192,173 +156,87 @@ const computeObjectConfig = {
     }
   }
 }
-/**
- * 自动计算最优滑动窗口大小
- * @param data
- */
-const autoComputeMultipleSlidingWindow = (data,computeObject,computeObjectMax,valueFormat) => {
 
-  let minVarianceResult = null;
-  let minWindowSize = null;
-  let offsetDelta = null;
-
-  for (let i = 4; i <= reactiveData.form.slidingWindowSize; i++) {
-    let result = computeMultipleSlidingWindow(data,i,computeObject,computeObjectMax,valueFormat,false)
-    if(!result){
-      continue
-    }
-    for (let j = 0; j < result.length; j++) {
-      let singleResult = result[j]
-      let varianceResult = variance(singleResult.series[0].data)
-      if (minVarianceResult == null) {
-        minVarianceResult = varianceResult
-      }else {
-        if (minVarianceResult > varianceResult) {
-          minVarianceResult = varianceResult
-          minWindowSize = i
-          offsetDelta = singleResult.myCustom.offsetDelta
-        }
-      }
-    }
-
-  }
-  minWindowSizeRef.value = {minWindowSize,offsetDelta}
-}
-/**
- * 计算多个滑动窗口的图表数据
- * @param data
- * @param slidingWindowSize
- * @param computeObject
- * @param computeObjectMax
- * @param valueFormat
- */
-const computeMultipleSlidingWindow = (data,slidingWindowSize,computeObject,computeObjectMax,valueFormat,isComputeMaxOffset) => {
-  let result = []
-  for (let i = 0; i < slidingWindowSize; i++) {
-    let singleResult = computeSlidingWindow(data,i,slidingWindowSize,computeObject,computeObjectMax,valueFormat,isComputeMaxOffset)
-    result = result.concat(singleResult)
-  }
-
-  return result
-}
 /**
  * 计算每期的趋势数据
  * @param data
  */
-const computeSlidingWindow = (data,delta,slidingWindowSize,computeObject,computeObjectMax,valueFormat,isComputeMaxOffset)=>{
+const computeSlidingWindow = (data,slidingWindowSize,computeObject)=>{
 
   let xAxisData = []
   let seriesData = []
-  let result = []
-  for (let i = delta; i < data.length; i++) {
-    // 去掉最后一组不满滑动窗口的数据
-    if (i + slidingWindowSize - 1 >= data.length) {
-      continue
-    }
+  for (let i = slidingWindowSize; i < data.length; i++) {
+
     let sum = 0;
+    let sumArray = []
     for (let j = 0; j < slidingWindowSize; j++) {
-      sum += data[i + j][computeObject]
+      let fieldNameValue = data[i -( slidingWindowSize - j - 1)][computeObject.fieldName]
+      sumArray.push(fieldNameValue);
     }
-    xAxisData.push(data[i + slidingWindowSize - 1].openedPhase)
-
-    let averageValue = sum / slidingWindowSize
-    let constAverageValue = (computeObjectMax + 1) / 2
-    let averageValueDelta = (averageValue - constAverageValue)
-    // averageValueDelta = Math.abs(averageValueDelta)
-
-    seriesData.push(Number(valueFormat(averageValueDelta)))
+    sum = sumArray.reduce((a, b) => a + b, 0)
+    xAxisData.push(data[i].openedPhase);
+    seriesData.push(Number(computeObject.valueFormat(sum)))
   }
-  if (xAxisData.length > 0) {
-    result.push(lineChartOptions(xAxisData,seriesData,'偏移：'+ delta,delta,isComputeMaxOffset))
-  }
-  return result
+  return lineChartOptions(xAxisData,seriesData,'')
 
 }
+const calculateVarianceAndStdDev = (data) =>{
+  // 1. 计算平均值
+  let sum = data.reduce((a, b) => a + b, 0);
+  let mean = sum / data.length;
 
-/**
- * 计算一组数据的方差
- * @param arr
- */
-function variance(arr) {
-  const n = arr.length;
-  const mean = arr.reduce((a, b) => a + b) / n;
+  // 2. 计算方差
+  let variance = data.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (data.length - 1); // 样本方差
 
-  const diffSquares = arr.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b);
-  const variance = diffSquares / n;
-  return variance;
-}
+  // 3. 计算标准差
+  let stdDev = Math.sqrt(variance);
 
-/**
- * 计算最终的最大偏移量
- * @param arr
- */
-const computeFinalMaxOffset = (arr) => {
-
-  let map = {}
-  for (let i = 0; i < arr.length; i++) {
-    let value = map[arr[i].offset]
-    if(value == undefined){
-      map[arr[i].offset] = 0
-    }else {
-      if(arr[i].count > value){
-        map[arr[i].offset] = arr[i].count
-      }
-
-    }
-  }
-  let resultArr = []
-  for (let mapKey in map) {
-    resultArr.push({
-      offset: mapKey,
-      count: map[mapKey]
-    })
-  }
-  resultArr.sort((x, y) => y.count - x.count);
-
-// 取排序后的前10个对象
-
-  let top10 = resultArr.slice(0, 10);
-  return top10
+  // 返回方差和标准差
+  return { variance, stdDev };
 }
 /**
- * 计算一组数据中，偏移量出现次数最多的偏移量
- * @param seriesData
+ * 计算ac值
+ * @param numbers
  */
-const computeMaxOffset = (seriesData) => {
-  let map = {}
-  for (let i = 0; i < seriesData.length; i++) {
-    let value = map[seriesData[i] + '']
-    if(value == undefined){
-      map[seriesData[i] + ''] = 0
-    }else {
-      map[seriesData[i] + ''] = value + 1
+const calculateACValue = (numbers) =>{
+
+  let numbersTemp = new Set();
+  for (let i = 0; i < numbers.length; i++) {
+    numbersTemp.add(numbers[i])
+  }
+  numbers = Array.from(numbersTemp);
+  // 初始化差值集合
+  let differences = new Set();
+
+  // 计算任意两个数字之间的差值，并将差值添加到集合中
+  for (let i = 0; i < numbers.length; i++) {
+    for (let j = i + 1; j < numbers.length; j++) {
+      // 计算正差值并添加到集合中
+      let diff = Math.abs(numbers[i] - numbers[j]);
+      differences.add(diff);
     }
   }
-  let arr = []
-  for (let mapKey in map) {
-    arr.push({
-      offset: mapKey,
-      count: map[mapKey]
-    })
-  }
-  arr.sort((x, y) => y.count - x.count);
 
-// 取排序后的前10个对象
+  // 计算差值集合的大小（不同正差值的总个数）
+  let diffCount = differences.size;
 
-  let top10 = arr.slice(0, 10);
-  return top10
+  // 根据定义，减去“正选号码数量-1”
+  let acValue = diffCount - (numbers.length - 1);
+
+  // 返回AC值
+  return acValue;
 }
+
 /**
  * 拆线图配置
  * @param xAxisData
  * @param seriesData
  * @param titleText
  */
-const lineChartOptions = (xAxisData,seriesData,titleText,myCustomOffsetDelta,isComputeMaxOffset) => {
+const lineChartOptions = (xAxisData,seriesData,titleText) => {
   return         {
     myCustom:{
-      offsetDelta: myCustomOffsetDelta,
-      maxOffset: isComputeMaxOffset ? computeMaxOffset(seriesData): []
+
     },
     title: {
       text: titleText
@@ -375,7 +253,7 @@ const lineChartOptions = (xAxisData,seriesData,titleText,myCustomOffsetDelta,isC
       // 显示策略，默认 true 显示
       show: true,
       // 内容格式器：{string}（Template） | {Function}，支持使用回调函数生成复杂的提示文本
-      formatter: '序号：{c}<br/>期号：{b}'
+      formatter: '和数：{c}<br/>期号：{b}'
     },
     xAxis: {
       type: 'category',
@@ -390,7 +268,7 @@ const lineChartOptions = (xAxisData,seriesData,titleText,myCustomOffsetDelta,isC
     series: [
       {
         data: seriesData,
-        type: 'bar',
+        type: 'line',
         label: {
           show: true,
           position: 'top', // 顶部显示
@@ -410,18 +288,8 @@ const lineChartOptions = (xAxisData,seriesData,titleText,myCustomOffsetDelta,isC
           inline
           :comps="reactiveData.formComps">
   </PtForm>
-  <div v-if="minWindowSizeRef.minWindowSize">
-    最佳滑动窗口大小：{{minWindowSizeRef.minWindowSize}} 偏移：{{minWindowSizeRef.offsetDelta}}
-  </div>
-  <div v-if="finalMaxOffsetRef.length > 0">
-    最佳偏移量top10：{{finalMaxOffsetRef}}
-  </div>
-  <template v-for="(computedSlidingWindowOption,index) in computedSlidingWindowOptions">
-    <v-chart style="width: 1000%;height: 300px;" :option="computedSlidingWindowOption" autoresize />
-    <div>{{(computedSlidingWindowOption.myCustom.maxOffset)}}</div>
-  </template>
+  <v-chart style="width: 100%;height: 300px;" :option="computedSlidingWindowOption" autoresize />
 </template>
-
 
 <style scoped>
 

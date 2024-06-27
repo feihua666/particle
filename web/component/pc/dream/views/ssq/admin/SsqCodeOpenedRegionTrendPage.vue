@@ -23,7 +23,7 @@ const reactiveData = reactive({
     {
       field: {
         name: 'openedPhaseYearStart',
-        value: '2013'
+        value: new Date().getFullYear() + '',
       },
       element: {
         comp: 'PtDatePicker',

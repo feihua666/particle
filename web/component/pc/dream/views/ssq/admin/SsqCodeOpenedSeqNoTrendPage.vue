@@ -23,6 +23,7 @@ const reactiveData = reactive({
     {
       field: {
         name: 'openedPhaseYearStart',
+        value: new Date().getFullYear() + '',
       },
       element: {
         comp: 'PtDatePicker',
@@ -156,13 +157,13 @@ const computeRegionsDataPerPhase = (data)=>{
   let seriesData = []
   let result = []
   for (let i = 0; i < data.length; i++) {
-
+/*
     if ( year != data[i].openedPhaseYear) {
       result.push(lineChartOptions(xAxisData,seriesData))
       year = data[i].openedPhaseYear
       xAxisData = []
       seriesData = []
-    }
+    }*/
 
     xAxisData.push(data[i].openedPhase)
     seriesData.push(data[i][reactiveData.form.computeObject])
