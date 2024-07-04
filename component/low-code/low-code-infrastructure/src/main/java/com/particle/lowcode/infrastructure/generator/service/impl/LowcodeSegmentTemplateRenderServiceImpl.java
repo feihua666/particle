@@ -162,6 +162,11 @@ public class LowcodeSegmentTemplateRenderServiceImpl implements ILowcodeSegmentT
 			segmentTemplate.getShareVariables().addAll(referenceSplit);
 		}
 
+		// groovy 脚本处理
+		String renderConditionScript = StringTool.referenceStr(lowcodeSegmentTemplateDO.getRenderConditionScript(),Optional.ofNullable(referenceSegmentTemplateDO).map(LowcodeSegmentTemplateDO::getRenderConditionScript).orElse(null));
+
+		SegmentTemplate.ExtConfig extConfig = SegmentTemplate.ExtConfig.create(null,renderConditionScript);
+		segmentTemplate.setExtConfig(extConfig);
 		return segmentTemplate;
 	}
 }

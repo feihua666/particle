@@ -20,6 +20,9 @@ import lombok.Data;
 @Schema
 public class LowcodeModelQueryListCommand extends AbstractBaseQueryCommand {
 
+	@Schema(description = "额外扩展json，目前添加主要是rel相互分配信息")
+	private String extJson;
+
 
     @Like
     @Schema(description = "名称")

@@ -1,6 +1,8 @@
 package com.particle.lowcode.domain.generator;
 
 import java.time.LocalDateTime;
+
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
@@ -52,12 +54,27 @@ public class LowcodeModel extends AggreateRoot {
 	 * 建表语句
 	 */
 	private String tableCreateSql;
+
+	/**
+	 * 额外扩展json，目前添加主要是rel相互分配信息
+	 * 配置信息对象{@link LowcodeModelExtJson}
+	 */
+	private String extJson;
 	/**
      * 描述,注意事项等
      */
     private String remark;
 
+	public LowcodeModelExtJson extJsonObj() {
+		if (StrUtil.isEmpty(extJson)) {
+			return null;
+		}
+		return LowcodeModelExtJson.create(extJson);
+	}
 
+	public void changeExtJson(String extJson){
+		this.extJson = extJson;
+	}
     public void changeTableCreateSql( String tableCreateSql){
 		this.tableCreateSql = tableCreateSql.replace(" CHARACTER SET utf8 COLLATE utf8_bin", "").replace(" COLLATE utf8_bin","").replace("CHARSET=utf8mb3","CHARSET=utf8");
 	}

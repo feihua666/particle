@@ -73,7 +73,7 @@ export const genericFormComps = [
             comp: 'el-input',
             formItemProps: {
                 label: '输出文件的父目录绝对路径',
-                tips: '如：/user/yw/test 或 C:\\yw\\test。引用的模板有输出文件或目录时需要填写',
+                tips: '一般为组件的上一级目录，如：/user/yw/test 或 C:\\yw\\test。引用的模板有输出文件或目录时需要填写',
             },
             compProps: {
                 clearable: true,

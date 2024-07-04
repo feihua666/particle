@@ -15,7 +15,7 @@ export const remoteSelectRoleProps = {
  * 属性中必须有 roleId 和 roleName 两个属性
  * @param props
  */
-export const remoteSelectRoleCompItem = ({props,required})=>{
+export const useRemoteSelectRoleCompItem = ({props,required})=>{
   return   {
         field: {
             name: 'roleId',

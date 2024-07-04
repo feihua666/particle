@@ -28,6 +28,9 @@ public class LowcodeSegmentTemplateCreateCommand extends AbstractBaseCommand {
     @Schema(description = "模板名称，仅做展示",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
+	@Schema(description = "渲染条件脚本，目前仅支持groovy脚本")
+	private String renderConditionScript;
+
     @Schema(description = "计算模板")
     private String computeTemplate;
 

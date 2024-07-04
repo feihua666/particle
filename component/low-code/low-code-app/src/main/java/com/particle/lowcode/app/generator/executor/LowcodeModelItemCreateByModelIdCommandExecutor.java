@@ -1,5 +1,6 @@
 package com.particle.lowcode.app.generator.executor;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
@@ -10,14 +11,19 @@ import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
+import com.particle.global.trans.helper.TransHelper;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelAppStructMapping;
+import com.particle.lowcode.app.generator.structmapping.LowcodeModelItemAppStructMapping;
 import com.particle.lowcode.client.generator.dto.command.LowcodeModelCreateCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeModelItemCreateByModelIdCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeModelItemVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeModelVO;
 import com.particle.lowcode.domain.generator.*;
 import com.particle.lowcode.domain.generator.enums.LowcodeModelItemDesignJsonScope;
 import com.particle.lowcode.domain.generator.enums.TableType;
 import com.particle.lowcode.domain.generator.gateway.*;
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelItemDO;
+import com.particle.lowcode.infrastructure.generator.service.ILowcodeModelItemService;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -27,10 +33,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -51,7 +54,8 @@ public class LowcodeModelItemCreateByModelIdCommandExecutor extends AbstractBase
 	private LowcodeDatasourceGateway lowcodeDatasourceGateway;
 	private LowcodeModelItemGateway lowcodeModelItemGateway;
 	private LowcodeDictGateway lowcodeDictGateway;
-
+	private ILowcodeModelItemService lowcodeModelItemService;
+	private TransHelper transHelper;
 	/**
 	 * 执行低代码模型项装载指令
 	 * @param idCommand
@@ -71,7 +75,6 @@ public class LowcodeModelItemCreateByModelIdCommandExecutor extends AbstractBase
 		);
 		lowcodeModel.changeTableCreateSql(createTableSql);
 
-		lowcodeModelGateway.save(lowcodeModel);
 
 		List<LowcodeModelItem> lowcodeModelItems = lowcodeDbTableInfoGateway.loadByTableName(
 				lowcodeModel.getTableName(),
@@ -97,7 +100,74 @@ public class LowcodeModelItemCreateByModelIdCommandExecutor extends AbstractBase
 			lowcodeModelItemGateway.save(item);
 		});
 
+		// 处理额外配置
+		String loadLowcodeModelExtJson = loadLowcodeModelExtJson(lowcodeModel.getId());
+		lowcodeModel.changeExtJson(loadLowcodeModelExtJson);
+		lowcodeModelGateway.save(lowcodeModel);
 		return Response.buildSuccess();
+	}
+
+	/**
+	 * 加载模型扩展json
+	 * @param lowcodeModelId
+	 * @return
+	 */
+	private String loadLowcodeModelExtJson(LowcodeModelId lowcodeModelId) {
+
+		LowcodeModel lowcodeModel = lowcodeModelGateway.getById(lowcodeModelId);
+
+		LowcodeModelVO lowcodeModelVO = LowcodeModelAppStructMapping.instance.toLowcodeModelVO(lowcodeModel);
+		// 翻译一下字典
+		transHelper.trans(lowcodeModelVO);
+		String tableTypeDictValue = lowcodeModelVO.getTableTypeDictValue();
+		if (TableType.REL.itemValue().equals(tableTypeDictValue)) {
+			List<LowcodeModelItemDO> lowcodeModelItemDOS = lowcodeModelItemService.listByColumn(lowcodeModelVO.getId(), LowcodeModelItemDO::getLowcodeModelId);
+			List<LowcodeModelItemVO> modelItemVOS = LowcodeModelItemAppStructMapping.instance.lowcodeModelItemDOsToLowcodeModelItemVOs(lowcodeModelItemDOS);
+			if (CollectionUtil.isNotEmpty(modelItemVOS)) {
+				modelItemVOS.forEach(item->{
+					item.initDesignJsonMap();
+					item.clearDesignJson();
+				});
+			}
+			// 	这里自动生成rel的配置，主要是根据模型项的配置
+			List<String> exclude = new ArrayList<>();
+			exclude.add(BaseDO.PROPERTY_ID);
+			exclude.add(BaseDO.PROPERTY_VERSION);
+			exclude.add(BaseDO.PROPERTY_CREATE_AT);
+			exclude.add(BaseDO.PROPERTY_CREATE_BY);
+			exclude.add(BaseDO.PROPERTY_UPDATE_AT);
+			exclude.add(BaseDO.PROPERTY_UPDATE_BY);
+			exclude.add(BaseDO.PROPERTY_TENANT_ID);
+			List<LowcodeModelItemVO> collect = modelItemVOS.stream().filter(item -> !exclude.contains(item.getPropertyName())).collect(Collectors.toList());
+			LowcodeModelItemVO oneLowcodeModelItemVO = collect.get(0);
+			LowcodeModelItemVO twoLowcodeModelItemVO = collect.get(1);
+
+			LowcodeModelExtJson.Rel relPropertyOne = lowcodeModelItemVOToRel(oneLowcodeModelItemVO);
+			LowcodeModelExtJson.Rel relPropertyTwo = lowcodeModelItemVOToRel(twoLowcodeModelItemVO);
+
+			LowcodeModelExtJson lowcodeModelExtJson = LowcodeModelExtJson.create(relPropertyOne, relPropertyTwo);
+			return lowcodeModelExtJson.toJsonStr();
+		}
+		return null;
+	}
+
+	/**
+	 * 将过滤的单个字段提取出来，并尝试合理化
+	 * @param oneLowcodeModelItemVO
+	 * @return
+	 */
+	private LowcodeModelExtJson.Rel lowcodeModelItemVOToRel(LowcodeModelItemVO oneLowcodeModelItemVO) {
+		LowcodeModelExtJson.Rel rel = LowcodeModelExtJson.Rel.createEmpty();
+		rel.setPropertyName(oneLowcodeModelItemVO.getPropertyName());
+		rel.setPropertyNameEnEntity(StrUtil.upperFirst(oneLowcodeModelItemVO.getPropertyName()));
+		rel.setCommentSimple(oneLowcodeModelItemVO.getCommentSimple());
+		// 一般在rel注释中，注释保持一定的规则，如：角色id，这里替换掉id
+		rel.setCommentMain(StrUtil.replaceLast(rel.getCommentSimple(),"id",""));
+		// 一般在rel字段命名保持一定的规则，如：roleId，这里替换掉Id
+		rel.setPropertyNameMainEnEntityVar(StrUtil.replaceLast(oneLowcodeModelItemVO.getPropertyName(),"Id",""));
+		rel.setPropertyNameMainEnEntity(StrUtil.upperFirst(rel.getPropertyNameMainEnEntityVar()));
+
+		return rel;
 	}
 
 	/**
@@ -124,5 +194,13 @@ public class LowcodeModelItemCreateByModelIdCommandExecutor extends AbstractBase
 	@Autowired
 	public void setLowcodeDictGateway(LowcodeDictGateway lowcodeDictGateway) {
 		this.lowcodeDictGateway = lowcodeDictGateway;
+	}
+	@Autowired
+	public void setLowcodeModelItemService(ILowcodeModelItemService lowcodeModelItemService) {
+		this.lowcodeModelItemService = lowcodeModelItemService;
+	}
+	@Autowired
+	public void setTransHelper(TransHelper transHelper) {
+		this.transHelper = transHelper;
 	}
 }

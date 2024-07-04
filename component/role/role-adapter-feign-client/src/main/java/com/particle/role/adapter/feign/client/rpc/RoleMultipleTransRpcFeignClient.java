@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- * 部门翻译远程调用 后缀 mt 代表MultipleTrans，表示多个结果翻译
+ * 角色翻译远程调用 后缀 mt 代表MultipleTrans，表示多个结果翻译
  * </p>
  *
  * @author yw

@@ -32,4 +32,9 @@ public class TransConstants {
 	public static final String TRANS_ATTACHMENT_BY_FEEDBACK_REPLY_ID = "TRANS_ATTACHMENT_BY_FEEDBACK_REPLY_ID";
 
 	public static final String TRANS_CRM_CUSTOMER_BY_ID = "TRANS_CRM_CUSTOMER_BY_ID";
+
+	public static final String TRANS_DATA_OBJECT_BY_ID = "TRANS_DATA_OBJECT_BY_ID";
+	public static final String TRANS_DATA_SCOPE_BY_ID = "TRANS_DATA_SCOPE_BY_ID";
+
+
 }

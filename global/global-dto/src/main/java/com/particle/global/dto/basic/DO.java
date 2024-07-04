@@ -23,6 +23,7 @@ public class DO extends DTO{
 	public static final String COLUMN_UPDATE_BY = "update_by";
 	public static final String PROPERTY_VERSION = "version";
 	public static final String COLUMN_VERSION = "version";
+	public static final String PROPERTY_TENANT_ID = "tenantId";
 	public static final String COLUMN_TENANT_ID = "tenant_id";
 	// 初始化版本
 	public static final int INIT_VERSION = 1;

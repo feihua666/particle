@@ -236,18 +236,18 @@ export const interceptRequest = (axiosInstance,configOptions: Config) => {
         (config) => {
 
             // 默认配置覆盖
-            configOptions = Object.assign(configOptions,config.configOptions || {})
+            let configOptionsTemp = Object.assign({},configOptions,config.configOptions || {})
 
             removePending(config)
             // 如果取消请求添加
-            configOptions.cancelDuplicateRequest && addPending(config)
+            configOptionsTemp.cancelDuplicateRequest && addPending(config)
 
             // 携带 token
-            if (config.headers && configOptions.tokenKey) {
+            if (config.headers && configOptionsTemp.tokenKey) {
                 loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
                 const token = loginUserStoreCache.token
                 if (token){
-                    config.headers[configOptions.tokenKey] = token
+                    config.headers[configOptionsTemp.tokenKey] = token
                 }
 
             }
@@ -267,24 +267,24 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
         (response) => {
 
             // 默认配置覆盖
-            configOptions = Object.assign(configOptions,response.config.configOptions || {})
+            let configOptionsTemp = Object.assign({},configOptions,response.config.configOptions || {})
             removePending(response.config)
 
             if (response.config.responseType == 'json') {
                 // todo 接口正常返回额外处理
             }// end if response.config.responseType == 'json'
             loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
-            let token = response.headers[configOptions.tokenKey] || ''
+            let token = response.headers[configOptionsTemp.tokenKey] || ''
             if (token){
                 loginUserStoreCache.changeToken(token)
             }
 
-            configOptions.showNoneSuccessMessage && httpNoneSuccessHandle(response,configOptions)
-            return configOptions.reductDataFormat ? response.data : response
+            configOptionsTemp.showNoneSuccessMessage && httpNoneSuccessHandle(response,configOptionsTemp)
+            return configOptionsTemp.reductDataFormat ? response.data : response
         },
         (error) => {
             // 默认配置覆盖
-            configOptions = Object.assign(configOptions,error.config.configOptions || {})
+            let configOptionsTemp = Object.assign({},configOptions,error.config.configOptions || {})
             error.config && removePending(error.config)
 
             if (error && error.response) {
@@ -294,7 +294,7 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
                     loginUserStoreCache.changeHasLogin(false)
                 }
             }
-            configOptions.showErrorMessage && httpErrorStatusHandle(error, configOptions) // 处理错误状态码
+            configOptionsTemp.showErrorMessage && httpErrorStatusHandle(error, configOptionsTemp) // 处理错误状态码
             return Promise.reject(error) // 错误继续返回给到具体页面
         }
     )
@@ -308,7 +308,7 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
 export const createAxios = (config: Config={}) => {
 
     // 默认配置覆盖
-    let configOptions = Object.assign(defaultConfig,config)
+    let configOptions = Object.assign({},defaultConfig,config)
     // 应用配置
     let instance = axios
     if (!configOptions.userDefaultInstance) {

@@ -1,3 +1,4 @@
+import roleDataScopeRelAdminRoutes from "./views/roledatascoperel/admin/roleDataScopeRelAdminRoutes";
 
 const RoleRoutes = [
     {
@@ -216,5 +217,5 @@ const RoleRoutes = [
             },
         ]
     },
-]
+].concat(roleDataScopeRelAdminRoutes)
 export default RoleRoutes

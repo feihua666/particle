@@ -164,6 +164,7 @@ export const addPageFormItems =  [
             }
         }
     },
+
     {
         field: {
             name: 'remark'
@@ -174,6 +175,24 @@ export const addPageFormItems =  [
                 label: '描述'
             },
             compProps: {
+                clearable: true,
+            }
+        }
+    },
+    {
+        field: {
+            name: 'extJson'
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '扩展信息',
+                displayBlock: true,
+                tips: '模型扩展信息，json格式,目前主要用来关系模型的配置，添加时将自动针对关系模型生成'
+            },
+            compProps: {
+                type: 'textarea',
+                rows: 5,
                 clearable: true,
             }
         }

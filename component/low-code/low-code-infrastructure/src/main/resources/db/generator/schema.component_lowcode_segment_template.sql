@@ -3,6 +3,7 @@ CREATE TABLE `component_lowcode_segment_template` (
   `id` bigint NOT NULL COMMENT '角色ID',
   `code` varchar(200) DEFAULT NULL COMMENT '编码，唯一',
   `name` varchar(100) NOT NULL COMMENT '模板名称，仅做展示',
+  `render_condition_script` varchar(2000) DEFAULT NULL COMMENT '渲染条件脚本，目前仅支持groovy脚本',
   `compute_template` varchar(1000) DEFAULT NULL COMMENT '计算模板',
   `name_template` varchar(1000) DEFAULT NULL COMMENT '名称模板',
   `name_output_variable` varchar(255) DEFAULT NULL COMMENT '名称输出变量名',

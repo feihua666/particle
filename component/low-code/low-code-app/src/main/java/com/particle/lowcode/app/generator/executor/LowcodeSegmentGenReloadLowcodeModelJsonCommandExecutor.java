@@ -1,11 +1,13 @@
 package com.particle.lowcode.app.generator.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.trans.helper.TransHelper;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelAppStructMapping;
@@ -15,10 +17,8 @@ import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenUpdate
 import com.particle.lowcode.client.generator.dto.data.LowcodeModelItemVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeModelVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenVO;
-import com.particle.lowcode.domain.generator.LowcodeModel;
-import com.particle.lowcode.domain.generator.LowcodeModelId;
-import com.particle.lowcode.domain.generator.LowcodeSegmentGen;
-import com.particle.lowcode.domain.generator.LowcodeSegmentGenId;
+import com.particle.lowcode.domain.generator.*;
+import com.particle.lowcode.domain.generator.enums.TableType;
 import com.particle.lowcode.domain.generator.gateway.LowcodeModelGateway;
 import com.particle.lowcode.domain.generator.gateway.LowcodeModelItemGateway;
 import com.particle.lowcode.domain.generator.gateway.LowcodeSegmentGenGateway;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -63,7 +64,8 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 		if (!lowcodeSegmentGen.canReloadLowcodeModelJson()) {
 			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR,"模型id不存在");
 		}
-		lowcodeSegmentGen.changeLowcodeModelJson(loadLowcodeModelJson(LowcodeModelId.of(lowcodeSegmentGen.getLowcodeModelId())));
+		String loadLowcodeModelJson = loadLowcodeModelJson(LowcodeModelId.of(lowcodeSegmentGen.getLowcodeModelId()));
+		lowcodeSegmentGen.changeLowcodeModelJson(loadLowcodeModelJson);
 		boolean save = lowcodeSegmentGenGateway.save(lowcodeSegmentGen);
 		if (save) {
 			return SingleResponse.of(LowcodeSegmentGenAppStructMapping.instance.toLowcodeSegmentGenVO(lowcodeSegmentGen));
@@ -83,7 +85,9 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 		// 翻译一下字典
 		transHelper.trans(lowcodeModelVO);
 		Map<String, Object> resultMap = new HashMap<>();
+		lowcodeModelVO.setExtJsonObj(LowcodeModelExtJson.create(lowcodeModelVO.getExtJson()));
 		resultMap.put("model", lowcodeModelVO);
+
 
 		List<LowcodeModelItemDO> lowcodeModelItemDOS = lowcodeModelItemService.listByColumn(lowcodeModelVO.getId(), LowcodeModelItemDO::getLowcodeModelId);
 		List<LowcodeModelItemVO> modelItemVOS = LowcodeModelItemAppStructMapping.instance.lowcodeModelItemDOsToLowcodeModelItemVOs(lowcodeModelItemDOS);
@@ -94,7 +98,6 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 			});
 		}
 		resultMap.put("modelItems", modelItemVOS);
-
 		return JsonTool.toJsonStr(resultMap);
 	}
 

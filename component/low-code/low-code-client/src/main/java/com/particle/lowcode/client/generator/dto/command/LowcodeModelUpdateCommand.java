@@ -21,6 +21,9 @@ import javax.validation.constraints.NotNull;
 @Schema
 public class LowcodeModelUpdateCommand extends AbstractBaseUpdateCommand {
 
+	@Schema(description = "额外扩展json，目前添加主要是rel相互分配信息")
+	private String extJson;
+
 
     @NotEmpty(message = "名称不能为空")
     @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)

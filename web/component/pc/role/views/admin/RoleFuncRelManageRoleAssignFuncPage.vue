@@ -1,10 +1,10 @@
-<script setup name="RoleFuncRelManageFuncAssignRolePage" lang="ts">
+<script setup name="RoleFuncRelManageRoleAssignFuncPage" lang="ts">
 /**
  * 角色分配功能菜单页面
  */
 import {reactive ,ref} from 'vue'
 import {queryFuncIdsByRoleId, roleAssignFunc as roleAssignFuncApi} from "../../api/admin/roleFuncRelAdminApi"
-import {remoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
+import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
 import {list as funcListApi} from "../../../func/api/admin/funcAdminApi";
 
 // 声明属性
@@ -22,7 +22,7 @@ const reactiveData = reactive({
 // 表单项
 const formComps = ref(
     [
-      remoteSelectRoleCompItem({props,required: true}),
+      useRemoteSelectRoleCompItem({props,required: true}),
       {
         field: {
           name: 'checkedFuncIds',

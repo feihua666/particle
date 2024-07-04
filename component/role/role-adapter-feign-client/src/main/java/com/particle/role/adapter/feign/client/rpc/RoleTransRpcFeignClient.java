@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 /**
  * <p>
- * 部门翻译远程调用
+ * 角色翻译远程调用
  * </p>
  *
  * @author yw

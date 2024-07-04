@@ -1,0 +1,5 @@
+-- 添加一个空注释，否则如果内容为空，报错，或者在配置文件中配置添加前 optional: 缀如： optional:classpath:db/xxxxx.sql
+-- crud数据sql
+
+-- import classpath:db/data.data-constraint.func.sql
+-- import classpath:db/data.data-constraint.dict.sql

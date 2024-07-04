@@ -22,7 +22,7 @@ import {
   reactiveDataModelData,
   updateDataModelValueEventHandle
 } from './dataModel'
-import {getTreeLeafItem, isEqual, removeDuplicate} from "../../common/tools/ArrayTools";
+import {getTreeLeafItem, isEqual, removeDuplicate, removeItems} from "../../common/tools/ArrayTools";
 const treeRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -34,6 +34,8 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  // v-model 是否只返回叶子节点，需要结合 modelValueIncludeHalfCheckedKeys属性使用，以最终获取选中的值为叶子节点
+  modelValueIncludeLeafOnly: Boolean,
   // 默认勾选的节点的 key 的数组
   defaultCheckedKeys: {
     type: Array,
@@ -128,6 +130,7 @@ const propsOptions = computed(() => {
   }
   // 全局禁用时，直接禁用所有数据
   if(hasDisabled.value.disabled){
+    // el-tree 支持函数形式
     r.disabled = function(data, node){return true}
   }
   return r
@@ -277,10 +280,12 @@ const emitCheckedKeys = (checkedKeysParam?:any[],halfCheckedKeysParam?:any[]) =>
     return
   }
   let r = []
-  let checkedKeys = checkedKeysParam || getCheckedKeys()
+
+  let checkedKeys = checkedKeysParam || getCheckedKeys(props.modelValueIncludeLeafOnly)
   if(checkedKeys){
     r = r.concat(checkedKeys)
   }
+
   if(props.modelValueIncludeHalfCheckedKeys){
     let halfCheckedKeys = halfCheckedKeysParam || getHalfCheckedKeys()
     if(halfCheckedKeys){
@@ -304,7 +309,12 @@ const events = {
     }
   },
   'check': function (dataItem,{checkedNodes, checkedKeys, halfCheckedNodes,halfCheckedKeys }){
-    emitCheckedKeys(checkedKeys,halfCheckedKeys)
+    if (props.modelValueIncludeLeafOnly) {
+      emitCheckedKeys(getCheckedKeys(props.modelValueIncludeLeafOnly), halfCheckedKeys);
+    } else {
+      // checkedKeys 中包含全部选中的
+      emitCheckedKeys(checkedKeys,halfCheckedKeys);
+    }
     if(hasPermission.value.enable && hasPermission.value.hasPm){
       emit('check',...arguments)
     }
@@ -334,8 +344,8 @@ const clearCheckedAll = () => {
   treeRef.value?.setCheckedKeys([])
 }
 // (leafOnly) 接收一个布尔类型参数，默认为 false. 如果参数是 true, 它只返回当前选择的子节点数组。
-const getCheckedKeys = () => {
-  return treeRef.value?.getCheckedKeys()
+const getCheckedKeys = (leafOnly) => {
+  return treeRef.value?.getCheckedKeys(leafOnly)
 }
 // 若节点可被选中(show-checkbox 为 true)，则返回目前半选中的节点的 key 所组成的数组
 const getHalfCheckedKeys = () => {

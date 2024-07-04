@@ -29,6 +29,7 @@ import java.util.List;
 @MapperScan({"com.particle.role.infrastructure.mapper",
 		"com.particle.role.infrastructure.roleuserrel.mapper",
 		"com.particle.role.infrastructure.rolefuncrel.mapper",
+		"com.particle.role.infrastructure.roledatascoperel.mapper",
 })
 public class RoleAutoConfiguration {
 

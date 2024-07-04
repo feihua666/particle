@@ -1,6 +1,8 @@
 package com.particle.lowcode.client.generator.dto.data;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
@@ -52,6 +54,15 @@ public class LowcodeModelVO extends AbstractBaseIdVO {
 
     @Schema(description = "建表语句，加载模型项后有值")
     private String tableCreateSql;
+
+	@Schema(description = "额外扩展json，目前添加主要是rel相互分配信息")
+	private String extJson;
+
+    /**
+     * 不对前端展示，仅用于后端处理
+     */
+    @Schema(description = "额外扩展json转为的对象",hidden = true)
+    private Object extJsonObj;
 
     @Schema(description = "描述,注意事项等")
     private String remark;

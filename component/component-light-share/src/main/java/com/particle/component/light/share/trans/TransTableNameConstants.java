@@ -66,4 +66,7 @@ public class TransTableNameConstants {
 	public static final String component_dream_ssq_code = "component_dream_ssq_code";
 
 
+	public static final String component_data_object = "component_data_object";
+
+
 }

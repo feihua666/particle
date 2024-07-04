@@ -143,3 +143,18 @@ export function remove(array: Array<any>,index){
     }
     array.splice(index, 1)
 }
+/**
+ * 从 array 中移除在 arrayRemoved 中已存在的元素
+ * @param array
+ * @param index
+ */
+export function removeItems(array: Array<any>,arrayRemoved: Array<any>){
+    if(!arrayRemoved){
+        return array
+    }
+    if(!array){
+        return array
+    }
+    let result = array.filter(item => !arrayRemoved.includes(item));
+    return result
+}
