@@ -9,7 +9,7 @@ import {
   list as UsageCountDefineListApi
 } from "../../api/admin/usageCountDefineAdminApi"
 
-import {useUpdatePageFormItems} from "../../compnents/admin/usageCountDefineManage";
+import {useUpdatePageFormItems} from "../../components/admin/usageCountDefineManage";
 
 
 // 声明属性

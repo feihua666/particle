@@ -8,8 +8,8 @@ import {
   useRemoteSelectUserCompItem, useRemoteSelectUserIdentifierCompItem,
   remoteSelectUserIdentifierProps,
   remoteSelectUserProps
-} from "../../compnents/userCompItem";
-import {userLoginRecordColumns} from "../../compnents/userLoginRecordCompItem";
+} from "../../components/userCompItem";
+import {userLoginRecordColumns} from "../../components/userLoginRecordCompItem";
 
 const tableRef = ref(null)
 // 声明属性

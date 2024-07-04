@@ -9,7 +9,7 @@ import {
   list as ReportSegmentTemplateListApi
 } from "../../../api/template/admin/reportSegmentTemplateAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/template/admin/reportSegmentTemplateManage";
+import {updatePageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";
 
 
 // 声明属性

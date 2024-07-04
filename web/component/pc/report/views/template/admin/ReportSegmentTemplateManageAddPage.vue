@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as reportSegmentTemplateCreateApi,list as ReportSegmentTemplateListApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
-import {addPageFormItems} from "../../../compnents/template/admin/reportSegmentTemplateManage";
+import {addPageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";
 
 
 // 属性

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as openplatformProviderRecordPageApi, remove as openplatformProviderRecordRemoveApi} from "../../../api/providerrecord/admin/openplatformProviderRecordAdminApi"
-import {pageFormItems} from "../../../compnents/providerrecord/admin/openplatformProviderRecordManage";
+import {pageFormItems} from "../../../components/providerrecord/admin/openplatformProviderRecordManage";
 
 
 const tableRef = ref(null)

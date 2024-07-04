@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as openplatformDocApiDocTemplatePageApi, remove as openplatformDocApiDocTemplateRemoveApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateAdminApi"
-import {pageFormItems} from "../../../compnents/doc/admin/openplatformDocApiDocTemplateManage";
+import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateManage";
 
 
 const tableRef = ref(null)

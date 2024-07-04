@@ -1,6 +1,6 @@
 import {useCascaderCrmCompanyCompItem, useCascaderCrmDeptCompItem} from "../../crmCompItem";
-import {useRemoteSelectUserCompItem} from "../../../../user/compnents/userCompItem";
-import {useCascaderDeptCompItem} from "../../../../dept/compnents/deptCompItem";
+import {useRemoteSelectUserCompItem} from "../../../../user/components/userCompItem";
+import {useCascaderDeptCompItem} from "../../../../dept/components/deptCompItem";
 
 
 export const pageFormItems = [

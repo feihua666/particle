@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as DataQueryProviderCreateApi,list as DataQueryProviderListApi} from "../../../api/provider/admin/dataQueryProviderAdminApi"
-import {addPageFormItems} from "../../../compnents/provider/admin/dataQueryProviderManage";
+import {addPageFormItems} from "../../../components/provider/admin/dataQueryProviderManage";
 
 
 // 属性

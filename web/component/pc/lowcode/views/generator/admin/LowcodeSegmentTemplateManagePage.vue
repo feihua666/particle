@@ -7,7 +7,7 @@ import {
   page as lowcodeSegmentTemplatePageApi,
   remove as lowcodeSegmentTemplateRemoveApi
 } from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
-import {pageFormItems} from "../../../compnents/admin/lowcodeSegmentTemplateManage";
+import {pageFormItems} from "../../../components/admin/lowcodeSegmentTemplateManage";
 
 const tableRef = ref(null)
 

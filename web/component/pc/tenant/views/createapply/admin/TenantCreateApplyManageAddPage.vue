@@ -5,9 +5,9 @@
 import {reactive ,ref} from 'vue'
 
 import {create as TenantCreateApplyCreateApi,list as TenantCreateApplyListApi} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
-import {useAddPageFormItems} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
+import {useAddPageFormItems} from "../../../components/createapply/admin/tenantCreateApplyManage";
 import { ElMessage } from 'element-plus'
-import TenantCreateApplyFuncApplication from '../../../compnents/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+import TenantCreateApplyFuncApplication from '../../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)
 // 声明属性

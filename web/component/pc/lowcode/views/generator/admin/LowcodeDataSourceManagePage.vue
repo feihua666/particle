@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as lowcodeDataSourcePageApi, remove as lowcodeDataSourceRemoveApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
-import {pageFormItems} from "../../../compnents/admin/lowcodeDataSourceManage";
+import {pageFormItems} from "../../../components/admin/lowcodeDataSourceManage";
 
 const tableRef = ref(null)
 

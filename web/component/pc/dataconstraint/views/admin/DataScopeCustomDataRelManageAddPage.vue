@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as dataScopeCustomDataRelCreateApi} from "../../api/admin/dataScopeCustomDataRelAdminApi"
-import {addPageFormItems} from "../../compnents/admin/dataScopeCustomDataRelManage";
+import {addPageFormItems} from "../../components/admin/dataScopeCustomDataRelManage";
 
 
 // 属性

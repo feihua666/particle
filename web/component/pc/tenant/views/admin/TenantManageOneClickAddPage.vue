@@ -5,8 +5,8 @@
 import {reactive ,ref} from 'vue'
 
 import { ElMessage } from 'element-plus'
-import TenantCreateApplyFuncApplication from '../../compnents/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
-import {useOneClickAddPageFormItems} from "../../compnents/createapply/admin/tenantCreateApplyManage";
+import TenantCreateApplyFuncApplication from '../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+import {useOneClickAddPageFormItems} from "../../components/createapply/admin/tenantCreateApplyManage";
 import {oneClickCreate} from "../../api/admin/tenantAdminApi";
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)

@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as dataScopeCreateApi} from "../../api/admin/dataScopeAdminApi"
-import {addPageFormItems} from "../../compnents/admin/dataScopeManage";
+import {addPageFormItems} from "../../components/admin/dataScopeManage";
 
 
 // 属性

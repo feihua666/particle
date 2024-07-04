@@ -9,7 +9,7 @@ import {
   list as ReportReportApiListApi
 } from "../../../api/reportapi/admin/reportReportApiAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/reportapi/admin/reportReportApiManage";
+import {updatePageFormItems} from "../../../components/reportapi/admin/reportReportApiManage";
 
 
 // 声明属性

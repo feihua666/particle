@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as roleDataScopeRelCreateApi} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
-import { useAddPageFormItems} from "../../../compnents/roledatascoperel/admin/roleDataScopeRelManage";
+import { useAddPageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 
 
 // 属性

@@ -9,7 +9,7 @@ import {
   list as TenantFuncListApi
 } from "../../../api/tenantfunc/admin/tenantFuncAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/tenantfunc/admin/tenantFuncManage";
+import {updatePageFormItems} from "../../../components/tenantfunc/admin/tenantFuncManage";
 
 
 // 声明属性

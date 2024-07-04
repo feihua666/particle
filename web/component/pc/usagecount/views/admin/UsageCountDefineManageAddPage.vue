@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as usageCountDefineCreateApi,list as UsageCountDefineListApi} from "../../api/admin/usageCountDefineAdminApi"
-import {useAddPageFormItems} from "../../compnents/admin/usageCountDefineManage";
+import {useAddPageFormItems} from "../../components/admin/usageCountDefineManage";
 
 
 // 属性

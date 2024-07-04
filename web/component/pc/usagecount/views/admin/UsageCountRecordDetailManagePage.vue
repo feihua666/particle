@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as usageCountRecordDetailPageApi, remove as usageCountRecordDetailRemoveApi} from "../../api/admin/usageCountRecordDetailAdminApi"
-import {pageFormItems} from "../../compnents/admin/usageCountRecordDetailManage";
+import {pageFormItems} from "../../components/admin/usageCountRecordDetailManage";
 
 
 const tableRef = ref(null)

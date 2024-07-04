@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as openplatformOpenapiCreateApi,list as OpenplatformOpenapiListApi} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
-import {addPageFormItems} from "../../../compnents/openapi/admin/openplatformOpenapiManage";
+import {addPageFormItems} from "../../../components/openapi/admin/openplatformOpenapiManage";
 import {cloneObj} from "../../../../../../global/common/tools/ObjectTools";
 
 

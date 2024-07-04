@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as reportReportApiCreateApi,list as ReportReportApiListApi} from "../../../api/reportapi/admin/reportReportApiAdminApi"
-import {addPageFormItems} from "../../../compnents/reportapi/admin/reportReportApiManage";
+import {addPageFormItems} from "../../../components/reportapi/admin/reportReportApiManage";
 
 
 // 属性

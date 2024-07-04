@@ -8,7 +8,7 @@ import {
   useRemoteSelectDataScopeCompItem,
   remoteSelectDataScopeProps,
   useSelectDataConstraintDataObjectCompItem, useSelectDataScopeCompItem
-} from "../../../../dataconstraint/compnents/dataconstraintCompItem";
+} from "../../../../dataconstraint/components/dataconstraintCompItem";
 import {list as roleListApi} from "../../../api/admin/roleAdminApi";
 
 // 声明属性

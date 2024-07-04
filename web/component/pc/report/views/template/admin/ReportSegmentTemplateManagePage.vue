@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as reportSegmentTemplatePageApi, remove as reportSegmentTemplateRemoveApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
-import {pageFormItems} from "../../../compnents/template/admin/reportSegmentTemplateManage";
+import {pageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";
 
 
 const tableRef = ref(null)

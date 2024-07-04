@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as dataObjectPageApi, remove as dataObjectRemoveApi} from "../../api/admin/dataObjectAdminApi"
-import {pageFormItems} from "../../compnents/admin/dataObjectManage";
+import {pageFormItems} from "../../components/admin/dataObjectManage";
 
 
 const tableRef = ref(null)

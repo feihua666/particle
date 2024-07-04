@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as FuncApplicationFuncRelPageApi, remove as FuncApplicationFuncRelRemoveApi} from "../../api/admin/funcApplicationFuncRelAdminApi"
-import {pageFormItems} from "../../compnents/admin/funcApplicationFuncRelManage";
+import {pageFormItems} from "../../components/admin/funcApplicationFuncRelManage";
 
 
 const tableRef = ref(null)

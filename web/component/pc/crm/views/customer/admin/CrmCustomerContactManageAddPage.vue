@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as crmCustomerContactCreateApi} from "../../../api/customer/admin/crmCustomerContactAdminApi"
-import {addPageFormItems} from "../../../compnents/customer/admin/crmCustomerContactManage";
+import {addPageFormItems} from "../../../components/customer/admin/crmCustomerContactManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

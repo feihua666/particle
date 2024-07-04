@@ -4,9 +4,9 @@
  */
 import {reactive, ref} from 'vue'
 import { page as TenantFuncApplicationPageApi, remove as TenantFuncApplicationRemoveApi} from "../../../api/tenantfuncapplication/admin/tenantFuncApplicationAdminApi"
-import {pageFormItems} from "../../../compnents/tenantfuncapplication/admin/tenantFuncApplicationManage";
+import {pageFormItems} from "../../../components/tenantfuncapplication/admin/tenantFuncApplicationManage";
 import {listToTree} from "../../../../../../global/common/tools/ArrayTools";
-import {tenantFuncApplicationColumns} from "../../../compnents/tenantCompItem";
+import {tenantFuncApplicationColumns} from "../../../components/tenantCompItem";
 
 
 const tableRef = ref(null)

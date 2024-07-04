@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as TenantFuncPageApi, remove as TenantFuncRemoveApi} from "../../../api/tenantfunc/admin/tenantFuncAdminApi"
-import {pageFormItems} from "../../../compnents/tenantfunc/admin/tenantFuncManage";
+import {pageFormItems} from "../../../components/tenantfunc/admin/tenantFuncManage";
 import {listToTree} from "../../../../../../global/common/tools/ArrayTools";
 
 

@@ -9,7 +9,7 @@ import {
   list as DataQueryProviderListApi
 } from "../../../api/provider/admin/dataQueryProviderAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/provider/admin/dataQueryProviderManage";
+import {updatePageFormItems} from "../../../components/provider/admin/dataQueryProviderManage";
 
 
 // 声明属性

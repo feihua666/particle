@@ -3,7 +3,7 @@
  * 数据查询数据源管理配置Json页面
  */
 import {onMounted, reactive, ref} from 'vue'
-import {datasourceTypeFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceManage";
+import {datasourceTypeFormItems} from "../../../components/datasource/admin/dataQueryDatasourceManage";
 import {isObject} from "../../../../../../global/common/tools/ObjectTools";
 import {isString} from "../../../../../../global/common/tools/StringTools";
 

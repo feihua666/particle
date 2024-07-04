@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as trackingPageCreateApi,list as TrackingPageListApi} from "../../api/admin/trackingPageAdminApi"
-import {addPageFormItems} from "../../compnents/admin/trackingPageManage";
+import {addPageFormItems} from "../../components/admin/trackingPageManage";
 
 
 // 属性

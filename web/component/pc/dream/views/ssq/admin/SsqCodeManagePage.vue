@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as ssqCodePageApi,allCodeInit,allCodeUpdate,allCodeStop} from "../../../api/ssq/admin/ssqCodeAdminApi"
-import {pageFormItems} from "../../../compnents/ssq/admin/ssqCodeManage";
+import {pageFormItems} from "../../../components/ssq/admin/ssqCodeManage";
 
 
 const tableRef = ref(null)

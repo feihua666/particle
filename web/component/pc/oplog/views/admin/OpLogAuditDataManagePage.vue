@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import { page as opLogAuditDataPageApi, remove as opLogAuditDataRemoveApi} from "../../api/admin/opLogAuditDataAdminApi"
-import { usePageFormItems} from "../../compnents/admin/opLogAuditDataManage";
-import {remoteSelectOpLogProps} from "../../compnents/opLogCompItem";
+import { usePageFormItems} from "../../components/admin/opLogAuditDataManage";
+import {remoteSelectOpLogProps} from "../../components/opLogCompItem";
 
 
 const tableRef = ref(null)

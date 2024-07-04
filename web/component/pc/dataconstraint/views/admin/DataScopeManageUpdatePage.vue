@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../api/admin/dataScopeAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/dataScopeManage";
+import {updatePageFormItems} from "../../components/admin/dataScopeManage";
 
 
 // 声明属性

@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeModelItemCreateApi} from "../../../api/generator/admin/lowcodeModelItemAdminApi"
-import {addPageFormItems} from "../../../compnents/admin/lowcodeModelItemManage";
+import {addPageFormItems} from "../../../components/admin/lowcodeModelItemManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

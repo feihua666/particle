@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeDataSourceCreateApi,list as lowcodeDataSourceListApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
-import {addPageFormItems} from "../../../compnents/admin/lowcodeDataSourceManage";
+import {addPageFormItems} from "../../../components/admin/lowcodeDataSourceManage";
 
 
 // 属性

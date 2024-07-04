@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as systemConfigPageApi, remove as systemConfigRemoveApi} from "../../../api/system/admin/systemConfigAdminApi"
-import {pageFormItems} from "../../../compnents/system/admin/systemConfigManage";
+import {pageFormItems} from "../../../components/system/admin/systemConfigManage";
 
 
 const tableRef = ref(null)

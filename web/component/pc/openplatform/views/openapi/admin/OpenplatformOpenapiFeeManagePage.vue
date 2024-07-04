@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as openplatformOpenapiFeePageApi, remove as openplatformOpenapiFeeRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
-import {pageFormItems} from "../../../compnents/openapi/admin/openplatformOpenapiFeeManage";
+import {pageFormItems} from "../../../components/openapi/admin/openplatformOpenapiFeeManage";
 
 
 const tableRef = ref(null)

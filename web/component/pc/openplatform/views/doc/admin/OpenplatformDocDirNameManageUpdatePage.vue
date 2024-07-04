@@ -9,7 +9,7 @@ import {
   list as OpenplatformDocDirNameListApi
 } from "../../../api/doc/admin/openplatformDocDirNameAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/doc/admin/openplatformDocDirNameManage";
+import {updatePageFormItems} from "../../../components/doc/admin/openplatformDocDirNameManage";
 
 
 // 声明属性

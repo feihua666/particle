@@ -9,7 +9,7 @@ import {
   list as OpenplatformDocApiDirRelListApi
 } from "../../../api/doc/admin/openplatformDocApiDirRelAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/doc/admin/openplatformDocApiDirRelManage";
+import {updatePageFormItems} from "../../../components/doc/admin/openplatformDocApiDirRelManage";
 
 
 // 声明属性

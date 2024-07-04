@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as TenantUserInvitePageApi, remove as TenantUserInviteRemoveApi} from "../../../api/userinvite/admin/tenantUserInviteAdminApi"
-import {pageFormItems} from "../../../compnents/userinvite/admin/tenantUserInviteManage";
+import {pageFormItems} from "../../../components/userinvite/admin/tenantUserInviteManage";
 
 
 const tableRef = ref(null)

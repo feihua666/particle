@@ -5,7 +5,7 @@
 import {reactive ,ref} from 'vue'
 import {create as lowcodeModelCreateApi} from "../../../api/generator/admin/lowcodeModelAdminApi"
 
-import {addPageFormItems} from "../../../compnents/admin/lowcodeModelManage";
+import {addPageFormItems} from "../../../components/admin/lowcodeModelManage";
 
 
 // 属性

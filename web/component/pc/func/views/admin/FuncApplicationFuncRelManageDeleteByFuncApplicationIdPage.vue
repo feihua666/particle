@@ -5,8 +5,8 @@
 import {reactive ,ref} from 'vue'
 import {deleteByFuncApplicationId} from "../../api/admin/funcApplicationFuncRelAdminApi";
 import {list as funcApplicationListApi} from "../../api/application/admin/funcApplicationAdminApi";
-import {remoteSelectFuncApplicationCompItem} from "../../compnents/application/funcApplicationCompItem";
-import {remoteSelectFuncProps} from "../../compnents/funcCompItem";
+import {remoteSelectFuncApplicationCompItem} from "../../components/application/funcApplicationCompItem";
+import {remoteSelectFuncProps} from "../../components/funcCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

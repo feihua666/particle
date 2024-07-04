@@ -7,7 +7,7 @@ import {
   update as lowcodeModelUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../../api/generator/admin/lowcodeModelAdminApi"
-import {updatePageFormItems} from "../../../compnents/admin/lowcodeModelManage";
+import {updatePageFormItems} from "../../../components/admin/lowcodeModelManage";
 
 
 

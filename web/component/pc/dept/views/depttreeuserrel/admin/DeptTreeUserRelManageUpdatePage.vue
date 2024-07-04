@@ -9,7 +9,7 @@ import {
   list as DeptTreeUserRelListApi
 } from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/depttreeuserrel/admin/deptTreeUserRelManage";
+import {updatePageFormItems} from "../../../components/depttreeuserrel/admin/deptTreeUserRelManage";
 
 
 // 声明属性

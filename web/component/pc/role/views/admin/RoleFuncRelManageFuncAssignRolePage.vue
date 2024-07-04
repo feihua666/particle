@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {queryRoleIdsByFuncId, funcAssignRole as funcAssignRoleApi} from "../../api/admin/roleFuncRelAdminApi"
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
+import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/components/funcCompItem";
 import {list as roleListApi} from "../../api/admin/roleAdminApi";
 
 // 声明属性

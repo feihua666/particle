@@ -8,7 +8,7 @@ import {
 } from "../../../api/dataapi/admin/dataQueryDataApiAdminApi.ts"
 
 import {ElMessage} from 'element-plus'
-import {inParamTypeHandler} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
+import {inParamTypeHandler} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
 import {detail as dataQueryDatasourceApiDetailApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
 
 let alert = (message,type='success')=>{

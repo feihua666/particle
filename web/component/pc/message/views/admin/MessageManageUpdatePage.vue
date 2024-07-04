@@ -9,7 +9,7 @@ import {
   list as MessageListApi
 } from "../../api/admin/messageAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/messageManage";
+import {updatePageFormItems} from "../../components/admin/messageManage";
 
 
 // 声明属性

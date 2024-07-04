@@ -9,8 +9,8 @@ import {
   list as areaListApi
 } from "../../api/admin/areaAdminApi"
 
-import LocationGeoMapDialog from '../../compnents/LocationGeoMapDialog.vue'
-import {useUpdatePageFormItems} from "../../compnents/admin/areaManage";
+import LocationGeoMapDialog from '../../components/LocationGeoMapDialog.vue'
+import {useUpdatePageFormItems} from "../../components/admin/areaManage";
 
 const locationGeoMapDialogRef = ref(null)
 

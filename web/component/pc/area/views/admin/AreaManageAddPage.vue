@@ -4,8 +4,8 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as areaCreateApi,list as areaListApi} from "../../api/admin/areaAdminApi"
-import LocationGeoMapDialog from '../../compnents/LocationGeoMapDialog.vue'
-import {userAddPageFormItems} from "../../compnents/admin/areaManage";
+import LocationGeoMapDialog from '../../components/LocationGeoMapDialog.vue'
+import {userAddPageFormItems} from "../../components/admin/areaManage";
 
 const locationGeoMapDialogRef = ref(null)
 // 声明属性

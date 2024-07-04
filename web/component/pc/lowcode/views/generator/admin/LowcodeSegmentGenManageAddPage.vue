@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeSegmentGenCreateApi,list as lowcodeSegmentGenListApi} from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
-import {addPageFormItems} from "../../../compnents/admin/lowcodeSegmentGenManage";
+import {addPageFormItems} from "../../../components/admin/lowcodeSegmentGenManage";
 
 
 // 属性

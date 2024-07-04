@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as openplatformDocApiDocParamFieldCreateApi,list as OpenplatformDocApiDocParamFieldListApi} from "../../../api/doc/admin/openplatformDocApiDocParamFieldAdminApi"
-import {addPageFormItems} from "../../../compnents/doc/admin/openplatformDocApiDocParamFieldManage";
+import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocParamFieldManage";
 
 
 // 属性

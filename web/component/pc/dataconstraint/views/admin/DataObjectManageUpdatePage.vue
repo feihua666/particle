@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../api/admin/dataObjectAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/dataObjectManage";
+import {updatePageFormItems} from "../../components/admin/dataObjectManage";
 
 
 // 声明属性

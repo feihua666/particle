@@ -9,7 +9,7 @@ import {
   list as TrackingPageListApi
 } from "../../api/admin/trackingPageAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/trackingPageManage";
+import {updatePageFormItems} from "../../components/admin/trackingPageManage";
 
 
 // 声明属性

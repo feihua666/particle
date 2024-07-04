@@ -9,7 +9,7 @@ import {
   list as OpenplatformDocApiDocTemplateParamFieldListApi
 } from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
+import {updatePageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
 
 
 // 声明属性

@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../../api/customer/admin/crmCustomerContactAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/customer/admin/crmCustomerContactManage";
+import {updatePageFormItems} from "../../../components/customer/admin/crmCustomerContactManage";
 
 
 // 声明属性

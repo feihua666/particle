@@ -9,7 +9,7 @@ import {
   list as UsageCountConfigListApi
 } from "../../api/admin/usageCountConfigAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/usageCountConfigManage";
+import {updatePageFormItems} from "../../components/admin/usageCountConfigManage";
 
 
 // 声明属性

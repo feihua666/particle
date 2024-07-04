@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {create as userCreateApi, list as userListApi} from "../../api/admin/userAdminApi"
-import {resetPasswordCompItems} from "../../compnents/userCompItem";
-import {addPageFormItems} from "../../compnents/admin/userManage";
+import {resetPasswordCompItems} from "../../components/userCompItem";
+import {addPageFormItems} from "../../components/admin/userManage";
 import {componentEnabled} from "../../../../../common/config/componentsConfig";
 
 // 属性

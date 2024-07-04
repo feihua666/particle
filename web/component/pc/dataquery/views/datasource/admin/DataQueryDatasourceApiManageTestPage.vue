@@ -8,7 +8,7 @@ import {
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {ElMessage} from 'element-plus'
-import {inParamTypeHandler, paramType} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
+import {inParamTypeHandler, paramType} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
 
 let alert = (message,type='success')=>{
   ElMessage({

@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as funcGroupCreateApi} from "../../api/admin/funcGroupAdminApi"
-import {addPageFormItems} from "../../compnents/admin/funcGroupManage";
+import {addPageFormItems} from "../../components/admin/funcGroupManage";
 
 // 属性
 const reactiveData = reactive({

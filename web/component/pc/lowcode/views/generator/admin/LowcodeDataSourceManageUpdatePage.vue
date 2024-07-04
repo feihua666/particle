@@ -7,7 +7,7 @@ import {
   update as lowcodeDataSourceUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
-import {updatePageFormItems} from "../../../compnents/admin/lowcodeDataSourceManage";
+import {updatePageFormItems} from "../../../components/admin/lowcodeDataSourceManage";
 
 
 // 声明属性

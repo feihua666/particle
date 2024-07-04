@@ -9,7 +9,7 @@ import {
 
 import {
   useAuditPageFormItems,
-} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
+} from "../../../components/createapply/admin/tenantCreateApplyManage";
 
 
 // 声明属性

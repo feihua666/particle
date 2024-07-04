@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as feedbackCreateApi,list as FeedbackListApi} from "../../../api/feedback/admin/feedbackAdminApi"
-import {addPageFormItems} from "../../../compnents/feedback/admin/feedbackManage";
+import {addPageFormItems} from "../../../components/feedback/admin/feedbackManage";
 
 
 // 属性

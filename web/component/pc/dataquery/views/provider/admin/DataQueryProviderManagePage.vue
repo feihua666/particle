@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as DataQueryProviderPageApi, remove as DataQueryProviderRemoveApi} from "../../../api/provider/admin/dataQueryProviderAdminApi"
-import {pageFormItems} from "../../../compnents/provider/admin/dataQueryProviderManage";
+import {pageFormItems} from "../../../components/provider/admin/dataQueryProviderManage";
 
 
 const tableRef = ref(null)

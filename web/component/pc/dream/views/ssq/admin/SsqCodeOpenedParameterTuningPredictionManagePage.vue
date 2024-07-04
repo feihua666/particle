@@ -6,7 +6,7 @@ import {reactive, ref} from 'vue'
 import {
   predictionParameterTuning as predictionParameterTuningApi
 } from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
-import { predictionParameterTuningFormItems} from "../../../compnents/ssq/admin/ssqCodeOpenedManage";
+import { predictionParameterTuningFormItems} from "../../../components/ssq/admin/ssqCodeOpenedManage";
 
 
 const tableRef = ref(null)

@@ -9,7 +9,7 @@ import {
   list as DeptListApi
 } from "../../api/admin/deptAdminApi"
 
-import {useUpdatePageFormItems} from "../../compnents/admin/deptManage";
+import {useUpdatePageFormItems} from "../../components/admin/deptManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

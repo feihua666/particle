@@ -9,7 +9,7 @@ import {
   list as OpenplatformOpenapiFeeListApi
 } from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/openapi/admin/openplatformOpenapiFeeManage";
+import {updatePageFormItems} from "../../../components/openapi/admin/openplatformOpenapiFeeManage";
 
 
 // 声明属性

@@ -11,7 +11,7 @@ import {
 
 import {
   useUpdatePageFormItems
-} from "../../../compnents/datasource/admin/dataQueryDatasourceManage";
+} from "../../../components/datasource/admin/dataQueryDatasourceManage";
 import DataQueryDatasourceManageConfigJsonPage from './DataQueryDatasourceManageConfigJsonPage.vue'
 
 

@@ -8,8 +8,8 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../../api/app/admin/openplatformAppAdminApi"
 
-import {useUpdatePageFormItems} from "../../../compnents/app/admin/openplatformAppManage";
-import AppAlgorithmSecretConfigs from '../../../compnents/app/admin/AppAlgorithmSecretConfigs.vue'
+import {useUpdatePageFormItems} from "../../../components/app/admin/openplatformAppManage";
+import AppAlgorithmSecretConfigs from '../../../components/app/admin/AppAlgorithmSecretConfigs.vue'
 
 const appAlgorithmSecretConfigsRef = ref(null)
 

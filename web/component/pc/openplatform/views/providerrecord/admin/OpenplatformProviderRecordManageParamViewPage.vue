@@ -7,7 +7,7 @@ import {
   paramDetailByOpenplatformProviderRecordId
 } from "../../../api/providerrecord/admin/openplatformProviderRecordAdminApi"
 
-import {paramViewPageFormItems} from "../../../compnents/providerrecord/admin/openplatformProviderRecordManage";
+import {paramViewPageFormItems} from "../../../components/providerrecord/admin/openplatformProviderRecordManage";
 
 
 // 声明属性

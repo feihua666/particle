@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as feedbackReplyCreateApi,list as FeedbackReplyListApi} from "../../../api/reply/admin/feedbackReplyAdminApi"
-import {addPageFormItems} from "../../../compnents/reply/admin/feedbackReplyManage";
+import {addPageFormItems} from "../../../components/reply/admin/feedbackReplyManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

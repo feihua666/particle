@@ -9,7 +9,7 @@ import {
 import {
   addPageFormItems,
   parseAndAddPageFormItems
-} from "../../../compnents/doc/admin/openplatformDocApiDocParamFieldManage";
+} from "../../../components/doc/admin/openplatformDocApiDocParamFieldManage";
 
 
 // 属性

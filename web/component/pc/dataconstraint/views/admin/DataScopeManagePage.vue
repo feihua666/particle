@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as dataScopePageApi, remove as dataScopeRemoveApi} from "../../api/admin/dataScopeAdminApi"
-import {pageFormItems} from "../../compnents/admin/dataScopeManage";
+import {pageFormItems} from "../../components/admin/dataScopeManage";
 
 
 const tableRef = ref(null)

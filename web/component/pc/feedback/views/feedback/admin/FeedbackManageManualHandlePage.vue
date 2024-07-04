@@ -7,7 +7,7 @@ import {
   manualHandle as feedbackManualHandleApi
 } from "../../../api/feedback/admin/feedbackAdminApi"
 
-import {manualHandlePageFormItems} from "../../../compnents/feedback/admin/feedbackManage";
+import {manualHandlePageFormItems} from "../../../components/feedback/admin/feedbackManage";
 
 
 // 声明属性

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {userResetPassword} from "../../api/admin/userIdentifierPwdAdminApi"
-import {resetPasswordCompItems} from "../../compnents/userCompItem";
+import {resetPasswordCompItems} from "../../components/userCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

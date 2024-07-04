@@ -8,7 +8,7 @@ import {
   refreshCache as openplatformAppRefreshCacheApi,
   remove as openplatformAppRemoveApi
 } from "../../../api/app/admin/openplatformAppAdminApi"
-import {pageFormItems} from "../../../compnents/app/admin/openplatformAppManage";
+import {pageFormItems} from "../../../components/app/admin/openplatformAppManage";
 
 const tableRef = ref(null)
 

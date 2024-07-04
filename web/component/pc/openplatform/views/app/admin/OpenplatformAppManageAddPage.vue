@@ -4,8 +4,8 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as openplatformAppCreateApi,list as OpenplatformAppListApi} from "../../../api/app/admin/openplatformAppAdminApi"
-import {useAddPageFormItems} from "../../../compnents/app/admin/openplatformAppManage";
-import AppAlgorithmSecretConfigs from '../../../compnents/app/admin/AppAlgorithmSecretConfigs.vue'
+import {useAddPageFormItems} from "../../../components/app/admin/openplatformAppManage";
+import AppAlgorithmSecretConfigs from '../../../components/app/admin/AppAlgorithmSecretConfigs.vue'
 
 const appAlgorithmSecretConfigsRef = ref(null)
 // 声明属性

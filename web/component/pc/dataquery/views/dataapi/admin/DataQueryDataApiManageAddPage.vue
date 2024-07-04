@@ -4,9 +4,9 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as DataQueryDataApiCreateApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
-import {useAddPageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
-import DataQueryDatasourceApiFormItemConfigs from '../../../compnents/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
-import DataQueryDatasApiFormItemConfigs from '../../../compnents/dataapi/admin/DataQueryDatasApiFormItemConfigs.vue'
+import {useAddPageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
+import DataQueryDatasourceApiFormItemConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
+import DataQueryDatasApiFormItemConfigs from '../../../components/dataapi/admin/DataQueryDatasApiFormItemConfigs.vue'
  const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
  const dataQueryDataApiFormItemConfigsRef = ref(null)
 

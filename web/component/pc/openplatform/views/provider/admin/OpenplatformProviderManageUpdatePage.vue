@@ -9,7 +9,7 @@ import {
   list as OpenplatformProviderListApi
 } from "../../../api/provider/admin/openplatformProviderAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/provider/admin/openplatformProviderManage";
+import {updatePageFormItems} from "../../../components/provider/admin/openplatformProviderManage";
 
 
 // 声明属性

@@ -1,5 +1,5 @@
-import LoginForm from './compnents/login/LoginForm.vue'
-import UserinfoDropdown from './compnents/login/UserinfoDropdown.vue'
+import LoginForm from './components/login/LoginForm.vue'
+import UserinfoDropdown from './components/login/UserinfoDropdown.vue'
 // 使用一个模块前缀
 let prefix = 'PtUser'
 let map = {

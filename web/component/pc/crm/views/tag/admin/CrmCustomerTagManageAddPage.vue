@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as crmCustomerTagCreateApi} from "../../../api/tag/admin/crmCustomerTagAdminApi"
-import {addPageFormItems} from "../../../compnents/tag/admin/crmCustomerTagManage";
+import {addPageFormItems} from "../../../components/tag/admin/crmCustomerTagManage";
 
 
 // 属性

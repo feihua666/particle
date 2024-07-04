@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as messageUserStateCreateApi,list as MessageUserStateListApi} from "../../api/admin/messageUserStateAdminApi"
-import {addPageFormItems} from "../../compnents/admin/messageUserStateManage";
+import {addPageFormItems} from "../../components/admin/messageUserStateManage";
 
 
 // 属性

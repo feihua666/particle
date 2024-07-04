@@ -8,9 +8,9 @@ import {
   detailForUpdate as detailForUpdateApi,
 } from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 
-import {useUpdatePageFormItems} from "../../../compnents/createapply/admin/tenantCreateApplyManage";
+import {useUpdatePageFormItems} from "../../../components/createapply/admin/tenantCreateApplyManage";
 import { ElMessage } from 'element-plus'
-import TenantCreateApplyFuncApplication from '../../../compnents/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+import TenantCreateApplyFuncApplication from '../../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)
 // 传递已选中数据时不能使用form.extJsonObj,会引起副作用依赖循环，这里单独加一个

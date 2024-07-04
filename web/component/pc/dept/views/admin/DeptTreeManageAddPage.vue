@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as DeptTreeCreateApi,list as DeptTreeListApi} from "../../api/admin/deptTreeAdminApi"
-import {addPageFormItems} from "../../compnents/admin/deptTreeManage";
+import {addPageFormItems} from "../../components/admin/deptTreeManage";
 
 
 // 属性

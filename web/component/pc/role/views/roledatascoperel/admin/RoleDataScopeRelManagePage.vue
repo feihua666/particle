@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as roleDataScopeRelPageApi, remove as roleDataScopeRelRemoveApi} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
-import {pageFormItems} from "../../../compnents/roledatascoperel/admin/roleDataScopeRelManage";
+import {pageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 
 
 const tableRef = ref(null)

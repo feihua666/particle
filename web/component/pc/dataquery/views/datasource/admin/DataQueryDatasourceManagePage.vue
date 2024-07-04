@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as DataQueryDatasourcePageApi, remove as DataQueryDatasourceRemoveApi} from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
-import {pageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceManage";
+import {pageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceManage";
 
 
 const tableRef = ref(null)

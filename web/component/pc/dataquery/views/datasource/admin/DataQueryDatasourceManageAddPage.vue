@@ -4,7 +4,7 @@
  */
 import {computed, reactive, ref} from 'vue'
 import {create as DataQueryDatasourceCreateApi,list as DataQueryDatasourceListApi} from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
-import { useAddPageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceManage";
+import { useAddPageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceManage";
 import DataQueryDatasourceManageConfigJsonPage from './DataQueryDatasourceManageConfigJsonPage.vue'
 
 

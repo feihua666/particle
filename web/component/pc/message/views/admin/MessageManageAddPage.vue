@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as messageCreateApi,list as MessageListApi} from "../../api/admin/messageAdminApi"
-import {addPageFormItems} from "../../compnents/admin/messageManage";
+import {addPageFormItems} from "../../components/admin/messageManage";
 
 // 属性
 const reactiveData = reactive({

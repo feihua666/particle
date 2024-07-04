@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as TenantFuncApplicationCreateApi,list as TenantFuncApplicationListApi} from "../../../api/tenantfuncapplication/admin/tenantFuncApplicationAdminApi"
-import {addPageFormItems} from "../../../compnents/tenantfuncapplication/admin/tenantFuncApplicationManage";
+import {addPageFormItems} from "../../../components/tenantfuncapplication/admin/tenantFuncApplicationManage";
 
 
 // 属性

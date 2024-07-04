@@ -9,7 +9,7 @@ import {
   list as OpenplatformDocApiDocResponseCodeListApi
 } from "../../../api/doc/admin/openplatformDocApiDocResponseCodeAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/doc/admin/openplatformDocApiDocResponseCodeManage";
+import {updatePageFormItems} from "../../../components/doc/admin/openplatformDocApiDocResponseCodeManage";
 
 
 // 声明属性

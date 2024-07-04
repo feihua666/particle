@@ -8,7 +8,7 @@ import {
   remove as lowcodeSegmentGenRemoveApi
 } from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
 import {exist} from "../../../../../../global/common/tools/ArrayTools";
-import {pageFormItems} from "../../../compnents/admin/lowcodeSegmentGenManage";
+import {pageFormItems} from "../../../components/admin/lowcodeSegmentGenManage";
 
 const tableRef = ref(null)
 

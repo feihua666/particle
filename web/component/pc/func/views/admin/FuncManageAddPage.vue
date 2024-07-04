@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {create as funcCreateApi} from "../../api/admin/funcAdminApi"
-import {useAddPageFormItems} from "../../compnents/admin/funcManage";
+import {useAddPageFormItems} from "../../components/admin/funcManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

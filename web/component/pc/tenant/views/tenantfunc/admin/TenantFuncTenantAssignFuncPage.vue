@@ -5,7 +5,7 @@
 import {reactive ,ref} from 'vue'
 import {list as funcListApi} from "../../../../func/api/admin/funcAdminApi";
 
-import {selectTenantProps, useSelectTenantCompItem} from "../../../compnents/tenantCompItem";
+import {selectTenantProps, useSelectTenantCompItem} from "../../../components/tenantCompItem";
 import {tenantAssignFunc, queryFuncIdsByTenantId} from "../../../api/tenantfunc/admin/tenantFuncAdminApi";
 
 // 声明属性

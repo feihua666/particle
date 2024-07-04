@@ -7,7 +7,7 @@ import {
   update as funcGroupUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../api/admin/funcGroupAdminApi"
-import {updatePageFormItems} from "../../compnents/admin/funcGroupManage";
+import {updatePageFormItems} from "../../components/admin/funcGroupManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

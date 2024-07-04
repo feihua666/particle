@@ -3,11 +3,11 @@
  * 低代码片段生成设计和渲染页面
  */
 
-import LowcodeSegmentGenGenericDesignAndGenerate from '../../../../../compnents/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
+import LowcodeSegmentGenGenericDesignAndGenerate from '../../../../../components/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
 import {
   defaultParentPackage,
   genericFormComps, useModelFormComps
-} from "../../../../../compnents/admin/segmentgen/designandgenerate/lowcodeSegmentGenGenericDesignAndGenerate";
+} from "../../../../../components/admin/segmentgen/designandgenerate/lowcodeSegmentGenGenericDesignAndGenerate";
 import {upperFirst} from "../../../../../../../../global/common/tools/StringTools";
 import {detail as segmentGenDetailApi} from "../../../../../api/generator/admin/lowcodeSegmentGenAdminApi";
 

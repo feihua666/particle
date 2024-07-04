@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi,
   list as lowcodeSegmentTemplateListApi
 } from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
-import {updatePageFormItems} from "../../../compnents/admin/lowcodeSegmentTemplateManage";
+import {updatePageFormItems} from "../../../components/admin/lowcodeSegmentTemplateManage";
 
 
 

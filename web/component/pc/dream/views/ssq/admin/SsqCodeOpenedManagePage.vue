@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as ssqCodeOpenedPageApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
-import {pageFormItems} from "../../../compnents/ssq/admin/ssqCodeOpenedManage";
+import {pageFormItems} from "../../../components/ssq/admin/ssqCodeOpenedManage";
 import {allCodeInit, allCodeStop, allCodeUpdate} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 
 

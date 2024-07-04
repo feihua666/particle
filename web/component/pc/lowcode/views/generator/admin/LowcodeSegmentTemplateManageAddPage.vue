@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as lowcodeSegmentTemplateCreateApi,list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
-import {addPageFormItems} from "../../../compnents/admin/lowcodeSegmentTemplateManage";
+import {addPageFormItems} from "../../../components/admin/lowcodeSegmentTemplateManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

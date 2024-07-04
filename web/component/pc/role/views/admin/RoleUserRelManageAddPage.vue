@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as roleUserRelCreateApi} from "../../api/admin/roleUserRelAdminApi"
-import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/compnents/userCompItem";
+import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/components/userCompItem";
 import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
 
 // 声明属性

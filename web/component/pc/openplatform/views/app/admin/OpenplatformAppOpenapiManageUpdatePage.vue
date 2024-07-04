@@ -9,7 +9,7 @@ import {
   list as OpenplatformAppOpenapiListApi
 } from "../../../api/app/admin/openplatformAppOpenapiAdminApi"
 
-import {useUpdatePageFormItems} from "../../../compnents/app/admin/openplatformAppOpenapiManage";
+import {useUpdatePageFormItems} from "../../../components/app/admin/openplatformAppOpenapiManage";
 
 
 // 声明属性

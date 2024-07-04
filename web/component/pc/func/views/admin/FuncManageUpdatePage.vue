@@ -10,7 +10,7 @@ import {
 } from "../../api/admin/funcAdminApi"
 import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import {useUpdatePageFormItems} from "../../compnents/admin/funcManage";
+import {useUpdatePageFormItems} from "../../components/admin/funcManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

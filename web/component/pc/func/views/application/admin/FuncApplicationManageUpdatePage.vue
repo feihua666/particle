@@ -9,7 +9,7 @@ import {
   list as FuncApplicationListApi
 } from "../../../api/application/admin/funcApplicationAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/application/admin/funcApplicationManage";
+import {updatePageFormItems} from "../../../components/application/admin/funcApplicationManage";
 
 
 // 声明属性

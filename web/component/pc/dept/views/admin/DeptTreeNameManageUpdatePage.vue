@@ -9,7 +9,7 @@ import {
   list as DeptTreeNameListApi
 } from "../../api/admin/deptTreeNameAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/deptTreeNameManage";
+import {updatePageFormItems} from "../../components/admin/deptTreeNameManage";
 
 
 // 声明属性

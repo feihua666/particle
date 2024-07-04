@@ -9,7 +9,7 @@ import {
   list as MessageUserStateListApi
 } from "../../api/admin/messageUserStateAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/messageUserStateManage";
+import {updatePageFormItems} from "../../components/admin/messageUserStateManage";
 
 
 // 声明属性

@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {create as userIdentifierCreateApi} from "../../api/admin/userIdentifierAdminApi"
-import { remoteSelectUserProps} from "../../compnents/userCompItem";
-import {useAddPageFormItems} from "../../compnents/admin/userIdentifierManage";
+import { remoteSelectUserProps} from "../../components/userCompItem";
+import {useAddPageFormItems} from "../../components/admin/userIdentifierManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

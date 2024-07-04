@@ -8,9 +8,9 @@ import {
   detailForUpdate as detailForUpdateApi,
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
-import {useUpdatePageFormItems} from "../../../compnents/datasource/admin/dataQueryDatasourceApiManage";
-import DataQueryDatasourceApiFormItemConfigs from '../../../compnents/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
-import DataQueryDatasourceApiFormItemBasicConfigs from '../../../compnents/datasource/admin/DataQueryDatasourceApiFormItemBasicConfigs.vue'
+import {useUpdatePageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
+import DataQueryDatasourceApiFormItemConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
+import DataQueryDatasourceApiFormItemBasicConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemBasicConfigs.vue'
 
 const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
 const dataQueryDatasourceApiFormItemBasicConfigsRef = ref(null)

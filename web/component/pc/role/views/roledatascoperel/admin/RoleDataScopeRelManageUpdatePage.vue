@@ -10,7 +10,7 @@ import {
 
 import {
   useUpdatePageFormItems
-} from "../../../compnents/roledatascoperel/admin/roleDataScopeRelManage";
+} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 import {remoteSelectRoleProps} from "../../../components/roleCompItem";
 
 

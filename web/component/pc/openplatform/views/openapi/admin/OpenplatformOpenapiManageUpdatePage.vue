@@ -9,7 +9,7 @@ import {
   list as OpenplatformOpenapiListApi
 } from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/openapi/admin/openplatformOpenapiManage";
+import {updatePageFormItems} from "../../../components/openapi/admin/openplatformOpenapiManage";
 import {cloneObj} from "../../../../../../global/common/tools/ObjectTools";
 
 

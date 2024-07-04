@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../../api/system/admin/systemConfigAdminApi"
 
-import {updatePageFormItems} from "../../../compnents/system/admin/systemConfigManage";
+import {updatePageFormItems} from "../../../components/system/admin/systemConfigManage";
 
 
 // 声明属性

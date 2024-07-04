@@ -7,7 +7,7 @@ import {
   update as userIdentifierPwdUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../api/admin/userIdentifierPwdAdminApi"
-import {updatePageFormItems} from "../../compnents/admin/userIdentifierPwdManage";
+import {updatePageFormItems} from "../../components/admin/userIdentifierPwdManage";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

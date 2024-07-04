@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as messagePageApi, remove as messageRemoveApi} from "../../api/admin/messageAdminApi"
-import {pageFormItems} from "../../compnents/admin/messageManage";
+import {pageFormItems} from "../../components/admin/messageManage";
 
 
 const tableRef = ref(null)

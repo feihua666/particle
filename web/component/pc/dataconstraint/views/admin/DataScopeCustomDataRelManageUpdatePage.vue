@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../api/admin/dataScopeCustomDataRelAdminApi"
 
-import {updatePageFormItems} from "../../compnents/admin/dataScopeCustomDataRelManage";
+import {updatePageFormItems} from "../../components/admin/dataScopeCustomDataRelManage";
 
 
 // 声明属性

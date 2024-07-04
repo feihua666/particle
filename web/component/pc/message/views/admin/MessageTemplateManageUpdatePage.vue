@@ -9,9 +9,9 @@ import {
   list as MessageTemplateListApi
 } from "../../api/admin/messageTemplateAdminApi"
 
-import {useUpdatePageFormItems} from "../../compnents/admin/messageTemplateManage";
+import {useUpdatePageFormItems} from "../../components/admin/messageTemplateManage";
 import {isEmpty} from "../../../../../global/common/tools/ObjectTools";
-import MessageTemplateContentDetailJson from '../../compnents/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
+import MessageTemplateContentDetailJson from '../../components/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
 const contentDetailJsonDialogVisible = ref(false)
 const contentDetailJsonRef = ref(null)
 

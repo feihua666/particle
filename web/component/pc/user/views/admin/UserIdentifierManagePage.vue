@@ -4,9 +4,9 @@
  */
 import {reactive, ref} from 'vue'
 import { page as userIdentifierPageApi, remove as userIdentifierRemoveApi} from "../../api/admin/userIdentifierAdminApi"
-import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../compnents/userCompItem";
-import {usePageFormItems} from "../../compnents/admin/userIdentifierManage";
-import {userIdentifierColumns} from "../../compnents/userIdentifierCompItem";
+import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../components/userCompItem";
+import {usePageFormItems} from "../../components/admin/userIdentifierManage";
+import {userIdentifierColumns} from "../../components/userIdentifierCompItem";
 
 const tableRef = ref(null)
 // 声明属性

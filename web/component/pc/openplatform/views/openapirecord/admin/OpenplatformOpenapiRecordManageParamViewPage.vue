@@ -5,7 +5,7 @@
 import {reactive, ref} from 'vue'
 import {paramDetailByOpenplatformOpenapiRecordId} from "../../../api/openapirecord/admin/openplatformOpenapiRecordAdminApi"
 
-import {paramViewPageFormItems} from "../../../compnents/openapirecord/admin/openplatformOpenapiRecordManage";
+import {paramViewPageFormItems} from "../../../components/openapirecord/admin/openplatformOpenapiRecordManage";
 
 
 // 声明属性

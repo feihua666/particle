@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as deptTreeUserRelPageApi, remove as deptTreeUserRelRemoveApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
-import {pageFormItems} from "../../../compnents/depttreeuserrel/admin/deptTreeUserRelManage";
+import {pageFormItems} from "../../../components/depttreeuserrel/admin/deptTreeUserRelManage";
 
 
 const tableRef = ref(null)

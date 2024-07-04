@@ -3,7 +3,7 @@
  * 租户分配功能应用页面
  */
 import {reactive ,ref} from 'vue'
-import {selectTenantProps, useSelectTenantCompItem} from "../../../compnents/tenantCompItem";
+import {selectTenantProps, useSelectTenantCompItem} from "../../../components/tenantCompItem";
 import {list as funcApplicationListApi} from "../../../../func/api/application/admin/funcApplicationAdminApi";
 import {
   queryFuncApplicationIdsByTenantId,

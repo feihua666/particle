@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {page as roleFuncRelPageApi, remove as roleFuncRelRemoveApi} from "../../api/admin/roleFuncRelAdminApi"
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/compnents/funcCompItem";
+import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/components/funcCompItem";
 import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
 
 const tableRef = ref(null)

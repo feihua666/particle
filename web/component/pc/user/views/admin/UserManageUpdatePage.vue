@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi,
   list as userListApi
 } from "../../api/admin/userAdminApi"
-import {addPageFormItems, updatePageFormItems} from "../../compnents/admin/userManage";
+import {addPageFormItems, updatePageFormItems} from "../../components/admin/userManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

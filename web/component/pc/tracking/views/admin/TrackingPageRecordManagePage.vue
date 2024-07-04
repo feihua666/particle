@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as trackingPageRecordPageApi, remove as trackingPageRecordRemoveApi} from "../../api/admin/trackingPageRecordAdminApi"
-import {pageFormItems} from "../../compnents/admin/trackingPageRecordManage";
+import {pageFormItems} from "../../components/admin/trackingPageRecordManage";
 
 
 const tableRef = ref(null)

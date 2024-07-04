@@ -1,4 +1,4 @@
-import LoginMenu from './compnents/login/LoginMenu.vue'
+import LoginMenu from './components/login/LoginMenu.vue'
 // 使用一个模块前缀
 let prefix = 'PtFunc'
 let map = {

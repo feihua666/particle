@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as opLogPageApi, remove as opLogRemoveApi} from "../../api/admin/opLogAdminApi"
-import {pageFormItems} from "../../compnents/admin/opLogManage";
+import {pageFormItems} from "../../components/admin/opLogManage";
 
 
 const tableRef = ref(null)

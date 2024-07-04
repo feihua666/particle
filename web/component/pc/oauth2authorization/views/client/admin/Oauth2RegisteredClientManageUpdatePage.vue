@@ -12,8 +12,8 @@ import {
   convertLoadedData,
   convertSubmitForm,
   useUpdatePageFormItems
-} from "../../../compnents/client/admin/oauth2RegisteredClientManage";
-import Oauth2RegisteredClientManageSettingConfigs from '../../../compnents/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
+} from "../../../components/client/admin/oauth2RegisteredClientManage";
+import Oauth2RegisteredClientManageSettingConfigs from '../../../components/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
 
 const oauth2RegisteredClientManageSettingConfigsRef = ref(null)
 // 声明属性

@@ -8,7 +8,7 @@ import {
 } from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
 import {
   parseAndAddPageFormItems
-} from "../../../compnents/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
+} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
 
 
 // 属性

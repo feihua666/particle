@@ -7,7 +7,7 @@ import {
   page as lowcodeModelItemPageApi,
   remove as lowcodeModelItemRemoveApi,
 } from "../../../api/generator/admin/lowcodeModelItemAdminApi"
-import {pageFormItems} from "../../../compnents/admin/lowcodeModelItemManage";
+import {pageFormItems} from "../../../components/admin/lowcodeModelItemManage";
 
 const tableRef = ref(null)
 // 声明属性

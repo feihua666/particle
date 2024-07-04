@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as openplatformDocDirCreateApi,list as OpenplatformDocDirListApi} from "../../../api/doc/admin/openplatformDocDirAdminApi"
-import {addPageFormItems} from "../../../compnents/doc/admin/openplatformDocDirManage";
+import {addPageFormItems} from "../../../components/doc/admin/openplatformDocDirManage";
 
 
 // 属性

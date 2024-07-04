@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi,refreshCache as DataQueryDataApiRefreshCacheApi, copy as DataQueryDataApiCopyApi, copydev as DataQueryDataApiCopydevApi,devMergeToMaster as DataQueryDataApiDevMergeToMasterApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
-import {pageFormItems} from "../../../compnents/dataapi/admin/dataQueryDataApiManage";
+import {pageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
 import {
   devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as crmDeptPageApi, remove as crmDeptRemoveApi} from "../../../api/company/admin/crmDeptAdminApi"
-import {pageFormItems} from "../../../compnents/company/admin/crmDeptManage";
+import {pageFormItems} from "../../../components/company/admin/crmDeptManage";
 
 
 const tableRef = ref(null)

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as usageCountConfigPageApi, remove as usageCountConfigRemoveApi} from "../../api/admin/usageCountConfigAdminApi"
-import {pageFormItems} from "../../compnents/admin/usageCountConfigManage";
+import {pageFormItems} from "../../components/admin/usageCountConfigManage";
 
 
 const tableRef = ref(null)

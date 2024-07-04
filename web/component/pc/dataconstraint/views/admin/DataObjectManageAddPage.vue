@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as dataObjectCreateApi} from "../../api/admin/dataObjectAdminApi"
-import {addPageFormItems} from "../../compnents/admin/dataObjectManage";
+import {addPageFormItems} from "../../components/admin/dataObjectManage";
 
 
 // 属性

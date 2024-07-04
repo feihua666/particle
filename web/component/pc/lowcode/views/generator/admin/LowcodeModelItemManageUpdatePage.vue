@@ -7,7 +7,7 @@ import {
   update as lowcodeModelItemUpdateApi,
   detailForUpdate as detailForUpdateApi,
 } from "../../../api/generator/admin/lowcodeModelItemAdminApi"
-import {updatePageFormItems} from "../../../compnents/admin/lowcodeModelItemManage";
+import {updatePageFormItems} from "../../../components/admin/lowcodeModelItemManage";
 
 
 // 声明属性

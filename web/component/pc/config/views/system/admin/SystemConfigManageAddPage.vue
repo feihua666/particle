@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as systemConfigCreateApi} from "../../../api/system/admin/systemConfigAdminApi"
-import {addPageFormItems} from "../../../compnents/system/admin/systemConfigManage";
+import {addPageFormItems} from "../../../components/system/admin/systemConfigManage";
 
 
 // 属性

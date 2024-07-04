@@ -7,9 +7,9 @@ import { page as userIdentifierPwdPageApi, remove as userIdentifierPwdRemoveApi}
 import {
   remoteSelectUserIdentifierProps,
   remoteSelectUserProps
-} from "../../compnents/userCompItem";
-import {usePageFormItems} from "../../compnents/admin/userIdentifierPwdManage";
-import {userIdentifierPwdColumns} from "../../compnents/userIdentifierPwdCompItem";
+} from "../../components/userCompItem";
+import {usePageFormItems} from "../../components/admin/userIdentifierPwdManage";
+import {userIdentifierPwdColumns} from "../../components/userIdentifierPwdCompItem";
 
 const tableRef = ref(null)
 // 声明属性

@@ -4,7 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import { page as feedbackReplyPageApi, remove as feedbackReplyRemoveApi} from "../../../api/reply/admin/feedbackReplyAdminApi"
-import {pageFormItems} from "../../../compnents/reply/admin/feedbackReplyManage";
+import {pageFormItems} from "../../../components/reply/admin/feedbackReplyManage";
 
 
 const tableRef = ref(null)

@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as FuncApplicationFuncRelCreateApi,list as FuncApplicationFuncRelListApi} from "../../api/admin/funcApplicationFuncRelAdminApi"
-import {addPageFormItems} from "../../compnents/admin/funcApplicationFuncRelManage";
+import {addPageFormItems} from "../../components/admin/funcApplicationFuncRelManage";
 
 
 // 属性
