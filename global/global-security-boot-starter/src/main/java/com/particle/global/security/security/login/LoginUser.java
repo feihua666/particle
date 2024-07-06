@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -113,6 +114,10 @@ public class LoginUser implements UserDetails {
     @Schema(description = "当前正在使用的角色")
     private GrantedRole currentRole;
 
+    @JsonView(UserWebIgnoreView.class)
+    @Schema(description = "当前正在使用的角色绑定的数据范围约束")
+    private List<GrantedDataConstraint> currentRoleBindDataConstraints;
+
     @Schema(description = "部门信息")
     private DeptInfo deptInfo;
 
@@ -173,12 +178,12 @@ public class LoginUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return getIsEnabled();
-    }
+        }
 
 
     /**
      * 切换租户
-     * todo 该方法暂不可能，因为切换租户并没有这么简单，这涉及租户对应的权限重新加载
+     * 参见 {@link com.particle.user.adapter.login.UserLoginController#changeTenant(com.particle.common.client.dto.command.IdCommand, LoginUser, HttpServletRequest)}
      * @param tenantId
      */
     public void changeTenant(Long tenantId) {
@@ -190,14 +195,19 @@ public class LoginUser implements UserDetails {
     }
     /**
      * 切换角色
+     * 参见{@link com.particle.user.adapter.login.UserLoginController#changeRole(com.particle.common.client.dto.command.IdCommand, LoginUser)}
      * @param roleId
      */
     public void changeRole(Long roleId) {
-        if (CollectionUtil.isNotEmpty(tenants)) {
+        if (CollectionUtil.isNotEmpty(roles)) {
 
             GrantedRole grantedRole = roles.stream().filter(item -> item.getId().equals(roleId)).findFirst().get();
             currentRole = grantedRole;
         }
+    }
+
+    public void changRole(GrantedRole grantedRole) {
+        this.currentRole = grantedRole;
     }
     /**
      * 根据权限初始化角色
@@ -214,7 +224,7 @@ public class LoginUser implements UserDetails {
         }
         if (currentRole == null) {
             if (CollectionUtil.isNotEmpty(roles)) {
-                currentRole = roles.iterator().next();
+                changRole(roles.iterator().next());
             }
         }else {
             if (CollectionUtil.isNotEmpty(roles)) {
@@ -223,14 +233,19 @@ public class LoginUser implements UserDetails {
                 if (count <= 0) {
                     GrantedRole newCurrentRole = roles.iterator().next();
                     log.warn("currentRole changed to {} because of user roles not include old role {}", JsonTool.toJsonStr(newCurrentRole),JsonTool.toJsonStr(newCurrentRole));
-                    currentRole = newCurrentRole;
+                    changRole(newCurrentRole);
                 }
             }else {
                 // 用户没有可用角色，将当前角色清空
-                currentRole = null;
+                changRole(null);
             }
         }
     }
+
+    /**
+     * 该方法返回的值将会输出的前端接口调用
+     * @return
+     */
     public List<String> getPermissions() {
         if (CollectionUtil.isEmpty(userGrantedAuthorities)) {
             return Collections.emptyList();
@@ -240,6 +255,14 @@ public class LoginUser implements UserDetails {
                 .filter(Objects::nonNull).map(GrantedPermission::getPermission).filter(Objects::nonNull).distinct()
                 .collect(Collectors.toList());
 
+    }
+
+    /**
+     * 从当前用户获取最终数据范围约束，目前只支持角色绑定的数据范围约束，后期可能添加针对人直接绑定的数据范围约束
+     * @return
+     */
+    public List<GrantedDataConstraint> finalizeDataConstraints() {
+        return currentRoleBindDataConstraints;
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.particle.message.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.message.client.api.IMessageTemplateApplicationService;
 import com.particle.message.client.api.representation.IMessageTemplateRepresentationApplicationService;
 import com.particle.message.client.dto.command.MessageTemplateCreateCommand;
@@ -55,6 +57,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
 	public SingleResponse<MessageTemplateVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_message_message_template, DataConstraintContext.Action.delete.name());
 		return iMessageTemplateApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.update)
 	public SingleResponse<MessageTemplateVO> update(@RequestBody MessageTemplateUpdateCommand messageTemplateUpdateCommand){
+		messageTemplateUpdateCommand.dcdo(DataConstraintConstants.data_object_message_message_template,DataConstraintContext.Action.update.name());
 		return iMessageTemplateApplicationService.update(messageTemplateUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询消息模板")
 	@GetMapping("/list")
 	public MultiResponse<MessageTemplateVO> queryList(MessageTemplateQueryListCommand messageTemplateQueryListCommand){
+		messageTemplateQueryListCommand.dcdo(DataConstraintConstants.data_object_message_message_template,DataConstraintContext.Action.query.name());
 		return iMessageTemplateRepresentationApplicationService.queryList(messageTemplateQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询消息模板")
 	@GetMapping("/page")
 	public PageResponse<MessageTemplateVO> pageQueryList(MessageTemplatePageQueryCommand messageTemplatePageQueryCommand){
+		messageTemplatePageQueryCommand.dcdo(DataConstraintConstants.data_object_message_message_template,DataConstraintContext.Action.query.name());
 		return iMessageTemplateRepresentationApplicationService.pageQuery(messageTemplatePageQueryCommand);
 	}
 

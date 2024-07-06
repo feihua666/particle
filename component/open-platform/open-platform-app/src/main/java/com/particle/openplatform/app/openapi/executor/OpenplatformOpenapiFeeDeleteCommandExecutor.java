@@ -39,7 +39,7 @@ public class OpenplatformOpenapiFeeDeleteCommandExecutor  extends AbstractBaseEx
 		OpenplatformOpenapiFeeId openplatformOpenapiFeeId = OpenplatformOpenapiFeeId.of(deleteCommand.getId());
 		OpenplatformOpenapiFee byId = openplatformOpenapiFeeGateway.getById(openplatformOpenapiFeeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformOpenapiFeeGateway.delete(openplatformOpenapiFeeId);
+		boolean delete = openplatformOpenapiFeeGateway.delete(openplatformOpenapiFeeId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformOpenapiFeeAppStructMapping.instance.toOpenplatformOpenapiFeeVO(byId));
 		}

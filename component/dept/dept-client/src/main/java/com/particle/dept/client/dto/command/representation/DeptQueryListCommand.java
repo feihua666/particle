@@ -48,24 +48,4 @@ public class DeptQueryListCommand extends AbstractBaseTreeQueryCommand {
     private Boolean isComp;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

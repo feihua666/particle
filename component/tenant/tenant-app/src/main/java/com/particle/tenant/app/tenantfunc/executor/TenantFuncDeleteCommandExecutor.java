@@ -39,7 +39,7 @@ public class TenantFuncDeleteCommandExecutor  extends AbstractBaseExecutor {
 		TenantFuncId tenantFuncId = TenantFuncId.of(deleteCommand.getId());
 		TenantFunc byId = tenantFuncGateway.getById(tenantFuncId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = tenantFuncGateway.delete(tenantFuncId);
+		boolean delete = tenantFuncGateway.delete(tenantFuncId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TenantFuncAppStructMapping.instance.toTenantFuncVO(byId));
 		}

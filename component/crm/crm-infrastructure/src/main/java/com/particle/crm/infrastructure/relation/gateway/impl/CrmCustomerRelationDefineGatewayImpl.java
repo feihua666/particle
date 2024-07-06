@@ -8,6 +8,7 @@ import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDefineDO;
 import com.particle.crm.infrastructure.relation.structmapping.CrmCustomerRelationDefineInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class CrmCustomerRelationDefineGatewayImpl extends AbstractBaseGatewayImp
 		return iCrmCustomerRelationDefineService.deleteById(crmCustomerRelationDefineId.getId());
 	}
 
+	@Override
+	public boolean delete(CrmCustomerRelationDefineId id, IdCommand idCommand) {
+		return iCrmCustomerRelationDefineService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setICrmCustomerRelationDefineService(ICrmCustomerRelationDefineService iCrmCustomerRelationDefineService) {

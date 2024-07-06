@@ -39,7 +39,7 @@ public class CrmCustomerDeleteCommandExecutor  extends AbstractBaseExecutor {
 		CrmCustomerId crmCustomerId = CrmCustomerId.of(deleteCommand.getId());
 		CrmCustomer byId = crmCustomerGateway.getById(crmCustomerId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = crmCustomerGateway.delete(crmCustomerId);
+		boolean delete = crmCustomerGateway.delete(crmCustomerId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(CrmCustomerAppStructMapping.instance.toCrmCustomerVO(byId));
 		}

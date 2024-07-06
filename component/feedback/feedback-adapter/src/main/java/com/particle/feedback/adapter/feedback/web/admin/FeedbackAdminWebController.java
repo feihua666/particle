@@ -2,6 +2,7 @@ package com.particle.feedback.adapter.feedback.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
 import com.particle.feedback.client.feedback.api.representation.IFeedbackRepresentationApplicationService;
@@ -11,6 +12,7 @@ import com.particle.feedback.client.feedback.dto.command.representation.Feedback
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackQueryListCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -51,6 +53,7 @@ public class FeedbackAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除意见反馈",module = OpLogConstants.Module.feedback,type = OpLogConstants.Type.delete)
 	public SingleResponse<FeedbackVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_feedback_feedback, DataConstraintContext.Action.delete.name());
 		return iFeedbackApplicationService.delete(deleteCommand);
 	}
 
@@ -65,6 +68,7 @@ public class FeedbackAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询意见反馈")
 	@GetMapping("/list")
 	public MultiResponse<FeedbackVO> queryList(FeedbackQueryListCommand feedbackQueryListCommand){
+		feedbackQueryListCommand.dcdo(DataConstraintConstants.data_object_feedback_feedback,DataConstraintContext.Action.query.name());
 		return iFeedbackRepresentationApplicationService.queryList(feedbackQueryListCommand);
 	}
 
@@ -72,6 +76,7 @@ public class FeedbackAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询意见反馈")
 	@GetMapping("/page")
 	public PageResponse<FeedbackVO> pageQueryList(FeedbackPageQueryCommand feedbackPageQueryCommand){
+		feedbackPageQueryCommand.dcdo(DataConstraintConstants.data_object_feedback_feedback,DataConstraintContext.Action.query.name());
 		return iFeedbackRepresentationApplicationService.pageQuery(feedbackPageQueryCommand);
 	}
 

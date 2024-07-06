@@ -38,6 +38,7 @@ public class OpLogConstants {
 		public static final String config = "config";
 		// 客户
 		public static final String crm = "crm";
+		public static final String dataconstraint = "dataconstraint";
 
 		public static final String unknown = "unknown";
 

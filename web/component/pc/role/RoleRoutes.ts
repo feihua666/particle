@@ -53,6 +53,20 @@ const RoleRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/roleManageRoleAssignDataScope',
+                component: () => import('./views/roledatascoperel/admin/RoleDataScopeRelManageRoleAssignDataScopePage.vue'),
+                props: route => ({ roleId: route.query.roleId, roleName: route.query.roleName }),
+                meta: {
+                    showInDrawer: true,
+                    code:'roleManageRoleAssignDataScope',
+                    name: '角色分配数据范围',
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '.pt-route-view-popover-drawer-footer'
+                    }
+                }
+            },
         ]
     },
     {

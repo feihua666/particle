@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.doc.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.doc.OpenplatformDocDirName;
 import com.particle.openplatform.domain.doc.OpenplatformDocDirNameId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocDirNameGateway;
@@ -51,6 +52,10 @@ public class OpenplatformDocDirNameGatewayImpl extends AbstractBaseGatewayImpl<O
 		return iOpenplatformDocDirNameService.deleteById(openplatformDocDirNameId.getId());
 	}
 
+	@Override
+	public boolean delete(OpenplatformDocDirNameId id, IdCommand idCommand) {
+		return iOpenplatformDocDirNameService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpenplatformDocDirNameService(IOpenplatformDocDirNameService iOpenplatformDocDirNameService) {

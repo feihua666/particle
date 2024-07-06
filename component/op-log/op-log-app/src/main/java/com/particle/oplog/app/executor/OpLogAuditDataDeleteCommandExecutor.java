@@ -39,7 +39,7 @@ public class OpLogAuditDataDeleteCommandExecutor  extends AbstractBaseExecutor {
 		OpLogAuditDataId opLogAuditDataId = OpLogAuditDataId.of(deleteCommand.getId());
 		OpLogAuditData byId = opLogAuditDataGateway.getById(opLogAuditDataId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = opLogAuditDataGateway.delete(opLogAuditDataId);
+		boolean delete = opLogAuditDataGateway.delete(opLogAuditDataId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpLogAuditDataAppStructMapping.instance.toOpLogAuditDataVO(byId));
 		}

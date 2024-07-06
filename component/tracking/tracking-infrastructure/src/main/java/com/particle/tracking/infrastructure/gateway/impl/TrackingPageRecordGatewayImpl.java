@@ -1,6 +1,7 @@
 package com.particle.tracking.infrastructure.gateway.impl;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.TrackingPageRecordId;
 import com.particle.tracking.domain.gateway.TrackingPageRecordGateway;
@@ -63,6 +64,10 @@ public class TrackingPageRecordGatewayImpl extends AbstractBaseGatewayImpl<Track
 		return iTrackingPageRecordService.deleteById(trackingPageRecordId.getId());
 	}
 
+	@Override
+	public boolean delete(TrackingPageRecordId id, IdCommand idCommand) {
+		return iTrackingPageRecordService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setITrackingPageRecordService(ITrackingPageRecordService iTrackingPageRecordService) {

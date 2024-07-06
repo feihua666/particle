@@ -8,6 +8,7 @@ import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.area.infrastructure.structmapping.AreaInfrastructureStructMapping;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +50,10 @@ public class AreaGatewayImpl extends AbstractBaseGatewayImpl<AreaId,Area> implem
 		return iAreaService.deleteById(areaId.getId());
 	}
 
+	@Override
+	public boolean delete(AreaId id, IdCommand idCommand) {
+		return iAreaService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIAreaService(IAreaService iAreaService) {

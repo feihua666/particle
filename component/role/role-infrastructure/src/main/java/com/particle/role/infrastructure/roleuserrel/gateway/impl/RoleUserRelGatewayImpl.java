@@ -1,5 +1,6 @@
 package com.particle.role.infrastructure.roleuserrel.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
 import com.particle.role.domain.roleuserrel.RoleUserRelId;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
@@ -49,6 +50,10 @@ public class RoleUserRelGatewayImpl extends AbstractBaseGatewayImpl<RoleUserRelI
 		return iRoleUserRelService.deleteById(roleUserRelId.getId());
 	}
 
+	@Override
+	public boolean delete(RoleUserRelId id, IdCommand idCommand) {
+		return iRoleUserRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIRoleUserRelService(IRoleUserRelService iRoleUserRelService) {

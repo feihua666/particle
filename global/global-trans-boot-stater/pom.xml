@@ -30,7 +30,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!-- 主要使用注解 org.aspectj.lang.annotation.Aspect -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-tool</artifactId>

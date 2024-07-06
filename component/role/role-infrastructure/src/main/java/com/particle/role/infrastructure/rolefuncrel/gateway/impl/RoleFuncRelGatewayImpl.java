@@ -1,5 +1,6 @@
 package com.particle.role.infrastructure.rolefuncrel.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.role.domain.rolefuncrel.RoleFuncRel;
 import com.particle.role.domain.rolefuncrel.RoleFuncRelId;
 import com.particle.role.domain.rolefuncrel.gateway.RoleFuncRelGateway;
@@ -49,6 +50,10 @@ public class RoleFuncRelGatewayImpl extends AbstractBaseGatewayImpl<RoleFuncRelI
 		return iRoleFuncRelService.deleteById(roleFuncRelId.getId());
 	}
 
+	@Override
+	public boolean delete(RoleFuncRelId id, IdCommand idCommand) {
+		return iRoleFuncRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIRoleFuncRelService(IRoleFuncRelService iRoleFuncRelService) {

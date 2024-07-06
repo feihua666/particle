@@ -39,7 +39,7 @@ public class OpLogDeleteCommandExecutor  extends AbstractBaseExecutor {
 		OpLogId opLogId = OpLogId.of(deleteCommand.getId());
 		OpLog byId = opLogGateway.getById(opLogId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = opLogGateway.delete(opLogId);
+		boolean delete = opLogGateway.delete(opLogId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpLogAppStructMapping.instance.toOpLogVO(byId));
 		}

@@ -42,7 +42,7 @@ public class LowcodeModelItemDeleteCommandExecutor  extends AbstractBaseExecutor
 		LowcodeModelItemId lowcodeModelItemId = LowcodeModelItemId.of(deleteCommand.getId());
 		LowcodeModelItem byId = lowcodeModelItemGateway.getById(lowcodeModelItemId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = lowcodeModelItemGateway.delete(lowcodeModelItemId);
+		boolean delete = lowcodeModelItemGateway.delete(lowcodeModelItemId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(LowcodeModelItemAppStructMapping.instance.toLowcodeModelItemVO(byId));
 		}

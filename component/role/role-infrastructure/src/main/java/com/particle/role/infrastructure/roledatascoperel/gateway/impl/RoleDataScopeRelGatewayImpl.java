@@ -1,5 +1,6 @@
 package com.particle.role.infrastructure.roledatascoperel.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRel;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRelId;
 import com.particle.role.domain.roledatascoperel.gateway.RoleDataScopeRelGateway;
@@ -51,6 +52,10 @@ public class RoleDataScopeRelGatewayImpl extends AbstractBaseGatewayImpl<RoleDat
 		return iRoleDataScopeRelService.deleteById(roleDataScopeRelId.getId());
 	}
 
+	@Override
+	public boolean delete(RoleDataScopeRelId id, IdCommand idCommand) {
+		return iRoleDataScopeRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIRoleDataScopeRelService(IRoleDataScopeRelService iRoleDataScopeRelService) {

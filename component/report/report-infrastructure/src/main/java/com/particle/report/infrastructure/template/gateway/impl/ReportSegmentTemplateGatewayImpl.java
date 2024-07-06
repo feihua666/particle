@@ -1,5 +1,6 @@
 package com.particle.report.infrastructure.template.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.report.domain.template.ReportSegmentTemplate;
 import com.particle.report.domain.template.ReportSegmentTemplateId;
 import com.particle.report.domain.template.gateway.ReportSegmentTemplateGateway;
@@ -51,6 +52,10 @@ public class ReportSegmentTemplateGatewayImpl extends AbstractBaseGatewayImpl<Re
 		return iReportSegmentTemplateService.deleteById(reportSegmentTemplateId.getId());
 	}
 
+	@Override
+	public boolean delete(ReportSegmentTemplateId id, IdCommand idCommand) {
+		return iReportSegmentTemplateService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIReportSegmentTemplateService(IReportSegmentTemplateService iReportSegmentTemplateService) {

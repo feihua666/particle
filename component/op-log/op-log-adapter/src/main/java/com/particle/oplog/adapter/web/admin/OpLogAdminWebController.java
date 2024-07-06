@@ -2,6 +2,8 @@ package com.particle.oplog.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -39,6 +41,7 @@ public class OpLogAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除操作日志")
 	@DeleteMapping("/delete")
 	public SingleResponse<OpLogVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_op_log_op_log, DataConstraintContext.Action.delete.name());
 		return iOpLogApplicationService.delete(deleteCommand);
 	}
 
@@ -54,6 +57,7 @@ public class OpLogAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询操作日志")
 	@GetMapping("/list")
 	public MultiResponse<OpLogVO> queryList(OpLogQueryListCommand opLogQueryListCommand){
+		opLogQueryListCommand.dcdo(DataConstraintConstants.data_object_op_log_op_log,DataConstraintContext.Action.query.name());
 		return iOpLogRepresentationApplicationService.queryList(opLogQueryListCommand);
 	}
 
@@ -61,6 +65,7 @@ public class OpLogAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询操作日志")
 	@GetMapping("/page")
 	public PageResponse<OpLogVO> pageQueryList(OpLogPageQueryCommand opLogPageQueryCommand){
+		opLogPageQueryCommand.dcdo(DataConstraintConstants.data_object_op_log_op_log,DataConstraintContext.Action.query.name());
 		return iOpLogRepresentationApplicationService.pageQuery(opLogPageQueryCommand);
 	}
 

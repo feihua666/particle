@@ -39,7 +39,7 @@ public class OpenplatformOpenapiRecordParamDeleteCommandExecutor  extends Abstra
 		OpenplatformOpenapiRecordParamId openplatformOpenapiRecordParamId = OpenplatformOpenapiRecordParamId.of(deleteCommand.getId());
 		OpenplatformOpenapiRecordParam byId = openplatformOpenapiRecordParamGateway.getById(openplatformOpenapiRecordParamId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformOpenapiRecordParamGateway.delete(openplatformOpenapiRecordParamId);
+		boolean delete = openplatformOpenapiRecordParamGateway.delete(openplatformOpenapiRecordParamId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformOpenapiRecordParamAppStructMapping.instance.toOpenplatformOpenapiRecordParamVO(byId));
 		}

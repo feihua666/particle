@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.provider.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.provider.OpenplatformProvider;
 import com.particle.openplatform.domain.provider.OpenplatformProviderId;
 import com.particle.openplatform.domain.provider.gateway.OpenplatformProviderGateway;
@@ -51,6 +52,10 @@ public class OpenplatformProviderGatewayImpl extends AbstractBaseGatewayImpl<Ope
 		return iOpenplatformProviderService.deleteById(openplatformProviderId.getId());
 	}
 
+	@Override
+	public boolean delete(OpenplatformProviderId id, IdCommand idCommand) {
+		return iOpenplatformProviderService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpenplatformProviderService(IOpenplatformProviderService iOpenplatformProviderService) {

@@ -98,7 +98,7 @@ public class BaseDO extends DO {
 	private Object queryControl;
 
 	/**
-	 * 启用数据审计数据收集设置开关，因为开启
+	 * 启用数据审计数据收集设置开关，默认开启
 	 * global-mybatis-plus-boot-starter 中的 IBaseServiceImpl 默认硬编码了添加、修改、删除时的数据审计收集逻辑
 	 * 以方便应用程序自行逻辑处理，比如：登录日志、操作日志不需要开启
 	 * 仅这里修改是没用的，前提是框架层面已开启，参见 {@link DataAuditAuditAutoConfiguration}

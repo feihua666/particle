@@ -39,7 +39,7 @@ public class OpenplatformAppDeleteCommandExecutor  extends AbstractBaseExecutor 
 		OpenplatformAppId openplatformAppId = OpenplatformAppId.of(deleteCommand.getId());
 		OpenplatformApp byId = openplatformAppGateway.getById(openplatformAppId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformAppGateway.delete(openplatformAppId);
+		boolean delete = openplatformAppGateway.delete(openplatformAppId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformAppAppStructMapping.instance.toOpenplatformAppVO(byId));
 		}

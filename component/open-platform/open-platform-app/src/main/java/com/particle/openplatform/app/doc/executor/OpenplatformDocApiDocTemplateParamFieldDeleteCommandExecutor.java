@@ -39,7 +39,7 @@ public class OpenplatformDocApiDocTemplateParamFieldDeleteCommandExecutor  exten
 		OpenplatformDocApiDocTemplateParamFieldId openplatformDocApiDocTemplateParamFieldId = OpenplatformDocApiDocTemplateParamFieldId.of(deleteCommand.getId());
 		OpenplatformDocApiDocTemplateParamField byId = openplatformDocApiDocTemplateParamFieldGateway.getById(openplatformDocApiDocTemplateParamFieldId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocApiDocTemplateParamFieldGateway.delete(openplatformDocApiDocTemplateParamFieldId);
+		boolean delete = openplatformDocApiDocTemplateParamFieldGateway.delete(openplatformDocApiDocTemplateParamFieldId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocApiDocTemplateParamFieldAppStructMapping.instance.toOpenplatformDocApiDocTemplateParamFieldVO(byId));
 		}

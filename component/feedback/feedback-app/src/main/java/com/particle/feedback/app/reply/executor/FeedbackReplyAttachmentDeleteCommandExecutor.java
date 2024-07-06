@@ -39,7 +39,7 @@ public class FeedbackReplyAttachmentDeleteCommandExecutor  extends AbstractBaseE
 		FeedbackReplyAttachmentId feedbackReplyAttachmentId = FeedbackReplyAttachmentId.of(deleteCommand.getId());
 		FeedbackReplyAttachment byId = feedbackReplyAttachmentGateway.getById(feedbackReplyAttachmentId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = feedbackReplyAttachmentGateway.delete(feedbackReplyAttachmentId);
+		boolean delete = feedbackReplyAttachmentGateway.delete(feedbackReplyAttachmentId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(FeedbackReplyAttachmentAppStructMapping.instance.toFeedbackReplyAttachmentVO(byId));
 		}

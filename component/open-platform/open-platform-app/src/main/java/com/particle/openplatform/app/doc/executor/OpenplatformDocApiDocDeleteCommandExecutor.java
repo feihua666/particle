@@ -39,7 +39,7 @@ public class OpenplatformDocApiDocDeleteCommandExecutor  extends AbstractBaseExe
 		OpenplatformDocApiDocId openplatformDocApiDocId = OpenplatformDocApiDocId.of(deleteCommand.getId());
 		OpenplatformDocApiDoc byId = openplatformDocApiDocGateway.getById(openplatformDocApiDocId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocApiDocGateway.delete(openplatformDocApiDocId);
+		boolean delete = openplatformDocApiDocGateway.delete(openplatformDocApiDocId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocApiDocAppStructMapping.instance.toOpenplatformDocApiDocVO(byId));
 		}

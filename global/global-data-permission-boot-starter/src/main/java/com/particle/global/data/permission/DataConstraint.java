@@ -11,14 +11,14 @@ import java.lang.annotation.Target;
  * Created at 2021/4/1 10:02
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE,ElementType.METHOD })
+@Target({ ElementType.TYPE,ElementType.PARAMETER })
 public @interface DataConstraint {
 
     /**
      * dataObjectCode 数据对象编码
      * @return
      */
-    String doc();
+    String dataObject();
 
     /**
      * 数据对象名称

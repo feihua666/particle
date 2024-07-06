@@ -71,7 +71,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
      * 打印请求后缀的黑名单
      */
     private static final List<String> REQUEST_EXTENSION_BLACK_SET =
-            Arrays.asList(".js", ".css","html");
+            Arrays.asList(".js", ".css",".html");
 
     /**
      * 打印响应Content-Type的白名单
@@ -81,7 +81,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
      * 打印响应请求后缀的黑名单
      */
     private static final List<String> RESPONSE_EXTENSION_BLACK_SET =
-            Arrays.asList(".js", ".css","html","png","jpg","jpeg","gif");
+            Arrays.asList(".js", ".css",".html",".png",".jpg",".jpeg",".gif",".ico");
 
 
     @Override
@@ -95,8 +95,8 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
 
         HttpServletResponse responseToUse = response;
 
-        boolean matchResponse = ((isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) && !matchResponseExtensionBlack(requestUrl))||
-                isMatchContentType(request.getHeader(HttpHeaders.ACCEPT),RESPONSE_CONTENT_TYPE_WHITE_SET) ;
+        boolean matchResponse = !matchResponseExtensionBlack(requestUrl) &&
+                (isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET) || isMatchContentType(request.getHeader(HttpHeaders.ACCEPT),RESPONSE_CONTENT_TYPE_WHITE_SET)) ;
 
         if (!matchResponse) {
             if (requestResponseLogMatchResponseResolvers != null) {
@@ -262,9 +262,9 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
     }
 
     private static boolean mathRequestExtensionBlack(String url) {
-        return REQUEST_EXTENSION_BLACK_SET.stream().anyMatch(e -> url.endsWith(e));
+        return REQUEST_EXTENSION_BLACK_SET.stream().anyMatch(e -> StrUtil.endWithIgnoreCase(url,e));
     }
     private static boolean matchResponseExtensionBlack(String url) {
-        return RESPONSE_EXTENSION_BLACK_SET.stream().anyMatch(e -> url.endsWith(e));
+        return RESPONSE_EXTENSION_BLACK_SET.stream().anyMatch(e -> StrUtil.endWithIgnoreCase(url,e));
     }
 }

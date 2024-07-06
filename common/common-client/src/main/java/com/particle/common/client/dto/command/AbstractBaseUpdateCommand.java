@@ -1,5 +1,6 @@
 package com.particle.common.client.dto.command;
 
+import com.particle.global.dto.basic.UpdateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,10 +18,6 @@ import javax.validation.constraints.NotNull;
  * @since 2022-04-20 09:24
  */
 @Data
-public abstract class AbstractBaseUpdateCommand extends IdCommand {
+public abstract class AbstractBaseUpdateCommand extends UpdateCommand {
 
-	@Min(value = 1,message = "数据版本不能小于1")
-	@NotNull(message = "数据版本不能为空")
-	@Schema(title = "数据版本",description = "数据版本用来充当数据乐观锁字段，验证数据是否已经修改")
-	private Integer version;
 }

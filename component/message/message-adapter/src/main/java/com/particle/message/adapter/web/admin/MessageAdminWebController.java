@@ -1,5 +1,7 @@
 package com.particle.message.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.message.client.api.IMessageApplicationService;
 import com.particle.message.client.api.representation.IMessageRepresentationApplicationService;
 import com.particle.message.client.dto.command.MessageCreateCommand;
@@ -55,6 +57,7 @@ public class MessageAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除消息",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
 	public SingleResponse<MessageVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_message_message, DataConstraintContext.Action.delete.name());
 		return iMessageApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class MessageAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新消息",module = OpLogConstants.Module.message,type = OpLogConstants.Type.update)
 	public SingleResponse<MessageVO> update(@RequestBody MessageUpdateCommand messageUpdateCommand){
+		messageUpdateCommand.dcdo(DataConstraintConstants.data_object_message_message,DataConstraintContext.Action.update.name());
 		return iMessageApplicationService.update(messageUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class MessageAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询消息")
 	@GetMapping("/list")
 	public MultiResponse<MessageVO> queryList(MessageQueryListCommand messageQueryListCommand){
+		messageQueryListCommand.dcdo(DataConstraintConstants.data_object_message_message,DataConstraintContext.Action.query.name());
 		return iMessageRepresentationApplicationService.queryList(messageQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class MessageAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询消息")
 	@GetMapping("/page")
 	public PageResponse<MessageVO> pageQueryList(MessagePageQueryCommand messagePageQueryCommand){
+		messagePageQueryCommand.dcdo(DataConstraintConstants.data_object_message_message,DataConstraintContext.Action.query.name());
 		return iMessageRepresentationApplicationService.pageQuery(messagePageQueryCommand);
 	}
 

@@ -39,7 +39,7 @@ public class OpenplatformOpenapiRecordDeleteCommandExecutor  extends AbstractBas
 		OpenplatformOpenapiRecordId openplatformOpenapiRecordId = OpenplatformOpenapiRecordId.of(deleteCommand.getId());
 		OpenplatformOpenapiRecord byId = openplatformOpenapiRecordGateway.getById(openplatformOpenapiRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformOpenapiRecordGateway.delete(openplatformOpenapiRecordId);
+		boolean delete = openplatformOpenapiRecordGateway.delete(openplatformOpenapiRecordId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformOpenapiRecordAppStructMapping.instance.toOpenplatformOpenapiRecordVO(byId));
 		}

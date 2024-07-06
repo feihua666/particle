@@ -25,9 +25,6 @@ public interface IDataObjectService extends IBaseService<DataObjectDO> {
         Assert.notNull(code,"code 不能为空");
         return getOne(Wrappers.<DataObjectDO>lambdaQuery().eq(DataObjectDO::getCode, code));
     }
-
-
-
     /**
      * 根据数据对象编码查询多个
      * @param codes
@@ -37,19 +34,5 @@ public interface IDataObjectService extends IBaseService<DataObjectDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<DataObjectDO>lambdaQuery().in(DataObjectDO::getCode, codes));
     }
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

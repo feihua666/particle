@@ -39,7 +39,7 @@ public class CrmDeptDeleteCommandExecutor  extends AbstractBaseExecutor {
 		CrmDeptId crmDeptId = CrmDeptId.of(deleteCommand.getId());
 		CrmDept byId = crmDeptGateway.getById(crmDeptId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = crmDeptGateway.delete(crmDeptId);
+		boolean delete = crmDeptGateway.delete(crmDeptId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(CrmDeptAppStructMapping.instance.toCrmDeptVO(byId));
 		}

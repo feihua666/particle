@@ -24,5 +24,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
+
+        <!-- 添加时主要使用 com.particle.global.dto.dataconstraint.DataConstraintContext -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

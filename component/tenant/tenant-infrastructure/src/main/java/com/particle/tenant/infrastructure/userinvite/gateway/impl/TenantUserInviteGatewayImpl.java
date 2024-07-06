@@ -1,5 +1,6 @@
 package com.particle.tenant.infrastructure.userinvite.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.tenant.domain.userinvite.TenantUserInvite;
 import com.particle.tenant.domain.userinvite.TenantUserInviteId;
 import com.particle.tenant.domain.userinvite.gateway.TenantUserInviteGateway;
@@ -51,6 +52,10 @@ public class TenantUserInviteGatewayImpl extends AbstractBaseGatewayImpl<TenantU
 		return iTenantUserInviteService.deleteById(tenantUserInviteId.getId());
 	}
 
+	@Override
+	public boolean delete(TenantUserInviteId id, IdCommand idCommand) {
+		return iTenantUserInviteService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setITenantUserInviteService(ITenantUserInviteService iTenantUserInviteService) {

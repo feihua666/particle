@@ -21,9 +21,8 @@ import com.baomidou.mybatisplus.core.toolkit.support.LambdaMeta;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.particle.global.dto.basic.PageQueryCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.dto.basic.TreeDO;
+import com.particle.global.dto.basic.*;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.light.share.mybatis.anno.*;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
@@ -84,6 +83,12 @@ public interface IBaseService<DO> extends IService<DO> {
      * @return
      */
     boolean deleteById(Long id);
+    /**
+     * 删除, 主要拉架对数据权限的支持
+     * @param idCommand
+     * @return
+     */
+    boolean deleteById(IdCommand idCommand);
 
     /**
      * 根据属性字段删除
@@ -93,10 +98,27 @@ public interface IBaseService<DO> extends IService<DO> {
      */
     boolean deleteByColumn(Object columnId,  SFunction<DO, ?> column);
 
+    /**
+     * 根据属性字段删除，增加对数据权限的支持
+     * @param columnId
+     * @param column
+     * @param dataConstraintContext
+     * @return
+     */
+    boolean deleteByColumn(Object columnId, SFunction<DO, ?> column, DataConstraintContext dataConstraintContext);
+
     /*************************** 删 结束 *************************************/
     /*************************** 改 开始 *************************************/
 
     DO update(DO dos);
+
+    /**
+     * 修改，增加对数据权限的支持
+     * @param dos
+     * @param updateCommand
+     * @return
+     */
+    DO update(DO dos, UpdateCommand updateCommand);
     /**
      * 根据主键增加一个字段的值，
      * @param id
@@ -192,7 +214,16 @@ public interface IBaseService<DO> extends IService<DO> {
      * @param id
      * @return
      */
-    DO queryById(Long id);
+    default DO queryById(Long id){
+        return queryById(IdCommand.create(id));
+    }
+
+    /**
+     * 根据id查询,新增对数据范围的支持
+     * @param idCommand
+     * @return
+     */
+    DO queryById(IdCommand idCommand);
 
     /**
      * 不考虑租户的mybatis plus 插件限制

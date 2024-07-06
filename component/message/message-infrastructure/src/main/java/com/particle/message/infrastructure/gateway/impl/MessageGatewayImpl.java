@@ -1,5 +1,6 @@
 package com.particle.message.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.message.domain.Message;
 import com.particle.message.domain.MessageId;
 import com.particle.message.domain.gateway.MessageGateway;
@@ -51,6 +52,10 @@ public class MessageGatewayImpl extends AbstractBaseGatewayImpl<MessageId,Messag
 		return iMessageService.deleteById(messageId.getId());
 	}
 
+	@Override
+	public boolean delete(MessageId id, IdCommand idCommand) {
+		return iMessageService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIMessageService(IMessageService iMessageService) {

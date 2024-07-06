@@ -8,6 +8,7 @@ import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
 import com.particle.dataconstraint.infrastructure.structmapping.DataScopeInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DataScopeGatewayImpl extends AbstractBaseGatewayImpl<DataScopeId,Da
 		return iDataScopeService.deleteById(dataScopeId.getId());
 	}
 
+	@Override
+	public boolean delete(DataScopeId id, IdCommand idCommand) {
+		return iDataScopeService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDataScopeService(IDataScopeService iDataScopeService) {

@@ -188,6 +188,8 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser) {
 
 		loginUser.changeRole(idCommand.getId());
+		abstractUserDetailsService.loginUserDetailsFill(loginUser, Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null), Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null));
+
 		// 需要刷新一下权限，否则权限不会生效
 		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);

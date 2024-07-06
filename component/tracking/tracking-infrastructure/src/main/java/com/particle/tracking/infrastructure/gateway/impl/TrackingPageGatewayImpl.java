@@ -1,5 +1,6 @@
 package com.particle.tracking.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.tracking.domain.TrackingPage;
 import com.particle.tracking.domain.TrackingPageId;
 import com.particle.tracking.domain.gateway.TrackingPageGateway;
@@ -51,6 +52,10 @@ public class TrackingPageGatewayImpl extends AbstractBaseGatewayImpl<TrackingPag
 		return iTrackingPageService.deleteById(trackingPageId.getId());
 	}
 
+	@Override
+	public boolean delete(TrackingPageId id, IdCommand idCommand) {
+		return iTrackingPageService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setITrackingPageService(ITrackingPageService iTrackingPageService) {

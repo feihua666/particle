@@ -1,0 +1,1 @@
+import{g as t}from"./index.bd091b8a.js";let a="/admin/web/data_query_datasource";const s=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),u=e=>t.put(a+"/update",e),p=e=>t.get(a+"/detail-for-update",{params:e}),d=e=>t.get(a+"/list",{params:e}),n=e=>t.get(a+"/page",{params:e});export{s as c,p as d,d as l,n as p,o as r,u};

@@ -39,7 +39,7 @@ public class MessageUserStateDeleteCommandExecutor  extends AbstractBaseExecutor
 		MessageUserStateId messageUserStateId = MessageUserStateId.of(deleteCommand.getId());
 		MessageUserState byId = messageUserStateGateway.getById(messageUserStateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = messageUserStateGateway.delete(messageUserStateId);
+		boolean delete = messageUserStateGateway.delete(messageUserStateId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(MessageUserStateAppStructMapping.instance.toMessageUserStateVO(byId));
 		}

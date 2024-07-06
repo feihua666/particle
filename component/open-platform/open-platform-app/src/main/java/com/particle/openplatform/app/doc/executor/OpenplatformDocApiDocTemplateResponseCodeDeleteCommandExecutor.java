@@ -39,7 +39,7 @@ public class OpenplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor  ext
 		OpenplatformDocApiDocTemplateResponseCodeId openplatformDocApiDocTemplateResponseCodeId = OpenplatformDocApiDocTemplateResponseCodeId.of(deleteCommand.getId());
 		OpenplatformDocApiDocTemplateResponseCode byId = openplatformDocApiDocTemplateResponseCodeGateway.getById(openplatformDocApiDocTemplateResponseCodeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocApiDocTemplateResponseCodeGateway.delete(openplatformDocApiDocTemplateResponseCodeId);
+		boolean delete = openplatformDocApiDocTemplateResponseCodeGateway.delete(openplatformDocApiDocTemplateResponseCodeId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocApiDocTemplateResponseCodeAppStructMapping.instance.toOpenplatformDocApiDocTemplateResponseCodeVO(byId));
 		}

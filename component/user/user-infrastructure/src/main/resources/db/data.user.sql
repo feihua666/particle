@@ -1,6 +1,7 @@
 -- import classpath:db/data.user.dict.sql
 -- import classpath:db/data.user.func.sql
 -- import classpath:db/data.user.message.sql
+-- import classpath:db/data.user.dataconstraint.sql
 
 -- 添加初始用户，用户初始账号与密码 superadmin/123456
 INSERT INTO `component_user` (`id`, `nickname`, `gender_dict_id`, `avatar`, `serial_no`, `comp_id`, `dept_id`, `is_virtual`, `is_lock`, `lock_reason`, `category_dict_id`, `group_flag`, `source_from_dict_id`, `is_expired`, `expired_reason`, `expire_at`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (0, '系统用户', NULL, NULL, NULL, 1, 1, 1, 1, '系统用户充当一个虚拟用户，没有帐号不能登录', 1374589711538094082, 'init', 1442731678232498178, 0, NULL, NULL, 1, 1, '2020-12-08 18:08:42', NULL, NULL, NULL);

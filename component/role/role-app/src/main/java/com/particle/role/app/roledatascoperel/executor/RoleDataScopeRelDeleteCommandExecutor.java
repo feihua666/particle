@@ -42,7 +42,7 @@ public class RoleDataScopeRelDeleteCommandExecutor  extends AbstractBaseExecutor
 		RoleDataScopeRelId roleDataScopeRelId = RoleDataScopeRelId.of(deleteCommand.getId());
 		RoleDataScopeRel byId = roleDataScopeRelGateway.getById(roleDataScopeRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = roleDataScopeRelGateway.delete(roleDataScopeRelId);
+		boolean delete = roleDataScopeRelGateway.delete(roleDataScopeRelId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(RoleDataScopeRelAppStructMapping.instance.toRoleDataScopeRelVO(byId));
 		}

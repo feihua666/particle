@@ -39,7 +39,7 @@ public class DataScopeDeleteCommandExecutor  extends AbstractBaseExecutor {
 		DataScopeId dataScopeId = DataScopeId.of(deleteCommand.getId());
 		DataScope byId = dataScopeGateway.getById(dataScopeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataScopeGateway.delete(dataScopeId);
+		boolean delete = dataScopeGateway.delete(dataScopeId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataScopeAppStructMapping.instance.toDataScopeVO(byId));
 		}

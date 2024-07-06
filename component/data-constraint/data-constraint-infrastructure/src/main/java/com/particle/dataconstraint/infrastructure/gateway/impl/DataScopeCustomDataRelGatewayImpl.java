@@ -8,6 +8,7 @@ import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
 import com.particle.dataconstraint.infrastructure.structmapping.DataScopeCustomDataRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DataScopeCustomDataRelGatewayImpl extends AbstractBaseGatewayImpl<D
 		return iDataScopeCustomDataRelService.deleteById(dataScopeCustomDataRelId.getId());
 	}
 
+	@Override
+	public boolean delete(DataScopeCustomDataRelId id, IdCommand idCommand) {
+		return iDataScopeCustomDataRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDataScopeCustomDataRelService(IDataScopeCustomDataRelService iDataScopeCustomDataRelService) {

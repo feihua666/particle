@@ -1,5 +1,7 @@
 package com.particle.component.adapter;
 
+import com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl;
+import com.particle.component.adapter.dataconstraint.login.RoleDataConstraintServiceImpl;
 import com.particle.component.adapter.oauth2authorization.Oauth2RegisteredClientOpenapiClientSecretProvider;
 import com.particle.component.adapter.oplog.OpLogRepositoryImpl;
 import com.particle.component.adapter.tenant.DeptTenantUserServiceListener;
@@ -10,12 +12,17 @@ import com.particle.component.adapter.user.RoleUserAddServiceListener;
 import com.particle.component.adapter.user.TenantUserUserAddServiceListener;
 import com.particle.component.adapter.user.UserTransOverrideServiceImpl;
 import com.particle.component.adapter.user.login.*;
+import com.particle.dataconstraint.adapter.feign.client.rpc.DataObjectRpcFeignClient;
+import com.particle.dataconstraint.adapter.feign.client.rpc.DataScopeRpcFeignClient;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.service.IDeptService;
 import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.global.data.permission.DataPermissionService;
+import com.particle.global.security.security.login.RoleDataConstraintService;
 import com.particle.global.security.security.login.UserDeptService;
 import com.particle.oauth2authorization.infrastructure.client.service.impl.Oauth2RegisteredClientServiceImpl;
 import com.particle.oplog.infrastructure.service.IOpLogService;
+import com.particle.role.infrastructure.roledatascoperel.service.IRoleDataScopeRelService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
@@ -222,4 +229,28 @@ public class ComponentAdapterAutoConfiguration {
 		}
 	}
 
+	/**
+	 * 数据范围约束配置
+	 */
+	@Configuration
+	public static class DataConstraintConfig{
+
+		/**
+		 * 默认的数据范围约束实现
+		 * @return
+		 */
+		@Bean
+		public DataPermissionService dataPermissionService(){
+			return new DefaultDataConstraintDataPermissionServiceImpl();
+		}
+	}
+	@Configuration
+	@ConditionalOnClass({DataObjectRpcFeignClient.class, DataScopeRpcFeignClient.class, IRoleDataScopeRelService.class})
+	public static class DataConstraintDependConfig {
+		@Bean
+		@ConditionalOnBean({ DataObjectRpcFeignClient.class, DataScopeRpcFeignClient.class, IRoleDataScopeRelService.class})
+		public RoleDataConstraintService roleDataConstraintService() {
+			return new RoleDataConstraintServiceImpl();
+		}
+	}
 }

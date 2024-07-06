@@ -28,6 +28,7 @@ public class TransTableNameConstants {
 	public static final String component_data_query_data_api = "component_data_query_data_api";
 	public static final String component_data_query_datasource_api = "component_data_query_datasource_api";
 	public static final String component_dept = "component_dept";
+	public static final String component_dept_user_rel = "component_dept_user_rel";
 	public static final String component_dept_tree = "component_dept_tree";
 	public static final String component_dept_tree_name = "component_dept_tree_name";
 	public static final String component_tenant = "component_tenant";

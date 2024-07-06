@@ -111,7 +111,7 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 		boolean save = dataQueryDatasourceApiGateway.save(devDataQueryDatasourceApi);
 		if (save) {
 			// merge完成后删除本dev数据
-			dataQueryDatasourceApiGateway.delete(devDataQueryDatasourceApiId);
+			dataQueryDatasourceApiGateway.delete(devDataQueryDatasourceApiId,deleteCommand);
 			return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.toDataQueryDatasourceApiVO(devDataQueryDatasourceApi));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);

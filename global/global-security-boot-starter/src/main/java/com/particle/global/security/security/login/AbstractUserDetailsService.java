@@ -41,6 +41,9 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
     private UserDeptService userDeptService;
 
     @Autowired(required = false)
+    private RoleDataConstraintService roleDataConstraintService;
+
+    @Autowired(required = false)
     private List<IUserTenantChangeListener> iUserTenantChangeListeners;
 
     @Autowired(required = false)
@@ -129,10 +132,10 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
                 }
             }
         }
-        // 默认添加用户权限
+        // 默认添加用户权限,注意该块代码的位置，不能在最后执行，否则可能导致角色等绑定的数据范围约束有误
         loginUser.addAuthority(UserGrantedAuthority.userGrantedAuthority);
 
-        CountDownLatch countDownLatch = new CountDownLatch(2);
+        CountDownLatch countDownLatch = new CountDownLatch(3);
         if (userAuthorityService != null) {
             Long tenantId = TenantTool.getTenantId();
             asynSlotTaskExecutor.execute(() -> {
@@ -152,7 +155,17 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
                         );
                         loginUser.setIsTenantSuperAdmin(tenantsSuperAdminRole);
                     }
+                    // 在这个方法里面初始化默认选中的角色
                     loginUser.addAuthority(list);
+                    if (roleDataConstraintService != null) {
+                        GrantedRole currentRole = loginUser.getCurrentRole();
+                        if (currentRole != null) {
+                            List<GrantedDataConstraint> grantedDataConstraints = roleDataConstraintService.retrieveRoleDataConstraintByRoleId(currentRole.getId());
+                            loginUser.setCurrentRoleBindDataConstraints(grantedDataConstraints);
+                        }
+                    }
+
+
                 } finally {
                     countDownLatch.countDown();
                     TenantTool.clear();
@@ -166,8 +179,16 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 
         // 部门信息
         if (userDeptService != null) {
-            DeptInfo deptInfo = userDeptService.retrieveUserDeptInfoByUserId(loginUser.getId());
-            loginUser.setDeptInfo(deptInfo);
+            asynSlotTaskExecutor.execute(() -> {
+                try {
+                    DeptInfo deptInfo = userDeptService.retrieveUserDeptInfoByUserId(loginUser.getId());
+                    loginUser.setDeptInfo(deptInfo);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }else {
+            countDownLatch.countDown();
         }
         if (loginUserExtPutServices != null) {
             Long tenantId = TenantTool.getTenantId();

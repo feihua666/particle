@@ -1,7 +1,7 @@
 package com.particle.global.dto.basic;
 
+import com.particle.global.light.share.mybatis.anno.Ignore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 import org.springdoc.api.annotations.ParameterObject;
 

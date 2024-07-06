@@ -39,7 +39,7 @@ public class DataObjectDeleteCommandExecutor  extends AbstractBaseExecutor {
 		DataObjectId dataObjectId = DataObjectId.of(deleteCommand.getId());
 		DataObject byId = dataObjectGateway.getById(dataObjectId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataObjectGateway.delete(dataObjectId);
+		boolean delete = dataObjectGateway.delete(dataObjectId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataObjectAppStructMapping.instance.toDataObjectVO(byId));
 		}

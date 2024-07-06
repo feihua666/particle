@@ -39,7 +39,7 @@ public class UsageCountConfigDeleteCommandExecutor  extends AbstractBaseExecutor
 		UsageCountConfigId usageCountConfigId = UsageCountConfigId.of(deleteCommand.getId());
 		UsageCountConfig byId = usageCountConfigGateway.getById(usageCountConfigId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = usageCountConfigGateway.delete(usageCountConfigId);
+		boolean delete = usageCountConfigGateway.delete(usageCountConfigId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(UsageCountConfigAppStructMapping.instance.toUsageCountConfigVO(byId));
 		}

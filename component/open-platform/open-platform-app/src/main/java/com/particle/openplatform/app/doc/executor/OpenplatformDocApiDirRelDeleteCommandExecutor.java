@@ -39,7 +39,7 @@ public class OpenplatformDocApiDirRelDeleteCommandExecutor  extends AbstractBase
 		OpenplatformDocApiDirRelId openplatformDocApiDirRelId = OpenplatformDocApiDirRelId.of(deleteCommand.getId());
 		OpenplatformDocApiDirRel byId = openplatformDocApiDirRelGateway.getById(openplatformDocApiDirRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocApiDirRelGateway.delete(openplatformDocApiDirRelId);
+		boolean delete = openplatformDocApiDirRelGateway.delete(openplatformDocApiDirRelId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocApiDirRelAppStructMapping.instance.toOpenplatformDocApiDirRelVO(byId));
 		}

@@ -46,6 +46,9 @@ public class DeptInfo implements Serializable {
 	@Schema(description = "父级id")
 	private Long parentId;
 
+	@Schema(description = "层级")
+	private Integer level;
+
 	public static DeptInfo create(Long id,
 								  String code,
 								  String name,
@@ -54,7 +57,8 @@ public class DeptInfo implements Serializable {
 								  Long masterUserId,
 								  Boolean isVirtual,
 								  Boolean isComp,
-								  Long parentId
+								  Long parentId,
+								  Integer level
 								  ) {
 		return DeptInfo.builder().id(id)
 				.code(code)
@@ -65,6 +69,7 @@ public class DeptInfo implements Serializable {
 				.isVirtual(isVirtual)
 				.isComp(isComp)
 				.parentId(parentId)
+				.level(level)
 				.build();
 	}
 }

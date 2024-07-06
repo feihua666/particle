@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.openapirecord.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecordParam;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecordParamId;
 import com.particle.openplatform.domain.openapirecord.gateway.OpenplatformOpenapiRecordParamGateway;
@@ -51,6 +52,10 @@ public class OpenplatformOpenapiRecordParamGatewayImpl extends AbstractBaseGatew
 		return iOpenplatformOpenapiRecordParamService.deleteById(openplatformOpenapiRecordParamId.getId());
 	}
 
+	@Override
+	public boolean delete(OpenplatformOpenapiRecordParamId id, IdCommand idCommand) {
+		return iOpenplatformOpenapiRecordParamService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpenplatformOpenapiRecordParamService(IOpenplatformOpenapiRecordParamService iOpenplatformOpenapiRecordParamService) {

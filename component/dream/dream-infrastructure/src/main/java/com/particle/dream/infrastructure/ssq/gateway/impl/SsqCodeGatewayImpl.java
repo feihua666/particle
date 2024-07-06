@@ -8,6 +8,7 @@ import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
 import com.particle.dream.infrastructure.ssq.service.ISsqCodeService;
 import com.particle.dream.infrastructure.ssq.structmapping.SsqCodeInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +53,11 @@ public class SsqCodeGatewayImpl extends AbstractBaseGatewayImpl<SsqCodeId,SsqCod
 	@Override
 	public boolean delete(SsqCodeId ssqCodeId) {
 		return iSsqCodeService.deleteById(ssqCodeId.getId());
+	}
+
+	@Override
+	public boolean delete(SsqCodeId id, IdCommand idCommand) {
+		return iSsqCodeService.deleteById(idCommand);
 	}
 
 	@Override

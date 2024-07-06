@@ -88,7 +88,7 @@ public class DataQueryDataApiUpdateCommandExecutor  extends AbstractBaseExecutor
 		boolean save = dataQueryDataApiGateway.save(devDataQueryDataApi);
 		if (save) {
 			// merge完成后删除本dev数据
-			dataQueryDataApiGateway.delete(devDataQueryDataApiId);
+			dataQueryDataApiGateway.delete(devDataQueryDataApiId,deleteCommand);
 			return SingleResponse.of(DataQueryDataApiAppStructMapping.instance.toDataQueryDataApiVO(devDataQueryDataApi));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);

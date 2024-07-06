@@ -19,10 +19,6 @@ import java.util.List;
  */
 @Data
 @Schema
-public class BatchIdCommand extends AbstractBaseCommand {
-
-    @NotEmpty(message = "ids 不能为空")
-	@Schema(description = "ids",requiredMode = Schema.RequiredMode.REQUIRED)
-	private List<Long> ids;
+public class BatchIdCommand extends AbstractBatchIdCommand {
 
 }

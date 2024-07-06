@@ -2,9 +2,14 @@ package com.particle.dataconstraint.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dataconstraint.adapter.feign.client.rpc.DataObjectTransRpcFeignClient;
+import com.particle.dataconstraint.app.structmapping.DataObjectAppStructMapping;
 import com.particle.dataconstraint.client.api.IDataObjectApplicationService;
 import com.particle.dataconstraint.adapter.feign.client.rpc.DataObjectRpcFeignClient;
 import com.particle.dataconstraint.client.dto.data.DataObjectTransVO;
+import com.particle.dataconstraint.client.dto.data.DataObjectVO;
+import com.particle.dataconstraint.infrastructure.dos.DataObjectDO;
+import com.particle.dataconstraint.infrastructure.service.IDataObjectService;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.trans.result.TransResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +38,8 @@ public class DataObjectRpcController extends AbstractBaseRpcAdapter implements D
 
 	@Autowired
 	private DataObjectTransServiceImpl dataObjectTransService;
+	@Autowired
+	private IDataObjectService iDataObjectService;
 
 	@Override
 	public boolean supportBatch(String type) {
@@ -42,5 +49,12 @@ public class DataObjectRpcController extends AbstractBaseRpcAdapter implements D
 	@Override
 	public List<TransResult<DataObjectTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dataObjectTransService.transBatch(type, keys);
+	}
+
+	@Override
+	public MultiResponse<DataObjectVO> getByDataObjectIds(List<Long> dataObjectIds) {
+		List<DataObjectDO> dataObjectDOS = iDataObjectService.listByIds(dataObjectIds);
+		List<DataObjectVO> dataObjectVOS = DataObjectAppStructMapping.instance.dataObjectDOsToDataObjectVOs(dataObjectDOS);
+		return MultiResponse.of(dataObjectVOS);
 	}
 }

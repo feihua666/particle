@@ -1,5 +1,6 @@
 package com.particle.oauth2authorization.infrastructure.client.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
 import com.particle.oauth2authorization.domain.client.gateway.Oauth2RegisteredClientGateway;
@@ -51,6 +52,10 @@ public class Oauth2RegisteredClientGatewayImpl extends AbstractBaseGatewayImpl<O
 		return iOauth2RegisteredClientService.deleteById(oauth2RegisteredClientId.getId());
 	}
 
+	@Override
+	public boolean delete(Oauth2RegisteredClientId id, IdCommand idCommand) {
+		return iOauth2RegisteredClientService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOauth2RegisteredClientService(IOauth2RegisteredClientService iOauth2RegisteredClientService) {

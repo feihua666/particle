@@ -39,7 +39,7 @@ public class TenantUserInviteDeleteCommandExecutor  extends AbstractBaseExecutor
 		TenantUserInviteId tenantUserInviteId = TenantUserInviteId.of(deleteCommand.getId());
 		TenantUserInvite byId = tenantUserInviteGateway.getById(tenantUserInviteId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = tenantUserInviteGateway.delete(tenantUserInviteId);
+		boolean delete = tenantUserInviteGateway.delete(tenantUserInviteId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TenantUserInviteAppStructMapping.instance.toTenantUserInviteVO(byId));
 		}

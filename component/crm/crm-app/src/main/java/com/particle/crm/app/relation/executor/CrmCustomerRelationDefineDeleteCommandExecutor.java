@@ -39,7 +39,7 @@ public class CrmCustomerRelationDefineDeleteCommandExecutor  extends AbstractBas
 		CrmCustomerRelationDefineId crmCustomerRelationDefineId = CrmCustomerRelationDefineId.of(deleteCommand.getId());
 		CrmCustomerRelationDefine byId = crmCustomerRelationDefineGateway.getById(crmCustomerRelationDefineId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = crmCustomerRelationDefineGateway.delete(crmCustomerRelationDefineId);
+		boolean delete = crmCustomerRelationDefineGateway.delete(crmCustomerRelationDefineId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(CrmCustomerRelationDefineAppStructMapping.instance.toCrmCustomerRelationDefineVO(byId));
 		}

@@ -39,6 +39,9 @@ public class DataScopeUpdateCommandExecutor  extends AbstractBaseExecutor {
 	 */
 	public SingleResponse<DataScopeVO> execute(@Valid DataScopeUpdateCommand dataScopeUpdateCommand) {
 		DataScope dataScope = createByDataScopeUpdateCommand(dataScopeUpdateCommand);
+		if (dataScopeUpdateCommand.getIsCustom()) {
+			dataScope.changeConstraintContentTypeDictIdToNull();
+		}
 		dataScope.setUpdateControl(dataScopeUpdateCommand);
 		boolean save = dataScopeGateway.save(dataScope);
 		if (save) {

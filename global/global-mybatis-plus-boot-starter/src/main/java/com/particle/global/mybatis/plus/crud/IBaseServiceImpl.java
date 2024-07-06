@@ -21,8 +21,11 @@ import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
 import com.particle.global.dataaudit.op.OpLogTool;
 import com.particle.global.dataaudit.op.OpLogType;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.basic.TreeDO;
+import com.particle.global.dto.basic.UpdateCommand;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool;
@@ -237,13 +240,13 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     }
 
     @Override
-    public DO queryById(Long id) {
-        Assert.notNull(id,"id 不能为空");
-        QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, id);
+    public DO queryById(IdCommand idCommand) {
+        Assert.notNull(idCommand.getId(),"id 不能为空");
+        QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, idCommand.getId());
 
 
         if (dataPermissionServiceWrapper !=null && getQueryDataPermissionService() != null) {
-            getQueryDataPermissionService().dataConstraint(queryWrapper);
+            getQueryDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
         }
         DO dbDO = getOne(queryWrapper,true);
         return dbDO;
@@ -281,7 +284,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
         // 数据范围约束
         if (dataPermissionServiceWrapper !=null && getQueryDataPermissionService() != null) {
-            getQueryDataPermissionService().dataConstraint(queryWrapper);
+            getQueryDataPermissionService().dataConstraint(queryWrapper,queryForm.getDataConstraintContext());
         }
 
         queryWrapper.orderByAsc(BaseDO.COLUMN_ID);
@@ -341,19 +344,24 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
     @Override
     public boolean deleteById(Long id) {
-        Assert.notNull(id,"id 不能为空");
+        return deleteById(IdCommand.create(id));
+    }
 
-        DO byId = getById(id);
+    @Override
+    public boolean deleteById(IdCommand idCommand) {
+        Assert.notNull(idCommand.getId(),"id 不能为空");
+
+        DO byId = getById(idCommand.getId());
         // 如果为树，删除时不能删除还有子级的数据
         if (byId instanceof BaseTreeDO) {
-            long childrenCount = getChildrenCount(id);
+            long childrenCount = getChildrenCount(idCommand.getId());
             Assert.isTrue(childrenCount == 0,"当前节点下还有子节点，不允许删除父节点");
         }
-        preDeleteById(id,byId,null);
-        QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, id);
+        preDeleteById(idCommand.getId(),byId,null);
+        QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, idCommand.getId());
 
         if (dataPermissionServiceWrapper !=null && getDeleteDataPermissionService() != null) {
-            getDeleteDataPermissionService().dataConstraint(queryWrapper);
+            getDeleteDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
         }
         boolean r = remove(queryWrapper);
         if(r){
@@ -363,10 +371,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
                 publishDelete(Lists.asList(byId));
             }
 
-            postDeleteById(id,byId,null);
+            postDeleteById(idCommand.getId(),byId,null);
         }
         return r;
     }
+
     /**
      * 根据id删除前
      * @param columnId
@@ -408,11 +417,16 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     }
     @Override
     public boolean deleteByColumn(Object columnId, SFunction<DO, ?> column) {
+        return deleteByColumn(columnId, column, null);
+    }
+
+    @Override
+    public boolean deleteByColumn(Object columnId, SFunction<DO, ?> column, DataConstraintContext dataConstraintContext) {
         Assert.notNull(column,"column 不能为空");
         Assert.notNull(columnId,"columnId 不能为空");
         LambdaQueryWrapper<DO> queryWrapper = Wrappers.<DO>lambdaQuery().eq(column, columnId);
         if (dataPermissionServiceWrapper !=null && getDeleteDataPermissionService() != null) {
-            getDeleteDataPermissionService().dataConstraint(queryWrapper);
+            getDeleteDataPermissionService().dataConstraint(queryWrapper,dataConstraintContext);
         }
         List<DO> list = list(queryWrapper);
         preDeleteByColumn(columnId,column,list,null);
@@ -541,6 +555,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     }
     @Override
     public DO update(DO po) {
+        return update(po, UpdateCommand.empty);
+    }
+
+    @Override
+    public DO update(DO po, UpdateCommand updateCommand) {
         Assert.isTrue(ReflectUtil.hasField(po.getClass(), BaseDO.PROPERTY_ID),"updateForm 必须包含主键 " + BaseDO.PROPERTY_ID);
         preUpdate(po,null);
         UpdateWrapper<DO> updateWrapper = Wrappers.update();
@@ -548,7 +567,15 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         updateWrapper.eq(BaseDO.COLUMN_ID, ReflectUtil.getFieldValue(po, BaseDO.PROPERTY_ID));
         // 数据范围约束
         if (dataPermissionServiceWrapper !=null && getUpdateDataPermissionService() != null) {
-            getUpdateDataPermissionService().dataConstraint(updateWrapper);
+            DataConstraintContext dataConstraintContext = null;
+            if (updateCommand == null || updateCommand == UpdateCommand.empty) {
+                if (po.getUpdateControl() instanceof UpdateCommand) {
+                    dataConstraintContext = ((UpdateCommand) po.getUpdateControl()).getDataConstraintContext();
+                }
+            } else if (updateCommand != null) {
+                dataConstraintContext = updateCommand.getDataConstraintContext();
+            }
+            getUpdateDataPermissionService().dataConstraint(updateWrapper,dataConstraintContext);
         }
         Integer versionOrigin = po.getVersion();
         // 更新之前的数据

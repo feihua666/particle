@@ -21,9 +21,9 @@ public interface IRoleDataScopeRelService extends IBaseService<RoleDataScopeRelD
      * @param roleId
      * @return
      */
-    default RoleDataScopeRelDO getByRoleId(Long roleId) {
+    default List<RoleDataScopeRelDO> getByRoleId(Long roleId) {
         Assert.notNull(roleId,"roleId 不能为空");
-        return getOne(Wrappers.<RoleDataScopeRelDO>lambdaQuery().eq(RoleDataScopeRelDO::getRoleId, roleId));
+        return list(Wrappers.<RoleDataScopeRelDO>lambdaQuery().eq(RoleDataScopeRelDO::getRoleId, roleId));
     }
 
 

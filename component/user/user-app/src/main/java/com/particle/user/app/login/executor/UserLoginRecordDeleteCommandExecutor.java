@@ -42,7 +42,7 @@ public class UserLoginRecordDeleteCommandExecutor  extends AbstractBaseExecutor 
 		UserLoginRecordId userLoginRecordId = UserLoginRecordId.of(userLoginRecordDeleteCommand.getId());
 		UserLoginRecord byId = userLoginRecordGateway.getById(userLoginRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = userLoginRecordGateway.delete(userLoginRecordId);
+		boolean delete = userLoginRecordGateway.delete(userLoginRecordId,userLoginRecordDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(UserLoginRecordAppStructMapping.instance.toUserLoginRecordVO(byId));
 		}

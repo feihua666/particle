@@ -92,6 +92,23 @@ export const addPageFormItems = [
       }
     }
   },
+  {
+    field: {
+      name: 'constraintContentTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '约束条件内容类型',
+        required: ({form}) => !form.isCustom,
+        tips: '在自定义数据、内置片段时，填写无效，内置片段时建议填写原生sql'
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'data_scope_constraint_content_type'}
+      }
+    }
+  },
       {
         field: {
           name: 'constraintContent',
@@ -99,35 +116,26 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '约束条件',
+            label: '约束条件内容',
             required: ({form}) => !form.isCustom,
-            tips: '一般由开发人员填写，用于数据范围约束'
+            tips: '一般由开发人员填写，用于数据范围约束,在自定义数据时可以用来指定一个字段，否则默认为id，如果保持默认请清空',
+            labelTips: '内置参数：</br>本人创建 = selfCreatedBy</br>\n' +
+                '本部门下的人创建 = selfDeptCreateBy</br>\n' +
+                '本部门及以下部门下的人创建 = selfDeptAndSubDeptCreateBy</br>\n' +
+                '已分配的部门数据范围下的人创建 = selfAssignedDeptCreateBy</br>\n' +
+                '\n' +
+                '本人 = selfPrefix + {column_id}</br>\n' +
+                '本部门下的人 = selfDeptPrefix + {column_id}</br>\n' +
+                '本部门及以下部门下的人 = selfDeptAndSubDeptPrefix + {column_id}</br>\n' +
+                '已分配的部门数据范围下的人 = selfAssignedDeptPrefix + {column_id}</br>'
           },
           compProps: {
+            type: 'textarea',
+            rows: 5,
             clearable: true,
           }
         }
       },
-
-      {
-        field: {
-          name: 'isForAdd',
-          value: true
-        },
-        element: {
-          comp: 'el-switch',
-          formItemProps: {
-            label: '用于添加',
-            required: true,
-          },
-          compProps: {
-            activeText: '是',
-            inactiveText: '否',
-          }
-        }
-      },
-
-
       {
         field: {
           name: 'isForDelete',
@@ -220,16 +228,6 @@ export const addPageFormItems = [
           }
         }
       },
-
-
-
-
-
-
-
-
-
-
 
 
 ]

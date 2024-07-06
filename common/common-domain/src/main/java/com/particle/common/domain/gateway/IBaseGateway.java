@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.id.Id;
+import com.particle.global.dto.basic.IdCommand;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 
 import java.util.List;
 
@@ -40,7 +42,16 @@ public interface IBaseGateway<ID extends Id,AR extends AggreateRoot> extends IGa
 	 * @return
 	 */
 	boolean delete(ID id);
-
+	/**
+	 * 删除 领域对象，增加对数据范围约束的支持
+	 * 这里设置为默认不加数据权限，因为历史代码需要大量修改，在有需要的地方修改成该方法即可
+	 * @param id
+	 * @param idCommand
+	 * @return
+	 */
+	default boolean delete(ID id, IdCommand idCommand){
+		return delete(id);
+	}
 
 	/**
 	 * 单独发送领城事件多条

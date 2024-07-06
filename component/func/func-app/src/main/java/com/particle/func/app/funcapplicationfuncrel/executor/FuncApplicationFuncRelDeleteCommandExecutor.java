@@ -44,7 +44,7 @@ public class FuncApplicationFuncRelDeleteCommandExecutor  extends AbstractBaseEx
 		FuncApplicationFuncRelId funcApplicationFuncRelId = FuncApplicationFuncRelId.of(deleteCommand.getId());
 		FuncApplicationFuncRel byId = funcApplicationFuncRelGateway.getById(funcApplicationFuncRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = funcApplicationFuncRelGateway.delete(funcApplicationFuncRelId);
+		boolean delete = funcApplicationFuncRelGateway.delete(funcApplicationFuncRelId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(FuncApplicationFuncRelAppStructMapping.instance.toFuncApplicationFuncRelVO(byId));
 		}

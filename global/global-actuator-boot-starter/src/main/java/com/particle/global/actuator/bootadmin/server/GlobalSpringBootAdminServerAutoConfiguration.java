@@ -26,7 +26,4 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 @ConditionalOnClass(EnableAdminServer.class)
 @ConditionalOnProperty(prefix = "particle.actuator.bootadmin.server", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalSpringBootAdminServerAutoConfiguration {
-    public GlobalSpringBootAdminServerAutoConfiguration() {
-        System.out.println("GlobalSpringBootAdminServerAutoConfiguration");
-    }
 }

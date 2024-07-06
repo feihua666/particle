@@ -1,5 +1,6 @@
 package com.particle.crm.adapter.customer.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.crm.client.customer.api.ICrmCustomerApplicationService;
 import com.particle.crm.client.customer.api.representation.ICrmCustomerRepresentationApplicationService;
 import com.particle.crm.client.customer.dto.command.CrmCustomerCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.crm.client.customer.dto.command.CrmCustomerUpdateCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerPageQueryCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,8 @@ public class CrmCustomerAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除客户",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
 	public SingleResponse<CrmCustomerVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_crm_customer, DataConstraintContext.Action.delete.name());
+
 		return iCrmCustomerApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +67,7 @@ public class CrmCustomerAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新客户",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.update)
 	public SingleResponse<CrmCustomerVO> update(@RequestBody CrmCustomerUpdateCommand crmCustomerUpdateCommand){
+		crmCustomerUpdateCommand.dcdo(DataConstraintConstants.data_object_crm_customer,DataConstraintContext.Action.update.name());
 		return iCrmCustomerApplicationService.update(crmCustomerUpdateCommand);
 	}
 
@@ -84,6 +89,7 @@ public class CrmCustomerAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询客户")
 	@GetMapping("/list")
 	public MultiResponse<CrmCustomerVO> queryList(CrmCustomerQueryListCommand crmCustomerQueryListCommand){
+		crmCustomerQueryListCommand.dcdo(DataConstraintConstants.data_object_crm_customer,DataConstraintContext.Action.query.name());
 		return iCrmCustomerRepresentationApplicationService.queryList(crmCustomerQueryListCommand);
 	}
 
@@ -91,6 +97,7 @@ public class CrmCustomerAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询客户")
 	@GetMapping("/page")
 	public PageResponse<CrmCustomerVO> pageQueryList(CrmCustomerPageQueryCommand crmCustomerPageQueryCommand){
+		crmCustomerPageQueryCommand.dcdo(DataConstraintConstants.data_object_crm_customer,DataConstraintContext.Action.query.name());
 		return iCrmCustomerRepresentationApplicationService.pageQuery(crmCustomerPageQueryCommand);
 	}
 

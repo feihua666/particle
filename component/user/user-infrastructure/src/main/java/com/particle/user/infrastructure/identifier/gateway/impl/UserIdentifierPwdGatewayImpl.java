@@ -1,5 +1,6 @@
 package com.particle.user.infrastructure.identifier.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
@@ -49,6 +50,10 @@ public class UserIdentifierPwdGatewayImpl extends AbstractBaseGatewayImpl<UserId
 		return iUserIdentifierPwdService.deleteById(userIdentifierPwdId.getId());
 	}
 
+	@Override
+	public boolean delete(UserIdentifierPwdId id, IdCommand idCommand) {
+		return iUserIdentifierPwdService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIUserIdentifierPwdService(IUserIdentifierPwdService iUserIdentifierPwdService) {

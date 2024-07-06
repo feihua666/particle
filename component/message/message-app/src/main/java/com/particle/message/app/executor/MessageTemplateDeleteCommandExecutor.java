@@ -39,7 +39,7 @@ public class MessageTemplateDeleteCommandExecutor  extends AbstractBaseExecutor 
 		MessageTemplateId messageTemplateId = MessageTemplateId.of(deleteCommand.getId());
 		MessageTemplate byId = messageTemplateGateway.getById(messageTemplateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = messageTemplateGateway.delete(messageTemplateId);
+		boolean delete = messageTemplateGateway.delete(messageTemplateId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(MessageTemplateAppStructMapping.instance.toMessageTemplateVO(byId));
 		}

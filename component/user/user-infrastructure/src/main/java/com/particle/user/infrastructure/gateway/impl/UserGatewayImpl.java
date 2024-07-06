@@ -1,5 +1,6 @@
 package com.particle.user.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
@@ -49,6 +50,10 @@ public class UserGatewayImpl extends AbstractBaseGatewayImpl<UserId,User> implem
 		return iUserService.deleteById(userId.getId());
 	}
 
+	@Override
+	public boolean delete(UserId id, IdCommand idCommand) {
+		return iUserService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIUserService(IUserService iUserService) {

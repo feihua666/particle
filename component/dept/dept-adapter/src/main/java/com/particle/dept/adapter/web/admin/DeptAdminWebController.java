@@ -1,5 +1,6 @@
 package com.particle.dept.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.api.IDeptApplicationService;
 import com.particle.dept.client.api.representation.IDeptRepresentationApplicationService;
@@ -11,6 +12,7 @@ import com.particle.dept.client.dto.command.representation.DeptPageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,7 @@ public class DeptAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
 	public SingleResponse<DeptVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_dept_dept, DataConstraintContext.Action.delete.name());
 		return iDeptApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class DeptAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新部门",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.update)
 	public SingleResponse<DeptVO> update(@RequestBody DeptUpdateCommand deptUpdateCommand){
+		deptUpdateCommand.dcdo(DataConstraintConstants.data_object_dept_dept,DataConstraintContext.Action.update.name());
 		return iDeptApplicationService.update(deptUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class DeptAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询部门")
 	@GetMapping("/list")
 	public MultiResponse<DeptVO> queryList(DeptQueryListCommand deptQueryListCommand){
+		deptQueryListCommand.dcdo(DataConstraintConstants.data_object_dept_dept,DataConstraintContext.Action.query.name());
 		return iDeptRepresentationApplicationService.queryList(deptQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class DeptAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询部门")
 	@GetMapping("/page")
 	public PageResponse<DeptVO> pageQueryList(DeptPageQueryCommand deptPageQueryCommand){
+		deptPageQueryCommand.dcdo(DataConstraintConstants.data_object_dept_dept,DataConstraintContext.Action.query.name());
 		return iDeptRepresentationApplicationService.pageQuery(deptPageQueryCommand);
 	}
 

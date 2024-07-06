@@ -2,8 +2,10 @@ package com.particle.role.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -55,8 +57,9 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除角色")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public SingleResponse<RoleVO> delete(@RequestBody IdCommand roleDeleteCommand){
-		return iRoleApplicationService.delete(roleDeleteCommand);
+	public SingleResponse<RoleVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_role_role, DataConstraintContext.Action.delete.name());
+		return iRoleApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:role:update')")
@@ -64,7 +67,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.update)
 	public SingleResponse<RoleVO> update(@RequestBody RoleUpdateCommand roleUpdateCommand,@Parameter(hidden = true) LoginUser loginUser){
-
+		roleUpdateCommand.dcdo(DataConstraintConstants.data_object_role_role,DataConstraintContext.Action.update.name());
 		superAdminCheck(LoginUser.super_admin_role.equals(roleUpdateCommand.getCode()) || (roleUpdateCommand.getIsSuperadmin() != null && roleUpdateCommand.getIsSuperadmin()), loginUser);
 		return iRoleApplicationService.update(roleUpdateCommand);
 	}
@@ -87,6 +90,7 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询角色")
 	@GetMapping("/list")
 	public MultiResponse<RoleVO> queryList(RoleQueryListCommand roleQueryListCommand){
+		roleQueryListCommand.dcdo(DataConstraintConstants.data_object_role_role,DataConstraintContext.Action.query.name());
 		return iRoleRepresentationApplicationService.queryList(roleQueryListCommand);
 	}
 
@@ -94,9 +98,15 @@ public class RoleAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询角色")
 	@GetMapping("/page")
 	public PageResponse<RoleVO> pageQueryList(RolePageQueryCommand rolePageQueryCommand){
+		rolePageQueryCommand.dcdo(DataConstraintConstants.data_object_role_role,DataConstraintContext.Action.query.name());
 		return iRoleRepresentationApplicationService.pageQuery(rolePageQueryCommand);
 	}
 
+	/**
+	 * 检查并断言超级管理员
+	 * @param isSuperAdmin
+	 * @param loginUser
+	 */
 	public static void superAdminCheck(boolean isSuperAdmin, LoginUser loginUser) {
 
 		// 只有超级管理员才能添加或修改超级管理员角色

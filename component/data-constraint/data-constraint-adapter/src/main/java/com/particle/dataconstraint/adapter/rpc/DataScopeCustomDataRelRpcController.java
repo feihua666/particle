@@ -1,12 +1,19 @@
 package com.particle.dataconstraint.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.dataconstraint.app.structmapping.DataScopeCustomDataRelAppStructMapping;
 import com.particle.dataconstraint.client.api.IDataScopeCustomDataRelApplicationService;
 import com.particle.dataconstraint.adapter.feign.client.rpc.DataScopeCustomDataRelRpcFeignClient;
+import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
+import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
+import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;
+import com.particle.global.dto.response.MultiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,7 +30,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class DataScopeCustomDataRelRpcController extends AbstractBaseRpcAdapter implements DataScopeCustomDataRelRpcFeignClient  {
 
 	@Autowired
+	private IDataScopeCustomDataRelService iDataScopeCustomDataRelService;
+	@Autowired
 	private IDataScopeCustomDataRelApplicationService iDataScopeCustomDataRelApplicationService;
 
 
+	@Override
+	public MultiResponse<DataScopeCustomDataRelVO> getByDataScopeIds(List<Long> dataScopeIds) {
+		List<DataScopeCustomDataRelDO> byDataScopeIds = iDataScopeCustomDataRelService.getByDataScopeIds(dataScopeIds);
+		List<DataScopeCustomDataRelVO> dataScopeCustomDataRelVOS = DataScopeCustomDataRelAppStructMapping.instance.dataScopeCustomDataRelDOsToDataScopeCustomDataRelVOs(byDataScopeIds);
+		return MultiResponse.of(dataScopeCustomDataRelVOS);
+	}
 }

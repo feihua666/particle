@@ -1,5 +1,7 @@
 package com.particle.message.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.message.client.api.IMessageUserStateApplicationService;
 import com.particle.message.client.api.representation.IMessageUserStateRepresentationApplicationService;
 import com.particle.message.client.dto.command.MessageUserStateCreateCommand;
@@ -55,6 +57,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
 	public SingleResponse<MessageUserStateVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_message_message_user_state, DataConstraintContext.Action.delete.name());
 		return iMessageUserStateApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.update)
 	public SingleResponse<MessageUserStateVO> update(@RequestBody MessageUserStateUpdateCommand messageUserStateUpdateCommand){
+		messageUserStateUpdateCommand.dcdo(DataConstraintConstants.data_object_message_message_user_state,DataConstraintContext.Action.update.name());
 		return iMessageUserStateApplicationService.update(messageUserStateUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询用户消息读取状态")
 	@GetMapping("/list")
 	public MultiResponse<MessageUserStateVO> queryList(MessageUserStateQueryListCommand messageUserStateQueryListCommand){
+		messageUserStateQueryListCommand.dcdo(DataConstraintConstants.data_object_message_message_user_state,DataConstraintContext.Action.query.name());
 		return iMessageUserStateRepresentationApplicationService.queryList(messageUserStateQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询用户消息读取状态")
 	@GetMapping("/page")
 	public PageResponse<MessageUserStateVO> pageQueryList(MessageUserStatePageQueryCommand messageUserStatePageQueryCommand){
+		messageUserStatePageQueryCommand.dcdo(DataConstraintConstants.data_object_message_message_user_state,DataConstraintContext.Action.query.name());
 		return iMessageUserStateRepresentationApplicationService.pageQuery(messageUserStatePageQueryCommand);
 	}
 

@@ -39,7 +39,7 @@ public class TenantUserDeleteCommandExecutor  extends AbstractBaseExecutor {
 		TenantUserId tenantUserId = TenantUserId.of(deleteCommand.getId());
 		TenantUser byId = tenantUserGateway.getById(tenantUserId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = tenantUserGateway.delete(tenantUserId);
+		boolean delete = tenantUserGateway.delete(tenantUserId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TenantUserAppStructMapping.instance.toTenantUserVO(byId));
 		}

@@ -1,6 +1,7 @@
 package com.particle.global.data.permission;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 
 /**
  * <p>
@@ -13,8 +14,8 @@ import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 public interface DataPermissionService {
 
 	/**
-	 * 数据范围约束条件包装
+	 * 数据范围约束条件内容包装
 	 * @param wrapper
 	 */
-	AbstractWrapper dataConstraint(AbstractWrapper wrapper);
+	AbstractWrapper dataConstraint(AbstractWrapper wrapper, DataConstraintContext dataConstraintContext);
 }

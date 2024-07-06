@@ -39,7 +39,7 @@ public class LowcodeDatasourceDeleteCommandExecutor  extends AbstractBaseExecuto
 		LowcodeDatasourceId lowcodeDatasourceId = LowcodeDatasourceId.of(deleteCommand.getId());
 		LowcodeDatasource byId = lowcodeDatasourceGateway.getById(lowcodeDatasourceId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = lowcodeDatasourceGateway.delete(lowcodeDatasourceId);
+		boolean delete = lowcodeDatasourceGateway.delete(lowcodeDatasourceId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(LowcodeDatasourceAppStructMapping.instance.toLowcodeDatasourceVO(byId));
 		}

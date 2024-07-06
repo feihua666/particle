@@ -39,7 +39,7 @@ public class TrackingPageRecordDeleteCommandExecutor  extends AbstractBaseExecut
 		TrackingPageRecordId trackingPageRecordId = TrackingPageRecordId.of(deleteCommand.getId());
 		TrackingPageRecord byId = trackingPageRecordGateway.getById(trackingPageRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = trackingPageRecordGateway.delete(trackingPageRecordId);
+		boolean delete = trackingPageRecordGateway.delete(trackingPageRecordId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TrackingPageRecordAppStructMapping.instance.toTrackingPageRecordVO(byId));
 		}

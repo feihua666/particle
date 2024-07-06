@@ -39,7 +39,7 @@ public class DictDeleteCommandExecutor  extends AbstractBaseExecutor {
 		DictId dictId = DictId.of(dictDeleteCommand.getId());
 		Dict byId = dictGateway.getById(dictId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dictGateway.delete(dictId);
+		boolean delete = dictGateway.delete(dictId,dictDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(DictAppStructMapping.instance.toDictVO(byId));
 		}

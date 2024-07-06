@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.openapi.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapi;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiId;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiGateway;
@@ -51,6 +52,10 @@ public class OpenplatformOpenapiGatewayImpl extends AbstractBaseGatewayImpl<Open
 		return iOpenplatformOpenapiService.deleteById(openplatformOpenapiId.getId());
 	}
 
+	@Override
+	public boolean delete(OpenplatformOpenapiId id, IdCommand idCommand) {
+		return iOpenplatformOpenapiService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpenplatformOpenapiService(IOpenplatformOpenapiService iOpenplatformOpenapiService) {

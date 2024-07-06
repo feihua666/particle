@@ -39,7 +39,7 @@ public class SystemConfigDeleteCommandExecutor  extends AbstractBaseExecutor {
 		SystemConfigId systemConfigId = SystemConfigId.of(deleteCommand.getId());
 		SystemConfig byId = systemConfigGateway.getById(systemConfigId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = systemConfigGateway.delete(systemConfigId);
+		boolean delete = systemConfigGateway.delete(systemConfigId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(SystemConfigAppStructMapping.instance.toSystemConfigVO(byId));
 		}

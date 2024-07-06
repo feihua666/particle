@@ -8,6 +8,7 @@ import com.particle.dept.infrastructure.dos.DeptTreeDO;
 import com.particle.dept.infrastructure.structmapping.DeptTreeInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DeptTreeGatewayImpl extends AbstractBaseGatewayImpl<DeptTreeId,Dept
 		return iDeptTreeService.deleteById(deptTreeId.getId());
 	}
 
+	@Override
+	public boolean delete(DeptTreeId id, IdCommand idCommand) {
+		return iDeptTreeService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDeptTreeService(IDeptTreeService iDeptTreeService) {

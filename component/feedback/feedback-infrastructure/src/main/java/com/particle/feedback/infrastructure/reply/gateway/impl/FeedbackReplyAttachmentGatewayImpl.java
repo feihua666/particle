@@ -8,6 +8,7 @@ import com.particle.feedback.infrastructure.reply.dos.FeedbackReplyAttachmentDO;
 import com.particle.feedback.infrastructure.reply.structmapping.FeedbackReplyAttachmentInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class FeedbackReplyAttachmentGatewayImpl extends AbstractBaseGatewayImpl<
 		return iFeedbackReplyAttachmentService.deleteById(feedbackReplyAttachmentId.getId());
 	}
 
+	@Override
+	public boolean delete(FeedbackReplyAttachmentId id, IdCommand idCommand) {
+		return iFeedbackReplyAttachmentService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIFeedbackReplyAttachmentService(IFeedbackReplyAttachmentService iFeedbackReplyAttachmentService) {

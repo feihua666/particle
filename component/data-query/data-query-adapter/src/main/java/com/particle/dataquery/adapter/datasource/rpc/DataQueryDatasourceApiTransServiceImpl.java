@@ -8,6 +8,7 @@ import com.particle.global.trans.api.impl.ThreadLocalDataTransServiceImpl;
 import com.particle.global.trans.helper.TransHelper;
 import com.particle.global.trans.result.TransResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class DataQueryDatasourceApiTransServiceImpl implements ITransService<Obj
 
     private static String TRANS_DATASOURCEAPI_BY_CODE = "trans_datasourceapi_by_code";
 
+    @Lazy
     @Autowired
     private DataApiQueryGateway dataApiQueryGateway;
 

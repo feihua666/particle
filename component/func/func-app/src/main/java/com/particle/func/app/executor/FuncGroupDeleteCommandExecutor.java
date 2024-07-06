@@ -39,7 +39,7 @@ public class FuncGroupDeleteCommandExecutor  extends AbstractBaseExecutor {
 		FuncGroupId funcGroupId = FuncGroupId.of(funcGroupDeleteCommand.getId());
 		FuncGroup byId = funcGroupGateway.getById(funcGroupId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = funcGroupGateway.delete(funcGroupId);
+		boolean delete = funcGroupGateway.delete(funcGroupId,funcGroupDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(FuncGroupAppStructMapping.instance.toFuncGroupVO(byId));
 		}

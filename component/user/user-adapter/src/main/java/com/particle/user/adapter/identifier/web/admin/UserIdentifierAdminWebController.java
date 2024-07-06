@@ -2,6 +2,8 @@ package com.particle.user.adapter.identifier.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -62,14 +64,16 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")
 	@Operation(summary = "删除用户登录标识")
 	@DeleteMapping("/delete")
-	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand userIdentifierDeleteCommand){
-		return iUserIdentifierApplicationService.delete(userIdentifierDeleteCommand);
+	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier, DataConstraintContext.Action.delete.name());
+		return iUserIdentifierApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
 	@Operation(summary = "更新用户登录标识")
 	@PutMapping("/update")
 	public SingleResponse<UserIdentifierVO> update(@RequestBody UserIdentifierUpdateCommand userIdentifierUpdateCommand){
+		userIdentifierUpdateCommand.dcdo(DataConstraintConstants.data_object_user_identifier,DataConstraintContext.Action.update.name());
 		return iUserIdentifierApplicationService.update(userIdentifierUpdateCommand);
 	}
 
@@ -91,6 +95,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询用户登录标识")
 	@GetMapping("/list")
 	public MultiResponse<UserIdentifierVO> queryList(UserIdentifierQueryListCommand userIdentifierQueryListCommand){
+		userIdentifierQueryListCommand.dcdo(DataConstraintConstants.data_object_user_identifier,DataConstraintContext.Action.query.name());
 		return iUserIdentifierRepresentationApplicationService.queryList(userIdentifierQueryListCommand);
 	}
 
@@ -98,6 +103,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询用户登录标识")
 	@GetMapping("/page")
 	public PageResponse<UserIdentifierVO> pageQueryList(UserIdentifierPageQueryCommand userIdentifierPageQueryCommand){
+		userIdentifierPageQueryCommand.dcdo(DataConstraintConstants.data_object_user_identifier,DataConstraintContext.Action.query.name());
 		return iUserIdentifierRepresentationApplicationService.pageQuery(userIdentifierPageQueryCommand);
 	}
 

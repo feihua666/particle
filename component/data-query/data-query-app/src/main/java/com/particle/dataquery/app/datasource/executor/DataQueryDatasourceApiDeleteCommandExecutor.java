@@ -43,7 +43,7 @@ public class DataQueryDatasourceApiDeleteCommandExecutor  extends AbstractBaseEx
 		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
 		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataQueryDatasourceApiGateway.delete(dataQueryDatasourceApiId);
+		boolean delete = dataQueryDatasourceApiGateway.delete(dataQueryDatasourceApiId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataQueryDatasourceApiAppStructMapping.instance.toDataQueryDatasourceApiVO(byId));
 		}

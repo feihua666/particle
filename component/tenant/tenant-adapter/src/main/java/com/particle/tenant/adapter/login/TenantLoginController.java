@@ -2,8 +2,13 @@ package com.particle.tenant.adapter.login;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.github.xiaoymin.knife4j.core.util.Assert;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.security.security.login.AbstractUserDetailsService;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
 import com.particle.tenant.client.dto.data.TenantCurrentVO;
@@ -18,10 +23,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * <p>
@@ -40,7 +46,11 @@ public class TenantLoginController {
 	private ITenantUserService tenantUserService;
 	@Autowired
 	private ITenantService tenantService;
+	@Autowired
+	private ITenantResolveService iTenantResolveService;
 
+	@Autowired
+	private AbstractUserDetailsService abstractUserDetailsService;
 	@Operation(summary = "获取当前登录用户的租户信息")
 	@PreAuthorize("hasAuthority('user')")
 	@GetMapping("/tenantInfo")
@@ -64,6 +74,29 @@ public class TenantLoginController {
 		return SingleResponse.of(tenantLoginVO);
 	}
 
+	/**
+	 * 这里也提供一个租户切换接口，仅多一种选择
+	 * 参考{@link com.particle.user.adapter.login.UserLoginController#changeTenant(com.particle.common.client.dto.command.IdCommand, com.particle.global.security.security.login.LoginUser, javax.servlet.http.HttpServletRequest)}保持一致
+	 *
+	 * @param idCommand
+	 * @param loginUser
+	 * @param httpServletRequest
+	 * @return
+	 */
+	@Operation(summary = "切换当前登录用户租户")
+	@PreAuthorize("hasAuthority('user')")
+	@PostMapping("/changeTenant")
+	@ResponseStatus(HttpStatus.OK)
+	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser, HttpServletRequest httpServletRequest) {
+
+		loginUser.clearUserGrantedAuthorities();
+		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
+
+		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(), Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
+		// 需要刷新一下权限，否则权限不会生效
+		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
+		return SingleResponse.of(loginUser);
+	}
 	@Operation(summary = "获取当前租户信息")
 	@GetMapping("/currentTenant")
 	@ResponseStatus(HttpStatus.OK)

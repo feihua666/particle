@@ -29,7 +29,7 @@ public class CrmCustomerTransServiceImpl implements ITransService<CrmCustomerTra
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_CRM_CUSTOMER_BY_ID,TransConstants.TRANS_DEPT_BY_USER_ID);
+        return StrUtil.containsAny(type, TransConstants.TRANS_CRM_CUSTOMER_BY_ID);
     }
 
     @Override

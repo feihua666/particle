@@ -28,6 +28,10 @@ public class DeptVO extends AbstractBaseIdTreeVO {
     @Schema(description = "类型")
     private Long typeDictId;
 
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
+    @Schema(description = "类型对应字典值")
+    private String typeDictValue;
+
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     @Schema(description = "类型对应字典名称")
     private String typeDictName;

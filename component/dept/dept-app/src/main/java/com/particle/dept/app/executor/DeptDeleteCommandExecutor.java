@@ -39,7 +39,7 @@ public class DeptDeleteCommandExecutor  extends AbstractBaseExecutor {
 		DeptId deptId = DeptId.of(deleteCommand.getId());
 		Dept byId = deptGateway.getById(deptId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = deptGateway.delete(deptId);
+		boolean delete = deptGateway.delete(deptId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DeptAppStructMapping.instance.toDeptVO(byId));
 		}

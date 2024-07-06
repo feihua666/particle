@@ -1,5 +1,6 @@
 package com.particle.lowcode.infrastructure.generator.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplateId;
 import com.particle.lowcode.domain.generator.gateway.LowcodeSegmentTemplateGateway;
@@ -53,6 +54,12 @@ public class LowcodeSegmentTemplateGatewayImpl extends AbstractBaseGatewayImpl<L
 		return iLowcodeSegmentTemplateService.deleteById(lowcodeSegmentTemplateId.getId());
 	}
 
+	@Override
+	public boolean delete(LowcodeSegmentTemplateId id, IdCommand idCommand) {
+		iLowcodeSegmentTemplateService.assertByColumn(id.getId(),LowcodeSegmentTemplateDO::getReferenceSegmentTemplateId,false,"要删除的片段模板还有其它片段模板引用，不能删除");
+
+		return iLowcodeSegmentTemplateService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setILowcodeSegmentTemplateService(ILowcodeSegmentTemplateService iLowcodeSegmentTemplateService) {

@@ -104,5 +104,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 间接适合数据范围约束，这里使用远程调用，主要考虑分布式部署情况 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-constraint-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

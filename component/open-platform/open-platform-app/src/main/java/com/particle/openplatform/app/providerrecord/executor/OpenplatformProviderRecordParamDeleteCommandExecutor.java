@@ -39,7 +39,7 @@ public class OpenplatformProviderRecordParamDeleteCommandExecutor  extends Abstr
 		OpenplatformProviderRecordParamId openplatformProviderRecordParamId = OpenplatformProviderRecordParamId.of(deleteCommand.getId());
 		OpenplatformProviderRecordParam byId = openplatformProviderRecordParamGateway.getById(openplatformProviderRecordParamId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformProviderRecordParamGateway.delete(openplatformProviderRecordParamId);
+		boolean delete = openplatformProviderRecordParamGateway.delete(openplatformProviderRecordParamId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformProviderRecordParamAppStructMapping.instance.toOpenplatformProviderRecordParamVO(byId));
 		}

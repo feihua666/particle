@@ -39,7 +39,7 @@ public class UsageCountRecordDetailDeleteCommandExecutor  extends AbstractBaseEx
 		UsageCountRecordDetailId usageCountRecordDetailId = UsageCountRecordDetailId.of(deleteCommand.getId());
 		UsageCountRecordDetail byId = usageCountRecordDetailGateway.getById(usageCountRecordDetailId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = usageCountRecordDetailGateway.delete(usageCountRecordDetailId);
+		boolean delete = usageCountRecordDetailGateway.delete(usageCountRecordDetailId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(UsageCountRecordDetailAppStructMapping.instance.toUsageCountRecordDetailVO(byId));
 		}

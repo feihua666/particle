@@ -39,7 +39,7 @@ public class FeedbackDeleteCommandExecutor  extends AbstractBaseExecutor {
 		FeedbackId feedbackId = FeedbackId.of(deleteCommand.getId());
 		Feedback byId = feedbackGateway.getById(feedbackId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = feedbackGateway.delete(feedbackId);
+		boolean delete = feedbackGateway.delete(feedbackId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(FeedbackAppStructMapping.instance.toFeedbackVO(byId));
 		}

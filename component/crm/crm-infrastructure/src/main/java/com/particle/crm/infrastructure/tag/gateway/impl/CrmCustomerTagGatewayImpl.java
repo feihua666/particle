@@ -8,6 +8,7 @@ import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
 import com.particle.crm.infrastructure.tag.structmapping.CrmCustomerTagInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class CrmCustomerTagGatewayImpl extends AbstractBaseGatewayImpl<CrmCustom
 		return iCrmCustomerTagService.deleteById(crmCustomerTagId.getId());
 	}
 
+	@Override
+	public boolean delete(CrmCustomerTagId id, IdCommand idCommand) {
+		return iCrmCustomerTagService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setICrmCustomerTagService(ICrmCustomerTagService iCrmCustomerTagService) {

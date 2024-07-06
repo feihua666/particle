@@ -8,6 +8,7 @@ import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
 import com.particle.dept.infrastructure.deptuserrel.structmapping.DeptUserRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DeptUserRelGatewayImpl extends AbstractBaseGatewayImpl<DeptUserRelI
 		return iDeptUserRelService.deleteById(deptUserRelId.getId());
 	}
 
+	@Override
+	public boolean delete(DeptUserRelId id, IdCommand idCommand) {
+		return iDeptUserRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDeptUserRelService(IDeptUserRelService iDeptUserRelService) {

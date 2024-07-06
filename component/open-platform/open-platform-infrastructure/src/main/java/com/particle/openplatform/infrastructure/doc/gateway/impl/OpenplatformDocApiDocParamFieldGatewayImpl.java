@@ -1,5 +1,6 @@
 package com.particle.openplatform.infrastructure.doc.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamField;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamFieldId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocParamFieldGateway;
@@ -51,6 +52,10 @@ public class OpenplatformDocApiDocParamFieldGatewayImpl extends AbstractBaseGate
 		return iOpenplatformDocApiDocParamFieldService.deleteById(openplatformDocApiDocParamFieldId.getId());
 	}
 
+	@Override
+	public boolean delete(OpenplatformDocApiDocParamFieldId id, IdCommand idCommand) {
+		return iOpenplatformDocApiDocParamFieldService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpenplatformDocApiDocParamFieldService(IOpenplatformDocApiDocParamFieldService iOpenplatformDocApiDocParamFieldService) {

@@ -39,7 +39,7 @@ public class CrmCustomerTagDeleteCommandExecutor  extends AbstractBaseExecutor {
 		CrmCustomerTagId crmCustomerTagId = CrmCustomerTagId.of(deleteCommand.getId());
 		CrmCustomerTag byId = crmCustomerTagGateway.getById(crmCustomerTagId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = crmCustomerTagGateway.delete(crmCustomerTagId);
+		boolean delete = crmCustomerTagGateway.delete(crmCustomerTagId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(CrmCustomerTagAppStructMapping.instance.toCrmCustomerTagVO(byId));
 		}

@@ -8,6 +8,7 @@ import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicati
 import com.particle.func.infrastructure.funcapplicationfuncrel.structmapping.FuncApplicationFuncRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class FuncApplicationFuncRelGatewayImpl extends AbstractBaseGatewayImpl<F
 		return iFuncApplicationFuncRelService.deleteById(funcApplicationFuncRelId.getId());
 	}
 
+	@Override
+	public boolean delete(FuncApplicationFuncRelId id, IdCommand idCommand) {
+		return iFuncApplicationFuncRelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIFuncApplicationFuncRelService(IFuncApplicationFuncRelService iFuncApplicationFuncRelService) {

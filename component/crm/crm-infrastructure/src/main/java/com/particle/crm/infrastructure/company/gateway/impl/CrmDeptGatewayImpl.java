@@ -8,6 +8,7 @@ import com.particle.crm.infrastructure.company.dos.CrmDeptDO;
 import com.particle.crm.infrastructure.company.structmapping.CrmDeptInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class CrmDeptGatewayImpl extends AbstractBaseGatewayImpl<CrmDeptId,CrmDep
 		return iCrmDeptService.deleteById(crmDeptId.getId());
 	}
 
+	@Override
+	public boolean delete(CrmDeptId id, IdCommand idCommand) {
+		return iCrmDeptService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setICrmDeptService(ICrmDeptService iCrmDeptService) {

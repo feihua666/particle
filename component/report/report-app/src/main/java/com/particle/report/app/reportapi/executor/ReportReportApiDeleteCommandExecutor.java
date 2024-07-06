@@ -39,7 +39,7 @@ public class ReportReportApiDeleteCommandExecutor  extends AbstractBaseExecutor 
 		ReportReportApiId reportReportApiId = ReportReportApiId.of(deleteCommand.getId());
 		ReportReportApi byId = reportReportApiGateway.getById(reportReportApiId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = reportReportApiGateway.delete(reportReportApiId);
+		boolean delete = reportReportApiGateway.delete(reportReportApiId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(ReportReportApiAppStructMapping.instance.toReportReportApiVO(byId));
 		}

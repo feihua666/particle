@@ -35,19 +35,17 @@ public class DataScopeCreateCommand extends AbstractBaseCommand {
         @Schema(description = "数据对象id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long dataObjectId;
 
+	@Schema(description = "约束条件内容类型，字典id")
+	private Long constraintContentTypeDictId;
 
-    @Schema(description = "约束条件")
+
+    @Schema(description = "约束条件内容")
     private String constraintContent;
 
 
     @NotNull(message = "是否自定义 不能为空")
         @Schema(description = "是否自定义",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isCustom;
-
-
-    @NotNull(message = "是否用于添加 不能为空")
-        @Schema(description = "是否用于添加",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Boolean isForAdd;
 
 
     @NotNull(message = "是否用于删除 不能为空")

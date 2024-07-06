@@ -49,7 +49,7 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 		RoleFuncRelId roleFuncRelId = RoleFuncRelId.of(roleFuncRelDeleteCommand.getId());
 		RoleFuncRel byId = roleFuncRelGateway.getById(roleFuncRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = roleFuncRelGateway.delete(roleFuncRelId);
+		boolean delete = roleFuncRelGateway.delete(roleFuncRelId,roleFuncRelDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(RoleFuncRelAppStructMapping.instance.toRoleFuncRelVO(byId));
 		}

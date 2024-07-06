@@ -42,7 +42,7 @@ public class UserDeleteCommandExecutor  extends AbstractBaseExecutor {
 		UserId userId = UserId.of(userDeleteCommand.getId());
 		User byId = userGateway.getById(userId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = userGateway.delete(userId);
+		boolean delete = userGateway.delete(userId,userDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(byId));
 		}

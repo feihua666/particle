@@ -39,7 +39,7 @@ public class DeptTreeUserRelDeleteCommandExecutor  extends AbstractBaseExecutor 
 		DeptTreeUserRelId deptTreeUserRelId = DeptTreeUserRelId.of(deleteCommand.getId());
 		DeptTreeUserRel byId = deptTreeUserRelGateway.getById(deptTreeUserRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = deptTreeUserRelGateway.delete(deptTreeUserRelId);
+		boolean delete = deptTreeUserRelGateway.delete(deptTreeUserRelId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DeptTreeUserRelAppStructMapping.instance.toDeptTreeUserRelVO(byId));
 		}

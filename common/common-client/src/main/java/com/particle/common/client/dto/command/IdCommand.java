@@ -17,11 +17,6 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Schema
-public class IdCommand extends AbstractBaseCommand {
-
-	@Min(value = 1,message = "id 不能小于1")
-    @NotNull(message = "id不能为空")
-	@Schema(description = "id",requiredMode = Schema.RequiredMode.REQUIRED)
-	private Long id;
+public class IdCommand extends AbstractIdCommand {
 
 }

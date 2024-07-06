@@ -23,4 +23,7 @@ public class AbstractBaseIdTreeVO extends AbstractBaseVO{
 
 	@Schema(description = "父级parentId")
 	private Long parentId;
+
+	@Schema(description = "层级")
+	private Integer level;
 }

@@ -39,7 +39,7 @@ public class TenantCreateApplyDeleteCommandExecutor  extends AbstractBaseExecuto
 		TenantCreateApplyId tenantCreateApplyId = TenantCreateApplyId.of(deleteCommand.getId());
 		TenantCreateApply byId = tenantCreateApplyGateway.getById(tenantCreateApplyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = tenantCreateApplyGateway.delete(tenantCreateApplyId);
+		boolean delete = tenantCreateApplyGateway.delete(tenantCreateApplyId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TenantCreateApplyAppStructMapping.instance.toTenantCreateApplyVO(byId));
 		}

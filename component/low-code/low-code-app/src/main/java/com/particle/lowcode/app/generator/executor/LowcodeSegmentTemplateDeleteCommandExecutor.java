@@ -42,7 +42,7 @@ public class LowcodeSegmentTemplateDeleteCommandExecutor  extends AbstractBaseEx
 		LowcodeSegmentTemplateId lowcodeSegmentTemplateId = LowcodeSegmentTemplateId.of(deleteCommand.getId());
 		LowcodeSegmentTemplate byId = lowcodeSegmentTemplateGateway.getById(lowcodeSegmentTemplateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = lowcodeSegmentTemplateGateway.delete(lowcodeSegmentTemplateId);
+		boolean delete = lowcodeSegmentTemplateGateway.delete(lowcodeSegmentTemplateId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(LowcodeSegmentTemplateAppStructMapping.instance.toLowcodeSegmentTemplateVO(byId));
 		}

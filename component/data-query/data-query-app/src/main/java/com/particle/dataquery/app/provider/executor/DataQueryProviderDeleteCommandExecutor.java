@@ -39,7 +39,7 @@ public class DataQueryProviderDeleteCommandExecutor  extends AbstractBaseExecuto
 		DataQueryProviderId dataQueryProviderId = DataQueryProviderId.of(deleteCommand.getId());
 		DataQueryProvider byId = dataQueryProviderGateway.getById(dataQueryProviderId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataQueryProviderGateway.delete(dataQueryProviderId);
+		boolean delete = dataQueryProviderGateway.delete(dataQueryProviderId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataQueryProviderAppStructMapping.instance.toDataQueryProviderVO(byId));
 		}

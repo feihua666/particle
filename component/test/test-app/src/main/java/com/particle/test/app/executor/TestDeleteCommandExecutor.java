@@ -39,7 +39,7 @@ public class TestDeleteCommandExecutor extends AbstractBaseExecutor {
 		TestId testId = TestId.of(testDeleteCommand.getId());
 		Test byId = testGateway.getById(testId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = testGateway.delete(testId);
+		boolean delete = testGateway.delete(testId,testDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(TestAppStructMapping.instance.toTestVO(byId));
 		}

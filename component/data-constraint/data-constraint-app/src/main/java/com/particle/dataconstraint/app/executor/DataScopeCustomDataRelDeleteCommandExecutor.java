@@ -42,7 +42,7 @@ public class DataScopeCustomDataRelDeleteCommandExecutor  extends AbstractBaseEx
 		DataScopeCustomDataRelId dataScopeCustomDataRelId = DataScopeCustomDataRelId.of(deleteCommand.getId());
 		DataScopeCustomDataRel byId = dataScopeCustomDataRelGateway.getById(dataScopeCustomDataRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataScopeCustomDataRelGateway.delete(dataScopeCustomDataRelId);
+		boolean delete = dataScopeCustomDataRelGateway.delete(dataScopeCustomDataRelId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataScopeCustomDataRelAppStructMapping.instance.toDataScopeCustomDataRelVO(byId));
 		}

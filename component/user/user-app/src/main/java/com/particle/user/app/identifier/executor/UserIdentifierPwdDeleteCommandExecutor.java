@@ -42,7 +42,7 @@ public class UserIdentifierPwdDeleteCommandExecutor  extends AbstractBaseExecuto
 		UserIdentifierPwdId userIdentifierPwdId = UserIdentifierPwdId.of(userIdentifierPwdDeleteCommand.getId());
 		UserIdentifierPwd byId = userIdentifierPwdGateway.getById(userIdentifierPwdId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = userIdentifierPwdGateway.delete(userIdentifierPwdId);
+		boolean delete = userIdentifierPwdGateway.delete(userIdentifierPwdId,userIdentifierPwdDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(UserIdentifierPwdAppStructMapping.instance.toUserIdentifierPwdVO(byId));
 		}

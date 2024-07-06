@@ -8,6 +8,7 @@ import com.particle.config.infrastructure.system.dos.SystemConfigDO;
 import com.particle.config.infrastructure.system.structmapping.SystemConfigInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class SystemConfigGatewayImpl extends AbstractBaseGatewayImpl<SystemConfi
 		return iSystemConfigService.deleteById(systemConfigId.getId());
 	}
 
+	@Override
+	public boolean delete(SystemConfigId id, IdCommand idCommand) {
+		return iSystemConfigService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setISystemConfigService(ISystemConfigService iSystemConfigService) {

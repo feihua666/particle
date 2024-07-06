@@ -2,6 +2,7 @@ package com.particle.test.infrastructure.gateway.impl;
 
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.test.domain.Test;
 import com.particle.test.domain.TestId;
 import com.particle.test.domain.gateway.TestGateway;
@@ -49,6 +50,10 @@ public class TestGatewayImpl extends AbstractBaseGatewayImpl<TestId, Test> imple
 		return iTestService.deleteById(testId.getId());
 	}
 
+	@Override
+	public boolean delete(TestId id, IdCommand idCommand) {
+		return iTestService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setITestService(ITestService iTestService) {

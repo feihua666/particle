@@ -39,7 +39,7 @@ public class OpenplatformDocApiDocResponseCodeDeleteCommandExecutor  extends Abs
 		OpenplatformDocApiDocResponseCodeId openplatformDocApiDocResponseCodeId = OpenplatformDocApiDocResponseCodeId.of(deleteCommand.getId());
 		OpenplatformDocApiDocResponseCode byId = openplatformDocApiDocResponseCodeGateway.getById(openplatformDocApiDocResponseCodeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocApiDocResponseCodeGateway.delete(openplatformDocApiDocResponseCodeId);
+		boolean delete = openplatformDocApiDocResponseCodeGateway.delete(openplatformDocApiDocResponseCodeId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocApiDocResponseCodeAppStructMapping.instance.toOpenplatformDocApiDocResponseCodeVO(byId));
 		}

@@ -1,5 +1,6 @@
 package com.particle.config.adapter.system.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.config.client.system.api.ISystemConfigApplicationService;
 import com.particle.config.client.system.api.representation.ISystemConfigRepresentationApplicationService;
 import com.particle.config.client.system.dto.command.SystemConfigCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,7 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除系统参数配置",module = OpLogConstants.Module.config,type = OpLogConstants.Type.delete)
 	public SingleResponse<SystemConfigVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_config_system_config, DataConstraintContext.Action.delete.name());
 		return iSystemConfigApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新系统参数配置",module = OpLogConstants.Module.config,type = OpLogConstants.Type.update)
 	public SingleResponse<SystemConfigVO> update(@RequestBody SystemConfigUpdateCommand systemConfigUpdateCommand){
+		systemConfigUpdateCommand.dcdo(DataConstraintConstants.data_object_config_system_config,DataConstraintContext.Action.update.name());
 		return iSystemConfigApplicationService.update(systemConfigUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询系统参数配置")
 	@GetMapping("/list")
 	public MultiResponse<SystemConfigVO> queryList(SystemConfigQueryListCommand systemConfigQueryListCommand){
+		systemConfigQueryListCommand.dcdo(DataConstraintConstants.data_object_config_system_config,DataConstraintContext.Action.query.name());
 		return iSystemConfigRepresentationApplicationService.queryList(systemConfigQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询系统参数配置")
 	@GetMapping("/page")
 	public PageResponse<SystemConfigVO> pageQueryList(SystemConfigPageQueryCommand systemConfigPageQueryCommand){
+		systemConfigPageQueryCommand.dcdo(DataConstraintConstants.data_object_config_system_config,DataConstraintContext.Action.query.name());
 		return iSystemConfigRepresentationApplicationService.pageQuery(systemConfigPageQueryCommand);
 	}
 

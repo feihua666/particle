@@ -3,6 +3,8 @@ package com.particle.user.adapter.identifier.web.admin;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
@@ -51,15 +53,16 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:delete')")
 	@Operation(summary = "删除用户密码")
 	@DeleteMapping("/delete")
-	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody IdCommand userIdentifierPwdDeleteCommand){
-		return iUserIdentifierPwdApplicationService.delete(userIdentifierPwdDeleteCommand);
+	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd, DataConstraintContext.Action.delete.name());
+		return iUserIdentifierPwdApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:update')")
 	@Operation(summary = "更新用户密码")
 	@PutMapping("/update")
 	public SingleResponse<UserIdentifierPwdVO> update(@RequestBody UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand){
-
+		userIdentifierPwdUpdateCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd,DataConstraintContext.Action.update.name());
 		return iUserIdentifierPwdApplicationService.update(userIdentifierPwdUpdateCommand);
 	}
 
@@ -105,6 +108,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "列表查询用户密码")
 	@GetMapping("/list")
 	public MultiResponse<UserIdentifierPwdVO> queryList(UserIdentifierPwdQueryListCommand userIdentifierPwdQueryListCommand){
+		userIdentifierPwdQueryListCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd,DataConstraintContext.Action.query.name());
 		return iUserIdentifierPwdRepresentationApplicationService.queryList(userIdentifierPwdQueryListCommand);
 	}
 
@@ -112,6 +116,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "分页查询用户密码")
 	@GetMapping("/page")
 	public PageResponse<UserIdentifierPwdVO> pageQueryList(UserIdentifierPwdPageQueryCommand userIdentifierPwdPageQueryCommand){
+		userIdentifierPwdPageQueryCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd,DataConstraintContext.Action.query.name());
 		return iUserIdentifierPwdRepresentationApplicationService.pageQuery(userIdentifierPwdPageQueryCommand);
 	}
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:identifier:resetPassword')")

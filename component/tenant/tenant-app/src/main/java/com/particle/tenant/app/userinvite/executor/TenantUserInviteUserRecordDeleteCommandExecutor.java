@@ -39,7 +39,7 @@ public class TenantUserInviteUserRecordDeleteCommandExecutor  extends AbstractBa
 		TenantUserInviteUserRecordId tenantUserInviteUserRecordId = TenantUserInviteUserRecordId.of(deleteCommand.getId());
 		TenantUserInviteUserRecord byId = tenantUserInviteUserRecordGateway.getById(tenantUserInviteUserRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = tenantUserInviteUserRecordGateway.delete(tenantUserInviteUserRecordId);
+		boolean delete = tenantUserInviteUserRecordGateway.delete(tenantUserInviteUserRecordId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(TenantUserInviteUserRecordAppStructMapping.instance.toTenantUserInviteUserRecordVO(byId));
 		}

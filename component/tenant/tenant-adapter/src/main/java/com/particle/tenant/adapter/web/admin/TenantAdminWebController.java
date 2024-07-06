@@ -1,7 +1,9 @@
 package com.particle.tenant.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.api.representation.ITenantRepresentationApplicationService;
@@ -61,6 +63,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
 	public SingleResponse<TenantVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_tenant_tenant, DataConstraintContext.Action.delete.name());
 		return iTenantApplicationService.delete(deleteCommand);
 	}
 
@@ -69,6 +72,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.update)
 	public SingleResponse<TenantVO> update(@RequestBody TenantUpdateCommand tenantUpdateCommand){
+		tenantUpdateCommand.dcdo(DataConstraintConstants.data_object_tenant_tenant,DataConstraintContext.Action.update.name());
 		return iTenantApplicationService.update(tenantUpdateCommand);
 	}
 
@@ -90,6 +94,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询租户")
 	@GetMapping("/list")
 	public MultiResponse<TenantVO> queryList(TenantQueryListCommand tenantQueryListCommand){
+		tenantQueryListCommand.dcdo(DataConstraintConstants.data_object_tenant_tenant,DataConstraintContext.Action.query.name());
 		return iTenantRepresentationApplicationService.queryList(tenantQueryListCommand);
 	}
 
@@ -97,6 +102,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询租户")
 	@GetMapping("/page")
 	public PageResponse<TenantVO> pageQueryList(TenantPageQueryCommand tenantPageQueryCommand){
+		tenantPageQueryCommand.dcdo(DataConstraintConstants.data_object_tenant_tenant,DataConstraintContext.Action.query.name());
 		return iTenantRepresentationApplicationService.pageQuery(tenantPageQueryCommand);
 	}
 

@@ -44,7 +44,7 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 		RoleUserRelId roleUserRelId = RoleUserRelId.of(roleUserRelDeleteCommand.getId());
 		RoleUserRel byId = roleUserRelGateway.getById(roleUserRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = roleUserRelGateway.delete(roleUserRelId);
+		boolean delete = roleUserRelGateway.delete(roleUserRelId,roleUserRelDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(RoleUserRelAppStructMapping.instance.toRoleUserRelVO(byId));
 		}

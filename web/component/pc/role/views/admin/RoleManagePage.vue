@@ -105,6 +105,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     }
   ]
   let roleAssignFuncRouteQuery = {roleId: row.id,roleName: row.name}
+  let roleAssignDataScopeRouteQuery = {roleId: row.id,roleName: row.name}
 
   if (componentEnabled('func')) {
     tableRowButtons.push(
@@ -114,6 +115,17 @@ const getTableRowButtons = ({row, column, $index}) => {
           text: true,
           permission: 'admin:web:roleFuncRel:roleAssignFunc',
           route: {path: '/admin/roleManageRoleAssignFunc',query: roleAssignFuncRouteQuery}
+        }
+    )
+  }
+  if (componentEnabled('data-constraint')) {
+    tableRowButtons.push(
+        {
+          txt: '角色分配数据范围',
+          position: 'more',
+          text: true,
+          permission: 'admin:web:roleDataScopeRel:roleAssignDataScope',
+          route: {path: '/admin/roleManageRoleAssignDataScope',query: roleAssignDataScopeRouteQuery}
         }
     )
   }

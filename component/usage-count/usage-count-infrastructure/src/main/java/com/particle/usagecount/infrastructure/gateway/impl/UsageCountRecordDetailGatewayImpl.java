@@ -1,5 +1,6 @@
 package com.particle.usagecount.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.usagecount.domain.UsageCountRecordDetail;
 import com.particle.usagecount.domain.UsageCountRecordDetailId;
 import com.particle.usagecount.domain.gateway.UsageCountRecordDetailGateway;
@@ -51,6 +52,10 @@ public class UsageCountRecordDetailGatewayImpl extends AbstractBaseGatewayImpl<U
 		return iUsageCountRecordDetailService.deleteById(usageCountRecordDetailId.getId());
 	}
 
+	@Override
+	public boolean delete(UsageCountRecordDetailId id, IdCommand idCommand) {
+		return iUsageCountRecordDetailService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIUsageCountRecordDetailService(IUsageCountRecordDetailService iUsageCountRecordDetailService) {

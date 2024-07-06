@@ -39,7 +39,7 @@ public class ReportSegmentTemplateDeleteCommandExecutor  extends AbstractBaseExe
 		ReportSegmentTemplateId reportSegmentTemplateId = ReportSegmentTemplateId.of(deleteCommand.getId());
 		ReportSegmentTemplate byId = reportSegmentTemplateGateway.getById(reportSegmentTemplateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = reportSegmentTemplateGateway.delete(reportSegmentTemplateId);
+		boolean delete = reportSegmentTemplateGateway.delete(reportSegmentTemplateId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(ReportSegmentTemplateAppStructMapping.instance.toReportSegmentTemplateVO(byId));
 		}

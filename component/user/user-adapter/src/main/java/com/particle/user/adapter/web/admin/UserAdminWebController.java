@@ -2,8 +2,10 @@ package com.particle.user.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -60,8 +62,9 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除用户")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
-	public SingleResponse<UserVO> delete(@RequestBody IdCommand userDeleteCommand){
-		return iUserApplicationService.delete(userDeleteCommand);
+	public SingleResponse<UserVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_user_user, DataConstraintContext.Action.delete.name());
+		return iUserApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
@@ -69,6 +72,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public SingleResponse<UserVO> update(@RequestBody UserUpdateCommand userUpdateCommand){
+		userUpdateCommand.dcdo(DataConstraintConstants.data_object_user_user,DataConstraintContext.Action.update.name());
 		return iUserApplicationService.update(userUpdateCommand);
 	}
 
@@ -90,6 +94,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询用户")
 	@GetMapping("/list")
 	public MultiResponse<UserVO> queryList(UserQueryListCommand userQueryListCommand){
+		userQueryListCommand.dcdo(DataConstraintConstants.data_object_user_user,DataConstraintContext.Action.query.name());
 		MultiResponse<UserVO> userVOMultiResponse = iUserRepresentationApplicationService.queryList(userQueryListCommand);
 
 		if (userVOMultiResponse.isNotEmpty() && userQueryListCommand.getIsIncludeRoleInfo() != null && userQueryListCommand.getIsIncludeRoleInfo()) {
@@ -103,7 +108,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询用户")
 	@GetMapping("/page")
 	public PageResponse<UserVO> pageQueryList(UserPageQueryCommand userPageQueryCommand){
-
+		userPageQueryCommand.dcdo(DataConstraintConstants.data_object_user_user,DataConstraintContext.Action.query.name());
 		PageResponse<UserVO> userVOPageResponse = iUserRepresentationApplicationService.pageQuery(userPageQueryCommand);
 		if (userVOPageResponse.isNotEmpty() && userPageQueryCommand.getIsIncludeRoleInfo() != null && userPageQueryCommand.getIsIncludeRoleInfo()) {
 			List<UserVO> collect = userVOPageResponse.getData().stream().map(item -> UserAppStructMapping.instance.mapUserWithRoleVO(item)).collect(Collectors.toList());

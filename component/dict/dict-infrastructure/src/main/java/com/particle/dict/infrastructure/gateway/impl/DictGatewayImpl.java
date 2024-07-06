@@ -8,6 +8,7 @@ import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
 import com.particle.dict.infrastructure.structmapping.DictInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DictGatewayImpl extends AbstractBaseGatewayImpl<DictId,Dict> implem
 		return iDictService.deleteById(dictId.getId());
 	}
 
+	@Override
+	public boolean delete(DictId id, IdCommand idCommand) {
+		return iDictService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDictService(IDictService iDictService) {

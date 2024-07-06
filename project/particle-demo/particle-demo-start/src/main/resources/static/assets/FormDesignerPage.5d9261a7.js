@@ -1,0 +1,1 @@
+import{Q as o,b as t,o as c,h as n}from"./index.bd091b8a.js";const s={};function r(a,p){const e=t("PtFormDesign");return c(),n(e,{class:"pt-height-100-pc pt-width-100-pc"})}const i=o(s,[["render",r]]);export{i as default};

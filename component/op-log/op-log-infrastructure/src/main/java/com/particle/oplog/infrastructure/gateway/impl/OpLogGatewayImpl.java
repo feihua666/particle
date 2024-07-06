@@ -1,5 +1,6 @@
 package com.particle.oplog.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.oplog.domain.OpLog;
 import com.particle.oplog.domain.OpLogId;
 import com.particle.oplog.domain.gateway.OpLogGateway;
@@ -51,6 +52,10 @@ public class OpLogGatewayImpl extends AbstractBaseGatewayImpl<OpLogId,OpLog> imp
 		return iOpLogService.deleteById(opLogId.getId());
 	}
 
+	@Override
+	public boolean delete(OpLogId id, IdCommand idCommand) {
+		return iOpLogService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpLogService(IOpLogService iOpLogService) {

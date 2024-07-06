@@ -39,7 +39,7 @@ public class OpenplatformProviderDeleteCommandExecutor  extends AbstractBaseExec
 		OpenplatformProviderId openplatformProviderId = OpenplatformProviderId.of(deleteCommand.getId());
 		OpenplatformProvider byId = openplatformProviderGateway.getById(openplatformProviderId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformProviderGateway.delete(openplatformProviderId);
+		boolean delete = openplatformProviderGateway.delete(openplatformProviderId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformProviderAppStructMapping.instance.toOpenplatformProviderVO(byId));
 		}

@@ -1,5 +1,6 @@
 package com.particle.report.infrastructure.reportapi.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
 import com.particle.report.domain.reportapi.gateway.ReportReportApiGateway;
@@ -51,6 +52,10 @@ public class ReportReportApiGatewayImpl extends AbstractBaseGatewayImpl<ReportRe
 		return iReportReportApiService.deleteById(reportReportApiId.getId());
 	}
 
+	@Override
+	public boolean delete(ReportReportApiId id, IdCommand idCommand) {
+		return iReportReportApiService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIReportReportApiService(IReportReportApiService iReportReportApiService) {

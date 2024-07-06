@@ -2,6 +2,7 @@ package com.particle.dict.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
@@ -13,6 +14,7 @@ import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
 import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,8 +59,9 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除字典")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.delete)
-	public SingleResponse<DictVO> delete(@RequestBody IdCommand dictDeleteCommand){
-		return iDictApplicationService.delete(dictDeleteCommand);
+	public SingleResponse<DictVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_dict_dict, DataConstraintContext.Action.delete.name());
+		return iDictApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
@@ -66,6 +69,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.update)
 	public SingleResponse<DictVO> update(@RequestBody DictUpdateCommand dictUpdateCommand){
+		dictUpdateCommand.dcdo(DataConstraintConstants.data_object_dict_dict,DataConstraintContext.Action.update.name());
 		return iDictApplicationService.update(dictUpdateCommand);
 	}
 
@@ -87,6 +91,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询字典")
 	@GetMapping("/list")
 	public MultiResponse<DictVO> queryList(DictQueryListCommand dictQueryListCommand){
+		dictQueryListCommand.dcdo(DataConstraintConstants.data_object_dict_dict,DataConstraintContext.Action.query.name());
 		return iDictRepresentationApplicationService.queryList(dictQueryListCommand);
 	}
 
@@ -94,6 +99,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询字典")
 	@GetMapping("/page")
 	public PageResponse<DictVO> pageQueryList(DictPageQueryCommand dictPageQueryCommand){
+		dictPageQueryCommand.dcdo(DataConstraintConstants.data_object_dict_dict,DataConstraintContext.Action.query.name());
 		return iDictRepresentationApplicationService.pageQuery(dictPageQueryCommand);
 	}
 

@@ -33,17 +33,16 @@ public class DataScopeQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "数据对象id")
     private Long dataObjectId;
 
+	@Schema(description = "约束条件内容类型，字典id")
+	private Long constraintContentTypeDictId;
 
-    @Schema(description = "约束条件")
+
+    @Schema(description = "约束条件内容")
     private String constraintContent;
 
 
     @Schema(description = "是否自定义")
     private Boolean isCustom;
-
-
-    @Schema(description = "是否用于添加")
-    private Boolean isForAdd;
 
 
     @Schema(description = "是否用于删除")

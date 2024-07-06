@@ -2,6 +2,7 @@ package com.particle.dataconstraint.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -37,18 +38,18 @@ public class DataScopeUpdateCommand extends AbstractBaseUpdateCommand {
     private Long dataObjectId;
 
 
-    @Schema(description = "约束条件")
+    @SetNullWhenNull
+	@Schema(description = "约束条件内容类型，字典id")
+	private Long constraintContentTypeDictId;
+
+
+    @Schema(description = "约束条件内容")
     private String constraintContent;
 
 
     @NotNull(message = "是否自定义 不能为空")
         @Schema(description = "是否自定义",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isCustom;
-
-
-    @NotNull(message = "是否用于添加 不能为空")
-        @Schema(description = "是否用于添加",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Boolean isForAdd;
 
 
     @NotNull(message = "是否用于删除 不能为空")

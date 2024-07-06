@@ -39,7 +39,7 @@ public class OpenplatformDocDirNameDeleteCommandExecutor  extends AbstractBaseEx
 		OpenplatformDocDirNameId openplatformDocDirNameId = OpenplatformDocDirNameId.of(deleteCommand.getId());
 		OpenplatformDocDirName byId = openplatformDocDirNameGateway.getById(openplatformDocDirNameId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = openplatformDocDirNameGateway.delete(openplatformDocDirNameId);
+		boolean delete = openplatformDocDirNameGateway.delete(openplatformDocDirNameId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(OpenplatformDocDirNameAppStructMapping.instance.toOpenplatformDocDirNameVO(byId));
 		}

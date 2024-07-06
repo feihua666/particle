@@ -42,7 +42,7 @@ public class UserIdentifierDeleteCommandExecutor  extends AbstractBaseExecutor {
 		UserIdentifierId userIdentifierId = UserIdentifierId.of(userIdentifierDeleteCommand.getId());
 		UserIdentifier byId = userIdentifierGateway.getById(userIdentifierId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = userIdentifierGateway.delete(userIdentifierId);
+		boolean delete = userIdentifierGateway.delete(userIdentifierId,userIdentifierDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(UserIdentifierAppStructMapping.instance.toUserIdentifierVO(byId));
 		}

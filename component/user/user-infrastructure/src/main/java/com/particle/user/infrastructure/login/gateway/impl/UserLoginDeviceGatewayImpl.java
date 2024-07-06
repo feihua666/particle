@@ -1,5 +1,6 @@
 package com.particle.user.infrastructure.login.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.user.domain.login.UserLoginDevice;
 import com.particle.user.domain.login.UserLoginDeviceId;
 import com.particle.user.domain.login.gateway.UserLoginDeviceGateway;
@@ -49,6 +50,10 @@ public class UserLoginDeviceGatewayImpl extends AbstractBaseGatewayImpl<UserLogi
 		return iUserLoginDeviceService.deleteById(userLoginDeviceId.getId());
 	}
 
+	@Override
+	public boolean delete(UserLoginDeviceId id, IdCommand idCommand) {
+		return iUserLoginDeviceService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIUserLoginDeviceService(IUserLoginDeviceService iUserLoginDeviceService) {

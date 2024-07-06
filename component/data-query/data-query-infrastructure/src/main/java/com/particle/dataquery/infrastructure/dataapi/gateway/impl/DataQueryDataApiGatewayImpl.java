@@ -8,6 +8,7 @@ import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.infrastructure.dataapi.structmapping.DataQueryDataApiInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
 import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +52,10 @@ public class DataQueryDataApiGatewayImpl extends AbstractBaseGatewayImpl<DataQue
 		return iDataQueryDataApiService.deleteById(dataQueryDataApiId.getId());
 	}
 
+	@Override
+	public boolean delete(DataQueryDataApiId id, IdCommand idCommand) {
+		return iDataQueryDataApiService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIDataQueryDataApiService(IDataQueryDataApiService iDataQueryDataApiService) {

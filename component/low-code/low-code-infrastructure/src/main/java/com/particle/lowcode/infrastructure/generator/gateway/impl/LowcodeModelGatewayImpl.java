@@ -1,5 +1,6 @@
 package com.particle.lowcode.infrastructure.generator.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.lowcode.domain.generator.LowcodeModel;
 import com.particle.lowcode.domain.generator.LowcodeModelId;
 import com.particle.lowcode.domain.generator.gateway.LowcodeModelGateway;
@@ -51,6 +52,10 @@ public class LowcodeModelGatewayImpl extends AbstractBaseGatewayImpl<LowcodeMode
 		return iLowcodeModelService.deleteById(lowcodeModelId.getId());
 	}
 
+	@Override
+	public boolean delete(LowcodeModelId id, IdCommand idCommand) {
+		return iLowcodeModelService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setILowcodeModelService(ILowcodeModelService iLowcodeModelService) {

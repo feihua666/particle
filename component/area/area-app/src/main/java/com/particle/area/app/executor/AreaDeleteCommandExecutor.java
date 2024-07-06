@@ -39,7 +39,7 @@ public class AreaDeleteCommandExecutor  extends AbstractBaseExecutor {
 		AreaId areaId = AreaId.of(areaDeleteCommand.getId());
 		Area byId = areaGateway.getById(areaId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = areaGateway.delete(areaId);
+		boolean delete = areaGateway.delete(areaId,areaDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(AreaAppStructMapping.instance.toAreaVO(byId));
 		}

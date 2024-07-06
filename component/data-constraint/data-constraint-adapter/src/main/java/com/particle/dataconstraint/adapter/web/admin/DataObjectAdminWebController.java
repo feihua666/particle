@@ -1,5 +1,6 @@
 package com.particle.dataconstraint.adapter.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.dataconstraint.client.api.IDataObjectApplicationService;
 import com.particle.dataconstraint.client.api.representation.IDataObjectRepresentationApplicationService;
 import com.particle.dataconstraint.client.dto.command.DataObjectCreateCommand;
@@ -9,6 +10,7 @@ import com.particle.dataconstraint.client.dto.command.DataObjectUpdateCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +47,7 @@ public class DataObjectAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dataObject:create')")
 	@Operation(summary = "添加数据对象")
 	@PostMapping("/create")
-	@OpLog(name = "添加数据对象",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加数据对象",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.create)
 	public SingleResponse<DataObjectVO> create(@RequestBody DataObjectCreateCommand dataObjectCreateCommand){
 		return iDataObjectApplicationService.create(dataObjectCreateCommand);
 	}
@@ -53,16 +55,18 @@ public class DataObjectAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dataObject:delete')")
 	@Operation(summary = "删除数据对象")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除数据对象",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除数据对象",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
 	public SingleResponse<DataObjectVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_data_constraint_data_object, DataConstraintContext.Action.delete.name());
 		return iDataObjectApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataObject:update')")
 	@Operation(summary = "更新数据对象")
 	@PutMapping("/update")
-	@OpLog(name = "更新数据对象",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新数据对象",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.update)
 	public SingleResponse<DataObjectVO> update(@RequestBody DataObjectUpdateCommand dataObjectUpdateCommand){
+		dataObjectUpdateCommand.dcdo(DataConstraintConstants.data_object_data_constraint_data_object,DataConstraintContext.Action.update.name());
 		return iDataObjectApplicationService.update(dataObjectUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class DataObjectAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询数据对象")
 	@GetMapping("/list")
 	public MultiResponse<DataObjectVO> queryList(DataObjectQueryListCommand dataObjectQueryListCommand){
+		dataObjectQueryListCommand.dcdo(DataConstraintConstants.data_object_data_constraint_data_object,DataConstraintContext.Action.query.name());
 		return iDataObjectRepresentationApplicationService.queryList(dataObjectQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class DataObjectAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询数据对象")
 	@GetMapping("/page")
 	public PageResponse<DataObjectVO> pageQueryList(DataObjectPageQueryCommand dataObjectPageQueryCommand){
+		dataObjectPageQueryCommand.dcdo(DataConstraintConstants.data_object_data_constraint_data_object,DataConstraintContext.Action.query.name());
 		return iDataObjectRepresentationApplicationService.pageQuery(dataObjectPageQueryCommand);
 	}
 

@@ -3,6 +3,7 @@ package com.particle.dataconstraint.client.dto.data;
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -28,18 +29,26 @@ public class DataScopeVO extends AbstractBaseIdVO {
     @Schema(description = "数据对象id")
     private Long dataObjectId;
 
+	@Schema(description = "约束条件内容类型，字典id")
+	private Long constraintContentTypeDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "constraintContentTypeDictId",mapValueField = "value")
+    @Schema(description = "约束条件内容类型，字典值")
+    private String constraintContentTypeDictValue;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "constraintContentTypeDictId",mapValueField = "name")
+    @Schema(description = "约束条件内容类型，字典名称")
+    private String constraintContentTypeDictName;
+
     @TransBy(tableName = TransTableNameConstants.component_data_object, byFieldName = "dataObjectId", mapValueField = "name")
     @Schema(description = "数据对象名称")
     private String dataObjectName;
     
-    @Schema(description = "约束条件")
+    @Schema(description = "约束条件内容")
     private String constraintContent;
     
     @Schema(description = "是否自定义")
     private Boolean isCustom;
-    
-    @Schema(description = "是否用于添加")
-    private Boolean isForAdd;
     
     @Schema(description = "是否用于删除")
     private Boolean isForDelete;

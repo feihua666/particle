@@ -29,20 +29,18 @@ const reactiveData = reactive({
       label: '数据对象',
     },
     {
+      prop: 'constraintContentTypeDictName',
+      label: '约束条件内容类型',
+      showOverflowTooltip: true,
+    },
+    {
       prop: 'constraintContent',
-      label: '约束条件',
+      label: '约束条件内容',
       showOverflowTooltip: true,
     },
     {
       prop: 'isCustom',
       label: '自定义数据',
-      formatter: (row: any, column: any, cellValue: any, index: any) => {
-        return cellValue ? '是' : '否'
-      }
-    },
-    {
-      prop: 'isForAdd',
-      label: '用于添加',
       formatter: (row: any, column: any, cellValue: any, index: any) => {
         return cellValue ? '是' : '否'
       }

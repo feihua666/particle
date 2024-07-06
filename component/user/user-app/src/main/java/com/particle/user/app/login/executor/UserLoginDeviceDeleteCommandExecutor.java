@@ -42,7 +42,7 @@ public class UserLoginDeviceDeleteCommandExecutor  extends AbstractBaseExecutor 
 		UserLoginDeviceId userLoginDeviceId = UserLoginDeviceId.of(userLoginDeviceDeleteCommand.getId());
 		UserLoginDevice byId = userLoginDeviceGateway.getById(userLoginDeviceId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = userLoginDeviceGateway.delete(userLoginDeviceId);
+		boolean delete = userLoginDeviceGateway.delete(userLoginDeviceId,userLoginDeviceDeleteCommand);
 		if (delete) {
 			return SingleResponse.of(UserLoginDeviceAppStructMapping.instance.toUserLoginDeviceVO(byId));
 		}

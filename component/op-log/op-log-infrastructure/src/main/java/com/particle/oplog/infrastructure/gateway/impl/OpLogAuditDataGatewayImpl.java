@@ -1,5 +1,6 @@
 package com.particle.oplog.infrastructure.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.oplog.domain.OpLogAuditData;
 import com.particle.oplog.domain.OpLogAuditDataId;
 import com.particle.oplog.domain.gateway.OpLogAuditDataGateway;
@@ -51,6 +52,10 @@ public class OpLogAuditDataGatewayImpl extends AbstractBaseGatewayImpl<OpLogAudi
 		return iOpLogAuditDataService.deleteById(opLogAuditDataId.getId());
 	}
 
+	@Override
+	public boolean delete(OpLogAuditDataId id, IdCommand idCommand) {
+		return iOpLogAuditDataService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setIOpLogAuditDataService(IOpLogAuditDataService iOpLogAuditDataService) {

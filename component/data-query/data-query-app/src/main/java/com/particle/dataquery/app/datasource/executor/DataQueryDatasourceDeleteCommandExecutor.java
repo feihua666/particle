@@ -39,7 +39,7 @@ public class DataQueryDatasourceDeleteCommandExecutor  extends AbstractBaseExecu
 		DataQueryDatasourceId dataQueryDatasourceId = DataQueryDatasourceId.of(deleteCommand.getId());
 		DataQueryDatasource byId = dataQueryDatasourceGateway.getById(dataQueryDatasourceId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = dataQueryDatasourceGateway.delete(dataQueryDatasourceId);
+		boolean delete = dataQueryDatasourceGateway.delete(dataQueryDatasourceId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(DataQueryDatasourceAppStructMapping.instance.toDataQueryDatasourceVO(byId));
 		}

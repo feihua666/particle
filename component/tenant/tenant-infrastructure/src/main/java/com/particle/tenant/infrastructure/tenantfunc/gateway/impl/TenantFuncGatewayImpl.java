@@ -1,5 +1,6 @@
 package com.particle.tenant.infrastructure.tenantfunc.gateway.impl;
 
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.tenant.domain.tenantfunc.TenantFunc;
 import com.particle.tenant.domain.tenantfunc.TenantFuncId;
 import com.particle.tenant.domain.tenantfunc.gateway.TenantFuncGateway;
@@ -51,6 +52,10 @@ public class TenantFuncGatewayImpl extends AbstractBaseGatewayImpl<TenantFuncId,
 		return iTenantFuncService.deleteById(tenantFuncId.getId());
 	}
 
+	@Override
+	public boolean delete(TenantFuncId id, IdCommand idCommand) {
+		return iTenantFuncService.deleteById(idCommand);
+	}
 
 	@Autowired
 	public void setITenantFuncService(ITenantFuncService iTenantFuncService) {

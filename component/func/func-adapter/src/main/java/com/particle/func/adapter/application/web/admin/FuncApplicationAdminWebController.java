@@ -1,5 +1,6 @@
 package com.particle.func.adapter.application.web.admin;
 
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.application.api.IFuncApplicationApplicationService;
 import com.particle.func.client.application.api.representation.IFuncApplicationRepresentationApplicationService;
@@ -11,6 +12,7 @@ import com.particle.func.client.application.dto.command.representation.FuncAppli
 import com.particle.func.client.application.dto.command.representation.FuncApplicationQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +57,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
 	public SingleResponse<FuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
+		deleteCommand.dcdo(DataConstraintConstants.data_object_func_application, DataConstraintContext.Action.delete.name());
 		return iFuncApplicationApplicationService.delete(deleteCommand);
 	}
 
@@ -63,6 +66,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@PutMapping("/update")
 	@OpLog(name = "更新功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.update)
 	public SingleResponse<FuncApplicationVO> update(@RequestBody FuncApplicationUpdateCommand funcApplicationUpdateCommand){
+		funcApplicationUpdateCommand.dcdo(DataConstraintConstants.data_object_func_application,DataConstraintContext.Action.update.name());
 		return iFuncApplicationApplicationService.update(funcApplicationUpdateCommand);
 	}
 
@@ -84,6 +88,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "列表查询功能应用")
 	@GetMapping("/list")
 	public MultiResponse<FuncApplicationVO> queryList(FuncApplicationQueryListCommand funcApplicationQueryListCommand){
+		funcApplicationQueryListCommand.dcdo(DataConstraintConstants.data_object_func_application,DataConstraintContext.Action.query.name());
 		return iFuncApplicationRepresentationApplicationService.queryList(funcApplicationQueryListCommand);
 	}
 
@@ -91,6 +96,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "分页查询功能应用")
 	@GetMapping("/page")
 	public PageResponse<FuncApplicationVO> pageQueryList(FuncApplicationPageQueryCommand funcApplicationPageQueryCommand){
+		funcApplicationPageQueryCommand.dcdo(DataConstraintConstants.data_object_func_application,DataConstraintContext.Action.query.name());
 		return iFuncApplicationRepresentationApplicationService.pageQuery(funcApplicationPageQueryCommand);
 	}
 

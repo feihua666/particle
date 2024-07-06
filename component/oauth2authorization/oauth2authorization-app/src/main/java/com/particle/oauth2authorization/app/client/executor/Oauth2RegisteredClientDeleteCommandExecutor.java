@@ -39,7 +39,7 @@ public class Oauth2RegisteredClientDeleteCommandExecutor  extends AbstractBaseEx
 		Oauth2RegisteredClientId oauth2RegisteredClientId = Oauth2RegisteredClientId.of(deleteCommand.getId());
 		Oauth2RegisteredClient byId = oauth2RegisteredClientGateway.getById(oauth2RegisteredClientId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = oauth2RegisteredClientGateway.delete(oauth2RegisteredClientId);
+		boolean delete = oauth2RegisteredClientGateway.delete(oauth2RegisteredClientId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(Oauth2RegisteredClientAppStructMapping.instance.toOauth2RegisteredClientVO(byId));
 		}

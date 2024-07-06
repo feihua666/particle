@@ -8,6 +8,7 @@ import com.particle.dream.infrastructure.ssq.dos.SsqCodeOpenedDO;
 import com.particle.dream.infrastructure.ssq.service.ISsqCodeOpenedService;
 import com.particle.dream.infrastructure.ssq.structmapping.SsqCodeOpenedInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +53,11 @@ public class SsqCodeOpenedGatewayImpl extends AbstractBaseGatewayImpl<SsqCodeOpe
 	@Override
 	public boolean delete(SsqCodeOpenedId ssqCodeOpenedId) {
 		return iSsqCodeOpenedService.deleteById(ssqCodeOpenedId.getId());
+	}
+
+	@Override
+	public boolean delete(SsqCodeOpenedId id, IdCommand idCommand) {
+		return iSsqCodeOpenedService.deleteById(idCommand);
 	}
 
 	@Override

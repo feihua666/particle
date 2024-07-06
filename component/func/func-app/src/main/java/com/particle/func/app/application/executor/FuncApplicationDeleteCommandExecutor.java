@@ -39,7 +39,7 @@ public class FuncApplicationDeleteCommandExecutor  extends AbstractBaseExecutor 
 		FuncApplicationId funcApplicationId = FuncApplicationId.of(deleteCommand.getId());
 		FuncApplication byId = funcApplicationGateway.getById(funcApplicationId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
-		boolean delete = funcApplicationGateway.delete(funcApplicationId);
+		boolean delete = funcApplicationGateway.delete(funcApplicationId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(FuncApplicationAppStructMapping.instance.toFuncApplicationVO(byId));
 		}

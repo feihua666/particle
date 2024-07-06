@@ -33,8 +33,13 @@ public class DataScope extends AggreateRoot {
     */
     private Long dataObjectId;
 
+	/**
+	 * 约束条件内容类型，字典id
+	 */
+	private Long constraintContentTypeDictId;
+
     /**
-    * 约束条件，暂时想到的用sql模板
+    * 约束条件内容，暂时想到的用sql模板
     */
     private String constraintContent;
 
@@ -42,11 +47,6 @@ public class DataScope extends AggreateRoot {
     * 是否自定义，如果自定义=1，否则为0
     */
     private Boolean isCustom;
-
-    /**
-    * 是否用于添加
-    */
-    private Boolean isForAdd;
 
     /**
     * 是否用于删除
@@ -74,7 +74,9 @@ public class DataScope extends AggreateRoot {
     private String remark;
 
 
-
+    public void changeConstraintContentTypeDictIdToNull() {
+        this.constraintContentTypeDictId = null;
+    }
     /**
      * 创建数据范围领域模型对象
      * @return 数据范围领域模型对象，该对应所有属性为空，需要进行初始化操作

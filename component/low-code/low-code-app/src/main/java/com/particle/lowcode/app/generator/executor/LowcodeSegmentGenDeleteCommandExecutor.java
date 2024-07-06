@@ -43,7 +43,7 @@ public class LowcodeSegmentGenDeleteCommandExecutor  extends AbstractBaseExecuto
 		LowcodeSegmentGen byId = lowcodeSegmentGenGateway.getById(lowcodeSegmentGenId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		// 引用判断
-		boolean delete = lowcodeSegmentGenGateway.delete(lowcodeSegmentGenId);
+		boolean delete = lowcodeSegmentGenGateway.delete(lowcodeSegmentGenId,deleteCommand);
 		if (delete) {
 			return SingleResponse.of(LowcodeSegmentGenAppStructMapping.instance.toLowcodeSegmentGenVO(byId));
 		}
