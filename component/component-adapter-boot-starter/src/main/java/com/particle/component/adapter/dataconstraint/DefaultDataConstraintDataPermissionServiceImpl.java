@@ -62,7 +62,7 @@ public class DefaultDataConstraintDataPermissionServiceImpl implements DataPermi
         }
         // 超级管理员不限制
         if (loginUser.getIsSuperAdmin()) {
-            // return wrapper;
+            return wrapper;
         }
         List<GrantedDataConstraint> grantedDataConstraints = loginUser.finalizeDataConstraints();
         // 默认如果没有授权，不处理，也就是没有数据限制
