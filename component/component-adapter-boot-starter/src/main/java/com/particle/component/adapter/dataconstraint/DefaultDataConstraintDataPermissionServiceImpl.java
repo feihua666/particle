@@ -290,7 +290,6 @@ public class DefaultDataConstraintDataPermissionServiceImpl implements DataPermi
 
     }
 
-    @Lazy
     @Autowired(required = false)
     public void setUserDeptService(UserDeptService userDeptService) {
         this.userDeptService = userDeptService;

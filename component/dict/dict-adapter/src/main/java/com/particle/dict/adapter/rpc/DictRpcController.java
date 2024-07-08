@@ -3,29 +3,22 @@ package com.particle.dict.adapter.rpc;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
-import com.particle.dict.adapter.feign.client.rpc.DictTransRpcFeignClient;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.api.IDictApplicationService;
-import com.particle.dict.client.dto.data.DictTransVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.trans.result.TransResult;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -40,27 +33,13 @@ import java.util.stream.Collectors;
 @Tag(name = "字典远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/dict")
-public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpcFeignClient, DictTransRpcFeignClient {
+public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpcFeignClient {
 
 	@Autowired
 	private IDictApplicationService iDictApplicationService;
 
 	@Autowired
-	private DictTransServiceImpl dictTransService;
-
-	@Autowired
 	private IDictService iDictService;
-
-	@Override
-	public boolean supportBatch(String type) {
-		return dictTransService.supportBatch(type);
-	}
-
-
-	@Override
-	public List<TransResult<DictTransVO, Long>> transBatch(String type, Set<Long> keys) {
-		return dictTransService.transBatch(type, keys);
-	}
 
 	@Operation(summary = "根据id查询字段子一级")
 	@Override

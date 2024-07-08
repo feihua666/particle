@@ -28,7 +28,7 @@ import static com.particle.dataquery.infrastructure.datasource.bigdatasource.Dat
 @Slf4j
 @Component
 public class DataQueryDatasourceDynamicBigDatasourceRoutingFallback implements DynamicBigDatasourceRoutingFallback {
-	@Lazy
+
 	@Autowired
 	private DataQueryDatasourceDynamicBigDatasourceProvider dataQueryDatasourceDynamicBigDatasourceProvider;
 	@Autowired

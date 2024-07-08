@@ -3,6 +3,7 @@ package com.particle.dataquery.adapter.datasource.rpc;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.particle.dataquery.domain.dataapi.gateway.DataApiQueryGateway;
+import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.api.impl.ThreadLocalDataTransServiceImpl;
 import com.particle.global.trans.helper.TransHelper;
@@ -26,9 +27,14 @@ public class DataQueryDatasourceApiTransServiceImpl implements ITransService<Obj
 
     private static String TRANS_DATASOURCEAPI_BY_CODE = "trans_datasourceapi_by_code";
 
-    @Lazy
-    @Autowired
+    /**
+     * 这里不能使用注解注入，因为会循环依赖问题，两种方式，一种使用@Lazy注解，另一种是使用自己从容器中获取注解
+     */
+    // @Lazy
+    // @Autowired
     private DataApiQueryGateway dataApiQueryGateway;
+
+    private static Boolean isHasGetDataApiQueryGateway = false;
 
 
 
@@ -59,6 +65,13 @@ public class DataQueryDatasourceApiTransServiceImpl implements ITransService<Obj
         String mapKeyField = parseMapKeyField(type);
         if (StrUtil.isEmpty(mapKeyField)) {
             return null;
+        }
+        if (dataApiQueryGateway == null && !isHasGetDataApiQueryGateway) {
+            try {
+                dataApiQueryGateway = SpringContextHolder.getBean(DataApiQueryGateway.class);
+            } catch (Exception e) {
+            }
+            isHasGetDataApiQueryGateway = true;
         }
         Object o = dataApiQueryGateway.doExecuteByDatasourceApiCodeForTrans(code, keys, null);
         if (o == null) {

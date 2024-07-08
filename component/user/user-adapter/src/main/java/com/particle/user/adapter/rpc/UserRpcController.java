@@ -2,25 +2,19 @@ package com.particle.user.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.trans.result.TransResult;
 import com.particle.user.adapter.feign.client.rpc.UserRpcFeignClient;
-import com.particle.user.adapter.feign.client.rpc.UserTransRpcFeignClient;
 import com.particle.user.adapter.tool.PasswordTool;
 import com.particle.user.client.api.IUserApplicationService;
 import com.particle.user.client.dto.command.UserCreateCommand;
-import com.particle.user.client.dto.data.UserTransVO;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -34,25 +28,10 @@ import java.util.Set;
 @Tag(name = "用户远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/user")
-public class UserRpcController extends AbstractBaseRpcAdapter implements UserRpcFeignClient , UserTransRpcFeignClient {
+public class UserRpcController extends AbstractBaseRpcAdapter implements UserRpcFeignClient {
 
-
-	@Autowired
-	private UserTransServiceImpl userTransService;
 	@Autowired
 	private IUserApplicationService iUserApplicationService;
-
-	@Override
-	public boolean supportBatch(String type) {
-		return userTransService.supportBatch(type);
-	}
-
-	@Override
-	public List<TransResult<UserTransVO, Long>> transBatch(String type, Set<Long> keys) {
-		return userTransService.transBatch(type, keys);
-	}
-
-
 
 	@Operation(summary = "添加用户")
 	@PostMapping("/create")

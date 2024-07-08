@@ -35,6 +35,7 @@ import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.javers.common.collections.Lists;
 import org.javers.core.diff.Change;
@@ -56,6 +57,8 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO> extends ServiceImpl<Mapper, DO> implements IBaseService<DO> {
 
     protected DataPermissionService dataPermissionService;
+
+    protected static Boolean isHasGetDataPermissionService = false;
 
     protected List<IDeleteServiceListener<DO>> deleteServiceListeners;
 
@@ -675,7 +678,11 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         });
     }
 
-    @Autowired(required = false)
+    /**
+     * 这里不能使用注解注入，因为会循环依赖问题，两种方式，一种使用@Lazy注解，另一种是使用自己从容器中获取注解
+     * @param dataPermissionService
+     */
+    //@Autowired(required = false)
     public void setDataPermissionService(DataPermissionService dataPermissionService) {
         this.dataPermissionService = dataPermissionService;
     }
@@ -689,6 +696,19 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @return
      */
     protected DataPermissionService getQueryDataPermissionService(){
+        /**
+         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
+         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
+          */
+
+        if (dataPermissionService == null && !isHasGetDataPermissionService) {
+            try {
+                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
+            } catch (Exception e) {
+            }
+            isHasGetDataPermissionService = true;
+        }
+
         return dataPermissionService;
     }
 
@@ -697,6 +717,17 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @return
      */
     protected DataPermissionService getDeleteDataPermissionService(){
+        /**
+         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
+         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
+         */
+        if (dataPermissionService == null && !isHasGetDataPermissionService) {
+            try {
+                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
+            } catch (Exception e) {
+            }
+            isHasGetDataPermissionService = true;
+        }
         return dataPermissionService;
     }
 
@@ -705,6 +736,17 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @return
      */
     protected DataPermissionService getUpdateDataPermissionService(){
+        /**
+         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
+         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
+         */
+        if (dataPermissionService == null && !isHasGetDataPermissionService) {
+            try {
+                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
+            } catch (Exception e) {
+            }
+            isHasGetDataPermissionService = true;
+        }
         return dataPermissionService;
     }
 

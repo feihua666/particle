@@ -9,6 +9,7 @@ import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.dos.DeptDO;
 import com.particle.dept.infrastructure.service.IDeptService;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.DeptInfo;
 import com.particle.global.security.security.login.UserDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +29,15 @@ import java.util.stream.Collectors;
 public class UserDeptServiceImpl implements UserDeptService {
 
 	@Autowired
-	private IDeptService deptService;
-	@Autowired
-	private DeptDictGateway deptDictGateway;
-	@Autowired
 	private DeptRpcFeignClient deptRpcFeignClient;
 
 
 	@Override
 	public DeptInfo retrieveUserDeptInfoByUserId(Long userId) {
-		DeptDO deptDO = deptService.getByUserId(userId);
-		if (deptDO != null) {
-			String dictValueById = deptDictGateway.getDictValueById(deptDO.getTypeDictId());
-			return DeptInfo.create(
-					deptDO.getId(),
-					deptDO.getCode(),
-					deptDO.getName(),
-					deptDO.getTypeDictId(),
-					dictValueById,
-					deptDO.getMasterUserId(),
-					deptDO.getIsVirtual(),
-					deptDO.getIsComp(),
-					deptDO.getParentId(),
-					deptDO.getLevel()
-			);
+		SingleResponse<DeptVO> byUserId = deptRpcFeignClient.getByUserId(userId);
+		DeptVO deptVO = byUserId.getData();
+		if (deptVO != null) {
+			return map(deptVO);
 		}
 		return null;
 	}
@@ -63,19 +49,29 @@ public class UserDeptServiceImpl implements UserDeptService {
 		if (CollectionUtil.isEmpty(data)) {
 			return null;
 		}
-		return data.stream().map(deptVO ->
-			DeptInfo.create(
-					deptVO.getId(),
-					deptVO.getCode(),
-					deptVO.getName(),
-					deptVO.getTypeDictId(),
-					deptVO.getTypeDictValue(),
-					deptVO.getMasterUserId(),
-					deptVO.getIsVirtual(),
-					deptVO.getIsComp(),
-					deptVO.getParentId(),
-					deptVO.getLevel()
-			)
-		).collect(Collectors.toList());
+		return data.stream().map(deptVO -> map(deptVO)).collect(Collectors.toList());
+	}
+
+	/**
+	 * 对象映射转换
+	 * @param deptVO
+	 * @return
+	 */
+	private DeptInfo map(DeptVO deptVO) {
+		if (deptVO == null) {
+			return null;
+		}
+		return DeptInfo.create(
+				deptVO.getId(),
+				deptVO.getCode(),
+				deptVO.getName(),
+				deptVO.getTypeDictId(),
+				deptVO.getTypeDictValue(),
+				deptVO.getMasterUserId(),
+				deptVO.getIsVirtual(),
+				deptVO.getIsComp(),
+				deptVO.getParentId(),
+				deptVO.getLevel()
+		);
 	}
 }
