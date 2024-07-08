@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -44,6 +46,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:create')")
 	@Operation(summary = "添加用户密码")
 	@PostMapping("/create")
+	@OpLog(name = "添加用户密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
 	public SingleResponse<UserIdentifierPwdVO> create(@RequestBody UserIdentifierPwdCreateCommand userIdentifierPwdCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
 		PasswordTool.encodePassword(userIdentifierPwdCommand);
 
@@ -53,6 +56,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:delete')")
 	@Operation(summary = "删除用户密码")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除用户密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
 	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody IdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd, DataConstraintContext.Action.delete.name());
 		return iUserIdentifierPwdApplicationService.delete(deleteCommand);
@@ -61,6 +65,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:update')")
 	@Operation(summary = "更新用户密码")
 	@PutMapping("/update")
+	@OpLog(name = "更新用户密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public SingleResponse<UserIdentifierPwdVO> update(@RequestBody UserIdentifierPwdUpdateCommand userIdentifierPwdUpdateCommand){
 		userIdentifierPwdUpdateCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd,DataConstraintContext.Action.update.name());
 		return iUserIdentifierPwdApplicationService.update(userIdentifierPwdUpdateCommand);
@@ -122,6 +127,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:identifier:resetPassword')")
 	@Operation(summary = "重置用户登录标识密码")
 	@PostMapping("/identifier/resetPassword")
+	@OpLog(name = "重置用户登录标识密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public Response identifierResetPassword(@RequestBody UserIdentifierResetPasswordCommand userIdentifierResetPasswordCommand){
 		PasswordTool.encodePassword(userIdentifierResetPasswordCommand);
 		return iUserIdentifierPwdApplicationService.identifierResetPassword(userIdentifierResetPasswordCommand);
@@ -135,6 +141,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:user:resetPassword')")
 	@Operation(summary = "重置用户密码")
 	@PostMapping("/user/resetPassword")
+	@OpLog(name = "重置用户密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public Response userResetPassword(@RequestBody UserResetPwdCommand userResetPasswordCommand){
 		PasswordTool.encodePassword(userResetPasswordCommand);
 		return iUserIdentifierPwdApplicationService.userResetPassword(userResetPasswordCommand);

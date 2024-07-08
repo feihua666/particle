@@ -1,6 +1,8 @@
 package com.particle.role.adapter.rolefuncrel.web.front;
 
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
@@ -44,6 +46,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:create')")
 	@Operation(summary = "添加角色菜单功能关系")
 	@PostMapping("/create")
+	@OpLog(name = "添加角色菜单功能关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.create)
 	public SingleResponse<RoleFuncRelVO> create(@RequestBody RoleFuncRelCreateCommand roleFuncRelCreateCommand){
 		return iRoleFuncRelApplicationService.create(roleFuncRelCreateCommand);
 	}
@@ -51,6 +54,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:delete')")
 	@Operation(summary = "删除角色菜单功能关系")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除角色菜单功能关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public SingleResponse<RoleFuncRelVO> delete(@RequestBody IdCommand roleFuncRelDeleteCommand){
 		return iRoleFuncRelApplicationService.delete(roleFuncRelDeleteCommand);
 	}
@@ -80,6 +84,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:roleAssignFunc')")
 	@PostMapping("/role/assign/func")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "角色分配功能",module = OpLogConstants.Module.role,type = OpLogConstants.Type.relAsign)
 	public Response roleAssignFunc(@RequestBody RoleAssignFuncCommand cf) {
 		return iRoleFuncRelApplicationService.roleAssignFunc(cf);
 	}
@@ -96,6 +101,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:deleteByRoleId')")
 	@DeleteMapping("/deleteByRoleId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空角色下的所有功能",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public Response deleteByRoleId(@RequestBody IdCommand roleIdCommand) {
 		return iRoleFuncRelApplicationService.deleteByRoleId(roleIdCommand);
 	}
@@ -105,6 +111,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:funcAssignRole')")
 	@PostMapping("/func/assign/role")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "功能分配角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.relAsign)
 	public Response funcAssignRole(@RequestBody FuncAssignRoleCommand cf) {
 		return iRoleFuncRelApplicationService.funcAssignRole(cf);
 	}
@@ -122,6 +129,7 @@ public class RoleFuncRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleFuncRel:deleteByFuncId')")
 	@DeleteMapping("/deleteByFuncId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空功能下的所有角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public Response deleteByFuncId(@RequestBody IdCommand roleIdCommand) {
 		return iRoleFuncRelApplicationService.deleteByFuncId(roleIdCommand);
 	}

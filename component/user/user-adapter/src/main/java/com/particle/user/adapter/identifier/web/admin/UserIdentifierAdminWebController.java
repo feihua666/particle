@@ -3,6 +3,8 @@ package com.particle.user.adapter.identifier.web.admin;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -43,6 +45,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
 	@Operation(summary = "添加用户登录标识")
 	@PostMapping("/create")
+	@OpLog(name = "添加用户登录标识",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
 	public SingleResponse<UserIdentifierVO> create(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
 		PasswordTool.encodePassword(userIdentifierPwdCommand);
 		return iUserIdentifierApplicationService.create(userIdentifierCreateCommand, userIdentifierPwdCommand);
@@ -57,6 +60,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:create')")
 	@Operation(summary = "仅绑定用户登录标识")
 	@PostMapping("/createBind")
+	@OpLog(name = "仅绑定用户登录标识",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
 	public SingleResponse<UserIdentifierVO> createBind(@RequestBody UserIdentifierCreateCommand userIdentifierCreateCommand){
 		return iUserIdentifierApplicationService.createBind(userIdentifierCreateCommand);
 	}
@@ -64,6 +68,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:delete')")
 	@Operation(summary = "删除用户登录标识")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除用户登录标识",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
 	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier, DataConstraintContext.Action.delete.name());
 		return iUserIdentifierApplicationService.delete(deleteCommand);
@@ -72,6 +77,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
 	@Operation(summary = "更新用户登录标识")
 	@PutMapping("/update")
+	@OpLog(name = "更新用户登录标识",module = OpLogConstants.Module.user,type = OpLogConstants.Type.update)
 	public SingleResponse<UserIdentifierVO> update(@RequestBody UserIdentifierUpdateCommand userIdentifierUpdateCommand){
 		userIdentifierUpdateCommand.dcdo(DataConstraintConstants.data_object_user_identifier,DataConstraintContext.Action.update.name());
 		return iUserIdentifierApplicationService.update(userIdentifierUpdateCommand);

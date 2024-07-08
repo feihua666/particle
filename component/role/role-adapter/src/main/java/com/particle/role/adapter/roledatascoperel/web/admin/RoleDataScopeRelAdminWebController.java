@@ -49,7 +49,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:create')")
 	@Operation(summary = "添加角色数据范围关系")
 	@PostMapping("/create")
-	@OpLog(name = "添加角色数据范围关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加角色数据范围关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.create)
 	public SingleResponse<RoleDataScopeRelVO> create(@RequestBody RoleDataScopeRelCreateCommand roleDataScopeRelCreateCommand){
 		return iRoleDataScopeRelApplicationService.create(roleDataScopeRelCreateCommand);
 	}
@@ -57,7 +57,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:delete')")
 	@Operation(summary = "删除角色数据范围关系")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除角色数据范围关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除角色数据范围关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public SingleResponse<RoleDataScopeRelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iRoleDataScopeRelApplicationService.delete(deleteCommand);
 	}
@@ -65,7 +65,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:update')")
 	@Operation(summary = "更新角色数据范围关系")
 	@PutMapping("/update")
-	@OpLog(name = "更新角色数据范围关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新角色数据范围关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.update)
 	public SingleResponse<RoleDataScopeRelVO> update(@RequestBody RoleDataScopeRelUpdateCommand roleDataScopeRelUpdateCommand){
 		return iRoleDataScopeRelApplicationService.update(roleDataScopeRelUpdateCommand);
 	}
@@ -102,6 +102,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:roleAssignDataScope')")
 	@PostMapping("/role/assign/dataScope")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "角色分配数据范围",module = OpLogConstants.Module.role,type = OpLogConstants.Type.relAsign)
 	public Response roleAssignDataScope(@RequestBody RoleAssignDataScopeCommand cf) {
 		return iRoleDataScopeRelApplicationService.roleAssignDataScope(cf);
 	}
@@ -118,6 +119,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:deleteByRoleId')")
 	@DeleteMapping("/deleteByRoleId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空角色下的所有数据范围",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public Response deleteByRoleId(@RequestBody IdCommand idCommand) {
 		return iRoleDataScopeRelApplicationService.deleteByRoleId(idCommand);
 	}
@@ -127,6 +129,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:dataScopeAssignRole')")
 	@PostMapping("/dataScope/assign/role")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "数据范围分配角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.relAsign)
 	public Response dataScopeAssignRole(@RequestBody DataScopeAssignRoleCommand cf) {
 		return iRoleDataScopeRelApplicationService.dataScopeAssignRole(cf);
 	}
@@ -144,6 +147,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:deleteByDataScopeId')")
 	@DeleteMapping("/deleteByDataScopeId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空数据范围下的所有角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
 	public Response deleteByDataScopeId(@RequestBody IdCommand idCommand) {
 		return iRoleDataScopeRelApplicationService.deleteByDataScopeId(idCommand);
 	}

@@ -1,6 +1,8 @@
 package com.particle.user.adapter.login.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -39,6 +41,7 @@ public class UserLoginDeviceAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userLoginDevice:delete')")
 	@Operation(summary = "删除用户登录设备")
 	@DeleteMapping("/delete")
+	@OpLog(name = "删除用户登录设备",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
 	public SingleResponse<UserLoginDeviceVO> delete(@RequestBody UserLoginDeviceDeleteCommand userLoginDeviceDeleteCommand){
 		return iUserLoginDeviceApplicationService.delete(userLoginDeviceDeleteCommand);
 	}

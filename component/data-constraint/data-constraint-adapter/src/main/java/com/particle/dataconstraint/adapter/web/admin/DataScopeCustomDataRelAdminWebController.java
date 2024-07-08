@@ -44,7 +44,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:create')")
 	@Operation(summary = "添加数据范围自定义数据关系")
 	@PostMapping("/create")
-	@OpLog(name = "添加数据范围自定义数据关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+	@OpLog(name = "添加数据范围自定义数据关系",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.create)
 	public SingleResponse<DataScopeCustomDataRelVO> create(@RequestBody DataScopeCustomDataRelCreateCommand dataScopeCustomDataRelCreateCommand){
 		return iDataScopeCustomDataRelApplicationService.create(dataScopeCustomDataRelCreateCommand);
 	}
@@ -52,7 +52,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:delete')")
 	@Operation(summary = "删除数据范围自定义数据关系")
 	@DeleteMapping("/delete")
-	@OpLog(name = "删除数据范围自定义数据关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+	@OpLog(name = "删除数据范围自定义数据关系",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
 	public SingleResponse<DataScopeCustomDataRelVO> delete(@RequestBody IdCommand deleteCommand){
 		return iDataScopeCustomDataRelApplicationService.delete(deleteCommand);
 	}
@@ -60,7 +60,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:update')")
 	@Operation(summary = "更新数据范围自定义数据关系")
 	@PutMapping("/update")
-	@OpLog(name = "更新数据范围自定义数据关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+	@OpLog(name = "更新数据范围自定义数据关系",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.update)
 	public SingleResponse<DataScopeCustomDataRelVO> update(@RequestBody DataScopeCustomDataRelUpdateCommand dataScopeCustomDataRelUpdateCommand){
 		return iDataScopeCustomDataRelApplicationService.update(dataScopeCustomDataRelUpdateCommand);
 	}
@@ -97,6 +97,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:dataScopeAssignCustomData')")
 	@PostMapping("/dataScope/assign/customData")
 	@ResponseStatus(HttpStatus.CREATED)
+	@OpLog(name = "数据范围分配自定义数据",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.relAsign)
 	public Response dataScopeAssignCustomData(@RequestBody DataScopeAssignCustomDataCommand cf) {
 		return iDataScopeCustomDataRelApplicationService.dataScopeAssignCustomData(cf);
 	}
@@ -113,6 +114,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:deleteByDataScopeId')")
 	@DeleteMapping("/deleteByDataScopeId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@OpLog(name = "清空数据范围下的所有自定义数据",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
 	public Response deleteByDataScopeId(@RequestBody IdCommand dataScopeIdCommand) {
 		return iDataScopeCustomDataRelApplicationService.deleteByDataScopeId(dataScopeIdCommand);
 	}
