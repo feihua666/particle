@@ -58,7 +58,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
     protected DataPermissionService dataPermissionService;
 
-    protected static Boolean isHasGetDataPermissionService = false;
+    protected Boolean isHasGetDataPermissionService = false;
 
     protected List<IDeleteServiceListener<DO>> deleteServiceListeners;
 
