@@ -170,14 +170,14 @@ particle:
       '[/user-identifier-pwd/login/user/findBackPassword]': user_find_back_password_dynamic_captcha
   # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
   oss:
-    defaultClient: testLocal
+    defaultClient: localClient
     concatEndpoint: false
     local:
-      testLocal:
+      localClient:
         # 访问的地址
         endpoint: http://localhost:8080/oss/download
         basePath: /Users/yw/temp/localosstest
-        bucketName: localtestbucket
+        bucketName: localClientBucket
   # 参见 com.particle.global.notification.GlobalNotificationProperties
   notification:
     email:

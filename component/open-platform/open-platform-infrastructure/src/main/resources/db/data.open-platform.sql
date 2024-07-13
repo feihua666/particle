@@ -1,6 +1,7 @@
 -- crud数据sql
 -- import classpath:db/data.open-platform.dict.sql
 -- import classpath:db/data.open-platform.func.sql
+-- import classpath:db/data.open-platform.report.sql
 
 -- 开放接口 测试接口
 INSERT INTO `component_openplatform_openapi` (`id`, `code`, `name`, `is_group`, `permissions`, `url`, `is_disabled`, `disabled_reason`, `default_openplatform_openapi_fee_id`, `remark`, `level`, `parent_id`, `parent_id1`, `parent_id2`, `parent_id3`, `parent_id4`, `parent_id5`, `parent_id6`, `parent_id7`, `parent_id8`, `parent_id9`, `parent_id10`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1688806307278110722, NULL, '接口测试', 1, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '2023-08-08 14:56:15', 1, NULL, NULL);
