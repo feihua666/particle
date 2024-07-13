@@ -26,6 +26,9 @@ public class OpenplatformDocApiDocTemplateResponseCodeQueryListCommand extends A
         @Schema(description = "编码,左前缀匹配")
     private String code;
 
+	@Schema(description = "业务状态码，码值")
+	private String codeStatus;
+
 
     @Schema(description = "http响应码")
     private Integer httpCode;

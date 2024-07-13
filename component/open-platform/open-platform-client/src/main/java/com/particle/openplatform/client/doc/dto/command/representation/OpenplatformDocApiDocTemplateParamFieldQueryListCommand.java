@@ -54,6 +54,9 @@ public class OpenplatformDocApiDocTemplateParamFieldQueryListCommand extends Abs
 	@Schema(description = "默认值")
 	private String defaultValue;
 
+	@Schema(description = "示例值")
+	private String exampleValue;
+
 	@Schema(description = "最大长度")
 	private Integer maxLength;
 

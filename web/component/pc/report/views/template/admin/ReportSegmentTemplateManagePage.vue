@@ -3,9 +3,12 @@
  * 报告片段模板管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as reportSegmentTemplatePageApi, remove as reportSegmentTemplateRemoveApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
+import {
+  page as reportSegmentTemplatePageApi,
+  refreshCache as reportSegmentTemplaterefreshCacheApi,
+  remove as reportSegmentTemplateRemoveApi
+} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
 import {pageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";
-
 
 const tableRef = ref(null)
 
@@ -116,6 +119,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:reportSegmentTemplate:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -134,6 +138,19 @@ const getTableRowButtons = ({row, column, $index}) => {
       permission: 'admin:web:reportSegmentTemplate:copy',
       // 跳转到添加
       route: {path: '/admin/reportSegmentTemplateManageCopy',query: idAndParentIdData}
+    },
+    {
+      txt: '刷新缓存',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:reportSegmentTemplate:refreshCache',
+      methodSuccess: (res) => '刷新缓存成功,如果部署多个实例可能要多次执行。 ' + res.data.data,
+      // 刷新缓存
+      method(){
+        return reportSegmentTemplaterefreshCacheApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
     },
   ]
   return tableRowButtons

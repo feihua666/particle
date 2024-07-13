@@ -52,3 +52,10 @@ export const page = (data: anyObj): AxiosPromise => {
 export const copy = (data: anyObj): AxiosPromise => {
     return axios.post(reportSegmentTemplatePrefix + '/copy',data)
 }
+/**
+ * 刷新报告片段模板缓存
+ * @param data
+ */
+export const refreshCache = (data: IdParam): AxiosPromise => {
+    return axios.put(reportSegmentTemplatePrefix + '/refreshCache',data)
+}

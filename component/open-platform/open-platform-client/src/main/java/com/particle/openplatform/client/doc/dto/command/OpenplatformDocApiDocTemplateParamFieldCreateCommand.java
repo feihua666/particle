@@ -58,6 +58,9 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommand extends Abstra
 	@Schema(description = "默认值")
 	private String defaultValue;
 
+	@Schema(description = "示例值")
+	private String exampleValue;
+
     @SetNullWhenNull
 	@Schema(description = "最大长度")
 	private Integer maxLength;

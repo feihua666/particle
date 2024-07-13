@@ -55,6 +55,9 @@ public class OpenplatformDocApiDocParamFieldQueryListCommand extends AbstractBas
 	private String defaultValue;
 
 	@Schema(description = "最大长度")
+	private String exampleValue;
+
+	@Schema(description = "最大长度")
 	private Integer maxLength;
 
 	@Schema(description = "字典组字典，字典组id，字典组下面的字典项为字段枚举")

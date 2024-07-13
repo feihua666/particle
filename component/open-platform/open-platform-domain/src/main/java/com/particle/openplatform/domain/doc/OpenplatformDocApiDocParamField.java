@@ -66,6 +66,11 @@ public class OpenplatformDocApiDocParamField extends AggreateRoot {
 	/**
 	 * 最大长度
 	 */
+	private String exampleValue;
+
+	/**
+	 * 最大长度
+	 */
 	private Integer maxLength;
 
 	/**

@@ -22,6 +22,9 @@ public class OpenplatformDocApiDocResponseCodeVO extends AbstractBaseIdVO {
     @Schema(description = "编码")
     private String code;
 
+	@Schema(description = "业务状态码，码值")
+	private String codeStatus;
+
 	@Schema(description = "http响应码,如：200、500")
 	private Integer httpCode;
     
@@ -63,6 +66,7 @@ public class OpenplatformDocApiDocResponseCodeVO extends AbstractBaseIdVO {
     public static OpenplatformDocApiDocResponseCodeVO create(OpenplatformDocApiDocTemplateResponseCodeVO openplatformDocApiDocTemplateResponseCodeVO) {
         OpenplatformDocApiDocResponseCodeVO openplatformDocApiDocResponseCodeVO = new OpenplatformDocApiDocResponseCodeVO();
         openplatformDocApiDocResponseCodeVO.code = openplatformDocApiDocTemplateResponseCodeVO.getCode();
+        openplatformDocApiDocResponseCodeVO.codeStatus = openplatformDocApiDocTemplateResponseCodeVO.getCodeStatus();
         openplatformDocApiDocResponseCodeVO.httpCode = openplatformDocApiDocTemplateResponseCodeVO.getHttpCode();
         openplatformDocApiDocResponseCodeVO.isCharge = openplatformDocApiDocTemplateResponseCodeVO.getIsCharge();
         openplatformDocApiDocResponseCodeVO.explanation = openplatformDocApiDocTemplateResponseCodeVO.getExplanation();

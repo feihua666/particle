@@ -49,6 +49,10 @@ const reactiveData = reactive({
       label: '默认值',
     },
     {
+      prop: 'exampleValue',
+      label: '示例值',
+    },
+    {
       prop: 'maxLength',
       label: '最大长度',
     },

@@ -64,6 +64,9 @@ public class OpenplatformDocApiDocParamFieldCreateCommand extends AbstractBaseCo
 	@Schema(description = "默认值")
 	private String defaultValue;
 
+	@Schema(description = "最大长度")
+	private String exampleValue;
+
     @SetNullWhenNull
 	@Schema(description = "最大长度")
 	private Integer maxLength;

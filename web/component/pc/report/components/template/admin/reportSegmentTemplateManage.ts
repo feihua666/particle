@@ -78,7 +78,7 @@ export const addPageFormItems = [
       comp: 'el-input',
       formItemProps: {
         label: '权限码',
-        tips: '权限码仅支持单个，不支持多个，支持根据功能权限配置输出,不配置表示具体该权限'
+        tips: '权限码仅支持单个，不支持多个，支持根据功能权限配置输出,不配置表示不限制该权限'
       },
       compProps: {
         clearable: true,
@@ -128,7 +128,7 @@ export const addPageFormItems = [
       formItemProps: {
         label: '数据脚本',
         displayBlock: true,
-        tips: '仅支持groovy脚本，支持全局参数，返回值将被trd句柄引用，优先条件脚本执行，也可以当作模板前置处理脚本'
+        tips: '仅支持groovy脚本，支持全局参数，其中 global.body 为请求入参对象，返回值将被trd句柄引用，优先条件脚本执行，也可以当作模板前置处理脚本'
       },
       compProps: {
         type: 'textarea',
@@ -146,7 +146,7 @@ export const addPageFormItems = [
       formItemProps: {
         label: '条件脚本',
         displayBlock: true,
-        tips: '仅支持groovy脚本，支持全局参数，特定返回值将被特殊处理，如：返回 ignore 不再执行后续逻辑和子模板，优先计算模板执行'
+        tips: '仅支持groovy脚本，支持全局参数，特定返回值将被特殊处理，如：返回 renderCondition.ignore 不再执行后续逻辑和子模板，支持 dataQueryDataApi 句柄调用数据查询接口，优先计算模板执行'
       },
       compProps: {
         type: 'textarea',

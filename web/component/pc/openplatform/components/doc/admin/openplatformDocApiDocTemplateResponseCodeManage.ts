@@ -17,7 +17,21 @@ export const pageFormItems = [
           }
         }
       },
-
+  {
+    field: {
+      name: 'codeStatus',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '业务状态码码',
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '左前缀匹配'
+      }
+    }
+  },
       {
         field: {
           name: 'explanation',
@@ -59,7 +73,22 @@ export const addPageFormItems = [
           }
         }
       },
-
+  {
+    field: {
+      name: 'codeStatus',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '业务状态码',
+        required: true,
+        tips: '响应业务状态码，如：40300000001'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
 
       {
         field: {

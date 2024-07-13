@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS component_data_scope;
 CREATE TABLE `component_data_scope` (
   `id` bigint NOT NULL COMMENT '主键ID',
-  `code` varchar(50) NOT NULL COMMENT '数据范围编码',
+  `code` varchar(150) NOT NULL COMMENT '数据范围编码',
   `name` varchar(50) NOT NULL COMMENT '数据范围名称',
   `data_object_id` bigint NOT NULL COMMENT '数据对象id',
   `constraint_content_type_dict_id` bigint DEFAULT NULL COMMENT '约束条件内容类型，字典id',

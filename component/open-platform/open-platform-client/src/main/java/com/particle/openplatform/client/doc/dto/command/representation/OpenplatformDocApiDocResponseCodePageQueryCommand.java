@@ -24,6 +24,10 @@ public class OpenplatformDocApiDocResponseCodePageQueryCommand extends AbstractB
     @Schema(description = "编码")
     private String code;
 
+    @Like
+	@Schema(description = "业务状态码，码值")
+	private String codeStatus;
+
 	@Schema(description = "http响应码,如：200、500")
 	private Integer httpCode;
 

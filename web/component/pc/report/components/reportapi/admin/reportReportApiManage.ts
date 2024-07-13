@@ -160,7 +160,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '入参示例',
-            tips: '仅展示使用，提示应该怎么入参调用接口,一般为一个json字符串',
+            tips: '仅展示使用，提示应该怎么入参调用接口,一般为一个json字符串，post请求，application/json请求内容类型，模板中 global.body 为请求参数',
             displayBlock: true,
           },
           compProps: {
@@ -179,7 +179,8 @@ export const addPageFormItems = [
       formItemProps: {
         label: '后置处理脚本',
         displayBlock: true,
-        tips: '仅支持groovy脚本，可对模板渲染的结果进一步处理,可用句柄 reportSegmentTemplateRenderParam、reportSegmentTemplateRenderResult'
+        labelTips: '后置处理脚本',
+        tips: '仅支持groovy脚本，可对模板渲染的结果进一步处理,可用句柄 reportSegmentTemplateRenderParam 为请求参数对象、reportSegmentTemplateRenderResult 渲染结果对象，包括templateNameContentResult=名称渲染结果文本、templateContentResult=内容渲染结果文本、templateNameContentResultFile=名称渲染结果文件句柄、renderContext=渲染上下文，默认处理为 templateNameContentResultFile转换为绝对路径作为url，即：如果获取设置不输出文件则返回空'
       },
       compProps: {
         type: 'textarea',

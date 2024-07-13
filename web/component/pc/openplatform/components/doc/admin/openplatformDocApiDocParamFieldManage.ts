@@ -179,6 +179,21 @@ export const addPageFormItems = [
     },
     {
         field: {
+            name: 'exampleValue',
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '示例值',
+                tips: '如果参数有示例值可以填写'
+            },
+            compProps: {
+                clearable: true,
+            }
+        }
+    },
+    {
+        field: {
             name: 'max_length'
         },
         element: {

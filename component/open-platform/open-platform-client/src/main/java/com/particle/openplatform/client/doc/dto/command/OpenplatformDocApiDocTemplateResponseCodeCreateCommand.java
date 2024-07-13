@@ -25,6 +25,9 @@ public class OpenplatformDocApiDocTemplateResponseCodeCreateCommand extends Abst
         @Schema(description = "编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
 
+	@Schema(description = "业务状态码，码值")
+	private String codeStatus;
+
 
     @Schema(description = "http响应码")
     private Integer httpCode;

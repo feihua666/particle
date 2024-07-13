@@ -74,6 +74,9 @@ public class OpenplatformDocApiDocParamFieldBasicVO extends AbstractBaseIdTreeVO
     @Schema(description = "默认值")
     private String defaultValue;
 
+    @Schema(description = "示例值")
+    private String exampleValue;
+
     @Schema(description = "最大长度")
     private Integer maxLength;
 
@@ -119,6 +122,7 @@ public class OpenplatformDocApiDocParamFieldBasicVO extends AbstractBaseIdTreeVO
         openplatformDocApiDocParamFieldBasicVO.explanation = docApiDocTemplateParamFieldVO.getExplanation();
         openplatformDocApiDocParamFieldBasicVO.categoryDictId = docApiDocTemplateParamFieldVO.getCategoryDictId();
         openplatformDocApiDocParamFieldBasicVO.defaultValue = docApiDocTemplateParamFieldVO.getDefaultValue();
+        openplatformDocApiDocParamFieldBasicVO.exampleValue = docApiDocTemplateParamFieldVO.getExampleValue();
         openplatformDocApiDocParamFieldBasicVO.maxLength = docApiDocTemplateParamFieldVO.getMaxLength();
         openplatformDocApiDocParamFieldBasicVO.dictGroupDictId = docApiDocTemplateParamFieldVO.getDictGroupDictId();
         openplatformDocApiDocParamFieldBasicVO.dictItemTags = docApiDocTemplateParamFieldVO.getDictItemTags();

@@ -20,4 +20,18 @@ public interface IReportSegmentTemplateRenderService {
 	 * @return
 	 */
 	ReportSegmentTemplateRenderResult render(ReportSegmentTemplateRenderParam reportSegmentTemplateRenderParam);
+
+	/**
+	 * 清空缓存
+	 * @return
+	 */
+	Boolean clearCache();
+
+	/**
+	 * 刷新缓存
+	 *
+	 * @param reportSegmentTemplateId
+	 * @return
+	 */
+	Boolean refreshCache(Long reportSegmentTemplateId);
 }

@@ -7,6 +7,7 @@ import com.particle.report.client.template.dto.command.ReportSegmentTemplateCopy
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateCreateCommand;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateUpdateCommand;
 import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -43,5 +44,12 @@ public interface IReportSegmentTemplateApplicationService extends IBaseApplicati
 	 * @return
 	 */
 	SingleResponse<ReportSegmentTemplateVO> update(ReportSegmentTemplateUpdateCommand reportSegmentTemplateUpdateCommand);
+
+	/**
+	 * 刷新报告片段模板缓存
+	 * @param idCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(IdCommand idCommand);
 
 }

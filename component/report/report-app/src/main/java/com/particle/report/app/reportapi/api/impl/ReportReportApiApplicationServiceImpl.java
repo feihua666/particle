@@ -1,9 +1,11 @@
 package com.particle.report.app.reportapi.api.impl;
 
+import com.particle.report.app.executor.ReportApiCommandExecutor;
 import com.particle.report.app.reportapi.executor.ReportReportApiCreateCommandExecutor;
 import com.particle.report.app.reportapi.executor.ReportReportApiDeleteCommandExecutor;
 import com.particle.report.app.reportapi.executor.ReportReportApiUpdateCommandExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiUpdateCommand;
 import com.particle.report.client.reportapi.api.IReportReportApiApplicationService;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
@@ -35,6 +37,7 @@ public class ReportReportApiApplicationServiceImpl extends AbstractBaseApplicati
 
 	private ReportReportApiUpdateCommandExecutor reportReportApiUpdateCommandExecutor;
 
+	private ReportApiCommandExecutor reportApiCommandExecutor;
 
 	@Override
 	public SingleResponse<ReportReportApiVO> create(ReportReportApiCreateCommand reportReportApiCreateCommand) {
@@ -51,6 +54,11 @@ public class ReportReportApiApplicationServiceImpl extends AbstractBaseApplicati
 		return reportReportApiUpdateCommandExecutor.execute(reportReportApiUpdateCommand);
 	}
 
+	@Override
+	public SingleResponse<String> refreshCache(ReportApiRefreshCacheCommand reportApiRefreshCacheCommand) {
+		return reportApiCommandExecutor.refreshCache(reportApiRefreshCacheCommand);
+	}
+
 	@Autowired
 	public void setReportReportApiCreateCommandExecutor(ReportReportApiCreateCommandExecutor reportReportApiCreateCommandExecutor) {
 		this.reportReportApiCreateCommandExecutor = reportReportApiCreateCommandExecutor;
@@ -65,4 +73,8 @@ public class ReportReportApiApplicationServiceImpl extends AbstractBaseApplicati
 		this.reportReportApiUpdateCommandExecutor = reportReportApiUpdateCommandExecutor;
 	}
 
+	@Autowired
+	public void setReportApiCommandExecutor(ReportApiCommandExecutor reportApiCommandExecutor) {
+		this.reportApiCommandExecutor = reportApiCommandExecutor;
+	}
 }

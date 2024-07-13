@@ -101,4 +101,12 @@ public class ReportSegmentTemplateAdminWebController extends AbstractBaseWebAdap
 	public SingleResponse<ReportSegmentTemplateVO> copy(@RequestBody ReportSegmentTemplateCopyCommand reportSegmentTemplateCopyCommand){
 		return iReportSegmentTemplateApplicationService.copy(reportSegmentTemplateCopyCommand);
 	}
+
+	@PreAuthorize("hasAuthority('admin:web:reportSegmentTemplate:refreshCache')")
+	@Operation(summary = "刷新报告片段模板缓存")
+	@PutMapping("/refreshCache")
+	@OpLog(name = "刷新报告片段模板缓存",module = OpLogConstants.Module.report,type = OpLogConstants.Type.update)
+	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+		return iReportSegmentTemplateApplicationService.refreshCache(deleteCommand);
+	}
 }

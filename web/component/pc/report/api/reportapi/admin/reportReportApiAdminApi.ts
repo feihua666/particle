@@ -46,3 +46,10 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(reportReportApiPrefix + '/page',{params: data})
 }
 
+/**
+ * 刷新报告接口缓存
+ * @param data
+ */
+export const refreshCache = (data: anyObj): AxiosPromise => {
+    return axios.put(reportReportApiPrefix + '/refreshCache',data)
+}

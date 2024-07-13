@@ -7,7 +7,7 @@ CREATE TABLE `component_lowcode_segment_template` (
   `compute_template` varchar(1000) DEFAULT NULL COMMENT '计算模板',
   `name_template` varchar(1000) DEFAULT NULL COMMENT '名称模板',
   `name_output_variable` varchar(255) DEFAULT NULL COMMENT '名称输出变量名',
-  `content_template` text DEFAULT NULL COMMENT '内容模板',
+  `content_template` mediumtext DEFAULT NULL COMMENT '内容模板',
   `reference_segment_template_id` bigint DEFAULT NULL COMMENT '引用模板id',
   `output_type_dict_id` bigint NOT NULL COMMENT '输出类型字典id，file=文件，dir=目录，segment=片段',
   `output_variable` varchar(255) DEFAULT NULL COMMENT '内容输出变量名',

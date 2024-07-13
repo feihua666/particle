@@ -10,6 +10,7 @@ CREATE TABLE `component_openplatform_doc_api_doc_template_param_field` (
   `openplatform_doc_api_doc_template_id` bigint NOT NULL COMMENT '开放接口文档模板id',
   `category_dict_id` bigint NOT NULL COMMENT '分类，字典id，如：header、request_param等',
   `default_value` varchar(200) DEFAULT NULL COMMENT '默认值',
+  `example_value` varchar(200) DEFAULT NULL COMMENT '示例值',
   `max_length` integer(11) DEFAULT NULL COMMENT '最大长度',
   `dict_group_dict_id` bigint DEFAULT NULL COMMENT '字典组字典，字典组id，字典组下面的字典项为字段枚举',
   `dict_item_tags` varchar(200) DEFAULT NULL COMMENT '字典项标签，如果某一个字典组下的字典项过多可以根据标签过滤',

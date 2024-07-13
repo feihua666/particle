@@ -60,6 +60,11 @@ public class ReportSegmentTemplateApplicationServiceImpl extends AbstractBaseApp
 		return reportSegmentTemplateUpdateCommandExecutor.execute(reportSegmentTemplateUpdateCommand);
 	}
 
+	@Override
+	public SingleResponse<String> refreshCache(IdCommand idCommand) {
+		return reportSegmentTemplateUpdateCommandExecutor.refreshCache(idCommand);
+	}
+
 	@Autowired
 	public void setReportSegmentTemplateCreateCommandExecutor(ReportSegmentTemplateCreateCommandExecutor reportSegmentTemplateCreateCommandExecutor) {
 		this.reportSegmentTemplateCreateCommandExecutor = reportSegmentTemplateCreateCommandExecutor;

@@ -21,6 +21,10 @@ const reactiveData = reactive({
       label: '编码',
     },
     {
+      prop: 'codeStatus',
+      label: '业务状态码',
+    },
+    {
       prop: 'httpCode',
       label: 'http响应码',
     },

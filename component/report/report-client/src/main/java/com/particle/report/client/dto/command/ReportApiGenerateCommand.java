@@ -1,10 +1,7 @@
 package com.particle.report.client.dto.command;
 
-import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -16,12 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Schema
-public class ReportApiGenerateCommand  extends AbstractBaseCommand {
-
-	@NotNull(message = "报告接口地址 不能为空")
-	@Schema(description = "报告接口地址",requiredMode = Schema.RequiredMode.REQUIRED)
-	private String url;
-
+public class ReportApiGenerateCommand  extends ReportApiCommand {
 	/**
 	 * 参数对象
 	 */

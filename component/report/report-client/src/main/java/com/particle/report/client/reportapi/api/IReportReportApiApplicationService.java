@@ -3,6 +3,7 @@ package com.particle.report.client.reportapi.api;
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiUpdateCommand;
 import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;
@@ -37,4 +38,10 @@ public interface IReportReportApiApplicationService extends IBaseApplicationServ
 	 */
 	SingleResponse<ReportReportApiVO> update(ReportReportApiUpdateCommand reportReportApiUpdateCommand);
 
+	/**
+	 * 刷新缓存
+	 * @param reportApiRefreshCacheCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(ReportApiRefreshCacheCommand reportApiRefreshCacheCommand);
 }

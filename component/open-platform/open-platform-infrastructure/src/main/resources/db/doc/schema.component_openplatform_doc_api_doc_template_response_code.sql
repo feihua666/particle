@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS component_openplatform_doc_api_doc_template_response_code;
 CREATE TABLE `component_openplatform_doc_api_doc_template_response_code` (
   `id` bigint NOT NULL COMMENT '主键id',
   `code` varchar(100) NOT NULL COMMENT '编码，码值',
+  `code_status` varchar(100) NOT NULL COMMENT '业务状态码，码值',
   `http_code` int DEFAULT NULL COMMENT 'http响应码,如：200、500',
   `is_charge` tinyint(1) NOT NULL COMMENT '是否计费',
   `explanation` varchar(2000) NOT NULL COMMENT '字段说明',

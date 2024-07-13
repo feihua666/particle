@@ -1,5 +1,6 @@
 package com.particle.report.adapter.reportapi.web.admin;
 
+import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.reportapi.api.IReportReportApiApplicationService;
 import com.particle.report.client.reportapi.api.representation.IReportReportApiRepresentationApplicationService;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
@@ -93,5 +94,11 @@ public class ReportReportApiAdminWebController extends AbstractBaseWebAdapter {
 	public PageResponse<ReportReportApiVO> pageQueryList(ReportReportApiPageQueryCommand reportReportApiPageQueryCommand){
 		return iReportReportApiRepresentationApplicationService.pageQuery(reportReportApiPageQueryCommand);
 	}
-
+	@PreAuthorize("hasAuthority('admin:web:reportReportApi:refreshCache')")
+	@Operation(summary = "刷新报告接口缓存")
+	@PutMapping("/refreshCache")
+	@OpLog(name = "刷新报告接口缓存",module = OpLogConstants.Module.report,type = OpLogConstants.Type.update)
+	public SingleResponse<String> refreshCache(@RequestBody ReportApiRefreshCacheCommand reportApiRefreshCacheCommand){
+		return iReportReportApiApplicationService.refreshCache(reportApiRefreshCacheCommand);
+	}
 }

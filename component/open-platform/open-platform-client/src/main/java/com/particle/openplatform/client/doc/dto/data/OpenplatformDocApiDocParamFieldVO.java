@@ -16,6 +16,9 @@ import lombok.Data;
 @Schema
 public class OpenplatformDocApiDocParamFieldVO extends OpenplatformDocApiDocParamFieldBasicVO {
 
+	@Schema(description = "最大长度")
+	private String exampleValue;
+
     @Schema(description = "父级名称")
     @TransBy(tableName = TransTableNameConstants.component_openplatform_doc_api_doc_param_field, byFieldName = "parentId", mapValueField = "name")
     private String parentName;

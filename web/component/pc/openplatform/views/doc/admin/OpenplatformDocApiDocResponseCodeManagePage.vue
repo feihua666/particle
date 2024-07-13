@@ -18,7 +18,11 @@ const reactiveData = reactive({
   tableColumns: [
     {
       prop: 'code',
-      label: '编码',
+      label: '业务编码',
+    },
+    {
+      prop: 'codeStatus',
+      label: '业务状态码',
     },
     {
       prop: 'httpCode',

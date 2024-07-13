@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS component_data_object;
 CREATE TABLE `component_data_object` (
   `id` bigint NOT NULL COMMENT '主键ID',
-  `code` varchar(50) NOT NULL COMMENT '数据对象编码',
+  `code` varchar(150) NOT NULL COMMENT '数据对象编码',
   `name` varchar(100) NOT NULL COMMENT '数据对象名称',
   `custom_data_url` varchar(300) DEFAULT NULL COMMENT '数据范围自定义时用来绑定自定义数据的url',
   `is_custom_data_lazy` tinyint(1) NOT NULL COMMENT '自定义数据是否懒加载,否则为一次性加载全部数据',

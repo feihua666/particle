@@ -138,7 +138,7 @@ export const addPageFormItems = [
             formItemProps: {
                 label: '条件脚本',
                 displayBlock: true,
-                tips: '仅支持groovy脚本，支持全局参数，特定返回值将被特殊处理，如：返回 ignore 不再执行后续逻辑和子模板，优先计算模板执行'
+                tips: '仅支持groovy脚本，支持全局参数，特定返回值将被特殊处理，如：返回 renderCondition.ignore 不再执行后续逻辑和子模板，支持 dataQueryDataApi 句柄调用数据查询接口，优先计算模板执行'
             },
             compProps: {
                 type: 'textarea',

@@ -23,6 +23,11 @@ public class OpenplatformDocApiDocTemplateResponseCode extends AggreateRoot {
     */
     private String code;
 
+	/**
+	 * 业务状态码，码值
+	 */
+	private String codeStatus;
+
     /**
     * http响应码,如：200、500
     */

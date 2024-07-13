@@ -94,6 +94,23 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 		return null;
 	}
 
+	@Override
+	public Boolean clearCache() {
+		reportSegmentTemplateDOCache.clear();
+		childrenReportSegmentTemplateDOsCache.clear();
+		return true;
+	}
+
+	@Override
+	public Boolean refreshCache(Long reportSegmentTemplateId) {
+		reportSegmentTemplateDOCache.remove(reportSegmentTemplateId);
+		getReportSegmentTemplateDOById(reportSegmentTemplateId);
+
+		childrenReportSegmentTemplateDOsCache.remove(reportSegmentTemplateId);
+		getReportSegmentTemplateChildrenById(reportSegmentTemplateId);
+		return true;
+	}
+
 	/**
 	 * 配置数据
 	 * @return

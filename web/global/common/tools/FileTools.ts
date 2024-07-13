@@ -67,3 +67,33 @@ export function  blobToDataURl(blob, callback) {
     };
     reader.readAsDataURL(blob);
 }
+
+/**
+ * 下载文件,根据地址下载
+ * @param url url地址,需要以http开头
+ * @param fileName 下载的文件名,需要带后缀扩展名
+ */
+export function downloadFileByUrl(url, fileName) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.style.display = 'none'
+    link.setAttribute('target', '_blank')
+    if (fileName) {
+        link.setAttribute('download', fileName); // 指定下载文件名
+    }
+    document.body.appendChild(link);
+    link.click();
+    // 清理工作
+    document.body.removeChild(link);
+}
+/**
+ * 下载文件，根据数据流下载
+ * @param url url地址,需要以http开头
+ * @param fileName 下载的文件名,需要带后缀扩展名
+ */
+export function downloadFileByData(data, fileName) {
+    // 创建一个blob URL
+    const url = window.URL.createObjectURL(new Blob([data]));
+    downloadFileByUrl(url, fileName)
+    window.URL.revokeObjectURL(url);
+}

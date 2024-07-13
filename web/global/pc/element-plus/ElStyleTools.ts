@@ -47,14 +47,35 @@ const d = [
         icon: 'View',
         type:'primary',
     },
-    {
-        pattern:'地图',
-        icon: 'MapLocation',
-        type:'primary'
-    },
+
     {
         pattern:['分配','配置','授权'],
         icon: 'Tools',
+        type:'primary'
+    },
+    {
+        pattern:['复制'],
+        icon: 'DocumentCopy',
+        type:'primary'
+    },
+    {
+        pattern:['审计','审核','审批'],
+        icon: 'Comment',
+        type:'primary'
+    },
+    {
+        pattern:['下载'],
+        icon: 'Download',
+        type:'primary'
+    },
+    {
+        pattern:['上传'],
+        icon: 'Upload',
+        type:'primary'
+    },
+    {
+        pattern:'地图',
+        icon: 'MapLocation',
         type:'primary'
     },
     {
@@ -72,16 +93,7 @@ const d = [
         icon: 'MagicStick',
         type:'primary'
     },
-    {
-        pattern:['复制'],
-        icon: 'DocumentCopy',
-        type:'primary'
-    },
-    {
-        pattern:['审计','审核','审批'],
-        icon: 'Comment',
-        type:'primary'
-    },
+
     {
         pattern:['切换'],
         icon: 'Switch',

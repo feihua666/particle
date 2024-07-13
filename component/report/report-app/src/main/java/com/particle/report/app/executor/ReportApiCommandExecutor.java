@@ -6,6 +6,7 @@ import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.net.url.UrlQuery;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
@@ -16,7 +17,9 @@ import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;
+import com.particle.report.client.dto.command.ReportApiCommand;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
+import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.dto.data.ReportApiGenerateVO;
 import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.report.infrastructure.reportapi.service.IReportReportApiService;
@@ -123,6 +126,21 @@ public class ReportApiCommandExecutor extends AbstractBaseExecutor {
 		iReportApiGenerateResultHandler.handle(result.getData());
 
 		return result;
+	}
+
+	/**
+	 * 刷新缓存
+	 * @param reportApiCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(ReportApiRefreshCacheCommand reportApiCommand) {
+		reportReportApiDOCache.remove(reportApiCommand.getUrl());
+		ReportReportApiDO reportReportApiDO = reportReportApiDOCache.get(reportApiCommand.getUrl(), () -> iReportReportApiService.getByUrl(reportApiCommand.getUrl()));
+		if (reportApiCommand.getIsIncludeSegmentTemplate() != null && reportApiCommand.getIsIncludeSegmentTemplate()) {
+			iReportSegmentTemplateRenderService.refreshCache(reportReportApiDO.getReportSegmentTemplateId());
+		}
+
+		return SingleResponse.of(NetUtil.getLocalhostStr());
 	}
 
 	@Autowired

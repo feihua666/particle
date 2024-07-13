@@ -1,5 +1,7 @@
 package com.particle.report.app.template.executor;
 
+import cn.hutool.core.net.NetUtil;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.report.app.template.structmapping.ReportSegmentTemplateAppStructMapping;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateUpdateCommand;
 import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
@@ -9,6 +11,7 @@ import com.particle.report.domain.template.gateway.ReportSegmentTemplateGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.report.infrastructure.template.service.IReportSegmentTemplateRenderService;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -31,6 +34,8 @@ import javax.validation.Valid;
 public class ReportSegmentTemplateUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private ReportSegmentTemplateGateway reportSegmentTemplateGateway;
+
+	private IReportSegmentTemplateRenderService iReportSegmentTemplateRenderService;
 
 	/**
 	 * 执行 报告片段模板 更新指令
@@ -77,11 +82,25 @@ public class ReportSegmentTemplateUpdateCommandExecutor  extends AbstractBaseExe
 	}
 
 	/**
+	 * 刷新缓存
+	 * @param idCommand
+	 * @return
+	 */
+	public SingleResponse<String> refreshCache(@Valid IdCommand idCommand) {
+		iReportSegmentTemplateRenderService.refreshCache(idCommand.getId());
+		return SingleResponse.of(NetUtil.getLocalhostStr());
+
+	}
+	/**
 	 * 注入使用set方法
 	 * @param reportSegmentTemplateGateway
 	 */
 	@Autowired
 	public void setReportSegmentTemplateGateway(ReportSegmentTemplateGateway reportSegmentTemplateGateway) {
 		this.reportSegmentTemplateGateway = reportSegmentTemplateGateway;
+	}
+	@Autowired
+	public void setiReportSegmentTemplateRenderService(IReportSegmentTemplateRenderService iReportSegmentTemplateRenderService) {
+		this.iReportSegmentTemplateRenderService = iReportSegmentTemplateRenderService;
 	}
 }

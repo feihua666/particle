@@ -3,8 +3,13 @@
  * 开放接口文档接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocApiPageApi, remove as openplatformDocApiRemoveApi} from "../../../api/doc/admin/openplatformDocApiAdminApi"
+import {
+  downloadApiDoc,
+  page as openplatformDocApiPageApi,
+  remove as openplatformDocApiRemoveApi
+} from "../../../api/doc/admin/openplatformDocApiAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiManage";
+import {downloadFileByUrl} from "../../../../../../global/common/tools/FileTools";
 
 
 const tableRef = ref(null)
@@ -96,6 +101,21 @@ const getTableRowButtons = ({row, column, $index}) => {
         return openplatformDocApiRemoveApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格
           submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '下载接口文档',
+      text: true,
+      // 该权限码配置在报告接口管理页面中的开放接口文档
+      permission: 'openplatform:doc:download',
+      methodConfirmText: `确定要下载 ${row.name} 接口文档吗？`,
+      // 删除操作
+      method(){
+        return downloadApiDoc({openplatformDocApiId: row.id,"convertToPdf": true}).then(res => {
+          // 成功后发起下载操作
+          downloadFileByUrl(res.data.data.url,row.name + '.pdf')
           return Promise.resolve(res)
         })
       }

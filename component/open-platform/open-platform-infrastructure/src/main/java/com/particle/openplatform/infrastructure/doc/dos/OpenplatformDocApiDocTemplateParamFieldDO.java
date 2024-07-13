@@ -59,6 +59,11 @@ public class OpenplatformDocApiDocTemplateParamFieldDO extends BaseTreeDO {
 	private String defaultValue;
 
 	/**
+	 * 示例值
+	 */
+	private String exampleValue;
+
+	/**
 	 * 最大长度
 	 */
 	private Integer maxLength;
