@@ -1,1 +1,0 @@
-import{g as t}from"./index.bd091b8a.js";let r="/admin/web/crm_customer_tag";const s=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),p=e=>t.put(r+"/update",e),n=e=>t.get(r+"/detail-for-update",{params:e}),u=e=>t.get(r+"/list",{params:e}),c=e=>t.get(r+"/page",{params:e});export{s as c,n as d,u as l,c as p,o as r,p as u};

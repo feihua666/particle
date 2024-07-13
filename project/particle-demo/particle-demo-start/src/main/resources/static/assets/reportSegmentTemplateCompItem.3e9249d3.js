@@ -1,1 +1,0 @@
-import{l as m}from"./reportSegmentTemplateAdminApi.78d98bb7.js";const l=({fieldName:e="parentId",required:t=!1,label:a="\u7236\u7EA7",tips:r="",valueChange:o=()=>{}})=>({field:{name:e,valueChange:o},element:{comp:"PtCascader",formItemProps:{label:a,required:t,tips:r},compProps:{clearable:!0,dataMethod:m,dataMethodResultHandleConvertToTree:!0}}});export{l as u};

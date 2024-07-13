@@ -1,1 +1,0 @@
-import{g as t}from"./index.bd091b8a.js";let a="/admin/web/tenant_create_apply";const p=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),s=e=>t.put(a+"/update",e),o=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/page",{params:e}),d=e=>t.put(a+"/audit",e);export{d as a,p as c,o as d,u as p,n as r,s as u};
