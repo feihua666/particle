@@ -191,6 +191,11 @@
             <artifactId>data-constraint-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
         <!-- 新组件建议添加到该注释之前 -->
 
 

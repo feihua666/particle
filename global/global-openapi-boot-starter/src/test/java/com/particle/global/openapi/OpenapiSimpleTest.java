@@ -96,7 +96,7 @@ public class OpenapiSimpleTest {
         headers.put("clientId",clientId);
         headers.put("timestamp",timestamp + "");
         headers.put("nonce",nonce);
-        headers.put("signature",sha256Hash+"1");
+        headers.put("signature",sha256Hash);
         return headers;
     }
     /**

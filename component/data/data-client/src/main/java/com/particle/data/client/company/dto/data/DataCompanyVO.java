@@ -1,0 +1,45 @@
+package com.particle.data.client.company.dto.data;
+
+import java.time.LocalDateTime;
+import com.particle.common.client.dto.data.AbstractBaseIdVO;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import com.particle.global.light.share.trans.anno.TransBy;
+import java.time.LocalDateTime;
+/**
+ * <p>
+ * 企业 数据通用响应对象
+ * </p>
+ *
+ * @author yw
+ * @since 2024-07-14 11:23:44
+ */
+@Data
+@Schema
+public class DataCompanyVO extends AbstractBaseIdVO {
+
+    @Schema(description = "企业名称")
+    private String name;
+    
+    @Schema(description = "统一社会信用代码")
+    private String uscc;
+    
+    @Schema(description = "注册号")
+    private String regNo;
+    
+    @Schema(description = "组织机构代码")
+    private String orgCode;
+    
+    @Schema(description = "英文名称")
+    private String enName;
+    
+    @Schema(description = "父级id")
+    private Long parentId;
+    
+    @Schema(description = "最后更新时间")
+    private LocalDateTime latestUpdateAt;
+        
+
+
+}

@@ -43,11 +43,25 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 		assertContextInjected();
 		return (T) applicationContext.getBean(name);
 	}
-
+	/**
+	 * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+	 */
+	public static <T> T getBeanByName(String name) {
+		assertContextInjected();
+		return (T) applicationContext.getBean(name);
+	}
 	/**
 	 * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
 	 */
 	public static <T> T getBean(Class<T> requiredType) {
+		assertContextInjected();
+		return applicationContext.getBean(requiredType);
+	}
+	/**
+	 * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+	 * 在groovy脚本中不太好识别重载方式，这里单独写一个
+	 */
+	public static <T> T getBeanByType(Class<T> requiredType) {
 		assertContextInjected();
 		return applicationContext.getBean(requiredType);
 	}

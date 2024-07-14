@@ -85,6 +85,22 @@ public class PojoPropertyDiffTool {
 	}
 
 	/**
+	 * 将 target 中的字段设置为null，如果source中有相同字段的值
+	 * @param target
+	 * @param source
+	 */
+	public static void handleTargetFieldNullIfEquals(Object target, Object source) {
+		for (Field field : ReflectUtil.getFields(target.getClass())) {
+			Object fieldValue = ReflectUtil.getFieldValue(target, field);
+			if (ReflectUtil.hasField(source.getClass(), field.getName())) {
+				if (Objects.equals(ReflectUtil.getFieldValue(source, field), fieldValue)) {
+					ReflectUtil.setFieldValue(target, field, null);
+				}
+			}
+		}
+	}
+
+	/**
 	 * 获取对比结果的字符串
 	 * @param oldPojo
 	 * @param newPojo

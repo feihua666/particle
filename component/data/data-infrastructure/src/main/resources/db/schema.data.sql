@@ -1,0 +1,3 @@
+-- import classpath:db/company/schema.component_data_company.sql
+-- import classpath:db/company/schema.component_data_company_md5.sql
+-- import classpath:db/temp/schema.component_data_company_md5_ids.sql

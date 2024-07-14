@@ -78,6 +78,10 @@ particle:
       - component_data_object
       - component_data_scope
       - component_data_scope_custom_data_rel
+      # 数据相关
+      - component_data_company
+      - component_data_company_md5
+      - component_data_company_md5_ids
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

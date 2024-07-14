@@ -59,4 +59,23 @@ public class StringTool {
         String tempReferenceStr = StrUtil.nullToEmpty(referenceStr);
         return str.replace("{{referenceStr}}", tempReferenceStr);
     }
+
+    /**
+     * 判断是否是md5
+     * @param input
+     * @return
+     */
+    public static boolean isMd5(String input) {
+        if (input.length() != 32) {
+            return false;
+        }
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if ((c < '0' || c > '9') && (c < 'a' || c > 'f')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
