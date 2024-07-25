@@ -2,8 +2,8 @@
 DROP TABLE IF EXISTS component_data_company;
 CREATE TABLE `component_data_company` (
   `id` bigint NOT NULL COMMENT '主键ID',
-  `name` varchar(100) NOT NULL COMMENT '企业名称',
-  `uscc` varchar(100) NOT NULL COMMENT '统一社会信用代码，unified_social_credit_code',
+  `name` varchar(100) DEFAULT NULL COMMENT '企业名称',
+  `uscc` varchar(100) DEFAULT NULL COMMENT '统一社会信用代码，unified_social_credit_code',
   `reg_no` varchar(100) DEFAULT NULL COMMENT '注册号，registration_no',
   `org_code` varchar(100) DEFAULT NULL COMMENT '组织机构代码，organization_code',
   `en_name` varchar(100) DEFAULT NULL COMMENT '英文名称，english_name',
@@ -19,5 +19,6 @@ CREATE TABLE `component_data_company` (
   UNIQUE KEY `uscc` (`uscc`) USING BTREE,
   UNIQUE KEY `reg_no` (`reg_no`) USING BTREE,
   UNIQUE KEY `org_code` (`org_code`) USING BTREE,
+  KEY `en_name` (`en_name`) USING BTREE,
   KEY `name` (`name`) USING BTREE COMMENT '企业名称可能存在重复'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业表';

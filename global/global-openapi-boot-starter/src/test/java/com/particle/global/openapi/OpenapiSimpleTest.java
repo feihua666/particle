@@ -23,11 +23,11 @@ public class OpenapiSimpleTest {
     /**
      * 客户端id全局配置
      */
-    private static String clientId = "1688811472965656576";
+    private static String clientId = "1812440829352009728";
     /**
      * 客户端密码全局配置
      */
-    private static String clientSecret = "03b109817ddc4269a40d30ca12459511";
+    private static String clientSecret = "1b6324b0a0a942449785fe794f88be98";
 
 
     public static void main(String[] args) {
@@ -51,7 +51,7 @@ public class OpenapiSimpleTest {
         // 请求头
         Map<String, String> headers = headers(nonce, timestamp, sha256Hash);
         // 接口地址，请根据实际情况填写，此处以工商简项为例
-        String apiUrl = "http://localhost:8080/openapi/testPostBody";
+        String apiUrl = "http://101.42.8.146/openapi/dq/data_company_md5_ids/ex/warehouse";
         String response = doPost(apiUrl,body,headers);
         return response;
     }
@@ -62,7 +62,11 @@ public class OpenapiSimpleTest {
      */
     private static String postBody() {
         // 请求体
-        String body = "{\"testField1\":\"测试字段1\"}";
+        String body = "{\n" +
+                "\"name\": \"碧桂园生活服务集团股份有限公司石狮分公司\",\n" +
+                "\"uscc\": \"91350581MA31N8EL14\",\n" +
+                "\"parentIdUuid0\": null\n" +
+                "}";
         return body;
     }
 

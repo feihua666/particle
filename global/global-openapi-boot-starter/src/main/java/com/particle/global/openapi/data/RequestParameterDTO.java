@@ -37,7 +37,7 @@ public class RequestParameterDTO extends DTO {
 	private List<String> pathParameters;
 
 	/**
-	 * 请求参数，不带问题
+	 * 请求参数，不带问号
 	 * 如：name=张三&id=1
 	 */
 	private String queryParameters;

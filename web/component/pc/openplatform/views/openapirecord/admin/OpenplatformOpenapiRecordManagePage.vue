@@ -76,7 +76,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'requestParameterMd5',
-      label: '请求md5',
+      label: '请求参数md5',
       showOverflowTooltip: true
     },
     //   请求时间戳对应的时间格式
@@ -99,7 +99,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'responseResultMd5',
-      label: '响应md5',
+      label: '响应结果md5',
       showOverflowTooltip: true
     },
     {

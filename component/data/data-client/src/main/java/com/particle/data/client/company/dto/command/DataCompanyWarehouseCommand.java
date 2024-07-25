@@ -23,12 +23,10 @@ import java.util.Objects;
 @Schema
 public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
 
-    @NotEmpty(message = "企业名称 不能为空")
-    @Schema(description = "企业名称",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业名称")
     private String name;
 
-    @NotEmpty(message = "统一社会信用代码 不能为空")
-    @Schema(description = "统一社会信用代码",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "统一社会信用代码")
     private String uscc;
 
     @Schema(description = "注册号")
@@ -43,6 +41,17 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "父级id")
     private Long parentId;
 
+    /**
+     * 判断是否所有主要字段都为空
+     * @return
+     */
+    public boolean allMainFieldEmpty() {
+        return StrUtil.isEmpty(name)
+                && StrUtil.isEmpty(uscc)
+                && StrUtil.isEmpty(regNo)
+                && StrUtil.isEmpty(orgCode)
+                && StrUtil.isEmpty(enName);
+    }
     /**
      * 判断是否所有字段都为空
      * @return

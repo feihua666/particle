@@ -52,6 +52,7 @@ public class DataCompanyWarehouseCommandExecutor extends AbstractBaseExecutor {
 	 * @return
 	 */
 	public SingleResponse<DataCompanyUniqueExWarehouseVO> warehouse(@Valid DataCompanyWarehouseCommand dataCompanyWarehouseCommand) {
+		Assert.isFalse(dataCompanyWarehouseCommand.allMainFieldEmpty(),"至少填写一个主要字段");
 		// 根据参数查询唯一标识
 		DataCompanyUniqueExWarehouseQueryCommand uniqueExWarehouseQueryCommand = DataCompanyUniqueExWarehouseQueryCommand.createByWarehouseCommand(dataCompanyWarehouseCommand);
 		SingleResponse<DataCompanyUniqueExWarehouseCandidateVO> dataCompanyUniqueExWarehouseCandidateVOSingleResponse = dataCompanyQueryCommandExecutor.uniqueExWarehouse(uniqueExWarehouseQueryCommand);
