@@ -1,0 +1,1 @@
+import{g as e}from"./index.858f5c96.js";let a="/admin/web/data_object";const s=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),p=t=>e.get(a+"/detail-for-update",{params:t}),d=t=>e.get(a+"/detail",{params:t}),c=t=>e.get(a+"/list",{params:t}),u=t=>e.get(a+"/page",{params:t});export{d as a,s as c,p as d,c as l,u as p,o as r,n as u};
