@@ -60,5 +60,25 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/BatchGenIdsPage',
+        component: () => import('./views/front/BatchGenIdsPage.vue'),
+        meta: {
+            root: true,
+            code:'BatchGenIdsPage',
+            name: '批量生成id',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/front/BatchReplateSqlInsertIdsPage',
+        component: () => import('./views/front/BatchReplateSqlInsertIdsPage.vue'),
+        meta: {
+            root: true,
+            code:'BatchReplateSqlInsertIdsPage',
+            name: '批量替换sql插入语句id',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

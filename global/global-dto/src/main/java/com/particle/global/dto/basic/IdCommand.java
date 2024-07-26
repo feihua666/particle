@@ -26,6 +26,7 @@ public class IdCommand extends Command {
 
 	public static IdCommand create(Long id){
 		IdCommand idCommand = new IdCommand();
+		idCommand.id = id;
 		return idCommand;
 	}
 

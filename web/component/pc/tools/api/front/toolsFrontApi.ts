@@ -23,3 +23,10 @@ export const cronRunTimes = (data: CronQueryParam): AxiosPromise => {
 export const addField = (data: anyObj): AxiosPromise => {
     return axios.post('front/web/particle' + '/addField',data)
 }
+/**
+ * 批量生成id
+ * @param data
+ */
+export const batchGenIds = (data: anyObj): AxiosPromise => {
+    return axios.post('front/web/particle' + '/batchGenIds',data)
+}

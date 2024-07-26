@@ -3,8 +3,11 @@ package com.particle.tools.adapter.web.front;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.tools.client.dto.command.AddFieldCommand;
+import com.particle.tools.client.dto.command.BatchGenIdsCommand;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -43,6 +46,16 @@ public class ParticleController extends AbstractBaseWebAdapter {
 
 
         return Response.buildSuccess();
+    }
+    @Operation(summary = "批量生成id")
+    @PostMapping("/batchGenIds")
+    @ResponseStatus(HttpStatus.OK)
+    public MultiResponse batchGenIds(@RequestBody @Validated BatchGenIdsCommand batchGenIdsCommand) {
+        List<Long> list = new ArrayList<>(batchGenIdsCommand.getNum());
+        for (Integer i = 0; i < batchGenIdsCommand.getNum(); i++) {
+            list.add(SnowflakeIdTool.nextId());
+        }
+        return MultiResponse.of(list);
     }
 
     /**
