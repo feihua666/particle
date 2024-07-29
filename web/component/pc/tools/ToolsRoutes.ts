@@ -80,5 +80,15 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/StringMultipleLineCompareToolPage',
+        component: () => import('./views/front/StringMultipleLineCompareToolPage.vue'),
+        meta: {
+            root: true,
+            code:'StringMultipleLineCompareToolPage',
+            name: '多行文本比较处理',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

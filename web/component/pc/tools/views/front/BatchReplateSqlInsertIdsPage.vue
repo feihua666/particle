@@ -129,7 +129,7 @@ const resultFormComps= ref(
 
 // 提交按钮属性
 const submitAttrs = ref({
-  buttonText: '确认生成',
+  buttonText: '确认替换',
 })
 
 // 提交按钮
