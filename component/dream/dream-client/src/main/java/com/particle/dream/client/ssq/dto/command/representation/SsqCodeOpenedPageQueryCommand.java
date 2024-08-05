@@ -1,7 +1,9 @@
 package com.particle.dream.client.ssq.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Gt;
 import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.time.LocalDate;
@@ -25,14 +27,36 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
 
     @Schema(description = "开奖日期")
     private LocalDate openedDate;
-    
+
+    @Gt("openedDate")
+    @Schema(description = "开奖日期开始")
+    private Integer openedDateStart;
+
+    @Lt("openedDate")
+    @Schema(description = "开奖日期结束")
+    private Integer openedDateEnd;
 
     @Schema(description = "开奖期号年份")
     private Integer openedPhaseYear;
 
-	@Schema(description = "开奖期号月份")
-	private Integer openedPhaseMonth;
+    @Gt("openedPhaseYear")
+    @Schema(description = "开奖期号年份开始")
+    private Integer openedPhaseYearStart;
 
+    @Lt("openedPhaseYear")
+    @Schema(description = "开奖期号年份结束")
+    private Integer openedPhaseYearEnd;
+
+    @Schema(description = "开奖期号月份")
+    private Integer openedPhaseMonth;
+
+    @Gt("openedPhaseMonth")
+    @Schema(description = "开奖期号月份开始")
+    private Integer openedPhaseMonthStart;
+
+    @Lt("openedPhaseMonth")
+    @Schema(description = "开奖期号月份结束")
+    private Integer openedPhaseMonthEnd;
 
     @Schema(description = "开奖期号数")
     private Integer openedPhaseNum;
@@ -44,6 +68,14 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
 
     @Schema(description = "开奖期号")
     private Integer openedPhase;
+
+    @Gt("openedPhase")
+    @Schema(description = "开奖期号开始")
+    private Integer openedPhaseStart;
+
+    @Lt("openedPhase")
+    @Schema(description = "开奖期号结束")
+    private Integer openedPhaseEnd;
 
 
     @Schema(description = "开奖红球1")
@@ -69,8 +101,8 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     @Schema(description = "开奖红球6")
     private Integer openedRed6;
 
-	@Schema(description = "开奖蓝球")
-	private Integer openedBlue;
+    @Schema(description = "开奖蓝球")
+    private Integer openedBlue;
 
 
     @Schema(description = "中1等奖注数")
@@ -152,8 +184,8 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
     @Schema(description = "奖池金额")
     private Long prizePoolAmount;
 
-	@Schema(description = "下一期奖池金额，单位元")
-	private Long nextPrizePoolAmount;
+    @Schema(description = "下一期奖池金额，单位元")
+    private Long nextPrizePoolAmount;
 
 
     @Schema(description = "销售额")
@@ -235,11 +267,12 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
 
 
 
+
     @Schema(description = "序号")
     private Integer seqNo;
 
-	@Schema(description = "红球序号，从1开始递增")
-	private Integer redSeqNo;
+    @Schema(description = "红球序号，从1开始递增")
+    private Integer redSeqNo;
 
 
     @Schema(description = "红球1")
@@ -340,7 +373,6 @@ public class SsqCodeOpenedPageQueryCommand extends AbstractBasePageQueryCommand 
 
     @Schema(description = "是否蓝球为奇数")
     private Boolean isBlueOdd;
-
 
 
 

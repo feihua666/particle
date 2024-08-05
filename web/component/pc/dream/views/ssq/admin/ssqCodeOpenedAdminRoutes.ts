@@ -50,6 +50,16 @@ const ssqCodeOpenedAdminRoutes = [
             name: '双色球开奖滑动窗口趋势',
             keepAlive: true
         },
+    },
+    {
+        path: '/admin/SsqCodeOpenedSlidingWindowPredictionPage',
+        component: () => import('./SsqCodeOpenedSlidingWindowPredictionPage.vue'),
+        meta: {
+            root: true,
+            code:'SsqCodeOpenedSlidingWindowPredictionPage',
+            name: '双色球开奖滑动窗口预测',
+            keepAlive: true
+        },
     }
 ]
 export default ssqCodeOpenedAdminRoutes

@@ -7,3 +7,5 @@ INSERT INTO `component_tenant` (`id`, `code`, `name`, `is_disabled`, `disabled_r
 -- 超级管理员为根租户的用户
 INSERT INTO `component_tenant_user` (`id`, `user_id`, `name`, `is_expired`, `expired_reason`, `expire_at`, `is_leave`, `leave_reason`, `leave_at`, `join_at`, `is_formal`, `version`, `tenant_id`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES (1, 1, '超级管理员', 0, NULL, NULL, 0, NULL, NULL, '2023-04-14 18:02:51', 1, 1, 1, '2023-04-14 18:02:51', NULL, NULL, NULL);
 
+-- 虚拟超级管理员
+INSERT INTO component_tenant_user (id, user_id, name, is_expired, expired_reason, expire_at, effective_at, effective_at_trigger_dict_id, effective_days, is_leave, leave_reason, leave_at, join_at, is_formal, remark, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1818122966571962370, 1818106787283390466, '虚拟超级管理员', 0, null, null, null, null, null, 0, null, null, '2024-07-30 11:14:29', 1, null, 2, 1, '2024-07-30 11:14:29', 1, '2024-07-30 11:14:39', 1);

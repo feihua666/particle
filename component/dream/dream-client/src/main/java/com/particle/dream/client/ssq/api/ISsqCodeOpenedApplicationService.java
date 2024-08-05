@@ -1,7 +1,9 @@
 package com.particle.dream.client.ssq.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedCheckWinCommand;
 import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedPredictionParameterTuningCommand;
+import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedCheckWinVO;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTuningRegionVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
@@ -36,4 +38,11 @@ public interface ISsqCodeOpenedApplicationService extends IBaseApplicationServic
 	 * @return
 	 */
 	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(@RequestBody SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand);
+
+	/**
+	 * 检查是否中奖
+	 * @param ssqCodeOpenedCheckWinCommand
+	 * @return
+	 */
+	public SingleResponse<SsqCodeOpenedCheckWinVO> checkWin(SsqCodeOpenedCheckWinCommand ssqCodeOpenedCheckWinCommand);
 }

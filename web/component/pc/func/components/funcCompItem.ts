@@ -113,7 +113,8 @@ export const funcColumns = [
     },
     {
         prop: 'parentName',
-        label: '父级'
+        label: '父级',
+        showOverflowTooltip: true
     },
     {
         prop: 'funcGroupName',

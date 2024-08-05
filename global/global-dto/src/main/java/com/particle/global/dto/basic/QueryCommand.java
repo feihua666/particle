@@ -20,6 +20,7 @@ public class QueryCommand extends Command{
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 该字段优先级高于直接使用注解 {@link com.particle.global.light.share.mybatis.anno.OrderBy}
+	 * 注意：该@Ignore注解已经特殊处理，设置@Ignore注解后，会提高处理性能
 	 */
 	@Ignore
 	@Schema(title = "排序",description = "规则：propertyName[-1|0] 1为升序，0为降序，按id升序排序：id-1或id，多个以逗号分隔：id,name,creatAt-0")

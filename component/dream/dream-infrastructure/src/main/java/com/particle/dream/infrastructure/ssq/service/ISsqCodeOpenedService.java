@@ -31,6 +31,19 @@ public interface ISsqCodeOpenedService extends IBaseService<SsqCodeOpenedDO> {
         List<SsqCodeOpenedDO> records = page.getRecords();
         return records.stream().findFirst().orElse(null);
     }
+    /**
+     * 获取最大开奖期号
+     * @return
+     */
+    default SsqCodeOpenedDO getMaxOpenedPhase() {
+
+        Page<SsqCodeOpenedDO> page = page(
+                new Page<>(1, 1),
+                Wrappers.<SsqCodeOpenedDO>lambdaQuery().orderByDesc(SsqCodeOpenedDO::getOpenedPhase)
+        );
+        List<SsqCodeOpenedDO> records = page.getRecords();
+        return records.stream().findFirst().orElse(null);
+    }
 
     /**
      * 根据年份查询
@@ -39,5 +52,13 @@ public interface ISsqCodeOpenedService extends IBaseService<SsqCodeOpenedDO> {
      */
     default List<SsqCodeOpenedDO> listByOpenedPhaseYear(Integer openedPhaseYear) {
         return list(Wrappers.<SsqCodeOpenedDO>lambdaQuery().eq(SsqCodeOpenedDO::getOpenedPhaseYear,openedPhaseYear));
+    }
+    /**
+     * 根据期号查询
+     * @param openedPhase
+     * @return
+     */
+    default SsqCodeOpenedDO getByOpenedPhase(Integer openedPhase) {
+        return getOne(Wrappers.<SsqCodeOpenedDO>lambdaQuery().eq(SsqCodeOpenedDO::getOpenedPhase,openedPhase));
     }
 }

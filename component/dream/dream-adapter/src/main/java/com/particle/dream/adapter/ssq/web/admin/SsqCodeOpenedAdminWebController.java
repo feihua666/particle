@@ -5,9 +5,11 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
 import com.particle.dream.client.ssq.api.representation.ISsqCodeOpenedRepresentationApplicationService;
+import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedCheckWinCommand;
 import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedPredictionParameterTuningCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedPageQueryCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedQueryListCommand;
+import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedCheckWinVO;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTuningRegionVO;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedVO;
 import com.particle.global.dataaudit.op.OpLog;
@@ -86,5 +88,10 @@ public class SsqCodeOpenedAdminWebController extends AbstractBaseWebAdapter {
 	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(@RequestBody SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand){
 		return iSsqCodeOpenedApplicationService.predictionParameterTuning(predictionParameterTuningCommand);
 	}
-
+	@PreAuthorize("hasAuthority('admin:web:ssqCodeOpened:checkWin')")
+	@Operation(summary = "检查是否中奖")
+	@GetMapping("/checkWin")
+	public SingleResponse<SsqCodeOpenedCheckWinVO> checkWin(@RequestBody SsqCodeOpenedCheckWinCommand ssqCodeOpenedCheckWinCommand){
+		return iSsqCodeOpenedApplicationService.checkWin(ssqCodeOpenedCheckWinCommand);
+	}
 }

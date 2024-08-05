@@ -41,14 +41,17 @@ const reactiveData = reactive({
     {
       prop: 'permissions',
       label: '接口权限码',
+      showOverflowTooltip: true
     },
     {
       prop: 'url',
       label: '接口地址',
+      showOverflowTooltip: true
     },
     {
       prop: 'reportSegmentTemplateName',
       label: '报告片段模板',
+      showOverflowTooltip: true
     },
     {
       prop: 'inParamExampleConfigJson',
@@ -57,11 +60,13 @@ const reactiveData = reactive({
     },
     {
       label: "父级",
-      prop: "parentName"
+      prop: "parentName",
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
   ],
 

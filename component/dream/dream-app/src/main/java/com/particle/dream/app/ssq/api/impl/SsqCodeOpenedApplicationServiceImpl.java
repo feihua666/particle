@@ -1,11 +1,14 @@
 package com.particle.dream.app.ssq.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.dream.app.ssq.executor.SsqCodeOpenedCheckWinCommandExecutor;
 import com.particle.dream.app.ssq.executor.SsqCodeOpenedCreateCommandExecutor;
 import com.particle.dream.app.ssq.executor.SsqCodeOpenedPredictionParameterTuningCommandExecutor;
 import com.particle.dream.app.ssq.executor.SsqCodeOpenedUpdateCommandExecutor;
 import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
+import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedCheckWinCommand;
 import com.particle.dream.client.ssq.dto.command.SsqCodeOpenedPredictionParameterTuningCommand;
+import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedCheckWinVO;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTuningRegionVO;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -34,6 +37,8 @@ public class SsqCodeOpenedApplicationServiceImpl extends AbstractBaseApplication
 
 	private SsqCodeOpenedPredictionParameterTuningCommandExecutor ssqCodeOpenedPredictionParameterTuningCommandExecutor;
 
+	private SsqCodeOpenedCheckWinCommandExecutor ssqCodeOpenedCheckWinCommandExecutor;
+
 	@Transactional(propagation = Propagation.NEVER)
 	@Override
 	public Response allCodeInit() {
@@ -50,6 +55,11 @@ public class SsqCodeOpenedApplicationServiceImpl extends AbstractBaseApplication
 		return ssqCodeOpenedPredictionParameterTuningCommandExecutor.predictionParameterTuning(predictionParameterTuningCommand);
 	}
 
+	@Override
+	public SingleResponse<SsqCodeOpenedCheckWinVO> checkWin(SsqCodeOpenedCheckWinCommand ssqCodeOpenedCheckWinCommand) {
+		return ssqCodeOpenedCheckWinCommandExecutor.checkWin(ssqCodeOpenedCheckWinCommand);
+	}
+
 
 	@Autowired
 	public void setSsqCodeOpenedCreateCommandExecutor(SsqCodeOpenedCreateCommandExecutor ssqCodeOpenedCreateCommandExecutor) {
@@ -64,5 +74,9 @@ public class SsqCodeOpenedApplicationServiceImpl extends AbstractBaseApplication
 	@Autowired
 	public void setSsqCodeOpenedPredictionParameterTuningCommandExecutor(SsqCodeOpenedPredictionParameterTuningCommandExecutor ssqCodeOpenedPredictionParameterTuningCommandExecutor) {
 		this.ssqCodeOpenedPredictionParameterTuningCommandExecutor = ssqCodeOpenedPredictionParameterTuningCommandExecutor;
+	}
+	@Autowired
+	public void setSsqCodeOpenedCheckWinCommandExecutor(SsqCodeOpenedCheckWinCommandExecutor ssqCodeOpenedCheckWinCommandExecutor) {
+		this.ssqCodeOpenedCheckWinCommandExecutor = ssqCodeOpenedCheckWinCommandExecutor;
 	}
 }

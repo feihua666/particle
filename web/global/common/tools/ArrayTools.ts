@@ -158,3 +158,33 @@ export function removeItems(array: Array<any>,arrayRemoved: Array<any>){
     let result = array.filter(item => !arrayRemoved.includes(item));
     return result
 }
+
+/**
+ * 反转数组
+ * @param array
+ */
+export function reverse(array: Array<any>,createNew = true) {
+    if (!array) {
+        return array
+    }
+    if (createNew) {
+        // Array.from(arr).reverse()
+        return [...array].reverse()
+    }
+    return array.reverse()
+}
+
+/**
+ * 获取数组中的最小值
+ * @param array
+ */
+export function min(array: Array<any>):number {
+    return Math.min(...array)
+}
+/**
+ * 获取数组中的最大值
+ * @param array
+ */
+export function max(array: Array<any>):number {
+    return Math.max(...array)
+}
