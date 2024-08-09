@@ -90,5 +90,35 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/BatchJsonMultipleLineParsePage',
+        component: () => import('./views/front/BatchJsonMultipleLineParsePage.vue'),
+        meta: {
+            root: true,
+            code:'BatchJsonMultipleLineParsePage',
+            name: 'json多行文本解析为新的json文本',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/front/BatchJsonExtractFieldsPage',
+        component: () => import('./views/front/BatchJsonMultipleLineExtractFieldsPage.vue'),
+        meta: {
+            root: true,
+            code:'BatchJsonExtractFieldsPage',
+            name: 'json多行文本字段提取处理',
+            keepAlive: true
+        },
+    },
+    {
+        path: '/front/BatchJsonMultipleLineConvertInsertSqlPage',
+        component: () => import('./views/front/BatchJsonMultipleLineConvertInsertSqlPage.vue'),
+        meta: {
+            root: true,
+            code:'BatchJsonMultipleLineConvertInsertSqlPage',
+            name: 'json多行文本转换 insert sql 语句',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

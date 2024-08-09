@@ -14,19 +14,37 @@ export interface CronQueryParam{
  * @param data
  */
 export const cronRunTimes = (data: CronQueryParam): AxiosPromise => {
-    return axios.get('front/web/cron' + '/cronRunTimes',{params: data})
+    return axios.get('/front/web/cron' + '/cronRunTimes',{params: data})
 }
 /**
  * 添加字段
  * @param data
  */
 export const addField = (data: anyObj): AxiosPromise => {
-    return axios.post('front/web/particle' + '/addField',data)
+    return axios.post('/front/web/particle' + '/addField',data)
 }
 /**
  * 批量生成id
  * @param data
  */
 export const batchGenIds = (data: anyObj): AxiosPromise => {
-    return axios.post('front/web/particle' + '/batchGenIds',data)
+    return axios.post('/front/web/particle' + '/batchGenIds',data)
+}
+
+/**
+ * jsonparse
+ * @param data
+ * @return json 对象，即：res.data.data=json对象
+ */
+export const jsonParse = (data: anyObj): AxiosPromise => {
+    return axios.post('/front/web/json' + '/parse',data)
+}
+
+/**
+ * jsonparse
+ * @param data={jsonStrs:[]}
+ * @return json 对象，即：res.data.data=数组，数组中是字符串
+ */
+export const parseMultipleLine = (data: anyObj): AxiosPromise => {
+    return axios.post('/front/web/json' + '/parseMultipleLine',data)
 }

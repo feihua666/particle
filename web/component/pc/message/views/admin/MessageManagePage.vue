@@ -19,14 +19,17 @@ const reactiveData = reactive({
     {
       prop: 'title',
       label: '消息标题',
+      showOverflowTooltip: true,
     },
     {
       prop: 'shortContent',
       label: '消息简短内容',
+      showOverflowTooltip: true,
     },
     {
       prop: 'content',
       label: '消息内容',
+      showOverflowTooltip: true,
     },
 
     {
