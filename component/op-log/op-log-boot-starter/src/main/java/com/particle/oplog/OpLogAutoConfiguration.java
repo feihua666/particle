@@ -26,7 +26,10 @@ import java.util.List;
  */
 @ComponentScan
 @Configuration
-@MapperScan("com.particle.oplog.infrastructure.mapper")
+@MapperScan({
+        "com.particle.oplog.infrastructure.mapper",
+        "com.particle.oplog.infrastructure.error.mapper",
+})
 public class OpLogAutoConfiguration {
 
 

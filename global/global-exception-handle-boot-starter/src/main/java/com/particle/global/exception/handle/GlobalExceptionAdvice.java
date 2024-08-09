@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.hibernate.validator.internal.engine.path.PathImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -40,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.sql.SQLSyntaxErrorException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -54,6 +56,9 @@ import java.util.Optional;
 @Slf4j
 @Order
 public class GlobalExceptionAdvice {
+
+    @Autowired(required = false)
+    private List<GlobalMvcExceptionListener> globalMvcExceptionListeners;
 
     public static Response createRM(IErrorCode errorCode, String userTip, Object data, Exception e) {
         log.warn("警告： errStatus={}, errCode={}, errMessage={}, data={}, exceptionMsg={}, exceptionName={} ",
@@ -352,13 +357,31 @@ public class GlobalExceptionAdvice {
         }
 
         log.error("系统内部异常：{}",ex.getMessage(),ex);
+        String stacktraceToString = ExceptionUtil.stacktraceToString(ex);
+
         NotifyParam notifyParam = NotifyParam.system();
         notifyParam.setContentType("global.restcontrolleradvice.error.exception");
         notifyParam.setTitle("系统内部异常");
-        notifyParam.setContent(ExceptionUtil.stacktraceToString(ex));
+        notifyParam.setContent(stacktraceToString);
         NotifyTool.notify(notifyParam);
         Response rm = createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+
+        int httpStatus = HttpStatus.INTERNAL_SERVER_ERROR.value();
+
+        if (globalMvcExceptionListeners != null) {
+
+            GlobalMvcExceptionDTO globalMvcExceptionDTO = new GlobalMvcExceptionDTO();
+            globalMvcExceptionDTO.setException(ex);
+            globalMvcExceptionDTO.setStacktrace(stacktraceToString);
+            globalMvcExceptionDTO.setRequest(request);
+            globalMvcExceptionDTO.setResponseBody(rm);
+            globalMvcExceptionDTO.setResponseHttpStatus(httpStatus);
+            for (GlobalMvcExceptionListener globalMvcExceptionListener : globalMvcExceptionListeners) {
+                globalMvcExceptionListener.onException(globalMvcExceptionDTO);
+            }
+        }
+
+        return ResponseEntity.status(httpStatus)
                 .body(rm);
     }
 

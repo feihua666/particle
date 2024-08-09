@@ -1,1 +1,0 @@
-import{g as t}from"./index.858f5c96.js";const n=r=>t.get("front/web/cron/cronRunTimes",{params:r}),o=r=>t.post("front/web/particle/addField",r),s=r=>t.post("front/web/particle/batchGenIds",r);export{o as a,s as b,n as c};
