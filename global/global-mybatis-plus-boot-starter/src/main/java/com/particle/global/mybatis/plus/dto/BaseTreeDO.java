@@ -21,6 +21,9 @@ public class BaseTreeDO extends BaseDO {
 	public static final String COLUMN_PARENT_ID = TreeDO.COLUMN_PARENT_ID;
 	public static final String PROPERTY_LEVEL = TreeDO.PROPERTY_LEVEL;
 	public static final String COLUMN_LEVEL = TreeDO.COLUMN_LEVEL;
+
+	public static final String PROPERTY_SEQ = TreeDO.PROPERTY_SEQ;
+	public static final String COLUMN_SEQ = TreeDO.COLUMN_SEQ;
 	/**
 	 * 初始最顶级深度是 1
 	 */

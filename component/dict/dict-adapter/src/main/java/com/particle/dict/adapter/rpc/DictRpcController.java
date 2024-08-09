@@ -91,7 +91,7 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 	@Operation(summary = "根据字典id查询,多个")
 	@Override
 	public MultiResponse<DictVO> queryByIds(List<Long> ids) {
-		List<DictDO> list = iDictService.list(Wrappers.<DictDO>lambdaQuery().in(DictDO::getId, ids));
+		List<DictDO> list = iDictService.list(Wrappers.<DictDO>lambdaQuery().in(DictDO::getId, ids).orderByAsc(DictDO::getSeq));
 		List<DictVO> dictVOS = DictAppStructMapping.instance.dictDOsToDictVOs(list);
 		return MultiResponse.of(dictVOS);
 	}

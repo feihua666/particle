@@ -15,6 +15,8 @@ public class TreeDO extends DO{
 	public static final String COLUMN_PARENT_ID = "parent_id";
 	public static final String PROPERTY_LEVEL = "level";
 	public static final String COLUMN_LEVEL = "level";
+	public static final String PROPERTY_SEQ = "seq";
+	public static final String COLUMN_SEQ = "seq";
 	/**
 	 * 初始最顶级深度是 1
 	 */

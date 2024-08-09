@@ -20,8 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2022-07-19
  */
 @Component
-public class
-DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implements IDictService {
+public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implements IDictService {
 
 
 	private IBaseQueryCommandMapStruct<DictDO> queryCommandMapStruct;

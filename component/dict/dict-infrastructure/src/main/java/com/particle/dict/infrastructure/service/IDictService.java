@@ -1,6 +1,5 @@
 package com.particle.dict.infrastructure.service;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
@@ -43,7 +42,7 @@ public interface IDictService extends IBaseService<DictDO> {
 		if (byCode == null) {
 			return Collections.EMPTY_LIST;
 		}
-		return getChildren(byCode.getId());
+		return getChildren(byCode.getId(),true, DictDO.COLUMN_SEQ);
 	}
 	/**
 	 * 根据编码查询子一级
@@ -56,7 +55,7 @@ public interface IDictService extends IBaseService<DictDO> {
 		if (byCode == null) {
 			return Collections.EMPTY_LIST;
 		}
-		return getChildren(byCode.getId());
+		return getChildren(byCode.getId(),true, DictDO.COLUMN_SEQ);
 	}
 
 	/**

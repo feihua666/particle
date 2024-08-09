@@ -788,6 +788,15 @@ public interface IBaseService<DO> extends IService<DO> {
     /**
      * 查询子一级节点
      * @param parentId
+     * @return
+     */
+    default List<DO> getChildren(Long parentId,Boolean isAsc, String column){
+        Assert.notNull(parentId,"parentId 不能为空");
+        return list(Wrappers.<DO>query().eq(TreeDO.COLUMN_PARENT_ID,parentId).orderBy(column != null, isAsc, column));
+    }
+    /**
+     * 查询子一级节点
+     * @param parentId
      * @param query
      * @return
      */
