@@ -49,6 +49,11 @@ public class DataCompany extends AggreateRoot {
     */
     private Long parentId;
 
+	/**
+	 * 分类，1=企业，2=个体，3=组代
+	 */
+	private Integer category;
+
     /**
     * 最后更新时间，相关联的只要有更新，就需要更新该值
     */

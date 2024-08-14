@@ -1,0 +1,4 @@
+elasticsearch:
+  url: http://localhost:9200
+  username:
+  password:

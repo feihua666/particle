@@ -46,6 +46,9 @@ public class DataCompanyCreateCommand extends AbstractBaseCommand {
     @Schema(description = "父级id")
     private Long parentId;
 
+	@Schema(description = "分类，1=企业，2=个体，3=组代")
+	private Integer category;
+
 
     @Schema(description = "最后更新时间",hidden = true)
     private LocalDateTime latestUpdateAt;
@@ -59,6 +62,7 @@ public class DataCompanyCreateCommand extends AbstractBaseCommand {
         dataCompanyCreateCommand.orgCode = dataCompanyWarehouseCommand.getOrgCode();
         dataCompanyCreateCommand.enName = dataCompanyWarehouseCommand.getEnName();
         dataCompanyCreateCommand.parentId = dataCompanyWarehouseCommand.getParentId();
+        dataCompanyCreateCommand.category = dataCompanyWarehouseCommand.getCategory();
         return dataCompanyCreateCommand;
     }
 }

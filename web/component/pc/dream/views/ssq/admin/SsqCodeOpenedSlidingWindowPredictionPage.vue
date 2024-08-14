@@ -11,7 +11,7 @@ import { GridComponent,TooltipComponent,TitleComponent } from 'echarts/component
 import VChart from 'vue-echarts';
 import {reactive, ref, onMounted, } from 'vue';
 import {list, page} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
-import {min, reverse} from "../../../../../../global/common/tools/ArrayTools";
+import {max, min, reverse} from "../../../../../../global/common/tools/ArrayTools";
 
 use([GridComponent,TooltipComponent,TitleComponent, LineChart,BarChart, CanvasRenderer])
 const computedSlidingWindowOption = ref({})
@@ -333,8 +333,10 @@ const computeSlidingWindow = (data,slidingWindowSize,computeObjectConfigItem)=>{
     seriesData.push(Number(computeObjectConfigItem.valueFormat(sum)))
   }
   let minValue = min(seriesData)
+  let maxValue = max(seriesData)
+  let middleValue = (maxValue + minValue) / 2
   for (let i = 0; i < seriesData.length; i++) {
-    seriesData[i] = Number((seriesData[i] - minValue).toFixed(5))
+    seriesData[i] = Number((seriesData[i] - middleValue).toFixed(5))
   }
   return {xAxisData,seriesData}
 

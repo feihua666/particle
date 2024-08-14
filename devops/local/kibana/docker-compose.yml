@@ -1,31 +1,17 @@
 version: '3'
 services:
-  elasticsearch:
-    image: 'elasticsearch:7.14.2'
-    container_name: 'particle-elasticsearch'
+  kibana:
+    image: 'kibana:7.14.2'
+    container_name: 'particle-kibana'
     networks:
-      - particle-elasticsearch-net
+      - particle-kibana-net
     ports:
-      # 将容器的9200端口映射到宿主机9200端口
-      - '9200:9200'
-      # 将容器的9300端口映射到宿主机9300端口，目的是集群互相通信
-      - '9300:9300'
+      # 将容器的5601端口映射到宿主机5601端口
+      - '5601:5601'
     volumes:
       # 挂载数据目录到主机上
-      # elasticsearch 配置
-      - particle-elasticsearch-config:/usr/share/elasticsearch/config
-      - particle-elasticsearch-data:/usr/share/elasticsearch/data
-      - particle-elasticsearch-plugins:/usr/share/elasticsearch/plugins
-    environment:
-      - "discovery.type=single-node"
+      # kibana 配置
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
 networks:
-  particle-elasticsearch-net:
+  particle-kibana-net:
     driver: bridge
-
-volumes:
-  particle-elasticsearch-config:
-    driver: local
-  particle-elasticsearch-data:
-    driver: local
-  particle-elasticsearch-plugins:
-    driver: local

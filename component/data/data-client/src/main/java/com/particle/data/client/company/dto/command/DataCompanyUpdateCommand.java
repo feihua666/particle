@@ -46,6 +46,9 @@ public class DataCompanyUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "父级id")
     private Long parentId;
 
+	@Schema(description = "分类，1=企业，2=个体，3=组代")
+	private Integer category;
+
 
     public static DataCompanyUpdateCommand createByWarehouseCommand(Long id,Integer version,DataCompanyWarehouseCommand dataCompanyWarehouseCommand) {
         DataCompanyUpdateCommand dataCompanyUpdateCommand = new DataCompanyUpdateCommand();
@@ -57,6 +60,7 @@ public class DataCompanyUpdateCommand extends AbstractBaseUpdateCommand {
         dataCompanyUpdateCommand.orgCode = dataCompanyWarehouseCommand.getOrgCode();
         dataCompanyUpdateCommand.enName = dataCompanyWarehouseCommand.getEnName();
         dataCompanyUpdateCommand.parentId = dataCompanyWarehouseCommand.getParentId();
+        dataCompanyUpdateCommand.category = dataCompanyWarehouseCommand.getCategory();
         return dataCompanyUpdateCommand;
     }
 

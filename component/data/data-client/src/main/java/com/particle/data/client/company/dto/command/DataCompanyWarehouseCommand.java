@@ -2,13 +2,11 @@ package com.particle.data.client.company.dto.command;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseCandidateVO;
 import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -38,6 +36,10 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "英文名称")
     private String enName;
 
+    @NotNull(message = "分类不能为空")
+    @Schema(description = "分类，1=企业，2=个体，3=组代")
+    private Integer category;
+
     @Schema(description = "父级id")
     private Long parentId;
 
@@ -62,6 +64,7 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
                 && StrUtil.isEmpty(regNo)
                 && StrUtil.isEmpty(orgCode)
                 && StrUtil.isEmpty(enName)
+                && Objects.isNull(category)
                 && Objects.isNull(parentId);
     }
 
@@ -86,7 +89,10 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
             enName = null;
         }
         if (Objects.equals(parentId,uniqueExWarehouseVO.getParentId())) {
-            enName = null;
+            parentId = null;
+        }
+        if (Objects.equals(category,uniqueExWarehouseVO.getParentId())) {
+            category = null;
         }
     }
 
