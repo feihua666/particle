@@ -202,7 +202,9 @@ const buttonsTeleportProps = computed(() => {
 })
 watch(()=> reactiveData.dataMethodData,(val) => {
   for (let formKey in props.form) {
-    props.form[formKey] = val[formKey]
+    if (hasOwnProps(val, formKey)) {
+      props.form[formKey] = val[formKey]
+    }
   }
 })
 // 事件

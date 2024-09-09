@@ -69,5 +69,7 @@ public class TransTableNameConstants {
 
 	public static final String component_data_object = "component_data_object";
 
+	public static final String component_scheduler_temp_task = "component_scheduler_temp_task";
+
 
 }

@@ -20,6 +20,7 @@ import CrmRoutes from "./crm/CrmRoutes";
 import DreamRoutes from "./dream/DreamRoutes";
 import ConfigRoutes from "./config/ConfigRoutes";
 import DataConstraintRoutes from "./dataconstraint/DataConstraintRoutes";
+import SchedulerRoutes from "./scheduler/SchedulerRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -44,4 +45,5 @@ let ComponentRoutes = []
     .concat(DreamRoutes)
     .concat(ConfigRoutes)
     .concat(DataConstraintRoutes)
+    .concat(SchedulerRoutes)
 export default ComponentRoutes

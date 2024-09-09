@@ -3,8 +3,10 @@ services:
   kibana:
     image: 'kibana:7.14.2'
     container_name: 'particle-kibana'
+#    network_mode: "host"
     networks:
-      - particle-kibana-net
+      # 注意这里使用和 elasticsearch 一样的网络
+      - particle-elasticsearch-net
     ports:
       # 将容器的5601端口映射到宿主机5601端口
       - '5601:5601'
@@ -13,5 +15,5 @@ services:
       # kibana 配置
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
 networks:
-  particle-kibana-net:
+  particle-elasticsearch-net:
     driver: bridge

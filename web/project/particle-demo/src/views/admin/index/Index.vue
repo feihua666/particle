@@ -59,7 +59,7 @@ watch(()=> isCollapse.value,(val)=>{
   </template>
   <template #headerMain>
     <el-container class="pt-height-100-pc">
-      <el-aside class="pt-padding-0 pt-flex-align-cross-center">
+      <el-aside width="500px" class="pt-padding-0 pt-flex-align-cross-center">
         <el-button type="primary" link size="large" @click="isCollapse = !isCollapse" :title="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].toggleBtnTips">
           <el-icon><Expand v-if="isCollapse"/><Fold v-else/></el-icon>
         </el-button>

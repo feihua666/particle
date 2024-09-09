@@ -121,7 +121,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       }
     },
     {
-      txt: '复制',
+      txt: '复制客户端ID和秘钥',
       text: true,
       position: 'more',
       // 删除操作

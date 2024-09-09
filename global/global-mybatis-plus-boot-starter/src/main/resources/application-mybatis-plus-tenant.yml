@@ -82,6 +82,11 @@ particle:
       - component_data_company
       - component_data_company_md5
       - component_data_company_md5_ids
+      # 任务计划
+      - component_scheduler_execute_record
+      - component_scheduler_temp_task
+      - component_scheduler_temp_task_run_record
+      - component_scheduler_temp_task_run_record_log
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

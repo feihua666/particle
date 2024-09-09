@@ -41,6 +41,8 @@ public class OpLogConstants {
 		public static final String dataconstraint = "dataconstraint";
 		public static final String data = "data";
 
+		public static final String scheduler = "scheduler";
+
 		public static final String unknown = "unknown";
 
 	}

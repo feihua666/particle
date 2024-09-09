@@ -1,0 +1,6 @@
+-- 添加一个空注释，否则如果内容为空，报错，或者在配置文件中配置添加前 optional: 缀如： optional:classpath:db/xxxxx.sql
+-- 建表语句sql
+-- import classpath:db/temptask/schema.component_scheduler_temp_task.sql
+-- import classpath:db/temptask/schema.component_scheduler_temp_task_run_record.sql
+-- import classpath:db/temptask/schema.component_scheduler_temp_task_run_record_log.sql
+-- import classpath:db/schedule/schema.component_scheduler_execute_record.sql

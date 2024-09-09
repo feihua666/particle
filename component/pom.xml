@@ -41,6 +41,7 @@
         <module>dream</module>
         <module>config</module>
         <module>data</module>
+        <module>scheduler</module>
     </modules>
 
     <properties>

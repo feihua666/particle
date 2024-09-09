@@ -1,0 +1,31 @@
+spring:
+  quartz:
+    job-store-type: jdbc # 使用数据库存储
+    scheduler-name: ${spring.application.name}-scheduler # 相同 Scheduler 名字的节点，形成一个 Quartz 集群,默认quartzScheduler
+    wait-for-jobs-to-complete-on-shutdown: true # 应用关闭时，是否等待定时任务执行完成。默认为 false ，建议设置为 true
+    jdbc:
+      initialize-schema: NEVER # 是否自动使用 SQL 初始化 Quartz 表结构。这里设置成 never ，我们手动创建表结构 使用 import 方式。
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: ${spring.application.name}-clustered-scheduler-instance
+            instanceId: AUTO
+          # JobStore 相关配置
+          jobStore:
+            dataSource: dataSource # 使用的数据源
+            # springboot 升级为新版本后，提示找不到 quartzDataSource 数据源，注释掉解决问题，再研究
+            # https://blog.csdn.net/xiaoxianfighting/article/details/122413850?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_paycolumn_v3&utm_relevant_index=2
+            #class: org.quartz.impl.jdbcjobstore.JobStoreTX # JobStore 实现类
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_ # Quartz 表前缀
+            isClustered: true # 是集群模式
+            clusterCheckinInterval: 1000
+            useProperties: false
+          # 线程池相关配置
+          threadPool:
+            threadCount: 25 # 线程池大小。默认为 10 。
+            threadPriority: 5 # 线程优先级
+            class: org.quartz.simpl.SimpleThreadPool # 线程池类型
+            threadsInheritContextClassLoaderOfInitializingThread: true

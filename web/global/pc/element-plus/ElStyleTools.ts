@@ -120,13 +120,23 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['停止'],
+        pattern:['停止','暂停','挂起'],
         icon: 'VideoPause',
+        type:'primary'
+    },
+    {
+        pattern:['启动','恢复','执行'],
+        icon: 'VideoPlay',
         type:'primary'
     },
     {
         pattern:['计算'],
         icon: 'Cpu',
+        type:'primary'
+    },
+    {
+        pattern:['管理'],
+        icon: 'Setting',
         type:'primary'
     },
 ]
