@@ -1,0 +1,1 @@
+import{l as m}from"./oauth2RegisteredClientAdminApi.8c82ee46.js";const s=({props:p={},required:e=!1,fieldName:t="clientId",label:l="oauth2\u5BA2\u6237\u7AEF",valueChange:o=()=>{},tips:a=""})=>({field:{name:t,valueChange:o},element:{comp:"PtSelect",formItemProps:{label:l,required:e,tips:a},compProps:{dataMethod:m,props:{value:"clientId",label:"clientName"}}}});export{s as u};

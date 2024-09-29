@@ -1,0 +1,1 @@
+import{g as t}from"./index.bca9bc8b.js";let a="/admin/web/lowcode-model";const o=e=>t.post(a+"/create",e),s=e=>t.delete(a+"/delete",{data:e}),d=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),l=e=>t.get(a+"/list",{params:e}),p=e=>t.get(a+"/page",{params:e}),c=e=>t.post(a+"/loadByModelAndDatasource",e);export{c as a,o as c,n as d,l,p,s as r,d as u};
