@@ -46,6 +46,13 @@ export const list = (data: anyObj): AxiosPromise => {
     return axios.get(openplatformAppPrefix + '/list',{params: data})
 }
 /**
+ * 列表，没有分页，查询登录用户全部数据
+ * @param data
+ */
+export const listCurrentUser = (data: anyObj): AxiosPromise => {
+    return axios.get(openplatformAppPrefix + '/list_by_you',{params: data})
+}
+/**
  * 列表，分页
  * @param data
  */

@@ -102,6 +102,12 @@ public class OpenplatformOpenapiRecordQueryListCommand extends AbstractBaseQuery
 	@Schema(description = "是否存在供应商调用记录")
 	private Boolean isExistProviderRecord;
 
+	@Schema(description = "消费金额，单位分")
+	private Integer feeAmount;
+
+	@Schema(description = "消费金额缘由，字典id")
+	private Long feeReasonDictId;
+
 	@Schema(description = "描述")
 	private String remark;
 

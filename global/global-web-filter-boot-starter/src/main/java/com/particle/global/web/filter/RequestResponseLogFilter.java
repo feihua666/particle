@@ -96,7 +96,7 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
         HttpServletResponse responseToUse = response;
 
         boolean matchResponse = !matchResponseExtensionBlack(requestUrl) &&
-                (isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET) || isMatchContentType(request.getHeader(HttpHeaders.ACCEPT),RESPONSE_CONTENT_TYPE_WHITE_SET)) ;
+                (isMatchContentType(response.getContentType(),RESPONSE_CONTENT_TYPE_WHITE_SET)) ;
 
         if (!matchResponse) {
             if (requestResponseLogMatchResponseResolvers != null) {

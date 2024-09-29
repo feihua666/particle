@@ -33,16 +33,22 @@ public class ApiInfo extends DTO {
 	 * 接口调用规则信息
 	 */
 	private ApiRuleInfo apiRuleInfo;
+	/**
+	 * 接口费用规则信息
+	 */
+	private ApiFeeRuleInfo apiFeeRuleInfo;
 
 	public static ApiInfo create(String apiUrl,
 								 String apiCode,
 								 String permission,
-								 ApiRuleInfo apiRuleInfo) {
+								 ApiRuleInfo apiRuleInfo,
+								 ApiFeeRuleInfo apiFeeRuleInfo) {
 		ApiInfo apiInfo = new ApiInfo();
 		apiInfo.apiUrl = apiUrl;
 		apiInfo.apiCode = apiCode;
 		apiInfo.permission = permission;
 		apiInfo.apiRuleInfo = apiRuleInfo;
+		apiInfo.apiFeeRuleInfo = apiFeeRuleInfo;
 		return apiInfo;
 	}
 }

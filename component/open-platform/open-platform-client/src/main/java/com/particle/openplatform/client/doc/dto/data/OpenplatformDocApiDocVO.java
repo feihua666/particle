@@ -33,6 +33,9 @@ public class OpenplatformDocApiDocVO extends AbstractBaseIdVO {
 
     @Schema(description = "请求地址前缀")
     private String requestUrlPrefix;
+
+	@Schema(description = "内网请求地址前缀，可全局配置")
+	private String requestUrlIntranetPrefix;
     
     @Schema(description = "请求地址")
     private String requestUrl;
@@ -46,6 +49,20 @@ public class OpenplatformDocApiDocVO extends AbstractBaseIdVO {
         
     @Schema(description = "请求体类型")
     private Long requestBodyTypeDictId;
+
+	@Schema(description = "请求参数类型，字典id，如：string、array")
+	private Long requestParamTypeDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "requestParamTypeDictId",mapValueField = "name")
+    @Schema(description = "请求参数类型，字典名称，如：string、array")
+    private String requestParamTypeDictName;
+
+	@Schema(description = "请求参数嵌套字段类型，字典id，一般用于字段类型为array时里面的类型，如：string、object")
+	private Long requestParamNestTypeDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "requestParamNestTypeDictId",mapValueField = "name")
+    @Schema(description = "请求参数嵌套字段类型，字典名称，一般用于字段类型为array时里面的类型，如：string、object")
+    private Long requestParamNestTypeDictName;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "requestBodyTypeDictId",mapValueField = "name")
     @Schema(description = "请求体类型对应字典名称")
@@ -96,11 +113,20 @@ public class OpenplatformDocApiDocVO extends AbstractBaseIdVO {
         if (StrUtil.isEmpty(requestUrlPrefix)) {
             this.requestUrlPrefix = openplatformDocApiDocTemplateVO.getRequestUrlPrefix();
         }
+        if (StrUtil.isEmpty(requestUrlIntranetPrefix)) {
+            this.requestUrlIntranetPrefix = openplatformDocApiDocTemplateVO.getRequestUrlIntranetPrefix();
+        }
         if (requestTypeDictId == null) {
             this.requestTypeDictId = openplatformDocApiDocTemplateVO.getRequestTypeDictId();
         }
         if (requestBodyTypeDictId == null) {
             this.requestBodyTypeDictId = openplatformDocApiDocTemplateVO.getRequestBodyTypeDictId();
+        }
+        if (requestParamTypeDictId == null) {
+            this.requestParamTypeDictId = openplatformDocApiDocTemplateVO.getRequestParamTypeDictId();
+        }
+        if (requestParamNestTypeDictId == null) {
+            this.requestParamNestTypeDictId = openplatformDocApiDocTemplateVO.getRequestParamNestTypeDictId();
         }
         if (responseBodyTypeDictId == null) {
             this.responseBodyTypeDictId = openplatformDocApiDocTemplateVO.getResponseBodyTypeDictId();

@@ -51,9 +51,9 @@ public class SegmentTemplateData {
 		if (segmentTemplate != null) {
 			if (StrUtil.isNotEmpty(segmentTemplate.getOutputNameVariableName())) {
 				result.put(segmentTemplate.getOutputNameVariableName(), templateNameContentResult);
-				String javaExtentionSuffix = ".java";
+				String javaExtensionSuffix = ".java";
 				//	java package 处理
-				if (segmentTemplate.getOutputType() == OutputType.FILE && StrUtil.isNotEmpty(templateNameContentResult) && templateNameContentResult.endsWith(javaExtentionSuffix)) {
+				if (segmentTemplate.getOutputType() == OutputType.FILE && StrUtil.isNotEmpty(templateNameContentResult) && templateNameContentResult.endsWith(javaExtensionSuffix)) {
 					String substring = templateNameContentResult.substring(0, templateNameContentResult.lastIndexOf(File.separator));
 					result.put(segmentTemplate.getOutputNameVariableName() + "JavaPackage", substring.replace(File.separator, "."));
 				}

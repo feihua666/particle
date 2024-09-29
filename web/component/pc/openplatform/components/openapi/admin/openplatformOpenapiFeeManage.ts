@@ -24,7 +24,7 @@ export const pageFormItems = [
           },
           compProps: {
             // 字典查询
-            dictParam: {groupCode: 'open_flatform_fee_type'}
+            dictParam: {groupCode: 'open_platform_fee_type'}
           }
         }
       },
@@ -40,7 +40,7 @@ export const pageFormItems = [
           },
           compProps: {
             // 字典查询
-            dictParam: {groupCode: 'open_flatform_deduplicate_type'}
+            dictParam: {groupCode: 'open_platform_deduplicate_type'}
           }
         }
       },
@@ -97,7 +97,7 @@ export const addPageFormItems = [
       },
       compProps: {
         // 字典查询
-        dictParam: {groupCode: 'open_flatform_fee_type'}
+        dictParam: {groupCode: 'open_platform_fee_type'}
       }
     }
   },
@@ -134,11 +134,32 @@ export const addPageFormItems = [
       },
       compProps: {
         // 字典查询
-        dictParam: {groupCode: 'open_flatform_deduplicate_type'}
+        dictParam: {groupCode: 'open_platform_deduplicate_type'}
       }
     }
   },
 
+
+  {
+    field: {
+      name: 'isDeduplicateByParameter',
+      value: false
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '按入参去重',
+        required: true,
+        tips: '默认按接口去重，否则按接口+参数去重',
+        labelTips: '在请求接口时参数一样代表相同<br/>' +
+            '如果一个接口支持多个参数，参数间调换顺序也代表相同（注意：body算一个参数）'
+      },
+      compProps: {
+        activeText: '按入参去重',
+        inactiveText: '按接口去重',
+      }
+    }
+  },
 
       {
         field: {
@@ -158,27 +179,6 @@ export const addPageFormItems = [
         }
       },
 
-
-      {
-        field: {
-          name: 'isDeduplicateByParameter',
-          value: false
-        },
-        element: {
-          comp: 'el-switch',
-          formItemProps: {
-            label: '按入参去重',
-            required: true,
-            tips: '默认按接口去重，否则按接口+参数去重',
-            labelTips: '在请求接口时参数一样代表相同<br/>' +
-                '如果一个接口支持多个参数，参数间调换顺序也代表相同（注意：body算一个参数）'
-          },
-          compProps: {
-            activeText: '按入参去重',
-            inactiveText: '按接口去重',
-          }
-        }
-      },
       {
         field: {
           name: 'isCheckHasValue',

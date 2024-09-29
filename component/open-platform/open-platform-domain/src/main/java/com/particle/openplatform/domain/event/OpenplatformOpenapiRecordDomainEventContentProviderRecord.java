@@ -1,6 +1,7 @@
 package com.particle.openplatform.domain.event;
 
 import com.particle.global.dto.basic.DTO;
+import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -69,10 +70,16 @@ public class OpenplatformOpenapiRecordDomainEventContentProviderRecord extends D
 	 * 是否命中缓存
 	 */
 	private Boolean isCacheHit;
+
 	/**
 	 * 描述说明，备注
 	 */
 	private String remark;
+
+	/**
+	 * 接口费用信息
+	 */
+	OpenplatformOpenapiFeeValue openplatformOpenapiFee;
 
 	/**
 	 * 供应商调用记录参数

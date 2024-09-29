@@ -16,6 +16,8 @@ CREATE TABLE `component_openplatform_provider_record` (
   `openplatform_provider_id` bigint DEFAULT NULL COMMENT '供应商id',
   `data_query_provider_id` bigint DEFAULT NULL COMMENT '数据查询供应商id，冗余openplatform_provider同名字段',
   `is_cache_hit` tinyint(1) NOT NULL COMMENT '是否命中缓存',
+  `fee_amount` int NOT null comment '消费金额，单位分',
+  `fee_reason_dict_id` bigint NOT NULL COMMENT '消费金额缘由，字典id',
   `remark` varchar(2000) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
@@ -32,6 +34,8 @@ CREATE TABLE `component_openplatform_provider_record` (
   KEY `trace_id` (`trace_id`),
   KEY `openplatform_provider_id` (`openplatform_provider_id`),
   KEY `data_query_provider_id` (`data_query_provider_id`),
+  KEY `is_response_has_effective_value` (`is_response_has_effective_value`),
+  KEY `fee_amount` (`fee_amount`),
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台开放接口供应商调用记录表';

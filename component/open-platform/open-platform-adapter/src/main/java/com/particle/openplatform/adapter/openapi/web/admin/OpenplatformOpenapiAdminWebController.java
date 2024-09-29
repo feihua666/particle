@@ -1,13 +1,18 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
+import cn.hutool.extra.servlet.ServletUtil;
+import com.particle.global.dto.response.Response;
+import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.tool.document.excel.ExcelTool;
+import com.particle.openplatform.adapter.globalopenapi.OpenplatformOpenapiClientSecretProvider;
 import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiApplicationService;
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiRepresentationApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiCreateCommand;
+import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiUpdateCommand;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiPageQueryCommand;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiQueryListCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,6 +28,10 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 /**
  * <p>
  * 开放平台开放接口后台管理pc或平板端前端适配器
@@ -41,6 +50,10 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	private IOpenplatformOpenapiApplicationService iOpenplatformOpenapiApplicationService;
 	@Autowired
 	private IOpenplatformOpenapiRepresentationApplicationService iOpenplatformOpenapiRepresentationApplicationService;
+
+	@Autowired
+	private OpenplatformOpenapiClientSecretProvider openplatformOpenapiClientSecretProvider;
+
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:create')")
 	@Operation(summary = "添加开放平台开放接口")
@@ -86,7 +99,14 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	public MultiResponse<OpenplatformOpenapiVO> queryList(OpenplatformOpenapiQueryListCommand openplatformOpenapiQueryListCommand){
 		return iOpenplatformOpenapiRepresentationApplicationService.queryList(openplatformOpenapiQueryListCommand);
 	}
-
+	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:queryList')")
+	@Operation(summary = "根据开放平台应用id列表查询开放平台开放接口")
+	@GetMapping("/listByOpenplatformAppId")
+	public MultiResponse<OpenplatformOpenapiVO> listByOpenplatformAppId(@Valid IdCommand detailCommand){
+		OpenplatformOpenapiQueryListCommand openplatformOpenapiQueryListCommand = new OpenplatformOpenapiQueryListCommand();
+		openplatformOpenapiQueryListCommand.setFilterOpenplatformAppId(detailCommand.getId());
+		return iOpenplatformOpenapiRepresentationApplicationService.queryList(openplatformOpenapiQueryListCommand);
+	}
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:pageQuery')")
 	@Operation(summary = "分页查询开放平台开放接口")
 	@GetMapping("/page")
@@ -94,4 +114,31 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 		return iOpenplatformOpenapiRepresentationApplicationService.pageQuery(openplatformOpenapiPageQueryCommand);
 	}
 
+
+	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:singleQuery')")
+	@Operation(summary = "开放接口单次查询")
+	@PostMapping("/singleQuery")
+	public SingleResponse<String> singleQuery(@RequestBody OpenplatformOpenapiSingleQueryCommand openplatformOpenapiSingleQueryCommand){
+
+		return iOpenplatformOpenapiRepresentationApplicationService.singleQuery(openplatformOpenapiSingleQueryCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:batchQuery')")
+	@Operation(summary = "开放接口批量查询")
+	@PostMapping("/batchQuery")
+	public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand, LoginUser loginUser){
+		openplatformOpenapiBatchQueryCommand.setUserId(loginUser.getId());
+		return iOpenplatformOpenapiRepresentationApplicationService.batchQuery(openplatformOpenapiBatchQueryCommand);
+	}
+	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:batchQuery')")
+	@Operation(summary = "开放接口批量查询下载模板")
+	@GetMapping("/downloadBatchQueryTemplate")
+	public void downloadBatchQueryTemplate(OpenplatformOpenapiDownloadBatchQueryTemplateCommand openplatformOpenapiDownloadBatchQueryTemplateCommand, HttpServletResponse response){
+		OpenplatformOpenapiDownloadBatchQueryTemplateVO openplatformOpenapiDownloadBatchQueryTemplateVO = iOpenplatformOpenapiRepresentationApplicationService.downloadBatchQueryTemplate(openplatformOpenapiDownloadBatchQueryTemplateCommand);
+		ServletUtil.write(response,
+				openplatformOpenapiDownloadBatchQueryTemplateVO.getIn(),
+				ExcelTool.xlsx_response_content_type,
+				openplatformOpenapiDownloadBatchQueryTemplateVO.getName() + ExcelTool.xlsx_extension_suffix
+				);
+	}
 }

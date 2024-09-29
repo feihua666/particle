@@ -1,7 +1,11 @@
 package com.particle.openplatform.infrastructure.openapi.service.impl;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.exception.Assert;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppOpenapiDO;
@@ -30,6 +34,11 @@ import java.util.stream.Collectors;
  */
 @Component
 public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<OpenplatformOpenapiMapper, OpenplatformOpenapiDO> implements IOpenplatformOpenapiService {
+
+	private static String openplatformAppOpenapiDOTableNameCache = null;
+	private static String openplatformOpenapiDOTableNameCache = null;
+	private static String getQueryWrapperopenplatformAppIdExistSqlCache = null;
+	
 	private IBaseQueryCommandMapStruct<OpenplatformOpenapiDO> queryCommandMapStruct;
 
 	private OpenplatformAppOpenapiMapper openplatformAppOpenapiMapper;
@@ -46,7 +55,67 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 	public void setOpenplatformAppOpenapiMapper(OpenplatformAppOpenapiMapper openplatformAppOpenapiMapper) {
 		this.openplatformAppOpenapiMapper = openplatformAppOpenapiMapper;
 	}
+	public QueryWrapper<OpenplatformOpenapiDO> getQueryWrapper(QueryCommand queryForm) {
+		QueryWrapper<OpenplatformOpenapiDO> queryWrapper = super.getQueryWrapper(queryForm);
 
+		if (StrUtil.equalsAny(queryForm.getClass().getName(),
+				"com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiQueryListCommand")) {
+			Object openplatformAppId = ReflectUtil.getFieldValue(queryForm, "openplatformAppId");
+			//addExistSqlIfopenplatformAppIdNotNull(queryWrapper, openplatformAppId);
+			if (openplatformAppId != null) {
+				addInIfOpenplatformAppIdNotNull(queryWrapper, openplatformAppId);
+			}
+
+		}
+
+
+		return queryWrapper;
+	}
+
+	/**
+	 * exist sql形式
+	 * @param queryWrapper
+	 * @param openplatformAppId
+	 */
+	public void addExistSqlIfopenplatformAppIdNotNull(QueryWrapper<OpenplatformOpenapiDO> queryWrapper, Object openplatformAppId) {
+		if (openplatformAppOpenapiDOTableNameCache == null) {
+			TableName annotation = AnnotationUtil.getAnnotation(OpenplatformAppOpenapiDO.class, TableName.class);
+			openplatformAppOpenapiDOTableNameCache = annotation.value();
+		}
+		if (openplatformOpenapiDOTableNameCache == null) {
+			TableName annotation = AnnotationUtil.getAnnotation(OpenplatformOpenapiDO.class, TableName.class);
+			openplatformOpenapiDOTableNameCache = annotation.value();
+		}
+		if (getQueryWrapperopenplatformAppIdExistSqlCache == null) {
+			// select id from component_openplatform_app_openapi where component_openplatform_app_openapi.openplatform_openapi_id = component_openplatform_openapi.id and component_openplatform_app_openapi.openplatform_app_id = {openplatformAppId}
+			getQueryWrapperopenplatformAppIdExistSqlCache = "select id from " + openplatformAppOpenapiDOTableNameCache + " where"
+					+ openplatformAppOpenapiDOTableNameCache + ".openplatform_openapi_id = " + openplatformOpenapiDOTableNameCache + ".id"
+					+ openplatformAppOpenapiDOTableNameCache + ".openplatform_app_id = ";
+
+		}
+		String finalSql = openplatformAppOpenapiDOTableNameCache + openplatformAppId;
+
+		queryWrapper.exists(openplatformAppId != null, finalSql);
+
+	}
+
+	/**
+	 * in 形式
+	 * @param queryWrapper
+	 * @param openplatformAppId
+	 */
+	public void addInIfOpenplatformAppIdNotNull(QueryWrapper<OpenplatformOpenapiDO> queryWrapper, Object openplatformAppId){
+		if (openplatformAppId != null) {
+			List<OpenplatformAppOpenapiDO> openplatformAppOpenapiDOS = openplatformAppOpenapiMapper.selectList(Wrappers.<OpenplatformAppOpenapiDO>lambdaQuery().eq(OpenplatformAppOpenapiDO::getOpenplatformAppId, openplatformAppId));
+			List<Long> collect = openplatformAppOpenapiDOS.stream().map(OpenplatformAppOpenapiDO::getOpenplatformOpenapiId).collect(Collectors.toList());
+			if (!collect.isEmpty()) {
+				// 为空就是不存在，不存在，得加一个不存在的条件
+				queryWrapper.apply("false");
+			}else {
+				queryWrapper.in(OpenplatformOpenapiDO.COLUMN_ID,collect);
+			}
+		}
+	}
 	@Override
 	protected void preAdd(OpenplatformOpenapiDO po) {
 

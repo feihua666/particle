@@ -1,0 +1,31 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_openplatform_openapi_batch_query_record;
+CREATE TABLE `component_openplatform_openapi_batch_query_record` (
+  `id` bigint NOT NULL COMMENT '主键',
+  `openplatform_app_id` bigint NOT NULL COMMENT '开放平台应用id',
+  `openplatform_openapi_id` bigint NOT NULL COMMENT '开放接口id，这里只存储接口，不存储分组',
+  `customer_id` bigint DEFAULT NULL COMMENT '客户id',
+  `execute_status_dict_id` bigint NOT NULL COMMENT '执行状态，字典id',
+  `success_count` int NOT NULL COMMENT '成功条数',
+  `fail_count` int NOT NULL COMMENT '失败条数',
+  `total_count` int NOT NULL COMMENT '总条数',
+  `user_id` bigint NOT NULL COMMENT '用户id,谁操作的',
+  `query_at` datetime NOT NULL COMMENT '查询时间',
+  `trace_id` varchar(50) NOT NULL COMMENT '追踪id',
+  `upload_file_name` varchar(200) NOT NULL COMMENT '上传文件名',
+  `export_file_url` varchar(300) default NULL COMMENT '导出的文件地址',
+  `remark` varchar(255) DEFAULT NULL COMMENT '描述',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `openplatform_app_id` (`openplatform_app_id`),
+  KEY `openplatform_openapi_id` (`openplatform_openapi_id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `execute_status_dict_id` (`execute_status_dict_id`),
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口批量查询记录表';

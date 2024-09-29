@@ -24,18 +24,13 @@ public interface IOpenplatformDocApiDocService extends IBaseService<Openplatform
         return getOne(Wrappers.<OpenplatformDocApiDocDO>lambdaQuery().eq(OpenplatformDocApiDocDO::getOpenplatformDocApiId,openplatformDocApiId));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 根据接口 requestUrl 查询
+     * @param requestUrl
+     * @return
+     */
+    default OpenplatformDocApiDocDO getByRequestUrl(String requestUrl) {
+        return getOne(Wrappers.<OpenplatformDocApiDocDO>lambdaQuery().eq(OpenplatformDocApiDocDO::getRequestUrl,requestUrl));
+    }
 
 }

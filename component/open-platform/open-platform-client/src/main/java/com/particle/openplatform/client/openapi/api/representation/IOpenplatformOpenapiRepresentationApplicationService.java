@@ -4,10 +4,14 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiPageQueryCommand;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiQueryListCommand;
+import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.io.InputStream;
 
 /**
  * <p>
@@ -47,4 +51,24 @@ public interface IOpenplatformOpenapiRepresentationApplicationService extends IB
 	 */
 	PageResponse<OpenplatformOpenapiVO> pageQuery(OpenplatformOpenapiPageQueryCommand openplatformOpenapiPageQueryCommand);
 
+	/**
+	 * 开放接口单次查询
+	 * @param openplatformOpenapiSingleQueryCommand
+	 * @return
+	 */
+	public SingleResponse<String> singleQuery(OpenplatformOpenapiSingleQueryCommand openplatformOpenapiSingleQueryCommand);
+
+	/**
+	 * 开放接口批量查询
+	 * @param openplatformOpenapiBatchQueryCommand
+	 * @return
+	 */
+	public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand);
+	/**
+	 * 下载批量查询模板
+	 *
+	 * @param openplatformOpenapiDownloadBatchQueryTemplateCommand
+	 * @return
+	 */
+	public OpenplatformOpenapiDownloadBatchQueryTemplateVO downloadBatchQueryTemplate(OpenplatformOpenapiDownloadBatchQueryTemplateCommand openplatformOpenapiDownloadBatchQueryTemplateCommand);
 }

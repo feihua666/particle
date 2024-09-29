@@ -44,4 +44,15 @@ public class OpenplatformOpenapiQueryListCommand extends AbstractBaseTreeQueryCo
 	@Schema(description = "可用供应商")
 	private String openplatformProviderIds;
 
+	/**
+	 * 可根据应用接口配置关系过滤配置中的开放平台接口，仅根据该字段查询
+	 */
+	@Schema(description = "开放平台应用id")
+	private Long openplatformAppId;
+
+	/**
+	 * 可根据应用接口配置关系过滤配置中的开放平台接口
+	 */
+	@Schema(description = "开放平台应用id过滤，不过滤接口组")
+	private Long filterOpenplatformAppId;
 }

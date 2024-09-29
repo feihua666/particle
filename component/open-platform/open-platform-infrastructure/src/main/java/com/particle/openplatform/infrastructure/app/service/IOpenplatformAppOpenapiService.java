@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppOpenapiDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 
+import java.util.List;
+
 /**
  * <p>
  * 开放平台应用与开放接口配置 服务类
@@ -36,4 +38,13 @@ public interface IOpenplatformAppOpenapiService extends IBaseService<Openplatfor
 				.eq(OpenplatformAppOpenapiDO::getOpenplatformOpenapiId, openplatformOpenapiId));
 	}
 
+	/**
+	 * 根据 openplatformAppId 获取
+	 * @param openplatformAppId
+	 * @return
+	 */
+	default List<OpenplatformAppOpenapiDO> listByOpenplatformAppId(Long openplatformAppId) {
+		return list(Wrappers.<OpenplatformAppOpenapiDO>lambdaQuery()
+				.eq(OpenplatformAppOpenapiDO::getOpenplatformAppId, openplatformAppId));
+	}
 }

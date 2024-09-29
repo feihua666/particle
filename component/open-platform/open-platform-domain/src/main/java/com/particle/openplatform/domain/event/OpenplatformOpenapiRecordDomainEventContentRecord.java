@@ -1,6 +1,7 @@
 package com.particle.openplatform.domain.event;
 
 import com.particle.global.dto.basic.DTO;
+import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -99,6 +100,10 @@ public class OpenplatformOpenapiRecordDomainEventContentRecord extends DTO {
 	 */
 	private String remark;
 
+	/**
+	 * 接口费用信息
+	 */
+	OpenplatformOpenapiFeeValue openplatformOpenapiFee;
 	/**
 	 * 请求调用记录参数
 	 */

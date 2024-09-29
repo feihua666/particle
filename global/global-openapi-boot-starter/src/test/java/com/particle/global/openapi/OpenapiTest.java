@@ -1,27 +1,15 @@
 package com.particle.global.openapi;
 
 import cn.hutool.core.codec.Base64;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.lang.Pair;
-import cn.hutool.core.lang.UUID;
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.asymmetric.Sign;
 import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.digest.DigestAlgorithm;
-import cn.hutool.crypto.digest.Digester;
-import com.particle.global.openapi.tool.OpenapiTool;
-import com.particle.global.tool.http.HttpClientTool;
+import com.particle.global.tool.http.OpenApiClientTool;
 import lombok.Data;
-import org.springframework.http.MediaType;
 
 import java.io.IOException;
 import java.security.KeyPair;
-import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -64,24 +52,6 @@ public class OpenapiTest {
 
 
 	/**
-	 * 摘要算法映射
-	 */
-	private static Map<DigestAlgorithm, Function<String, String>> digestFunctionMap = new HashMap<>();
-	private static Map<SignAlgorithm, BiFunction<String, String, String>> signFunctionMap = new HashMap<>();
-	static {
-		digestFunctionMap.put(DigestAlgorithm.SHA256, (str) -> {
-			Digester digester = new Digester(DigestAlgorithm.SHA256);
-			return digester.digestHex(str);
-		});
-
-		signFunctionMap.put(SignAlgorithm.NONEwithRSA, (data, secret) -> {
-			// 签名使用私钥签名
-			Sign sign = SecureUtil.sign(SignAlgorithm.NONEwithRSA, secret, null);
-			return sign.signHex(data);
-		});
-	}
-
-	/**
 	 * 测试入口方法
 	 * @param args
 	 * @throws IOException
@@ -105,28 +75,9 @@ public class OpenapiTest {
 		// 将对象参数转为请求字符串
 		String queryString = toQueryString(openapiTestCommand);
 
-		// 摘要签名相关
-		HeaderData headerData = HeaderData.create();
-		ParameterData parameterData = ParameterData.create(null, queryString, null, null);
-		ClientConfig clientConfig = ClientConfig.create();
+		OpenApiClientTool.ClientConfig clientConfig = OpenApiClientTool.ClientConfig.createWithSHA256DigestAndNoSign(clientId,clientSecret);
 
-		// 摘要处理
-		String digest = digestData(headerData, parameterData, clientConfig);
-
-		String signature = null;
-		if (clientConfig.isSign()) {
-		//	签名逻辑
-			// 签名使用私钥签名
-			signature = signFunctionMap.get(clientConfig.getSignAlgorithm()).apply(digest, clientConfig.getSignPrivateKey());
-		}else {
-			signature = digest;
-		}
-		headerData.setSignature(signature);
-
-
-		HttpClientTool.ExtConfig extConfig = extConfig(headerData);
-
-		String testGetResponse = HttpClientTool.get(apiPrefix + "/openapi/testGet?" + queryString, extConfig);
+		String testGetResponse = OpenApiClientTool.get(apiPrefix + "/openapi/testGet" , queryString, clientConfig,null);
 		System.out.println("testGetResponse:" + testGetResponse);
 	}
 
@@ -148,41 +99,7 @@ public class OpenapiTest {
 		return sb.toString();
 	}
 
-	/**
-	 * 构建配置，主要是添加请求头
-	 * @param headerData
-	 * @return
-	 */
-	private static HttpClientTool.ExtConfig extConfig(HeaderData headerData) {
-		return HttpClientTool.ExtConfig.create()
-				.addHeader("clientId", headerData.getClientId())
-				.addHeader("timestamp", headerData.getTimestamp() + "")
-				.addHeader("nonce", headerData.getNonce())
-				.addHeader("signature", headerData.getSignature());
 
-	}
-
-	/**
-	 * 对请求数据做摘要处理
-	 * @param headerData
-	 * @param parameterData
-	 * @param clientConfig
-	 * @return
-	 */
-	private static String digestData(HeaderData headerData,ParameterData parameterData,ClientConfig clientConfig) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(headerData.buildStringForSignature());
-		sb.append(parameterData.buildStringForSignature());
-		sb.append(clientConfig.getClientSecret());
-
-		String finalStringForSignature = sb.toString();
-
-		DigestAlgorithm digestAlgorithm = clientConfig.getDigestAlgorithm();
-		Function<String, String> stringStringFunction = digestFunctionMap.get(digestAlgorithm);
-		String digestHex = stringStringFunction.apply(finalStringForSignature);
-
-		return digestHex;
-	}
 
 	@Data
 	private static class OpenapiTestCommand {
@@ -199,151 +116,4 @@ public class OpenapiTest {
 	}
 
 
-	/**
-	 * 请求头数据
-	 */
-	@Data
-	private static class HeaderData {
-		/**
-		 * 请求客户端id
-		 */
-		private String clientId;
-		/**
-		 * 请求时间戳
-		 */
-		private Long timestamp;
-		/**
-		 * 请求随机字符器，建议uuid
-		 */
-		private String nonce;
-
-		/**
-		 * 数据签名
-		 */
-		private String signature;
-
-		/**
-		 * 生成待签名的字符串
-		 * 请求头按如下顺序以 key=value 拼接：clientId、timestamp、nonce 如： clientId=xxxtimestamp=xxxnonce=xxx
-		 * @return
-		 */
-		public String buildStringForSignature() {
-			StringBuffer sb = new StringBuffer();
-			sb.append("clientId").append("=").append(clientId);
-			sb.append("timestamp").append("=").append(timestamp);
-			sb.append("nonce").append("=").append(nonce);
-			return sb.toString();
-		}
-
-		public static HeaderData create() {
-			HeaderData headerData = new HeaderData();
-			headerData.clientId = OpenapiTest.clientId;
-			headerData.timestamp = System.currentTimeMillis();
-			headerData.nonce = UUID.fastUUID().toString(true);
-
-			return headerData;
-		}
-	}
-
-	/**
-	 * 参数数据
-	 */
-	@Data
-	private static class ParameterData{
-
-		/**
-		 * path参数，没有key,目前预留，
-		 * 如：spring mvc 的 /xxxxx/{name}/{id}
-		 * 则：按顺序存储 ['name值','id值']
-		 */
-		private List<String> pathParameters;
-
-		/**
-		 * 请求参数，不带问题
-		 * 如：name=张三&id=1
-		 */
-		private String queryParameters;
-
-		/**
-		 * 请求参数，一般用于form参数，请求 content-type = {@link MediaType#APPLICATION_FORM_URLENCODED_VALUE}
-		 */
-		private Map<String, String> formParameters;
-
-		/**
-		 * 请求参数，一般用于除form的情况，请求 content-type = {@link MediaType#APPLICATION_JSON_VALUE} 或 其它 String 类型
-		 */
-		private String bodyParameters;
-
-
-		/**
-		 * 生成待签名的字符串
-		 * 请求参数按如下顺序拼接：{@link pathParameters}、{@link queryParameters}、{@link formParameters}、{@link bodyParameters}
-		 * {@link pathParameters} 直接按顺序拼接
-		 * {@link queryParameters} 以 key=value 按key字典顺序拼接
-		 * {@link formParameters} 以 key=value 按key字典顺序拼接
-		 * {@link bodyParameters} 直接拼接
-		 * 将以上每一部分拼接完成的，按顺序整体拼接
-		 * @return
-		 */
-		public String buildStringForSignature() {
-
-			StringBuffer sb = new StringBuffer();
-			// 按照path中的顺序将所有value进行拼接
-			if (CollectionUtil.isNotEmpty(pathParameters)) {
-				sb.append(pathParameters.stream().collect(Collectors.joining()));
-			}
-			// 按照key字典序排序，将所有key=value进行拼接
-			if (StrUtil.isNotEmpty(queryParameters)) {
-				String[] split = queryParameters.split("&");
-				TreeMap<String, String> treeMap = Arrays.stream(split).map(item -> {
-					String[] splitKeyValue = item.split("=");
-					return Pair.<String, String>of(splitKeyValue[0], splitKeyValue[1]);
-				}).collect(Collectors.toMap(Pair::getKey, Pair::getValue, (o, n) -> n, TreeMap::new));
-
-				return OpenapiTool.buildMapToStringForSignature(treeMap);
-			}
-			// 按照key字典序排序，将所有key=value进行拼接
-			if (CollectionUtil.isNotEmpty(formParameters)) {
-				TreeMap<String, String> treeMap = MapUtil.sort(formParameters);
-				return OpenapiTool.buildMapToStringForSignature(treeMap);
-			}
-			// 不拼接，直接按原始的值，因为这肯定是不变的
-			if (StrUtil.isNotEmpty(bodyParameters)) {
-				sb.append(bodyParameters);
-			}
-			return sb.toString();
-		}
-
-		public static ParameterData create(List<String> pathParameters,
-												 String queryParameters,
-												 Map<String, String> formParameters,
-												 String bodyParameters) {
-			ParameterData requestParameterDTO = new ParameterData();
-			requestParameterDTO.pathParameters = pathParameters;
-			requestParameterDTO.queryParameters = queryParameters;
-			requestParameterDTO.formParameters = formParameters;
-			requestParameterDTO.bodyParameters = bodyParameters;
-			return requestParameterDTO;
-		}
-	}
-	@Data
-	private static class ClientConfig{
-		private String clientId = OpenapiTest.clientId;
-		private String clientSecret = OpenapiTest.clientSecret;
-
-		private DigestAlgorithm digestAlgorithm = OpenapiTest.digestAlgorithm;
-
-		/**
-		 * 配置是否签名
-		 */
-		private boolean sign;
-
-		private SignAlgorithm signAlgorithm = OpenapiTest.signAlgorithm;
-
-		private String signPrivateKey = OpenapiTest.signPrivateKey;
-
-		public static ClientConfig create() {
-			return new ClientConfig();
-		}
-	}
 }

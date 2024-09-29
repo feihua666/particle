@@ -45,7 +45,13 @@ export const list = (data: anyObj): AxiosPromise => {
 export const page = (data: anyObj): AxiosPromise => {
     return axios.get(openplatformDocApiPrefix + '/page',{params: data})
 }
-
+/**
+ * 接口文档详情
+ * @param data
+ */
+export const allDetail = (data: anyObj): AxiosPromise => {
+    return axios.get('/front/web/openplatform_doc_api' + '/alldetail',{params: data})
+}
 /**
  * 下载接口文档
  * 入参示例：{

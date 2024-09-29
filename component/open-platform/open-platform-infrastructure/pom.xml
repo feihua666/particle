@@ -40,6 +40,17 @@
             <artifactId>dict-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 查询oauth2客户端密钥使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>oauth2authorization-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-oss-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

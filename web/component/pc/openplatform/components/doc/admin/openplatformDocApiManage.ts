@@ -1,4 +1,5 @@
 import {useCascaderOpenplatformDocDirCompItem} from "../../openplatformDocCompItem";
+import {useCascaderOpenapiCompItem} from "../../openplatformOpenapiCompItem";
 
 export const pageFormItems = [
       {
@@ -49,7 +50,12 @@ export const pageFormItems = [
           }
         }
       },
-  useCascaderOpenplatformDocDirCompItem({fieldName: 'openplatformDocDirId',label: '接口目录'})
+  useCascaderOpenplatformDocDirCompItem({fieldName: 'openplatformDocDirId',label: '接口目录'}),
+  useCascaderOpenapiCompItem({
+    fieldName: 'openplatformOpenapiId',
+    label: '开放接口',
+    disableGroup: true
+  }),
 ]
 export const addPageFormItems = [
 
@@ -179,7 +185,12 @@ export const addPageFormItems = [
     tips: '可以指定一个接口目录，以便于分类,仅添加时可用，修改时不回显，如果修改时，已经绑定了目录，选择无效'
   }),
 
-
+  useCascaderOpenapiCompItem({
+    fieldName: 'openplatformOpenapiId',
+    label: '开放接口',
+    disableGroup: true,
+    tips: '关联开放接口，便于能确定关系，目前使用在接口查询中，用来根据开放接口获取文档配置，以方便在页面中渲染表单'
+  }),
   {
     field: {
       name: 'description',

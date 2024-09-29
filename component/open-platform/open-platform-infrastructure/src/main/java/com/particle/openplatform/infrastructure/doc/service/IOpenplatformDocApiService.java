@@ -27,7 +27,6 @@ public interface IOpenplatformDocApiService extends IBaseService<OpenplatformDoc
     }
 
 
-
     /**
      * 根据编码查询多个
      * @param codes
@@ -37,8 +36,27 @@ public interface IOpenplatformDocApiService extends IBaseService<OpenplatformDoc
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<OpenplatformDocApiDO>lambdaQuery().in(OpenplatformDocApiDO::getCode, codes));
     }
-            
 
+    /**
+     * 根据开放接口id查询
+     * @param openplatformOpenapiId
+     * @return
+     */
+    default OpenplatformDocApiDO getByOpenplatformOpenapiId(Long openplatformOpenapiId) {
+        Assert.notNull(openplatformOpenapiId,"openplatformOpenapiId 不能为空");
+        return getOne(Wrappers.<OpenplatformDocApiDO>lambdaQuery().eq(OpenplatformDocApiDO::getOpenplatformOpenapiId, openplatformOpenapiId));
+    }
+
+
+    /**
+     * 根据开放接口id查询多个
+     * @param openplatformOpenapiIds
+     * @return
+     */
+    default List<OpenplatformDocApiDO> getByOpenplatformOpenapiIds(List<String> openplatformOpenapiIds) {
+        Assert.notEmpty(openplatformOpenapiIds,"openplatformOpenapiIds 不能为空");
+        return list(Wrappers.<OpenplatformDocApiDO>lambdaQuery().in(OpenplatformDocApiDO::getOpenplatformOpenapiId, openplatformOpenapiIds));
+    }
 
 
 

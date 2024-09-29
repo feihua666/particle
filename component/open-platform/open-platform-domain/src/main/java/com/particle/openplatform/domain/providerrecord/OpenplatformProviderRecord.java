@@ -92,6 +92,16 @@ public class OpenplatformProviderRecord extends AggreateRoot {
 	private Boolean isCacheHit;
 
 	/**
+	 * 消费金额，单位分
+	 */
+	private Integer feeAmount;
+
+	/**
+	 * 消费金额缘由，字典id
+	 */
+	private Long feeReasonDictId;
+
+	/**
 	 * 描述
 	 */
 	private String remark;

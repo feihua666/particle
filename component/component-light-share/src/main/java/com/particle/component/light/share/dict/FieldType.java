@@ -127,13 +127,22 @@ public enum FieldType implements IDictItem {
      * @param object
      * @return
      */
-    public static FieldType parse(Object object) {
+    public static FieldType parseByValue(Object object) {
         if (object == null) {
             return null;
         }
         for (FieldType fieldType : parseMap.keySet()) {
             if (parseMap.get(fieldType).test(object)) {
                 return fieldType;
+            }
+        }
+        return null;
+    }
+
+    public static FieldType parse(String name) {
+        for (FieldType value : FieldType.values()) {
+            if(value.itemValue().equals(name)){
+                return value;
             }
         }
         return null;

@@ -17,9 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +51,14 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 	}
 
 
+	/**
+	 * 获取针对mysql的建表语句
+	 * @param tableName
+	 * @param url
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	private String mysqlLoadCreateTableSql(String tableName ,String url,String username,String password) {
 		// dataSourceConfig
 		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
@@ -79,11 +85,21 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 		}
 		return "仅支持mysql";
 	}
+
+	/**
+	 * 获取mysql的唯一索引，仅适用于mysql，仅返回单个字段为唯一索引的列
+	 * @param tableName
+	 * @param url
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	private List<String> mysqlLoadUniqueIndexes(String tableName ,String url,String username,String password) {
 		// dataSourceConfig
 		DataSourceConfig.Builder dataSourceConfigBuilder = new DataSourceConfig.Builder(url, username, password);
 		DataSourceConfig dataSourceConfig = dataSourceConfigBuilder.build();
 		String sql = "select\n" +
+				"    table_schema,\n" +
 				"    table_name,\n" +
 				"    index_name,\n" +
 				"    non_unique,\n" +
@@ -94,13 +110,29 @@ public class LowcodeDbTableInfoGatewayImpl implements LowcodeDbTableInfoGateway 
 				"     table_name = '"+ tableName +"'\n" +
 				"    and non_unique = 0";
 		List<String> result = new ArrayList<>();
+		Map<String, Set<String>> map = new HashMap<>();
 		try (
 				Connection conn = dataSourceConfig.getConn();
 				PreparedStatement preparedStatement = conn.prepareStatement(sql);
 				ResultSet results = preparedStatement.executeQuery()) {
 			while (results.next()) {
+				String table_schema = results.getString("table_schema");
+				String index_name = results.getString("index_name");
 				String columnName = results.getString("column_name");
-				result.add(columnName);
+				String key = table_schema + tableName + index_name;
+				Set<String> strings = map.get(key);
+				if (strings == null) {
+					strings = new HashSet<>();
+					map.put(key, strings);
+				}
+				strings.add(columnName);
+			}
+
+			for (Map.Entry<String, Set<String>> stringSetEntry : map.entrySet()) {
+				if (stringSetEntry.getValue().size() == 1) {
+					String columnName = stringSetEntry.getValue().iterator().next();
+					result.add(columnName);
+				}
 			}
 		} catch (SQLException e) {
 			log.error("SQL Exception：" + e.getMessage(),e);

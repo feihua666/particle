@@ -4,6 +4,7 @@ import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import com.particle.openplatform.app.OpenplatformAppConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.GroupedOpenApi;
+import org.springframework.context.annotation.Import;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,9 @@ import java.util.List;
         "com.particle.openplatform.infrastructure.provider.mapper",
         "com.particle.openplatform.infrastructure.providerrecord.mapper",
         "com.particle.openplatform.infrastructure.doc.mapper",
+        "com.particle.openplatform.infrastructure.bill.mapper",
 })
+@Import(OpenplatformAppConfiguration.class)
 public class OpenPlatformAutoConfiguration {
 
 

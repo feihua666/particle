@@ -29,6 +29,11 @@ public class OpenplatformDocApiDoc extends AggreateRoot {
     */
     private String requestUrlPrefix;
 
+	/**
+	 * 内网请求地址前缀，可全局配置
+	 */
+	private String requestUrlIntranetPrefix;
+
     /**
     * 请求地址
     */
@@ -43,6 +48,16 @@ public class OpenplatformDocApiDoc extends AggreateRoot {
     * 请求体类型，字典id，如：json、xml
     */
     private Long requestBodyTypeDictId;
+
+	/**
+	 * 请求参数类型，字典id，如：string、array
+	 */
+	private Long requestParamTypeDictId;
+
+	/**
+	 * 请求参数嵌套字段类型，字典id，一般用于字段类型为array时里面的类型，如：string、object
+	 */
+	private Long requestParamNestTypeDictId;
 
     /**
     * 响应体类型，字典id，如：json、xml

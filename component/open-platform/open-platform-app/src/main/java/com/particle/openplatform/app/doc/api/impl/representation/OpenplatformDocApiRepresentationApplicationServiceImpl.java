@@ -9,6 +9,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.doc.executor.representation.OpenplatformDocApiQueryCommandExecutor;
 import com.particle.openplatform.client.doc.api.representation.IOpenplatformDocApiRepresentationApplicationService;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDetailVO;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
@@ -34,7 +35,7 @@ public class OpenplatformDocApiRepresentationApplicationServiceImpl extends Abst
     }
 
     @Override
-    public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(OpenplatformDocApiQueryAllDetailCommand detailCommand) {
         return openplatformDocApiQueryCommandExecutor.queryAllDetail(detailCommand);
     }
 

@@ -45,6 +45,39 @@ const openplatformOpenapiAdminRoutes = [
                     }
                 }
             },
+
+        ],
+    },
+    {
+        path: '/admin/OpenplatformOpenapiDataQueryPage',
+        component: () => import('./OpenplatformOpenapiDataQueryPage.vue'),
+        meta: {
+            root: true,
+            code:'adminOpenplatformOpenapiDataQueryPage',
+            name: '开放平台数据查询',
+            keepAlive: true
+        }
+    },
+    {
+        path: '/admin/OpenplatformOpenapiBatchDataQueryPage',
+        component: () => import('./OpenplatformOpenapiBatchDataQueryPage.vue'),
+        meta: {
+            root: true,
+            code:'adminOpenplatformOpenapiBatchDataQueryPage',
+            name: '开放平台批量数据查询',
+            keepAlive: true
+        },
+        children: [
+            {
+                path: '/admin/openplatformOpenapiBatchQueryRecordDetail1',
+                component: () => import('./OpenplatformOpenapiBatchQueryRecordDetailManagePage.vue'),
+                props: route => ({ openplatformOpenapiBatchQueryRecordId: route.query.openplatformOpenapiBatchQueryRecordId }),
+                meta: {
+                    showInDrawer: true,
+                    code: 'adminOpenplatformOpenapiBatchQueryRecordDetail1',
+                    name: '开放接口批量查询记录明细管理',
+                },
+            }
         ]
     },
 ]

@@ -8,6 +8,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiApplicationService;
 import com.particle.openplatform.client.doc.api.representation.IOpenplatformDocApiRepresentationApplicationService;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDetailVO;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
@@ -40,7 +41,7 @@ public class OpenplatformDocApiFrontWebController extends AbstractBaseWebAdapter
 
 	@Operation(summary = "开放接口文档接口详情展示")
 	@GetMapping("/alldetail")
-	public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(OpenplatformDocApiQueryAllDetailCommand detailCommand){
 		return iOpenplatformDocApiRepresentationApplicationService.queryAllDetail(detailCommand);
 	}
 	@Operation(summary = "列表查询开放接口文档接口")

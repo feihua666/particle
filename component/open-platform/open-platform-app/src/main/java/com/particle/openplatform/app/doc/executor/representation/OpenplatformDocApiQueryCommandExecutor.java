@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.comparator.CompareUtil;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.*;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.*;
 import com.particle.openplatform.domain.doc.enums.OpenPlatformDocParamFieldType;
@@ -16,6 +17,8 @@ import com.particle.openplatform.client.doc.dto.command.representation.Openplatf
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
+import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -59,6 +62,7 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
     private IOpenplatformDocApiDocTemplateExampleCodeService iOpenplatformDocApiDocTemplateExampleCodeService;
 
 
+    private IOpenplatformOpenapiService iOpenplatformOpenapiService;
     /**
      * 执行 开放接口文档接口 列表查询指令
      *
@@ -100,13 +104,26 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
      * @param detailCommand
      * @return
      */
-    public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(IdCommand detailCommand) {
-        OpenplatformDocApiDO byId = iOpenplatformDocApiService.getById(detailCommand.getId());
-        if (byId == null) {
+    public SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(OpenplatformDocApiQueryAllDetailCommand detailCommand) {
+
+        OpenplatformDocApiDO openplatformDocApiDO = null;
+        Long id = detailCommand.getId();
+        if (id == null) {
+            if (detailCommand.getOpenplatformOpenapiId() != null) {
+                openplatformDocApiDO = iOpenplatformDocApiService.getByOpenplatformOpenapiId(detailCommand.getOpenplatformOpenapiId());
+
+            }
+        }else {
+            openplatformDocApiDO = iOpenplatformDocApiService.getById(id);
+        }
+
+
+
+        if (openplatformDocApiDO == null) {
             return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
         }
         // 接口信息
-        OpenplatformDocApiVO openplatformDocApiVO = OpenplatformDocApiAppStructMapping.instance.openplatformDocApiDOToOpenplatformDocApiVO(byId);
+        OpenplatformDocApiVO openplatformDocApiVO = OpenplatformDocApiAppStructMapping.instance.openplatformDocApiDOToOpenplatformDocApiVO(openplatformDocApiDO);
         OpenplatformDocApiDetailVO openplatformDocApiDetailVO = OpenplatformDocApiDetailVO.create(openplatformDocApiVO);
 
         // 文档内容
@@ -286,7 +303,7 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
      * @param openplatformDocApiDocTemplateId
      * @return
      */
-    private Map<String, List<OpenplatformDocApiDocParamFieldBasicVO>> getFinalOpenplatformDocApiDocParamFieldBasicVOsMap(Long openplatformDocApiDocId, Long openplatformDocApiDocTemplateId) {
+    public Map<String, List<OpenplatformDocApiDocParamFieldBasicVO>> getFinalOpenplatformDocApiDocParamFieldBasicVOsMap(Long openplatformDocApiDocId, Long openplatformDocApiDocTemplateId) {
 
         // 获取自己定义的
         List<OpenplatformDocApiDocParamFieldBasicVO> openplatformDocApiDocParamFieldVOs = getOpenplatformDocApiDocParamFieldBasicVOs(openplatformDocApiDocId);
@@ -359,7 +376,7 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
      * @param openplatformDocApiId
      * @return
      */
-    private OpenplatformDocApiDocVO getFinalOpenplatformDocApiDocVO(Long openplatformDocApiId) {
+    public OpenplatformDocApiDocVO getFinalOpenplatformDocApiDocVO(Long openplatformDocApiId) {
         OpenplatformDocApiDocVO openplatformDocApiDocVO = getOpenplatformDocApiDocVO(openplatformDocApiId);
         if (openplatformDocApiDocVO == null) {
             return null;
@@ -458,4 +475,8 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
         this.iOpenplatformDocApiDocTemplateExampleCodeService = iOpenplatformDocApiDocTemplateExampleCodeService;
     }
 
+    @Autowired
+    public void setiOpenplatformOpenapiService(IOpenplatformOpenapiService iOpenplatformOpenapiService) {
+        this.iOpenplatformOpenapiService = iOpenplatformOpenapiService;
+    }
 }

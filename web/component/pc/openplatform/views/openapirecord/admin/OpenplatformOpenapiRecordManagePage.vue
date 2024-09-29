@@ -17,18 +17,8 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
-      prop: 'id',
-      label: 'id',
-      showOverflowTooltip: true
-    },
-    {
       prop: 'openplatformAppName',
       label: '应用',
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'appId',
-      label: 'appId',
       showOverflowTooltip: true
     },
     {
@@ -136,6 +126,15 @@ const reactiveData = reactive({
         let r = cellValue ? '是' : '否'
         return r
       },
+    },
+    {
+      prop: 'feeAmount',
+      label: '消费金额',
+    },
+    {
+      prop: 'feeReasonDictName',
+      label: '消费金额缘由',
+      showOverflowTooltip: true
     },
   ],
 

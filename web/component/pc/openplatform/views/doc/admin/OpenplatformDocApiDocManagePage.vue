@@ -32,6 +32,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'requestUrlIntranetPrefix',
+      label: '内网请求地址前缀',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'requestUrl',
       label: '请求地址',
       showOverflowTooltip: true
@@ -44,6 +49,14 @@ const reactiveData = reactive({
       prop: 'requestBodyTypeDictName',
       label: '请求体类型',
       showOverflowTooltip: true
+    },
+    {
+      prop: 'requestParamTypeDictName',
+      label: '请求参数类型',
+    },
+    {
+      prop: 'requestParamNestTypeDictName',
+      label: '请求参数嵌套类型',
     },
     {
       prop: 'responseBodyTypeDictName',

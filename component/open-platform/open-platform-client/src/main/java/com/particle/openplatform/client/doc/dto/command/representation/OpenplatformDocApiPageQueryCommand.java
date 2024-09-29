@@ -18,6 +18,9 @@ import lombok.Data;
 @Schema
 public class OpenplatformDocApiPageQueryCommand extends AbstractBasePageQueryCommand {
 
+	@Schema(description = "开放接口id，这里只存储接口，不存储分组")
+	private Long openplatformOpenapiId;
+
 
 
     @Like

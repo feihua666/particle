@@ -1,7 +1,10 @@
 package com.particle.global.tool.str;
 
+import cn.hutool.core.net.url.UrlQuery;
+
 /**
  * 文件路径工具
+ * 关于url路径的处理可以参考 {@link UrlQuery} ，记录在这里以备忘
  * @author yangwei
  * @since 2022-04-13 19:52
  */

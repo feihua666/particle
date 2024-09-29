@@ -6,6 +6,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDetailVO;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
@@ -39,7 +40,7 @@ public interface IOpenplatformDocApiRepresentationApplicationService extends IBa
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(IdCommand detailCommand);
+	SingleResponse<OpenplatformDocApiDetailVO> queryAllDetail(OpenplatformDocApiQueryAllDetailCommand detailCommand);
 
 	/**
 	 * 列表查询

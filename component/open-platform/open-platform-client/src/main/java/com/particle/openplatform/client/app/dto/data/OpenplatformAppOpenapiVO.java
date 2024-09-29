@@ -30,7 +30,7 @@ public class OpenplatformAppOpenapiVO extends AbstractBaseIdVO {
     private Long openplatformOpenapiId;
 
     @TransBy(tableName = TransTableNameConstants.component_openplatform_openapi, byFieldName = "openplatformOpenapiId", mapValueField = "name")
-    @Schema(description = "开放接口id")
+    @Schema(description = "开放接口名称")
     private String openplatformOpenapiName;
     
     @Schema(description = "计费规则id")

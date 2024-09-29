@@ -72,7 +72,9 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 				"com.particle.func.client.dto.command.representation.FuncQueryListCommand")) {
 			Object funcApplicationId = ReflectUtil.getFieldValue(queryForm, "funcApplicationId");
 			//addExistSqlIffuncApplicationIdNotNull(queryWrapper, funcApplicationId);
-			addInIfFuncApplicationIdNotNull(queryWrapper, funcApplicationId);
+			if (funcApplicationId != null) {
+				addInIfFuncApplicationIdNotNull(queryWrapper, funcApplicationId);
+			}
 
 		}
 
@@ -98,11 +100,12 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 			// select id from component_func_application_func_rel where component_func_application_func_rel.func_id = component_func.id and component_func_application_func_rel.func_application_id = {funcApplicationId}
 			getQueryWrapperFuncApplicationIdExistSqlCache = "select id from " + funcApplicationFuncRelDOTableNameCache + " where"
 					+ funcApplicationFuncRelDOTableNameCache + ".func_id = " + funcDOTableNameCache + ".id"
-					+ funcApplicationFuncRelDOTableNameCache + ".func_application_id = " + funcApplicationId;
+					+ funcApplicationFuncRelDOTableNameCache + ".func_application_id = ";
 
 		}
+		String finalSql = funcApplicationFuncRelDOTableNameCache + funcApplicationId;
 
-		queryWrapper.exists(funcApplicationId != null, getQueryWrapperFuncApplicationIdExistSqlCache);
+		queryWrapper.exists(funcApplicationId != null, finalSql);
 
 	}
 

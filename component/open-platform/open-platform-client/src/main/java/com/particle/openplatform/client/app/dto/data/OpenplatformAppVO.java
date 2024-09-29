@@ -29,7 +29,7 @@ public class OpenplatformAppVO extends AbstractBaseIdVO {
     @Schema(description = "归属用户id")
     private Long ownerUserId;
 
-	@TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "userId",mapValueField = "nickname")
+	@TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "ownerUserId",mapValueField = "nickname")
 	@Schema(description = "归属用户昵称")
 	private String ownerUserNickname;
     

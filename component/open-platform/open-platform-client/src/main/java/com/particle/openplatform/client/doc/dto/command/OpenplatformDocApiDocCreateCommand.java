@@ -26,6 +26,9 @@ public class OpenplatformDocApiDocCreateCommand extends AbstractBaseCommand {
     @Schema(description = "请求地址前缀")
     private String requestUrlPrefix;
 
+	@Schema(description = "内网请求地址前缀，可全局配置")
+	private String requestUrlIntranetPrefix;
+
 
     @NotEmpty(message = "请求地址 不能为空")
         @Schema(description = "请求地址",requiredMode = Schema.RequiredMode.REQUIRED)
@@ -38,6 +41,12 @@ public class OpenplatformDocApiDocCreateCommand extends AbstractBaseCommand {
 
     @Schema(description = "请求体类型")
     private Long requestBodyTypeDictId;
+
+	@Schema(description = "请求参数类型，字典id，如：string、array")
+	private Long requestParamTypeDictId;
+
+	@Schema(description = "请求参数嵌套字段类型，字典id，一般用于字段类型为array时里面的类型，如：string、object")
+	private Long requestParamNestTypeDictId;
 
 
         @Schema(description = "响应体类型")

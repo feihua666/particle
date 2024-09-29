@@ -163,7 +163,7 @@ public class OpenplatformDocApiDocParamFieldCreateCommandExecutor extends Abstra
             // 字段名
             openplatformDocApiDocParamFieldCreateCommand.setName(key);
             // 字段类型
-            FieldType fieldType = FieldType.parse(keyValue);
+            FieldType fieldType = FieldType.parseByValue(keyValue);
             if (fieldType == null) {
                 fieldType = FieldType.object;
             }
@@ -172,7 +172,7 @@ public class OpenplatformDocApiDocParamFieldCreateCommandExecutor extends Abstra
                 Collection keyValueCollection = (Collection) keyValue;
                 if (!keyValueCollection.isEmpty()) {
                     Object nestObj = keyValueCollection.iterator().next();
-                    FieldType nestFieldType = FieldType.parse(nestObj);
+                    FieldType nestFieldType = FieldType.parseByValue(nestObj);
                     if (nestFieldType != null) {
                         openplatformDocApiDocParamFieldCreateCommand.setNestTypeDictId(openplatformDictGateway.getDictIdByGroupCodeAndItemValue(nestFieldType.groupCode(), nestFieldType.itemValue()));
                     }

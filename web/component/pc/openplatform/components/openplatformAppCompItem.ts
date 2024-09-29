@@ -1,4 +1,4 @@
-import {list as appListApi} from "../api/app/admin/openplatformAppAdminApi.ts";
+import {list as appListApi, listCurrentUser} from "../api/app/admin/openplatformAppAdminApi.ts";
 export const useSelectAppCompItem = ({fieldName= 'openplatformAppId',required=false,label= 'app'})=>{
     return         {
         field: {
@@ -14,6 +14,28 @@ export const useSelectAppCompItem = ({fieldName= 'openplatformAppId',required=fa
                 clearable: true,
                 // 加载数据
                 dataMethod: appListApi,
+            }
+        }
+    }
+}
+export const useSelectAppForCurrentUserCompItem = ({fieldName= 'openplatformAppId',
+                                                       required=false,label= 'app',valueChange = () => {},tips = ''})=>{
+    return         {
+        field: {
+            name: fieldName,
+            valueChange
+        },
+        element: {
+            comp: 'PtSelect',
+            formItemProps: {
+                label: label,
+                required: required,
+                tips: tips
+            },
+            compProps: {
+                clearable: true,
+                // 加载数据
+                dataMethod: listCurrentUser,
             }
         }
     }

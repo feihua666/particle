@@ -283,6 +283,7 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
             return configOptionsTemp.reductDataFormat ? response.data : response
         },
         (error) => {
+            debugger
             // 默认配置覆盖
             let configOptionsTemp = Object.assign({},configOptions,error.config.configOptions || {})
             error.config && removePending(error.config)

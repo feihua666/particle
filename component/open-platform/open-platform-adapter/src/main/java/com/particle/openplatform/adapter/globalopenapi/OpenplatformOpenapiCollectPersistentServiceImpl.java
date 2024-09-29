@@ -6,12 +6,19 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.particle.global.openapi.api.GlobalOpenapiCollectPersistentService;
 import com.particle.global.openapi.collect.OpenapiContext;
+import com.particle.global.openapi.data.ApiFeeRuleInfo;
 import com.particle.global.openapi.data.ApiInfo;
 import com.particle.global.openapi.data.OpenapiCollectProviderDTO;
+import com.particle.global.openapi.enums.FeeRuleDeduplicateType;
+import com.particle.global.openapi.enums.FeeRuleFeeType;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.openplatform.domain.enums.OpenPlatformDeduplicateType;
+import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
 import com.particle.openplatform.domain.event.*;
+import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import com.particle.openplatform.domain.openapirecord.gateway.OpenplatformOpenapiRecordGateway;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +44,7 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 	 */
 	@Override
 	public void save(OpenapiContext openapiContext) {
-		// 调用记录
+		// 开放接口调用记录
 		OpenplatformOpenapiRecordDomainEventContentRecord openplatformOpenapiRecordDomainEventContentRecord = new OpenplatformOpenapiRecordDomainEventContentRecord();
 		OpenplatformOpenapiRecordDomainEventContentRecordParam openplatformOpenapiRecordDomainEventContentRecordParam
 				= OpenplatformOpenapiRecordDomainEventContentRecordParam.create(JsonTool.toJsonStr(openapiContext.getRequestParameterDTO()),
@@ -48,7 +55,9 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 		openplatformOpenapiRecordDomainEventContentRecord.setUserId(LoginUserTool.getLoginUserId());
 		openplatformOpenapiRecordDomainEventContentRecord.setIsApp(appId != null);
 		ApiInfo apiInfo = openapiContext.getApiInfo();
+		ApiFeeRuleInfo apiFeeRuleInfo = null;
 		if (apiInfo != null) {
+			apiFeeRuleInfo = apiInfo.getApiFeeRuleInfo();
 			openplatformOpenapiRecordDomainEventContentRecord.setRequestUrl(apiInfo.getApiUrl());
 		}else {
 			openplatformOpenapiRecordDomainEventContentRecord.setRequestUrl(openapiContext.getRequestUrl());
@@ -73,6 +82,8 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 		openplatformOpenapiRecordDomainEventContentRecord.setResponseHttpStatus(openapiContext.getResponseHttpStatus());
 		openplatformOpenapiRecordDomainEventContentRecord.setResponseBusinessStatus(openapiContext.getResponseBusinessStatus());
 		openplatformOpenapiRecordDomainEventContentRecord.setRemark(openapiContext.getRemark());
+		OpenplatformOpenapiFeeValue openplatformOpenapiFeeValue = mapFeeValue(apiFeeRuleInfo);
+		openplatformOpenapiRecordDomainEventContentRecord.setOpenplatformOpenapiFee(openplatformOpenapiFeeValue);
 
 		//	供应商调用记录
 		OpenplatformOpenapiRecordDomainEventContentProviderRecord openplatformOpenapiRecordDomainEventContentProviderRecord = null;
@@ -133,6 +144,32 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 		openplatformOpenapiRecordGateway.sendDomainEventAsync(openplatformOpenapiRecordDomainEvent);
 	}
 
+	/**
+	 * 计费规则对象转换
+	 * @param apiFeeRuleInfo
+	 * @return
+	 */
+	private OpenplatformOpenapiFeeValue mapFeeValue(ApiFeeRuleInfo apiFeeRuleInfo) {
+		if (apiFeeRuleInfo == null) {
+			return null;
+		}
+		OpenplatformOpenapiFeeValue openplatformOpenapiFeeValue = new OpenplatformOpenapiFeeValue();
+		openplatformOpenapiFeeValue.setPrice(apiFeeRuleInfo.getPrice());
+
+		OpenPlatformFeeType openPlatformFeeType = OpenPlatformFeeType.valueOf(apiFeeRuleInfo.getFeeRuleFeeType().name());
+		openplatformOpenapiFeeValue.setOpenPlatformFeeType(openPlatformFeeType);
+
+		OpenPlatformDeduplicateType openPlatformDeduplicateType = OpenPlatformDeduplicateType.valueOf(apiFeeRuleInfo.getFeeRuleDeduplicateType().name());
+		openplatformOpenapiFeeValue.setOpenPlatformDeduplicateType(openPlatformDeduplicateType);
+
+		openplatformOpenapiFeeValue.setDeduplicateCount(apiFeeRuleInfo.getDeduplicateCount());
+		openplatformOpenapiFeeValue.setIsDeduplicateByParameter(apiFeeRuleInfo.getIsDeduplicateByParameter());
+		openplatformOpenapiFeeValue.setIsCheckHasValue(apiFeeRuleInfo.getIsCheckHasValue());
+		openplatformOpenapiFeeValue.setIsCheckHandleDuration(apiFeeRuleInfo.getIsCheckHandleDuration());
+		openplatformOpenapiFeeValue.setHandleDuration(apiFeeRuleInfo.getHandleDuration());
+		return openplatformOpenapiFeeValue;
+
+	}
 
 	/**
 	 * 将对象转为字符串
@@ -152,4 +189,5 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 			return obj.toString();
 		}
 	}
+
 }

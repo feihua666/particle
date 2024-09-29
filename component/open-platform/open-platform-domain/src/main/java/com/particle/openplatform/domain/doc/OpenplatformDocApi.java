@@ -48,6 +48,11 @@ public class OpenplatformDocApi extends AggreateRoot {
     */
     private String pricePerTimeDesc;
 
+	/**
+	 * 开放接口id，这里只存储接口，不存储分组
+	 */
+	private Long openplatformOpenapiId;
+
     /**
     * 描述
     */

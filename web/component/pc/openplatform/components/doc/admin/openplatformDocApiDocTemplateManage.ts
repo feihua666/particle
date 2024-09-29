@@ -120,7 +120,21 @@ export const addPageFormItems = [
         }
       },
 
-
+  {
+    field: {
+      name: 'requestUrlIntranetPrefix',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '内网请求地址前缀',
+        tips: '一般是一个地址前缀，如：http://example.com,用于内部调用（如：接口单次查询、接口批量查询），如果不设置将使用模板进行覆盖否则默认为使用全局配置'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
   {
     field: {
       name: 'requestTypeDictId',
@@ -152,6 +166,38 @@ export const addPageFormItems = [
       compProps: {
         // 字典查询
         dictParam: {groupCode: 'http_content_type'}
+      }
+    }
+  },
+  {
+    field: {
+      name: 'requestParamTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '请求参数类型',
+        tips: '不设置将使用模板进行覆盖'
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'field_type'}
+      }
+    }
+  },
+  {
+    field: {
+      name: 'requestParamNestTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '请求参数嵌套字段类型',
+        tips: '不设置将使用模板进行覆盖'
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'field_type'}
       }
     }
   },

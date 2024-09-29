@@ -143,6 +143,28 @@ export function remove(array: Array<any>,index){
     }
     array.splice(index, 1)
 }
+
+/**
+ * 清空数组
+ * @param array
+ */
+export function removeAll(array: Array<any>){
+    if (array.length == 0) {
+        return
+    }
+    array.splice(0,array.length)
+}
+/**
+ * 替换 index 位置的元素
+ * @param array
+ * @param index
+ */
+export function replace(array: Array<any>,index,item){
+    if(!array){
+        return
+    }
+    array.splice(index, 1,item)
+}
 /**
  * 从 array 中移除在 arrayRemoved 中已存在的元素
  * @param array

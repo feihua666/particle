@@ -1,12 +1,22 @@
 package com.particle.openplatform.app.messaging;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.common.domain.event.TemplatingDomainMessageEvent;
-import com.particle.global.messaging.event.messaging.CloudStreamConsumer;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.messaging.event.messaging.MessageConsumer;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.openplatform.domain.enums.OpenFlatformFeeReason;
+import com.particle.openplatform.domain.enums.OpenPlatformDeduplicateType;
+import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
 import com.particle.openplatform.domain.event.*;
+import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
+import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
 import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;
 import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
@@ -21,12 +31,20 @@ import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformP
 import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordParamDO;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordParamService;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -42,6 +60,12 @@ import java.util.function.Consumer;
 @Slf4j
 @Component
 public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<OpenplatformOpenapiRecordDomainEvent>, MessageConsumer {
+
+	/**
+	 * 缓存8小时
+	 */
+	private static final TimedCache<OpenFlatformFeeReason, Long> openFlatformFeeReasonDictIdCache = CacheUtil.newTimedCache(1000 * 60 * 60 * 8);
+
 
 	@Autowired
 	private IOpenplatformAppService iOpenplatformAppService;
@@ -60,6 +84,9 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	private IOpenplatformProviderRecordService iOpenplatformProviderRecordService;
 	@Autowired
 	private IOpenplatformProviderRecordParamService iOpenplatformProviderRecordParamService;
+
+	@Autowired
+	private OpenplatformDictGateway openplatformDictGateway;
 
 	@Override
 	public void accept(OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent) {
@@ -84,6 +111,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 		//	调用记录
 		OpenplatformOpenapiRecordDomainEventContentRecord contentRecord = data.getRecord();
+		OpenplatformOpenapiFeeValue openplatformOpenapiFee = contentRecord.getOpenplatformOpenapiFee();
 		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = data.getProviderRecords();
 		boolean hasProviderRecords = CollectionUtil.isNotEmpty(providerRecords);
 
@@ -119,8 +147,17 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		openplatformOpenapiRecordDO.setResponseHttpStatus(contentRecord.getResponseHttpStatus());
 		openplatformOpenapiRecordDO.setResponseBusinessStatus(contentRecord.getResponseBusinessStatus());
 		openplatformOpenapiRecordDO.setIsExistProviderRecord(hasProviderRecords);
+
 		openplatformOpenapiRecordDO.setRemark(contentRecord.getRemark());
 
+		// todo 在去重情况下，如果分页式部署有并发问题，可能计费不准确
+		FeeResult feeResult = calculateOpenapiFee(openplatformOpenapiFee,
+				openplatformOpenapiRecordDO.getIsResponseHasEffectiveValue(),
+				openplatformOpenapiRecordDO.getHandleDuration(),
+				openplatformOpenapiRecordDO.getOpenplatformOpenapiId(),
+				openplatformOpenapiRecordDO.getRequestParameterMd5());
+		openplatformOpenapiRecordDO.setFeeAmount(feeResult.getFeeAmount());
+		openplatformOpenapiRecordDO.setFeeReasonDictId(feeResult.getFeeReasonDictId());
 		// 保存
 		iOpenplatformOpenapiRecordService.save(openplatformOpenapiRecordDO);
 		Long openplatformOpenapiRecordDOId = openplatformOpenapiRecordDO.getId();
@@ -153,8 +190,11 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 				openplatformProviderRecordDO.setIsResponseHasEffectiveValue(providerRecord.getIsResponseHasEffectiveValue());
 				openplatformProviderRecordDO.setResponseHttpStatus(providerRecord.getResponseHttpStatus());
 				openplatformProviderRecordDO.setResponseBusinessStatus(providerRecord.getResponseBusinessStatus());
+				// todo 供应商调用记录计费待完善
+				openplatformProviderRecordDO.setFeeAmount(0);
+				openplatformProviderRecordDO.setFeeReasonDictId(openFlatformFeeReasonDictId(OpenFlatformFeeReason.other_not_support));
 
-				// 应用商信息
+				// 供应用商信息
 				String providerIdentifier = providerRecord.getProviderIdentifier();
 				if (StrUtil.isNotEmpty(providerIdentifier)) {
 					OpenplatformProviderDO openplatformProviderDO = iOpenplatformProviderService.getByCode(providerIdentifier);
@@ -191,6 +231,228 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 					iOpenplatformProviderRecordParamService.save(openplatformProviderRecordParamDO);
 				}
 			}
+		}
+	}
+
+
+	private FeeResult calculateOpenapiFee(OpenplatformOpenapiFeeValue apiFeeRuleInfo,
+										  Boolean isResponseHasEffectiveValue,
+										  Integer handleDuration,
+										  Long openplatformOpenapiId,
+										  String requestParameterMd5) {
+		if (apiFeeRuleInfo == null) {
+			// 未配置计费规则，不计费
+			return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.not_exist_fee_rule));
+		}
+
+		boolean isCheckHasValue = apiFeeRuleInfo.getIsCheckHasValue() != null && apiFeeRuleInfo.getIsCheckHasValue();
+		if (isCheckHasValue) {
+			// 没有值，不计费
+			if (!isResponseHasEffectiveValue) {
+				return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.not_exist_effective_value));
+			}
+		}
+		boolean isCheckHandleDuration = apiFeeRuleInfo.getIsCheckHandleDuration() != null && apiFeeRuleInfo.getIsCheckHandleDuration();
+		if (isCheckHandleDuration) {
+			// 响应超时，不计费
+			if (handleDuration > apiFeeRuleInfo.getHandleDuration()) {
+				return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.response_timeout));
+			}
+		}
+		//  按次，每次接口调用需要计算计费
+		if (apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_interface_call) {
+
+			// 不去重，就是按单价计费
+			if (OpenPlatformDeduplicateType.no_deduplicate == apiFeeRuleInfo.getOpenPlatformDeduplicateType()) {
+				return FeeResult.create(apiFeeRuleInfo.getPrice(), openFlatformFeeReasonDictId(OpenFlatformFeeReason.per_price_no_deduplicate));
+			}else if (OpenPlatformDeduplicateType.each_day_deduplicate == apiFeeRuleInfo.getOpenPlatformDeduplicateType()
+			|| OpenPlatformDeduplicateType.each_week_deduplicate == apiFeeRuleInfo.getOpenPlatformDeduplicateType()
+			|| OpenPlatformDeduplicateType.each_month_deduplicate == apiFeeRuleInfo.getOpenPlatformDeduplicateType()) {
+				Page<OpenplatformOpenapiRecordDO> objectPage = new Page<>();
+				Integer deduplicateCount = apiFeeRuleInfo.getDeduplicateCount();
+				if (deduplicateCount < 2) {
+					deduplicateCount = 2;
+				}
+				objectPage.setCurrent(1);
+				objectPage.setSize(deduplicateCount);
+				objectPage.setSearchCount(false);
+				LocalDateTime localDateTime = beginAtOpenPlatformDeduplicateType(apiFeeRuleInfo.getOpenPlatformDeduplicateType());
+				LambdaQueryWrapper<OpenplatformOpenapiRecordDO> openplatformOpenapiRecordDOLambdaQueryWrapper = Wrappers.<OpenplatformOpenapiRecordDO>lambdaQuery()
+						.select(OpenplatformOpenapiRecordDO::getFeeAmount)
+						.eq(OpenplatformOpenapiRecordDO::getOpenplatformOpenapiId, openplatformOpenapiId)
+						// 是否按参数去重
+						.eq(apiFeeRuleInfo.getIsDeduplicateByParameter(), OpenplatformOpenapiRecordDO::getRequestParameterMd5, requestParameterMd5)
+						.ge(OpenplatformOpenapiRecordDO::getRequestHandleAt, localDateTime)
+						.orderByDesc(OpenplatformOpenapiRecordDO::getRequestHandleAt);
+				Page<OpenplatformOpenapiRecordDO> page = iOpenplatformOpenapiRecordService.page(objectPage, openplatformOpenapiRecordDOLambdaQueryWrapper);
+				List<OpenplatformOpenapiRecordDO> records = page.getRecords();
+				if (CollectionUtil.isEmpty(records)) {
+					// 首次计费
+					return FeeResult.create(apiFeeRuleInfo.getPrice(), openFlatformFeeReasonDictId(OpenFlatformFeeReason.per_price_first));
+				}else {
+					long feeCount = records.stream().filter(o -> o.getFeeAmount() != null && o.getFeeAmount() > 0).count();
+					if (feeCount > 0) {
+						// 已存在计费，不计费
+						return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.per_price_deduplicate));
+					}else {
+						// 达到去重周期计费
+						return FeeResult.create(apiFeeRuleInfo.getPrice(), openFlatformFeeReasonDictId(OpenFlatformFeeReason.per_price_first_more));
+					}
+				}
+			}
+		}else if (apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_day
+		|| apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_day
+		|| apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_week
+		|| apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_month
+		|| apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_season
+		|| apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.each_year) {
+			// 	仅首次计费，后续不计费
+			Page<OpenplatformOpenapiRecordDO> objectPage = new Page<>();
+			objectPage.setCurrent(1);
+			objectPage.setSize(1);
+			objectPage.setSearchCount(false);
+			LocalDateTime localDateTime = beginAtOpenOpenPlatformFeeType(apiFeeRuleInfo.getOpenPlatformFeeType());
+			LambdaQueryWrapper<OpenplatformOpenapiRecordDO> openplatformOpenapiRecordDOLambdaQueryWrapper = Wrappers.<OpenplatformOpenapiRecordDO>lambdaQuery()
+					.select(OpenplatformOpenapiRecordDO::getId)
+					.eq(OpenplatformOpenapiRecordDO::getOpenplatformOpenapiId, openplatformOpenapiId)
+					.ge(OpenplatformOpenapiRecordDO::getRequestHandleAt, localDateTime)
+					.gt(OpenplatformOpenapiRecordDO::getFeeAmount, 0)
+					.orderByAsc(OpenplatformOpenapiRecordDO::getRequestHandleAt);
+			Page<OpenplatformOpenapiRecordDO> page = iOpenplatformOpenapiRecordService.page(objectPage, openplatformOpenapiRecordDOLambdaQueryWrapper);
+			List<OpenplatformOpenapiRecordDO> records = page.getRecords();
+			if (CollectionUtil.isEmpty(records)) {
+				// 首次计费
+				return FeeResult.create(apiFeeRuleInfo.getPrice(), openFlatformFeeReasonDictId(OpenFlatformFeeReason.each_day__year_first));
+			}else {
+				// 已存在计费，不计费
+				return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.each_day__year_deduplicate));
+			}
+		}else if (apiFeeRuleInfo.getOpenPlatformFeeType() == OpenPlatformFeeType.custom_config){
+			// 	暂不支持的计费方式
+		}
+
+		// 其它不支持情况 不计费
+		return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.other_not_support));
+	}
+
+	/**
+	 * 获取原因
+	 * @param openFlatformFeeReason
+	 * @return
+	 */
+	private Long openFlatformFeeReasonDictId(OpenFlatformFeeReason openFlatformFeeReason) {
+		return openFlatformFeeReasonDictIdCache.get(openFlatformFeeReason, () -> {
+			return openplatformDictGateway.getDictIdByGroupCodeAndItemValue(openFlatformFeeReason.groupCode(), openFlatformFeeReason.itemValue());
+		});
+	}
+	/**
+	 * 获取去重的开始时间
+	 * @param openPlatformDeduplicateType
+	 * @return
+	 */
+	private LocalDateTime beginAtOpenPlatformDeduplicateType(OpenPlatformDeduplicateType openPlatformDeduplicateType) {
+		LocalDate today = LocalDate.now();
+		if (OpenPlatformDeduplicateType.each_day_deduplicate == openPlatformDeduplicateType) {
+			return today.atStartOfDay();
+		}
+		if (OpenPlatformDeduplicateType.each_week_deduplicate == openPlatformDeduplicateType) {
+			// 获取当前周的开始日期（星期一）
+			LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+			return startOfWeek.atStartOfDay();
+		}
+		if (OpenPlatformDeduplicateType.each_month_deduplicate == openPlatformDeduplicateType) {
+			// 获取当前月份的第一天
+			LocalDate startOfMonth = today.withDayOfMonth(1);
+			return startOfMonth.atStartOfDay();
+
+		}
+		return null;
+	}
+	/**
+	 * 获取计费方式的开始时间
+	 * @param openPlatformFeeType
+	 * @return
+	 */
+	private LocalDateTime beginAtOpenOpenPlatformFeeType(OpenPlatformFeeType openPlatformFeeType) {
+		LocalDate today = LocalDate.now();
+		if (OpenPlatformFeeType.each_day == openPlatformFeeType) {
+			return today.atStartOfDay();
+		}
+		if (OpenPlatformFeeType.each_week == openPlatformFeeType) {
+			// 获取当前周的开始日期（星期一）
+			LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+			return startOfWeek.atStartOfDay();
+		}
+		if (OpenPlatformFeeType.each_month == openPlatformFeeType) {
+			// 获取当前月份的第一天
+			LocalDate startOfMonth = today.withDayOfMonth(1);
+			return startOfMonth.atStartOfDay();
+
+		}
+		if (OpenPlatformFeeType.each_season == openPlatformFeeType) {
+			// 获取当前季度的第一天
+			LocalDate startOfSeason = getFirstDayOfQuarter(today);
+			return startOfSeason.atStartOfDay();
+
+		}
+		if (OpenPlatformFeeType.each_year == openPlatformFeeType) {
+			// 获取当前年的第一天
+			LocalDate startOfYear = today.withDayOfYear(1);
+			return startOfYear.atStartOfDay();
+
+		}
+		return null;
+	}
+
+	/**
+	 * 季度的第一天
+	 * @param date
+	 * @return
+	 */
+	private LocalDate getFirstDayOfQuarter(LocalDate date) {
+		// 获取月份，并计算它属于哪个季度
+		int month = date.getMonthValue();
+		Month quarterStartMonth;
+
+		if (month >= 1 && month <= 3) {
+			quarterStartMonth = Month.JANUARY;
+		} else if (month >= 4 && month <= 6) {
+			quarterStartMonth = Month.APRIL;
+		} else if (month >= 7 && month <= 9) {
+			quarterStartMonth = Month.JULY;
+		} else { // month >= 10 && month <= 12
+			quarterStartMonth = Month.OCTOBER;
+		}
+
+		// 返回该季度的第一天
+		return LocalDate.of(date.getYear(), quarterStartMonth.getValue(), 1);
+	}
+	/**
+	 * 计算费用结果类
+	 */
+	@Data
+	private static class FeeResult{
+		/**
+		 * 消费金额，单位分
+		 */
+		private Integer feeAmount;
+
+		/**
+		 * 消费金额缘由，字典id
+		 */
+		private Long feeReasonDictId;
+
+		/**
+		 * 构建
+		 * @param feeAmount
+		 * @param feeReasonDictId
+		 * @return
+		 */
+		public static FeeResult create(Integer feeAmount, Long feeReasonDictId) {
+			FeeResult feeResult = new FeeResult();
+			feeResult.feeAmount = feeAmount;
+			feeResult.feeReasonDictId = feeReasonDictId;
+			return feeResult;
 		}
 	}
 }

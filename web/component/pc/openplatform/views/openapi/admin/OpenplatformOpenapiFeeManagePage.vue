@@ -17,6 +17,10 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
+      prop: 'name',
+      label: '名称',
+    },
+    {
       prop: 'price',
       label: '单价',
     },
@@ -33,15 +37,15 @@ const reactiveData = reactive({
       label: '去重方式',
     },
     {
-      prop: 'deduplicateCount',
-      label: '去重条数',
-    },
-    {
       prop: 'isDeduplicateByParameter',
       label: '按入参去重',
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '按入参去重' : '按接口去重'
       }
+    },
+    {
+      prop: 'deduplicateCount',
+      label: '去重条数',
     },
     {
       prop: 'isCheckHasValue',

@@ -5,14 +5,17 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.openapi.executor.representation.OpenplatformOpenapiQueryCommandExecutor;
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiRepresentationApplicationService;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiPageQueryCommand;
-import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiQueryListCommand;
+import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * <p>
  * 开放平台开放接口 门面服务实现类
@@ -40,6 +43,21 @@ public class OpenplatformOpenapiRepresentationApplicationServiceImpl extends Abs
     @Override
     public PageResponse<OpenplatformOpenapiVO> pageQuery(OpenplatformOpenapiPageQueryCommand openplatformOpenapiPageQueryCommand) {
         return openplatformOpenapiQueryCommandExecutor.execute(openplatformOpenapiPageQueryCommand);
+    }
+
+    @Override
+    public SingleResponse<String> singleQuery(OpenplatformOpenapiSingleQueryCommand openplatformOpenapiSingleQueryCommand) {
+        return openplatformOpenapiQueryCommandExecutor.singleQuery(openplatformOpenapiSingleQueryCommand);
+    }
+    @Transactional
+    @Override
+    public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand) {
+        return openplatformOpenapiQueryCommandExecutor.batchQuery(openplatformOpenapiBatchQueryCommand);
+    }
+
+    @Override
+    public OpenplatformOpenapiDownloadBatchQueryTemplateVO downloadBatchQueryTemplate(OpenplatformOpenapiDownloadBatchQueryTemplateCommand openplatformOpenapiDownloadBatchQueryTemplateCommand) {
+        return openplatformOpenapiQueryCommandExecutor.downloadBatchQueryTemplate(openplatformOpenapiDownloadBatchQueryTemplateCommand);
     }
 
     @Override

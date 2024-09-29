@@ -26,6 +26,12 @@ public class Command extends DTO {
 	private DataConstraintContext dataConstraintContext;
 
 	/**
+	 * 统一添加一个登录用户id以文件后续使用
+	 */
+	@Ignore
+	@Schema(description = "当前登录用户id",hidden = true)
+	private Long loginUserId;
+	/**
 	 * 设置
 	 * @param dataConstraintDataObject
 	 */
@@ -39,6 +45,21 @@ public class Command extends DTO {
 	 * @param dataConstraintDataObject
 	 */
 	public void setDataConstraintDataObject(String dataConstraintDataObject) {
+
+	}
+
+	/**
+	 * 设置登录用户id
+	 * @param loginUserId
+	 */
+	public void luid(Long loginUserId) {
+		this.loginUserId = loginUserId;
+	}
+	/**
+	 * 空的设置方法，防止前端传值
+	 * @param loginUserId
+	 */
+	public void setLoginUserId(Long loginUserId) {
 
 	}
 }

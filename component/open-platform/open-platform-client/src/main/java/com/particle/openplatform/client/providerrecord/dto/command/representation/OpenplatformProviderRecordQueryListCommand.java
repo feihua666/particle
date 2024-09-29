@@ -81,6 +81,12 @@ public class OpenplatformProviderRecordQueryListCommand extends AbstractBaseQuer
 	@Schema(description = "是否命中缓存")
 	private Boolean isCacheHit;
 
+	@Schema(description = "消费金额，单位分")
+	private Integer feeAmount;
+
+	@Schema(description = "消费金额缘由，字典id")
+	private Long feeReasonDictId;
+
 	@Schema(description = "描述")
 	private String remark;
 

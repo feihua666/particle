@@ -17,6 +17,21 @@ import openplatformDocApiDocTemplateParamFieldAdminRoutes from "./views/doc/admi
 import openplatformDocApiDocTemplateResponseCodeAdminRoutes from "./views/doc/admin/openplatformDocApiDocTemplateResponseCodeAdminRoutes";
 import openplatformDocApiDocTemplateExampleCodeAdminRoutes from "./views/doc/admin/openplatformDocApiDocTemplateExampleCodeAdminRoutes";
 import openplatformDocApiDirRelAdminRoutes from "./views/doc/admin/openplatformDocApiDirRelAdminRoutes";
+import openplatformOpenapiRecordAppOpenapiDaySummaryAdminRoutes
+    from "./views/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryAdminRoutes";
+import openplatformOpenapiRecordAppOpenapiMonthSummaryAdminRoutes
+    from "./views/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryAdminRoutes";
+import openplatformOpenapiRecordCustomerMonthBillAdminRoutes
+    from "./views/bill/admin/openplatformOpenapiRecordCustomerMonthBillAdminRoutes";
+import openplatformProviderRecordPrdApiDaySummaryAdminRoutes
+    from "./views/bill/admin/openplatformProviderRecordPrdApiDaySummaryAdminRoutes";
+import openplatformProviderRecordPrdApiMonthSummaryAdminRoutes
+    from "./views/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminRoutes";
+import openplatformProviderRecordPrdMonthBillAdminRoutes
+    from "./views/bill/admin/openplatformProviderRecordPrdMonthBillAdminRoutes";
+import openplatformProviderApiAdminRoutes from "./views/provider/admin/openplatformProviderApiAdminRoutes";
+import openplatformOpenapiBatchQueryRecordAdminRoutes
+    from "./views/openapi/admin/openplatformOpenapiBatchQueryRecordAdminRoutes";
 
 const OpenPlatformRoutes = []
     .concat(openplatformAppAdminRoutes)
@@ -25,6 +40,7 @@ const OpenPlatformRoutes = []
     .concat(openplatformOpenapiFeeAdminRoutes)
     .concat(openplatformOpenapiRecordAdminRoutes)
     .concat(openplatformProviderAdminRoutes)
+    .concat(openplatformProviderApiAdminRoutes)
     .concat(openplatformProviderRecordAdminRoutes)
     .concat(openplatformDocDirNameAdminRoutes)
     .concat(openplatformDocDirAdminRoutes)
@@ -38,4 +54,11 @@ const OpenPlatformRoutes = []
     .concat(openplatformDocApiDocTemplateResponseCodeAdminRoutes)
     .concat(openplatformDocApiDocTemplateExampleCodeAdminRoutes)
     .concat(openplatformDocApiDirRelAdminRoutes)
+    .concat(openplatformOpenapiRecordAppOpenapiDaySummaryAdminRoutes)
+    .concat(openplatformOpenapiRecordAppOpenapiMonthSummaryAdminRoutes)
+    .concat(openplatformOpenapiRecordCustomerMonthBillAdminRoutes)
+    .concat(openplatformProviderRecordPrdApiDaySummaryAdminRoutes)
+    .concat(openplatformProviderRecordPrdApiMonthSummaryAdminRoutes)
+    .concat(openplatformProviderRecordPrdMonthBillAdminRoutes)
+    .concat(openplatformOpenapiBatchQueryRecordAdminRoutes)
 export default OpenPlatformRoutes

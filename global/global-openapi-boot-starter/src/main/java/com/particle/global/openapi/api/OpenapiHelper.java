@@ -118,8 +118,9 @@ public class OpenapiHelper {
 		openapiContext.setRequestUrl(requestURI);
 		// 设置接口的权限及接口信息,如果获取不到，说明没有配置，应该提示接口不存在，但这里没有提示，因为有可能是通过其它方式访问,通过后面的处理最终一般来说会提示没有权限
 		ApiInfo apiInfo = openApi.getApiInfo(requestURI,clientId);
-		openapiContext.setApiInfo(apiInfo);
 		if (apiInfo != null) {
+			openapiContext.setApiInfo(apiInfo);
+			// 设置接口的权限，以供后面逻辑校验使用
 			PermissionService.putPermission(apiInfo.getPermission());
 		}
 
@@ -369,6 +370,9 @@ public class OpenapiHelper {
 	}
 
 
+	/**
+	 * 忽略请求解析结果
+	 */
 	@Data
 	public static class IgnoreResult {
 		/**
@@ -376,7 +380,13 @@ public class OpenapiHelper {
 		 */
 		private String clientId;
 
+		/**
+		 * 是否忽略
+		 */
 		private boolean ignore;
+		/**
+		 * 原因
+		 */
 		private String reason;
 	}
 }

@@ -153,7 +153,7 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 			// 字段名
 			openplatformDocApiDocTemplateParamFieldCreateCommand.setName(key);
 			// 字段类型
-			FieldType fieldType = FieldType.parse(keyValue);
+			FieldType fieldType = FieldType.parseByValue(keyValue);
 			if (fieldType == null) {
 				fieldType = FieldType.object;
 			}
@@ -162,7 +162,7 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 				Collection keyValueCollection = (Collection) keyValue;
 				if (!keyValueCollection.isEmpty()) {
 					Object nestObj = keyValueCollection.iterator().next();
-					FieldType nestFieldType = FieldType.parse(nestObj);
+					FieldType nestFieldType = FieldType.parseByValue(nestObj);
 					if (nestFieldType != null) {
 						openplatformDocApiDocTemplateParamFieldCreateCommand.setNestTypeDictId(openplatformDictGateway.getDictIdByGroupCodeAndItemValue(nestFieldType.groupCode(),nestFieldType.itemValue()));
 					}

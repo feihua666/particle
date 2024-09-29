@@ -10,6 +10,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.openapi.api.AbstractGlobalOpenapi;
+import com.particle.global.security.security.login.LoginUser;
 import com.particle.openplatform.client.app.api.IOpenplatformAppApplicationService;
 import com.particle.openplatform.client.app.api.representation.IOpenplatformAppRepresentationApplicationService;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppCreateCommand;
@@ -112,5 +113,13 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 		}
 		// 返回服务的地址，以方便在多实例部署时，区分机器已刷新
 		return SingleResponse.of(NetUtil.getLocalhostStr());
+	}
+
+	@PreAuthorize("hasAuthority('user')")
+	@Operation(summary = "列表查询当前登录用户开放平台应用")
+	@GetMapping("/list_by_you")
+	public MultiResponse<OpenplatformAppVO> queryListForCurrentUser(OpenplatformAppQueryListCommand openplatformAppQueryListCommand, LoginUser loginUser){
+		openplatformAppQueryListCommand.setOwnerUserId(loginUser.getId());
+		return iOpenplatformAppRepresentationApplicationService.queryList(openplatformAppQueryListCommand);
 	}
 }

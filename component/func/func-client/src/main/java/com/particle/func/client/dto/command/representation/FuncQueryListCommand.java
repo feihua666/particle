@@ -1,6 +1,7 @@
 package com.particle.func.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.tree.AbstractBaseTreeQueryCommand;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 import com.particle.global.light.share.mybatis.anno.OrderBy;
 
@@ -11,6 +12,7 @@ import lombok.Data;
  * <p>
  * 菜单功能 通用列表查询指令对象
  * </p>
+ * 注意：{@link com.particle.func.infrastructure.service.impl.FuncServiceImpl#getQueryWrapper(QueryCommand)} 有字符串路径引用
  *
  * @author yw
  * @since 2022-07-19

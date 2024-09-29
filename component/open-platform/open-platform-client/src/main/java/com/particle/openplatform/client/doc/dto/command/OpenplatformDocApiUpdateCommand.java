@@ -47,6 +47,9 @@ public class OpenplatformDocApiUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "价格文本")
     private String pricePerTimeDesc;
 
+	@Schema(description = "开放接口id，这里只存储接口，不存储分组")
+	private Long openplatformOpenapiId;
+
 
     @Schema(description = "描述")
     private String description;

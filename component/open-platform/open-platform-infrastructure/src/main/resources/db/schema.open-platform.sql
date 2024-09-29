@@ -3,6 +3,8 @@
 -- import classpath:db/app/schema.component_openplatform_app_openapi.sql
 -- import classpath:db/openapi/schema.component_openplatform_openapi.sql
 -- import classpath:db/openapi/schema.component_openplatform_openapi_fee.sql
+-- import classpath:db/openapi/schema.component_openplatform_openapi_batch_query_record.sql
+-- import classpath:db/openapi/schema.component_openplatform_openapi_batch_query_record_detail.sql
 -- import classpath:db/openapirecord/schema.component_openplatform_openapi_record.sql
 -- import classpath:db/openapirecord/schema.component_openplatform_openapi_record_param.sql
 -- import classpath:db/provider/schema.component_openplatform_provider.sql
@@ -20,3 +22,9 @@
 -- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_example_code.sql
 -- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_param_field.sql
 -- import classpath:db/doc/schema.component_openplatform_doc_api_doc_template_response_code.sql
+-- import classpath:db/bill/schema.component_openplatform_openapi_record_app_openapi_day_summary.sql
+-- import classpath:db/bill/schema.component_openplatform_openapi_record_app_openapi_month_summary.sql
+-- import classpath:db/bill/schema.component_openplatform_openapi_record_customer_month_bill.sql
+-- import classpath:db/bill/schema.component_openplatform_provider_record_prd_api_day_summary.sql
+-- import classpath:db/bill/schema.component_openplatform_provider_record_prd_api_month_summary.sql
+-- import classpath:db/bill/schema.component_openplatform_provider_record_prd_month_bill.sql

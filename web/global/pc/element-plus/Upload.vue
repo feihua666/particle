@@ -26,6 +26,10 @@ const props = defineProps({
   tipTxt: {
     type: String
   },
+  // 在拖拽时显示的文字，默认为 '将文件拖到此处，或点击上传'
+  dragTip: {
+    type: String
+  },
   // 文件列表的类型 'text' | 'picture' | 'picture-card'
   listType: {
     type: String,
@@ -242,7 +246,7 @@ const handlePictureCardPreview = (uploadFile) => {
       :on-error="customOnErrorHandle"
       :on-preview="customOnPreview"
 
-  :on-change="customOnChangeHandle"
+      :on-change="customOnChangeHandle"
       :before-upload="customBeforeUpload"
       :before-remove="customBeforeRemove"
       @update:file-list="updateModelValueEvent">
@@ -271,7 +275,9 @@ const handlePictureCardPreview = (uploadFile) => {
     </template>
     <template #default v-if="!$slots.trigger && !$slots.default && drag && listType !== 'picture-card'">
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-      <div class="el-upload__text">
+      <div class="el-upload__text" v-if="dragTip" v-html="dragTip">
+      </div>
+      <div class="el-upload__text" v-else>
         Drop file here or <em>click to upload</em>
       </div>
     </template>
@@ -290,7 +296,7 @@ const handlePictureCardPreview = (uploadFile) => {
       <slot name="tip" :hasPermission="hasPermission">
       </slot>
     </template>
-    <template v-if="!$slots.tip && tipTxt">
+    <template  #tip v-if="!$slots.tip && tipTxt">
       <div class="el-upload__tip">
         {{tipTxt}}
       </div>

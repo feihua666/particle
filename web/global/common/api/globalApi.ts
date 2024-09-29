@@ -20,6 +20,19 @@ export const getDownloadPrefixUrl = () => {
     return getDownloadPrefixUrlRequest()
 }
 /**
+ * 文件最终的下载地址
+ * @param url
+ */
+export const getFinalDownloadUrl = (url: string) => {
+    if (!url) {
+        return url
+    }
+    if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0  || url.indexOf('data:') == 0){
+        return url
+    }
+    return getDownloadPrefixUrl() + url
+}
+/**
  * 获取 favicon.ico，后端支持动态配置图标
  */
 export const getFaviconUrl = () => {
@@ -63,4 +76,12 @@ export const getLogoText = (): AxiosPromise => {
  */
 export const getWebTitle = (): AxiosPromise => {
     return axios.get(getWebTitleUrl(),{configOptions: {showErrorMessage: false}})
+}
+/**
+ * 下载
+ * @param data
+ */
+export const download = (httpUrl: string): AxiosPromise => {
+    // 添加预期类型后，如果报错，则在全局的axiosRequest拦截中处理有一些问题，导致错误提示信息无法显示
+    return axios.get(httpUrl,{responseType: 'blob'})
 }

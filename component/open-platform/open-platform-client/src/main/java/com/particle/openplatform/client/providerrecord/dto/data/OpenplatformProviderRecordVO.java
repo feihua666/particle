@@ -69,6 +69,16 @@ public class OpenplatformProviderRecordVO extends AbstractBaseIdVO {
 	@Schema(description = "是否命中缓存")
 	private Boolean isCacheHit;
 
+	@Schema(description = "消费金额，单位分")
+	private Integer feeAmount;
+
+	@Schema(description = "消费金额缘由，字典id")
+	private Long feeReasonDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "feeReasonDictId",mapValueField = "name")
+    @Schema(description = "消费金额缘由，字典名称")
+    private String feeReasonDictName;
+
     @TransBy(type = TransConstants.TRANS_DATAQUERY_PROVIDER_BY_USER_ID,byFieldName = "dataQueryProviderId",mapValueField = "name")
     @Schema(description = "数据查询供应商")
     private String dataQueryProviderName;
