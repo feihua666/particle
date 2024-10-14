@@ -7,6 +7,7 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,7 +64,16 @@ public interface IOpenplatformOpenapiRepresentationApplicationService extends IB
 	 * @param openplatformOpenapiBatchQueryCommand
 	 * @return
 	 */
-	public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand);
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand);
+
+	/**
+	 * 异步执行查询和导出
+	 * 缘由
+	 * 原来在 {@link IOpenplatformOpenapiRepresentationApplicationService#batchQuery(OpenplatformOpenapiBatchQueryCommand)} 中使用异步，但有可能会由于事务未提交导致查询不到数据的情况
+	 * @param openplatformOpenapiBatchQueryRecordId
+	 * @return
+	 */
+	public Response asyncBatchQueryAndExport(IdCommand openplatformOpenapiBatchQueryRecordId);
 	/**
 	 * 下载批量查询模板
 	 *

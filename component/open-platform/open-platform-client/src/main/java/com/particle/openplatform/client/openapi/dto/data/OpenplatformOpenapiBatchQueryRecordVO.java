@@ -37,7 +37,11 @@ public class OpenplatformOpenapiBatchQueryRecordVO extends AbstractBaseIdVO {
 
     @Schema(description = "客户id")
     private Long customerId;
-    
+
+    @TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "customerId",mapValueField = "name")
+    @Schema(description = "客户id")
+    private String customerName;
+
     @Schema(description = "执行状态")
     private Long executeStatusDictId;
 

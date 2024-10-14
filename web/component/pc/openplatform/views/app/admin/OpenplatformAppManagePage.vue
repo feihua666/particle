@@ -102,13 +102,14 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
+  let idDataForEdit = {id: row.id, ownerUserId: row.ownerUserId,ownerUserNickname: row.ownerUserNickname}
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
       permission: 'admin:web:openplatformApp:update',
       // 跳转到编辑
-      route: {path: '/admin/OpenplatformAppManageUpdate',query: idData}
+      route: {path: '/admin/OpenplatformAppManageUpdate',query: idDataForEdit}
     },
     {
       txt: '删除',

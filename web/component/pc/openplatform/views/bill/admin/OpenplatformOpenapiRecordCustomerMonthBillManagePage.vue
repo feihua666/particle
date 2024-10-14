@@ -17,8 +17,8 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
-      prop: 'customerId',
-      label: '客户id',
+      prop: 'customerName',
+      label: '客户名称',
     },
     {
       prop: 'year',
@@ -38,7 +38,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'totalFeeAmount',
-      label: '总消费金额',
+      label: '总消费金额（分）',
     },
     {
       prop: 'statusDictName',
@@ -112,7 +112,8 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:openplatformOpenapiRecordCustomerMonthBill:create" route="/admin/OpenplatformOpenapiRecordCustomerMonthBillManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:openplatformOpenapiRecordCustomerMonthBill:lastMonthStatistic" route="/admin/openplatformOpenapiRecordCustomerMonthBillLastMonthStatistic">统计上月数据</PtButton>
+      <PtButton permission="admin:web:openplatformOpenapiRecordCustomerMonthBill:thisMonthStatistic" route="/admin/openplatformOpenapiRecordCustomerMonthBillThisMonthStatistic">统计本月数据</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

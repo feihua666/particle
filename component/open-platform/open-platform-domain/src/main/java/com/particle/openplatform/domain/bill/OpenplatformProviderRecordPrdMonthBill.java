@@ -4,6 +4,9 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 开放平台供应商月账单 领域模型
@@ -46,7 +49,7 @@ public class OpenplatformProviderRecordPrdMonthBill extends AggreateRoot {
     /**
     * 平均单价金额，单位分
     */
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
     /**
     * 总消费金额，单位分

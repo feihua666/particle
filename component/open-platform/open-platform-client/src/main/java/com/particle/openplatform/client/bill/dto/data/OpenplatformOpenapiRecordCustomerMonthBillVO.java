@@ -21,7 +21,11 @@ public class OpenplatformOpenapiRecordCustomerMonthBillVO extends AbstractBaseId
 
     @Schema(description = "客户id")
     private Long customerId;
-    
+
+    @TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "customerId",mapValueField = "name")
+    @Schema(description = "客户id")
+    private String customerName;
+
     @Schema(description = "年")
     private Integer year;
     

@@ -8,7 +8,7 @@ export const useOauth2SelectClientCompItem = ({props = {},
                                                 required = false,
                                                 fieldName='clientId',
                                                 label='oauth2客户端',
-                                                valueChange = ()=>{},tips = ''})=>{
+                                                valueChange = ()=>{},tips = '',disabled = false})=>{
 
     return   {
         field: {
@@ -23,6 +23,7 @@ export const useOauth2SelectClientCompItem = ({props = {},
                 tips: tips
             },
             compProps:{
+                disabled: disabled,
                 dataMethod: oauth2RegisteredClientListApi,
                 props: {
                     value: 'clientId',

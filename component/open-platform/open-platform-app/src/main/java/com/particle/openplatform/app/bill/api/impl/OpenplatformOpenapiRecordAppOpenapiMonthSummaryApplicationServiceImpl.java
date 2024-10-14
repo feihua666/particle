@@ -55,6 +55,11 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationServiceIm
         return openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommandExecutor.execute(openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand);
     }
 
+    @Override
+    public Response statistic(Integer year, Integer month,Boolean isIncludeDaySummary, Long openplatformAppId) {
+        return openplatformOpenapiRecordAppOpenapiMonthSummaryCommandExecutor.statistic(year, month, isIncludeDaySummary,openplatformAppId);
+    }
+
 
     @Autowired
     public void setOpenplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommandExecutor(OpenplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommandExecutor openplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommandExecutor) {

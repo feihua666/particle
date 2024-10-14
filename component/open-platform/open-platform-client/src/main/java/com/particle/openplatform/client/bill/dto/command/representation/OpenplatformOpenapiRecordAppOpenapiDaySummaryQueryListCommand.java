@@ -5,6 +5,8 @@ import com.particle.global.light.share.mybatis.anno.Like;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 /**
  * <p>
@@ -24,7 +26,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryQueryListCommand exten
     private Long openplatformAppId;
 
 
-    @Schema(description = "应用id")
+    @Schema(description = "appId")
     private String appId;
 
 
@@ -49,7 +51,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryQueryListCommand exten
 
 
     @Schema(description = "平均单价金额")
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
 
     @Schema(description = "总消费金额")

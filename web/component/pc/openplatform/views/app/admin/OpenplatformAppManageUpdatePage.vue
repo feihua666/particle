@@ -19,7 +19,13 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   openplatformAppId: {
     type: String
-  }
+  },
+  // 加载数据初始化参数,路由传参,用于用户字段回显
+  ownerUserId: {
+    type: String
+  },
+  // 加载数据初始化参数,路由传参,用于用户字段回显
+  ownerUserNickname: String
 })
 // 属性
 const reactiveData = reactive({

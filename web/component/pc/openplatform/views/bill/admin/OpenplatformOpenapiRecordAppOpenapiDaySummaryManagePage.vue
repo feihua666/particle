@@ -3,7 +3,11 @@
  * 开放平台应用开放接口日汇总管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiRecordAppOpenapiDaySummaryPageApi, remove as openplatformOpenapiRecordAppOpenapiDaySummaryRemoveApi} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryAdminApi"
+import {
+  page as openplatformOpenapiRecordAppOpenapiDaySummaryPageApi,
+  remove as openplatformOpenapiRecordAppOpenapiDaySummaryRemoveApi, todayStatistic,
+  yesterdayStatistic
+} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryManage";
 
 
@@ -17,24 +21,28 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
-      prop: 'openplatformAppId',
-      label: '开放平台应用id',
+      prop: 'openplatformAppName',
+      label: '应用名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'appId',
-      label: '应用id',
+      label: 'appId',
+      showOverflowTooltip: true
     },
     {
-      prop: 'openplatformOpenapiId',
-      label: '开放平台接口id',
+      prop: 'openplatformOpenapiName',
+      label: '开放平台接口名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'dayAt',
       label: '日期',
     },
     {
-      prop: 'customerId',
-      label: '客户id',
+      prop: 'customerName',
+      label: '客户名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'totalCall',
@@ -46,11 +54,11 @@ const reactiveData = reactive({
     },
     {
       prop: 'averageUnitPriceAmount',
-      label: '平均单价金额',
+      label: '平均单价金额（分）',
     },
     {
       prop: 'totalFeeAmount',
-      label: '总消费金额',
+      label: '总消费金额（分）',
     },
     {
       prop: 'remark',
@@ -59,6 +67,13 @@ const reactiveData = reactive({
   ],
 
 })
+
+const yesterdayStatisticMethod = ()=>{
+  return yesterdayStatistic()
+}
+const todayStatisticMethod = ()=>{
+  return todayStatistic()
+}
 
 // 提交按钮属性
 const submitAttrs = ref({
@@ -86,17 +101,10 @@ const getTableRowButtons = ({row, column, $index}) => {
 
   let tableRowButtons = [
     {
-      txt: '编辑',
-      text: true,
-      permission: 'admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:update',
-      // 跳转到编辑
-      route: {path: '/admin/OpenplatformOpenapiRecordAppOpenapiDaySummaryManageUpdate',query: idData}
-    },
-    {
       txt: '删除',
       text: true,
       permission: 'admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `确定要删除吗？`,
       // 删除操作
       method(){
         return openplatformOpenapiRecordAppOpenapiDaySummaryRemoveApi({id: row.id}).then(res => {
@@ -119,6 +127,14 @@ const getTableRowButtons = ({row, column, $index}) => {
           :submitAttrs="submitAttrs"
           inline
           :comps="reactiveData.formComps">
+    <template #buttons>
+    <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:yesterdayStatistic"
+              methodConfirmText="确定要统计昨日的数据吗？如果已经存在昨日的数据将会被覆盖或删除"
+              :method="yesterdayStatisticMethod">统计昨日数据</PtButton>
+      <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:todayStatistic"
+                methodConfirmText="确定要统计今日的数据吗？如果已经存在今日的数据将会被覆盖或删除"
+                :method="todayStatisticMethod">统计今日数据</PtButton>
+    </template>
 
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

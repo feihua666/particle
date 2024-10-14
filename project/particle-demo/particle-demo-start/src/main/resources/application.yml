@@ -31,7 +31,7 @@ spring:
   sql:
     init:
       schema-locations:
-        - classpath:db/schema.particle-demo.sql
+        #- classpath:db/schema.particle-demo.sql
         - classpath:db/schema.area.sql
         - classpath:db/schema.dict.sql
         - classpath:db/schema.func.sql
@@ -85,7 +85,9 @@ spring:
         - classpath:db/data.tracking.sql
         - classpath:db/data.message.sql
         - classpath:db/data.oauth2authorization.sql
+        - classpath:db/data.oauth2authorization.demo.sql
         - classpath:db/data.open-platform.sql
+        - classpath:db/data.open-platform.demo.sql
         - classpath:db/data.report.sql
         - classpath:db/data.usage-count.sql
         - classpath:db/data.feedback.sql

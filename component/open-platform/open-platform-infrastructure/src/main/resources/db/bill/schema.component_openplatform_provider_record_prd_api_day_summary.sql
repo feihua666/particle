@@ -7,7 +7,7 @@ CREATE TABLE `component_openplatform_provider_record_prd_api_day_summary` (
   `day_at` date NOT NULL COMMENT '日期',
   `total_call` int NOT NULL COMMENT '调用总量',
   `total_fee_call` int NOT NULL COMMENT '调用计费总量',
-  `average_unit_price_amount` int NOT NULL COMMENT '平均单价金额，单位分',
+  `average_unit_price_amount` decimal(11,2) NOT NULL COMMENT '平均单价金额，单位分',
   `total_fee_amount` int NOT NULL COMMENT '总消费金额，单位分',
   `remark` varchar(2000) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',

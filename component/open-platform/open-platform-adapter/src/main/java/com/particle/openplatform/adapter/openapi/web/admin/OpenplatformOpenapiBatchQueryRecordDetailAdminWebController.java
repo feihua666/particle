@@ -46,38 +46,16 @@ public class OpenplatformOpenapiBatchQueryRecordDetailAdminWebController extends
     @Autowired
     private IOpenplatformOpenapiBatchQueryRecordDetailRepresentationApplicationService iOpenplatformOpenapiBatchQueryRecordDetailRepresentationApplicationService;
 
-    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:create')")
-    @Operation(summary = "添加开放接口批量查询记录明细")
-    @PostMapping("/create")
-    @OpLog(name = "添加开放接口批量查询记录明细",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> create(@RequestBody OpenplatformOpenapiBatchQueryRecordDetailCreateCommand openplatformOpenapiBatchQueryRecordDetailCreateCommand){
-        return iOpenplatformOpenapiBatchQueryRecordDetailApplicationService.create(openplatformOpenapiBatchQueryRecordDetailCreateCommand);
-    }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:delete')")
     @Operation(summary = "删除开放接口批量查询记录明细")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放接口批量查询记录明细",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放接口批量查询记录明细",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiBatchQueryRecordDetailApplicationService.delete(deleteCommand);
     }
 
-    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:update')")
-    @Operation(summary = "更新开放接口批量查询记录明细")
-    @PutMapping("/update")
-    @OpLog(name = "更新开放接口批量查询记录明细",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> update(@RequestBody OpenplatformOpenapiBatchQueryRecordDetailUpdateCommand openplatformOpenapiBatchQueryRecordDetailUpdateCommand){
-        openplatformOpenapiBatchQueryRecordDetailUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
-        return iOpenplatformOpenapiBatchQueryRecordDetailApplicationService.update(openplatformOpenapiBatchQueryRecordDetailUpdateCommand);
-    }
-
-    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:update')")
-    @Operation(summary = "开放接口批量查询记录明细更新详情")
-    @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
-        return iOpenplatformOpenapiBatchQueryRecordDetailRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
-    }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:detail')")
     @Operation(summary = "开放接口批量查询记录明细详情展示")

@@ -64,13 +64,4 @@ public class OpenplatformOpenapiBatchQueryRecordPageQueryCommand extends Abstrac
 	@Schema(description = "导出的文件地址")
 	private String exportFileUrl;
 
-
-
-
-
-
-
-
-
-
 }

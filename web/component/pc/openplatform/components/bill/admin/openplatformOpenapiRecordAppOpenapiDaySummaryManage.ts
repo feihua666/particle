@@ -3,6 +3,7 @@ import {
   useOauth2SelectClientCompItem
 } from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem";
 import {useCascaderOpenapiCompItem} from "../../openplatformOpenapiCompItem";
+import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 
 export const pageFormItems = [
   useSelectAppCompItem({}),
@@ -30,20 +31,7 @@ export const pageFormItems = [
       }
     }
   },
-      {
-        field: {
-          name: 'customerId',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '客户id',
-            
-          },
-          compProps: {
-          }
-        }
-      },
+  useSelectCrmCustomerCompItem({fieldName: 'customerId',label: '客户'}),
 ]
 export const addPageFormItems = [
 
@@ -73,7 +61,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '应用id',
+            label: 'appId',
             
           },
           compProps: {

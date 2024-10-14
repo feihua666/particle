@@ -19,10 +19,13 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '模板名称',
+      showOverflowTooltip: true,
+      width: '200'
     },
     {
       prop: 'code',
       label: '编码',
+      showOverflowTooltip: true
     },
 
     {
@@ -50,6 +53,7 @@ const reactiveData = reactive({
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
     {
       prop: 'seq',

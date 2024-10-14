@@ -2,4 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.particle.openplatform.infrastructure.bill.mapper.OpenplatformOpenapiRecordAppOpenapiDaySummaryMapper">
 
+    <select id="openAppIdOpenapiIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsVIEWDO">
+        select
+        openplatform_app_id,
+        openplatform_openapi_id,
+        sum(total_call) as total_call,
+        sum(total_fee_call) as total_fee_call,
+        sum(total_fee_amount) / sum(total_call) as average_unit_price_amount,
+        sum(total_fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record_app_openapi_day_summary
+        where day_at >= #{statisticsParams.dayAtStart}
+        and day_at &lt;= #{statisticsParams.dayAtEnd}
+        <if test="statisticsParams.openplatformAppId != null">
+            and openplatform_app_id = #{statisticsParams.openplatformAppId}
+        </if>
+        group by openplatform_app_id,openplatform_openapi_id
+        ;
+    </select>
 </mapper>

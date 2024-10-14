@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.particle.openplatform.infrastructure.openapirecord.mapper.OpenplatformOpenapiRecordMapper">
 
+    <select id="openAppIdOpenapiIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.openapirecord.dos.view.OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsVIEWDO">
+        select
+        openplatform_app_id,
+        openplatform_openapi_id,
+        count(1) as total_call,
+        count(CASE WHEN fee_amount > 0 THEN 1 END) as total_fee_call,
+        avg(fee_amount) as average_unit_price_amount,
+        sum(fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record
+        where request_handle_at >= #{statisticsParams.requestHandleAtStart}
+        and request_handle_at &lt;= #{statisticsParams.requestHandleAtEnd}
+        <if test="statisticsParams.openplatformAppId != null">
+            and openplatform_app_id = #{statisticsParams.openplatformAppId}
+        </if>
+        group by openplatform_app_id,openplatform_openapi_id
+    </select>
 </mapper>

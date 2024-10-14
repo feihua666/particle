@@ -27,7 +27,7 @@ public class OpenplatformOpenapiRecord extends AggreateRoot {
     private Long openplatformAppId;
 
     /**
-    * 应用id
+    * appId
     */
     private String appId;
 

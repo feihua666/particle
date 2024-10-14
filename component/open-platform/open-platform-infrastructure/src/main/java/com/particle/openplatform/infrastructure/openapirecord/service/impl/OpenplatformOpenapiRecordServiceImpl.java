@@ -1,7 +1,8 @@
 package com.particle.openplatform.infrastructure.openapirecord.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.openplatform.infrastructure.openapirecord.dos.OpenplatformOpenapiRecordDO;
+import com.particle.openplatform.infrastructure.openapirecord.dos.view.OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsVIEWDO;
+import com.particle.openplatform.infrastructure.openapirecord.dto.OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam;
 import com.particle.openplatform.infrastructure.openapirecord.mapper.OpenplatformOpenapiRecordMapper;
 import com.particle.openplatform.infrastructure.openapirecord.service.IOpenplatformOpenapiRecordService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
@@ -9,6 +10,8 @@ import com.particle.global.dto.basic.QueryCommand;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 /**
@@ -23,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OpenplatformOpenapiRecordServiceImpl extends IBaseServiceImpl<OpenplatformOpenapiRecordMapper, OpenplatformOpenapiRecordDO> implements IOpenplatformOpenapiRecordService {
 	private IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordDO> queryCommandMapStruct;
 
+	private OpenplatformOpenapiRecordMapper openplatformOpenapiRecordMapper;
 	@Override
 	protected OpenplatformOpenapiRecordDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
@@ -39,5 +43,15 @@ public class OpenplatformOpenapiRecordServiceImpl extends IBaseServiceImpl<Openp
 	@Override
 	protected void preUpdate(OpenplatformOpenapiRecordDO po) {
     
+	}
+
+	@Override
+	public List<OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsVIEWDO> openAppIdOpenapiIdStatistics(OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam) {
+		return openplatformOpenapiRecordMapper.openAppIdOpenapiIdStatistics(openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam);
+	}
+
+	@Autowired
+	public void setOpenplatformOpenapiRecordMapper(OpenplatformOpenapiRecordMapper openplatformOpenapiRecordMapper) {
+		this.openplatformOpenapiRecordMapper = openplatformOpenapiRecordMapper;
 	}
 }

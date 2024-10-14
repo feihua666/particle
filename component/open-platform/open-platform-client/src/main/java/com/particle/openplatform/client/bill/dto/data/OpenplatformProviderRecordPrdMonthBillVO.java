@@ -1,5 +1,6 @@
 package com.particle.openplatform.client.bill.dto.data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 
@@ -34,7 +35,7 @@ public class OpenplatformProviderRecordPrdMonthBillVO extends AbstractBaseIdVO {
     private Integer totalFeeCall;
     
     @Schema(description = "平均单价金额")
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
     
     @Schema(description = "总消费金额")
     private Integer totalFeeAmount;

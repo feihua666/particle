@@ -49,7 +49,7 @@ public class OpenplatformProviderApiAdminWebController extends AbstractBaseWebAd
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderApi:create')")
     @Operation(summary = "添加开放平台供应商接口")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台供应商接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台供应商接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformProviderApiVO> create(@RequestBody OpenplatformProviderApiCreateCommand openplatformProviderApiCreateCommand){
         return iOpenplatformProviderApiApplicationService.create(openplatformProviderApiCreateCommand);
     }
@@ -57,7 +57,7 @@ public class OpenplatformProviderApiAdminWebController extends AbstractBaseWebAd
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderApi:delete')")
     @Operation(summary = "删除开放平台供应商接口")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台供应商接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台供应商接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformProviderApiVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderApiApplicationService.delete(deleteCommand);
@@ -66,7 +66,7 @@ public class OpenplatformProviderApiAdminWebController extends AbstractBaseWebAd
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderApi:update')")
     @Operation(summary = "更新开放平台供应商接口")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台供应商接口",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台供应商接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformProviderApiVO> update(@RequestBody OpenplatformProviderApiUpdateCommand openplatformProviderApiUpdateCommand){
         openplatformProviderApiUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformProviderApiApplicationService.update(openplatformProviderApiUpdateCommand);

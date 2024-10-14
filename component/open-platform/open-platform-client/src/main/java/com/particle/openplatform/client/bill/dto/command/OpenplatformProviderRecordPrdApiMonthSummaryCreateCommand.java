@@ -5,6 +5,7 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -50,7 +51,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryCreateCommand extends A
 
     @NotNull(message = "平均单价金额 不能为空")
         @Schema(description = "平均单价金额",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
 
     @NotNull(message = "总消费金额 不能为空")

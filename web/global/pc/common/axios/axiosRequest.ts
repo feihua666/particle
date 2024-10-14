@@ -105,7 +105,7 @@ const defaultConfig: Config = {
     tokenKey: 'c-token-id',
     userDefaultInstance: true,// 使用默认axios实例，否则创建新的实例
     baseURI: getUrl(), // 基础url
-    timeout: 10000,// timeout 单位毫秒 默认 10s
+    timeout: 1000 * 120,// timeout 单位毫秒 默认 120s
     cancelDuplicateRequest: false, // 是否开启取消重复请求, 默认为 false
     loading: false, // 是否开启loading层效果, 默认为false
     reductDataFormat: false, // 是否开启简洁的数据结构响应, 默认为 false
@@ -283,7 +283,6 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
             return configOptionsTemp.reductDataFormat ? response.data : response
         },
         (error) => {
-            debugger
             // 默认配置覆盖
             let configOptionsTemp = Object.assign({},configOptions,error.config.configOptions || {})
             error.config && removePending(error.config)

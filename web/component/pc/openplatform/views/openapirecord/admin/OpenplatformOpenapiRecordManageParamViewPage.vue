@@ -33,7 +33,50 @@ const formComps = ref(
 
 // 初始化加载更新的数据
 const dataMethod = () => {
-  return paramDetailByOpenplatformOpenapiRecordId({id: props.openplatformOpenapiRecordId})
+  return paramDetailByOpenplatformOpenapiRecordId({id: props.openplatformOpenapiRecordId}).then(res => {
+    let data = res.data.data
+    let requestParam = data.requestParam
+    let requestParamObj = JSON.parse(requestParam)
+
+    let mapping = {
+      pathParameters: 'requestPathParam',
+      queryParameters: 'requestQueryString',
+      formParameters: 'requestFormParam',
+      bodyParameters: 'requestBodyParam',
+    }
+    for (let mappingKey in mapping) {
+      try {
+        let mappingValue = mapping[mappingKey]
+        let requestParamObjValue = requestParamObj[mappingKey]
+        // 先设置默认值
+        data[mappingValue] = requestParamObjValue
+
+        // 加一个判断，否则 null 值会转为 null 字符串
+        // 尝试格式化
+        if (requestParamObjValue) {
+          // 尝试转json,并设置值，有异常后将使用上面默认的
+          let jsonValue = JSON.parse(requestParamObjValue);
+          let jsonValueStr = JSON.stringify(jsonValue, null, '   ')
+          data[mappingValue] = jsonValueStr
+        }
+
+      }catch (e) {
+
+      }
+    }
+    try {
+      let responseResult = data.responseResult
+      if (responseResult) {
+        let responseResultObj = JSON.parse(responseResult)
+        data['responseResult'] = JSON.stringify(responseResultObj, null, '   ');
+      }
+    }catch (e) {
+
+    }
+
+
+    return Promise.resolve(res)
+  })
 }
 
 

@@ -1,5 +1,6 @@
 import {useSelectDataqueryProviderCompItem} from "../../../../dataquery/components/dataqueryProviderCompItem";
 import {useSelectProviderCompItem} from "../../openplatformProviderCompItem";
+import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 
 export const pageFormItems = [
       {
@@ -16,21 +17,7 @@ export const pageFormItems = [
           }
         }
       },
-  {
-    field: {
-      name: 'customerId',
-    },
-    element: {
-      comp: 'el-input',
-      formItemProps: {
-        label: '客户',
-      },
-      compProps: {
-        disabled: true,
-        disabledReason: '暂不支持，预留'
-      }
-    }
-  },
+  useSelectCrmCustomerCompItem({fieldName: 'customerId',label: '客户'}),
       {
         field: {
           name: 'requestUrl',

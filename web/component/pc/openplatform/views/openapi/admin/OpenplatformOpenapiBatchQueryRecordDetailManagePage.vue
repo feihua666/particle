@@ -33,6 +33,9 @@ const reactiveData = reactive({
       prop: 'isSuccess',
       label: '是否成功',
       formatter: (row, column, cellValue, index) => {
+        if (cellValue == null) {
+          return null
+        }
         let r = cellValue ? '查询成功' : '查询失败'
         return r
       },
@@ -45,7 +48,10 @@ const reactiveData = reactive({
       prop: 'traceId | spanId',
       label: 'traceId | spanId',
       formatter: (row, column, cellValue, index) => {
-        let r = `${row.traceId} | ${row.spanId}`
+        if (!row.traceId && !row.spanId) {
+          return null
+        }
+        let r = `${row.traceId} | ${row.spanId}`;
         return r
       },
       showOverflowTooltip: true,

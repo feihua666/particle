@@ -55,4 +55,6 @@ public class OpenplatformOpenapiQueryListCommand extends AbstractBaseTreeQueryCo
 	 */
 	@Schema(description = "开放平台应用id过滤，不过滤接口组")
 	private Long filterOpenplatformAppId;
+
+
 }

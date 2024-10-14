@@ -1,6 +1,7 @@
 import {useRemoteSelectUserCompItem} from "../../../../user/components/userCompItem";
 import {useOauth2SelectClientCompItem} from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem.ts";
 import {useSelectOpenapiFeeCompItem} from "../../openplatformOpenapiFeeCompItem";
+import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 
 export const pageFormItems = [
     {
@@ -31,21 +32,7 @@ export const pageFormItems = [
         propUserNicknameFieldName: 'ownerUserNickname',
         label: '归属用户'
     }),
-    {
-        field: {
-            name: 'ownerCustomerId',
-        },
-        element: {
-            comp: 'el-input',
-            formItemProps: {
-                label: '归属客户',
-            },
-            compProps: {
-                disabled: true,
-                disabledReason: '暂不支持，预留'
-            }
-        }
-    },
+    useSelectCrmCustomerCompItem({fieldName: 'ownerCustomerId',label: '归属客户'}),
     useSelectOpenapiFeeCompItem({}),
 
 ]
@@ -84,22 +71,7 @@ export const useAddPageFormItems = ({props,appAlgorithmSecretConfigsRef}) => {
             label: '归属用户',
           tips: '这有利于用户自动操作时绑定关系'
         }),
-
-        {
-            field: {
-                name: 'ownerCustomerId',
-            },
-            element: {
-                comp: 'el-input',
-                formItemProps: {
-                    label: '归属客户',
-                },
-              compProps: {
-                disabled: true,
-                disabledReason: '暂不支持，预留'
-              }
-            }
-        },
+        useSelectCrmCustomerCompItem({fieldName: 'ownerCustomerId',label: '归属客户'}),
         {
             field: {
                 name: 'requestAlgorithmSecretJson',

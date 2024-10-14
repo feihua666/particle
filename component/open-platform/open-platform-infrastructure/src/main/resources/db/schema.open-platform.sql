@@ -25,6 +25,7 @@
 -- import classpath:db/bill/schema.component_openplatform_openapi_record_app_openapi_day_summary.sql
 -- import classpath:db/bill/schema.component_openplatform_openapi_record_app_openapi_month_summary.sql
 -- import classpath:db/bill/schema.component_openplatform_openapi_record_customer_month_bill.sql
+-- import classpath:db/bill/schema.component_openplatform_openapi_record_app_month_bill.sql
 -- import classpath:db/bill/schema.component_openplatform_provider_record_prd_api_day_summary.sql
 -- import classpath:db/bill/schema.component_openplatform_provider_record_prd_api_month_summary.sql
 -- import classpath:db/bill/schema.component_openplatform_provider_record_prd_month_bill.sql

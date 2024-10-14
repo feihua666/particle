@@ -3,7 +3,9 @@ package com.particle.openplatform.adapter.bill.web.admin;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.openplatform.client.bill.api.IOpenplatformOpenapiRecordCustomerMonthBillApplicationService;
 import com.particle.openplatform.client.bill.api.representation.IOpenplatformOpenapiRecordCustomerMonthBillRepresentationApplicationService;
+import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryStatisticCommand;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordCustomerMonthBillCreateCommand;
+import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordCustomerMonthBillStatisticCommand;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformOpenapiRecordCustomerMonthBillVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordCustomerMonthBillUpdateCommand;
@@ -27,6 +29,9 @@ import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
+
+import java.time.LocalDate;
+
 /**
  * <p>
  * 开放平台客户月账单后台管理pc或平板端前端适配器
@@ -49,7 +54,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordCustomerMonthBill:create')")
     @Operation(summary = "添加开放平台客户月账单")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台客户月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> create(@RequestBody OpenplatformOpenapiRecordCustomerMonthBillCreateCommand openplatformOpenapiRecordCustomerMonthBillCreateCommand){
         return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.create(openplatformOpenapiRecordCustomerMonthBillCreateCommand);
     }
@@ -57,7 +62,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordCustomerMonthBill:delete')")
     @Operation(summary = "删除开放平台客户月账单")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台客户月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.delete(deleteCommand);
@@ -66,7 +71,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordCustomerMonthBill:update')")
     @Operation(summary = "更新开放平台客户月账单")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台客户月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> update(@RequestBody OpenplatformOpenapiRecordCustomerMonthBillUpdateCommand openplatformOpenapiRecordCustomerMonthBillUpdateCommand){
         openplatformOpenapiRecordCustomerMonthBillUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.update(openplatformOpenapiRecordCustomerMonthBillUpdateCommand);
@@ -100,5 +105,27 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     public PageResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> pageQueryList(OpenplatformOpenapiRecordCustomerMonthBillPageQueryCommand openplatformOpenapiRecordCustomerMonthBillPageQueryCommand){
         openplatformOpenapiRecordCustomerMonthBillPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iOpenplatformOpenapiRecordCustomerMonthBillRepresentationApplicationService.pageQuery(openplatformOpenapiRecordCustomerMonthBillPageQueryCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:lastMonthStatistic')")
+    @Operation(summary = "统计上月开放平台客户月账单")
+    @PostMapping("/lastMonthStatistic")
+    @OpLog(name = "统计上月开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response lastMonthStatistic(@RequestBody OpenplatformOpenapiRecordCustomerMonthBillStatisticCommand command){
+        LocalDate localDate = LocalDate.now();
+        LocalDate lastMonth = localDate.minusMonths(1);
+        Integer year = lastMonth.getYear();
+        Integer month = lastMonth.getMonthValue();
+        return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.statistic(year,month,command.getIsIncludeMonthSummary(),command.getIsIncludeDaySummary());
+    }
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:thisMonthStatistic')")
+    @Operation(summary = "统计本月开放平台客户月账单")
+    @PostMapping("/thisMonthStatistic")
+    @OpLog(name = "统计本月开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response thisMonthStatistic(@RequestBody OpenplatformOpenapiRecordCustomerMonthBillStatisticCommand command){
+        LocalDate localDate = LocalDate.now();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+        return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.statistic(year,month,command.getIsIncludeMonthSummary(),command.getIsIncludeDaySummary());
     }
 }

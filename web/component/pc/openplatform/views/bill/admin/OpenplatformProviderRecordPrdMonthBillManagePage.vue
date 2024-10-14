@@ -42,7 +42,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'totalFeeAmount',
-      label: '总消费金额',
+      label: '总消费金额（分）',
     },
     {
       prop: 'remark',

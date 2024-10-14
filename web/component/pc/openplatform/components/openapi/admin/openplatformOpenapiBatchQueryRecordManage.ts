@@ -1,5 +1,6 @@
 import {useSelectAppForCurrentUserCompItem} from "../../openplatformAppCompItem";
 import {useCascaderOpenapiByOpenplatformAppIdCompItem} from "../../openplatformOpenapiCompItem";
+import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 
 export const pageFormItems = [
   useSelectAppForCurrentUserCompItem({
@@ -15,21 +16,7 @@ export const pageFormItems = [
     label: '开放接口',
     disableGroup: true
   }),
-  {
-    field: {
-      name: 'customerId',
-    },
-    element: {
-      comp: 'el-input',
-      formItemProps: {
-        label: '客户',
-      },
-      compProps: {
-        disabled: true,
-        disabledReason: '暂不支持，预留'
-      }
-    }
-  },
+    useSelectCrmCustomerCompItem({fieldName: 'customerId',label: '客户'}),
       {
         field: {
           name: 'executeStatusDictId',

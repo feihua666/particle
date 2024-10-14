@@ -5,6 +5,9 @@ import com.particle.global.light.share.mybatis.anno.Like;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 开放平台供应商月账单 通用列表查询指令对象
@@ -40,7 +43,7 @@ public class OpenplatformProviderRecordPrdMonthBillQueryListCommand extends Abst
 
 
     @Schema(description = "平均单价金额")
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
 
     @Schema(description = "总消费金额")

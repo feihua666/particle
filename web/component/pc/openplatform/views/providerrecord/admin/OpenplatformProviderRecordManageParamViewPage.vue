@@ -34,7 +34,29 @@ const formComps = ref(
 )
 // 初始化加载更新的数据
 const dataMethod = () => {
-  return paramDetailByOpenplatformProviderRecordId({id: props.openplatformProviderRecordId})
+  return paramDetailByOpenplatformProviderRecordId({id: props.openplatformProviderRecordId}).then(res => {
+    let data = res.data.data
+    try {
+      let requestParam = data.requestParam
+      if (requestParam) {
+        let requestParamObj = JSON.parse(requestParam)
+        data['requestParam'] = JSON.stringify(requestParamObj, null, '   ');
+      }
+    }catch (e) {
+
+    }
+    try {
+      let responseResult = data.responseResult
+      if (responseResult) {
+        let responseResultObj = JSON.parse(responseResult)
+        data['responseResult'] = JSON.stringify(responseResultObj, null, '   ');
+      }
+    }catch (e) {
+
+    }
+
+    return Promise.resolve(res)
+  })
 }
 
 </script>

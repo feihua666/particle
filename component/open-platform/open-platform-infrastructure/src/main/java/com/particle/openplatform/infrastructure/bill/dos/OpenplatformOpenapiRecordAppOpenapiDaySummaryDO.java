@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 /**
  * <p>
@@ -27,7 +29,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryDO extends BaseDO {
     private Long openplatformAppId;
 
     /**
-    * 应用id
+    * appId
     */
     private String appId;
 
@@ -59,7 +61,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryDO extends BaseDO {
     /**
     * 平均单价金额，单位分
     */
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
     /**
     * 总消费金额，单位分

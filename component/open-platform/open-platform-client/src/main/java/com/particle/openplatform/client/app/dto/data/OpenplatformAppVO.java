@@ -36,9 +36,7 @@ public class OpenplatformAppVO extends AbstractBaseIdVO {
     @Schema(description = "归属客户id")
     private Long ownerCustomerId;
 
-	/**
-	 * todo 待添加crm模块后可用
-	 */
+	@TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "ownerCustomerId",mapValueField = "name")
 	@Schema(description = "归属客户名称")
 	private String ownerCustomerName;
     

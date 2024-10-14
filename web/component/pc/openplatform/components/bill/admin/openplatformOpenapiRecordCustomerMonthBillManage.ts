@@ -1,88 +1,40 @@
+import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
+
 export const pageFormItems = [
-      {
-        field: {
-          name: 'customerId',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '客户id',
-            
-          },
-          compProps: {
-          }
-        }
+  useSelectCrmCustomerCompItem({fieldName: 'customerId',label: '客户'}),
+  {
+    field: {
+      name: 'year',
+    },
+    element: {
+      comp: 'PtDatePicker',
+      formItemProps: {
+        label: '年',
       },
-      {
-        field: {
-          name: 'year',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '年',
-            
-          },
-          compProps: {
-          }
-        }
+      compProps: {
+        type: 'year',
+        valueFormat: 'YYYY'
+      }
+    }
+  },
+  {
+    field: {
+      name: 'month',
+    },
+    element: {
+      comp: 'PtDatePicker',
+      formItemProps: {
+        label: '月',
+
       },
-      {
-        field: {
-          name: 'month',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '月',
-            
-          },
-          compProps: {
-          }
-        }
-      },
-      {
-        field: {
-          name: 'totalCall',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '调用总量',
-            
-          },
-          compProps: {
-          }
-        }
-      },
-      {
-        field: {
-          name: 'totalFeeCall',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '调用计费总量',
-            
-          },
-          compProps: {
-          }
-        }
-      },
-      {
-        field: {
-          name: 'totalFeeAmount',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '总消费金额',
-            
-          },
-          compProps: {
-          }
-        }
-      },
+      compProps: {
+        type: 'month',
+        format: 'MM',
+        valueFormat: 'MM'
+      }
+    }
+  },
+
       {
         field: {
           name: 'statusDictId',
@@ -95,157 +47,174 @@ export const pageFormItems = [
           },
           compProps: {
             // 字典查询
-            dictParam: {groupCode: '这里填写字典组编码'}
+            dictParam: {groupCode: 'open_platform_bill_status'}
           }
         }
       },
 ]
-export const addPageFormItems = [
+export const updatePageFormItems = [
+
+  useSelectCrmCustomerCompItem({fieldName: 'customerId',label: '客户',disabled: true}),
 
 
-
-
-      {
-        field: {
-          name: 'customerId',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '客户id',
-            
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'year',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '年',
+        required: true,
       },
+      compProps: {
+        disabled: true
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'year',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '年',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'month',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '月',
+        required: true,
       },
+      compProps: {
+        disabled: true
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'month',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '月',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'totalCall',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '调用总量',
+        required: true,
       },
+      compProps: {
+        disabled: true
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'totalCall',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '调用总量',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'totalFeeCall',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '调用计费总量',
+        required: true,
       },
+      compProps: {
+        disabled: true
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'totalFeeCall',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '调用计费总量',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'totalFeeAmount',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '总消费金额',
+        required: true,
       },
+      compProps: {
+        disabled: true
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'totalFeeAmount',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '总消费金额',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'statusDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '账单状态',
+        required: true
+
       },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'open_platform_bill_status'}
+      }
+    }
+  },
 
 
-      {
-        field: {
-          name: 'statusDictId',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '账单状态',
-            required: true,
-          },
-          compProps: {
-          }
-        }
+  {
+    field: {
+      name: 'remark',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '描述',
+        displayBlock: true,
+        tips: '可以添加一些账单跟进信息'
       },
-
-
-      {
-        field: {
-          name: 'remark',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '描述',
-            
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
-
-
-
-
-
-
-
-
-
-
+      compProps: {
+        type: 'textarea',
+        clearable: true,
+        rows: 10
+      }
+    }
+  },
 
 
 ]
 
-// 更新和添加一致
-export const updatePageFormItems = addPageFormItems
+export const monthBillStatisticPageFormItems = [
+  {
+    field: {
+      name: 'isIncludeMonthSummary',
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '是否统计月汇总',
+        tips: '如果不统计月汇总，请确保统计月份的月汇总已存在，否则统计不到数据'
+      },
+      compProps: {
+        activeText: '统计月汇总',
+        inactiveText: '不统计月汇总',
+      }
+    }
+  },
+  {
+    field: {
+      name: 'isIncludeDaySummary',
+    },
+    element: {
+      comp: 'el-switch',
+      formItemProps: {
+        label: '是否统计日汇总',
+        tips: '如果不统计日汇总，请确保统计月份的日汇总已存在，否则统计不到数据，仅在 统计月汇总 情况下生效'
+      },
+      compProps: {
+        activeText: '统计日汇总',
+        inactiveText: '不统计日汇总',
+      }
+    }
+  },
 
+]

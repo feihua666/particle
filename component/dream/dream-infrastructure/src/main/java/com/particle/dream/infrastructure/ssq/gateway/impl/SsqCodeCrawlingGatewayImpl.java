@@ -12,25 +12,20 @@ import cn.hutool.script.ScriptUtil;
 import com.particle.dream.domain.ssq.gateway.SsqCodeCrawlingGateway;
 import com.particle.dream.domain.ssq.value.SsqCodeCrawlingResult;
 import com.particle.global.tool.http.HttpClientTool;
-import com.particle.global.tool.template.TemplateTool;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.jsoup.nodes.Document;
-
-import javax.script.Invocable;
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
 
 /**
  * <p>

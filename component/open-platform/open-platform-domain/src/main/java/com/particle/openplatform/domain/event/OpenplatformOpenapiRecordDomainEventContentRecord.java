@@ -19,7 +19,7 @@ public class OpenplatformOpenapiRecordDomainEventContentRecord extends DTO {
 
 
 	/**
-	 * 应用id
+	 * appId
 	 */
 	private String appId;
 

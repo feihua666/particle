@@ -5,6 +5,8 @@ import com.particle.global.mybatis.plus.dto.BaseDO;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 /**
@@ -48,7 +50,7 @@ public class OpenplatformProviderRecordPrdMonthBillDO extends BaseDO {
     /**
     * 平均单价金额，单位分
     */
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
     /**
     * 总消费金额，单位分

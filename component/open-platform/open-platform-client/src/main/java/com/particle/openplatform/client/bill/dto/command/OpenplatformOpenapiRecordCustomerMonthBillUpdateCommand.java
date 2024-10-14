@@ -20,36 +20,6 @@ import javax.validation.constraints.NotNull;
 public class OpenplatformOpenapiRecordCustomerMonthBillUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
-    @Schema(description = "客户id")
-    private Long customerId;
-
-
-    @NotNull(message = "年 不能为空")
-        @Schema(description = "年",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer year;
-
-
-    @NotNull(message = "月 不能为空")
-        @Schema(description = "月",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer month;
-
-
-    @NotNull(message = "调用总量 不能为空")
-        @Schema(description = "调用总量",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer totalCall;
-
-
-    @NotNull(message = "调用计费总量 不能为空")
-        @Schema(description = "调用计费总量",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer totalFeeCall;
-
-
-    @NotNull(message = "总消费金额 不能为空")
-        @Schema(description = "总消费金额",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer totalFeeAmount;
-
-
     @NotNull(message = "账单状态 不能为空")
         @Schema(description = "账单状态",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long statusDictId;

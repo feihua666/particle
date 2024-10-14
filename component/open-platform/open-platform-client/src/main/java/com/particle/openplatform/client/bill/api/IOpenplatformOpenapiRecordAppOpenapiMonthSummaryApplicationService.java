@@ -7,6 +7,9 @@ import com.particle.global.dto.response.Response;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommand;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO;
+
+import java.time.LocalDate;
+
 /**
  * <p>
  * 开放平台应用开放接口月汇总 应用门面服务类
@@ -36,4 +39,15 @@ public interface IOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationServ
 	 * @return
 	 */
 	SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> update(OpenplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand);
+
+
+	/**
+	 * 统计某一月的数据
+	 * @param year
+	 * @param month
+	 * @param isIncludeDaySummary
+	 * @param openplatformAppId 要统计的应用id，如果不传递，则统计所有应用
+	 * @return
+	 */
+	Response statistic(Integer year, Integer month,Boolean isIncludeDaySummary, Long openplatformAppId);
 }

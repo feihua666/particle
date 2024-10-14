@@ -55,6 +55,11 @@ public class OpenplatformOpenapiRecordCustomerMonthBillApplicationServiceImpl ex
         return openplatformOpenapiRecordCustomerMonthBillUpdateCommandExecutor.execute(openplatformOpenapiRecordCustomerMonthBillUpdateCommand);
     }
 
+    @Override
+    public Response statistic(Integer year, Integer month, Boolean isIncludeMonthSummary, Boolean isIncludeDaySummary) {
+        return openplatformOpenapiRecordCustomerMonthBillCommandExecutor.statistic(year, month, isIncludeMonthSummary, isIncludeDaySummary);
+    }
+
 
     @Autowired
     public void setOpenplatformOpenapiRecordCustomerMonthBillCreateCommandExecutor(OpenplatformOpenapiRecordCustomerMonthBillCreateCommandExecutor openplatformOpenapiRecordCustomerMonthBillCreateCommandExecutor) {

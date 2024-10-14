@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+
 /**
  * <p>
  * 开放平台应用开放接口日汇总 门面服务实现类
@@ -53,6 +56,11 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationServiceImpl
     @Override
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> update(OpenplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand) {
         return openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommandExecutor.execute(openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand);
+    }
+
+    @Override
+    public Response statistic(LocalDate localDate,Long openplatformAppId) {
+        return openplatformOpenapiRecordAppOpenapiDaySummaryCommandExecutor.statistic(localDate,openplatformAppId);
     }
 
 

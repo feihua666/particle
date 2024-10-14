@@ -52,7 +52,7 @@ export const useSelectCrmCustomerRelationDefineCompItem = ({
         }
     }
 }
-export const useSelectCrmCustomerCompItem = ({fieldName= 'crmCustomerId',required=false,label= '客户'})=>{
+export const useSelectCrmCustomerCompItem = ({fieldName= 'crmCustomerId',required=false,label= '客户',disabled = false})=>{
     return         {
         field: {
             name: fieldName
@@ -64,6 +64,7 @@ export const useSelectCrmCustomerCompItem = ({fieldName= 'crmCustomerId',require
                 required: required
             },
             compProps: {
+                disabled: disabled,
                 clearable: true,
                 // 加载数据
                 dataMethod: () => { return crmCustomerListApi({})},

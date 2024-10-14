@@ -46,3 +46,17 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(openplatformOpenapiRecordCustomerMonthBillPrefix + '/page',{params: data})
 }
 
+/**
+ * 统计上月开放平台客户月账单
+ * @param data
+ */
+export const lastMonthBillStatistic = (data: anyObj): AxiosPromise => {
+    return axios.post(openplatformOpenapiRecordCustomerMonthBillPrefix + '/lastMonthStatistic',data)
+}
+/**
+ * 统计本月开放平台客户月账单
+ * @param data
+ */
+export const thisMonthBillStatistic = (data: anyObj): AxiosPromise => {
+    return axios.post(openplatformOpenapiRecordCustomerMonthBillPrefix + '/thisMonthStatistic',data)
+}

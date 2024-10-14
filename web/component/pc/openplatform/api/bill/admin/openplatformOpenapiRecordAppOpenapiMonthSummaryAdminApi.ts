@@ -45,4 +45,17 @@ export const list = (data: anyObj): AxiosPromise => {
 export const page = (data: anyObj): AxiosPromise => {
     return axios.get(openplatformOpenapiRecordAppOpenapiMonthSummaryPrefix + '/page',{params: data})
 }
-
+/**
+ * 统计上月开放平台应用开放接口日汇总
+ * @param data
+ */
+export const lastMonthStatistic = (data: anyObj): AxiosPromise => {
+    return axios.post(openplatformOpenapiRecordAppOpenapiMonthSummaryPrefix + '/lastMonthStatistic',data)
+}
+/**
+ * 统计本月开放平台应用开放接口日汇总
+ * @param data
+ */
+export const thisMonthStatistic = (data: anyObj): AxiosPromise => {
+    return axios.post(openplatformOpenapiRecordAppOpenapiMonthSummaryPrefix + '/thisMonthStatistic',data)
+}

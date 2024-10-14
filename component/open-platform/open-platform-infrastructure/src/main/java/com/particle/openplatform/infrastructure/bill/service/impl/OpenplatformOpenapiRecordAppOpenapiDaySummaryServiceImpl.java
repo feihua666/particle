@@ -2,6 +2,8 @@ package com.particle.openplatform.infrastructure.bill.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiDaySummaryDO;
+import com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsVIEWDO;
+import com.particle.openplatform.infrastructure.bill.dto.OpenplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsParam;
 import com.particle.openplatform.infrastructure.bill.mapper.OpenplatformOpenapiRecordAppOpenapiDaySummaryMapper;
 import com.particle.openplatform.infrastructure.bill.service.IOpenplatformOpenapiRecordAppOpenapiDaySummaryService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
@@ -9,6 +11,9 @@ import com.particle.global.dto.basic.QueryCommand;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -23,14 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OpenplatformOpenapiRecordAppOpenapiDaySummaryServiceImpl extends IBaseServiceImpl<OpenplatformOpenapiRecordAppOpenapiDaySummaryMapper, OpenplatformOpenapiRecordAppOpenapiDaySummaryDO> implements IOpenplatformOpenapiRecordAppOpenapiDaySummaryService {
 	private IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordAppOpenapiDaySummaryDO> queryCommandMapStruct;
 
+	private OpenplatformOpenapiRecordAppOpenapiDaySummaryMapper openplatformOpenapiRecordAppOpenapiDaySummaryMapper;
 	@Override
 	protected OpenplatformOpenapiRecordAppOpenapiDaySummaryDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
 	}
-	@Autowired
-	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordAppOpenapiDaySummaryDO> queryCommandMapStruct) {
-		this.queryCommandMapStruct = queryCommandMapStruct;
-	}
+
 
 	@Override
 	protected void preAdd(OpenplatformOpenapiRecordAppOpenapiDaySummaryDO po) {
@@ -39,5 +42,19 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryServiceImpl extends IB
 	@Override
 	protected void preUpdate(OpenplatformOpenapiRecordAppOpenapiDaySummaryDO po) {
     
+	}
+
+	@Override
+	public List<OpenplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsVIEWDO> openAppIdOpenapiIdStatistics(OpenplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsParam openplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsParam) {
+		return openplatformOpenapiRecordAppOpenapiDaySummaryMapper.openAppIdOpenapiIdStatistics(openplatformOpenapiRecordAppOpenapiDaySummaryOpenAppIdOpenapiIdStatisticsParam);
+	}
+
+	@Autowired
+	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordAppOpenapiDaySummaryDO> queryCommandMapStruct) {
+		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+	@Autowired
+	public void setOpenplatformOpenapiRecordAppOpenapiDaySummaryMapper(OpenplatformOpenapiRecordAppOpenapiDaySummaryMapper openplatformOpenapiRecordAppOpenapiDaySummaryMapper) {
+		this.openplatformOpenapiRecordAppOpenapiDaySummaryMapper = openplatformOpenapiRecordAppOpenapiDaySummaryMapper;
 	}
 }

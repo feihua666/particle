@@ -1,7 +1,7 @@
 -- 建表语句sql
 DROP TABLE IF EXISTS component_func_application;
 CREATE TABLE `component_func_application` (
-  `id` bigint NOT NULL COMMENT '应用ID',
+  `id` bigint NOT NULL COMMENT '功能应用ID',
   `code` varchar(100) NOT NULL COMMENT '应用编码,模糊查询',
   `name` varchar(100) NOT NULL COMMENT '功能应用名称,模糊查询',
   `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS component_openplatform_openapi_record;
 CREATE TABLE `component_openplatform_openapi_record` (
   `id` bigint NOT NULL COMMENT '表主键',
   `openplatform_app_id` bigint DEFAULT NULL COMMENT '开放平台应用id',
-  `app_id` varchar(255) DEFAULT NULL COMMENT '应用id',
+  `app_id` varchar(255) DEFAULT NULL COMMENT 'appId',
   `user_id` bigint DEFAULT NULL COMMENT '用户id',
   `is_app` tinyint(1) NOT NULL COMMENT '是否为app调用，1=appId调用（app_id字段有值），0=用户页面调用（user_id字段有值）',
   `customer_id` bigint DEFAULT NULL COMMENT '客户id',

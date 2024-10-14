@@ -7,6 +7,9 @@ import com.particle.global.dto.response.Response;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiDaySummaryCreateCommand;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformOpenapiRecordAppOpenapiDaySummaryVO;
+
+import java.time.LocalDate;
+
 /**
  * <p>
  * 开放平台应用开放接口日汇总 应用门面服务类
@@ -36,4 +39,12 @@ public interface IOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationServic
 	 * @return
 	 */
 	SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> update(OpenplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand);
+
+	/**
+	 * 统计某一天的数据
+	 * @param localDate
+	 * @param openplatformAppId 要统计的应用id，如果不传递，则统计所有应用
+	 * @return
+	 */
+	Response statistic(LocalDate localDate,Long openplatformAppId);
 }

@@ -129,18 +129,38 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 	 */
 	public MultiResponse<OpenplatformOpenapiVO> execute(@Valid OpenplatformOpenapiQueryListCommand openplatformOpenapiQueryListCommand) {
 
-		List<OpenplatformOpenapiDO> openplatformOpenapiDOs = iOpenplatformOpenapiService.list(openplatformOpenapiQueryListCommand);
+		List<OpenplatformOpenapiDO> resultOpenplatformOpenapiDOs = Collections.emptyList();
 		Long openplatformAppId = openplatformOpenapiQueryListCommand.getOpenplatformAppId();
+		List<OpenplatformOpenapiDO> openplatformOpenapiDOs = iOpenplatformOpenapiService.list(openplatformOpenapiQueryListCommand);
+
 		if (openplatformAppId != null) {
 			List<OpenplatformAppOpenapiDO> openplatformAppOpenapiDOS = iOpenplatformAppOpenapiService.listByOpenplatformAppId(openplatformAppId);
 			if (!openplatformAppOpenapiDOS.isEmpty()) {
 				List<Long> openplatformOpenapiIds = openplatformAppOpenapiDOS.stream().map(item -> item.getOpenplatformOpenapiId()).collect(Collectors.toList());
-				// 过滤时保留组，方便展示上下级
-				openplatformOpenapiDOs.stream().filter(item -> item.getIsGroup() || openplatformOpenapiIds.contains(item.getId())).collect(Collectors.toList());
+				// 过滤
+				resultOpenplatformOpenapiDOs = openplatformOpenapiDOs.stream().filter(item -> openplatformOpenapiIds.contains(item.getId())).collect(Collectors.toList());
 
 			}
+		}else {
+			resultOpenplatformOpenapiDOs = openplatformOpenapiDOs;
 		}
-		List<OpenplatformOpenapiVO> openplatformOpenapiVOs = OpenplatformOpenapiAppStructMapping.instance.openplatformOpenapiDOsToOpenplatformOpenapiVOs(openplatformOpenapiDOs);
+		Long filterOpenplatformAppId = openplatformOpenapiQueryListCommand.getFilterOpenplatformAppId();
+		if (filterOpenplatformAppId != null) {
+			List<OpenplatformAppOpenapiDO> openplatformAppOpenapiDOS = iOpenplatformAppOpenapiService.listByOpenplatformAppId(filterOpenplatformAppId);
+			if (!openplatformAppOpenapiDOS.isEmpty()) {
+				List<Long> openplatformOpenapiIds = openplatformAppOpenapiDOS.stream().map(item -> item.getOpenplatformOpenapiId()).collect(Collectors.toList());
+				// 过滤时保留组，方便展示上下级
+				resultOpenplatformOpenapiDOs = openplatformOpenapiDOs.stream().filter(item -> item.getIsGroup() || openplatformOpenapiIds.contains(item.getId())).collect(Collectors.toList());
+			}
+			// 如果组下面没有接口了，不需要组
+			if (!resultOpenplatformOpenapiDOs.isEmpty()) {
+				Map<Long, OpenplatformOpenapiDO> openapiDOMap = resultOpenplatformOpenapiDOs.stream().filter(item -> !item.getIsGroup()).collect(Collectors.toMap(OpenplatformOpenapiDO::getParentId, item -> item,(v1, v2) -> v1));
+				resultOpenplatformOpenapiDOs = resultOpenplatformOpenapiDOs.stream().filter(item -> !item.getIsGroup() ||  item.getIsGroup() && openapiDOMap.containsKey(item.getId())).collect(Collectors.toList());
+			}
+		}else {
+			resultOpenplatformOpenapiDOs = openplatformOpenapiDOs;
+		}
+		List<OpenplatformOpenapiVO> openplatformOpenapiVOs = OpenplatformOpenapiAppStructMapping.instance.openplatformOpenapiDOsToOpenplatformOpenapiVOs(resultOpenplatformOpenapiDOs);
 		return MultiResponse.of(openplatformOpenapiVOs);
 	}
 	/**
@@ -306,11 +326,18 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 			createBatchQueryRecordDetail(recordVOSingleResponse.getData().getId(), notStartDictId, bodyParam, null);
 		}
 
-		Long openplatformOpenapiBatchQueryRecordId = recordVOSingleResponse.getData().getId();
+		return recordVOSingleResponse;
+	}
+
+	/**
+	 * 异步执行批量查询和导出
+	 * @param openplatformOpenapiBatchQueryRecordId
+	 */
+	public void asyncBatchQueryAndExport(Long openplatformOpenapiBatchQueryRecordId) {
 		// 异步执行查询和导出
 		openplatformAppBatchQueryExecutor.execute(()->{
 			doBatchQuery(openplatformOpenapiBatchQueryRecordId);
-            batchQueryExport(openplatformOpenapiBatchQueryRecordId);
+			batchQueryExport(openplatformOpenapiBatchQueryRecordId);
 
 			// 	处理完成后更新状态
 			OpenplatformOpenapiBatchQueryRecordDO openapiBatchQueryRecordDOForUpdate = iOpenplatformOpenapiBatchQueryRecordService.getById(openplatformOpenapiBatchQueryRecordId);
@@ -320,14 +347,12 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 			iOpenplatformOpenapiBatchQueryRecordService.updateById(openapiBatchQueryRecordDOForUpdate);
 
 		});
-		return recordVOSingleResponse;
 	}
-
 	/**
 	 * 执行批量查询
 	 * @param openplatformOpenapiBatchQueryRecordId
 	 */
-	private void doBatchQuery(Long openplatformOpenapiBatchQueryRecordId) {
+	public void doBatchQuery(Long openplatformOpenapiBatchQueryRecordId) {
 		OpenplatformOpenapiBatchQueryRecordDO openapiBatchQueryRecordDO = iOpenplatformOpenapiBatchQueryRecordService.getById(openplatformOpenapiBatchQueryRecordId);
 		Long runningDictId = openplatformDictGateway.getDictIdByGroupCodeAndItemValue(OpenPlatformBatchQueryExecuteStatus.running.groupCode(), OpenPlatformBatchQueryExecuteStatus.running.itemValue());
 
@@ -352,7 +377,11 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 
 		Long finishedDictId = openplatformDictGateway.getDictIdByGroupCodeAndItemValue(OpenPlatformBatchQueryExecuteStatus.finished.groupCode(), OpenPlatformBatchQueryExecuteStatus.finished.itemValue());
 		// 分页处理
-		ServiceHelperTool.<OpenplatformOpenapiBatchQueryRecordDetailDO>pageExecute(page -> iOpenplatformOpenapiBatchQueryRecordDetailService.page(page),
+		ServiceHelperTool.<OpenplatformOpenapiBatchQueryRecordDetailDO>pageExecute(page -> {
+					LambdaQueryWrapper<OpenplatformOpenapiBatchQueryRecordDetailDO> eq = Wrappers.<OpenplatformOpenapiBatchQueryRecordDetailDO>lambdaQuery()
+							.eq(OpenplatformOpenapiBatchQueryRecordDetailDO::getOpenplatformOpenapiBatchQueryRecordId, openplatformOpenapiBatchQueryRecordId);
+					return iOpenplatformOpenapiBatchQueryRecordDetailService.page(page,eq);
+				},
 				page -> {
 					page.getRecords().forEach(openplatformOpenapiBatchQueryRecordDetailDO -> {
 
@@ -406,7 +435,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 	 * 导出查询结果，转出为excel
 	 * @param openplatformOpenapiBatchQueryRecordId
 	 */
-	private void batchQueryExport(Long openplatformOpenapiBatchQueryRecordId) {
+	public void batchQueryExport(Long openplatformOpenapiBatchQueryRecordId) {
 		OpenplatformOpenapiBatchQueryRecordDO openapiBatchQueryRecordDO = iOpenplatformOpenapiBatchQueryRecordService.getById(openplatformOpenapiBatchQueryRecordId);
 		OpenplatformOpenapiMergedDTO openplatformOpenapiMergedDTO = getOpenplatformOpenapiMergedDTO(openapiBatchQueryRecordDO.getOpenplatformOpenapiId());
 
@@ -448,7 +477,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 								startColumnIndex,
 								rootRequestParamOpenplatformDocApiDocParamFieldBasicVOS,
 								openplatformOpenapiBatchQueryRecordDetailDO,
-								openplatformOpenapiMergedDTO);
+								openplatformOpenapiMergedDTO,requestParamSheetName);
 
 						// 响应参数
 						writeResponseParamValue(writer,
@@ -488,6 +517,22 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 			rowIndex = startRowIndex;
 		}else {
 			rowIndex++;
+		}
+		sheetNameAndRowIndexMap.put(sheetName,rowIndex);
+		return rowIndex;
+	}
+	/**
+	 * 获取并增长索引
+	 * @param sheetNameAndRowIndexMap
+	 * @param sheetName
+	 * @return
+	 */
+	private Integer getAndDecrementRowIndex(Map<String,Integer> sheetNameAndRowIndexMap,String sheetName){
+		Integer rowIndex = sheetNameAndRowIndexMap.get(sheetName);
+		if (rowIndex == null) {
+			return rowIndex;
+		}else {
+			rowIndex--;
 		}
 		sheetNameAndRowIndexMap.put(sheetName,rowIndex);
 		return rowIndex;
@@ -632,57 +677,56 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 					writer.setSheet(sheetName);
 					writeParam(writer, rowIndex, 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,null,Lists.newArrayList(
 							"请求流水号"),false);
-					// 重新为数据生成一个行号
-					rowIndex = getAndIncrementRowIndex(sheetNameAndRowIndexMap, sheetName, 0);
+				}else {
+					getAndDecrementRowIndex(sheetNameAndRowIndexMap, sheetName);
 				}
-				if (rowIndex > 0) {
-					// 写数据
-					writer.setSheet(sheetName);
-					// 数组类型
-					if (fieldTypeArrayDictId.equals(dataFieldTypeDictId)) {
-						// 数组中嵌套对象类型
-						if (fieldTypeObjectDictId.equals(dataNestedFieldTypeDictId)) {
-							if (responseResultObjDataList != null) {
-								for (Object o : responseResultObjDataList) {
-									Map dataMap = (Map) o;
-									writeParam(writer, rowIndex, 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
-											Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
-								}
-							}
-						}
-						// 数组中嵌套其它类型
-						else {
-							if (responseResultObjDataList != null) {
-								for (Object o : responseResultObjDataList) {
-									Map dataMap = new HashMap(1);
-									String firstName = basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS.iterator().next().getName();
-									dataMap.put(firstName, o);
-									writeParam(writer, rowIndex, 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
-											Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
-								}
-							}
-						}
-					}
-					// 对象类型
-					else if (fieldTypeObjectDictId.equals(dataFieldTypeDictId)) {
+				// 写数据
+				writer.setSheet(sheetName);
+				// 数组类型
+				if (fieldTypeArrayDictId.equals(dataFieldTypeDictId)) {
+					// 数组中嵌套对象类型
+					if (fieldTypeObjectDictId.equals(dataNestedFieldTypeDictId)) {
 						if (responseResultObjDataList != null) {
-							for (Object o : responseResultObjDataList) {
-								Map dataMap = (Map) o;
-								writeParam(writer, rowIndex, 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
+							for (int i = 0; i < responseResultObjDataList.size(); i++) {
+								Map dataMap = (Map) responseResultObjDataList.get(i);
+								writeParam(writer, getAndIncrementRowIndex(sheetNameAndRowIndexMap, sheetName, 0), 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
 										Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
 							}
+
 						}
 					}
-					// 其它类型
+					// 数组中嵌套其它类型
 					else {
 						if (responseResultObjDataList != null) {
 							for (Object o : responseResultObjDataList) {
 								Map dataMap = new HashMap(1);
 								String firstName = basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS.iterator().next().getName();
 								dataMap.put(firstName, o);
-								writeParam(writer, rowIndex, 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
+								writeParam(writer, getAndIncrementRowIndex(sheetNameAndRowIndexMap, sheetName, 0), 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
 										Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
 							}
+						}
+					}
+				}
+				// 对象类型
+				else if (fieldTypeObjectDictId.equals(dataFieldTypeDictId)) {
+					if (responseResultObjDataList != null) {
+						for (Object o : responseResultObjDataList) {
+							Map dataMap = (Map) o;
+							writeParam(writer, getAndIncrementRowIndex(sheetNameAndRowIndexMap, sheetName, 0), 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
+									Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
+						}
+					}
+				}
+				// 其它类型
+				else {
+					if (responseResultObjDataList != null) {
+						for (Object o : responseResultObjDataList) {
+							Map dataMap = new HashMap(1);
+							String firstName = basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS.iterator().next().getName();
+							dataMap.put(firstName, o);
+							writeParam(writer, getAndIncrementRowIndex(sheetNameAndRowIndexMap, sheetName, 0), 0, basicResponseParamOpenplatformDocApiDocParamFieldBasicVOS,dataMap,
+									Lists.newArrayList(openplatformOpenapiBatchQueryRecordDetailDO.getRequestNonce()),false);
 						}
 					}
 				}
@@ -703,7 +747,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 							openplatformOpenapiMergedDTO,
 							fieldTypeArrayDictId,
 							fieldTypeObjectDictId,
-							sheetNamePrefix,
+							sheetNamePrefix + "-" + arrayResponseParamOpenplatformDocApiDocParamFieldBasicVO.getExplanation(),
 							arrayResponseParamOpenplatformDocApiDocParamFieldBasicVO.getExplanation(),
 							sheetNameAndRowIndexMap,
 							responseResultObjData,
@@ -722,7 +766,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 							openplatformOpenapiMergedDTO,
 							fieldTypeArrayDictId,
 							fieldTypeObjectDictId,
-							sheetNamePrefix,
+							sheetNamePrefix + "-" + objectResponseParamOpenplatformDocApiDocParamFieldBasicVO.getExplanation(),
 							objectResponseParamOpenplatformDocApiDocParamFieldBasicVO.getExplanation(),
 							sheetNameAndRowIndexMap,
 							responseResultObjData,
@@ -767,7 +811,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 										int startColumnIndex,
 										List<OpenplatformDocApiDocParamFieldBasicVO> rootRequestParamOpenplatformDocApiDocParamFieldBasicVOS,
 										OpenplatformOpenapiBatchQueryRecordDetailDO openplatformOpenapiBatchQueryRecordDetailDO,
-										OpenplatformOpenapiMergedDTO openplatformOpenapiMergedDTO){
+										OpenplatformOpenapiMergedDTO openplatformOpenapiMergedDTO,String sheetName){
 		Boolean isSuccess = openplatformOpenapiBatchQueryRecordDetailDO.getIsSuccess();
 		String isSuccessStr = isSuccess != null && isSuccess ? "查询成功" : "查询失败";
 
@@ -805,6 +849,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 				}
 			}
 		}
+		writer.setSheet(sheetName);
 		writeParam(writer, rowIndex,startColumnIndex, rootRequestParamOpenplatformDocApiDocParamFieldBasicVOS, dataMap,extValues,true);
 
 	}

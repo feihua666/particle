@@ -27,7 +27,7 @@ public class OpenplatformOpenapiRecordVO extends AbstractBaseIdVO {
     @Schema(description = "开放平台应用名称")
     private String openplatformAppName;
     
-    @Schema(description = "应用id")
+    @Schema(description = "appId")
     private String appId;
     
     @Schema(description = "用户id")
@@ -43,7 +43,8 @@ public class OpenplatformOpenapiRecordVO extends AbstractBaseIdVO {
     @Schema(description = "客户id")
     private Long customerId;
 
-    @Schema(description = "客户名称")
+    @TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "customerId",mapValueField = "name")
+    @Schema(description = "客户id")
     private String customerName;
     
     @Schema(description = "开放接口id")

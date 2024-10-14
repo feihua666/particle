@@ -52,7 +52,7 @@ public class OpenplatformOpenapiBatchQueryRecordAdminWebController extends Abstr
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecord:delete')")
     @Operation(summary = "删除开放接口批量查询记录")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放接口批量查询记录",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放接口批量查询记录",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> delete(@RequestBody IdCommand deleteCommand, LoginUser loginUser){
         fillLoginUserIdIfNessary(deleteCommand, loginUser);
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
@@ -73,6 +73,9 @@ public class OpenplatformOpenapiBatchQueryRecordAdminWebController extends Abstr
     @GetMapping("/list")
     public MultiResponse<OpenplatformOpenapiBatchQueryRecordVO> queryList(OpenplatformOpenapiBatchQueryRecordQueryListCommand openplatformOpenapiBatchQueryRecordQueryListCommand, LoginUser loginUser){
         fillLoginUserIdIfNessary(openplatformOpenapiBatchQueryRecordQueryListCommand, loginUser);
+        if (openplatformOpenapiBatchQueryRecordQueryListCommand.getLoginUserId() != null) {
+            openplatformOpenapiBatchQueryRecordQueryListCommand.setUserId(openplatformOpenapiBatchQueryRecordQueryListCommand.getLoginUserId());
+        }
         openplatformOpenapiBatchQueryRecordQueryListCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iOpenplatformOpenapiBatchQueryRecordRepresentationApplicationService.queryList(openplatformOpenapiBatchQueryRecordQueryListCommand);
     }
@@ -82,6 +85,9 @@ public class OpenplatformOpenapiBatchQueryRecordAdminWebController extends Abstr
     @GetMapping("/page")
     public PageResponse<OpenplatformOpenapiBatchQueryRecordVO> pageQueryList(OpenplatformOpenapiBatchQueryRecordPageQueryCommand openplatformOpenapiBatchQueryRecordPageQueryCommand, LoginUser loginUser){
         fillLoginUserIdIfNessary(openplatformOpenapiBatchQueryRecordPageQueryCommand, loginUser);
+        if (openplatformOpenapiBatchQueryRecordPageQueryCommand.getLoginUserId() != null) {
+            openplatformOpenapiBatchQueryRecordPageQueryCommand.setUserId(openplatformOpenapiBatchQueryRecordPageQueryCommand.getLoginUserId());
+        }
         openplatformOpenapiBatchQueryRecordPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iOpenplatformOpenapiBatchQueryRecordRepresentationApplicationService.pageQuery(openplatformOpenapiBatchQueryRecordPageQueryCommand);
     }

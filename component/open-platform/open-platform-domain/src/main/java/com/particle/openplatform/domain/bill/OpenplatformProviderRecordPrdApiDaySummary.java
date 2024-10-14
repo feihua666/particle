@@ -4,6 +4,8 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 /**
  * <p>
@@ -47,7 +49,7 @@ public class OpenplatformProviderRecordPrdApiDaySummary extends AggreateRoot {
     /**
     * 平均单价金额，单位分
     */
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
     /**
     * 总消费金额，单位分

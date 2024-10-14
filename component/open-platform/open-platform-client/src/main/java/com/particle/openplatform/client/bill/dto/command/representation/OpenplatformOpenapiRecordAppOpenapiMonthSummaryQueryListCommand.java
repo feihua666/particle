@@ -5,6 +5,9 @@ import com.particle.global.light.share.mybatis.anno.Like;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 开放平台应用开放接口月汇总 通用列表查询指令对象
@@ -23,7 +26,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryQueryListCommand ext
     private Long openplatformAppId;
 
 
-    @Schema(description = "应用id")
+    @Schema(description = "appId")
     private String appId;
 
 
@@ -52,7 +55,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryQueryListCommand ext
 
 
     @Schema(description = "平均单价金额")
-    private Integer averageUnitPriceAmount;
+    private BigDecimal averageUnitPriceAmount;
 
 
     @Schema(description = "总消费金额")

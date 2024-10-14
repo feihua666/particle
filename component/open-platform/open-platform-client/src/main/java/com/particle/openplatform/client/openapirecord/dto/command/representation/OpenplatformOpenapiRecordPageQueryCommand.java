@@ -27,7 +27,7 @@ public class OpenplatformOpenapiRecordPageQueryCommand extends AbstractBasePageQ
     private Long openplatformAppId;
 
 
-    @Schema(description = "应用id")
+    @Schema(description = "appId")
     private String appId;
 
 

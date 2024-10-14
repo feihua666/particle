@@ -49,7 +49,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryAdminWebController exte
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiMonthSummary:create')")
     @Operation(summary = "添加开放平台供应商接口月汇总")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台供应商接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台供应商接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> create(@RequestBody OpenplatformProviderRecordPrdApiMonthSummaryCreateCommand openplatformProviderRecordPrdApiMonthSummaryCreateCommand){
         return iOpenplatformProviderRecordPrdApiMonthSummaryApplicationService.create(openplatformProviderRecordPrdApiMonthSummaryCreateCommand);
     }
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryAdminWebController exte
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiMonthSummary:delete')")
     @Operation(summary = "删除开放平台供应商接口月汇总")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台供应商接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台供应商接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderRecordPrdApiMonthSummaryApplicationService.delete(deleteCommand);
@@ -66,7 +66,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryAdminWebController exte
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiMonthSummary:update')")
     @Operation(summary = "更新开放平台供应商接口月汇总")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台供应商接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台供应商接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> update(@RequestBody OpenplatformProviderRecordPrdApiMonthSummaryUpdateCommand openplatformProviderRecordPrdApiMonthSummaryUpdateCommand){
         openplatformProviderRecordPrdApiMonthSummaryUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformProviderRecordPrdApiMonthSummaryApplicationService.update(openplatformProviderRecordPrdApiMonthSummaryUpdateCommand);

@@ -1,5 +1,5 @@
 import {list as appListApi, listCurrentUser} from "../api/app/admin/openplatformAppAdminApi.ts";
-export const useSelectAppCompItem = ({fieldName= 'openplatformAppId',required=false,label= 'app'})=>{
+export const useSelectAppCompItem = ({fieldName= 'openplatformAppId',required=false,label= '应用',disabled = false})=>{
     return         {
         field: {
             name: fieldName
@@ -12,6 +12,7 @@ export const useSelectAppCompItem = ({fieldName= 'openplatformAppId',required=fa
             },
             compProps: {
                 clearable: true,
+                disabled: disabled,
                 // 加载数据
                 dataMethod: appListApi,
             }

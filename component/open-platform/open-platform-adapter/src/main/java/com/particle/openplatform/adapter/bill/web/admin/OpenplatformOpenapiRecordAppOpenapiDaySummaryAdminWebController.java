@@ -27,6 +27,10 @@ import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 开放平台应用开放接口日汇总后台管理pc或平板端前端适配器
@@ -49,7 +53,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryAdminWebController ext
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:create')")
     @Operation(summary = "添加开放平台应用开放接口日汇总")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台应用开放接口日汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台应用开放接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> create(@RequestBody OpenplatformOpenapiRecordAppOpenapiDaySummaryCreateCommand openplatformOpenapiRecordAppOpenapiDaySummaryCreateCommand){
         return iOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService.create(openplatformOpenapiRecordAppOpenapiDaySummaryCreateCommand);
     }
@@ -57,7 +61,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryAdminWebController ext
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:delete')")
     @Operation(summary = "删除开放平台应用开放接口日汇总")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台应用开放接口日汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台应用开放接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService.delete(deleteCommand);
@@ -66,7 +70,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryAdminWebController ext
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:update')")
     @Operation(summary = "更新开放平台应用开放接口日汇总")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台应用开放接口日汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台应用开放接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> update(@RequestBody OpenplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand){
         openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService.update(openplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand);
@@ -100,5 +104,23 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryAdminWebController ext
     public PageResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> pageQueryList(OpenplatformOpenapiRecordAppOpenapiDaySummaryPageQueryCommand openplatformOpenapiRecordAppOpenapiDaySummaryPageQueryCommand){
         openplatformOpenapiRecordAppOpenapiDaySummaryPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iOpenplatformOpenapiRecordAppOpenapiDaySummaryRepresentationApplicationService.pageQuery(openplatformOpenapiRecordAppOpenapiDaySummaryPageQueryCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:yesterdayStatistic')")
+    @Operation(summary = "统计昨天开放平台应用开放接口日汇总")
+    @PostMapping("/yesterdayStatistic")
+    @OpLog(name = "统计昨天开放平台应用开放接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response yesterdayStatistic(){
+        LocalDate localDate = LocalDate.now();
+        LocalDate yesterday = localDate.minusDays(1);
+        return iOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService.statistic(yesterday,null);
+    }
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:todayStatistic')")
+    @Operation(summary = "统计今天天开放平台应用开放接口日汇总")
+    @PostMapping("/todayStatistic")
+    @OpLog(name = "统计今天天开放平台应用开放接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response todayStatistic(){
+        LocalDate localDate = LocalDate.now();
+        return iOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService.statistic(localDate,null);
     }
 }

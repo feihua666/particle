@@ -36,4 +36,14 @@ public interface IOpenplatformOpenapiRecordCustomerMonthBillApplicationService e
 	 * @return
 	 */
 	SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> update(OpenplatformOpenapiRecordCustomerMonthBillUpdateCommand openplatformOpenapiRecordCustomerMonthBillUpdateCommand);
+
+	/**
+	 * 统计某一月的数据
+	 *
+	 * @param year
+	 * @param month
+	 * @param isIncludeMonthSummary
+	 * @param isIncludeDaySummary   只有在 isIncludeMonthSummary=true 时生效
+	 */
+	public Response statistic(Integer year, Integer month, Boolean isIncludeMonthSummary, Boolean isIncludeDaySummary);
 }

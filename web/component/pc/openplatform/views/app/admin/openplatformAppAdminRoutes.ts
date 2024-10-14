@@ -30,7 +30,7 @@ const openplatformAppAdminRoutes = [
             {
                 path: '/admin/openplatformAppManageUpdate',
                 component: () => import('./OpenplatformAppManageUpdatePage.vue'),
-                props: route => ({ openplatformAppId: route.query.id }),
+                props: route => ({ openplatformAppId: route.query.id,ownerUserId: route.query.ownerUserId, ownerUserNickname: route.query.ownerUserNickname }),
                 meta: {
                     showInDrawer: true,
                     code:'adminOpenplatformAppManageUpdate',

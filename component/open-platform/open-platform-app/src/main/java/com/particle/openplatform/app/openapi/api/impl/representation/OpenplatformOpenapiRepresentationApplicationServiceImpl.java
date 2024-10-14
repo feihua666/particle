@@ -10,6 +10,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.openapi.executor.representation.OpenplatformOpenapiQueryCommandExecutor;
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiRepresentationApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,14 @@ public class OpenplatformOpenapiRepresentationApplicationServiceImpl extends Abs
     }
     @Transactional
     @Override
-    public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand) {
+    public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand) {
         return openplatformOpenapiQueryCommandExecutor.batchQuery(openplatformOpenapiBatchQueryCommand);
+    }
+
+    @Override
+    public Response asyncBatchQueryAndExport(IdCommand openplatformOpenapiBatchQueryRecordId) {
+        openplatformOpenapiQueryCommandExecutor.asyncBatchQueryAndExport(openplatformOpenapiBatchQueryRecordId.getId());
+        return Response.buildSuccess();
     }
 
     @Override

@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.particle.openplatform.infrastructure.bill.mapper.OpenplatformOpenapiRecordAppOpenapiMonthSummaryMapper">
 
+    <select id="customerIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiMonthSummaryCustomerIdStatisticsVIEWDO">
+        select
+            customer_id,
+            year,
+            month,
+            sum(total_call) as total_call,
+            sum(total_fee_call) as total_fee_call,
+            sum(total_fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record_app_openapi_month_summary
+        where year = #{statisticsParams.year}
+          and month = #{statisticsParams.month}
+        <if test="statisticsParams.customerId != null">
+            and customer_id = #{statisticsParams.customerId}
+        </if>
+        group by customer_id,year,month
+    </select>
+    <select id="openAppIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiMonthSummaryOpenAppIdStatisticsVIEWDO">
+        select
+        openplatform_app_id,
+        year,
+        month,
+        sum(total_call) as total_call,
+        sum(total_fee_call) as total_fee_call,
+        sum(total_fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record_app_openapi_month_summary
+        where year = #{statisticsParams.year}
+        and month = #{statisticsParams.month}
+        <if test="statisticsParams.openplatformAppId != null">
+            and openplatform_app_id = #{statisticsParams.openplatformAppId}
+        </if>
+        group by openplatform_app_id,year,month
+    </select>
+
 </mapper>

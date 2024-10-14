@@ -4,6 +4,7 @@ import com.particle.component.light.share.dataconstraint.DataConstraintConstants
 import com.particle.openplatform.client.bill.api.IOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService;
 import com.particle.openplatform.client.bill.api.representation.IOpenplatformOpenapiRecordAppOpenapiMonthSummaryRepresentationApplicationService;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommand;
+import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryStatisticCommand;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand;
@@ -27,6 +28,10 @@ import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 开放平台应用开放接口月汇总后台管理pc或平板端前端适配器
@@ -49,7 +54,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:create')")
     @Operation(summary = "添加开放平台应用开放接口月汇总")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台应用开放接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> create(@RequestBody OpenplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommand openplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommand){
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.create(openplatformOpenapiRecordAppOpenapiMonthSummaryCreateCommand);
     }
@@ -57,7 +62,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:delete')")
     @Operation(summary = "删除开放平台应用开放接口月汇总")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台应用开放接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.delete(deleteCommand);
@@ -66,7 +71,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:update')")
     @Operation(summary = "更新开放平台应用开放接口月汇总")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台应用开放接口月汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> update(@RequestBody OpenplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand){
         openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.update(openplatformOpenapiRecordAppOpenapiMonthSummaryUpdateCommand);
@@ -100,5 +105,27 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     public PageResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> pageQueryList(OpenplatformOpenapiRecordAppOpenapiMonthSummaryPageQueryCommand openplatformOpenapiRecordAppOpenapiMonthSummaryPageQueryCommand){
         openplatformOpenapiRecordAppOpenapiMonthSummaryPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryRepresentationApplicationService.pageQuery(openplatformOpenapiRecordAppOpenapiMonthSummaryPageQueryCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:lastMonthStatistic')")
+    @Operation(summary = "统计上月开放平台应用开放接口月汇总")
+    @PostMapping("/lastMonthStatistic")
+    @OpLog(name = "统计上月开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response lastMonthStatistic(@RequestBody OpenplatformOpenapiRecordAppOpenapiMonthSummaryStatisticCommand command){
+        LocalDate localDate = LocalDate.now();
+        LocalDate lastMonth = localDate.minusMonths(1);
+        Integer year = lastMonth.getYear();
+        Integer month = lastMonth.getMonthValue();
+        return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.statistic(year,month,command.getIsIncludeDaySummary(),null);
+    }
+    @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:thisMonthStatistic')")
+    @Operation(summary = "统计本月开放平台应用开放接口月汇总")
+    @PostMapping("/thisMonthStatistic")
+    @OpLog(name = "统计本月开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
+    public Response thisMonthStatistic(@RequestBody OpenplatformOpenapiRecordAppOpenapiMonthSummaryStatisticCommand command){
+        LocalDate localDate = LocalDate.now();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+        return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.statistic(year,month,command.getIsIncludeDaySummary(),null);
     }
 }

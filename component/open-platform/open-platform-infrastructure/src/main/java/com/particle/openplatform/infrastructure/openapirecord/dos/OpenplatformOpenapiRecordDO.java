@@ -26,7 +26,7 @@ public class OpenplatformOpenapiRecordDO extends BaseDO {
     private Long openplatformAppId;
 
     /**
-    * 应用id
+    * appId
     */
     private String appId;
 

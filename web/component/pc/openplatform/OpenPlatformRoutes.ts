@@ -32,6 +32,8 @@ import openplatformProviderRecordPrdMonthBillAdminRoutes
 import openplatformProviderApiAdminRoutes from "./views/provider/admin/openplatformProviderApiAdminRoutes";
 import openplatformOpenapiBatchQueryRecordAdminRoutes
     from "./views/openapi/admin/openplatformOpenapiBatchQueryRecordAdminRoutes";
+import openplatformOpenapiRecordAppMonthBillAdminRoutes
+    from "./views/bill/admin/openplatformOpenapiRecordAppMonthBillAdminRoutes";
 
 const OpenPlatformRoutes = []
     .concat(openplatformAppAdminRoutes)
@@ -61,4 +63,5 @@ const OpenPlatformRoutes = []
     .concat(openplatformProviderRecordPrdApiMonthSummaryAdminRoutes)
     .concat(openplatformProviderRecordPrdMonthBillAdminRoutes)
     .concat(openplatformOpenapiBatchQueryRecordAdminRoutes)
+    .concat(openplatformOpenapiRecordAppMonthBillAdminRoutes)
 export default OpenPlatformRoutes

@@ -9,6 +9,7 @@ import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiApplicat
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiRepresentationApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiCreateCommand;
 import com.particle.openplatform.client.openapi.dto.command.representation.*;
+import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import com.particle.common.client.dto.command.IdCommand;
@@ -119,16 +120,20 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@Operation(summary = "开放接口单次查询")
 	@PostMapping("/singleQuery")
 	public SingleResponse<String> singleQuery(@RequestBody OpenplatformOpenapiSingleQueryCommand openplatformOpenapiSingleQueryCommand){
-
 		return iOpenplatformOpenapiRepresentationApplicationService.singleQuery(openplatformOpenapiSingleQueryCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:batchQuery')")
 	@Operation(summary = "开放接口批量查询")
 	@PostMapping("/batchQuery")
-	public Response batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand, LoginUser loginUser){
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand, LoginUser loginUser){
 		openplatformOpenapiBatchQueryCommand.setUserId(loginUser.getId());
-		return iOpenplatformOpenapiRepresentationApplicationService.batchQuery(openplatformOpenapiBatchQueryCommand);
+		SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> singleResponse = iOpenplatformOpenapiRepresentationApplicationService.batchQuery(openplatformOpenapiBatchQueryCommand);
+		IdCommand idCommand = new IdCommand();
+		idCommand.setId(singleResponse.getData().getId());
+		iOpenplatformOpenapiRepresentationApplicationService.asyncBatchQueryAndExport(idCommand);
+
+		return singleResponse;
 	}
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:batchQuery')")
 	@Operation(summary = "开放接口批量查询下载模板")

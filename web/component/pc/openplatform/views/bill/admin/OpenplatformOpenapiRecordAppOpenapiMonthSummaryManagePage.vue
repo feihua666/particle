@@ -17,16 +17,19 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
-      prop: 'openplatformAppId',
-      label: '开放平台应用id',
+      prop: 'openplatformAppName',
+      label: '应用名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'appId',
-      label: '应用id',
+      label: 'appId',
+      showOverflowTooltip: true
     },
     {
-      prop: 'openplatformOpenapiId',
-      label: '开放平台接口id',
+      prop: 'openplatformOpenapiName',
+      label: '开放平台接口名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'year',
@@ -37,8 +40,9 @@ const reactiveData = reactive({
       label: '月',
     },
     {
-      prop: 'customerId',
-      label: '客户id',
+      prop: 'customerName',
+      label: '客户名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'totalCall',
@@ -50,11 +54,11 @@ const reactiveData = reactive({
     },
     {
       prop: 'averageUnitPriceAmount',
-      label: '平均单价金额',
+      label: '平均单价金额（分）',
     },
     {
       prop: 'totalFeeAmount',
-      label: '总消费金额',
+      label: '总消费金额（分）',
     },
     {
       prop: 'remark',
@@ -90,13 +94,6 @@ const getTableRowButtons = ({row, column, $index}) => {
 
   let tableRowButtons = [
     {
-      txt: '编辑',
-      text: true,
-      permission: 'admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:update',
-      // 跳转到编辑
-      route: {path: '/admin/OpenplatformOpenapiRecordAppOpenapiMonthSummaryManageUpdate',query: idData}
-    },
-    {
       txt: '删除',
       text: true,
       permission: 'admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:delete',
@@ -124,7 +121,8 @@ const getTableRowButtons = ({row, column, $index}) => {
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
-      <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:create" route="/admin/OpenplatformOpenapiRecordAppOpenapiMonthSummaryManageAdd">添加</PtButton>
+      <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:lastMonthStatistic" route="/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryLastMonthStatistic">统计上月数据</PtButton>
+      <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:thisMonthStatistic" route="/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryThisMonthStatistic">统计本月数据</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
