@@ -19,6 +19,5 @@
             and openplatform_app_id = #{statisticsParams.openplatformAppId}
         </if>
         group by openplatform_app_id,openplatform_openapi_id
-        ;
     </select>
 </mapper>

@@ -66,6 +66,19 @@
             <artifactId>global-web-filter-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 开放接口限流功能 使用限流模块，不强制依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-ratelimit-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 在项目启动后，统计请求限制的数据 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
 
     </dependencies>
 </project>

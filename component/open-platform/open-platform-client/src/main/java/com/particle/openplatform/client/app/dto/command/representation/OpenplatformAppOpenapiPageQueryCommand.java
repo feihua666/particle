@@ -29,6 +29,9 @@ public class OpenplatformAppOpenapiPageQueryCommand extends AbstractBasePageQuer
     @Schema(description = "计费id")
     private Long openplatformOpenapiFeeId;
 
+	@Schema(description = "限制规则id，不配置不限制，应用和接口级限制")
+	private Long openplatformOpenapiLimitRuleId;
+
 	@Schema(description = "指定供应商，如果不指定将按默认编码调用")
 	private Long openplatformProviderId;
 

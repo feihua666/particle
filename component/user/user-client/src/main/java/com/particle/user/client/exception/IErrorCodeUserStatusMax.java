@@ -15,11 +15,11 @@ public class IErrorCodeUserStatusMax implements IErrorCodeStatusMax {
 	/**
 	 * s 前缀没有什么意义，statusMax 首字母可以这样认为，因为变量不允许为直接数字
 	 */
-	private static Long s_5000000 = null;
+	private static Long s_5000001 = null;
 	private static Long s_4000001 = 40000010001L;
-	private static Long s_4010000 = null;
-	private static Long s_4030000 = null;
-	private static Long s_4040000 = null;
-	private static Long s_4050000 = null;
-	private static Long s_4150000 = null;
+	private static Long s_4010001 = null;
+	private static Long s_4030001 = null;
+	private static Long s_4040001 = null;
+	private static Long s_4050001 = null;
+	private static Long s_4150001 = null;
 }

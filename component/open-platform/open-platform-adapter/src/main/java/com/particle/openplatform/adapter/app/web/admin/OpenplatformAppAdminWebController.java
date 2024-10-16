@@ -17,7 +17,14 @@ import com.particle.openplatform.client.app.dto.command.OpenplatformAppCreateCom
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppUpdateCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppPageQueryCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppQueryListCommand;
+import com.particle.openplatform.client.app.dto.data.OpenplatformAppOpenapiVO;
 import com.particle.openplatform.client.app.dto.data.OpenplatformAppVO;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppOpenapiDO;
+import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppOpenapiService;
+import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;
+import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
+import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +51,13 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 	private IOpenplatformAppApplicationService iOpenplatformAppApplicationService;
 	@Autowired
 	private IOpenplatformAppRepresentationApplicationService iOpenplatformAppRepresentationApplicationService;
+
+	@Autowired
+	private IOpenplatformAppService iOpenplatformAppService;
+	@Autowired
+	private IOpenplatformOpenapiService iOpenplatformOpenapiService;
+	@Autowired
+	private IOpenplatformAppOpenapiService iOpenplatformAppOpenapiService;
 
 	@Autowired(required = false)
 	private List<AbstractGlobalOpenapi> globalOpenapiList;
@@ -111,8 +125,29 @@ public class OpenplatformAppAdminWebController extends AbstractBaseWebAdapter {
 				abstractGlobalOpenapi.refreshOpenapiClientCache(openplatformAppVOSingleResponse.getData().getAppId());
 			}
 		}
+		refreshAppOpenapiCache(openplatformAppVOSingleResponse.getData().getId(), openplatformAppVOSingleResponse.getData().getAppId());
 		// 返回服务的地址，以方便在多实例部署时，区分机器已刷新
 		return SingleResponse.of(NetUtil.getLocalhostStr());
+	}
+
+	/**
+	 * 刷新接口配置缓存
+	 * @param openplatformAppId
+	 * @param appId
+	 */
+	private void refreshAppOpenapiCache(Long openplatformAppId,String appId) {
+		List<OpenplatformAppOpenapiDO> openplatformAppOpenapiDOS = iOpenplatformAppOpenapiService.listByOpenplatformAppId(openplatformAppId);
+		for (OpenplatformAppOpenapiDO openplatformAppOpenapiDO : openplatformAppOpenapiDOS) {
+
+			OpenplatformOpenapiDO openplatformOpenapiDO = iOpenplatformOpenapiService.getById(openplatformAppOpenapiDO.getOpenplatformOpenapiId());
+			if (CollectionUtil.isNotEmpty(globalOpenapiList)) {
+				for (AbstractGlobalOpenapi abstractGlobalOpenapi : globalOpenapiList) {
+					abstractGlobalOpenapi.refreshApiInfoCache(openplatformOpenapiDO.getUrl(), appId);
+				}
+			}
+		}
+
+
 	}
 
 	@PreAuthorize("hasAuthority('user')")

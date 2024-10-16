@@ -34,6 +34,11 @@ public class OpenplatformAppOpenapi extends AggreateRoot {
     private Long openplatformOpenapiFeeId;
 
 	/**
+	 * 限制规则id，不配置不限制，应用和接口级限制
+	 */
+	private Long openplatformOpenapiLimitRuleId;
+
+	/**
 	 * 指定供应商，如果不指定将按默认编码调用
 	 */
 	private Long openplatformProviderId;

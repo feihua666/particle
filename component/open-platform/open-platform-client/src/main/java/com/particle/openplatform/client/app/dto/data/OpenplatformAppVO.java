@@ -53,8 +53,15 @@ public class OpenplatformAppVO extends AbstractBaseIdVO {
     private Long openplatformOpenapiFeeId;
 
 	@TransBy(tableName = TransTableNameConstants.component_openplatform_openapi_fee, byFieldName = "openplatformOpenapiFeeId", mapValueField = "name")
-	@Schema(description = "计费规则id")
+	@Schema(description = "计费规则名称")
 	private String openplatformOpenapiFeeName;
+
+	@Schema(description = "限制规则id，不配置不限制，应用级限制")
+	private Long openplatformOpenapiLimitRuleId;
+
+	@TransBy(tableName = TransTableNameConstants.component_openplatform_openapi_limit_rule, byFieldName = "openplatformOpenapiLimitRuleId", mapValueField = "name")
+	@Schema(description = "限制规则名称")
+	private String openplatformOpenapiLimitRuleName;
 
 	@Schema(description = "是否禁用")
 	private Boolean isDisabled;

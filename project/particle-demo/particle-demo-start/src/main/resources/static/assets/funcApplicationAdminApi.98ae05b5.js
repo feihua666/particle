@@ -1,1 +1,0 @@
-import{g as e}from"./index.8f1940e7.js";let a="/admin/web/func_application";const s=t=>e.post(a+"/create",t),p=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),o=t=>e.get(a+"/detail-for-update",{params:t}),c=t=>e.get(a+"/list",{params:t}),u=t=>e.get(a+"/page",{params:t});export{s as c,o as d,c as l,u as p,p as r,n as u};

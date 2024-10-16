@@ -40,7 +40,7 @@ const submitAttrs = ref({
   buttonText: '确认修改',
   permission: 'admin:web:openplatformAppOpenapi:update',
   // 由于开放接口缓存，提示一下，参见后端 com.particle.global.openapi.api.AbstractGlobalOpenapi.getOpenapiClient
-  methodConfirmText: `修改后大概5分钟后生效，确认修改吗？`,
+
 })
 // 提交按钮
 const submitMethod = () => {

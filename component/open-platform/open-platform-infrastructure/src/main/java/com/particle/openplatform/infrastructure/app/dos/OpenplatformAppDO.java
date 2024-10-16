@@ -59,6 +59,11 @@ public class OpenplatformAppDO extends BaseDO {
     private Long openplatformOpenapiFeeId;
 
 	/**
+	 * 限制规则id，不配置不限制，应用级限制
+	 */
+	private Long openplatformOpenapiLimitRuleId;
+
+	/**
 	 * 是否禁用
 	 */
 	private Boolean isDisabled;

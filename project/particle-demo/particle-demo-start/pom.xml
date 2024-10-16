@@ -255,6 +255,12 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-jdbc</artifactId>
         </dependency>
+        <!-- 限流相关，主要是开放接口使用，当然也支持其它配置使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-ratelimit-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

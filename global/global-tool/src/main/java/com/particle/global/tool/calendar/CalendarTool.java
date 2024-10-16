@@ -3,9 +3,12 @@ import com.particle.global.tool.thread.ThreadContextTool;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 /**
  * 日期工具操作类
@@ -1061,6 +1064,14 @@ public class CalendarTool {
         CALENDAR.set(Calendar.DAY_OF_MONTH, 1);
         return CALENDAR.getTime();
     }
+    /**
+     * 获取日期时间所在月的第一天的日期时间
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getFirstDayOfMonth(LocalDateTime date){
+        return date.withDayOfMonth(1);
+    }
 
     /**
      * 获取日期所在月的最后一天的日期
@@ -1071,6 +1082,14 @@ public class CalendarTool {
         CALENDAR.setTime(date);
         CALENDAR.set(Calendar.DAY_OF_MONTH, CALENDAR.getActualMaximum(Calendar.DAY_OF_MONTH));
         return CALENDAR.getTime();
+    }
+    /**
+     * 获取日期所在月的最后一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getEndDayOfMonth(LocalDateTime date){
+        return date.withDayOfMonth(date.getMonth().length(date.toLocalDate().isLeapYear()));
     }
 
     /**
@@ -1086,6 +1105,14 @@ public class CalendarTool {
         return CALENDAR.getTime();
     }
     /**
+     * 获取日期所在周的第一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getFirstDayOfWeek(LocalDateTime date){
+        return date.with(DayOfWeek.MONDAY);
+    }
+    /**
      * 获取日期所在周的最后一天的日期
      * @param date
      * @return
@@ -1099,6 +1126,38 @@ public class CalendarTool {
         return CALENDAR.getTime();
     }
     /**
+     * 获取日期所在周的最后一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getEndDayOfWeek(LocalDateTime date){
+        return date.with(DayOfWeek.SUNDAY);
+    }
+
+    /**
+     * 获取日期所在季度的第一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getFirstDayOfQuarter(LocalDateTime date){
+        // 计算当前季度的第一个月
+        Month firstMonthOfQuarter = Month.of((date.getMonthValue() - 1) / 3 * 3 + 1);
+        return date.withMonth(firstMonthOfQuarter.getValue()).withDayOfMonth(1);
+    }
+
+    /**
+     * 获取日期所在季度的最后一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getEndDayOfQuarter(LocalDateTime date){
+        Month endMonthOfQuarter = Month.of((date.getMonthValue() - 1) / 3 * 3 + 3);
+        return date.withMonth(endMonthOfQuarter.getValue())
+                .withDayOfMonth(endMonthOfQuarter.length(date.toLocalDate().isLeapYear()));
+
+    }
+
+    /**
      * 获取日期所在年的第一天的日期
      * @param date
      * @return
@@ -1107,6 +1166,33 @@ public class CalendarTool {
         CALENDAR.setTime(date);
         CALENDAR.set(Calendar.DAY_OF_YEAR, 1);
         return CALENDAR.getTime();
+    }
+    /**
+     * 获取日期所在年的最后一天的日期
+     * @param date
+     * @return
+     */
+    public static Date getEndDayOfYear(Date date){
+        CALENDAR.setTime(date);
+        CALENDAR.set(Calendar.DAY_OF_YEAR, CALENDAR.getActualMaximum(Calendar.DAY_OF_YEAR));
+        return CALENDAR.getTime();
+    }
+
+    /**
+     * 获取日期所在年的第一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getFirstDayOfYear(LocalDateTime date){
+        return date.withDayOfYear(1);
+    }
+    /**
+     * 获取日期所在年的最后一天的日期
+     * @param date
+     * @return
+     */
+    public static LocalDateTime getEndDayOfYear(LocalDateTime date){
+        return date.with(TemporalAdjusters.lastDayOfYear());
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.particle.global.openapi;
 
+import com.particle.global.concurrency.threadpool.CustomExecutors;
+import com.particle.global.light.share.scheduler.SchedulerConstants;
 import com.particle.global.openapi.api.GlobalOpenapiCache;
 import com.particle.global.openapi.api.GlobalOpenapiClientProvider;
 import com.particle.global.openapi.api.OpenapiHelper;
@@ -12,15 +14,20 @@ import com.particle.global.openapi.api.portal.impl.DefaultOpenapiExecutePortalSe
 import com.particle.global.openapi.api.portal.impl.DemoOpenapiExecuteProvider;
 import com.particle.global.openapi.api.portal.impl.OpenapiSingleExecuteProviderLoadBalancerImpl;
 import com.particle.global.openapi.api.portal.impl.OpenapiSpecifyExecuteProviderLoadBalancerImpl;
+import com.particle.global.openapi.api.limitrule.ratelimit.GlobalOpenapiRateLimitService;
 import com.particle.global.openapi.filter.GlobalOpenApiFilter;
 import com.particle.global.openapi.filter.OpenapiRequestResponseLogMatchResponseResolver;
 import com.particle.global.projectinfo.ProjectInfo;
+import com.particle.global.ratelimit.local.DefaultThreadLocalRateLimitInterceptServiceImpl;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,6 +39,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <p>
@@ -47,6 +56,7 @@ import java.util.List;
 @ConditionalOnProperty(prefix = "particle.openapi", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalOpenapiAutoConfiguration {
 
+	public static final String global_openapi_scheduled_task_executor = "globalOpenapiScheduledTaskExecutor";
 
 	@Bean
 	public GlobalOpenApiFilter globalOpenApiFilterBean() {
@@ -172,5 +182,33 @@ public class GlobalOpenapiAutoConfiguration {
 	@Bean
 	public DemoOpenapiExecuteProvider demoOpenapiExecuteProvider() {
 		return new DemoOpenapiExecuteProvider();
+	}
+
+	@Configuration
+	@ConditionalOnClass(DefaultThreadLocalRateLimitInterceptServiceImpl.class)
+	public static class RateLimitConfig{
+
+		@Bean
+		@ConditionalOnBean(DefaultThreadLocalRateLimitInterceptServiceImpl.class)
+		public GlobalOpenapiRateLimitService globalOpenapiRateLimitService() {
+			return new GlobalOpenapiRateLimitService();
+		}
+	}
+
+	@Autowired
+	private BeanFactory beanFactory;
+	/**
+	 * 延迟/任务计划执行线程池
+	 * @return
+	 */
+	@Bean(name = global_openapi_scheduled_task_executor, destroyMethod = "shutdown")
+	public ScheduledExecutorService globalScheduledTaskExecutor() {
+		return CustomExecutors.newScheduledExecutorService(beanFactory,
+				global_openapi_scheduled_task_executor,
+				5,
+				// 如果拒绝自己执行
+				new ThreadPoolExecutor.CallerRunsPolicy(),
+				false);
+
 	}
 }

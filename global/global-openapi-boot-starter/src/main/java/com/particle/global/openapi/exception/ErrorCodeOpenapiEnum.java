@@ -45,6 +45,18 @@ public enum ErrorCodeOpenapiEnum implements IErrorCode {
 	 * 客户端已禁用
 	 */
 	OPENAPI_CLIENT_DISABLED(40000030007L, "客户端已禁用"),
+	/**
+	 * 超过请求次数限制，主要用于开放接口的请求限制
+	 */
+	OPENAPI_EXCEED_REQUEST_COUNT(40300030001L, "超过请求次数限制"),
+	/**
+	 * 超过请求计费次数限制，主要用于开放接口的请求计费限制
+	 */
+	OPENAPI_EXCEED_REQUEST_FEE_COUNT(40300030002L, "超过请求计费次数限制"),
+	/**
+	 * 超过请求费用限制，主要用于开放接口的请求费用限制
+	 */
+	OPENAPI_EXCEED_REQUEST_FEE(40300030003L, "超过请求费用限制"),
 
 	/**
 	 * 供应商 负载均衡器不存在

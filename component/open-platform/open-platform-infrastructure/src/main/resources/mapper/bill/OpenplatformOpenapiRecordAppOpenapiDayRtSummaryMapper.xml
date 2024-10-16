@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.particle.openplatform.infrastructure.bill.mapper.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper">
+
+    <select id="openAppIdOpenapiIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsVIEWDO">
+        select
+        openplatform_app_id,
+        openplatform_openapi_id,
+        sum(total_call) as total_call,
+        sum(total_fee_call) as total_fee_call,
+        sum(total_fee_amount) / sum(total_call) as average_unit_price_amount,
+        sum(total_fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record_app_openapi_day_rt_summary
+        where day_at >= #{statisticsParams.dayAtStart}
+        and day_at &lt;= #{statisticsParams.dayAtEnd}
+        <if test="statisticsParams.openplatformAppId != null">
+            and openplatform_app_id = #{statisticsParams.openplatformAppId}
+        </if>
+        <if test="statisticsParams.openplatformOpenapiId != null">
+            and openplatform_openapi_id = #{statisticsParams.openplatformOpenapiId}
+        </if>
+        group by openplatform_app_id,openplatform_openapi_id
+    </select>
+    <select id="openAppIdStatistics"
+            resultType="com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsVIEWDO">
+        select
+        openplatform_app_id,
+        sum(total_call) as total_call,
+        sum(total_fee_call) as total_fee_call,
+        sum(total_fee_amount) / sum(total_call) as average_unit_price_amount,
+        sum(total_fee_amount) as total_fee_amount
+
+        from component_openplatform_openapi_record_app_openapi_day_rt_summary
+        where day_at >= #{statisticsParams.dayAtStart}
+        and day_at &lt;= #{statisticsParams.dayAtEnd}
+        <if test="statisticsParams.openplatformAppId != null">
+            and openplatform_app_id = #{statisticsParams.openplatformAppId}
+        </if>
+        group by openplatform_app_id
+    </select>
+</mapper>

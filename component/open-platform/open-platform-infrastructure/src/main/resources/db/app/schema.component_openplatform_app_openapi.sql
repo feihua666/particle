@@ -5,6 +5,7 @@ CREATE TABLE `component_openplatform_app_openapi` (
   `openplatform_app_id` bigint NOT NULL COMMENT '开放平台应用id',
   `openplatform_openapi_id` bigint NOT NULL COMMENT '开放接口id，这里只存储接口，不存储分组',
   `openplatform_openapi_fee_id` bigint DEFAULT NULL COMMENT '计费id，不配置不计费',
+  `openplatform_openapi_limit_rule_id` bigint DEFAULT NULL COMMENT '限制规则id，不配置不限制，应用和接口级限制',
   `openplatform_provider_id` bigint DEFAULT NULL COMMENT '指定供应商，如果不指定将按默认编码调用',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',

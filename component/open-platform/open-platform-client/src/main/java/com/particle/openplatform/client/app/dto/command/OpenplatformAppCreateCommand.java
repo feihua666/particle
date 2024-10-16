@@ -54,6 +54,9 @@ public class OpenplatformAppCreateCommand extends AbstractBaseCommand {
     @Schema(description = "计费id")
     private Long openplatformOpenapiFeeId;
 
+	@Schema(description = "限制规则id，不配置不限制，应用级限制")
+	private Long openplatformOpenapiLimitRuleId;
+
 	@Schema(description = "是否禁用")
 	private Boolean isDisabled;
 

@@ -1,0 +1,234 @@
+package com.particle.global.openapi.api.limitrule;
+
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.openapi.GlobalOpenapiAutoConfiguration;
+import com.particle.global.openapi.data.OpenapiLimitRuleInfo;
+import com.particle.global.openapi.enums.LimitRulePeriod;
+import com.particle.global.openapi.enums.LimitRuleTarget;
+import com.particle.global.openapi.enums.LimitRuleType;
+import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * <p>
+ * 请求限制
+ * </p>
+ *
+ * @author yangwei
+ * @since 2024/10/14 16:43
+ */
+@Slf4j
+@Component
+public class GlobalOpenapiRequestLimitService {
+
+    @Qualifier(GlobalOpenapiAutoConfiguration.global_openapi_scheduled_task_executor)
+    @Autowired
+    private ScheduledExecutorService scheduledExecutorService;
+    @Autowired(required = false)
+    private IGlobalOpenapiRequestLimitStatisticProvider globalOpenapiRequestLimitStatisticProvider;
+
+    private static Map<String, RequestLimitClientIdStatistic> requestLimitClientIdStatisticMap = new ConcurrentHashMap<>();
+    private static Map<String, RequestLimitClientIdAndOpenapiStatistic> requestLimitClientIdAndOpenapiStatisticMap = new ConcurrentHashMap<>();
+
+    /**
+     * 请求限制
+     * @param limitRuleInfo
+     * @param clientId
+     * @param apiCode
+     * @param apiUrl
+     */
+    public void requestLimit(OpenapiLimitRuleInfo limitRuleInfo, String clientId, String apiCode, String apiUrl) {
+        LimitRuleType limitRuleType = limitRuleInfo.getLimitRuleType();
+        if (limitRuleType == LimitRuleType.no_limit) {
+            return;
+        }
+        LimitRuleTarget limitRuleTarget = limitRuleInfo.getLimitRuleTarget();
+        LimitRulePeriod limitRulePeriod = limitRuleInfo.getLimitRulePeriod();
+        Integer limitCount = limitRuleInfo.getLimitCount();
+        Integer limitFee = limitRuleInfo.getLimitFee();
+        String key = "";
+        RequestLimitClientIdStatistic requestLimitClientIdStatistic = null;
+        if (limitRuleTarget == LimitRuleTarget.client_id) {
+            key += clientId + "_" + "_" + limitRulePeriod.name();
+            requestLimitClientIdStatistic = requestLimitClientIdStatisticMap.computeIfAbsent(key, (k) -> RequestLimitClientIdStatistic.createForInit(clientId, limitRulePeriod));
+
+        } else if (limitRuleTarget == LimitRuleTarget.client_id_and_openapi) {
+            key += clientId + "_" + apiCode + "_"  + limitRulePeriod.name();
+            requestLimitClientIdStatistic = requestLimitClientIdAndOpenapiStatisticMap.computeIfAbsent(key, (k) -> RequestLimitClientIdAndOpenapiStatistic.createForInit(clientId, apiCode, limitRulePeriod));
+        }
+        if (limitRuleType == LimitRuleType.count_limit) {
+            // 0 不限制
+            if (limitCount <= 0) {
+                return;
+            }
+            Integer count = requestLimitClientIdStatistic.getCount();
+            // 如果为null可能还没有获取到数据，不计算
+            if (count == null) {
+                return;
+            }
+            if (count > limitCount) {
+                throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_COUNT);
+            }
+        }else if (limitRuleType == LimitRuleType.count_fee_limit) {
+            // 0 不限制
+            if (limitCount <= 0) {
+                return;
+            }
+            Integer feeCount = requestLimitClientIdStatistic.getFeeCount();
+            // 如果为null可能还没有获取到数据，不计算
+            if (feeCount == null) {
+                return;
+            }
+            if (feeCount > limitCount) {
+                throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_FEE_COUNT);
+            }
+        } else if (limitRuleType == LimitRuleType.fee_limit) {
+            // 0 不限制
+            if (limitFee <= 0) {
+                return;
+            }
+            Integer fee = requestLimitClientIdStatistic.getFee();
+            // 如果为null可能还没有获取到数据，不计算
+            if (fee == null) {
+                return;
+            }
+            if (fee > limitFee) {
+                throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_FEE);
+            }
+        }
+
+    }
+
+    /**
+     * 定时统计数据
+     * 参见：{@link GlobalOpenapiRequestLimitOnApplicationRunnerListener}
+     */
+    public void sheduleStatisticData() {
+        if (globalOpenapiRequestLimitStatisticProvider == null) {
+            log.warn("sheduleStatisticData but not globalOpenapiRequestLimitStatisticProvider，ignored!");
+            return;
+        }
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            requestLimitClientIdStatisticMap.forEach((k, v) -> {
+                try {
+                    LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.limitRulePeriod.computeDateTime();
+                    RequestLimitClientIdStatistic statistic = globalOpenapiRequestLimitStatisticProvider.statistic(v.clientId, limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
+                    v.updateValue(statistic);
+                } catch (Exception e) {
+                    log.error("sheduleStatisticData requestLimitClientIdStatisticMap error", e);
+                }
+            });
+
+        }, 2, 2, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            requestLimitClientIdAndOpenapiStatisticMap.forEach((k, v) -> {
+                try {
+                    LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.getLimitRulePeriod().computeDateTime();
+                    ;
+                    RequestLimitClientIdAndOpenapiStatistic statistic = globalOpenapiRequestLimitStatisticProvider.statistic(v.getClientId(),v.getOpenapiCode(), limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
+                    v.updateValue(statistic);
+                } catch (Exception e) {
+                    log.error("sheduleStatisticData requestLimitClientIdAndOpenapiStatisticMap error", e);
+                }
+            });
+        }, 1, 2, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 客户端id的请求限制统计
+     */
+    @Data
+    public static class RequestLimitClientIdStatistic {
+        /**
+         * 客户端id
+         */
+        private String clientId;
+        /**
+         * 调用次数
+         */
+        private Integer count;
+
+        /**
+         * 调用计费次数
+         */
+        private Integer feeCount;
+        /**
+         * 调用费用
+         */
+        private Integer fee;
+
+        /**
+         * 调用周期
+         */
+        private LimitRulePeriod limitRulePeriod;
+
+        /**
+         * 更新值,如果获取的统计数据为null，说明没有数据，或者手动删除了数据等原因
+         * @param statistic
+         */
+        public void updateValue(RequestLimitClientIdStatistic statistic) {
+            this.count = statistic == null ? null : statistic.count;
+            this.feeCount = statistic == null ? null : statistic.feeCount;
+            this.fee = statistic == null ? null : statistic.fee;
+        }
+
+        public static RequestLimitClientIdStatistic createForInit(String clientId,LimitRulePeriod limitRulePeriod) {
+            RequestLimitClientIdStatistic requestLimitClientIdStatistic = new RequestLimitClientIdStatistic();
+            requestLimitClientIdStatistic.clientId = clientId;
+            requestLimitClientIdStatistic.limitRulePeriod = limitRulePeriod;
+            return requestLimitClientIdStatistic;
+        }
+
+        public static RequestLimitClientIdStatistic createForValue(String clientId,
+                                                           Integer count,
+                                                           Integer feeCount,
+                                                           Integer fee) {
+            RequestLimitClientIdStatistic requestLimitClientIdStatistic = new RequestLimitClientIdStatistic();
+            requestLimitClientIdStatistic.clientId = clientId;
+            requestLimitClientIdStatistic.count = count;
+            requestLimitClientIdStatistic.feeCount = feeCount;
+            requestLimitClientIdStatistic.fee = fee;
+            return requestLimitClientIdStatistic;
+        }
+    }
+
+    /**
+     * 客户端id和开放接口编码的请求限制统计
+     */
+    @Data
+    public static class RequestLimitClientIdAndOpenapiStatistic extends RequestLimitClientIdStatistic {
+        /**
+         * 开放接口编码
+         */
+        private String openapiCode;
+
+        public static RequestLimitClientIdAndOpenapiStatistic createForInit(String clientId, String openapiCode, LimitRulePeriod limitRulePeriod) {
+            RequestLimitClientIdAndOpenapiStatistic requestLimitClientIdAndOpenapiStatistic = new RequestLimitClientIdAndOpenapiStatistic();
+            requestLimitClientIdAndOpenapiStatistic.setClientId(clientId);
+            requestLimitClientIdAndOpenapiStatistic.openapiCode = openapiCode;
+            requestLimitClientIdAndOpenapiStatistic.setLimitRulePeriod(limitRulePeriod);
+            return requestLimitClientIdAndOpenapiStatistic;
+        }
+        public static RequestLimitClientIdAndOpenapiStatistic createForValue(String clientId, String openapiCode,
+                                                                     Integer count,
+                                                                     Integer feeCount,
+                                                                     Integer fee) {
+            RequestLimitClientIdAndOpenapiStatistic requestLimitClientIdAndOpenapiStatistic = new RequestLimitClientIdAndOpenapiStatistic();
+            requestLimitClientIdAndOpenapiStatistic.setClientId(clientId);
+            requestLimitClientIdAndOpenapiStatistic.setCount(count);
+            requestLimitClientIdAndOpenapiStatistic.setFeeCount(feeCount);
+            requestLimitClientIdAndOpenapiStatistic.setFee(fee);
+            requestLimitClientIdAndOpenapiStatistic.openapiCode = openapiCode;
+            return requestLimitClientIdAndOpenapiStatistic;
+        }
+    }
+}

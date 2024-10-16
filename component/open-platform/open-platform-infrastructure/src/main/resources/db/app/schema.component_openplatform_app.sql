@@ -10,6 +10,7 @@ CREATE TABLE `component_openplatform_app` (
   `response_algorithm_secret_json` text DEFAULT NULL COMMENT '响应算法与密钥等相关配置，最终对应 com.particle.global.openapi.data.OpenapiAlgorithmSecret',
   `scopes` varchar(2000) DEFAULT NULL COMMENT '访问范围配置，方便单独指定',
   `openplatform_openapi_fee_id` bigint DEFAULT NULL COMMENT '计费id，不配置不计费',
+  `openplatform_openapi_limit_rule_id` bigint DEFAULT NULL COMMENT '限制规则id，不配置不限制，应用级限制',
   `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',
   `disabled_reason` varchar(255) DEFAULT NULL COMMENT '禁用原因',
   `is_check_signature` tinyint(1) NOT NULL COMMENT '是否检查签名,主要用于在oauth2 token时可以不检查',

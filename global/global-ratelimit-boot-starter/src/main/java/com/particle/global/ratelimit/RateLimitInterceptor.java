@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
-public class RateLimitInterceptor implements AsyncHandlerInterceptor {
+public class RateLimitInterceptor implements HandlerInterceptor {
 
 	// 限流器延迟毫秒数
 	private static Long delayMs = 1000L;
@@ -82,6 +83,6 @@ public class RateLimitInterceptor implements AsyncHandlerInterceptor {
 			}
 		}
 
-		return AsyncHandlerInterceptor.super.preHandle(request, response, handler);
+		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 }

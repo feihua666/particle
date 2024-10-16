@@ -1,0 +1,80 @@
+package com.particle.openplatform.app.bill.executor;
+
+import com.particle.openplatform.app.bill.structmapping.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryAppStructMapping;
+import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand;
+import com.particle.openplatform.client.bill.dto.data.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO;
+import com.particle.openplatform.domain.bill.OpenplatformOpenapiRecordAppOpenapiDayRtSummary;
+import com.particle.openplatform.domain.bill.gateway.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+
+/**
+ * <p>
+ * 开放平台应用开放接口日实时汇总 创建指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2024-10-15 10:30:43
+ */
+@Component
+@Validated
+public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommandExecutor  extends AbstractBaseExecutor {
+
+	private OpenplatformOpenapiRecordAppOpenapiDayRtSummaryGateway openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway;
+
+	/**
+	 * 执行开放平台应用开放接口日实时汇总添加指令
+	 * @param openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand
+	 * @return
+	 */
+	public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO> execute(@Valid OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand) {
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummary openplatformOpenapiRecordAppOpenapiDayRtSummary = createByOpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand(openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand);
+		openplatformOpenapiRecordAppOpenapiDayRtSummary.setAddControl(openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand);
+		boolean save = openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway.save(openplatformOpenapiRecordAppOpenapiDayRtSummary);
+		if (save) {
+			return SingleResponse.of(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryAppStructMapping.instance.toOpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO(openplatformOpenapiRecordAppOpenapiDayRtSummary));
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
+
+	/**
+	 * 根据开放平台应用开放接口日实时汇总创建指令创建开放平台应用开放接口日实时汇总模型
+	 * @param openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand
+	 * @return
+	 */
+	private OpenplatformOpenapiRecordAppOpenapiDayRtSummary createByOpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand){
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummary openplatformOpenapiRecordAppOpenapiDayRtSummary = OpenplatformOpenapiRecordAppOpenapiDayRtSummary.create();
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommandToOpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapping.instance.fillOpenplatformOpenapiRecordAppOpenapiDayRtSummaryByOpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand(openplatformOpenapiRecordAppOpenapiDayRtSummary, openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand);
+		return openplatformOpenapiRecordAppOpenapiDayRtSummary;
+	}
+
+	@Mapper
+	interface  OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommandToOpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapping{
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommandToOpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapping instance = Mappers.getMapper( OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommandToOpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapping.class );
+
+		/**
+		 * 同名属性会自动映射，包括枚举
+		 * @param openplatformOpenapiRecordAppOpenapiDayRtSummary
+		 * @param openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand
+		 */
+		void fillOpenplatformOpenapiRecordAppOpenapiDayRtSummaryByOpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand(@MappingTarget OpenplatformOpenapiRecordAppOpenapiDayRtSummary openplatformOpenapiRecordAppOpenapiDayRtSummary, OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand);
+	}
+
+	/**
+	 * 注入使用set方法
+	 * @param openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway
+	 */
+	@Autowired
+	public void setOpenplatformOpenapiRecordAppOpenapiDayRtSummaryGateway(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryGateway openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway) {
+		this.openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway = openplatformOpenapiRecordAppOpenapiDayRtSummaryGateway;
+	}
+}

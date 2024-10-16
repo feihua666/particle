@@ -7,9 +7,12 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.Assert;
+import com.particle.global.openapi.api.limitrule.GlobalOpenapiRequestLimitService;
+import com.particle.global.openapi.api.limitrule.ratelimit.GlobalOpenapiRateLimitService;
 import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.*;
+import com.particle.global.openapi.enums.LimitRuleType;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
 import com.particle.global.security.security.PermissionService;
 import com.particle.global.tool.json.JsonTool;
@@ -26,19 +29,14 @@ import org.springframework.security.core.context.TransientSecurityContext;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
-import org.springframework.web.util.ContentCachingResponseWrapper;
-import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
 /**
  * <p>
  * 开放接口帮助类
@@ -57,6 +55,14 @@ public class OpenapiHelper {
 	private GlobalOpenapiCollectPersistentService globalOpenapiCollectPersistentService;
 
 	/**
+	 * 限流支持
+	 */
+	@Autowired(required = false)
+	private GlobalOpenapiRateLimitService globalOpenapiRateLimitService;
+	@Autowired
+	private GlobalOpenapiRequestLimitService globalOpenapiRequestLimitService;
+
+	/**
 	 * 开始
 	 * @param openapiContext
 	 */
@@ -65,14 +71,14 @@ public class OpenapiHelper {
 		OpenapiCollectTool.putContext(openapiContext);
 	}
 	/**
-	 * 开放接口请求开始处理
+	 * 开放接口请求开始处理，入口
 	 * @param request
 	 * @param openApi
 	 */
 	public void requestStart(HttpServletRequest request, OpenApi openApi) {
 		// 标记开始
-
 		OpenapiContext openapiContext = new OpenapiContext();
+		// 开始
 		openApiStart(openapiContext);
 		openapiContext.setRequestStartAt(LocalDateTime.now());
 
@@ -166,6 +172,32 @@ public class OpenapiHelper {
 			SecurityContextHolder.setContext(context);
 		}
 
+		// 限制规则支持
+		if (apiInfo != null) {
+			OpenapiLimitRuleInfo clientLimitRuleInfo = apiInfo.getClientLimitRuleInfo();
+			if (clientLimitRuleInfo != null) {
+				// 	流量限制
+				if (globalOpenapiRateLimitService != null) {
+					globalOpenapiRateLimitService.threadLocalRateLimit(clientLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+				}
+				// 	请求限制
+				globalOpenapiRequestLimitService.requestLimit(clientLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+
+			}
+			OpenapiLimitRuleInfo clientAndOpenapiLimitRuleInfo = apiInfo.getClientAndOpenapiLimitRuleInfo();
+
+			if (clientAndOpenapiLimitRuleInfo != null) {
+				// 	流量限制
+				if (globalOpenapiRateLimitService != null) {
+					globalOpenapiRateLimitService.threadLocalRateLimit(clientAndOpenapiLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+				}
+				// 	请求限制
+				globalOpenapiRequestLimitService.requestLimit(clientAndOpenapiLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+
+			}
+
+		}
+
 	}
 
 	/**
@@ -177,6 +209,9 @@ public class OpenapiHelper {
 		// 如果没有start也就没有必要处理了
 		if (!OpenapiCollectTool.isStartOpenApi()) {
 			return;
+		}
+		if (globalOpenapiRateLimitService != null) {
+			globalOpenapiRateLimitService.threadLocalRateLimitRemove();
 		}
 		OpenapiContext context = OpenapiCollectTool.getContext();
 

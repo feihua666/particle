@@ -1,0 +1,69 @@
+package com.particle.openplatform.infrastructure.bill.service.impl;
+
+import cn.hutool.core.util.StrUtil;
+import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO;
+import com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsVIEWDO;
+import com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsVIEWDO;
+import com.particle.openplatform.infrastructure.bill.dto.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam;
+import com.particle.openplatform.infrastructure.bill.dto.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam;
+import com.particle.openplatform.infrastructure.bill.mapper.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper;
+import com.particle.openplatform.infrastructure.bill.service.IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.dto.basic.QueryCommand;
+import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Collections;
+import java.util.List;
+
+
+/**
+ * <p>
+ * 开放平台应用开放接口日实时汇总 服务实现类
+ * </p>
+ *
+ * @author yw
+ * @since 2024-10-15 10:30:43
+ */
+@Component
+public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryServiceImpl extends IBaseServiceImpl<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper, OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO> implements IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService {
+	private IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO> queryCommandMapStruct;
+
+	private OpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper;
+
+	@Override
+	protected OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO queryCommandToDO(QueryCommand queryCommand) {
+		return queryCommandMapStruct.queryCommandToDO(queryCommand);
+	}
+
+
+	@Override
+	protected void preAdd(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO po) {
+	}
+
+	@Override
+	protected void preUpdate(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO po) {
+    
+	}
+
+	@Override
+	public List<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsVIEWDO> openAppIdOpenapiIdStatistics(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam openplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam) {
+		return openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper.openAppIdOpenapiIdStatistics(openplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam);
+	}
+
+	@Override
+	public List<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsVIEWDO> openAppIdStatistics(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam openplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam) {
+		return openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper.openAppIdStatistics(openplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam);
+	}
+
+	@Autowired
+	public void setOpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryMapper openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper) {
+		this.openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper = openplatformOpenapiRecordAppOpenapiDayRtSummaryMapper;
+	}
+
+	@Autowired
+	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO> queryCommandMapStruct) {
+		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+}

@@ -40,13 +40,6 @@ particle:
       # 开放平台相关表
       - component_openplatform_app
       - component_openplatform_app_openapi
-      - component_openplatform_openapi
-      - component_openplatform_openapi_fee
-      - component_openplatform_openapi_record
-      - component_openplatform_openapi_record_param
-      - component_openplatform_provider
-      - component_openplatform_provider_record
-      - component_openplatform_provider_record_param
       - component_openplatform_doc_api
       - component_openplatform_doc_api_dir_rel
       - component_openplatform_doc_api_doc
@@ -59,6 +52,25 @@ particle:
       - component_openplatform_doc_api_doc_template_response_code
       - component_openplatform_doc_dir
       - component_openplatform_doc_dir_name
+      - component_openplatform_openapi
+      - component_openplatform_openapi_batch_query_record
+      - component_openplatform_openapi_batch_query_record_detail
+      - component_openplatform_openapi_fee
+      - component_openplatform_openapi_limit_rule
+      - component_openplatform_openapi_record
+      - component_openplatform_openapi_record_app_month_bill
+      - component_openplatform_openapi_record_app_openapi_day_rt_summary
+      - component_openplatform_openapi_record_app_openapi_day_summary
+      - component_openplatform_openapi_record_app_openapi_month_summary
+      - component_openplatform_openapi_record_customer_month_bill
+      - component_openplatform_openapi_record_param
+      - component_openplatform_provider
+      - component_openplatform_provider_api
+      - component_openplatform_provider_record
+      - component_openplatform_provider_record_param
+      - component_openplatform_provider_record_prd_api_day_summary
+      - component_openplatform_provider_record_prd_api_month_summary
+      - component_openplatform_provider_record_prd_month_bill
       # 报告相关表
       - component_report_report_api
       - component_report_segment_template

@@ -32,6 +32,14 @@ const reactiveData = reactive({
       prop: 'openplatformOpenapiFeeName',
       label: '计费规则名称',
     },
+    {
+      prop: 'openplatformOpenapiLimitRuleName',
+      label: '限制规则名称',
+    },
+    {
+      prop: 'openplatformProviderName',
+      label: '指定供应商名称',
+    },
   ],
 
 })

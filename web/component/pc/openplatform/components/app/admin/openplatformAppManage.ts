@@ -2,6 +2,7 @@ import {useRemoteSelectUserCompItem} from "../../../../user/components/userCompI
 import {useOauth2SelectClientCompItem} from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem.ts";
 import {useSelectOpenapiFeeCompItem} from "../../openplatformOpenapiFeeCompItem";
 import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
+import {useSelectOpenapiLimitRuleCompItem} from "../../openplatformOpenapiLimitRuleCompItem";
 
 export const pageFormItems = [
     {
@@ -143,6 +144,9 @@ export const useAddPageFormItems = ({props,appAlgorithmSecretConfigsRef}) => {
       useSelectOpenapiFeeCompItem({
         tips: '默认的计费配置，可以在分配接口时单独指定计费规则，不配置，不进行计费'
       }),
+        useSelectOpenapiLimitRuleCompItem({
+            tips: '针对该应用进行限制配置，注意区分于应用接口配置的限制规则，该配置是应用级的'
+        }),
 
         {
             field: {
