@@ -59,6 +59,20 @@ public enum ErrorCodeOpenapiEnum implements IErrorCode {
 	OPENAPI_EXCEED_REQUEST_FEE(40300030003L, "超过请求费用限制"),
 
 	/**
+	 * 超过请求次数限制，主要用于开放接口的应用请求额度限制
+	 */
+	OPENAPI_EXCEED_REQUEST_QUATA_COUNT(40300030004L, "应用超过请求次数额度限制"),
+	/**
+	 * 超过请求计费次数限制，主要用于开放接口的应用请求计费额度限制
+	 */
+	OPENAPI_EXCEED_REQUEST_QUATA_FEE_COUNT(40300030005L, "应用超过请求计费次数额度限制"),
+	/**
+	 * 超过请求费用限制，主要用于开放接口的应用请求费用额度限制
+	 */
+	OPENAPI_EXCEED_REQUEST_QUATA_FEE(40300030006L, "应用超过请求费用额度限制"),
+
+
+	/**
 	 * 供应商 负载均衡器不存在
 	 */
 	OPENAPI_LOADBALANCER_NOT_EXIST(50000030001L, "负载均衡器不存在"),

@@ -1,7 +1,9 @@
 package com.particle.global.openapi.api.limitrule;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.openapi.GlobalOpenapiAutoConfiguration;
+import com.particle.global.openapi.data.OpenapiAppQuotaLimitInfo;
 import com.particle.global.openapi.data.OpenapiLimitRuleInfo;
 import com.particle.global.openapi.enums.LimitRulePeriod;
 import com.particle.global.openapi.enums.LimitRuleTarget;
@@ -34,10 +36,11 @@ public class GlobalOpenapiRequestLimitService {
     @Autowired
     private ScheduledExecutorService scheduledExecutorService;
     @Autowired(required = false)
-    private IGlobalOpenapiRequestLimitStatisticProvider globalOpenapiRequestLimitStatisticProvider;
+    private IGlobalOpenapiRequestLimitDataProvider globalOpenapiRequestLimitDataProvider;
 
     private static Map<String, RequestLimitClientIdStatistic> requestLimitClientIdStatisticMap = new ConcurrentHashMap<>();
     private static Map<String, RequestLimitClientIdAndOpenapiStatistic> requestLimitClientIdAndOpenapiStatisticMap = new ConcurrentHashMap<>();
+    private static Map<String, OpenapiAppQuotaLimitInfo> requestAppQuotaLimitClientIdMap = new ConcurrentHashMap<>();
 
     /**
      * 请求限制
@@ -58,7 +61,7 @@ public class GlobalOpenapiRequestLimitService {
         String key = "";
         RequestLimitClientIdStatistic requestLimitClientIdStatistic = null;
         if (limitRuleTarget == LimitRuleTarget.client_id) {
-            key += clientId + "_" + "_" + limitRulePeriod.name();
+            key += clientId + "_" + limitRulePeriod.name();
             requestLimitClientIdStatistic = requestLimitClientIdStatisticMap.computeIfAbsent(key, (k) -> RequestLimitClientIdStatistic.createForInit(clientId, limitRulePeriod));
 
         } else if (limitRuleTarget == LimitRuleTarget.client_id_and_openapi) {
@@ -109,40 +112,89 @@ public class GlobalOpenapiRequestLimitService {
     }
 
     /**
+     * 请求应用额度限制
+     */
+    public void requestAppQuotaLimit( String clientId) {
+        if (StrUtil.isEmpty(clientId)) {
+            return;
+        }
+        OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = requestAppQuotaLimitClientIdMap.computeIfAbsent(clientId,k -> OpenapiAppQuotaLimitInfo.createForInit(clientId));
+        if (openapiAppQuotaLimitInfo.getLimitRuleType() == null) {
+            return;
+        }
+        if (openapiAppQuotaLimitInfo.hasExceedLimit()) {
+            switch (openapiAppQuotaLimitInfo.getLimitRuleType()) {
+                case count_limit:
+                    throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_QUATA_COUNT);
+                case count_fee_limit:
+                    throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_QUATA_FEE_COUNT);
+                case fee_limit:
+                    throw ExceptionFactory.bizException(ErrorCodeOpenapiEnum.OPENAPI_EXCEED_REQUEST_QUATA_FEE);
+
+            }
+
+        }
+    }
+
+    /**
      * 定时统计数据
      * 参见：{@link GlobalOpenapiRequestLimitOnApplicationRunnerListener}
      */
     public void sheduleStatisticData() {
-        if (globalOpenapiRequestLimitStatisticProvider == null) {
+        if (globalOpenapiRequestLimitDataProvider == null) {
             log.warn("sheduleStatisticData but not globalOpenapiRequestLimitStatisticProvider，ignored!");
             return;
         }
         scheduledExecutorService.scheduleAtFixedRate(() -> {
+            log.info("sheduleStatisticData requestLimitClientIdStatistic start");
+            long start = System.currentTimeMillis();
             requestLimitClientIdStatisticMap.forEach((k, v) -> {
                 try {
                     LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.limitRulePeriod.computeDateTime();
-                    RequestLimitClientIdStatistic statistic = globalOpenapiRequestLimitStatisticProvider.statistic(v.clientId, limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
+                    RequestLimitClientIdStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.clientId, limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
-                    log.error("sheduleStatisticData requestLimitClientIdStatisticMap error", e);
+                    log.error("sheduleStatisticData requestLimitClientIdStatistic error", e);
                 }
             });
 
+            log.info("sheduleStatisticData requestLimitClientIdStatistic end,duration={}ms", System.currentTimeMillis() - start);
         }, 2, 2, TimeUnit.SECONDS);
+
         scheduledExecutorService.scheduleAtFixedRate(() -> {
+            log.info("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic start");
+            long start = System.currentTimeMillis();
             requestLimitClientIdAndOpenapiStatisticMap.forEach((k, v) -> {
                 try {
                     LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.getLimitRulePeriod().computeDateTime();
                     ;
-                    RequestLimitClientIdAndOpenapiStatistic statistic = globalOpenapiRequestLimitStatisticProvider.statistic(v.getClientId(),v.getOpenapiCode(), limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
+                    RequestLimitClientIdAndOpenapiStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.getClientId(),v.getOpenapiCode(), limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
-                    log.error("sheduleStatisticData requestLimitClientIdAndOpenapiStatisticMap error", e);
+                    log.error("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic error", e);
                 }
             });
+            log.info("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic end,duration={}ms", System.currentTimeMillis() - start);
         }, 1, 2, TimeUnit.SECONDS);
     }
 
+    /**
+     * 定时统计应用额度
+     * 参见：{@link GlobalOpenapiRequestLimitOnApplicationRunnerListener}
+     */
+    public void scheduleAppQuotaLimitData() {
+
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            log.info("scheduleAppQuotaLimitData start");
+            long start = System.currentTimeMillis();
+            requestAppQuotaLimitClientIdMap.forEach((k,v) -> {
+                OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = globalOpenapiRequestLimitDataProvider.getOpenapiAppQuotaLimitInfo(k);
+                v.updateValue(openapiAppQuotaLimitInfo);
+            });
+            log.info("scheduleAppQuotaLimitData end,duration={}ms", System.currentTimeMillis() - start);
+
+        }, 3, 2, TimeUnit.SECONDS);
+    }
     /**
      * 客户端id的请求限制统计
      */

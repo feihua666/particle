@@ -23,7 +23,8 @@ public class GlobalOpenapiRequestLimitOnApplicationRunnerListener implements OnA
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("globalOpenapiRequestLimit sheduleStatisticData start");
+        log.info("globalOpenapiRequestLimit sheduleData start");
         globalOpenapiRequestLimitService.sheduleStatisticData();
+        globalOpenapiRequestLimitService.scheduleAppQuotaLimitData();
     }
 }

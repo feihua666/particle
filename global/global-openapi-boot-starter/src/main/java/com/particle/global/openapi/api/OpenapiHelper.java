@@ -171,9 +171,12 @@ public class OpenapiHelper {
 			context.setAuthentication(globalOpenapiBasicHeaderAuthenticationToken);
 			SecurityContextHolder.setContext(context);
 		}
+		// 应用额度限制
+		globalOpenapiRequestLimitService.requestAppQuotaLimit(clientId);
 
 		// 限制规则支持
 		if (apiInfo != null) {
+
 			OpenapiLimitRuleInfo clientLimitRuleInfo = apiInfo.getClientLimitRuleInfo();
 			if (clientLimitRuleInfo != null) {
 				// 	流量限制

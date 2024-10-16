@@ -12,10 +12,13 @@ import com.particle.global.tool.json.JsonTool;
 import com.particle.openplatform.domain.enums.OpenFlatformFeeReason;
 import com.particle.openplatform.domain.enums.OpenPlatformDeduplicateType;
 import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
+import com.particle.openplatform.domain.enums.OpenPlatformLimitRuleType;
 import com.particle.openplatform.domain.event.*;
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppQuotaDO;
+import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppQuotaService;
 import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;
 import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO;
 import com.particle.openplatform.infrastructure.bill.service.IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService;
@@ -65,6 +68,10 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	 * 缓存8小时
 	 */
 	private static final TimedCache<OpenFlatformFeeReason, Long> openFlatformFeeReasonDictIdCache = CacheUtil.newTimedCache(1000 * 60 * 60 * 8);
+	/**
+	 * 缓存9小时
+	 */
+	private static final TimedCache<Long, OpenPlatformLimitRuleType> dictIdOpenPlatformLimitRuleTypeCache = CacheUtil.newTimedCache(1000 * 60 * 60 * 9);
 
 	private static LocalDate lastDeleteAppOpenapiDayRtSummaryLocalDate;
 
@@ -88,6 +95,9 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 	@Autowired
 	private IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService;
+
+	@Autowired
+	private IOpenplatformAppQuotaService iOpenplatformAppQuotaService;
 
 	@Autowired
 	private OpenplatformDictGateway openplatformDictGateway;
@@ -158,8 +168,50 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		saveAppOpenapiDayRtSummary(openplatformOpenapiRecordDO);
 		// 删除一个月之前的实时日汇总
 		deleteAppOpenapiDayRtSummary();
+
+		// 实时应用额度扣除
+		deductAppQuota(openplatformOpenapiRecordDO.getOpenplatformAppId(), openplatformOpenapiRecordDO.getFeeAmount(), 10);
 	}
 
+	private void deductAppQuota(Long openplatformAppId, Integer feeAmount,int reTryTimes) {
+		OpenplatformAppQuotaDO byOpenplatformAppId = iOpenplatformAppQuotaService.getByOpenplatformAppId(openplatformAppId);
+		if (byOpenplatformAppId == null) {
+			return;
+		}
+		Long limitTypeDictId = byOpenplatformAppId.getLimitTypeDictId();
+		OpenPlatformLimitRuleType limitRuleType = dictIdOpenPlatformLimitRuleTypeCache.get(limitTypeDictId, () -> {
+			String limitRuleTypeStr = openplatformDictGateway.getDictValueById(limitTypeDictId);
+			return OpenPlatformLimitRuleType.valueOf(limitRuleTypeStr);
+		});
+		if (limitRuleType == OpenPlatformLimitRuleType.no_limit) {
+			return;
+		}
+		boolean needUpdate = false;
+		if (limitRuleType == OpenPlatformLimitRuleType.count_limit) {
+			needUpdate = true;
+			byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - 1);
+		} else if (limitRuleType == OpenPlatformLimitRuleType.count_fee_limit) {
+			if (feeAmount > 0) {
+				needUpdate = true;
+				byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - 1);
+			}
+		} else if (limitRuleType == OpenPlatformLimitRuleType.fee_limit) {
+			needUpdate = true;
+			byOpenplatformAppId.setLimitFee(byOpenplatformAppId.getLimitFee() - feeAmount);
+		}
+		if (needUpdate) {
+			boolean save = iOpenplatformAppQuotaService.updateById(byOpenplatformAppId);
+			if (!save) {
+				if (reTryTimes <= 0) {
+					log.error("deductAppQuota failed,openplatformAppId={},limitRuleType={},feeAmount={}",
+							openplatformAppId,limitRuleType.name(), feeAmount);
+					return;
+				}
+				// 更新失败，递归调用，可能数据已经被更新，再次调用，这里其实使用的是乐观锁
+				updateAppOpenapiDayRtSummary(openplatformAppId, feeAmount,reTryTimes - 1);
+			}
+		}
+	}
 	/**
 	 * 删除一个月之前的实时日汇总
 	 */

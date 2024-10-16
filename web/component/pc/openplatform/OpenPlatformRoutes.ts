@@ -37,6 +37,7 @@ import openplatformOpenapiRecordAppMonthBillAdminRoutes
 import openplatformOpenapiLimitRuleAdminRoutes from "./views/openapi/admin/openplatformOpenapiLimitRuleAdminRoutes";
 import openplatformOpenapiRecordAppOpenapiDayRtSummaryAdminRoutes
     from "./views/bill/admin/openplatformOpenapiRecordAppOpenapiDayRtSummaryAdminRoutes";
+import openplatformAppQuotaAdminRoutes from "./views/app/admin/openplatformAppQuotaAdminRoutes";
 
 const OpenPlatformRoutes = []
     .concat(openplatformAppAdminRoutes)
@@ -69,4 +70,5 @@ const OpenPlatformRoutes = []
     .concat(openplatformOpenapiRecordAppMonthBillAdminRoutes)
     .concat(openplatformOpenapiLimitRuleAdminRoutes)
     .concat(openplatformOpenapiRecordAppOpenapiDayRtSummaryAdminRoutes)
+    .concat(openplatformAppQuotaAdminRoutes)
 export default OpenPlatformRoutes

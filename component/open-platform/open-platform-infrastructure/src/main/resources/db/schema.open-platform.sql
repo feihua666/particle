@@ -1,6 +1,7 @@
 -- 建表语句sql
 -- import classpath:db/app/schema.component_openplatform_app.sql
 -- import classpath:db/app/schema.component_openplatform_app_openapi.sql
+-- import classpath:db/app/schema.component_openplatform_app_quota.sql
 -- import classpath:db/openapi/schema.component_openplatform_openapi.sql
 -- import classpath:db/openapi/schema.component_openplatform_openapi_fee.sql
 -- import classpath:db/openapi/schema.component_openplatform_openapi_batch_query_record.sql

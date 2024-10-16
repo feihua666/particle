@@ -35,9 +35,11 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdSt
     @NotNull
     private LocalDate dayAtEnd;
 
-    public static OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam create(Long openplatformAppId, LocalDate dayAtStart, LocalDate dayAtEnd) {
+    public static OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam create(Long openplatformAppId,Long openplatformOpenapiId,
+                                                                                                          LocalDate dayAtStart, LocalDate dayAtEnd) {
         OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam = new OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsParam();
         openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam.openplatformAppId = openplatformAppId;
+        openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam.openplatformOpenapiId = openplatformOpenapiId;
         openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam.dayAtStart = dayAtStart;
         openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam.dayAtEnd = dayAtEnd;
         return openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam;
