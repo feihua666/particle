@@ -1,6 +1,41 @@
 
 # Changelog
 
+# 4.0.0-beta(2024-10-22)
+### 新特性
+
+* 【particle-demo】默认使用jdbc存储session方便快速部署多实例
+* 【open-platform】开放接口记录调用添加时间，以记录更加准备的时间；开放接口文档相关修改；配合【global-openapi-boot-starter】支持添加计费功能、调用额度配置；添加后台管理开放接口查询功能、批量查询功能
+* 【feedback】意见反馈业务组件添加
+* 【low-code】低代码加载模型项已支持mysql唯一单字段索引，低代码加载模型项生成建表语句过滤字符编码
+* 【global-oss-boot-starter】oss下载支持urlencode编码
+* 【crm】客户管理业务组件添加
+* 【global-actuator-boot-starter】bootadmin支持可配置禁用
+* 【config】参数配置管理业务组件添加，支持系统参数配置，favicon.ico、logo、logo text、web title 支持接口配置
+* 【data-constraint】数据范围约束业务组件添加，以支持数据权限管理，自定义数据对象，自定义数据范围
+* 【user】初始化虚拟超级管理员，以方便测试功能权限
+* 【op-log】操作日志添加全局mvc异常日志记录方便排查问题，可以后台异常日志查看
+* 【data】数据业务组件添加，旨在一些处理数据或以数据提供开放接口的场景提供支持
+* 【global-openapi-boot-starter】添加限制规则功能，可对接口进行按访问次数、访问费用等限制，添加开放接口限流功能，可配置qps流量限制
+* 【global-big-datasource-boot-starter】大数据源es查询支持自定义查询query
+* 【data-query】
+1. 支持经量级预热，已经默认开启，默认不再开启数据查询接口调用预热
+2. 数据源接口支持数据查询字符串字段
+3. 出参扩展配置支持自定义输出最终结果，如：Response.buildSuccess()
+4. 数据查询字符串字典支持，添加数据查询字符串字典项
+5. 出参扩展配置支持自定义设置数据源接口供应商业务响应代码，一般用于http业务响应代码
+   全局支持根据Response设置响应状态码
+### bug修复
+
+* 【global-bootstrap-boot-starter】应用关闭监听，添加逻辑判断，防止重复调用，只调用一次
+* 【usage-count】修改记录使用次数记录，在没有配置时报500的问题，直接修改为20
+* 【low-code】低代码生成片段 adapter-feign-client，变量引用错误，应该为：parent.outputVar.nameVar
+* 【global-openapi-boot-starter】在开放接口校验流水号缓存时没有进行清楚，导致OOM问题，改为固定缓存大小
+* 【global-mybatis-plus-boot-starter】修改在使用查询command添加@like注解时，字符串为空，导致拼接%问
+### 其它
+
+* 其它细节功能的修改
+
 # 3.0.0-beta(2024-01-23)
 ### 新特性
 
@@ -13,6 +48,7 @@
 
 * 【global-openapi-boot-starter】缓存key问题修改，否则导致数据错乱
 ### 其它
+
 * 无
 
 
