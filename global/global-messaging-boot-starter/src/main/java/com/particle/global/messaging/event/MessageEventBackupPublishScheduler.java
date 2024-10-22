@@ -28,7 +28,7 @@ public class MessageEventBackupPublishScheduler implements IGlobalScheduler {
      */
     @Scheduled(fixedDelay = 20000)
     public void run() {
-        log.info("Scheduled trigger message event backup publish process.");
+        log.debug("Scheduled trigger message event backup publish process.");
         publisher.publishNextBatch();
     }
 

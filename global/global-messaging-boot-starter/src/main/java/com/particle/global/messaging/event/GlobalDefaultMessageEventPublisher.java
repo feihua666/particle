@@ -67,7 +67,7 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
     private Void doPublish(int size) {
         List<AbstractMessageEvent> newestEvents = eventDao.nextPublishBatch(size);
         int toBePublishedSize = newestEvents.size();
-        log.info("to be Published message event size is {}.", toBePublishedSize);
+        log.debug("to be Published message event size is {}.", toBePublishedSize);
         if (toBePublishedSize > 0) {
             log.debug("to be Published messageId is {}.", newestEvents.stream().map(item -> item.getMessageId()).collect(Collectors.toList()));
         }
@@ -76,10 +76,10 @@ public class GlobalDefaultMessageEventPublisher implements MessageEventPublisher
             try {
                boolean flag = sender.send(event);
                 if (flag) {
-                    log.info("Published success {}.", event);
+                    log.debug("Published success {}.", event);
                     eventDao.markAsPublished(event.getMessageId());
                 }else {
-                    log.info("Published failed.you should forcePublish this event for retry {}.", event);
+                    log.debug("Published failed.you should forcePublish this event for retry {}.", event);
                     eventDao.markAsPublishFailed(event.getMessageId());
                 }
 
