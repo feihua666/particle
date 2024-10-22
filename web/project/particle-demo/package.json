@@ -1,6 +1,6 @@
 {
   "name": "particle-demo",
-  "version": "3.0.1-beta-SNAPSHOT",
+  "version": "4.0.1-beta-SNAPSHOT",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
