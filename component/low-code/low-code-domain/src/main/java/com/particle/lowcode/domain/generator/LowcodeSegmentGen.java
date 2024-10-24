@@ -110,6 +110,9 @@ public class LowcodeSegmentGen extends AggreateRoot {
 	}
 
 	public void changeLowcodeModelJson(String newLowcodeModelJson) {
+		if (StrUtil.isEmpty(newLowcodeModelJson)) {
+			return;
+		}
 		lowcodeModelJson = newLowcodeModelJson;
 	}
 

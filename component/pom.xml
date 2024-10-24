@@ -42,6 +42,7 @@
         <module>config</module>
         <module>data</module>
         <module>scheduler</module>
+        <module>navigation</module>
     </modules>
 
     <properties>

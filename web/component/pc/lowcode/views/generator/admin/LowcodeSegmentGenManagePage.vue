@@ -181,9 +181,9 @@ const getTableRowButtons = ({row, column, $index}) => {
       },
   )
   let globalJsonStr = row.globalJson
-  let globalJson = JSON.parse(row.globalJson) || {}
+  let globalJson = JSON.parse(globalJsonStr) || {}
   let lowcodeModelJsonStr = row.lowcodeModelJson
-  let lowcodeModelJson = JSON.parse(row.lowcodeModelJson) || {}
+  let lowcodeModelJson = JSON.parse(lowcodeModelJsonStr) || {}
 
   let code = globalJson.moduleNamePackage + "_manage"
   let name = row.name.split('_')[0] + "管理"

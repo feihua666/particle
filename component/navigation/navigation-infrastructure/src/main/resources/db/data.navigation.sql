@@ -1,0 +1,1 @@
+-- import classpath:db/data.navigation.func.sql

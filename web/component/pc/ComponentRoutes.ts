@@ -21,6 +21,7 @@ import DreamRoutes from "./dream/DreamRoutes";
 import ConfigRoutes from "./config/ConfigRoutes";
 import DataConstraintRoutes from "./dataconstraint/DataConstraintRoutes";
 import SchedulerRoutes from "./scheduler/SchedulerRoutes";
+import NavigationRoutes from "./navigation/NavigationRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -46,4 +47,5 @@ let ComponentRoutes = []
     .concat(ConfigRoutes)
     .concat(DataConstraintRoutes)
     .concat(SchedulerRoutes)
+    .concat(NavigationRoutes)
 export default ComponentRoutes
