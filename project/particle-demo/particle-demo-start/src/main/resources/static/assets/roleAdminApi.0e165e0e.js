@@ -1,0 +1,1 @@
+import{g as t}from"./index.bcd8c549.js";let r="/admin/web/role";const s=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),p=e=>t.put(r+"/update",e),n=e=>t.get(r+"/detail-for-update",{params:e}),u=e=>t.get(r+"/list",{params:e}),d=e=>t.get(r+"/page",{params:e});export{s as c,n as d,u as l,d as p,o as r,p as u};

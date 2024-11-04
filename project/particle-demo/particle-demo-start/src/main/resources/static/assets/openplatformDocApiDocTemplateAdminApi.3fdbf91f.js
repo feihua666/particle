@@ -1,0 +1,1 @@
+import{g as t}from"./index.bcd8c549.js";let a="/admin/web/openplatform_doc_api_doc_template";const o=e=>t.post(a+"/create",e),p=e=>t.delete(a+"/delete",{data:e}),s=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),c=e=>t.get(a+"/list",{params:e}),d=e=>t.get(a+"/page",{params:e});export{o as c,n as d,c as l,d as p,p as r,s as u};

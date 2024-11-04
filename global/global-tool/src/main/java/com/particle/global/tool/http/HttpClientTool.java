@@ -226,7 +226,7 @@ public class HttpClientTool{
     public static byte[] download(String urlPath,ExtConfig extConfig) throws IOException {
         HttpClient client = HttpClientTool.getCLIENT();
         HttpGet get = new HttpGet(urlPath);
-        CloseableHttpResponse closeableHttpResponse = executeRequest(get, client, null);
+        CloseableHttpResponse closeableHttpResponse = executeRequest(get, client, extConfig);
         InputStream inputStream = closeableHttpResponse.getEntity().getContent();
         byte[] bytes = IoStreamTool.inputStreamToByteArray(inputStream);
         inputStream.close();

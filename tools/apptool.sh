@@ -40,14 +40,8 @@ JAVA_OPTS="-server -Dparticle.actuator.bootadmin.server.enabled=false -Dspring.b
 # 10 秒后判断应用是否停止, 否则 kill -9
 SHUTDOWN_WAIT=10
 
-# 启动用户名
-RUNNING_USER=root1
-
-# 启动用户密码
-RUNNING_PASSSWORD=root1
-
 # 打印当前时间
-CURR_DATE=`date "+%Y%m%d%H%M%S"`
+CURR_DATE=`date "+%Y-%m-%d %H:%M:%S"`
 echo "当前时间：$CURR_DATE"
 
 #获取当前脚本名称
@@ -55,20 +49,21 @@ SELF_SCRIPT_NAME=`basename "$0"`
 
 # 检查pid
 checkpid(){
-    echo $(ps -ef | grep $APP_PATH | grep java | grep -v grep | grep -v $SELF_SCRIPT_NAME | awk '{print $2}')
+  echo $(ps -ef | grep "$APP_PATH" | grep java | grep -v grep | grep -v "$SELF_SCRIPT_NAME" | awk '{print $2}')
 }
+
 
 # 检查是否配置了java_home
 checkJavaHome(){
-	# 如果有就不再设定，如果没有就进行设定
-	if [ $JAVA_HOME ];then
+	if [ -n "$JAVA_HOME" ]; then
 		echo "使用默认 JAVA_HOME=$JAVA_HOME"
-		return 0
+	elif [ -n "$CUSTOM_JAVA_HOME" ]; then
+		echo "使用自定义 JAVA_HOME=$CUSTOM_JAVA_HOME"
+		JAVA_HOME=$CUSTOM_JAVA_HOME
 	else
-		echo "echo "使用自定义 JAVA_HOME=$CUSTOM_JAVA_HOME 进行启动应用
-		return 0
+		echo "JAVA_HOME 未定义，请检查配置"
+		exit 1
 	fi
-	return 0
 }
 # 检查请求参数
 check_param() {
@@ -101,12 +96,13 @@ taillog(){
 # 应用是否存在
 status(){
   pid=$(checkpid)
-  if [ -n "$pid" ];then
-    echo -e "应用状态：应用正在运行 pid: $pid"
+  if [ -n "$pid" ]; then
+    echo -e "应用状态：正在运行 (pid: $pid)"
   else
-    echo -e "应用状态：应用没有在运行"
+    echo -e "应用状态：未运行"
   fi
 }
+
 # 真正启动
 dorun(){
   echo "$JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_PATH $APP_PARAMS >/dev/null 2>&1 &"
@@ -115,13 +111,21 @@ dorun(){
 }
 # 真正停止 参数为pid
 dostop(){
-  echo "优雅结束应用"
-	kill -15 $1
+  if [ -n "$1" ]; then
+    echo "优雅结束应用 (pid: $1)"
+    kill -15 "$1"
+  else
+    echo "未找到需要结束的 pid"
+  fi
 }
 # 强制结束应用 参数为pid
 dostopForce(){
-  echo "强制结束应用"
-	kill -9 $1
+  if [ -n "$1" ]; then
+    echo "强制结束应用 (pid: $1)"
+    kill -9 "$1"
+  else
+    echo "未找到需要结束的 pid"
+  fi
 }
 # 系统信息统计
 information() {
@@ -134,7 +138,7 @@ information() {
    echo `$JAVA_HOME/bin/java -version`
    echo
    echo "APP_PATH=$APP_PATH"
-   echo "pid=`$(checkpid)`"
+   echo "pid=$(checkpid)"
    echo "****************************"
 }
 # 启动服务
@@ -144,13 +148,8 @@ start() {
     echo -e "应用已经是启动状态 (pid: $pid)，如果需要重启请进行重启操作"
   else
     echo -e "开始启动应用 $APP_PATH"
-    if [ `user_exists $RUNNING_USER` = "1" ];then
-      echo "====使用指定用户 $RUNNING_USER 启动应用===="
-	    echo $RUNNING_PASSSWORD | su $RUNNING_USER -s dorun
-    else
-      echo "====指定用户 $RUNNING_USER 不存在使用当前用户 `whoami` 启动===="
-      dorun
-    fi
+    echo "使用当前用户 $(whoami) 启动"
+    dorun
     status
   fi
   return 0
@@ -162,14 +161,8 @@ stop() {
   pid=$(checkpid)
   if [ -n "$pid" ];then
     echo "开始停止应用..."
-    if [ `user_exists $RUNNING_USER` = "1" ];then
-      echo "====使用指定用户 $RUNNING_USER 停止应用===="
-      # 为logs temp 目录设定权限
-      echo $RUNNING_PASSSWORD | su $RUNNING_USER -s `dostop $pid`
-    else
-      echo "====指定用户 $RUNNING_USER 不存在使用当前用户 `whoami` 停止应用===="
-      dostop $pid
-    fi
+    echo "使用当前用户 $(whoami) 停止应用"
+    dostop $pid
 
     let kwait=$SHUTDOWN_WAIT
     count=0;
@@ -177,7 +170,7 @@ stop() {
     do
       echo "请耐心等待，应用正在退出,已等待 $count 秒";
       sleep 1
-      let count=$count+1;
+      count=$((count + 1))
     done
 
     if [ $count -gt $kwait ];then

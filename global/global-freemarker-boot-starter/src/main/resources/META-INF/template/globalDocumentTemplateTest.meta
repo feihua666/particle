@@ -1,0 +1,4 @@
+# 必填用来读取模板
+particle.document.template.path=global-document-template/文档测试模板.xlsx
+# 选填，默认使用 path中的文件名
+particle.document.template.name=文档测试模板.xlsx

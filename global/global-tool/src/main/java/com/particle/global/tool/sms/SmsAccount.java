@@ -2,7 +2,6 @@ package com.particle.global.tool.sms;
 
 import com.particle.global.tool.proxy.ProxyConfig;
 import com.particle.global.tool.str.NetPathTool;
-import com.particle.global.tool.str.PathTool;
 import lombok.Data;
 
 import java.io.Serializable;

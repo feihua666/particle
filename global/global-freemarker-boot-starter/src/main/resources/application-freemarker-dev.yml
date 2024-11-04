@@ -1,0 +1,6 @@
+# 开发时使用
+spring:
+  freemarker:
+    cache: false
+    settings:
+      template_update_delay: 0

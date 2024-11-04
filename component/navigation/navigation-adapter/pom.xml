@@ -37,6 +37,11 @@
             <artifactId>navigation-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- freemarker的依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-freemarker-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

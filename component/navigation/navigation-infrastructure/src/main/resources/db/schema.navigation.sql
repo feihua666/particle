@@ -2,3 +2,6 @@
 -- import classpath:db/schema.component_navigation_category.sql
 -- import classpath:db/schema.component_navigation_site.sql
 -- import classpath:db/schema.component_navigation_site_category_rel.sql
+-- import classpath:db/schema.component_navigation_static_deploy.sql
+-- import classpath:db/schema.component_navigation_friendship_link.sql
+-- import classpath:db/schema.component_navigation_submit.sql

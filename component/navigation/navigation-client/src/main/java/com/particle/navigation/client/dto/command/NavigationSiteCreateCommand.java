@@ -1,5 +1,6 @@
 package com.particle.navigation.client.dto.command;
 
+import cn.hutool.json.JSONUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -61,16 +62,19 @@ public class NavigationSiteCreateCommand extends AbstractBaseCommand {
 	@Schema(description = "收录时间")
 	private LocalDateTime collectionAt;
 
+	@Schema(description = "是否已发布，已发布不能修改和删除")
+	private Boolean isPublished;
+
+	@Schema(description = "下架原因，未发布原因")
+	private String unpublishedReason;
+
 
     @Schema(description = "描述")
     private String remark;
 
 
-
-
-
-
-
-
+    public static NavigationSiteCreateCommand createFromJson(String json) {
+        return JSONUtil.toBean(json, NavigationSiteCreateCommand.class);
+    }
 
 }

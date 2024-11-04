@@ -1,0 +1,1 @@
+import{g as t}from"./index.bcd8c549.js";let r="/admin/web/user-identifier-pwd";const a=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),d=e=>t.put(r+"/update",e),n=e=>t.get(r+"/detail-for-update",{params:e}),p=e=>t.get(r+"/page",{params:e}),i=e=>t.post(r+"/identifier/resetPassword",e),u=e=>t.post(r+"/user/resetPassword",e);export{d as a,a as c,n as d,i,p,o as r,u};

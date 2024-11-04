@@ -135,7 +135,7 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['管理'],
+        pattern:['管理','部署'],
         icon: 'Setting',
         type:'primary'
     },

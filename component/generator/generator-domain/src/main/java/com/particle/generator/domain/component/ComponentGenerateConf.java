@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.generator.domain.SubModule;
 import com.particle.global.dto.basic.Value;
 import com.particle.global.tool.str.NetPathTool;
-import com.particle.global.tool.str.PathTool;
 import lombok.Builder;
 import lombok.Data;
 

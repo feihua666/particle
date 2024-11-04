@@ -12,7 +12,6 @@ import com.particle.generator.domain.OutputFileEnum;
 import com.particle.generator.domain.component.TableGenerateConf;
 import com.particle.global.datasource.sqlinit.CustomDataSourceScriptDatabaseInitializer;
 import com.particle.global.tool.str.NetPathTool;
-import com.particle.global.tool.str.PathTool;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 

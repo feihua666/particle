@@ -62,6 +62,12 @@ public class NavigationSiteQueryListCommand extends AbstractBaseQueryCommand {
 	@Schema(description = "收录时间")
 	private LocalDateTime collectionAt;
 
+	@Schema(description = "是否已发布，已发布不能修改和删除")
+	private Boolean isPublished;
+
+	@Schema(description = "下架原因，未发布原因")
+	private String unpublishedReason;
+
 
 
 

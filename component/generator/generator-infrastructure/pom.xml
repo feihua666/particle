@@ -50,6 +50,8 @@
             <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
         <!-- freemarker 用于代码生成，版本已在 spring 父级指定 -->
+        <!-- freemarker的依赖 -->
+        <!-- freemarker 可用于类似jsp 的模板引擎，渲染页面，版本已在 spring 父级指定 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>

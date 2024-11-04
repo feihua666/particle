@@ -66,9 +66,6 @@ export const pageFormItems = [
 ]
 export const addPageFormItems = [
 
-
-
-
       {
         field: {
           name: 'name',
@@ -216,7 +213,6 @@ export const addPageFormItems = [
       comp: 'PtDictFrontSelect',
       formItemProps: {
         label: '收费情况',
-        required: true,
       },
       compProps: {
         // 字典查询

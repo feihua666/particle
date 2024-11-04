@@ -52,6 +52,7 @@
         <module>global-cache-boot-starter</module>
         <module>global-neo4j-boot-starter</module>
         <module>global-elasticsearch-boot-starter</module>
+        <module>global-freemarker-boot-starter</module>
 
 
     </modules>

@@ -1,0 +1,28 @@
+package com.particle.navigation.adapter.web.front;
+
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.navigation.client.api.INavigationStaticDeployApplicationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * <p>
+ * 导航网站静态部署前台应用pc或平板端前端适配器
+ * 主要用于pc或平板端前台应用
+ * </p>
+ *
+ * @author yw
+ * @since 2024-11-01 10:02:52
+ */
+@Tag(name = "导航网站静态部署pc或平板端前台应用相关接口")
+@RestController
+@RequestMapping("/front/web/navigation_static_deploy")
+public class NavigationStaticDeployFrontWebController extends AbstractBaseWebAdapter {
+
+	@Autowired
+	private INavigationStaticDeployApplicationService iNavigationStaticDeployApplicationService;
+
+
+}

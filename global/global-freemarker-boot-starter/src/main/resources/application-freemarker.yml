@@ -1,0 +1,15 @@
+spring:
+  freemarker:
+    cache: true
+    settings:
+      tag_syntax: auto_detect
+      default_encoding: UTF-8
+      url_escaping_charset: UTF-8
+      locale: zh_CN
+      boolean_format: true,false
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      date_format: yyyy-MM-dd
+      time_format: HH:mm:ss
+      # 开启api调用，在获取map的key为数字时使用
+      api_builtin_enabled: true
+    request-context-attribute: request
