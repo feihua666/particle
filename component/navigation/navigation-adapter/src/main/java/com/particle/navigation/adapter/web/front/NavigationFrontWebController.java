@@ -4,14 +4,8 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.tool.str.NetPathTool;
-import com.particle.navigation.infrastructure.dos.NavigationCategoryDO;
-import com.particle.navigation.infrastructure.dos.NavigationFriendshipLinkDO;
-import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
-import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
-import com.particle.navigation.infrastructure.service.INavigationCategoryService;
-import com.particle.navigation.infrastructure.service.INavigationFriendshipLinkService;
-import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
-import com.particle.navigation.infrastructure.service.INavigationSiteService;
+import com.particle.navigation.infrastructure.dos.*;
+import com.particle.navigation.infrastructure.service.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +40,8 @@ public class NavigationFrontWebController {
     private INavigationSiteCategoryRelService iNavigationSiteCategoryRelService;
     @Autowired
     private INavigationFriendshipLinkService iNavigationFriendshipLinkService;
+    @Autowired
+    private INavigationStaticDeployService iNavigationStaticDeployService;
 
     /**
      * 注意该路径和resources/nav路径有关系，必须保持名称一样
@@ -55,6 +51,11 @@ public class NavigationFrontWebController {
      * 详情页目录路径
      */
     public final static String frontDetailPath = "/detail";
+
+    /**
+     * 用来动态配置
+     */
+    private final static String backend_static_deploy = "backend_static_deploy";
 
     /**
      * 前面需要带 斜杠
@@ -224,6 +225,14 @@ public class NavigationFrontWebController {
     private DeployConfig initDataDTOFrontForBackend() {
 
         DeployConfig deployConfig = new DeployConfig();
+        NavigationStaticDeployDO byCode = iNavigationStaticDeployService.getByCode(backend_static_deploy);
+        if (byCode != null) {
+            deployConfig.setFrontDomain(byCode.getFrontDomain());
+            deployConfig.setFrontContextPath(byCode.getFrontContextPath());
+            deployConfig.setFrontSubContextPath(byCode.getFrontSubContextPath());
+            return deployConfig;
+        }
+
 
         deployConfig.setFrontDomain(null);
         deployConfig.setFrontContextPath(contextPath);

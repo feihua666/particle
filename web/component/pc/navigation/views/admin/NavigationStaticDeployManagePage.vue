@@ -101,6 +101,8 @@ const getTableRowButtons = ({row, column, $index}) => {
       {
       txt: '部署',
       text: true,
+      disabled: row.code == 'backend_static_deploy',
+      disabledReason: row.code == 'backend_static_deploy' ? '该数据为系统后端动态配置，不支持部署' : undefined,
       permission: 'admin:web:navigationStaticDeploy:deploy',
       // 跳转到编辑
       route: {path: '/admin/NavigationStaticDeployManageDeploy',query: idData}

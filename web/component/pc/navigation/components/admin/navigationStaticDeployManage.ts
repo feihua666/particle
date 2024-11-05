@@ -41,7 +41,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '部署编码',
-            tips: '编码唯一，指定一个编码，保留字段'
+            tips: '编码唯一，指定一个编码，backend_static_deploy 为保留系统编码'
           },
           compProps: {
             clearable: true,
