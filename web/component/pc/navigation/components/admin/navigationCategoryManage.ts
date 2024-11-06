@@ -1,4 +1,5 @@
 import {useCascaderNavigationCategoryCompItem} from "../navigationCategoryCompItem";
+import {treeQueryComps} from "../../../treeQueryComps";
 
 export const pageFormItems = [
       {
@@ -33,7 +34,8 @@ export const pageFormItems = [
           }
         }
       },
-
+  useCascaderNavigationCategoryCompItem({}),
+  ...treeQueryComps
 ]
 export const addPageFormItems = [
 

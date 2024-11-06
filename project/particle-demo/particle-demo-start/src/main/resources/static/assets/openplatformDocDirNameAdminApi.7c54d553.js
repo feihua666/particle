@@ -1,0 +1,1 @@
+import{g as t}from"./index.9f9cf4f4.js";let a="/admin/web/openplatform_doc_dir_name";const o=e=>t.post(a+"/create",e),s=e=>t.delete(a+"/delete",{data:e}),p=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),d=e=>t.get(a+"/list",{params:e}),c=e=>t.get(a+"/page",{params:e});export{o as c,n as d,d as l,c as p,s as r,p as u};
