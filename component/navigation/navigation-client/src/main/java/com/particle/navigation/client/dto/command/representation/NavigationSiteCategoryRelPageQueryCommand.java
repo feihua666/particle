@@ -2,6 +2,7 @@ package com.particle.navigation.client.dto.command.representation;
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
@@ -12,6 +13,7 @@ import lombok.Data;
  * @author yw
  * @since 2024-10-22 15:35:11
  */
+@OrderBy("seq")
 @Data
 @Schema
 public class NavigationSiteCategoryRelPageQueryCommand extends AbstractBasePageQueryCommand {
