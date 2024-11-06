@@ -13,14 +13,12 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
  */
 public interface INavigationSiteCategoryRelService extends IBaseService<NavigationSiteCategoryRelDO> {
 
+    default boolean removeBySiteId(Long siteId){
+        return deleteByColumn(siteId,NavigationSiteCategoryRelDO::getNavigationSiteId);
+    }
 
-
-
-
-
-
-
-
-
+    default boolean removeByCategoryId(Long categoryId){
+        return deleteByColumn(categoryId,NavigationSiteCategoryRelDO::getNavigationCategoryId);
+    }
 
 }

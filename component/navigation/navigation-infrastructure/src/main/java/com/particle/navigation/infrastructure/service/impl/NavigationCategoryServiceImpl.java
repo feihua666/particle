@@ -6,6 +6,7 @@ import com.particle.navigation.infrastructure.mapper.NavigationCategoryMapper;
 import com.particle.navigation.infrastructure.service.INavigationCategoryService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
 import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Component
 public class NavigationCategoryServiceImpl extends IBaseServiceImpl<NavigationCategoryMapper, NavigationCategoryDO> implements INavigationCategoryService {
 	private IBaseQueryCommandMapStruct<NavigationCategoryDO> queryCommandMapStruct;
+	private INavigationSiteCategoryRelService iNavigationSiteCategoryRelService;
 
 	@Override
 	protected NavigationCategoryDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
 	}
-	@Autowired
-	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<NavigationCategoryDO> queryCommandMapStruct) {
-		this.queryCommandMapStruct = queryCommandMapStruct;
-	}
+
 
 	@Override
 	protected void preAdd(NavigationCategoryDO po) {
@@ -52,7 +51,19 @@ public class NavigationCategoryServiceImpl extends IBaseServiceImpl<NavigationCa
 	            assertByColumn(po.getCode(),NavigationCategoryDO::getCode,false);
 	        }
 	    }
+	}
 
+	@Override
+	protected void postDeleteById(Long id, NavigationCategoryDO DO) {
+		iNavigationSiteCategoryRelService.removeByCategoryId(id);
+	}
 
+	@Autowired
+	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<NavigationCategoryDO> queryCommandMapStruct) {
+		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+	@Autowired
+	public void setiNavigationSiteCategoryRelService(INavigationSiteCategoryRelService iNavigationSiteCategoryRelService) {
+		this.iNavigationSiteCategoryRelService = iNavigationSiteCategoryRelService;
 	}
 }

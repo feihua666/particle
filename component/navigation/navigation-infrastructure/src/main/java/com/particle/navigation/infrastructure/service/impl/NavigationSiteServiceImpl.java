@@ -6,6 +6,7 @@ import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
 import com.particle.navigation.infrastructure.mapper.NavigationSiteMapper;
+import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
 import com.particle.navigation.infrastructure.service.INavigationSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,14 +24,13 @@ import org.springframework.stereotype.Component;
 public class NavigationSiteServiceImpl extends IBaseServiceImpl<NavigationSiteMapper, NavigationSiteDO> implements INavigationSiteService {
 	private IBaseQueryCommandMapStruct<NavigationSiteDO> queryCommandMapStruct;
 
+	private INavigationSiteCategoryRelService iNavigationSiteCategoryRelService;
+
 	@Override
 	protected NavigationSiteDO queryCommandToDO(QueryCommand queryCommand) {
 		return queryCommandMapStruct.queryCommandToDO(queryCommand);
 	}
-	@Autowired
-	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<NavigationSiteDO> queryCommandMapStruct) {
-		this.queryCommandMapStruct = queryCommandMapStruct;
-	}
+
 
 	@Override
 	protected void preAdd(NavigationSiteDO po) {
@@ -51,5 +51,19 @@ public class NavigationSiteServiceImpl extends IBaseServiceImpl<NavigationSiteMa
 				assertByColumn(po.getUrl(),NavigationSiteDO::getUrl,false);
 			}
 		}
+	}
+
+	@Override
+	protected void postDeleteById(Long id, NavigationSiteDO DO) {
+		iNavigationSiteCategoryRelService.removeBySiteId(id);
+	}
+
+	@Autowired
+	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<NavigationSiteDO> queryCommandMapStruct) {
+		this.queryCommandMapStruct = queryCommandMapStruct;
+	}
+	@Autowired
+	public void setiNavigationSiteCategoryRelService(INavigationSiteCategoryRelService iNavigationSiteCategoryRelService) {
+		this.iNavigationSiteCategoryRelService = iNavigationSiteCategoryRelService;
 	}
 }

@@ -3,6 +3,7 @@ package com.particle.navigation.adapter.web.admin;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
@@ -15,6 +16,7 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.tool.http.HttpClientTool;
+import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;
 import com.particle.navigation.adapter.web.front.NavigationFrontWebController;
 import com.particle.navigation.client.api.INavigationStaticDeployApplicationService;
@@ -31,27 +33,29 @@ import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
 import freemarker.template.TemplateException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.script.ScriptException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Set;
+
 /**
  * <p>
  * 导航网站静态部署后台管理pc或平板端前端适配器
@@ -75,11 +79,11 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     private NavigationFrontWebController navigationFrontWebController;
     @Autowired
     private freemarker.template.Configuration configuration;
-    @Autowired
-    private ResourceLoader resourceLoader;
+
     @Autowired
     private FreeMarkerProperties freeMarkerProperties;
-
+    @Autowired
+    private ResourcePatternResolver resourcePatternResolver;
 
     @PreAuthorize("hasAuthority('admin:web:navigationStaticDeploy:create')")
     @Operation(summary = "添加导航网站静态部署")
@@ -141,7 +145,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     @Operation(summary = "导航网站静态部署")
     @PostMapping("/deploy")
     @OpLog(name = "导航网站静态部署",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.other)
-    public Response deploy(@RequestBody NavigationStaticDeployDoDeployCommand doDeployCommand){
+    public Response deploy(@RequestBody NavigationStaticDeployDoDeployCommand doDeployCommand) throws ScriptException {
 
         IdCommand idCommand = new IdCommand();
         idCommand.setId(doDeployCommand.getId());
@@ -149,8 +153,18 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
         SingleResponse<NavigationStaticDeployVO> navigationStaticDeployVOSingleResponse = iNavigationStaticDeployRepresentationApplicationService.queryDetail(idCommand);
         NavigationStaticDeployVO navigationStaticDeployVO = navigationStaticDeployVOSingleResponse.getData();
 
+        DeployContextDTO deployContextDTO = new DeployContextDTO();
         // 实际部署
-        doDeploy(navigationStaticDeployVO,doDeployCommand.getIsIncrementDeploy());
+        doDeploy(navigationStaticDeployVO,doDeployCommand.getIsIncrementDeploy(),deployContextDTO);
+
+        // 部署成功后执行自定义脚本
+        String deployPostGroovyScript = navigationStaticDeployVO.getDeployPostGroovyScript();
+        if (StrUtil.isNotEmpty(deployPostGroovyScript)) {
+            log.info("deployPostGroovyScript:{}",deployPostGroovyScript);
+            GroovyTool.compileAndEval(deployPostGroovyScript,
+                    GroovyTool.createBindings(MapUtil.of("navigationStaticDeployVO", navigationStaticDeployVO)),
+                    true);
+        }
 
         // 更新部署时间
         iNavigationStaticDeployApplicationService.updateLastDeployAt(idCommand, LocalDateTime.now());
@@ -163,7 +177,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
      * @param isIncrementDeploy
      */
     @SneakyThrows
-    private void doDeploy(NavigationStaticDeployVO navigationStaticDeployVO, Boolean isIncrementDeploy){
+    private void doDeploy(NavigationStaticDeployVO navigationStaticDeployVO, Boolean isIncrementDeploy,DeployContextDTO deployContextDTO){
         String deployPath = navigationStaticDeployVO.getDeployPath();
 
         log.info("doDeploy start，deployPath：{}",deployPath);
@@ -182,7 +196,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
         for (NavigationSiteDO navigationSiteDO : dataDTO.getNavigationSiteDOS()) {
             // 按网站考虑增量情况
             if (!isIncrementDeploy || lastDeployAt == null || (isIncrementDeploy && lastDeployAt.isBefore(navigationSiteDO.getUpdateAt()))) {
-                doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy());
+                doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
             }
         }
         // 增量情况
@@ -193,7 +207,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                     List<NavigationSiteDO> navigationSiteDOS = dataDTO.getCategoryIdGroupBySiteMap().get(navigationCategoryDO.getId());
                     if (CollectionUtil.isNotEmpty(navigationSiteDOS)) {
                         for (NavigationSiteDO navigationSiteDO : navigationSiteDOS) {
-                            doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy());
+                            doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
                         }
                     }
                 }
@@ -204,7 +218,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                     List<NavigationSiteDO> navigationSiteDOS = dataDTO.getCategoryIdGroupBySiteMap().get(navigationSiteCategoryRelDO.getNavigationCategoryId());
                     if (CollectionUtil.isNotEmpty(navigationSiteDOS)) {
                         for (NavigationSiteDO navigationSiteDO : navigationSiteDOS) {
-                            doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy());
+                            doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
                         }
                     }
                 }
@@ -242,11 +256,15 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     private void doDeploySiteDetail(Long siteId, String deployPath,
                                     NavigationFrontWebController.DataDTO dataDTO,
                                     NavigationFrontWebController.DeployConfig deployConfig,
-                                    Boolean isPureStaticDeploy) throws IOException, TemplateException {
+                                    Boolean isPureStaticDeploy,DeployContextDTO deployContextDTO) throws IOException, TemplateException {
 
 
+        if (deployContextDTO.getDeploySiteDetailSiteIds().contains(siteId)) {
+            return;
+        }
         if (isPureStaticDeploy) {
-            doDeploySiteDetailImages(siteId, deployPath,dataDTO,deployConfig);
+            doDeployRelatedSiteDetailImages(siteId, deployPath, dataDTO, deployConfig, deployContextDTO);
+            doDeploySiteDetailImages(siteId, deployPath,dataDTO,deployConfig, deployContextDTO);
         }
 
         String detailPath = deployPath + NavigationFrontWebController.frontDetailPath + "/" + siteId + ".html";
@@ -257,8 +275,30 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
         detail = buildViewName(detail);
         configuration.getTemplate(detail).process(detailModel, new FileWriter(detailPath));
 
+        deployContextDTO.getDeploySiteDetailSiteIds().add(siteId);
     }
 
+
+    /**
+     * 纯静态部署图片,仅部署网站关联的其它网站的图片
+     * @param siteId
+     * @param deployPath
+     * @param dataDTO
+     */
+    private void doDeployRelatedSiteDetailImages(Long siteId, String deployPath,
+                                          NavigationFrontWebController.DataDTO dataDTO,
+                                          NavigationFrontWebController.DeployConfig deployConfig,DeployContextDTO deployContextDTO) {
+        List<NavigationCategoryDO> navigationCategoryDOS = dataDTO.getSiteIdGroupByCategoryMap().get(siteId);
+        for (NavigationCategoryDO navigationCategoryDO : navigationCategoryDOS) {
+            List<NavigationSiteDO> navigationSiteDOS = dataDTO.getCategoryIdGroupBySiteMap().get(navigationCategoryDO.getId());
+            for (NavigationSiteDO navigationSiteDO : navigationSiteDOS) {
+                if (siteId.equals(navigationSiteDO.getId())) {
+                    continue;
+                }
+                doDeploySiteDetailImages(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,deployContextDTO);
+            }
+        }
+    }
     /**
      * 纯静态部署图片
      * @param siteId
@@ -267,7 +307,12 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
      */
     private void doDeploySiteDetailImages(Long siteId, String deployPath,
                                           NavigationFrontWebController.DataDTO dataDTO,
-                                          NavigationFrontWebController.DeployConfig deployConfig) {
+                                          NavigationFrontWebController.DeployConfig deployConfig,DeployContextDTO deployContextDTO) {
+
+        if (deployContextDTO.getDeploySiteDetailImagesSiteIds().contains(siteId)) {
+            return;
+        }
+
         NavigationSiteDO navigationSiteDO = dataDTO.getSiteIdMap().get(siteId);
         String logoUrl = navigationSiteDO.getLogoUrl();
         String screenshotUrl = navigationSiteDO.getScreenshotUrl();
@@ -317,6 +362,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                 log.error("screenshotThumbnail download error by url={}",screenshotThumbnailUrl, e);
             }
         }
+        deployContextDTO.getDeploySiteDetailImagesSiteIds().add(siteId);
     }
 
 
@@ -357,7 +403,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
         for (String listFile : listFiles) {
             log.info("copy file:{}",listFile);
             InputStream stream = ResourceUtil.getStream(listFile);
-            String substring = listFile.substring(listFile.lastIndexOf("/static" + navigationPath));
+            String substring = listFile.substring(listFile.lastIndexOf("static" + navigationPath));
             substring = substring.substring(substring.indexOf(navigationPath) + navigationPath.length());
 
             String deployAbsolutePath = FilePathTool.concat(deployPath, substring);
@@ -372,17 +418,31 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
      */
     private List<String> listFiles(String directory) throws IOException {
         List<String> fileList = new ArrayList<>();
-        Resource resource = resourceLoader.getResource("classpath:static" + directory + "/");
-
-        if (resource.exists()) {
-            Path path = Paths.get(resource.getURI());
-            try (Stream<Path> paths = Files.walk(path)) {
-                fileList = paths
-                        .filter(Files::isRegularFile)
-                        .map(Path::toString)
-                        .collect(Collectors.toList());
+        Resource[] resources = resourcePatternResolver.getResources("classpath:static" + directory + "/**");
+        for (Resource res : resources) {
+            if (res.exists() && res.isReadable()) {
+                if (res instanceof ClassPathResource) {
+                    fileList.add(((ClassPathResource) res).getPath());
+                } else if (res instanceof FileSystemResource) {
+                    fileList.add(((FileSystemResource) res).getPath());
+                }
             }
         }
         return fileList;
+    }
+
+    /**
+     * 部署上下文
+     */
+    @Data
+    private static class DeployContextDTO {
+        /**
+         * 用于控制站点详情是否部署过
+         */
+        private Set<Long> deploySiteDetailSiteIds = new HashSet<>();
+        /**
+         * 用于控制站点详情图片是否部署过
+         */
+        private Set<Long> deploySiteDetailImagesSiteIds = new HashSet<>();
     }
 }

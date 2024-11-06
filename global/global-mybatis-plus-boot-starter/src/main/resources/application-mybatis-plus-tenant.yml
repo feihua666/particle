@@ -106,6 +106,7 @@ particle:
       - component_navigation_site_category_rel
       - component_navigation_friendship_link
       - component_navigation_submit
+      - component_navigation_static_deploy
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
