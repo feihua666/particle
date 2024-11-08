@@ -1,0 +1,1 @@
+import{_ as o,b as t,o as s,i as r}from"./index.53bce7bf.js";const c={};function n(i,a){const e=t("PtFormDesign");return s(),r(e,{class:"pt-height-100-pc pt-width-100-pc"})}const _=o(c,[["render",n],["__file","/Users/yw/fh/git-source/particle/web/component/pc/tools/views/front/FormDesignerPage.vue"]]);export{_ as default};

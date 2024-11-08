@@ -55,9 +55,6 @@ public class NavigationSitePageQueryCommand extends AbstractBasePageQueryCommand
     @Schema(description = "详细描述")
     private String contentDetail;
 
-	@Schema(description = "收费情况，字典id")
-	private Long feeSituationDictId;
-
 	@Schema(description = "收录时间")
 	private LocalDateTime collectionAt;
 

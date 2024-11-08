@@ -73,6 +73,7 @@ public class TransTableNameConstants {
 	public static final String component_scheduler_temp_task = "component_scheduler_temp_task";
 	public static final String component_navigation_category = "component_navigation_category";
 	public static final String component_navigation_site = "component_navigation_site";
+	public static final String component_navigation_site_tag = "component_navigation_site_tag";
 
 
 }

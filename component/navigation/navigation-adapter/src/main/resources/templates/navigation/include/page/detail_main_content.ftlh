@@ -28,11 +28,20 @@
                 <div class="site-body text-sm">
                     <#list currentSiteCategoryDOS![] as item>
                         <a class="btn-cat custom_btn-d mb-2" href="${frontFinalAbsoluteSubContextPath!""}#c${item.id?string("0")}">${item.name!""}</a>
-
+                    </#list>
+                    <#assign navigationSiteTagDOS=siteIdGroupBySiteTagMap?api.get(siteDO.id)![]/>
+                    <#assign hasSiteTag=navigationSiteTagDOS?? && navigationSiteTagDOS?has_content/>
+                    <#list navigationSiteTagDOS as siteTagItem>
+                        <span class="tags">
+                            <a rel="tag">${siteTagItem.name!""}</a>
+                        </span>
                     </#list>
                     <div class="site-name h3 my-3">${siteDO.name!""}</div>
                     <div class="mt-2">
                         <p class="mb-2">${siteDO.title!""}</p>
+
+
+
                         <div class="site-go mt-3">
                            <span class="site-go-url">
                                 <a style="margin-right: 10px;" href="${siteDO.url!""}"

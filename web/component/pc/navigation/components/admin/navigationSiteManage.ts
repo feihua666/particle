@@ -48,21 +48,7 @@ export const pageFormItems = [
           }
         }
       },
-  {
-    field: {
-      name: 'feeSituationDictId',
-    },
-    element: {
-      comp: 'PtDictFrontSelect',
-      formItemProps: {
-        label: '收费情况',
-      },
-      compProps: {
-        // 字典查询
-        dictParam: {groupCode: 'fee_situation'}
-      }
-    }
-  },
+
 ]
 export const addPageFormItems = [
 
@@ -205,21 +191,6 @@ export const addPageFormItems = [
         }
       },
 
-  {
-    field: {
-      name: 'feeSituationDictId',
-    },
-    element: {
-      comp: 'PtDictFrontSelect',
-      formItemProps: {
-        label: '收费情况',
-      },
-      compProps: {
-        // 字典查询
-        dictParam: {groupCode: 'fee_situation'}
-      }
-    }
-  },
       {
         field: {
           name: 'remark',

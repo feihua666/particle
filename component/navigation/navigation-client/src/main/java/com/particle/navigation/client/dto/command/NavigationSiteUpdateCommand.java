@@ -56,9 +56,6 @@ public class NavigationSiteUpdateCommand extends AbstractBaseUpdateCommand {
     @Schema(description = "详细描述")
     private String contentDetail;
 
-	@Schema(description = "收费情况，字典id")
-	private Long feeSituationDictId;
-
 	@Schema(description = "是否已发布，已发布不能修改和删除")
 	private Boolean isPublished;
 

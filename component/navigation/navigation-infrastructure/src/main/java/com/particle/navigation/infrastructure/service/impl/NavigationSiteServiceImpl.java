@@ -8,6 +8,7 @@ import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
 import com.particle.navigation.infrastructure.mapper.NavigationSiteMapper;
 import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
 import com.particle.navigation.infrastructure.service.INavigationSiteService;
+import com.particle.navigation.infrastructure.service.INavigationSiteTagRelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class NavigationSiteServiceImpl extends IBaseServiceImpl<NavigationSiteMa
 	private IBaseQueryCommandMapStruct<NavigationSiteDO> queryCommandMapStruct;
 
 	private INavigationSiteCategoryRelService iNavigationSiteCategoryRelService;
+	private INavigationSiteTagRelService iNavigationSiteTagRelService;
 
 	@Override
 	protected NavigationSiteDO queryCommandToDO(QueryCommand queryCommand) {
@@ -56,6 +58,7 @@ public class NavigationSiteServiceImpl extends IBaseServiceImpl<NavigationSiteMa
 	@Override
 	protected void postDeleteById(Long id, NavigationSiteDO DO) {
 		iNavigationSiteCategoryRelService.removeBySiteId(id);
+		iNavigationSiteTagRelService.removeBySiteId(id);
 	}
 
 	@Autowired
@@ -65,5 +68,9 @@ public class NavigationSiteServiceImpl extends IBaseServiceImpl<NavigationSiteMa
 	@Autowired
 	public void setiNavigationSiteCategoryRelService(INavigationSiteCategoryRelService iNavigationSiteCategoryRelService) {
 		this.iNavigationSiteCategoryRelService = iNavigationSiteCategoryRelService;
+	}
+	@Autowired
+	public void setiNavigationSiteTagRelService(INavigationSiteTagRelService iNavigationSiteTagRelService) {
+		this.iNavigationSiteTagRelService = iNavigationSiteTagRelService;
 	}
 }

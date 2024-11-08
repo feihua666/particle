@@ -1,0 +1,1 @@
+import{l}from"./openplatformOpenapiLimitRuleAdminApi.d7e2695d.js";const i=({props:r={},required:e=!1,fieldName:t="openplatformOpenapiLimitRuleId",label:p="\u9650\u5236\u89C4\u5219",valueChange:o=()=>{},tips:m=""})=>({field:{name:t,valueChange:o},element:{comp:"PtSelect",formItemProps:{label:p,required:e,tips:m},compProps:{dataMethod:l}}});export{i as u};

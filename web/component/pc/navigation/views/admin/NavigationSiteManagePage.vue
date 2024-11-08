@@ -56,11 +56,6 @@ const reactiveData = reactive({
       showOverflowTooltip: true,
     },
     {
-      prop: 'feeSituationDictName',
-      label: '收费情况',
-      showOverflowTooltip: true,
-    },
-    {
       prop: 'collectionAt',
       label: '收录时间',
       showOverflowTooltip: true,

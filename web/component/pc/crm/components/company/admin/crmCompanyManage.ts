@@ -11,7 +11,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '公司编码',
-            
+
           },
           compProps: {
             clearable: true,
@@ -27,7 +27,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '公司名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -109,7 +109,7 @@ export const addPageFormItems = [
       {
         field: {
           name: 'seq',
-          value: 10
+          value: 1000
         },
         element: {
           comp: 'el-input-number',

@@ -30,6 +30,7 @@ import com.particle.navigation.client.dto.data.NavigationStaticDeployVO;
 import com.particle.navigation.infrastructure.dos.NavigationCategoryDO;
 import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
 import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
+import com.particle.navigation.infrastructure.dos.NavigationSiteTagRelDO;
 import freemarker.template.TemplateException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -215,12 +216,15 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
             // 按分类和网站关系考虑增量情况
             for (NavigationSiteCategoryRelDO navigationSiteCategoryRelDO : dataDTO.getNavigationSiteCategoryRelDOS()) {
                 if (lastDeployAt.isBefore(navigationSiteCategoryRelDO.getUpdateAt())) {
-                    List<NavigationSiteDO> navigationSiteDOS = dataDTO.getCategoryIdGroupBySiteMap().get(navigationSiteCategoryRelDO.getNavigationCategoryId());
-                    if (CollectionUtil.isNotEmpty(navigationSiteDOS)) {
-                        for (NavigationSiteDO navigationSiteDO : navigationSiteDOS) {
-                            doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
-                        }
-                    }
+                    NavigationSiteDO navigationSiteDO = dataDTO.getSiteIdMap().get(navigationSiteCategoryRelDO.getNavigationSiteId());
+                    doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
+                }
+            }
+            // 按标签和网站关系考虑增量情况
+            for (NavigationSiteTagRelDO navigationSiteTagRelDO : dataDTO.getNavigationSiteTagRelDOS()) {
+                if (lastDeployAt.isBefore(navigationSiteTagRelDO.getUpdateAt())) {
+                    NavigationSiteDO navigationSiteDO = dataDTO.getSiteIdMap().get(navigationSiteTagRelDO.getNavigationSiteId());
+                    doDeploySiteDetail(navigationSiteDO.getId(), deployPath, dataDTO, deployConfig,navigationStaticDeployVO.getIsPureStaticDeploy(),deployContextDTO);
                 }
             }
         }

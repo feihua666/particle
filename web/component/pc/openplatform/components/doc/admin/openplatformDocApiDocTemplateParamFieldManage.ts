@@ -13,7 +13,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '字段名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -29,7 +29,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '字段类型',
-            
+
           },
           compProps: {
             // 字典查询
@@ -46,7 +46,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '字段说明',
-            
+
           },
           compProps: {
             clearable: true,
@@ -63,7 +63,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '分类',
-            
+
           },
           compProps: {
             // 字典查询
@@ -264,7 +264,7 @@ export const addPageFormItems = [
   {
     field: {
       name: 'seq',
-      value: 10
+      value: 1000
     },
     element: {
       comp: 'el-input-number',

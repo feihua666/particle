@@ -9,7 +9,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '开发语言',
-            
+
           },
           compProps: {
             // 字典查询
@@ -42,7 +42,7 @@ export const addPageFormItems = [
   {
     field: {
       name: 'seq',
-      value: 10
+      value: 1000
     },
     element: {
       comp: 'el-input-number',

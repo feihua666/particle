@@ -5,3 +5,5 @@
 -- import classpath:db/schema.component_navigation_static_deploy.sql
 -- import classpath:db/schema.component_navigation_friendship_link.sql
 -- import classpath:db/schema.component_navigation_submit.sql
+-- import classpath:db/schema.component_navigation_site_tag.sql
+-- import classpath:db/schema.component_navigation_site_tag_rel.sql

@@ -11,6 +11,7 @@ CREATE TABLE `component_crm_customer_tag_rel` (
   `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `uni_crm_customer_id_crm_customer_tag_id` (`crm_customer_id`,`crm_customer_tag_id`) USING BTREE,
   KEY `crm_customer_id` (`crm_customer_id`),
   KEY `crm_customer_tag_id` (`crm_customer_tag_id`),
   KEY `create_at` (`create_at`) USING BTREE,

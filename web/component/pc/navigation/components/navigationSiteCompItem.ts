@@ -48,7 +48,7 @@ export const useRemoteSelectNavigationSiteCompItem = ({props,required})=>{
                         }
                         return navigationSitePageApi({name: query})
                     },
-                    // 下拉显示昵称
+                    // 下拉显示名称
                     props: {label: 'name'}
                 }// r
 

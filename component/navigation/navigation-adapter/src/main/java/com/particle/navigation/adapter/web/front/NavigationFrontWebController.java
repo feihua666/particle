@@ -14,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -42,6 +39,10 @@ public class NavigationFrontWebController {
     private INavigationFriendshipLinkService iNavigationFriendshipLinkService;
     @Autowired
     private INavigationStaticDeployService iNavigationStaticDeployService;
+    @Autowired
+    private INavigationSiteTagRelService iNavigationSiteTagRelService;
+    @Autowired
+    private INavigationSiteTagService iNavigationSiteTagService;
 
     /**
      * 注意该路径和resources/nav路径有关系，必须保持名称一样
@@ -105,6 +106,10 @@ public class NavigationFrontWebController {
         model.addAttribute("categoryIdGroupBySiteMap", dataDTO.getCategoryIdGroupBySiteMap());
         // 友情链接
         model.addAttribute("navigationFriendshipLinkDOS", dataDTO.getNavigationFriendshipLinkDOS());
+        // 站点标签
+        model.addAttribute("siteIdGroupBySiteTagMap", dataDTO.getSiteIdGroupBySiteTagMap());
+
+
 
         setDeDeployConfig(model, deployConfig);
         model.addAttribute("frontDetailPath", frontDetailPath);
@@ -168,6 +173,9 @@ public class NavigationFrontWebController {
 
         // 当前网站相关的网站
         model.addAttribute("currentSiteRelatedSiteDOS", currentSiteRelatedSiteDOS);
+
+        // 站点标签
+        model.addAttribute("siteIdGroupBySiteTagMap", dataDTO.getSiteIdGroupBySiteTagMap());
 
         setDeDeployConfig(model, deployConfig);
         model.addAttribute("frontDetailPath", frontDetailPath);
@@ -254,11 +262,14 @@ public class NavigationFrontWebController {
         List<NavigationSiteDO> navigationSiteDOS = navigationSiteService.list(Wrappers.<NavigationSiteDO>lambdaQuery().eq(NavigationSiteDO::getIsPublished,true));
         List<NavigationSiteCategoryRelDO> navigationSiteCategoryRelDOS = iNavigationSiteCategoryRelService.list(Wrappers.<NavigationSiteCategoryRelDO>lambdaQuery().orderByAsc(NavigationSiteCategoryRelDO::getSeq));
         List<NavigationFriendshipLinkDO> navigationFriendshipLinkDOS = iNavigationFriendshipLinkService.list(Wrappers.<NavigationFriendshipLinkDO>lambdaQuery().eq(NavigationFriendshipLinkDO::getIsPublished, true));
+        List<NavigationSiteTagRelDO> navigationSiteTagRelDOS = iNavigationSiteTagRelService.list();
+        List<NavigationSiteTagDO> navigationSiteTagDOS = iNavigationSiteTagService.list();
 
         dataDTO.setNavigationCategoryDOS(navigationCategoryDOS);
         dataDTO.setNavigationSiteDOS(navigationSiteDOS);
         dataDTO.setNavigationSiteCategoryRelDOS(navigationSiteCategoryRelDOS);
         dataDTO.setNavigationFriendshipLinkDOS(navigationFriendshipLinkDOS);
+        dataDTO.setNavigationSiteTagRelDOS(navigationSiteTagRelDOS);
 
 
 
@@ -308,6 +319,18 @@ public class NavigationFrontWebController {
         dataDTO.setSiteIdGroupBySiteCategoryRelMap(siteIdGroupBySiteCategoryRelMap);
         dataDTO.setSiteIdGroupByCategoryMap(siteIdGroupByCategoryMap);
 
+
+        // 标签信息按id转map
+        Map<Long, NavigationSiteTagDO> siteTagIdMap = navigationSiteTagDOS.stream().collect(Collectors.toMap(NavigationSiteTagDO::getId, Function.identity()));
+        Map<Long, List<NavigationSiteTagRelDO>> siteIdGroupBySiteTagRelMap = navigationSiteTagRelDOS.stream().collect(Collectors.groupingBy(NavigationSiteTagRelDO::getNavigationSiteId));
+        // 标签与网站信息，按网站 id 分组的存储map
+        Map<Long, List<NavigationSiteTagDO>> siteIdGroupBySiteTagMap = new HashMap<>();
+        siteIdGroupBySiteTagRelMap.forEach((siteId, relList) -> {
+            List<NavigationSiteTagDO> siteTagList = relList.stream().map(item -> siteTagIdMap.get(item.getNavigationSiteTagId())).sorted(Comparator.comparingInt(NavigationSiteTagDO::getSeq)).collect(Collectors.toList());
+            siteIdGroupBySiteTagMap.put(siteId, siteTagList);
+        });
+
+        dataDTO.setSiteIdGroupBySiteTagMap(siteIdGroupBySiteTagMap);
         return dataDTO;
     }
     /**
@@ -382,6 +405,10 @@ public class NavigationFrontWebController {
         List<NavigationFriendshipLinkDO> navigationFriendshipLinkDOS;
 
         /**
+         * 所有的网站与标签关系
+         */
+        List<NavigationSiteTagRelDO> navigationSiteTagRelDOS;
+        /**
          * 根级分类
          */
         List<NavigationCategoryDO> rootCategoryDOS;
@@ -423,6 +450,10 @@ public class NavigationFrontWebController {
          */
         Map<Long, List<NavigationCategoryDO>> siteIdGroupByCategoryMap;
 
+        /**
+         * 标签与网站信息，按网站 id 分组
+         */
+        Map<Long, List<NavigationSiteTagDO>> siteIdGroupBySiteTagMap;
     }
     /**
      * 拼接视图名称

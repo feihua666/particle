@@ -62,11 +62,6 @@ public class NavigationSite extends AggreateRoot {
     private String contentDetail;
 
 	/**
-	 * 收费情况，字典id
-	 */
-	private Long feeSituationDictId;
-
-	/**
 	 * 收录时间
 	 */
 	private LocalDateTime collectionAt;

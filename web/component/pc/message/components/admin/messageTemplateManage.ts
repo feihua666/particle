@@ -292,7 +292,7 @@ export const useAddPageFormItems = ({contentDetailJsonDialogVisible})=>{
     {
       field: {
         name: 'seq',
-        value: 10
+        value: 1000
       },
       element: {
         comp: 'el-input-number',

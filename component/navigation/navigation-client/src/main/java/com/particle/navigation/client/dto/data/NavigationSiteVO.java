@@ -43,13 +43,6 @@ public class NavigationSiteVO extends AbstractBaseIdVO {
     @Schema(description = "详细描述")
     private String contentDetail;
 
-	@Schema(description = "收费情况，字典id")
-	private Long feeSituationDictId;
-
-    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "feeSituationDictId",mapValueField = "name")
-    @Schema(description = "收费情况，字典名称")
-    private String feeSituationDictName;
-
 	@Schema(description = "收录时间")
 	private LocalDateTime collectionAt;
 
