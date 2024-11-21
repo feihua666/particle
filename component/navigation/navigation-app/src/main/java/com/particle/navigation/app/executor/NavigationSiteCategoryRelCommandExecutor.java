@@ -37,7 +37,7 @@ public class NavigationSiteCategoryRelCommandExecutor  extends AbstractBaseExecu
 		boolean result = iNavigationSiteCategoryRelService.removeAndAssignRel(navigationSiteAssignNavigationCategoryCommand.getNavigationSiteId(),
 				navigationSiteAssignNavigationCategoryCommand.getCheckedNavigationCategoryIds(),navigationSiteAssignNavigationCategoryCommand.getUncheckedNavigationCategoryIds(),
 				navigationSiteAssignNavigationCategoryCommand.getIsLazyLoad(), NavigationSiteCategoryRelDO::getNavigationSiteId,NavigationSiteCategoryRelDO::getNavigationCategoryId,
-				(relDto)->new NavigationSiteCategoryRelDO().setNavigationSiteId(relDto.getMainId()).setNavigationCategoryId(relDto.getOtherId()));
+				(relDto)->new NavigationSiteCategoryRelDO().setNavigationSiteId(relDto.getMainId()).setNavigationCategoryId(relDto.getOtherId()).setSeq(navigationSiteAssignNavigationCategoryCommand.getSeq()));
 		return Response.buildSuccess();
 	}
 
@@ -50,7 +50,7 @@ public class NavigationSiteCategoryRelCommandExecutor  extends AbstractBaseExecu
 		boolean result = iNavigationSiteCategoryRelService.removeAndAssignRel(navigationCategoryAssignNavigationSiteCommand.getNavigationCategoryId(),
 				navigationCategoryAssignNavigationSiteCommand.getCheckedNavigationSiteIds(),navigationCategoryAssignNavigationSiteCommand.getUncheckedNavigationSiteIds(),
 				navigationCategoryAssignNavigationSiteCommand.getIsLazyLoad(), NavigationSiteCategoryRelDO::getNavigationCategoryId,NavigationSiteCategoryRelDO::getNavigationSiteId,
-				(relDto)->new NavigationSiteCategoryRelDO().setNavigationCategoryId(relDto.getMainId()).setNavigationSiteId(relDto.getOtherId()));
+				(relDto)->new NavigationSiteCategoryRelDO().setNavigationCategoryId(relDto.getMainId()).setNavigationSiteId(relDto.getOtherId()).setSeq(navigationCategoryAssignNavigationSiteCommand.getSeq()));
 		return Response.buildSuccess();
 	}
 	/**

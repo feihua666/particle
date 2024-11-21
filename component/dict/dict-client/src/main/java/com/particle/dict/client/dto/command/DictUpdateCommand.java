@@ -1,6 +1,7 @@
 package com.particle.dict.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
+import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,6 +26,7 @@ public class DictUpdateCommand extends AbstractBaseUpdateCommand {
     /**
      * 添加字典组，编码必填
      */
+    @SetNullWhenNull
     @PropValid.DependCondition(message = "字典编码不能为空",dependProp = "isGroup",ifEqual = "true")
     @Schema(description = "字典编码,模糊查询，字典组时必填",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;

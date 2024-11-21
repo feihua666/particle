@@ -133,7 +133,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '查看异常内容',
       text: true,
-      permission: 'admin:web:opLogError:viewContent',
+      permission: 'admin:web:opLogErrorContent:detail',
       // 跳转到编辑
       route: {path: '/admin/OpLogErrorContentViewPage',query: idData}
     },
@@ -171,7 +171,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpLogErrorPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

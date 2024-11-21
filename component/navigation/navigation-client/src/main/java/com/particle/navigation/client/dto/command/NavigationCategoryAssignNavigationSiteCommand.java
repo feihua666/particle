@@ -39,4 +39,8 @@ public class NavigationCategoryAssignNavigationSiteCommand extends AbstractBaseC
     @Schema(description = "页面可选择的数据是否为懒加载")
     private Boolean isLazyLoad = false;
 
+
+    @NotNull(message = "排序不能为空")
+    @Schema(description = "排序,默认按该字段升序排序")
+    private Integer seq = 1000;
 }

@@ -68,7 +68,7 @@
                 <div class="apd-bg">
                 </div>
                 <div class="panel-body my-4 ">
-                    ${siteDO.content!""}
+                    ${siteDO.contentDetail!""}
                 </div>
             </div>
         </div>

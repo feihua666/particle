@@ -45,7 +45,7 @@ public class OpLogErrorContentAdminWebController extends AbstractBaseWebAdapter 
     }
 
     @PreAuthorize("hasAuthority('admin:web:opLogErrorContent:detail')")
-    @Operation(summary = "操作异常日志内容更新详情")
+    @Operation(summary = "根据异常id获取操作异常日志内容详情展示")
     @GetMapping("/detailByOpLogErrorId")
     public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(IdCommand detailForUpdateCommand){
         return iOpLogErrorContentRepresentationApplicationService.detailByOpLogErrorId(detailForUpdateCommand);
