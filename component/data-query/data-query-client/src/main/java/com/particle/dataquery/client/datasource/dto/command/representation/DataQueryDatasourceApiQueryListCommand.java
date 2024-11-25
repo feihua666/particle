@@ -18,17 +18,12 @@ import lombok.Data;
 @Schema
 public class DataQueryDatasourceApiQueryListCommand extends AbstractBaseQueryCommand {
 
-	@Schema(description = "是否使用缓存")
-	private Boolean isUseCache;
-
-
-
-    @Like
-    @Schema(description = "编码,左前缀匹配")
+    @Like(left = true,right = true)
+    @Schema(description = "编码,模糊匹配")
     private String code;
 
-    @Like
-    @Schema(description = "名称,左前缀匹配")
+    @Like(left = true,right = true)
+    @Schema(description = "名称,模糊匹配")
     private String name;
 
     @Schema(description = "分类")
@@ -41,8 +36,19 @@ public class DataQueryDatasourceApiQueryListCommand extends AbstractBaseQueryCom
     @Schema(description = "数据查询数据源id")
     private Long dataQueryDatasourceId;
 
-    @Schema(description = "类型")
+    @Schema(description = "输出包装类型")
     private Long responseTypeDictId;
+
+
+    @Schema(description = "入参类型，字典id")
+    private Long inParamTypeDictId;
+
+    @Schema(description = "出参类型，字典id")
+    private Long outParamTypeDictId;
+
+    @Like(left = true,right = true)
+    @Schema(description = "基础配置json，模糊匹配")
+    private String configJson;
 
     @Schema(description = "等同标签")
     private String sameTag;
@@ -61,5 +67,10 @@ public class DataQueryDatasourceApiQueryListCommand extends AbstractBaseQueryCom
 
 	@Schema(description = "是否测试通过，测试通过才能发布")
 	private Boolean isTestPassed;
+
+    @Schema(description = "是否使用缓存")
+    private Boolean isUseCache;
+
+
 
 }

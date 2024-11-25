@@ -93,8 +93,8 @@ public class DataQueryDatasourceApiCreateCommand extends AbstractBaseCommand {
     @Schema(description = "出参扩展配置json")
     private String outParamExtConfigJson;
 
-    @NotNull(message = "输出类型 不能为空")
-    @Schema(description = "输出类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "输出包装类型 不能为空")
+    @Schema(description = "输出包装类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long responseTypeDictId;
 
     @Schema(description = "分页适配信息配置json")

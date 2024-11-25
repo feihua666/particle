@@ -11,7 +11,9 @@ export const pageFormItems = [
     label: '开放接口',
     disableGroup: true
   }),
-  useSelectOpenapiFeeCompItem({})
+  useSelectOpenapiFeeCompItem({}),
+  useSelectOpenapiLimitRuleCompItem({
+  }),
 ]
 export const useAddPageFormItems = ({props = {}}) => {
   return [

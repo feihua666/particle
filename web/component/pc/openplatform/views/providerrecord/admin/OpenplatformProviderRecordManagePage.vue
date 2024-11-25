@@ -163,7 +163,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformProviderRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+           :doDataMethodOnMounted="false"
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

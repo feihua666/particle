@@ -379,7 +379,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
-        placeholder: '左前缀匹配'
+        placeholder: '模糊匹配'
       }
     }
   },
@@ -395,7 +395,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
-        placeholder: '左前缀匹配'
+        placeholder: '模糊匹配'
       }
     }
   },
@@ -441,6 +441,51 @@ export const pageFormItems = [
       compProps: {
         // 字典查询
         dictParam: {groupCode: 'dataquery_datasource_api_type'}
+      }
+    }
+  },
+  {
+    field: {
+      name: 'inParamTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '入参类型',
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'dataquery_datasource_api_param_type'}
+      }
+    }
+  },
+  {
+    field: {
+      name: 'outParamTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '出参类型',
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'dataquery_datasource_api_param_type'}
+      }
+    }
+  },
+  {
+    field: {
+      name: 'configJson',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '基础配置',
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '模糊匹配'
       }
     }
   },

@@ -35,7 +35,8 @@ export const pageFormItems = [
     }),
     useSelectCrmCustomerCompItem({fieldName: 'ownerCustomerId',label: '归属客户'}),
     useSelectOpenapiFeeCompItem({}),
-
+    useSelectOpenapiLimitRuleCompItem({
+    }),
 ]
 export const useAddPageFormItems = ({props,appAlgorithmSecretConfigsRef}) => {
     return [

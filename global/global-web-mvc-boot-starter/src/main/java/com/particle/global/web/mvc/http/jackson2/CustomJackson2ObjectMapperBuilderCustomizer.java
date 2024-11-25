@@ -2,6 +2,7 @@ package com.particle.global.web.mvc.http.jackson2;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.Module;
@@ -68,8 +69,9 @@ public class CustomJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
 		// 启动jsonView,可以实现针对不同的视图返回不同的json
 		jacksonObjectMapperBuilder.defaultViewInclusion(true);
 
-		//默认开启，若map的value为null，则不对map条目进行序列化。(已废弃)。
-		// 推荐使用：jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
+		//默认开启，若map的value为null，则不对map条目进行序列化。
+		// 推荐使用：
+		jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.ALWAYS);
 		//jacksonObjectMapperBuilder.featuresToDisable(SerializationFeature.WRITE_NULL_MAP_VALUES);
 
 		//默认开启，将Date类型序列化为数字时间戳(毫秒表示)。关闭后，序列化为文本表现形式(2019-10-23T01:58:58.308+0000)

@@ -33,7 +33,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
-        placeholder: '左前缀匹配',
+        placeholder: '模糊匹配',
       }
     }
   },
@@ -49,21 +49,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
-        placeholder: '左前缀匹配',
-      }
-    }
-  },
-  {
-    field: {
-      name: 'dataQueryDatasourceApiId',
-    },
-    element: {
-      comp: 'PtSelect',
-      formItemProps: {
-        label: '数据查询数据源接口',
-      },
-      compProps: {
-        dataMethod: datasourceApiListApi
+        placeholder: '模糊匹配',
       }
     }
   },
@@ -83,6 +69,51 @@ export const pageFormItems = [
       }
     }
   },
+  {
+    field: {
+      name: 'dataQueryDatasourceApiId',
+    },
+    element: {
+      comp: 'PtSelect',
+      formItemProps: {
+        label: '数据查询数据源接口',
+      },
+      compProps: {
+        dataMethod: datasourceApiListApi
+      }
+    }
+  },
+  {
+    field: {
+      name: 'adaptConfigJson',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '适配逻辑配置',
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '模糊匹配',
+      }
+    }
+  },
+  {
+    field: {
+      name: 'responseTypeDictId',
+    },
+    element: {
+      comp: 'PtDictFrontSelect',
+      formItemProps: {
+        label: '输出包装类型',
+      },
+      compProps: {
+        // 字典查询
+        dictParam: {groupCode: 'dataquery_datasource_api_type'}
+      }
+    }
+  },
+
   {
     field: {
       name: 'inParamTypeDictId',
@@ -112,22 +143,6 @@ export const pageFormItems = [
       compProps: {
         // 字典查询
         dictParam: {groupCode: 'dataquery_datasource_api_param_type'}
-      }
-    }
-  },
-  {
-    field: {
-      name: 'responseTypeDictId',
-    },
-    element: {
-      comp: 'PtDictFrontSelect',
-      formItemProps: {
-        label: '输出类型',
-
-      },
-      compProps: {
-        // 字典查询
-        dictParam: {groupCode: 'dataquery_datasource_api_type'}
       }
     }
   },

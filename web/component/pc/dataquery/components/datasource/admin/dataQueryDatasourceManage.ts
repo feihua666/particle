@@ -14,6 +14,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
+        placeholder: '模糊匹配',
       }
     }
   },
@@ -29,7 +30,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
-        placeholder: '左前缀匹配',
+        placeholder: '模糊匹配',
       }
     }
   },
@@ -51,6 +52,22 @@ export const pageFormItems = [
   },
   {
     field: {
+      name: 'configJson',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: 'json配置',
+
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '模糊匹配',
+      }
+    }
+  },
+  {
+    field: {
       name: 'username',
     },
     element: {
@@ -61,6 +78,7 @@ export const pageFormItems = [
       },
       compProps: {
         clearable: true,
+        placeholder: '模糊匹配',
       }
     }
   },

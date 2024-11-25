@@ -89,27 +89,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   let idData = {id: row.id}
 
   let tableRowButtons = [
-    {
-      txt: '编辑',
-      text: true,
-      permission: 'admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:update',
-      // 跳转到编辑
-      route: {path: '/admin/OpenplatformOpenapiRecordAppOpenapiDayRtSummaryManageUpdate',query: idData}
-    },
-    {
-      txt: '删除',
-      text: true,
-      permission: 'admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
-      // 删除操作
-      method(){
-        return openplatformOpenapiRecordAppOpenapiDayRtSummaryRemoveApi({id: row.id}).then(res => {
-          // 删除成功后刷新一下表格
-          submitMethod()
-          return Promise.resolve(res)
-        })
-      }
-    }
+  //  注意这里不支持删除，删除后实时汇总的数据将会计算错误，因为都是累加上来的
   ]
 
   return tableRowButtons
@@ -123,28 +103,16 @@ const getTableRowButtons = ({row, column, $index}) => {
           :submitAttrs="submitAttrs"
           inline
           :comps="reactiveData.formComps">
-    <template #buttons>
-      <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:create" route="/admin/OpenplatformOpenapiRecordAppOpenapiDayRtSummaryManageAdd">添加</PtButton>
-    </template>
+
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
   <PtTable ref="tableRef"
            default-expand-all
            :dataMethod="doOpenplatformOpenapiRecordAppOpenapiDayRtSummaryPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
-
-    <!--  操作按钮  -->
-    <template #defaultAppend>
-      <el-table-column label="操作" width="180">
-        <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
-          </PtButtonGroup>
-        </template>
-      </el-table-column>
-    </template>
   </PtTable>
 <!-- 子级路由 -->
   <PtRouteViewPopover :level="3"></PtRouteViewPopover>

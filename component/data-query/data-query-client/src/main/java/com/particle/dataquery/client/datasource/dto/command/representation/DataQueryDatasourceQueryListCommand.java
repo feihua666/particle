@@ -20,17 +20,23 @@ import com.particle.global.light.share.mybatis.anno.Like;
 @Schema
 public class DataQueryDatasourceQueryListCommand extends AbstractBaseQueryCommand {
 
-    @Schema(description = "编码")
+    @Like(left = true,right = true)
+    @Schema(description = "编码,模糊匹配")
     private String code;
 
-    @Like
-    @Schema(description = "名称,左前缀匹配")
+    @Like(left = true,right = true)
+    @Schema(description = "名称,模糊匹配")
     private String name;
 
     @Schema(description = "类型")
     private Long typeDictId;
 
-    @Schema(description = "用户名")
+    @Like(left = true,right = true)
+    @Schema(description = "json配置,模糊匹配")
+    private String configJson;
+
+    @Like(left = true,right = true)
+    @Schema(description = "用户名,模糊匹配")
     private String username;
 
     @Schema(description = "数据查询供应商")

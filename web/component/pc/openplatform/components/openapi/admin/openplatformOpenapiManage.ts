@@ -12,11 +12,11 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '编码',
-            
+
           },
           compProps: {
             clearable: true,
-            placeholder: '左前缀匹配',
+            placeholder: '模糊匹配',
           }
         }
       },
@@ -28,11 +28,11 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '名称',
-            
+
           },
           compProps: {
             clearable: true,
-            placeholder: '左前缀匹配',
+            placeholder: '模糊匹配',
           }
         }
       },
@@ -45,11 +45,11 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '接口地址',
-            
+
           },
           compProps: {
             clearable: true,
-            placeholder: '左前缀匹配',
+            placeholder: '模糊匹配',
           }
         }
       },
@@ -149,7 +149,7 @@ export const addPageFormItems = [
             label: '接口地址',
             required: ({form}) => !form.isGroup,
             tips: '请以/开头，对应编码接口映射',
-            labelTips: '用于接口请求匹配，以获取对应的接口<br/>1. provider方式自定义即可<br/>2. 数据查询方式需与数据查询api接口地址保持一致<br/>3. 自定义接口需要与接口映射保持一致'
+            labelTips: '用于接口请求匹配，以获取对应的接口<br/>1. provider方式自定义即可<br/>2. 数据查询方式需与数据查询api接口地址保持一致,需以 /openapi/dq 开头<br/>3. 自定义接口需要与接口映射保持一致'
           },
           compProps: {
             clearable: true,

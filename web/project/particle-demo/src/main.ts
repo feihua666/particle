@@ -10,7 +10,7 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import zhCn from 'element-plus/dist/locale/zh-cn'
 
 // axios
 import axiosInstance from '../../../global/pc/common/axios/axiosRequest'

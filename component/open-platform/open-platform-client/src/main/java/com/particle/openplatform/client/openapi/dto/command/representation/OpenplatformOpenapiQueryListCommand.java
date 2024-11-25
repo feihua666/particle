@@ -20,19 +20,19 @@ import com.particle.global.light.share.mybatis.anno.Like;
 public class OpenplatformOpenapiQueryListCommand extends AbstractBaseTreeQueryCommand {
 
 
-	@Like
-	@Schema(description = "编码,左前缀匹配")
+	@Like(left = true,right = true)
+	@Schema(description = "编码,模糊匹配")
 	private String code;
 
-	@Like
-	@Schema(description = "名称,左前缀匹配")
+	@Like(left = true,right = true)
+	@Schema(description = "名称,模糊匹配")
 	private String name;
 
 	@Schema(description = "是否为组")
 	private Boolean isGroup;
 
-	@Like
-	@Schema(description = "接口地址,左前缀匹配")
+	@Like(left = true,right = true)
+	@Schema(description = "接口地址,模糊匹配")
 	private String url;
 
 	@Schema(description = "是否禁用")
