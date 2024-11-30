@@ -1,1 +1,0 @@
-import{g as t}from"./index.cfa27f61.js";let a="/admin/web/openplatform_openapi_fee";const p=e=>t.post(a+"/create",e),s=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/list",{params:e}),d=e=>t.get(a+"/page",{params:e});export{p as c,n as d,u as l,d as p,s as r,o as u};

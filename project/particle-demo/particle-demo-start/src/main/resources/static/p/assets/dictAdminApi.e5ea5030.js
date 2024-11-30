@@ -1,1 +1,0 @@
-import{h as e}from"./index.53bce7bf.js";let a="/admin/web/dict";const s=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),p=t=>e.put(a+"/update",t),n=t=>e.get(a+"/detail-for-update",{params:t}),d=t=>e.get(a+"/list",{params:t}),c=t=>e.get(a+"/page",{params:t});export{s as c,n as d,d as l,c as p,o as r,p as u};

@@ -162,6 +162,7 @@ const getFormItemRules = (validateObj:ValidateObj) => {
 .el-form-item[displayBlock=true]{
   display: flex;
 }
+
 .pt-form-item-labelTips{
   width: 1.1em;
   height: 1.1em;
@@ -170,5 +171,14 @@ const getFormItemRules = (validateObj:ValidateObj) => {
   vertical-align: -.15em;
   fill: currentColor;
   overflow: hidden;
+}
+</style>
+<style>
+/* 与 form.vue中的相呼应 */
+.el-form-item[displayBlock=true] .el-input,
+.el-form-item[displayBlock=true] .el-cascader,
+.el-form-item[displayBlock=true] .el-select,
+.el-form-item[displayBlock=true] .el-autocomplete{
+  width: 100% !important;
 }
 </style>

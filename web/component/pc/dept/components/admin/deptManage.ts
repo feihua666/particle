@@ -11,7 +11,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '部门编码',
-            
+
           },
           compProps: {
             clearable: true,
@@ -122,10 +122,12 @@ export const useAddPageFormItems = ({props})=>{
       element: {
         comp: 'el-switch',
         formItemProps: {
-          label: '是否虚拟部门',
+          label: '是否虚拟',
           required: true,
         },
         compProps: {
+          activeText: '虚拟部门',
+          inactiveText: '实体部门',
         }
       }
     },
@@ -139,10 +141,12 @@ export const useAddPageFormItems = ({props})=>{
       element: {
         comp: 'el-switch',
         formItemProps: {
-          label: '是否为公司',
+          label: '是否公司',
           required: true,
         },
         compProps: {
+          activeText: '公司',
+          inactiveText: '部门',
         }
       }
     },

@@ -79,7 +79,7 @@ export const addPageFormItems = [
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '功能应用名称',
+        label: '应用名称',
         required: true,
       },
       compProps: {
@@ -145,7 +145,7 @@ export const addPageFormItems = [
     element: {
       comp: 'el-switch',
       formItemProps: {
-        label: '应用组/应用',
+        label: '是否分组',
         required: true,
       },
       compProps: {
@@ -263,7 +263,7 @@ export const addPageFormItems = [
     element: {
       comp: 'el-input',
       formItemProps: {
-        label: '额外配置json',
+        label: '配置json',
         displayBlock: true
       },
       compProps: {

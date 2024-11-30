@@ -286,6 +286,7 @@ const lineChartOptions = (xAxisData,seriesData,titleText) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="140"
           :comps="reactiveData.formComps">
   </PtForm>
   <v-chart style="width: 100%;height: 300px;" :option="computedSlidingWindowOption" autoresize />

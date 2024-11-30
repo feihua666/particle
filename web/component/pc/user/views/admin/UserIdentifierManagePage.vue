@@ -60,6 +60,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:userIdentifier:delete',
       methodConfirmText: `删除用户账号会造成用户当前账号不能登录，同时会删除当前账号的密码数据。确定要删除 ${row.identifier} 吗？`,
       // 删除操作

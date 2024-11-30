@@ -94,6 +94,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformDocApi:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -108,6 +109,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '下载接口文档',
       text: true,
+      position: 'more',
       // 该权限码配置在报告接口管理页面中的开放接口文档
       permission: 'openplatform:doc:download',
       methodConfirmText: `确定要下载 ${row.name} 接口文档吗？`,
@@ -141,7 +143,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformDocApiPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
@@ -149,7 +151,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

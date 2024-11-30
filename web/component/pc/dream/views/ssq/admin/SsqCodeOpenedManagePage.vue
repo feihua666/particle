@@ -297,6 +297,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="100"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:ssqCodeOpened:allCodeInit" methodSuccess="恭喜，初始化添加完成！" :method="allCodeInit" methodConfirmText="确定要初始化所有号码吗？初始化不影响历史已经初始化的数据，当有新数据时会更新到最新">初始化添加所有开奖号码</PtButton>
@@ -309,7 +310,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doSsqCodeOpenedPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

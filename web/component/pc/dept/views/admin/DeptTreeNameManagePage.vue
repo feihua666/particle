@@ -19,14 +19,17 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '部门树名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
       label: '部门树名称编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
   ],
 

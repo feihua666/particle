@@ -102,6 +102,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
 
   </PtForm>

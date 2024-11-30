@@ -19,6 +19,7 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '操作名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'module',
@@ -31,6 +32,7 @@ const reactiveData = reactive({
 
         return r
       },
+      showOverflowTooltip: true
     },
 
     {
@@ -44,6 +46,7 @@ const reactiveData = reactive({
 
         return r
       },
+      showOverflowTooltip: true
     },
     {
       prop: 'userName',
@@ -72,6 +75,7 @@ const reactiveData = reactive({
     {
       prop: 'ip',
       label: 'ip',
+      showOverflowTooltip: true
     },
     {
       prop: 'mainDataId',
@@ -81,6 +85,7 @@ const reactiveData = reactive({
     {
       prop: 'mainDataTable',
       label: '主数据表名',
+      showOverflowTooltip: true
     },
     {
       prop: 'mainDataEntity',
@@ -90,6 +95,7 @@ const reactiveData = reactive({
     {
       prop: 'operateAt',
       label: '操作时间',
+      showOverflowTooltip: true
     },
   ],
 
@@ -166,7 +172,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="170">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
           </PtButtonGroup>

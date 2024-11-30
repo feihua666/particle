@@ -2,20 +2,23 @@ export const userIdentifierPwdColumns = [
     {
         prop: 'userNickname',
         label: '用户昵称',
+        showOverflowTooltip: true
     },
     {
         prop: 'userIdentifier',
         label: '登录标识',
+        showOverflowTooltip: true
     },
     {
         prop: 'pwdEncryptFlag',
         label: '加密方式',
+        showOverflowTooltip: true
     },
 
     {
         prop: 'isExpired',
         label: '是否过期',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             let r = cellValue ? '已过期' : '正常'
             if(cellValue && row.expiredReason){
@@ -32,8 +35,8 @@ export const userIdentifierPwdColumns = [
 
     {
         prop: 'isNeedUpdate',
-        label: '是否需要提示修改密码',
-        width: 70,
+        label: '提示修改密码',
+        width: 110,
         formatter: (row, column, cellValue, index) => {
             let r = cellValue ? '提示' : '不提示'
             if(cellValue && row.needUpdateMessage){
@@ -45,11 +48,13 @@ export const userIdentifierPwdColumns = [
     },
     {
         prop: 'groupFlag',
-        label: '分组标识'
+        label: '分组标识',
+        showOverflowTooltip: true
     },
     {
         prop: 'pwdModifiedAt',
-        label: '密码修改时间'
+        label: '密码修改时间',
+        showOverflowTooltip: true
     },
     {
         prop: 'complexity',
@@ -70,7 +75,7 @@ export const userIdentifierPwdForLoginColumns = [
     {
         prop: 'isExpired',
         label: '是否过期',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             let r = cellValue ? '已过期' : '正常'
             if(cellValue && row.expiredReason){

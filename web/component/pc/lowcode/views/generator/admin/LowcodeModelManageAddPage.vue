@@ -39,7 +39,7 @@ const submitMethodSuccess = () => {
   <!-- 添加表单 -->
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
-          labelWidth="80"
+          labelWidth="120"
           :method="submitMethod()"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"

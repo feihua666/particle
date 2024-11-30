@@ -22,7 +22,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'name',
-      label: '功能应用名称',
+      label: '应用名称',
     },
     {
       prop: 'parentName',
@@ -30,7 +30,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'isGroup',
-      label: '应用组/应用',
+      label: '是否分组',
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? '应用组' : '应用'
         return r
@@ -43,7 +43,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'applicationIconUrl',
-      label: '应用icon',
+      label: '应用图标',
       columnView: 'image'
     },
     {
@@ -69,7 +69,7 @@ const reactiveData = reactive({
     },
     {
       prop: 'configJson',
-      label: '额外配置json',
+      label: '配置json',
       showOverflowTooltip: true
     },
 
@@ -169,7 +169,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})"  :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

@@ -9,98 +9,106 @@ import {pageFormItems} from "../../components/admin/userManage";
 import {componentEnabled} from "../../../../../common/config/componentsConfig";
 const route = useRoute()
 const tableRef = ref(null)
+const columns = [
+  {
+    prop: 'nickname',
+    label: '昵称',
+    width: 100,
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'name',
+    label: '姓名',
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'avatar',
+    label: '头像',
+    columnView: 'image',
+    width: 80
+  },
+  {
+    prop: 'serialNo',
+    label: '编号',
 
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'genderDictName',
+    label: '性别',
+    width: 60
+  },
+  {
+    prop: 'isVirtual',
+    label: '虚拟用户',
+    width: 80,
+    formatter: (row, column, cellValue, index) => {
+      return cellValue ? '虚拟用户' : '真实用户'
+    }
+  },
+  {
+    prop: 'isLock',
+    label: '是否锁定',
+    width: 80,
+    formatter: (row, column, cellValue, index) => {
+      let r = cellValue ? '锁定' : '正常'
+      if(cellValue && row.lockReason){
+        r = r + `(${row.lockReason})`
+      }
+      return r
+    },
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'categoryDictName',
+    label: '分类',
+  },
+  {
+    prop: 'groupFlag',
+    label: '分组标识',
+
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'sourceFromDictName',
+    label: '来源',
+    showOverflowTooltip: true
+  },
+  {
+    prop: 'isExpired',
+    label: '是否过期',
+    width: 80,
+    formatter: (row, column, cellValue, index) => {
+      let r = cellValue ? '已过期' : '正常'
+      if(cellValue && row.expiredReason){
+        r = r + `(${row.expiredReason})`
+      }
+      return r
+    }
+  },
+  {
+    prop: 'expireAt',
+    label: '过期时间',
+    showOverflowTooltip: true
+  },
+  componentEnabled('dept') ? {
+    prop: 'deptName',
+    label: '归属部门',
+    showOverflowTooltip: true
+  }: null,
+  {
+    prop: 'remark',
+    label: '备注',
+    showOverflowTooltip: true
+  },
+]
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
   form: {
   },
   formComps: pageFormItems.filter(item => !!item),
-  tableColumns: [
-    {
-      prop: 'nickname',
-      label: '昵称',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'name',
-      label: '姓名',
-      width: 80,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'avatar',
-      label: '头像',
-      columnView: 'image',
-      width: 50
-    },
-    {
-      prop: 'serialNo',
-      label: '编号',
-      width: 100,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'genderDictName',
-      label: '性别',
-      width: 50
-    },
-    {
-      prop: 'isVirtual',
-      label: '虚拟用户',
-      width: 70,
-      formatter: (row, column, cellValue, index) => {
-        return cellValue ? '虚拟用户' : '真实用户'
-      }
-    },
-    {
-      prop: 'isLock',
-      label: '是否锁定',
-      width: 70,
-      formatter: (row, column, cellValue, index) => {
-        let r = cellValue ? '锁定' : '正常'
-        if(cellValue && row.lockReason){
-          r = r + `(${row.lockReason})`
-        }
-        return r
-      },
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'categoryDictName',
-      label: '分类',
-      width: 70,
-    },
-    {
-      prop: 'groupFlag',
-      label: '分组标识',
-      width: 70,
-    },
-    {
-      prop: 'sourceFromDictName',
-      label: '来源',
-      width: 70,
-      showOverflowTooltip: true
-    },
-    {
-      prop: 'isExpired',
-      label: '是否过期',
-      width: 70,
-      formatter: (row, column, cellValue, index) => {
-        let r = cellValue ? '已过期' : '正常'
-        if(cellValue && row.expiredReason){
-          r = r + `(${row.expiredReason})`
-        }
-        return r
-      }
-    },
-    {
-      prop: 'expireAt',
-      label: '过期时间',
-      showOverflowTooltip: true
-    },
-  ],
+  tableColumns: columns.filter(item => !!item),
 
 })
 

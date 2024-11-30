@@ -2,7 +2,7 @@
 import { reactive,ref,watch} from 'vue'
 import {getLogoText, getLogoUrl} from "../../../../../../global/common/api/globalApi";
 import {useLogoTextStore} from "../../../../../../global/common/api/LogoTextStore";
-
+import {isDark,toggleDark} from "@/composables";
 const logoTextStore = useLogoTextStore()
 
 // 左侧菜单展示/折叠控制变量
@@ -10,8 +10,8 @@ const isCollapse = ref(false)
 // 左侧菜单展示/折叠相关配置
 const leftAsideCollStatus = {
   expand: {
-    headerAsideWidth: 300 + 'px',
-    asideWidth: 300 + 'px',
+    headerAsideWidth: 260 + 'px',
+    asideWidth: 260 + 'px',
     toggleBtnTips: '点击收起左侧菜单',
     headerAsideLogo:{
       showText: true,
@@ -51,8 +51,9 @@ watch(()=> isCollapse.value,(val)=>{
     :headerAside="reactiveData.headerAside"
     :aside="reactiveData.aside"
     :header="{ show: true, attr: {class: 'pt-padding-0'} }"
-    :headerMain="{ show: true, attr: {style: 'padding-top: 0;padding-bottom:0'} }"
+    :headerMain="{ show: true, attr: {style: 'padding-top: 0;padding-bottom:0;border-bottom: solid 1px var(--el-menu-border-color);'} }"
     :footer="{ show: false, attr: {} }"
+    :main="{ show: true, attr: {class: 'pt-main-bg'}  }"
 >
   <template #headerAside>
     <PtLogo :text="logoTextStore.logoText || undefined" v-bind="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].headerAsideLogo"></PtLogo>
@@ -61,11 +62,17 @@ watch(()=> isCollapse.value,(val)=>{
     <el-container class="pt-height-100-pc">
       <el-aside width="500px" class="pt-padding-0 pt-flex-align-cross-center">
         <el-button type="primary" link size="large" @click="isCollapse = !isCollapse" :title="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].toggleBtnTips">
-          <el-icon><Expand v-if="isCollapse"/><Fold v-else/></el-icon>
+          <el-icon style="font-size: 1.4rem;"><Expand v-if="isCollapse"/><Fold v-else/></el-icon>
         </el-button>
         <PtBreadcrumb></PtBreadcrumb>
       </el-aside>
-      <el-main class="pt-padding-0 pt-flex-align-end">
+      <el-main class="pt-padding-0 pt-flex-align-end pt-flex-align-cross-center">
+
+        <span class="pt-pointer">
+        <el-icon style="padding-top: 2px;" v-if="isDark" @click="toggleDark()"><Moon /></el-icon>
+        <el-icon style="padding-top: 5px;" v-else @click="toggleDark()"><Sunny /></el-icon>
+        </span>
+
         <PtUserUserinfoDropdown placement="bottom-end"></PtUserUserinfoDropdown>
       </el-main>
     </el-container>
@@ -77,9 +84,10 @@ watch(()=> isCollapse.value,(val)=>{
   </template>
 <!-- 默认主工作区为二级路由 -->
   <PtRouteView :level="1"/>
+
 </PtBackendManagementLayout>
 
 </template>
-<style scoped>
+<style>
 
 </style>

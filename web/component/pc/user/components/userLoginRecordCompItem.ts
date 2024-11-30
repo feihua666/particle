@@ -2,10 +2,12 @@ export const userLoginRecordColumns = [
     {
         prop: 'userNickname',
         label: '用户昵称',
+        showOverflowTooltip: true
     },
     {
         prop: 'userIdentifier',
         label: '登录标识',
+        showOverflowTooltip: true
     },
     {
         prop: 'loginAt',
@@ -14,12 +16,14 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'loginIp',
-        label: '登录ip'
+        label: '登录ip',
+        showOverflowTooltip: true
     },
 
     {
         prop: 'deviceId',
         label: '设备id',
+        showOverflowTooltip: true
     },
     {
         prop: 'deviceName',
@@ -27,7 +31,7 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'operatingSystem',
-        label: '操作系统及版本'
+        label: '系统及版本'
     },
     {
         prop: 'isSuccess',
@@ -43,7 +47,8 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'traceId',
-        label: '追踪id'
+        label: '追踪id',
+        showOverflowTooltip: true
     },
     {
         prop: 'apiCount',

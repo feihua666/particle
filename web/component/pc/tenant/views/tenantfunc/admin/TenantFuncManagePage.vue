@@ -26,7 +26,7 @@ const reactiveData = reactive({
       label: '图标',
       // elementPlus 图标
       columnView: 'elIcon',
-      width: 50,
+      width: 60,
     },
     {
       prop: 'typeDictName',

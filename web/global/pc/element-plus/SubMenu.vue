@@ -96,7 +96,7 @@ onMounted(() => {
     </template>
 
     <template #default v-if="$slots.default">
-      <slot name="default" :options="options" >sss</slot>
+      <slot name="default" :options="options" ></slot>
     </template>
     <template #default  v-if="!$slots.default">
       <template v-for="(menuItem,index) in options" :key="index">

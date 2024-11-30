@@ -12,7 +12,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '客户编码',
-            
+
           },
           compProps: {
             clearable: true,
@@ -28,7 +28,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '客户名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -44,7 +44,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '客户称呼',
-            
+
           },
           compProps: {
             clearable: true,
@@ -60,7 +60,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '客户类型',
-            
+
           },
           compProps: {
             // 字典查询
@@ -91,14 +91,14 @@ export const pageFormItems = [
           comp: 'el-date-picker',
           formItemProps: {
             label: '客户生日',
-            
+
           },
           compProps: {
           }
         }
       },
   useCascaderCrmCompanyCompItem({fieldName: 'crmCompanyId',label: '客户公司'}),
-  useCascaderCrmDeptCompItem({fieldName: 'crmDeptId',label: '客户公司部门'}),
+  useCascaderCrmDeptCompItem({fieldName: 'crmDeptId',label: '客户部门'}),
 
       {
         field: {
@@ -108,7 +108,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '客户分类',
-            
+
           },
           compProps: {
             // 字典查询
@@ -251,7 +251,7 @@ export const useAddPageFormItems = ({props}) =>{
 
     useCascaderCrmCompanyCompItem({fieldName: 'crmCompanyId',label: '客户公司'}),
 
-    useCascaderCrmDeptCompItem({fieldName: 'crmDeptId',label: '客户公司部门'}),
+    useCascaderCrmDeptCompItem({fieldName: 'crmDeptId',label: '客户部门'}),
 
     {
       field: {

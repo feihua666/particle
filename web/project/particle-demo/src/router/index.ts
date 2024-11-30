@@ -2,6 +2,7 @@ import { createRouter, createWebHistory ,createWebHashHistory} from 'vue-router'
 import Entry from '../views/admin/Entry.vue'
 import Index from '../views/admin/index/Index.vue'
 import Login from '../views/admin/login/Login.vue'
+import PageLogin from '../views/admin/login/PageLogin.vue'
 
 import TestIndex from '../views/component/Index.vue'
 import TestMap from '../views/test/TestMap.vue'
@@ -31,7 +32,7 @@ const options = {
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: PageLogin
     },
     {
       path: '/testIndex',

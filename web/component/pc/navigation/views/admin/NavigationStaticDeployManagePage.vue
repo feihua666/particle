@@ -92,13 +92,6 @@ const getTableRowButtons = ({row, column, $index}) => {
 
   let tableRowButtons = [
     {
-      txt: '编辑',
-      text: true,
-      permission: 'admin:web:navigationStaticDeploy:update',
-      // 跳转到编辑
-      route: {path: '/admin/NavigationStaticDeployManageUpdate',query: idData}
-    },
-      {
       txt: '部署',
       text: true,
       disabled: row.code == 'backend_static_deploy',
@@ -108,8 +101,18 @@ const getTableRowButtons = ({row, column, $index}) => {
       route: {path: '/admin/NavigationStaticDeployManageDeploy',query: idData}
     },
     {
+      txt: '编辑',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:navigationStaticDeploy:update',
+      // 跳转到编辑
+      route: {path: '/admin/NavigationStaticDeployManageUpdate',query: idData}
+    },
+
+    {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:navigationStaticDeploy:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -149,9 +152,9 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="220">
+      <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

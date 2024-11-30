@@ -112,6 +112,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="100"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:dataQueryDatasource:create" route="/admin/DataQueryDatasourceManageAdd">添加</PtButton>

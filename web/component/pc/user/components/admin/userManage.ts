@@ -145,6 +145,7 @@ export const addPageFormItems = [
             },
             compProps: {
                 clearable: true,
+                placeholder: '真实姓名'
             }
         }
     },
@@ -173,7 +174,7 @@ export const addPageFormItems = [
         element: {
             comp: 'el-switch',
             formItemProps: {
-                label: '虚拟用户'
+                label: '是否虚拟'
             },
             compProps: {
                 activeText: '虚拟用户',
@@ -389,10 +390,11 @@ export const addPageFormItems = [
         element: {
             comp: 'el-input',
             formItemProps: {
-                label: '账号分组标识',
+                label: '账号分组',
             },
             compProps:  {
                 clearable: true,
+                placeholder: '账号分组标识'
             }
         }
     },

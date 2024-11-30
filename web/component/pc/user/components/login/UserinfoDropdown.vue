@@ -99,21 +99,23 @@ const handleUserinfoCommand = (command) => {
   <el-dropdown class=" g-flex-align-cross-center" @command="handleUserinfoCommand"
                v-loading="userinfoLoading"
                v-bind="$attrs"
+               trigger="click"
+               size="large"
                element-loading-spinner="el-icon-loading">
     <div class="pt-pointer pt-flex-align-cross-center" style="padding: 0 5px;">
+      <span style="margin-right: 0.8rem;"> {{ nickname }}</span>
       <el-avatar :src="avatar">
         {{ nickname ? nickname.substr(0,1) : '无' }}
       </el-avatar>
-      <span style="margin-left: 5px;"> {{ nickname }}</span>
     </div>
 
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="userinfoCenter" :disabled="!loginUserStore.hasLogin">个人中心</el-dropdown-item>
-        <el-dropdown-item command="userinfoAccountSetting" :disabled="!loginUserStore.hasLogin">账号设置</el-dropdown-item>
+        <el-dropdown-item command="userinfoCenter" :disabled="!loginUserStore.hasLogin" icon="User">个人中心</el-dropdown-item>
+        <el-dropdown-item command="userinfoAccountSetting" :disabled="!loginUserStore.hasLogin" icon="Setting">账号设置</el-dropdown-item>
         <!-- <el-dropdown-item  command="updatePwd">修改密码</el-dropdown-item>
         <el-dropdown-item command="userinfoEdit">修改信息</el-dropdown-item>-->
-        <el-dropdown-item command="logout">退出登陆</el-dropdown-item>
+        <el-dropdown-item command="logout" icon="SwitchButton">退出登陆</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>

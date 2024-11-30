@@ -73,6 +73,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '查看详情',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformOpenapiBatchQueryRecordDetail:pageQuery',
       // 跳转到编辑
       route: {path: '/admin/openplatformOpenapiBatchQueryRecordDetail',query: recordIdData}
@@ -80,6 +81,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformOpenapiBatchQueryRecord:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -103,6 +105,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->
@@ -110,15 +113,15 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformOpenapiBatchQueryRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="230">
+      <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

@@ -251,7 +251,7 @@ defineExpose({
 })
 </script>
 <template>
-  <el-form ref="formRef" v-bind="$attrs" :model="reactiveData.form"
+  <el-form ref="formRef" class="pt-form" v-bind="$attrs" :model="reactiveData.form"
            :validate="(prop,isValid,message) => {$emit('validate',prop,isValid,message)}" @submit.native.prevent>
 
     <template #default v-if="$slots.default">
@@ -312,5 +312,14 @@ defineExpose({
 }
 .el-form--inline .pt-button-form-item{
   display: flex;
+}
+
+
+/* 参考：https://github.com/element-plus/element-plus/issues/15834#issuecomment-1936919229 */
+.pt-form.el-form--inline .el-form-item .el-input,
+.pt-form.el-form--inline .el-form-item .el-cascader,
+.pt-form.el-form--inline .el-form-item .el-select,
+.pt-form.el-form--inline .el-form-item .el-autocomplete{
+  width: var(--el-form-inline-content-width);
 }
 </style>

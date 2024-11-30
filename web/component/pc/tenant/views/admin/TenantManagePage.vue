@@ -192,6 +192,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:tenant:create" route="/admin/TenantManageAdd">添加</PtButton>

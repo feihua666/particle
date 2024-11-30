@@ -126,6 +126,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
     <template #buttons>
     <PtButton permission="admin:web:openplatformOpenapiRecordAppOpenapiDaySummary:yesterdayStatistic"
@@ -142,7 +143,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformOpenapiRecordAppOpenapiDaySummaryPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

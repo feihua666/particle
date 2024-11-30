@@ -86,6 +86,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:lowcodeModel:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -145,7 +146,7 @@ const dropdownTriggerButtonOptions = {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="220">
+      <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})"  :dropdownTriggerButtonOptions="dropdownTriggerButtonOptions">
           </PtButtonGroup>

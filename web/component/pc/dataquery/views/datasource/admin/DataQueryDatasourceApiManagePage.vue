@@ -264,7 +264,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :method="submitMethod"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
-          labelWidth="100"
+          labelWidth="120"
           inline
           :comps="reactiveData.formComps">
     <template #buttons>
@@ -282,7 +282,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

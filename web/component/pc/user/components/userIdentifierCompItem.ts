@@ -2,24 +2,28 @@ export const userIdentifierColumns = [
     {
         prop: 'userNickname',
         label: '用户昵称',
+        showOverflowTooltip: true
     },
     {
         prop: 'identifier',
         label: '登录标识',
+        showOverflowTooltip: true
     },
     {
         prop: 'identityTypeDictName',
         label: '账号类型',
+        showOverflowTooltip: true
     },
     {
         prop: 'unionId',
-        label: 'unionId'
+        label: 'unionId',
+        showOverflowTooltip: true
     },
 
     {
         prop: 'isLock',
         label: '是否锁定',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             let r = cellValue ? '锁定' : '正常'
             if(cellValue && row.lockReason){
@@ -32,7 +36,7 @@ export const userIdentifierColumns = [
     {
         prop: 'isExpired',
         label: '是否过期',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             let r = cellValue ? '已过期' : '正常'
             if(cellValue && row.expiredReason){
@@ -49,14 +53,17 @@ export const userIdentifierColumns = [
 
     {
         prop: 'groupFlag',
-        label: '分组标识'
+        label: '分组标识',
+        showOverflowTooltip: true
     },
     {
         prop: 'lastLoginAt',
-        label: '最后登录时间'
+        label: '最后登录时间',
+        showOverflowTooltip: true
     },
     {
         prop: 'lastLoginIp',
-        label: '最后登录ip'
+        label: '最后登录ip',
+        showOverflowTooltip: true
     },
 ]

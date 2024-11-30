@@ -68,7 +68,7 @@ const drawerProps = computed(() => {
   let defaultDrawerProps = {
     appendToBody: true,
     destroyOnClose: true,
-    size: '58%'
+    size: '65%'
   }
   let routeMetaDrawerProps = Object.assign(defaultDrawerProps, props.drawerProps, route.meta.drawerProps || {})
   return routeMetaDrawerProps

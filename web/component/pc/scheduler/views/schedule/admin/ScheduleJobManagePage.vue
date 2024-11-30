@@ -213,6 +213,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="110"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="schedule:job:add" :route="{path: '/admin/scheduleJobManageAddPage',query: {schedulerName: reactiveData.form.schedulerName,schedulerInstanceId: reactiveData.form.schedulerInstanceId}}">添加任务</PtButton>
@@ -223,7 +224,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doSchedulerExecuteRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

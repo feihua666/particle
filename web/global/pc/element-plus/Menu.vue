@@ -80,7 +80,7 @@ defineExpose({
 })
 </script>
 <template>
-  <el-menu
+  <el-menu class="pt-el-menu" popper-class="pt-el-menu-popper"
       v-loading="loading"
       v-bind="$attrs"
       @open="(index,indexPath) => {$emit('open',index,indexPath)}"
@@ -105,6 +105,6 @@ defineExpose({
     </slot>
   </el-menu>
 </template>
-<style scoped>
+<style>
 
 </style>

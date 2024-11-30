@@ -229,6 +229,7 @@ const barChartOptions = (xAxisData,seriesData,titleText) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="140"
           :comps="reactiveData.formComps">
   </PtForm>
   <template v-for="(computedRegionDataOption,index) in computedRegionDataOptions">

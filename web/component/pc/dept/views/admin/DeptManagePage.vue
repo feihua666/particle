@@ -19,15 +19,18 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '部门名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'code',
       label: '部门编码',
+      showOverflowTooltip: true
     },
 
     {
       prop: 'typeDictName',
       label: '类型',
+      showOverflowTooltip: true
     },
     {
       prop: 'masterUserName',
@@ -36,28 +39,31 @@ const reactiveData = reactive({
         let r = cellValue || row.masterUserNickname
         return r
       },
+      showOverflowTooltip: true
     },
     {
       prop: 'isVirtual',
-      label: '是否虚拟部门',
+      label: '是否虚拟',
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '是' : '否'
+        return cellValue ? '虚拟部门' : '实体部门'
       }
     },
     {
       prop: 'isComp',
-      label: '是否为公司',
+      label: '是否公司',
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '是' : '否'
+        return cellValue ? '公司' : '部门'
       }
     },
     {
       prop: 'parentName',
       label: '父级',
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
   ],
 
@@ -120,6 +126,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="120"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:dept:create" route="/admin/DeptManageAdd">添加</PtButton>

@@ -96,10 +96,12 @@ defineProps({
       </el-aside>
       <!--   主工作区   -->
       <el-container v-if="main.show || footer.show">
-        <el-main v-if="main.show" v-bind="main.attr">
+        <el-main v-if="main.show" class="pt-main-backtop-target" v-bind="main.attr">
+          <el-backtop target=".pt-main-backtop-target"/>
           <!-- 默认main 插槽-->
           <slot></slot>
         </el-main>
+
         <!--  工作区底部  -->
         <el-footer v-if="footer.show" v-bind="footer.attr">
           <slot name="footer"></slot>

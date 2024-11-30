@@ -34,12 +34,13 @@ const reactiveData = reactive({
     {
       prop: 'spellFirst',
       label: '首字母',
-      width: 60,
+      width: 70,
     },
     {
       prop: 'spellSimple',
       label: '简拼',
-      width: 50,
+      width: 60,
+      showOverflowTooltip: true
     },
 
     {
@@ -54,7 +55,7 @@ const reactiveData = reactive({
     {
       prop: 'typeDictName',
       label: '类型',
-      width: 50,
+      width: 60,
     },
     {
       prop: 'longitude',
@@ -69,11 +70,12 @@ const reactiveData = reactive({
     {
       prop: 'seq',
       label: '排序',
-      width: 50,
+      width: 60,
     },
     {
       prop: 'remark',
-      label: '描述'
+      label: '描述',
+      showOverflowTooltip: true
     }
   ],
 
@@ -161,7 +163,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

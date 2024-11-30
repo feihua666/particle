@@ -19,14 +19,17 @@ const reactiveData = reactive({
     {
       prop: 'code',
       label: '编码',
+      showOverflowTooltip: true,
     },
     {
       prop: 'name',
       label: '名称',
+      showOverflowTooltip: true,
     },
     {
       prop: 'dataObjectName',
       label: '数据对象',
+      showOverflowTooltip: true,
     },
     {
       prop: 'constraintContentTypeDictName',
@@ -117,6 +120,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataScope:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -158,13 +162,13 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataScopePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="210">
+      <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

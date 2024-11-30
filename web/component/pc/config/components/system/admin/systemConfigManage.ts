@@ -6,8 +6,8 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '参数配置编码',
-            
+            label: '配置编码',
+
           },
           compProps: {
             clearable: true,
@@ -22,8 +22,8 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '参数配置名称',
-            
+            label: '配置名称',
+
           },
           compProps: {
             clearable: true,
@@ -40,7 +40,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '标签',
-            
+
           },
           compProps: {
             clearable: true,
@@ -58,7 +58,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '参数配置编码',
+            label: '配置编码',
             required: true,
             tips: '编码唯一，建议分前缀使用，如：user.admin.xxx'
           },
@@ -77,7 +77,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '参数配置名称',
+            label: '配置名称',
             required: true,
             tips: '一个可读的有意义的名字，一般不作为程序处理依据'
           },
@@ -95,7 +95,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '参数配置值',
+            label: '配置值',
             required: true,
             displayBlock: true,
             tips: '参数配置值，支持json格式，一般由使用程序自行处理,如果是单值注意换行问题'

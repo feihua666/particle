@@ -18,15 +18,15 @@ const reactiveData = reactive({
   tableColumns: [
     {
       prop: 'code',
-      label: '参数配置编码',
+      label: '配置编码',
     },
     {
       prop: 'name',
-      label: '参数配置名称',
+      label: '配置名称',
     },
     {
       prop: 'value',
-      label: '参数配置值',
+      label: '配置值',
       showOverflowTooltip: true,
     },
     {
@@ -128,7 +128,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doSystemConfigPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

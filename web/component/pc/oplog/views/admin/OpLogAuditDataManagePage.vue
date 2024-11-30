@@ -140,13 +140,13 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpLogAuditDataPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="80">
+      <el-table-column label="操作" width="100">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
           </PtButtonGroup>

@@ -106,6 +106,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:openplatformOpenapi:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -126,6 +127,7 @@ const getTableRowButtons = ({row, column, $index}) => {
         {
           txt: '查看查询接口',
           text: true,
+          position: 'more',
           permission: 'admin:web:dataQueryDataApi:pageQuery',
           // 跳转到编辑
           route: {path: '/admin/dataQueryDataApiManagePage',query: dqUrlData}
@@ -162,7 +164,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

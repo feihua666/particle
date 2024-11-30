@@ -222,6 +222,7 @@ const lineChartOptions = (xAxisData,seriesData) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="140"
           :comps="reactiveData.formComps">
   </PtForm>
   <template v-for="(computedRegionsDataPerPhaseOption,index) in computedRegionsDataPerPhaseOptions">

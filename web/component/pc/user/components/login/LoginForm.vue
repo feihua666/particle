@@ -107,6 +107,7 @@ const reactiveData = reactive({
 // 提交按钮属性
 const submitAttrs = ref({
   buttonText: '登录',
+  class: 'pt-width-100-pc'
 })
 // 登录成功后获取登录用户
 const loginResult = (result):void => {
@@ -145,7 +146,7 @@ loadLoginCaptchaImage()
           :submitAttrs="submitAttrs"
           class="login-form"
           :layout="[1,1,[14,10]]"
-          size="default"
+          size="large"
           @methodResult="loginResult"
           :comps="reactiveData.formComps">
   </PtForm>
@@ -155,7 +156,7 @@ loadLoginCaptchaImage()
 .login-form{
   width: 25rem !important;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
+  background: var(--el-bg-color);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 3px;
   box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);

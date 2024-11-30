@@ -13,7 +13,7 @@ const props = defineProps({
   // 重写 属性可以创建带斑马纹的表格
   stripe: {
     type: Boolean,
-    default: true
+    default: false
   },
   // 重写 rowKey
   rowKey: {
@@ -223,4 +223,5 @@ div[usergroupheaderview="true"].pt-table thead th.el-table__cell {
 .el-table th.el-table__cell{
   user-select: initial !important;
 }
+
 </style>

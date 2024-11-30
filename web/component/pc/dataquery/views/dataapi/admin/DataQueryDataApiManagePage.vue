@@ -267,6 +267,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="120"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:dataQueryDataApi:create" route="/admin/DataQueryDataApiManageAdd">添加</PtButton>
@@ -283,7 +284,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="220">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

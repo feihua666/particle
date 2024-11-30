@@ -6,7 +6,7 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '部门树名称编码',
+            label: '编码',
           },
           compProps: {
             clearable: true,
@@ -21,7 +21,7 @@ export const pageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '部门树名称',
+            label: '名称',
           },
           compProps: {
             clearable: true,
@@ -38,7 +38,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '部门树名称编码',
+            label: '编码',
             tips: '编码唯一'
           },
           compProps: {
@@ -54,7 +54,7 @@ export const addPageFormItems = [
         element: {
           comp: 'el-input',
           formItemProps: {
-            label: '部门树名称',
+            label: '名称',
             required: true,
           },
           compProps: {

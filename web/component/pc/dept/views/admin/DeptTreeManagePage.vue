@@ -19,18 +19,22 @@ const reactiveData = reactive({
     {
       prop: 'deptName',
       label: '部门名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'deptTreeNameName',
       label: '部门树名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'parentName',
       label: '父级',
+      showOverflowTooltip: true
     },
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true
     },
   ],
 

@@ -126,12 +126,12 @@ export const funcColumns = [
         label: '图标',
         // elementPlus 图标
         columnView: 'elIcon',
-        width: 50,
+        width: 60,
     },
     {
         prop: 'isDisabled',
         label: '是否禁用',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             return cellValue ? '禁用' : '启用'
         }
@@ -139,7 +139,7 @@ export const funcColumns = [
     {
         prop: 'isShow',
         label: '是否展示',
-        width: 70,
+        width: 80,
         formatter: (row, column, cellValue, index) => {
             return cellValue ? '展示' : '隐藏'
         }
@@ -152,7 +152,7 @@ export const funcColumns = [
     {
         prop: 'typeDictName',
         label: '类型',
-        width: 50,
+        width: 60,
     },
     {
         prop: 'permissions',
@@ -162,14 +162,16 @@ export const funcColumns = [
     {
         prop: 'seq',
         label: '排序',
-        width: 50,
+        width: 60,
     },
     {
         prop: 'componentOf',
-        label: '归属组件'
+        label: '归属组件',
+        showOverflowTooltip: true
     },
     {
         prop: 'remark',
-        label: '描述'
+        label: '描述',
+        showOverflowTooltip: true
     }
 ]

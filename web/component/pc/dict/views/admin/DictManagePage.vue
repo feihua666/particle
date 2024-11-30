@@ -28,15 +28,18 @@ const reactiveData = reactive({
     },
     {
       prop: 'value',
-      label: '字典值'
+      label: '字典值',
+      showOverflowTooltip: true
     },
     {
       prop: 'valueUnit',
-      label: '字典值单位'
+      label: '字典值单位',
+      width: 100,
     },
     {
       prop: 'parentName',
-      label: '父级'
+      label: '父级',
+      showOverflowTooltip: true
     },
 
     {
@@ -44,21 +47,21 @@ const reactiveData = reactive({
       label: '是否系统',
       width: 80,
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '系统字典' : '自定义字典'
+        return cellValue ? '系统' : '自定义'
       }
     },
     {
       prop: 'isPublic',
       label: '是否公共',
-      width: 70,
+      width: 80,
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '公共字典' : '私有字典'
+        return cellValue ? '公共' : '私有'
       }
     },
     {
       prop: 'isGroup',
       label: '是否字典组',
-      width: 80,
+      width: 100,
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '字典组' : '字典项'
       }
@@ -66,7 +69,7 @@ const reactiveData = reactive({
     {
       prop: 'isDisabled',
       label: '是否禁用',
-      width: 70,
+      width: 80,
       formatter: (row, column, cellValue, index) => {
         let r = cellValue ? '禁用' : '启用'
         if(cellValue && row.disabledReason){
@@ -101,16 +104,18 @@ const reactiveData = reactive({
     },
     {
       prop: 'tags',
-      label: '标签'
+      label: '标签',
+      showOverflowTooltip: true
     },
     {
       prop: 'seq',
       label: '排序',
-      width: 50,
+      width: 60,
     },
     {
       prop: 'remark',
-      label: '描述'
+      label: '描述',
+      showOverflowTooltip: true
     }
   ],
 
@@ -199,7 +204,7 @@ const getTableRowButtons = ({row, column, $index}) => {
 
     <!--  操作按钮  -->
     <template #defaultAppend>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="210">
         <template #default="{row, column, $index}">
           <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>

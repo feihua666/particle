@@ -30,7 +30,8 @@ const reactiveData = reactive({
     },
     {
       prop: 'parentName',
-      label: '父级'
+      label: '父级',
+      showOverflowTooltip: true
     },
     {
       prop: 'isDisabled',
@@ -47,11 +48,12 @@ const reactiveData = reactive({
     {
       prop: 'seq',
       label: '排序',
-      width: 50,
+      width: 60,
     },
     {
       prop: 'remark',
-      label: '描述'
+      label: '描述',
+      showOverflowTooltip: true
     }
   ],
 

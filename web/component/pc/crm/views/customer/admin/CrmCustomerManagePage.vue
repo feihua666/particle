@@ -158,6 +158,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
           inline
+          labelWidth="80"
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:crmCustomer:create" route="/admin/CrmCustomerManageAdd">添加</PtButton>
@@ -168,7 +169,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doCrmCustomerPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 
