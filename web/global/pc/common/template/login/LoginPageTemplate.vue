@@ -9,13 +9,17 @@ import loginCodingImg from './login-coding.png'
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
 
+  logoAttr:{
+    type: Object,
+    default: () => ({})
+  }
 })
 
 </script>
 <template>
     <el-row class="pt-height-100-pc pt-width-100-pc">
-      <el-col :span="8" class="pt-flex-center-all pt-flex-direction-c pt-height-100-pc" style="background: var(--el-bg-color-page)">
-        <PtLogo></PtLogo>
+      <el-col :sm="8" class="pt-flex-center-all pt-flex-direction-c pt-height-100-pc" style="background: var(--el-bg-color-page)">
+        <PtLogo v-bind="logoAttr"></PtLogo>
         <br/>
         <h1>
           <el-text class="mx-1" size="large">开箱即用，中后台前端/设计解决方案</el-text>
@@ -25,7 +29,7 @@ const props = defineProps({
         </h3>
         <img :src="loginCodingImg" style="width: 80%">
       </el-col>
-      <el-col :span="16" class="pt-flex-center-all pt-height-100-pc">
+      <el-col :sm="16" class="pt-flex-center-all pt-height-100-pc">
         <!--    login form element  -->
         <slot></slot>
       </el-col>

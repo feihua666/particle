@@ -41,3 +41,4 @@ build/
 ### custom ###
 ${sys:LOG_FILE}
 ${sys:LOG_FILE}/
+/${sys:LOG_PATH}/

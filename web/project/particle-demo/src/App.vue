@@ -3,9 +3,16 @@ import {provide,watch,ref,onMounted} from 'vue'
 
 import { useRouter } from 'vue-router'
 import {useLoginUserStore} from '../../../global/common/security/loginUserStore'
-import {useLogoTextStore} from "../../../global/common/api/LogoTextStore";
+import {useLogoStore} from "../../../global/common/api/LogoStore";
 import {useWebTitleStore} from "../../../global/common/api/WebTitleStore";
-import {getFavicon, getFaviconUrl, getLogoText, getWebTitle} from "../../../global/common/api/globalApi";
+import {
+  getFavicon,
+  getFaviconUrl,
+  getLogo,
+  getLogoText,
+  getLogoUrl,
+  getWebTitle
+} from "../../../global/common/api/globalApi";
 
 const loginUserStore = useLoginUserStore()
 // 刷新后从 localStorage 加载
@@ -24,17 +31,24 @@ watch(()=> loginUserStore.loginUser,(val)=> {
 })
 
 
-const logoTextStore = useLogoTextStore()
+const logoStore = useLogoStore()
 // 刷新后从 localStorage 加载
-logoTextStore.loadFromLocal()
+logoStore.loadFromLocal()
 getLogoText().then(res => {
   let logoText = res.data.data.logoText
   if (logoText) {
-    logoTextStore.changeLogoText(logoText);
+    logoStore.changeLogoText(logoText);
   }
 }).catch(error => {
-  logoTextStore.changeLogoText('');
+  logoStore.changeLogoText('');
 });
+getLogo().then(res => {
+  logoStore.changeLogoImgUrl(getLogoUrl());
+}).catch(error => {
+  logoStore.changeLogoImgUrl('');
+
+});
+
 
 const webTitleStore = useWebTitleStore()
 

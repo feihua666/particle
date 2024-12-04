@@ -37,6 +37,7 @@ import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplat
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,6 +103,11 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	@Autowired
 	private OpenplatformDictGateway openplatformDictGateway;
 
+	@Value("${particle.openplatform.openapi.day-rt-summary.enable:true}")
+	private Boolean isSaveAppOpenapiDayRtSummary;
+	@Value("${particle.openplatform.openapi.deduct-app-quota.enable:true}")
+	private Boolean isDeductAppQuota;
+
 	@Override
 	public void accept(OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent) {
 
@@ -164,13 +170,18 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 			saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
 		}
 
-		// 	实时日汇总
-		saveAppOpenapiDayRtSummary(openplatformOpenapiRecordDO);
-		// 删除一个月之前的实时日汇总
-		deleteAppOpenapiDayRtSummary();
+		if (isSaveAppOpenapiDayRtSummary != null && isSaveAppOpenapiDayRtSummary) {
+			// 	实时日汇总
+			saveAppOpenapiDayRtSummary(openplatformOpenapiRecordDO);
+			// 删除一个月之前的实时日汇总
+			deleteAppOpenapiDayRtSummary();
+		}
 
-		// 实时应用额度扣除
-		deductAppQuota(openplatformOpenapiRecordDO.getOpenplatformAppId(), openplatformOpenapiRecordDO.getFeeAmount(), 10);
+		if (isDeductAppQuota != null && isDeductAppQuota) {
+			// 实时应用额度扣除
+			deductAppQuota(openplatformOpenapiRecordDO.getOpenplatformAppId(), openplatformOpenapiRecordDO.getFeeAmount(), 10);
+		}
+
 	}
 
 	private void deductAppQuota(Long openplatformAppId, Integer feeAmount,int reTryTimes) {

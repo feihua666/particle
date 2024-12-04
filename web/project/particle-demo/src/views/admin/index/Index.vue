@@ -1,9 +1,9 @@
 <script setup name="index" lang="ts">
 import { reactive,ref,watch} from 'vue'
 import {getLogoText, getLogoUrl} from "../../../../../../global/common/api/globalApi";
-import {useLogoTextStore} from "../../../../../../global/common/api/LogoTextStore";
+import {useLogoStore} from "../../../../../../global/common/api/LogoStore";
 import {isDark,toggleDark} from "@/composables";
-const logoTextStore = useLogoTextStore()
+const logoStore = useLogoStore()
 
 // 左侧菜单展示/折叠控制变量
 const isCollapse = ref(false)
@@ -18,7 +18,7 @@ const leftAsideCollStatus = {
       imgAttr: {
         style: 'padding-left: 20px'
       },
-      imgSrc: getLogoUrl()
+      imgSrc: logoStore.logoImgUrl
     }
   },
   collapse: {
@@ -30,7 +30,7 @@ const leftAsideCollStatus = {
       imgAttr: {
         style: 'padding-left: 0',
       },
-      imgSrc: getLogoUrl(),
+      imgSrc: logoStore.logoImgUrl,
       class: 'pt-width-100-pc'
     }
   }
@@ -56,7 +56,7 @@ watch(()=> isCollapse.value,(val)=>{
     :main="{ show: true, attr: {class: 'pt-main-bg'}  }"
 >
   <template #headerAside>
-    <PtLogo :text="logoTextStore.logoText || undefined" v-bind="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].headerAsideLogo"></PtLogo>
+    <PtLogo :text="logoStore.logoText || undefined" v-bind="leftAsideCollStatus[isCollapse ? 'collapse' : 'expand'].headerAsideLogo"></PtLogo>
   </template>
   <template #headerMain>
     <el-container class="pt-height-100-pc">

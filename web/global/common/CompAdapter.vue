@@ -1,6 +1,5 @@
 <script>
 import { ref, h ,resolveComponent} from 'vue'
-import UserManagePage from '../../component/pc/user/views/admin/UserManagePage.vue'
 import {isString} from "./tools/StringTools";
 import {extend, isObject} from "./tools/ObjectTools";
 
@@ -55,13 +54,13 @@ export default {
       for (const slotsKey in props.slots) {
         let val = props.slots[slotsKey]
         if (isObject(val)) {
-          slotsTemp[slotsKey] = h(isString(val.is) ? resolveComponent(val.is) : val.is,val.attrs)
-        }else {
+          slotsTemp[slotsKey] = () => h(isString(val.is) ? resolveComponent(val.is) : val.is,val.attrs)
+        }else if (typeof val === 'function') {
+          // 如果是函数，直接作为插槽函数使用
           slotsTemp[slotsKey] = val
         }
       }
       slotsTemp = extend({},slotsTemp,slots)
-
 
       return h(comp,attrsTemp, slotsTemp)
     }

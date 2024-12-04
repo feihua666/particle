@@ -1,6 +1,6 @@
 //定时器
 //fn执行函数，time时间，多长时间执行一次,单位毫秒，times执行次数，0为无限次
-export function timer (fn:()=>any,time: number,times: number) {
+export function timer (fn:(times: number)=>any,time: number,times: number) {
     let _times = 0;
     //默认次数为无限次
     if(!times){
@@ -15,7 +15,7 @@ export function timer (fn:()=>any,time: number,times: number) {
             fn.call(null,_times);
             _times ++;
             //如果到了执行次数
-            if (_times==times) {
+            if (_times == times) {
                 clearInterval(t);
             }
         }else{

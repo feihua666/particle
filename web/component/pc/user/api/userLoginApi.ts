@@ -14,6 +14,17 @@ export const login = ({username,password,captchaUniqueIdentifier,captchaValue}:{
     })
 }
 /**
+ * 动态验证码登录
+ * @param loginForm
+ */
+export const loginDynamicCaptcha = ({username,password,captchaUniqueIdentifier,captchaValue}:{username: string,password: string,captchaUniqueIdentifier: string,captchaValue: string}): AxiosPromise => {
+    return axios.post('/loginCaptcha', {username,password,captchaUniqueIdentifier,captchaValue},{
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+}
+/**
  * 退出登录
  */
 export const logout = (): AxiosPromise => {
@@ -88,6 +99,12 @@ export const identifierPwdUpdate = (data: IdentifierPwdUpdateData): AxiosPromise
  */
 export const getLoginCaptcha = (): AxiosPromise => {
     return axios.get('/captcha/getCaptcha',{params: {captchaScene: '/login'}})
+}
+/**
+ * 获取登录动态验证码
+ */
+export const getLoginDynamicCaptcha = (): AxiosPromise => {
+    return axios.get('/captcha/getDynamicCaptcha',{params: {captchaScene: '/login'}})
 }
 /**
  * 获取当前登录用户修改密码验证码

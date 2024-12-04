@@ -45,6 +45,13 @@ export const getLogoUrl = () => {
     return getLogoUrlRequest()
 }
 /**
+ * 获取 logo 返回的是图片文件流
+ * @param data
+ */
+export const getLogo = (): AxiosPromise => {
+    return axios.get(getLogoUrl(),{configOptions: {showErrorMessage: false}})
+}
+/**
  * 获取 logo text 地址
  */
 export const getLogoTextUrl = () => {

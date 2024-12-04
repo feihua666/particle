@@ -254,10 +254,13 @@ defineExpose({
   <el-form ref="formRef" class="pt-form" v-bind="$attrs" :model="reactiveData.form"
            :validate="(prop,isValid,message) => {$emit('validate',prop,isValid,message)}" @submit.native.prevent>
 
+
     <template #default v-if="$slots.default">
       <slot name="default"></slot>
     </template>
     <template #default v-if="!$slots.default">
+      <!--  自定义插槽 可以用来添加按钮 -->
+      <slot name="prepend"  v-bind:form="reactiveData.form"></slot>
       <template v-for="(rowItem,rowIndex) in layoutComputedLayout" :key="rowIndex">
         <el-row type="flex" class="pt-width-100-pc">
           <template  v-for="(colItem,colIndex) in rowItem"  :key="colIndex">
@@ -293,11 +296,12 @@ defineExpose({
         </slot>
         </Teleport>
       </el-form-item>
+
+      <!--  自定义插槽 可以用来添加按钮 -->
+      <slot name="append"  v-bind:form="reactiveData.form"></slot>
     </template>
 
 
-    <!--  自定义插槽 可以用来添加按钮 -->
-    <slot name="append"  v-bind:form="reactiveData.form"></slot>
   </el-form>
 </template>
 
