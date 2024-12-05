@@ -6,7 +6,7 @@ CREATE TABLE `component_data_query_data_api` (
   `name` varchar(100) NOT NULL COMMENT '接口名称',
   `data_query_datasource_api_id` bigint DEFAULT NULL COMMENT '数据查询数据源接口id，接口直连时使用',
   `adapt_type_dict_id` bigint DEFAULT NULL COMMENT '适配类型，字典id，直连、聚合等',
-  `adapt_config_json` text COMMENT '接口适配配置json',
+  `adapt_config_json` longtext COMMENT '接口适配配置json',
   `in_param_type_dict_id` bigint DEFAULT NULL COMMENT '入参类型，字典id，为空表示无入参',
   `in_param_example_config_json` mediumtext COMMENT '入参示例，纯文本展示',
   `in_param_test_case_data_config_json` mediumtext COMMENT '入参测试用例数据，该数据应该配合入参配置json或json配置识别',
