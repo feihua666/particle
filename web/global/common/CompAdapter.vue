@@ -1,5 +1,5 @@
 <script>
-import { ref, h ,resolveComponent} from 'vue'
+import { ref, h ,resolveComponent,useTemplateRef} from 'vue'
 import {isString} from "./tools/StringTools";
 import {extend, isObject} from "./tools/ObjectTools";
 
@@ -16,6 +16,7 @@ export default {
   props: {
     // 和vue内置元素 component is属性使用一致
     is: null,
+    refs: null,
     // 插槽,参见 https://cn.vuejs.org/api/render-function.html#h
     /*
     * 例：
@@ -39,17 +40,21 @@ export default {
   },
   setup(props, context) {
     const {attrs,emit,expose,slots} = context
+    const innerRef = useTemplateRef('innerRef')
+
+    expose({
+      innerRef
+    })
     // 返回渲染函数
     return () =>{
       let comp = isString(props.is) ? resolveComponent(props.is) : props.is
-
 
       // 发现不需要手动指定vmodel处理，会自动添加
       let attrModelValue = {
         //   modelValue: attrs.modelValue,
         //   'onUpdate:modelValue': (value) => emit('update:modelValue', value)
       }
-      let attrsTemp = extend(attrs.modelValue === undefined ? {} : attrModelValue,attrs)
+      let attrsTemp = extend(attrs.modelValue === undefined ? {} : attrModelValue,{ref: 'innerRef'},attrs)
       let slotsTemp = {}
       for (const slotsKey in props.slots) {
         let val = props.slots[slotsKey]
@@ -61,6 +66,17 @@ export default {
         }
       }
       slotsTemp = extend({},slotsTemp,slots)
+
+      if (props.refs) {
+        // 如果是函数类型的 ref
+        if (typeof props.refs === 'function') {
+          props.refs(innerRef.value)
+        }
+        // 如果是 ref 对象
+        else if (props.refs.value !== undefined) {
+          props.refs.value = innerRef.value
+        }
+      }
 
       return h(comp,attrsTemp, slotsTemp)
     }

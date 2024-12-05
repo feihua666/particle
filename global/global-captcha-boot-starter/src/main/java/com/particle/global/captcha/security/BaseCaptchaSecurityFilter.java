@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ import java.util.List;
  */
 @Slf4j
 @Setter
-public class BaseCaptchaSecurityFilter extends GenericFilterBean {
+public class BaseCaptchaSecurityFilter extends OncePerRequestFilter {
 
 	private Boolean enabled = false;
 	/**
@@ -48,13 +49,14 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 	 */
 	private List<String> uris;
 
-	private ICaptchaService captchaService;
+	protected ICaptchaService captchaService;
 
 	@Autowired(required = false)
 	private ICaptchaSecurityCheck captchaSecurityCheck;
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+		CaptchaVerifyDTO captchaVerifyDTO = null;
 		if (enabled && CollectionUtil.isNotEmpty(uris) && check(request,response)) {
 			HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 			String requestURI = httpServletRequest.getRequestURI();
@@ -87,19 +89,26 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 					writeError(((HttpServletResponse) response));
 					return;
 				}
-
-				boolean verifyCaptcha = verifyCaptcha(captchaVerifyCommand,httpServletRequest,requestURI);
+				captchaVerifyDTO = mapCaptchaVerifyDTO(captchaVerifyCommand, httpServletRequest, requestURI);
+				boolean verifyCaptcha = captchaService.verify(captchaVerifyDTO);
 				if (!verifyCaptcha) {
 					writeError(((HttpServletResponse) response));
 					return;
 				}
 
 			}
-		}
+        }
 
+        try {
+            filterChain.doFilter(request,response);
+        } finally {
+			// 如果在这里没有移除验证码，则尝试移除验证码
+			if (captchaVerifyDTO != null && !captchaVerifyDTO.getIsRemove()) {
+				captchaService.remove(captchaVerifyDTO.getCaptchaUniqueIdentifier());
+			}
+        }
 
-		chain.doFilter(request,response);
-	}
+    }
 
 	/**
 	 * 是否需要验证验证码
@@ -115,18 +124,18 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 		return true;
 	}
 
+
 	/**
-	 * 校验验证码
+	 * 映射验证码参数
 	 * @param verifyCommand
+	 * @param httpServletRequest
+	 * @param uri
 	 * @return
 	 */
-	public boolean verifyCaptcha(@Valid CaptchaVerifyCommand verifyCommand,HttpServletRequest httpServletRequest,String uri) throws IOException {
-
+	public CaptchaVerifyDTO mapCaptchaVerifyDTO(@Valid CaptchaVerifyCommand verifyCommand, HttpServletRequest httpServletRequest, String uri) {
 		CaptchaVerifyDTO captchaVerifyDTO = CaptchaVerifyDTO.create(verifyCommand.getCaptchaUniqueIdentifier(), verifyCommand.getCaptchaValue());
 		captchaVerifyDTO.setIsRemove(true);
-
-		boolean verify = captchaService.verify(captchaVerifyDTO);
-		return verify;
+		return captchaVerifyDTO;
 	}
 
 	/**
@@ -146,4 +155,5 @@ public class BaseCaptchaSecurityFilter extends GenericFilterBean {
 		out.flush();
 		IoUtil.close(out);
 	}
+
 }

@@ -28,4 +28,11 @@ public interface ICaptchaService {
 	 * @return
 	 */
 	public boolean verify(CaptchaVerifyDTO captchaVerifyDTO);
+
+	/**
+	 * 删除验证码
+	 * @param captchaUniqueIdentifier
+	 * @return
+	 */
+	boolean remove(String captchaUniqueIdentifier);
 }

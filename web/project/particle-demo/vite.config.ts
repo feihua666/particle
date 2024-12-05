@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig,loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+import vueDevTools from 'vite-plugin-vue-devtools'
 const aliasItem = (find) =>{
   return  {
     find: find,
@@ -20,7 +20,7 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
   const env = loadEnv(mode, process.cwd())
   return {
     base: env.VITE_BUILD_BASE || './',
-    plugins: [vue(), vueJsx(),vueSetupExtend()],
+    plugins: [vue(), vueJsx(),vueDevTools()],
     resolve: {
       alias: [
         {

@@ -4,10 +4,12 @@ import com.particle.global.captcha.GlobalCaptchaAutoConfiguration;
 import com.particle.global.captcha.ICaptchaService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * <p>
- *
+ * 默认spring将filter bean 会放到全局的filter中，然后在 {@link CaptchaSecurityConfigure} 再使用，会执行两次
+ * 所以这里使用了{@link OncePerRequestFilter} 作为父类保证只执行一次
  * </p>
  *
  * @author yangwei
@@ -35,8 +37,8 @@ public class CaptchaSecurityConfig {
 	 */
 	@Bean
 	public DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter(ICaptchaService captchaService){
-		DynamicCaptchaSecurityFilter captchaSecurityFilter = new DynamicCaptchaSecurityFilter();
-		captchaSecurityFilter.setCaptchaService(captchaService);
-		return captchaSecurityFilter;
+		DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter = new DynamicCaptchaSecurityFilter();
+		dynamicCaptchaSecurityFilter.setCaptchaService(captchaService);
+		return dynamicCaptchaSecurityFilter;
 	}
 }

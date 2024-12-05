@@ -18,9 +18,8 @@ const props = defineProps({
     type: Number,
     default: 0
   },
-  small: {
-    type: Boolean,
-    default: true
+  size: {
+    type: String,
   },
   background: {
     type: Boolean,
@@ -57,7 +56,7 @@ const currentChange = (val)=>{
 <template>
   <el-pagination v-if="hasPermission.render"
       :background="background"
-      :small="small"
+      :size="size"
       @size-change="sizeChange"
       @current-change="currentChange"
       :current-page="currentPage"

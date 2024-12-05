@@ -3,13 +3,13 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,inject, watch} from 'vue'
+import { reactive ,inject, watch,ref} from 'vue'
 
 import {permissionProps,hasPermissionConfig} from './permission'
 import {disabledProps,disabledConfig} from './disabled'
 import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
 
-
+const inputRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -64,7 +64,10 @@ const emit = defineEmits([
   'input',
   'clear',
 ])
-
+// 暴露方法
+defineExpose({
+  inputRef
+})
 // 方法
 // 值更新事件
 const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit})
@@ -75,6 +78,7 @@ const inputModelValueEvent = changeDataModelValueEventHandle({reactiveData,hasPe
 </script>
 <template>
   <el-input v-if="hasPermission.render"
+            ref="inputRef"
             v-model="reactiveData.currentModelValue"
             :title="hasDisabled.disabledReason || title"
             v-bind="$attrs"

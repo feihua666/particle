@@ -1,0 +1,1 @@
+import{l as m}from"./reportSegmentTemplateAdminApi-YltV14qa.js";const l=({fieldName:e="parentId",required:t=!1,label:a="父级",tips:r="",valueChange:o=()=>{}})=>({field:{name:e,valueChange:o},element:{comp:"PtCascader",formItemProps:{label:a,required:t,tips:r},compProps:{clearable:!0,dataMethod:m,dataMethodResultHandleConvertToTree:!0}}});export{l as u};

@@ -162,6 +162,9 @@ particle:
       uris:
         # 登录添加验证码校验
         - /login
+        # 获取动态验证码，需要先校验静态验证码
+        - /captcha/getDynamicCaptcha
+      # 以下 check 配置仅在 /login 登录时，配置哪些用户不需要验证码
       #check:
         #no-captcha-login-usernames:
         #  - superadmin
@@ -171,14 +174,14 @@ particle:
       enabled: true
       uris:
         # 这里随便举例 动态验证码登录独立校验，不需要该拦截器支持，如果配置会有冲突
-        - /loginCaptcha111
+        - /loginCaptcha
         - /user-identifier-pwd/login/user/findBackPassword
-    uriIdentifier:
-      '[/loginCaptcha111]': username
-      '[/user-identifier-pwd/login/user/findBackPassword]': identifier
+      uriIdentifier:
+        '[/loginCaptcha]': username
+        '[/user-identifier-pwd/login/user/findBackPassword]': identifier
     # 参见 com.particle.global.captcha.endpoint.DynamicCaptchaNotifyProperties
     notifyIdentifiers:
-      '[/loginCaptcha111]': user_login_dynamic_captcha
+      '[/loginCaptcha]': user_login_dynamic_captcha
       '[/user-identifier-pwd/login/user/findBackPassword]': user_find_back_password_dynamic_captcha
   # 该配置对应 com.particle.global.oss.GlobalOssProperties 配置属性
   oss:
@@ -194,14 +197,14 @@ particle:
   notification:
     email:
       # 邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
-      host: smtp.exmail.qq.com
+      host: smtp.163.com
       # 邮件服务器的SMTP端口，可选，默认25
-      port: 222
+      port: 25
       # 发件人（必须正确，否则发送失败）
-      from: xxxx@example.com
-      # 用户名，默认为发件人邮箱前缀
-      user:
-      # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
+      from: particle_particle@163.com
+      # 用户名，默认为发件人邮箱前缀,注意用户名和密码需要匹配，否则认证失败
+      user: particle_particle
+      # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）163 邮箱密码不是用户登录密码，是邮箱的授权码
       pass: xxxx
     #alert:
     #  wxcpWebhooks:

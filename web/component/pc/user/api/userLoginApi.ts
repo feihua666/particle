@@ -103,8 +103,8 @@ export const getLoginCaptcha = (): AxiosPromise => {
 /**
  * 获取登录动态验证码
  */
-export const getLoginDynamicCaptcha = (): AxiosPromise => {
-    return axios.get('/captcha/getDynamicCaptcha',{params: {captchaScene: '/login'}})
+export const getLoginDynamicCaptcha = (data: anyObj): AxiosPromise => {
+    return axios.get('/captcha/getDynamicCaptcha',{params: {captchaScene: '/loginCaptcha',...data}})
 }
 /**
  * 获取当前登录用户修改密码验证码

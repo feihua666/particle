@@ -1,6 +1,6 @@
 <script setup name="VerificationCodeLoginForm"  lang="ts">
 // 基于验证码的登录
-import {getCurrentInstance,reactive ,ref,useTemplateRef} from 'vue'
+import {getCurrentInstance,reactive ,ref} from 'vue'
 import {getLoginCaptcha, getLoginDynamicCaptcha, loginDynamicCaptcha} from '../../api/userLoginApi'
 import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../../global/common/tools/StringTools'
@@ -11,6 +11,7 @@ const { appContext } = getCurrentInstance()
 // 路由
 const router = appContext.config.globalProperties.$router
 const loginUserStore = useLoginUserStore()
+const formRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
@@ -27,7 +28,7 @@ const props = defineProps({
 const captchaSrc = ref('')
 const verificationCodeButtonText = ref('获取验证码')
 const verificationCodeButtonDisabled = ref(false)
-const verificationCodeInputRef = useTemplateRef('verificationCodeInputRef')
+const verificationCodeInputRef = ref(null)
 const formComps: Array<any> = [
   {
     field: {
@@ -103,11 +104,11 @@ formComps.push(  {
       let r = {
         type: 'text',
         clearable: true,
-        showPassword: true,
         placeholder: '动态验证码',
         prefixIcon: 'Lock',
         validateEvent: false,
-        ref: 'verificationCodeInputRef',
+        // refs: (ref)=>verificationCodeInputRef.value = ref,
+        refs: verificationCodeInputRef,
         slots:{
           suffix: {
             is: 'PtButton',
@@ -118,18 +119,11 @@ formComps.push(  {
               disabled: verificationCodeButtonDisabled.value,
               buttonText: verificationCodeButtonText.value,
               method: ()=> {
-                console.log(verificationCodeInputRef)
-                // verificationCodeInputRef.focus()
-                verificationCodeButtonDisabled.value = true;
-                let total = 60
-                timer((times)=>{
-                  let remaining = (total - times)
-                  verificationCodeButtonText.value = remaining + ' s'
-                  if (remaining <= 1) {
-                    verificationCodeButtonText.value = '重新获取验证码'
-                    verificationCodeButtonDisabled.value = false
-                  }
-                }, 1000, total)
+                let fields = ['username']
+                if(props.useCaptcha){
+                  fields.push('captchaValue')
+                }
+                return formRef.value.formRef.validateField(fields).then(() =>loadLoginDynamicCaptcha(form,formData))
 
               }
             }
@@ -159,7 +153,10 @@ formComps.push(  {
 // 属性
 const reactiveData = reactive({
   form: {
-    captchaUniqueIdentifier: ''
+    // 静态验证码唯一标识
+    captchaUniqueIdentifier: '',
+    // 动态验证码唯一标识
+    dynamicCaptchaUniqueIdentifier: ''
   },
   formComps: formComps
 })
@@ -185,7 +182,7 @@ const loginResult = (result):void => {
   //  catch 一下异常，否则控制台打印一大堆
   })
 }
-
+// 获取静态验证码
 const loadLoginCaptchaImage = ()=>{
   if (props.useCaptcha) {
     getLoginCaptcha().then(res => {
@@ -194,17 +191,57 @@ const loadLoginCaptchaImage = ()=>{
     })
   }
 }
-const loadLoginDynamicCaptcha = ()=> {
-  getLoginDynamicCaptcha().then(res => {
-    captchaSrc.value = res.data.data.base64
-    reactiveData.form.captchaUniqueIdentifier = res.data.data.captchaUniqueIdentifier
+// 获取动态验证码
+const loadLoginDynamicCaptcha = (form,formData)=> {
+  let data = {
+    identifier: form.username,
+    captchaUniqueIdentifier: form.captchaUniqueIdentifier,
+    captchaValue: form.captchaValue
+  }
+  return getLoginDynamicCaptcha(data).then(res => {
+    reactiveData.form.dynamicCaptchaUniqueIdentifier = res.data.data.captchaUniqueIdentifier
+
+    // 使input获取焦点有两种方式，请看下面
+    // 方式 1
+    // console.log(formData.verificationCodeRef?.innerRef?.inputRef.focus())
+    // 方式 2
+    verificationCodeInputRef.value?.inputRef.focus()
+
+    verificationCodeButtonDisabled.value = true;
+    let total = 60
+    timer((times)=>{
+      let remaining = (total - times)
+      verificationCodeButtonText.value = remaining + ' s'
+      if (remaining <= 1) {
+        verificationCodeButtonText.value = '重新获取验证码'
+        verificationCodeButtonDisabled.value = false
+      }
+    }, 1000, total)
+
+    return Promise.resolve(res)
+  }).catch((error) => {
+    // 验证码错误也需要刷新
+    loadLoginCaptchaImage()
+    return Promise.reject(error)
   })
 }
+
+const doLoginDynamicCaptcha = (form)=>{
+  let data = {
+    username: form.username,
+    password: form.verificationCode,
+    captchaUniqueIdentifier: form.dynamicCaptchaUniqueIdentifier,
+    captchaValue: form.verificationCode
+  }
+  return loginDynamicCaptcha(data)
+}
+
 loadLoginCaptchaImage()
 </script>
 <template>
-  <PtForm :form="reactiveData.form" hide-required-asterisk
-          :method="loginDynamicCaptcha"
+<!-- hide-required-asterisk 隐藏表单必填项前面的红色星号（*） -->
+  <PtForm :form="reactiveData.form" hide-required-asterisk ref="formRef"
+          :method="doLoginDynamicCaptcha"
           labelWidth="0"
           defaultButtonsShow="submit"
           :submitAttrs="submitAttrs"

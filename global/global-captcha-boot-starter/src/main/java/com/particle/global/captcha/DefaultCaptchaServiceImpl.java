@@ -51,4 +51,9 @@ public class DefaultCaptchaServiceImpl implements ICaptchaService{
 		}
 		return result;
 	}
+
+	@Override
+	public boolean remove(String captchaUniqueIdentifier) {
+		return captchaStoreService.remove(captchaUniqueIdentifier);
+	}
 }
