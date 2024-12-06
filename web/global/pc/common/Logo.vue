@@ -1,12 +1,17 @@
+<script>
+import defaultImgSrc from '@/assets/logo.png'
+const defaultLogoText = import.meta.env.VITE_LOGO_TEXT || 'particle'
+const defaultLogoImgSrc = import.meta.env.VITE_LOGO_IMG_SRC || defaultImgSrc
+</script>
 <script setup name="Logo">
 import {ref} from "vue"
-import defaultImagSrc from '@/assets/logo.png'
+
 // 声明属性
 defineProps({
       // logo标题
       text: {
         type: String,
-        default: ' particle'
+        default: defaultLogoText
       },
       // 是否展示 logo标题
       showText: {
@@ -15,7 +20,7 @@ defineProps({
       },
       imgSrc: {
         type: String,
-        default: defaultImagSrc
+        default: defaultLogoImgSrc
       },
       imgAttr: {
         type: Object
@@ -26,8 +31,9 @@ defineProps({
     }
 )
 const logoImg = ref(null)
+
 const defaultImg = () =>{
-  logoImg.value.src = defaultImagSrc
+  logoImg.value.src = defaultLogoImgSrc
 
 }
 </script>
