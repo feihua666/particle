@@ -13,7 +13,7 @@ JAVA_HOME=$JAVA_HOME
 CUSTOM_JAVA_HOME=
 
 # 应用名称
-APP_NAME=particle-demo-start-4.0.1-beta-SNAPSHOT.jar
+APP_NAME=particle-demo-start-4.0.2-beta-SNAPSHOT.jar
 # 应用所在目录
 APP_HOME=$(pwd)
 # 应用全路径
