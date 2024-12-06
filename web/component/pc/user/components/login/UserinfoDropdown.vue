@@ -100,7 +100,6 @@ const handleUserinfoCommand = (command) => {
                v-loading="userinfoLoading"
                v-bind="$attrs"
                trigger="click"
-               size="large"
                element-loading-spinner="el-icon-loading">
     <div class="pt-pointer pt-flex-align-cross-center" style="padding: 0 5px;">
       <span style="margin-right: 0.8rem;"> {{ nickname }}</span>

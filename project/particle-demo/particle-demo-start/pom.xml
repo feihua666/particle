@@ -210,7 +210,7 @@
 
 
 
-        <!-- 文档相关 支持 -->
+        <!-- 文档相关 支持 主要用来下载模板-->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-document-boot-starter</artifactId>
@@ -275,11 +275,13 @@
                 <executions>
                     <execution>
                         <goals>
+                            <!-- 构建 build-info 这可以实现构建信息，参见 projectInfo 对象的引用 -->
                             <goal>build-info</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <!-- git提交信息，在多个模块构建时比较慢可以注释掉，在启动项目上添加即可 -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>

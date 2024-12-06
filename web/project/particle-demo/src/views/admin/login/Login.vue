@@ -2,7 +2,9 @@
 </script>
 <template>
 <PtLoginTemplate>
+  <el-card>
   <PtUserLoginForm loginSuccess="/index"></PtUserLoginForm>
+  </el-card>
 </PtLoginTemplate>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <el-breadcrumb separator="/" v-if="breadcrumbs.length > 0">
-        <el-breadcrumb-item>当前位置：</el-breadcrumb-item>
+        <el-breadcrumb-item><el-icon><House /></el-icon></el-breadcrumb-item>
         <el-breadcrumb-item v-for="(item,index) in breadcrumbs" :key="index">
             <template v-if="index < breadcrumbs.length -1">
                 <a :href="item.path" @click.prevent="navigate(item,index)">{{item.name}}</a>
