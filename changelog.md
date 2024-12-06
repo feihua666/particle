@@ -1,6 +1,24 @@
 
 # Changelog
 
+# 4.0.1-beta(2024-12-06)
+### 新特性
+
+* 【navigation】导航业务组件添加
+* 【global-freemarker-boot-starter】freemarker模板全局组件添加，旨提供统一的配置，目前添加是为了支持 navigation 业务组件
+* 【particle-demo】vue版本升级，同步elementplus版本升级，调整前端样式，前端logo支持在环境变量中使用
+* 【open-platform】开放平台调用记录的日实时汇总添加开关配置，在不需要时可关闭
+* 【user】调整登录页面，支持动态验证码登
+* 【data-query】调整前端页面，支持部分模糊查询字段，如：配置字段可以模糊查询，以方便查询里面的引用情况
+### bug修复
+
+* 暂无
+### 其它
+
+* 部分数据库字段调整长度
+* 其它细节功能的修改
+
+
 # 4.0.0-beta(2024-10-22)
 ### 新特性
 
