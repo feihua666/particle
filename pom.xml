@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.particle</groupId>
     <artifactId>particle</artifactId>
-    <version>4.0.2-beta-SNAPSHOT</version>
+    <version>6.0.1-beta-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>particle</name>
     <description>particle project for Spring Boot</description>
