@@ -1,11 +1,5 @@
-### mac ###
-.DS_Store
-**/.DS_Store
-.DS_Store?
-
 HELP.md
 target/
-logs/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -39,6 +33,11 @@ build/
 .vscode/
 
 ### custom ###
+logs/
 ${sys:LOG_FILE}
 ${sys:LOG_FILE}/
 /${sys:LOG_PATH}/
+### mac ###
+.DS_Store
+**/.DS_Store
+.DS_Store?

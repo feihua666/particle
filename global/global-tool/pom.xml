@@ -12,8 +12,8 @@
     <artifactId>global-tool</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+
+
     </properties>
 
     <dependencies>
@@ -199,7 +199,14 @@
             <artifactId>gt-geojson</artifactId>
             <version>${geotools.version}</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.openjdk.nashorn/nashorn-core -->
+        <!-- 升级到jdk17后使用hutool的scriptUtil执行js脚本问题添加依赖 -->
+        <!-- 参考：https://github.com/dromara/hutool/issues/1915 -->
+        <dependency>
+            <groupId>org.openjdk.nashorn</groupId>
+            <artifactId>nashorn-core</artifactId>
+            <version>${nashorn-core.version}</version>
+        </dependency>
 
     </dependencies>
     <repositories>

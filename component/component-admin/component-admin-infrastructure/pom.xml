@@ -12,8 +12,8 @@
     <artifactId>component-admin-infrastructure</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+
+
     </properties>
     <dependencies>
         <!-- 通用基础设施 依赖 -->
