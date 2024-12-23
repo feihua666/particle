@@ -5,6 +5,7 @@ import com.particle.dict.domain.DictId;
 import com.particle.dict.infrastructure.dos.DictDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2022-07-19
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DictInfrastructureStructMapping {
 	public static DictInfrastructureStructMapping instance = Mappers.getMapper( DictInfrastructureStructMapping.class );
 

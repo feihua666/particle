@@ -5,6 +5,7 @@ import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Data;
 import org.apache.logging.log4j.util.Strings;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Properties;
@@ -79,7 +80,7 @@ public class EmailAccount extends MailAccount {
 
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  MailAccountMapping{
 		MailAccountMapping instance = Mappers.getMapper( MailAccountMapping.class );
 

@@ -1,0 +1,1 @@
+import{i as e}from"./index-D8BtRcSm.js";let a="/admin/web/data_scope";const o=t=>e.post(a+"/create",t),p=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),c=t=>e.get(a+"/detail-for-update",{params:t}),u=t=>e.get(a+"/list",{params:t}),d=t=>e.get(a+"/page",{params:t}),i=(t,r)=>e.get(t,{params:r});export{i as a,o as c,c as d,u as l,d as p,p as r,n as u};
