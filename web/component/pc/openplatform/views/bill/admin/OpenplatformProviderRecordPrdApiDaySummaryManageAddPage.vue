@@ -2,8 +2,10 @@
 /**
  * 开放平台供应商接口日汇总管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformProviderRecordPrdApiDaySummaryCreateApi} from "../../../api/bill/admin/openplatformProviderRecordPrdApiDaySummaryAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformProviderRecordPrdApiDaySummaryCreateApi
+} from "../../../api/bill/admin/openplatformProviderRecordPrdApiDaySummaryAdminApi"
 import {addPageFormItems} from "../../../components/bill/admin/openplatformProviderRecordPrdApiDaySummaryManage";
 
 

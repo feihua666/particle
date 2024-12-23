@@ -1,14 +1,14 @@
 package com.particle.report.infrastructure.reportapi.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
 import com.particle.report.domain.reportapi.gateway.ReportReportApiGateway;
-import com.particle.report.infrastructure.reportapi.service.IReportReportApiService;
 import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
+import com.particle.report.infrastructure.reportapi.service.IReportReportApiService;
 import com.particle.report.infrastructure.reportapi.structmapping.ReportReportApiInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

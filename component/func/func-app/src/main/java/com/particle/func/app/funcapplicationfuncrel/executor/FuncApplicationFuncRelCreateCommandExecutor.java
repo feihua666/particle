@@ -1,5 +1,6 @@
 package com.particle.func.app.funcapplicationfuncrel.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.func.app.funcapplicationfuncrel.structmapping.FuncApplicationFuncRelAppStructMapping;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationFuncRelCreateCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.data.FuncApplicationFuncRelVO;
@@ -7,15 +8,14 @@ import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRel;
 import com.particle.func.domain.funcapplicationfuncrel.gateway.FuncApplicationFuncRelGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class FuncApplicationFuncRelCreateCommandExecutor  extends AbstractBaseEx
 		return funcApplicationFuncRel;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  FuncApplicationFuncRelCreateCommandToFuncApplicationFuncRelMapping{
 		FuncApplicationFuncRelCreateCommandToFuncApplicationFuncRelMapping instance = Mappers.getMapper( FuncApplicationFuncRelCreateCommandToFuncApplicationFuncRelMapping.class );
 

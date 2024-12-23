@@ -1,22 +1,23 @@
 package com.particle.crm.app.tag.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.crm.app.tag.structmapping.CrmCustomerTagAppStructMapping;
+import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagPageQueryCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagQueryListCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagVO;
 import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
 import com.particle.crm.infrastructure.tag.service.ICrmCustomerTagService;
-import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

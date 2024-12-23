@@ -2,8 +2,8 @@
 /**
  * 开放平台应用管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformAppCreateApi,list as OpenplatformAppListApi} from "../../../api/app/admin/openplatformAppAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformAppCreateApi} from "../../../api/app/admin/openplatformAppAdminApi"
 import {useAddPageFormItems} from "../../../components/app/admin/openplatformAppManage";
 import AppAlgorithmSecretConfigs from '../../../components/app/admin/AppAlgorithmSecretConfigs.vue'
 

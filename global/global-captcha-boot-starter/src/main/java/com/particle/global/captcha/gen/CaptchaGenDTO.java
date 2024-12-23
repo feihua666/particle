@@ -1,7 +1,5 @@
 package com.particle.global.captcha.gen;
 
-import cn.hutool.core.lang.Pair;
-import cn.hutool.core.map.MapUtil;
 import com.particle.global.captcha.CaptchaBaseDTO;
 import com.particle.global.captcha.CaptchaTypeEnum;
 import com.particle.global.captcha.ICaptchaScene;
@@ -9,10 +7,6 @@ import com.particle.global.captcha.ICaptchaType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>

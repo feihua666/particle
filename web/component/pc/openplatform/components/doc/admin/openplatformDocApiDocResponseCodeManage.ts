@@ -1,6 +1,6 @@
 import {
-  useSelectOpenplatformDocApiCompItem,
-  useSelectOpenplatformDocApiDocCompItem
+    useSelectOpenplatformDocApiCompItem,
+    useSelectOpenplatformDocApiDocCompItem
 } from "../../openplatformDocCompItem";
 
 export const pageFormItems = [

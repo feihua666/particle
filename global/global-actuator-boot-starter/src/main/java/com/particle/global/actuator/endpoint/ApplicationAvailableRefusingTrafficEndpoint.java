@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @since 2024/1/11 09:34
  */
 @Component
-@Endpoint(id = "custom-refusing-traffic")
+@Endpoint(id = "customRefusingTraffic")
 public class ApplicationAvailableRefusingTrafficEndpoint {
 
     @WriteOperation

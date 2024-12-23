@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as navigationSiteTagUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as navigationSiteTagUpdateApi
 } from "../../api/admin/navigationSiteTagAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/navigationSiteTagManage";

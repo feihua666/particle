@@ -5,9 +5,7 @@ import com.particle.scheduler.client.dto.data.JobDetailExtVo;
 import com.particle.scheduler.client.dto.data.JobDetailVo;
 import com.particle.scheduler.client.dto.data.ScheduleVo;
 import com.particle.scheduler.client.dto.data.TriggerVo;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.List;
 /**
  * <p>

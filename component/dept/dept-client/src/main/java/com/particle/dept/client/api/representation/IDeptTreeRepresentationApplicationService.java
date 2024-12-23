@@ -2,12 +2,12 @@ package com.particle.dept.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.client.dto.command.representation.DeptTreePageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeQueryListCommand;
 import com.particle.dept.client.dto.data.DeptTreeVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

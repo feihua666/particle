@@ -1,13 +1,17 @@
 import {list as datasourceApiListApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
 import {
-  dictConfigJson,
-  inParamDocConfigJson,
-  inParamExampleConfigJson, inParamExtConfigJson,
-  inParamTestCaseDataConfigJson, inParamValidateConfigJson,
-  outParamDocConfigJson,
-  outParamExampleConfigJson, outParamExtConfigJson,
-  outParamSuccessConfigJson, outParamTransConfigJson,
-  pageableAdapterConfigJson
+    dictConfigJson,
+    inParamDocConfigJson,
+    inParamExampleConfigJson,
+    inParamExtConfigJson,
+    inParamTestCaseDataConfigJson,
+    inParamValidateConfigJson,
+    outParamDocConfigJson,
+    outParamExampleConfigJson,
+    outParamExtConfigJson,
+    outParamSuccessConfigJson,
+    outParamTransConfigJson,
+    pageableAdapterConfigJson
 } from "../../datasource/admin/dataQueryDatasourceApiManage";
 import {ElMessage} from 'element-plus'
 

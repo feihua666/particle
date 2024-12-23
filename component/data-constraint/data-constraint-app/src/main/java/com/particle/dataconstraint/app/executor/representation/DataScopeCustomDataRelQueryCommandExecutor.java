@@ -1,24 +1,24 @@
 package com.particle.dataconstraint.app.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataconstraint.app.structmapping.DataScopeCustomDataRelAppStructMapping;
+import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelQueryListCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
 import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;
-import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>
@@ -90,7 +90,7 @@ public class DataScopeCustomDataRelQueryCommandExecutor  extends AbstractBaseQue
 		}
 		return MultiResponse.buildSuccess();
 	}
-	
+
 	@Autowired
 	public void setIDataScopeCustomDataRelService(IDataScopeCustomDataRelService iDataScopeCustomDataRelService) {
 		this.iDataScopeCustomDataRelService = iDataScopeCustomDataRelService;

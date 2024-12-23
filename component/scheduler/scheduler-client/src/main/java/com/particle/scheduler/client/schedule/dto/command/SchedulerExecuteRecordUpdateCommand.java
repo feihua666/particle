@@ -1,12 +1,11 @@
 package com.particle.scheduler.client.schedule.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -55,11 +54,11 @@ public class SchedulerExecuteRecordUpdateCommand extends AbstractBaseUpdateComma
     @NotNull(message = "运行开始时间 不能为空")
         @Schema(description = "运行开始时间",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime startAt;
-    
+
 
     @Schema(description = "运行结束时间")
     private LocalDateTime finishAt;
-    
+
 
     @Schema(description = "本地主机ip")
     private String localHostIp;

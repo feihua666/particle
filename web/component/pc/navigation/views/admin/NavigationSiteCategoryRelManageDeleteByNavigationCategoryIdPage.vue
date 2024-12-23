@@ -2,12 +2,10 @@
 /**
  * 清空导航分类导航分类
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {deleteByNavigationCategoryId} from "../../api/admin/navigationSiteCategoryRelAdminApi"
 // 以下两项为自动生成，不准确，请手动根据实际情况修改
-import {
-  useCascaderNavigationCategoryCompItem
-} from "../../components/navigationCategoryCompItem";
+import {useCascaderNavigationCategoryCompItem} from "../../components/navigationCategoryCompItem";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

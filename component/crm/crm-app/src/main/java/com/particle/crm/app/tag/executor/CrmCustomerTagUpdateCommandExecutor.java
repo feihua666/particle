@@ -1,5 +1,6 @@
 package com.particle.crm.app.tag.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.crm.app.tag.structmapping.CrmCustomerTagAppStructMapping;
 import com.particle.crm.client.tag.dto.command.CrmCustomerTagUpdateCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagVO;
@@ -8,15 +9,14 @@ import com.particle.crm.domain.tag.CrmCustomerTagId;
 import com.particle.crm.domain.tag.gateway.CrmCustomerTagGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class CrmCustomerTagUpdateCommandExecutor  extends AbstractBaseExecutor {
 		return crmCustomerTag;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface CrmCustomerTagUpdateCommandToCrmCustomerTagMapping{
 		CrmCustomerTagUpdateCommandToCrmCustomerTagMapping instance = Mappers.getMapper(CrmCustomerTagUpdateCommandToCrmCustomerTagMapping.class );
 

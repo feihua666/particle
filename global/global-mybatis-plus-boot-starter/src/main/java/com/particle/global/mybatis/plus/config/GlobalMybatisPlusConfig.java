@@ -42,7 +42,7 @@ import java.util.Optional;
  * @since 2022-06-29 17:35
  */
 @Data
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConfigurationProperties(prefix = "particle.mybatis-plus")
 public class GlobalMybatisPlusConfig {
 
@@ -62,7 +62,7 @@ public class GlobalMybatisPlusConfig {
 	 */
 	private List<String> tenantIgnoreTables;
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(DataPermissionService.class)
 	protected static class DataPermissionServiceDependConfig{
 
@@ -150,7 +150,7 @@ public class GlobalMybatisPlusConfig {
 	}
 
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(LoginUserTool.class)
 	protected static class LoginUserToolDependConfig{
 

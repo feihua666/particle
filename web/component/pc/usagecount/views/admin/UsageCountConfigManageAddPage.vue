@@ -2,8 +2,8 @@
 /**
  * 使用次数配置管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as usageCountConfigCreateApi,list as UsageCountConfigListApi} from "../../api/admin/usageCountConfigAdminApi"
+import {reactive, ref} from 'vue'
+import {create as usageCountConfigCreateApi} from "../../api/admin/usageCountConfigAdminApi"
 import {addPageFormItems} from "../../components/admin/usageCountConfigManage";
 
 

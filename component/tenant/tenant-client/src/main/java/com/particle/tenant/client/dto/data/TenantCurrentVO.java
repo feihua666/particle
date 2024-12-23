@@ -1,11 +1,8 @@
 package com.particle.tenant.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -22,13 +19,13 @@ public class TenantCurrentVO extends AbstractBaseIdVO {
 
     @Schema(description = "租户编码")
     private String code;
-    
+
     @Schema(description = "租户名称")
     private String name;
 
     @Schema(description = "租户主题")
     private String tenantThemeJson;
-    
+
     @Schema(description = "租户默认的页面路由")
     private String tenantDefaultRouteJson;
 

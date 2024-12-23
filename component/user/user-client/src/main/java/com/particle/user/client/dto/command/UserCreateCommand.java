@@ -3,12 +3,11 @@ package com.particle.user.client.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
 
     @Schema(description = "姓名，真实姓名")
     private String name;
-    
+
     @NotEmpty(message = "昵称 不能为空")
     @Schema(description = "昵称，模糊查询",requiredMode = Schema.RequiredMode.REQUIRED)
     private String nickname;

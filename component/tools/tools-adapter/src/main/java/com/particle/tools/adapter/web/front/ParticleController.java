@@ -8,15 +8,14 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.tools.client.dto.command.AddFieldCommand;
 import com.particle.tools.client.dto.command.BatchGenIdsCommand;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 

@@ -8,18 +8,19 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.tool.http.HttpClientTool;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -80,7 +81,7 @@ public class WebTitleFilter extends OncePerRequestFilter {
 			byte[] download = null;
 			try {
 				download = HttpClientTool.download(ambiguousString, null);
-			} catch (IOException e) {
+			} catch (IOException | URISyntaxException e) {
 				log.error("{} webTitle download error by url={}",logPrefix,ambiguousString, e);
 				return null;
 			}

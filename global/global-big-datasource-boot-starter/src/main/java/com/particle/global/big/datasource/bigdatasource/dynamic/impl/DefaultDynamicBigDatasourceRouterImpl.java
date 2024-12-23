@@ -3,7 +3,6 @@ package com.particle.global.big.datasource.bigdatasource.dynamic.impl;
 import com.baomidou.dynamic.datasource.exception.CannotFindDataSourceException;
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.dynamic.*;
-import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceNotFoundException;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 

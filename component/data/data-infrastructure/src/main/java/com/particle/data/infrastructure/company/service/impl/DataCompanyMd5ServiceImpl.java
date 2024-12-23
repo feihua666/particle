@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
 import com.particle.data.infrastructure.company.mapper.DataCompanyMd5Mapper;
 import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -81,6 +81,6 @@ public class DataCompanyMd5ServiceImpl extends IBaseServiceImpl<DataCompanyMd5Ma
 	        }
 	    }
 
-    
+
 	}
 }

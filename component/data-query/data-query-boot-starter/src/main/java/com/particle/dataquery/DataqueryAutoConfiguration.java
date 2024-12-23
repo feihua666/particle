@@ -17,7 +17,7 @@
  import com.particle.global.swagger.factory.SwaggerFactory;
  import io.swagger.v3.oas.models.security.SecurityScheme;
  import org.mybatis.spring.annotation.MapperScan;
- import org.springdoc.core.GroupedOpenApi;
+ import org.springdoc.core.models.GroupedOpenApi;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -37,7 +37,7 @@
  * @since 2023-03-01 16:56:13
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({
         "com.particle.dataquery.infrastructure.provider.mapper",
         "com.particle.dataquery.infrastructure.datasource.mapper",
@@ -55,7 +55,7 @@ public class DataqueryAutoConfiguration {
     @Bean
     public GroupedOpenApi createDataqueryAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("data-query接口")
                 .basePackage("com.particle.dataquery.adapter")
@@ -65,7 +65,7 @@ public class DataqueryAutoConfiguration {
                 .description(ProjectInfo.NAME + " Swagger Apis Description")
                 .build());
     }
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @ConditionalOnClass({GlobalOpenapiUrlPatternConfigure.class})
     public static class OpenapiConfiguration{
         /**
@@ -91,7 +91,7 @@ public class DataqueryAutoConfiguration {
       * 数据查询接口调用预热，建议使用经量级预热，因为该预热会产生实际
       */
     @ConditionalOnProperty(prefix = "com.particle.dataquery.api",name = "warm-up",havingValue = "true",matchIfMissing = false)
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     public static class DataQueryApiWarmUpConfiguration{
         @Bean
         public OnApplicationRunnerListener applicationStartDataQueryDataApiWarmUpListener(){
@@ -103,7 +103,7 @@ public class DataqueryAutoConfiguration {
       * 数据查询接口经量级预热
       */
      @ConditionalOnProperty(prefix = "com.particle.dataquery.api",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
-     @Configuration
+     @Configuration(proxyBeanMethods = false)
      public static class DataQueryApiWarmUpForLightConfiguration{
          @Bean
          public OnApplicationRunnerListener applicationStartDataQueryDataApiWarmUpLightListener(){
@@ -114,7 +114,7 @@ public class DataqueryAutoConfiguration {
       * 数据源接口经量级预热
       */
      @ConditionalOnProperty(prefix = "com.particle.dataqueryDatasource.api",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
-     @Configuration
+     @Configuration(proxyBeanMethods = false)
      public static class DataQueryDatasourceApiWarmUpForLightConfiguration{
          @Bean
          public OnApplicationRunnerListener applicationStartDataQueryDatasourceApiWarmUpLightListener(){
@@ -125,14 +125,14 @@ public class DataqueryAutoConfiguration {
       * 数据源接口经量级预热
       */
      @ConditionalOnProperty(prefix = "com.particle.dataqueryDatasource",name = "warm-up-light",havingValue = "true",matchIfMissing = true)
-     @Configuration
+     @Configuration(proxyBeanMethods = false)
      public static class DataQueryDatasourceWarmUpForLightConfiguration{
          @Bean
          public OnApplicationRunnerListener applicationStartDataQueryDatasourceWarmUpLightListener(){
              return new ApplicationStartDataQueryDatasourceWarmUpLightListener();
          }
      }
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @ConditionalOnClass(name = ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)
     public static class NotifyConfiguration{
 

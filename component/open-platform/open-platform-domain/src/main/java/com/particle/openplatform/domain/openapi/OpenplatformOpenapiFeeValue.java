@@ -6,8 +6,6 @@ import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-
 /**
  * 计费值对象
  * Created by yangwei

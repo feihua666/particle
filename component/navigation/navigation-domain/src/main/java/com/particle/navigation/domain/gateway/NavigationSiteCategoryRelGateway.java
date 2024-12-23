@@ -1,8 +1,8 @@
 package com.particle.navigation.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.navigation.domain.NavigationSiteCategoryRel;
 import com.particle.navigation.domain.NavigationSiteCategoryRelId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

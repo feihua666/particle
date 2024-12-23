@@ -1,22 +1,22 @@
 package com.particle.message.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.message.app.structmapping.MessageTemplateAppStructMapping;
 import com.particle.message.client.dto.command.MessageTemplateUpdateCommand;
 import com.particle.message.client.dto.data.MessageTemplateVO;
 import com.particle.message.domain.MessageTemplate;
 import com.particle.message.domain.MessageTemplateId;
 import com.particle.message.domain.gateway.MessageTemplateGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class MessageTemplateUpdateCommandExecutor  extends AbstractBaseExecutor 
 		return messageTemplate;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface MessageTemplateUpdateCommandToMessageTemplateMapping{
 		MessageTemplateUpdateCommandToMessageTemplateMapping instance = Mappers.getMapper(MessageTemplateUpdateCommandToMessageTemplateMapping.class );
 

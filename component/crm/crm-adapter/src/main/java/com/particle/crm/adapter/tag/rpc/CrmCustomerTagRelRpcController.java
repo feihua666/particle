@@ -1,8 +1,8 @@
 package com.particle.crm.adapter.tag.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.crm.client.tag.api.ICrmCustomerTagRelApplicationService;
 import com.particle.crm.adapter.feign.client.tag.rpc.CrmCustomerTagRelRpcFeignClient;
+import com.particle.crm.client.tag.api.ICrmCustomerTagRelApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

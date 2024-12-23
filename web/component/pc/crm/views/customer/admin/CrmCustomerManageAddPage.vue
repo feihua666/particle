@@ -2,7 +2,7 @@
 /**
  * 客户管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as crmCustomerCreateApi} from "../../../api/customer/admin/crmCustomerAdminApi"
 import {useAddPageFormItems} from "../../../components/customer/admin/crmCustomerManage";
 

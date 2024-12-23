@@ -1,7 +1,5 @@
 package com.particle.lowcode.domain.generator;
 
-import java.time.LocalDateTime;
-
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;

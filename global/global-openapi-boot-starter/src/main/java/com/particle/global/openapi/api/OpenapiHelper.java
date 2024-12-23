@@ -1,6 +1,5 @@
 package com.particle.global.openapi.api;
 
-import brave.Tracer;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
@@ -12,11 +11,13 @@ import com.particle.global.openapi.api.limitrule.ratelimit.GlobalOpenapiRateLimi
 import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.*;
-import com.particle.global.openapi.enums.LimitRuleType;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
 import com.particle.global.security.security.PermissionService;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.log.TraceTool;
 import com.particle.global.web.filter.RequestResponseLogFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,9 +46,6 @@ import java.util.Set;
  */
 @Slf4j
 public class OpenapiHelper {
-
-	@Autowired
-	private Tracer tracer;
 
 	@Autowired(required = false)
 	private GlobalOpenapiCollectPersistentService globalOpenapiCollectPersistentService;
@@ -110,7 +106,7 @@ public class OpenapiHelper {
 		openapiContext.setIgnoreOauth2(ignoreOauth2);
 
 		// traceId
-		openapiContext.setTraceId(tracer.currentSpan().context().traceIdString());
+		openapiContext.setTraceId(TraceTool.getTraceId());
 
 		RequestParameterDTO requestParameterDTO = openApi.obtainRequestParameterDTO(request);
 		openapiContext.setRequestParameterDTO(requestParameterDTO);

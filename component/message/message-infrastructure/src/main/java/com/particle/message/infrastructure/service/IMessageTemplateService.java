@@ -1,8 +1,8 @@
 package com.particle.message.infrastructure.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.message.infrastructure.dos.MessageTemplateDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.message.infrastructure.dos.MessageTemplateDO;
 import org.springframework.util.Assert;
 
 /**

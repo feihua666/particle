@@ -2,10 +2,9 @@ package com.particle.navigation.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -34,7 +33,7 @@ public class NavigationSubmitQueryListCommand extends AbstractBaseQueryCommand {
 
     @Schema(description = "提交时间")
     private LocalDateTime submitAt;
-    
+
 
     @Schema(description = "状态")
     private Long statusDictId;

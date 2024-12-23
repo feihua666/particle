@@ -2,7 +2,6 @@ package com.particle.report.infrastructure.template.service.impl;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
-import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.exception.Assert;
@@ -16,19 +15,17 @@ import com.particle.global.tool.template.templatetreerenderengine.template.Segme
 import com.particle.global.tool.template.templatetreerenderengine.template.impl.GroovyScriptSegmentTemplateRenderDataResolverImpl;
 import com.particle.report.domain.gateway.ReportDataQueryDataApiGateway;
 import com.particle.report.domain.gateway.ReportDictGateway;
-import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.report.infrastructure.template.dto.ReportSegmentTemplateRenderParam;
 import com.particle.report.infrastructure.template.dto.ReportSegmentTemplateRenderResult;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplatePermissionCheckService;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplateRenderService;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplateService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -46,7 +43,7 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 
 	@Autowired
 	private IReportSegmentTemplateService iReportSegmentTemplateService;
-	
+
 	@Autowired
 	private ReportDictGateway reportDictGateway;
 
@@ -55,7 +52,7 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 
 	@Autowired(required = false)
 	private IReportSegmentTemplatePermissionCheckService iReportSegmentTemplatePermissionCheckService;
-	
+
 	private TemplateTreeRenderEngine templateTreeRenderEngine = new TemplateTreeRenderEngine();
 	/**
 	 * 用于groovy脚本渲染

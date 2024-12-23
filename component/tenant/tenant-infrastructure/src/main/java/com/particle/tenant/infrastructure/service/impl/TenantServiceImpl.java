@@ -1,14 +1,14 @@
 package com.particle.tenant.infrastructure.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.mapper.TenantMapper;
 import com.particle.tenant.infrastructure.service.ITenantService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -61,6 +61,6 @@ public class TenantServiceImpl extends IBaseServiceImpl<TenantMapper, TenantDO> 
 				assertByColumn(po.getTenantDomain(),TenantDO::getTenantDomain,false);
 			}
 		}
-    
+
 	}
 }

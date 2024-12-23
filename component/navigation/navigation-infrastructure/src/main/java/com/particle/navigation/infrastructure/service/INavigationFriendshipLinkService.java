@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.service;
 
-import com.particle.navigation.infrastructure.dos.NavigationFriendshipLinkDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.navigation.infrastructure.dos.NavigationFriendshipLinkDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,7 +41,7 @@ public interface INavigationFriendshipLinkService extends IBaseService<Navigatio
         Assert.notEmpty(urls,"urls 不能为空");
         return list(Wrappers.<NavigationFriendshipLinkDO>lambdaQuery().in(NavigationFriendshipLinkDO::getUrl, urls));
     }
-            
+
 
 
 

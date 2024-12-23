@@ -2,9 +2,9 @@ package com.particle.global.openapi.api.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.openapi.api.AbstractGlobalOpenapi;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
 /**

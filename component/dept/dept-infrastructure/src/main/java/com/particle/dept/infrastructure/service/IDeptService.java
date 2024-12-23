@@ -1,7 +1,6 @@
 package com.particle.dept.infrastructure.service;
 
 import com.particle.dept.infrastructure.dos.DeptDO;
-import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 
 import java.util.List;

@@ -2,13 +2,13 @@ package com.particle.global.oss;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
 import com.particle.global.oss.client.aws.GlobalAwsOssClient;
 import com.particle.global.oss.client.aws.GlobalAwsOssProperties;
 import com.particle.global.tool.http.HttpClientTool;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class UploadToMinio {
         }
         FileUtil.writeUtf8Lines(newUrls,"/Users/yw/temp/update.csv");
     }
-    public static void main1(String[] args) throws IOException {
+    public static void main1(String[] args) throws IOException, URISyntaxException {
         List<String> readUtf8Lines = FileUtil.readUtf8Lines("/Users/yw/temp/urls.csv");
         List<String> newUrls = new ArrayList<>();
         for (String readUtf8Line : readUtf8Lines) {

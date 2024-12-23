@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as openplatformOpenapiLimitRuleUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as openplatformOpenapiLimitRuleUpdateApi
 } from "../../../api/openapi/admin/openplatformOpenapiLimitRuleAdminApi"
 
 import {updatePageFormItems} from "../../../components/openapi/admin/openplatformOpenapiLimitRuleManage";

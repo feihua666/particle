@@ -1,7 +1,7 @@
 /**
  * 菜单 相关,主要用于组件封装
  */
-import { computed} from 'vue'
+import {computed} from 'vue'
 
 export interface MenuProps{
     // 指定选项的对象类型的某个属性值

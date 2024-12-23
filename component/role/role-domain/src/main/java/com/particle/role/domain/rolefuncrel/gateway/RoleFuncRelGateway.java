@@ -1,8 +1,8 @@
 package com.particle.role.domain.rolefuncrel.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.role.domain.rolefuncrel.RoleFuncRel;
 import com.particle.role.domain.rolefuncrel.RoleFuncRelId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

@@ -2,7 +2,7 @@
 /**
  * 数据范围自定义数据关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as dataScopeCustomDataRelCreateApi} from "../../api/admin/dataScopeCustomDataRelAdminApi"
 import {addPageFormItems} from "../../components/admin/dataScopeCustomDataRelManage";
 

@@ -2,12 +2,14 @@
 /**
  * 数据查询数据接口管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as DataQueryDataApiCreateApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {useAddPageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
-import DataQueryDatasourceApiFormItemConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
+import DataQueryDatasourceApiFormItemConfigs
+  from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
 import DataQueryDatasApiFormItemConfigs from '../../../components/dataapi/admin/DataQueryDatasApiFormItemConfigs.vue'
- const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
+
+const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
  const dataQueryDataApiFormItemConfigsRef = ref(null)
 
 // 属性

@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-08-05 16:19
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalRatelimitAutoConfiguration {
 }

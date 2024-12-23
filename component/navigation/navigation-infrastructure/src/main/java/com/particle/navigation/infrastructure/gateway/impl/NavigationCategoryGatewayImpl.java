@@ -1,14 +1,14 @@
 package com.particle.navigation.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.navigation.domain.NavigationCategory;
 import com.particle.navigation.domain.NavigationCategoryId;
 import com.particle.navigation.domain.gateway.NavigationCategoryGateway;
-import com.particle.navigation.infrastructure.service.INavigationCategoryService;
 import com.particle.navigation.infrastructure.dos.NavigationCategoryDO;
+import com.particle.navigation.infrastructure.service.INavigationCategoryService;
 import com.particle.navigation.infrastructure.structmapping.NavigationCategoryInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
-import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

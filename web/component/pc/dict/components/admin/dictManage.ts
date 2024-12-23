@@ -1,4 +1,3 @@
-import {list as dictListApi} from "../../api/admin/dictAdminApi";
 import {treeQueryComps} from "../../../treeQueryComps";
 import {useCascaderDictCompItem} from "../dictCompItem";
 

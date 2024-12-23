@@ -3,7 +3,9 @@
  * 开放平台开放接口调用记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiRecordPageApi} from "../../../api/openapirecord/admin/openplatformOpenapiRecordAdminApi"
+import {
+  page as openplatformOpenapiRecordPageApi
+} from "../../../api/openapirecord/admin/openplatformOpenapiRecordAdminApi"
 import {pageFormItems} from "../../../components/openapirecord/admin/openplatformOpenapiRecordManage";
 
 

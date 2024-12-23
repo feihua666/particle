@@ -1,18 +1,19 @@
 package com.particle.report.app.reportapi.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.report.client.reportapi.dto.command.representation.ReportReportApiPageQueryCommand;
+import com.particle.report.client.reportapi.dto.command.representation.ReportReportApiQueryListCommand;
 import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
 import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
-import com.particle.report.client.reportapi.dto.command.representation.ReportReportApiPageQueryCommand;
-import com.particle.report.client.reportapi.dto.command.representation.ReportReportApiQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

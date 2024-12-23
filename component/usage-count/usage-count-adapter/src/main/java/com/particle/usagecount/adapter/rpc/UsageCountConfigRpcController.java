@@ -1,8 +1,8 @@
 package com.particle.usagecount.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.usagecount.client.api.IUsageCountConfigApplicationService;
 import com.particle.usagecount.adapter.feign.client.rpc.UsageCountConfigRpcFeignClient;
+import com.particle.usagecount.client.api.IUsageCountConfigApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

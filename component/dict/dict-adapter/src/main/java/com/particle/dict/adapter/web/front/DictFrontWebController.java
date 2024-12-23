@@ -7,8 +7,8 @@ import com.particle.dict.client.dto.command.representation.DictItemsQueryListCom
 import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.MultiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

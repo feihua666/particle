@@ -1,16 +1,11 @@
 package com.particle.data.app.temp.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.data.domain.temp.gateway.DataCompanyMd5IdsGateway;
 import com.particle.data.infrastructure.temp.service.IDataCompanyMd5IdsService;
-import com.particle.data.infrastructure.temp.dos.DataCompanyMd5IdsDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

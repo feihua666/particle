@@ -3,8 +3,6 @@ package com.particle.global.big.datasource.bigdatasource.executor;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.infrastructure.InfrastructureListener;
 
-import java.util.Map;
-
 /**
  * <p>
  * 大数据源执行器调用基础监听

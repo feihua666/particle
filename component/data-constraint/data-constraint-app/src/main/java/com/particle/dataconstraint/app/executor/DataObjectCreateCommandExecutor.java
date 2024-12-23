@@ -1,5 +1,6 @@
 package com.particle.dataconstraint.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.dataconstraint.app.structmapping.DataObjectAppStructMapping;
 import com.particle.dataconstraint.client.dto.command.DataObjectCreateCommand;
 import com.particle.dataconstraint.client.dto.data.DataObjectVO;
@@ -7,15 +8,14 @@ import com.particle.dataconstraint.domain.DataObject;
 import com.particle.dataconstraint.domain.gateway.DataObjectGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class DataObjectCreateCommandExecutor  extends AbstractBaseExecutor {
 		return dataObject;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  DataObjectCreateCommandToDataObjectMapping{
 		DataObjectCreateCommandToDataObjectMapping instance = Mappers.getMapper( DataObjectCreateCommandToDataObjectMapping.class );
 

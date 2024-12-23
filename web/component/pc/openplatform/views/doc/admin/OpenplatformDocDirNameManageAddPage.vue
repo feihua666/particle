@@ -2,8 +2,8 @@
 /**
  * 开放接口目录名称管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocDirNameCreateApi,list as OpenplatformDocDirNameListApi} from "../../../api/doc/admin/openplatformDocDirNameAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformDocDirNameCreateApi} from "../../../api/doc/admin/openplatformDocDirNameAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocDirNameManage";
 
 

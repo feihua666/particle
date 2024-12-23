@@ -2,10 +2,10 @@
 /**
  * 清空角色角色
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {deleteByRoleId} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
 // 以下两项为自动生成，不准确，请手动根据实际情况修改
-import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../../components/roleCompItem";
+import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../../components/roleCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

@@ -3,7 +3,6 @@ package com.particle.navigation.client.api;
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.navigation.client.dto.command.NavigationSiteTagCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationSiteTagUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationSiteTagVO;

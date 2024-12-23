@@ -1,22 +1,23 @@
 package com.particle.openplatform.app.providerrecord.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.providerrecord.structmapping.OpenplatformProviderRecordAppStructMapping;
+import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordPageQueryCommand;
 import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordQueryListCommand;
 import com.particle.openplatform.client.providerrecord.dto.data.OpenplatformProviderRecordVO;
 import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordDO;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordService;
-import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

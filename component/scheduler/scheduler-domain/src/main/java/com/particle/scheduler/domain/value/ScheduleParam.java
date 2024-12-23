@@ -1,10 +1,9 @@
 package com.particle.scheduler.domain.value;
 
 import com.particle.common.domain.ValueObjRoot;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * 任务计划查询表单对象

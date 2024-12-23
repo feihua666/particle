@@ -2,10 +2,13 @@
 /**
  * 数据范围分配自定义数据页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {ElMessage} from 'element-plus'
-import {queryCustomDataIdsByDataScopeId, dataScopeAssignCustomData as dataScopeAssignCustomDataApi} from "../../api/admin/dataScopeCustomDataRelAdminApi"
-import {useRemoteSelectDataScopeCompItem, remoteSelectDataScopeProps} from "../../components/dataconstraintCompItem";
+import {
+  dataScopeAssignCustomData as dataScopeAssignCustomDataApi,
+  queryCustomDataIdsByDataScopeId
+} from "../../api/admin/dataScopeCustomDataRelAdminApi"
+import {remoteSelectDataScopeProps, useRemoteSelectDataScopeCompItem} from "../../components/dataconstraintCompItem";
 import {detail as dataObjectDetailApi} from "../../api/admin/dataObjectAdminApi";
 import {customData} from "../../api/admin/dataScopeAdminApi";
 

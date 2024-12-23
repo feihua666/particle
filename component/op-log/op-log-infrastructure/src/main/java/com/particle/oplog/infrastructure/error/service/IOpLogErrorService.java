@@ -1,7 +1,7 @@
 package com.particle.oplog.infrastructure.error.service;
 
-import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 
 /**
  * <p>

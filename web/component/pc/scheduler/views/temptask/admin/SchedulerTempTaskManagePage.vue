@@ -3,7 +3,10 @@
  * 任务计划临时任务管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as schedulerTempTaskPageApi, remove as schedulerTempTaskRemoveApi} from "../../../api/temptask/admin/schedulerTempTaskAdminApi"
+import {
+  page as schedulerTempTaskPageApi,
+  remove as schedulerTempTaskRemoveApi
+} from "../../../api/temptask/admin/schedulerTempTaskAdminApi"
 import {pageFormItems} from "../../../components/temptask/admin/schedulerTempTaskManage";
 
 
@@ -99,7 +102,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doSchedulerTempTaskPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

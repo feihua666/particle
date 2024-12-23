@@ -74,7 +74,7 @@
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
 

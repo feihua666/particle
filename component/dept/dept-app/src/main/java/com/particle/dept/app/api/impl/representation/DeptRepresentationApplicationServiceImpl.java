@@ -2,15 +2,15 @@ package com.particle.dept.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.catchlog.CatchAndLog;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.app.executor.representation.DeptQueryCommandExecutor;
 import com.particle.dept.client.api.representation.IDeptRepresentationApplicationService;
 import com.particle.dept.client.dto.command.representation.DeptPageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptQueryListCommand;
 import com.particle.dept.client.dto.data.DeptVO;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**

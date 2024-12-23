@@ -1,0 +1,2 @@
+com.particle.global.scheduler.GlobalSchedulerAutoConfiguration
+com.particle.global.scheduler.GlobalSchedulerBeanAutoConfiguration

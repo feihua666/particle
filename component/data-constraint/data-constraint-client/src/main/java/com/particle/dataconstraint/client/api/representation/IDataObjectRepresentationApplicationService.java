@@ -2,12 +2,12 @@ package com.particle.dataconstraint.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectQueryListCommand;
 import com.particle.dataconstraint.client.dto.data.DataObjectVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

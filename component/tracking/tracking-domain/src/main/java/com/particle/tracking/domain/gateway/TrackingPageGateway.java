@@ -1,8 +1,8 @@
 package com.particle.tracking.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.tracking.domain.TrackingPage;
 import com.particle.tracking.domain.TrackingPageId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

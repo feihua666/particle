@@ -4,9 +4,10 @@
  */
 import {reactive, ref} from 'vue'
 import {page as userPageApi, remove as userRemoveApi} from "../../api/admin/userAdminApi"
-import { useRoute } from 'vue-router'
+import {useRoute} from 'vue-router'
 import {pageFormItems} from "../../components/admin/userManage";
 import {componentEnabled} from "../../../../../common/config/componentsConfig";
+
 const route = useRoute()
 const tableRef = ref(null)
 const columns = [

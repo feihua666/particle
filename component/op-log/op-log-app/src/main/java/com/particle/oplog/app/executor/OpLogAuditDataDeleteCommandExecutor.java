@@ -10,11 +10,10 @@ import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
 import com.particle.oplog.domain.OpLogAuditData;
 import com.particle.oplog.domain.OpLogAuditDataId;
 import com.particle.oplog.domain.gateway.OpLogAuditDataGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

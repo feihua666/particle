@@ -2,8 +2,8 @@
 /**
  * 开放平台开放接口管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformOpenapiCreateApi,list as OpenplatformOpenapiListApi} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformOpenapiCreateApi} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
 import {addPageFormItems} from "../../../components/openapi/admin/openplatformOpenapiManage";
 import {cloneObj} from "../../../../../../global/common/tools/ObjectTools";
 

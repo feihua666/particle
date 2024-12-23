@@ -3,7 +3,10 @@
  * 开放平台开放接口限制规则管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiLimitRulePageApi, remove as openplatformOpenapiLimitRuleRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiLimitRuleAdminApi"
+import {
+  page as openplatformOpenapiLimitRulePageApi,
+  remove as openplatformOpenapiLimitRuleRemoveApi
+} from "../../../api/openapi/admin/openplatformOpenapiLimitRuleAdminApi"
 import {pageFormItems} from "../../../components/openapi/admin/openplatformOpenapiLimitRuleManage";
 
 
@@ -116,7 +119,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformOpenapiLimitRulePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

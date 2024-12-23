@@ -7,7 +7,6 @@ import com.particle.feedback.domain.feedback.gateway.FeedbackGateway;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
-import org.apache.poi.sl.draw.geom.GuideIf;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -41,7 +40,7 @@ public class FeedbackReply extends AggreateRoot {
     * 回复时间
     */
     private LocalDateTime replyAt;
-    
+
     /**
     * 回复用户id
     */

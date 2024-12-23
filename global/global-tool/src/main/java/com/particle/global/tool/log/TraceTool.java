@@ -13,12 +13,16 @@ import com.particle.global.tool.spring.SpringContextHolder;
  */
 public class TraceTool {
 
+	private static Tracer tracer;
 	/**
 	 * 获取 tracer 实例
 	 * @return
 	 */
 	public static Tracer getTracer(){
-		return SpringContextHolder.getBean(Tracer.class);
+        if (tracer == null) {
+			tracer = SpringContextHolder.getBean(Tracer.class);
+        }
+		return tracer;
 	}
 
 	/**

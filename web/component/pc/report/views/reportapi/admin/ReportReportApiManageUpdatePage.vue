@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as reportReportApiUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as ReportReportApiListApi
+  update as reportReportApiUpdateApi
 } from "../../../api/reportapi/admin/reportReportApiAdminApi"
 
 import {updatePageFormItems} from "../../../components/reportapi/admin/reportReportApiManage";

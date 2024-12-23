@@ -1,22 +1,22 @@
 package com.particle.role.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.domain.Role;
 import com.particle.role.domain.RoleId;
 import com.particle.role.domain.gateway.RoleGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class RoleUpdateCommandExecutor  extends AbstractBaseExecutor {
 		return role;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface RoleUpdateCommandToRoleMapping{
 		RoleUpdateCommandToRoleMapping instance = Mappers.getMapper(RoleUpdateCommandToRoleMapping.class );
 

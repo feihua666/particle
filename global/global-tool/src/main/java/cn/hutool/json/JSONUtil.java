@@ -5,11 +5,7 @@ import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapWrapper;
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.HexUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.*;
 import cn.hutool.json.serialize.GlobalSerializeMapping;
 import cn.hutool.json.serialize.JSONArraySerializer;
 import cn.hutool.json.serialize.JSONDeserializer;
@@ -23,11 +19,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.temporal.TemporalAccessor;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * JSON工具类
@@ -754,10 +746,10 @@ public class JSONUtil {
 	 */
 	public static Object wrap(Object object, JSONConfig jsonConfig) {
 		// if (object == null) {
+		// 	return jsonConfig.isIgnoreNullValue() ? null : JSONNull.NULL;
+		// }
 		// 注释掉上面的，添加 object.equals(null)判断
 		if (object == null || object.equals(null)) {
-			// return jsonConfig.isIgnoreNullValue() ? null : JSONNull.NULL;
-			// 注释掉上面的直接返回null
 			return null;
 		}
 		if (object instanceof JSON //
@@ -768,6 +760,7 @@ public class JSONUtil {
 				|| ObjectUtil.isBasicType(object) //
 		) {
 			if(object instanceof Number && null != jsonConfig.getDateFormat()){
+				// 当JSONConfig中设置了日期格式，则包装为NumberWithFormat，以便在Converter中使用自定义格式转换日期时间
 				return new NumberWithFormat((Number) object, jsonConfig.getDateFormat());
 			}
 			return object;
@@ -798,6 +791,12 @@ public class JSONUtil {
 			// 枚举类保存其字符串形式（4.0.2新增）
 			if (object instanceof Enum) {
 				return object.toString();
+			}
+
+			// pr#3507
+			// Class类型保存类名
+			if (object instanceof Class<?>) {
+				return ((Class<?>) object).getName();
 			}
 
 			// Java内部类不做转换

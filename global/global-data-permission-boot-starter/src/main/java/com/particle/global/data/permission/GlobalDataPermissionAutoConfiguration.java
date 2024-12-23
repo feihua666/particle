@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-06-29 18:56
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalDataPermissionAutoConfiguration {
 }

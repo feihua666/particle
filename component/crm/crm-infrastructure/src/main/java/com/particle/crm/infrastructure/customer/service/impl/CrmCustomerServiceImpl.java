@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.crm.infrastructure.customer.dos.CrmCustomerDO;
 import com.particle.crm.infrastructure.customer.mapper.CrmCustomerMapper;
 import com.particle.crm.infrastructure.customer.service.ICrmCustomerService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -52,6 +52,6 @@ public class CrmCustomerServiceImpl extends IBaseServiceImpl<CrmCustomerMapper, 
 	        }
 	    }
 
-    
+
 	}
 }

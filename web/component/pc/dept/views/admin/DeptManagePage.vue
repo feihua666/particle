@@ -3,7 +3,7 @@
  * 部门管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DeptPageApi, remove as DeptRemoveApi} from "../../api/admin/deptAdminApi"
+import {page as DeptPageApi, remove as DeptRemoveApi} from "../../api/admin/deptAdminApi"
 import {pageFormItems} from "../../components/admin/deptManage";
 
 

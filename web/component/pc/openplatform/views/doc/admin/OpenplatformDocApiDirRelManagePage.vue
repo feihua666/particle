@@ -3,7 +3,10 @@
  * 开放接口文档接口与目录关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocApiDirRelPageApi, remove as openplatformDocApiDirRelRemoveApi} from "../../../api/doc/admin/openplatformDocApiDirRelAdminApi"
+import {
+  page as openplatformDocApiDirRelPageApi,
+  remove as openplatformDocApiDirRelRemoveApi
+} from "../../../api/doc/admin/openplatformDocApiDirRelAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiDirRelManage";
 
 
@@ -94,7 +97,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformDocApiDirRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

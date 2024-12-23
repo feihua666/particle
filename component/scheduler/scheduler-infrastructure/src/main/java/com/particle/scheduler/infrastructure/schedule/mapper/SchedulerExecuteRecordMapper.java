@@ -1,7 +1,7 @@
 package com.particle.scheduler.infrastructure.schedule.mapper;
 
-import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

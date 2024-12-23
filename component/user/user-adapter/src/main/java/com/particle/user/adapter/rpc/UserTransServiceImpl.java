@@ -12,11 +12,13 @@ import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
 import com.particle.user.infrastructure.mapper.UserMapper;
-import com.particle.user.infrastructure.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 

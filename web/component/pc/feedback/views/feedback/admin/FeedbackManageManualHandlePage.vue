@@ -3,9 +3,7 @@
  * 意见反馈手动处理页面
  */
 import {reactive, ref} from 'vue'
-import {
-  manualHandle as feedbackManualHandleApi
-} from "../../../api/feedback/admin/feedbackAdminApi"
+import {manualHandle as feedbackManualHandleApi} from "../../../api/feedback/admin/feedbackAdminApi"
 
 import {manualHandlePageFormItems} from "../../../components/feedback/admin/feedbackManage";
 

@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.navigation.client.api.INavigationSiteApplicationService;
+import com.particle.navigation.client.api.INavigationSiteApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

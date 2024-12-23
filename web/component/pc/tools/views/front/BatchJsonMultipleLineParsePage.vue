@@ -3,9 +3,7 @@
  * 批量按行提取json，并转换为新的json字符串
  * 主要目的是将原始的json可能是bigint类型，转换带引号的字符串类型
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
-import {lowerFirst, replace, upperFirst} from "../../../../../global/common/tools/StringTools";
-import {loadScriptCode} from "../../../../../global/common/tools/DocumentTools";
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {parseMultipleLine} from "../../api/front/toolsFrontApi";
 
 const { proxy } = getCurrentInstance()

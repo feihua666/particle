@@ -2,8 +2,8 @@
 /**
  * 功能分配功能应用页面
  */
-import {reactive ,ref} from 'vue'
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../components/funcCompItem";
+import {reactive, ref} from 'vue'
+import {remoteSelectFuncProps, useRemoteSelectFuncCompItem} from "../../components/funcCompItem";
 import {list as funcApplicationListApi} from "../../api/application/admin/funcApplicationAdminApi";
 import {
   funcAssignFuncApplication,

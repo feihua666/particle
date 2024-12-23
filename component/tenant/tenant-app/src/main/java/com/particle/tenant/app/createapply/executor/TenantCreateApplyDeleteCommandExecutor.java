@@ -10,11 +10,10 @@ import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
 import com.particle.tenant.domain.createapply.TenantCreateApply;
 import com.particle.tenant.domain.createapply.TenantCreateApplyId;
 import com.particle.tenant.domain.createapply.gateway.TenantCreateApplyGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

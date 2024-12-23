@@ -5,10 +5,8 @@ import com.particle.global.security.tenant.TenantTool;
 import lombok.Data;
 import lombok.SneakyThrows;
 import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Table;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Map;
 

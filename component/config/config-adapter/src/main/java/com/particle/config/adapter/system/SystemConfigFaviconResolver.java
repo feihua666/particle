@@ -4,12 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.config.infrastructure.system.dos.SystemConfigDO;
 import com.particle.config.infrastructure.system.service.ISystemConfigService;
 import com.particle.global.web.filter.FaviconFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>

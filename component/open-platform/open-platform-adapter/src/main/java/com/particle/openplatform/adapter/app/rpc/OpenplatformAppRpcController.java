@@ -1,8 +1,8 @@
 package com.particle.openplatform.adapter.app.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.openplatform.client.app.api.IOpenplatformAppApplicationService;
 import com.particle.openplatform.adapter.feign.client.app.rpc.OpenplatformAppRpcFeignClient;
+import com.particle.openplatform.client.app.api.IOpenplatformAppApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

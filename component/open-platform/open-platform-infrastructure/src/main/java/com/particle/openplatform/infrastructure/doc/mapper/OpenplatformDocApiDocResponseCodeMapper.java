@@ -1,7 +1,7 @@
 package com.particle.openplatform.infrastructure.doc.mapper;
 
-import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocResponseCodeDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocResponseCodeDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

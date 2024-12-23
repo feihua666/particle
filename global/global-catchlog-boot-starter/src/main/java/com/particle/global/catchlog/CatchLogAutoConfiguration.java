@@ -14,7 +14,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author yangwei
  * @since 2022-04-20 18:55
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "particle.catchlog",name = "enabled",havingValue = "true",matchIfMissing = false)
 @EnableAspectJAutoProxy
 public class CatchLogAutoConfiguration {

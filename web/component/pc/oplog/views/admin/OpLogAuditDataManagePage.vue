@@ -3,8 +3,8 @@
  * 操作日志审计数据管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as opLogAuditDataPageApi, remove as opLogAuditDataRemoveApi} from "../../api/admin/opLogAuditDataAdminApi"
-import { usePageFormItems} from "../../components/admin/opLogAuditDataManage";
+import {page as opLogAuditDataPageApi, remove as opLogAuditDataRemoveApi} from "../../api/admin/opLogAuditDataAdminApi"
+import {usePageFormItems} from "../../components/admin/opLogAuditDataManage";
 import {remoteSelectOpLogProps} from "../../components/opLogCompItem";
 
 

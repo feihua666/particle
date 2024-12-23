@@ -2,12 +2,9 @@ package com.particle.openplatform.infrastructure.openapirecord.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import lombok.Data;
+
+import java.time.LocalDateTime;
 /**
  * <p>
  * 开放平台开放接口调用记录表

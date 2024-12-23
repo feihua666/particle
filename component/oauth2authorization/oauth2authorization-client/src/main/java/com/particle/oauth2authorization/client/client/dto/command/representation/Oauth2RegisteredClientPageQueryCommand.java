@@ -1,10 +1,10 @@
 package com.particle.oauth2authorization.client.client.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -26,7 +26,7 @@ public class Oauth2RegisteredClientPageQueryCommand extends AbstractBasePageQuer
 
     @Schema(description = "客户端ID的发布时间")
     private LocalDateTime clientIdIssuedAt;
-    
+
 
     @Schema(description = "客户端秘钥")
     private String clientSecret;
@@ -34,7 +34,7 @@ public class Oauth2RegisteredClientPageQueryCommand extends AbstractBasePageQuer
 
     @Schema(description = "客户端秘钥的过期时间")
     private LocalDateTime clientSecretExpiresAt;
-    
+
 
     @Like
         @Schema(description = "客户端名称,左前缀匹配")

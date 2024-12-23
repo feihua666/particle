@@ -3,7 +3,10 @@
  * 开放平台开放接口费用管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiFeePageApi, remove as openplatformOpenapiFeeRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
+import {
+  page as openplatformOpenapiFeePageApi,
+  remove as openplatformOpenapiFeeRemoveApi
+} from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
 import {pageFormItems} from "../../../components/openapi/admin/openplatformOpenapiFeeManage";
 
 
@@ -139,7 +142,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformOpenapiFeePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

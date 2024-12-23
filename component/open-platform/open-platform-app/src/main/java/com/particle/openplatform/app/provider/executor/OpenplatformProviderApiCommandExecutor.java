@@ -1,16 +1,11 @@
 package com.particle.openplatform.app.provider.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.openplatform.domain.provider.gateway.OpenplatformProviderApiGateway;
 import com.particle.openplatform.infrastructure.provider.service.IOpenplatformProviderApiService;
-import com.particle.openplatform.infrastructure.provider.dos.OpenplatformProviderApiDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

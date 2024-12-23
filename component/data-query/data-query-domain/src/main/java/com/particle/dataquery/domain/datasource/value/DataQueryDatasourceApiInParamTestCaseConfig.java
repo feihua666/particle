@@ -3,7 +3,6 @@ package com.particle.dataquery.domain.datasource.value;
 import cn.hutool.json.JSONUtil;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiParamType;
 import com.particle.global.dto.basic.Value;
-import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 
 import java.util.List;

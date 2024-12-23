@@ -2,11 +2,11 @@
 /**
  * 组件和模板
  */
-import {ref, watch} from 'vue'
+import {ref} from 'vue'
 import PtFormDesignCompsDragWrapper from './FormDesignCompsDragWrapper.vue'
-import type { TabsPaneContext } from 'element-plus'
 import {particleBuiltInComps} from "./formDesignParticleBuiltInComponents";
 import {elementPlusBuiltInComps} from "./formDesignElementPlusBuiltInComponents";
+
 const tabsActiveName = ref('component')
 const compsActiveName = ref(['particle','elementPlus'])
 

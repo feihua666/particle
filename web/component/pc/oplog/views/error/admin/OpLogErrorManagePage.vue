@@ -3,7 +3,7 @@
  * 操作异常日志管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as opLogErrorPageApi, remove as opLogErrorRemoveApi} from "../../../api/error/admin/opLogErrorAdminApi"
+import {page as opLogErrorPageApi, remove as opLogErrorRemoveApi} from "../../../api/error/admin/opLogErrorAdminApi"
 import {pageFormItems} from "../../../components/error/admin/opLogErrorManage";
 
 

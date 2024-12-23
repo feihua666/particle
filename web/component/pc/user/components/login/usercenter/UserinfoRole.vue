@@ -1,6 +1,7 @@
 <script setup name="UserinfoRole" lang="ts">
 import {changeRole} from "../../../api/userLoginApi";
 import {useLoginUserStore} from "../../../../../../global/common/security/loginUserStore"
+
 const loginUserStore = useLoginUserStore()
 
 const props = defineProps({

@@ -1,11 +1,11 @@
 package com.particle.crm.client.customer.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 /**
@@ -48,7 +48,7 @@ public class CrmCustomerCreateCommand extends AbstractBaseCommand {
 
     @Schema(description = "客户生日")
     private LocalDate birthDay;
-    
+
 
         @Schema(description = "客户公司id")
     private Long crmCompanyId;

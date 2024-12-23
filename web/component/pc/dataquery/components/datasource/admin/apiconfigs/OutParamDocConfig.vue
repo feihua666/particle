@@ -1,7 +1,7 @@
 <script setup name="OutParamDocConfig" lang="ts">
-import {onMounted, reactive, ref,nextTick} from 'vue'
+import {nextTick, onMounted, reactive, ref} from 'vue'
 import {paramType} from "../dataQueryDatasourceApiManage";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 const selfFormRef = ref(null)
 /**

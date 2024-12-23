@@ -1,12 +1,9 @@
 package com.particle.func.client.dto.command;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>

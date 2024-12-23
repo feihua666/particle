@@ -10,11 +10,10 @@ import com.particle.lowcode.client.generator.dto.data.LowcodeDatasourceVO;
 import com.particle.lowcode.domain.generator.LowcodeDatasource;
 import com.particle.lowcode.domain.generator.LowcodeDatasourceId;
 import com.particle.lowcode.domain.generator.gateway.LowcodeDatasourceGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

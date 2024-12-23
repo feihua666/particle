@@ -1,10 +1,9 @@
 package com.particle.scheduler.client.temptask.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -38,11 +37,11 @@ public class SchedulerTempTaskRunRecordQueryListCommand extends AbstractBaseQuer
 
     @Schema(description = "运行开始时间")
     private LocalDateTime startAt;
-    
+
 
     @Schema(description = "运行结束时间")
     private LocalDateTime finishAt;
-    
+
 
     @Schema(description = "本地主机ip")
     private String localHostIp;

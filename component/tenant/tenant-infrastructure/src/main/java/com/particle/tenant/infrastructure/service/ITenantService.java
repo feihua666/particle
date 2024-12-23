@@ -2,15 +2,14 @@ package com.particle.tenant.infrastructure.service;
 
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.tenant.infrastructure.dos.TenantDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.dos.TenantDO;
 
 import java.util.Collection;
 import java.util.List;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.tenant.infrastructure.dos.TenantUserDO;
 
 /**
  * <p>

@@ -1,10 +1,10 @@
 package com.particle.dict.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.dict.client.dto.data.DictTransVO;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
-import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import org.springframework.beans.factory.annotation.Autowired;

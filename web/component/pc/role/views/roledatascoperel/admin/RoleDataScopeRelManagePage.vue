@@ -3,7 +3,10 @@
  * 角色数据范围关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as roleDataScopeRelPageApi, remove as roleDataScopeRelRemoveApi} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
+import {
+  page as roleDataScopeRelPageApi,
+  remove as roleDataScopeRelRemoveApi
+} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
 import {pageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 
 
@@ -142,7 +145,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doRoleDataScopeRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

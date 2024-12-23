@@ -2,8 +2,15 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.comparator.CompareUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.*;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.*;
@@ -13,26 +20,17 @@ import com.particle.openplatform.domain.doc.value.OpenplatformDocParamFieldDictI
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
 import com.particle.openplatform.infrastructure.doc.dos.*;
 import com.particle.openplatform.infrastructure.doc.service.*;
-import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

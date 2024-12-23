@@ -2,6 +2,7 @@
 
 import {ref} from "vue";
 import draggable from 'vuedraggable'
+
 const drag = ref(false)
 const myArray = ref([
   {

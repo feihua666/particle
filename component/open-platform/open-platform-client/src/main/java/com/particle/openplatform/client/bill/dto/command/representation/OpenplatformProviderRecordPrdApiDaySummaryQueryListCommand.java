@@ -1,8 +1,6 @@
 package com.particle.openplatform.client.bill.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -32,7 +30,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryQueryListCommand extends 
 
     @Schema(description = "日期")
     private LocalDate dayAt;
-    
+
 
     @Schema(description = "调用总量")
     private Integer totalCall;

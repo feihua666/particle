@@ -1,6 +1,5 @@
 package com.particle.role.adapter.feign.client.roleuserrel.rpc;
 
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import org.springframework.cloud.openfeign.FeignClient;

@@ -1,6 +1,5 @@
-import axios, { AxiosPromise} from 'axios'
-import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
-import {IdParam, updateParam} from "../../../../../../common/api/api";
+import axios, {AxiosPromise} from 'axios'
+import {IdParam} from "../../../../../../common/api/api";
 
 let opLogErrorContentPrefix = '/admin/web/op_log_error_content'
 /**

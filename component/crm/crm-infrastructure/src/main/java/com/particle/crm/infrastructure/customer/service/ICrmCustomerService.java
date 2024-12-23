@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.customer.service;
 
-import com.particle.crm.infrastructure.customer.dos.CrmCustomerDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.crm.infrastructure.customer.dos.CrmCustomerDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ICrmCustomerService extends IBaseService<CrmCustomerDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CrmCustomerDO>lambdaQuery().in(CrmCustomerDO::getCode, codes));
     }
-            
+
 
 
 
@@ -71,7 +72,7 @@ public interface ICrmCustomerService extends IBaseService<CrmCustomerDO> {
         Assert.notEmpty(belongUserIds,"belongUserIds 不能为空");
         return list(Wrappers.<CrmCustomerDO>lambdaQuery().in(CrmCustomerDO::getBelongUserId, belongUserIds));
     }
-            
+
 
     /**
      * 根据归属用户的公司id查询
@@ -94,7 +95,7 @@ public interface ICrmCustomerService extends IBaseService<CrmCustomerDO> {
         Assert.notEmpty(belongCompIds,"belongCompIds 不能为空");
         return list(Wrappers.<CrmCustomerDO>lambdaQuery().in(CrmCustomerDO::getBelongCompId, belongCompIds));
     }
-            
+
 
     /**
      * 根据归属用户的部门id查询
@@ -117,7 +118,7 @@ public interface ICrmCustomerService extends IBaseService<CrmCustomerDO> {
         Assert.notEmpty(belongDeptIds,"belongDeptIds 不能为空");
         return list(Wrappers.<CrmCustomerDO>lambdaQuery().in(CrmCustomerDO::getBelongDeptId, belongDeptIds));
     }
-            
+
 
     /**
      * 根据唯一id查询
@@ -140,7 +141,7 @@ public interface ICrmCustomerService extends IBaseService<CrmCustomerDO> {
         Assert.notEmpty(unionIds,"unionIds 不能为空");
         return list(Wrappers.<CrmCustomerDO>lambdaQuery().in(CrmCustomerDO::getUnionId, unionIds));
     }
-            
+
 
 
 

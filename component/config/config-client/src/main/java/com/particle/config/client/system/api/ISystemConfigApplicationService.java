@@ -2,10 +2,10 @@ package com.particle.config.client.system.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.config.client.system.dto.command.SystemConfigCreateCommand;
 import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

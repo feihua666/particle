@@ -1,10 +1,9 @@
 package com.particle.user.adapter.login;
 
-import brave.Tracer;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.particle.common.constant.CommonConstants;
@@ -16,6 +15,7 @@ import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.log.TraceTool;
 import com.particle.global.tool.logical.TimeLogicTool;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.tool.thread.ThreadContextTool;
@@ -28,6 +28,9 @@ import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
 import com.particle.user.infrastructure.login.service.IUserLoginRecordService;
 import com.particle.user.infrastructure.service.IUserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,9 +38,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -69,8 +69,6 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 	private IUserLoginRecordService iUserLoginRecordService;
 	@Autowired
 	private IUserLoginDeviceService iUserLoginDeviceService;
-	@Autowired
-	private Tracer tracer;
 	@Autowired
 	private UserDictGateway userDictGateway;
 
@@ -135,7 +133,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		LocalDateTime now = LocalDateTime.now();
 		UserIdentifierDO userIdentifier = ((UserIdentifierDO) loginUser.getExt().get(IdentifierUserDetailsServiceImpl.user_ext_identifier_key));
 
-		String userAgentStr = ServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
+		String userAgentStr = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
 		UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
 
 		UserLoginRecordDO userLoginRecordDO = new UserLoginRecordDO();
@@ -143,7 +141,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		userLoginRecordDO.setLoginAt(now);
 		userLoginRecordDO.setLoginIp(RequestTool.getClientIP(httpServletRequest));
 
-		String deviceId = ServletUtil.getHeaderIgnoreCase(httpServletRequest, login_header_device_id);
+		String deviceId = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, login_header_device_id);
 		userLoginRecordDO.setDeviceId(Optional.ofNullable(StrUtil.emptyToNull(deviceId)).orElse("none"));
 		userLoginRecordDO.setDeviceName(userAgent.getPlatform().getName());
 
@@ -166,7 +164,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 			userLoginRecordDO.setFailedReason(reason);
 		}
 
-		userLoginRecordDO.setTraceId(tracer.currentSpan().context().traceIdString());
+		userLoginRecordDO.setTraceId(TraceTool.getTraceId());
 		// 登录即算一次
 		userLoginRecordDO.setApiCount(1L);
 		userLoginRecordDO.setLastActiveAt(now);

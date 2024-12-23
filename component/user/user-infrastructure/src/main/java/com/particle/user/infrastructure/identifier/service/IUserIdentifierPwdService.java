@@ -1,10 +1,9 @@
 package com.particle.user.infrastructure.identifier.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import org.springframework.util.Assert;
 
 import java.util.List;

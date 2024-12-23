@@ -10,11 +10,10 @@ import com.particle.usagecount.client.dto.data.UsageCountDefineVO;
 import com.particle.usagecount.domain.UsageCountDefine;
 import com.particle.usagecount.domain.UsageCountDefineId;
 import com.particle.usagecount.domain.gateway.UsageCountDefineGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

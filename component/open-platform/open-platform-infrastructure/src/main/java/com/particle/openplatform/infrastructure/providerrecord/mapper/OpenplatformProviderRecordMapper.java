@@ -1,7 +1,7 @@
 package com.particle.openplatform.infrastructure.providerrecord.mapper;
 
-import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

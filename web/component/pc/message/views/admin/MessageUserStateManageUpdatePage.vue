@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as messageUserStateUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as MessageUserStateListApi
+  update as messageUserStateUpdateApi
 } from "../../api/admin/messageUserStateAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/messageUserStateManage";

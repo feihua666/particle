@@ -3,13 +3,7 @@
  * 功能菜单管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  detailForUpdate as detailForUpdateApi,
-  list as funcListApi,
-  update as funcUpdateApi
-} from "../../api/admin/funcAdminApi"
-import {list as funcGroupListApi} from "../../api/admin/funcGroupAdminApi"
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import {detailForUpdate as detailForUpdateApi, update as funcUpdateApi} from "../../api/admin/funcAdminApi"
 import {useUpdatePageFormItems} from "../../components/admin/funcManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

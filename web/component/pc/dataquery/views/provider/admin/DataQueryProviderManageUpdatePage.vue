@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as DataQueryProviderUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as DataQueryProviderListApi
+  update as DataQueryProviderUpdateApi
 } from "../../../api/provider/admin/dataQueryProviderAdminApi"
 
 import {updatePageFormItems} from "../../../components/provider/admin/dataQueryProviderManage";

@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as dataCompanyMd5UpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as dataCompanyMd5UpdateApi
 } from "../../../api/company/admin/dataCompanyMd5AdminApi"
 
 import {updatePageFormItems} from "../../../components/company/admin/dataCompanyMd5Manage";

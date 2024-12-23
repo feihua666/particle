@@ -1,8 +1,8 @@
 package com.particle.global.oss.dto;
 
-import software.amazon.awssdk.services.s3.model.Owner;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
+import software.amazon.awssdk.services.s3.model.Owner;
 
 /**
  * <p>

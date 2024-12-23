@@ -1,10 +1,11 @@
 package com.particle.usagecount.infrastructure.service;
 
-import com.particle.usagecount.infrastructure.dos.UsageCountConfigDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.usagecount.infrastructure.dos.UsageCountConfigDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -38,7 +39,7 @@ public interface IUsageCountConfigService extends IBaseService<UsageCountConfigD
         Assert.notEmpty(usageCountDefineIds,"usageCountDefineIds 不能为空");
         return list(Wrappers.<UsageCountConfigDO>lambdaQuery().in(UsageCountConfigDO::getUsageCountDefineId, usageCountDefineIds));
     }
-            
+
 
 
 

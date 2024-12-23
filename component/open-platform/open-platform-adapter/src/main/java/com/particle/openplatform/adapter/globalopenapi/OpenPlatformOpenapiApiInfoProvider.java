@@ -2,9 +2,9 @@ package com.particle.openplatform.adapter.globalopenapi;
 
 import com.particle.global.openapi.api.GlobalOpenapiApiInfoProvider;
 import com.particle.global.openapi.data.ApiFeeRuleInfo;
-import com.particle.global.openapi.data.OpenapiLimitRuleInfo ;
 import com.particle.global.openapi.data.ApiInfo;
 import com.particle.global.openapi.data.ApiRuleInfo;
+import com.particle.global.openapi.data.OpenapiLimitRuleInfo;
 import com.particle.global.openapi.enums.*;
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;

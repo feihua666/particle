@@ -5,13 +5,13 @@ import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2023-01-03 13:17:50
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan("com.particle.lowcode.infrastructure.generator.mapper")
 public class LowcodeAutoConfiguration {
 
@@ -39,7 +39,7 @@ public class LowcodeAutoConfiguration {
 	@Bean
 	public GroupedOpenApi createLowcodeAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
-		
+
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("low-code接口")
 				.basePackage("com.particle.lowcode.adapter")

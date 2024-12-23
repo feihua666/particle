@@ -1,8 +1,7 @@
 package com.particle.global.security.tenant;
 
+import jakarta.servlet.ServletRequest;
 import org.apache.logging.log4j.util.Strings;
-
-import javax.servlet.ServletRequest;
 
 /**
  * <p>

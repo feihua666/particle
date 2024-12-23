@@ -1,23 +1,27 @@
 package com.particle.lowcode.app.generator.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenRenderGenCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
+import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentTemplatePageQueryCommand;
+import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentTemplateQueryListCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentGenRenderGenVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplateId;
 import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentTemplateDO;
-import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentTemplatePageQueryCommand;
-import com.particle.lowcode.client.generator.dto.command.representation.LowcodeSegmentTemplateQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderParam;
 import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderResult;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 import java.util.Optional;
 

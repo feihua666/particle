@@ -1,12 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.api.config.PageableAdapterConfig;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.service.IJdbcService;
-import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import org.apache.ibatis.session.SqlSession;
@@ -14,7 +9,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * <p>

@@ -1,22 +1,20 @@
 package com.particle.global.oss;
 
 
-import com.particle.global.oss.client.aws.GlobalAwsOssProperties;
 import com.particle.global.oss.service.DefaultGlobalOssClientServiceImpl;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,7 @@ import java.util.List;
  * @author yangwei
  * @since 2023-04-27 18:18
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({GlobalOssProperties.class})
 @ConditionalOnProperty(prefix = "particle.oss", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ComponentScan

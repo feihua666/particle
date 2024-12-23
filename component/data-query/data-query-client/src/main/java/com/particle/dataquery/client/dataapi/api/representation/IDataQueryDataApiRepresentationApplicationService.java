@@ -2,14 +2,14 @@ package com.particle.dataquery.client.dataapi.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiPageQueryCommand;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
+import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryListCommand;
+import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiPageQueryCommand;
-import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryListCommand;
-import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 
 /**
  * <p>

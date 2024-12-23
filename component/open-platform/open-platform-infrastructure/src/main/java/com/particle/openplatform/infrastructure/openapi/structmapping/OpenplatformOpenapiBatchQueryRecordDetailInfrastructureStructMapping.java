@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.openapi.structmapping;
 
-import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiBatchQueryRecordDetailDO;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiBatchQueryRecordDetail;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiBatchQueryRecordDetailId;
+import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiBatchQueryRecordDetailDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-09-19 11:46:36
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpenplatformOpenapiBatchQueryRecordDetailInfrastructureStructMapping {
 	public static OpenplatformOpenapiBatchQueryRecordDetailInfrastructureStructMapping instance = Mappers.getMapper( OpenplatformOpenapiBatchQueryRecordDetailInfrastructureStructMapping.class );
 

@@ -13,7 +13,7 @@
  * 3. const worker_json_url = import.meta.env.BASE_URL + 'worker-json.js'
  *    配置路径 ace.config.setModuleUrl('ace/mode/json_worker', worker_json_url);
  */
-import {watch, onMounted, onBeforeUnmount, ref, reactive} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref, watch} from "vue";
 /*
 * 需要自行引入需要的模块，一般为主题和支持语法
 * 如：引用主题 一般在 ace-builds/src-noconflict/theme-xxxx.js,然后设置主题属性 ace/theme/xxxx

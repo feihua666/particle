@@ -1,10 +1,11 @@
 package com.particle.oplog.infrastructure.service;
 
-import com.particle.oplog.infrastructure.dos.OpLogAuditDataDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.oplog.infrastructure.dos.OpLogAuditDataDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -45,7 +46,7 @@ public interface IOpLogAuditDataService extends IBaseService<OpLogAuditDataDO> {
         Assert.notEmpty(userIds,"userIds 不能为空");
         return list(Wrappers.<OpLogAuditDataDO>lambdaQuery().in(OpLogAuditDataDO::getUserId, userIds));
     }
-            
+
 
     /**
      * 根据数据id查询
@@ -68,7 +69,7 @@ public interface IOpLogAuditDataService extends IBaseService<OpLogAuditDataDO> {
         Assert.notEmpty(dataIds,"dataIds 不能为空");
         return list(Wrappers.<OpLogAuditDataDO>lambdaQuery().in(OpLogAuditDataDO::getDataId, dataIds));
     }
-            
+
 
 
 
@@ -93,7 +94,7 @@ public interface IOpLogAuditDataService extends IBaseService<OpLogAuditDataDO> {
         Assert.notEmpty(opLogIds,"opLogIds 不能为空");
         return list(Wrappers.<OpLogAuditDataDO>lambdaQuery().in(OpLogAuditDataDO::getOpLogId, opLogIds));
     }
-            
+
 
 
 

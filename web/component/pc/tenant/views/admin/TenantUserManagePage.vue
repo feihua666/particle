@@ -3,8 +3,8 @@
  * 租户用户管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as TenantUserPageApi, remove as TenantUserRemoveApi} from "../../api/admin/tenantUserAdminApi"
-import {pageFormItems, usePageFormItems} from "../../components/admin/tenantUserManage";
+import {page as TenantUserPageApi, remove as TenantUserRemoveApi} from "../../api/admin/tenantUserAdminApi"
+import {usePageFormItems} from "../../components/admin/tenantUserManage";
 
 
 const tableRef = ref(null)

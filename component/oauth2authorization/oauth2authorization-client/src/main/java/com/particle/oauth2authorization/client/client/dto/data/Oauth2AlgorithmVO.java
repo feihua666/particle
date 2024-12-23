@@ -1,6 +1,5 @@
 package com.particle.oauth2authorization.client.client.dto.data;
 
-import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.common.client.dto.data.AbstractBaseVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

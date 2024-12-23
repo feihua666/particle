@@ -1,7 +1,7 @@
 package com.particle.report.infrastructure.template.service;
 
-import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 
 /**
  * <p>

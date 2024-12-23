@@ -44,20 +44,13 @@
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
-            <version>${particle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.particle</groupId>
             <artifactId>global-notification-boot-starter</artifactId>
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
 

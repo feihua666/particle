@@ -1,12 +1,11 @@
 package com.particle.particledemo;
 
 import com.particle.global.captcha.security.DefaultCaptchaSecurityChecker;
-import com.particle.global.neo4j.GlobalNeo4jAutoConfiguration;
 import com.particle.global.session.SessionRepositoryConfiguration;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.elasticsearch.ReactiveElasticsearchRestClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
-import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 import static java.time.ZoneId.of;
@@ -38,7 +36,7 @@ import static java.util.TimeZone.getTimeZone;
 //@SpringBootApplication(exclude = {GlobalSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 // neo4j默认引入包就会自动配置，并未提供停用的功能，这里排除掉，如果需要再添加上即可
 // elasticsearch默认引入包就会自动配置，且actuator也自动装配进行建康检查打印异常（但并不影响启动）并未提供停用的功能，这里排除掉，如果需要再添加上即可
-@SpringBootApplication(exclude = {Neo4jAutoConfiguration.class, ElasticsearchRestClientAutoConfiguration.class, ReactiveElasticsearchRestClientAutoConfiguration.class})
+@SpringBootApplication(exclude = {Neo4jAutoConfiguration.class, ElasticsearchRestClientAutoConfiguration.class})
 @Import(SessionRepositoryConfiguration.class)
 public class ParticleDemoApplication {
 	public static void main(String[] args) {

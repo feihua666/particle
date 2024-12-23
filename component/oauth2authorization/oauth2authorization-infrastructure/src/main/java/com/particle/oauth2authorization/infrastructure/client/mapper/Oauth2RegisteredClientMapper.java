@@ -1,7 +1,7 @@
 package com.particle.oauth2authorization.infrastructure.client.mapper;
 
-import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

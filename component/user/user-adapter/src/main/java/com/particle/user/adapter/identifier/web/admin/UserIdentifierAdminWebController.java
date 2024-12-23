@@ -18,8 +18,8 @@ import com.particle.user.client.identifier.dto.command.UserIdentifierUpdateComma
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierPageQueryCommand;
 import com.particle.user.client.identifier.dto.command.representation.UserIdentifierQueryListCommand;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

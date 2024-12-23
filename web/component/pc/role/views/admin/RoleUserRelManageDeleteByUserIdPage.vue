@@ -2,9 +2,9 @@
 /**
  * 清空用户角色
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {deleteByUserId} from "../../api/admin/roleUserRelAdminApi"
-import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/components/userCompItem";
+import {remoteSelectUserProps, useRemoteSelectUserCompItem} from "../../../user/components/userCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

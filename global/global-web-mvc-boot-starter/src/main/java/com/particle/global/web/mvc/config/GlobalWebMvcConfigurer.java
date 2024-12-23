@@ -23,7 +23,7 @@ import java.util.Objects;
  * @author yangwei
  * @since 2022-06-22 14:07
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class GlobalWebMvcConfigurer implements WebMvcConfigurer {
 

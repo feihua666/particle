@@ -1,10 +1,10 @@
 package com.particle.crm.client.customer.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
+
 import java.time.LocalDate;
 /**
  * <p>
@@ -49,7 +49,7 @@ public class CrmCustomerPageQueryCommand extends AbstractBasePageQueryCommand {
 
     @Schema(description = "客户生日")
     private LocalDate birthDay;
-    
+
 
     @Schema(description = "客户公司id")
     private Long crmCompanyId;

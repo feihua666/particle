@@ -12,11 +12,11 @@ import com.particle.user.client.login.dto.command.representation.UserLoginDevice
 import com.particle.user.client.login.dto.data.UserLoginDeviceVO;
 import com.particle.user.infrastructure.login.dos.UserLoginDeviceDO;
 import com.particle.user.infrastructure.login.service.IUserLoginDeviceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

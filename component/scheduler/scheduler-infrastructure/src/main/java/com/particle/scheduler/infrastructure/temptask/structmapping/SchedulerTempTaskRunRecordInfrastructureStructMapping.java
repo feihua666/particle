@@ -1,10 +1,11 @@
 package com.particle.scheduler.infrastructure.temptask.structmapping;
 
-import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecord;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordId;
+import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-08-28 11:37:05
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class SchedulerTempTaskRunRecordInfrastructureStructMapping {
 	public static SchedulerTempTaskRunRecordInfrastructureStructMapping instance = Mappers.getMapper( SchedulerTempTaskRunRecordInfrastructureStructMapping.class );
 

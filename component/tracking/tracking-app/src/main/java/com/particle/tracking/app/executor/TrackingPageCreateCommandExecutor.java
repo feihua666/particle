@@ -1,21 +1,21 @@
 package com.particle.tracking.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.tracking.app.structmapping.TrackingPageAppStructMapping;
 import com.particle.tracking.client.dto.command.TrackingPageCreateCommand;
 import com.particle.tracking.client.dto.data.TrackingPageVO;
 import com.particle.tracking.domain.TrackingPage;
 import com.particle.tracking.domain.gateway.TrackingPageGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class TrackingPageCreateCommandExecutor  extends AbstractBaseExecutor {
 		return trackingPage;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  TrackingPageCreateCommandToTrackingPageMapping{
 		TrackingPageCreateCommandToTrackingPageMapping instance = Mappers.getMapper( TrackingPageCreateCommandToTrackingPageMapping.class );
 

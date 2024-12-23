@@ -11,12 +11,10 @@ import com.particle.openplatform.domain.bill.OpenplatformOpenapiRecordCustomerMo
 import com.particle.openplatform.domain.bill.OpenplatformOpenapiRecordCustomerMonthBillId;
 import com.particle.openplatform.domain.bill.gateway.OpenplatformOpenapiRecordCustomerMonthBillGateway;
 import com.particle.openplatform.infrastructure.bill.service.IOpenplatformOpenapiRecordCustomerMonthBillService;
-import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordCustomerMonthBillDO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
-import javax.validation.Valid;
 
 /**
  * <p>

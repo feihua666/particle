@@ -2,8 +2,8 @@
 /**
  * 租户用户邀请管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as TenantUserInviteCreateApi,list as TenantUserInviteListApi} from "../../../api/userinvite/admin/tenantUserInviteAdminApi"
+import {reactive, ref} from 'vue'
+import {create as TenantUserInviteCreateApi} from "../../../api/userinvite/admin/tenantUserInviteAdminApi"
 import {addPageFormItems} from "../../../components/userinvite/admin/tenantUserInviteManage";
 
 

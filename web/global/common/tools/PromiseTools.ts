@@ -1,5 +1,6 @@
 import {isObject} from '../../common/tools/ObjectTools'
 import {isFunction} from '../../common/tools/FunctionTools'
+
 /**
  * 是否为 promise
  * @param val 检测对象

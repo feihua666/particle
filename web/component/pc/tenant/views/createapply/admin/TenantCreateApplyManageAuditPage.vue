@@ -3,13 +3,9 @@
  * 租户创建申请管理审核页面
  */
 import {reactive, ref} from 'vue'
-import {
-  audit as TenantCreateApplyAuditApi,
-} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
+import {audit as TenantCreateApplyAuditApi,} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 
-import {
-  useAuditPageFormItems,
-} from "../../../components/createapply/admin/tenantCreateApplyManage";
+import {useAuditPageFormItems,} from "../../../components/createapply/admin/tenantCreateApplyManage";
 
 
 // 声明属性

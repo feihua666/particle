@@ -3,13 +3,17 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,computed,inject, watch, ref} from 'vue'
-import { ElMessageBox } from 'element-plus'
+import {computed, inject, reactive, ref, watch} from 'vue'
 
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
-import { emitMethodEvent, method, methodProps, reactiveMethodData} from './method'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
+import {emitMethodEvent, method, methodProps, reactiveMethodData} from './method'
 
 
 // 声明属性

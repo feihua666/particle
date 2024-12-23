@@ -1,12 +1,11 @@
 package com.particle.navigation.client.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
-import com.particle.component.light.share.trans.TransConstants;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -22,16 +21,16 @@ public class NavigationSubmitVO extends AbstractBaseIdVO {
 
     @Schema(description = "网站名称")
     private String name;
-    
+
     @Schema(description = "网站标题")
     private String title;
-    
+
     @Schema(description = "网站地址")
     private String url;
-    
+
     @Schema(description = "提交时间")
     private LocalDateTime submitAt;
-        
+
     @Schema(description = "状态")
     private Long statusDictId;
 
@@ -41,10 +40,10 @@ public class NavigationSubmitVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "statusDictId",mapValueField = "name")
     @Schema(description = "状态对应字典名称")
     private String statusDictName;
-        
+
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

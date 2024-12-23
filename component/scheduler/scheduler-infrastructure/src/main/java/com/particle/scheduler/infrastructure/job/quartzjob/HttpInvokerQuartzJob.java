@@ -14,7 +14,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,7 +55,7 @@ public class HttpInvokerQuartzJob extends AbstractQuartzJob {
             restTemplate = restTemplateBuilder.build();
         }
         // 发起请求
-        ResponseEntity<String> exchange = restTemplate.exchange(httpUrl, HttpMethod.resolve(httpMethod.toUpperCase()), tHttpEntity, String.class);
+        ResponseEntity<String> exchange = restTemplate.exchange(httpUrl, HttpMethod.valueOf(httpMethod.toUpperCase()), tHttpEntity, String.class);
 
         HttpResult httpResult = httpResultWrap(exchange.getStatusCodeValue(), exchange.getBody(), exchange.getHeaders());
 

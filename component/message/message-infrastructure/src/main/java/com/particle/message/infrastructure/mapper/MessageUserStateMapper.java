@@ -1,7 +1,7 @@
 package com.particle.message.infrastructure.mapper;
 
-import com.particle.message.infrastructure.dos.MessageUserStateDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.message.infrastructure.dos.MessageUserStateDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

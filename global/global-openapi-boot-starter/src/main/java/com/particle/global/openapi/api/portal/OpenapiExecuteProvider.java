@@ -3,8 +3,6 @@ package com.particle.global.openapi.api.portal;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.endpoint.command.OpenapiCommand;
 
-import java.util.List;
-
 /**
  * <p>
  * 开放接口执行供应商

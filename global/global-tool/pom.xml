@@ -49,16 +49,10 @@
 
         <!-- swagger 接口文档工具 不传递依赖 -->
         <!-- PojoPropertyDiffTool 中有使用 -->
-<!--        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox-boot-starter.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>${swagger-annotations-v3.version}</version>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>${swagger-annotations-jakarta.version}</version>
         </dependency>
 
 
@@ -74,43 +68,40 @@
         <!-- 版本已在 spring-boot-starter-parent 中定义 -->
         <!-- HttpClientTool 中有使用 -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
         </dependency>
 
         <!-- servlet-api 不传递依赖 版本已在springboot parent 中定义 -->
         <!-- RequestTool中有使用 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- 提供链路日志 traceId 跟踪 不传递依赖-->
         <!-- 入口简介：利用日志的MDC将日志写入，并替换了 logging.pattern.level-->
-        <!-- 参见日志pattern替换org.springframework.cloud.sleuth.autoconfig.TraceEnvironmentPostProcessor -->
-        <!-- 参见日志MDC处理 org.springframework.cloud.sleuth.log.Slf4jScopeDecorator -->
         <!-- TraceTool 中有使用 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- 仅模板树测试 -->
+        <!-- 模板树测试 -->
         <dependency>
             <groupId>com.jfinal</groupId>
             <artifactId>enjoy</artifactId>
             <version>${com.jfinal.enjoy}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- 仅测试 正式使用请自行引用 主要是为了数据查询动态配置支持 groovy脚本而添加-->
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
+            <groupId>org.apache.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy-all.version}</version>
+            <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <!-- 对象转httpjson字符串使用 为要主了使用 objectMapper-->
@@ -120,7 +111,6 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- *********引入POI依赖 可以使用，仅测试使用，不依赖传递 ************ -->
         <!-- 在 hutool 中依赖poi对excel等文档做了封装，该引入可以借用其工具使用 -->
         <!-- 推荐引入poi-ooxml，这个包会自动关联引入poi包，且可以很好的支持Office2007+的文档格式 -->
         <dependency>
@@ -128,13 +118,6 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
-        <!-- 如果需要使用Sax方式读取Excel，需要引入以下依赖（POI-4.x以上这个非必须）： -->
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>${xercesImpl.version}</version>
-        </dependency>
-        <!-- *********引入POI依赖 可以使用，仅测试使用，不依赖传递 ************ -->
 
         <!-- java 对象差异对比工具 都见 diff包数据审计 -->
         <!-- https://mvnrepository.com/artifact/org.javers/javers-core -->
@@ -164,13 +147,6 @@
             <groupId>com.particle</groupId>
             <artifactId>global-logging-boot-starter</artifactId>
             <version>${particle.version}</version>
-        </dependency>
-
-        <!-- htmlparser -->
-        <dependency>
-            <groupId>org.htmlparser</groupId>
-            <artifactId>htmlparser</artifactId>
-            <version>${htmlparser.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->

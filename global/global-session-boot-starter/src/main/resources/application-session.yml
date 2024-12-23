@@ -1,8 +1,8 @@
 spring:
   session:
     jdbc:
-      # 设置为空使用默认名称
-      table-name: ''
+      # springboot3增加了校验不能设置为空了
+      table-name: global_spring_session
 particle:
   session:
     jdbc:

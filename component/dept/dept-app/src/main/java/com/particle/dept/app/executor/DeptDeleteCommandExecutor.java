@@ -2,19 +2,18 @@ package com.particle.dept.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.dept.app.structmapping.DeptAppStructMapping;
 import com.particle.dept.client.dto.data.DeptVO;
 import com.particle.dept.domain.Dept;
 import com.particle.dept.domain.DeptId;
 import com.particle.dept.domain.gateway.DeptGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

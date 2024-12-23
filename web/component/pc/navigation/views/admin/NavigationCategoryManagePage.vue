@@ -3,7 +3,10 @@
  * 导航分类管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationCategoryPageApi, remove as navigationCategoryRemoveApi} from "../../api/admin/navigationCategoryAdminApi"
+import {
+  page as navigationCategoryPageApi,
+  remove as navigationCategoryRemoveApi
+} from "../../api/admin/navigationCategoryAdminApi"
 import {pageFormItems} from "../../components/admin/navigationCategoryManage";
 
 

@@ -1,32 +1,28 @@
 package com.particle.role.adapter.roledatascoperel.web.admin;
 
-import com.particle.role.client.roledatascoperel.api.IRoleDataScopeRelApplicationService;
-import com.particle.role.client.roledatascoperel.api.representation.IRoleDataScopeRelRepresentationApplicationService;
-import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
-import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
-import com.particle.role.client.roledatascoperel.dto.command.representation.RoleDataScopeRelPageQueryCommand;
-import com.particle.role.client.roledatascoperel.dto.command.representation.RoleDataScopeRelQueryListCommand;
-import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
-import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
-import com.particle.global.dataaudit.op.OpLog;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.client.roledatascoperel.api.IRoleDataScopeRelApplicationService;
+import com.particle.role.client.roledatascoperel.api.representation.IRoleDataScopeRelRepresentationApplicationService;
+import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
+import com.particle.role.client.roledatascoperel.dto.command.representation.RoleDataScopeRelPageQueryCommand;
+import com.particle.role.client.roledatascoperel.dto.command.representation.RoleDataScopeRelQueryListCommand;
+import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 /**
  * <p>
  * 角色数据范围关系后台管理pc或平板端前端适配器
@@ -97,7 +93,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	public PageResponse<RoleDataScopeRelVO> pageQueryList(RoleDataScopeRelPageQueryCommand roleDataScopeRelPageQueryCommand){
 		return iRoleDataScopeRelRepresentationApplicationService.pageQuery(roleDataScopeRelPageQueryCommand);
 	}
-	
+
 	@Operation(summary = "角色分配数据范围")
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:roleAssignDataScope')")
 	@PostMapping("/role/assign/dataScope")

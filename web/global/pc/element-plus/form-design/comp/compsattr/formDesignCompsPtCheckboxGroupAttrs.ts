@@ -3,7 +3,7 @@
  * 该属性适用于 PtCheckboxGroup
  */
 import {formDesignParticleBuiltInComponentsAttrsData} from "../formDesignParticleBuiltInComponentsAttrs";
-import { strCodeTocode} from "../../tools";
+import {strCodeTocode} from "../../tools";
 
 export const formDesignCompsPtCheckboxGroupAttrs = [
 

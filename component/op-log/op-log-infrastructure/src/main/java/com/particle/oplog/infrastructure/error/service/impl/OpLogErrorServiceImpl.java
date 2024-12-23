@@ -1,14 +1,13 @@
 package com.particle.oplog.infrastructure.error.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import com.particle.oplog.infrastructure.error.mapper.OpLogErrorMapper;
 import com.particle.oplog.infrastructure.error.service.IOpLogErrorService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class OpLogErrorServiceImpl extends IBaseServiceImpl<OpLogErrorMapper, Op
 
 	@Override
 	protected void preUpdate(OpLogErrorDO po) {
-    
+
 	}
 }

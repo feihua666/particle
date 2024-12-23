@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as systemConfigUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as systemConfigUpdateApi
 } from "../../../api/system/admin/systemConfigAdminApi"
 
 import {updatePageFormItems} from "../../../components/system/admin/systemConfigManage";

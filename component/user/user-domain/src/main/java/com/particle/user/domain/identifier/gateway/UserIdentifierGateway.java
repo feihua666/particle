@@ -1,10 +1,8 @@
 package com.particle.user.domain.identifier.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.user.domain.identifier.UserIdentifier;
 import com.particle.user.domain.identifier.UserIdentifierId;
-import com.particle.common.domain.gateway.IBaseGateway;
-
-import java.util.List;
 
 /**
  * <p>

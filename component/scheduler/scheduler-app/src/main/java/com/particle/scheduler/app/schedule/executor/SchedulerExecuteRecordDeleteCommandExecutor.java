@@ -11,12 +11,10 @@ import com.particle.scheduler.domain.schedule.SchedulerExecuteRecord;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecordId;
 import com.particle.scheduler.domain.schedule.gateway.SchedulerExecuteRecordGateway;
 import com.particle.scheduler.infrastructure.schedule.service.ISchedulerExecuteRecordService;
-import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
-import javax.validation.Valid;
 
 /**
  * <p>

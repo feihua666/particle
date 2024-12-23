@@ -2,10 +2,8 @@ package com.particle.message.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -78,6 +76,6 @@ public class MessageDO extends BaseDO {
 	 * 消息模板id，用来追踪是哪个模板
 	 */
 	private Long messageTemplateId;
-    
+
 
 }

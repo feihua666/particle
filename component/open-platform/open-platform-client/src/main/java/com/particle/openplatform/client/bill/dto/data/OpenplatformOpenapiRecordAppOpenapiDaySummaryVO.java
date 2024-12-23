@@ -1,14 +1,13 @@
 package com.particle.openplatform.client.bill.dto.data;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 /**
  * <p>
@@ -31,7 +30,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryVO extends AbstractBas
 
     @Schema(description = "appId")
     private String appId;
-    
+
     @Schema(description = "开放平台接口id")
     private Long openplatformOpenapiId;
 
@@ -41,29 +40,29 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryVO extends AbstractBas
 
     @Schema(description = "日期")
     private LocalDate dayAt;
-        
+
     @Schema(description = "客户id")
     private Long customerId;
 
     @TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "customerId",mapValueField = "name")
     @Schema(description = "客户id")
     private String customerName;
-    
+
     @Schema(description = "调用总量")
     private Integer totalCall;
-    
+
     @Schema(description = "调用计费总量")
     private Integer totalFeeCall;
-    
+
     @Schema(description = "平均单价金额")
     private BigDecimal averageUnitPriceAmount;
-    
+
     @Schema(description = "总消费金额")
     private Integer totalFeeAmount;
-    
+
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

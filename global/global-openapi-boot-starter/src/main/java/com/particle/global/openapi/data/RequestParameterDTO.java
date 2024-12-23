@@ -5,16 +5,16 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Pair;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.particle.global.dto.basic.DTO;
 import com.particle.global.openapi.tool.OpenapiTool;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -112,7 +112,7 @@ public class RequestParameterDTO extends DTO {
 		String header = request.getHeader(HttpHeaders.CONTENT_TYPE);
 		if (StrUtil.startWith(header, MediaType.APPLICATION_FORM_URLENCODED_VALUE) || StrUtil.startWith(header, MediaType.MULTIPART_FORM_DATA_VALUE)) {
 			// 获取所有的参数，但该参数包括 queryString和form中的参数，再根据queryString有的去除
-			Map<String, String> paramMap = ServletUtil.getParamMap(request);
+			Map<String, String> paramMap = JakartaServletUtil.getParamMap(request);
 			if (CollectionUtil.isNotEmpty(paramMap)) {
 				formParameters = new HashMap<>();
 				for (Map.Entry<String, String> stringStringEntry : paramMap.entrySet()) {

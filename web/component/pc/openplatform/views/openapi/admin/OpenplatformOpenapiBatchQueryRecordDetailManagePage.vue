@@ -3,7 +3,10 @@
  * 开放接口批量查询记录明细管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiBatchQueryRecordDetailPageApi, remove as openplatformOpenapiBatchQueryRecordDetailRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordDetailAdminApi"
+import {
+  page as openplatformOpenapiBatchQueryRecordDetailPageApi,
+  remove as openplatformOpenapiBatchQueryRecordDetailRemoveApi
+} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordDetailAdminApi"
 import {pageFormItems} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordDetailManage";
 
 
@@ -139,7 +142,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformOpenapiBatchQueryRecordDetailPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

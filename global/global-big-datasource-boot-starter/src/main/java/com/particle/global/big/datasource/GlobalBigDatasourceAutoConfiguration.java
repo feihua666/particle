@@ -23,7 +23,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
@@ -38,7 +37,7 @@ import java.util.List;
  * @since 2022-06-29 18:58
  */
 @DependsOn(SpringContextHolder.springContextHolderName)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 // 确保在cache之后配置，有 cacheHelper 依赖关系
 @AutoConfigureAfter(GlobalCacheAutoConfiguration.class)
 @EnableConfigurationProperties(DynamicBigDatasourceProperties.class)
@@ -85,7 +84,7 @@ public class GlobalBigDatasourceAutoConfiguration {
 	/**
 	 * 缓存配置
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(CacheHelper.class)
 	static class BigDatasourceApiExecutorExeCacheConfig{
 		@Bean

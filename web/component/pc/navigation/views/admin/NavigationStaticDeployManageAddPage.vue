@@ -2,7 +2,7 @@
 /**
  * 导航网站静态部署管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as navigationStaticDeployCreateApi} from "../../api/admin/navigationStaticDeployAdminApi"
 import {addPageFormItems} from "../../components/admin/navigationStaticDeployManage";
 

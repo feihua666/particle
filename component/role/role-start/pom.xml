@@ -57,7 +57,7 @@
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-adapter-boot-starter</artifactId>
+            <artifactId>component-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>
@@ -75,8 +75,8 @@
                 </executions>
             </plugin>
 <!--            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
             </plugin>-->
         </plugins>
     </build>

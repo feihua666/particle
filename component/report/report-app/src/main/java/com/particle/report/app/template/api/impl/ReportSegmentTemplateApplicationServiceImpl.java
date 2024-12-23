@@ -1,22 +1,20 @@
 package com.particle.report.app.template.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.report.app.template.executor.ReportSegmentTemplateCopyCommandExecutor;
 import com.particle.report.app.template.executor.ReportSegmentTemplateCreateCommandExecutor;
 import com.particle.report.app.template.executor.ReportSegmentTemplateDeleteCommandExecutor;
 import com.particle.report.app.template.executor.ReportSegmentTemplateUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.report.client.template.dto.command.ReportSegmentTemplateCopyCommand;
-import com.particle.report.client.template.dto.command.ReportSegmentTemplateUpdateCommand;
 import com.particle.report.client.template.api.IReportSegmentTemplateApplicationService;
+import com.particle.report.client.template.dto.command.ReportSegmentTemplateCopyCommand;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateCreateCommand;
+import com.particle.report.client.template.dto.command.ReportSegmentTemplateUpdateCommand;
 import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

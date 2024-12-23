@@ -5,7 +5,6 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.id.Id;
 import com.particle.global.dto.basic.IdCommand;
-import com.particle.global.dto.dataconstraint.DataConstraintContext;
 
 import java.util.List;
 

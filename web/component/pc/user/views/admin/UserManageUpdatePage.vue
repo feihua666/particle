@@ -3,12 +3,8 @@
  * 用户管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as userUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as userListApi
-} from "../../api/admin/userAdminApi"
-import {addPageFormItems, updatePageFormItems} from "../../components/admin/userManage";
+import {detailForUpdate as detailForUpdateApi, update as userUpdateApi} from "../../api/admin/userAdminApi"
+import {updatePageFormItems} from "../../components/admin/userManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

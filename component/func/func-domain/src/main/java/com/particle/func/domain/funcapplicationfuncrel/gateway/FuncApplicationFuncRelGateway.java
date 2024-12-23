@@ -1,8 +1,8 @@
 package com.particle.func.domain.funcapplicationfuncrel.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRel;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRelId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

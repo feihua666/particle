@@ -3,7 +3,10 @@
  * 开放接口目录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocDirPageApi, remove as openplatformDocDirRemoveApi} from "../../../api/doc/admin/openplatformDocDirAdminApi"
+import {
+  page as openplatformDocDirPageApi,
+  remove as openplatformDocDirRemoveApi
+} from "../../../api/doc/admin/openplatformDocDirAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocDirManage";
 
 

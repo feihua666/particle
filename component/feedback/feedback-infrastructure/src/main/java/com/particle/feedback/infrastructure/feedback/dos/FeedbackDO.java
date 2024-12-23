@@ -2,10 +2,8 @@ package com.particle.feedback.infrastructure.feedback.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -28,7 +26,7 @@ public class FeedbackDO extends BaseDO {
     * 问题建议时间
     */
     private LocalDateTime feedbackAt;
-    
+
     /**
     * 问题建议用户id，如果存在登录用户，记录提建议的用户id
     */

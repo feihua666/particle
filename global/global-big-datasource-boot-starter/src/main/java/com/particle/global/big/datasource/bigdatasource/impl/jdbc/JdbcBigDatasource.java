@@ -12,13 +12,10 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceErrorCode;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatasourceExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.creator.CustomDefaultDataSourceCreator;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.executor.JdbcBigDatasourceApiExecutor;
@@ -31,6 +28,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Collections;
 
 /**
  * <p>
@@ -50,8 +48,9 @@ public class JdbcBigDatasource extends AbstractBigDatasource {
 
 	/**
 	 * 使用动态多数据源，一个jdbc大数据源可以支持多个数据源
+	 * 构造参数provider传空，不需要初始化
 	 */
-	protected DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
+	protected DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource(Collections.emptyList());
 
 	protected SqlSessionFactory sqlSessionFactory;
 

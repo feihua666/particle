@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.session.JdbcSessionProperties;
 import org.springframework.boot.autoconfigure.session.SessionProperties;
-import org.springframework.boot.autoconfigure.session.StoreType;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.MapSessionRepository;
@@ -33,21 +33,23 @@ import java.util.stream.Collectors;
 /**
  * <p>
  * 默认简单map方式内存存储
+ * springboot3不再支持spring.session.store-type配置，也就是说系统中只能有一个存储方式，这里使用particle前端继续支持
  * </p>
  *
  * @author yangwei
  * @since 2022-07-29 15:27
  */
-@Configuration
+@EnableConfigurationProperties(GlobalSessionProperties.class)
+@Configuration(proxyBeanMethods = false)
 @Slf4j
 public class SessionRepositoryConfiguration {
 
 	/**
 	 * 内存存储需要添加 EnableSpringHttpSession 注解，因为springboot autoConfigure中默认没有支持内存存储
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@EnableSpringHttpSession
-	@ConditionalOnProperty(prefix = "spring.session",name = "store-type",havingValue = "none",matchIfMissing = true)
+	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "none",matchIfMissing = true)
 	@ConditionalOnMissingBean(SessionRepository.class)
 	@ConditionalOnClass(EnableSpringHttpSession.class)
 	static class SessionRepositoryMapConfiguration{
@@ -68,7 +70,7 @@ public class SessionRepositoryConfiguration {
 			Duration timeout = sessionProperties
 					.determineTimeout(() -> serverProperties.getServlet().getSession().getTimeout());
 			if (timeout != null) {
-				mapSessionRepository.setDefaultMaxInactiveInterval((int) timeout.getSeconds());
+				mapSessionRepository.setDefaultMaxInactiveInterval(Duration.ofSeconds(timeout.getSeconds()));
 			}
 			return mapSessionRepository;
 		}
@@ -77,9 +79,9 @@ public class SessionRepositoryConfiguration {
 	 * 使用 redis存储session时生效
 	 * 无需使用 EnableRedisHttpSession 注解，因为springboot全局自动配置中会自动检测
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	//@EnableRedisHttpSession
-	@ConditionalOnProperty(prefix = "spring.session",name = "store-type",havingValue = "redis")
+	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "redis")
 	@ConditionalOnClass(EnableRedisHttpSession.class)
 	static class SessionRepositoryRedisConfiguration{
 		public SessionRepositoryRedisConfiguration() {
@@ -90,9 +92,9 @@ public class SessionRepositoryConfiguration {
 	 * 使用 jdbc存储session时生效
 	 * {@link StoreType}
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	//@EnableJdbcHttpSession
-	@ConditionalOnProperty(prefix = "spring.session",name = "store-type",havingValue = "jdbc")
+	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "jdbc")
 	@ConditionalOnClass(EnableJdbcHttpSession.class)
 	static class SessionRepositoryJdbcConfiguration{
 		public SessionRepositoryJdbcConfiguration() {

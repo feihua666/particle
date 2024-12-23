@@ -1,28 +1,28 @@
 package com.particle.tenant.app.tenantfunc.executor.representation;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.app.tenantfunc.structmapping.TenantFuncAppStructMapping;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
 import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
-import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

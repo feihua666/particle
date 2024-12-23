@@ -3,10 +3,8 @@
  * 根据双色球开奖号码调参预测管理页面
  */
 import {reactive, ref} from 'vue'
-import {
-  predictionParameterTuning as predictionParameterTuningApi
-} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
-import { predictionParameterTuningFormItems} from "../../../components/ssq/admin/ssqCodeOpenedManage";
+import {predictionParameterTuning as predictionParameterTuningApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
+import {predictionParameterTuningFormItems} from "../../../components/ssq/admin/ssqCodeOpenedManage";
 
 
 const tableRef = ref(null)

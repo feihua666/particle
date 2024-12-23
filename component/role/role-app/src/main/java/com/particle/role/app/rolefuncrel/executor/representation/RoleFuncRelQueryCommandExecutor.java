@@ -12,11 +12,11 @@ import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncR
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 

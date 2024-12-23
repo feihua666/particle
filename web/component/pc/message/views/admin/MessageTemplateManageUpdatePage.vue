@@ -4,14 +4,15 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as messageTemplateUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as MessageTemplateListApi
+  update as messageTemplateUpdateApi
 } from "../../api/admin/messageTemplateAdminApi"
 
 import {useUpdatePageFormItems} from "../../components/admin/messageTemplateManage";
 import {isEmpty} from "../../../../../global/common/tools/ObjectTools";
-import MessageTemplateContentDetailJson from '../../components/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
+import MessageTemplateContentDetailJson
+  from '../../components/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
+
 const contentDetailJsonDialogVisible = ref(false)
 const contentDetailJsonRef = ref(null)
 

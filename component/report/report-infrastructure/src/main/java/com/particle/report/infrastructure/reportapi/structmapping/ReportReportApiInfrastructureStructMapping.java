@@ -1,10 +1,11 @@
 package com.particle.report.infrastructure.reportapi.structmapping;
 
-import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
+import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-09-06 16:28:52
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class ReportReportApiInfrastructureStructMapping {
 	public static ReportReportApiInfrastructureStructMapping instance = Mappers.getMapper( ReportReportApiInfrastructureStructMapping.class );
 

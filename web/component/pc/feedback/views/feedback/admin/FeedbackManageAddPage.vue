@@ -2,8 +2,8 @@
 /**
  * 意见反馈管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as feedbackCreateApi,list as FeedbackListApi} from "../../../api/feedback/admin/feedbackAdminApi"
+import {reactive, ref} from 'vue'
+import {create as feedbackCreateApi} from "../../../api/feedback/admin/feedbackAdminApi"
 import {addPageFormItems} from "../../../components/feedback/admin/feedbackManage";
 
 

@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.bill.structmapping;
 
-import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiMonthSummaryDO;
 import com.particle.openplatform.domain.bill.OpenplatformOpenapiRecordAppOpenapiMonthSummary;
 import com.particle.openplatform.domain.bill.OpenplatformOpenapiRecordAppOpenapiMonthSummaryId;
+import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiMonthSummaryDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-09-12 10:51:43
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpenplatformOpenapiRecordAppOpenapiMonthSummaryInfrastructureStructMapping {
 	public static OpenplatformOpenapiRecordAppOpenapiMonthSummaryInfrastructureStructMapping instance = Mappers.getMapper( OpenplatformOpenapiRecordAppOpenapiMonthSummaryInfrastructureStructMapping.class );
 

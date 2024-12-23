@@ -3,7 +3,7 @@
  * 数据对象管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dataObjectPageApi, remove as dataObjectRemoveApi} from "../../api/admin/dataObjectAdminApi"
+import {page as dataObjectPageApi, remove as dataObjectRemoveApi} from "../../api/admin/dataObjectAdminApi"
 import {pageFormItems} from "../../components/admin/dataObjectManage";
 
 

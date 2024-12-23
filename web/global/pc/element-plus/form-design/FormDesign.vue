@@ -3,7 +3,7 @@
  * 表单设置器
  */
 
-import {ref, provide, watch, reactive} from "vue"
+import {provide} from "vue"
 import PtFormDesignCompsContainer from './comp/FormDesignCompsContainer.vue'
 import PtFormDesignAttrsContainer from './attr/FormDesignAttrsContainer.vue'
 import PtFormDesignToolBar from './toolbar/FormDesignToolBar.vue'
@@ -11,8 +11,7 @@ import PtFormDesignMain from './main/FormDesignMain.vue'
 
 
 import {useFormDesign} from "./formDesign"
-import {formChange, initForm} from "./attr/FormDesignAttrs";
-import {formDesignFormSettingAttrs} from "./attr/formDesignFormSettingAttrs";
+
 const {
   formDesignData,
   formDesignDataControl,

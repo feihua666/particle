@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.doc.service;
 
-import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IOpenplatformDocApiDocTemplateService extends IBaseService<Open
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<OpenplatformDocApiDocTemplateDO>lambdaQuery().in(OpenplatformDocApiDocTemplateDO::getName, names));
     }
-            
+
 
 
 

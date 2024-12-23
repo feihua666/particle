@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 
 /**
@@ -31,7 +30,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  */
 @AutoConfigureAfter(JdbcTemplateAutoConfiguration.class)
 @ConditionalOnBean(JdbcTemplate.class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".authorization-server", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class AuthorizationServerSecurityServiceAndRepositoryAutoConfiguration {
 

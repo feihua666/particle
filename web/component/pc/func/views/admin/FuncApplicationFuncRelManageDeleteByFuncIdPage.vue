@@ -2,8 +2,8 @@
 /**
  * 清空功能下对应的所以应用
  */
-import {reactive ,ref} from 'vue'
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../components/funcCompItem";
+import {reactive, ref} from 'vue'
+import {remoteSelectFuncProps, useRemoteSelectFuncCompItem} from "../../components/funcCompItem";
 import {deleteByFuncId} from "../../api/admin/funcApplicationFuncRelAdminApi";
 
 // 声明属性

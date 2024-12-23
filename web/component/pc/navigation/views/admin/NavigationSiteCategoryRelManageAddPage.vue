@@ -2,9 +2,9 @@
 /**
  * 导航网站分类关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as navigationSiteCategoryRelCreateApi} from "../../api/admin/navigationSiteCategoryRelAdminApi"
-import { useAddPageFormItems} from "../../components/admin/navigationSiteCategoryRelManage";
+import {useAddPageFormItems} from "../../components/admin/navigationSiteCategoryRelManage";
 
 
 // 属性

@@ -1,11 +1,9 @@
 package com.particle.data.client.company.dto.command.representation;
 
-import com.particle.data.client.company.dto.command.DataCompanyWarehouseCommand;
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.data.client.company.dto.command.DataCompanyWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>

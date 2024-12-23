@@ -1,8 +1,8 @@
 package com.particle.tenant.adapter.createapply.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import com.particle.tenant.adapter.feign.client.createapply.rpc.TenantCreateApplyRpcFeignClient;
+import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

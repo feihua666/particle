@@ -1,12 +1,11 @@
 package com.particle.openplatform.client.openapi.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -43,7 +42,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailUpdateCommand extends Abst
     @NotNull(message = "查询时间 不能为空")
         @Schema(description = "查询时间",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime queryAt;
-    
+
 
     @NotEmpty(message = "追踪id 不能为空")
         @Schema(description = "追踪id",requiredMode = Schema.RequiredMode.REQUIRED)

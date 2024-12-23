@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as oauth2RegisteredClientUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as oauth2RegisteredClientUpdateApi,
 } from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
 
 import {
@@ -13,7 +13,8 @@ import {
   convertSubmitForm,
   useUpdatePageFormItems
 } from "../../../components/client/admin/oauth2RegisteredClientManage";
-import Oauth2RegisteredClientManageSettingConfigs from '../../../components/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
+import Oauth2RegisteredClientManageSettingConfigs
+  from '../../../components/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
 
 const oauth2RegisteredClientManageSettingConfigsRef = ref(null)
 // 声明属性

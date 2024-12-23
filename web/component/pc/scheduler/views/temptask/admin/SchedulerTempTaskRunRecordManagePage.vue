@@ -3,7 +3,10 @@
  * 任务计划临时任务运行记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as schedulerTempTaskRunRecordPageApi, remove as schedulerTempTaskRunRecordRemoveApi} from "../../../api/temptask/admin/schedulerTempTaskRunRecordAdminApi"
+import {
+  page as schedulerTempTaskRunRecordPageApi,
+  remove as schedulerTempTaskRunRecordRemoveApi
+} from "../../../api/temptask/admin/schedulerTempTaskRunRecordAdminApi"
 import {pageFormItems} from "../../../components/temptask/admin/schedulerTempTaskRunRecordManage";
 
 
@@ -150,7 +153,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doSchedulerTempTaskRunRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

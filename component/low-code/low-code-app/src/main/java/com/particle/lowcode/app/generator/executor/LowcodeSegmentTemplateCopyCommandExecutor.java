@@ -6,20 +6,14 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.app.generator.structmapping.LowcodeSegmentTemplateAppStructMapping;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
-import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
-import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
-import com.particle.lowcode.domain.generator.gateway.LowcodeSegmentTemplateGateway;
 import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentTemplateDO;
 import com.particle.lowcode.infrastructure.generator.service.ILowcodeSegmentTemplateService;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 /**

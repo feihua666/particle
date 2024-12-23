@@ -1,4 +1,4 @@
-import {useRemoteSelectUserCompItem, resetPasswordCompItems} from "../userCompItem";
+import {resetPasswordCompItems, useRemoteSelectUserCompItem} from "../userCompItem";
 
 export const usePageFormItems = ({props}) => {
     return  [

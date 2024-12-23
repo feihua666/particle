@@ -1,14 +1,14 @@
 package com.particle.openplatform.infrastructure.doc.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamField;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamFieldId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocParamFieldGateway;
-import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocParamFieldService;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocParamFieldDO;
+import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocParamFieldService;
 import com.particle.openplatform.infrastructure.doc.structmapping.OpenplatformDocApiDocParamFieldInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

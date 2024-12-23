@@ -2,9 +2,8 @@ package com.particle.global.cache.endpoint;
 
 import com.particle.global.dto.basic.Command;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>

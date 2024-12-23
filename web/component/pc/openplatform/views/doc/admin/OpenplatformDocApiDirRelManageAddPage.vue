@@ -2,8 +2,8 @@
 /**
  * 开放接口文档接口与目录关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocApiDirRelCreateApi,list as OpenplatformDocApiDirRelListApi} from "../../../api/doc/admin/openplatformDocApiDirRelAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformDocApiDirRelCreateApi} from "../../../api/doc/admin/openplatformDocApiDirRelAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDirRelManage";
 
 

@@ -1,7 +1,7 @@
 package com.particle.tenant.infrastructure.tenantfunc.mapper;
 
-import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

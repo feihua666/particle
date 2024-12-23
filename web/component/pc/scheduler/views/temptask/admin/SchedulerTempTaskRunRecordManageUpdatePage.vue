@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as schedulerTempTaskRunRecordUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as schedulerTempTaskRunRecordUpdateApi
 } from "../../../api/temptask/admin/schedulerTempTaskRunRecordAdminApi"
 
 import {updatePageFormItems} from "../../../components/temptask/admin/schedulerTempTaskRunRecordManage";

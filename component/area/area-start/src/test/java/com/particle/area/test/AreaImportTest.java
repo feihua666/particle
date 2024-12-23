@@ -21,15 +21,17 @@ import com.particle.global.tool.pinyin.PinyinTool;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-import org.htmlparser.Node;
-import org.htmlparser.Parser;
-import org.htmlparser.filters.CssSelectorNodeFilter;
-import org.htmlparser.tags.LinkTag;
-import org.htmlparser.util.NodeList;
-import org.htmlparser.util.ParserException;
+import org.apache.hc.core5.http.ParseException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.*;
 
@@ -69,7 +71,7 @@ public class AreaImportTest{
 
     private static String cTokenId = "b8dc74c5-b716-4a13-a959-e7669fa55767";
 
-    public static void main(String[] args) throws IOException, ParserException, BadHanyuPinyinOutputFormatCombination {
+    public static void main(String[] args) throws IOException, BadHanyuPinyinOutputFormatCombination, ParseException, URISyntaxException {
         importTest();
 
     }
@@ -79,7 +81,7 @@ public class AreaImportTest{
      * @param areaTree
      * @param parentId
      */
-    public static void save(AreaTree areaTree, String parentId) throws IOException {
+    public static void save(AreaTree areaTree, String parentId) throws IOException, ParseException, URISyntaxException {
 
 
         AreaVO areaVO = getAreaVO(areaTree, parentId);
@@ -122,7 +124,7 @@ public class AreaImportTest{
      * @return
      * @throws IOException
      */
-    private static AreaVO getAreaVO(AreaTree areaTree, String parentId) throws IOException {
+    private static AreaVO getAreaVO(AreaTree areaTree, String parentId) throws IOException, ParseException, URISyntaxException {
         // 构建查询参数，判断是否已经存在
 
         AreaQueryListCommand listCommand = new AreaQueryListCommand();
@@ -168,7 +170,7 @@ public class AreaImportTest{
      * @return
      * @throws IOException
      */
-    private static AreaVO doCreate(AreaTree areaTree, String parentId) throws IOException {
+    private static AreaVO doCreate(AreaTree areaTree, String parentId) throws IOException, ParseException, URISyntaxException {
 
         AreaCreateCommand areaCreateCommand = new AreaCreateCommand();
         areaCreateCommand.setCode(areaTree.getArea().getCode());
@@ -197,7 +199,7 @@ public class AreaImportTest{
      * @return
      * @throws IOException
      */
-    private static AreaVO doUpdate(AreaTree areaTree, String parentId,AreaVO oldAreaVO) throws IOException {
+    private static AreaVO doUpdate(AreaTree areaTree, String parentId,AreaVO oldAreaVO) throws IOException, ParseException, URISyntaxException {
 
         AreaUpdateCommand areaUpdateCommand = new AreaUpdateCommand();
         areaUpdateCommand.setId(oldAreaVO.getId());
@@ -233,26 +235,24 @@ public class AreaImportTest{
      * 省
      * @return
      * @throws IOException
-     * @throws ParserException
      * @throws BadHanyuPinyinOutputFormatCombination
      */
-    public static List<AreaTree> province() throws IOException, ParserException, BadHanyuPinyinOutputFormatCombination {
+    public static List<AreaTree> province() throws IOException, BadHanyuPinyinOutputFormatCombination {
 
         List<AreaTree> result = new ArrayList<>();
 
 
         // http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html
         // 从国家统计局获取的数据，但本地访问有问题，证书问题，需要本地nginx转发一下
-        Parser parser = new Parser(delegateDomain + "/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html");
-
-        parser.setEncoding("UTF-8");
-        CssSelectorNodeFilter paraFilter =new CssSelectorNodeFilter(".provincetable .provincetr a");
-        NodeList nodeList = parser.extractAllNodesThatMatch(paraFilter);
-        for (int i = 0; i < nodeList.size(); i++) {
-            Node node =  nodeList.elementAt(i);
-            LinkTag linkTag = ((LinkTag) node);
-            AreaTree areaTree = newAreaTree(newAreaDO(node.toPlainTextString(),null, AreaType.province.itemValue(),i * 10));
-            areaTree.setChildrenUrl(linkTag.getLink());
+        URL url = URLUtil.url(delegateDomain + "/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html");
+        Document document = Jsoup.parse(url, 5000);
+        Elements elements = document.select(".provincetable .provincetr a");
+        for (int i = 0; i < elements.size(); i++) {
+            Element element = elements.get(i);
+            String text = element.text();
+            String href = element.attribute("href").getValue();
+            AreaTree areaTree = newAreaTree(newAreaDO(text,null, AreaType.province.itemValue(),i * 10));
+            areaTree.setChildrenUrl(href);
             city(areaTree);
             result.add(areaTree);
         }
@@ -264,32 +264,32 @@ public class AreaImportTest{
      * @param provinceTree
      * @return
      * @throws IOException
-     * @throws ParserException
      * @throws BadHanyuPinyinOutputFormatCombination
      */
-    public static List<AreaTree> city(AreaTree provinceTree) throws IOException, ParserException, BadHanyuPinyinOutputFormatCombination {
+    public static List<AreaTree> city(AreaTree provinceTree) throws IOException, BadHanyuPinyinOutputFormatCombination {
 
         List<AreaTree> result = new ArrayList<>();
 
-        Parser parser = new Parser(provinceTree.getChildrenUrl());
-        parser.setEncoding("UTF-8");
-        CssSelectorNodeFilter paraFilter =new CssSelectorNodeFilter(".citytable .citytr");
-        NodeList nodeList = parser.extractAllNodesThatMatch(paraFilter);
-        for (int i = 0; i < nodeList.size(); i++) {
-            Node node =  nodeList.elementAt(i);
-            NodeList children = node.getChildren();
+        URL url = URLUtil.url(provinceTree.getChildrenUrl());
+        Document document = Jsoup.parse(url, 5000);
 
+        Elements elements = document.select(".citytable .citytr");
+        for (int i = 0; i < elements.size(); i++) {
+            Element element = elements.get(i);
+            Elements children = element.children();
             // 编码
-            Node node1 = children.elementAt(0);
-            Node node1_1 = node1.getChildren().elementAt(0);
-            LinkTag linkTag = ((LinkTag) node1_1);
+            Element element1 = children.get(0);
+            Element element_1 = element1.children().get(0);
             // 名称
-            Node node2 = children.elementAt(1);
-            Node node2_2 = node2.getChildren().elementAt(0);
+            Element element2 = children.get(1);
+            Element element2_2 = element2.children().get(0);
 
-            provinceTree.getArea().setCode(node1.toPlainTextString().substring(0, 2) + "0000000000");
-            AreaTree areaTree = newAreaTree(newAreaDO(node2.toPlainTextString(),node1.toPlainTextString(), AreaType.city.itemValue(),provinceTree.getArea().getSeq() + i * 10));
-            areaTree.setChildrenUrl(linkTag.getLink());
+            String text1 = element1.text();
+            String text2 = element2.text();
+            String href1 = element_1.attribute("href").getValue();
+            provinceTree.getArea().setCode(text1.substring(0, 2) + "0000000000");
+            AreaTree areaTree = newAreaTree(newAreaDO(text2,text1, AreaType.city.itemValue(),provinceTree.getArea().getSeq() + i * 10));
+            areaTree.setChildrenUrl(href1);
 
             areaTree.setParentNames(provinceTree.getParentNames() + provinceTree.getArea().getName());
 
@@ -305,43 +305,41 @@ public class AreaImportTest{
      * @param cityTree
      * @return
      * @throws IOException
-     * @throws ParserException
      * @throws BadHanyuPinyinOutputFormatCombination
      */
-    public static List<AreaTree> county(AreaTree cityTree) throws IOException, ParserException, BadHanyuPinyinOutputFormatCombination {
+    public static List<AreaTree> county(AreaTree cityTree) throws IOException, BadHanyuPinyinOutputFormatCombination {
 
         System.out.println("countyPageUrl=" + cityTree.getChildrenUrl());
         List<AreaTree> result = new ArrayList<>();
 
         AreaType areaType = AreaType.county;
-        Parser parser = new Parser(cityTree.getChildrenUrl());
-        parser.setEncoding("UTF-8");
-        CssSelectorNodeFilter paraFilter =new CssSelectorNodeFilter(".countytable .countytr");
-        NodeList nodeList = parser.extractAllNodesThatMatch(paraFilter);
-        if (nodeList.size() == 0) {
-            parser = new Parser(cityTree.getChildrenUrl());
-            parser.setEncoding("UTF-8");
-            paraFilter =new CssSelectorNodeFilter(".countytable .towntr");
-            nodeList = parser.extractAllNodesThatMatch(paraFilter);
+
+        URL url = URLUtil.url(cityTree.getChildrenUrl());
+        Document document = Jsoup.parse(url, 5000);
+
+        Elements elements = document.select(".countytable .countytr");
+
+        if (elements.size() == 0) {
             areaType = AreaType.town;
+            elements = document.select(".countytable .towntr");
+
         }
-        for (int i = 0; i < nodeList.size(); i++) {
-            Node node =  nodeList.elementAt(i);
-            NodeList children = node.getChildren();
+        for (int i = 0; i < elements.size(); i++) {
 
+            Element element = elements.get(i);
+            Elements children = element.children();
             // 编码
-            Node node1 = children.elementAt(0);
-            Node node1_1 = node1.getChildren().elementAt(0);
-            LinkTag linkTag = null;
-            if(node1_1 instanceof LinkTag){
-                linkTag = ((LinkTag) node1_1);
-            }
+            Element element1 = children.get(0);
+            Element element_1 = element1.children().get(0);
             // 名称
-            Node node2 = children.elementAt(1);
-            Node node2_2 = node2.getChildren().elementAt(0);
+            Element element2 = children.get(1);
+            Element element2_2 = element2.children().get(0);
 
-            AreaTree areaTree = newAreaTree(newAreaDO(node2.toPlainTextString(),node1.toPlainTextString(), areaType.itemValue(),cityTree.getArea().getSeq() + i * 10));
-            areaTree.setChildrenUrl(linkTag == null? null: linkTag.getLink());
+            String text1 = element1.text();
+            String text2 = element2.text();
+            Attribute href = element_1.attribute("href");
+            AreaTree areaTree = newAreaTree(newAreaDO(text2,text1, areaType.itemValue(),cityTree.getArea().getSeq() + i * 10));
+            areaTree.setChildrenUrl(href == null? null: href.getValue());
 
             areaTree.setParentNames(cityTree.getParentNames() + cityTree.getArea().getName());
 
@@ -392,7 +390,7 @@ public class AreaImportTest{
      * 数据地址 国家统计局 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/index.html
      */
     //@Test
-    public static void importTest() throws IOException, ParserException, BadHanyuPinyinOutputFormatCombination {
+    public static void importTest() throws IOException, BadHanyuPinyinOutputFormatCombination, ParseException, URISyntaxException {
 
         AreaTree areaTree = null;
         if (FileUtil.exist("/Users/yw/temp/area.json")) {

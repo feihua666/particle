@@ -1,8 +1,8 @@
 package com.particle.role.infrastructure.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.role.infrastructure.dos.RoleDO;
 import org.springframework.util.Assert;
 
 import java.util.List;

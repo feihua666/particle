@@ -3,11 +3,7 @@
  * 部门树管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as DeptTreeUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as DeptTreeListApi
-} from "../../api/admin/deptTreeAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as DeptTreeUpdateApi} from "../../api/admin/deptTreeAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/deptTreeManage";
 

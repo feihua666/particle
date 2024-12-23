@@ -9,7 +9,7 @@
 4. idea 将字符首字母转大写正则 参考：https://blog.csdn.net/qq_35634181/article/details/111034194
 5. 前端打包不同的环境需要修改 package.json 添加一个scripts 如："build-only-test": "vite build --mode test" 是从build-only修改而来且指定的环境参数
 6. shell if 判断 中括号内容两边必须带空格
-7. 在 spring boot starter 中的 spring.factories中指定的自动配置类文件需要添加@Configuration注解，而被@import注解引入的不需要加@Configuration
+7. 在 spring boot starter 中的 spring.factories中指定的自动配置类文件需要添加@Configuration注解，而被@import注解引入的不需要加@Configuration(proxyBeanMethods = false)
 8. 关于在日志中打印 is not eligible for getting processed by all BeanPostProcessors  
    a. 一般是自定义了BeanPostProcessor实例，并在该实例中注入了其它bean，导致本身BeanPostProcessor在初始化时，又依赖了其它bean，而其它bean又要被BeanPostProcessor处理所以打印了日志  
    b. 在org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(org.springframework.beans.factory.config.ConfigurableListableBeanFactory, org.springframework.context.support.AbstractApplicationContext)  

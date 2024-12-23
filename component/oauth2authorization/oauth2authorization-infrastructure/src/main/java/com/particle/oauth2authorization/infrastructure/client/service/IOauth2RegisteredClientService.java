@@ -1,10 +1,11 @@
 package com.particle.oauth2authorization.infrastructure.client.service;
 
-import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -47,7 +48,7 @@ public interface IOauth2RegisteredClientService extends IBaseService<Oauth2Regis
         Assert.notEmpty(clientIds,"clientIds 不能为空");
         return list(Wrappers.<Oauth2RegisteredClientDO>lambdaQuery().in(Oauth2RegisteredClientDO::getClientId, clientIds));
     }
-            
+
 
 
 

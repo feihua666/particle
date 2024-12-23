@@ -1,6 +1,5 @@
 package com.particle.global.messaging.test.configuration;
 
-import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import lombok.Data;
 
 /**

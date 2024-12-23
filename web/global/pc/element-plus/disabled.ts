@@ -1,11 +1,7 @@
 /**
  * 禁用相关
  */
-import { computed} from 'vue'
-import {isString} from "../../common/tools/StringTools"
-import {exist} from "../../common/tools/ArrayTools"
-import {isFunction} from "../../common/tools/FunctionTools"
-import { ElMessage } from 'element-plus'
+import {computed} from 'vue'
 
 /**
  * 禁用相关，封装组件时用

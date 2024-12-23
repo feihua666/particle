@@ -20,7 +20,7 @@
         <!-- 将全局的经量依赖到common里面来，方便使用 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

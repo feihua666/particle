@@ -1,0 +1,2 @@
+com.particle.global.actuator.GlobalActuatorAutoConfiguration
+com.particle.global.actuator.bootadmin.server.GlobalSpringBootAdminServerAutoConfiguration

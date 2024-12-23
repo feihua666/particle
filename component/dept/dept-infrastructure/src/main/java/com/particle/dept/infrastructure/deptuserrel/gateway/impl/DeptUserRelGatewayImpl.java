@@ -1,13 +1,13 @@
 package com.particle.dept.infrastructure.deptuserrel.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dept.domain.deptuserrel.DeptUserRel;
 import com.particle.dept.domain.deptuserrel.DeptUserRelId;
 import com.particle.dept.domain.deptuserrel.gateway.DeptUserRelGateway;
-import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
+import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
 import com.particle.dept.infrastructure.deptuserrel.structmapping.DeptUserRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

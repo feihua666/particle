@@ -1,10 +1,11 @@
 package com.particle.tenant.infrastructure.structmapping;
 
-import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.tenant.domain.TenantUser;
 import com.particle.tenant.domain.TenantUserId;
+import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-04-12 15:36:44
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class TenantUserInfrastructureStructMapping {
 	public static TenantUserInfrastructureStructMapping instance = Mappers.getMapper( TenantUserInfrastructureStructMapping.class );
 

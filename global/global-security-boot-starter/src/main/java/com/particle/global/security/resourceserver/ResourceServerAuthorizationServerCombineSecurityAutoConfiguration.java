@@ -10,11 +10,10 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.O
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -33,7 +32,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @since 2023-08-09 18:07:19
  */
 @AutoConfigureAfter(OAuth2ResourceServerAutoConfiguration.class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".resource-server-authorization-server-combine", name = "enabled", havingValue = "true", matchIfMissing = false)
 public class ResourceServerAuthorizationServerCombineSecurityAutoConfiguration {
 
@@ -50,8 +49,8 @@ public class ResourceServerAuthorizationServerCombineSecurityAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(JwtDecoder.class)
 	SecurityFilterChain jwtSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
-		http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+		http.oauth2ResourceServer(oauth2ResourceServerCustomizer -> oauth2ResourceServerCustomizer.jwt(Customizer. withDefaults()));
 		additionalSetting(http);
 		return http.build();
 	}
@@ -70,8 +69,8 @@ public class ResourceServerAuthorizationServerCombineSecurityAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(OpaqueTokenIntrospector.class)
 	SecurityFilterChain opaqueTokenSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
-		http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::opaqueToken);
+		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+		http.oauth2ResourceServer(oauth2ResourceServerCustomizer -> oauth2ResourceServerCustomizer.opaqueToken(Customizer. withDefaults()));
 
 		additionalSetting(http);
 
@@ -89,18 +88,18 @@ public class ResourceServerAuthorizationServerCombineSecurityAutoConfiguration {
 			httpSecurityCsrfConfigurer.disable();
 		});
 		//http.anonymous().disable();
-		http.logout().disable();
-		http.formLogin().disable();
-		http.rememberMe().disable();
-		http.saml2Login().disable();
-		http.x509().disable();
-		http.saml2Login().disable();
-		http.cors().disable();
-		http.servletApi().disable();
-		http.jee().disable();
-		http.httpBasic().disable();
-		http.portMapper().disable();
-		//http.oauth2Client().disable();
-		http.oauth2Login().disable();
+		http.logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.disable());
+		http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.disable());
+		http.rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer.disable());
+		http.saml2Login(httpSecuritySaml2LoginConfigurer -> httpSecuritySaml2LoginConfigurer.disable());
+		http.x509(httpSecurityX509Configurer -> httpSecurityX509Configurer.disable());
+		http.saml2Login(httpSecuritySaml2LoginConfigurer -> httpSecuritySaml2LoginConfigurer.disable());
+		http.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.disable());
+		http.servletApi(httpSecurityServletApiConfigurer -> httpSecurityServletApiConfigurer.disable());
+		http.jee(httpSecurityJeeConfigurer -> httpSecurityJeeConfigurer.disable());
+		http.httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.disable());
+		http.portMapper(httpSecurityPortMapperConfigurer -> httpSecurityPortMapperConfigurer.disable());
+		//http.oauth2Client();
+		http.oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer.disable());
 	}
 }

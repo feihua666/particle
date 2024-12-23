@@ -1,19 +1,19 @@
  package com.particle.oauth2authorization;
 
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.swagger.ApplicationContexSwaggertHelper;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.models.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2023-07-25 16:49:22
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({"com.particle.oauth2authorization.infrastructure.client.mapper"})
 public class Oauth2authorizationAutoConfiguration {
 
@@ -38,7 +38,7 @@ public class Oauth2authorizationAutoConfiguration {
     @Bean
     public GroupedOpenApi createOauth2authorizationAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("oauth2authorization接口")
                 .basePackage("com.particle.oauth2authorization.adapter")

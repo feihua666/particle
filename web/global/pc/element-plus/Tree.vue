@@ -10,7 +10,7 @@
  *
  * 注意：modelValue 不能传同一个引用值，否则会出现不可预知问题（可能死循环）
  */
-import {computed, inject, onMounted, reactive, watch, ref,nextTick,watchEffect} from 'vue'
+import {computed, inject, onMounted, reactive, ref, watch} from 'vue'
 import {hasPermissionConfig, permissionProps} from './permission'
 import {disabledConfig, disabledProps} from './disabled'
 import {dataMethodProps, doDataMethod, emitDataMethodEvent, reactiveDataMethodData} from './dataMethod'
@@ -22,7 +22,8 @@ import {
   reactiveDataModelData,
   updateDataModelValueEventHandle
 } from './dataModel'
-import {getTreeLeafItem, isEqual, removeDuplicate, removeItems} from "../../common/tools/ArrayTools";
+import {getTreeLeafItem, isEqual, removeDuplicate} from "../../common/tools/ArrayTools";
+
 const treeRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

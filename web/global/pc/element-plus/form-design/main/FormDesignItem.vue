@@ -1,7 +1,7 @@
 <script setup name="FormDesignItem" lang="ts">
 import {getValue} from "../../../../common/tools/ObjectTools";
-import {computed, inject,nextTick} from "vue";
-import {frontMove} from "../../../../common/tools/ArrayTools";
+import {computed, inject, nextTick} from "vue";
+
 const formDesignDataControl = inject('formDesignDataControl')
 const formDesignData = inject('formDesignData')
 

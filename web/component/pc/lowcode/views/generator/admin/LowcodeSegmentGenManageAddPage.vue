@@ -2,8 +2,8 @@
 /**
  * 低代码片段生成管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as lowcodeSegmentGenCreateApi,list as lowcodeSegmentGenListApi} from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
+import {reactive, ref} from 'vue'
+import {create as lowcodeSegmentGenCreateApi} from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
 import {addPageFormItems} from "../../../components/admin/lowcodeSegmentGenManage";
 
 

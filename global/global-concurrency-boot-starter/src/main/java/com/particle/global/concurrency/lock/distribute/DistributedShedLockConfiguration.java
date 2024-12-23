@@ -28,7 +28,7 @@ import javax.sql.DataSource;
 @Import(DistributedShedLockConfiguration.JdbcLockProviderConfiguration.class)
 @Slf4j
 @ConditionalOnClass(LockConfiguration.class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableSchedulerLock(defaultLockAtMostFor = "PT30S")
 public class DistributedShedLockConfiguration {
 
@@ -39,7 +39,7 @@ public class DistributedShedLockConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public LockProvider memoryLockProvider() {
-        log.warn("init InMemoryLockProvider instance. if you use distributed shedlock config yourself please.");
+        log.info("init InMemoryLockProvider instance. if you use distributed shedlock config yourself please.");
         return new InMemoryLockProvider();
     }
     @Bean
@@ -59,7 +59,7 @@ public class DistributedShedLockConfiguration {
         @Bean
         @ConditionalOnBean(DataSource.class)
         public LockProvider jdbcLockProvider(DataSource dataSource) {
-            log.warn("init JdbcTemplateLockProvider instance.");
+            log.info("init JdbcTemplateLockProvider instance.");
             return new JdbcTemplateLockProvider(
                     JdbcTemplateLockProvider.Configuration.builder()
                             .withJdbcTemplate(new JdbcTemplate(dataSource))

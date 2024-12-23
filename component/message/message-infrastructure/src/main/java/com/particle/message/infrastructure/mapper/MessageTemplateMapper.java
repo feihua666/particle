@@ -1,7 +1,7 @@
 package com.particle.message.infrastructure.mapper;
 
-import com.particle.message.infrastructure.dos.MessageTemplateDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.message.infrastructure.dos.MessageTemplateDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

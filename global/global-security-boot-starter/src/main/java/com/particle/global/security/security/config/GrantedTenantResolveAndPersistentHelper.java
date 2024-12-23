@@ -4,11 +4,10 @@ import com.particle.global.security.tenant.GrantedTenant;
 import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.global.security.tenant.IUserTenantChangeListener;
 import com.particle.global.security.tenant.TenantTool;
+import jakarta.servlet.ServletRequest;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

@@ -4,8 +4,8 @@
  * 用户当前登录用户修改密码，目前是根据登录标识id修改
  */
 
-import {getCurrentInstance,reactive ,ref} from 'vue'
-import { getLoginUserUpdatePasswordCaptcha, identifierPwdUpdate} from '../../api/userLoginApi'
+import {getCurrentInstance, reactive, ref} from 'vue'
+import {getLoginUserUpdatePasswordCaptcha, identifierPwdUpdate} from '../../api/userLoginApi'
 import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../../global/common/tools/StringTools'
 import {isFunction} from '../../../../../global/common/tools/FunctionTools'

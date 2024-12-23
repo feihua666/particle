@@ -1,8 +1,8 @@
 package com.particle.data.domain.company.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.data.domain.company.DataCompany;
 import com.particle.data.domain.company.DataCompanyId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

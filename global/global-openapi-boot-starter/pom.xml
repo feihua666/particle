@@ -54,12 +54,6 @@
             <artifactId>global-project-info-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 主要获取一下traceId -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
         <!-- RequestResponseLogFilter 获取响应数据 -->
         <dependency>
             <groupId>com.particle</groupId>

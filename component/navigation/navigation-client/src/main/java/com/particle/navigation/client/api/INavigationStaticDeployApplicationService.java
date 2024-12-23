@@ -2,8 +2,8 @@ package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationStaticDeployCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationStaticDeployUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationStaticDeployVO;

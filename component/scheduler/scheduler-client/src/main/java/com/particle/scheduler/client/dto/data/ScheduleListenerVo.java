@@ -1,8 +1,7 @@
 package com.particle.scheduler.client.dto.data;
 
 import com.particle.global.dto.basic.VO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +11,9 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@ApiModel(value="任务计划监听响应数据对象")
+@Schema(description="任务计划监听响应数据对象")
 public class ScheduleListenerVo extends VO {
 
-    @ApiModelProperty(value = "监听类名称")
+    @Schema(description = "监听类名称")
     private String className;
 }

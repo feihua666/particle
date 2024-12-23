@@ -3,9 +3,9 @@
  * 用户登录标识管理绑定页面
  */
 import {reactive, ref} from 'vue'
-import { createBind as userIdentifierCreateBindApi} from "../../api/admin/userIdentifierAdminApi"
-import { remoteSelectUserProps} from "../../components/userCompItem";
-import { useBindPageFormItems} from "../../components/admin/userIdentifierManage";
+import {createBind as userIdentifierCreateBindApi} from "../../api/admin/userIdentifierAdminApi"
+import {remoteSelectUserProps} from "../../components/userCompItem";
+import {useBindPageFormItems} from "../../components/admin/userIdentifierManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

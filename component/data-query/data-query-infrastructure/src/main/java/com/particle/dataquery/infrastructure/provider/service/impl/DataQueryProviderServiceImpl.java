@@ -1,14 +1,13 @@
 package com.particle.dataquery.infrastructure.provider.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.dataquery.infrastructure.provider.dos.DataQueryProviderDO;
 import com.particle.dataquery.infrastructure.provider.mapper.DataQueryProviderMapper;
 import com.particle.dataquery.infrastructure.provider.service.IDataQueryProviderService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class DataQueryProviderServiceImpl extends IBaseServiceImpl<DataQueryProv
 
 	@Override
 	protected void preUpdate(DataQueryProviderDO po) {
-    
+
 	}
 }

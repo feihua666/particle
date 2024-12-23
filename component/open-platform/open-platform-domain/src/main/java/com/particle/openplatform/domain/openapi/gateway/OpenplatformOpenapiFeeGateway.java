@@ -1,8 +1,8 @@
 package com.particle.openplatform.domain.openapi.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFee;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

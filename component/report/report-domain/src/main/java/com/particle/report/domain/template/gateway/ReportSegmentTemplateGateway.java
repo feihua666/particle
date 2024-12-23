@@ -1,8 +1,8 @@
 package com.particle.report.domain.template.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.report.domain.template.ReportSegmentTemplate;
 import com.particle.report.domain.template.ReportSegmentTemplateId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

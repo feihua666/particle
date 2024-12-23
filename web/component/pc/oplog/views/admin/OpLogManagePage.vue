@@ -3,7 +3,7 @@
  * 操作日志管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as opLogPageApi, remove as opLogRemoveApi} from "../../api/admin/opLogAdminApi"
+import {page as opLogPageApi, remove as opLogRemoveApi} from "../../api/admin/opLogAdminApi"
 import {pageFormItems} from "../../components/admin/opLogManage";
 
 

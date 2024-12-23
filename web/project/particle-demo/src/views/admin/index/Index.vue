@@ -1,8 +1,8 @@
 <script setup name="index" lang="ts">
-import { reactive,ref,watch} from 'vue'
-import {getLogoText, getLogoUrl} from "../../../../../../global/common/api/globalApi";
+import {reactive, ref, watch} from 'vue'
 import {useLogoStore} from "../../../../../../global/common/api/LogoStore";
-import {isDark,toggleDark} from "@/composables";
+import {isDark, toggleDark} from "@/composables";
+
 const logoStore = useLogoStore()
 
 // 左侧菜单展示/折叠控制变量

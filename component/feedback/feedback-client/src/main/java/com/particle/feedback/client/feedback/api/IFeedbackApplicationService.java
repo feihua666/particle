@@ -6,7 +6,6 @@ import com.particle.feedback.client.feedback.dto.command.FeedbackCreateCommand;
 import com.particle.feedback.client.feedback.dto.command.FeedbackManualHandleCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
 import com.particle.global.dto.response.SingleResponse;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>

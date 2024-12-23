@@ -1,7 +1,6 @@
 package com.particle.global.captcha.endpoint;
 
 import com.particle.global.dto.basic.VO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

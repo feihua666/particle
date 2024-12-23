@@ -2,10 +2,10 @@ package com.particle.dataconstraint.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataconstraint.client.dto.command.DataScopeCreateCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeUpdateCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

@@ -1,5 +1,6 @@
 <script>
 import defaultImgSrc from '@/assets/logo.png'
+
 const defaultLogoText = import.meta.env.VITE_LOGO_TEXT || 'particle'
 const defaultLogoImgSrc = import.meta.env.VITE_LOGO_IMG_SRC || defaultImgSrc
 </script>

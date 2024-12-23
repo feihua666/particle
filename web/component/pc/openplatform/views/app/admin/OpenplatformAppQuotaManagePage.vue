@@ -3,7 +3,10 @@
  * 开放平台应用额度管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformAppQuotaPageApi, remove as openplatformAppQuotaRemoveApi} from "../../../api/app/admin/openplatformAppQuotaAdminApi"
+import {
+  page as openplatformAppQuotaPageApi,
+  remove as openplatformAppQuotaRemoveApi
+} from "../../../api/app/admin/openplatformAppQuotaAdminApi"
 import {pageFormItems} from "../../../components/app/admin/openplatformAppQuotaManage";
 
 
@@ -108,7 +111,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformAppQuotaPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

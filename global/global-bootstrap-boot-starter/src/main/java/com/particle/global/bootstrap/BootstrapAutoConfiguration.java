@@ -17,7 +17,7 @@ import org.springframework.core.annotation.Order;
  * @since 2022-05-31 20:36
  */
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class BootstrapAutoConfiguration {
 

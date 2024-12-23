@@ -1,7 +1,6 @@
 package com.particle.role.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;

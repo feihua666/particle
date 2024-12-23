@@ -5,8 +5,9 @@
 import {isArray} from "../../../../../common/tools/ArrayTools";
 import {ref} from 'vue'
 import {formDesignParticleBuiltInComponentsAttrsData} from "../formDesignParticleBuiltInComponentsAttrs";
-import { strCodeTocode} from "../../tools";
+import {strCodeTocode} from "../../tools";
 import {componentSize} from "../../attr/formDesignAttrsFormItemCompsAttrs";
+
 const isArrayRef = ref(isArray)
 const multipeToProps = (value,form)=>{
 

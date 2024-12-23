@@ -1,10 +1,11 @@
 package com.particle.dream.infrastructure.ssq.structmapping;
 
-import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
 import com.particle.dream.domain.ssq.SsqCode;
 import com.particle.dream.domain.ssq.SsqCodeId;
+import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-05-16 09:47:01
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class SsqCodeInfrastructureStructMapping {
 	public static SsqCodeInfrastructureStructMapping instance = Mappers.getMapper( SsqCodeInfrastructureStructMapping.class );
 

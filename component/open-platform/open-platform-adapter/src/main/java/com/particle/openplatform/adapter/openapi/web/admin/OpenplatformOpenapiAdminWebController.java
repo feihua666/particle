@@ -1,37 +1,31 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
-import cn.hutool.extra.servlet.ServletUtil;
-import com.particle.global.dto.response.Response;
+import cn.hutool.extra.servlet.JakartaServletUtil;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.tool.document.excel.ExcelTool;
 import com.particle.openplatform.adapter.globalopenapi.OpenplatformOpenapiClientSecretProvider;
 import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiApplicationService;
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiRepresentationApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiCreateCommand;
+import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiUpdateCommand;
 import com.particle.openplatform.client.openapi.dto.command.representation.*;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiUpdateCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dataaudit.op.OpLog;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -140,7 +134,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@GetMapping("/downloadBatchQueryTemplate")
 	public void downloadBatchQueryTemplate(OpenplatformOpenapiDownloadBatchQueryTemplateCommand openplatformOpenapiDownloadBatchQueryTemplateCommand, HttpServletResponse response){
 		OpenplatformOpenapiDownloadBatchQueryTemplateVO openplatformOpenapiDownloadBatchQueryTemplateVO = iOpenplatformOpenapiRepresentationApplicationService.downloadBatchQueryTemplate(openplatformOpenapiDownloadBatchQueryTemplateCommand);
-		ServletUtil.write(response,
+		JakartaServletUtil.write(response,
 				openplatformOpenapiDownloadBatchQueryTemplateVO.getIn(),
 				ExcelTool.xlsx_response_content_type,
 				openplatformOpenapiDownloadBatchQueryTemplateVO.getName() + ExcelTool.xlsx_extension_suffix

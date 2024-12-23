@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -93,7 +94,7 @@ public class TrackingPageRecord extends AggreateRoot {
     * 行为产生时间
     */
     private LocalDateTime actionAt;
-    
+
     /**
     * 行为值，例如点击次数，停留时长，购买件数、购买金额等
     */
@@ -141,12 +142,12 @@ public class TrackingPageRecord extends AggreateRoot {
     * 进入页面时间
     */
     private LocalDateTime entryAt;
-    
+
     /**
     * 离开页面时间
     */
     private LocalDateTime leaveAt;
-    
+
     /**
     * 页面停留时长，单位ms
     */

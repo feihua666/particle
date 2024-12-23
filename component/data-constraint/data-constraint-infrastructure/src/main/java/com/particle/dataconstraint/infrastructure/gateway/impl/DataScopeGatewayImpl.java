@@ -1,13 +1,13 @@
 package com.particle.dataconstraint.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dataconstraint.domain.DataScope;
 import com.particle.dataconstraint.domain.DataScopeId;
 import com.particle.dataconstraint.domain.gateway.DataScopeGateway;
-import com.particle.dataconstraint.infrastructure.service.IDataScopeService;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
+import com.particle.dataconstraint.infrastructure.service.IDataScopeService;
 import com.particle.dataconstraint.infrastructure.structmapping.DataScopeInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

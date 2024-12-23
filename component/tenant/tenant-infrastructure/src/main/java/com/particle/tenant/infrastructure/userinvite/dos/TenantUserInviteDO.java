@@ -2,10 +2,8 @@ package com.particle.tenant.infrastructure.userinvite.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -48,7 +46,7 @@ public class TenantUserInviteDO extends BaseDO {
     * 到期时间，为空永不到期
     */
     private LocalDateTime expireAt;
-    
+
     /**
     * 邀请人用户id
     */

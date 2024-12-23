@@ -5,7 +5,6 @@ import com.particle.global.openapi.enums.LimitRuleTarget;
 import com.particle.global.ratelimit.local.DefaultThreadLocalRateLimitInterceptServiceImpl;
 import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

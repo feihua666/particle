@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as navigationFriendshipLinkUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as navigationFriendshipLinkUpdateApi
 } from "../../api/admin/navigationFriendshipLinkAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/navigationFriendshipLinkManage";

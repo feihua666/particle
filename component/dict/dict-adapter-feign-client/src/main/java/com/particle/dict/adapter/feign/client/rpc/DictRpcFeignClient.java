@@ -3,7 +3,6 @@ package com.particle.dict.adapter.feign.client.rpc;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.trans.api.ITransService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

@@ -1,10 +1,11 @@
 package com.particle.oplog.infrastructure.error.structmapping;
 
-import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import com.particle.oplog.domain.error.OpLogError;
 import com.particle.oplog.domain.error.OpLogErrorId;
+import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-08-09 14:19:09
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpLogErrorInfrastructureStructMapping {
 	public static OpLogErrorInfrastructureStructMapping instance = Mappers.getMapper( OpLogErrorInfrastructureStructMapping.class );
 

@@ -2,7 +2,7 @@
 /**
  * 企业md5管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as dataCompanyMd5CreateApi} from "../../../api/company/admin/dataCompanyMd5AdminApi"
 import {addPageFormItems} from "../../../components/company/admin/dataCompanyMd5Manage";
 

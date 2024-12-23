@@ -3,7 +3,10 @@
  * 系统参数配置管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as systemConfigPageApi, remove as systemConfigRemoveApi} from "../../../api/system/admin/systemConfigAdminApi"
+import {
+  page as systemConfigPageApi,
+  remove as systemConfigRemoveApi
+} from "../../../api/system/admin/systemConfigAdminApi"
 import {pageFormItems} from "../../../components/system/admin/systemConfigManage";
 
 

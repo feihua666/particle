@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as userIdentifierPwdUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as userIdentifierPwdUpdateApi,
 } from "../../api/admin/userIdentifierPwdAdminApi"
 import {updatePageFormItems} from "../../components/admin/userIdentifierPwdManage";
 

@@ -2,10 +2,8 @@ package com.particle.tenant.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>

@@ -1,7 +1,7 @@
 package com.particle.tenant.infrastructure.userinvite.service;
 
-import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 
 /**
  * <p>

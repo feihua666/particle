@@ -2,8 +2,8 @@
 /**
  * 部门树管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as DeptTreeCreateApi,list as DeptTreeListApi} from "../../api/admin/deptTreeAdminApi"
+import {reactive, ref} from 'vue'
+import {create as DeptTreeCreateApi} from "../../api/admin/deptTreeAdminApi"
 import {addPageFormItems} from "../../components/admin/deptTreeManage";
 
 

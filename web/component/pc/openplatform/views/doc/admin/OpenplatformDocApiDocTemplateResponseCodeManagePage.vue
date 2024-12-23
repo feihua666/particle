@@ -3,7 +3,10 @@
  * 开放接口文档模板响应码管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocApiDocTemplateResponseCodePageApi, remove as openplatformDocApiDocTemplateResponseCodeRemoveApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateResponseCodeAdminApi"
+import {
+  page as openplatformDocApiDocTemplateResponseCodePageApi,
+  remove as openplatformDocApiDocTemplateResponseCodeRemoveApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateResponseCodeAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateResponseCodeManage";
 
 
@@ -131,7 +134,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformDocApiDocTemplateResponseCodePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

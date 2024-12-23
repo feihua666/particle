@@ -1,8 +1,8 @@
 package com.particle.dept.domain.depttreeuserrel.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.dept.domain.depttreeuserrel.DeptTreeUserRel;
 import com.particle.dept.domain.depttreeuserrel.DeptTreeUserRelId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

@@ -3,7 +3,7 @@
  * 自定义封装按钮组
  * 封装理由：1. 通过数据配置的方式生成按钮更方便
  */
-import {reactive ,computed} from 'vue'
+import {computed, reactive} from 'vue'
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

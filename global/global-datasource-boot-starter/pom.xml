@@ -31,8 +31,8 @@
         <!-- 使用多数据源 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>${dynamic-datasource.version}</version>
+            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+            <version>${dynamic-datasource-spring-boot3-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>

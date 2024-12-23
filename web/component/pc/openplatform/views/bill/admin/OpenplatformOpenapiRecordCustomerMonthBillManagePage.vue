@@ -3,7 +3,10 @@
  * 开放平台客户月账单管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiRecordCustomerMonthBillPageApi, remove as openplatformOpenapiRecordCustomerMonthBillRemoveApi} from "../../../api/bill/admin/openplatformOpenapiRecordCustomerMonthBillAdminApi"
+import {
+  page as openplatformOpenapiRecordCustomerMonthBillPageApi,
+  remove as openplatformOpenapiRecordCustomerMonthBillRemoveApi
+} from "../../../api/bill/admin/openplatformOpenapiRecordCustomerMonthBillAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformOpenapiRecordCustomerMonthBillManage";
 
 

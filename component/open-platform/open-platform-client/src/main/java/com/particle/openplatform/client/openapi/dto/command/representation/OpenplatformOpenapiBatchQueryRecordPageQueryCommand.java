@@ -1,9 +1,9 @@
 package com.particle.openplatform.client.openapi.dto.command.representation;
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -53,7 +53,7 @@ public class OpenplatformOpenapiBatchQueryRecordPageQueryCommand extends Abstrac
 
     @Schema(description = "查询时间")
     private LocalDateTime queryAt;
-    
+
 
     @Schema(description = "追踪id")
     private String traceId;

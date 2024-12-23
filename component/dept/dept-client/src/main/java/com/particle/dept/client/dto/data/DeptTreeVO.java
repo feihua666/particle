@@ -1,11 +1,9 @@
 package com.particle.dept.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
-import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
@@ -33,7 +31,7 @@ public class DeptTreeVO extends AbstractBaseIdTreeVO {
     @TransBy(tableName = TransTableNameConstants.component_dept_tree_name, byFieldName = "deptTreeNameId", mapValueField = "name")
     @Schema(description = "部门树名称名称")
     private String deptTreeNameName;
-    
+
     @Schema(description = "描述")
     private String remark;
 

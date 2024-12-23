@@ -12,11 +12,11 @@ import com.particle.tracking.client.dto.command.representation.TrackingPageRecor
 import com.particle.tracking.client.dto.data.TrackingPageRecordVO;
 import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
 import com.particle.tracking.infrastructure.service.ITrackingPageRecordService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

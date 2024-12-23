@@ -1,7 +1,6 @@
 package com.particle.scheduler.client.dto.command;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +10,9 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@ApiModel(value="任务计划停止表单对象")
+@Schema(description="任务计划停止表单对象")
 public class ScheduleShutdownCommand extends ScheduleCommand {
 
-    @ApiModelProperty("是否等待任务完成")
+    @Schema(description = "是否等待任务完成")
     private Boolean isWaitForJobsToComplete;
 }

@@ -1,20 +1,12 @@
 package com.particle.global.captcha.endpoint;
 
-import cn.hutool.core.lang.Pair;
 import com.particle.global.captcha.CaptchaTypeEnum;
-import com.particle.global.captcha.ICaptchaScene;
 import com.particle.global.captcha.ICaptchaType;
-import com.particle.global.captcha.gen.CaptchaGenDTO;
-import com.particle.global.dto.basic.Command;
-
 import com.particle.global.dto.basic.QueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import java.util.stream.Collectors;
 
 import static com.particle.global.captcha.gen.CaptchaGenDTO.*;
 
@@ -69,5 +61,5 @@ public class CaptchaGenCommand extends QueryCommand {
 					(TYPE_ONLY_LOWER + "= 纯小写字母,") +
 					(TYPE_NUM_AND_UPPER + "= 数字大写字母"))
 	private Integer charType = TYPE_ONLY_NUMBER;
-	
+
 }

@@ -1,28 +1,24 @@
 package com.particle.openplatform.adapter.provider.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.provider.api.IOpenplatformProviderApplicationService;
 import com.particle.openplatform.client.provider.api.representation.IOpenplatformProviderRepresentationApplicationService;
 import com.particle.openplatform.client.provider.dto.command.OpenplatformProviderCreateCommand;
-import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.openplatform.client.provider.dto.command.OpenplatformProviderUpdateCommand;
 import com.particle.openplatform.client.provider.dto.command.representation.OpenplatformProviderPageQueryCommand;
 import com.particle.openplatform.client.provider.dto.command.representation.OpenplatformProviderQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderVO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dataaudit.op.OpLog;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 开放平台开放接口供应商后台管理pc或平板端前端适配器

@@ -2,11 +2,9 @@ package com.particle.navigation.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -45,7 +43,7 @@ public class NavigationFriendshipLinkDO extends BaseDO {
     * 收录时间
     */
     private LocalDateTime collectionAt;
-    
+
     /**
     * 是否已发布，已发布不能修改和删除
     */

@@ -51,7 +51,10 @@ public class AbstractMessageEvent<T> extends DTO {
 	private String status;
 
 
-	public AbstractMessageEvent(String identifier,T data, String mq) {
+	public AbstractMessageEvent() {
+	}
+
+	public AbstractMessageEvent(String identifier, T data, String mq) {
 		this.identifier = identifier;
 		this.data = data;
 		this.mq = mq;

@@ -1,16 +1,11 @@
 package com.particle.openplatform.app.bill.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.openplatform.domain.bill.gateway.OpenplatformProviderRecordPrdMonthBillGateway;
 import com.particle.openplatform.infrastructure.bill.service.IOpenplatformProviderRecordPrdMonthBillService;
-import com.particle.openplatform.infrastructure.bill.dos.OpenplatformProviderRecordPrdMonthBillDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

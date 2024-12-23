@@ -3,8 +3,6 @@ package com.particle.global.big.datasource.bigdatasource.api.config;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * <p>
  * 字典项

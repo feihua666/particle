@@ -2,8 +2,8 @@
 /**
  * 导航网站静态部署管理部署页面
  */
-import {reactive ,ref} from 'vue'
-import { deploy as navigationStaticDeployApi} from "../../api/admin/navigationStaticDeployAdminApi"
+import {reactive, ref} from 'vue'
+import {deploy as navigationStaticDeployApi} from "../../api/admin/navigationStaticDeployAdminApi"
 import {deployPageFormItems} from "../../components/admin/navigationStaticDeployManage";
 
 // 声明属性

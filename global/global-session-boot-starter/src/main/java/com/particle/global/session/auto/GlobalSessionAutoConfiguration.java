@@ -19,9 +19,7 @@ import org.springframework.session.web.http.SessionRepositoryFilter;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -32,7 +30,7 @@ import java.util.Map;
  * @since 2022-07-29 14:13
  */
 @EnableConfigurationProperties(GlobalSessionProperties.class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalSessionAutoConfiguration {
 
 	/**

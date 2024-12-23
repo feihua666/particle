@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.relation.service;
 
-import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDefineDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDefineDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ICrmCustomerRelationDefineService extends IBaseService<CrmCusto
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CrmCustomerRelationDefineDO>lambdaQuery().in(CrmCustomerRelationDefineDO::getCode, codes));
     }
-            
+
 
     /**
      * 根据关系定义名称查询
@@ -60,7 +61,7 @@ public interface ICrmCustomerRelationDefineService extends IBaseService<CrmCusto
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<CrmCustomerRelationDefineDO>lambdaQuery().in(CrmCustomerRelationDefineDO::getName, names));
     }
-            
+
 
 
 

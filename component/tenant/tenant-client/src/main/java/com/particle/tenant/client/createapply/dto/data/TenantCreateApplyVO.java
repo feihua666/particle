@@ -1,12 +1,12 @@
 package com.particle.tenant.client.createapply.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
-import com.particle.component.light.share.trans.TransConstants;
+
+import java.time.LocalDateTime;
 /**
  * <p>
  * 租户创建申请 数据通用响应对象
@@ -21,16 +21,16 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
 
     @Schema(description = "租户名称")
     private String name;
-    
+
     @Schema(description = "姓名")
     private String userName;
 
 	@Schema(description = "账号，没有指定 applyUserId 时，用户创建用户登录账号")
 	private String account;
-    
+
     @Schema(description = "邮箱")
     private String email;
-    
+
     @Schema(description = "手机号")
     private String mobile;
 
@@ -42,14 +42,14 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
 
 	@Schema(description = "密码，没有指定 applyUserId 时，用户创建用户登录密码")
 	private Boolean isSendMobileNotice;
-    
+
     @Schema(description = "租户类型字典id")
     private Long tenantTypeDictId;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "tenantTypeDictId",mapValueField = "name")
     @Schema(description = "租户类型字典id对应字典名称")
     private String tenantTypeDictName;
-        
+
     @Schema(description = "申请用户")
     private Long applyUserId;
 
@@ -71,10 +71,10 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "auditStatusDictId",mapValueField = "value")
     @Schema(description = "审核状态对应字典值")
     private String auditStatusDictValue;
-        
+
     @Schema(description = "审核意见")
     private String auditStatusComment;
-    
+
     @Schema(description = "审核用户id")
     private Long auditUserId;
 
@@ -102,10 +102,10 @@ public class TenantCreateApplyVO extends AbstractBaseIdVO {
 
 	@Schema(description = "额外申请项json，如：应用和功能")
 	private String extJson;
-    
+
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

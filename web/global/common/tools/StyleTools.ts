@@ -1,4 +1,5 @@
 import {isArray} from './ArrayTools'
+
 export interface StylePattern{
     pattern?: string|string[],
     text: string

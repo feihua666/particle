@@ -1,10 +1,11 @@
 package com.particle.report.infrastructure.template.structmapping;
 
-import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.report.domain.template.ReportSegmentTemplate;
 import com.particle.report.domain.template.ReportSegmentTemplateId;
+import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-09-05 17:49:31
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class ReportSegmentTemplateInfrastructureStructMapping {
 	public static ReportSegmentTemplateInfrastructureStructMapping instance = Mappers.getMapper( ReportSegmentTemplateInfrastructureStructMapping.class );
 

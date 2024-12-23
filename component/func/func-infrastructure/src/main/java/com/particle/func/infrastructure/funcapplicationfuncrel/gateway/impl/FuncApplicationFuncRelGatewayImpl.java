@@ -1,13 +1,13 @@
 package com.particle.func.infrastructure.funcapplicationfuncrel.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRel;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRelId;
 import com.particle.func.domain.funcapplicationfuncrel.gateway.FuncApplicationFuncRelGateway;
-import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
 import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
+import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
 import com.particle.func.infrastructure.funcapplicationfuncrel.structmapping.FuncApplicationFuncRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

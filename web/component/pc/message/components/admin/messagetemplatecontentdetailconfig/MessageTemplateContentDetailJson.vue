@@ -2,7 +2,7 @@
 /**
  * 消息模板内容详情配置项
  */
-import {ref, watch} from 'vue'
+import {ref} from 'vue'
 import MessageTemplateContentDetailItem from './MessageTemplateContentDetailItem.vue'
 import {getItems} from "../../../../dict/api/front/dictFrontApi";
 

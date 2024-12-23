@@ -1,3 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.particle.global.messaging.GlobalMessageAutoConfiguration,\
-  com.particle.global.messaging.GlobalMessageTestBinderAutoConfiguration

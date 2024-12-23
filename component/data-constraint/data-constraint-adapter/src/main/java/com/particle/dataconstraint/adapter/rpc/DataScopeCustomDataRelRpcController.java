@@ -1,9 +1,9 @@
 package com.particle.dataconstraint.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.dataconstraint.adapter.feign.client.rpc.DataScopeCustomDataRelRpcFeignClient;
 import com.particle.dataconstraint.app.structmapping.DataScopeCustomDataRelAppStructMapping;
 import com.particle.dataconstraint.client.api.IDataScopeCustomDataRelApplicationService;
-import com.particle.dataconstraint.adapter.feign.client.rpc.DataScopeCustomDataRelRpcFeignClient;
 import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
 import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;

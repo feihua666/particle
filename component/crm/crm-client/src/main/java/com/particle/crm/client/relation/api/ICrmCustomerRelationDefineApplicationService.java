@@ -2,10 +2,10 @@ package com.particle.crm.client.relation.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.crm.client.relation.dto.command.CrmCustomerRelationDefineCreateCommand;
 import com.particle.crm.client.relation.dto.command.CrmCustomerRelationDefineUpdateCommand;
 import com.particle.crm.client.relation.dto.data.CrmCustomerRelationDefineVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

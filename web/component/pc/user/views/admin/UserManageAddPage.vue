@@ -3,8 +3,7 @@
  * 用户管理添加页面
  */
 import {reactive, ref} from 'vue'
-import {create as userCreateApi, list as userListApi} from "../../api/admin/userAdminApi"
-import {resetPasswordCompItems} from "../../components/userCompItem";
+import {create as userCreateApi} from "../../api/admin/userAdminApi"
 import {addPageFormItems} from "../../components/admin/userManage";
 import {componentEnabled} from "../../../../../common/config/componentsConfig";
 

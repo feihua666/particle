@@ -1,8 +1,8 @@
 package com.particle.feedback.domain.feedback.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.feedback.domain.feedback.FeedbackAttachment;
 import com.particle.feedback.domain.feedback.FeedbackAttachmentId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

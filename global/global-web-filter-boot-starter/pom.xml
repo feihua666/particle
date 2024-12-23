@@ -31,12 +31,6 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
-            <version>${particle.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
@@ -45,6 +39,12 @@
             <groupId>com.particle</groupId>
             <artifactId>global-dto</artifactId>
             <version>${particle.version}</version>
+        </dependency>
+        <!-- 日志链路追踪 global-sleuth-boot-starter 在springboot3中已不再使用-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

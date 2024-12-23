@@ -2,8 +2,8 @@
 /**
  * 报告片段模板管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as reportSegmentTemplateCreateApi,list as ReportSegmentTemplateListApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
+import {reactive, ref} from 'vue'
+import {create as reportSegmentTemplateCreateApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi"
 import {addPageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";
 
 

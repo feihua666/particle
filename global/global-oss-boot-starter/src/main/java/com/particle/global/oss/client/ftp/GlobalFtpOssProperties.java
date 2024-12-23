@@ -6,8 +6,6 @@ import com.particle.global.oss.client.local.GlobalLocalOssProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.nio.charset.Charset;
-
 /**
  * <p>
  * ftp 配置

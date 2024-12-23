@@ -1,19 +1,16 @@
 package com.particle.role.adapter.roleuserrel.rpc;
 
+import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.role.adapter.feign.client.roleuserrel.rpc.RoleUserRelRpcFeignClient;
 import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
 import com.particle.role.client.roleuserrel.api.IRoleUserRelApplicationService;
-import com.particle.role.adapter.feign.client.roleuserrel.rpc.RoleUserRelRpcFeignClient;
-import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

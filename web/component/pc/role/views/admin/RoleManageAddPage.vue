@@ -2,8 +2,8 @@
 /**
  * 角色管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as roleCreateApi,list as roleListApi} from "../../api/admin/roleAdminApi"
+import {reactive, ref} from 'vue'
+import {create as roleCreateApi} from "../../api/admin/roleAdminApi"
 import {addPageFormItems} from "../../components/admin/roleManage";
 
 

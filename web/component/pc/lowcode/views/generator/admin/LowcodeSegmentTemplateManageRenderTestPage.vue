@@ -2,7 +2,7 @@
 /**
  * 低代码片段模板管理渲染页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {renderTest} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
 import {cloneObj} from "../../../../../../global/common/tools/ObjectTools";
 

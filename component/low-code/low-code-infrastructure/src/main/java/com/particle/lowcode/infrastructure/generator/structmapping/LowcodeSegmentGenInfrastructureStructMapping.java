@@ -1,10 +1,11 @@
 package com.particle.lowcode.infrastructure.generator.structmapping;
 
-import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentGenDO;
 import com.particle.lowcode.domain.generator.LowcodeSegmentGen;
 import com.particle.lowcode.domain.generator.LowcodeSegmentGenId;
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentGenDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-02-10
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class LowcodeSegmentGenInfrastructureStructMapping {
 	public static LowcodeSegmentGenInfrastructureStructMapping instance = Mappers.getMapper( LowcodeSegmentGenInfrastructureStructMapping.class );
 

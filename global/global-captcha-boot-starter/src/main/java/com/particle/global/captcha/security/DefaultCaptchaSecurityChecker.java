@@ -3,13 +3,13 @@ package com.particle.global.captcha.security;
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.security.security.config.WebSecurityConfig;
 import com.particle.global.tool.servlet.RequestTool;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 

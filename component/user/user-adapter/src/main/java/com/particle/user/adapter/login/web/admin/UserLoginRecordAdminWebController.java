@@ -11,8 +11,8 @@ import com.particle.user.client.login.dto.command.representation.UserLoginRecord
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryDetailCommand;
 import com.particle.user.client.login.dto.command.representation.UserLoginRecordQueryListCommand;
 import com.particle.user.client.login.dto.data.UserLoginRecordVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

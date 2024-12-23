@@ -1,20 +1,18 @@
 package com.particle.crm.app.relation.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineCreateCommandExecutor;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineDeleteCommandExecutor;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.crm.client.relation.dto.command.CrmCustomerRelationDefineUpdateCommand;
 import com.particle.crm.client.relation.api.ICrmCustomerRelationDefineApplicationService;
 import com.particle.crm.client.relation.dto.command.CrmCustomerRelationDefineCreateCommand;
+import com.particle.crm.client.relation.dto.command.CrmCustomerRelationDefineUpdateCommand;
 import com.particle.crm.client.relation.dto.data.CrmCustomerRelationDefineVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

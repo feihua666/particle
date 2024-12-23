@@ -2,8 +2,8 @@
 /**
  * 功能应用功能关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as FuncApplicationFuncRelCreateApi,list as FuncApplicationFuncRelListApi} from "../../api/admin/funcApplicationFuncRelAdminApi"
+import {reactive, ref} from 'vue'
+import {create as FuncApplicationFuncRelCreateApi} from "../../api/admin/funcApplicationFuncRelAdminApi"
 import {addPageFormItems} from "../../components/admin/funcApplicationFuncRelManage";
 
 

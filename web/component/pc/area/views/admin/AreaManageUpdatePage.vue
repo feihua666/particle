@@ -3,11 +3,7 @@
  * 区域管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as areaUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as areaListApi
-} from "../../api/admin/areaAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as areaUpdateApi} from "../../api/admin/areaAdminApi"
 
 import LocationGeoMapDialog from '../../components/LocationGeoMapDialog.vue'
 import {useUpdatePageFormItems} from "../../components/admin/areaManage";

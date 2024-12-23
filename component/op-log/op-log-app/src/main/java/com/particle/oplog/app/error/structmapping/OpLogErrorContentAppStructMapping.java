@@ -1,16 +1,17 @@
 package com.particle.oplog.app.error.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.oplog.client.error.dto.data.OpLogErrorContentVO;
 import com.particle.oplog.domain.error.OpLogErrorContent;
 import com.particle.oplog.domain.error.OpLogErrorContentId;
 import com.particle.oplog.infrastructure.error.dos.OpLogErrorContentDO;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

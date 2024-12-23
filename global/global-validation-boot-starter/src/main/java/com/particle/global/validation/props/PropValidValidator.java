@@ -6,12 +6,12 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.global.validation.ValidHelper;
 import com.particle.global.validation.form.ValidContext;
 import com.particle.global.validation.form.ValidResult;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -25,9 +25,9 @@ import java.util.List;
 @Slf4j
 public class PropValidValidator implements ConstraintValidator<PropValid, Object> {
 
-    
+
     private ValidHelper validHelper;
-    
+
     private String message;
 
     @Autowired
@@ -72,7 +72,7 @@ public class PropValidValidator implements ConstraintValidator<PropValid, Object
         }
         return true;
     }
-    
+
     @Autowired
     public void setValidHelper(ValidHelper validHelper) {
         this.validHelper = validHelper;

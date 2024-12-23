@@ -1,13 +1,11 @@
 package com.particle.dataquery.client.dataapi.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
-
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
-import com.particle.component.light.share.trans.TransConstants;
 /**
  * <p>
  * 数据查询数据接口 数据通用响应对象
@@ -22,10 +20,10 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
 
     @Schema(description = "接口地址")
     private String url;
-    
+
     @Schema(description = "接口名称")
     private String name;
-    
+
     @Schema(description = "数据查询数据源接口id")
     private Long dataQueryDatasourceApiId;
 
@@ -137,7 +135,7 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
 
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

@@ -2,12 +2,12 @@ package com.particle.crm.client.relation.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.crm.client.relation.dto.command.representation.CrmCustomerRelationDefinePageQueryCommand;
 import com.particle.crm.client.relation.dto.command.representation.CrmCustomerRelationDefineQueryListCommand;
 import com.particle.crm.client.relation.dto.data.CrmCustomerRelationDefineVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

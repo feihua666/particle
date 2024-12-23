@@ -1,22 +1,22 @@
 package com.particle.scheduler.app.temptask.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.temptask.structmapping.SchedulerTempTaskRunRecordLogAppStructMapping;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskRunRecordLogUpdateCommand;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskRunRecordLogVO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordLog;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordLogId;
 import com.particle.scheduler.domain.temptask.gateway.SchedulerTempTaskRunRecordLogGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class SchedulerTempTaskRunRecordLogUpdateCommandExecutor  extends Abstrac
 		return schedulerTempTaskRunRecordLog;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface SchedulerTempTaskRunRecordLogUpdateCommandToSchedulerTempTaskRunRecordLogMapping{
 		SchedulerTempTaskRunRecordLogUpdateCommandToSchedulerTempTaskRunRecordLogMapping instance = Mappers.getMapper(SchedulerTempTaskRunRecordLogUpdateCommandToSchedulerTempTaskRunRecordLogMapping.class );
 

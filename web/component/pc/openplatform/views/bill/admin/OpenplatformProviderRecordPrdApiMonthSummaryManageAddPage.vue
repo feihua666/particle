@@ -2,8 +2,10 @@
 /**
  * 开放平台供应商接口月汇总管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformProviderRecordPrdApiMonthSummaryCreateApi} from "../../../api/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformProviderRecordPrdApiMonthSummaryCreateApi
+} from "../../../api/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminApi"
 import {addPageFormItems} from "../../../components/bill/admin/openplatformProviderRecordPrdApiMonthSummaryManage";
 
 

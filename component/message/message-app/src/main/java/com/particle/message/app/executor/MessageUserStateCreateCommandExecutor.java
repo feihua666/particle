@@ -1,21 +1,21 @@
 package com.particle.message.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.message.app.structmapping.MessageUserStateAppStructMapping;
 import com.particle.message.client.dto.command.MessageUserStateCreateCommand;
 import com.particle.message.client.dto.data.MessageUserStateVO;
 import com.particle.message.domain.MessageUserState;
 import com.particle.message.domain.gateway.MessageUserStateGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class MessageUserStateCreateCommandExecutor  extends AbstractBaseExecutor
 		return messageUserState;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  MessageUserStateCreateCommandToMessageUserStateMapping{
 		MessageUserStateCreateCommandToMessageUserStateMapping instance = Mappers.getMapper( MessageUserStateCreateCommandToMessageUserStateMapping.class );
 

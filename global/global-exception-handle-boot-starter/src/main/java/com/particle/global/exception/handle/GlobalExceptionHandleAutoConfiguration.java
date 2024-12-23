@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-06-03 17:04
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalExceptionHandleAutoConfiguration {
 }

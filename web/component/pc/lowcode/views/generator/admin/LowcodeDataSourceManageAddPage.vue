@@ -2,8 +2,8 @@
 /**
  * 低代码数据源管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as lowcodeDataSourceCreateApi,list as lowcodeDataSourceListApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
+import {reactive, ref} from 'vue'
+import {create as lowcodeDataSourceCreateApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
 import {addPageFormItems} from "../../../components/admin/lowcodeDataSourceManage";
 
 

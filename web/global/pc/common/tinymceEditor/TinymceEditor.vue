@@ -8,7 +8,7 @@
  * 3. 在 配置 init.base_url
  * 4. 下载语言包 https://www.tiny.cloud/get-tiny/language-packages/ 放到 public/tinymce/langs下，配置init.language属性为语言包不带扩展名的纯文件名称
  */
-import {onMounted, reactive, watch, onBeforeUnmount, ref, computed} from "vue";
+import {computed} from "vue";
 import tinymce from 'tinymce/tinymce'
 import Editor from '@tinymce/tinymce-vue'
 

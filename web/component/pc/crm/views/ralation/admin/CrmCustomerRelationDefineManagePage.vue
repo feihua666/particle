@@ -3,7 +3,10 @@
  * 客户关系定义管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as crmCustomerRelationDefinePageApi, remove as crmCustomerRelationDefineRemoveApi} from "../../../api/ralation/admin/crmCustomerRelationDefineAdminApi"
+import {
+  page as crmCustomerRelationDefinePageApi,
+  remove as crmCustomerRelationDefineRemoveApi
+} from "../../../api/ralation/admin/crmCustomerRelationDefineAdminApi"
 import {pageFormItems} from "../../../components/ralation/admin/crmCustomerRelationDefineManage";
 
 
@@ -110,7 +113,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doCrmCustomerRelationDefinePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

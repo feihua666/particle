@@ -1,4 +1,5 @@
-import axios, { AxiosPromise} from 'axios'
+import axios, {AxiosPromise} from 'axios'
+
 let dictPrefix = '/front/web/dict'
 export interface DictItemsParam{
     // 字典组编码

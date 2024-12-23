@@ -15,13 +15,14 @@ import com.particle.lowcode.domain.generator.gateway.LowcodeSegmentGenGateway;
 import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderParam;
 import com.particle.lowcode.infrastructure.generator.dto.LowcodeSegmentTemplateRenderResult;
 import com.particle.lowcode.infrastructure.generator.service.ILowcodeSegmentTemplateRenderService;
-import com.particle.lowcode.infrastructure.generator.structmapping.LowcodeSegmentTemplateInfrastructureStructMapping;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

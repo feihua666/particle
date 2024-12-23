@@ -1,7 +1,6 @@
 package com.particle.scheduler.client.dto.data;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,38 +14,38 @@ import java.util.Map;
  */
 @Setter
 @Getter
-@ApiModel(value="任务响应扩展数据对象")
+@Schema(description="任务响应扩展数据对象")
 public class JobDetailExtVo extends JobDetailVo {
 
-    @ApiModelProperty(value = "任务类型")
+    @Schema(description = "任务类型")
     private String jobClassType;
 
-    @ApiModelProperty(value = "请求地址")
+    @Schema(description = "请求地址")
     private String httpUrl;
 
-    @ApiModelProperty(value = "请求方法")
+    @Schema(description = "请求方法")
     private String httpMethod;
 
-    @ApiModelProperty(value = "请求头信息")
+    @Schema(description = "请求头信息")
     private Map<String,String> httpHeaders;
 
-    @ApiModelProperty(value = "请求参数")
+    @Schema(description = "请求参数")
     private Map<String,Object> httpParams;
 
-    @ApiModelProperty(value = "bean名称")
+    @Schema(description = "bean名称")
     private String beanName;
 
-    @ApiModelProperty(value = "bean方法名")
+    @Schema(description = "bean方法名")
     private String beanMethodName;
 
-    @ApiModelProperty(value = "bean方法参数")
+    @Schema(description = "bean方法参数")
     private List beanMethodParams;
 
 
-    @ApiModelProperty(value = "脚本类型")
+    @Schema(description = "脚本类型")
     private String scriptType;
 
-    @ApiModelProperty(value = "脚本内容")
+    @Schema(description = "脚本内容")
     private String scriptContent;
 
 }

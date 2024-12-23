@@ -2,11 +2,9 @@ package com.particle.openplatform.client.doc.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
 /**
  * <p>
  * 开放接口文档模板响应码 通用列表查询指令对象

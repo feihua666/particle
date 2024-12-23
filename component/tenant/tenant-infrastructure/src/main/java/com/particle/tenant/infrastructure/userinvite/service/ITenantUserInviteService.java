@@ -1,10 +1,11 @@
 package com.particle.tenant.infrastructure.userinvite.service;
 
-import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ITenantUserInviteService extends IBaseService<TenantUserInviteD
         Assert.notEmpty(inviteCodes,"inviteCodes 不能为空");
         return list(Wrappers.<TenantUserInviteDO>lambdaQuery().in(TenantUserInviteDO::getInviteCode, inviteCodes));
     }
-            
+
 
 
 

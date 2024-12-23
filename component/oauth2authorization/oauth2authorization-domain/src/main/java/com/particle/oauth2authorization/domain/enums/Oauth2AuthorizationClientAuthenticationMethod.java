@@ -1,7 +1,6 @@
 package com.particle.oauth2authorization.domain.enums;
 
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.particle.component.light.share.dict.api.IDictGroup;
 import com.particle.component.light.share.dict.api.IDictItem;
 import org.apache.logging.log4j.util.Strings;

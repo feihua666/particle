@@ -3,11 +3,11 @@
  * 用户登录标识密码管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as userIdentifierPwdPageApi, remove as userIdentifierPwdRemoveApi} from "../../api/admin/userIdentifierPwdAdminApi"
 import {
-  remoteSelectUserIdentifierProps,
-  remoteSelectUserProps
-} from "../../components/userCompItem";
+  page as userIdentifierPwdPageApi,
+  remove as userIdentifierPwdRemoveApi
+} from "../../api/admin/userIdentifierPwdAdminApi"
+import {remoteSelectUserIdentifierProps, remoteSelectUserProps} from "../../components/userCompItem";
 import {usePageFormItems} from "../../components/admin/userIdentifierPwdManage";
 import {userIdentifierPwdColumns} from "../../components/userIdentifierPwdCompItem";
 

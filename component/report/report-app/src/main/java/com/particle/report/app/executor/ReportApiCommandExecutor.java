@@ -2,7 +2,6 @@ package com.particle.report.app.executor;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
-import cn.hutool.cache.impl.WeakCache;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -17,7 +16,6 @@ import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;
-import com.particle.report.client.dto.command.ReportApiCommand;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
 import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.dto.data.ReportApiGenerateVO;

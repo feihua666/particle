@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.structmapping;
 
-import com.particle.navigation.infrastructure.dos.NavigationStaticDeployDO;
 import com.particle.navigation.domain.NavigationStaticDeploy;
 import com.particle.navigation.domain.NavigationStaticDeployId;
+import com.particle.navigation.infrastructure.dos.NavigationStaticDeployDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-11-01 10:02:52
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class NavigationStaticDeployInfrastructureStructMapping {
 	public static NavigationStaticDeployInfrastructureStructMapping instance = Mappers.getMapper( NavigationStaticDeployInfrastructureStructMapping.class );
 

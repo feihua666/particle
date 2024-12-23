@@ -25,15 +25,15 @@ import java.util.Map;
  */
 @Data
 public class HttpBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
-	
+
 	private HttpBigDatasourceApiConfigRequestMethod requestMethod;
-	
+
 	private HttpBigDatasourceApiConfigContentType requestContentType;
-	
+
 	private HttpBigDatasourceApiConfigContentType responseContentType;
-	
+
 	private HttpBigDatasourceApiConfigRequestUrlRenderType requestUrlRenderType;
-	
+
 	private String requestUrlTemplate;
 
 

@@ -1,6 +1,7 @@
 package com.particle.dataquery.app.datasource.executor;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
@@ -11,15 +12,14 @@ import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceA
 import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDatasourceApiService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -125,7 +125,7 @@ public class DataQueryDatasourceApiCreateCommandExecutor  extends AbstractBaseEx
 		return dataQueryDatasourceApi;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  DataQueryDatasourceApiCreateCommandToDataQueryDatasourceApiMapping{
 		DataQueryDatasourceApiCreateCommandToDataQueryDatasourceApiMapping instance = Mappers.getMapper( DataQueryDatasourceApiCreateCommandToDataQueryDatasourceApiMapping.class );
 

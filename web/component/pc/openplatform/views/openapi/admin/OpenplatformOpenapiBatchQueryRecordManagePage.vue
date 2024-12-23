@@ -3,15 +3,13 @@
  * 开放接口批量查询记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiBatchQueryRecordPageApi, remove as openplatformOpenapiBatchQueryRecordRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi"
+import {
+  page as openplatformOpenapiBatchQueryRecordPageApi,
+  remove as openplatformOpenapiBatchQueryRecordRemoveApi
+} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi"
 import {pageFormItems, tableColumns} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordManage";
 import {download, getFinalDownloadUrl} from "../../../../../../global/common/api/globalApi";
-import {
-  downloadFileByData,
-  downloadFileByUrl,
-  extractContentType,
-  extractFileName
-} from "../../../../../../global/common/tools/FileTools";
+import {downloadFileByData, extractContentType} from "../../../../../../global/common/tools/FileTools";
 
 
 const tableRef = ref(null)

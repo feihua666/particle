@@ -3,21 +3,11 @@
  * 开放平台开放接口批量查询页面
  */
 import {reactive, ref} from 'vue'
-import {
-  batchQuery,
-  downloadBatchQueryTemplate,
-} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
-import {
-  useCascaderOpenapiByOpenplatformAppIdCompItem,
-} from "../../../components/openplatformOpenapiCompItem";
+import {batchQuery, downloadBatchQueryTemplate,} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
+import {useCascaderOpenapiByOpenplatformAppIdCompItem,} from "../../../components/openplatformOpenapiCompItem";
 import {useSelectAppForCurrentUserCompItem} from "../../../components/openplatformAppCompItem";
 
-import {
-  downloadFileByData,
-  downloadFileByUrl,
-  extractContentType,
-  extractFileName
-} from "../../../../../../global/common/tools/FileTools";
+import {downloadFileByData, extractContentType, extractFileName} from "../../../../../../global/common/tools/FileTools";
 import {ElMessage} from 'element-plus'
 import {tableColumns} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordManage";
 import {detail} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi";

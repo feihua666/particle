@@ -1,13 +1,11 @@
 package com.particle.usagecount.client.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 使用次数记录 数据通用响应对象
@@ -29,7 +27,7 @@ public class UsageCountRecordVO extends AbstractBaseIdVO {
     @TransBy(tableName = TransTableNameConstants.component_usage_count_define, byFieldName = "usageCountDefineId", mapValueField = "name")
     @Schema(description = "使用次数定义名称")
     private String usageCountDefineName;
-    
+
     @Schema(description = "使用次数配置id")
     private Long usageCountConfigId;
 

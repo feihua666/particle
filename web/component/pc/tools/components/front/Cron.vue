@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {clone,isObject} from "../../../../../global/common/tools/ObjectTools";
+import {clone, isObject} from "../../../../../global/common/tools/ObjectTools";
 import {isArray} from "../../../../../global/common/tools/ArrayTools";
 import {cronRunTimes} from "../../api/front/toolsFrontApi";
 import {ElMessage} from 'element-plus'

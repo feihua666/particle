@@ -3,10 +3,7 @@
  * 数据对象管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as dataObjectUpdateApi,
-  detailForUpdate as detailForUpdateApi
-} from "../../api/admin/dataObjectAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as dataObjectUpdateApi} from "../../api/admin/dataObjectAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/dataObjectManage";
 

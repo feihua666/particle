@@ -21,7 +21,7 @@ import java.util.Date;
  * @Description: 日期转换
  * @version: 1.0
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class HttpParamConverterConfig {
 
     private static DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern(CalendarTool.DateStyle.YYYY_MM_DD.getValue());

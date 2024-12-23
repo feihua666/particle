@@ -1,8 +1,6 @@
 package com.particle.global.big.datasource.bigdatasource;
 
-import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;

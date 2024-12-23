@@ -4,7 +4,7 @@
 
 import {isPromise} from "../../common/tools/PromiseTools"
 import {anyObj, isObject} from "../../common/tools/ObjectTools"
-import {listToTree,isArray} from "../../common/tools/ArrayTools"
+import {isArray, listToTree} from "../../common/tools/ArrayTools"
 
 export interface DataMethodPage{
     isPage: boolean,

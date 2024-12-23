@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.app.service;
 
-import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IOpenplatformAppService extends IBaseService<OpenplatformAppDO>
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<OpenplatformAppDO>lambdaQuery().in(OpenplatformAppDO::getName, names));
     }
-            
+
 
     /**
      * 根据appId查询
@@ -60,7 +61,7 @@ public interface IOpenplatformAppService extends IBaseService<OpenplatformAppDO>
         Assert.notEmpty(appIds,"appIds 不能为空");
         return list(Wrappers.<OpenplatformAppDO>lambdaQuery().in(OpenplatformAppDO::getAppId, appIds));
     }
-            
+
 
     /**
      * 根据归属用户id查询
@@ -83,7 +84,7 @@ public interface IOpenplatformAppService extends IBaseService<OpenplatformAppDO>
         Assert.notEmpty(ownerUserIds,"ownerUserIds 不能为空");
         return list(Wrappers.<OpenplatformAppDO>lambdaQuery().in(OpenplatformAppDO::getOwnerUserId, ownerUserIds));
     }
-            
+
 
     /**
      * 根据归属客户id查询

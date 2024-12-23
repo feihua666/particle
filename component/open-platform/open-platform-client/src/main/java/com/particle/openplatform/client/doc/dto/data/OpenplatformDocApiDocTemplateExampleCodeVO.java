@@ -1,13 +1,11 @@
 package com.particle.openplatform.client.doc.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.component.light.share.trans.TransConstants;
-import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 开放接口文档模板示例代码 数据通用响应对象
@@ -26,13 +24,13 @@ public class OpenplatformDocApiDocTemplateExampleCodeVO extends AbstractBaseIdVO
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "langDictId",mapValueField = "name")
     @Schema(description = "开发语言对应字典名称")
     private String langDictName;
-        
+
     @Schema(description = "示例代码片段")
     private String exampleCode;
-    
+
     @Schema(description = "示例代码下载地址")
     private String exampleDownloadUrl;
-    
+
     @Schema(description = "开放接口文档模板id")
     private Long openplatformDocApiDocTemplateId;
 
@@ -45,7 +43,7 @@ public class OpenplatformDocApiDocTemplateExampleCodeVO extends AbstractBaseIdVO
 
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

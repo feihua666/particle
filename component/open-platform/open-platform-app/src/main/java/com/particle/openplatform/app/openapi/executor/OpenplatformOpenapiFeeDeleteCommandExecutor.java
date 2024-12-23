@@ -10,11 +10,10 @@ import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiFeeV
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFee;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeId;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiFeeGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

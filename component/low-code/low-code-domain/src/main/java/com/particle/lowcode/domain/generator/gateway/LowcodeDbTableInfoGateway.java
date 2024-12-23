@@ -1,12 +1,7 @@
 package com.particle.lowcode.domain.generator.gateway;
 
-import com.particle.lowcode.domain.generator.LowcodeDatasource;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

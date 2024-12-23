@@ -2,8 +2,8 @@
 /**
  * 用户消息读取状态管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as messageUserStateCreateApi,list as MessageUserStateListApi} from "../../api/admin/messageUserStateAdminApi"
+import {reactive, ref} from 'vue'
+import {create as messageUserStateCreateApi} from "../../api/admin/messageUserStateAdminApi"
 import {addPageFormItems} from "../../components/admin/messageUserStateManage";
 
 

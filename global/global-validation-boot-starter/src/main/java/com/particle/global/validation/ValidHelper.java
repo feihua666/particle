@@ -2,9 +2,9 @@ package com.particle.global.validation;
 
 import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.util.StrUtil;
+import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

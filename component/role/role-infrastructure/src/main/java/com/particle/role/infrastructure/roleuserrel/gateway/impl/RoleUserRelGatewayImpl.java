@@ -1,14 +1,14 @@
 package com.particle.role.infrastructure.roleuserrel.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
 import com.particle.role.domain.roleuserrel.RoleUserRelId;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
-import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
+import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import com.particle.role.infrastructure.roleuserrel.structmapping.RoleUserRelInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

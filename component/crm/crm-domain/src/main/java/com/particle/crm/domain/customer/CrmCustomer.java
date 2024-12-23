@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDate;
 /**
  * <p>
@@ -53,7 +54,7 @@ public class CrmCustomer extends AggreateRoot {
     * 客户生日
     */
     private LocalDate birthDay;
-    
+
     /**
     * 客户公司id
     */

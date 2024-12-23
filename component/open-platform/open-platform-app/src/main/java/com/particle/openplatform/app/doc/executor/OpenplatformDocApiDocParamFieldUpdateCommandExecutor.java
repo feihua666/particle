@@ -1,26 +1,26 @@
 package com.particle.openplatform.app.doc.executor;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocParamFieldAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldUpdateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocParamFieldVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamField;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamFieldId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocParamFieldGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocDO;
 import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocService;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -77,7 +77,7 @@ public class OpenplatformDocApiDocParamFieldUpdateCommandExecutor  extends Abstr
 		return openplatformDocApiDocParamField;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface OpenplatformDocApiDocParamFieldUpdateCommandToOpenplatformDocApiDocParamFieldMapping{
 		OpenplatformDocApiDocParamFieldUpdateCommandToOpenplatformDocApiDocParamFieldMapping instance = Mappers.getMapper(OpenplatformDocApiDocParamFieldUpdateCommandToOpenplatformDocApiDocParamFieldMapping.class );
 

@@ -4,10 +4,10 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
-import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
+import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
+import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public interface IRoleFuncRelApplicationService extends IBaseApplicationService 
 	 * @return
 	 */
 	SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand);
-	
+
 	/**
 	 * 删除功能id范围外的角色功能关系数据
 	 * 该功能接口主要用于在租户应用分配功能后，可能功能会减少，将减少的功能联动角色一并减少

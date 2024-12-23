@@ -4,7 +4,6 @@
  */
 import {reactive, ref} from 'vue'
 import {page as areaPageApi, remove as areaRemoveApi} from "../../api/admin/areaAdminApi"
-import {treeQueryComps} from '../../../treeQueryComps'
 import {pageFormItems} from "../../components/admin/areaManage";
 
 const tableRef = ref(null)

@@ -1,11 +1,11 @@
 package com.particle.global.tool.servlet;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
@@ -28,7 +28,7 @@ import java.util.Map;
  * getServerName = localhost
  * getServletContext = org.apache.catalina.core.ApplicationContextFacade@4f43c2d3
  * <p>
- *     推荐使用 {@link ServletUtil}
+ *     推荐使用 {@link JakartaServletUtil}
  * <p>
  * @author yw on 2016/2/21.
  */
@@ -39,7 +39,7 @@ public class RequestTool {
      * 获得用户远程地址,ip地址
      */
     public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
-        String remoteAddr = ServletUtil.getClientIP(request,otherHeaderNames);
+        String remoteAddr = JakartaServletUtil.getClientIP(request,otherHeaderNames);
         if (StrUtil.isEmpty(remoteAddr)) {
             // 下面是自定义的获取ip的方法暂保留
             remoteAddr = request.getHeader("X-Real-IP");

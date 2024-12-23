@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @since 2022-09-20 13:10
  */
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalMessageEventConfiguration {
 
     @Bean

@@ -3,7 +3,7 @@
  * 注册客户端相关设置入口
  */
 
-import {ref,reactive,nextTick} from "vue"
+import {nextTick, reactive, ref} from "vue"
 import ClientSettings from './ClientSettings.vue'
 import TokenSettings from './TokenSettings.vue'
 

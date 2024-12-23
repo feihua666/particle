@@ -2,9 +2,11 @@
 /**
  * 数据查询数据源接口管理接口测试页面
  */
-import {reactive, ref,nextTick} from 'vue'
+import {nextTick, reactive, ref} from 'vue'
 import {
-  apiTest as dataQueryDatasourceApiTestApi, ApiTestParam, detail as dataQueryDatasourceApiDetailApi,
+  apiTest as dataQueryDatasourceApiTestApi,
+  ApiTestParam,
+  detail as dataQueryDatasourceApiDetailApi,
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {ElMessage} from 'element-plus'

@@ -2,11 +2,8 @@
 /**
  * 根据模型（其实是模型中的表名）和数据源加载模型项页面
  */
-import {reactive ,ref} from 'vue'
-import {
-  list as lowcodeModelListApi,
-  loadByModelAndDatasource
-} from "../../../api/generator/admin/lowcodeModelAdminApi"
+import {reactive, ref} from 'vue'
+import {list as lowcodeModelListApi, loadByModelAndDatasource} from "../../../api/generator/admin/lowcodeModelAdminApi"
 import {list as lowcodeDataSourceListApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

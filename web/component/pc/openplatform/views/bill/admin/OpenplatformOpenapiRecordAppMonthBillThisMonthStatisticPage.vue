@@ -2,7 +2,7 @@
 /**
  * 统计本月开放平台客户月账单页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {
   monthBillStatisticPageFormItems
 } from "../../../components/bill/admin/openplatformOpenapiRecordCustomerMonthBillManage";

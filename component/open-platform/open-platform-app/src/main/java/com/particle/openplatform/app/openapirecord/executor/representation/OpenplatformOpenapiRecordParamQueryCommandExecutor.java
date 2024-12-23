@@ -12,11 +12,11 @@ import com.particle.openplatform.client.openapirecord.dto.command.representation
 import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpenapiRecordParamVO;
 import com.particle.openplatform.infrastructure.openapirecord.dos.OpenplatformOpenapiRecordParamDO;
 import com.particle.openplatform.infrastructure.openapirecord.service.IOpenplatformOpenapiRecordParamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

@@ -4,13 +4,19 @@
  * 封装理由：1. 集成多各表单输入于一体，省去烦琐的手动模板，只需要指定使用的组件
  *          2. 一致的使用方式
  */
-import {reactive, watch, nextTick, inject,computed,ref,onMounted} from 'vue'
+import {computed, inject, nextTick, reactive, ref, watch} from 'vue'
 import {getVal} from "../../common/tools/ObjectTools"
 
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
 import PtCompAdapter from '../../common/CompAdapter.vue'
+
 const adapterRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

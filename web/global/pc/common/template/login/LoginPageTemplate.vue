@@ -1,5 +1,6 @@
 <script setup name="LoginPageTemplate">
 import loginCodingImg from './login-coding.png'
+
 /**
  * 页面级的登录模板 方便使用
  * 设置了默认的背景图片和垂直水平居中布局

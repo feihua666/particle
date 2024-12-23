@@ -1,8 +1,8 @@
 package com.particle.dream.domain.ssq.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.dream.domain.ssq.SsqCode;
 import com.particle.dream.domain.ssq.SsqCodeId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 import java.util.List;
 

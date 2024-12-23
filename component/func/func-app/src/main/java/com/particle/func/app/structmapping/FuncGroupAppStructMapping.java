@@ -1,18 +1,19 @@
 package com.particle.func.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
+import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
-import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
-import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

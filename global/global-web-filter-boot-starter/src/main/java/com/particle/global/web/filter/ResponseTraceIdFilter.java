@@ -3,12 +3,12 @@ package com.particle.global.web.filter;
 import brave.Span;
 import brave.Tracer;
 import com.particle.global.tool.thread.ThreadContextTool;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -36,11 +36,6 @@ public class ResponseTraceIdFilter extends OncePerRequestFilter {
 		Span currentSpan = this.tracer.currentSpan();
 		response.addHeader(RESPONSE_TRACE_ID_KEY, currentSpan.context().traceIdString());
 		// 在配置中该 filter排名第一位，直接在这里全局清除线程变量
-		try {
-			filterChain.doFilter(request,response);
-		} finally {
-			ThreadContextTool.remove();
-		}
-
+		filterChain.doFilter(request,response);
 	}
 }

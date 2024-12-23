@@ -1,8 +1,8 @@
 package com.particle.tenant.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.tenant.domain.Tenant;
 import com.particle.tenant.domain.TenantId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

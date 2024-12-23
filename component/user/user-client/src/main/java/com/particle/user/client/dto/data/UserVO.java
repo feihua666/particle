@@ -3,7 +3,6 @@ package com.particle.user.client.dto.data;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -23,7 +22,7 @@ public class UserVO extends AbstractBaseIdVO {
 
     @Schema(description = "姓名，真实姓名")
     private String name;
-    
+
     @Schema(description = "昵称，模糊查询")
     private String nickname;
 

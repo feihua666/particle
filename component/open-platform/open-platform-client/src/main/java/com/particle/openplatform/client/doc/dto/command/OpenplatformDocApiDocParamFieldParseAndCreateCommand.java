@@ -2,10 +2,9 @@ package com.particle.openplatform.client.doc.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

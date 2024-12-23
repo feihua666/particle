@@ -29,7 +29,7 @@ import java.util.List;
  * @author yangwei
  * @since 2020/12/10 20:20
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebSecurityConfig {
 
     public static final int defaultSecurityFilterChainOrder = Ordered.LOWEST_PRECEDENCE - 10000;
@@ -74,10 +74,10 @@ public class WebSecurityConfig {
     @Order(defaultSecurityFilterChainOrder)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http,AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 
-        http.authorizeRequests(expressionInterceptUrlRegistry -> {
+        http.authorizeHttpRequests(authorizeHttpRequests -> {
             // 已启用 EnableGlobalMethodSecurity，这里全部放开，根据权限动态配置
             // 注意：这里配置所有请求并不是 anyRequest,否则在扩展中不能再使用规则了
-            expressionInterceptUrlRegistry.antMatchers("/**")
+            authorizeHttpRequests.requestMatchers("/**")
                     .permitAll();
         }).formLogin(formLoginConfigurer -> {
             formLoginConfigurer.loginPage(login_page_url)

@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as TenantUserInviteUserRecordUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as TenantUserInviteUserRecordListApi
+  update as TenantUserInviteUserRecordUpdateApi
 } from "../../../api/userinvite/admin/tenantUserInviteUserRecordAdminApi"
 
 import {updatePageFormItems} from "../../../components/userinvite/admin/tenantUserInviteUserRecordManage";

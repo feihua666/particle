@@ -1,12 +1,9 @@
 package com.particle.dept.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
 /**
  * <p>
  * 部门 通用分页查询指令对象

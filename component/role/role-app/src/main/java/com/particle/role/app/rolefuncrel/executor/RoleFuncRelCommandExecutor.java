@@ -7,11 +7,10 @@ import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

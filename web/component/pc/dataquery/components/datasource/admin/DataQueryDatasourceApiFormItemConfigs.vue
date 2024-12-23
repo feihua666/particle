@@ -1,5 +1,5 @@
 <script setup name="DataQueryDatasourceApiFormItemConfigs" lang="ts">
-import {ref,reactive,nextTick} from "vue"
+import {nextTick, reactive, ref} from "vue"
 import InParamExampleConfig from './apiconfigs/InParamExampleConfig.vue'
 import InParamTestCaseDataConfig from './apiconfigs/InParamTestCaseDataConfig.vue'
 import InParamDocConfig from './apiconfigs/InParamDocConfig.vue'

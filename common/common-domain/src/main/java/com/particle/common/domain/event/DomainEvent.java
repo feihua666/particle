@@ -14,6 +14,9 @@ import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 
 public class DomainEvent<T> extends AbstractMessageEvent<T> {
 
+	public DomainEvent() {
+	}
+
 	public DomainEvent(String identifier, T data, String mq) {
 		super(identifier, data, mq);
 	}

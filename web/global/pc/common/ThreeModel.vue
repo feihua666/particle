@@ -21,7 +21,7 @@
  * 示例：
  * https://hujiulong.github.io/vue-3d-model/#/demo-obj
  */
-import { ModelThree ,ModelObj,ModelFbx,ModelStl,ModelCollada,ModelPly,ModelGltf} from 'vue-3d-model'
+import {ModelCollada, ModelFbx, ModelGltf, ModelObj, ModelPly, ModelStl, ModelThree} from 'vue-3d-model'
 // 支持的模型类型
 let supportModelType = ['json','obj','fbx','stl','dae','ply','gltf']
 export default {

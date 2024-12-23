@@ -4,8 +4,6 @@ import com.particle.common.domain.event.DomainEvent;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;

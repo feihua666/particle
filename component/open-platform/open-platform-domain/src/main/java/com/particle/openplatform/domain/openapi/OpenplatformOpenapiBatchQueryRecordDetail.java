@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -43,7 +44,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetail extends AggreateRoot {
     * 查询时间，查询后有值
     */
     private LocalDateTime queryAt;
-    
+
     /**
     * 追踪id，查询后有值
     */

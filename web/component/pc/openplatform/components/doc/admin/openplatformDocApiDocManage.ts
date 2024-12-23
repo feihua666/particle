@@ -1,6 +1,6 @@
 import {
-  useSelectOpenplatformDocApiCompItem,
-  useSelectOpenplatformDocApiDocTemplateCompItem
+    useSelectOpenplatformDocApiCompItem,
+    useSelectOpenplatformDocApiDocTemplateCompItem
 } from "../../openplatformDocCompItem";
 
 export const pageFormItems = [
@@ -27,7 +27,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '请求地址',
-            
+
           },
           compProps: {
             clearable: true,
@@ -58,7 +58,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '请求体类型',
-            
+
           },
           compProps: {
             // 字典查询
@@ -74,7 +74,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '响应体类型',
-            
+
           },
           compProps: {
             // 字典查询

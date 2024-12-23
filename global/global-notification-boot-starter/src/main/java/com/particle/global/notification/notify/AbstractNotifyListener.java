@@ -95,7 +95,7 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 					result.add(StrUtil.format("[traceId|spanId] : {}|{}",tracer.currentSpan().context().traceIdString(),tracer.currentSpan().context().spanIdString()));
 				}
 			}else {
-				log.warn("tracer is null,notice will not include traceinfo. check your config or consider depend global-sleuth-boot-starter module");
+				log.warn("tracer is null,notice will not include traceinfo. check your config or consider depend global-actuator-boot-starter module");
 			}
 
 		}

@@ -1,11 +1,10 @@
 package com.particle.lowcode.client.generator.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.Set;
 

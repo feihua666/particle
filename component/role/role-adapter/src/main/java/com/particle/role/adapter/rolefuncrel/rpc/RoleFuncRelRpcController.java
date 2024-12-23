@@ -1,16 +1,13 @@
 package com.particle.role.adapter.rolefuncrel.rpc;
 
-import com.particle.global.dto.response.Response;
-import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
-import com.particle.role.adapter.feign.client.rolefuncrel.rpc.RoleFuncRelRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.particle.global.dto.response.Response;
+import com.particle.role.adapter.feign.client.rolefuncrel.rpc.RoleFuncRelRpcFeignClient;
+import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

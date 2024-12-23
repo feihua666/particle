@@ -2,10 +2,8 @@
 /**
  * 开放平台应用开放接口月汇总统计本月页面
  */
-import {reactive ,ref} from 'vue'
-import {
-  lastMonthStatistic, thisMonthStatistic
-} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryAdminApi"
+import {reactive, ref} from 'vue'
+import {thisMonthStatistic} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryAdminApi"
 import {
   monthStatisticPageFormItems
 } from "../../../components/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryManage";

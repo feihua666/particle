@@ -7,7 +7,6 @@ import com.particle.report.app.executor.ReportApiCommandExecutor;
 import com.particle.report.client.api.IReportApiApplicationService;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
 import com.particle.report.client.dto.data.ReportApiGenerateVO;
-import com.particle.report.infrastructure.template.service.IReportSegmentTemplateRenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

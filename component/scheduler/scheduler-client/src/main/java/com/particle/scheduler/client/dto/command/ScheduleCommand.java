@@ -1,12 +1,10 @@
 package com.particle.scheduler.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by yangwei
@@ -14,15 +12,15 @@ import javax.validation.constraints.NotEmpty;
  */
 @Setter
 @Getter
-@ApiModel(value="任务计划查询表单对象")
+@Schema(description="任务计划查询表单对象")
 public class ScheduleCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "任务计划名称不能为空")
-    @ApiModelProperty(value = "任务计划名称")
+    @Schema(description = "任务计划名称")
     private String schedulerName;
 
     @NotEmpty(message = "任务计划实例id不能为空")
-    @ApiModelProperty(value = "任务计划实例id")
+    @Schema(description = "任务计划实例id")
     private String schedulerInstanceId;
 }

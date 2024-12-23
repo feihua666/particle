@@ -5,7 +5,8 @@
 import {reactive, ref} from 'vue'
 import {
   page as openplatformOpenapiRecordAppOpenapiDaySummaryPageApi,
-  remove as openplatformOpenapiRecordAppOpenapiDaySummaryRemoveApi, todayStatistic,
+  remove as openplatformOpenapiRecordAppOpenapiDaySummaryRemoveApi,
+  todayStatistic,
   yesterdayStatistic
 } from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformOpenapiRecordAppOpenapiDaySummaryManage";

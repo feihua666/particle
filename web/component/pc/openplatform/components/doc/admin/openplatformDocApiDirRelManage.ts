@@ -1,6 +1,6 @@
 import {
-  useCascaderOpenplatformDocDirCompItem,
-  useSelectOpenplatformDocApiCompItem
+    useCascaderOpenplatformDocDirCompItem,
+    useSelectOpenplatformDocApiCompItem
 } from "../../openplatformDocCompItem";
 
 export const pageFormItems = [

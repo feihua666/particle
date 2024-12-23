@@ -2,7 +2,6 @@ package com.particle.global.neo4j.test.demo.repository;
 
 import com.particle.global.neo4j.repository.BaseNeo4jRepository;
 import com.particle.global.neo4j.test.demo.ActorGRDO;
-import com.particle.global.neo4j.test.demo.PersonGDO;
 
 /**
  * <p>

@@ -1,14 +1,14 @@
 package com.particle.lowcode.infrastructure.generator.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.lowcode.domain.generator.LowcodeModel;
 import com.particle.lowcode.domain.generator.LowcodeModelId;
 import com.particle.lowcode.domain.generator.gateway.LowcodeModelGateway;
-import com.particle.lowcode.infrastructure.generator.service.ILowcodeModelService;
 import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelDO;
+import com.particle.lowcode.infrastructure.generator.service.ILowcodeModelService;
 import com.particle.lowcode.infrastructure.generator.structmapping.LowcodeModelInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.structmapping;
 
-import com.particle.navigation.infrastructure.dos.NavigationFriendshipLinkDO;
 import com.particle.navigation.domain.NavigationFriendshipLink;
 import com.particle.navigation.domain.NavigationFriendshipLinkId;
+import com.particle.navigation.infrastructure.dos.NavigationFriendshipLinkDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-11-03 11:09:01
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class NavigationFriendshipLinkInfrastructureStructMapping {
 	public static NavigationFriendshipLinkInfrastructureStructMapping instance = Mappers.getMapper( NavigationFriendshipLinkInfrastructureStructMapping.class );
 

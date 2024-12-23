@@ -1,14 +1,14 @@
 package com.particle.message.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.message.domain.Message;
 import com.particle.message.domain.MessageId;
 import com.particle.message.domain.gateway.MessageGateway;
-import com.particle.message.infrastructure.service.IMessageService;
 import com.particle.message.infrastructure.dos.MessageDO;
+import com.particle.message.infrastructure.service.IMessageService;
 import com.particle.message.infrastructure.structmapping.MessageInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,10 @@
 package com.particle.message.client.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -55,7 +55,7 @@ public class MessagePageQueryCommand extends AbstractBasePageQueryCommand {
 
 	@Schema(description = "消息模板id，用来追踪是哪个模板")
 	private Long messageTemplateId;
-    
+
 
 
 

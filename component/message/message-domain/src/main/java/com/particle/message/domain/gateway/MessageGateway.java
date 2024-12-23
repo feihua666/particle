@@ -1,8 +1,8 @@
 package com.particle.message.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.message.domain.Message;
 import com.particle.message.domain.MessageId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

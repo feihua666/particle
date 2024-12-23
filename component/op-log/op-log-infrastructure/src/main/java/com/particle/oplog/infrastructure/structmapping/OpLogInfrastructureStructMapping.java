@@ -1,10 +1,11 @@
 package com.particle.oplog.infrastructure.structmapping;
 
-import com.particle.oplog.infrastructure.dos.OpLogDO;
 import com.particle.oplog.domain.OpLog;
 import com.particle.oplog.domain.OpLogId;
+import com.particle.oplog.infrastructure.dos.OpLogDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-05-08 18:32:34
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpLogInfrastructureStructMapping {
 	public static OpLogInfrastructureStructMapping instance = Mappers.getMapper( OpLogInfrastructureStructMapping.class );
 

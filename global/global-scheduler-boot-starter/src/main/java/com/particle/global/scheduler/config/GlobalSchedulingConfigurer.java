@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2023-06-09 15:18
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalSchedulingConfigurer implements SchedulingConfigurer {
 
 	private static final String globalAnnotationScheduledTaskExecutor = "globalAnnotationScheduledTaskExecutor";

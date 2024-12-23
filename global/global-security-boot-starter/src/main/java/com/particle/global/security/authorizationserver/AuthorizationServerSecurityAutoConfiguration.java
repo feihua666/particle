@@ -52,7 +52,7 @@ import java.util.UUID;
  * @since 2023-07-07 16:13
  */
 @AutoConfigureAfter(AuthorizationServerSecurityServiceAndRepositoryAutoConfiguration.class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".authorization-server", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnBean(RegisteredClientRepository.class)
 public class AuthorizationServerSecurityAutoConfiguration {
@@ -61,6 +61,7 @@ public class AuthorizationServerSecurityAutoConfiguration {
 	private JwtAuthenticationConverter jwtAuthenticationConverter;
 
 	/**
+	 * // oauth2 参考文档：https://docs.spring.io/spring-authorization-server/reference/getting-started.html
 	 * 根据官方文档，该配置排序需要比{@link WebSecurityConfig#defaultSecurityFilterChain(HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 靠前
 	 * @param http 注意：该实例和{@link WebSecurityConfig#defaultSecurityFilterChain(HttpSecurity, org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)} 不是一个实例
 	 * @return
@@ -70,10 +71,19 @@ public class AuthorizationServerSecurityAutoConfiguration {
 	@Order(WebSecurityConfig.defaultSecurityFilterChainOrder - 10)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
 			throws Exception {
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-				.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
+
+		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
+				OAuth2AuthorizationServerConfigurer.authorizationServer();
 		http
+				.securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
+				.with(authorizationServerConfigurer, (authorizationServer) ->
+						authorizationServer
+								.oidc(Customizer.withDefaults())    // Enable OpenID Connect 1.0
+				)
+				.authorizeHttpRequests((authorize) ->
+						authorize
+								.anyRequest().authenticated()
+				)
 				// Redirect to the login page when not authenticated from the
 				// authorization endpoint
 				.exceptionHandling((exceptions) -> exceptions

@@ -10,11 +10,10 @@ import com.particle.message.client.dto.data.MessageUserStateVO;
 import com.particle.message.domain.MessageUserState;
 import com.particle.message.domain.MessageUserStateId;
 import com.particle.message.domain.gateway.MessageUserStateGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

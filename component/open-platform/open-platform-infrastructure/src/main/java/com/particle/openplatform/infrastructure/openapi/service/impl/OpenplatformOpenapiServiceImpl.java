@@ -7,17 +7,17 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppOpenapiDO;
 import com.particle.openplatform.infrastructure.app.mapper.OpenplatformAppOpenapiMapper;
 import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
 import com.particle.openplatform.infrastructure.openapi.mapper.OpenplatformOpenapiMapper;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 	private static String openplatformAppOpenapiDOTableNameCache = null;
 	private static String openplatformOpenapiDOTableNameCache = null;
 	private static String getQueryWrapperopenplatformAppIdExistSqlCache = null;
-	
+
 	private IBaseQueryCommandMapStruct<OpenplatformOpenapiDO> queryCommandMapStruct;
 
 	private OpenplatformAppOpenapiMapper openplatformAppOpenapiMapper;

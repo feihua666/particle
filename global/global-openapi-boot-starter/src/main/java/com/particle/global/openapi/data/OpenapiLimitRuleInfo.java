@@ -1,7 +1,9 @@
 package com.particle.global.openapi.data;
 
 import com.particle.global.dto.basic.DTO;
-import com.particle.global.openapi.enums.*;
+import com.particle.global.openapi.enums.LimitRulePeriod;
+import com.particle.global.openapi.enums.LimitRuleTarget;
+import com.particle.global.openapi.enums.LimitRuleType;
 import lombok.Data;
 
 /**

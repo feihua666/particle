@@ -2,10 +2,10 @@
 /**
  * 用户角色关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as roleUserRelCreateApi} from "../../api/admin/roleUserRelAdminApi"
-import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../../user/components/userCompItem";
-import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
+import {remoteSelectUserProps, useRemoteSelectUserCompItem} from "../../../user/components/userCompItem";
+import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../components/roleCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

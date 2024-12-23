@@ -4,7 +4,7 @@
  * 封装理由：1. 集成多各表单输入于一体，省去烦琐的手动模板，只需要指定
  *          2. 一致的使用方式
  */
-import {reactive ,inject,ref,computed} from 'vue'
+import {computed} from 'vue'
 import PtFormItemDetail from './FormItemDetail.vue'
 import {getVal} from "../../common/tools/ObjectTools"
 import {regs} from "../../common/tools/RegTools";

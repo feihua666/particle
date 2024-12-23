@@ -5,10 +5,8 @@ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.annotation.ProxyCachingConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,7 +24,7 @@ import java.util.List;
  * @author yangwei
  * @since 2023/10/8 16:54
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 // 经尝试，该注解必须添加到启动类上，否则启动报错
 // @EnableCaching
 @ComponentScan

@@ -13,12 +13,10 @@ import com.particle.scheduler.domain.temptask.gateway.SchedulerTempTaskGateway;
 import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
 import com.particle.scheduler.infrastructure.temptask.service.ISchedulerTempTaskRunRecordService;
 import com.particle.scheduler.infrastructure.temptask.service.ISchedulerTempTaskService;
-import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskDO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
-import javax.validation.Valid;
 
 /**
  * <p>

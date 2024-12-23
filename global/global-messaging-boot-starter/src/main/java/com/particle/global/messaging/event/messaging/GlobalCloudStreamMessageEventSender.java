@@ -6,13 +6,13 @@ import com.particle.global.messaging.event.GlobalMessageEventConfiguration;
 import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.messaging.event.api.MessageEventSender;
 import com.particle.global.tool.json.JsonTool;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.concurrent.ExecutorService;
 
 /**

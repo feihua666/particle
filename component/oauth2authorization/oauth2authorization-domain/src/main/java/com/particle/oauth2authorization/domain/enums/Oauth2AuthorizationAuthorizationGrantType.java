@@ -5,12 +5,10 @@ import com.particle.component.light.share.dict.api.IDictGroup;
 import com.particle.component.light.share.dict.api.IDictItem;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

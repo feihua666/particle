@@ -2,19 +2,18 @@ package com.particle.dataquery.app.provider.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.dataquery.app.provider.structmapping.DataQueryProviderAppStructMapping;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
 import com.particle.dataquery.domain.provider.DataQueryProvider;
 import com.particle.dataquery.domain.provider.DataQueryProviderId;
 import com.particle.dataquery.domain.provider.gateway.DataQueryProviderGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

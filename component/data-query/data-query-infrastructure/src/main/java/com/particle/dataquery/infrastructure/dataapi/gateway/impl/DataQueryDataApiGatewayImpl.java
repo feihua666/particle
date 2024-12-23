@@ -1,13 +1,13 @@
 package com.particle.dataquery.infrastructure.dataapi.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
-import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
+import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
 import com.particle.dataquery.infrastructure.dataapi.structmapping.DataQueryDataApiInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

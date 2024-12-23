@@ -1,5 +1,6 @@
 package com.particle.data.app.temp.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.data.app.temp.structmapping.DataCompanyMd5IdsAppStructMapping;
 import com.particle.data.client.temp.dto.command.DataCompanyMd5IdsUpdateCommand;
 import com.particle.data.client.temp.dto.data.DataCompanyMd5IdsVO;
@@ -8,15 +9,14 @@ import com.particle.data.domain.temp.DataCompanyMd5IdsId;
 import com.particle.data.domain.temp.gateway.DataCompanyMd5IdsGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class DataCompanyMd5IdsUpdateCommandExecutor  extends AbstractBaseExecuto
 		return dataCompanyMd5Ids;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface DataCompanyMd5IdsUpdateCommandToDataCompanyMd5IdsMapping{
 		DataCompanyMd5IdsUpdateCommandToDataCompanyMd5IdsMapping instance = Mappers.getMapper(DataCompanyMd5IdsUpdateCommandToDataCompanyMd5IdsMapping.class );
 

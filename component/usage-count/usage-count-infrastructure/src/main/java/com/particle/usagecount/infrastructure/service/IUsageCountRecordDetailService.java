@@ -1,10 +1,11 @@
 package com.particle.usagecount.infrastructure.service;
 
-import com.particle.usagecount.infrastructure.dos.UsageCountRecordDetailDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.usagecount.infrastructure.dos.UsageCountRecordDetailDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IUsageCountRecordDetailService extends IBaseService<UsageCountR
         Assert.notEmpty(usageCountRecordIds,"usageCountRecordIds 不能为空");
         return list(Wrappers.<UsageCountRecordDetailDO>lambdaQuery().in(UsageCountRecordDetailDO::getUsageCountRecordId, usageCountRecordIds));
     }
-            
+
 
     /**
      * 根据使用次数定义id查询
@@ -60,7 +61,7 @@ public interface IUsageCountRecordDetailService extends IBaseService<UsageCountR
         Assert.notEmpty(usageCountDefineIds,"usageCountDefineIds 不能为空");
         return list(Wrappers.<UsageCountRecordDetailDO>lambdaQuery().in(UsageCountRecordDetailDO::getUsageCountDefineId, usageCountDefineIds));
     }
-            
+
 
     /**
      * 根据使用用户id查询
@@ -83,7 +84,7 @@ public interface IUsageCountRecordDetailService extends IBaseService<UsageCountR
         Assert.notEmpty(usageUserIds,"usageUserIds 不能为空");
         return list(Wrappers.<UsageCountRecordDetailDO>lambdaQuery().in(UsageCountRecordDetailDO::getUsageUserId, usageUserIds));
     }
-            
+
 
     /**
      * 根据使用租户id查询
@@ -106,7 +107,7 @@ public interface IUsageCountRecordDetailService extends IBaseService<UsageCountR
         Assert.notEmpty(usageTenantIds,"usageTenantIds 不能为空");
         return list(Wrappers.<UsageCountRecordDetailDO>lambdaQuery().in(UsageCountRecordDetailDO::getUsageTenantId, usageTenantIds));
     }
-            
+
 
 
 

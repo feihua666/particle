@@ -1,21 +1,21 @@
  package com.particle.openplatform;
 
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.swagger.ApplicationContexSwaggertHelper;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import com.particle.openplatform.app.OpenplatformAppConfiguration;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.context.annotation.Import;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import com.particle.openplatform.app.OpenplatformAppConfiguration;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.models.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.context.annotation.Import;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 /**
  * <p>
@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2023-08-04 17:28:48
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({
         "com.particle.openplatform.infrastructure.app.mapper",
         "com.particle.openplatform.infrastructure.openapi.mapper",
@@ -49,7 +49,7 @@ public class OpenPlatformAutoConfiguration {
     @Bean
     public GroupedOpenApi createOpenPlatformAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("open-platform接口")
                 .basePackage("com.particle.openplatform.adapter")

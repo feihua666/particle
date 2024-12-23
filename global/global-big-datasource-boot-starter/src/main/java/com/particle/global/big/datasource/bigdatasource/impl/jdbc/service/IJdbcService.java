@@ -1,14 +1,8 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
-import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
-import com.particle.global.dto.basic.PageQueryCommand;
-import com.particle.global.mybatis.plus.mapper.NativeSqlMapper;
-import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>

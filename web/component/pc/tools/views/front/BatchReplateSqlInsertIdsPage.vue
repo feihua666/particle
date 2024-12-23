@@ -2,7 +2,7 @@
 /**
  * 批量替换id，主要是将复制的insert sql语句中的id替换成新的id
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {batchGenIds} from "../../api/front/toolsFrontApi";
 import {match} from "../../../../../global/common/tools/RegTools";
 

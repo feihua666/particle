@@ -2,11 +2,9 @@ package com.particle.data.infrastructure.company.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -60,6 +58,6 @@ public class DataCompanyDO extends BaseDO {
     * 最后更新时间，相关联的只要有更新，就需要更新该值
     */
     private LocalDateTime latestUpdateAt;
-    
+
 
 }

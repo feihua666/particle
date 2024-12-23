@@ -1,21 +1,18 @@
 package com.particle.data.app.company.api.impl;
 
-import com.particle.data.app.company.executor.*;
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.data.client.company.dto.command.DataCompanyUpdateCommand;
+import com.particle.data.app.company.executor.*;
 import com.particle.data.client.company.api.IDataCompanyApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyCreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyUpdateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyWarehouseCommand;
 import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseVO;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
-
-
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

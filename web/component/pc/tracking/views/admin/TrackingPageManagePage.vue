@@ -3,7 +3,7 @@
  * 埋点页面管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as trackingPagePageApi, remove as trackingPageRemoveApi} from "../../api/admin/trackingPageAdminApi"
+import {page as trackingPagePageApi, remove as trackingPageRemoveApi} from "../../api/admin/trackingPageAdminApi"
 import {pageFormItems} from "../../components/admin/trackingPageManage";
 
 

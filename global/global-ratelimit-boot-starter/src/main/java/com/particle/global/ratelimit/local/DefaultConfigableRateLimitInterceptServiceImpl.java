@@ -7,6 +7,8 @@ import cn.hutool.core.util.StrUtil;
 import com.google.common.util.concurrent.RateLimiter;
 import com.particle.global.ratelimit.RateLimitInterceptService;
 import com.particle.global.ratelimit.RateLimiterNamedWrapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -16,8 +18,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

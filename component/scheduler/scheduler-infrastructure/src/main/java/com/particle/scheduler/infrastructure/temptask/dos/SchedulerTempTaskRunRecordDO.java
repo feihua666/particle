@@ -2,11 +2,9 @@ package com.particle.scheduler.infrastructure.temptask.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -45,12 +43,12 @@ public class SchedulerTempTaskRunRecordDO extends BaseDO {
     * 运行开始时间
     */
     private LocalDateTime startAt;
-    
+
     /**
     * 运行结束时间
     */
     private LocalDateTime finishAt;
-    
+
     /**
     * 本地主机ip，用来表明是在哪个机器上运行的
     */

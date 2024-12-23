@@ -2,12 +2,15 @@
 /**
  * 数据范围分配角色页面
  */
-import {reactive ,ref} from 'vue'
-import {queryRoleIdsByDataScopeId, dataScopeAssignRole as dataScopeAssignRoleApi} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
+import {reactive, ref} from 'vue'
 import {
-  useRemoteSelectDataScopeCompItem,
+  dataScopeAssignRole as dataScopeAssignRoleApi,
+  queryRoleIdsByDataScopeId
+} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
+import {
   remoteSelectDataScopeProps,
-  useSelectDataConstraintDataObjectCompItem, useSelectDataScopeCompItem
+  useSelectDataConstraintDataObjectCompItem,
+  useSelectDataScopeCompItem
 } from "../../../../dataconstraint/components/dataconstraintCompItem";
 import {list as roleListApi} from "../../../api/admin/roleAdminApi";
 

@@ -1,18 +1,19 @@
 package com.particle.message.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.message.client.dto.command.representation.MessageUserStatePageQueryCommand;
+import com.particle.message.client.dto.command.representation.MessageUserStateQueryListCommand;
 import com.particle.message.client.dto.data.MessageUserStateVO;
 import com.particle.message.domain.MessageUserState;
 import com.particle.message.domain.MessageUserStateId;
 import com.particle.message.infrastructure.dos.MessageUserStateDO;
-import com.particle.message.client.dto.command.representation.MessageUserStatePageQueryCommand;
-import com.particle.message.client.dto.command.representation.MessageUserStateQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

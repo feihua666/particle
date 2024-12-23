@@ -1,10 +1,11 @@
 package com.particle.dataconstraint.infrastructure.structmapping;
 
-import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
 import com.particle.dataconstraint.domain.DataScope;
 import com.particle.dataconstraint.domain.DataScopeId;
+import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-06-28 13:10:38
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DataScopeInfrastructureStructMapping {
 	public static DataScopeInfrastructureStructMapping instance = Mappers.getMapper( DataScopeInfrastructureStructMapping.class );
 

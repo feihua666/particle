@@ -1,22 +1,22 @@
 package com.particle.tenant.app.userinvite.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.userinvite.structmapping.TenantUserInviteAppStructMapping;
 import com.particle.tenant.client.userinvite.dto.command.TenantUserInviteUpdateCommand;
 import com.particle.tenant.client.userinvite.dto.data.TenantUserInviteVO;
 import com.particle.tenant.domain.userinvite.TenantUserInvite;
 import com.particle.tenant.domain.userinvite.TenantUserInviteId;
 import com.particle.tenant.domain.userinvite.gateway.TenantUserInviteGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class TenantUserInviteUpdateCommandExecutor  extends AbstractBaseExecutor
 		return tenantUserInvite;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface TenantUserInviteUpdateCommandToTenantUserInviteMapping{
 		TenantUserInviteUpdateCommandToTenantUserInviteMapping instance = Mappers.getMapper(TenantUserInviteUpdateCommandToTenantUserInviteMapping.class );
 

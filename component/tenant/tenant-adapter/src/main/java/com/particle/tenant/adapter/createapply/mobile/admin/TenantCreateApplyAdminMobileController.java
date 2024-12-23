@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.createapply.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
+import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

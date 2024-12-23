@@ -1,10 +1,11 @@
 package com.particle.dataquery.infrastructure.datasource.service;
 
-import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IDataQueryDatasourceService extends IBaseService<DataQueryDatas
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<DataQueryDatasourceDO>lambdaQuery().in(DataQueryDatasourceDO::getCode, codes));
     }
-            
+
 
 
 
@@ -65,7 +66,7 @@ public interface IDataQueryDatasourceService extends IBaseService<DataQueryDatas
         Assert.notEmpty(dataQueryProviderIds,"dataQueryProviders 不能为空");
         return list(Wrappers.<DataQueryDatasourceDO>lambdaQuery().in(DataQueryDatasourceDO::getDataQueryProviderId, dataQueryProviderIds));
     }
-            
+
 
 
 

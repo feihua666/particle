@@ -3,11 +3,16 @@
  * 自定义封装输入
  * 封装理由：1. 后端使用时支持权限控制
  */
-import { reactive ,inject, watch} from 'vue'
+import {inject, reactive, watch} from 'vue'
 
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
 
 
 // 声明属性

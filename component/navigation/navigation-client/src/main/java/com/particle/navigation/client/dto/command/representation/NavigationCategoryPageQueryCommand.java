@@ -1,11 +1,10 @@
 package com.particle.navigation.client.dto.command.representation;
+
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
 /**
  * <p>
  * 导航分类 通用分页查询指令对象

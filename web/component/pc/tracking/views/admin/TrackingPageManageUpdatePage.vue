@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as trackingPageUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as TrackingPageListApi
+  update as trackingPageUpdateApi
 } from "../../api/admin/trackingPageAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/trackingPageManage";

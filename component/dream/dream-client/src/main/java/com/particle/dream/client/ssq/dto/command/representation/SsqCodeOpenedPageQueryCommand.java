@@ -1,11 +1,11 @@
 package com.particle.dream.client.ssq.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Gt;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDate;
 /**
  * <p>

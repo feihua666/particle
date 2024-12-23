@@ -17,9 +17,7 @@ import com.particle.openplatform.client.app.dto.command.OpenplatformAppCreateCom
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppUpdateCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppPageQueryCommand;
 import com.particle.openplatform.client.app.dto.command.representation.OpenplatformAppQueryListCommand;
-import com.particle.openplatform.client.app.dto.data.OpenplatformAppOpenapiVO;
 import com.particle.openplatform.client.app.dto.data.OpenplatformAppVO;
-import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppOpenapiDO;
 import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppOpenapiService;
 import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;

@@ -7,7 +7,6 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpenapiRecordParamVO;
 import com.particle.openplatform.client.providerrecord.api.IOpenplatformProviderRecordParamApplicationService;
 import com.particle.openplatform.client.providerrecord.api.representation.IOpenplatformProviderRecordParamRepresentationApplicationService;
 import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordParamPageQueryCommand;

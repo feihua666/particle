@@ -1,7 +1,5 @@
 <script setup name="InParamValidateConfig" lang="ts">
-import {onMounted, reactive, ref,nextTick,watch} from 'vue'
-import {clone} from "../../../../../../../global/common/tools/ObjectTools";
-import {paramType} from "../dataQueryDatasourceApiManage";
+import {nextTick, onMounted, reactive, ref, watch} from 'vue'
 
 /**
  * 验证项

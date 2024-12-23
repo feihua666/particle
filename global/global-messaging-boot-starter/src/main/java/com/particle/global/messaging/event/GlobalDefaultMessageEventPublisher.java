@@ -1,7 +1,6 @@
 package com.particle.global.messaging.event;
 
 import com.particle.global.concurrency.lock.LockExecutor;
-import com.particle.global.concurrency.lock.distribute.DistributedShedLockExecutor;
 import com.particle.global.dto.messaging.event.AbstractMessageEvent;
 import com.particle.global.exception.biz.LockAlreadyOccupiedException;
 import com.particle.global.messaging.event.api.MessageEventPublisher;
@@ -9,9 +8,6 @@ import com.particle.global.messaging.event.api.MessageEventRepository;
 import com.particle.global.messaging.event.api.MessageEventSender;
 import com.particle.global.tool.retry.RetryTool;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.retry.backoff.ExponentialBackOffPolicy;
-import org.springframework.retry.policy.SimpleRetryPolicy;
-import org.springframework.retry.support.RetryTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;

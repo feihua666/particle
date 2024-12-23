@@ -13,11 +13,10 @@ import com.particle.role.domain.roleuserrel.RoleUserRelId;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

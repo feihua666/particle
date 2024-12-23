@@ -1,6 +1,5 @@
 package com.particle.lowcode.infrastructure.generator.dto;
 
-import com.particle.global.dto.basic.DTO;
 import com.particle.global.dto.basic.Value;
 import lombok.Data;
 

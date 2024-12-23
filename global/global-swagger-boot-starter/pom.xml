@@ -32,55 +32,45 @@
             </exclusions>
         </dependency>
 
-        <!-- swagger 接口文档工具 -->
-<!--        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox-boot-starter.version}</version>
-        </dependency>-->
-        <!-- swagger ui-接口文档工具 doc.html -->
-<!--        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>${knife4j-spring-boot-starter.version}</version>
-        </dependency>-->
-
         <!--springdoc-openapi的Jar包引用-->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
+        <!-- 暂注释掉，knife4j已经引入 -->
+        <!--<dependency>-->
+        <!--    <groupId>org.springdoc</groupId>-->
+        <!--    <artifactId>springdoc-openapi-ui</artifactId>-->
+        <!--    <version>${springdoc.version}</version>-->
+        <!--</dependency>-->
 
         <!-- 直接使用 knife4j，已经间接引入了对应版本的 springdoc 参考：https://doc.xiaominfo.com/docs/quick-start-->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-            <version>${knife4j-openapi3-spring-boot-starter.version}</version>
+            <!--<groupId>com.github.xiaoymin</groupId>-->
+            <!-- 文档参考：https://doc.xiaominfo.com/ 注意：该版本是三方临时版本 group已修改 参见：https://github.com/xiaoymin/knife4j/issues/865-->
+            <groupId>com.github.xingfudeshi</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
             <!--排除低版本-->
             <!-- 排除的可以注释掉也可以不注释掉，因为已经升级到了4.3.0版本，引入的和 springdoc-openapi-ui版本一样都是1.7.0-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-common</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-webflux-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-webmvc-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.swagger.core.v3</groupId>
-                    <artifactId>swagger-models</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.swagger.core.v3</groupId>
-                    <artifactId>swagger-annotations</artifactId>
-                </exclusion>
-            </exclusions>
+            <!--<exclusions>-->
+            <!--    <exclusion>-->
+            <!--        <groupId>org.springdoc</groupId>-->
+            <!--        <artifactId>springdoc-openapi-common</artifactId>-->
+            <!--    </exclusion>-->
+            <!--    <exclusion>-->
+            <!--        <groupId>org.springdoc</groupId>-->
+            <!--        <artifactId>springdoc-openapi-webflux-core</artifactId>-->
+            <!--    </exclusion>-->
+            <!--    <exclusion>-->
+            <!--        <groupId>org.springdoc</groupId>-->
+            <!--        <artifactId>springdoc-openapi-webmvc-core</artifactId>-->
+            <!--    </exclusion>-->
+            <!--    <exclusion>-->
+            <!--        <groupId>io.swagger.core.v3</groupId>-->
+            <!--        <artifactId>swagger-models</artifactId>-->
+            <!--    </exclusion>-->
+            <!--    <exclusion>-->
+            <!--        <groupId>io.swagger.core.v3</groupId>-->
+            <!--        <artifactId>swagger-annotations-jakarta</artifactId>-->
+            <!--    </exclusion>-->
+            <!--</exclusions>-->
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>

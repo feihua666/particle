@@ -4,13 +4,11 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as roleDataScopeRelUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as roleDataScopeRelUpdateApi
 } from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
 
-import {
-  useUpdatePageFormItems
-} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
+import {useUpdatePageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 import {remoteSelectRoleProps} from "../../../components/roleCompItem";
 
 

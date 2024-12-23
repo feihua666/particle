@@ -5,6 +5,7 @@ import com.particle.dream.domain.ssq.value.SsqCodeCrawlingResult;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class SsqCodeOpened extends AggreateRoot {
     * 开奖日期
     */
     private LocalDate openedDate;
-    
+
     /**
     * 开奖期号年份
     */

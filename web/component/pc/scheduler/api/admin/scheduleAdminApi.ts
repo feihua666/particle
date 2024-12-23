@@ -1,5 +1,6 @@
-import axios, { AxiosPromise} from 'axios'
+import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools"
+
 let schedulePrefix = '/admin/web/schedule'
 /**
  * 挂起任务计划

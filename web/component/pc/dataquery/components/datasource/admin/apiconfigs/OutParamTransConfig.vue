@@ -1,10 +1,7 @@
 <script setup name="OutParamTransConfig" lang="ts">
-import {onMounted, reactive, ref,nextTick} from 'vue'
-import { clone} from "../../../../../../../global/common/tools/ObjectTools";
-import {paramType} from "../dataQueryDatasourceApiManage";
-import { v4 as uuidv4 } from 'uuid';
+import {nextTick, onMounted, reactive, ref} from 'vue'
+import {v4 as uuidv4} from 'uuid';
 import {ElMessage} from 'element-plus'
-import {underlineToHump, upperFirst} from "../../../../../../../global/common/tools/StringTools";
 
 let alert = (message,type='success')=>{
   ElMessage({

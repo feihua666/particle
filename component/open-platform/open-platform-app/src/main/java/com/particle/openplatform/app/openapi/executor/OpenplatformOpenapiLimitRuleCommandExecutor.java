@@ -1,16 +1,11 @@
 package com.particle.openplatform.app.openapi.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiLimitRuleGateway;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiLimitRuleService;
-import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiLimitRuleDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

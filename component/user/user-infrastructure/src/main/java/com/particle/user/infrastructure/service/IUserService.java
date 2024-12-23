@@ -1,7 +1,7 @@
 package com.particle.user.infrastructure.service;
 
-import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.user.infrastructure.dos.UserDO;
 
 /**
  * <p>

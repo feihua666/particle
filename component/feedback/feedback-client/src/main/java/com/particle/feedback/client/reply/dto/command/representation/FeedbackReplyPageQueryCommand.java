@@ -1,7 +1,6 @@
 package com.particle.feedback.client.reply.dto.command.representation;
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -34,7 +33,7 @@ public class FeedbackReplyPageQueryCommand extends AbstractBasePageQueryCommand 
 
     @Schema(description = "回复时间")
     private LocalDateTime replyAt;
-    
+
 
     @Schema(description = "回复用户id")
     private Long replyUserId;

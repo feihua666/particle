@@ -1,22 +1,22 @@
 package com.particle.tenant.app.tenantfuncapplication.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.tenantfuncapplication.structmapping.TenantFuncApplicationAppStructMapping;
 import com.particle.tenant.client.tenantfuncapplication.dto.command.TenantFuncApplicationUpdateCommand;
 import com.particle.tenant.client.tenantfuncapplication.dto.data.TenantFuncApplicationVO;
 import com.particle.tenant.domain.tenantfuncapplication.TenantFuncApplication;
 import com.particle.tenant.domain.tenantfuncapplication.TenantFuncApplicationId;
 import com.particle.tenant.domain.tenantfuncapplication.gateway.TenantFuncApplicationGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class TenantFuncApplicationUpdateCommandExecutor  extends AbstractBaseExe
 		return tenantFuncApplication;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface TenantFuncApplicationUpdateCommandToTenantFuncApplicationMapping{
 		TenantFuncApplicationUpdateCommandToTenantFuncApplicationMapping instance = Mappers.getMapper(TenantFuncApplicationUpdateCommandToTenantFuncApplicationMapping.class );
 

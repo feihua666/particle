@@ -3,7 +3,10 @@
  * 导航网站静态部署管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationStaticDeployPageApi, remove as navigationStaticDeployRemoveApi} from "../../api/admin/navigationStaticDeployAdminApi"
+import {
+  page as navigationStaticDeployPageApi,
+  remove as navigationStaticDeployRemoveApi
+} from "../../api/admin/navigationStaticDeployAdminApi"
 import {pageFormItems} from "../../components/admin/navigationStaticDeployManage";
 
 

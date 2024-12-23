@@ -1,0 +1,2 @@
+com.particle.global.notification.GlobalNotificationAutoConfiguration
+com.particle.global.notification.sms.impl.GlobalNotificationThirdSmsAutoConfiguration

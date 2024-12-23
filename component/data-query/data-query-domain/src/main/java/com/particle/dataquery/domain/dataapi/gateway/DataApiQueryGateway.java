@@ -2,7 +2,6 @@ package com.particle.dataquery.domain.dataapi.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
-import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceApiId;
 
 /**

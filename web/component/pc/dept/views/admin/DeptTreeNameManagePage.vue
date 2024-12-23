@@ -3,7 +3,7 @@
  * 部门树名称管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DeptTreeNamePageApi, remove as DeptTreeNameRemoveApi} from "../../api/admin/deptTreeNameAdminApi"
+import {page as DeptTreeNamePageApi, remove as DeptTreeNameRemoveApi} from "../../api/admin/deptTreeNameAdminApi"
 import {pageFormItems} from "../../components/admin/deptTreeNameManage";
 
 

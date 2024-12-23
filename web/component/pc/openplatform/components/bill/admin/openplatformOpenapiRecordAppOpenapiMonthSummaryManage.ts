@@ -1,6 +1,6 @@
 import {useSelectAppCompItem} from "../../openplatformAppCompItem";
 import {
-  useOauth2SelectClientCompItem
+    useOauth2SelectClientCompItem
 } from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem";
 import {useCascaderOpenapiCompItem} from "../../openplatformOpenapiCompItem";
 import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
@@ -39,7 +39,7 @@ export const pageFormItems = [
           comp: 'PtDatePicker',
           formItemProps: {
             label: '月',
-            
+
           },
           compProps: {
             type: 'month',

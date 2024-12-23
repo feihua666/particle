@@ -1,12 +1,10 @@
 package com.particle.openplatform.client.app.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 开放平台应用与开放接口配置 数据通用响应对象
@@ -32,7 +30,7 @@ public class OpenplatformAppOpenapiVO extends AbstractBaseIdVO {
     @TransBy(tableName = TransTableNameConstants.component_openplatform_openapi, byFieldName = "openplatformOpenapiId", mapValueField = "name")
     @Schema(description = "开放接口名称")
     private String openplatformOpenapiName;
-    
+
     @Schema(description = "计费规则id")
     private Long openplatformOpenapiFeeId;
 

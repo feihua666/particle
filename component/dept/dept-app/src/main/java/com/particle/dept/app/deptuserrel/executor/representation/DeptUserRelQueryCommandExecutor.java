@@ -1,22 +1,23 @@
 package com.particle.dept.app.deptuserrel.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dept.app.deptuserrel.structmapping.DeptUserRelAppStructMapping;
+import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
 import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
 import com.particle.dept.infrastructure.deptuserrel.service.IDeptUserRelService;
-import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

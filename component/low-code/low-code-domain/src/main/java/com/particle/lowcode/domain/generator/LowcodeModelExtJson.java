@@ -3,7 +3,6 @@ package com.particle.lowcode.domain.generator;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.ValueObjRoot;
-import com.particle.global.domain.DomainFactory;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 

@@ -11,12 +11,10 @@ import com.particle.navigation.domain.NavigationSite;
 import com.particle.navigation.domain.NavigationSiteId;
 import com.particle.navigation.domain.gateway.NavigationSiteGateway;
 import com.particle.navigation.infrastructure.service.INavigationSiteService;
-import com.particle.navigation.infrastructure.dos.NavigationSiteDO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
-import javax.validation.Valid;
 
 /**
  * <p>

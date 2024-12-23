@@ -1,10 +1,8 @@
 package com.particle.global.security.security.config;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  * 该配置将请求 web 路径包含 inner或rpc 路径的全部拒绝，因为包含有 inner或rpc 路径的请求属于微服务内部调用
@@ -15,7 +13,11 @@ import org.springframework.stereotype.Component;
 public class InnerPathConfig implements CustomWebSecurityConfigure {
     @Override
     public void configure(HttpSecurity http, AuthenticationManagerBuilder authenticationManagerBuilder, PasswordEncoder passwordEncoder, CustomWebSecurityConfigureExt ext) throws Exception {
-        http.authorizeRequests().antMatchers("/**/inner/**").denyAll();
-        http.authorizeRequests().antMatchers("/**/rpc/**").denyAll();
+        http.authorizeHttpRequests((authorizeHttpRequests) ->
+                authorizeHttpRequests
+                        .requestMatchers("/**/inner/**").denyAll()
+                        .requestMatchers("/**/rpc/**").denyAll()
+        );
+
     }
 }

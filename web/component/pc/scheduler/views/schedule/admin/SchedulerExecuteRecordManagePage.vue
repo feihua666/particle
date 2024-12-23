@@ -3,7 +3,10 @@
  * 任务计划执行记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as schedulerExecuteRecordPageApi, remove as schedulerExecuteRecordRemoveApi} from "../../../api/schedule/admin/schedulerExecuteRecordAdminApi"
+import {
+  page as schedulerExecuteRecordPageApi,
+  remove as schedulerExecuteRecordRemoveApi
+} from "../../../api/schedule/admin/schedulerExecuteRecordAdminApi"
 import {pageFormItems} from "../../../components/schedule/admin/schedulerExecuteRecordManage";
 
 

@@ -3,7 +3,10 @@
  * 用户消息读取状态管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as messageUserStatePageApi, remove as messageUserStateRemoveApi} from "../../api/admin/messageUserStateAdminApi"
+import {
+  page as messageUserStatePageApi,
+  remove as messageUserStateRemoveApi
+} from "../../api/admin/messageUserStateAdminApi"
 import {pageFormItems} from "../../components/admin/messageUserStateManage";
 
 
@@ -102,7 +105,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doMessageUserStatePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

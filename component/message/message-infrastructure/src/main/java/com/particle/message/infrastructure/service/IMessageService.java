@@ -1,10 +1,11 @@
 package com.particle.message.infrastructure.service;
 
-import com.particle.message.infrastructure.dos.MessageDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.message.infrastructure.dos.MessageDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -44,7 +45,7 @@ public interface IMessageService extends IBaseService<MessageDO> {
         Assert.notEmpty(sendUserIds,"sendUserIds 不能为空");
         return list(Wrappers.<MessageDO>lambdaQuery().in(MessageDO::getSendUserId, sendUserIds));
     }
-            
+
 
 
 

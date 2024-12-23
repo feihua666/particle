@@ -1,14 +1,14 @@
 package com.particle.openplatform.infrastructure.app.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.app.OpenplatformApp;
 import com.particle.openplatform.domain.app.OpenplatformAppId;
 import com.particle.openplatform.domain.app.gateway.OpenplatformAppGateway;
-import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
+import com.particle.openplatform.infrastructure.app.service.IOpenplatformAppService;
 import com.particle.openplatform.infrastructure.app.structmapping.OpenplatformAppInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

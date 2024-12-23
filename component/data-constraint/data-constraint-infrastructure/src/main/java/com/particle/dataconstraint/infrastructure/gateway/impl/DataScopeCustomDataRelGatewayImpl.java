@@ -1,13 +1,13 @@
 package com.particle.dataconstraint.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.dataconstraint.domain.DataScopeCustomDataRel;
 import com.particle.dataconstraint.domain.DataScopeCustomDataRelId;
 import com.particle.dataconstraint.domain.gateway.DataScopeCustomDataRelGateway;
-import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
+import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;
 import com.particle.dataconstraint.infrastructure.structmapping.DataScopeCustomDataRelInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

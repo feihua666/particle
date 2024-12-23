@@ -1,10 +1,10 @@
 package com.particle.message.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import javax.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 /**
@@ -38,7 +38,7 @@ public class MessageUserStateCreateCommand extends AbstractBaseCommand {
 
     @Schema(description = "读取时间")
     private LocalDateTime readAt;
-    
+
 
 
 

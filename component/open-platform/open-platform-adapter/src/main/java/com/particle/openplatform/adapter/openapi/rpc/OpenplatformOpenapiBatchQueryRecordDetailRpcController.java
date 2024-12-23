@@ -1,8 +1,8 @@
 package com.particle.openplatform.adapter.openapi.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiBatchQueryRecordDetailApplicationService;
 import com.particle.openplatform.adapter.feign.client.openapi.rpc.OpenplatformOpenapiBatchQueryRecordDetailRpcFeignClient;
+import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiBatchQueryRecordDetailApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

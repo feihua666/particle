@@ -1,10 +1,11 @@
 package com.particle.message.infrastructure.structmapping;
 
-import com.particle.message.infrastructure.dos.MessageUserStateDO;
 import com.particle.message.domain.MessageUserState;
 import com.particle.message.domain.MessageUserStateId;
+import com.particle.message.infrastructure.dos.MessageUserStateDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-05-18 15:36:07
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class MessageUserStateInfrastructureStructMapping {
 	public static MessageUserStateInfrastructureStructMapping instance = Mappers.getMapper( MessageUserStateInfrastructureStructMapping.class );
 

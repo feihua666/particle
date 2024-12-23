@@ -1,14 +1,13 @@
 package com.particle.tools.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 /**

@@ -3,8 +3,6 @@ package com.particle.global.captcha.verify;
 import com.particle.global.captcha.CaptchaBaseDTO;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 验证码验证传输对象

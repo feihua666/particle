@@ -2,8 +2,10 @@ package com.particle.user.app.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.exception.Assert;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
@@ -11,23 +13,21 @@ import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.gateway.UserGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.user.domain.identifier.UserIdentifier;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.gateway.UserIdentifierGateway;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -114,7 +114,7 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 		return user;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  UserCreateCommandToUserMapping{
 		UserCreateCommandToUserMapping instance = Mappers.getMapper( UserCreateCommandToUserMapping.class );
 

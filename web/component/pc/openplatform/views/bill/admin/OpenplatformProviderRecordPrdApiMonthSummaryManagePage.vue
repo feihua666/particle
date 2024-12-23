@@ -3,7 +3,10 @@
  * 开放平台供应商接口月汇总管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformProviderRecordPrdApiMonthSummaryPageApi, remove as openplatformProviderRecordPrdApiMonthSummaryRemoveApi} from "../../../api/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminApi"
+import {
+  page as openplatformProviderRecordPrdApiMonthSummaryPageApi,
+  remove as openplatformProviderRecordPrdApiMonthSummaryRemoveApi
+} from "../../../api/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformProviderRecordPrdApiMonthSummaryManage";
 
 
@@ -124,7 +127,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformProviderRecordPrdApiMonthSummaryPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

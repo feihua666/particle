@@ -1,18 +1,19 @@
 package com.particle.dream.app.ssq.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.dream.client.ssq.dto.command.representation.SsqCodePageQueryCommand;
+import com.particle.dream.client.ssq.dto.command.representation.SsqCodeQueryListCommand;
 import com.particle.dream.client.ssq.dto.data.SsqCodeVO;
 import com.particle.dream.domain.ssq.SsqCode;
 import com.particle.dream.domain.ssq.SsqCodeId;
 import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
-import com.particle.dream.client.ssq.dto.command.representation.SsqCodePageQueryCommand;
-import com.particle.dream.client.ssq.dto.command.representation.SsqCodeQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

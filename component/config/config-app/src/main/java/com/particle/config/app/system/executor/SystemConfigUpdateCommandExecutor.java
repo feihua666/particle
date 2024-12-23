@@ -1,5 +1,6 @@
 package com.particle.config.app.system.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.config.app.system.structmapping.SystemConfigAppStructMapping;
 import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
@@ -8,15 +9,14 @@ import com.particle.config.domain.system.SystemConfigId;
 import com.particle.config.domain.system.gateway.SystemConfigGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class SystemConfigUpdateCommandExecutor  extends AbstractBaseExecutor {
 		return systemConfig;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface SystemConfigUpdateCommandToSystemConfigMapping{
 		SystemConfigUpdateCommandToSystemConfigMapping instance = Mappers.getMapper(SystemConfigUpdateCommandToSystemConfigMapping.class );
 

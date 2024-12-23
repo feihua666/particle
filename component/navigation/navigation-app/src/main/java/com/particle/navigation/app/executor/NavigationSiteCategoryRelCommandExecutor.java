@@ -1,18 +1,16 @@
 package com.particle.navigation.app.executor;
 
-import com.particle.navigation.domain.gateway.NavigationSiteCategoryRelGateway;
-import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
-import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
-import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationCategoryCommand;
-import com.particle.navigation.client.dto.command.NavigationCategoryAssignNavigationSiteCommand;
-
-import com.particle.global.dto.response.Response;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.Response;
+import com.particle.navigation.client.dto.command.NavigationCategoryAssignNavigationSiteCommand;
+import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationCategoryCommand;
+import com.particle.navigation.domain.gateway.NavigationSiteCategoryRelGateway;
+import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
+import com.particle.navigation.infrastructure.service.INavigationSiteCategoryRelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

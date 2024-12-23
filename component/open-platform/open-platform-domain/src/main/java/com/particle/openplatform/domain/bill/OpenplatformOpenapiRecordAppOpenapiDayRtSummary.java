@@ -4,8 +4,9 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
-import java.time.LocalDate;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 /**
  * <p>
  * 开放平台应用开放接口日实时汇总 领域模型
@@ -39,7 +40,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummary extends AggreateRoo
     * 日期
     */
     private LocalDate dayAt;
-    
+
     /**
     * 客户id
     */
@@ -59,7 +60,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummary extends AggreateRoo
     * 平均单价金额，单位分
     */
     private BigDecimal averageUnitPriceAmount;
-    
+
     /**
     * 总消费金额，单位分
     */

@@ -1,5 +1,6 @@
 <script setup name="index"  lang="ts">
-import { useSlots,getCurrentInstance,reactive ,computed,watch,onMounted,inject,ref} from 'vue'
+import {onMounted, reactive, ref, watch} from 'vue'
+
 const reactiveData = reactive({
   // loading状态
   cascaderModelValue: ['consistency'],

@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
@@ -13,10 +14,9 @@ import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.api.c
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.executor.JdbcBigDatasourceApiExecutor;
 import lombok.Data;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -50,9 +50,9 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     private static final String order = "order";
     private static final String TRACK_TOTAL_HITS = "track_total_hits";
 
-    protected ElasticsearchRestTemplate elasticsearchRestTemplate;
+    protected ElasticsearchTemplate elasticsearchTemplate;
 
-    protected RestHighLevelClient restHighLevelClient;
+    protected ElasticsearchClient elasticsearchClient;
 
     /**
      * 不建议使用
@@ -66,13 +66,13 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     private Map<String, Object> elasticsearchBigDatasourceInstanceMap;
 
 
-    public static ElasticsearchBigDatasourceApiExecutor create(ElasticsearchRestTemplate elasticsearchRestTemplate,
-                                                               RestHighLevelClient restHighLevelClient,
+    public static ElasticsearchBigDatasourceApiExecutor create(ElasticsearchTemplate elasticsearchTemplate,
+                                                               ElasticsearchClient elasticsearchClient,
                                                                RestClient restClient,
                                                        Map<String, Object> elasticsearchBigDatasourceInstanceMap){
         ElasticsearchBigDatasourceApiExecutor elasticsearchBigDatasourceApiExecutor = new ElasticsearchBigDatasourceApiExecutor();
-        elasticsearchBigDatasourceApiExecutor.elasticsearchRestTemplate = elasticsearchRestTemplate;
-        elasticsearchBigDatasourceApiExecutor.restHighLevelClient = restHighLevelClient;
+        elasticsearchBigDatasourceApiExecutor.elasticsearchTemplate = elasticsearchTemplate;
+        elasticsearchBigDatasourceApiExecutor.elasticsearchClient = elasticsearchClient;
         elasticsearchBigDatasourceApiExecutor.restClient = restClient;
         elasticsearchBigDatasourceApiExecutor.setElasticsearchBigDatasourceInstanceMap(elasticsearchBigDatasourceInstanceMap);
         // 初始化监听
@@ -87,7 +87,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     public Object doExecutePage(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         Page pageQuery = JdbcBigDatasourceApiExecutor.pageQuery(bigDatasourceApi, command, queryString);
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
-        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient,elasticsearchBigDatasourceInstanceMap, command, queryString);
+        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchTemplate, elasticsearchClient, restClient,elasticsearchBigDatasourceInstanceMap, command, queryString);
         BaseQuery baseQuery = null;
         Object result = renderResult.getResult();
         if (result != null) {
@@ -135,7 +135,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
         // 执行查询
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();
@@ -156,7 +156,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
             }
 
             StringQuery stringCountQuery = extractStringQuery(strCountTemplateResultObj);
-            long count = elasticsearchRestTemplate.count(stringCountQuery, Optional.ofNullable(countIndexCoordinates).orElse(indexCoordinates));
+            long count = elasticsearchTemplate.count(stringCountQuery, Optional.ofNullable(countIndexCoordinates).orElse(indexCoordinates));
             totalCountSupplier = () -> count;
         }
 
@@ -168,7 +168,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     @Override
     public Object doExecuteMulti(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
-        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient, elasticsearchBigDatasourceInstanceMap,command,queryString);
+        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchTemplate, elasticsearchClient, restClient, elasticsearchBigDatasourceInstanceMap,command,queryString);
         BaseQuery baseQuery = null;
         Object result = renderResult.getResult();
         if (result != null) {
@@ -206,7 +206,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
 
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();
@@ -218,7 +218,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
     @Override
     public Object doExecuteSingle(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
         ElasticsearchBigDatasourceApiConfig config = (ElasticsearchBigDatasourceApiConfig) bigDatasourceApi.config();
-        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchRestTemplate, restHighLevelClient, restClient,elasticsearchBigDatasourceInstanceMap, command,queryString);
+        ElasticsearchBigDatasourceApiConfig.RenderResult renderResult = config.render(elasticsearchTemplate, elasticsearchClient, restClient,elasticsearchBigDatasourceInstanceMap, command,queryString);
         BaseQuery baseQuery = null;
         Object result = renderResult.getResult();
         if (result != null) {
@@ -253,7 +253,7 @@ public class ElasticsearchBigDatasourceApiExecutor extends AbstractElasticsearch
 
         IndexCoordinates indexCoordinates = IndexCoordinates.of(strIndexNameList.toArray(new String[strIndexNameList.size()]));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(baseQuery, Map.class, indexCoordinates);
+        SearchHits<Map> search = elasticsearchTemplate.search(baseQuery, Map.class, indexCoordinates);
         long totalHits = search.getTotalHits();
 
         List<SearchHit<Map>> searchHits = search.getSearchHits();

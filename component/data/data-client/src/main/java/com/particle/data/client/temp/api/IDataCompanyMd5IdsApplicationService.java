@@ -2,11 +2,10 @@ package com.particle.data.client.temp.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.temp.dto.command.DataCompanyMd5IdsCreateCommand;
 import com.particle.data.client.temp.dto.command.DataCompanyMd5IdsUpdateCommand;
 import com.particle.data.client.temp.dto.data.DataCompanyMd5IdsVO;
+import com.particle.global.dto.response.SingleResponse;
 /**
  * <p>
  * 企业md5ids 应用门面服务类

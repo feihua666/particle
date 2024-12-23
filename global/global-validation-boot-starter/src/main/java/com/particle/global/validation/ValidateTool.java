@@ -1,12 +1,12 @@
 package com.particle.global.validation;
 
+import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory;
 import org.hibernate.validator.spi.scripting.ScriptEvaluator;
 
-import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.util.Map;
 
 /**

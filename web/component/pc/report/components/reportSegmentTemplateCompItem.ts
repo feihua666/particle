@@ -1,4 +1,5 @@
 import {list as reportSegmentTemplateListApi} from "../api/template/admin/reportSegmentTemplateAdminApi.ts";
+
 export const useCascaderReportSegmentTemplateCompItem = ({
                                                fieldName= 'parentId',
                                                required=false,label= '父级',

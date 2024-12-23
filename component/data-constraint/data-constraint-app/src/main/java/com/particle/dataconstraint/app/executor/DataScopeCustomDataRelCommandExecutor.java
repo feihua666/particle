@@ -6,11 +6,10 @@ import com.particle.dataconstraint.domain.gateway.DataScopeCustomDataRelGateway;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
 import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRelService;
 import com.particle.global.dto.response.Response;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -43,7 +42,7 @@ public class DataScopeCustomDataRelCommandExecutor extends AbstractBaseExecutor 
 				(relDto)->new DataScopeCustomDataRelDO().setDataScopeId(relDto.getMainId()).setDataId(relDto.getOtherId()));
 		return Response.buildSuccess();
 	}
-	
+
 	/**
 	 * 注入使用set方法
 	 * @param dataScopeCustomDataRelGateway

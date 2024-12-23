@@ -42,12 +42,6 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
-            <version>${particle.version}</version>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- 应用启动或停止发通知 -->
         <dependency>
@@ -58,15 +52,15 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
 
         <!-- 结合 hutool 发送邮件 -->
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax.mail.version}</version>
+            <artifactId>jakarta.mail</artifactId>
+            <version>${jakarta.mail.version}</version>
         </dependency>
 
         <!-- 结合 企业号/企业微信：weixin-java-cp 发送报警通知-->

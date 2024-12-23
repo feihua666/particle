@@ -1,7 +1,7 @@
 package com.particle.navigation.infrastructure.mapper;
 
-import com.particle.navigation.infrastructure.dos.NavigationSiteTagRelDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.navigation.infrastructure.dos.NavigationSiteTagRelDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

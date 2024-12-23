@@ -2,11 +2,9 @@ package com.particle.openplatform.infrastructure.app.mapper;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.exception.Assert;
-import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
 import org.apache.ibatis.annotations.Mapper;
-
-import static com.baomidou.mybatisplus.extension.toolkit.Db.getOne;
 
 /**
  * <p>

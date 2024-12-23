@@ -1,7 +1,7 @@
 package com.particle.openplatform.infrastructure.openapi.mapper;
 
-import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiFeeDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiFeeDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

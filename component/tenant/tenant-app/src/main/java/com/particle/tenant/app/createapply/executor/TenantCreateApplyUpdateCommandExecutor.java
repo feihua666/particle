@@ -12,16 +12,16 @@ import com.particle.tenant.client.createapply.dto.data.TenantCreateApplyVO;
 import com.particle.tenant.domain.createapply.TenantCreateApply;
 import com.particle.tenant.domain.createapply.TenantCreateApplyId;
 import com.particle.tenant.domain.createapply.gateway.TenantCreateApplyGateway;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -87,7 +87,7 @@ public class TenantCreateApplyUpdateCommandExecutor extends AbstractBaseExecutor
 		return tenantCreateApply;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface TenantCreateApplyUpdateCommandToTenantCreateApplyMapping {
 		TenantCreateApplyUpdateCommandToTenantCreateApplyMapping instance = Mappers.getMapper(TenantCreateApplyUpdateCommandToTenantCreateApplyMapping.class);
 

@@ -10,11 +10,10 @@ import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpena
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecord;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecordId;
 import com.particle.openplatform.domain.openapirecord.gateway.OpenplatformOpenapiRecordGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

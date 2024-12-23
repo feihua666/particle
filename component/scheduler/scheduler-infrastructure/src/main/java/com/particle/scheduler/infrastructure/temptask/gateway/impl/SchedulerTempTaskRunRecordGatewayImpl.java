@@ -1,14 +1,14 @@
 package com.particle.scheduler.infrastructure.temptask.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecord;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordId;
 import com.particle.scheduler.domain.temptask.gateway.SchedulerTempTaskRunRecordGateway;
-import com.particle.scheduler.infrastructure.temptask.service.ISchedulerTempTaskRunRecordService;
 import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
+import com.particle.scheduler.infrastructure.temptask.service.ISchedulerTempTaskRunRecordService;
 import com.particle.scheduler.infrastructure.temptask.structmapping.SchedulerTempTaskRunRecordInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
-import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

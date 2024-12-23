@@ -1,34 +1,30 @@
 package com.particle.navigation.adapter.web.admin;
 
-import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
-import com.particle.navigation.client.api.INavigationSiteTagRelApplicationService;
-import com.particle.navigation.client.api.representation.INavigationSiteTagRelRepresentationApplicationService;
-import com.particle.navigation.client.dto.command.NavigationSiteTagRelCreateCommand;
-import com.particle.navigation.client.dto.data.NavigationSiteTagRelVO;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.navigation.client.dto.command.NavigationSiteTagRelUpdateCommand;
-import com.particle.navigation.client.dto.command.representation.NavigationSiteTagRelPageQueryCommand;
-import com.particle.navigation.client.dto.command.representation.NavigationSiteTagRelQueryListCommand;
-import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationSiteTagCommand;
-import com.particle.navigation.client.dto.command.NavigationSiteTagAssignNavigationSiteCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.navigation.client.api.INavigationSiteTagRelApplicationService;
+import com.particle.navigation.client.api.representation.INavigationSiteTagRelRepresentationApplicationService;
+import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationSiteTagCommand;
+import com.particle.navigation.client.dto.command.NavigationSiteTagAssignNavigationSiteCommand;
+import com.particle.navigation.client.dto.command.NavigationSiteTagRelCreateCommand;
+import com.particle.navigation.client.dto.command.NavigationSiteTagRelUpdateCommand;
+import com.particle.navigation.client.dto.command.representation.NavigationSiteTagRelPageQueryCommand;
+import com.particle.navigation.client.dto.command.representation.NavigationSiteTagRelQueryListCommand;
+import com.particle.navigation.client.dto.data.NavigationSiteTagRelVO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 /**
  * <p>
  * 导航网站标签关系后台管理pc或平板端前端适配器
@@ -103,7 +99,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
         navigationSiteTagRelPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iNavigationSiteTagRelRepresentationApplicationService.pageQuery(navigationSiteTagRelPageQueryCommand);
     }
-    
+
     @Operation(summary = "网站分配网站标签")
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:navigationSiteAssignNavigationSiteTag')")
     @PostMapping("/navigationSite/assign/navigationSiteTag")

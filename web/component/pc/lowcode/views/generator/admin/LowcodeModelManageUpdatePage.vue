@@ -4,11 +4,10 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as lowcodeModelUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as lowcodeModelUpdateApi,
 } from "../../../api/generator/admin/lowcodeModelAdminApi"
 import {updatePageFormItems} from "../../../components/admin/lowcodeModelManage";
-
 
 
 // 声明属性

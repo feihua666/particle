@@ -1,23 +1,19 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.data.app.company.executor.DataCompanyMd5CommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyMd5CreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyMd5DeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyMd5UpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.data.client.company.dto.command.DataCompanyMd5UpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyMd5ApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyMd5CreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyMd5UpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyMd5VO;
-
-
-import com.particle.data.app.company.executor.DataCompanyMd5CommandExecutor;
-
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

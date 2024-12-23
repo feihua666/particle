@@ -2,12 +2,14 @@
 /**
  * 租户创建申请管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 
-import {create as TenantCreateApplyCreateApi,list as TenantCreateApplyListApi} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
+import {create as TenantCreateApplyCreateApi} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 import {useAddPageFormItems} from "../../../components/createapply/admin/tenantCreateApplyManage";
-import { ElMessage } from 'element-plus'
-import TenantCreateApplyFuncApplication from '../../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+import {ElMessage} from 'element-plus'
+import TenantCreateApplyFuncApplication
+  from '../../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)
 // 声明属性

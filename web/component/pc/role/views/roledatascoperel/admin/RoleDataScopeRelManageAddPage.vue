@@ -2,9 +2,9 @@
 /**
  * 角色数据范围关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as roleDataScopeRelCreateApi} from "../../../api/roledatascoperel/admin/roleDataScopeRelAdminApi"
-import { useAddPageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
+import {useAddPageFormItems} from "../../../components/roledatascoperel/admin/roleDataScopeRelManage";
 
 
 // 属性

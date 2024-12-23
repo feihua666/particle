@@ -5,8 +5,6 @@ import com.particle.global.openapi.endpoint.command.OpenapiTestCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-
 /**
  * <p>
  * 开放接口测试响应对象

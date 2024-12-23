@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as FuncApplicationUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as FuncApplicationListApi
+  update as FuncApplicationUpdateApi
 } from "../../../api/application/admin/funcApplicationAdminApi"
 
 import {updatePageFormItems} from "../../../components/application/admin/funcApplicationManage";

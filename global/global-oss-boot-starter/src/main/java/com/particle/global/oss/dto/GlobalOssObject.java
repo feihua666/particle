@@ -1,8 +1,8 @@
 package com.particle.global.oss.dto;
 
 import com.particle.global.dto.basic.DTO;
-import software.amazon.awssdk.services.s3.model.S3Object ;
 import lombok.Data;
+import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.Closeable;
 import java.io.IOException;

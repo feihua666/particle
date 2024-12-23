@@ -2,7 +2,7 @@
 /**
  * oauth2客户端设置
  */
-import {reactive ,ref,onMounted} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {algorithmList} from "../../../api/client/front/oauth2RegisteredClientFrontApi";
 
 // 声明属性

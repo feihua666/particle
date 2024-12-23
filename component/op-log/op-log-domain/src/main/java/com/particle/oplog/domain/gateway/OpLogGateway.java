@@ -1,8 +1,8 @@
 package com.particle.oplog.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.oplog.domain.OpLog;
 import com.particle.oplog.domain.OpLogId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

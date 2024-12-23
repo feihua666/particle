@@ -1,14 +1,14 @@
 package com.particle.tenant.infrastructure.userinvite.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.tenant.domain.userinvite.TenantUserInvite;
 import com.particle.tenant.domain.userinvite.TenantUserInviteId;
 import com.particle.tenant.domain.userinvite.gateway.TenantUserInviteGateway;
-import com.particle.tenant.infrastructure.userinvite.service.ITenantUserInviteService;
 import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteDO;
+import com.particle.tenant.infrastructure.userinvite.service.ITenantUserInviteService;
 import com.particle.tenant.infrastructure.userinvite.structmapping.TenantUserInviteInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

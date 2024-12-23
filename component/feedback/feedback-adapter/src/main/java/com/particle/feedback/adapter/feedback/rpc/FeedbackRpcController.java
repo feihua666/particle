@@ -1,8 +1,8 @@
 package com.particle.feedback.adapter.feedback.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
 import com.particle.feedback.adapter.feign.client.feedback.rpc.FeedbackRpcFeignClient;
+import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,10 @@
 package com.particle.global.captcha.test;
 
 import cn.hutool.core.util.IdUtil;
-import com.particle.global.captcha.*;
+import com.particle.global.captcha.CaptchaSceneEnum;
+import com.particle.global.captcha.CaptchaTypeEnum;
+import com.particle.global.captcha.DefaultCaptchaServiceImpl;
+import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.captcha.gen.CaptchaGenDTO;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
 import com.particle.global.captcha.gen.DefaultCaptchaGenServiceImpl;
@@ -12,8 +15,6 @@ import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.captcha.verify.DefaultCaptchaVerifyServiceImpl;
 import com.particle.global.captcha.verify.ICaptchaVerifyService;
 import com.particle.global.tool.json.JsonTool;
-
-import java.util.UUID;
 
 /**
  * <p>

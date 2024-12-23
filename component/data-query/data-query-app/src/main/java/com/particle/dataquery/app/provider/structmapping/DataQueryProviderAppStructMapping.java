@@ -1,18 +1,19 @@
 package com.particle.dataquery.app.provider.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
+import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
 import com.particle.dataquery.domain.provider.DataQueryProvider;
 import com.particle.dataquery.domain.provider.DataQueryProviderId;
 import com.particle.dataquery.infrastructure.provider.dos.DataQueryProviderDO;
-import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
-import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

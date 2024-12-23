@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-06-03 17:29
  */
-@Configuration
+@Configuration(proxyBeanMethods = true)
 @EnableConfigurationProperties(GlobalSecurityProperties.class)
 @ComponentScan
 public class GlobalSecurityAutoConfiguration {

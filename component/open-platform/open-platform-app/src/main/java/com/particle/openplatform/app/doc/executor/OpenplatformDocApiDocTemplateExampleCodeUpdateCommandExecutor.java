@@ -1,22 +1,22 @@
 package com.particle.openplatform.app.doc.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocTemplateExampleCodeAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateExampleCodeUpdateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateExampleCodeVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateExampleCode;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateExampleCodeId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplateExampleCodeGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class OpenplatformDocApiDocTemplateExampleCodeUpdateCommandExecutor  exte
 		return openplatformDocApiDocTemplateExampleCode;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface OpenplatformDocApiDocTemplateExampleCodeUpdateCommandToOpenplatformDocApiDocTemplateExampleCodeMapping{
 		OpenplatformDocApiDocTemplateExampleCodeUpdateCommandToOpenplatformDocApiDocTemplateExampleCodeMapping instance = Mappers.getMapper(OpenplatformDocApiDocTemplateExampleCodeUpdateCommandToOpenplatformDocApiDocTemplateExampleCodeMapping.class );
 

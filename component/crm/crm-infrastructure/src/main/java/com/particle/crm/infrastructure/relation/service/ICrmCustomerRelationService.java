@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.relation.service;
 
-import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ICrmCustomerRelationService extends IBaseService<CrmCustomerRel
         Assert.notEmpty(crmCustomerIds,"crmCustomerIds 不能为空");
         return list(Wrappers.<CrmCustomerRelationDO>lambdaQuery().in(CrmCustomerRelationDO::getCrmCustomerId, crmCustomerIds));
     }
-            
+
 
     /**
      * 根据另一个客户id查询
@@ -60,7 +61,7 @@ public interface ICrmCustomerRelationService extends IBaseService<CrmCustomerRel
         Assert.notEmpty(anotherCrmCustomerIds,"anotherCrmCustomerIds 不能为空");
         return list(Wrappers.<CrmCustomerRelationDO>lambdaQuery().in(CrmCustomerRelationDO::getAnotherCrmCustomerId, anotherCrmCustomerIds));
     }
-            
+
 
     /**
      * 根据关系id查询
@@ -83,7 +84,7 @@ public interface ICrmCustomerRelationService extends IBaseService<CrmCustomerRel
         Assert.notEmpty(crmCustomerRelationDefineIds,"crmCustomerRelationDefineIds 不能为空");
         return list(Wrappers.<CrmCustomerRelationDO>lambdaQuery().in(CrmCustomerRelationDO::getCrmCustomerRelationDefineId, crmCustomerRelationDefineIds));
     }
-            
+
 
 
 

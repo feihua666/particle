@@ -1,5 +1,5 @@
 <script setup name="AdaptMultipleAggregationConfig" lang="ts">
-import {onMounted, reactive, ref,nextTick} from 'vue'
+import {nextTick, onMounted, reactive, ref} from 'vue'
 import {list as datasourceApiListApi} from "../../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
 
 /**

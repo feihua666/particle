@@ -4,14 +4,11 @@
  */
 import {computed, reactive, ref} from 'vue'
 import {
-  update as DataQueryDatasourceUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as DataQueryDatasourceListApi
+  update as DataQueryDatasourceUpdateApi
 } from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
 
-import {
-  useUpdatePageFormItems
-} from "../../../components/datasource/admin/dataQueryDatasourceManage";
+import {useUpdatePageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceManage";
 import DataQueryDatasourceManageConfigJsonPage from './DataQueryDatasourceManageConfigJsonPage.vue'
 
 

@@ -2,10 +2,8 @@ package com.particle.oauth2authorization.infrastructure.client.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -28,7 +26,7 @@ public class Oauth2RegisteredClientDO extends BaseDO {
     * 客户端ID的发布时间
     */
     private LocalDateTime clientIdIssuedAt;
-    
+
     /**
     * 客户端秘钥，用于进行客户端认证
     */
@@ -38,7 +36,7 @@ public class Oauth2RegisteredClientDO extends BaseDO {
     * 客户端秘钥的过期时间，为空表示不过期
     */
     private LocalDateTime clientSecretExpiresAt;
-    
+
     /**
     * 客户端名称，用于展示
     */

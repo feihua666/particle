@@ -65,19 +65,21 @@ import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiD
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiBatchQueryRecordDetailService;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiBatchQueryRecordService;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -1031,7 +1033,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 				try {
 					String postJsonResultStr = OpenApiClientTool.postJson(url, bodyParam, queryString, withSHA256DigestAndNoSign, null);
 					return (postJsonResultStr);
-				} catch (IOException e) {
+				} catch (IOException | ParseException | URISyntaxException e) {
 					throw new RuntimeException(e);
 				}
 			}
@@ -1044,7 +1046,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 				try {
 					String postFormResultStr = OpenApiClientTool.postForm(url, formParam, queryString, withSHA256DigestAndNoSign, null);
 					return (postFormResultStr);
-				} catch (IOException e) {
+				} catch (IOException | ParseException | URISyntaxException e) {
 					throw new RuntimeException(e);
 				}
 			}
@@ -1056,7 +1058,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 			try {
 				String getResultStr = OpenApiClientTool.get(url, queryString, withSHA256DigestAndNoSign, null);
 				return (getResultStr);
-			} catch (IOException e) {
+			} catch (IOException | ParseException | URISyntaxException e) {
 				throw new RuntimeException(e);
 			}
 		}else {

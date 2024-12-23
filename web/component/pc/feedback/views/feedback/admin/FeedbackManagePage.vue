@@ -3,7 +3,7 @@
  * 意见反馈管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as feedbackPageApi, remove as feedbackRemoveApi} from "../../../api/feedback/admin/feedbackAdminApi"
+import {page as feedbackPageApi, remove as feedbackRemoveApi} from "../../../api/feedback/admin/feedbackAdminApi"
 import {pageFormItems} from "../../../components/feedback/admin/feedbackManage";
 
 
@@ -156,7 +156,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doFeedbackPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

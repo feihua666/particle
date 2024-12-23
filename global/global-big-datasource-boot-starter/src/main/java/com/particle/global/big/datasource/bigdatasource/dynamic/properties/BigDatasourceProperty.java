@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Map;
-
 /**
  * <p>
  * 具体数据源配置

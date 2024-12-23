@@ -10,11 +10,10 @@ import com.particle.tracking.client.dto.data.TrackingPageRecordVO;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.TrackingPageRecordId;
 import com.particle.tracking.domain.gateway.TrackingPageRecordGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

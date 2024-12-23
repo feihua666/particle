@@ -1,8 +1,7 @@
 package com.particle.global.openapi.api;
 
 import com.particle.global.openapi.data.*;
-
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * <p>

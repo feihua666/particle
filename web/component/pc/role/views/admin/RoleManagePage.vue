@@ -3,8 +3,7 @@
  * 角色管理页面
  */
 import {reactive, ref} from 'vue'
-import {list as roleListApi, page as rolePageApi, remove as roleRemoveApi} from "../../api/admin/roleAdminApi"
-import {treeQueryComps} from '../../../treeQueryComps'
+import {page as rolePageApi, remove as roleRemoveApi} from "../../api/admin/roleAdminApi"
 import {pageFormItems} from "../../components/admin/roleManage";
 import {componentEnabled} from "../../../../../common/config/componentsConfig";
 

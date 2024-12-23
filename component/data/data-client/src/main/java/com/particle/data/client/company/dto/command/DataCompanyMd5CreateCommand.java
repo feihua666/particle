@@ -3,12 +3,11 @@ package com.particle.data.client.company.dto.command;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

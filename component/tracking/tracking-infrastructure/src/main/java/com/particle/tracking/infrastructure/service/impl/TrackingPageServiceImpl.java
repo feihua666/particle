@@ -1,14 +1,14 @@
 package com.particle.tracking.infrastructure.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.tracking.infrastructure.dos.TrackingPageDO;
 import com.particle.tracking.infrastructure.mapper.TrackingPageMapper;
 import com.particle.tracking.infrastructure.service.ITrackingPageService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -52,6 +52,6 @@ public class TrackingPageServiceImpl extends IBaseServiceImpl<TrackingPageMapper
 	        }
 	    }
 
-    
+
 	}
 }

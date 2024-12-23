@@ -2,10 +2,8 @@ package com.particle.crm.infrastructure.customer.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDate;
 /**
  * <p>
@@ -53,7 +51,7 @@ public class CrmCustomerDO extends BaseDO {
     * 客户生日
     */
     private LocalDate birthDay;
-    
+
     /**
     * 客户公司id
     */

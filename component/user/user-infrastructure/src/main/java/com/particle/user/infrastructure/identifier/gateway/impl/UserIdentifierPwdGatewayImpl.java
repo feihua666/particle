@@ -1,14 +1,14 @@
 package com.particle.user.infrastructure.identifier.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
-import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
+import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.structmapping.UserIdentifierPwdInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

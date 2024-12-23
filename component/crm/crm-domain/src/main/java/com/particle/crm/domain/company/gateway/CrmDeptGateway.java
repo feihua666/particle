@@ -1,8 +1,8 @@
 package com.particle.crm.domain.company.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.crm.domain.company.CrmDept;
 import com.particle.crm.domain.company.CrmDeptId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

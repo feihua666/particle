@@ -2,11 +2,9 @@ package com.particle.openplatform.infrastructure.openapi.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -65,7 +63,7 @@ public class OpenplatformOpenapiBatchQueryRecordDO extends BaseDO {
     * 查询时间
     */
     private LocalDateTime queryAt;
-    
+
     /**
     * 追踪id
     */

@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.service;
 
-import com.particle.navigation.infrastructure.dos.NavigationSubmitDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.navigation.infrastructure.dos.NavigationSubmitDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -39,7 +40,7 @@ public interface INavigationSubmitService extends IBaseService<NavigationSubmitD
         Assert.notEmpty(urls,"urls 不能为空");
         return list(Wrappers.<NavigationSubmitDO>lambdaQuery().in(NavigationSubmitDO::getUrl, urls));
     }
-            
+
 
 
 

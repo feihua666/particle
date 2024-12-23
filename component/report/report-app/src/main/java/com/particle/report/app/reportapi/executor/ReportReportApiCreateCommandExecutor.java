@@ -1,21 +1,21 @@
 package com.particle.report.app.reportapi.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.report.app.reportapi.structmapping.ReportReportApiAppStructMapping;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
 import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.gateway.ReportReportApiGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class ReportReportApiCreateCommandExecutor  extends AbstractBaseExecutor 
 		return reportReportApi;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  ReportReportApiCreateCommandToReportReportApiMapping{
 		ReportReportApiCreateCommandToReportReportApiMapping instance = Mappers.getMapper( ReportReportApiCreateCommandToReportReportApiMapping.class );
 

@@ -1,8 +1,8 @@
-
 /**
  * particle 内置的组件通用属性
  */
 import {codeToStrCode, strCodeTocode} from "../tools";
+
 /**
  * 权限属性
  */

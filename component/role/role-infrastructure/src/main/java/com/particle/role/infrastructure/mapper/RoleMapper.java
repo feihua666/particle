@@ -1,7 +1,7 @@
 package com.particle.role.infrastructure.mapper;
 
-import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.role.infrastructure.dos.RoleDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

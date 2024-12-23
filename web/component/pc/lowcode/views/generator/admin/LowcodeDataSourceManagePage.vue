@@ -3,7 +3,10 @@
  * 低代码数据源管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as lowcodeDataSourcePageApi, remove as lowcodeDataSourceRemoveApi} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
+import {
+  page as lowcodeDataSourcePageApi,
+  remove as lowcodeDataSourceRemoveApi
+} from "../../../api/generator/admin/lowcodeDataSourceAdminApi"
 import {pageFormItems} from "../../../components/admin/lowcodeDataSourceManage";
 
 const tableRef = ref(null)

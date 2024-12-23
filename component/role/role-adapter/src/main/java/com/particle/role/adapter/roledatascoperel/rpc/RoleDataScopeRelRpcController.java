@@ -1,8 +1,8 @@
 package com.particle.role.adapter.roledatascoperel.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.role.client.roledatascoperel.api.IRoleDataScopeRelApplicationService;
 import com.particle.role.adapter.feign.client.roledatascoperel.rpc.RoleDataScopeRelRpcFeignClient;
+import com.particle.role.client.roledatascoperel.api.IRoleDataScopeRelApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -9,14 +9,14 @@ import com.particle.test.client.dto.data.TestVO;
 import com.particle.test.domain.Test;
 import com.particle.test.domain.TestId;
 import com.particle.test.domain.gateway.TestGateway;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class TestUpdateCommandExecutor extends AbstractBaseExecutor {
 		return test;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface TestUpdateCommandToTestMapping{
 		TestUpdateCommandToTestMapping instance = Mappers.getMapper(TestUpdateCommandToTestMapping.class );
 

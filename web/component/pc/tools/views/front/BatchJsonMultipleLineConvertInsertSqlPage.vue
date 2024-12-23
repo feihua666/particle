@@ -3,9 +3,7 @@
  * 批量按行提取json，并转换为insert sql字符串
  * 注意：每一行必须是一个完善的json字符串
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
-import {lowerFirst, replace, upperFirst} from "../../../../../global/common/tools/StringTools";
-import {loadScriptCode} from "../../../../../global/common/tools/DocumentTools";
+import {getCurrentInstance, reactive, ref} from 'vue'
 
 const { proxy } = getCurrentInstance()
 // 属性

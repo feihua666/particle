@@ -6,7 +6,7 @@
  *          3. 集成字段权限判断功能，方便实现权限
  *          4. 自动布局功能
  */
-import {computed, onMounted, reactive, ref, watch,getCurrentInstance,nextTick} from 'vue'
+import {computed, getCurrentInstance, onMounted, reactive, ref, watch} from 'vue'
 import {clone, hasOwnProps, isObject} from "../../common/tools/ObjectTools"
 import {doMethod, emitMethodEvent, methodProps, reactiveMethodData} from './method'
 import {layoutCompute, layoutIndex, layoutProps} from './Layout'
@@ -16,6 +16,7 @@ import {dataMethodForFormProps} from './dataMethodForForm'
 import PtFormItem from './FormItem.vue'
 import PtButton from './Button.vue'
 import {isFunction} from "../../common/tools/FunctionTools";
+
 const { appContext,proxy } = getCurrentInstance()
 // 路由
 const route = proxy.$route

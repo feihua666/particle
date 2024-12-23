@@ -1,23 +1,23 @@
 package com.particle.scheduler.app.schedule.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.app.schedule.structmapping.SchedulerExecuteRecordAppStructMapping;
+import com.particle.scheduler.client.schedule.dto.command.representation.SchedulerExecuteRecordPageQueryCommand;
 import com.particle.scheduler.client.schedule.dto.command.representation.SchedulerExecuteRecordQueryListCommand;
 import com.particle.scheduler.client.schedule.dto.data.SchedulerExecuteRecordVO;
 import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
 import com.particle.scheduler.infrastructure.schedule.service.ISchedulerExecuteRecordService;
-import com.particle.scheduler.client.schedule.dto.command.representation.SchedulerExecuteRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>

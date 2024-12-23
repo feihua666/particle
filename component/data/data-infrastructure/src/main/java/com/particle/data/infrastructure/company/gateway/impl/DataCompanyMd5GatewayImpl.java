@@ -1,13 +1,13 @@
 package com.particle.data.infrastructure.company.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.data.domain.company.DataCompanyMd5;
 import com.particle.data.domain.company.DataCompanyMd5Id;
 import com.particle.data.domain.company.gateway.DataCompanyMd5Gateway;
-import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
 import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
+import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
 import com.particle.data.infrastructure.company.structmapping.DataCompanyMd5InfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

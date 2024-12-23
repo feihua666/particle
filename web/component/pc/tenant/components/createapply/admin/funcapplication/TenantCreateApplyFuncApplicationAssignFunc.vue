@@ -2,7 +2,7 @@
 /**
  * 功能应用分配功能,主要用于创建租户申请时可选择应用下的功能
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {list as funcListApi} from "../../../../../func/api/admin/funcAdminApi";
 import {
   remoteSelectFuncApplicationCompItem,

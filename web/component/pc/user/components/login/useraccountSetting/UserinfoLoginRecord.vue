@@ -1,6 +1,6 @@
 <script setup name="UserinfoLoginRecord" lang="ts">
 
-import { getLoginRecord} from "../../../api/userLoginApi";
+import {getLoginRecord} from "../../../api/userLoginApi";
 import {userLoginRecordColumns} from "../../userLoginRecordCompItem";
 
 const props = defineProps({

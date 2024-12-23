@@ -3,7 +3,7 @@ package com.particle.global.ratelimit;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.ContentType;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
@@ -11,14 +11,13 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -75,7 +74,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
 						response.setStatus(HttpStatus.HTTP_FORBIDDEN);
 						Response errorResponse = Response.buildFailure(ErrorCodeGlobalEnum.NO_PRIVILEGE_RATELIMIT_ERROR, "超过限流速率[" + limiterNamedWrapper.getName() + "]");
-						ServletUtil.write(response, JSONUtil.toJsonStr(errorResponse), ContentType.JSON.getValue());
+						JakartaServletUtil.write(response, JSONUtil.toJsonStr(errorResponse), ContentType.JSON.getValue());
 
 						return false;
 					}

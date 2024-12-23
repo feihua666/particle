@@ -1,7 +1,7 @@
 package com.particle.lowcode.infrastructure.generator.mapper;
 
-import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelItemDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelItemDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

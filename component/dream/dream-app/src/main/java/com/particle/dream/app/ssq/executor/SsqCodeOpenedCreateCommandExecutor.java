@@ -2,14 +2,12 @@ package com.particle.dream.app.ssq.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.dream.app.ssq.structmapping.SsqCodeAppStructMapping;
 import com.particle.dream.domain.ssq.SsqCode;
 import com.particle.dream.domain.ssq.SsqCodeOpened;
 import com.particle.dream.domain.ssq.gateway.SsqCodeCrawlingGateway;
 import com.particle.dream.domain.ssq.gateway.SsqCodeGateway;
 import com.particle.dream.domain.ssq.gateway.SsqCodeOpenedGateway;
 import com.particle.dream.domain.ssq.value.SsqCodeCrawlingResult;
-import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
 import com.particle.dream.infrastructure.ssq.dos.SsqCodeOpenedDO;
 import com.particle.dream.infrastructure.ssq.service.ISsqCodeOpenedService;
 import com.particle.dream.infrastructure.ssq.service.ISsqCodeService;

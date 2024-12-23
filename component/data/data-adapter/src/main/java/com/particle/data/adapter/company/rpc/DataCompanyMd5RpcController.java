@@ -1,8 +1,8 @@
 package com.particle.data.adapter.company.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.data.client.company.api.IDataCompanyMd5ApplicationService;
 import com.particle.data.adapter.feign.client.company.rpc.DataCompanyMd5RpcFeignClient;
+import com.particle.data.client.company.api.IDataCompanyMd5ApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

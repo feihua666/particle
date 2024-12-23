@@ -3,7 +3,7 @@
  * 消息管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as messagePageApi, remove as messageRemoveApi} from "../../api/admin/messageAdminApi"
+import {page as messagePageApi, remove as messageRemoveApi} from "../../api/admin/messageAdminApi"
 import {pageFormItems} from "../../components/admin/messageManage";
 
 
@@ -122,7 +122,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doMessagePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

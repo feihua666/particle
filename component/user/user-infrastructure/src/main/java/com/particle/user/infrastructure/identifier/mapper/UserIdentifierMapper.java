@@ -1,8 +1,8 @@
 package com.particle.user.infrastructure.identifier.mapper;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.util.Assert;
 

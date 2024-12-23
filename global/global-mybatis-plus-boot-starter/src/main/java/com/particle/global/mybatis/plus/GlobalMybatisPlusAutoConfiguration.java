@@ -18,13 +18,13 @@ import org.springframework.context.annotation.Import;
  * @author yangwei
  * @since 2022-06-29 17:36
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import({GlobalMybatisPlusConfig.class, GlobalMybatisExecutorsConfig.class})
 @MapperScan("com.particle.global.mybatis.plus.mapper")
 public class GlobalMybatisPlusAutoConfiguration {
 
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(DataAuditCollectTool.class)
 	protected static class DataAuditCollectToolDependConfig{
 

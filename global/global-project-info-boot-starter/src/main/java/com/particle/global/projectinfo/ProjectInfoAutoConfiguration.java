@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-05-26 22:07
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ProjectInfoAutoConfiguration {
 }

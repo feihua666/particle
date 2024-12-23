@@ -1,7 +1,7 @@
 package com.particle.report.infrastructure.reportapi.mapper;
 
-import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

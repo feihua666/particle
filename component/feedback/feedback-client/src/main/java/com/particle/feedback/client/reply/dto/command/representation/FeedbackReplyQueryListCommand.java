@@ -1,10 +1,9 @@
 package com.particle.feedback.client.reply.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -30,7 +29,7 @@ public class FeedbackReplyQueryListCommand extends AbstractBaseQueryCommand {
 
     @Schema(description = "回复时间")
     private LocalDateTime replyAt;
-    
+
 
     @Schema(description = "回复用户id")
     private Long replyUserId;

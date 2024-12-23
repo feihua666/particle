@@ -2,12 +2,8 @@ package com.particle.global.tool.runtime;
 
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RuntimeUtil;
-import cn.hutool.system.OsInfo;
-import cn.hutool.system.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**

@@ -3,7 +3,9 @@
  * 开放平台开放接口调用记录参数查看页面
  */
 import {reactive, ref} from 'vue'
-import {paramDetailByOpenplatformOpenapiRecordId} from "../../../api/openapirecord/admin/openplatformOpenapiRecordAdminApi"
+import {
+  paramDetailByOpenplatformOpenapiRecordId
+} from "../../../api/openapirecord/admin/openplatformOpenapiRecordAdminApi"
 
 import {paramViewPageFormItems} from "../../../components/openapirecord/admin/openplatformOpenapiRecordManage";
 

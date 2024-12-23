@@ -5,7 +5,6 @@
 import {reactive, ref} from 'vue'
 import {
   page as lowcodeModelItemPageApi,
-  remove as lowcodeModelItemRemoveApi,
   update as lowcodeModelItemUpdateApi
 } from "../../../api/generator/admin/lowcodeModelItemAdminApi"
 import {list as lowcodeModelListApi} from "../../../api/generator/admin/lowcodeModelAdminApi";

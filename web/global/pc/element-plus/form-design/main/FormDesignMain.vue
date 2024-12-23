@@ -4,8 +4,7 @@
  */
 import draggable from 'vuedraggable'
 import PtFormDesignItem from './FormDesignItem.vue'
-import {reactive,inject,toRefs,nextTick} from "vue";
-import { v4 as uuidv4 } from 'uuid';
+import {inject, reactive} from "vue";
 
 const formDesignData = inject('formDesignData')
 const formDesignDataControl = inject('formDesignDataControl')

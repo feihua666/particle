@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2021-06-13 21:14
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalConcurrencyExecutorsConfig {
 
 	/**

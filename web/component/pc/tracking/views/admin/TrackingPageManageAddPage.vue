@@ -2,8 +2,8 @@
 /**
  * 埋点页面管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as trackingPageCreateApi,list as TrackingPageListApi} from "../../api/admin/trackingPageAdminApi"
+import {reactive, ref} from 'vue'
+import {create as trackingPageCreateApi} from "../../api/admin/trackingPageAdminApi"
 import {addPageFormItems} from "../../components/admin/trackingPageManage";
 
 

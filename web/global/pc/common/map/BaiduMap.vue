@@ -3,7 +3,8 @@
  * 自定义封装百度地图
  * 官方示例 http://lbsyun.baidu.com/jsdemo.htm#a1_2
  */
-import {onMounted,ref,nextTick} from 'vue'
+import {nextTick, onMounted, ref} from 'vue'
+
 const baiduMapRef = ref(null)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

@@ -3,7 +3,6 @@ package com.particle.global.big.datasource.bigdatasource.dynamic.provider;
 import com.particle.global.big.datasource.bigdatasource.BigDatasource;
 import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDatasourceRoutingKey;
 
-import javax.sql.DataSource;
 import java.util.Map;
 
 /**

@@ -3,7 +3,6 @@ package com.particle.scheduler.client.temptask.api;
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskCreateCommand;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskUpdateCommand;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskVO;

@@ -1,4 +1,4 @@
-import axios, { AxiosPromise} from 'axios'
+import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../global/common/tools/ObjectTools";
 
 /**

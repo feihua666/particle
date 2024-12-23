@@ -5,13 +5,19 @@
  *          2. 提供了默认的上传表示形式
  *          3. 默认自带上传 dataLoading 功能效果
  */
-import {reactive ,inject,ref,watch,computed} from 'vue'
+import {computed, inject, reactive, ref, watch} from 'vue'
 import PtButton from './Button.vue'
-import { ElMessage } from 'element-plus'
-import {permissionProps,hasPermissionConfig} from './permission'
-import {disabledProps,disabledConfig} from './disabled'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from './dataModel'
-import {getUploadUrl, getUrl} from "../common/axios/axiosRequest";
+import {ElMessage} from 'element-plus'
+import {hasPermissionConfig, permissionProps} from './permission'
+import {disabledConfig, disabledProps} from './disabled'
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from './dataModel'
+import {getUploadUrl} from "../common/axios/axiosRequest";
+
 const uploadRef = ref(null)
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)

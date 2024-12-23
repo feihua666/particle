@@ -1,7 +1,7 @@
 package com.particle.report.infrastructure.template.mapper;
 
-import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

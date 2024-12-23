@@ -16,14 +16,14 @@ import com.particle.tenant.domain.gateway.TenantUserGateway;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -133,7 +133,7 @@ public class TenantUserCreateCommandExecutor  extends AbstractBaseExecutor {
 		return tenantUser;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  TenantUserCreateCommandToTenantUserMapping{
 		TenantUserCreateCommandToTenantUserMapping instance = Mappers.getMapper( TenantUserCreateCommandToTenantUserMapping.class );
 

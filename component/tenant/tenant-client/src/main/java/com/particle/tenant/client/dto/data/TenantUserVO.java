@@ -1,13 +1,12 @@
 package com.particle.tenant.client.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
-
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -27,13 +26,13 @@ public class TenantUserVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_USER_INFO_BY_ID,byFieldName = "userId",mapValueField = "name")
     @Schema(description = "真实姓名")
     private String name;
-    
+
     @Schema(description = "是否过期")
     private Boolean isExpired;
-    
+
     @Schema(description = "过期原因")
     private String expiredReason;
-    
+
     @Schema(description = "到期时间")
     private LocalDateTime expireAt;
 

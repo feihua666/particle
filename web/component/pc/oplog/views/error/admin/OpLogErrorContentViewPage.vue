@@ -3,9 +3,7 @@
  * 操作异常日志内容查看页面
  */
 import {reactive, ref} from 'vue'
-import {
-  detailByOpLogErrorId
-} from "../../../api/error/admin/opLogErrorContentAdminApi"
+import {detailByOpLogErrorId} from "../../../api/error/admin/opLogErrorContentAdminApi"
 
 import {viewPageFormItems} from "../../../components/error/admin/opLogErrorContentManage";
 

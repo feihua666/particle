@@ -2,9 +2,8 @@
 /**
  * 功能应用分配功能页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {list as funcListApi} from "../../api/admin/funcAdminApi";
-import {list as funcApplicationListApi} from "../../api/application/admin/funcApplicationAdminApi";
 import {
   funcApplicationAssignFunc,
   queryFuncIdsByFuncApplicationId

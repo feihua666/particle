@@ -2,27 +2,24 @@ package com.particle.role.app.rolefuncrel.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.particle.global.dto.response.Response;
-import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.domain.rolefuncrel.RoleFuncRel;
 import com.particle.role.domain.rolefuncrel.RoleFuncRelId;
 import com.particle.role.domain.rolefuncrel.gateway.RoleFuncRelGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.role.infrastructure.rolefuncrel.service.IRoleFuncRelService;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

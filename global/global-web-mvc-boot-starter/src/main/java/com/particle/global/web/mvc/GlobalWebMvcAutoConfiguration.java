@@ -15,11 +15,11 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-06-22 14:16
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalWebMvcAutoConfiguration {
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(AdminServerModule.class)
 	public static class BootAdminServerDependConfig{
 		@Bean

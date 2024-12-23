@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.Update;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
@@ -395,7 +394,7 @@ public interface IBaseService<DO> extends IService<DO> {
      * @return
      */
     QueryWrapper<DO> getQueryWrapper(QueryCommand queryForm);
-    
+
     /*************************** 查 结束 *************************************/
     /*************************** 其它 开始 *************************************/
     /**

@@ -1,7 +1,5 @@
 package com.particle.global.security.security.config;
 
-import com.particle.global.security.security.login.DefaultAuthenticationFailureHandler;
-import com.particle.global.security.security.login.DefaultAuthenticationSuccessHandler;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

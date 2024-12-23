@@ -3,7 +3,10 @@
  * 开放接口文档模板参数字段管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocApiDocTemplateParamFieldPageApi, remove as openplatformDocApiDocTemplateParamFieldRemoveApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
+import {
+  page as openplatformDocApiDocTemplateParamFieldPageApi,
+  remove as openplatformDocApiDocTemplateParamFieldRemoveApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
 
 

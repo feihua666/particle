@@ -54,12 +54,6 @@
             <artifactId>global-security-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 日志链路 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-sleuth-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-web-filter-boot-starter</artifactId>
@@ -79,7 +73,7 @@
         <!-- 业务组件共享数据依赖 统一添加到这里，主要是应用其操作日志常量-->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-light-share</artifactId>
+            <artifactId>component-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

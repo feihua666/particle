@@ -2,10 +2,10 @@ package com.particle.dept.client.depttreeuserrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelCreateCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelUpdateCommand;
 import com.particle.dept.client.depttreeuserrel.dto.data.DeptTreeUserRelVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

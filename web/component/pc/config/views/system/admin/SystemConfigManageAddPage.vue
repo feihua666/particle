@@ -2,7 +2,7 @@
 /**
  * 系统参数配置管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as systemConfigCreateApi} from "../../../api/system/admin/systemConfigAdminApi"
 import {addPageFormItems} from "../../../components/system/admin/systemConfigManage";
 

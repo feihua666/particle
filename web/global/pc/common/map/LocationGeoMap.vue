@@ -2,11 +2,11 @@
 /**
  * 根据地理位置选择地图上的点
  */
-import {reactive ,ref,onMounted} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 
 import PtBaiduMap from './BaiduMap.vue'
 import PtForm from '../../element-plus/Form.vue'
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
 
 let alert = (message)=>{
   ElMessage({

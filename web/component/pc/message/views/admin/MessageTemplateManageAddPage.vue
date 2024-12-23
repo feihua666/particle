@@ -2,11 +2,13 @@
 /**
  * 消息模板管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as messageTemplateCreateApi,list as MessageTemplateListApi} from "../../api/admin/messageTemplateAdminApi"
-import { useAddPageFormItems} from "../../components/admin/messageTemplateManage";
+import {reactive, ref} from 'vue'
+import {create as messageTemplateCreateApi} from "../../api/admin/messageTemplateAdminApi"
+import {useAddPageFormItems} from "../../components/admin/messageTemplateManage";
 import {isEmpty} from "../../../../../global/common/tools/ObjectTools";
-import MessageTemplateContentDetailJson from '../../components/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
+import MessageTemplateContentDetailJson
+  from '../../components/admin/messagetemplatecontentdetailconfig/MessageTemplateContentDetailJson.vue'
+
 const contentDetailJsonDialogVisible = ref(false)
 const contentDetailJsonRef = ref(null)
 

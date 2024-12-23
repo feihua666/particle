@@ -1,6 +1,6 @@
 package com.particle.global.security.security.login;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 
 /**
  * <p>

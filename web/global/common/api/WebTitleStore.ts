@@ -3,7 +3,7 @@
  */
 import {ref} from '@nm/vue'
 import {defineStore} from '@nm/pinia'
-import {get, getRaw, setRaw} from '../tools/StorageTools'
+import {getRaw, setRaw} from '../tools/StorageTools'
 
 export interface WebTitleStore{
     webTitle: string,
@@ -13,7 +13,7 @@ export const useWebTitleStore = defineStore<WebTitleStore>('webTitle', () => {
 
     const webTitleLocalKey = 'webTitleLocalKey'
 
-    
+
     const webTitle = ref('')
 
     // 改变是否登录的方法

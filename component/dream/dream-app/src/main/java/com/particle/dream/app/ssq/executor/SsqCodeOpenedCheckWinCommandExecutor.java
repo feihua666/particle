@@ -8,11 +8,11 @@ import com.particle.dream.infrastructure.ssq.dos.SsqCodeOpenedDO;
 import com.particle.dream.infrastructure.ssq.service.ISsqCodeOpenedService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 

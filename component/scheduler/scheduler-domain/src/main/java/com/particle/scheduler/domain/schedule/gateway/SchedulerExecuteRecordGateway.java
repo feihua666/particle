@@ -1,8 +1,8 @@
 package com.particle.scheduler.domain.schedule.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecord;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecordId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

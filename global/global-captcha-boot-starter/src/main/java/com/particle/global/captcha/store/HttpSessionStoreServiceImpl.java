@@ -1,10 +1,8 @@
 package com.particle.global.captcha.store;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>

@@ -1,8 +1,8 @@
 package com.particle.dataquery.adapter.dataapi.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.adapter.feign.client.dataapi.rpc.DataQueryDataApiRpcFeignClient;
+import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -3,7 +3,7 @@
  * 功能菜单管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
+import {page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
 import {pageFormItems} from "../../components/admin/funcManage";
 import {funcColumns} from "../../components/funcCompItem";
 

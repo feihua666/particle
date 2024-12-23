@@ -2,8 +2,10 @@
 /**
  * 客户关系定义管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as crmCustomerRelationDefineCreateApi} from "../../../api/ralation/admin/crmCustomerRelationDefineAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as crmCustomerRelationDefineCreateApi
+} from "../../../api/ralation/admin/crmCustomerRelationDefineAdminApi"
 import {addPageFormItems} from "../../../components/ralation/admin/crmCustomerRelationDefineManage";
 
 

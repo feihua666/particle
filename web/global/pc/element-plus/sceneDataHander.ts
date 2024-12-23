@@ -4,7 +4,7 @@
  * 本工具支持简单的数据处理情况,需要组件自己集成，更复杂的功能后期完善如：支持动态加载等
  */
 
-import {anyObj, isObject} from "../../common/tools/ObjectTools"
+import {anyObj} from "../../common/tools/ObjectTools"
 
 export interface SceneDataHanderProps{
     // 处理数据返回一个新数据

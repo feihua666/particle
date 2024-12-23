@@ -4,13 +4,15 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as DataQueryDatasourceApiUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as DataQueryDatasourceApiUpdateApi,
 } from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 
 import {useUpdatePageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
-import DataQueryDatasourceApiFormItemConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
-import DataQueryDatasourceApiFormItemBasicConfigs from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemBasicConfigs.vue'
+import DataQueryDatasourceApiFormItemConfigs
+  from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemConfigs.vue'
+import DataQueryDatasourceApiFormItemBasicConfigs
+  from '../../../components/datasource/admin/DataQueryDatasourceApiFormItemBasicConfigs.vue'
 
 const dataQueryDatasourceApiFormItemConfigsRef = ref(null)
 const dataQueryDatasourceApiFormItemBasicConfigsRef = ref(null)

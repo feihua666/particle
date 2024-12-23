@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @author yangwei
  * @since 2023-04-25 16:45
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CaptchaSecurityConfig {
 
 

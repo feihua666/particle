@@ -1,13 +1,10 @@
 package com.particle.dept.adapter.feign.client.rpc;
 
-import com.particle.dept.client.dto.command.representation.DeptQueryListCommand;
 import com.particle.dept.client.dto.data.DeptVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 /**
  * <p>

@@ -101,7 +101,7 @@ const formComps = [
         labelTips: '支持与query同级指定 如：indexNames: "xxx", 的索引名称，如果上面索引名称字段指定了索引名称，则该设置不生效，建议使用上面的索引名称字段',
         tips: "1. enjoy模板 最终会渲染为dsl语句， 取值示例 {\"query\":{\"term\":{\"title\":\"#(data.name)\"}}} data为请求参数句柄，<br/>" +
             "2. raw模式 请直接写dsl，不具备变量渲染能力<br/>" +
-            "3. groovy脚本支持，具有编程的能力最终结果将使用该脚本的返回值直接返回数据,注意：如果返回数据类型为字符串则做为dsl直接使用，否则直接做为返回数据，内置句柄有三个为 elasticsearchRestTemplate、restHighLevelClient、restClient 和 data，elasticsearchRestTemplate、restHighLevelClient、restClient为查询数据服务，data为持有请求参数句柄" +
+            "3. groovy脚本支持，具有编程的能力最终结果将使用该脚本的返回值直接返回数据,注意：如果返回数据类型为字符串则做为dsl直接使用，否则直接做为返回数据，内置句柄有三个为 elasticsearchTemplate、elasticsearchClient、restClient 和 data，elasticsearchTemplate、elasticsearchClient、restClient为查询数据服务，data为持有请求参数句柄" +
             "注意：分页查询不支持es的from和size属性查询，设置后请求分页参数无效，请根据分页参数传参使用，单条和多条支持"
 
       },

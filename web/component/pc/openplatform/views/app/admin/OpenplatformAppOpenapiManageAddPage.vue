@@ -2,8 +2,8 @@
 /**
  * 开放平台应用与开放接口配置管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformAppOpenapiCreateApi,list as OpenplatformAppOpenapiListApi} from "../../../api/app/admin/openplatformAppOpenapiAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformAppOpenapiCreateApi} from "../../../api/app/admin/openplatformAppOpenapiAdminApi"
 import {useAddPageFormItems} from "../../../components/app/admin/openplatformAppOpenapiManage";
 
 

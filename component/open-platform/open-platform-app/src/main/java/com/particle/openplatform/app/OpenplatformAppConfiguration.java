@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2024/9/22 11:00
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class OpenplatformAppConfiguration {
 
     public static final String openplatformAppBatchQueryExecutor = "openplatformAppBatchQueryExecutor";

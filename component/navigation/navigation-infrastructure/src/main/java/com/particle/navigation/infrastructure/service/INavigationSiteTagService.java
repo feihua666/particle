@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.service;
 
-import com.particle.navigation.infrastructure.dos.NavigationSiteTagDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.navigation.infrastructure.dos.NavigationSiteTagDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface INavigationSiteTagService extends IBaseService<NavigationSiteTa
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<NavigationSiteTagDO>lambdaQuery().in(NavigationSiteTagDO::getCode, codes));
     }
-            
+
 
     /**
      * 根据标签名称查询
@@ -60,7 +61,7 @@ public interface INavigationSiteTagService extends IBaseService<NavigationSiteTa
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<NavigationSiteTagDO>lambdaQuery().in(NavigationSiteTagDO::getName, names));
     }
-            
+
 
 
 

@@ -7,8 +7,10 @@ import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import com.particle.global.tool.http.OpenApiClientTool;
 import lombok.Data;
+import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.security.KeyPair;
 
 /**
@@ -56,7 +58,7 @@ public class OpenapiTest {
 	 * @param args
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException, URISyntaxException {
 		KeyPair rsa = SecureUtil.generateKeyPair("RSA");
 		System.out.println(StrUtil.str(rsa.getPrivate().getEncoded(),"utf-8"));
 		System.out.println("rsa private key:" + Base64.encode(rsa.getPrivate().getEncoded()));
@@ -69,7 +71,7 @@ public class OpenapiTest {
 	/**
 	 * 测试 get 请求
 	 */
-	private static void testGet() throws IOException {
+	private static void testGet() throws IOException, ParseException, URISyntaxException {
 		// 构造请求参数，这里以 OpenapiTestCommand 举例
 		OpenapiTestCommand openapiTestCommand = testCommand();
 		// 将对象参数转为请求字符串

@@ -2,8 +2,8 @@
 /**
  * 功能菜单组管理页面
  */
-import {reactive ,ref} from 'vue'
-import {page as funcGroupPageApi,remove as funcGroupRemoveApi} from "../../api/admin/funcGroupAdminApi"
+import {reactive, ref} from 'vue'
+import {page as funcGroupPageApi, remove as funcGroupRemoveApi} from "../../api/admin/funcGroupAdminApi"
 import {pageFormItems} from "../../components/admin/funcGroupManage";
 
 const tableRef = ref(null)

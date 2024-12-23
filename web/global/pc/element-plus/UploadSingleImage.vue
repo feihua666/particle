@@ -5,7 +5,7 @@
  *          2. 提供了默认的上传表示形式
  *          3. 默认自带上传 dataLoading 功能效果
  */
-import {reactive, computed, watch} from 'vue'
+import {computed, reactive, watch} from 'vue'
 import {emitDataModelEvent,} from './dataModel'
 import PtUpload from './Upload.vue'
 import {getPreviewUrl} from "../common/axios/axiosRequest";

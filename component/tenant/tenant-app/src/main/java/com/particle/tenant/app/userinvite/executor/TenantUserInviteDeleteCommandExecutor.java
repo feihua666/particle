@@ -10,11 +10,10 @@ import com.particle.tenant.client.userinvite.dto.data.TenantUserInviteVO;
 import com.particle.tenant.domain.userinvite.TenantUserInvite;
 import com.particle.tenant.domain.userinvite.TenantUserInviteId;
 import com.particle.tenant.domain.userinvite.gateway.TenantUserInviteGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

@@ -4,7 +4,9 @@ import {list as openplatformDocApiListApi} from "../api/doc/admin/openplatformDo
 import {list as openplatformDocApiDocListApi} from "../api/doc/admin/openplatformDocApiDocAdminApi";
 import {list as openplatformDocApiDocParamFieldListApi} from "../api/doc/admin/openplatformDocApiDocParamFieldAdminApi";
 import {list as openplatformDocApiDocTemplateListApi} from "../api/doc/admin/openplatformDocApiDocTemplateAdminApi";
-import {list as openplatformDocApiDocTemplateParamFieldListApi} from "../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi";
+import {
+    list as openplatformDocApiDocTemplateParamFieldListApi
+} from "../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi";
 
 export const useSelectOpenplatformDocDirNameCompItem = ({required = false, tips = ''}) => {
     return {

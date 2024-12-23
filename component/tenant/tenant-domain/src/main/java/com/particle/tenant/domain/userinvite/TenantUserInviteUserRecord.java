@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -33,7 +34,7 @@ public class TenantUserInviteUserRecord extends AggreateRoot {
     * 用户加入时间
     */
     private LocalDateTime joinAt;
-    
+
     /**
     * 描述
     */

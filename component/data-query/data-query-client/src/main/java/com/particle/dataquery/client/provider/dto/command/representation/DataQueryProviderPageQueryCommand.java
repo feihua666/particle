@@ -2,10 +2,8 @@ package com.particle.dataquery.client.provider.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
 /**
  * <p>
  * 数据查询供应商 通用分页查询指令对象

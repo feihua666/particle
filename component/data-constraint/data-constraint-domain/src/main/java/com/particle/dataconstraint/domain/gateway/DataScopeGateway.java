@@ -1,8 +1,8 @@
 package com.particle.dataconstraint.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.dataconstraint.domain.DataScope;
 import com.particle.dataconstraint.domain.DataScopeId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

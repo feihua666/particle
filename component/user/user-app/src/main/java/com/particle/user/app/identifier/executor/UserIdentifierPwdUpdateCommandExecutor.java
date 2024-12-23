@@ -1,8 +1,11 @@
 package com.particle.user.app.identifier.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.biz.BizException;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.exception.ErrorCodeUserEnum;
@@ -13,21 +16,19 @@ import com.particle.user.client.identifier.dto.data.UserIdentifierPwdVO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierPwdService;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -151,7 +152,7 @@ public class UserIdentifierPwdUpdateCommandExecutor  extends AbstractBaseExecuto
 		return userIdentifierPwd;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface UserIdentifierPwdUpdateCommandToUserIdentifierPwdMapping{
 		UserIdentifierPwdUpdateCommandToUserIdentifierPwdMapping instance = Mappers.getMapper(UserIdentifierPwdUpdateCommandToUserIdentifierPwdMapping.class );
 

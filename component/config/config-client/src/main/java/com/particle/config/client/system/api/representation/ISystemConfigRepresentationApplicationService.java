@@ -2,12 +2,12 @@ package com.particle.config.client.system.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigQueryListCommand;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

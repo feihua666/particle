@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as crmCustomerTagRelUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as crmCustomerTagRelUpdateApi
 } from "../../../api/tag/admin/crmCustomerTagRelAdminApi"
 
 import {updatePageFormItems} from "../../../components/tag/admin/crmCustomerTagRelManage";

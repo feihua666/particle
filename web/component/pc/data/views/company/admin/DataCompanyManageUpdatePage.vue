@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as dataCompanyUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as dataCompanyUpdateApi
 } from "../../../api/company/admin/dataCompanyAdminApi"
 
 import {updatePageFormItems} from "../../../components/company/admin/dataCompanyManage";

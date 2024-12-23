@@ -1,14 +1,13 @@
 package com.particle.lowcode.client.generator.api.representation;
 
+import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelPageQueryCommand;
-import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelQueryListCommand;
-import com.particle.lowcode.client.generator.dto.data.LowcodeModelVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelPageQueryCommand;
+import com.particle.lowcode.client.generator.dto.command.representation.LowcodeModelQueryListCommand;
+import com.particle.lowcode.client.generator.dto.data.LowcodeModelVO;
 
 /**
  * <p>

@@ -13,6 +13,7 @@ import com.particle.dream.domain.ssq.gateway.SsqCodeCrawlingGateway;
 import com.particle.dream.domain.ssq.value.SsqCodeCrawlingResult;
 import com.particle.global.tool.http.HttpClientTool;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.core5.http.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -101,7 +103,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
         try {
             String getStr = HttpClientTool.get(StrUtil.format(urlTemplate, openedPhaseYear), null);
             doc = Jsoup.parse(getStr);
-        } catch (IOException e) {
+        } catch (IOException | ParseException | URISyntaxException e) {
             log.error("crawlingByYear for old year error",e);
         }
 
@@ -175,7 +177,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
                     .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0");
             String getStr = HttpClientTool.postForm(urlTemplate, form, extConfig);
             doc = Jsoup.parse(getStr);
-        } catch (IOException e) {
+        } catch (IOException | ParseException | URISyntaxException e) {
             log.error("parseSsqCodeCrawlingResultFromCbb error",e);
         }
 
@@ -304,7 +306,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
                     .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0");
             String getStr = HttpClientTool.get(StrUtil.format(urlTemplate,openedPhaseStr), extConfig);
             doc = Jsoup.parse(getStr);
-        } catch (IOException e) {
+        } catch (IOException | ParseException | URISyntaxException e) {
             log.error("crawlingDetailFromCbb error",e);
         }
         if (doc != null) {
@@ -435,7 +437,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
                  * }
                  */
                 getStr = HttpClientTool.get(StrUtil.format(urlTemplate, issueStart, issueEnd, pageNo), null);
-            } catch (IOException e) {
+            } catch (IOException | ParseException | URISyntaxException e) {
                 log.error("crawlingByYear error",e);
             }
             if (getStr != null) {
@@ -472,7 +474,7 @@ public class SsqCodeCrawlingGatewayImpl implements SsqCodeCrawlingGateway {
         try {
             String getStr = HttpClientTool.get(urlTemplate, null);
             doc = Jsoup.parse(getStr);
-        } catch (IOException e) {
+        } catch (IOException | ParseException | URISyntaxException e) {
             log.error("crawlingDetailFromGov error",e);
         }
         if (doc != null) {

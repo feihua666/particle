@@ -1,6 +1,5 @@
 package com.particle.global.captcha.security;
 
-import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

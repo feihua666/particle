@@ -13,19 +13,18 @@ import com.particle.global.tool.json.JsonTool;
 import com.particle.usagecount.client.api.IUsageCountRecordApplicationService;
 import com.particle.usagecount.client.dto.command.UsageCountRecordMarkCommand;
 import com.particle.usagecount.client.dto.data.UsageCountRecordMarkVO;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Optional;
 
 /**
  * <p>

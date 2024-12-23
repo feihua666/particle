@@ -1,8 +1,6 @@
 package com.particle.lowcode.client.generator.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

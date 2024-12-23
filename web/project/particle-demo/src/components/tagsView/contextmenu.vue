@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts" name="layoutTagsViewContextmenu">
-import { computed, reactive, onMounted, onUnmounted, watch } from 'vue';
+import {computed, onMounted, onUnmounted, reactive, watch} from 'vue';
 
 // 定义父组件传过来的值
 const props = defineProps({

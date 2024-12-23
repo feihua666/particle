@@ -2,10 +2,10 @@ package com.particle.crm.client.tag.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.crm.client.tag.dto.command.CrmCustomerTagCreateCommand;
 import com.particle.crm.client.tag.dto.command.CrmCustomerTagUpdateCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

@@ -5,7 +5,6 @@ import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import de.codecentric.boot.admin.server.config.SpringBootAdminServerEnabledCondition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -21,7 +20,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @author yangwei
  * @since 2023-06-29 17:47
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableAdminServer
 @ConditionalOnClass(EnableAdminServer.class)
 @ConditionalOnProperty(prefix = "particle.actuator.bootadmin.server", name = "enabled", havingValue = "true", matchIfMissing = true)

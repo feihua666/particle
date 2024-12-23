@@ -1,18 +1,17 @@
 package com.particle.global.big.datasource.bigdatasource.impl.neo4j;
 
 import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
+import com.particle.global.big.datasource.bigdatasource.impl.BigDatasourceEmptyObjectProvider;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jDriverFallback;
+import com.particle.global.big.datasource.bigdatasource.impl.neo4j.custom.CustomNeo4jAutoConfiguration;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.executor.Neo4jBigDatasourceApiExecutor;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.Data;
 import org.neo4j.driver.Driver;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.data.neo4j.Neo4jDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.neo4j.Neo4jDataProperties;
@@ -26,10 +25,6 @@ import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -115,12 +110,14 @@ public class Neo4jBigDatasource extends AbstractBigDatasource {
          */
     private static Driver neo4jDriver(Neo4jProperties properties) {
         Neo4jAutoConfiguration neo4jAutoConfiguration = new Neo4jAutoConfiguration();
+        CustomNeo4jAutoConfiguration customNeo4jAutoConfiguration = new CustomNeo4jAutoConfiguration();
 
         Environment environment = BigDatasourceNeo4jDriverEnvironment.create();
-        ObjectProvider<ConfigBuilderCustomizer> configBuilderCustomizers = BigDatasourceEmptyObjectProvider.create();
+        CustomNeo4jAutoConfiguration.PropertiesNeo4jConnectionDetails propertiesNeo4jConnectionDetails = customNeo4jAutoConfiguration.neo4jConnectionDetails(properties, null);
+        ObjectProvider<ConfigBuilderCustomizer> configBuilderCustomizers = BigDatasourceEmptyObjectProvider.<ConfigBuilderCustomizer>create();
 
         try {
-            return neo4jAutoConfiguration.neo4jDriver(properties, environment, configBuilderCustomizers);
+            return neo4jAutoConfiguration.neo4jDriver(properties, environment,propertiesNeo4jConnectionDetails, configBuilderCustomizers);
         } catch (Throwable e) {
             // 发现 本项spring间接引入的版本和生产server版本有差异，这里兼容一下，进行额外处理，主要是排除对应的包
             Neo4jDriverFallback bean = null;
@@ -145,48 +142,4 @@ public class Neo4jBigDatasource extends AbstractBigDatasource {
         }
     }
 
-    /**
-     * 实现一个空实现，以实现{@link Neo4jBigDatasource#neo4jDriver(Neo4jProperties)} 的逻辑
-     * @param <T>
-     */
-    private static class BigDatasourceEmptyObjectProvider<T> implements ObjectProvider<T> {
-
-        public T getObject(Object... args) throws BeansException {
-            return null;
-        }
-
-        public T getIfAvailable() throws BeansException {
-            return null;
-        }
-
-        public T getIfUnique() throws BeansException {
-            return null;
-        }
-
-        public T getObject() throws BeansException {
-            return null;
-        }
-
-        public void forEach(Consumer action) {
-        }
-
-        @Override
-        public Stream<T> stream() {
-            return Stream.empty();
-        }
-
-        @Override
-        public Stream<T> orderedStream() {
-            return Stream.empty();
-        }
-
-        /**
-         * 创建实例
-         * @return
-         * @param <T>
-         */
-        protected static <T> BigDatasourceEmptyObjectProvider<T> create() {
-            return new BigDatasourceEmptyObjectProvider<T>();
-        }
-    }
 }

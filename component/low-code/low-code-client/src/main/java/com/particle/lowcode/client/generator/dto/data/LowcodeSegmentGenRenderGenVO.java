@@ -1,7 +1,6 @@
 package com.particle.lowcode.client.generator.dto.data;
 
 import com.particle.global.dto.basic.VO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

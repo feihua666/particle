@@ -1,14 +1,14 @@
 package com.particle.oauth2authorization.infrastructure.client.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
 import com.particle.oauth2authorization.domain.client.gateway.Oauth2RegisteredClientGateway;
-import com.particle.oauth2authorization.infrastructure.client.service.IOauth2RegisteredClientService;
 import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
+import com.particle.oauth2authorization.infrastructure.client.service.IOauth2RegisteredClientService;
 import com.particle.oauth2authorization.infrastructure.client.structmapping.Oauth2RegisteredClientInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

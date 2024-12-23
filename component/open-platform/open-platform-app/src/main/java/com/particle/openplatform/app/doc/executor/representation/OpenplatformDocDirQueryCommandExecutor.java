@@ -1,24 +1,25 @@
 package com.particle.openplatform.app.doc.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocDirAppStructMapping;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocDirPageQueryCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocDirQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocDirVO;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocDirDO;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocDirNameDO;
 import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocDirNameService;
 import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocDirService;
-import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocDirPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

@@ -12,11 +12,11 @@ import com.particle.oplog.client.dto.command.representation.OpLogAuditDataQueryL
 import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
 import com.particle.oplog.infrastructure.dos.OpLogAuditDataDO;
 import com.particle.oplog.infrastructure.service.IOpLogAuditDataService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

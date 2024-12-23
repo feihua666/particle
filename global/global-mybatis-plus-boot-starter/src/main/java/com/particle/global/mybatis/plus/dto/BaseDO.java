@@ -7,7 +7,6 @@ import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import lombok.Data;
 import org.javers.core.metamodel.annotation.DiffIgnore;
-import org.javers.core.metamodel.annotation.PropertyName;
 
 import java.time.LocalDateTime;
 

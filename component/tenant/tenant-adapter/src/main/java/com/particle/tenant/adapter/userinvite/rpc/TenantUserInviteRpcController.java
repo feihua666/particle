@@ -1,8 +1,8 @@
 package com.particle.tenant.adapter.userinvite.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.tenant.client.userinvite.api.ITenantUserInviteApplicationService;
 import com.particle.tenant.adapter.feign.client.userinvite.rpc.TenantUserInviteRpcFeignClient;
+import com.particle.tenant.client.userinvite.api.ITenantUserInviteApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

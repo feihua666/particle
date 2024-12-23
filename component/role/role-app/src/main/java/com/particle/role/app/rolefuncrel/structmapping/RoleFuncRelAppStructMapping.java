@@ -1,18 +1,19 @@
 package com.particle.role.app.rolefuncrel.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.domain.rolefuncrel.RoleFuncRel;
 import com.particle.role.domain.rolefuncrel.RoleFuncRelId;
 import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

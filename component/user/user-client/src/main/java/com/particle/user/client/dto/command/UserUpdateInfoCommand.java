@@ -1,19 +1,15 @@
 package com.particle.user.client.dto.command;
 
-import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
 import com.particle.user.client.login.dto.command.LoginUserUpdateAvatarCommand;
 import com.particle.user.client.login.dto.command.LoginUserUpdateGenderCommand;
 import com.particle.user.client.login.dto.command.LoginUserUpdateNameCommand;
 import com.particle.user.client.login.dto.command.LoginUserUpdateNicknameCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**

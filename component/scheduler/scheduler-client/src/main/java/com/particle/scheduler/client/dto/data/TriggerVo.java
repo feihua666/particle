@@ -1,7 +1,6 @@
 package com.particle.scheduler.client.dto.data;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,46 +12,46 @@ import java.util.Date;
  */
 @Setter
 @Getter
-@ApiModel(value="触发器响应对象")
+@Schema(description="触发器响应对象")
 public class TriggerVo extends NameAndGroupVo {
 
-    @ApiModelProperty(value = "类名称")
+    @Schema(description = "类名称")
     private String triggerClassName;
 
-    @ApiModelProperty(value = "触发器状态")
+    @Schema(description = "触发器状态")
     private String triggerState;
 
-    @ApiModelProperty(value = "日历名称")
+    @Schema(description = "日历名称")
     private String calendarName;
 
-    @ApiModelProperty(value = "描述信息")
+    @Schema(description = "描述信息")
     private String description;
 
-    @ApiModelProperty(value = "优先级")
+    @Schema(description = "优先级")
     private int priority;
 
-    @ApiModelProperty(value = "是否可以再次触发")
+    @Schema(description = "是否可以再次触发")
     private Boolean isMayFireAgain;
 
-    @ApiModelProperty(value = "开始于")
+    @Schema(description = "开始于")
     private Date startAt;
 
-    @ApiModelProperty(value = "结束于")
+    @Schema(description = "结束于")
     private Date endAt;
 
-    @ApiModelProperty(value = "下一次触发时间")
+    @Schema(description = "下一次触发时间")
     private Date nextFireAt;
 
-    @ApiModelProperty(value = "上一次触发时间")
+    @Schema(description = "上一次触发时间")
     private Date previousFireAt;
 
-    @ApiModelProperty(value = "最后触发时间")
+    @Schema(description = "最后触发时间")
     private Date finalFireAt;
 
-    @ApiModelProperty(value = "失火说明")
+    @Schema(description = "失火说明")
     private int misfireInstruction;
 
-    @ApiModelProperty(value = "cron表达式")
+    @Schema(description = "cron表达式")
     private String cronExpression;
 
 }

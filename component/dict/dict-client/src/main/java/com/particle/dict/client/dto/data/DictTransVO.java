@@ -1,9 +1,7 @@
 package com.particle.dict.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -19,7 +17,7 @@ import lombok.experimental.Accessors;
 @Data
 @Schema
 public class DictTransVO extends AbstractBaseIdVO {
-    
+
     @Schema(description = "字典编码,模糊查询，字典组时必填")
     private String code;
 

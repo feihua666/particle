@@ -1,16 +1,11 @@
 package com.particle.navigation.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.navigation.domain.gateway.NavigationCategoryGateway;
 import com.particle.navigation.infrastructure.service.INavigationCategoryService;
-import com.particle.navigation.infrastructure.dos.NavigationCategoryDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

@@ -2,8 +2,10 @@
 /**
  * 开放平台供应商月账单管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformProviderRecordPrdMonthBillCreateApi} from "../../../api/bill/admin/openplatformProviderRecordPrdMonthBillAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformProviderRecordPrdMonthBillCreateApi
+} from "../../../api/bill/admin/openplatformProviderRecordPrdMonthBillAdminApi"
 import {addPageFormItems} from "../../../components/bill/admin/openplatformProviderRecordPrdMonthBillManage";
 
 

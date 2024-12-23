@@ -2,7 +2,7 @@
 /**
  * 导航分类管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as navigationCategoryCreateApi} from "../../api/admin/navigationCategoryAdminApi"
 import {addPageFormItems} from "../../components/admin/navigationCategoryManage";
 

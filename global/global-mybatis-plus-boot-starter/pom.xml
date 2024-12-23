@@ -45,10 +45,14 @@
         <!-- https://baomidou.com/ -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus-boot-starter.version}</version>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>${mybatis-plus-spring-boot3-starter.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>${mybatis-plus-spring-boot3-starter.version}</version>
+        </dependency>
         <!-- 全局DTO依赖 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -59,7 +63,7 @@
         <!-- 全局共享依赖，主要是使用 自定义注解，如：like -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
 

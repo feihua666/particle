@@ -1,22 +1,22 @@
 package com.particle.navigation.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationSiteTagRelAppStructMapping;
 import com.particle.navigation.client.dto.command.NavigationSiteTagRelUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationSiteTagRelVO;
 import com.particle.navigation.domain.NavigationSiteTagRel;
 import com.particle.navigation.domain.NavigationSiteTagRelId;
 import com.particle.navigation.domain.gateway.NavigationSiteTagRelGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class NavigationSiteTagRelUpdateCommandExecutor  extends AbstractBaseExec
 		return navigationSiteTagRel;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface NavigationSiteTagRelUpdateCommandToNavigationSiteTagRelMapping{
 		NavigationSiteTagRelUpdateCommandToNavigationSiteTagRelMapping instance = Mappers.getMapper(NavigationSiteTagRelUpdateCommandToNavigationSiteTagRelMapping.class );
 

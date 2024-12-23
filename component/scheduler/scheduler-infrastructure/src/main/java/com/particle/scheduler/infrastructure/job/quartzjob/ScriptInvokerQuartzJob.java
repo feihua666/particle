@@ -1,22 +1,13 @@
 package com.particle.scheduler.infrastructure.job.quartzjob;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.script.GroovyTool;
-import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import javax.script.Bindings;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 一个基本脚本的任务

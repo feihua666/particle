@@ -1,10 +1,11 @@
 package com.particle.report.infrastructure.reportapi.service;
 
-import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IReportReportApiService extends IBaseService<ReportReportApiDO>
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<ReportReportApiDO>lambdaQuery().in(ReportReportApiDO::getCode, codes));
     }
-            
+
 
 
 
@@ -63,7 +64,7 @@ public interface IReportReportApiService extends IBaseService<ReportReportApiDO>
         Assert.notEmpty(urls,"urls 不能为空");
         return list(Wrappers.<ReportReportApiDO>lambdaQuery().in(ReportReportApiDO::getUrl, urls));
     }
-            
+
 
     /**
      * 根据报告片段模板id查询
@@ -86,7 +87,7 @@ public interface IReportReportApiService extends IBaseService<ReportReportApiDO>
         Assert.notEmpty(reportSegmentTemplateIds,"reportSegmentTemplateIds 不能为空");
         return list(Wrappers.<ReportReportApiDO>lambdaQuery().in(ReportReportApiDO::getReportSegmentTemplateId, reportSegmentTemplateIds));
     }
-            
+
 
 
 

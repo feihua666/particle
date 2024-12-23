@@ -1,7 +1,7 @@
 package com.particle.role.infrastructure.rolefuncrel.service;
 
-import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.role.infrastructure.rolefuncrel.dos.RoleFuncRelDO;
 
 /**
  * <p>

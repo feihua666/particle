@@ -1,13 +1,13 @@
 package com.particle.feedback.infrastructure.reply.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.feedback.domain.reply.FeedbackReplyAttachment;
 import com.particle.feedback.domain.reply.FeedbackReplyAttachmentId;
 import com.particle.feedback.domain.reply.gateway.FeedbackReplyAttachmentGateway;
-import com.particle.feedback.infrastructure.reply.service.IFeedbackReplyAttachmentService;
 import com.particle.feedback.infrastructure.reply.dos.FeedbackReplyAttachmentDO;
+import com.particle.feedback.infrastructure.reply.service.IFeedbackReplyAttachmentService;
 import com.particle.feedback.infrastructure.reply.structmapping.FeedbackReplyAttachmentInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

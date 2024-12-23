@@ -4,9 +4,8 @@
  * 封装理由：1. 添加额外预览功能，除了默认的全屏预览，添加了弹窗跑马灯预览方式
  * 注意：previewSrcList 里如果指定了值，并不会包含 src 的值，请手动指定，如果 previewSrcList 没有指定，预览时会添加 src 值
  */
-import {reactive ,inject,ref,computed} from 'vue'
+import {computed, ref} from 'vue'
 import PtCarousel from './Carousel.vue'
-import {emitDataMethodEvent} from "./dataMethod";
 import {getPreviewUrl} from "../common/axios/axiosRequest";
 
 // 声明属性

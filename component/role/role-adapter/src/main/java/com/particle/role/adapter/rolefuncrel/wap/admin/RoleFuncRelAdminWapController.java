@@ -1,9 +1,8 @@
 package com.particle.role.adapter.rolefuncrel.wap.admin;
 
-import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
+import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -2,7 +2,7 @@
 /**
  * 低代码片段模板管理复制页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {
   copy as lowcodeSegmentTemplateCopyApi,
   list as lowcodeSegmentTemplateListApi

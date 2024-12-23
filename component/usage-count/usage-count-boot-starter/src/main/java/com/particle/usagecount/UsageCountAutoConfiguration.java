@@ -1,24 +1,22 @@
  package com.particle.usagecount;
 
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.security.security.config.WebSecurityConfig;
-import com.particle.global.swagger.ApplicationContexSwaggertHelper;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import com.particle.global.web.filter.RequestParamValidateFilter;
-import com.particle.usagecount.adapter.filter.UsageCountFilter;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.cloud.sleuth.autoconfig.instrument.web.SleuthWebProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.security.security.config.WebSecurityConfig;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import com.particle.usagecount.adapter.filter.UsageCountFilter;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.models.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.boot.web.servlet.FilterRegistrationBean;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 /**
  * <p>
@@ -29,7 +27,7 @@ import java.util.List;
  * @since 2023-10-19 09:50:14
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = true)
 @MapperScan("com.particle.usagecount.infrastructure.mapper")
 public class UsageCountAutoConfiguration {
 
@@ -43,7 +41,7 @@ public class UsageCountAutoConfiguration {
     @Bean
     public GroupedOpenApi createUsageCountAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("usage-count接口")
                 .basePackage("com.particle.usagecount.adapter")

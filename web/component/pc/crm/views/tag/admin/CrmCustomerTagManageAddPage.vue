@@ -2,7 +2,7 @@
 /**
  * 客户标签管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as crmCustomerTagCreateApi} from "../../../api/tag/admin/crmCustomerTagAdminApi"
 import {addPageFormItems} from "../../../components/tag/admin/crmCustomerTagManage";
 

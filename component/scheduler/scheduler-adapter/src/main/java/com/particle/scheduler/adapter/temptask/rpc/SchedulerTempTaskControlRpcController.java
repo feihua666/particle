@@ -2,7 +2,6 @@ package com.particle.scheduler.adapter.temptask.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.scheduler.adapter.feign.client.temptask.rpc.SchedulerTempTaskControlRpcFeignClient;
-import com.particle.scheduler.adapter.feign.client.temptask.rpc.SchedulerTempTaskRpcFeignClient;
 import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskApplicationService;
 import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskControlApplicationService;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,5 +1,6 @@
 package com.particle.dept.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.dept.app.structmapping.DeptTreeAppStructMapping;
 import com.particle.dept.client.dto.command.DeptTreeCreateCommand;
 import com.particle.dept.client.dto.data.DeptTreeVO;
@@ -7,15 +8,14 @@ import com.particle.dept.domain.DeptTree;
 import com.particle.dept.domain.gateway.DeptTreeGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class DeptTreeCreateCommandExecutor  extends AbstractBaseExecutor {
 		return deptTree;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  DeptTreeCreateCommandToDeptTreeMapping{
 		DeptTreeCreateCommandToDeptTreeMapping instance = Mappers.getMapper( DeptTreeCreateCommandToDeptTreeMapping.class );
 

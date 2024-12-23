@@ -5,10 +5,9 @@
  *          2. 支持动态 keepAlive,路由 meta 元信息
  *          3. 其它 PtRouteView 支持的特性
  */
-import {computed, ref, watch, onMounted} from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {computed, onMounted, ref, watch} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 import PtRouteView from '../common/RouteView.vue'
-import {doDataMethod} from "./dataMethod";
 
 const router = useRouter()
 const route = useRoute()

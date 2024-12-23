@@ -1,9 +1,8 @@
 package com.particle.user.adapter.identifier.wap.admin;
 
-import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
+import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

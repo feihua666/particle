@@ -1,5 +1,8 @@
 # ========================= Logging Setting =========================
 logging:
+  pattern:
+    # 配置 %X{traceId} %X{spanId} 日志链路id  ，global-sleuth-boot-starter已不再使用
+    level: '%5p [${spring.zipkin.service.name:${spring.application.name:}},%X{traceId},%X{spanId}]'
   group:
     # 分组
     particle: com.particle

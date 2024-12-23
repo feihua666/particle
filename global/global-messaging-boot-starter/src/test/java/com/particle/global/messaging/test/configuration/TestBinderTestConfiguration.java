@@ -17,7 +17,7 @@ import java.util.function.Consumer;
  * @since 2022-10-12 16:22
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class TestBinderTestConfiguration {
 
 

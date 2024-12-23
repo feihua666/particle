@@ -2,9 +2,8 @@
 /**
  * 清空功能应用已分配的功能
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {deleteByFuncApplicationId} from "../../api/admin/funcApplicationFuncRelAdminApi";
-import {list as funcApplicationListApi} from "../../api/application/admin/funcApplicationAdminApi";
 import {remoteSelectFuncApplicationCompItem} from "../../components/application/funcApplicationCompItem";
 import {remoteSelectFuncProps} from "../../components/funcCompItem";
 

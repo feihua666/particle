@@ -5,8 +5,9 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- 截止到目前（2023-12-07）该版本是springboot支持的jdk1.8的最高版本 -->
-        <version>2.7.18</version>
+        <!-- 截止到目前（2023-12-07）该版本（2.7.18）是springboot支持的jdk1.8的最高版本 -->
+        <!-- 升级spring3.x版本 -->
+        <version>3.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
@@ -40,55 +41,49 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- idea 创建 module 自动生成 -->
-
-
         <!-- spring cloud 版本 -->
-        <spring-cloud.version>2021.0.8</spring-cloud.version>
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 注意升级该版本，需要注意是否在global-tool中重写的类是否有变化-->
-        <hutool-all.version>5.8.21</hutool-all.version>
+        <hutool-all.version>5.8.34</hutool-all.version>
         <!-- 强大的java工具类 ，全局引入，方便使用-->
-        <guava.version>30.1.1-jre</guava.version>
+        <guava.version>33.3.1-jre</guava.version>
         <!-- 实体转换 -->
-        <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-        <!--已过时，使用 springdoc.version， swagger 接口文档 截止到现在（2023-07-19 21:54:17） 该版本已经停更了 已经被 springdoc openapi替代 参见：https://github.com/springdoc/springdoc-openapi-->
-        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
-        <!-- 已过时，使用新的 knife4j-openapi3-spring-boot-starter， swagger ui-接口文档 文档参考：https://doc.xiaominfo.com/ -->
-        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <!-- springdoc(springdoc 即是openapi3的实现，springfox其实是openapi2的实现) 版本 github：https://github.com/springdoc/springdoc-openapi 文章参考：https://www.rstk.cn/news/147270.html、https://zhuanlan.zhihu.com/p/559882901 直接引入springdoc-openapi-ui会依赖全部引入-->
-        <springdoc.version>1.7.0</springdoc.version>
-        <!-- 定义一个注解版本方便仅引入注解 -->
-        <swagger-annotations-v3.version>2.2.9</swagger-annotations-v3.version>
+        <!-- 暂注释掉，knife4j已经引入 -->
+        <!--<springdoc.version>2.7.0</springdoc.version>-->
+        <!-- 定义一个注解版本方便仅引入注解 该包会通过springdoc间接引入，这里有的模块仅使用注解所以单独提出来-->
+        <swagger-annotations-jakarta.version>2.2.25</swagger-annotations-jakarta.version>
         <!-- 截止到现在（2023-07-19 21:54:17） swagger（其实也经不是swagger了，但ui还是用的swagger的ui，因为swagger ui v3支持openapi3规范）已经出了springdoc openapi ，只需要引入 knife4j 已经依赖引入了springdoc-->
-        <!-- 注意在升级时需要同步修改是否兼容 global-swagger-boot-starter 中重写的类-->
-        <knife4j-openapi3-spring-boot-starter.version>4.3.0</knife4j-openapi3-spring-boot-starter.version>
+        <!-- 文档参考：https://doc.xiaominfo.com/ 注意：该版本是三方临时版本 group已修改 参见：https://github.com/xiaoymin/knife4j/issues/865-->
+        <knife4j-openapi3-jakarta-spring-boot-starter.version>4.6.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
         <!-- mybatis-plus-boot-starter -->
         <!-- 注意在升级时，因为自定义了部分逻辑，需要同步修改是否兼容 参见：global-mybatis-plus-boot-starter -->
         <!-- 注意在升级时详情查看 com.baomidou.mybatisplus.core.conditions.segments.README.md -->
-        <mybatis-plus-boot-starter.version>3.5.3.2</mybatis-plus-boot-starter.version>
+        <mybatis-plus-spring-boot3-starter.version>3.5.9</mybatis-plus-spring-boot3-starter.version>
 
         <!-- 动态多数据源，见 global-datasource-boot-starter 引入提供统一依赖 -->
-        <dynamic-datasource.version>4.1.1</dynamic-datasource.version>
-        <!-- 汉字转拼音 -->
+        <dynamic-datasource-spring-boot3-starter.version>4.3.1</dynamic-datasource-spring-boot3-starter.version>
+        <!-- 汉字转拼音,最新版本在2016年发布 https://mvnrepository.com/artifact/com.belerweb/pinyin4j-->
         <pinyin4j.version>2.5.1</pinyin4j.version>
-        <!-- 主要用于图片参数，当前主要是苹果手机图片旋转问题 -->
-        <metadata-extractor.version>2.18.0</metadata-extractor.version>
-        <!-- https://github.com/oldratlee/log4j2-ttl-thread-context-map -->
-        <log4j2-ttl-thread-context-map.version>1.3.3</log4j2-ttl-thread-context-map.version>
-        <!-- Log4j2 AsyncLogger -->
-        <disruptor.version>3.4.4</disruptor.version>
+        <!-- 主要用于图片参数，当前主要是苹果手机图片旋转问题 最新版本在2023-11-20发布-->
+        <metadata-extractor.version>2.19.0</metadata-extractor.version>
+        <!-- https://github.com/oldratlee/log4j2-ttl-thread-context-map 最新版本在2022-11-13 -->
+        <log4j2-ttl-thread-context-map.version>1.4.0</log4j2-ttl-thread-context-map.version>
+        <!-- Log4j2 AsyncLogger 最新版本在2023-09-29 -->
+        <disruptor.version>4.0.0</disruptor.version>
 
         <!-- 测试数据用 可以将实体填充数据 测试用例使用-->
-        <jmockdata.version>4.2.0</jmockdata.version>
+        <jmockdata.version>4.3.0</jmockdata.version>
         <!-- shedlock是一个分页式锁支持 目前在 global-concurrency-boot-starter使用，以支持分页式锁，主要是 global-messaging-boot-starter 消息模块使用-->
-        <shedlock.version>4.41.0</shedlock.version>
+        <shedlock.version>6.0.2</shedlock.version>
 
         <!-- 类似于freeMarker的模板引擎 -->
-        <com.jfinal.enjoy>5.0.3</com.jfinal.enjoy>
-        <!-- groovy脚本，添加主要是为了数据查询支持groovy脚本 -->
-        <groovy-all.version>2.4.21</groovy-all.version>
+        <com.jfinal.enjoy>5.2.2</com.jfinal.enjoy>
+        <!-- groovy脚本，添加主要是为了数据查询支持groovy脚本 已转到了apache下 -->
+        <groovy-all.version>4.0.24</groovy-all.version>
         <!-- http简单客户端使用 jodd是一个java工具包，添加统一版本目前只是为了使用 大数据源的jodd http实现 -->
         <jodd.version>6.3.0</jodd.version>
         <!-- 简单验证码依赖 https://github.com/ele-admin/EasyCaptcha 该库看上去好久不更新了，截止到今天 2023-04-24 最后一次更新是 2019-08-25，但能满足目前需求 -->
@@ -104,53 +99,39 @@
         </dependency>-->
         <!-- 以下为v2版本 v2版本使用bom依赖-->
         <!-- v2 github https://github.com/aws/aws-sdk-java-v2 -->
-        <aws-sdk-java-v2.version>2.20.52</aws-sdk-java-v2.version>
+        <aws-sdk-java-v2.version>2.29.30</aws-sdk-java-v2.version>
 
         <!-- 在 hutool 中依赖poi对excel等文档做了封装，该引入可以借用其工具使用 -->
         <!-- 推荐引入poi-ooxml，这个包会自动关联引入poi包，且可以很好的支持Office2007+的文档格式 -->
-        <poi-ooxml.version>5.2.3</poi-ooxml.version>
+        <poi-ooxml.version>5.3.0</poi-ooxml.version>
         <poi.version>${poi-ooxml.version}</poi.version>
-        <!-- 如果需要使用Sax方式读取Excel，需要引入以下依赖（POI-4.x以上这个非必须）： -->
-        <xercesImpl.version>2.12.2</xercesImpl.version>
 
         <!-- 添加主要用于oss global-oss-boot-starter ftp上传-->
-        <commons-net.version>3.9.0</commons-net.version>
-        <!-- 添加主要用于oss global-oss-boot-starter sftp上传，该包截止到今天（ 2023-04-28）更新时间为 2018-11-26-->
-        <jsch.version>0.1.55</jsch.version>
+        <commons-net.version>3.11.1</commons-net.version>
+        <!-- 添加主要用于oss global-oss-boot-starter sftp上传 -->
+        <jsch.version>0.2.21</jsch.version>
         <!-- 连接池，主要用于 global-oss-boot-starter ftp和sftp连接池 -->
-        <commons-pool2.version>2.11.1</commons-pool2.version>
+        <commons-pool2.version>2.12.0</commons-pool2.version>
         <!-- java 对象比较使用，可以对象两个对象的修改前后差异 参见 global-tool diff包-->
-        <!-- 目前（2023-05-05 最新版本为7.0.0，但发现其使用jdk11，而本项目使用jdk8，所以选用最近的一个稳定版本） -->
-        <javers-core.version>6.14.0</javers-core.version>
+        <javers-core.version>7.7.0</javers-core.version>
         <!-- 结合 hutool 发送邮件 -->
-        <javax.mail.version>1.6.2</javax.mail.version>
+        <jakarta.mail.version>2.0.1</jakarta.mail.version>
         <!-- 微信相关支持，当前添加主要是支持企业微信报警 -->
         <!-- gitee地址：https://gitee.com/binary/weixin-java-tools -->
-        <wxjava.version>4.5.0</wxjava.version>
-
-        <!-- spring boot admin 这是一个bom -->
-        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
-
-    <!--  oauth2 相关版本 原理spring security提供了 https://spring.io/projects/spring-security-oauth 授权服务，目前(2023-07-07) 已被 https://docs.spring.io/spring-authorization-server/docs/current/reference/html/getting-started.html取代  -->
-    <!--  oauth2 一般分为三个版块：1. 授权服务（提供授权token） 2. 资源服务（保护资源提供资源服务并合授权服务通信验证校验token） 3. 和客户端（三方客户端请求资源）  -->
-    <!--  截止到目前（2023-07-07） 授权服务（spring-authorization-server）已发展到了版本1.1.1（但从1.x开始为了支持springboot 3.0 已不再支持jdk8版本，合并必须使用jdk17版本） -->
-    <!--  可喜的是 截止到目前（2023-07-07） 授权服务（spring-authorization-server）1.x以下的版本（也就是支持jdk8的版本扔在维护，因为当前约大部分java用户依然在使用jdk8），目前支持jdk8的最新版本为0.4.3  -->
-    <!--  spring官网文档 在使用spring使用时引入的 <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-oauth2-authorization-server</artifactId></dependency> 只有在spring boot 3.0以上才有，目前我们使用的 spring boot 2.x版本需要自行引入 -->
-    <!--  所以这里定义一下授权服务支持jdk8的版本，如果升级到了spring boot 3.x以上直接引入 spring-boot-starter-oauth2-authorization-server 就可以了，版本就不需要在这里定义了参见：global-security-boot-starter/pom.xml-->
-        <spring-authorization-server.version>0.4.3</spring-authorization-server.version>
-
-        <!-- springboot 本身依赖了该包，在升级和新版本的idea后，提示原来springboot依赖的是1.3版本，有漏洞这里升级一下 -->
-        <snakeyaml.version>2.0</snakeyaml.version>
-        <!-- htmlparser 添加主要用于解析国家统计局 统计用区划代码和城乡划分代码-->
-        <!-- 以后建议使用 jsoup -->
-        <htmlparser.version>2.1</htmlparser.version>
-        <!-- jsoup html解析工具，主要用于抓取一些数据如：ssq历史开奖记录 -->
-        <jsoup.version>1.17.2</jsoup.version>
+        <wxjava.version>4.6.0</wxjava.version>
+        <!-- spring boot admin 这是一个bom,版本和springboot版本基本一致 https://github.com/codecentric/spring-boot-admin -->
+        <spring-boot-admin.version>3.4.0</spring-boot-admin.version>
+        <!-- jsoup html解析工具，主要用于抓取一些数据如：ssq历史开奖记录、解析国家统计局 统计用区划代码和城乡划分代码 -->
+        <jsoup.version>1.18.3</jsoup.version>
         <!-- 地理空间的计算相关依赖版本，添加要是要临时计算一个需求：有一个geojson文件，https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full -->
         <!-- 该文件坐标应该是高德地图的标签，给定一个经纬度，计算出该经纬度对应的区域 -->
-        <geotools.version>28.2</geotools.version>
-        <!-- jdk17默认不再依赖js引擎，需要自行依赖 -->
+        <!-- 该包对应的仓库需要额外添加，请全局搜索 gt-main 已在global-tools中的pom.xml添加 -->
+        <!-- 查找最新的版本需要前往 https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/gt-main/ -->
+        <geotools.version>32.1</geotools.version>
+        <!-- jdk17默认不再依赖js引擎，需要自行依赖 主要是使用hutool结合 ScriptUtil使用 -->
         <nashorn-core.version>15.4</nashorn-core.version>
+        <!-- 在使用大数据源时，主要用于编译，本系统默认不使用druid作为数据源连接池 -->
+        <druid.version>1.2.24</druid.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>
@@ -217,12 +198,6 @@
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!--解决spring-boot-starter-web中依赖的漏洞-->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${snakeyaml.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

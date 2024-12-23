@@ -24,16 +24,11 @@
         </dependency>
 
         <!-- swagger 接口文档工具 不传递依赖 仅使用注解-->
-<!--        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox-boot-starter.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
+
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>${swagger-annotations-v3.version}</version>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>${swagger-annotations-jakarta.version}</version>
         </dependency>
 
 
@@ -47,14 +42,14 @@
         <!-- 仅使用注解-->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
 
         <!-- 业务组件共享数据依赖 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-light-share</artifactId>
+            <artifactId>component-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

@@ -1,21 +1,21 @@
 package com.particle.openplatform.app.openapi.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.openapi.structmapping.OpenplatformOpenapiAppStructMapping;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiCreateCommand;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapi;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiCreateCommandExecutor  extends AbstractBaseExecu
 		return openplatformOpenapi;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpenplatformOpenapiCreateCommandToOpenplatformOpenapiMapping{
 		OpenplatformOpenapiCreateCommandToOpenplatformOpenapiMapping instance = Mappers.getMapper( OpenplatformOpenapiCreateCommandToOpenplatformOpenapiMapping.class );
 

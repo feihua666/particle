@@ -1,7 +1,6 @@
 package com.particle.global.security.security.login;
 
 
-import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;

@@ -2,8 +2,8 @@
 /**
  * 租户用户管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as TenantUserCreateApi,list as TenantUserListApi} from "../../api/admin/tenantUserAdminApi"
+import {reactive, ref} from 'vue'
+import {create as TenantUserCreateApi} from "../../api/admin/tenantUserAdminApi"
 import {useAddPageFormItems} from "../../components/admin/tenantUserManage";
 
 

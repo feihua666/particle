@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as DeptTreeNameUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as DeptTreeNameListApi
+  update as DeptTreeNameUpdateApi
 } from "../../api/admin/deptTreeNameAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/deptTreeNameManage";

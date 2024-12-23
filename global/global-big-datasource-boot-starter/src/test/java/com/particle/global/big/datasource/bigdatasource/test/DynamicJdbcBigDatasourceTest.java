@@ -8,19 +8,14 @@ import com.particle.global.big.datasource.bigdatasource.dynamic.DynamicBigDataso
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.api.config.JdbcBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.jdbc.enums.JdbcBigDatasourceApiConfigDataType;
-import com.particle.global.dto.basic.PageQueryCommand;
-import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.tool.json.JsonTool;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 /**
  * <p>

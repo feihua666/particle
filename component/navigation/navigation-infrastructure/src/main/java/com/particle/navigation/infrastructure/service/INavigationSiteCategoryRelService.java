@@ -1,7 +1,7 @@
 package com.particle.navigation.infrastructure.service;
 
-import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.navigation.infrastructure.dos.NavigationSiteCategoryRelDO;
 
 /**
  * <p>

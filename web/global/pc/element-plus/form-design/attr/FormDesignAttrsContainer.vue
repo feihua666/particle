@@ -2,8 +2,8 @@
 /**
  * 属性设置
  */
-import {inject, ref,watch,onMounted,onUnmounted,reactive} from 'vue'
-import type { TabsPaneContext } from 'element-plus'
+import {inject, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
+import type {TabsPaneContext} from 'element-plus'
 import PtForm from '../../Form.vue'
 import {
   formDesignAttrsFormItemCompsAttrs,

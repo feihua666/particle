@@ -1,21 +1,21 @@
 package com.particle.lowcode.app.generator.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.app.generator.structmapping.LowcodeSegmentTemplateAppStructMapping;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
 import com.particle.lowcode.domain.generator.LowcodeSegmentTemplate;
 import com.particle.lowcode.domain.generator.gateway.LowcodeSegmentTemplateGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class LowcodeSegmentTemplateCreateCommandExecutor  extends AbstractBaseEx
 		return lowcodeSegmentTemplate;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  LowcodeSegmentTemplateCreateCommandToLowcodeSegmentTemplateMapping{
 		LowcodeSegmentTemplateCreateCommandToLowcodeSegmentTemplateMapping instance = Mappers.getMapper( LowcodeSegmentTemplateCreateCommandToLowcodeSegmentTemplateMapping.class );
 

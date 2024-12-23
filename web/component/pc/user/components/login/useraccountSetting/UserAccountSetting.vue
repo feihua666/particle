@@ -8,6 +8,7 @@ import UserinfoIdentifier from './UserinfoIdentifier.vue'
 import UserinfoIdentifierPwd from './UserinfoIdentifierPwd.vue'
 import UserinfoLoginDevice from './UserinfoLoginDevice.vue'
 import UserinfoLoginRecord from './UserinfoLoginRecord.vue'
+
 const loginUserStore = useLoginUserStore()
 
 const nickname = computed(() => {

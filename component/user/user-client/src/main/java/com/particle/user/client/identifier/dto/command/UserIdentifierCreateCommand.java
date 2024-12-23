@@ -1,11 +1,9 @@
 package com.particle.user.client.identifier.dto.command;
 
 import com.particle.global.validation.props.PropValid;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

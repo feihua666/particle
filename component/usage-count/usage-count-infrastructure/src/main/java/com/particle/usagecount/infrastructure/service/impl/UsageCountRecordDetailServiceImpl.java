@@ -1,14 +1,13 @@
 package com.particle.usagecount.infrastructure.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.usagecount.infrastructure.dos.UsageCountRecordDetailDO;
 import com.particle.usagecount.infrastructure.mapper.UsageCountRecordDetailMapper;
 import com.particle.usagecount.infrastructure.service.IUsageCountRecordDetailService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class UsageCountRecordDetailServiceImpl extends IBaseServiceImpl<UsageCou
 
 	@Override
 	protected void preUpdate(UsageCountRecordDetailDO po) {
-    
+
 	}
 }

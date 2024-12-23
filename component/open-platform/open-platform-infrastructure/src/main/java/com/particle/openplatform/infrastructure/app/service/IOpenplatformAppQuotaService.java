@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.app.service;
 
-import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppQuotaDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppQuotaDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IOpenplatformAppQuotaService extends IBaseService<OpenplatformA
         Assert.notEmpty(openplatformAppIds,"openplatformAppIds 不能为空");
         return list(Wrappers.<OpenplatformAppQuotaDO>lambdaQuery().in(OpenplatformAppQuotaDO::getOpenplatformAppId, openplatformAppIds));
     }
-            
+
 
 
 

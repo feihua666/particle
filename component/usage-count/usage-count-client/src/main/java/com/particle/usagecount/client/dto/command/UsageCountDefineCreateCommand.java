@@ -3,15 +3,14 @@ package com.particle.usagecount.client.dto.command;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-
 import com.particle.global.validation.form.Form;
 import com.particle.global.validation.form.IFormValid;
 import com.particle.global.validation.form.ValidContext;
 import com.particle.global.validation.form.ValidResult;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

@@ -2,8 +2,6 @@ package com.particle.openplatform.client.openapirecord.dto.command.representatio
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Gt;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import com.particle.global.light.share.mybatis.anno.Lt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -2,8 +2,8 @@
 /**
  * 开放平台开放接口供应商管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformProviderCreateApi,list as OpenplatformProviderListApi} from "../../../api/provider/admin/openplatformProviderAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformProviderCreateApi} from "../../../api/provider/admin/openplatformProviderAdminApi"
 import {addPageFormItems} from "../../../components/provider/admin/openplatformProviderManage";
 
 

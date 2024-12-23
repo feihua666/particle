@@ -1,14 +1,14 @@
 package com.particle.tenant.infrastructure.userinvite.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteDO;
 import com.particle.tenant.infrastructure.userinvite.mapper.TenantUserInviteMapper;
 import com.particle.tenant.infrastructure.userinvite.service.ITenantUserInviteService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -52,6 +52,6 @@ public class TenantUserInviteServiceImpl extends IBaseServiceImpl<TenantUserInvi
 	        }
 	    }
 
-    
+
 	}
 }

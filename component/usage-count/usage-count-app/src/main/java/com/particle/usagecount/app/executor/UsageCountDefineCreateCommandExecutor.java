@@ -1,21 +1,21 @@
 package com.particle.usagecount.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.usagecount.app.structmapping.UsageCountDefineAppStructMapping;
 import com.particle.usagecount.client.dto.command.UsageCountDefineCreateCommand;
 import com.particle.usagecount.client.dto.data.UsageCountDefineVO;
 import com.particle.usagecount.domain.UsageCountDefine;
 import com.particle.usagecount.domain.gateway.UsageCountDefineGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class UsageCountDefineCreateCommandExecutor  extends AbstractBaseExecutor
 		return usageCountDefine;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  UsageCountDefineCreateCommandToUsageCountDefineMapping{
 		UsageCountDefineCreateCommandToUsageCountDefineMapping instance = Mappers.getMapper( UsageCountDefineCreateCommandToUsageCountDefineMapping.class );
 

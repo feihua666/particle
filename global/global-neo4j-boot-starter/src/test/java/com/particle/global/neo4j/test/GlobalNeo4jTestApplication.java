@@ -1,11 +1,11 @@
 package com.particle.global.neo4j.test;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 import static java.time.ZoneId.of;

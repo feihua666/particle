@@ -1,14 +1,14 @@
 package com.particle.tracking.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.tracking.domain.TrackingPage;
 import com.particle.tracking.domain.TrackingPageId;
 import com.particle.tracking.domain.gateway.TrackingPageGateway;
-import com.particle.tracking.infrastructure.service.ITrackingPageService;
 import com.particle.tracking.infrastructure.dos.TrackingPageDO;
+import com.particle.tracking.infrastructure.service.ITrackingPageService;
 import com.particle.tracking.infrastructure.structmapping.TrackingPageInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

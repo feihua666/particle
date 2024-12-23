@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.tag.structmapping;
 
-import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
 import com.particle.crm.domain.tag.CrmCustomerTag;
 import com.particle.crm.domain.tag.CrmCustomerTagId;
+import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-04-24 16:32:09
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class CrmCustomerTagInfrastructureStructMapping {
 	public static CrmCustomerTagInfrastructureStructMapping instance = Mappers.getMapper( CrmCustomerTagInfrastructureStructMapping.class );
 

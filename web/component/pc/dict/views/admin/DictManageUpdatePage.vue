@@ -3,10 +3,7 @@
  * 字典管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as dictUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-} from "../../api/admin/dictAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as dictUpdateApi,} from "../../api/admin/dictAdminApi"
 import {updatePageFormItems} from "../../components/admin/dictManage";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

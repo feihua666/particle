@@ -1,14 +1,11 @@
 package com.particle.global.oss.endpoint.dto;
 
 import com.particle.global.dto.basic.Command;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * 文件上传指令

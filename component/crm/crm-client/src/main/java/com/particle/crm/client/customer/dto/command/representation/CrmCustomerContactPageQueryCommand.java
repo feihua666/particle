@@ -1,7 +1,7 @@
 package com.particle.crm.client.customer.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**

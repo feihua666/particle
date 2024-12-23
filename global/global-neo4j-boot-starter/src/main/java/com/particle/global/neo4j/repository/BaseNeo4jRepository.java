@@ -1,7 +1,5 @@
 package com.particle.global.neo4j.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 /**

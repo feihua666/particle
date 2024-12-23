@@ -1,6 +1,6 @@
 package com.particle.scheduler.client.dto.command;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +10,6 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@ApiModel(value="触发器查询表单对象")
+@Schema(description="触发器查询表单对象")
 public class TriggerQueryCommand extends NameAndGroupQueryCommand {
 }

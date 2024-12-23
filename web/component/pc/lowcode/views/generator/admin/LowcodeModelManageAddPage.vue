@@ -2,7 +2,7 @@
 /**
  * 低代码模型管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as lowcodeModelCreateApi} from "../../../api/generator/admin/lowcodeModelAdminApi"
 
 import {addPageFormItems} from "../../../components/admin/lowcodeModelManage";

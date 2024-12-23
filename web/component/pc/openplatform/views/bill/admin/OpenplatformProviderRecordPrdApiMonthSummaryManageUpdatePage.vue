@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as openplatformProviderRecordPrdApiMonthSummaryUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as openplatformProviderRecordPrdApiMonthSummaryUpdateApi
 } from "../../../api/bill/admin/openplatformProviderRecordPrdApiMonthSummaryAdminApi"
 
 import {updatePageFormItems} from "../../../components/bill/admin/openplatformProviderRecordPrdApiMonthSummaryManage";

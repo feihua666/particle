@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
-import com.particle.global.tool.security.PasswordComplexityTool;
 import lombok.Data;
 
 import java.time.LocalDateTime;

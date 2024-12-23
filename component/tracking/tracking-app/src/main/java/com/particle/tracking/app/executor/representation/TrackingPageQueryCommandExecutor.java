@@ -1,22 +1,23 @@
 package com.particle.tracking.app.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.tracking.app.structmapping.TrackingPageAppStructMapping;
+import com.particle.tracking.client.dto.command.representation.TrackingPagePageQueryCommand;
 import com.particle.tracking.client.dto.command.representation.TrackingPageQueryListCommand;
 import com.particle.tracking.client.dto.data.TrackingPageVO;
 import com.particle.tracking.infrastructure.dos.TrackingPageDO;
 import com.particle.tracking.infrastructure.service.ITrackingPageService;
-import com.particle.tracking.client.dto.command.representation.TrackingPagePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

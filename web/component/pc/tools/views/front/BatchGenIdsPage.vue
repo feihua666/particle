@@ -2,7 +2,7 @@
 /**
  * 批量生成id
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {batchGenIds} from "../../api/front/toolsFrontApi";
 
 const { proxy } = getCurrentInstance()

@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.data.infrastructure.company.dos.DataCompanyDO;
 import com.particle.data.infrastructure.company.mapper.DataCompanyMapper;
 import com.particle.data.infrastructure.company.service.IDataCompanyService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -79,6 +79,6 @@ public class DataCompanyServiceImpl extends IBaseServiceImpl<DataCompanyMapper, 
 	        }
 	    }
 
-    
+
 	}
 }

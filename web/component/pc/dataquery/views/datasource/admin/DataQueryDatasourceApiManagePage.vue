@@ -3,7 +3,15 @@
  * 数据查询数据源接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDatasourceApiPageApi, remove as DataQueryDatasourceApiRemoveApi,deleteCache as DataQueryDatasourceApiRemoveCacheApi,refreshCache as DataQueryDatasourceApiRefreshCacheApi, copy as DataQueryDatasourceApiCopyApi, copydev as DataQueryDatasourceApiCopydevApi,devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
+import {
+  copy as DataQueryDatasourceApiCopyApi,
+  copydev as DataQueryDatasourceApiCopydevApi,
+  deleteCache as DataQueryDatasourceApiRemoveCacheApi,
+  devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi,
+  page as DataQueryDatasourceApiPageApi,
+  refreshCache as DataQueryDatasourceApiRefreshCacheApi,
+  remove as DataQueryDatasourceApiRemoveApi
+} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi"
 import {pageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
 
 

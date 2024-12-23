@@ -37,7 +37,6 @@ spring:
         - classpath:db/schema.area.sql
         - classpath:db/schema.dict.sql
         - classpath:db/schema.func.sql
-        - classpath:db/schema.generator.sql
         - classpath:db/schema.user.sql
         - classpath:db/schema.role.sql
         - classpath:db/schema.global_message_event.sql
@@ -74,7 +73,6 @@ spring:
         - classpath:db/data.area.sql
         - classpath:db/data.dict.sql
         - classpath:db/data.func.sql
-        - classpath:db/data.generator.sql
         - classpath:db/data.user.sql
         - classpath:db/data.role.sql
         - classpath:db/data.low-code.sql
@@ -109,10 +107,10 @@ spring:
       max-file-size: 50MB
   cloud:
     stream:
-      # binder 们，默认情况下 binders配置不会生效，因为使用了testBinder。需要修改配置 particle.message.testBinder.enabled=false以启用实际的mq中间件binder
+      # binder 们
       binders:
-        local:
-          type: local
+        integration:
+          type: integration
       # 通道与binder绑定关系
       bindings:
         # 生产者与消费者目标要一致，自定义值，相当于一个消息队列名称
@@ -127,14 +125,12 @@ spring:
         openplatformOpenapiRecordProducer-out-0:
           destination: openplatform_openapirecord_message
       # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
-      default-binder: local
+      default-binder: integration
     # 声名的函数式编程定义，如果使用交互式编程(如：TestController手动发送)发送消息，可以不指定生产者
     function:
       # 实现了 java.util.function.Consumer 接口的bean名称消费类，要与bindings的消费或生产者名称前缀一致（如：templatingNoticeMessageConsumer-in-0 的前缀应该是 templatingNoticeMessageConsumer）
       definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer
-  session:
-    # 使用jdbc存储session，如果单机部署可以使用内存存储，改为 none
-    store-type: jdbc
+
 server:
   servlet:
     encoding:
@@ -149,6 +145,9 @@ server:
     include-stacktrace: always
 
 particle:
+  session:
+    # 使用jdbc存储session，如果单机部署可以使用内存存储，改为 none
+    store-type: jdbc
   # 参见 com.particle.global.projectinfo.ProjectInfo
   project-info:
     component:

@@ -7,11 +7,10 @@ import com.particle.func.domain.funcapplicationfuncrel.gateway.FuncApplicationFu
 import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
 import com.particle.global.dto.response.Response;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

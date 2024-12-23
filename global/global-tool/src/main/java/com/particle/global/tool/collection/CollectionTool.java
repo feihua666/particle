@@ -1,9 +1,6 @@
 package com.particle.global.tool.collection;
 
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.util.*;
@@ -183,7 +180,7 @@ public class CollectionTool {
 		/**
 		 * 如果存在 {@link __control_clear_when_empty_keys__} 对应的值为key的值为空，那么清空
  		 */
-		
+
 		boolean controlClearWhenEmptyKeysExist = map.containsKey(__control_clear_when_empty_keys__);
 		if (controlClearWhenEmptyKeysExist) {
 			String controlClearWhenEmptyKeysStr = (String) map.get(__control_clear_when_empty_keys__);

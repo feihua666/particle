@@ -2,8 +2,7 @@
 /**
  * 字符串多行比较操作工具页面
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
-import {lowerFirst, replace, upperFirst} from "../../../../../global/common/tools/StringTools";
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {removeDuplicate} from "../../../../../global/common/tools/ArrayTools";
 
 const { proxy } = getCurrentInstance()

@@ -2,10 +2,8 @@ package com.particle.dream.infrastructure.ssq.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDate;
 /**
  * <p>
@@ -28,7 +26,7 @@ public class SsqCodeOpenedDO extends BaseDO {
     * 开奖日期
     */
     private LocalDate openedDate;
-    
+
     /**
     * 开奖期号年份
     */

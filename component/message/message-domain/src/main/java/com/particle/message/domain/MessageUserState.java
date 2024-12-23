@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -38,7 +39,7 @@ public class MessageUserState extends AggreateRoot {
     * 读取时间
     */
     private LocalDateTime readAt;
-    
+
 
 
     /**

@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * @author yangwei
  * @since 2022-09-20 13:10
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class JdbcTemplateMessageEventConfiguration {
 
     @Bean

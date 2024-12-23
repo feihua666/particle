@@ -1,6 +1,7 @@
 package com.particle.feedback.app.feedback.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.feedback.app.feedback.structmapping.FeedbackAppStructMapping;
 import com.particle.feedback.client.feedback.dto.command.FeedbackAttachmentCreateCommand;
 import com.particle.feedback.client.feedback.dto.command.FeedbackCreateCommand;
@@ -12,15 +13,15 @@ import com.particle.feedback.domain.feedback.gateway.FeedbackGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -95,7 +96,7 @@ public class FeedbackCreateCommandExecutor  extends AbstractBaseExecutor {
 		return feedback;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  FeedbackCreateCommandToFeedbackMapping{
 		FeedbackCreateCommandToFeedbackMapping instance = Mappers.getMapper( FeedbackCreateCommandToFeedbackMapping.class );
 

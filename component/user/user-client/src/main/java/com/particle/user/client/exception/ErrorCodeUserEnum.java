@@ -1,8 +1,6 @@
 package com.particle.user.client.exception;
 
-import com.particle.global.exception.code.ErrorCodeGlobalStatusMax;
 import com.particle.global.exception.code.IErrorCode;
-import com.particle.global.exception.code.IErrorCodeStatusMax;
 
 /**
  * <p>

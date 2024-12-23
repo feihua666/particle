@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
  * @author yangwei
  * @since 2022-06-29 18:58
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import(CustomDataSourceInitializationConfiguration.class)
 public class GlobalDatasourceAutoConfiguration {
 }

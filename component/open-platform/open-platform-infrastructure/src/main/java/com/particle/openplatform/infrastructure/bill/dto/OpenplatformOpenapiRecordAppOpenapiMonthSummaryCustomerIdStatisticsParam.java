@@ -1,9 +1,8 @@
 package com.particle.openplatform.infrastructure.bill.dto;
 
 import com.particle.global.dto.basic.DTO;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>

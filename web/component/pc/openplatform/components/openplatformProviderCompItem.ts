@@ -1,4 +1,5 @@
 import {list as providerListApi} from "../api/provider/admin/openplatformProviderAdminApi.ts";
+
 export const useSelectProviderCompItem = (
     {
         fieldName= 'openplatformProviderId',

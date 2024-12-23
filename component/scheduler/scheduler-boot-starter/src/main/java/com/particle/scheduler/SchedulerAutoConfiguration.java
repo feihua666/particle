@@ -4,12 +4,9 @@
  import com.particle.global.swagger.ApplicationContexSwaggertHelper;
  import com.particle.global.swagger.SwaggerInfo;
  import com.particle.global.swagger.factory.SwaggerFactory;
- import com.particle.scheduler.infrastructure.schedule.listener.quartz.QuartzJobLogListener;
- import com.particle.scheduler.infrastructure.schedule.listener.quartz.QuartzScheduleLogListener;
- import com.particle.scheduler.infrastructure.schedule.listener.quartz.QuartzTriggerLogListener;
  import io.swagger.v3.oas.models.security.SecurityScheme;
  import org.mybatis.spring.annotation.MapperScan;
- import org.springdoc.core.GroupedOpenApi;
+ import org.springdoc.core.models.GroupedOpenApi;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
  import org.springframework.boot.autoconfigure.quartz.SchedulerFactoryBeanCustomizer;
@@ -29,7 +26,7 @@
  * @since 2024-08-28 11:31:17
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({
         "com.particle.scheduler.infrastructure.mapper",
         "com.particle.scheduler.infrastructure.temptask.mapper",

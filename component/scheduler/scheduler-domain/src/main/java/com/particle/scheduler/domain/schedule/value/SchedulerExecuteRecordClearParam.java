@@ -1,10 +1,10 @@
 package com.particle.scheduler.domain.schedule.value;
 
 import com.particle.common.domain.ValueObjRoot;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**

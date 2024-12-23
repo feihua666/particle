@@ -1,7 +1,7 @@
 package com.particle.usagecount.infrastructure.mapper;
 
-import com.particle.usagecount.infrastructure.dos.UsageCountRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.usagecount.infrastructure.dos.UsageCountRecordDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

@@ -3,7 +3,7 @@
  * 开放平台app算法密钥相关设置入口
  */
 
-import {ref,reactive,nextTick} from "vue"
+import {nextTick, reactive, ref} from "vue"
 import AppRequestAlgorithmSecret from './AppRequestAlgorithmSecret.vue'
 import AppResponseAlgorithmSecret from './AppResponseAlgorithmSecret.vue'
 

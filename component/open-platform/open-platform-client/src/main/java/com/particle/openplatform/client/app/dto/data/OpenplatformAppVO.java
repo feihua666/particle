@@ -1,13 +1,11 @@
 package com.particle.openplatform.client.app.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 开放平台应用 数据通用响应对象
@@ -22,33 +20,33 @@ public class OpenplatformAppVO extends AbstractBaseIdVO {
 
     @Schema(description = "名称")
     private String name;
-    
+
     @Schema(description = "appId")
     private String appId;
-    
+
     @Schema(description = "归属用户id")
     private Long ownerUserId;
 
 	@TransBy(type = TransConstants.TRANS_USER_BY_ID,byFieldName = "ownerUserId",mapValueField = "nickname")
 	@Schema(description = "归属用户昵称")
 	private String ownerUserNickname;
-    
+
     @Schema(description = "归属客户id")
     private Long ownerCustomerId;
 
 	@TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "ownerCustomerId",mapValueField = "name")
 	@Schema(description = "归属客户名称")
 	private String ownerCustomerName;
-    
+
     @Schema(description = "请求算法与密钥等相关配置")
     private String requestAlgorithmSecretJson;
-    
+
     @Schema(description = "响应算法与密钥等相关配置")
     private String responseAlgorithmSecretJson;
-    
+
     @Schema(description = "访问范围配置")
     private String scopes;
-    
+
     @Schema(description = "计费规则id")
     private Long openplatformOpenapiFeeId;
 

@@ -2,21 +2,19 @@ package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.data.domain.company.DataCompany;
 import com.particle.data.domain.company.DataCompanyId;
 import com.particle.data.domain.company.gateway.DataCompanyGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyService;
-import com.particle.data.infrastructure.company.dos.DataCompanyDO;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
-import javax.validation.Valid;
 
 /**
  * <p>

@@ -1,18 +1,19 @@
 package com.particle.oplog.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.oplog.client.dto.command.representation.OpLogAuditDataPageQueryCommand;
+import com.particle.oplog.client.dto.command.representation.OpLogAuditDataQueryListCommand;
 import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
 import com.particle.oplog.domain.OpLogAuditData;
 import com.particle.oplog.domain.OpLogAuditDataId;
 import com.particle.oplog.infrastructure.dos.OpLogAuditDataDO;
-import com.particle.oplog.client.dto.command.representation.OpLogAuditDataPageQueryCommand;
-import com.particle.oplog.client.dto.command.representation.OpLogAuditDataQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

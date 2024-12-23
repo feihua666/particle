@@ -1,9 +1,8 @@
 <script setup name="TestCompAdapter" lang="ts">
 
 
-
 import PtCompAdapter from '../../../../../global/common/CompAdapter.vue'
-import {ref,watch} from "vue";
+import {ref, watch} from "vue";
 
 const modelValue = ref('')
 

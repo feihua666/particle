@@ -1,35 +1,30 @@
 package com.particle.tenant.adapter.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.api.representation.ITenantRepresentationApplicationService;
-import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditPassCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
 import com.particle.tenant.client.dto.command.TenantCreateCommand;
-import com.particle.tenant.client.dto.data.TenantVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.tenant.client.dto.command.TenantUpdateCommand;
 import com.particle.tenant.client.dto.command.representation.TenantPageQueryCommand;
 import com.particle.tenant.client.dto.command.representation.TenantQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.particle.tenant.client.dto.data.TenantVO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import io.swagger.v3.oas.annotations.Parameter;
 
 /**
  * <p>

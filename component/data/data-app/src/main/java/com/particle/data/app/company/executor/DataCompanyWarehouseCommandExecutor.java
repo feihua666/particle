@@ -14,14 +14,12 @@ import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
 import com.particle.data.infrastructure.company.service.IDataCompanyService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.tool.diff.PojoPropertyDiffTool;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>

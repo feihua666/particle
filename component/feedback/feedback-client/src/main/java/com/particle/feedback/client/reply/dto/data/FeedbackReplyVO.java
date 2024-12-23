@@ -1,13 +1,11 @@
 package com.particle.feedback.client.reply.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
-import com.particle.feedback.client.feedback.dto.data.FeedbackAttachmentTransVO;
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
-import com.particle.component.light.share.trans.TransConstants;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,13 +23,13 @@ public class FeedbackReplyVO extends AbstractBaseIdVO {
 
     @Schema(description = "意见反馈id")
     private Long feedbackId;
-    
+
     @Schema(description = "回复内容")
     private String replyContent;
-    
+
     @Schema(description = "回复时间")
     private LocalDateTime replyAt;
-        
+
     @Schema(description = "回复用户id")
     private Long replyUserId;
 
@@ -48,20 +46,20 @@ public class FeedbackReplyVO extends AbstractBaseIdVO {
 
 	@Schema(description = "用户已读时间")
 	private LocalDateTime feedbackUserReadAt;
-    
+
     @Schema(description = "提问题建议用户评价")
     private Long feedbackUserRateDictId;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "feedbackUserRateDictId",mapValueField = "name")
     @Schema(description = "提问题建议用户评价对应字典名称")
     private String feedbackUserRateDictName;
-        
+
     @Schema(description = "提问题建议用户评价内容")
     private String feedbackUserRateMemo;
 
 	@Schema(description = "用户评价时间")
 	private LocalDateTime feedbackUserRateAt;
-    
+
     @Schema(description = "第一条意见反馈id")
     private Long firstFeedbackId;
 
@@ -71,7 +69,7 @@ public class FeedbackReplyVO extends AbstractBaseIdVO {
 
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

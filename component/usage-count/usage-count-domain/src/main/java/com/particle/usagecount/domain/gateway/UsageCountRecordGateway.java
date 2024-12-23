@@ -1,8 +1,8 @@
 package com.particle.usagecount.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.usagecount.domain.UsageCountRecord;
 import com.particle.usagecount.domain.UsageCountRecordId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

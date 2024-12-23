@@ -1,8 +1,8 @@
 package com.particle.dept.domain.deptuserrel.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.dept.domain.deptuserrel.DeptUserRel;
 import com.particle.dept.domain.deptuserrel.DeptUserRelId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

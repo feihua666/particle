@@ -1,8 +1,8 @@
 package com.particle.dept.adapter.deptuserrel.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.dept.client.deptuserrel.api.IDeptUserRelApplicationService;
 import com.particle.dept.adapter.feign.client.deptuserrel.rpc.DeptUserRelRpcFeignClient;
+import com.particle.dept.client.deptuserrel.api.IDeptUserRelApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

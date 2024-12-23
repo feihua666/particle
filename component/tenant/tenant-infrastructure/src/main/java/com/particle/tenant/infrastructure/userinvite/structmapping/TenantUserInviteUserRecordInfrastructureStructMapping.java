@@ -1,10 +1,11 @@
 package com.particle.tenant.infrastructure.userinvite.structmapping;
 
-import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 import com.particle.tenant.domain.userinvite.TenantUserInviteUserRecord;
 import com.particle.tenant.domain.userinvite.TenantUserInviteUserRecordId;
+import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-04-18 11:06:17
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class TenantUserInviteUserRecordInfrastructureStructMapping {
 	public static TenantUserInviteUserRecordInfrastructureStructMapping instance = Mappers.getMapper( TenantUserInviteUserRecordInfrastructureStructMapping.class );
 

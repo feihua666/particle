@@ -1,8 +1,8 @@
 package com.particle.openplatform.adapter.bill.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.openplatform.client.bill.api.IOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService;
 import com.particle.openplatform.adapter.feign.client.bill.rpc.OpenplatformOpenapiRecordAppOpenapiDaySummaryRpcFeignClient;
+import com.particle.openplatform.client.bill.api.IOpenplatformOpenapiRecordAppOpenapiDaySummaryApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

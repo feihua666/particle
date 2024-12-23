@@ -1,10 +1,11 @@
 package com.particle.tenant.infrastructure.createapply.service;
 
-import com.particle.tenant.infrastructure.createapply.dos.TenantCreateApplyDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.createapply.dos.TenantCreateApplyDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -42,7 +43,7 @@ public interface ITenantCreateApplyService extends IBaseService<TenantCreateAppl
         Assert.notEmpty(applyUserIds,"applyUserIds 不能为空");
         return list(Wrappers.<TenantCreateApplyDO>lambdaQuery().in(TenantCreateApplyDO::getApplyUserId, applyUserIds));
     }
-            
+
 
 
 

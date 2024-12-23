@@ -12,11 +12,11 @@ import com.particle.test.client.dto.command.representation.TestQueryListCommand;
 import com.particle.test.client.dto.data.TestVO;
 import com.particle.test.infrastructure.dos.TestDO;
 import com.particle.test.infrastructure.service.ITestService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

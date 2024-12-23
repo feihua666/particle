@@ -4,7 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  page as lowcodeSegmentGenPageApi, reloadLowcodeModelJson,
+  page as lowcodeSegmentGenPageApi,
+  reloadLowcodeModelJson,
   remove as lowcodeSegmentGenRemoveApi
 } from "../../../api/generator/admin/lowcodeSegmentGenAdminApi"
 import {exist} from "../../../../../../global/common/tools/ArrayTools";

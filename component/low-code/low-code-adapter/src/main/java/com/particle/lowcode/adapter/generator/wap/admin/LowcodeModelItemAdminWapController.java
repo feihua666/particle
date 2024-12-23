@@ -1,9 +1,8 @@
 package com.particle.lowcode.adapter.generator.wap.admin;
 
-import com.particle.lowcode.client.generator.api.ILowcodeModelItemApplicationService;
 import com.particle.common.adapter.wap.AbstractBaseWapAdapter;
+import com.particle.lowcode.client.generator.api.ILowcodeModelItemApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

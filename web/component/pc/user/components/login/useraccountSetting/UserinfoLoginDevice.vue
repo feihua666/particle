@@ -1,6 +1,6 @@
 <script setup name="UserinfoLoginDevice" lang="ts">
 
-import { getLoginDevice} from "../../../api/userLoginApi";
+import {getLoginDevice} from "../../../api/userLoginApi";
 import {userLoginDeviceColumns} from "../../userLoginDeviceCompItem";
 
 const props = defineProps({

@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.providerrecord.structmapping;
 
-import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordParamDO;
 import com.particle.openplatform.domain.providerrecord.OpenplatformProviderRecordParam;
 import com.particle.openplatform.domain.providerrecord.OpenplatformProviderRecordParamId;
+import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordParamDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-08-16 16:18:54
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpenplatformProviderRecordParamInfrastructureStructMapping {
 	public static OpenplatformProviderRecordParamInfrastructureStructMapping instance = Mappers.getMapper( OpenplatformProviderRecordParamInfrastructureStructMapping.class );
 

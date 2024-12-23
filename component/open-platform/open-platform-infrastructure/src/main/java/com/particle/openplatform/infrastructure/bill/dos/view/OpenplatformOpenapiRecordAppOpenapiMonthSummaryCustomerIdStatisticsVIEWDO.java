@@ -3,8 +3,6 @@ package com.particle.openplatform.infrastructure.bill.dos.view;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 /**
  * <p>
  * 开放平台应用开放接口月汇总 客户统计视图对象

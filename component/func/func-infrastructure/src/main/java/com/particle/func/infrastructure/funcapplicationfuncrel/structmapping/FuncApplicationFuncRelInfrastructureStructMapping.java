@@ -1,10 +1,11 @@
 package com.particle.func.infrastructure.funcapplicationfuncrel.structmapping;
 
-import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRel;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRelId;
+import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-04-17 10:15:29
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class FuncApplicationFuncRelInfrastructureStructMapping {
 	public static FuncApplicationFuncRelInfrastructureStructMapping instance = Mappers.getMapper( FuncApplicationFuncRelInfrastructureStructMapping.class );
 

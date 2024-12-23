@@ -114,6 +114,7 @@
         <AsyncLogger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error" />
         <AsyncLogger name="org.hibernate.validator.internal.util.Version" level="warn" />
         <AsyncLogger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+        <AsyncLogger name="net.sf.jsqlparser.parser" level="warn"/>
         <!--<AsyncLogger name="com.particle" level="ALL" includeLocation="true"/>-->
         <AsyncLogger name="com.particle" level="info" includeLocation="true"/>
         <AsyncRoot level="INFO" includeLocation="true">

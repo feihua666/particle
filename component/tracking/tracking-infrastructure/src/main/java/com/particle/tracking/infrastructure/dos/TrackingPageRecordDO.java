@@ -2,10 +2,8 @@ package com.particle.tracking.infrastructure.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -93,7 +91,7 @@ public class TrackingPageRecordDO extends BaseDO {
     * 行为产生时间
     */
     private LocalDateTime actionAt;
-    
+
     /**
     * 行为值，例如点击次数，停留时长，购买件数、购买金额等
     */
@@ -142,12 +140,12 @@ public class TrackingPageRecordDO extends BaseDO {
     * 进入页面时间
     */
     private LocalDateTime entryAt;
-    
+
     /**
     * 离开页面时间
     */
     private LocalDateTime leaveAt;
-    
+
     /**
     * 页面停留时长，单位ms
     */

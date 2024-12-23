@@ -13,7 +13,7 @@ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,12 +35,12 @@ import java.util.List;
  * @author yangwei
  * @since 2022-08-05 12:02
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 @EnableConfigurationProperties(GlobalNotificationProperties.class)
 public class GlobalNotificationAutoConfiguration {
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(OnApplicationRunnerListener.class)
 	protected static class OnApplicationRunnerListenerDependConfig{
 
@@ -52,7 +52,7 @@ public class GlobalNotificationAutoConfiguration {
 
 	}
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(OnApplicationShutdownListener.class)
 	protected static class OnApplicationShutdownListenerDependConfig{
 

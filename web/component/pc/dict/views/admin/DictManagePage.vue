@@ -3,7 +3,7 @@
  * 字典管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dictPageApi, remove as dictRemoveApi} from "../../api/admin/dictAdminApi"
+import {page as dictPageApi, remove as dictRemoveApi} from "../../api/admin/dictAdminApi"
 import {pageFormItems} from "../../components/admin/dictManage";
 
 const tableRef = ref(null)

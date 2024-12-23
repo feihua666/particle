@@ -1,7 +1,7 @@
 package com.particle.data.adapter.temp.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.data.client.temp.api.IDataCompanyMd5IdsApplicationService;
+import com.particle.data.client.temp.api.IDataCompanyMd5IdsApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

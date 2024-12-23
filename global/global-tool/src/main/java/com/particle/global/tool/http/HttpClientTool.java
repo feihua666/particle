@@ -9,29 +9,36 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.http.*;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.*;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.cookie.BasicCookieStore;
+import org.apache.hc.client5.http.cookie.CookieStore;
+import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.*;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicHeader;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
+import org.apache.hc.core5.util.Timeout;
 import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * http Client工具类
@@ -45,22 +52,31 @@ public class HttpClientTool{
      * 连接建立时间，三次握手完成时间
      */
     public static final int CONN_TIMEOUT = 5000;
-    // 响应超时时间,毫秒
+    public static final Timeout CONN_OF_TIMEOUT = Timeout.ofMilliseconds(CONN_TIMEOUT);
     /**
      * 从池中获取链接超时时间,毫秒
      * 和网络无关，这是httpClient池化技术的超时时间
      */
     public static final int CONN_REQUEST_TIMEOUT = 5000;
+    public static final Timeout CONN_OF_REQUEST_TIMEOUT = Timeout.ofMilliseconds(CONN_REQUEST_TIMEOUT);
     /**
-     * 读取超时时间，毫秒
+     * 响应超时时间，毫秒,httpclient5已不支持单个请求设置socketTimeout
+     * 响应超时，即服务器处理请求的时间，超过此时间会抛出异常
+     */
+    public static final int REPSONSE_TIMEOUT = 5000;
+    public static final Timeout REPSONSE_OF_TIMEOUT = Timeout.ofMilliseconds(REPSONSE_TIMEOUT);
+
+    /**
+     * 读取超时时间，毫秒，httpclient5 在设置连接池管理器中设置 socketTimout
      * 数据传输过程中数据包之间间隔的最大时间也可以理解为READ_TIMEOUT
      */
     public static final int SOCKET_TIMEOUT = 5000;
+    public static final Timeout SOCKET_OF_TIMEOUT = Timeout.ofMilliseconds(SOCKET_TIMEOUT);
 
-    public static final String CHARSET = "UTF-8";
+    public static final Charset CHARSET = StandardCharsets.UTF_8;
     private static volatile HttpClient CLIENT = null;
     // cookie默认存储
-    private static BasicCookieStore COOKIE_STORE = new BasicCookieStore();
+    private static final BasicCookieStore COOKIE_STORE = new BasicCookieStore();
 
 
     public static HttpClient getCLIENT() {
@@ -70,25 +86,24 @@ public class HttpClientTool{
                     PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
                     cm.setMaxTotal(128);
                     cm.setDefaultMaxPerRoute(128);
+                    ConnectionConfig connectionConfig = ConnectionConfig.custom()
+                            .setConnectTimeout(CONN_OF_TIMEOUT)
+                            .setSocketTimeout(SOCKET_OF_TIMEOUT)
+                            .build();
+                    SocketConfig socketConfig = SocketConfig.custom()
+                            .setSoTimeout(SOCKET_OF_TIMEOUT) // 设置Socket超时时间
+                            .build();
+                    cm.setDefaultSocketConfig(socketConfig);
+                    cm.setDefaultConnectionConfig(connectionConfig);
+
                     RequestConfig requestConfig = RequestConfig.custom()
-                            .setConnectTimeout(CONN_TIMEOUT)
-                            .setConnectionRequestTimeout(CONN_REQUEST_TIMEOUT)
-                            .setSocketTimeout(SOCKET_TIMEOUT).build();
+                            .setConnectionRequestTimeout(CONN_OF_REQUEST_TIMEOUT)
+                            .setResponseTimeout(REPSONSE_OF_TIMEOUT)
+                            .build();
                     CLIENT = HttpClients.custom()
                             .setConnectionManager(cm)
                             .setDefaultRequestConfig(requestConfig)
                             .setDefaultCookieStore(COOKIE_STORE)
-                            // todo 添加全局代理认证机制，以下代码先保留，待以后参考
-                            //.setProxyAuthenticationStrategy()
-                            /**
-                             *
-                             CredentialsProvider credsProvider = new BasicCredentialsProvider();
-                             credsProvider.setCredentials(
-                             new AuthScope(proxy),
-                             new UsernamePasswordCredentials(proxyUser, proxyPassword));
-
-                             DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
-                             */
                             .build();
                 }
             }
@@ -99,15 +114,16 @@ public class HttpClientTool{
         return COOKIE_STORE;
     }
 
-
     /**
      * get请求
-     * @param url
-     * @param extConfig
-     * @return
-     * @throws IOException
+     * @param url 请求地址
+     * @param extConfig 扩展配置
+     * @return 请求结果
+     * @throws IOException io异常，主要是访问异常
+     * @throws ParseException 解析异常
+     * @throws URISyntaxException 请求地址语法错误异常
      */
-    public static String get(String url,ExtConfig extConfig) throws IOException {
+    public static String get(String url,ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         log.debug("start get.url={},extConfig={}",url,extConfig == null? null : extConfig.toJsonString());
         HttpGet get = new HttpGet(url);
         String result = executeRequestAsString(get, getCLIENT(), extConfig);
@@ -118,12 +134,13 @@ public class HttpClientTool{
 
     /**
      * 以普通表单形式请求
-     * @param url
-     * @param params
+     * @param url 请求地址
+     * @param params 请求参数
+     * @param extConfig 扩展配置
      * @return
      * @throws IOException
      */
-    public static String postForm(String url, Map<String,String> params, ExtConfig extConfig) throws IOException {
+    public static String postForm(String url, Map<String,String> params, ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         log.debug("start postForm.url={},params={},extConfig={}",url,params,extConfig == null? null : extConfig.toJsonString());
         HttpPost post = new HttpPost(url);
         // 创建参数列表
@@ -149,7 +166,7 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static String postJson(String url, String body,ExtConfig extConfig) throws IOException {
+    public static String postJson(String url, String body,ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         log.debug("start postJson.url={},body={},extConfig={}",url,body,extConfig == null? null : extConfig.toJsonString());
         HttpPost post = new HttpPost(url);
         post.addHeader("Content-Type", "application/json");
@@ -170,7 +187,7 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static String putJson(String url, String body,ExtConfig extConfig) throws IOException {
+    public static String putJson(String url, String body,ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         log.debug("start putJson.url={},body={},extConfig={}",url,body,extConfig == null? null : extConfig.toJsonString());
         HttpPut put = new HttpPut(url);
         put.addHeader("Content-Type", "application/json");
@@ -189,8 +206,8 @@ public class HttpClientTool{
      * @param res
      * @return
      */
-    public static int HttpResponseStatus(HttpResponse res){
-        return res.getStatusLine().getStatusCode();
+    public static int HttpResponseStatus(CloseableHttpResponse res){
+        return res.getCode();
     }
 
     /**
@@ -199,12 +216,9 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static String httpResponseContentToString(HttpResponse res) throws IOException {
+    public static String httpResponseContentToString(CloseableHttpResponse res) throws IOException, ParseException {
         HttpEntity entity = res.getEntity();
-        ContentType contentType = ContentType.get(entity);
-        Charset charset = Optional.ofNullable(contentType).map(ContentType::getCharset).orElse(Charset.forName(CHARSET));
-
-        return IoUtil.read(entity.getContent(), charset);
+        return httpResponseEntityContentToString(entity);
     }
     /**
      * 响应内容转为字符串
@@ -212,10 +226,8 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static String httpResponseEntityContentToString(HttpEntity entity) throws IOException {
-        ContentType contentType = ContentType.get(entity);
-        Charset charset = Optional.ofNullable(contentType).map(ContentType::getCharset).orElse(Charset.forName(CHARSET));
-        return IoUtil.read(entity.getContent(), charset);
+    public static String httpResponseEntityContentToString(HttpEntity entity) throws IOException, ParseException {
+        return EntityUtils.toString(entity, CHARSET);
     }
     /**
      * 下载并返回二进制数据
@@ -223,15 +235,14 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static byte[] download(String urlPath,ExtConfig extConfig) throws IOException {
+    public static byte[] download(String urlPath,ExtConfig extConfig) throws IOException, URISyntaxException {
         HttpClient client = HttpClientTool.getCLIENT();
         HttpGet get = new HttpGet(urlPath);
         CloseableHttpResponse closeableHttpResponse = executeRequest(get, client, extConfig);
         InputStream inputStream = closeableHttpResponse.getEntity().getContent();
         byte[] bytes = IoStreamTool.inputStreamToByteArray(inputStream);
-        inputStream.close();
-        closeableHttpResponse.close();
-        get.releaseConnection();
+        IoUtil.close(inputStream);
+        IoUtil.close(closeableHttpResponse);
         return bytes;
     }
 
@@ -243,7 +254,7 @@ public class HttpClientTool{
      * @return
      * @throws IOException
      */
-    public static CloseableHttpResponse executeRequest(HttpRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException {
+    public static CloseableHttpResponse executeRequest(HttpUriRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException, URISyntaxException {
 
         if (extConfig != null) {
             RequestConfig requestConfig = request.getConfig();
@@ -278,7 +289,7 @@ public class HttpClientTool{
 
                     if (StrUtil.isNotEmpty(proxyUser) && StrUtil.isNotEmpty(proxyPassword)) {
                         String auth = proxyUser + ":" + proxyPassword;
-                        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(CHARSET)));
+                        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(CHARSET));
                         String authHeader = "Basic " + new String(encodedAuth);
                         request.addHeader("Proxy-Authorization", authHeader);
                     }
@@ -304,13 +315,13 @@ public class HttpClientTool{
                     custom = RequestConfig.copy(requestConfig);
                 }
                 if (extConfig.getConnTimeout() != null) {
-                    custom.setConnectTimeout(extConfig.getConnTimeout());
+                    custom.setConnectTimeout(Timeout.ofMilliseconds(extConfig.getConnTimeout()));
                 }
                 if (extConfig.getConnRequestTimeout() != null) {
-                    custom.setConnectionRequestTimeout(extConfig.getConnRequestTimeout());
+                    custom.setConnectionRequestTimeout(Timeout.ofMilliseconds(extConfig.getConnRequestTimeout()));
                 }
                 if (extConfig.getSocketTimeout() != null) {
-                    custom.setSocketTimeout(extConfig.getSocketTimeout());
+                    custom.setResponseTimeout(Timeout.ofMilliseconds(extConfig.getResponseTimeout()));
                 }
                 requestConfig = custom.build();
                 request.setConfig(requestConfig);
@@ -332,7 +343,7 @@ public class HttpClientTool{
         return response;
     }
 
-    public static String executeRequestAsString(HttpRequestBase request, HttpClient client,ExtConfig extConfig) throws IOException {
+    public static String executeRequestAsString(HttpUriRequestBase request, HttpClient client, ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         CloseableHttpResponse res = null;
         String r = null;
         try{
@@ -342,7 +353,6 @@ public class HttpClientTool{
             if (res != null) {
                 res.close();
             }
-            request.releaseConnection();
         }
         return r;
     }
@@ -375,20 +385,24 @@ public class HttpClientTool{
         private List<Header> headers;
 
         /**
-         * 连接超时时间
+         * 连接超时时间，ms
          */
         private Integer connTimeout;
         /**
-         * 读取超时时间
+         * 读取超时时间,从连接池中获取连接的超时时间，ms
          */
         private Integer connRequestTimeout;
         /**
-         * 读取超时时间
+         * 响应超时时间，ms
+         */
+        private Integer responseTimeout;
+        /**
+         * 读取超时时间，ms，注意httpclient5已不支持单独请求设置socketTimout，这里保留是只有在设置httpclient时可以设置，所以想在单次请求中支持，必须先建议一个亲的httpclient，但这样是耗资源的
          */
         private Integer socketTimeout;
 
 
-        public ExtConfig withProxy(String proxyId, Integer proxyPort) {
+        public ExtConfig withProxy(String proxyId, Integer proxyPort) throws URISyntaxException {
             this.proxy = HttpHost.create(proxyId + ":" + proxyPort);
             return this;
         }

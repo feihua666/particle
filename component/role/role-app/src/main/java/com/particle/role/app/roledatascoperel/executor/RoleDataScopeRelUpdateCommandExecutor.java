@@ -1,22 +1,22 @@
 package com.particle.role.app.roledatascoperel.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.roledatascoperel.structmapping.RoleDataScopeRelAppStructMapping;
 import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
 import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRel;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRelId;
 import com.particle.role.domain.roledatascoperel.gateway.RoleDataScopeRelGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class RoleDataScopeRelUpdateCommandExecutor  extends AbstractBaseExecutor
 		return roleDataScopeRel;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface RoleDataScopeRelUpdateCommandToRoleDataScopeRelMapping{
 		RoleDataScopeRelUpdateCommandToRoleDataScopeRelMapping instance = Mappers.getMapper(RoleDataScopeRelUpdateCommandToRoleDataScopeRelMapping.class );
 

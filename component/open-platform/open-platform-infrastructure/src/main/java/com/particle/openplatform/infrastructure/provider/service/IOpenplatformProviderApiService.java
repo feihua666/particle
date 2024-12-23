@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.provider.service;
 
-import com.particle.openplatform.infrastructure.provider.dos.OpenplatformProviderApiDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.provider.dos.OpenplatformProviderApiDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IOpenplatformProviderApiService extends IBaseService<Openplatfo
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<OpenplatformProviderApiDO>lambdaQuery().in(OpenplatformProviderApiDO::getCode, codes));
     }
-            
+
 
 
     /**
@@ -61,7 +62,7 @@ public interface IOpenplatformProviderApiService extends IBaseService<Openplatfo
         Assert.notEmpty(dataQueryDatasourceApiIds,"dataQueryDatasourceApiIds 不能为空");
         return list(Wrappers.<OpenplatformProviderApiDO>lambdaQuery().in(OpenplatformProviderApiDO::getDataQueryDatasourceApiId, dataQueryDatasourceApiIds));
     }
-            
+
 
 
 

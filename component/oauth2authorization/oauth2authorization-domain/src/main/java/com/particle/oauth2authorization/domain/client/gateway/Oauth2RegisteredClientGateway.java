@@ -1,8 +1,8 @@
 package com.particle.oauth2authorization.domain.client.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

@@ -1,8 +1,8 @@
 package com.particle.lowcode.domain.generator.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.lowcode.domain.generator.LowcodeSegmentGen;
 import com.particle.lowcode.domain.generator.LowcodeSegmentGenId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

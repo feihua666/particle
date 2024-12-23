@@ -63,9 +63,10 @@
 
         <!--  主要是为了数据查询动态配置支持 groovy脚本而添加-->
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
+            <groupId>org.apache.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy-all.version}</version>
+            <type>pom</type>
         </dependency>
 
         <!-- 主要用于 大数据源http的实现 -->
@@ -109,6 +110,11 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

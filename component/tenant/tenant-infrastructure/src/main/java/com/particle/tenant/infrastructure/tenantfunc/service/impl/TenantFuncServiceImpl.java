@@ -1,14 +1,13 @@
 package com.particle.tenant.infrastructure.tenantfunc.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
 import com.particle.tenant.infrastructure.tenantfunc.mapper.TenantFuncMapper;
 import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class TenantFuncServiceImpl extends IBaseServiceImpl<TenantFuncMapper, Te
 
 	@Override
 	protected void preUpdate(TenantFuncDO po) {
-    
+
 	}
 }

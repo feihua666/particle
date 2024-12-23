@@ -2,8 +2,10 @@
 /**
  * 开放接口文档模板参数字段管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocApiDocTemplateParamFieldCreateApi,list as OpenplatformDocApiDocTemplateParamFieldListApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformDocApiDocTemplateParamFieldCreateApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
 
 

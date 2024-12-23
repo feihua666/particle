@@ -3,7 +3,7 @@
  * 数据范围管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dataScopePageApi, remove as dataScopeRemoveApi} from "../../api/admin/dataScopeAdminApi"
+import {page as dataScopePageApi, remove as dataScopeRemoveApi} from "../../api/admin/dataScopeAdminApi"
 import {pageFormItems} from "../../components/admin/dataScopeManage";
 
 

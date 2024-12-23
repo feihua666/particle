@@ -1,5 +1,5 @@
 <script setup name="OutParamExampleConfig" lang="ts">
-import {onMounted, reactive, ref,nextTick,watch} from 'vue'
+import {nextTick, onMounted, reactive, ref, watch} from 'vue'
 
 /**
  * 示例项

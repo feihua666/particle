@@ -2,7 +2,7 @@
 /**
  * 企业管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as dataCompanyCreateApi} from "../../../api/company/admin/dataCompanyAdminApi"
 import {addPageFormItems} from "../../../components/company/admin/dataCompanyManage";
 

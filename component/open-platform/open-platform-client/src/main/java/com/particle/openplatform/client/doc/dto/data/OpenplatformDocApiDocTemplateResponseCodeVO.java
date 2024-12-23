@@ -1,12 +1,10 @@
 package com.particle.openplatform.client.doc.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
 /**
  * <p>
  * 开放接口文档模板响应码 数据通用响应对象
@@ -24,16 +22,16 @@ public class OpenplatformDocApiDocTemplateResponseCodeVO extends AbstractBaseIdV
 
 	@Schema(description = "业务状态码，码值")
 	private String codeStatus;
-    
+
     @Schema(description = "http响应码")
     private Integer httpCode;
-    
+
     @Schema(description = "是否计费")
     private Boolean isCharge;
-    
+
     @Schema(description = "字段说明")
     private String explanation;
-    
+
     @Schema(description = "开放接口文档模板id")
     private Long openplatformDocApiDocTemplateId;
 
@@ -46,10 +44,10 @@ public class OpenplatformDocApiDocTemplateResponseCodeVO extends AbstractBaseIdV
 
 	@Schema(description = "排序,默认按该字段升序排序")
 	private Integer seq;
-    
+
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

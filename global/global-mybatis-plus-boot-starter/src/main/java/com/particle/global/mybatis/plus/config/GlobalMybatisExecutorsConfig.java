@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2022-08-05 17:16
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalMybatisExecutorsConfig {
 
 	public static final String commonDbTaskExecutor = "commonDbTaskExecutor";

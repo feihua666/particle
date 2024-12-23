@@ -3,7 +3,6 @@ package com.particle.report.infrastructure.template.dto;
 import com.particle.global.dto.basic.Value;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

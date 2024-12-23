@@ -1,9 +1,9 @@
 package com.particle.lowcode.domain.generator.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.lowcode.domain.generator.LowcodeModelId;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.LowcodeModelItemId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

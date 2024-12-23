@@ -2,8 +2,10 @@
 /**
  * 开放平台开放接口限制规则管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformOpenapiLimitRuleCreateApi} from "../../../api/openapi/admin/openplatformOpenapiLimitRuleAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformOpenapiLimitRuleCreateApi
+} from "../../../api/openapi/admin/openplatformOpenapiLimitRuleAdminApi"
 import {addPageFormItems} from "../../../components/openapi/admin/openplatformOpenapiLimitRuleManage";
 
 

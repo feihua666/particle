@@ -10,11 +10,10 @@ import com.particle.message.client.dto.data.MessageTemplateVO;
 import com.particle.message.domain.MessageTemplate;
 import com.particle.message.domain.MessageTemplateId;
 import com.particle.message.domain.gateway.MessageTemplateGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

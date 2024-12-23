@@ -10,9 +10,6 @@ import com.particle.openplatform.client.openapi.dto.command.representation.*;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiDownloadBatchQueryTemplateVO;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.io.InputStream;
 
 /**
  * <p>

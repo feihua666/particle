@@ -3,11 +3,7 @@
  * 角色管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as roleUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as roleListApi
-} from "../../api/admin/roleAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as roleUpdateApi} from "../../api/admin/roleAdminApi"
 import {updatePageFormItems} from "../../components/admin/roleManage";
 
 // 声明属性

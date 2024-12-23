@@ -1,28 +1,24 @@
 package com.particle.dataquery.adapter.datasource.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApiApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceApiRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
-import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiPageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceApiQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
 import com.particle.global.dataaudit.op.OpLog;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 /**
  * <p>
  * 数据查询数据源接口后台管理pc或平板端前端适配器

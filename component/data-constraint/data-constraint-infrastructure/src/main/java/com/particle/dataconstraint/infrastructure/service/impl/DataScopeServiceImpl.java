@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
 import com.particle.dataconstraint.infrastructure.mapper.DataScopeMapper;
 import com.particle.dataconstraint.infrastructure.service.IDataScopeService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -51,6 +51,6 @@ public class DataScopeServiceImpl extends IBaseServiceImpl<DataScopeMapper, Data
 	        }
 	    }
 
-    
+
 	}
 }

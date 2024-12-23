@@ -1,10 +1,11 @@
 package com.particle.tenant.infrastructure.tenantfunc.service;
 
-import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ITenantFuncService extends IBaseService<TenantFuncDO> {
         Assert.notEmpty(funcIds,"funcIds 不能为空");
         return list(Wrappers.<TenantFuncDO>lambdaQuery().in(TenantFuncDO::getFuncId, funcIds));
     }
-            
+
 
 
 

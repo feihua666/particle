@@ -2,19 +2,18 @@ package com.particle.crm.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.crm.app.company.structmapping.CrmDeptAppStructMapping;
 import com.particle.crm.client.company.dto.data.CrmDeptVO;
 import com.particle.crm.domain.company.CrmDept;
 import com.particle.crm.domain.company.CrmDeptId;
 import com.particle.crm.domain.company.gateway.CrmDeptGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

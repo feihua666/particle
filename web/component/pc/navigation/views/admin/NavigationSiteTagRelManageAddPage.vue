@@ -2,7 +2,7 @@
 /**
  * 导航网站标签关系管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as navigationSiteTagRelCreateApi} from "../../api/admin/navigationSiteTagRelAdminApi"
 import {useAddPageFormItems} from "../../components/admin/navigationSiteTagRelManage";
 

@@ -4,9 +4,9 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleAssignUserCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 
 /**
@@ -31,7 +31,7 @@ public interface IRoleUserRelApplicationService extends IBaseApplicationService 
 	 * @return
 	 */
 	SingleResponse<RoleUserRelVO> delete(IdCommand roleUserRelDeleteCommand);
-	
+
 
 	/**
 	 * 角色分配用户

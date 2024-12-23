@@ -1,8 +1,6 @@
 package com.particle.global.tool.template;
 
 import cn.hutool.core.lang.Dict;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.db.Entity;
 import com.particle.global.tool.collection.CollectionTool;
 
 import java.util.HashMap;

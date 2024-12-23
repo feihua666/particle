@@ -1,11 +1,11 @@
 /**
  * 权限相关,主要用于组件封装
  */
-import { computed} from 'vue'
+import {computed} from 'vue'
 import {isString} from "../../common/tools/StringTools"
 import {exist, isArray} from "../../common/tools/ArrayTools"
 import {isFunction} from "../../common/tools/FunctionTools"
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
 
 /**
  * 权限属性，封装组件时用
@@ -127,13 +127,13 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
                         alert()
                         return true
                     }
-                    
+
                     if ('customFn' == props.noPermissionView) {
                         props.noPermissionFn()
                         return true
                     }
                     return true
-                } 
+                }
                 return false
             }
         }

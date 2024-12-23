@@ -18,14 +18,15 @@ import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTempla
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateParamField;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplateParamFieldGateway;
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -216,7 +217,7 @@ public class OpenplatformDocApiDocTemplateParamFieldCreateCommandExecutor  exten
 		return openplatformDocApiDocTemplateParamField;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpenplatformDocApiDocTemplateParamFieldCreateCommandToOpenplatformDocApiDocTemplateParamFieldMapping{
 		OpenplatformDocApiDocTemplateParamFieldCreateCommandToOpenplatformDocApiDocTemplateParamFieldMapping instance = Mappers.getMapper( OpenplatformDocApiDocTemplateParamFieldCreateCommandToOpenplatformDocApiDocTemplateParamFieldMapping.class );
 

@@ -1,7 +1,6 @@
 package com.particle.tenant.domain.createapply;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.google.common.collect.Lists;
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.event.TemplatingDomainMessageEvent;
 import com.particle.component.light.share.message.MessageConstants;
@@ -21,6 +20,9 @@ import java.util.Map;
  */
 public class TenantCreateApplyAuditPassDomainEvent extends DomainEvent<TenantCreateApplyAuditPassDomainEvent.DataContent> {
 
+
+	public TenantCreateApplyAuditPassDomainEvent() {
+	}
 
 	/**
 	 * 构造方法

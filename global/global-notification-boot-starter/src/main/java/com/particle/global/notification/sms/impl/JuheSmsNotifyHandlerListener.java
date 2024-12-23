@@ -6,8 +6,10 @@ import com.particle.global.tool.http.HttpClientTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.sms.SmsAccount;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +61,7 @@ public class JuheSmsNotifyHandlerListener implements ISmsNotifyHandlerListener {
 					HttpClientTool.ExtConfig.builder().proxyConfig(smsAccount.getProxy()).build()
 			);
 			log.info("juhe sms send. result={}",result);
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException | ParseException e) {
 			throw new RuntimeException("juhe sms send error", e);
 		}
 

@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.company.service;
 
-import com.particle.crm.infrastructure.company.dos.CrmDeptDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.crm.infrastructure.company.dos.CrmDeptDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ICrmDeptService extends IBaseService<CrmDeptDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CrmDeptDO>lambdaQuery().in(CrmDeptDO::getCode, codes));
     }
-            
+
 
 
     /**
@@ -61,7 +62,7 @@ public interface ICrmDeptService extends IBaseService<CrmDeptDO> {
         Assert.notEmpty(crmCompanyIds,"crmCompanyIds 不能为空");
         return list(Wrappers.<CrmDeptDO>lambdaQuery().in(CrmDeptDO::getCrmCompanyId, crmCompanyIds));
     }
-            
+
 
 
 

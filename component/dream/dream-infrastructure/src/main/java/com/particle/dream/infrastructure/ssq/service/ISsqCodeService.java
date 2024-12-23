@@ -1,11 +1,12 @@
 package com.particle.dream.infrastructure.ssq.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.dream.infrastructure.ssq.dos.SsqCodeDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
 import java.util.List;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
 /**
  * <p>

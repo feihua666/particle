@@ -2,9 +2,9 @@
 /**
  * 角色分配用户页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {queryUserIdsByRoleId, roleAssignUser as roleAssignUserApi} from "../../api/admin/roleUserRelAdminApi"
-import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
+import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../components/roleCompItem";
 import {list as userListApi} from "../../../user/api/admin/userAdminApi";
 
 // 声明属性

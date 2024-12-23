@@ -1,18 +1,19 @@
 package com.particle.crm.app.customer.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.crm.client.customer.dto.command.representation.CrmCustomerContactPageQueryCommand;
+import com.particle.crm.client.customer.dto.command.representation.CrmCustomerContactQueryListCommand;
 import com.particle.crm.client.customer.dto.data.CrmCustomerContactVO;
 import com.particle.crm.domain.customer.CrmCustomerContact;
 import com.particle.crm.domain.customer.CrmCustomerContactId;
 import com.particle.crm.infrastructure.customer.dos.CrmCustomerContactDO;
-import com.particle.crm.client.customer.dto.command.representation.CrmCustomerContactPageQueryCommand;
-import com.particle.crm.client.customer.dto.command.representation.CrmCustomerContactQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

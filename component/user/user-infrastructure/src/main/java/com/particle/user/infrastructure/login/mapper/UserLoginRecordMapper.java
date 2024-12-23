@@ -1,7 +1,7 @@
 package com.particle.user.infrastructure.login.mapper;
 
-import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

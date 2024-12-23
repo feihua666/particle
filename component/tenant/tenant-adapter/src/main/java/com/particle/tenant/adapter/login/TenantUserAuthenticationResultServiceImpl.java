@@ -10,6 +10,8 @@ import com.particle.global.tool.logical.TimeLogicTool;
 import com.particle.tenant.domain.gateway.TenantDictGateway;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,8 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -79,7 +79,7 @@ public class TenantUserAuthenticationResultServiceImpl implements IAuthenticatio
 			}
 
 		});
-		
+
 	}
 
 }

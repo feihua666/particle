@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {page as roleFuncRelPageApi, remove as roleFuncRelRemoveApi} from "../../api/admin/roleFuncRelAdminApi"
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/components/funcCompItem";
-import {useRemoteSelectRoleCompItem, remoteSelectRoleProps} from "../../components/roleCompItem";
+import {remoteSelectFuncProps, useRemoteSelectFuncCompItem} from "../../../func/components/funcCompItem";
+import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../components/roleCompItem";
 
 const tableRef = ref(null)
 // 声明属性

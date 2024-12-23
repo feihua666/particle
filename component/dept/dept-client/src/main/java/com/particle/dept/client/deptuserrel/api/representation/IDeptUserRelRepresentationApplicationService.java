@@ -2,12 +2,12 @@ package com.particle.dept.client.deptuserrel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

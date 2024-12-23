@@ -1,10 +1,11 @@
 package com.particle.usagecount.infrastructure.structmapping;
 
-import com.particle.usagecount.infrastructure.dos.UsageCountConfigDO;
 import com.particle.usagecount.domain.UsageCountConfig;
 import com.particle.usagecount.domain.UsageCountConfigId;
+import com.particle.usagecount.infrastructure.dos.UsageCountConfigDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-10-19 17:14:39
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class UsageCountConfigInfrastructureStructMapping {
 	public static UsageCountConfigInfrastructureStructMapping instance = Mappers.getMapper( UsageCountConfigInfrastructureStructMapping.class );
 

@@ -9,8 +9,6 @@ import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserR
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 
-import java.util.List;
-
 /**
  * <p>
  * 角色用户关系 应用门面展示服务类

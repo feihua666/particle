@@ -19,7 +19,7 @@ import java.util.List;
  * @author yangwei
  * @since 2024-10-24 14:35:43
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalFreemarkerAutoConfiguration {
 

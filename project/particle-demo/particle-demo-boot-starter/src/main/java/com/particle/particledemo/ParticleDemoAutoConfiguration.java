@@ -5,11 +5,11 @@ import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author yw
  * @since 2022-07-19 17:39:46
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ParticleDemoAutoConfiguration {
 
 
@@ -35,7 +35,7 @@ public class ParticleDemoAutoConfiguration {
 	@Bean
 	public GroupedOpenApi createParticleDemoAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
-		
+
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("particle-demo接口")
 				.basePackage("com.particle.particledemo.adapter")

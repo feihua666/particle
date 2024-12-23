@@ -20,6 +20,7 @@ import CrmPlugin from './crm/CrmPlugin'
 import DreamPlugin from './dream/DreamPlugin'
 import ConfigPlugin from './config/ConfigPlugin'
 import DataConstraintPlugin from './dataconstraint/DataConstraintPlugin.ts'
+
 export default {
     install: function (app, options) {
         FuncPlugin.install(app,options)

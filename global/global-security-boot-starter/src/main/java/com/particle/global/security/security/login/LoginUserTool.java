@@ -3,13 +3,13 @@ package com.particle.global.security.security.login;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.thread.ThreadContextTool;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,7 +24,7 @@ public class LoginUserTool {
 
     public static final String LOGIN_USER_SESSION_KEY = "login_user_session_key";
     public static final String LOGIN_USER_ANONYMOUS_KEY = "login_user_anonymous_key";
-    
+
     public static Long getLoginUserId(){
         return Optional.ofNullable(getLoginUser()).map(LoginUser::getId).orElse(null);
     }

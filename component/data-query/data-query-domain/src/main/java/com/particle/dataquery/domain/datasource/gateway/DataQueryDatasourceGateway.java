@@ -1,8 +1,8 @@
 package com.particle.dataquery.domain.datasource.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

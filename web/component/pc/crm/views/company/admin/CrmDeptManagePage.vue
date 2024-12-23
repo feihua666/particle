@@ -3,7 +3,7 @@
  * 客户公司部门管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as crmDeptPageApi, remove as crmDeptRemoveApi} from "../../../api/company/admin/crmDeptAdminApi"
+import {page as crmDeptPageApi, remove as crmDeptRemoveApi} from "../../../api/company/admin/crmDeptAdminApi"
 import {pageFormItems} from "../../../components/company/admin/crmDeptManage";
 
 

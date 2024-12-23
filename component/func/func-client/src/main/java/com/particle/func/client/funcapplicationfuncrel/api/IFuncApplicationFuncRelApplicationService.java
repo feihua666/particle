@@ -2,8 +2,8 @@ package com.particle.func.client.funcapplicationfuncrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationFuncRelCreateCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationAssignFuncCommand;
+import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationFuncRelCreateCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncAssignFuncApplicationCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.data.FuncApplicationFuncRelVO;
 import com.particle.global.dto.response.Response;

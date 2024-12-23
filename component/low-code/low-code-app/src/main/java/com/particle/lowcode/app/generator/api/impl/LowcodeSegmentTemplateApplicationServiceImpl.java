@@ -1,21 +1,19 @@
 package com.particle.lowcode.app.generator.api.impl;
 
-import com.particle.lowcode.app.generator.executor.*;
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.lowcode.app.generator.executor.*;
+import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
+import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
-import com.particle.lowcode.client.generator.api.ILowcodeSegmentTemplateApplicationService;
-import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

@@ -1,20 +1,21 @@
 package com.particle.tenant.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.tenant.client.dto.command.representation.TenantPageQueryCommand;
+import com.particle.tenant.client.dto.command.representation.TenantQueryListCommand;
 import com.particle.tenant.client.dto.data.TenantCurrentVO;
 import com.particle.tenant.client.dto.data.TenantLoginVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.domain.Tenant;
 import com.particle.tenant.domain.TenantId;
 import com.particle.tenant.infrastructure.dos.TenantDO;
-import com.particle.tenant.client.dto.command.representation.TenantPageQueryCommand;
-import com.particle.tenant.client.dto.command.representation.TenantQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

@@ -1,10 +1,11 @@
 package com.particle.tracking.infrastructure.structmapping;
 
-import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.TrackingPageRecordId;
+import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-05-10 11:44:01
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class TrackingPageRecordInfrastructureStructMapping {
 	public static TrackingPageRecordInfrastructureStructMapping instance = Mappers.getMapper( TrackingPageRecordInfrastructureStructMapping.class );
 

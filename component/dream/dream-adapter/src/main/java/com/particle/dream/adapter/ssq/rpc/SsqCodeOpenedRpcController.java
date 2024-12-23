@@ -1,8 +1,8 @@
 package com.particle.dream.adapter.ssq.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
 import com.particle.dream.adapter.feign.client.ssq.rpc.SsqCodeOpenedRpcFeignClient;
+import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

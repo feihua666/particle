@@ -1,5 +1,7 @@
 import {useRemoteSelectUserCompItem} from "../../../../user/components/userCompItem";
-import {useOauth2SelectClientCompItem} from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem.ts";
+import {
+    useOauth2SelectClientCompItem
+} from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem.ts";
 import {useSelectOpenapiFeeCompItem} from "../../openplatformOpenapiFeeCompItem";
 import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 import {useSelectOpenapiLimitRuleCompItem} from "../../openplatformOpenapiLimitRuleCompItem";

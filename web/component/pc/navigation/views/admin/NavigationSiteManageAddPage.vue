@@ -2,7 +2,7 @@
 /**
  * 导航网站管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as navigationSiteCreateApi} from "../../api/admin/navigationSiteAdminApi"
 import {addPageFormItems} from "../../components/admin/navigationSiteManage";
 

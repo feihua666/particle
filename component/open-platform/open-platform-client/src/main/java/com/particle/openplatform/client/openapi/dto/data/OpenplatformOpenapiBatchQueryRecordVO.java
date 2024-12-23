@@ -1,13 +1,12 @@
 package com.particle.openplatform.client.openapi.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
-import com.particle.component.light.share.trans.TransConstants;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -52,16 +51,16 @@ public class OpenplatformOpenapiBatchQueryRecordVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "executeStatusDictId",mapValueField = "value")
     @Schema(description = "执行状态对应字典值")
     private String executeStatusDictValue;
-        
+
     @Schema(description = "成功条数")
     private Integer successCount;
-    
+
     @Schema(description = "失败条数")
     private Integer failCount;
-    
+
     @Schema(description = "总条数")
     private Integer totalCount;
-    
+
     @Schema(description = "用户id")
     private Long userId;
 
@@ -71,7 +70,7 @@ public class OpenplatformOpenapiBatchQueryRecordVO extends AbstractBaseIdVO {
 
     @Schema(description = "查询时间")
     private LocalDateTime queryAt;
-        
+
     @Schema(description = "追踪id")
     private String traceId;
 
@@ -80,10 +79,10 @@ public class OpenplatformOpenapiBatchQueryRecordVO extends AbstractBaseIdVO {
 
 	@Schema(description = "导出的文件地址")
 	private String exportFileUrl;
-    
+
     @Schema(description = "描述")
     private String remark;
-    
+
 
 
 }

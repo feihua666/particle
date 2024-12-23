@@ -2,8 +2,10 @@
 /**
  * 开放接口文档示例代码管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocApiDocExampleCodeCreateApi,list as OpenplatformDocApiDocExampleCodeListApi} from "../../../api/doc/admin/openplatformDocApiDocExampleCodeAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformDocApiDocExampleCodeCreateApi
+} from "../../../api/doc/admin/openplatformDocApiDocExampleCodeAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocExampleCodeManage";
 
 

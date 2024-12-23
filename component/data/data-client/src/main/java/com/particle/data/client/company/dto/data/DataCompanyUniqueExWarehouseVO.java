@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * <p>
@@ -21,19 +20,19 @@ public class DataCompanyUniqueExWarehouseVO extends AbstractBaseIdVO {
 
     @Schema(description = "企业名称")
     private String name;
-    
+
     @Schema(description = "统一社会信用代码")
     private String uscc;
-    
+
     @Schema(description = "注册号")
     private String regNo;
-    
+
     @Schema(description = "组织机构代码")
     private String orgCode;
-    
+
     @Schema(description = "英文名称")
     private String enName;
-    
+
     @Schema(description = "父级id")
     private Long parentId;
 

@@ -1,7 +1,6 @@
 package com.particle.tenant.client.tenantfunc.dto.command.representation;
 
 import com.particle.common.client.dto.command.IdCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

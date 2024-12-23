@@ -2,7 +2,6 @@ package com.particle.global.openapi.api.impl;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
-import cn.hutool.cache.impl.WeakCache;
 import com.particle.global.openapi.api.GlobalOpenapiCache;
 
 /**

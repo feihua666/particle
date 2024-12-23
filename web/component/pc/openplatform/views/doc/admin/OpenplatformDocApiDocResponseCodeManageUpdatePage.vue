@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as openplatformDocApiDocResponseCodeUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as OpenplatformDocApiDocResponseCodeListApi
+  update as openplatformDocApiDocResponseCodeUpdateApi
 } from "../../../api/doc/admin/openplatformDocApiDocResponseCodeAdminApi"
 
 import {updatePageFormItems} from "../../../components/doc/admin/openplatformDocApiDocResponseCodeManage";

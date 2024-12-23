@@ -2,7 +2,7 @@
 /**
  * 低代码片段生成通用设计和渲染页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {ElMessage} from 'element-plus'
 import {cloneObj} from "../../../../../../../global/common/tools/ObjectTools";
 import {renderGen} from "../../../../api/generator/admin/lowcodeSegmentGenAdminApi";

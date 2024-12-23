@@ -11,7 +11,6 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.Big
 import com.particle.global.tool.proxy.ProxyConfig;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -10,11 +10,10 @@ import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredC
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
 import com.particle.oauth2authorization.domain.client.gateway.Oauth2RegisteredClientGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

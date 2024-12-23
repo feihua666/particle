@@ -3,11 +3,7 @@
  * 部门管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as DeptUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as DeptListApi
-} from "../../api/admin/deptAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as DeptUpdateApi} from "../../api/admin/deptAdminApi"
 
 import {useUpdatePageFormItems} from "../../components/admin/deptManage";
 

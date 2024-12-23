@@ -2,7 +2,7 @@
 /**
  * 响应摘要与签名算法设置
  */
-import {reactive ,ref,onMounted} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {algorithmList} from "../../../api/app/front/openplatformAppFrontApi.ts";
 
 // 声明属性

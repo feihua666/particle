@@ -1,21 +1,21 @@
 package com.particle.openplatform.app.doc.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocTemplateAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateCreateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplate;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplateGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class OpenplatformDocApiDocTemplateCreateCommandExecutor  extends Abstrac
 		return openplatformDocApiDocTemplate;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpenplatformDocApiDocTemplateCreateCommandToOpenplatformDocApiDocTemplateMapping{
 		OpenplatformDocApiDocTemplateCreateCommandToOpenplatformDocApiDocTemplateMapping instance = Mappers.getMapper( OpenplatformDocApiDocTemplateCreateCommandToOpenplatformDocApiDocTemplateMapping.class );
 

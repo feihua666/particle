@@ -1,16 +1,11 @@
 package com.particle.scheduler.app.schedule.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.scheduler.domain.schedule.gateway.SchedulerExecuteRecordGateway;
 import com.particle.scheduler.infrastructure.schedule.service.ISchedulerExecuteRecordService;
-import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

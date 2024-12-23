@@ -1,8 +1,8 @@
 package com.particle.oplog.domain.error.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.oplog.domain.error.OpLogErrorContent;
 import com.particle.oplog.domain.error.OpLogErrorContentId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

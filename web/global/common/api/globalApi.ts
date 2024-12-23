@@ -1,12 +1,13 @@
-import axios, { AxiosPromise} from 'axios'
+import axios, {AxiosPromise} from 'axios'
 import {
-    getUploadUrl as getUploadUrlRequest,
     getDownloadPrefixUrl as getDownloadPrefixUrlRequest,
     getFaviconUrl as getFaviconUrlRequest,
-    getLogoUrl as getLogoUrlRequest,
     getLogoTextUrl as getLogoTextUrlRequest,
+    getLogoUrl as getLogoUrlRequest,
+    getUploadUrl as getUploadUrlRequest,
     getWebTitleUrl as getWebTitleUrlRequest,
 } from "../../pc/common/axios/axiosRequest";
+
 /**
  * 文件上传的url地址
  */

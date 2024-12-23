@@ -1,6 +1,5 @@
 package com.particle.global.captcha.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.particle.global.captcha.DefaultCaptchaServiceImpl;
 import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.captcha.gen.DefaultCaptchaGenServiceImpl;
@@ -26,7 +25,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * @author yangwei
  * @since 2023-04-25 16:56
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CaptchaConfig {
 
 	@Bean
@@ -60,7 +59,7 @@ public class CaptchaConfig {
 	/**
 	 * 如果满足jdbc使用jdbc
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(NamedParameterJdbcTemplate.class)
 	static class JdbcStoreConfig{
 		@Bean

@@ -1,6 +1,5 @@
 package com.particle.global.tool.template.templatetreerenderengine.template;
 
-import com.particle.global.tool.template.templatetreerenderengine.config.ConfigData;
 import lombok.Data;
 
 import java.util.Map;

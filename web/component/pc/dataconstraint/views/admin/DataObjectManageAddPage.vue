@@ -2,7 +2,7 @@
 /**
  * 数据对象管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as dataObjectCreateApi} from "../../api/admin/dataObjectAdminApi"
 import {addPageFormItems} from "../../components/admin/dataObjectManage";
 

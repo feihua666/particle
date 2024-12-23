@@ -1,7 +1,6 @@
 package com.particle.global.openapi.collect;
 
 import com.particle.global.dto.basic.DTO;
-import com.particle.global.openapi.api.OpenApi;
 import com.particle.global.openapi.api.OpenapiHelper;
 import com.particle.global.openapi.data.*;
 import lombok.Data;
@@ -71,14 +70,14 @@ public class OpenapiContext extends DTO {
 
 	/********************
 	 *  以上信息在
-	 *  {@link OpenapiHelper#requestStart(javax.servlet.http.HttpServletRequest, com.particle.global.openapi.api.OpenApi) }
+	 *  {@link OpenapiHelper#requestStart(jakarta.servlet.http.HttpServletRequest, com.particle.global.openapi.api.OpenApi) }
 	 *  中已处理完毕
 	 *  ****************************/
 	/********************
 	 * 以下信息在
-	 * {@link OpenapiHelper#requestStart(javax.servlet.http.HttpServletRequest, com.particle.global.openapi.api.OpenApi)}
+	 * {@link OpenapiHelper#requestStart(jakarta.servlet.http.HttpServletRequest, com.particle.global.openapi.api.OpenApi)}
 	 * 到
-	 * {@link OpenapiHelper#requestFinished(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, com.particle.global.openapi.api.OpenApi)}
+	 * {@link OpenapiHelper#requestFinished(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, com.particle.global.openapi.api.OpenApi)}
 	 * 过程中逐步收集
 	 * ****************************/
 

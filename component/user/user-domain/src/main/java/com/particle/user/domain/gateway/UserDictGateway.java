@@ -2,8 +2,6 @@ package com.particle.user.domain.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
 
-import java.util.Map;
-
 /**
  * <p>
  * 用户字典

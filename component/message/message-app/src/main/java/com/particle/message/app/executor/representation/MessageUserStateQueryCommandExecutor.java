@@ -1,22 +1,23 @@
 package com.particle.message.app.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.message.app.structmapping.MessageUserStateAppStructMapping;
+import com.particle.message.client.dto.command.representation.MessageUserStatePageQueryCommand;
 import com.particle.message.client.dto.command.representation.MessageUserStateQueryListCommand;
 import com.particle.message.client.dto.data.MessageUserStateVO;
 import com.particle.message.infrastructure.dos.MessageUserStateDO;
 import com.particle.message.infrastructure.service.IMessageUserStateService;
-import com.particle.message.client.dto.command.representation.MessageUserStatePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

@@ -2,9 +2,9 @@
 /**
  * 清空功能菜单角色
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {deleteByFuncId} from "../../api/admin/roleFuncRelAdminApi"
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/components/funcCompItem";
+import {remoteSelectFuncProps, useRemoteSelectFuncCompItem} from "../../../func/components/funcCompItem";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

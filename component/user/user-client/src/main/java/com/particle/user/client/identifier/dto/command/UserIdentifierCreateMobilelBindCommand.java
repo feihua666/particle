@@ -3,12 +3,9 @@ package com.particle.user.client.identifier.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.Mobile;
 import com.particle.global.validation.props.PropValid;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>

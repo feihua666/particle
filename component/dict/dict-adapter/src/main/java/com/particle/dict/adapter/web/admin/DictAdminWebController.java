@@ -8,25 +8,19 @@ import com.particle.dict.client.api.IDictApplicationService;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
 import com.particle.dict.client.dto.command.DictCreateCommand;
 import com.particle.dict.client.dto.command.DictUpdateCommand;
-import com.particle.dict.client.dto.command.representation.DictItemsQueryListCommand;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
-import com.particle.dict.client.dto.data.DictGroupItemsVO;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>

@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -53,12 +54,12 @@ public class SchedulerExecuteRecord extends AggreateRoot {
     * 运行开始时间
     */
     private LocalDateTime startAt;
-    
+
     /**
     * 运行结束时间
     */
     private LocalDateTime finishAt;
-    
+
     /**
     * 本地主机ip，用来表明是在哪个机器上运行的
     */

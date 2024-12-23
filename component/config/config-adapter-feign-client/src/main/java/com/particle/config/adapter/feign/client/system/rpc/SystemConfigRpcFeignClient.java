@@ -1,7 +1,6 @@
 package com.particle.config.adapter.feign.client.system.rpc;
 
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.config.client.system.dto.command.SystemConfigCreateCommand;
 import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
@@ -10,9 +9,11 @@ import com.particle.config.client.system.dto.data.SystemConfigVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  * <p>

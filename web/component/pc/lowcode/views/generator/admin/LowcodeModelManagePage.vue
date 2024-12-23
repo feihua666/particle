@@ -3,7 +3,10 @@
  * 低代码模型管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as lowcodeModelPageApi, remove as lowcodeModelRemoveApi} from "../../../api/generator/admin/lowcodeModelAdminApi"
+import {
+  page as lowcodeModelPageApi,
+  remove as lowcodeModelRemoveApi
+} from "../../../api/generator/admin/lowcodeModelAdminApi"
 import {pageFormItems} from "../../../components/admin/lowcodeModelManage";
 
 const tableRef = ref(null)

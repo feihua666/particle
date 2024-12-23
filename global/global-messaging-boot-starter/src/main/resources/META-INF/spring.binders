@@ -1,3 +1,0 @@
-# Auto Configure
-local:\
-  com.particle.global.messaging.binder.local.LocalChannelBinderConfiguration

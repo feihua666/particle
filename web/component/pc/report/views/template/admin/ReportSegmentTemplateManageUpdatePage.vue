@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as reportSegmentTemplateUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as ReportSegmentTemplateListApi
+  update as reportSegmentTemplateUpdateApi
 } from "../../../api/template/admin/reportSegmentTemplateAdminApi"
 
 import {updatePageFormItems} from "../../../components/template/admin/reportSegmentTemplateManage";

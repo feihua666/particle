@@ -1,23 +1,23 @@
 package com.particle.oplog.app.error.executor.representation;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.app.error.structmapping.OpLogErrorAppStructMapping;
+import com.particle.oplog.client.error.dto.command.representation.OpLogErrorPageQueryCommand;
 import com.particle.oplog.client.error.dto.command.representation.OpLogErrorQueryListCommand;
 import com.particle.oplog.client.error.dto.data.OpLogErrorVO;
 import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import com.particle.oplog.infrastructure.error.service.IOpLogErrorService;
-import com.particle.oplog.client.error.dto.command.representation.OpLogErrorPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
-import javax.validation.Valid;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>

@@ -4,7 +4,6 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

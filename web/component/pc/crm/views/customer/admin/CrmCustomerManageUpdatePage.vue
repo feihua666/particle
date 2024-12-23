@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as crmCustomerUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as crmCustomerUpdateApi
 } from "../../../api/customer/admin/crmCustomerAdminApi"
 
 import {useUpdatePageFormItems} from "../../../components/customer/admin/crmCustomerManage";

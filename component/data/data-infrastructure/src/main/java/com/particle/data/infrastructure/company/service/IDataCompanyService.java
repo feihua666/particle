@@ -1,10 +1,11 @@
 package com.particle.data.infrastructure.company.service;
 
-import com.particle.data.infrastructure.company.dos.DataCompanyDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.data.infrastructure.company.dos.DataCompanyDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -38,7 +39,7 @@ public interface IDataCompanyService extends IBaseService<DataCompanyDO> {
         Assert.notEmpty(usccs,"usccs 不能为空");
         return list(Wrappers.<DataCompanyDO>lambdaQuery().in(DataCompanyDO::getUscc, usccs));
     }
-            
+
 
     /**
      * 根据注册号查询
@@ -61,7 +62,7 @@ public interface IDataCompanyService extends IBaseService<DataCompanyDO> {
         Assert.notEmpty(regNos,"regNos 不能为空");
         return list(Wrappers.<DataCompanyDO>lambdaQuery().in(DataCompanyDO::getRegNo, regNos));
     }
-            
+
 
     /**
      * 根据组织机构代码查询
@@ -84,7 +85,7 @@ public interface IDataCompanyService extends IBaseService<DataCompanyDO> {
         Assert.notEmpty(orgCodes,"orgCodes 不能为空");
         return list(Wrappers.<DataCompanyDO>lambdaQuery().in(DataCompanyDO::getOrgCode, orgCodes));
     }
-            
+
 
 
 

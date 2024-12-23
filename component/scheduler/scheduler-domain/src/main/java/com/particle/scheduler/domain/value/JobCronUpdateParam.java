@@ -1,9 +1,9 @@
 package com.particle.scheduler.domain.value;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +78,7 @@ public class JobCronUpdateParam extends NameAndGroupParam {
     /**
      * bean方法参数
      */
-    private List beanMethodParams;
+    private List<Object> beanMethodParams;
 
     /**
      * 描述信息

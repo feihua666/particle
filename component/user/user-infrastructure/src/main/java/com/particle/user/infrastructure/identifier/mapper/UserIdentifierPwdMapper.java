@@ -1,7 +1,7 @@
 package com.particle.user.infrastructure.identifier.mapper;
 
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

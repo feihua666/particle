@@ -3,7 +3,10 @@
  * 消息模板管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as messageTemplatePageApi, remove as messageTemplateRemoveApi} from "../../api/admin/messageTemplateAdminApi"
+import {
+  page as messageTemplatePageApi,
+  remove as messageTemplateRemoveApi
+} from "../../api/admin/messageTemplateAdminApi"
 import {pageFormItems} from "../../components/admin/messageTemplateManage";
 
 

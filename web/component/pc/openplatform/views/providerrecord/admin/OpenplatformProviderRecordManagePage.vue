@@ -3,7 +3,9 @@
  * 开放平台开放接口供应商调用记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformProviderRecordPageApi, remove as openplatformProviderRecordRemoveApi} from "../../../api/providerrecord/admin/openplatformProviderRecordAdminApi"
+import {
+  page as openplatformProviderRecordPageApi
+} from "../../../api/providerrecord/admin/openplatformProviderRecordAdminApi"
 import {pageFormItems} from "../../../components/providerrecord/admin/openplatformProviderRecordManage";
 
 

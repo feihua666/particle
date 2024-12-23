@@ -2,9 +2,9 @@
 /**
  * 功能菜单分配角色页面
  */
-import {reactive ,ref} from 'vue'
-import {queryRoleIdsByFuncId, funcAssignRole as funcAssignRoleApi} from "../../api/admin/roleFuncRelAdminApi"
-import {useRemoteSelectFuncCompItem, remoteSelectFuncProps} from "../../../func/components/funcCompItem";
+import {reactive, ref} from 'vue'
+import {funcAssignRole as funcAssignRoleApi, queryRoleIdsByFuncId} from "../../api/admin/roleFuncRelAdminApi"
+import {remoteSelectFuncProps, useRemoteSelectFuncCompItem} from "../../../func/components/funcCompItem";
 import {list as roleListApi} from "../../api/admin/roleAdminApi";
 
 // 声明属性

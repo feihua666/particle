@@ -1,4 +1,5 @@
 import {list as messageTemplateListApi} from "../api/admin/messageTemplateAdminApi";
+
 export const useCascaderMessageTemplateCompItem = ({fieldName= 'parentId',required=false,label= '父级',valueChange = ()=>{}})=>{
     return  {
         field: {

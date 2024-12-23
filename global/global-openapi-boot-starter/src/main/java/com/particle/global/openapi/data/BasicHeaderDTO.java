@@ -1,9 +1,9 @@
 package com.particle.global.openapi.data;
 
 import com.particle.global.dto.basic.DTO;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**
@@ -77,7 +77,7 @@ public class BasicHeaderDTO extends DTO {
 
 		return create(
 				request.getHeader(basicHeaderConfigDTO.getClientId()),
-				Optional.ofNullable(request.getHeader(basicHeaderConfigDTO.getTimestamp())).map(Long::new).orElse(null),
+				Optional.ofNullable(request.getHeader(basicHeaderConfigDTO.getTimestamp())).map(Long::parseLong).orElse(null),
 				request.getHeader(basicHeaderConfigDTO.getNonce()),
 				request.getHeader(basicHeaderConfigDTO.getSignature()),
 				basicHeaderConfigDTO

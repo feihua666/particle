@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-08-05 15:06
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan("com.particle.global.actuator.endpoint")
 public class GlobalActuatorAutoConfiguration {
 

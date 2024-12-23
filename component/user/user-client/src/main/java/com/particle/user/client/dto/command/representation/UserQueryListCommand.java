@@ -2,7 +2,6 @@ package com.particle.user.client.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -35,7 +34,7 @@ public class UserQueryListCommand extends AbstractBaseQueryCommand {
     @Like
     @Schema(description = "姓名，左前缀匹配")
     private String name;
-    
+
     @Like
     @Schema(description = "昵称，左前缀匹配")
     private String nickname;

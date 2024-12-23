@@ -1,28 +1,24 @@
 package com.particle.tracking.adapter.web.admin;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.tracking.client.api.ITrackingPageApplicationService;
 import com.particle.tracking.client.api.representation.ITrackingPageRepresentationApplicationService;
 import com.particle.tracking.client.dto.command.TrackingPageCreateCommand;
-import com.particle.tracking.client.dto.data.TrackingPageVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.tracking.client.dto.command.TrackingPageUpdateCommand;
 import com.particle.tracking.client.dto.command.representation.TrackingPagePageQueryCommand;
 import com.particle.tracking.client.dto.command.representation.TrackingPageQueryListCommand;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.global.dto.response.SingleResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.particle.tracking.client.dto.data.TrackingPageVO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import com.particle.global.dataaudit.op.OpLog;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 /**
  * <p>
  * 埋点页面后台管理pc或平板端前端适配器

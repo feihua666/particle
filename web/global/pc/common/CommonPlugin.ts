@@ -10,6 +10,7 @@ import Logo from './Logo.vue'
 import LoginTemplate from './template/login/LoginTemplate.vue'
 import LoginPageTemplate from './template/login/LoginPageTemplate.vue'
 import EntryTemplate from './template/EntryTemplate.vue'
+
 let prefix = "Pt"
 let map = {
     BaiduMap,

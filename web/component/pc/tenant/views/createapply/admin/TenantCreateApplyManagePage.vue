@@ -3,7 +3,10 @@
  * 租户创建申请管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as TenantCreateApplyPageApi, remove as TenantCreateApplyRemoveApi} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
+import {
+  page as TenantCreateApplyPageApi,
+  remove as TenantCreateApplyRemoveApi
+} from "../../../api/createapply/admin/tenantCreateApplyAdminApi"
 import {pageFormItems} from "../../../components/createapply/admin/tenantCreateApplyManage";
 
 

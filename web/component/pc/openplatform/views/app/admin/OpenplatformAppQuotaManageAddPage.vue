@@ -2,7 +2,7 @@
 /**
  * 开放平台应用额度管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as openplatformAppQuotaCreateApi} from "../../../api/app/admin/openplatformAppQuotaAdminApi"
 import {addPageFormItems} from "../../../components/app/admin/openplatformAppQuotaManage";
 

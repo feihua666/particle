@@ -1,6 +1,5 @@
 package com.particle.global.security.security;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.thread.ThreadContextTool;

@@ -3,7 +3,10 @@
  * 导航网站分类关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationSiteCategoryRelPageApi, remove as navigationSiteCategoryRelRemoveApi} from "../../api/admin/navigationSiteCategoryRelAdminApi"
+import {
+  page as navigationSiteCategoryRelPageApi,
+  remove as navigationSiteCategoryRelRemoveApi
+} from "../../api/admin/navigationSiteCategoryRelAdminApi"
 import {pageFormItems} from "../../components/admin/navigationSiteCategoryRelManage";
 
 

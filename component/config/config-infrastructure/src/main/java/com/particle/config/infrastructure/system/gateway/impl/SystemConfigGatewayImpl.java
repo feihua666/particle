@@ -1,13 +1,13 @@
 package com.particle.config.infrastructure.system.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.config.domain.system.SystemConfig;
 import com.particle.config.domain.system.SystemConfigId;
 import com.particle.config.domain.system.gateway.SystemConfigGateway;
-import com.particle.config.infrastructure.system.service.ISystemConfigService;
 import com.particle.config.infrastructure.system.dos.SystemConfigDO;
+import com.particle.config.infrastructure.system.service.ISystemConfigService;
 import com.particle.config.infrastructure.system.structmapping.SystemConfigInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

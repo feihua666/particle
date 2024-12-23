@@ -1,14 +1,13 @@
 package com.particle.func.infrastructure.funcapplicationfuncrel.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import com.particle.func.infrastructure.funcapplicationfuncrel.mapper.FuncApplicationFuncRelMapper;
 import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class FuncApplicationFuncRelServiceImpl extends IBaseServiceImpl<FuncAppl
 
 	@Override
 	protected void preUpdate(FuncApplicationFuncRelDO po) {
-    
+
 	}
 }

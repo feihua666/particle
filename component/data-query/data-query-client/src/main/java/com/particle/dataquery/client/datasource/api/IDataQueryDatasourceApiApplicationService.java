@@ -2,10 +2,10 @@ package com.particle.dataquery.client.datasource.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiCreateCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

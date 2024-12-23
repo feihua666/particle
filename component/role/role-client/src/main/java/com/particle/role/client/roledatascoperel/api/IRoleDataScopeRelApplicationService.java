@@ -2,13 +2,13 @@ package com.particle.role.client.roledatascoperel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
 import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
 import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
 import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
-import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
-import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
 /**
  * <p>
  * 角色数据范围关系 应用门面服务类

@@ -2,8 +2,10 @@
 /**
  * 租户用户邀请记录管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as TenantUserInviteUserRecordCreateApi,list as TenantUserInviteUserRecordListApi} from "../../../api/userinvite/admin/tenantUserInviteUserRecordAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as TenantUserInviteUserRecordCreateApi
+} from "../../../api/userinvite/admin/tenantUserInviteUserRecordAdminApi"
 import {addPageFormItems} from "../../../components/userinvite/admin/tenantUserInviteUserRecordManage";
 
 

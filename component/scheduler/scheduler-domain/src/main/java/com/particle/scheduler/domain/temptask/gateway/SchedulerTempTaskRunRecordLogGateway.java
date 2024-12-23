@@ -1,8 +1,8 @@
 package com.particle.scheduler.domain.temptask.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordLog;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordLogId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

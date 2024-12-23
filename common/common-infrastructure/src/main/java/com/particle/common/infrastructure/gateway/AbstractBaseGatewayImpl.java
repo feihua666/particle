@@ -4,7 +4,6 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.common.domain.id.Id;
-import com.particle.global.concurrency.threadpool.CustomExecutors;
 import com.particle.global.messaging.event.api.MessageEventSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

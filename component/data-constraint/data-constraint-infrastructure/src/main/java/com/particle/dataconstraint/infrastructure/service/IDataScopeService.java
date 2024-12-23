@@ -1,10 +1,11 @@
 package com.particle.dataconstraint.infrastructure.service;
 
-import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IDataScopeService extends IBaseService<DataScopeDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<DataScopeDO>lambdaQuery().in(DataScopeDO::getCode, codes));
     }
-            
+
 
 
     /**
@@ -61,7 +62,7 @@ public interface IDataScopeService extends IBaseService<DataScopeDO> {
         Assert.notEmpty(dataObjectIds,"dataObjectIds 不能为空");
         return list(Wrappers.<DataScopeDO>lambdaQuery().in(DataScopeDO::getDataObjectId, dataObjectIds));
     }
-            
+
 
 
 

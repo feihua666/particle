@@ -1,12 +1,12 @@
 package com.particle.dataquery.infrastructure.dataapi.structmapping;
 
-import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
-import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
+import com.particle.dataquery.domain.datasource.DataQueryDatasourceApi;
+import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -17,7 +17,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-03-21 13:11:05
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DataQueryDataApiInfrastructureStructMapping {
 	public static DataQueryDataApiInfrastructureStructMapping instance = Mappers.getMapper( DataQueryDataApiInfrastructureStructMapping.class );
 

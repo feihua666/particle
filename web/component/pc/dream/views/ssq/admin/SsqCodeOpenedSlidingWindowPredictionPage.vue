@@ -3,14 +3,14 @@
  * 已开奖双色球开奖在滑动窗口趋势图基础上预测号码
  * 主要思路：在滑动窗口内将已开奖序号想加求平均值，再减去一个固定参数值（即理想的平均值）得到的数据趋势
  */
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { LineChart,BarChart } from 'echarts/charts'
-import { GridComponent,TooltipComponent,TitleComponent } from 'echarts/components'
+import {use} from 'echarts/core';
+import {CanvasRenderer} from 'echarts/renderers';
+import {BarChart, LineChart} from 'echarts/charts'
+import {GridComponent, TitleComponent, TooltipComponent} from 'echarts/components'
 
 import VChart from 'vue-echarts';
-import {reactive, ref, onMounted, } from 'vue';
-import {list, page} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
+import {onMounted, reactive, ref,} from 'vue';
+import {page} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 import {max, min, reverse} from "../../../../../../global/common/tools/ArrayTools";
 
 use([GridComponent,TooltipComponent,TitleComponent, LineChart,BarChart, CanvasRenderer])

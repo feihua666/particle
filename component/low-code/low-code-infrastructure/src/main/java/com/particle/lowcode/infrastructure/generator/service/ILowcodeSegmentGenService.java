@@ -1,7 +1,7 @@
 package com.particle.lowcode.infrastructure.generator.service;
 
-import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentGenDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeSegmentGenDO;
 
 /**
  * <p>

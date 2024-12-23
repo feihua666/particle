@@ -1,11 +1,9 @@
 package com.particle.user.infrastructure.identifier.service;
 
-import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
-import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
 import org.springframework.util.Assert;
 
 import java.util.List;

@@ -3,7 +3,7 @@
  * 双色球号码管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as ssqCodePageApi,allCodeInit,allCodeUpdate,allCodeStop} from "../../../api/ssq/admin/ssqCodeAdminApi"
+import {allCodeInit, allCodeStop, allCodeUpdate, page as ssqCodePageApi} from "../../../api/ssq/admin/ssqCodeAdminApi"
 import {pageFormItems} from "../../../components/ssq/admin/ssqCodeManage";
 
 

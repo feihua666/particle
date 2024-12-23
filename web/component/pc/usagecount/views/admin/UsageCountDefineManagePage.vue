@@ -3,7 +3,10 @@
  * 使用次数定义管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as usageCountDefinePageApi, remove as usageCountDefineRemoveApi} from "../../api/admin/usageCountDefineAdminApi"
+import {
+  page as usageCountDefinePageApi,
+  remove as usageCountDefineRemoveApi
+} from "../../api/admin/usageCountDefineAdminApi"
 import {pageFormItems} from "../../components/admin/usageCountDefineManage";
 
 

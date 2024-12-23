@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as lowcodeModelItemUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as lowcodeModelItemUpdateApi,
 } from "../../../api/generator/admin/lowcodeModelItemAdminApi"
 import {updatePageFormItems} from "../../../components/admin/lowcodeModelItemManage";
 

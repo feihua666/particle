@@ -1,10 +1,11 @@
 package com.particle.user.infrastructure.identifier.structmapping;
 
-import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.UserIdentifierPwdId;
+import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2022-11-25
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class UserIdentifierPwdInfrastructureStructMapping {
 	public static UserIdentifierPwdInfrastructureStructMapping instance = Mappers.getMapper( UserIdentifierPwdInfrastructureStructMapping.class );
 

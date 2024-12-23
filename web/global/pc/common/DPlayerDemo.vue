@@ -8,7 +8,7 @@
  * npm install vue-dplayer
  * http://dplayer.js.org/guide.html#hls
  */
-import Hls from  'hls.js'
+import Hls from 'hls.js'
 import VueDPlayer from 'vue-dplayer'
 import 'vue-dplayer/dist/vue-dplayer.css'
 

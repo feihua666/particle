@@ -2,11 +2,10 @@ package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyMd5CreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyMd5UpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyMd5VO;
+import com.particle.global.dto.response.SingleResponse;
 /**
  * <p>
  * 企业md5 应用门面服务类

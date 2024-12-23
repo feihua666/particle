@@ -2,8 +2,8 @@
 /**
  * 部门管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as DeptCreateApi,list as DeptListApi} from "../../api/admin/deptAdminApi"
+import {reactive, ref} from 'vue'
+import {create as DeptCreateApi} from "../../api/admin/deptAdminApi"
 import {useAddPageFormItems} from "../../components/admin/deptManage";
 
 

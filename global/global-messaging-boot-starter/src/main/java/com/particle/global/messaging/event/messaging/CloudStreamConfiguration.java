@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-10-12 18:04
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CloudStreamConfiguration {
 
 	@Bean

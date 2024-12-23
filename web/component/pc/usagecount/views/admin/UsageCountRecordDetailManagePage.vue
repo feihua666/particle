@@ -3,7 +3,10 @@
  * 使用次数记录明细管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as usageCountRecordDetailPageApi, remove as usageCountRecordDetailRemoveApi} from "../../api/admin/usageCountRecordDetailAdminApi"
+import {
+  page as usageCountRecordDetailPageApi,
+  remove as usageCountRecordDetailRemoveApi
+} from "../../api/admin/usageCountRecordDetailAdminApi"
 import {pageFormItems} from "../../components/admin/usageCountRecordDetailManage";
 
 
@@ -110,7 +113,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doUsageCountRecordDetailPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

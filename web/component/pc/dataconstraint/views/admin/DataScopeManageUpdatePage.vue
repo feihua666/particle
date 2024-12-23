@@ -3,10 +3,7 @@
  * 数据范围管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as dataScopeUpdateApi,
-  detailForUpdate as detailForUpdateApi
-} from "../../api/admin/dataScopeAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as dataScopeUpdateApi} from "../../api/admin/dataScopeAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/dataScopeManage";
 

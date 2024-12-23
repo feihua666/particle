@@ -1,10 +1,9 @@
 <script setup name="UserinfoIdentifierPwd" lang="ts">
 
-import { getIdentifierPwd} from "../../../api/userLoginApi";
-import { userIdentifierPwdForLoginColumns} from "../../userIdentifierPwdCompItem"
+import {getIdentifierPwd} from "../../../api/userLoginApi";
+import {userIdentifierPwdForLoginColumns} from "../../userIdentifierPwdCompItem"
 import LoginUserIdentifierUpdatePassword from '../LoginUserIdentifierUpdatePassword.vue'
 import {ref} from "vue";
-import {remove as userIdentifierPwdRemoveApi} from "../../../api/admin/userIdentifierPwdAdminApi";
 import {ElMessage} from 'element-plus'
 
 let alert = (message,type='success')=>{

@@ -2,9 +2,15 @@
 /**
  * 网站标签分配网站页面
  */
-import {reactive ,ref} from 'vue'
-import {queryNavigationSiteIdsByNavigationSiteTagId, navigationSiteTagAssignNavigationSite as navigationSiteTagAssignNavigationSiteApi} from "../../api/admin/navigationSiteTagRelAdminApi"
-import {useRemoteSelectNavigationSiteTagCompItem, remoteSelectNavigationSiteTagProps} from "../../components/navigationSiteTagCompItem";
+import {reactive, ref} from 'vue'
+import {
+  navigationSiteTagAssignNavigationSite as navigationSiteTagAssignNavigationSiteApi,
+  queryNavigationSiteIdsByNavigationSiteTagId
+} from "../../api/admin/navigationSiteTagRelAdminApi"
+import {
+  remoteSelectNavigationSiteTagProps,
+  useRemoteSelectNavigationSiteTagCompItem
+} from "../../components/navigationSiteTagCompItem";
 import {list as navigationSiteListApi} from "../../api/admin/navigationSiteAdminApi";
 
 // 声明属性

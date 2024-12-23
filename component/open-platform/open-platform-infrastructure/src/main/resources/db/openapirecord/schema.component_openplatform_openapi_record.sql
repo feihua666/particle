@@ -32,6 +32,7 @@ CREATE TABLE `component_openplatform_openapi_record` (
   `update_by` bigint DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `openplatform_app_id` (`openplatform_app_id`),
+  KEY `openplatform_openapi_id` (`openplatform_openapi_id`),
   KEY `app_id` (`app_id`),
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `customer_id` (`customer_id`),

@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.service;
 
-import com.particle.navigation.infrastructure.dos.NavigationStaticDeployDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.navigation.infrastructure.dos.NavigationStaticDeployDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface INavigationStaticDeployService extends IBaseService<NavigationS
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<NavigationStaticDeployDO>lambdaQuery().in(NavigationStaticDeployDO::getCode, codes));
     }
-            
+
 
 
 

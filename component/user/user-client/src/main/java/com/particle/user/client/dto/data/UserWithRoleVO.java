@@ -2,7 +2,6 @@ package com.particle.user.client.dto.data;
 
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

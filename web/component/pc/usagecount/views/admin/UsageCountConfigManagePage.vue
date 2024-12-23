@@ -3,7 +3,10 @@
  * 使用次数配置管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as usageCountConfigPageApi, remove as usageCountConfigRemoveApi} from "../../api/admin/usageCountConfigAdminApi"
+import {
+  page as usageCountConfigPageApi,
+  remove as usageCountConfigRemoveApi
+} from "../../api/admin/usageCountConfigAdminApi"
 import {pageFormItems} from "../../components/admin/usageCountConfigManage";
 
 
@@ -119,7 +122,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doUsageCountConfigPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

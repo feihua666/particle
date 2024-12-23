@@ -2,7 +2,6 @@ package com.particle.message.app.messaging;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.event.TemplatingDomainMessageEvent;
 import com.particle.component.light.share.message.MessageConstants;
 import com.particle.global.captcha.endpoint.IDynamicCaptchaNotify;
@@ -10,7 +9,6 @@ import com.particle.global.exception.Assert;
 import com.particle.message.domain.gateway.MessageGateway;
 import lombok.Getter;
 import lombok.Setter;
-import org.javers.common.collections.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

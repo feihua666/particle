@@ -1,5 +1,5 @@
 <script setup name="DataQueryDatasApiFormItemConfigs" lang="ts">
-import {ref,reactive,nextTick} from "vue"
+import {nextTick, reactive, ref} from "vue"
 import AdaptMultipleAggregationConfig from './apiconfigs/AdaptMultipleAggregationConfig.vue'
 import AdaptCustomScriptConfig from './apiconfigs/AdaptCustomScriptConfig.vue'
 
@@ -65,7 +65,7 @@ defineExpose({
 })
 </script>
 <template>
-  
+
 
   <el-dialog v-model="reactiveData.adaptMultipleAggregationConfigJson.dialogVisible" width="70%" title="多接口聚合配置Json" append-to-body destroy-on-close>
     <AdaptMultipleAggregationConfig ref="adaptMultipleAggregationConfigRef" :initJsonStr="form.adaptConfigJson"></AdaptMultipleAggregationConfig>
@@ -76,7 +76,7 @@ defineExpose({
     </template>
   </el-dialog>
 
-  
+
 
   <el-dialog  v-model="reactiveData.adaptCustomScriptConfig.dialogVisible" width="70%" title="自定义脚本配置Json" @open="adaptCustomScriptConfigDialogOpen" @closed="adaptCustomScriptConfigRender=false" append-to-body destroy-on-close>
     <AdaptCustomScriptConfig v-if="adaptCustomScriptConfigRender" ref="adaptCustomScriptConfigConfigRef" :initJsonStr="form.adaptConfigJson"

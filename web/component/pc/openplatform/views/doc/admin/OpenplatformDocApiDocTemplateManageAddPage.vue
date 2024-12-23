@@ -2,8 +2,10 @@
 /**
  * 开放接口文档模板管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocApiDocTemplateCreateApi,list as OpenplatformDocApiDocTemplateListApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformDocApiDocTemplateCreateApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateManage";
 
 

@@ -2,7 +2,8 @@
 /**
  * 低代码片段生成设计和渲染页面
  */
-import LowcodeSegmentGenGenericDesignAndGenerate from '../../../../../components/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
+import LowcodeSegmentGenGenericDesignAndGenerate
+  from '../../../../../components/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
 import {
   useModuleFormComps
 } from "../../../../../components/admin/segmentgen/designandgenerate/lowcodeSegmentGenGenericDesignAndGenerate";

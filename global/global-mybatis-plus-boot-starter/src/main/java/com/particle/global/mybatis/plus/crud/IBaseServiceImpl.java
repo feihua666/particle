@@ -633,13 +633,13 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
     @Override
     public boolean saveOrUpdateBatchByUniqueColumn(Collection<DO> entityList, SFunction<DO, ?> column, int batchSize) {
-        TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
+        TableInfo tableInfo = TableInfoHelper.getTableInfo(this.getEntityClass());
         com.baomidou.mybatisplus.core.toolkit.Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
         String keyProperty = tableInfo.getKeyProperty();
         String columnProperty = SFunctionHelperTool.columnPropertyString(column);
         String columnReal = SFunctionHelperTool.columnToString(column);
         com.baomidou.mybatisplus.core.toolkit.Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
-        return SqlHelper.saveOrUpdateBatch(this.entityClass, this.mapperClass, super.log, entityList, batchSize, (sqlSession, entity) -> {
+        return SqlHelper.saveOrUpdateBatch(this.getEntityClass(), this.getMapperClass(), super.log, entityList, batchSize, (sqlSession, entity) -> {
 
             Object columnVal = ReflectionKit.getFieldValue(entity, columnProperty);
 

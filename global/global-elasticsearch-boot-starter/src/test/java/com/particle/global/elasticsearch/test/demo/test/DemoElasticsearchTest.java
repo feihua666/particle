@@ -1,20 +1,18 @@
 package com.particle.global.elasticsearch.test.demo.test;
 
 import cn.hutool.core.util.RandomUtil;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import com.particle.global.elasticsearch.test.demo.TestEsDO;
 import com.particle.global.elasticsearch.test.demo.repository.TestElasticsearchRepository;
 import com.particle.global.test.SuperTest;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -33,9 +31,9 @@ import java.util.Map;
  * 截止到目前（2023-12-08）我们使用的是spring-data-elasticsearch 4.4.18版本，官方文档说明如下
  * New Elasticsearch client
  *
- * Elasticsearch has introduced it’s new ElasticsearchClient and has deprecated the previous RestHighLevelClient. Spring Data Elasticsearch 4.4 still uses the old client as the default client for the following reasons:
+ * Elasticsearch has introduced it’s new ElasticsearchClient and has deprecated the previous ElasticsearchClient. Spring Data Elasticsearch 4.4 still uses the old client as the default client for the following reasons:
  *
- *     The new client forces applications to use the jakarta.json.spi.JsonProvider package whereas Spring Boot will stick to javax.json.spi.JsonProvider until version 3. So switching the default implementaiton in Spring Data Elasticsearch can only come with Spring Data Elasticsearch 5 (Spring Data 3, Spring 6).
+ *     The new client forces applications to use the jakarta.json.spi.JsonProvider package whereas Spring Boot will stick to jakarta.json.spi.JsonProvider until version 3. So switching the default implementaiton in Spring Data Elasticsearch can only come with Spring Data Elasticsearch 5 (Spring Data 3, Spring 6).
  *
  *     There are still some bugs in the Elasticsearch client which need to be resolved
  *
@@ -51,9 +49,9 @@ public class DemoElasticsearchTest extends SuperTest {
     @Autowired
     private TestElasticsearchRepository testElasticsearchRepository;
     @Autowired
-    protected ElasticsearchRestTemplate elasticsearchRestTemplate;
+    protected ElasticsearchTemplate elasticsearchTemplate;
     @Autowired
-    protected RestHighLevelClient restHighLevelClient;
+    protected ElasticsearchClient elasticsearchClient;
     @Autowired
     protected RestClient restClient;
 
@@ -71,8 +69,8 @@ public class DemoElasticsearchTest extends SuperTest {
     }
 
     private void createIndex(){
-        boolean delete = elasticsearchRestTemplate.indexOps(TestEsDO.class).delete();
-        boolean b = elasticsearchRestTemplate.indexOps(TestEsDO.class).create();
+        boolean delete = elasticsearchTemplate.indexOps(TestEsDO.class).delete();
+        boolean b = elasticsearchTemplate.indexOps(TestEsDO.class).create();
     }
 
     private void deleteAllData() {
@@ -115,9 +113,9 @@ public class DemoElasticsearchTest extends SuperTest {
 
         stringQuery.addSort(Sort.by(Sort.Direction.DESC,"id"));
 
-        SearchHits<Map> search = elasticsearchRestTemplate.search(stringQuery, Map.class, IndexCoordinates.of(TestEsDO.indexName));
+        SearchHits<Map> search = elasticsearchTemplate.search(stringQuery, Map.class, IndexCoordinates.of(TestEsDO.indexName));
 
-        // restHighLevelClient.search()
+        // elasticsearchClient.search()
         long totalHits = search.getTotalHits();
         List<SearchHit<Map>> searchHits = search.getSearchHits();
         for (SearchHit<Map> searchHit : searchHits) {

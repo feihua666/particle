@@ -4,11 +4,11 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as navigationSiteCategoryRelUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as navigationSiteCategoryRelUpdateApi
 } from "../../api/admin/navigationSiteCategoryRelAdminApi"
 
-import {updatePageFormItems, useUpdatePageFormItems} from "../../components/admin/navigationSiteCategoryRelManage";
+import {useUpdatePageFormItems} from "../../components/admin/navigationSiteCategoryRelManage";
 import {remoteSelectNavigationSiteProps} from "../../components/navigationSiteCompItem";
 
 

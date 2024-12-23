@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.doc.service;
 
-import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDirRelDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDirRelDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -60,7 +61,7 @@ public interface IOpenplatformDocApiDirRelService extends IBaseService<Openplatf
         Assert.notEmpty(openplatformDocDirIds,"openplatformDocDirIds 不能为空");
         return list(Wrappers.<OpenplatformDocApiDirRelDO>lambdaQuery().in(OpenplatformDocApiDirRelDO::getOpenplatformDocDirId, openplatformDocDirIds));
     }
-            
+
 
 
 

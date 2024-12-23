@@ -1,10 +1,11 @@
 package com.particle.role.infrastructure.roledatascoperel.service;
 
-import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IRoleDataScopeRelService extends IBaseService<RoleDataScopeRelD
         Assert.notEmpty(roleIds,"roleIds 不能为空");
         return list(Wrappers.<RoleDataScopeRelDO>lambdaQuery().in(RoleDataScopeRelDO::getRoleId, roleIds));
     }
-            
+
 
     /**
      * 根据数据范围id查询
@@ -60,7 +61,7 @@ public interface IRoleDataScopeRelService extends IBaseService<RoleDataScopeRelD
         Assert.notEmpty(dataScopeIds,"dataScopeIds 不能为空");
         return list(Wrappers.<RoleDataScopeRelDO>lambdaQuery().in(RoleDataScopeRelDO::getDataScopeId, dataScopeIds));
     }
-            
+
 
 
 

@@ -39,7 +39,7 @@
         <!-- 业务组件共享数据依赖，用到了字典项共享接口 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-light-share</artifactId>
+            <artifactId>component-common</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

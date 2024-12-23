@@ -3,7 +3,10 @@
  * 租户用户邀请记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as TenantUserInviteUserRecordPageApi, remove as TenantUserInviteUserRecordRemoveApi} from "../../../api/userinvite/admin/tenantUserInviteUserRecordAdminApi"
+import {
+  page as TenantUserInviteUserRecordPageApi,
+  remove as TenantUserInviteUserRecordRemoveApi
+} from "../../../api/userinvite/admin/tenantUserInviteUserRecordAdminApi"
 import {pageFormItems} from "../../../components/userinvite/admin/tenantUserInviteUserRecordManage";
 
 

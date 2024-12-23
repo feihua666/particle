@@ -1,10 +1,11 @@
 package com.particle.navigation.infrastructure.structmapping;
 
-import com.particle.navigation.infrastructure.dos.NavigationSiteTagDO;
 import com.particle.navigation.domain.NavigationSiteTag;
 import com.particle.navigation.domain.NavigationSiteTagId;
+import com.particle.navigation.infrastructure.dos.NavigationSiteTagDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-11-07 09:38:23
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class NavigationSiteTagInfrastructureStructMapping {
 	public static NavigationSiteTagInfrastructureStructMapping instance = Mappers.getMapper( NavigationSiteTagInfrastructureStructMapping.class );
 

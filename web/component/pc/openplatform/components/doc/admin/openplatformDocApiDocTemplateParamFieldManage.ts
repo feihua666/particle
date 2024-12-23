@@ -1,6 +1,6 @@
 import {
-  useCascaderOpenplatformDocApiDocTemplateParamFieldCompItem,
-  useSelectOpenplatformDocApiDocTemplateCompItem
+    useCascaderOpenplatformDocApiDocTemplateParamFieldCompItem,
+    useSelectOpenplatformDocApiDocTemplateCompItem
 } from "../../openplatformDocCompItem";
 import {treeQueryComps} from "../../../../treeQueryComps";
 

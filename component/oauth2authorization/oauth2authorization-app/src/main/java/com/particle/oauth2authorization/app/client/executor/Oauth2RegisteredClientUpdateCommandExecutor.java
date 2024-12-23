@@ -1,22 +1,22 @@
 package com.particle.oauth2authorization.app.client.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.oauth2authorization.app.client.structmapping.Oauth2RegisteredClientAppStructMapping;
 import com.particle.oauth2authorization.client.client.dto.command.Oauth2RegisteredClientUpdateCommand;
 import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredClientVO;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
 import com.particle.oauth2authorization.domain.client.gateway.Oauth2RegisteredClientGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -64,7 +64,7 @@ public class Oauth2RegisteredClientUpdateCommandExecutor  extends AbstractBaseEx
 		return oauth2RegisteredClient;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface Oauth2RegisteredClientUpdateCommandToOauth2RegisteredClientMapping{
 		Oauth2RegisteredClientUpdateCommandToOauth2RegisteredClientMapping instance = Mappers.getMapper(Oauth2RegisteredClientUpdateCommandToOauth2RegisteredClientMapping.class );
 

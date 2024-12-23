@@ -1,7 +1,10 @@
 <script setup name="LowcodeSegmentGenGenericDesignAndGeneratePage" lang="ts">
 
-import LowcodeSegmentGenGenericDesignAndGenerate from '../../../../../components/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
-import {genericFormComps} from "../../../../../components/admin/segmentgen/designandgenerate/lowcodeSegmentGenGenericDesignAndGenerate";
+import LowcodeSegmentGenGenericDesignAndGenerate
+  from '../../../../../components/admin/segmentgen/designandgenerate/LowcodeSegmentGenGenericDesignAndGenerate.vue'
+import {
+  genericFormComps
+} from "../../../../../components/admin/segmentgen/designandgenerate/lowcodeSegmentGenGenericDesignAndGenerate";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

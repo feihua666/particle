@@ -1,10 +1,11 @@
 package com.particle.scheduler.infrastructure.temptask.service;
 
-import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ public interface ISchedulerTempTaskRunRecordService extends IBaseService<Schedul
         Assert.notEmpty(schedulerTempTaskIds,"schedulerTempTaskIds 不能为空");
         return list(Wrappers.<SchedulerTempTaskRunRecordDO>lambdaQuery().in(SchedulerTempTaskRunRecordDO::getSchedulerTempTaskId, schedulerTempTaskIds));
     }
-            
+
 
 
 

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
  * @author yangwei
  * @since 2023-06-28 15:24
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import(WxCpConfiguration.class)
 @EnableConfigurationProperties(WxCpProperties.class)
 @ConditionalOnProperty(prefix = "particle.wxcp", name = "enabled", havingValue = "true", matchIfMissing = false)

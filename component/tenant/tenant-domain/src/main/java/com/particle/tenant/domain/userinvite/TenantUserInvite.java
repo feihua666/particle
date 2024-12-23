@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -48,7 +49,7 @@ public class TenantUserInvite extends AggreateRoot {
     * 到期时间，为空永不到期
     */
     private LocalDateTime expireAt;
-    
+
     /**
     * 邀请人用户id
     */

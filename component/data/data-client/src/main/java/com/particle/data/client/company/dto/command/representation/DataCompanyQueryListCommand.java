@@ -1,10 +1,9 @@
 package com.particle.data.client.company.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -49,7 +48,7 @@ public class DataCompanyQueryListCommand extends AbstractBaseQueryCommand {
 
     @Schema(description = "最后更新时间")
     private LocalDateTime latestUpdateAt;
-    
+
 
 
 

@@ -2,12 +2,12 @@ package com.particle.dataquery.client.provider.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

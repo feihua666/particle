@@ -1,8 +1,8 @@
 package com.particle.openplatform.domain.openapirecord.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecord;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecordId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

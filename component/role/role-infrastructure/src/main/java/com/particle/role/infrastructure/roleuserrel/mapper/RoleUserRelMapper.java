@@ -1,7 +1,7 @@
 package com.particle.role.infrastructure.roleuserrel.mapper;
 
-import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

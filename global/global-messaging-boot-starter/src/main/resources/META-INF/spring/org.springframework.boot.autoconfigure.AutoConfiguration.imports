@@ -1,0 +1,2 @@
+com.particle.global.messaging.GlobalMessageAutoConfiguration
+com.particle.global.messaging.GlobalMessageTestBinderAutoConfiguration

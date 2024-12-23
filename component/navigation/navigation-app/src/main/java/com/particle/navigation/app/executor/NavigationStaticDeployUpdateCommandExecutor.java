@@ -1,24 +1,25 @@
 package com.particle.navigation.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationStaticDeployAppStructMapping;
 import com.particle.navigation.client.dto.command.NavigationStaticDeployUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationStaticDeployVO;
 import com.particle.navigation.domain.NavigationStaticDeploy;
 import com.particle.navigation.domain.NavigationStaticDeployId;
 import com.particle.navigation.domain.gateway.NavigationStaticDeployGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 /**
@@ -76,7 +77,7 @@ public class NavigationStaticDeployUpdateCommandExecutor  extends AbstractBaseEx
 		return navigationStaticDeploy;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface NavigationStaticDeployUpdateCommandToNavigationStaticDeployMapping{
 		NavigationStaticDeployUpdateCommandToNavigationStaticDeployMapping instance = Mappers.getMapper(NavigationStaticDeployUpdateCommandToNavigationStaticDeployMapping.class );
 

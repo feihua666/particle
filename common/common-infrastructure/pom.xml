@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-adapter-boot-starter</artifactId>
+            <artifactId>global-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
 

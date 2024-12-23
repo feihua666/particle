@@ -33,12 +33,12 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -221,7 +221,12 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 					StrUtil.format("需要预热的数据查询接口数量，size={}",size));
 
 			for (DataQueryDataApiDO dataQueryDataApiDO : dataQueryDataApiList) {
-				log.warn("dataquery api warmUpLight process,current url={},name=,{}/{}",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName(),++current,size);
+				log.warn("dataquery api warmUpLight process {}/{}, url={},name={}",
+						++current,
+						size,
+						dataQueryDataApiDO.getUrl(),
+						dataQueryDataApiDO.getName()
+						);
 				DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(DataQueryDataApiId.of(dataQueryDataApiDO.getId()));
 				dataQueryDataApi.warmUpLight();
 

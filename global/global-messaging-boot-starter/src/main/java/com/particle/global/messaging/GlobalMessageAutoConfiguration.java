@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  * @author yangwei
  * @since 2022-09-20 13:10
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import({GlobalMessageEventConfiguration.class,
 		MongoMessageEventConfiguration.class,
 		CloudStreamConfiguration.class,

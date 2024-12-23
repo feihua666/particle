@@ -2,9 +2,8 @@ package com.particle.global.exception.handle;
 
 import com.particle.global.dto.basic.DTO;
 import com.particle.global.dto.response.Response;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>

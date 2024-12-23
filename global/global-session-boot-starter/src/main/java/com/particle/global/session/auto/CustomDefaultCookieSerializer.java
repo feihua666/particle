@@ -1,10 +1,9 @@
 package com.particle.global.session.auto;
 
 import com.particle.global.swagger.SwaggerInfo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.session.web.http.DefaultCookieSerializer;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>

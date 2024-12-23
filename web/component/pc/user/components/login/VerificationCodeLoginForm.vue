@@ -1,6 +1,6 @@
 <script setup name="VerificationCodeLoginForm"  lang="ts">
 // 基于验证码的登录
-import {getCurrentInstance,reactive ,ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {getLoginCaptcha, getLoginDynamicCaptcha, loginDynamicCaptcha} from '../../api/userLoginApi'
 import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../../global/common/tools/StringTools'

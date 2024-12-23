@@ -2,19 +2,18 @@ package com.particle.role.app.roledatascoperel.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Assert;
-import com.particle.role.domain.roledatascoperel.gateway.RoleDataScopeRelGateway;
-import com.particle.role.infrastructure.roledatascoperel.service.IRoleDataScopeRelService;
-import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
-import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
-import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
-
-import com.particle.global.dto.response.Response;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.Response;
+import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
+import com.particle.role.domain.roledatascoperel.gateway.RoleDataScopeRelGateway;
+import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
+import com.particle.role.infrastructure.roledatascoperel.service.IRoleDataScopeRelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;

@@ -1,11 +1,10 @@
 package com.particle.message.client.dto.command.representation;
-import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
 
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -35,7 +34,7 @@ public class MessageUserStatePageQueryCommand extends AbstractBasePageQueryComma
 
     @Schema(description = "读取时间")
     private LocalDateTime readAt;
-    
+
 
 
 

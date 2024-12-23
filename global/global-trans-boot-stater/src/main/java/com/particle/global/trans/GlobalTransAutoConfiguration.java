@@ -35,7 +35,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @since 2022-08-07 10:35
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalTransAutoConfiguration {
 

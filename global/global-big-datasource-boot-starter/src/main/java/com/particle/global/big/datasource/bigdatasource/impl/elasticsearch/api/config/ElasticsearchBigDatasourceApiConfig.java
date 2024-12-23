@@ -1,6 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.api.config;
 
 import cn.hutool.core.util.StrUtil;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import com.particle.global.big.datasource.bigdatasource.api.config.AbstractBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.enums.ElasticsearchBigDatasourceApiConfigDataType;
@@ -12,8 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 
 import javax.script.Bindings;
 import java.util.Arrays;
@@ -121,16 +121,16 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 
 	/**
 	 * 返回渲染的dsl
-	 * @param elasticsearchRestTemplate 支持在脚本中直接使用 elasticsearchRestTemplate 自定义查询结果，一般用于 groovy 脚本
-	 * @param restHighLevelClient 支持在脚本中直接使用 restHighLevelClient 自定义查询结果，一般用于 groovy 脚本
+	 * @param elasticsearchTemplate 支持在脚本中直接使用 elasticsearchTemplate 自定义查询结果，一般用于 groovy 脚本
+	 * @param elasticsearchClient 支持在脚本中直接使用 elasticsearchClient 自定义查询结果，一般用于 groovy 脚本
 	 * @param restClient 支持在脚本中直接使用 restClient 自定义查询结果，一般用于 groovy 脚本
 	 * @param command
 	 * @param queryString
 	 * @return
 	 */
 	@SneakyThrows
-	public RenderResult render(ElasticsearchRestTemplate elasticsearchRestTemplate,
-							   RestHighLevelClient restHighLevelClient,
+	public RenderResult render(ElasticsearchTemplate elasticsearchTemplate,
+							   ElasticsearchClient elasticsearchClient,
 							   RestClient restClient,
 							   Map<String, Object> elasticsearchBigDatasourceInstanceMap,
 							   Object command,
@@ -139,8 +139,8 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 		if(dslTemplateType == ElasticsearchBigDatasourceApiConfigDslTemplateType.groovy_script_template){
 
 			Map<String, Object> renderMap = TemplateRenderDataWrap.create(command).toRenderMap();
-			renderMap.put("elasticsearchRestTemplate", elasticsearchRestTemplate);
-			renderMap.put("restHighLevelClient", restHighLevelClient);
+			renderMap.put("elasticsearchTemplate", elasticsearchTemplate);
+			renderMap.put("elasticsearchClient", elasticsearchClient);
 			renderMap.put("restClient", restClient);
 			renderMap.put("elasticsearchBigDatasourceInstanceMap", elasticsearchBigDatasourceInstanceMap);
 

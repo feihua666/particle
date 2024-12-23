@@ -1,22 +1,22 @@
 package com.particle.oplog.app.error.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.oplog.app.error.structmapping.OpLogErrorAppStructMapping;
 import com.particle.oplog.client.error.dto.command.OpLogErrorContentCreateCommand;
 import com.particle.oplog.client.error.dto.command.OpLogErrorCreateCommand;
 import com.particle.oplog.client.error.dto.data.OpLogErrorVO;
 import com.particle.oplog.domain.error.OpLogError;
 import com.particle.oplog.domain.error.gateway.OpLogErrorGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -66,7 +66,7 @@ public class OpLogErrorCreateCommandExecutor  extends AbstractBaseExecutor {
 		return opLogError;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpLogErrorCreateCommandToOpLogErrorMapping{
 		OpLogErrorCreateCommandToOpLogErrorMapping instance = Mappers.getMapper( OpLogErrorCreateCommandToOpLogErrorMapping.class );
 

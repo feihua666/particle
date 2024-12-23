@@ -1,6 +1,7 @@
 // 该文件内存放整个模块有组件需要单独抽出的内容
 import {list as dataObjectListApi} from "../api/admin/dataObjectAdminApi";
-import {page as dataScopePageApi,list as dataScopeListApi} from "../api/admin/dataScopeAdminApi";
+import {page as dataScopePageApi} from "../api/admin/dataScopeAdminApi";
+
 export const remoteSelectDataScopeProps = {
     // 加载数据初始化参数,路由传参
     dataScopeId: {

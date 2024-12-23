@@ -13,11 +13,10 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -32,7 +31,7 @@ import javax.validation.Valid;
 public class FuncApplicationFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	private FuncApplicationFuncRelGateway funcApplicationFuncRelGateway;
-	
+
 	private IFuncApplicationFuncRelService iFuncApplicationFuncRelService;
 
 	/**
@@ -70,7 +69,7 @@ public class FuncApplicationFuncRelDeleteCommandExecutor  extends AbstractBaseEx
 		boolean result = iFuncApplicationFuncRelService.deleteByColumn(funcIdCommand.getId(), FuncApplicationFuncRelDO::getFuncId);
 		return Response.buildSuccess();
 	}
-	
+
 	/**
 	 * 注入使用set方法
 	 * @param funcApplicationFuncRelGateway

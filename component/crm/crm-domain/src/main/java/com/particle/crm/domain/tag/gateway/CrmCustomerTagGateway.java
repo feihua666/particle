@@ -1,8 +1,8 @@
 package com.particle.crm.domain.tag.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.crm.domain.tag.CrmCustomerTag;
 import com.particle.crm.domain.tag.CrmCustomerTagId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

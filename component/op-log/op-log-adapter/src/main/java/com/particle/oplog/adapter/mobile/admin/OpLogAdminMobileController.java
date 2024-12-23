@@ -1,7 +1,7 @@
 package com.particle.oplog.adapter.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.oplog.client.api.IOpLogApplicationService;
+import com.particle.oplog.client.api.IOpLogApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

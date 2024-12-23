@@ -1,6 +1,6 @@
 import {useSelectAppCompItem} from "../../openplatformAppCompItem";
 import {
-  useOauth2SelectClientCompItem
+    useOauth2SelectClientCompItem
 } from "../../../../oauth2authorization/components/oauth2authorizationRegisteredClientCompItem";
 import {useSelectCrmCustomerCompItem} from "../../../../crm/components/crmCompItem";
 

@@ -2,8 +2,8 @@
 /**
  * 低代码片段模板管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as lowcodeSegmentTemplateCreateApi,list as lowcodeSegmentTemplateListApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
+import {reactive, ref} from 'vue'
+import {create as lowcodeSegmentTemplateCreateApi} from "../../../api/generator/admin/lowcodeSegmentTemplateAdminApi"
 import {addPageFormItems} from "../../../components/admin/lowcodeSegmentTemplateManage";
 
 // 声明属性

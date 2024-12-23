@@ -1,22 +1,22 @@
 package com.particle.openplatform.app.bill.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.bill.structmapping.OpenplatformProviderRecordPrdApiDaySummaryAppStructMapping;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformProviderRecordPrdApiDaySummaryUpdateCommand;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformProviderRecordPrdApiDaySummaryVO;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdApiDaySummary;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdApiDaySummaryId;
 import com.particle.openplatform.domain.bill.gateway.OpenplatformProviderRecordPrdApiDaySummaryGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryUpdateCommandExecutor  ex
 		return openplatformProviderRecordPrdApiDaySummary;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface OpenplatformProviderRecordPrdApiDaySummaryUpdateCommandToOpenplatformProviderRecordPrdApiDaySummaryMapping{
 		OpenplatformProviderRecordPrdApiDaySummaryUpdateCommandToOpenplatformProviderRecordPrdApiDaySummaryMapping instance = Mappers.getMapper(OpenplatformProviderRecordPrdApiDaySummaryUpdateCommandToOpenplatformProviderRecordPrdApiDaySummaryMapping.class );
 

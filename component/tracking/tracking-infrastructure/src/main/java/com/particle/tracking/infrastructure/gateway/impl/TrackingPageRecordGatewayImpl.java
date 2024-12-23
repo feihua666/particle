@@ -1,15 +1,15 @@
 package com.particle.tracking.infrastructure.gateway.impl;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.TrackingPageRecordId;
 import com.particle.tracking.domain.gateway.TrackingPageRecordGateway;
-import com.particle.tracking.infrastructure.service.ITrackingPageRecordService;
 import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
+import com.particle.tracking.infrastructure.service.ITrackingPageRecordService;
 import com.particle.tracking.infrastructure.structmapping.TrackingPageRecordInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

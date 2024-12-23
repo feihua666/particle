@@ -2,15 +2,15 @@ package com.particle.dept.app.deptuserrel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.catchlog.CatchAndLog;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.app.deptuserrel.executor.representation.DeptUserRelQueryCommandExecutor;
 import com.particle.dept.client.deptuserrel.api.representation.IDeptUserRelRepresentationApplicationService;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**

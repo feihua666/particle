@@ -1,8 +1,8 @@
 package com.particle.user.domain.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

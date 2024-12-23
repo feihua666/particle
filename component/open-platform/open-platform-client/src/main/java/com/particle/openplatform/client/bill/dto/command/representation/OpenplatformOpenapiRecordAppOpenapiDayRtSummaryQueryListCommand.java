@@ -1,12 +1,11 @@
 package com.particle.openplatform.client.bill.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import java.time.LocalDate;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 /**
  * <p>
  * 开放平台应用开放接口日实时汇总 通用列表查询指令对象
@@ -35,7 +34,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryQueryListCommand ext
 
     @Schema(description = "日期")
     private LocalDate dayAt;
-    
+
 
     @Schema(description = "客户id")
     private Long customerId;
@@ -51,7 +50,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryQueryListCommand ext
 
     @Schema(description = "平均单价金额")
     private BigDecimal averageUnitPriceAmount;
-    
+
 
     @Schema(description = "总消费金额")
     private Integer totalFeeAmount;

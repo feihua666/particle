@@ -1,10 +1,11 @@
 package com.particle.func.infrastructure.structmapping;
 
-import com.particle.func.infrastructure.dos.FuncGroupDO;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
+import com.particle.func.infrastructure.dos.FuncGroupDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2022-12-02
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class FuncGroupInfrastructureStructMapping {
 	public static FuncGroupInfrastructureStructMapping instance = Mappers.getMapper( FuncGroupInfrastructureStructMapping.class );
 

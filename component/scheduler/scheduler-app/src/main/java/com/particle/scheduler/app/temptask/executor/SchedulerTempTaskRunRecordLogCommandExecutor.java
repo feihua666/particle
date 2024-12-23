@@ -1,16 +1,11 @@
 package com.particle.scheduler.app.temptask.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.scheduler.domain.temptask.gateway.SchedulerTempTaskRunRecordLogGateway;
 import com.particle.scheduler.infrastructure.temptask.service.ISchedulerTempTaskRunRecordLogService;
-import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskRunRecordLogDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

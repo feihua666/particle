@@ -2,10 +2,10 @@ package com.particle.dept.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.dept.client.dto.command.DeptCreateCommand;
 import com.particle.dept.client.dto.command.DeptUpdateCommand;
 import com.particle.dept.client.dto.data.DeptVO;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

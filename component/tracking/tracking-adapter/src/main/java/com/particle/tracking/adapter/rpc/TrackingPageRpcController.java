@@ -1,8 +1,8 @@
 package com.particle.tracking.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.tracking.client.api.ITrackingPageApplicationService;
 import com.particle.tracking.adapter.feign.client.rpc.TrackingPageRpcFeignClient;
+import com.particle.tracking.client.api.ITrackingPageApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

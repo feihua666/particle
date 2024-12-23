@@ -92,34 +92,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream</artifactId>
         </dependency>
-        <!-- 消息测试，支持本地消息 提供本地默认的测试 test binder-->
-        <!-- 该包并不能作为一个普通的binder当作本地使用，其设计目的是单元测试，一旦测试自动配置，其它中间件binder将生效 -->
-        <!-- 不过在新版本中该模式已被弃用 -->
-        <!-- 新版说明 https://docs.spring.io/spring-cloud-stream/docs/3.2.7/reference/html/spring-cloud-stream.html#_testing -->
-        <!-- 所以升级了spring boot 到 2.7.12 spring cloud 到2021.0.7-->
-<!--        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-test-support</artifactId>
-            <scope>test</scope>
-        </dependency>-->
 
-
-        <!-- 仅测试使用，如果是单体项目，单机使用自行引入是没问题的（包内使用了测试中的一些三方类，如果正式使用将导致类找不到） -->
-        <!-- 好处是就算没有引入中间件消息也会本地发送 -->
-        <!-- 一旦引入并且导入配置@Import(TestChannelBinderConfiguration.class)后 spring-cloud-starter-stream-kafka 和 spring-cloud-starter-stream-rabbit 之类的就不会再自动配置了-->
+        <!-- 添加test-binder旨在支持在不使用三方消息中间件情况下，本地一样可以打通消息 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream</artifactId>
-            <type>test-jar</type>
-            <classifier>test-binder</classifier>
-            <scope>test</scope>
-        </dependency>
-
-<!--   jdk编译不支持jdk8 如果spring-cloud-stream升级到4.0.0以上，上面的依赖配置可以不需要了，该依赖配置就可以使用了 -->
-<!--        <dependency>
-            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-test-binder</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- kafka支持 -->
         <dependency>

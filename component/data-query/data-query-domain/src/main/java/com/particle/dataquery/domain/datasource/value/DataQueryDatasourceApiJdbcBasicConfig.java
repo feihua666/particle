@@ -6,11 +6,9 @@ import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceApiJdbc
 import com.particle.global.dto.basic.Value;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.template.TemplateTool;
-import com.particle.global.validation.ValidateTool;
 import lombok.Data;
 
 import javax.script.ScriptException;
-import java.util.Collections;
 
 /**
  * <p>

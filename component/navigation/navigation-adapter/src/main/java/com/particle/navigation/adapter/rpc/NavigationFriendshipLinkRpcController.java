@@ -1,8 +1,8 @@
 package com.particle.navigation.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.navigation.client.api.INavigationFriendshipLinkApplicationService;
 import com.particle.navigation.adapter.feign.client.rpc.NavigationFriendshipLinkRpcFeignClient;
+import com.particle.navigation.client.api.INavigationFriendshipLinkApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

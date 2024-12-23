@@ -1,28 +1,28 @@
 package com.particle.openplatform.app.provider.executor.representation;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.provider.structmapping.OpenplatformProviderAppStructMapping;
+import com.particle.openplatform.client.provider.dto.command.representation.OpenplatformProviderPageQueryCommand;
 import com.particle.openplatform.client.provider.dto.command.representation.OpenplatformProviderQueryListCommand;
 import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderVO;
 import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiDO;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiService;
 import com.particle.openplatform.infrastructure.provider.dos.OpenplatformProviderDO;
 import com.particle.openplatform.infrastructure.provider.service.IOpenplatformProviderService;
-import com.particle.openplatform.client.provider.dto.command.representation.OpenplatformProviderPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.global.dto.response.MultiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.PageResponse;
-import javax.validation.Valid;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

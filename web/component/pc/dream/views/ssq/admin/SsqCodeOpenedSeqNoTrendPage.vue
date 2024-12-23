@@ -2,13 +2,13 @@
 /**
  * 已开奖双色球开奖对应序号趋势
  */
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { LineChart,BarChart } from 'echarts/charts'
-import { GridComponent,TooltipComponent,TitleComponent } from 'echarts/components'
+import {use} from 'echarts/core';
+import {CanvasRenderer} from 'echarts/renderers';
+import {BarChart, LineChart} from 'echarts/charts'
+import {GridComponent, TitleComponent, TooltipComponent} from 'echarts/components'
 
 import VChart from 'vue-echarts';
-import {reactive, ref, onMounted, } from 'vue';
+import {onMounted, reactive, ref,} from 'vue';
 import {list} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 
 use([GridComponent,TooltipComponent,TitleComponent, LineChart,BarChart, CanvasRenderer])

@@ -1,12 +1,9 @@
 package com.particle.global.big.datasource.bigdatasource.impl.http;
 
 import com.particle.global.big.datasource.bigdatasource.AbstractBigDatasource;
-import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
-import com.particle.global.big.datasource.bigdatasource.executor.DefaultBigDatasourceExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.http.config.HttpBigDatasourceConfig;
 import com.particle.global.big.datasource.bigdatasource.impl.http.executor.HttpBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.BigDatasourceHttpJoddClientImpl;

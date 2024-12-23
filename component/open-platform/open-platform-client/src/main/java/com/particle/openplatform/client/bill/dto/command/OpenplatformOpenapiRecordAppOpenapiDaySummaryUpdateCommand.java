@@ -1,11 +1,10 @@
 package com.particle.openplatform.client.bill.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -38,7 +37,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryUpdateCommand extends 
     @NotNull(message = "日期 不能为空")
         @Schema(description = "日期",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate dayAt;
-    
+
 
     @Schema(description = "客户id")
     private Long customerId;

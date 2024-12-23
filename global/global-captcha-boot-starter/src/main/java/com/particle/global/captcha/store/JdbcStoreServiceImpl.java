@@ -7,7 +7,6 @@ import com.particle.global.captcha.CustomCaptchaScene;
 import com.particle.global.captcha.CustomCaptchaType;
 import com.particle.global.captcha.gen.CaptchaGenResultDTO;
 import com.particle.global.tool.json.JsonTool;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 

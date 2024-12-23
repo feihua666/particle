@@ -1,6 +1,5 @@
 package com.particle.global.mybatis.plus.crud;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import lombok.extern.slf4j.Slf4j;

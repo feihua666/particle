@@ -1,22 +1,22 @@
 package com.particle.message.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.message.app.structmapping.MessageAppStructMapping;
 import com.particle.message.client.dto.command.MessageUpdateCommand;
 import com.particle.message.client.dto.data.MessageVO;
 import com.particle.message.domain.Message;
 import com.particle.message.domain.MessageId;
 import com.particle.message.domain.gateway.MessageGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -59,7 +59,7 @@ public class MessageUpdateCommandExecutor  extends AbstractBaseExecutor {
 		return message;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface MessageUpdateCommandToMessageMapping{
 		MessageUpdateCommandToMessageMapping instance = Mappers.getMapper(MessageUpdateCommandToMessageMapping.class );
 

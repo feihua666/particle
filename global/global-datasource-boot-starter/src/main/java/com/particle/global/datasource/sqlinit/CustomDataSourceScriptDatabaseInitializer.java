@@ -11,13 +11,13 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,23 +49,22 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 	}
 
 	@Override
-	protected void runScripts(List<Resource> resources, boolean continueOnError, String separator, Charset encoding) {
+	protected void runScripts(Scripts scripts) {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.setContinueOnError(continueOnError);
-		populator.setSeparator(separator);
-
-		if (encoding != null) {
-			populator.setSqlScriptEncoding(encoding.name());
+		populator.setContinueOnError(scripts.isContinueOnError());
+		populator.setSeparator(scripts.getSeparator());
+		if (scripts.getEncoding() != null) {
+			populator.setSqlScriptEncoding(scripts.getEncoding().name());
 		}
 		List<String> importScriptsLocation = new ArrayList<>();
 		List<String> temp = null;
-		for (Resource resource : resources) {
+		for (Resource resource : scripts) {
 
 			temp = schemaImportSupport(resource);
 			if (!CollectionUtils.isEmpty(temp)) {
 				importScriptsLocation.addAll(temp);
 			}
-			if (!isEmpty(resource,separator)) {
+			if (!isEmpty(resource,scripts.getSeparator())) {
 				populator.addScript(resource);
 			}
 		}
@@ -131,8 +130,7 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 
 	private boolean isEmpty(Resource resource,String separator){
 		try {
-			// 通过注释看到spring该读取脚本已过时，但未提供可用的其它工具方法，暂这么用
-			String script = ScriptUtils.readScript(new LineNumberReader(new EncodedResource(resource).getReader()), ScriptUtils.DEFAULT_COMMENT_PREFIX, separator, ScriptUtils.DEFAULT_BLOCK_COMMENT_END_DELIMITER);
+			String script = readScript(new LineNumberReader(new EncodedResource(resource).getReader()), ScriptUtils.DEFAULT_COMMENT_PREFIXES, separator, ScriptUtils.DEFAULT_BLOCK_COMMENT_END_DELIMITER);
 			if (StringUtils.hasText(script)) {
 				return false;
 			}
@@ -144,5 +142,56 @@ public class CustomDataSourceScriptDatabaseInitializer extends SqlDataSourceScri
 
 	public void setInitializationProperties(SqlInitializationProperties initializationProperties) {
 		this.initializationProperties = initializationProperties;
+	}
+
+	/**
+	 * 下面代码及其关联代码，复制于{@link ScriptUtils#readScript(EncodedResource, String, String[], String)}
+	 * @param lineNumberReader
+	 * @param commentPrefixes
+	 * @param separator
+	 * @param blockCommentEndDelimiter
+	 * @return
+	 * @throws IOException
+	 */
+	private static String readScript(LineNumberReader lineNumberReader, @Nullable String[] commentPrefixes,
+									 @Nullable String separator, @Nullable String blockCommentEndDelimiter) throws IOException {
+
+		String currentStatement = lineNumberReader.readLine();
+		StringBuilder scriptBuilder = new StringBuilder();
+		while (currentStatement != null) {
+			if ((blockCommentEndDelimiter != null && currentStatement.contains(blockCommentEndDelimiter)) ||
+					(commentPrefixes != null && !startsWithAny(currentStatement, commentPrefixes, 0))) {
+				if (scriptBuilder.length() > 0) {
+					scriptBuilder.append('\n');
+				}
+				scriptBuilder.append(currentStatement);
+			}
+			currentStatement = lineNumberReader.readLine();
+		}
+		appendSeparatorToScriptIfNecessary(scriptBuilder, separator);
+		return scriptBuilder.toString();
+	}
+
+	private static void appendSeparatorToScriptIfNecessary(StringBuilder scriptBuilder, @Nullable String separator) {
+		if (separator == null) {
+			return;
+		}
+		String trimmed = separator.trim();
+		if (trimmed.length() == separator.length()) {
+			return;
+		}
+		// separator ends in whitespace, so we might want to see if the script is trying
+		// to end the same way
+		if (scriptBuilder.lastIndexOf(trimmed) == scriptBuilder.length() - trimmed.length()) {
+			scriptBuilder.append(separator.substring(trimmed.length()));
+		}
+	}
+	private static boolean startsWithAny(String script, String[] prefixes, int offset) {
+		for (String prefix : prefixes) {
+			if (script.startsWith(prefix, offset)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

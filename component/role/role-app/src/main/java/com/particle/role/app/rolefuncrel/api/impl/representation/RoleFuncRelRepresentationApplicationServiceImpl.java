@@ -11,13 +11,8 @@ import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepre
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
-import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>

@@ -1,8 +1,7 @@
 <script setup name="TableColumn">
-import {reactive ,computed,onMounted,inject,ref} from 'vue'
+import {computed} from 'vue'
 import PtTableColumn from './TableColumn.vue'
 import PtImage from './Image.vue'
-import SecretText from './SecretText.vue'
 import PtCompAdapter from '../../common/CompAdapter.vue'
 import {isObject} from "../../common/tools/ObjectTools";
 import {isFunction} from "../../common/tools/FunctionTools";

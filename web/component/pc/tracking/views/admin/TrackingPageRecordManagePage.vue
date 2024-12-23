@@ -3,7 +3,10 @@
  * 页面埋点记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as trackingPageRecordPageApi, remove as trackingPageRecordRemoveApi} from "../../api/admin/trackingPageRecordAdminApi"
+import {
+  page as trackingPageRecordPageApi,
+  remove as trackingPageRecordRemoveApi
+} from "../../api/admin/trackingPageRecordAdminApi"
 import {pageFormItems} from "../../components/admin/trackingPageRecordManage";
 
 
@@ -213,7 +216,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doTrackingPageRecordPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

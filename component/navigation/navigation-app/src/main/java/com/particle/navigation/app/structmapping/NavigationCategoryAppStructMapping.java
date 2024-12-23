@@ -1,18 +1,19 @@
 package com.particle.navigation.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.navigation.client.dto.command.representation.NavigationCategoryPageQueryCommand;
+import com.particle.navigation.client.dto.command.representation.NavigationCategoryQueryListCommand;
 import com.particle.navigation.client.dto.data.NavigationCategoryVO;
 import com.particle.navigation.domain.NavigationCategory;
 import com.particle.navigation.domain.NavigationCategoryId;
 import com.particle.navigation.infrastructure.dos.NavigationCategoryDO;
-import com.particle.navigation.client.dto.command.representation.NavigationCategoryPageQueryCommand;
-import com.particle.navigation.client.dto.command.representation.NavigationCategoryQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

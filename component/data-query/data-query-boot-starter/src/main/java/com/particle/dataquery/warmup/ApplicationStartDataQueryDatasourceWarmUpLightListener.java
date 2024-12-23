@@ -1,6 +1,5 @@
 package com.particle.dataquery.warmup;
 
-import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceApiRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceRepresentationApplicationService;
 import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
 import lombok.Setter;

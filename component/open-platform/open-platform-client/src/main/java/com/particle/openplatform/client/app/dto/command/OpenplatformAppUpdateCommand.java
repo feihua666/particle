@@ -1,12 +1,10 @@
 package com.particle.openplatform.client.app.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>

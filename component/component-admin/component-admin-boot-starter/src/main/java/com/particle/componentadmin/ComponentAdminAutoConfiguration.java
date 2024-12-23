@@ -1,20 +1,20 @@
  package com.particle.componentadmin;
 
 
-import com.particle.global.projectinfo.ProjectInfo;
-import com.particle.global.swagger.ApplicationContexSwaggertHelper;
-import com.particle.global.swagger.SwaggerInfo;
-import com.particle.global.swagger.factory.SwaggerFactory;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+ import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
+ import com.particle.global.swagger.SwaggerInfo;
+ import com.particle.global.swagger.factory.SwaggerFactory;
+ import io.swagger.v3.oas.models.security.SecurityScheme;
+ import org.mybatis.spring.annotation.MapperScan;
+ import org.springdoc.core.models.GroupedOpenApi;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 /**
  * <p>
@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2023-04-13 15:41:30
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan("com.particle.componentadmin.infrastructure.mapper")
 public class ComponentAdminAutoConfiguration {
 
@@ -39,7 +39,7 @@ public class ComponentAdminAutoConfiguration {
     @Bean
     public GroupedOpenApi createComponentAdminAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("component-admin接口")
                 .basePackage("com.particle.componentadmin.adapter")

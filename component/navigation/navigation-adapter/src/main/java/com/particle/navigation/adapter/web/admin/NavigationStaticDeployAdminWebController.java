@@ -51,6 +51,7 @@ import javax.script.ScriptException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -333,7 +334,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                 FileUtil.writeBytes(download, logoPath);
 
                 navigationSiteDO.setLogoUrl(deployConfig.getFrontFinalAbsoluteSubContextPath() + path);
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 log.error("logo download error by url={}",logoUrl, e);
             }
         }
@@ -348,7 +349,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                 FileUtil.writeBytes(download, screenshotPath);
 
                 navigationSiteDO.setScreenshotUrl(deployConfig.getFrontFinalAbsoluteSubContextPath() + path);
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 log.error("screenshot download error by url={}",screenshotUrl, e);
             }
         }
@@ -362,7 +363,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
                 FileUtil.writeBytes(download, screenshotThumbnailPath);
 
                 navigationSiteDO.setScreenshotThumbnailUrl(deployConfig.getFrontFinalAbsoluteSubContextPath() + path);
-            } catch (IOException e){
+            } catch (IOException | URISyntaxException e){
                 log.error("screenshotThumbnail download error by url={}",screenshotThumbnailUrl, e);
             }
         }

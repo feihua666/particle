@@ -2,7 +2,7 @@
 /**
  * 客户公司部门管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as crmDeptCreateApi} from "../../../api/company/admin/crmDeptAdminApi"
 import {addPageFormItems} from "../../../components/company/admin/crmDeptManage";
 

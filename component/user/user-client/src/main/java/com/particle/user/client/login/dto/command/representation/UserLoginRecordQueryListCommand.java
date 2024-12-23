@@ -2,7 +2,6 @@ package com.particle.user.client.login.dto.command.representation;
 
 
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

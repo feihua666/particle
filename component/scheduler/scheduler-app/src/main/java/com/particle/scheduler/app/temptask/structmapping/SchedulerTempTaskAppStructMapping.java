@@ -1,18 +1,19 @@
 package com.particle.scheduler.app.temptask.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.scheduler.client.temptask.dto.command.representation.SchedulerTempTaskPageQueryCommand;
+import com.particle.scheduler.client.temptask.dto.command.representation.SchedulerTempTaskQueryListCommand;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskVO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTask;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskId;
 import com.particle.scheduler.infrastructure.temptask.dos.SchedulerTempTaskDO;
-import com.particle.scheduler.client.temptask.dto.command.representation.SchedulerTempTaskPageQueryCommand;
-import com.particle.scheduler.client.temptask.dto.command.representation.SchedulerTempTaskQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

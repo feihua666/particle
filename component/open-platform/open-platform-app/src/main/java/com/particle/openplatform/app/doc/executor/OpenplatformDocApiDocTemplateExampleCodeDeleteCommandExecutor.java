@@ -10,11 +10,10 @@ import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTempla
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateExampleCode;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateExampleCodeId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplateExampleCodeGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

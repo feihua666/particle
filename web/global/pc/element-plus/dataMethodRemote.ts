@@ -3,12 +3,7 @@
  */
 
 import {isPromise} from "../../common/tools/PromiseTools"
-import {
-    DataMethodPage,
-    DataMethodPageQuery,
-    dataMethodProps,
-    reactiveDataMethodData
-} from './dataMethod'
+import {DataMethodPage, DataMethodPageQuery, dataMethodProps, reactiveDataMethodData} from './dataMethod'
 
 
 /**

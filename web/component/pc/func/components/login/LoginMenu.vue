@@ -6,9 +6,10 @@ import PtMenu from '../../../../../global/pc/element-plus/Menu.vue'
 import {loginGetList} from "../../api/funcLoginApi";
 import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
 
-import { useRoute } from 'vue-router'
-const loginUserStore = useLoginUserStore()
+import {useRoute} from 'vue-router'
 import {ref, watch} from "vue";
+
+const loginUserStore = useLoginUserStore()
 const menuRef = ref(null)
 const route = useRoute()
 // 如果切换租户或角色刷新功能菜单

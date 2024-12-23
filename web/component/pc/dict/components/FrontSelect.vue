@@ -5,8 +5,13 @@
 import {reactive, watch} from 'vue'
 import PtSelect from '../../../../global/pc/element-plus/Select.vue'
 import PtCheckboxGroup from '../../../../global/pc/element-plus/CheckboxGroup.vue'
-import {reactiveDataModelData,emitDataModelEvent,updateDataModelValueEventHandle,changeDataModelValueEventHandle} from '../../../../global/pc/element-plus/dataModel'
-import {getItems,getGroupItems,getGroups} from "../api/front/dictFrontApi";
+import {
+  changeDataModelValueEventHandle,
+  emitDataModelEvent,
+  reactiveDataModelData,
+  updateDataModelValueEventHandle
+} from '../../../../global/pc/element-plus/dataModel'
+import {getGroupItems, getGroups, getItems} from "../api/front/dictFrontApi";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

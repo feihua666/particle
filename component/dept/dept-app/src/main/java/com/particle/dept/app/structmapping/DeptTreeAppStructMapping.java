@@ -1,18 +1,19 @@
 package com.particle.dept.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.dept.client.dto.command.representation.DeptTreePageQueryCommand;
+import com.particle.dept.client.dto.command.representation.DeptTreeQueryListCommand;
 import com.particle.dept.client.dto.data.DeptTreeVO;
 import com.particle.dept.domain.DeptTree;
 import com.particle.dept.domain.DeptTreeId;
 import com.particle.dept.infrastructure.dos.DeptTreeDO;
-import com.particle.dept.client.dto.command.representation.DeptTreePageQueryCommand;
-import com.particle.dept.client.dto.command.representation.DeptTreeQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

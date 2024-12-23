@@ -1,7 +1,6 @@
 package com.particle.role.client.roleuserrel.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

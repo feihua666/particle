@@ -10,11 +10,10 @@ import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import com.particle.tenant.domain.tenantfunc.TenantFunc;
 import com.particle.tenant.domain.tenantfunc.TenantFuncId;
 import com.particle.tenant.domain.tenantfunc.gateway.TenantFuncGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

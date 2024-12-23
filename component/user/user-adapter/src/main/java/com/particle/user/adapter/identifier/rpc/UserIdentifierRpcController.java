@@ -1,18 +1,19 @@
 package com.particle.user.adapter.identifier.rpc;
 
-import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
-import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
-import com.particle.user.adapter.feign.client.identifier.rpc.UserIdentifierRpcFeignClient;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.user.adapter.feign.client.identifier.rpc.UserIdentifierRpcFeignClient;
+import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
+import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.service.IUserIdentifierService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>

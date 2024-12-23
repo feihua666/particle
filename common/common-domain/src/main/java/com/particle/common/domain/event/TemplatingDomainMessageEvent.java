@@ -1,12 +1,11 @@
 package com.particle.common.domain.event;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.particle.global.tool.email.EmailAccount;
 import com.google.common.collect.Lists;
+import com.particle.global.tool.email.EmailAccount;
 import com.particle.global.tool.sms.SmsAccount;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.util.Strings;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +25,8 @@ import java.util.stream.Collectors;
 @Getter
 public class TemplatingDomainMessageEvent extends DomainEvent<Map>{
 
+	public TemplatingDomainMessageEvent() {
+	}
 	/**
 	 * 构造方法
 	 * @param templateCode 将父级的 identifier 作为模板编码使用

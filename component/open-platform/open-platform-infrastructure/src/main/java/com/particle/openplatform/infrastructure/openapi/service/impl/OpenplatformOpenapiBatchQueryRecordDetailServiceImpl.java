@@ -1,14 +1,13 @@
 package com.particle.openplatform.infrastructure.openapi.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiBatchQueryRecordDetailDO;
 import com.particle.openplatform.infrastructure.openapi.mapper.OpenplatformOpenapiBatchQueryRecordDetailMapper;
 import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiBatchQueryRecordDetailService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class OpenplatformOpenapiBatchQueryRecordDetailServiceImpl extends IBaseS
 
 	@Override
 	protected void preUpdate(OpenplatformOpenapiBatchQueryRecordDetailDO po) {
-    
+
 	}
 }

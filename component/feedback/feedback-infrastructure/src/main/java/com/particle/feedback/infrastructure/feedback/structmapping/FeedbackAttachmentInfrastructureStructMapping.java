@@ -1,10 +1,11 @@
 package com.particle.feedback.infrastructure.feedback.structmapping;
 
-import com.particle.feedback.infrastructure.feedback.dos.FeedbackAttachmentDO;
 import com.particle.feedback.domain.feedback.FeedbackAttachment;
 import com.particle.feedback.domain.feedback.FeedbackAttachmentId;
+import com.particle.feedback.infrastructure.feedback.dos.FeedbackAttachmentDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-02-23 14:43:09
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class FeedbackAttachmentInfrastructureStructMapping {
 	public static FeedbackAttachmentInfrastructureStructMapping instance = Mappers.getMapper( FeedbackAttachmentInfrastructureStructMapping.class );
 

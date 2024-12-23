@@ -2,9 +2,9 @@ package com.particle.oauth2authorization.adapter.client.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.oauth2authorization.adapter.feign.client.client.rpc.Oauth2RegisteredClientRpcFeignClient;
 import com.particle.oauth2authorization.app.client.structmapping.Oauth2RegisteredClientAppStructMapping;
 import com.particle.oauth2authorization.client.client.api.IOauth2RegisteredClientApplicationService;
-import com.particle.oauth2authorization.adapter.feign.client.client.rpc.Oauth2RegisteredClientRpcFeignClient;
 import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredClientVO;
 import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import com.particle.oauth2authorization.infrastructure.client.service.IOauth2RegisteredClientService;

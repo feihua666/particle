@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as openplatformAppQuotaUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as openplatformAppQuotaUpdateApi
 } from "../../../api/app/admin/openplatformAppQuotaAdminApi"
 
 import {updatePageFormItems} from "../../../components/app/admin/openplatformAppQuotaManage";

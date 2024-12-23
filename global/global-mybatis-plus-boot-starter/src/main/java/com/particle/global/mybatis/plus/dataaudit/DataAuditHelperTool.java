@@ -7,7 +7,6 @@ import com.particle.global.dataaudit.audit.IDataAuditHandler;
 import com.particle.global.mybatis.plus.GlobalMybatisPlusAutoConfiguration;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.tool.spring.SpringContextHolder;
-import com.particle.global.tool.thread.ThreadContextTool;
 
 /**
  * <p>

@@ -2,10 +2,8 @@ package com.particle.feedback.infrastructure.reply.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -33,7 +31,7 @@ public class FeedbackReplyDO extends BaseDO {
     * 回复时间
     */
     private LocalDateTime replyAt;
-    
+
     /**
     * 回复用户id
     */

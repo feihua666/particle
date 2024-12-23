@@ -1,6 +1,7 @@
 package com.particle.global.tool.template;
 
 import cn.hutool.core.io.FileUtil;
+import org.geotools.api.feature.simple.SimpleFeature;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
@@ -9,7 +10,6 @@ import org.geotools.geojson.geom.GeometryJSON;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 
 /**
  * <p>
@@ -43,7 +43,7 @@ public class GeotoolsTest {
         // 遍历所有区域，检查点是否在多边形内
         try (SimpleFeatureIterator iterator = (SimpleFeatureIterator) features) {
             while (iterator.hasNext()) {
-                org.opengis.feature.simple.SimpleFeature feature = iterator.next();
+                SimpleFeature feature = iterator.next();
                 // 假设GeoJSON中的多边形存储在名为"geometry"的属性中
                 Geometry geometry = (Geometry) feature.getDefaultGeometry();
                 geometry = geometry.buffer(0.000001);

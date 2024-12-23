@@ -3,7 +3,10 @@
  * 开放平台开放接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiPageApi, remove as openplatformOpenapiRemoveApi} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
+import {
+  page as openplatformOpenapiPageApi,
+  remove as openplatformOpenapiRemoveApi
+} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
 import {pageFormItems} from "../../../components/openapi/admin/openplatformOpenapiManage";
 
 

@@ -1,8 +1,7 @@
 package com.particle.scheduler.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +11,12 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@ApiModel(value="NameAndGroupQuery表单对象")
+@Schema(description="NameAndGroupQuery表单对象")
 public class NameAndGroupQueryCommand extends AbstractBaseCommand {
 
-    @ApiModelProperty(value = "名称")
+    @Schema(description = "名称")
     private String name;
 
-    @ApiModelProperty(value = "组")
+    @Schema(description = "组")
     private String group;
 }

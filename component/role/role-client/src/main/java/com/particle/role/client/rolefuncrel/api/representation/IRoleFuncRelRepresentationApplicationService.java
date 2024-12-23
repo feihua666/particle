@@ -1,16 +1,13 @@
 package com.particle.role.client.rolefuncrel.api.representation;
 
+import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
-import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
-import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
-
-import java.util.List;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
+import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
+import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 
 /**
  * <p>

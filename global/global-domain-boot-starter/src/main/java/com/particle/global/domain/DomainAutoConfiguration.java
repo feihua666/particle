@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-04-20 17:44
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class DomainAutoConfiguration {
 
 	@Bean

@@ -8,6 +8,7 @@ import PtButtonGroup from '../../ButtonGroup.vue'
 import PtAceEditor from '../../../common/aceEditor/AceEditor.vue'
 import {clone} from "../../../../common/tools/ObjectTools";
 import {generatePtForm} from "./generate/generatePtForm";
+
 const formDesignData = inject('formDesignData')
 const formDesignHistoryData = inject('formDesignHistoryData')
 const formDesignDataControl = inject('formDesignDataControl')

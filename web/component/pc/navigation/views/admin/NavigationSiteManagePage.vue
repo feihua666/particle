@@ -3,7 +3,7 @@
  * 导航网站管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationSitePageApi, remove as navigationSiteRemoveApi} from "../../api/admin/navigationSiteAdminApi"
+import {page as navigationSitePageApi, remove as navigationSiteRemoveApi} from "../../api/admin/navigationSiteAdminApi"
 import {pageFormItems} from "../../components/admin/navigationSiteManage";
 
 

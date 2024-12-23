@@ -3,6 +3,7 @@ package com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.conf
 import com.particle.global.big.datasource.bigdatasource.config.BigDatasourceAccountConfig;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
+import org.springframework.boot.ssl.SslBundles;
 
 import java.util.List;
 
@@ -21,12 +22,16 @@ public class ElasticsearchBigDatasourceConfig extends BigDatasourceAccountConfig
 	 * 基于spring elasticsearch 配置，主要配置连接信息
 	 */
 	private ElasticsearchProperties elasticsearchProperties;
+	/**
+	 * ssl配置，这个是必填的，不能为null，如果为null，则请不根配置ssl信息
+	 */
+	private SslBundles sslBundles;
 
 
-
-	public static ElasticsearchBigDatasourceConfig create(ElasticsearchProperties elasticsearchProperties) {
+	public static ElasticsearchBigDatasourceConfig create(ElasticsearchProperties elasticsearchProperties,SslBundles sslBundles) {
 		ElasticsearchBigDatasourceConfig elasticsearchBigDatasourceConfig = new ElasticsearchBigDatasourceConfig();
 		elasticsearchBigDatasourceConfig.setElasticsearchProperties(elasticsearchProperties);
+		elasticsearchBigDatasourceConfig.setSslBundles(sslBundles);
 
 		String username = elasticsearchProperties.getUsername();
 		String password = elasticsearchProperties.getPassword();
@@ -49,7 +54,7 @@ public class ElasticsearchBigDatasourceConfig extends BigDatasourceAccountConfig
 		elasticsearchProperties.setUsername(username);
 		elasticsearchProperties.setPassword(password);
 
-		return create(elasticsearchProperties);
+		return create(elasticsearchProperties,null);
 
 	}
 }

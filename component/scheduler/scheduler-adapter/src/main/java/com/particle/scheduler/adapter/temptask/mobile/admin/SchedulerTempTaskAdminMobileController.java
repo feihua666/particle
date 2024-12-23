@@ -1,7 +1,7 @@
 package com.particle.scheduler.adapter.temptask.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.scheduler.client.temptask.api.ISchedulerTempTaskApplicationService;
+import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

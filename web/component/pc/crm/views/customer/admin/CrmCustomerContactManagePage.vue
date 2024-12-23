@@ -3,7 +3,10 @@
  * 客户联系方式管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as crmCustomerContactPageApi, remove as crmCustomerContactRemoveApi} from "../../../api/customer/admin/crmCustomerContactAdminApi"
+import {
+  page as crmCustomerContactPageApi,
+  remove as crmCustomerContactRemoveApi
+} from "../../../api/customer/admin/crmCustomerContactAdminApi"
 import {pageFormItems} from "../../../components/customer/admin/crmCustomerContactManage";
 
 
@@ -110,7 +113,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doCrmCustomerContactPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

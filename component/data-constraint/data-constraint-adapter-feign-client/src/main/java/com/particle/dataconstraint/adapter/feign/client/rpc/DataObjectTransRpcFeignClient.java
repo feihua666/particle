@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.adapter.feign.client.rpc;
 
-import com.particle.global.trans.api.ITransService;
 import com.particle.dataconstraint.client.dto.data.DataObjectTransVO;
+import com.particle.global.trans.api.ITransService;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**

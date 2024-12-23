@@ -1,6 +1,5 @@
 package com.particle.openplatform.client.doc.dto.data;
 
-import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.global.light.share.trans.anno.TransField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

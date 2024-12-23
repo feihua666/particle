@@ -1,11 +1,9 @@
 package com.particle.tracking.adapter.web.front;
 
-import brave.Tracer;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
@@ -13,6 +11,7 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.common.constant.CommonConstants;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.tool.log.TraceTool;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.tracking.app.structmapping.TrackingPageRecordAppStructMapping;
 import com.particle.tracking.client.api.ITrackingPageRecordApplicationService;
@@ -20,15 +19,15 @@ import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
 import com.particle.tracking.client.dto.command.TrackingPageRecordFrontCreateCommand;
 import com.particle.tracking.client.dto.command.TrackingPageRecordUpdateCommand;
 import com.particle.tracking.client.dto.data.TrackingPageRecordVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Parameter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -49,8 +48,6 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 
 	@Autowired
 	private ITrackingPageRecordApplicationService iTrackingPageRecordApplicationService;
-	@Autowired
-	private Tracer tracer;
 
 	@Operation(summary = "添加页面埋点记录")
 	@PreAuthorize("hasAuthority('user')")
@@ -77,13 +74,13 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 			trackingPageRecordCreateCommand.setUserAvatar(loginUser.getAvatar());
 		}
 
-		String userAgentStr = ServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
+		String userAgentStr = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
 		UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
 
 		String clientIP = RequestTool.getClientIP(httpServletRequest);
 		trackingPageRecordCreateCommand.setIp(clientIP);
 
-		String deviceId = ServletUtil.getHeaderIgnoreCase(httpServletRequest, CommonConstants.request_header_device_id);
+		String deviceId = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, CommonConstants.request_header_device_id);
 		trackingPageRecordCreateCommand.setDeviceId(Optional.ofNullable(StrUtil.emptyToNull(deviceId)).orElse("none"));
 		trackingPageRecordCreateCommand.setDeviceName(userAgent.getPlatform().getName());
 
@@ -99,7 +96,7 @@ public class TrackingPageRecordFrontWebController extends AbstractBaseWebAdapter
 			trackingPageRecordCreateCommand.setSessionMd5("none");
 		}
 
-		trackingPageRecordCreateCommand.setTraceId(tracer.currentSpan().context().traceIdString());
+		trackingPageRecordCreateCommand.setTraceId(TraceTool.getTraceId());
 
 		return iTrackingPageRecordApplicationService.create(trackingPageRecordCreateCommand);
 	}

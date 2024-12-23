@@ -10,11 +10,10 @@ import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
 import com.particle.report.domain.reportapi.gateway.ReportReportApiGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

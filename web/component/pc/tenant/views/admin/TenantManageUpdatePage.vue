@@ -3,11 +3,7 @@
  * 租户管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as TenantUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as TenantListApi
-} from "../../api/admin/tenantAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as TenantUpdateApi} from "../../api/admin/tenantAdminApi"
 
 import {useUpdatePageFormItems} from "../../components/admin/tenantManage";
 

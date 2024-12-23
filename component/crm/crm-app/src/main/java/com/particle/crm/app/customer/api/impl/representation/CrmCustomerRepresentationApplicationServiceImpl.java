@@ -2,15 +2,15 @@ package com.particle.crm.app.customer.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.catchlog.CatchAndLog;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.crm.app.customer.executor.representation.CrmCustomerQueryCommandExecutor;
 import com.particle.crm.client.customer.api.representation.ICrmCustomerRepresentationApplicationService;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerPageQueryCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerQueryListCommand;
 import com.particle.crm.client.customer.dto.data.CrmCustomerVO;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**

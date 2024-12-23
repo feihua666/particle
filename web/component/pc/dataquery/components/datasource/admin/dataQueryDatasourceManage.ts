@@ -1,4 +1,3 @@
-import {list as dataQueryProviderListApi} from "../../../api/provider/admin/dataQueryProviderAdminApi";
 import {useSelectDataqueryProviderCompItem} from "../../dataqueryProviderCompItem";
 
 export const pageFormItems = [

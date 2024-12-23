@@ -1,6 +1,6 @@
 <script setup name="AccountLoginForm"  lang="ts">
 // 基于账号密码的登录
-import {getCurrentInstance,reactive ,ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {getLoginCaptcha, login} from '../../api/userLoginApi'
 import {useLoginUserStore} from '../../../../../global/common/security/loginUserStore'
 import {isString} from '../../../../../global/common/tools/StringTools'

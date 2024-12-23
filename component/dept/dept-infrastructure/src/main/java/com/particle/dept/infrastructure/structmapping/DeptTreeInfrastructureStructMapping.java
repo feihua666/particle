@@ -1,10 +1,11 @@
 package com.particle.dept.infrastructure.structmapping;
 
-import com.particle.dept.infrastructure.dos.DeptTreeDO;
 import com.particle.dept.domain.DeptTree;
 import com.particle.dept.domain.DeptTreeId;
+import com.particle.dept.infrastructure.dos.DeptTreeDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-04-12 11:41:43
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DeptTreeInfrastructureStructMapping {
 	public static DeptTreeInfrastructureStructMapping instance = Mappers.getMapper( DeptTreeInfrastructureStructMapping.class );
 

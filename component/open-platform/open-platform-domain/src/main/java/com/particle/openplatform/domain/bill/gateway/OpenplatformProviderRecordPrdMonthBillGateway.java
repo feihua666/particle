@@ -1,8 +1,8 @@
 package com.particle.openplatform.domain.bill.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdMonthBill;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdMonthBillId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

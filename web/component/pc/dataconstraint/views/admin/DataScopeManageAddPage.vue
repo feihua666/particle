@@ -2,7 +2,7 @@
 /**
  * 数据范围管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as dataScopeCreateApi} from "../../api/admin/dataScopeAdminApi"
 import {addPageFormItems} from "../../components/admin/dataScopeManage";
 

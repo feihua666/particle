@@ -3,7 +3,10 @@
  * 导航网站标签关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationSiteTagRelPageApi, remove as navigationSiteTagRelRemoveApi} from "../../api/admin/navigationSiteTagRelAdminApi"
+import {
+  page as navigationSiteTagRelPageApi,
+  remove as navigationSiteTagRelRemoveApi
+} from "../../api/admin/navigationSiteTagRelAdminApi"
 import {pageFormItems} from "../../components/admin/navigationSiteTagRelManage";
 
 

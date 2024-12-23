@@ -2,8 +2,8 @@
 /**
  * 消息管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as messageCreateApi,list as MessageListApi} from "../../api/admin/messageAdminApi"
+import {reactive, ref} from 'vue'
+import {create as messageCreateApi} from "../../api/admin/messageAdminApi"
 import {addPageFormItems} from "../../components/admin/messageManage";
 
 // 属性

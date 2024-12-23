@@ -1,7 +1,7 @@
 package com.particle.func.adapter.funcapplicationfuncrel.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
+import com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

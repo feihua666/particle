@@ -3,9 +3,8 @@
  * 双色球开奖管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as ssqCodeOpenedPageApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
+import {allCodeInit, allCodeStop, page as ssqCodeOpenedPageApi} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi"
 import {pageFormItems} from "../../../components/ssq/admin/ssqCodeOpenedManage";
-import {allCodeInit, allCodeStop, allCodeUpdate} from "../../../api/ssq/admin/ssqCodeOpenedAdminApi";
 
 
 const tableRef = ref(null)

@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.config.infrastructure.system.dos.SystemConfigDO;
 import com.particle.config.infrastructure.system.mapper.SystemConfigMapper;
 import com.particle.config.infrastructure.system.service.ISystemConfigService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -51,6 +51,6 @@ public class SystemConfigServiceImpl extends IBaseServiceImpl<SystemConfigMapper
 	        }
 	    }
 
-    
+
 	}
 }

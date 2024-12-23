@@ -1,24 +1,22 @@
 package com.particle.role.app.roledatascoperel.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.app.roledatascoperel.executor.RoleDataScopeRelCommandExecutor;
 import com.particle.role.app.roledatascoperel.executor.RoleDataScopeRelCreateCommandExecutor;
 import com.particle.role.app.roledatascoperel.executor.RoleDataScopeRelDeleteCommandExecutor;
 import com.particle.role.app.roledatascoperel.executor.RoleDataScopeRelUpdateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
 import com.particle.role.client.roledatascoperel.api.IRoleDataScopeRelApplicationService;
-import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
-import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
-
-import com.particle.role.app.roledatascoperel.executor.RoleDataScopeRelCommandExecutor;
-import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
 import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
-
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
+import com.particle.role.client.roledatascoperel.dto.command.RoleAssignDataScopeCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
+import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelUpdateCommand;
+import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

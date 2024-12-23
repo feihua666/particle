@@ -1,14 +1,13 @@
 package com.particle.data.infrastructure.temp.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.data.infrastructure.temp.dos.DataCompanyMd5IdsDO;
 import com.particle.data.infrastructure.temp.mapper.DataCompanyMd5IdsMapper;
 import com.particle.data.infrastructure.temp.service.IDataCompanyMd5IdsService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class DataCompanyMd5IdsServiceImpl extends IBaseServiceImpl<DataCompanyMd
 
 	@Override
 	protected void preUpdate(DataCompanyMd5IdsDO po) {
-    
+
 	}
 }

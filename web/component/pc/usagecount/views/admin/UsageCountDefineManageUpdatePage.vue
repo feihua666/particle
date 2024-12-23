@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as usageCountDefineUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as UsageCountDefineListApi
+  update as usageCountDefineUpdateApi
 } from "../../api/admin/usageCountDefineAdminApi"
 
 import {useUpdatePageFormItems} from "../../components/admin/usageCountDefineManage";

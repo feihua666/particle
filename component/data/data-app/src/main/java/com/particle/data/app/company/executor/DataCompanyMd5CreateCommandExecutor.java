@@ -1,5 +1,6 @@
 package com.particle.data.app.company.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.data.app.company.structmapping.DataCompanyMd5AppStructMapping;
 import com.particle.data.client.company.dto.command.DataCompanyMd5CreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyMd5VO;
@@ -7,15 +8,14 @@ import com.particle.data.domain.company.DataCompanyMd5;
 import com.particle.data.domain.company.gateway.DataCompanyMd5Gateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class DataCompanyMd5CreateCommandExecutor  extends AbstractBaseExecutor {
 		return dataCompanyMd5;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  DataCompanyMd5CreateCommandToDataCompanyMd5Mapping{
 		DataCompanyMd5CreateCommandToDataCompanyMd5Mapping instance = Mappers.getMapper( DataCompanyMd5CreateCommandToDataCompanyMd5Mapping.class );
 

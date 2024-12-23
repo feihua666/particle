@@ -1,8 +1,8 @@
 package com.particle.oplog.adapter.error.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.oplog.client.error.api.IOpLogErrorApplicationService;
 import com.particle.oplog.adapter.feign.client.error.rpc.OpLogErrorRpcFeignClient;
+import com.particle.oplog.client.error.api.IOpLogErrorApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

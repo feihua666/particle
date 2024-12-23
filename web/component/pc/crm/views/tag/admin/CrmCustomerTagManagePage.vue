@@ -3,7 +3,10 @@
  * 客户标签管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as crmCustomerTagPageApi, remove as crmCustomerTagRemoveApi} from "../../../api/tag/admin/crmCustomerTagAdminApi"
+import {
+  page as crmCustomerTagPageApi,
+  remove as crmCustomerTagRemoveApi
+} from "../../../api/tag/admin/crmCustomerTagAdminApi"
 import {pageFormItems} from "../../../components/tag/admin/crmCustomerTagManage";
 
 
@@ -99,7 +102,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doCrmCustomerTagPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

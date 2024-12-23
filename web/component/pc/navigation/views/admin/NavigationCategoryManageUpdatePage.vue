@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as navigationCategoryUpdateApi,
-  detailForUpdate as detailForUpdateApi
+  detailForUpdate as detailForUpdateApi,
+  update as navigationCategoryUpdateApi
 } from "../../api/admin/navigationCategoryAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/navigationCategoryManage";

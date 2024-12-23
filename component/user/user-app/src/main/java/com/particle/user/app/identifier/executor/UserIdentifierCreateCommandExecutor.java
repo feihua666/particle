@@ -1,5 +1,8 @@
 package com.particle.user.app.identifier.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
@@ -7,18 +10,15 @@ import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.domain.identifier.UserIdentifier;
 import com.particle.user.domain.identifier.UserIdentifierPwd;
 import com.particle.user.domain.identifier.gateway.UserIdentifierGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.user.domain.identifier.gateway.UserIdentifierPwdGateway;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -81,7 +81,7 @@ public class UserIdentifierCreateCommandExecutor  extends AbstractBaseExecutor {
 		return userIdentifier;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  UserIdentifierCreateCommandToUserIdentifierMapping{
 		UserIdentifierCreateCommandToUserIdentifierMapping instance = Mappers.getMapper( UserIdentifierCreateCommandToUserIdentifierMapping.class );
 

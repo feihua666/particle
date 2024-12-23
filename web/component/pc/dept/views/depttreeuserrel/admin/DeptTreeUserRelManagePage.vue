@@ -3,7 +3,10 @@
  * 部门树用户关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as deptTreeUserRelPageApi, remove as deptTreeUserRelRemoveApi} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
+import {
+  page as deptTreeUserRelPageApi,
+  remove as deptTreeUserRelRemoveApi
+} from "../../../api/depttreeuserrel/admin/deptTreeUserRelAdminApi"
 import {pageFormItems} from "../../../components/depttreeuserrel/admin/deptTreeUserRelManage";
 
 
@@ -94,7 +97,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDeptTreeUserRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

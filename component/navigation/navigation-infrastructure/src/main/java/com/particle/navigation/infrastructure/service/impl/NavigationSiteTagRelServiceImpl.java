@@ -1,14 +1,13 @@
 package com.particle.navigation.infrastructure.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.navigation.infrastructure.dos.NavigationSiteTagRelDO;
 import com.particle.navigation.infrastructure.mapper.NavigationSiteTagRelMapper;
 import com.particle.navigation.infrastructure.service.INavigationSiteTagRelService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class NavigationSiteTagRelServiceImpl extends IBaseServiceImpl<Navigation
 
 	@Override
 	protected void preUpdate(NavigationSiteTagRelDO po) {
-    
+
 	}
 }

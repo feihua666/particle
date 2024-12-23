@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.company.structmapping;
 
-import com.particle.crm.infrastructure.company.dos.CrmCompanyDO;
 import com.particle.crm.domain.company.CrmCompany;
 import com.particle.crm.domain.company.CrmCompanyId;
+import com.particle.crm.infrastructure.company.dos.CrmCompanyDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-04-11 13:44:00
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class CrmCompanyInfrastructureStructMapping {
 	public static CrmCompanyInfrastructureStructMapping instance = Mappers.getMapper( CrmCompanyInfrastructureStructMapping.class );
 

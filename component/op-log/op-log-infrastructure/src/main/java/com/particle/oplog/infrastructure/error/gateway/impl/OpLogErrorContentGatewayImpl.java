@@ -1,14 +1,14 @@
 package com.particle.oplog.infrastructure.error.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.oplog.domain.error.OpLogErrorContent;
 import com.particle.oplog.domain.error.OpLogErrorContentId;
 import com.particle.oplog.domain.error.gateway.OpLogErrorContentGateway;
-import com.particle.oplog.infrastructure.error.service.IOpLogErrorContentService;
 import com.particle.oplog.infrastructure.error.dos.OpLogErrorContentDO;
+import com.particle.oplog.infrastructure.error.service.IOpLogErrorContentService;
 import com.particle.oplog.infrastructure.error.structmapping.OpLogErrorContentInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
-import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

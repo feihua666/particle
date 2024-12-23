@@ -1,6 +1,5 @@
 package com.particle.dataquery.domain.datasource.value;
 
-import cn.hutool.json.JSONUtil;
 import com.particle.global.dto.basic.Value;
 import com.particle.global.tool.proxy.ProxyConfig;
 import lombok.Data;

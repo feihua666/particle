@@ -1,14 +1,14 @@
 package com.particle.lowcode.infrastructure.generator.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.lowcode.infrastructure.generator.dos.LowcodeDatasourceDO;
 import com.particle.lowcode.infrastructure.generator.mapper.LowcodeDatasourceMapper;
 import com.particle.lowcode.infrastructure.generator.service.ILowcodeDatasourceService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>

@@ -1,13 +1,13 @@
 package com.particle.crm.infrastructure.customer.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.crm.domain.customer.CrmCustomer;
 import com.particle.crm.domain.customer.CrmCustomerId;
 import com.particle.crm.domain.customer.gateway.CrmCustomerGateway;
-import com.particle.crm.infrastructure.customer.service.ICrmCustomerService;
 import com.particle.crm.infrastructure.customer.dos.CrmCustomerDO;
+import com.particle.crm.infrastructure.customer.service.ICrmCustomerService;
 import com.particle.crm.infrastructure.customer.structmapping.CrmCustomerInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

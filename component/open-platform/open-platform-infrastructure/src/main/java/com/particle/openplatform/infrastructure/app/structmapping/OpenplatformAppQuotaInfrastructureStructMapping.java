@@ -1,10 +1,11 @@
 package com.particle.openplatform.infrastructure.app.structmapping;
 
-import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppQuotaDO;
 import com.particle.openplatform.domain.app.OpenplatformAppQuota;
 import com.particle.openplatform.domain.app.OpenplatformAppQuotaId;
+import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppQuotaDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-10-16 10:38:41
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OpenplatformAppQuotaInfrastructureStructMapping {
 	public static OpenplatformAppQuotaInfrastructureStructMapping instance = Mappers.getMapper( OpenplatformAppQuotaInfrastructureStructMapping.class );
 

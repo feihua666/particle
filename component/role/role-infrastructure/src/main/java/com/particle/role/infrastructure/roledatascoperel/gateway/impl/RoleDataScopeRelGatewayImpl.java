@@ -1,14 +1,14 @@
 package com.particle.role.infrastructure.roledatascoperel.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRel;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRelId;
 import com.particle.role.domain.roledatascoperel.gateway.RoleDataScopeRelGateway;
-import com.particle.role.infrastructure.roledatascoperel.service.IRoleDataScopeRelService;
 import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
+import com.particle.role.infrastructure.roledatascoperel.service.IRoleDataScopeRelService;
 import com.particle.role.infrastructure.roledatascoperel.structmapping.RoleDataScopeRelInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

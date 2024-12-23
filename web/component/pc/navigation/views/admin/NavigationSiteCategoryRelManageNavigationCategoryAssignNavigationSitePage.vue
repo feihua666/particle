@@ -2,11 +2,12 @@
 /**
  * 导航分类分配导航网站页面
  */
-import {reactive ,ref} from 'vue'
-import {queryNavigationSiteIdsByNavigationCategoryId, navigationCategoryAssignNavigationSite as navigationCategoryAssignNavigationSiteApi} from "../../api/admin/navigationSiteCategoryRelAdminApi"
+import {reactive, ref} from 'vue'
 import {
-  useCascaderNavigationCategoryCompItem
-} from "../../components/navigationCategoryCompItem";
+  navigationCategoryAssignNavigationSite as navigationCategoryAssignNavigationSiteApi,
+  queryNavigationSiteIdsByNavigationCategoryId
+} from "../../api/admin/navigationSiteCategoryRelAdminApi"
+import {useCascaderNavigationCategoryCompItem} from "../../components/navigationCategoryCompItem";
 import {list as navigationSiteListApi} from "../../api/admin/navigationSiteAdminApi";
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

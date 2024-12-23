@@ -1,13 +1,11 @@
 package com.particle.role.client.api;
 
-import com.particle.role.client.dto.command.RoleCreateCommand;
+import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.role.client.dto.command.RoleCreateCommand;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.dto.data.RoleVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>

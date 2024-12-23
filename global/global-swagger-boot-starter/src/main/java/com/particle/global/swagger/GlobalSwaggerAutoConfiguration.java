@@ -3,7 +3,7 @@ package com.particle.global.swagger;
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.models.OpenAPI;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,13 +20,13 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-05-19 16:50
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 @ConditionalOnProperty(prefix = "particle.swagger", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalSwaggerAutoConfiguration {
 
 	@ConditionalOnClass(ProjectInfo.class)
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	public static class GlobalOpenAPIConfiguration {
 
 		/**

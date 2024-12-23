@@ -1,14 +1,13 @@
 package com.particle.feedback.infrastructure.feedback.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.feedback.infrastructure.feedback.dos.FeedbackAttachmentDO;
 import com.particle.feedback.infrastructure.feedback.mapper.FeedbackAttachmentMapper;
 import com.particle.feedback.infrastructure.feedback.service.IFeedbackAttachmentService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class FeedbackAttachmentServiceImpl extends IBaseServiceImpl<FeedbackAtta
 
 	@Override
 	protected void preUpdate(FeedbackAttachmentDO po) {
-    
+
 	}
 }

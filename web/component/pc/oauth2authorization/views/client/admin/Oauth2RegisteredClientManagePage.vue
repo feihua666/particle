@@ -3,9 +3,13 @@
  * oauth2客户端管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as oauth2RegisteredClientPageApi, remove as oauth2RegisteredClientRemoveApi} from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
+import {
+  page as oauth2RegisteredClientPageApi,
+  remove as oauth2RegisteredClientRemoveApi
+} from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
 import {pageFormItems} from "../../../components/client/admin/oauth2RegisteredClientManage";
 import {copy} from "../../../../../../global/pc/element-plus/ElClipboardTools";
+
 const tableRef = ref(null)
 
 // 属性
@@ -150,7 +154,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOauth2RegisteredClientPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

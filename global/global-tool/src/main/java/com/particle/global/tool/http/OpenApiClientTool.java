@@ -11,9 +11,11 @@ import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;
 import lombok.Data;
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -55,7 +57,7 @@ public class OpenApiClientTool {
      * @param extConfig
      * @return
      */
-    public static String postJson(String url,String bodyParameters, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException {
+    public static String postJson(String url,String bodyParameters, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         // 摘要签名相关
         HeaderData headerData = HeaderData.create(clientConfig.getClientId(),clientConfig.getNonce());
         ParameterData parameterData = ParameterData.create(null, queryString, null, bodyParameters);
@@ -87,7 +89,7 @@ public class OpenApiClientTool {
      * @param extConfig
      * @return
      */
-    public static String postForm(String url,Map<String, String> formParameters, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException {
+    public static String postForm(String url,Map<String, String> formParameters, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         // 摘要签名相关
         HeaderData headerData = HeaderData.create(clientConfig.getClientId(),clientConfig.getNonce());
         ParameterData parameterData = ParameterData.create(null, queryString, formParameters, null);
@@ -119,7 +121,7 @@ public class OpenApiClientTool {
      * @param extConfig
      * @return
      */
-    public static String get(String url, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException {
+    public static String get(String url, String queryString, ClientConfig clientConfig, HttpClientTool.ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
         // 摘要签名相关
         HeaderData headerData = HeaderData.create(clientConfig.getClientId(),clientConfig.getNonce());
         ParameterData parameterData = ParameterData.create(null, queryString, null, null);

@@ -3,7 +3,10 @@
  * 导航网站标签管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationSiteTagPageApi, remove as navigationSiteTagRemoveApi} from "../../api/admin/navigationSiteTagAdminApi"
+import {
+  page as navigationSiteTagPageApi,
+  remove as navigationSiteTagRemoveApi
+} from "../../api/admin/navigationSiteTagAdminApi"
 import {pageFormItems} from "../../components/admin/navigationSiteTagManage";
 
 
@@ -108,7 +111,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doNavigationSiteTagPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

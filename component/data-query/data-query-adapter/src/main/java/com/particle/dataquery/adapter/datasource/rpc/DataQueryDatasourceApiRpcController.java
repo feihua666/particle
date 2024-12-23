@@ -1,8 +1,8 @@
 package com.particle.dataquery.adapter.datasource.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApiApplicationService;
 import com.particle.dataquery.adapter.feign.client.datasource.rpc.DataQueryDatasourceApiRpcFeignClient;
+import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApiApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

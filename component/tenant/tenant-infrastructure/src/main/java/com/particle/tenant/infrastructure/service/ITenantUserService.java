@@ -1,14 +1,13 @@
 package com.particle.tenant.infrastructure.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
-import com.particle.tenant.infrastructure.dos.TenantDO;
-import com.particle.tenant.infrastructure.dos.TenantUserDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tenant.infrastructure.dos.TenantUserDO;
+
+import java.util.List;
 
 /**
  * <p>

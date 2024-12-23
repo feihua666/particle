@@ -1,12 +1,10 @@
 package com.particle.navigation.client.dto.data;
 
-import java.time.LocalDateTime;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
-
-import com.particle.component.light.share.trans.TransConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.trans.anno.TransBy;
+
+import java.time.LocalDateTime;
 /**
  * <p>
  * 导航网站 数据通用响应对象

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2023-05-25 10:14
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalNotificationThirdSmsAutoConfiguration {
 
 	@Bean

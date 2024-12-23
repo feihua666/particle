@@ -2,7 +2,6 @@ package com.particle.global.dataaudit.audit;
 
 import cn.hutool.core.lang.Pair;
 import com.particle.global.dataaudit.op.OpLog;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

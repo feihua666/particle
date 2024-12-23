@@ -4,7 +4,6 @@ import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
-import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

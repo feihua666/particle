@@ -1,11 +1,12 @@
 package com.particle.scheduler.infrastructure.schedule.structmapping;
 
-import com.particle.scheduler.domain.schedule.value.SchedulerExecuteRecordClearParam;
-import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecord;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecordId;
+import com.particle.scheduler.domain.schedule.value.SchedulerExecuteRecordClearParam;
+import com.particle.scheduler.infrastructure.schedule.dos.SchedulerExecuteRecordDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -16,7 +17,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-09-03 15:25:23
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class SchedulerExecuteRecordInfrastructureStructMapping {
 	public static SchedulerExecuteRecordInfrastructureStructMapping instance = Mappers.getMapper( SchedulerExecuteRecordInfrastructureStructMapping.class );
 

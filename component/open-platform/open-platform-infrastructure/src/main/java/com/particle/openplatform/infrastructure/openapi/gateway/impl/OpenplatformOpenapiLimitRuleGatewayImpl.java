@@ -1,14 +1,14 @@
 package com.particle.openplatform.infrastructure.openapi.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
+import com.particle.global.dto.basic.IdCommand;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiLimitRule;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiLimitRuleId;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiLimitRuleGateway;
-import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiLimitRuleService;
 import com.particle.openplatform.infrastructure.openapi.dos.OpenplatformOpenapiLimitRuleDO;
+import com.particle.openplatform.infrastructure.openapi.service.IOpenplatformOpenapiLimitRuleService;
 import com.particle.openplatform.infrastructure.openapi.structmapping.OpenplatformOpenapiLimitRuleInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
-import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -8,14 +8,14 @@ import com.particle.func.domain.Func;
 import com.particle.func.domain.gateway.FuncGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -63,7 +63,7 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 		return func;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  FuncCreateCommandToFuncMapping{
 		FuncCreateCommandToFuncMapping instance = Mappers.getMapper( FuncCreateCommandToFuncMapping.class );
 

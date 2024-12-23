@@ -1,7 +1,7 @@
 package com.particle.openplatform.infrastructure.doc.service;
 
-import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocDirDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocDirDO;
 
 /**
  * <p>

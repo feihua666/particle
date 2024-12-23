@@ -3,11 +3,16 @@
  * 数据查询数据接口管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as DataQueryDataApiPageApi, remove as DataQueryDataApiRemoveApi,deleteCache as DataQueryDataApiRemoveCacheApi,refreshCache as DataQueryDataApiRefreshCacheApi, copy as DataQueryDataApiCopyApi, copydev as DataQueryDataApiCopydevApi,devMergeToMaster as DataQueryDataApiDevMergeToMasterApi} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
-import {pageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
 import {
-  devMergeToMaster as DataQueryDatasourceApidevMergeToMasterApi
-} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
+  copy as DataQueryDataApiCopyApi,
+  copydev as DataQueryDataApiCopydevApi,
+  deleteCache as DataQueryDataApiRemoveCacheApi,
+  devMergeToMaster as DataQueryDataApiDevMergeToMasterApi,
+  page as DataQueryDataApiPageApi,
+  refreshCache as DataQueryDataApiRefreshCacheApi,
+  remove as DataQueryDataApiRemoveApi
+} from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
+import {pageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
 
 
 const tableRef = ref(null)

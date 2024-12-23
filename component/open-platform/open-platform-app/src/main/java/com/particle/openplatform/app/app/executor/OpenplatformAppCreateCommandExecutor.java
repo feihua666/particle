@@ -1,21 +1,21 @@
 package com.particle.openplatform.app.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.app.structmapping.OpenplatformAppAppStructMapping;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppCreateCommand;
 import com.particle.openplatform.client.app.dto.data.OpenplatformAppVO;
 import com.particle.openplatform.domain.app.OpenplatformApp;
 import com.particle.openplatform.domain.app.gateway.OpenplatformAppGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class OpenplatformAppCreateCommandExecutor  extends AbstractBaseExecutor 
 		return openplatformApp;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpenplatformAppCreateCommandToOpenplatformAppMapping{
 		OpenplatformAppCreateCommandToOpenplatformAppMapping instance = Mappers.getMapper( OpenplatformAppCreateCommandToOpenplatformAppMapping.class );
 

@@ -1,10 +1,11 @@
 package com.particle.tracking.infrastructure.service;
 
-import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ITrackingPageRecordService extends IBaseService<TrackingPageRec
         Assert.notEmpty(userIds,"userIds 不能为空");
         return list(Wrappers.<TrackingPageRecordDO>lambdaQuery().in(TrackingPageRecordDO::getUserId, userIds));
     }
-            
+
 
 
 
@@ -68,7 +69,7 @@ public interface ITrackingPageRecordService extends IBaseService<TrackingPageRec
         Assert.notEmpty(trackingPageCodes,"trackingPageCodes 不能为空");
         return list(Wrappers.<TrackingPageRecordDO>lambdaQuery().in(TrackingPageRecordDO::getTrackingPageCode, trackingPageCodes));
     }
-            
+
 
     /**
      * 根据埋点前驱页面编码查询
@@ -91,7 +92,7 @@ public interface ITrackingPageRecordService extends IBaseService<TrackingPageRec
         Assert.notEmpty(preTrackingPageCodes,"preTrackingPageCodes 不能为空");
         return list(Wrappers.<TrackingPageRecordDO>lambdaQuery().in(TrackingPageRecordDO::getPreTrackingPageCode, preTrackingPageCodes));
     }
-            
+
 
 
 

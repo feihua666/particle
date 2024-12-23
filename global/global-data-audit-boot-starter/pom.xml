@@ -55,9 +55,8 @@
         <!-- servlet-api 不传递依赖 版本已在springboot parent 中定义 -->
         <!-- OpLogAspect 中有使用 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 

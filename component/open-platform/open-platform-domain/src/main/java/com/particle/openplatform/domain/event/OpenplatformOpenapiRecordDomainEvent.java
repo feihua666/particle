@@ -2,8 +2,6 @@ package com.particle.openplatform.domain.event;
 
 import com.particle.common.domain.event.DomainEvent;
 import com.particle.component.light.share.message.MessageConstants;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
@@ -15,6 +13,9 @@ import lombok.Setter;
  */
 
 public class OpenplatformOpenapiRecordDomainEvent extends DomainEvent<OpenplatformOpenapiRecordDomainEventContent> {
+
+	public OpenplatformOpenapiRecordDomainEvent() {
+	}
 
 	public OpenplatformOpenapiRecordDomainEvent(String identifier, OpenplatformOpenapiRecordDomainEventContent data, String mq) {
 		super(identifier, data, mq);

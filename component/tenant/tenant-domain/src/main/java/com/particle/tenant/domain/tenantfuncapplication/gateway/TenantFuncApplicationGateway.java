@@ -1,8 +1,8 @@
 package com.particle.tenant.domain.tenantfuncapplication.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.tenant.domain.tenantfuncapplication.TenantFuncApplication;
 import com.particle.tenant.domain.tenantfuncapplication.TenantFuncApplicationId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

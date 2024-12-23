@@ -1,23 +1,16 @@
 package com.particle.navigation.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.navigation.app.executor.representation.NavigationSubmitQueryCommandExecutor;
+import com.particle.global.dto.response.Response;
 import com.particle.navigation.client.dto.command.NavigationSiteCreateCommand;
-import com.particle.navigation.client.dto.data.NavigationSubmitVO;
 import com.particle.navigation.domain.NavigationSubmit;
 import com.particle.navigation.domain.NavigationSubmitId;
 import com.particle.navigation.domain.gateway.NavigationSubmitGateway;
 import com.particle.navigation.infrastructure.service.INavigationSubmitService;
-import com.particle.navigation.infrastructure.dos.NavigationSubmitDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

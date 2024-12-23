@@ -3,7 +3,10 @@
  * 开放接口目录名称管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocDirNamePageApi, remove as openplatformDocDirNameRemoveApi} from "../../../api/doc/admin/openplatformDocDirNameAdminApi"
+import {
+  page as openplatformDocDirNamePageApi,
+  remove as openplatformDocDirNameRemoveApi
+} from "../../../api/doc/admin/openplatformDocDirNameAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocDirNameManage";
 
 
@@ -99,7 +102,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformDocDirNamePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

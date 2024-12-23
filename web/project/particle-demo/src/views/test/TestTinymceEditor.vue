@@ -1,6 +1,5 @@
 <script setup name="TestTinymceEditor" lang="ts">
 import {ref, watch} from "vue";
-import Editor from '@tinymce/tinymce-vue'
 
 const editorValue = ref('<p th:each="subjectInfo:${subjectInfo}"><div th:src="${subjectInfo.networkTopUrl}" src="assets/img/default.png">sdsd</div></p>')
 

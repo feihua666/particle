@@ -1,6 +1,5 @@
 package com.particle.global.openapi.data;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;

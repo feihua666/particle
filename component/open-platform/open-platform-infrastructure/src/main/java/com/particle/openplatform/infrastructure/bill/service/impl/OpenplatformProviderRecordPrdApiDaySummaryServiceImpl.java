@@ -1,14 +1,13 @@
 package com.particle.openplatform.infrastructure.bill.service.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.openplatform.infrastructure.bill.dos.OpenplatformProviderRecordPrdApiDaySummaryDO;
 import com.particle.openplatform.infrastructure.bill.mapper.OpenplatformProviderRecordPrdApiDaySummaryMapper;
 import com.particle.openplatform.infrastructure.bill.service.IOpenplatformProviderRecordPrdApiDaySummaryService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class OpenplatformProviderRecordPrdApiDaySummaryServiceImpl extends IBase
 
 	@Override
 	protected void preUpdate(OpenplatformProviderRecordPrdApiDaySummaryDO po) {
-    
+
 	}
 }

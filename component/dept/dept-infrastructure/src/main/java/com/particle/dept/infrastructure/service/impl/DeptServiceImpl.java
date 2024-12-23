@@ -8,12 +8,12 @@ import com.particle.dept.infrastructure.deptuserrel.mapper.DeptUserRelMapper;
 import com.particle.dept.infrastructure.dos.DeptDO;
 import com.particle.dept.infrastructure.mapper.DeptMapper;
 import com.particle.dept.infrastructure.service.IDeptService;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;

@@ -2,7 +2,7 @@
 /**
  * 任务计划任务管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {addPageFormItems} from "../../../components/schedule/admin/scheduleJobManage";
 import {addJob} from "../../../api/admin/scheduleJobAdminApi";
 

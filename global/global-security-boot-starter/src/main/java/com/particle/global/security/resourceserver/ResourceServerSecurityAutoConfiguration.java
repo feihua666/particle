@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -30,7 +30,7 @@ import org.springframework.security.oauth2.server.resource.introspection.SpringO
  * @since 2023-08-03 16:42
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = GlobalSecurityProperties.prefix + ".resource-server", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class ResourceServerSecurityAutoConfiguration {
 
@@ -59,7 +59,7 @@ public class ResourceServerSecurityAutoConfiguration {
 		return jwtAuthenticationConverter;
 	}
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	public static class CustomWebSecurityConfigureConfiguration{
 
 		@Bean
@@ -93,10 +93,10 @@ public class ResourceServerSecurityAutoConfiguration {
 			if ((isJwt && existBean(JwtDecoder.class,beanFactory) || (isOpaqueToken && existBean(OpaqueTokenIntrospector.class,beanFactory)))) {
 				http.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> {
 					if (isJwt && existBean(JwtDecoder.class,beanFactory)) {
-						httpSecurityOAuth2ResourceServerConfigurer.jwt();
+						httpSecurityOAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults());
 					}
 					if (isOpaqueToken && existBean(OpaqueTokenIntrospector.class,beanFactory)) {
-						httpSecurityOAuth2ResourceServerConfigurer.opaqueToken();
+						httpSecurityOAuth2ResourceServerConfigurer.opaqueToken(Customizer.withDefaults());
 					}
 
 				});

@@ -1,22 +1,22 @@
 package com.particle.scheduler.app.temptask.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.temptask.structmapping.SchedulerTempTaskAppStructMapping;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskUpdateCommand;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskVO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTask;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskId;
 import com.particle.scheduler.domain.temptask.gateway.SchedulerTempTaskGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class SchedulerTempTaskUpdateCommandExecutor  extends AbstractBaseExecuto
 		return schedulerTempTask;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface SchedulerTempTaskUpdateCommandToSchedulerTempTaskMapping{
 		SchedulerTempTaskUpdateCommandToSchedulerTempTaskMapping instance = Mappers.getMapper(SchedulerTempTaskUpdateCommandToSchedulerTempTaskMapping.class );
 

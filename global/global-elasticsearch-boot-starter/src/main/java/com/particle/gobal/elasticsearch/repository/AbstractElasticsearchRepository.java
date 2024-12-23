@@ -2,14 +2,12 @@ package com.particle.gobal.elasticsearch.repository;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 
 /**
  * <p>
- * 抽象实现，该类只是一个示例，表明可以使用neo4jClient进行引用，满足复杂需求
+ * 抽象实现，该类只是一个示例，表明可以使用ElasticsearchClient进行引用，满足复杂需求
  * co.elastic.clients.elasticsearch.ElasticsearchClient 和 org.elasticsearch.client.ElasticsearchClient 都与 Elasticsearch 客户端相关，但是它们属于不同的 Elasticsearch Java 客户端库。
  *
  *     co.elastic.clients.elasticsearch.ElasticsearchClient:
@@ -30,43 +28,13 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
  */
 public abstract class AbstractElasticsearchRepository<T, ID> implements BaseElasticsearchRepository<T, ID> {
 
-
-    /**
-     * spring boot 默认没有注入该bean
-     */
-    // @Autowired
-    // protected co.elastic.clients.elasticsearch.ElasticsearchClient elasticsearchClient;
-
-
-    /**
-     * spring boot 默认没有注入该bean
-     * Spring Data Elasticsearch已经不再建议直接使用ElasticsearchTemplate，而是建议使用ElasticsearchRestTemplate
-     */
-    // @Autowired
-    // protected ElasticsearchTemplate elasticsearchTemplate;
-
-    /**
-     * 以下没有测试，鉴于es7.x版本已经更新客户端，所以下面的先注释
-     */
+    @Autowired
+    protected ElasticsearchTemplate elasticsearchTemplate;
 
     @Autowired
-    protected ElasticsearchRestTemplate elasticsearchRestTemplate;
-
-    @Autowired
-    protected RestHighLevelClient restHighLevelClient;
+    protected ElasticsearchClient elasticsearchClient;
 
     @Autowired
     protected RestClient restClient;
-    /**
-     * spring boot 默认没有注入该bean
-     */
-    // @Autowired
-    // protected RestClients.ElasticsearchRestClient elasticsearchRestClient;
 
-
-    /**
-     * spring boot 默认没有注入该bean
-     */
-    // @Autowired
-    // protected org.elasticsearch.client.ElasticsearchClient orgElasticsearchClient;
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2022-07-19 11:36
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalValidationAutoConfiguration {
 }

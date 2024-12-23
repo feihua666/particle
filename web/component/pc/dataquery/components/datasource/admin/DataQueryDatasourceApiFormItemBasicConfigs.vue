@@ -1,5 +1,5 @@
 <script setup name="DataQueryDatasourceApiFormItemBasicConfigs" lang="ts">
-import {ref,reactive,nextTick} from "vue"
+import {nextTick, reactive, ref} from "vue"
 import JdbcApiBasicConfig from './apiconfigs/jdbc/JdbcApiBasicConfig.vue'
 import HttpApiBasicConfig from './apiconfigs/http/HttpApiBasicConfig.vue'
 import Neo4jApiBasicConfig from './apiconfigs/neo4j/Neo4jApiBasicConfig.vue'

@@ -1,7 +1,7 @@
 package com.particle.tracking.infrastructure.mapper;
 
-import com.particle.tracking.infrastructure.dos.TrackingPageDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.tracking.infrastructure.dos.TrackingPageDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

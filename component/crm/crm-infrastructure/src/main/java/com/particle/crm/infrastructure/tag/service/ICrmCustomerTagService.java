@@ -1,10 +1,11 @@
 package com.particle.crm.infrastructure.tag.service;
 
-import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.crm.infrastructure.tag.dos.CrmCustomerTagDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface ICrmCustomerTagService extends IBaseService<CrmCustomerTagDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CrmCustomerTagDO>lambdaQuery().in(CrmCustomerTagDO::getCode, codes));
     }
-            
+
 
     /**
      * 根据标签名称查询
@@ -60,7 +61,7 @@ public interface ICrmCustomerTagService extends IBaseService<CrmCustomerTagDO> {
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<CrmCustomerTagDO>lambdaQuery().in(CrmCustomerTagDO::getName, names));
     }
-            
+
 
 
 

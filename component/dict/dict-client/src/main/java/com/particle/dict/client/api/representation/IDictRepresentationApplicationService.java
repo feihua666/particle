@@ -11,8 +11,6 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 
-import java.util.List;
-
 /**
  * <p>
  * 字典 应用门面展示服务类

@@ -1,10 +1,11 @@
 package com.particle.data.infrastructure.company.service;
 
-import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -66,7 +67,7 @@ public interface IDataCompanyMd5Service extends IBaseService<DataCompanyMd5DO> {
         Assert.notEmpty(usccMd5s,"usccMd5s 不能为空");
         return list(Wrappers.<DataCompanyMd5DO>lambdaQuery().in(DataCompanyMd5DO::getUsccMd5, usccMd5s));
     }
-            
+
 
     /**
      * 根据注册号md5查询
@@ -89,7 +90,7 @@ public interface IDataCompanyMd5Service extends IBaseService<DataCompanyMd5DO> {
         Assert.notEmpty(regNoMd5s,"regNoMd5s 不能为空");
         return list(Wrappers.<DataCompanyMd5DO>lambdaQuery().in(DataCompanyMd5DO::getRegNoMd5, regNoMd5s));
     }
-            
+
 
     /**
      * 根据组织机构代码md5查询
@@ -112,7 +113,7 @@ public interface IDataCompanyMd5Service extends IBaseService<DataCompanyMd5DO> {
         Assert.notEmpty(orgCodeMd5s,"orgCodeMd5s 不能为空");
         return list(Wrappers.<DataCompanyMd5DO>lambdaQuery().in(DataCompanyMd5DO::getOrgCodeMd5, orgCodeMd5s));
     }
-            
+
 
 
 

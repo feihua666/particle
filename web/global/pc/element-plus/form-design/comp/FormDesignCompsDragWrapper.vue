@@ -2,7 +2,8 @@
 import draggable from 'vuedraggable'
 import PtFormDesignCompsDragItem from './FormDesignCompsDragItem.vue'
 import {computed} from "vue";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
+
 /**
  * 可用组件项
  */

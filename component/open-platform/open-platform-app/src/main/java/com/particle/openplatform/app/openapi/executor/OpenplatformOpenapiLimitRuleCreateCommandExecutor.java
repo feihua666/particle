@@ -1,21 +1,21 @@
 package com.particle.openplatform.app.openapi.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.openapi.structmapping.OpenplatformOpenapiLimitRuleAppStructMapping;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiLimitRuleCreateCommand;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiLimitRuleVO;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiLimitRule;
 import com.particle.openplatform.domain.openapi.gateway.OpenplatformOpenapiLimitRuleGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiLimitRuleCreateCommandExecutor  extends Abstract
 		return openplatformOpenapiLimitRule;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  OpenplatformOpenapiLimitRuleCreateCommandToOpenplatformOpenapiLimitRuleMapping{
 		OpenplatformOpenapiLimitRuleCreateCommandToOpenplatformOpenapiLimitRuleMapping instance = Mappers.getMapper( OpenplatformOpenapiLimitRuleCreateCommandToOpenplatformOpenapiLimitRuleMapping.class );
 

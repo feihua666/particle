@@ -1,14 +1,13 @@
 package com.particle.crm.infrastructure.relation.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.crm.infrastructure.relation.dos.CrmCustomerRelationDO;
 import com.particle.crm.infrastructure.relation.mapper.CrmCustomerRelationMapper;
 import com.particle.crm.infrastructure.relation.service.ICrmCustomerRelationService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -38,6 +37,6 @@ public class CrmCustomerRelationServiceImpl extends IBaseServiceImpl<CrmCustomer
 
 	@Override
 	protected void preUpdate(CrmCustomerRelationDO po) {
-    
+
 	}
 }

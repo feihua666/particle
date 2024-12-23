@@ -3,7 +3,10 @@
  * 企业md5ids管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dataCompanyMd5IdsPageApi, remove as dataCompanyMd5IdsRemoveApi} from "../../../api/temp/admin/dataCompanyMd5IdsAdminApi"
+import {
+  page as dataCompanyMd5IdsPageApi,
+  remove as dataCompanyMd5IdsRemoveApi
+} from "../../../api/temp/admin/dataCompanyMd5IdsAdminApi"
 import {pageFormItems} from "../../../components/temp/admin/dataCompanyMd5IdsManage";
 
 
@@ -140,7 +143,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataCompanyMd5IdsPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

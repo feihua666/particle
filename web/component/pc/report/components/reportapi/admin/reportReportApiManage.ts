@@ -1,4 +1,3 @@
-import {list as reportSegmentTemplateListApi} from "../../../api/template/admin/reportSegmentTemplateAdminApi";
 import {useCascaderReportSegmentTemplateCompItem} from "../../reportSegmentTemplateCompItem";
 import {treeQueryComps} from "../../../../treeQueryComps";
 import {useCascaderReportReportapiCompItem} from "../../reportReportapiCompItem";
@@ -12,7 +11,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '编码',
-            
+
           },
           compProps: {
             clearable: true,
@@ -28,7 +27,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '名称',
-            
+
           },
           compProps: {
             clearable: true,

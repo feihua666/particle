@@ -1,7 +1,6 @@
 package com.particle.tenant.domain.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
-import com.particle.global.dto.response.Response;
 
 import java.util.List;
 

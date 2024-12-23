@@ -4,9 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as TenantFuncUpdateApi,
   detailForUpdate as detailForUpdateApi,
-  list as TenantFuncListApi
+  update as TenantFuncUpdateApi
 } from "../../../api/tenantfunc/admin/tenantFuncAdminApi"
 
 import {updatePageFormItems} from "../../../components/tenantfunc/admin/tenantFuncManage";

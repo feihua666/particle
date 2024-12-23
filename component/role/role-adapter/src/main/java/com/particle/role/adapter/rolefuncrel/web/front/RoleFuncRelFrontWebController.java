@@ -1,5 +1,6 @@
 package com.particle.role.adapter.rolefuncrel.web.front;
 
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -8,7 +9,6 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
-import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.role.client.rolefuncrel.api.representation.IRoleFuncRelRepresentationApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
@@ -16,8 +16,8 @@ import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelPageQueryCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

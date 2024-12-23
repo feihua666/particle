@@ -1,20 +1,19 @@
 package com.particle.global.openapi;
 
 import com.particle.global.concurrency.threadpool.CustomExecutors;
-import com.particle.global.light.share.scheduler.SchedulerConstants;
 import com.particle.global.openapi.api.GlobalOpenapiCache;
 import com.particle.global.openapi.api.GlobalOpenapiClientProvider;
 import com.particle.global.openapi.api.OpenapiHelper;
 import com.particle.global.openapi.api.impl.DefaultOpenApiGlobal;
 import com.particle.global.openapi.api.impl.InMemoryGlobalOpenapiCacheImpl;
 import com.particle.global.openapi.api.impl.InMemoryGlobalOpenapiClientProviderImpl;
+import com.particle.global.openapi.api.limitrule.ratelimit.GlobalOpenapiRateLimitService;
 import com.particle.global.openapi.api.portal.OpenapiExecutePortalService;
 import com.particle.global.openapi.api.portal.OpenapiExecuteProviderLoadBalancer;
 import com.particle.global.openapi.api.portal.impl.DefaultOpenapiExecutePortalServiceImpl;
 import com.particle.global.openapi.api.portal.impl.DemoOpenapiExecuteProvider;
 import com.particle.global.openapi.api.portal.impl.OpenapiSingleExecuteProviderLoadBalancerImpl;
 import com.particle.global.openapi.api.portal.impl.OpenapiSpecifyExecuteProviderLoadBalancerImpl;
-import com.particle.global.openapi.api.limitrule.ratelimit.GlobalOpenapiRateLimitService;
 import com.particle.global.openapi.filter.GlobalOpenApiFilter;
 import com.particle.global.openapi.filter.OpenapiRequestResponseLogMatchResponseResolver;
 import com.particle.global.projectinfo.ProjectInfo;
@@ -23,7 +22,7 @@ import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -51,7 +50,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @since 2023-08-01 14:43
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = true)
 @EnableConfigurationProperties({GlobalOpenapiProperties.class})
 @ConditionalOnProperty(prefix = "particle.openapi", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalOpenapiAutoConfiguration {
@@ -184,7 +183,7 @@ public class GlobalOpenapiAutoConfiguration {
 		return new DemoOpenapiExecuteProvider();
 	}
 
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(DefaultThreadLocalRateLimitInterceptServiceImpl.class)
 	public static class RateLimitConfig{
 

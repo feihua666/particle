@@ -4,9 +4,7 @@
  */
 import {reactive, ref} from 'vue'
 import {singleQuery,} from "../../../api/openapi/admin/openplatformOpenapiAdminApi"
-import {
-  useCascaderOpenapiByOpenplatformAppIdCompItem,
-} from "../../../components/openplatformOpenapiCompItem";
+import {useCascaderOpenapiByOpenplatformAppIdCompItem,} from "../../../components/openplatformOpenapiCompItem";
 import {useSelectAppForCurrentUserCompItem} from "../../../components/openplatformAppCompItem";
 import {allDetail} from "../../../api/doc/admin/openplatformDocApiAdminApi";
 import {isEmpty} from "../../../../../../global/common/tools/ObjectTools";

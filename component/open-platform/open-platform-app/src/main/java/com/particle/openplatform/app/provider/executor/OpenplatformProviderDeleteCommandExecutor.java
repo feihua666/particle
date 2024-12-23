@@ -10,11 +10,10 @@ import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderVO
 import com.particle.openplatform.domain.provider.OpenplatformProvider;
 import com.particle.openplatform.domain.provider.OpenplatformProviderId;
 import com.particle.openplatform.domain.provider.gateway.OpenplatformProviderGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

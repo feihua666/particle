@@ -2,19 +2,18 @@ package com.particle.dept.app.deptuserrel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.dept.app.deptuserrel.structmapping.DeptUserRelAppStructMapping;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
 import com.particle.dept.domain.deptuserrel.DeptUserRel;
 import com.particle.dept.domain.deptuserrel.DeptUserRelId;
 import com.particle.dept.domain.deptuserrel.gateway.DeptUserRelGateway;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.Assert;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

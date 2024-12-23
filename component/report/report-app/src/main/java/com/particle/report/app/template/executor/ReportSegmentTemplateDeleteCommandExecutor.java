@@ -10,11 +10,10 @@ import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
 import com.particle.report.domain.template.ReportSegmentTemplate;
 import com.particle.report.domain.template.ReportSegmentTemplateId;
 import com.particle.report.domain.template.gateway.ReportSegmentTemplateGateway;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

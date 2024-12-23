@@ -2,7 +2,7 @@
 /**
  * 根据字典组生成对应java枚举
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {list as dictListApi} from "../../../dict/api/admin/dictAdminApi";
 import {genDictEnumJavaClass} from "../../components/front/dictEnumGen";
 import {getItems} from "../../../dict/api/front/dictFrontApi";

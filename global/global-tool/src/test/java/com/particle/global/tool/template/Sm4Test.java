@@ -6,7 +6,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.SmUtil;
 import cn.hutool.crypto.symmetric.SM4;
 
 import javax.crypto.SecretKey;

@@ -3,10 +3,7 @@ package com.particle.tenant.app.tenantfuncapplication.executor;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.Response;
 import com.particle.global.mybatis.plus.dto.RelDTO;
-import com.particle.tenant.client.tenantfunc.dto.command.TenantAssignFuncCommand;
 import com.particle.tenant.client.tenantfuncapplication.dto.command.TenantAssignFuncApplicationCommand;
-import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
-import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
 import com.particle.tenant.infrastructure.tenantfuncapplication.dos.TenantFuncApplicationDO;
 import com.particle.tenant.infrastructure.tenantfuncapplication.service.ITenantFuncApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +42,7 @@ public class TenantFuncApplicationCommandExecutor extends AbstractBaseExecutor {
 		tenantFuncApplicationDO.setFuncApplicationId(relDTO.getOtherId());
 		return tenantFuncApplicationDO;
 	}
-	
+
 	@Autowired
 
 	public void setiTenantFuncApplicationService(ITenantFuncApplicationService iTenantFuncApplicationService) {

@@ -2,7 +2,7 @@
 /**
  * 功能菜单组管理添加页面
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {create as funcGroupCreateApi} from "../../api/admin/funcGroupAdminApi"
 import {addPageFormItems} from "../../components/admin/funcGroupManage";
 

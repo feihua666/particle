@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  * @author yangwei
  * @since 2022-08-05 11:29
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import({GlobalConcurrencyExecutorsConfig.class, DistributedShedLockConfiguration.class})
 public class GlobalConcurrencyAutoConfiguration {
 }

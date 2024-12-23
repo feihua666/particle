@@ -1,7 +1,9 @@
 package com.particle.openplatform.app.doc.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.google.common.collect.Lists;
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiUpdateCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
@@ -10,19 +12,17 @@ import com.particle.openplatform.domain.doc.OpenplatformDocApiDirRel;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDirRelGateway;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDirRelDO;
 import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDirRelService;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -76,7 +76,7 @@ public class OpenplatformDocApiUpdateCommandExecutor  extends AbstractBaseExecut
 		return openplatformDocApi;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface OpenplatformDocApiUpdateCommandToOpenplatformDocApiMapping{
 		OpenplatformDocApiUpdateCommandToOpenplatformDocApiMapping instance = Mappers.getMapper(OpenplatformDocApiUpdateCommandToOpenplatformDocApiMapping.class );
 

@@ -1,10 +1,11 @@
 package com.particle.usagecount.infrastructure.service;
 
-import com.particle.usagecount.infrastructure.dos.UsageCountRecordDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.usagecount.infrastructure.dos.UsageCountRecordDO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IUsageCountRecordService extends IBaseService<UsageCountRecordD
         Assert.notEmpty(usageCountKeys,"usageCountKeys 不能为空");
         return list(Wrappers.<UsageCountRecordDO>lambdaQuery().in(UsageCountRecordDO::getUsageCountKey, usageCountKeys));
     }
-            
+
 
     /**
      * 根据使用次数定义id查询
@@ -60,7 +61,7 @@ public interface IUsageCountRecordService extends IBaseService<UsageCountRecordD
         Assert.notEmpty(usageCountDefineIds,"usageCountDefineIds 不能为空");
         return list(Wrappers.<UsageCountRecordDO>lambdaQuery().in(UsageCountRecordDO::getUsageCountDefineId, usageCountDefineIds));
     }
-            
+
 
     /**
      * 根据使用次数配置id查询
@@ -83,7 +84,7 @@ public interface IUsageCountRecordService extends IBaseService<UsageCountRecordD
         Assert.notEmpty(usageCountConfigIds,"usageCountConfigIds 不能为空");
         return list(Wrappers.<UsageCountRecordDO>lambdaQuery().in(UsageCountRecordDO::getUsageCountConfigId, usageCountConfigIds));
     }
-            
+
 
 
     /**
@@ -107,7 +108,7 @@ public interface IUsageCountRecordService extends IBaseService<UsageCountRecordD
         Assert.notEmpty(usageUserIds,"usageUserIds 不能为空");
         return list(Wrappers.<UsageCountRecordDO>lambdaQuery().in(UsageCountRecordDO::getUsageUserId, usageUserIds));
     }
-            
+
 
     /**
      * 根据使用租户id查询
@@ -130,7 +131,7 @@ public interface IUsageCountRecordService extends IBaseService<UsageCountRecordD
         Assert.notEmpty(usageTenantIds,"usageTenantIds 不能为空");
         return list(Wrappers.<UsageCountRecordDO>lambdaQuery().in(UsageCountRecordDO::getUsageTenantId, usageTenantIds));
     }
-            
+
 
 
 

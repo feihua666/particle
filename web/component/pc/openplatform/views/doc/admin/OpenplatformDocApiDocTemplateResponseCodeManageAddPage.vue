@@ -2,8 +2,10 @@
 /**
  * 开放接口文档模板响应码管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformDocApiDocTemplateResponseCodeCreateApi,list as OpenplatformDocApiDocTemplateResponseCodeListApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateResponseCodeAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  create as openplatformDocApiDocTemplateResponseCodeCreateApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateResponseCodeAdminApi"
 import {addPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateResponseCodeManage";
 
 

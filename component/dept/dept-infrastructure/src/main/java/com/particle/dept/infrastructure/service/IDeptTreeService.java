@@ -1,10 +1,11 @@
 package com.particle.dept.infrastructure.service;
 
-import com.particle.dept.infrastructure.dos.DeptTreeDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.dept.infrastructure.dos.DeptTreeDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IDeptTreeService extends IBaseService<DeptTreeDO> {
         Assert.notEmpty(deptIds,"deptIds 不能为空");
         return list(Wrappers.<DeptTreeDO>lambdaQuery().in(DeptTreeDO::getDeptId, deptIds));
     }
-            
+
 
     /**
      * 根据部门树名称id查询
@@ -60,7 +61,7 @@ public interface IDeptTreeService extends IBaseService<DeptTreeDO> {
         Assert.notEmpty(deptTreeNameIds,"deptTreeNameIds 不能为空");
         return list(Wrappers.<DeptTreeDO>lambdaQuery().in(DeptTreeDO::getDeptTreeNameId, deptTreeNameIds));
     }
-            
+
 
 
 

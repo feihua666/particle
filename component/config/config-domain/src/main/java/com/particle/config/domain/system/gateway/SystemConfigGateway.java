@@ -1,8 +1,8 @@
 package com.particle.config.domain.system.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.config.domain.system.SystemConfig;
 import com.particle.config.domain.system.SystemConfigId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

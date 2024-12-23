@@ -1,14 +1,14 @@
 package com.particle.tenant.infrastructure.tenantfunc.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
+import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.basic.IdCommand;
 import com.particle.tenant.domain.tenantfunc.TenantFunc;
 import com.particle.tenant.domain.tenantfunc.TenantFuncId;
 import com.particle.tenant.domain.tenantfunc.gateway.TenantFuncGateway;
-import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
 import com.particle.tenant.infrastructure.tenantfunc.dos.TenantFuncDO;
+import com.particle.tenant.infrastructure.tenantfunc.service.ITenantFuncService;
 import com.particle.tenant.infrastructure.tenantfunc.structmapping.TenantFuncInfrastructureStructMapping;
-import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

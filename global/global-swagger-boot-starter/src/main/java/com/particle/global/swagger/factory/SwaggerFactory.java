@@ -8,7 +8,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +76,7 @@ public class SwaggerFactory {
                         }
                     }
                     return operation;
-                }).addOpenApiCustomiser(openApi -> {
+                }).addOpenApiCustomizer(openApi -> {
                     openApi.info(apiInfo(infoDTO));
                     SecurityRequirement securityRequirement = securityRequirement(infoDTO.getSecuritySchemes());
                     if (securityRequirement != null) {

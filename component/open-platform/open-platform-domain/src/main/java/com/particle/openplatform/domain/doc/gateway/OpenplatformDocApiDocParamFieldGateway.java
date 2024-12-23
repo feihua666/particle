@@ -1,8 +1,8 @@
 package com.particle.openplatform.domain.doc.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamField;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocParamFieldId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

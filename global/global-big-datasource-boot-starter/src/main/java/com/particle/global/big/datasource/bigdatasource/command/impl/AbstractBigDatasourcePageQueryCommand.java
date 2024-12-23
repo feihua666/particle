@@ -3,8 +3,6 @@ package com.particle.global.big.datasource.bigdatasource.command.impl;
 import com.particle.global.big.datasource.bigdatasource.command.IBigDatasourceQueryCommand;
 import com.particle.global.dto.basic.PageQueryCommand;
 
-import java.util.Map;
-
 /**
  * <p>
  * 大数据源分页查询指令

@@ -1,6 +1,5 @@
 package com.particle.particledemo.test.dataquery
 
-import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DataApiQueryGatewayImpl
 
 import java.util.concurrent.Executors
 

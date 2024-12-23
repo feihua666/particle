@@ -4,7 +4,6 @@ import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import com.particle.global.light.share.trans.anno.TransTimes;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
@@ -33,7 +32,7 @@ public class TenantFuncApplicationVO extends AbstractBaseIdVO {
 
     @Schema(description = "应用主题")
     private String applicationTheme;
-    
+
     @Schema(description = "应用默认的页面路由")
     private String applicationDefaultRoute;
 

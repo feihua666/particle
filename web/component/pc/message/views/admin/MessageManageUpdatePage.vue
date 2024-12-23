@@ -3,11 +3,7 @@
  * 消息管理更新页面
  */
 import {reactive, ref} from 'vue'
-import {
-  update as messageUpdateApi,
-  detailForUpdate as detailForUpdateApi,
-  list as MessageListApi
-} from "../../api/admin/messageAdminApi"
+import {detailForUpdate as detailForUpdateApi, update as messageUpdateApi} from "../../api/admin/messageAdminApi"
 
 import {updatePageFormItems} from "../../components/admin/messageManage";
 

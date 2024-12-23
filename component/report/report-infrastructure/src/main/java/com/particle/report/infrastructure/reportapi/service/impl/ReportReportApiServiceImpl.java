@@ -1,16 +1,15 @@
 package com.particle.report.infrastructure.reportapi.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.report.infrastructure.reportapi.dos.ReportReportApiDO;
 import com.particle.report.infrastructure.reportapi.mapper.ReportReportApiMapper;
 import com.particle.report.infrastructure.reportapi.service.IReportReportApiService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
-import org.springframework.stereotype.Component;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**

@@ -1,14 +1,11 @@
 package com.particle.feedback.domain.feedback;
 
 import cn.hutool.core.lang.Validator;
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
-import com.particle.global.exception.Assert;
-import com.particle.global.validation.ValidateTool;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -33,7 +30,7 @@ public class Feedback extends AggreateRoot {
     * 问题建议时间
     */
     private LocalDateTime feedbackAt;
-    
+
     /**
     * 问题建议用户id，如果存在登录用户，记录提建议的用户id
     */

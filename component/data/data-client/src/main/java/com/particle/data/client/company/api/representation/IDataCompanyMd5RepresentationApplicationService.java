@@ -2,12 +2,12 @@ package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.data.client.company.dto.command.representation.DataCompanyMd5PageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyMd5QueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyMd5VO;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 
 /**
  * <p>

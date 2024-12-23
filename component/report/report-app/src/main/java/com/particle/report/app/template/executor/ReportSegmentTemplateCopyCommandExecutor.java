@@ -9,11 +9,11 @@ import com.particle.report.client.template.dto.command.ReportSegmentTemplateCopy
 import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
 import com.particle.report.infrastructure.template.dos.ReportSegmentTemplateDO;
 import com.particle.report.infrastructure.template.service.IReportSegmentTemplateService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 /**

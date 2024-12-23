@@ -2,12 +2,14 @@
 /**
  * 一键添加租户，自动默认租户申请审批通过，支持已存在用户直接关系租户，支持不存在用户一键添加
  */
-import {reactive ,ref} from 'vue'
+import {reactive, ref} from 'vue'
 
-import { ElMessage } from 'element-plus'
-import TenantCreateApplyFuncApplication from '../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
+import {ElMessage} from 'element-plus'
+import TenantCreateApplyFuncApplication
+  from '../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
 import {useOneClickAddPageFormItems} from "../../components/createapply/admin/tenantCreateApplyManage";
 import {oneClickCreate} from "../../api/admin/tenantAdminApi";
+
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)
 // 声明属性

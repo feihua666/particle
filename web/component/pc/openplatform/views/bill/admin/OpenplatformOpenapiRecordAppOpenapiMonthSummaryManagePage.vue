@@ -3,7 +3,10 @@
  * 开放平台应用开放接口月汇总管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiRecordAppOpenapiMonthSummaryPageApi, remove as openplatformOpenapiRecordAppOpenapiMonthSummaryRemoveApi} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryAdminApi"
+import {
+  page as openplatformOpenapiRecordAppOpenapiMonthSummaryPageApi,
+  remove as openplatformOpenapiRecordAppOpenapiMonthSummaryRemoveApi
+} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformOpenapiRecordAppOpenapiMonthSummaryManage";
 
 

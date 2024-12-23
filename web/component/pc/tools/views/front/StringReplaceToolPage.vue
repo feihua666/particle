@@ -2,7 +2,7 @@
 /**
  * 字符串替换工具页面
  */
-import {reactive,getCurrentInstance, ref} from 'vue'
+import {getCurrentInstance, reactive, ref} from 'vue'
 import {lowerFirst, replace, upperFirst} from "../../../../../global/common/tools/StringTools";
 
 const { proxy } = getCurrentInstance()

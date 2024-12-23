@@ -1,12 +1,10 @@
 package com.particle.scheduler.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by yangwei
@@ -14,15 +12,15 @@ import javax.validation.constraints.NotEmpty;
  */
 @Setter
 @Getter
-@ApiModel(value="NameAndGroup表单对象")
+@Schema(description="NameAndGroup表单对象")
 public class NameAndGroupCommand extends AbstractBaseCommand {
 
     @NotEmpty(message = "名称不能为空")
-    @ApiModelProperty(value = "名称",required = true)
+    @Schema(description = "名称",required = true)
     private String name;
 
     @NotEmpty(message = "组不能为空")
-    @ApiModelProperty(value = "组",required = true)
+    @Schema(description = "组",required = true)
     private String group;
 
 

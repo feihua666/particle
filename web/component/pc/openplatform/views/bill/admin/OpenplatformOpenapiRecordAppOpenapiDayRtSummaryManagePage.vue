@@ -3,7 +3,9 @@
  * 开放平台应用开放接口日实时汇总管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformOpenapiRecordAppOpenapiDayRtSummaryPageApi, remove as openplatformOpenapiRecordAppOpenapiDayRtSummaryRemoveApi} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiDayRtSummaryAdminApi"
+import {
+  page as openplatformOpenapiRecordAppOpenapiDayRtSummaryPageApi
+} from "../../../api/bill/admin/openplatformOpenapiRecordAppOpenapiDayRtSummaryAdminApi"
 import {pageFormItems} from "../../../components/bill/admin/openplatformOpenapiRecordAppOpenapiDayRtSummaryManage";
 
 

@@ -1,11 +1,10 @@
 package com.particle.oplog.client.error.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -89,7 +88,7 @@ public class OpLogErrorUpdateCommand extends AbstractBaseUpdateCommand {
     @NotNull(message = "异常发生时间 不能为空")
         @Schema(description = "异常发生时间",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime errorAt;
-    
+
 
 
 

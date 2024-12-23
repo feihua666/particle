@@ -2,11 +2,11 @@ package com.particle.role.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.trans.api.ITransService;
+import com.particle.global.trans.result.TransResult;
 import com.particle.role.client.dto.data.RoleTransVO;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.service.IRoleService;
-import com.particle.global.trans.api.ITransService;
-import com.particle.global.trans.result.TransResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

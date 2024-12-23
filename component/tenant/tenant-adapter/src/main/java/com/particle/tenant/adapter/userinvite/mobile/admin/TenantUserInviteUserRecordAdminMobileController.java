@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.userinvite.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.tenant.client.userinvite.api.ITenantUserInviteUserRecordApplicationService;
+import com.particle.tenant.client.userinvite.api.ITenantUserInviteUserRecordApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

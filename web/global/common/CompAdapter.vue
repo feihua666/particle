@@ -1,5 +1,5 @@
 <script>
-import { ref, h ,resolveComponent,useTemplateRef} from 'vue'
+import {h, resolveComponent, useTemplateRef} from 'vue'
 import {isString} from "./tools/StringTools";
 import {extend, isObject} from "./tools/ObjectTools";
 

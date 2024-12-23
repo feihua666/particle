@@ -1,11 +1,11 @@
 package com.particle.feedback.client.feedback.dto.command.representation;
+
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
 import com.particle.global.light.share.mybatis.anno.Like;
-
 import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import com.particle.global.light.share.mybatis.anno.Like;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -25,7 +25,7 @@ public class FeedbackPageQueryCommand extends AbstractBasePageQueryCommand {
 
     @Schema(description = "问题建议时间")
     private LocalDateTime feedbackAt;
-    
+
 
     @Schema(description = "问题建议用户id")
     private Long feedbackUserId;

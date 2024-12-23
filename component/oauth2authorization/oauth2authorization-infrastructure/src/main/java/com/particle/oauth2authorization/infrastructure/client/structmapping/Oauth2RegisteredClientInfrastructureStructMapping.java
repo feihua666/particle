@@ -1,10 +1,11 @@
 package com.particle.oauth2authorization.infrastructure.client.structmapping;
 
-import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClientId;
+import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-07-25 17:03:38
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class Oauth2RegisteredClientInfrastructureStructMapping {
 	public static Oauth2RegisteredClientInfrastructureStructMapping instance = Mappers.getMapper( Oauth2RegisteredClientInfrastructureStructMapping.class );
 

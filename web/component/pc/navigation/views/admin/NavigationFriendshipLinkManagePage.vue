@@ -3,7 +3,10 @@
  * 导航友情链接管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as navigationFriendshipLinkPageApi, remove as navigationFriendshipLinkRemoveApi} from "../../api/admin/navigationFriendshipLinkAdminApi"
+import {
+  page as navigationFriendshipLinkPageApi,
+  remove as navigationFriendshipLinkRemoveApi
+} from "../../api/admin/navigationFriendshipLinkAdminApi"
 import {pageFormItems} from "../../components/admin/navigationFriendshipLinkManage";
 
 

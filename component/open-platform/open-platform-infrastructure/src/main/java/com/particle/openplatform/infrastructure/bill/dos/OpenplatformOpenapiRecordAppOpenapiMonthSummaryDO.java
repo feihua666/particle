@@ -2,13 +2,10 @@ package com.particle.openplatform.infrastructure.bill.dos;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.particle.global.mybatis.plus.dto.BaseDO;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
 /**
  * <p>
  * 开放平台应用开放接口月汇总表

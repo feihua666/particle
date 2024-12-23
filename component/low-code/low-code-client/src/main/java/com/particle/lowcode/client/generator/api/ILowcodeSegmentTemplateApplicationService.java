@@ -1,16 +1,14 @@
 package com.particle.lowcode.client.generator.api;
 
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateRenderCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateUpdateCommand;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateRenderVO;
 import com.particle.lowcode.client.generator.dto.data.LowcodeSegmentTemplateVO;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.client.api.IBaseApplicationService;
 
 /**
  * <p>

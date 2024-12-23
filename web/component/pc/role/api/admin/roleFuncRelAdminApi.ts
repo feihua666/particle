@@ -1,6 +1,6 @@
-import axios, { AxiosPromise} from 'axios'
+import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
-import {IdParam, updateParam} from "../../../../../common/api/api";
+import {IdParam} from "../../../../../common/api/api";
 
 let prefix = '/admin/web/role-func-rel'
 /**

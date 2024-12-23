@@ -5,10 +5,10 @@ import {formDesignCompsInputNumberAttrs} from "./compsattr/formDesignCompsInputN
 import {formDesignCompsTimePickerAttrs} from "./compsattr/formDesignCompsTimePickerAttrs";
 import {formDesignCompsDatePickerAttrs} from "./compsattr/formDesignCompsDatePickerAttrs";
 import {formDesignCompsSwitchAttrs} from "./compsattr/formDesignCompsSwitchAttrs";
-import {formDesignParticleBuiltInComponentsAttrsPermission} from "./formDesignParticleBuiltInComponentsAttrs";
 import {formDesignCompsRateAttrs} from "./compsattr/formDesignCompsRateAttrs";
 import {formDesignCompsSliderAttrs} from "./compsattr/formDesignCompsSliderAttrs";
 import {formDesignCompsColorPickerAttrs} from "./compsattr/formDesignCompsColorPickerAttrs";
+
 /**
  * element plus 内置组件
  */

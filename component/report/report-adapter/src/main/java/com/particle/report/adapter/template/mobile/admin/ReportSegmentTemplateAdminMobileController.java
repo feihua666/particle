@@ -1,7 +1,7 @@
 package com.particle.report.adapter.template.mobile.admin;
 
 import com.particle.common.adapter.mobile.AbstractBaseMobileAdapter;
-import  com.particle.report.client.template.api.IReportSegmentTemplateApplicationService;
+import com.particle.report.client.template.api.IReportSegmentTemplateApplicationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

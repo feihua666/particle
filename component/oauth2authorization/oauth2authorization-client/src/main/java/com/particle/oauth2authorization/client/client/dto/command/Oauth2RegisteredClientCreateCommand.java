@@ -2,9 +2,9 @@ package com.particle.oauth2authorization.client.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 /**

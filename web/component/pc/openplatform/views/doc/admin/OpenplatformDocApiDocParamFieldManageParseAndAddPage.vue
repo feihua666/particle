@@ -2,14 +2,9 @@
 /**
  * 开放接口文档参数字段管理解析并添加页面
  */
-import {reactive ,ref} from 'vue'
-import {
-  parseAndCreate
-} from "../../../api/doc/admin/openplatformDocApiDocParamFieldAdminApi"
-import {
-  addPageFormItems,
-  parseAndAddPageFormItems
-} from "../../../components/doc/admin/openplatformDocApiDocParamFieldManage";
+import {reactive, ref} from 'vue'
+import {parseAndCreate} from "../../../api/doc/admin/openplatformDocApiDocParamFieldAdminApi"
+import {parseAndAddPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocParamFieldManage";
 
 
 // 属性

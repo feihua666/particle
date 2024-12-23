@@ -1,5 +1,6 @@
 import {copy as copyp} from "../../common/tools/ClipboardTools";
-import {ElMessage,ElMessageBox} from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
+
 let alert = (message,type='success')=>{
     ElMessage({
         showClose: true,

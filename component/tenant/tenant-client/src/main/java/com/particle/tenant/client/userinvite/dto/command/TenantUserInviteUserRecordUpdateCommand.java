@@ -1,11 +1,10 @@
 package com.particle.tenant.client.userinvite.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +33,7 @@ public class TenantUserInviteUserRecordUpdateCommand extends AbstractBaseUpdateC
 
     @Schema(description = "用户加入时间")
     private LocalDateTime joinAt;
-    
+
 
     @Schema(description = "描述")
     private String remark;

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2023-06-28 16:49
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan("com.particle.global.wxjava.advice")
 public class GlobalWxJavaAutoConfiguration {
 }

@@ -1,9 +1,9 @@
 package com.particle.global.validation.props;
 
 import com.particle.global.validation.depend.DependField;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.TYPE;

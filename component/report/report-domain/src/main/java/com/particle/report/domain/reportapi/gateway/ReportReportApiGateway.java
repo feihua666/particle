@@ -1,8 +1,8 @@
 package com.particle.report.domain.reportapi.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.report.domain.reportapi.ReportReportApi;
 import com.particle.report.domain.reportapi.ReportReportApiId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

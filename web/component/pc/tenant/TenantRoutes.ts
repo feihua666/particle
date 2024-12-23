@@ -5,6 +5,7 @@ import tenantFuncApplicationAdminRoutes from './views/tenantfuncapplication/admi
 import tenantCreateApplyAdminRoutes from './views/createapply/admin/tenantCreateApplyAdminRoutes'
 import tenantUserInviteAdminRoutes from './views/userinvite/admin/tenantUserInviteAdminRoutes'
 import tenantUserInviteUserRecordAdminRoutes from './views/userinvite/admin/tenantUserInviteUserRecordAdminRoutes'
+
 const TenantRoutes = []
     .concat(tenantAdminRoutes)
     .concat(tenantUserAdminRoutes)

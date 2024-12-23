@@ -1,10 +1,11 @@
 package com.particle.lowcode.infrastructure.generator.structmapping;
 
-import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelItemDO;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
 import com.particle.lowcode.domain.generator.LowcodeModelItemId;
+import com.particle.lowcode.infrastructure.generator.dos.LowcodeModelItemDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2023-01-05
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class LowcodeModelItemInfrastructureStructMapping {
 	public static LowcodeModelItemInfrastructureStructMapping instance = Mappers.getMapper( LowcodeModelItemInfrastructureStructMapping.class );
 

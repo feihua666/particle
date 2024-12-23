@@ -3,7 +3,10 @@
  * 客户与客户关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as crmCustomerRelationPageApi, remove as crmCustomerRelationRemoveApi} from "../../../api/ralation/admin/crmCustomerRelationAdminApi"
+import {
+  page as crmCustomerRelationPageApi,
+  remove as crmCustomerRelationRemoveApi
+} from "../../../api/ralation/admin/crmCustomerRelationAdminApi"
 import {pageFormItems} from "../../../components/ralation/admin/crmCustomerRelationManage";
 
 
@@ -102,7 +105,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doCrmCustomerRelationPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

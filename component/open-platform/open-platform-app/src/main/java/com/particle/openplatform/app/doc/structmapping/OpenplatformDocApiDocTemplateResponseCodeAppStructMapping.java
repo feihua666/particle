@@ -1,18 +1,19 @@
 package com.particle.openplatform.app.doc.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiDocTemplateResponseCodePageQueryCommand;
+import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiDocTemplateResponseCodeQueryListCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateResponseCodeVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateResponseCode;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateResponseCodeId;
 import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateResponseCodeDO;
-import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiDocTemplateResponseCodePageQueryCommand;
-import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiDocTemplateResponseCodeQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

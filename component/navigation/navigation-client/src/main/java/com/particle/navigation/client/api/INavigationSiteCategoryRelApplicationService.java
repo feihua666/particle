@@ -2,13 +2,13 @@ package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.navigation.client.dto.command.NavigationCategoryAssignNavigationSiteCommand;
+import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationCategoryCommand;
 import com.particle.navigation.client.dto.command.NavigationSiteCategoryRelCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationSiteCategoryRelUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationSiteCategoryRelVO;
-import com.particle.navigation.client.dto.command.NavigationSiteAssignNavigationCategoryCommand;
-import com.particle.navigation.client.dto.command.NavigationCategoryAssignNavigationSiteCommand;
 /**
  * <p>
  * 导航网站分类关系 应用门面服务类

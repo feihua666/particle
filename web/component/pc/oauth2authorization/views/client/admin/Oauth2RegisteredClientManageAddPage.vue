@@ -2,10 +2,11 @@
 /**
  * oauth2客户端管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as oauth2RegisteredClientCreateApi,list as Oauth2RegisteredClientListApi} from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
+import {reactive, ref} from 'vue'
+import {create as oauth2RegisteredClientCreateApi} from "../../../api/client/admin/oauth2RegisteredClientAdminApi"
 import {convertSubmitForm, useAddPageFormItems} from "../../../components/client/admin/oauth2RegisteredClientManage";
-import Oauth2RegisteredClientManageSettingConfigs from '../../../components/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
+import Oauth2RegisteredClientManageSettingConfigs
+  from '../../../components/client/admin/Oauth2RegisteredClientManageSettingConfigs.vue'
 
 const oauth2RegisteredClientManageSettingConfigsRef = ref(null)
 // 属性
@@ -49,9 +50,9 @@ const submitMethodSuccess = () => {
           :layout="[2,1,1,1,1]"
           :comps="formComps">
   </PtForm>
-  
+
   <Oauth2RegisteredClientManageSettingConfigs  :form="reactiveData.form" :formData="reactiveData.formData" ref="oauth2RegisteredClientManageSettingConfigsRef"></Oauth2RegisteredClientManageSettingConfigs>
-  
+
 </template>
 
 

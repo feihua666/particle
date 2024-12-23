@@ -8,10 +8,11 @@ import com.particle.global.tool.http.HttpClientTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.pinyin.Pinyin;
 import com.particle.global.tool.pinyin.PinyinTool;
-import io.swagger.v3.core.util.Json;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
  * @since 2023-09-15 09:27
  */
 public class TempTest {
-	public static void main(String[] args) throws IOException, BadHanyuPinyinOutputFormatCombination {
+	public static void main(String[] args) throws IOException, BadHanyuPinyinOutputFormatCombination, ParseException, URISyntaxException {
 
 		String cTokenId = "6e9b60ad-141c-4cac-b85c-fd4c5566667f";
 		String parentId = "1704762692855676930";

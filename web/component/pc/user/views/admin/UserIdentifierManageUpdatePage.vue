@@ -4,8 +4,8 @@
  */
 import {reactive, ref} from 'vue'
 import {
-  update as userIdentifierUpdateApi,
   detailForUpdate as detailForUpdateApi,
+  update as userIdentifierUpdateApi,
 } from "../../api/admin/userIdentifierAdminApi"
 import {updatePageFormItems} from "../../components/admin/userIdentifierManage";
 // 声明属性

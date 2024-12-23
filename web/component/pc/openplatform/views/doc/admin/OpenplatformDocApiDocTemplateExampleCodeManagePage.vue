@@ -3,7 +3,10 @@
  * 开放接口文档模板示例代码管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformDocApiDocTemplateExampleCodePageApi, remove as openplatformDocApiDocTemplateExampleCodeRemoveApi} from "../../../api/doc/admin/openplatformDocApiDocTemplateExampleCodeAdminApi"
+import {
+  page as openplatformDocApiDocTemplateExampleCodePageApi,
+  remove as openplatformDocApiDocTemplateExampleCodeRemoveApi
+} from "../../../api/doc/admin/openplatformDocApiDocTemplateExampleCodeAdminApi"
 import {pageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateExampleCodeManage";
 
 
@@ -113,7 +116,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformDocApiDocTemplateExampleCodePageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

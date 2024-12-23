@@ -33,7 +33,7 @@
         <!-- 依赖经量模块，主要是为了使用其 com.particle.global.light.share.mybatis.anno.Ignore -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>global-light-share</artifactId>
+            <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>

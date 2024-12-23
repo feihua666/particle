@@ -1,4 +1,5 @@
 import {list as tenantListApi} from "../api/admin/tenantAdminApi";
+
 export const selectTenantProps = {
     // 加载数据初始化参数,路由传参
     tenantId: {

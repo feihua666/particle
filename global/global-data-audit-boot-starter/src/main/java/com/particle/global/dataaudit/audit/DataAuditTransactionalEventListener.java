@@ -1,13 +1,14 @@
 package com.particle.global.dataaudit.audit;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Pair;
 import com.particle.global.dataaudit.DataAuditAuditAutoConfiguration;
 import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
-import cn.hutool.core.lang.Pair;
 import org.javers.common.collections.Lists;
 import org.javers.core.diff.Change;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -49,7 +50,7 @@ public class DataAuditTransactionalEventListener {
 	 *
 	 * @param event 通知事件
 	 */
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
 	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
 	public void handleCustomHandlerApplicationEvent(DataAuditCustomHandlerApplicationEvent event) {
 		if (dataAuditTaskExecutor != null) {
@@ -87,7 +88,7 @@ public class DataAuditTransactionalEventListener {
 	 * 只一个重载的功能
 	 * @param event
 	 */
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
 	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
 	public void handleObjectApplicationEvent(DataAuditObjectApplicationEvent event) {
 

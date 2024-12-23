@@ -8,6 +8,7 @@ import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
 import com.particle.global.dataaudit.op.dto.OpLogAndDataAuditResultsDTO;
 import com.particle.global.dataaudit.op.dto.OpLogDTO;
 import com.particle.global.tool.id.SnowflakeIdTool;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;

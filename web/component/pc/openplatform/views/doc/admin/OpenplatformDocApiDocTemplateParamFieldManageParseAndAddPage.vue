@@ -2,13 +2,9 @@
 /**
  * 开放接口文档模板参数字段管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {
-  parseAndCreate
-} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
-import {
-  parseAndAddPageFormItems
-} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
+import {reactive, ref} from 'vue'
+import {parseAndCreate} from "../../../api/doc/admin/openplatformDocApiDocTemplateParamFieldAdminApi"
+import {parseAndAddPageFormItems} from "../../../components/doc/admin/openplatformDocApiDocTemplateParamFieldManage";
 
 
 // 属性

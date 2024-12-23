@@ -6,11 +6,11 @@ import com.particle.dataconstraint.infrastructure.dos.DataScopeDO;
 import com.particle.dataconstraint.infrastructure.mapper.DataObjectMapper;
 import com.particle.dataconstraint.infrastructure.service.IDataObjectService;
 import com.particle.dataconstraint.infrastructure.service.IDataScopeService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**

@@ -1,16 +1,11 @@
 package com.particle.oplog.app.error.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.oplog.domain.error.gateway.OpLogErrorGateway;
 import com.particle.oplog.infrastructure.error.service.IOpLogErrorService;
-import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
-
-import com.particle.global.dto.response.Response;
-import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>

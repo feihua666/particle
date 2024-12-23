@@ -2,10 +2,16 @@
 /**
  * 导航网站分配导航分类页面
  */
-import {reactive ,ref} from 'vue'
-import {queryNavigationCategoryIdsByNavigationSiteId, navigationSiteAssignNavigationCategory as navigationSiteAssignNavigationCategoryApi} from "../../api/admin/navigationSiteCategoryRelAdminApi"
+import {reactive, ref} from 'vue'
+import {
+  navigationSiteAssignNavigationCategory as navigationSiteAssignNavigationCategoryApi,
+  queryNavigationCategoryIdsByNavigationSiteId
+} from "../../api/admin/navigationSiteCategoryRelAdminApi"
 // 以下两项为自动生成，不准确，请手动根据实际情况修改
-import {useRemoteSelectNavigationSiteCompItem, remoteSelectNavigationSiteProps} from "../../components/navigationSiteCompItem";
+import {
+  remoteSelectNavigationSiteProps,
+  useRemoteSelectNavigationSiteCompItem
+} from "../../components/navigationSiteCompItem";
 import {list as navigationCategoryListApi} from "../../api/admin/navigationCategoryAdminApi";
 
 // 声明属性

@@ -1,8 +1,8 @@
 package com.particle.global.big.datasource.bigdatasource.impl.jdbc.creator;
 
 import cn.hutool.core.util.ClassLoaderUtil;
-import cn.hutool.core.util.ReflectUtil;
-import com.baomidou.dynamic.datasource.creator.*;
+import com.baomidou.dynamic.datasource.creator.DataSourceCreator;
+import com.baomidou.dynamic.datasource.creator.DefaultDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.atomikos.AtomikosDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.basic.BasicDataSourceCreator;
 import com.baomidou.dynamic.datasource.creator.beecp.BeeCpDataSourceCreator;
@@ -14,14 +14,10 @@ import com.baomidou.dynamic.datasource.enums.DdConstants;
 import com.baomidou.dynamic.datasource.event.DataSourceInitEvent;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceCreatorAutoConfiguration;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
-
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import org.springframework.beans.factory.InitializingBean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -66,7 +62,7 @@ public class CustomDefaultDataSourceCreator extends DefaultDataSourceCreator{
 		 */
 		defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.JNDI_ORDER, new JndiDataSourceCreator());
 		if (ClassLoaderUtil.isPresent(DdConstants.DRUID_DATASOURCE)) {
-			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DRUID_ORDER, new DruidDataSourceCreator(dynamicDataSourceProperties.getDruid()));
+			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.DRUID_ORDER, new DruidDataSourceCreator(dynamicDataSourceProperties.getDruid(),proxyFilters -> Collections.emptyList()));
 		}
 		if (ClassLoaderUtil.isPresent(DdConstants.HIKARI_DATASOURCE)) {
 			defaultDataSourceCreators.put(DynamicDataSourceCreatorAutoConfiguration.HIKARI_ORDER, new HikariDataSourceCreator(dynamicDataSourceProperties.getHikari()));

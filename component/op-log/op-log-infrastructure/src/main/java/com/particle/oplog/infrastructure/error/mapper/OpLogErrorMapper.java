@@ -1,7 +1,7 @@
 package com.particle.oplog.infrastructure.error.mapper;
 
-import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.oplog.infrastructure.error.dos.OpLogErrorDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

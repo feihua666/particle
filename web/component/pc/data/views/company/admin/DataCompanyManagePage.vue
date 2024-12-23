@@ -3,7 +3,10 @@
  * 企业管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dataCompanyPageApi, remove as dataCompanyRemoveApi} from "../../../api/company/admin/dataCompanyAdminApi"
+import {
+  page as dataCompanyPageApi,
+  remove as dataCompanyRemoveApi
+} from "../../../api/company/admin/dataCompanyAdminApi"
 import {pageFormItems} from "../../../components/company/admin/dataCompanyManage";
 
 
@@ -116,7 +119,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataCompanyPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

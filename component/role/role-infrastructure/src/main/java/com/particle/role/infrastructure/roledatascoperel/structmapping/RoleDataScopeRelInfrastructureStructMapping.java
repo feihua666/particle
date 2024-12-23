@@ -1,10 +1,11 @@
 package com.particle.role.infrastructure.roledatascoperel.structmapping;
 
-import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRel;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRelId;
+import com.particle.role.infrastructure.roledatascoperel.dos.RoleDataScopeRelDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-07-01 16:45:06
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class RoleDataScopeRelInfrastructureStructMapping {
 	public static RoleDataScopeRelInfrastructureStructMapping instance = Mappers.getMapper( RoleDataScopeRelInfrastructureStructMapping.class );
 

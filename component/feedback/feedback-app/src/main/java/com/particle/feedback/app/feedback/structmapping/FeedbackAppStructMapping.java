@@ -1,18 +1,19 @@
 package com.particle.feedback.app.feedback.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.particle.global.dto.response.PageResponse;
+import com.particle.feedback.client.feedback.dto.command.representation.FeedbackPageQueryCommand;
+import com.particle.feedback.client.feedback.dto.command.representation.FeedbackQueryListCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
 import com.particle.feedback.domain.feedback.Feedback;
 import com.particle.feedback.domain.feedback.FeedbackId;
 import com.particle.feedback.infrastructure.feedback.dos.FeedbackDO;
-import com.particle.feedback.client.feedback.dto.command.representation.FeedbackPageQueryCommand;
-import com.particle.feedback.client.feedback.dto.command.representation.FeedbackQueryListCommand;
 import com.particle.global.dto.basic.QueryCommand;
+import com.particle.global.dto.response.PageResponse;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

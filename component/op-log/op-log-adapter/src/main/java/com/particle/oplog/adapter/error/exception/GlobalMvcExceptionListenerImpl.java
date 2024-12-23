@@ -1,23 +1,23 @@
 package com.particle.oplog.adapter.error.exception;
 
-import brave.Tracer;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.particle.global.exception.handle.GlobalMvcExceptionDTO;
 import com.particle.global.exception.handle.GlobalMvcExceptionListener;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.log.TraceTool;
 import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.web.filter.RequestResponseLogFilter;
 import com.particle.oplog.client.error.api.IOpLogErrorApplicationService;
 import com.particle.oplog.client.error.dto.command.OpLogErrorCreateCommand;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -31,8 +31,6 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class GlobalMvcExceptionListenerImpl implements GlobalMvcExceptionListener {
-    @Autowired
-    private Tracer tracer;
     @Autowired
     private IOpLogErrorApplicationService iOpLogErrorApplicationService;
 
@@ -48,7 +46,7 @@ public class GlobalMvcExceptionListenerImpl implements GlobalMvcExceptionListene
      * @return
      */
     private OpLogErrorCreateCommand map(GlobalMvcExceptionDTO exceptionDTO) {
-        OpLogErrorCreateCommand opLogErrorCreateCommand = OpLogErrorCreateCommand.create(tracer.currentSpan().context().traceIdString(), exceptionDTO.getStacktrace());
+        OpLogErrorCreateCommand opLogErrorCreateCommand = OpLogErrorCreateCommand.create(TraceTool.getTraceId(), exceptionDTO.getStacktrace());
         LoginUser loginUser = LoginUserTool.getLoginUser();
         if (loginUser != null) {
             opLogErrorCreateCommand.setUserId(loginUser.getId());
@@ -63,7 +61,7 @@ public class GlobalMvcExceptionListenerImpl implements GlobalMvcExceptionListene
         }
         opLogErrorCreateCommand.setRequestUrl(requestUrl);
         opLogErrorCreateCommand.setRequestMethod(exceptionDTO.getRequest().getMethod());
-        opLogErrorCreateCommand.setRequestHeaders(JsonTool.toJsonStr(ServletUtil.getHeaderMap(exceptionDTO.getRequest())));
+        opLogErrorCreateCommand.setRequestHeaders(JsonTool.toJsonStr(JakartaServletUtil.getHeaderMap(exceptionDTO.getRequest())));
         opLogErrorCreateCommand.setRequestParams(JsonTool.toJsonStr(exceptionDTO.getRequest().getParameterMap()));
         opLogErrorCreateCommand.setRequestBody(getMessagePayload(exceptionDTO.getRequest()));
         opLogErrorCreateCommand.setRequestIp(RequestTool.getClientIP(exceptionDTO.getRequest()));

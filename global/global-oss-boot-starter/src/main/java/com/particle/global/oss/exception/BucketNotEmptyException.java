@@ -1,7 +1,6 @@
 package com.particle.global.oss.exception;
 
 import com.particle.global.exception.BaseException;
-import com.particle.global.exception.code.IErrorCode;
 
 /**
  * <p>

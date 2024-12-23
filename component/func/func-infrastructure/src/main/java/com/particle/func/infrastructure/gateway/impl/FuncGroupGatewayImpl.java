@@ -1,13 +1,13 @@
 package com.particle.func.infrastructure.gateway.impl;
 
+import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.func.domain.FuncGroup;
 import com.particle.func.domain.FuncGroupId;
 import com.particle.func.domain.gateway.FuncGroupGateway;
-import com.particle.func.infrastructure.service.IFuncGroupService;
 import com.particle.func.infrastructure.dos.FuncGroupDO;
+import com.particle.func.infrastructure.service.IFuncGroupService;
 import com.particle.func.infrastructure.structmapping.FuncGroupInfrastructureStructMapping;
 import com.particle.global.domain.DomainFactory;
-import com.particle.common.infrastructure.gateway.AbstractBaseGatewayImpl;
 import com.particle.global.dto.basic.IdCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

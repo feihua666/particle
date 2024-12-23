@@ -5,13 +5,13 @@ import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.swagger.factory.SwaggerFactory;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2022-11-25 17:32:15
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({"com.particle.role.infrastructure.mapper",
 		"com.particle.role.infrastructure.roleuserrel.mapper",
 		"com.particle.role.infrastructure.rolefuncrel.mapper",
@@ -43,7 +43,7 @@ public class RoleAutoConfiguration {
 	@Bean
 	public GroupedOpenApi createRoleAdminRestApi(ProjectInfo projectInfo) {
 		List<SecurityScheme> parameters = new ArrayList<>();
-		
+
 		return SwaggerFactory.createRestApi(SwaggerInfo.builder()
 				.groupName("role接口")
 				.basePackage("com.particle.role.adapter")

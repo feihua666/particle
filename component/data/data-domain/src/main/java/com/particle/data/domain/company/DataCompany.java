@@ -4,6 +4,7 @@ import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -58,7 +59,7 @@ public class DataCompany extends AggreateRoot {
     * 最后更新时间，相关联的只要有更新，就需要更新该值
     */
     private LocalDateTime latestUpdateAt;
-    
+
 
 
     /**

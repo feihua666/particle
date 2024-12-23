@@ -5,7 +5,6 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpenapiRecordParamVO;
 import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordParamPageQueryCommand;
 import com.particle.openplatform.client.providerrecord.dto.command.representation.OpenplatformProviderRecordParamQueryListCommand;
 import com.particle.openplatform.client.providerrecord.dto.data.OpenplatformProviderRecordParamVO;

@@ -7,7 +7,7 @@
  import com.particle.global.swagger.factory.SwaggerFactory;
  import io.swagger.v3.oas.models.security.SecurityScheme;
  import org.mybatis.spring.annotation.MapperScan;
- import org.springdoc.core.GroupedOpenApi;
+ import org.springdoc.core.models.GroupedOpenApi;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +25,7 @@
  * @since 2023-02-27 15:01:28
  */
 @ComponentScan
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan("com.particle.tools.infrastructure.mapper")
 public class ToolsAutoConfiguration {
 
@@ -39,7 +39,7 @@ public class ToolsAutoConfiguration {
     @Bean
     public GroupedOpenApi createToolsAdminRestApi(ProjectInfo projectInfo) {
         List<SecurityScheme> parameters = new ArrayList<>();
-        
+
         return SwaggerFactory.createRestApi(SwaggerInfo.builder()
                 .groupName("tools接口")
                 .basePackage("com.particle.tools.adapter")

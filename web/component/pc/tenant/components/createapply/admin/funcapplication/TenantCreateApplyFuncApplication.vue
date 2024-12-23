@@ -2,9 +2,10 @@
 /**
  * 租户创建申请 要申请的功能应用
  */
-import {ref, watch} from 'vue'
+import {ref} from 'vue'
 import {list as funcApplicationListApi} from "../../../../../func/api/application/admin/funcApplicationAdminApi";
 import TenantCreateApplyFuncApplicationAssignFunc from './TenantCreateApplyFuncApplicationAssignFunc.vue'
+
 const funcApplications = ref([])
 const activeName = ref('')
 const funcApplicationAssignFuncRef = ref(null)

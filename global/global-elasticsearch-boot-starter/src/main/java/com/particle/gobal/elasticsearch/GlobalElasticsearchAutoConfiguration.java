@@ -3,13 +3,10 @@ package com.particle.gobal.elasticsearch;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.gobal.elasticsearch.dto.basic.IElasticsearchCurrentUserResolver;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
 
 /**
  * <p>
@@ -19,7 +16,7 @@ import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverte
  * @author yangwei
  * @since 2023/12/7 12:43
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan
 public class GlobalElasticsearchAutoConfiguration {
 
@@ -27,7 +24,7 @@ public class GlobalElasticsearchAutoConfiguration {
     /**
      * 配置当前登录用户解析id以在添加节点时填充使用
      */
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @ConditionalOnClass({LoginUserTool.class, TenantTool.class})
     class ElasticsearchCurrentUserResolverConfig {
 
@@ -48,10 +45,4 @@ public class GlobalElasticsearchAutoConfiguration {
         }
     }
 
-    @Bean
-    @ConditionalOnBean(value = {org.elasticsearch.client.RestHighLevelClient.class,ElasticsearchConverter.class})
-    public ElasticsearchRestTemplate elasticsearchTemplate(org.elasticsearch.client.RestHighLevelClient client,
-                                                    ElasticsearchConverter converter) {
-        return new ElasticsearchRestTemplate(client, converter);
-    }
 }

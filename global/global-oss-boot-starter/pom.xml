@@ -68,7 +68,7 @@
         </dependency>
         <!-- 用于sftp上传客户端使用并结合huttol sftp 工具类 -->
         <dependency>
-            <groupId>com.jcraft</groupId>
+            <groupId>com.github.mwiede</groupId>
             <artifactId>jsch</artifactId>
             <version>${jsch.version}</version>
         </dependency>

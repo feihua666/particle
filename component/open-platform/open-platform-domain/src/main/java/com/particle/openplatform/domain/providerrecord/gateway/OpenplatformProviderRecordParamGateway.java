@@ -1,8 +1,8 @@
 package com.particle.openplatform.domain.providerrecord.gateway;
 
+import com.particle.common.domain.gateway.IBaseGateway;
 import com.particle.openplatform.domain.providerrecord.OpenplatformProviderRecordParam;
 import com.particle.openplatform.domain.providerrecord.OpenplatformProviderRecordParamId;
-import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>

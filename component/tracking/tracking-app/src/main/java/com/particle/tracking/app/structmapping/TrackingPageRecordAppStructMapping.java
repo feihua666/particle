@@ -1,20 +1,21 @@
 package com.particle.tracking.app.structmapping;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
 import com.particle.tracking.client.dto.command.TrackingPageRecordFrontCreateCommand;
+import com.particle.tracking.client.dto.command.representation.TrackingPageRecordPageQueryCommand;
+import com.particle.tracking.client.dto.command.representation.TrackingPageRecordQueryListCommand;
 import com.particle.tracking.client.dto.data.TrackingPageRecordVO;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.TrackingPageRecordId;
 import com.particle.tracking.infrastructure.dos.TrackingPageRecordDO;
-import com.particle.tracking.client.dto.command.representation.TrackingPageRecordPageQueryCommand;
-import com.particle.tracking.client.dto.command.representation.TrackingPageRecordQueryListCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 /**
  * <p>

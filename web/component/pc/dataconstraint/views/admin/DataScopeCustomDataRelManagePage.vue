@@ -3,7 +3,10 @@
  * 数据范围自定义数据关系管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as dataScopeCustomDataRelPageApi, remove as dataScopeCustomDataRelRemoveApi} from "../../api/admin/dataScopeCustomDataRelAdminApi"
+import {
+  page as dataScopeCustomDataRelPageApi,
+  remove as dataScopeCustomDataRelRemoveApi
+} from "../../api/admin/dataScopeCustomDataRelAdminApi"
 import {pageFormItems} from "../../components/admin/dataScopeCustomDataRelManage";
 
 
@@ -94,7 +97,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataScopeCustomDataRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

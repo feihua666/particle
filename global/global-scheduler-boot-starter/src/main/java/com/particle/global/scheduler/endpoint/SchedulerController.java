@@ -13,10 +13,11 @@ import com.particle.global.scheduler.SchedulerParamTool;
 import com.particle.global.scheduler.config.GlobalSchedulingConfigurer;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.tool.json.JsonTool;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 package com.particle.global.neo4j.test.demo;
 
-import com.particle.global.neo4j.dto.basic.BaseGDO;
 import com.particle.global.neo4j.dto.basic.BaseGRDO;
 import lombok.Data;
-import org.springframework.data.neo4j.core.schema.*;
+import org.springframework.data.neo4j.core.schema.RelationshipProperties;
+import org.springframework.data.neo4j.core.schema.TargetNode;
 
 import java.util.List;
 

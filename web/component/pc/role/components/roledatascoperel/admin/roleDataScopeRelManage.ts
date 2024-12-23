@@ -1,7 +1,7 @@
 import {useRemoteSelectRoleCompItem} from "../../roleCompItem";
 import {
-  useRemoteSelectDataScopeCompItem,
-  useSelectDataConstraintDataObjectCompItem, useSelectDataScopeCompItem
+    useSelectDataConstraintDataObjectCompItem,
+    useSelectDataScopeCompItem
 } from "../../../../dataconstraint/components/dataconstraintCompItem";
 
 export const pageFormItems = [

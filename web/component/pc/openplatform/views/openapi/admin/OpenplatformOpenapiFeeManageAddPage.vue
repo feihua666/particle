@@ -2,8 +2,8 @@
 /**
  * 开放平台开放接口费用管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as openplatformOpenapiFeeCreateApi,list as OpenplatformOpenapiFeeListApi} from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
+import {reactive, ref} from 'vue'
+import {create as openplatformOpenapiFeeCreateApi} from "../../../api/openapi/admin/openplatformOpenapiFeeAdminApi"
 import {addPageFormItems} from "../../../components/openapi/admin/openplatformOpenapiFeeManage";
 
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {provide,watch,ref,onMounted} from 'vue'
+import {onMounted, provide, ref, watch} from 'vue'
 
-import { useRouter } from 'vue-router'
+import {useRouter} from 'vue-router'
 import {useLoginUserStore} from '../../../global/common/security/loginUserStore'
 import {useLogoStore} from "../../../global/common/api/LogoStore";
 import {useWebTitleStore} from "../../../global/common/api/WebTitleStore";

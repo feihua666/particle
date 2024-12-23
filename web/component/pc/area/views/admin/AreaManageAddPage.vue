@@ -2,8 +2,8 @@
 /**
  * 区域管理添加页面
  */
-import {reactive ,ref} from 'vue'
-import {create as areaCreateApi,list as areaListApi} from "../../api/admin/areaAdminApi"
+import {reactive, ref} from 'vue'
+import {create as areaCreateApi} from "../../api/admin/areaAdminApi"
 import LocationGeoMapDialog from '../../components/LocationGeoMapDialog.vue'
 import {userAddPageFormItems} from "../../components/admin/areaManage";
 

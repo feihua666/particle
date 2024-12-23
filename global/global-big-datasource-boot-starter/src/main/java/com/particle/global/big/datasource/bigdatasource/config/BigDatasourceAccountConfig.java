@@ -1,6 +1,5 @@
 package com.particle.global.big.datasource.bigdatasource.config;
 
-import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
 /**

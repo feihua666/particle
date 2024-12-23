@@ -1,4 +1,5 @@
 import {list as dataQueryProviderListApi} from "../api/provider/admin/dataQueryProviderAdminApi";
+
 export const useSelectDataqueryProviderCompItem = (
     {
         fieldName= 'dataQueryProviderId',

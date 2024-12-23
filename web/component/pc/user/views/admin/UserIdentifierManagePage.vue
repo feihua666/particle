@@ -3,8 +3,8 @@
  * 用户登录标识管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as userIdentifierPageApi, remove as userIdentifierRemoveApi} from "../../api/admin/userIdentifierAdminApi"
-import {useRemoteSelectUserCompItem, remoteSelectUserProps} from "../../components/userCompItem";
+import {page as userIdentifierPageApi, remove as userIdentifierRemoveApi} from "../../api/admin/userIdentifierAdminApi"
+import {remoteSelectUserProps} from "../../components/userCompItem";
 import {usePageFormItems} from "../../components/admin/userIdentifierManage";
 import {userIdentifierColumns} from "../../components/userIdentifierCompItem";
 

@@ -1,7 +1,7 @@
 package com.particle.tenant.infrastructure.userinvite.mapper;
 
-import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.tenant.infrastructure.userinvite.dos.TenantUserInviteUserRecordDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>

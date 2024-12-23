@@ -1,12 +1,11 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import {createApp} from 'vue'
+import {createPinia} from 'pinia'
 import './thirdPart'
 import App from './App.vue'
 import "@/styles/index.scss"
 import router from './router'
 
 // import './assets/main.css'
-
 // ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -19,9 +18,9 @@ import axiosInstance from '../../../global/pc/common/axios/axiosRequest'
 
 /****************************** 自定义 开始 *********************************/
 // 自定义 element plus 组件
-import ElementPlusPlugin from  '../../../global/pc/element-plus/ElementPlusPlugin'
-import CommonPlugin from  '../../../global/pc/common/CommonPlugin'
-import ComponentPlugin from  '../../../component/pc/ComponentPlugin'
+import ElementPlusPlugin from '../../../global/pc/element-plus/ElementPlusPlugin'
+import CommonPlugin from '../../../global/pc/common/CommonPlugin'
+import ComponentPlugin from '../../../component/pc/ComponentPlugin'
 
 /****************************** 自定义 结束 *********************************/
 async function start() {

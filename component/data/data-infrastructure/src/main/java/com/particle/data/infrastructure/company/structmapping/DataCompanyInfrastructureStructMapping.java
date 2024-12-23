@@ -1,10 +1,11 @@
 package com.particle.data.infrastructure.company.structmapping;
 
-import com.particle.data.infrastructure.company.dos.DataCompanyDO;
 import com.particle.data.domain.company.DataCompany;
 import com.particle.data.domain.company.DataCompanyId;
+import com.particle.data.infrastructure.company.dos.DataCompanyDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -15,7 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author yw
  * @since 2024-07-14 11:23:44
  */
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DataCompanyInfrastructureStructMapping {
 	public static DataCompanyInfrastructureStructMapping instance = Mappers.getMapper( DataCompanyInfrastructureStructMapping.class );
 

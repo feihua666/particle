@@ -3,11 +3,15 @@
  * 用户登录记录管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as userLoginRecordPageApi, remove as userLoginRecordRemoveApi} from "../../api/admin/userLoginRecordAdminApi"
 import {
-  useRemoteSelectUserCompItem, useRemoteSelectUserIdentifierCompItem,
+  page as userLoginRecordPageApi,
+  remove as userLoginRecordRemoveApi
+} from "../../api/admin/userLoginRecordAdminApi"
+import {
   remoteSelectUserIdentifierProps,
-  remoteSelectUserProps
+  remoteSelectUserProps,
+  useRemoteSelectUserCompItem,
+  useRemoteSelectUserIdentifierCompItem
 } from "../../components/userCompItem";
 import {userLoginRecordColumns} from "../../components/userLoginRecordCompItem";
 

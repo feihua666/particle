@@ -1,5 +1,6 @@
 package com.particle.dataquery.app.provider.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.dataquery.app.provider.structmapping.DataQueryProviderAppStructMapping;
 import com.particle.dataquery.client.provider.dto.command.DataQueryProviderCreateCommand;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
@@ -7,15 +8,14 @@ import com.particle.dataquery.domain.provider.DataQueryProvider;
 import com.particle.dataquery.domain.provider.gateway.DataQueryProviderGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class DataQueryProviderCreateCommandExecutor  extends AbstractBaseExecuto
 		return dataQueryProvider;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  DataQueryProviderCreateCommandToDataQueryProviderMapping{
 		DataQueryProviderCreateCommandToDataQueryProviderMapping instance = Mappers.getMapper( DataQueryProviderCreateCommandToDataQueryProviderMapping.class );
 

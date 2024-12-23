@@ -1,11 +1,6 @@
 package com.particle.openplatform.domain.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
-import com.particle.openplatform.domain.doc.value.OpenplatformDocParamFieldDictItemDTO;
-import com.particle.openplatform.domain.doc.value.OpenplatformDocParamFieldDictItemParam;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>

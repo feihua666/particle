@@ -3,7 +3,10 @@
  * 开放平台开放接口供应商管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as openplatformProviderPageApi, remove as openplatformProviderRemoveApi} from "../../../api/provider/admin/openplatformProviderAdminApi"
+import {
+  page as openplatformProviderPageApi,
+  remove as openplatformProviderRemoveApi
+} from "../../../api/provider/admin/openplatformProviderAdminApi"
 import {pageFormItems} from "../../../components/provider/admin/openplatformProviderManage";
 
 
@@ -102,7 +105,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doOpenplatformProviderPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @author yangwei
  * @since 2023/11/14 17:51
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalNeo4jAutoConfiguration {
 
 
@@ -23,7 +23,7 @@ public class GlobalNeo4jAutoConfiguration {
     /**
      * 配置当前登录用户解析id以在添加节点时填充使用
      */
-    @Configuration
+    @Configuration(proxyBeanMethods = false)
     @ConditionalOnClass({LoginUserTool.class, TenantTool.class})
     class Neo4jCurrentUserResolverConfig {
 

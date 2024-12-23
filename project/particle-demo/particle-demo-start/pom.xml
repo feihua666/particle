@@ -40,11 +40,6 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>generator-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
             <artifactId>user-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
@@ -91,7 +86,7 @@
         <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-adapter-boot-starter</artifactId>
+            <artifactId>component-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
 
@@ -283,8 +278,8 @@
             </plugin>
             <!-- git提交信息，在多个模块构建时比较慢可以注释掉，在启动项目上添加即可 -->
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

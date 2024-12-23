@@ -1,21 +1,21 @@
 package com.particle.navigation.app.executor;
 
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationFriendshipLinkAppStructMapping;
 import com.particle.navigation.client.dto.command.NavigationFriendshipLinkCreateCommand;
 import com.particle.navigation.client.dto.data.NavigationFriendshipLinkVO;
 import com.particle.navigation.domain.NavigationFriendshipLink;
 import com.particle.navigation.domain.gateway.NavigationFriendshipLinkGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.common.app.executor.AbstractBaseExecutor;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * <p>
@@ -59,7 +59,7 @@ public class NavigationFriendshipLinkCreateCommandExecutor  extends AbstractBase
 		return navigationFriendshipLink;
 	}
 
-	@Mapper
+	@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 	interface  NavigationFriendshipLinkCreateCommandToNavigationFriendshipLinkMapping{
 		NavigationFriendshipLinkCreateCommandToNavigationFriendshipLinkMapping instance = Mappers.getMapper( NavigationFriendshipLinkCreateCommandToNavigationFriendshipLinkMapping.class );
 

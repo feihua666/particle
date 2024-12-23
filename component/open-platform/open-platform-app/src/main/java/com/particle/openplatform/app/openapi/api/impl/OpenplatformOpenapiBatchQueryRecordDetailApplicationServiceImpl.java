@@ -1,22 +1,19 @@
 package com.particle.openplatform.app.openapi.api.impl;
 
+import com.particle.common.app.AbstractBaseApplicationServiceImpl;
+import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiBatchQueryRecordDetailCommandExecutor;
 import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiBatchQueryRecordDetailCreateCommandExecutor;
 import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiBatchQueryRecordDetailDeleteCommandExecutor;
 import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiBatchQueryRecordDetailUpdateCommandExecutor;
-import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiBatchQueryRecordDetailCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiBatchQueryRecordDetailUpdateCommand;
 import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiBatchQueryRecordDetailApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiBatchQueryRecordDetailCreateCommand;
+import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiBatchQueryRecordDetailUpdateCommand;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordDetailVO;
-
-
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>

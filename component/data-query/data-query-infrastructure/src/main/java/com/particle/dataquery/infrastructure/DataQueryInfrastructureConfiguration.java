@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2023-03-24 00:13
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class DataQueryInfrastructureConfiguration {
 
 	public static final String dataQueryDataApiExecutor = "dataQueryDataApiExecutor";

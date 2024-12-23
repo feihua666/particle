@@ -1,10 +1,11 @@
 package com.particle.dataconstraint.infrastructure.service;
 
-import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
-import com.particle.global.mybatis.plus.crud.IBaseService;
-import com.particle.global.exception.Assert;
-import java.util.List;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.particle.dataconstraint.infrastructure.dos.DataScopeCustomDataRelDO;
+import com.particle.global.exception.Assert;
+import com.particle.global.mybatis.plus.crud.IBaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public interface IDataScopeCustomDataRelService extends IBaseService<DataScopeCu
         Assert.notEmpty(dataScopeIds,"dataScopeIds 不能为空");
         return list(Wrappers.<DataScopeCustomDataRelDO>lambdaQuery().in(DataScopeCustomDataRelDO::getDataScopeId, dataScopeIds));
     }
-            
+
 
     /**
      * 根据自定义数据id查询
@@ -60,7 +61,7 @@ public interface IDataScopeCustomDataRelService extends IBaseService<DataScopeCu
         Assert.notEmpty(dataIds,"dataIds 不能为空");
         return list(Wrappers.<DataScopeCustomDataRelDO>lambdaQuery().in(DataScopeCustomDataRelDO::getDataId, dataIds));
     }
-            
+
 
 
 

@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author yangwei
  * @since 2023-07-21 18:31
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class GlobalSchedulerBeanAutoConfiguration {
 
 	@Autowired

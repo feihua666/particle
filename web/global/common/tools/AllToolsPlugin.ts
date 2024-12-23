@@ -15,6 +15,7 @@ import * as DateTools from './DateTools'
 import * as PromiseTools from './PromiseTools'
 import * as ClipboardTools from './ClipboardTools'
 import CompAdapter from '../CompAdapter.vue'
+
 let prefix = "Pt"
 let map = {
     CompAdapter,

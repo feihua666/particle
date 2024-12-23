@@ -1,7 +1,7 @@
 package com.particle.oplog.infrastructure.mapper;
 
-import com.particle.oplog.infrastructure.dos.OpLogDO;
 import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import com.particle.oplog.infrastructure.dos.OpLogDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>
