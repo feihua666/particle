@@ -48,6 +48,16 @@ public class OpenapiLimitRuleInfo extends DTO {
 	private Integer limitRate;
 
 	/**
+	 * ip白名单
+	 */
+	private String whiteIps;
+
+	/**
+	 * ip黑名单
+	 */
+	private String blackIps;
+
+	/**
 	 * 限制目标，如：接口，应用等
 	 */
 	private LimitRuleTarget limitRuleTarget;

@@ -68,8 +68,8 @@ public class TransHelper {
     /**
      * 翻译时长通知阈值单位ms
      */
-    @Value("${"+ transNotifyThresholdPlaceholder +":200}")
-    private long transNotifyThreshold = 200;
+    @Value("${"+ transNotifyThresholdPlaceholder +":500}")
+    private long transNotifyThreshold = 500;
 
     @Autowired
     private TableNameResolver tableNameResolver;

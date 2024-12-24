@@ -1,6 +1,6 @@
 import {list as dictListApi} from "../../dict/api/admin/dictAdminApi";
 
-export const useCascaderDictCompItem = ({fieldName= 'parentId',required=false,label= '父级'})=>{
+export const useCascaderDictCompItem = ({fieldName= 'parentId',required=false,label= '父级',tips = ''})=>{
     return         {
         field: {
             name: fieldName
@@ -9,7 +9,8 @@ export const useCascaderDictCompItem = ({fieldName= 'parentId',required=false,la
             comp: 'PtCascader',
             formItemProps: {
                 label: label,
-                required: required
+                required: required,
+                tips: tips || undefined
             },
             compProps: {
                 clearable: true,

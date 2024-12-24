@@ -15,6 +15,7 @@ import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
 import com.particle.global.security.security.PermissionService;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.log.TraceTool;
+import com.particle.global.tool.servlet.RequestTool;
 import com.particle.global.web.filter.RequestResponseLogFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -172,7 +173,7 @@ public class OpenapiHelper {
 
 		// 限制规则支持
 		if (apiInfo != null) {
-
+			String requestIp = RequestTool.getClientIP(request);
 			OpenapiLimitRuleInfo clientLimitRuleInfo = apiInfo.getClientLimitRuleInfo();
 			if (clientLimitRuleInfo != null) {
 				// 	流量限制
@@ -180,7 +181,7 @@ public class OpenapiHelper {
 					globalOpenapiRateLimitService.threadLocalRateLimit(clientLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
 				}
 				// 	请求限制
-				globalOpenapiRequestLimitService.requestLimit(clientLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+				globalOpenapiRequestLimitService.requestLimit(clientLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl(),requestIp);
 
 			}
 			OpenapiLimitRuleInfo clientAndOpenapiLimitRuleInfo = apiInfo.getClientAndOpenapiLimitRuleInfo();
@@ -191,7 +192,7 @@ public class OpenapiHelper {
 					globalOpenapiRateLimitService.threadLocalRateLimit(clientAndOpenapiLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
 				}
 				// 	请求限制
-				globalOpenapiRequestLimitService.requestLimit(clientAndOpenapiLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl());
+				globalOpenapiRequestLimitService.requestLimit(clientAndOpenapiLimitRuleInfo,clientId,apiInfo.getApiCode(),apiInfo.getApiUrl(),requestIp);
 
 			}
 

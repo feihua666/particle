@@ -8,7 +8,7 @@ logging:
     particle: com.particle
   level:
     # 分组后，可以对组进行日志级别控制，结合 ${logging.group.particle} 使用
-    # 将本项目的 com.particle 以trace日志级别打印
+    # 将本项目的 com.particle 以info日志级别打印
     particle: info
   # 日志文件路径,其实带后缀 spring 不指定config也可以，会默认加载
   config: classpath:log4j2-spring.xml

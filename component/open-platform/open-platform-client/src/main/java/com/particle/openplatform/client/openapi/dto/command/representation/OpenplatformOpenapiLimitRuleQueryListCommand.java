@@ -42,6 +42,12 @@ public class OpenplatformOpenapiLimitRuleQueryListCommand extends AbstractBaseQu
     @Schema(description = "限制速率")
     private Integer limitRate;
 
+	@Schema(description = "ip白名单，多个用英文逗号分隔")
+	private String whiteIps;
+
+	@Schema(description = "ip黑名单，多个用英文逗号分隔")
+	private String blackIps;
+
 
 
 

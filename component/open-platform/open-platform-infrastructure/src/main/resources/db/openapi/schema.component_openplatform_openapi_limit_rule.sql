@@ -8,6 +8,8 @@ CREATE TABLE `component_openplatform_openapi_limit_rule` (
   `limit_fee` int NOT NULL COMMENT '限制金额费用，单位分',
   `limit_period_dict_id` bigint NOT NULL COMMENT '限制周期，按天限制、按周限制等',
   `limit_rate` int NOT NULL COMMENT '限制速率，即qps',
+  `white_ips` varchar(500) DEFAULT NULL COMMENT 'ip白名单，多个用英文逗号分隔',
+  `black_ips` varchar(500) DEFAULT NULL COMMENT 'ip黑名单，多个用英文逗号分隔',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -15,6 +15,11 @@ import com.particle.component.light.share.dict.api.IDictItem;
 public enum OpenFlatformFeeReason implements IDictItem {
 
     /**
+     * 响应的状态码错误
+     */
+    response_http_status_error
+    ,
+    /**
      * 未配置计费规则
      */
     not_exist_fee_rule

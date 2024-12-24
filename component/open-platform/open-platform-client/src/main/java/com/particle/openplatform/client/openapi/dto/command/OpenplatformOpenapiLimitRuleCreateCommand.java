@@ -49,6 +49,12 @@ public class OpenplatformOpenapiLimitRuleCreateCommand extends AbstractBaseComma
         @Schema(description = "限制速率",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer limitRate;
 
+	@Schema(description = "ip白名单，多个用英文逗号分隔")
+	private String whiteIps;
+
+	@Schema(description = "ip黑名单，多个用英文逗号分隔")
+	private String blackIps;
+
 
     @Schema(description = "描述")
     private String remark;

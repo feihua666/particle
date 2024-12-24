@@ -116,6 +116,7 @@
         <AsyncLogger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
         <AsyncLogger name="net.sf.jsqlparser.parser" level="warn"/>
         <!--<AsyncLogger name="com.particle" level="ALL" includeLocation="true"/>-->
+        <!-- 在使用springboot日志配置分组功能下，同样的日志名称会被配置覆盖，也就是下面这行不起作用，配置参见application-log4j2.yml -->
         <AsyncLogger name="com.particle" level="info" includeLocation="true"/>
         <AsyncRoot level="INFO" includeLocation="true">
             <AppenderRef ref="Console"/>

@@ -148,6 +148,9 @@ public class OpenPlatformOpenapiApiInfoProvider implements GlobalOpenapiApiInfoP
 
 		openapiLimitRuleInfo.setLimitRate(openplatformOpenapiLimitRuleDO.getLimitRate());
 
+		openapiLimitRuleInfo.setWhiteIps(openplatformOpenapiLimitRuleDO.getWhiteIps());
+		openapiLimitRuleInfo.setBlackIps(openplatformOpenapiLimitRuleDO.getBlackIps());
+
 		return openapiLimitRuleInfo;
 
 	}

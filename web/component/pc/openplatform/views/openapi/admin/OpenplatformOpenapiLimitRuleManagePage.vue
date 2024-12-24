@@ -44,6 +44,16 @@ const reactiveData = reactive({
       label: '限制速率',
     },
     {
+      prop: 'whiteIps',
+      label: 'ip白名单',
+      showOverflowTooltip: true,
+    },
+    {
+      prop: 'blackIps',
+      label: 'ip黑名单',
+      showOverflowTooltip: true,
+    },
+    {
       prop: 'remark',
       label: '描述',
     },

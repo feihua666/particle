@@ -52,4 +52,7 @@ public class DictPageQueryCommand extends AbstractBaseTreePageQueryCommand {
     @Schema(description = "标签，左前缀匹配")
     private String tags;
 
+	@Schema(description = "关联字典组编码，用于在字典项下还有字典项的扩展场景")
+	private String relatedGroupCode;
+
 }

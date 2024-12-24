@@ -113,6 +113,11 @@ const reactiveData = reactive({
       width: 60,
     },
     {
+      prop: 'relatedGroupCode',
+      label: '关联字典组编码',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'remark',
       label: '描述',
       showOverflowTooltip: true

@@ -22,7 +22,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '限制方式',
-            
+
           },
           compProps: {
             // 字典查询
@@ -39,7 +39,7 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '限制周期',
-            
+
           },
           compProps: {
             // 字典查询
@@ -62,6 +62,7 @@ export const addPageFormItems = [
           formItemProps: {
             label: '限制名称',
             required: true,
+            tips: '一个字符串用于标识限制规则的意义方便区分'
           },
           compProps: {
             clearable: true,
@@ -79,7 +80,7 @@ export const addPageFormItems = [
       formItemProps: {
         label: '限制方式',
         required: true,
-
+        tips: '注意：选择不限制时表示可个限制规则失效，包括限流、ip白名单和黑名单等'
       },
       compProps: {
         // 字典查询
@@ -154,14 +155,43 @@ export const addPageFormItems = [
           formItemProps: {
             label: '限制速率',
             required: true,
-            tips: '即qps限制，注意：该限制不受前面设置（限制方式、限制周期）的影响。填 0 表示不限制'
+            tips: '即qps限制，注意：该限制不受前面（限制周期）的影响。填 0 表示不限制'
           },
           compProps: {
           }
         }
       },
 
-
+  {
+    field: {
+      name: 'whiteIps',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: 'ip白名单',
+        tips: '多个用英文逗号分隔,注意：该限制不受前面（限制周期）的影响。填空表示不限制'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+  {
+    field: {
+      name: 'blackIps',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: 'ip黑名单',
+        tips: '多个用英文逗号分隔,注意：该限制不受前面（限制周期）的影响。填空表示不限制'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
       {
         field: {
           name: 'remark',
@@ -170,7 +200,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '描述',
-            
+
           },
           compProps: {
             clearable: true,

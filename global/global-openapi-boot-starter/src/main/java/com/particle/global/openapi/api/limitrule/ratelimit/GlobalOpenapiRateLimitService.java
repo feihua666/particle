@@ -2,6 +2,7 @@ package com.particle.global.openapi.api.limitrule.ratelimit;
 
 import com.particle.global.openapi.data.OpenapiLimitRuleInfo;
 import com.particle.global.openapi.enums.LimitRuleTarget;
+import com.particle.global.openapi.enums.LimitRuleType;
 import com.particle.global.ratelimit.local.DefaultThreadLocalRateLimitInterceptServiceImpl;
 import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,10 @@ public class GlobalOpenapiRateLimitService {
 
     public void threadLocalRateLimit(OpenapiLimitRuleInfo limitRuleInfo,String clientId,String apiCode,String apiUrl) {
         LimitRuleTarget limitRuleTarget = limitRuleInfo.getLimitRuleTarget();
+        LimitRuleType limitRuleType = limitRuleInfo.getLimitRuleType();
+        if (limitRuleType == LimitRuleType.no_limit) {
+            return;
+        }
         Integer limitRate = limitRuleInfo.getLimitRate();
         if (limitRate <= 0) {
             return;

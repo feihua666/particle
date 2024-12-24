@@ -58,6 +58,9 @@ public class DictVO extends AbstractBaseIdTreeVO {
     @Schema(description = "标签，多个以逗号分隔，用来区分字典项")
     private String tags;
 
+	@Schema(description = "关联字典组编码，用于在字典项下还有字典项的扩展场景")
+	private String relatedGroupCode;
+
     @Schema(description = "描述")
     private String remark;
 

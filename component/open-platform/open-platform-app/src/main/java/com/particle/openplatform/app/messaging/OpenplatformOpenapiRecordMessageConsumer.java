@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.particle.global.light.share.scheduler.SchedulerConstants;
 import com.particle.global.messaging.event.messaging.MessageConsumer;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.openplatform.domain.enums.OpenFlatformFeeReason;
@@ -35,8 +36,11 @@ import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformP
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordParamService;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordService;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
@@ -48,8 +52,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 /**
@@ -73,6 +80,22 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	 * 缓存9小时
 	 */
 	private static final TimedCache<Long, OpenPlatformLimitRuleType> dictIdOpenPlatformLimitRuleTypeCache = CacheUtil.newTimedCache(1000 * 60 * 60 * 9);
+
+	/**
+	 * 日汇总
+	 * key 为 openplatformAppId
+	 * value 为扣除的费用
+	 */
+	private static final Map<AppOpenapiDayRtSummaryKey,AppOpenapiDayRtSummary> appOpenapiDayRtSummaryCache = new HashMap<>();
+	private final Map<AppOpenapiDayRtSummaryKey, ReentrantLock> appOpenapiDayRtSummaryLockMap = new ConcurrentHashMap<>();
+
+	/**
+	 * 应用额度扣除
+	 * key 为 openplatformAppId
+	 * value 为扣除的费用
+	 */
+	private static final Map<Long,DeductAppQuota> deductAppQuotaCache = new HashMap<>();
+	private final Map<Long, ReentrantLock> deductAppQuotaLockMap = new ConcurrentHashMap<>();
 
 	private static LocalDate lastDeleteAppOpenapiDayRtSummaryLocalDate;
 
@@ -103,6 +126,10 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	@Autowired
 	private OpenplatformDictGateway openplatformDictGateway;
 
+	@Qualifier(SchedulerConstants.default_global_scheduled_task_executor)
+	@Autowired
+	private ScheduledExecutorService scheduledExecutorService;
+
 	@Value("${particle.openplatform.openapi.day-rt-summary.enable:true}")
 	private Boolean isSaveAppOpenapiDayRtSummary;
 	@Value("${particle.openplatform.openapi.deduct-app-quota.enable:true}")
@@ -110,7 +137,6 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 	@Override
 	public void accept(OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent) {
-
 		log.debug("received openplatformRecordDomainEvent message. content={}", JsonTool.toJsonStr(openplatformOpenapiRecordDomainEvent));
 		try {
 			doConsume(openplatformOpenapiRecordDomainEvent);
@@ -151,7 +177,8 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 				openplatformOpenapiRecordDO.getIsResponseHasEffectiveValue(),
 				openplatformOpenapiRecordDO.getHandleDuration(),
 				openplatformOpenapiRecordDO.getOpenplatformOpenapiId(),
-				openplatformOpenapiRecordDO.getRequestParameterMd5());
+				openplatformOpenapiRecordDO.getRequestParameterMd5(),
+				openplatformOpenapiRecordDO.getResponseHttpStatus());
 		openplatformOpenapiRecordDO.setFeeAmount(feeResult.getFeeAmount());
 		openplatformOpenapiRecordDO.setFeeReasonDictId(feeResult.getFeeReasonDictId());
 		// 保存
@@ -169,22 +196,58 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		if (hasProviderRecords) {
 			saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
 		}
-
+		// 	实时日汇总
 		if (isSaveAppOpenapiDayRtSummary != null && isSaveAppOpenapiDayRtSummary) {
-			// 	实时日汇总
-			saveAppOpenapiDayRtSummary(openplatformOpenapiRecordDO);
-			// 删除一个月之前的实时日汇总
-			deleteAppOpenapiDayRtSummary();
+			Long openplatformAppId = openplatformOpenapiRecordDO.getOpenplatformAppId();
+			Long openplatformOpenapiId = openplatformOpenapiRecordDO.getOpenplatformOpenapiId();
+			LocalDate dayAt = LocalDate.now();
+			AppOpenapiDayRtSummaryKey appOpenapiDayRtSummaryKey = AppOpenapiDayRtSummaryKey.create(openplatformAppId, openplatformOpenapiId, dayAt);
+			ReentrantLock reentrantLock = appOpenapiDayRtSummaryLockMap.computeIfAbsent(appOpenapiDayRtSummaryKey, k -> new ReentrantLock());
+			reentrantLock.lock();
+			AppOpenapiDayRtSummary appOpenapiDayRtSummary = appOpenapiDayRtSummaryCache.computeIfAbsent(appOpenapiDayRtSummaryKey,
+					k -> AppOpenapiDayRtSummary.create(openplatformOpenapiRecordDO.getAppId(),openplatformOpenapiRecordDO.getCustomerId()));
+			appOpenapiDayRtSummary.increment(openplatformOpenapiRecordDO.getFeeAmount());
+			reentrantLock.unlock();
 		}
 
+		// 应用额度扣除,先缓存一部分，批量扣除
 		if (isDeductAppQuota != null && isDeductAppQuota) {
-			// 实时应用额度扣除
-			deductAppQuota(openplatformOpenapiRecordDO.getOpenplatformAppId(), openplatformOpenapiRecordDO.getFeeAmount(), 10);
+			ReentrantLock reentrantLock = deductAppQuotaLockMap.computeIfAbsent(openplatformOpenapiRecordDO.getOpenplatformAppId(), k -> new ReentrantLock());
+			reentrantLock.lock();
+			DeductAppQuota deductAppQuota = deductAppQuotaCache.computeIfAbsent(openplatformOpenapiRecordDO.getOpenplatformAppId(), k -> DeductAppQuota.create());
+			deductAppQuota.increment(openplatformOpenapiRecordDO.getFeeAmount());
+			reentrantLock.unlock();
 		}
-
 	}
 
-	private void deductAppQuota(Long openplatformAppId, Integer feeAmount,int reTryTimes) {
+	/**
+	 * 定时启动扣除应用额度
+	 * 参见{@link com.particle.openplatform.messaging.OpenplatformOpenapiRecordMessageOnApplicationRunnerListener}
+	 */
+	public void scheduleDeductAppQuota() {
+		scheduledExecutorService.scheduleAtFixedRate(() -> {
+			log.debug("openplatformOpenapiRecordMessage scheduleDeductAppQuota start");
+			long start = System.currentTimeMillis();
+			for (Map.Entry<Long, ReentrantLock> longReentrantLockEntry : deductAppQuotaLockMap.entrySet()) {
+				longReentrantLockEntry.getValue().lock();
+				Long openplatformAppId = longReentrantLockEntry.getKey();
+				DeductAppQuota deductAppQuota = deductAppQuotaCache.get(openplatformAppId);
+				deductAppQuotaCache.put(openplatformAppId, DeductAppQuota.create());
+				longReentrantLockEntry.getValue().unlock();
+				deductAppQuota(openplatformAppId, deductAppQuota, 10);
+			}
+
+			log.debug("openplatformOpenapiRecordMessage scheduleDeductAppQuota end,duration={}ms", System.currentTimeMillis() - start);
+		}, 2, 2, TimeUnit.SECONDS);
+
+	}
+	/**
+	 * 应用额度扣除
+	 * @param openplatformAppId
+	 * @param deductAppQuota 要扣除的金额
+	 * @param reTryTimes
+	 */
+	private void deductAppQuota(Long openplatformAppId, DeductAppQuota deductAppQuota,int reTryTimes) {
 		OpenplatformAppQuotaDO byOpenplatformAppId = iOpenplatformAppQuotaService.getByOpenplatformAppId(openplatformAppId);
 		if (byOpenplatformAppId == null) {
 			return;
@@ -197,14 +260,15 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		if (limitRuleType == OpenPlatformLimitRuleType.no_limit) {
 			return;
 		}
+		Integer feeAmount = deductAppQuota.getFeeAmount();
 		boolean needUpdate = false;
 		if (limitRuleType == OpenPlatformLimitRuleType.count_limit) {
 			needUpdate = true;
-			byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - 1);
+			byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - deductAppQuota.getCount());
 		} else if (limitRuleType == OpenPlatformLimitRuleType.count_fee_limit) {
 			if (feeAmount > 0) {
 				needUpdate = true;
-				byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - 1);
+				byOpenplatformAppId.setLimitCount(byOpenplatformAppId.getLimitCount() - deductAppQuota.getFeeCount());
 			}
 		} else if (limitRuleType == OpenPlatformLimitRuleType.fee_limit) {
 			needUpdate = true;
@@ -219,7 +283,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 					return;
 				}
 				// 更新失败，递归调用，可能数据已经被更新，再次调用，这里其实使用的是乐观锁
-				updateAppOpenapiDayRtSummary(openplatformAppId, feeAmount,reTryTimes - 1);
+				deductAppQuota(openplatformAppId, deductAppQuota,reTryTimes - 1);
 			}
 		}
 	}
@@ -239,66 +303,99 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.remove(lambdaQueryWrapper);
 	}
 	/**
-	 * 保存实时日汇总
-	 * @param openplatformOpenapiRecordDO
+	 * 定时启动保存日汇总
+	 * 参见{@link com.particle.openplatform.messaging.OpenplatformOpenapiRecordMessageOnApplicationRunnerListener}
 	 */
-	private void saveAppOpenapiDayRtSummary(OpenplatformOpenapiRecordDO openplatformOpenapiRecordDO) {
-		Long openplatformAppId = openplatformOpenapiRecordDO.getOpenplatformAppId();
-		Long openplatformOpenapiId = openplatformOpenapiRecordDO.getOpenplatformOpenapiId();
-		LocalDate dayAt = LocalDate.now();
+	public void scheduleSaveAppOpenapiDayRtSummary() {
+		scheduledExecutorService.scheduleAtFixedRate(() -> {
+			log.debug("openplatformOpenapiRecordMessage scheduleSaveAppOpenapiDayRtSummary start");
+			long start = System.currentTimeMillis();
+			// 删除一个月之前的实时日汇总
+			deleteAppOpenapiDayRtSummary();
+
+			for (Map.Entry<AppOpenapiDayRtSummaryKey, ReentrantLock> longReentrantLockEntry : appOpenapiDayRtSummaryLockMap.entrySet()) {
+				longReentrantLockEntry.getValue().lock();
+				AppOpenapiDayRtSummaryKey appOpenapiDayRtSummaryKey = longReentrantLockEntry.getKey();
+				AppOpenapiDayRtSummary appOpenapiDayRtSummary = appOpenapiDayRtSummaryCache.get(appOpenapiDayRtSummaryKey);
+				appOpenapiDayRtSummaryCache.put(appOpenapiDayRtSummaryKey, AppOpenapiDayRtSummary.create(appOpenapiDayRtSummary.getAppId(),appOpenapiDayRtSummary.getCustomerId()));
+				longReentrantLockEntry.getValue().unlock();
+				saveAppOpenapiDayRtSummary(appOpenapiDayRtSummaryKey, appOpenapiDayRtSummary);
+			}
+
+			log.debug("openplatformOpenapiRecordMessage scheduleSaveAppOpenapiDayRtSummary end,duration={}ms", System.currentTimeMillis() - start);
+		}, 2, 7, TimeUnit.SECONDS);
+
+	}
+	/**
+	 * 保存实时日汇总
+	 * @param appOpenapiDayRtSummaryKey
+	 * @param appOpenapiDayRtSummary
+	 */
+	private void saveAppOpenapiDayRtSummary(AppOpenapiDayRtSummaryKey appOpenapiDayRtSummaryKey,AppOpenapiDayRtSummary appOpenapiDayRtSummary) {
+		Long openplatformAppId = appOpenapiDayRtSummaryKey.getOpenplatformAppId();
+		Long openplatformOpenapiId = appOpenapiDayRtSummaryKey.getOpenplatformOpenapiId();
+		LocalDate dayAt = appOpenapiDayRtSummaryKey.getDayAt();
 		int reTryTimes = 10;
-		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO openplatformOpenapiRecordAppOpenapiDayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.getByOpenplatformAppIdAndOpenplatformOpenapiIdAndDayAt(openplatformAppId, openplatformOpenapiId, dayAt);
-		if (openplatformOpenapiRecordAppOpenapiDayRtSummaryDO == null) {
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO = new OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO();
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setOpenplatformAppId(openplatformAppId);
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setDayAt(dayAt);
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setOpenplatformOpenapiId(openplatformOpenapiId);
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setAppId(openplatformOpenapiRecordDO.getAppId());
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setCustomerId(openplatformOpenapiRecordDO.getCustomerId());
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalCall(1);
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalFeeCall(openplatformOpenapiRecordDO.getFeeAmount() > 0 ? 1 : 0);
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setAverageUnitPriceAmount(new BigDecimal(openplatformOpenapiRecordDO.getFeeAmount()));
-			openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalFeeAmount(openplatformOpenapiRecordDO.getFeeAmount());
+		Integer feeAmount = appOpenapiDayRtSummary.getFeeAmount();
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO dayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.getByOpenplatformAppIdAndOpenplatformOpenapiIdAndDayAt(openplatformAppId, openplatformOpenapiId, dayAt);
+		if (dayRtSummaryDO == null) {
+			dayRtSummaryDO = new OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO();
+			dayRtSummaryDO.setOpenplatformAppId(openplatformAppId);
+			dayRtSummaryDO.setDayAt(dayAt);
+			dayRtSummaryDO.setOpenplatformOpenapiId(openplatformOpenapiId);
+			dayRtSummaryDO.setAppId(appOpenapiDayRtSummary.getAppId());
+			dayRtSummaryDO.setCustomerId(appOpenapiDayRtSummary.getCustomerId());
+			dayRtSummaryDO.setTotalCall(appOpenapiDayRtSummary.getCount());
+			dayRtSummaryDO.setTotalFeeCall(appOpenapiDayRtSummary.getFeeCount());
+			dayRtSummaryDO.setAverageUnitPriceAmount(appOpenapiDayRtSummary.computeAverageUnitPriceAmount());
+			dayRtSummaryDO.setTotalFeeAmount(feeAmount);
 
 			try {
-				iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.save(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO);
+				iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.save(dayRtSummaryDO);
 			} catch (DuplicateKeyException e) {
-				openplatformOpenapiRecordAppOpenapiDayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.getByOpenplatformAppIdAndOpenplatformOpenapiIdAndDayAt(openplatformAppId, openplatformOpenapiId, dayAt);
-				updateAppOpenapiDayRtSummary(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getId(),
-						openplatformOpenapiRecordDO.getFeeAmount(), reTryTimes);
+				dayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService
+						.getByOpenplatformAppIdAndOpenplatformOpenapiIdAndDayAt(openplatformAppId, openplatformOpenapiId, dayAt);
+				updateAppOpenapiDayRtSummary(dayRtSummaryDO.getId(),
+						appOpenapiDayRtSummary, reTryTimes);
 			}
 		}else {
-			updateAppOpenapiDayRtSummary(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getId(),
-					openplatformOpenapiRecordDO.getFeeAmount(), reTryTimes);
+			updateAppOpenapiDayRtSummary(dayRtSummaryDO.getId(),
+					appOpenapiDayRtSummary, reTryTimes);
 		}
 	}
 
 	/**
 	 * 使用乐观锁更新
-	 * @param openplatformOpenapiRecordAppOpenapiDayRtSummaryId
-	 * @param feeAmount
+	 * @param dayRtSummaryId
+	 * @param appOpenapiDayRtSummary
 	 * @param reTryTimes
 	 */
-	private void updateAppOpenapiDayRtSummary(Long openplatformOpenapiRecordAppOpenapiDayRtSummaryId,Integer feeAmount,int reTryTimes) {
-		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO openplatformOpenapiRecordAppOpenapiDayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.getById(openplatformOpenapiRecordAppOpenapiDayRtSummaryId);
-		if (openplatformOpenapiRecordAppOpenapiDayRtSummaryDO == null) {
+	private void updateAppOpenapiDayRtSummary(Long dayRtSummaryId,AppOpenapiDayRtSummary appOpenapiDayRtSummary,int reTryTimes) {
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO dayRtSummaryDO = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.getById(dayRtSummaryId);
+		if (dayRtSummaryDO == null) {
 			return;
 		}
-		openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalCall(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getTotalCall() + 1);
-		openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalFeeCall(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getTotalFeeCall() + (feeAmount> 0 ? 1 : 0));
-		openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setTotalFeeAmount(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getTotalFeeAmount() + feeAmount);
-		openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.setAverageUnitPriceAmount(new BigDecimal(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getTotalFeeAmount().doubleValue() / openplatformOpenapiRecordAppOpenapiDayRtSummaryDO.getTotalCall()));
+		OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO dayRtSummaryDOToBeUpdate = new OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO();
+		dayRtSummaryDOToBeUpdate.setId(dayRtSummaryDO.getId());
+		dayRtSummaryDOToBeUpdate.setTotalCall(dayRtSummaryDO.getTotalCall() + 1);
+		dayRtSummaryDOToBeUpdate.setTotalFeeCall(dayRtSummaryDO.getTotalFeeCall() + appOpenapiDayRtSummary.getFeeCount());
+		dayRtSummaryDOToBeUpdate.setTotalFeeAmount(dayRtSummaryDO.getTotalFeeAmount() + appOpenapiDayRtSummary.getFeeAmount());
+		/**
+		 * 注意这里计算逻辑和{@link AppOpenapiDayRtSummary#computeAverageUnitPriceAmount()}保持一致
+		 */
+		dayRtSummaryDOToBeUpdate.setAverageUnitPriceAmount(new BigDecimal(dayRtSummaryDO.getTotalFeeAmount().doubleValue() / dayRtSummaryDO.getTotalCall()));
+		dayRtSummaryDOToBeUpdate.setVersion(dayRtSummaryDO.getVersion());
 
-		boolean save = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.updateById(openplatformOpenapiRecordAppOpenapiDayRtSummaryDO);
+		boolean save = iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.updateById(dayRtSummaryDO);
 
 		if (!save) {
 			if (reTryTimes <= 0) {
 				log.error("updateAppOpenapiDayRtSummary failed,openplatformOpenapiRecordAppOpenapiDayRtSummaryId={},feeAmount={}",
-						openplatformOpenapiRecordAppOpenapiDayRtSummaryId, feeAmount);
+						dayRtSummaryId, appOpenapiDayRtSummary.getFeeAmount());
 				return;
 			}
 			// 更新失败，递归调用，可能数据已经被更新，再次调用，这里其实使用的是乐观锁
-			updateAppOpenapiDayRtSummary(openplatformOpenapiRecordAppOpenapiDayRtSummaryId, feeAmount,reTryTimes - 1);
+			updateAppOpenapiDayRtSummary(dayRtSummaryId, appOpenapiDayRtSummary,reTryTimes - 1);
 		}
 	}
 	/**
@@ -451,13 +548,17 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	 * @param handleDuration
 	 * @param openplatformOpenapiId
 	 * @param requestParameterMd5
+	 * @param responseHttpStatus
 	 * @return
 	 */
 	private FeeResult calculateOpenapiFee(OpenplatformOpenapiFeeValue apiFeeRuleInfo,
 										  Boolean isResponseHasEffectiveValue,
 										  Integer handleDuration,
 										  Long openplatformOpenapiId,
-										  String requestParameterMd5) {
+										  String requestParameterMd5,Integer responseHttpStatus) {
+		if (responseHttpStatus != null && responseHttpStatus > 400) {
+			return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.response_http_status_error));
+		}
 		if (apiFeeRuleInfo == null) {
 			// 未配置计费规则，不计费
 			return FeeResult.create(0, openFlatformFeeReasonDictId(OpenFlatformFeeReason.not_exist_fee_rule));
@@ -672,5 +773,114 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 			feeResult.feeReasonDictId = feeReasonDictId;
 			return feeResult;
 		}
+	}
+
+	@Setter
+	@Getter
+	private static class AppOpenapiDayRtSummaryKey{
+		private Long openplatformAppId;
+		private Long openplatformOpenapiId;
+		private LocalDate dayAt;
+
+		public static AppOpenapiDayRtSummaryKey create(Long openplatformAppId, Long openplatformOpenapiId, LocalDate dayAt) {
+			AppOpenapiDayRtSummaryKey appOpenapiDayRtSummaryKey = new AppOpenapiDayRtSummaryKey();
+			appOpenapiDayRtSummaryKey.openplatformAppId = openplatformAppId;
+			appOpenapiDayRtSummaryKey.openplatformOpenapiId = openplatformOpenapiId;
+			appOpenapiDayRtSummaryKey.dayAt = dayAt;
+			return appOpenapiDayRtSummaryKey;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			AppOpenapiDayRtSummaryKey that = (AppOpenapiDayRtSummaryKey) o;
+			return Objects.equals(openplatformAppId, that.openplatformAppId) &&
+					Objects.equals(openplatformOpenapiId, that.openplatformOpenapiId) &&
+					Objects.equals(dayAt, that.dayAt);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(openplatformAppId, openplatformOpenapiId, dayAt);
+		}
+	}
+	/**
+	 * 应用额度扣减统计类
+	 */
+	@Data
+	private static class DeductAppQuota{
+		/**
+		 * 消费金额，单位分
+		 */
+		private Integer feeAmount = 0;
+		/**
+		 * 调用次数
+		 */
+		private Integer count = 0;
+		/**
+		 * 消费次数
+		 */
+		private Integer feeCount = 0;
+		public DeductAppQuota increment(Integer feeAmount) {
+			this.feeAmount += feeAmount;
+			this.count++;
+			if (feeAmount > 0) {
+				this.feeCount++;
+			}
+			return this;
+		}
+		public static DeductAppQuota create() {
+			DeductAppQuota deductAppQuota = new DeductAppQuota();
+			return deductAppQuota;
+		}
+
+	}
+	/**
+	 * 日汇总统计类
+	 */
+	@Data
+	private static class AppOpenapiDayRtSummary{
+		/**
+		 * appId
+		 */
+		private String appId;
+		/**
+		 * 客户id
+		 */
+		private Long customerId;
+
+		/**
+		 * 消费金额，单位分
+		 */
+		private Integer feeAmount = 0;
+		/**
+		 * 调用次数
+		 */
+		private Integer count = 0;
+		/**
+		 * 消费次数
+		 */
+		private Integer feeCount = 0;
+
+		public BigDecimal computeAverageUnitPriceAmount() {
+            if (count == null) {
+				return BigDecimal.ZERO;
+            }
+			return new BigDecimal(feeAmount.doubleValue() / count);
+		}
+		public AppOpenapiDayRtSummary increment(Integer feeAmount) {
+			this.feeAmount += feeAmount;
+			this.count++;
+			if (feeAmount > 0) {
+				this.feeCount++;
+			}
+			return this;
+		}
+		public static AppOpenapiDayRtSummary create(String appId, Long customerId) {
+			AppOpenapiDayRtSummary appOpenapiDayRtSummary = new AppOpenapiDayRtSummary();
+			return appOpenapiDayRtSummary;
+		}
+
 	}
 }

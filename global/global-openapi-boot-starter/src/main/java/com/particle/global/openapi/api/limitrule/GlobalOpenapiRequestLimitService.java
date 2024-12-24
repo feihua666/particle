@@ -9,6 +9,7 @@ import com.particle.global.openapi.enums.LimitRulePeriod;
 import com.particle.global.openapi.enums.LimitRuleTarget;
 import com.particle.global.openapi.enums.LimitRuleType;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,11 @@ public class GlobalOpenapiRequestLimitService {
      * @param apiCode
      * @param apiUrl
      */
-    public void requestLimit(OpenapiLimitRuleInfo limitRuleInfo, String clientId, String apiCode, String apiUrl) {
+    public void requestLimit(OpenapiLimitRuleInfo limitRuleInfo, String clientId, String apiCode, String apiUrl,String requestIp) {
+
+        // ip白名单和黑名单检查
+        ipsCheck(requestIp, limitRuleInfo.getWhiteIps(), limitRuleInfo.getBlackIps());
+
         LimitRuleType limitRuleType = limitRuleInfo.getLimitRuleType();
         if (limitRuleType == LimitRuleType.no_limit) {
             return;
@@ -111,6 +116,27 @@ public class GlobalOpenapiRequestLimitService {
 
     }
 
+    /**
+     * 请求ip查检，主要是ip白名单和黑名单
+     * @param requestIp
+     * @param whiteIps
+     * @param blackIps
+     */
+    private void ipsCheck(String requestIp,String whiteIps,String blackIps) {
+        if (StrUtil.isEmpty(requestIp)) {
+            return;
+        }
+        if (StrUtil.isNotEmpty(blackIps)) {
+            if (blackIps.contains(requestIp)) {
+                throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.REQUEST_CLIENT_IN_IP_BLACK_LIST_ERROR);
+            }
+        }
+        if (StrUtil.isNotEmpty(whiteIps)) {
+            if (!whiteIps.contains(requestIp)) {
+                throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.REQUEST_CLIENT_NOT_IN_IP_WHITE_LIST_ERROR);
+            }
+        }
+    }
     /**
      * 请求应用额度限制
      */
