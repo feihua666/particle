@@ -52,25 +52,26 @@ export const dataMethodProps: DataMethodProps = {
         default: ({success,error,dataMethodEmptyData,convertToTree,listToTreeMethod = listToTree}) => {
             // success 为 res
             if (success) {
-                // let isHttpResponse = success.status && success.config && success.headers && success.request
-                let p = null
-                let data = success
-                if(!data){
+                if(!success){
                     return dataMethodEmptyData
                 }
+                // let isHttpResponse = success.status && success.config && success.headers && success.request
+                let p = null
+                let data = null
+
                 // 自定义数据情形，或直接数据情形
                 // 取一层 data
-                if(data.data !== undefined){
-                    p = data
-                    data = data.data
+                if(success.data !== undefined){
+                    p = success
+                    data = success.data
+                    // response.data.data 情形
+                    // 再取一层 data
+                    if(success.data.data !== undefined){
+                        p = success.data
+                        data = success.data.data
+                    }
+                }
 
-                }
-                // response.data.data 情形
-                // 再取一层 data
-                if(data.data !== undefined){
-                    p = data
-                    data = data.data
-                }
                 if(convertToTree && isArray(data)){
                     if(p){
                         p.data = listToTreeMethod(data)

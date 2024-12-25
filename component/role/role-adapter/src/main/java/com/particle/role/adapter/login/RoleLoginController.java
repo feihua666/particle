@@ -1,21 +1,32 @@
 package com.particle.role.adapter.login;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.particle.common.client.dto.command.IdCommand;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
+import com.particle.global.security.security.login.GrantedRole;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.role.app.structmapping.RoleAppStructMapping;
+import com.particle.role.client.dto.data.RoleVO;
+import com.particle.role.infrastructure.dos.RoleDO;
+import com.particle.role.infrastructure.service.IRoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.javers.common.string.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,6 +43,8 @@ public class RoleLoginController {
 
 	@Autowired
 	private AbstractUserDetailsService abstractUserDetailsService;
+	@Autowired
+	private IRoleService iRoleService;
 
 	/**
 	 * 这里也提供一个角色切换接口，仅多一种选择
@@ -52,5 +65,26 @@ public class RoleLoginController {
 		// 需要刷新一下权限，否则权限不会生效
 		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
 		return SingleResponse.of(loginUser);
+	}
+
+	@Operation(summary = "当前登录用户的角色")
+	@PreAuthorize("hasAuthority('user')")
+	@GetMapping("/getList")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<RoleVO> getList(@Parameter(hidden = true) LoginUser loginUser) {
+		// 超级管理员或租户超级管理员，查询全部角色
+        if (loginUser.getIsSuperAdmin() || loginUser.getIsTenantSuperAdmin()) {
+			List<RoleDO> roleDOS = iRoleService.list();
+			List<RoleVO> roleVOS = RoleAppStructMapping.instance.roleDOsToRoleVOs(roleDOS);
+			return MultiResponse.of(roleVOS);
+        }
+		List<GrantedRole> roles = loginUser.getRoles();
+        if (CollectionUtil.isEmpty(roles)) {
+            return MultiResponse.buildSuccess();
+        }
+		List<RoleDO> byRoleIds = iRoleService.getByRoleIds(roles.stream().map(GrantedRole::getId).collect(Collectors.toList()), null);
+		List<RoleVO> roleVOS = RoleAppStructMapping.instance.roleDOsToRoleVOs(byRoleIds);
+		return MultiResponse.of(roleVOS);
+
 	}
 }

@@ -51,6 +51,7 @@ public class DependConditionValidator implements IPropValidator<PropValid.Depend
                     }
                 }
                 if (StrUtil.isEmpty(pattern)) {
+                    // 注意这里不能随意改变，依赖项就是不为null，如果要改变，需要修改依赖项的判断逻辑
                     r = fieldValue != null;
                 }
             }

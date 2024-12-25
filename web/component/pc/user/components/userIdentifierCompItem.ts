@@ -48,7 +48,7 @@ export const userIdentifierColumns = [
     {
         prop: 'expireAt',
         label: '过期时间',
-        width: 80,
+        showOverflowTooltip: true
     },
 
     {

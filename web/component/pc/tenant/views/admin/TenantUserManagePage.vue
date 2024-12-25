@@ -24,6 +24,7 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '用户姓名',
+      showOverflowTooltip: true
     },
     {
       prop: 'avatar',
@@ -33,6 +34,7 @@ const reactiveData = reactive({
     {
       prop: 'joinAt',
       label: '加入时间',
+      showOverflowTooltip: true
     },
     {
       prop: 'isExpired',
@@ -48,6 +50,7 @@ const reactiveData = reactive({
     {
       prop: 'expireAt',
       label: '到期时间',
+      showOverflowTooltip: true
     },
     {
       prop: 'isLeave',
@@ -63,6 +66,7 @@ const reactiveData = reactive({
     {
       prop: 'leaveAt',
       label: '离职/退出时间',
+      showOverflowTooltip: true
     },
     {
       prop: 'isFormal',
@@ -74,6 +78,7 @@ const reactiveData = reactive({
     {
       prop: 'tenantName',
       label: '租户名称',
+      showOverflowTooltip: true
     },
   ],
 

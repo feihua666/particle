@@ -35,10 +35,12 @@ const reactiveData = reactive({
     {
       prop: 'code',
       label: '编码',
+      showOverflowTooltip: true,
     },
     {
       prop: 'name',
       label: '名称',
+      showOverflowTooltip: true,
     },
     {
       prop: 'categoryDictName',
@@ -56,6 +58,7 @@ const reactiveData = reactive({
     {
       prop: 'dataQueryDatasourceName',
       label: '数据查询数据源',
+      showOverflowTooltip: true,
     },
     {
       prop: 'readTimeout',
@@ -100,6 +103,7 @@ const reactiveData = reactive({
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true,
     },
   ],
 

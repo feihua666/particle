@@ -22,14 +22,17 @@ const reactiveData = reactive({
     {
       prop: 'code',
       label: '应用编码',
+      showOverflowTooltip: true
     },
     {
       prop: 'name',
       label: '应用名称',
+      showOverflowTooltip: true
     },
     {
       prop: 'parentName',
       label: '父级',
+      showOverflowTooltip: true
     },
     {
       prop: 'isGroup',

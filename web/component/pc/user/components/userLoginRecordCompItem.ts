@@ -31,7 +31,8 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'operatingSystem',
-        label: '系统及版本'
+        label: '系统及版本',
+        showOverflowTooltip: true
     },
     {
         prop: 'isSuccess',

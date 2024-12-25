@@ -77,7 +77,7 @@ export const getIdentifier = (): AxiosPromise => {
     return axios.get('/user-identifier/login/identifier')
 }
 /**
- * 获取登录标识/我的账号
+ * 获取登录标识/我的密码
  */
 export const getIdentifierPwd = (): AxiosPromise => {
     return axios.get('/user-identifier-pwd/login/identifier-pwd')

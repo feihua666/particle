@@ -5,7 +5,8 @@
 import {reactive, ref} from 'vue'
 import {queryFuncIdsByRoleId, roleAssignFunc as roleAssignFuncApi} from "../../api/admin/roleFuncRelAdminApi"
 import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../components/roleCompItem";
-import {list as funcListApi} from "../../../func/api/admin/funcAdminApi";
+import {loginUserFuncList} from "../../../func/api/funcLoginApi";
+import {removeItems} from "../../../../../global/common/tools/ArrayTools";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -14,10 +15,15 @@ const props = defineProps({
 })
 // 属性
 const reactiveData = reactive({
-  // 表单初始查询第一页
-  form: {},
+  // 表单初始查询第一页,这里使用懒加载分配，因为有可能角色有多个功能，但分配用户的人可拥有的功能更少
+  form: {
+    isLazyLoad: true,
+    uncheckedFuncIds: null
+  },
   // 表单数据对象
   formData: {},
+  // 记录加载的功能，以便在提交时处理未选中的数据
+  dataMethodAllData: null
 })
 // 表单项
 const formComps = ref(
@@ -48,7 +54,13 @@ const formComps = ref(
               // dataInitMethod 参数
               dataInitMethodParam: {roleId: form.roleId},
               // 可用数据列表
-              dataMethod: funcListApi,
+              dataMethod: () => {
+                return loginUserFuncList().then(res => {
+                  // 注意这里直接取数据层，否则因为会转为树导致数据变少
+                  reactiveData.dataMethodAllData = res.data.data
+                  return Promise.resolve(res)
+                })
+              },
               dataMethodResultHandleConvertToTree: true,
               showCheckbox: true,
             }
@@ -64,8 +76,10 @@ const submitAttrs = ref({
   permission: 'admin:web:roleFuncRel:roleAssignFunc',
 })
 // 提交按钮
-const submitMethod = () => {
-  return roleAssignFuncApi
+const submitMethod = (form) => {
+  let allIds = (reactiveData.dataMethodAllData || []).map(item => item.id)
+  reactiveData.form.uncheckedFuncIds = removeItems(allIds,reactiveData.form.checkedFuncIds)
+  return roleAssignFuncApi(form)
 }
 // 成功提示语
 const submitMethodSuccess = () => {
@@ -78,7 +92,7 @@ const submitMethodSuccess = () => {
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :method="submitMethod()"
+          :method="submitMethod"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"

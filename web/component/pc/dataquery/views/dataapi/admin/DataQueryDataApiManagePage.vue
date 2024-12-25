@@ -36,14 +36,17 @@ const reactiveData = reactive({
     {
       prop: 'url',
       label: '接口地址',
+      showOverflowTooltip: true,
     },
     {
       prop: 'name',
       label: '接口名称',
+      showOverflowTooltip: true,
     },
     {
       prop: 'dataQueryDatasourceApiName',
       label: '直连数据源接口',
+      showOverflowTooltip: true,
     },
     {
       prop: 'adaptTypeDictName',
@@ -88,6 +91,7 @@ const reactiveData = reactive({
     {
       prop: 'remark',
       label: '描述',
+      showOverflowTooltip: true,
     },
   ],
 

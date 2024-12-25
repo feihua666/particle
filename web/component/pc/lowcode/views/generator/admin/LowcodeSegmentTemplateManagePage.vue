@@ -35,7 +35,8 @@ const reactiveData = reactive({
     },
     {
       label: "父级",
-      prop: "parentName"
+      prop: "parentName",
+      showOverflowTooltip: true
     },
     {
       label: "名称模板",
@@ -54,7 +55,8 @@ const reactiveData = reactive({
     },
     {
       label: "引用模板",
-      prop: "referenceSegmentTemplateName"
+      prop: "referenceSegmentTemplateName",
+      showOverflowTooltip: true
     },
     {
       label: "共享变量名",

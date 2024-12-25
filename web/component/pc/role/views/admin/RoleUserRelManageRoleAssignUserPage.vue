@@ -6,6 +6,7 @@ import {reactive, ref} from 'vue'
 import {queryUserIdsByRoleId, roleAssignUser as roleAssignUserApi} from "../../api/admin/roleUserRelAdminApi"
 import {remoteSelectRoleProps, useRemoteSelectRoleCompItem} from "../../components/roleCompItem";
 import {list as userListApi} from "../../../user/api/admin/userAdminApi";
+import {removeItems} from "../../../../../global/common/tools/ArrayTools";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -15,9 +16,14 @@ const props = defineProps({
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
-  form: {},
+  form: {
+    isLazyLoad: true,
+    uncheckedUserIds: null
+  },
   // 表单数据对象
   formData: {},
+  // 记录加载的角色，以便在提交时处理未选中的数据
+  dataMethodAllData: null
 })
 // 表单项
 const formComps = ref(
@@ -48,7 +54,12 @@ const formComps = ref(
               // dataInitMethod 参数
               dataInitMethodParam: {roleId: form.roleId},
               // 可用数据列表
-              dataMethod: userListApi,
+              dataMethod: () => {
+                return userListApi().then(res => {
+                  reactiveData.dataMethodAllData = res.data.data
+                  return Promise.resolve(res)
+                })
+              },
               showCheckbox: true,
               props: {
                 label: 'nickname'
@@ -66,8 +77,9 @@ const submitAttrs = ref({
   permission: 'admin:web:roleUserRel:roleAssignUser',
 })
 // 提交按钮
-const submitMethod = () => {
-  return roleAssignUserApi
+const submitMethod = (form) => {
+  reactiveData.form.uncheckedUserIds = removeItems((reactiveData.dataMethodAllData || []).map(item => item.id),reactiveData.form.checkedUserIds)
+  return roleAssignUserApi(form)
 }
 // 成功提示语
 const submitMethodSuccess = () => {
@@ -80,7 +92,7 @@ const submitMethodSuccess = () => {
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :method="submitMethod()"
+          :method="submitMethod"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"

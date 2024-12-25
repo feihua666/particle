@@ -1,7 +1,7 @@
 <script setup name="UserinfoApplication" lang="ts">
 import {tenantFuncApplicationColumns} from "../../../../tenant/components/tenantCompItem";
 import {listToTree} from "../../../../../../global/common/tools/ArrayTools";
-import {getFuncApplicationList} from "../../../../func/api/funcLoginApi";
+import {loginUserFuncApplicationList} from "../../../../func/api/funcLoginApi";
 
 const props = defineProps({
 
@@ -34,7 +34,7 @@ const listToTreeMethod = (data)=>{
            :columns="tableColumns"
            :dataMethodResultHandleConvertToTree="true"
            :dataMethodResultHandleListToTreeMethod="listToTreeMethod"
-           :dataMethod="getFuncApplicationList"
+           :dataMethod="loginUserFuncApplicationList"
   >
 
     <!--  操作按钮  -->

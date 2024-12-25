@@ -3,7 +3,7 @@
  * 登录用户自己的功能菜单组件
  */
 import PtMenu from '../../../../../global/pc/element-plus/Menu.vue'
-import {loginGetList} from "../../api/funcLoginApi";
+import {loginUserFuncList} from "../../api/funcLoginApi";
 import {useLoginUserStore} from "../../../../../global/common/security/loginUserStore"
 
 import {useRoute} from 'vue-router'
@@ -17,7 +17,7 @@ watch(()=> loginUserStore.loginUser?.currentTenant,(val)=>{!!val && (menuRef.val
 watch(()=> loginUserStore.loginUser?.currentRole,(val)=>{!!val && (menuRef.value?.refreshData())})
 // 仅查询显示的数据
 const getFuncList = () =>{
-  return loginGetList({isShow: true})
+  return loginUserFuncList({isShow: true,funcGroupCode: 'backend_pc'})
 }
 </script>
 <template>

@@ -171,10 +171,7 @@ export function replace(array: Array<any>,index,item){
  * @param index
  */
 export function removeItems(array: Array<any>,arrayRemoved: Array<any>){
-    if(!arrayRemoved){
-        return array
-    }
-    if(!array){
+    if(!arrayRemoved || !array){
         return array
     }
     let result = array.filter(item => !arrayRemoved.includes(item));

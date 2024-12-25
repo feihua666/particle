@@ -5,7 +5,8 @@
 import {reactive, ref} from 'vue'
 import {queryRoleIdsByUserId, userAssignRole as userAssignRoleApi} from "../../api/admin/roleUserRelAdminApi"
 import {remoteSelectUserProps, useRemoteSelectUserCompItem} from "../../../user/components/userCompItem";
-import {list as roleListApi} from "../../api/admin/roleAdminApi";
+import {currentUserRoleList} from "../../api/roleLoginApi";
+import {removeItems} from "../../../../../global/common/tools/ArrayTools";
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -14,10 +15,15 @@ const props = defineProps({
 })
 // 属性
 const reactiveData = reactive({
-  // 表单初始查询第一页
-  form: {},
+  // 表单初始查询第一页,这里使用懒加载分配，因为有可能用户有多个角色，但分配用户的人可拥有的角色更少
+  form: {
+    isLazyLoad: true,
+    uncheckedRoleIds: null
+  },
   // 表单数据对象
   formData: {},
+  // 记录加载的角色，以便在提交时处理未选中的数据
+  dataMethodAllData: null
 })
 // 表单项
 const formComps = ref(
@@ -48,7 +54,12 @@ const formComps = ref(
               // dataInitMethod 参数
               dataInitMethodParam: {userId: form.userId},
               // 可用数据列表
-              dataMethod: roleListApi,
+              dataMethod: () => {
+                return currentUserRoleList().then(res => {
+                  reactiveData.dataMethodAllData = res.data.data
+                  return Promise.resolve(res)
+                })
+              },
               dataMethodResultHandleConvertToTree: true,
               showCheckbox: true
             }
@@ -64,8 +75,9 @@ const submitAttrs = ref({
   permission: 'admin:web:roleUserRel:userAssignRole',
 })
 // 提交按钮
-const submitMethod = () => {
-  return userAssignRoleApi
+const submitMethod = (form) => {
+  reactiveData.form.uncheckedRoleIds = removeItems((reactiveData.dataMethodAllData || []).map(item => item.id),reactiveData.form.checkedRoleIds)
+  return userAssignRoleApi(form)
 }
 // 成功提示语
 const submitMethodSuccess = () => {
@@ -78,7 +90,7 @@ const submitMethodSuccess = () => {
   <PtForm :form="reactiveData.form"
           :formData="reactiveData.formData"
           labelWidth="80"
-          :method="submitMethod()"
+          :method="submitMethod"
           :methodSuccess="submitMethodSuccess"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"

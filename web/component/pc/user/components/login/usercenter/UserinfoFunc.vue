@@ -1,6 +1,6 @@
 <script setup name="UserinfoFunc" lang="ts">
 
-import {loginGetList} from "../../../../func/api/funcLoginApi";
+import {loginUserFuncList} from "../../../../func/api/funcLoginApi";
 import {funcColumns} from "../../../../func/components/funcCompItem";
 
 const props = defineProps({
@@ -29,7 +29,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            :columns="tableColumns"
            default-expand-all
            :dataMethodResultHandleConvertToTree="true"
-           :dataMethod="loginGetList"
+           :dataMethod="loginUserFuncList"
   >
 
     <!--  操作按钮  -->
