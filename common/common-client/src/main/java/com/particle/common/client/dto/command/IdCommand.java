@@ -15,5 +15,14 @@ import lombok.Data;
 @Data
 @Schema
 public class IdCommand extends AbstractIdCommand {
-
+    public static IdCommand create(Long id) {
+        IdCommand idCommand = new IdCommand();
+        idCommand.setId(id);
+        return idCommand;
+    }
+    public static IdCommand create(Long id,String scene) {
+        IdCommand idCommand = create(id);
+        idCommand.setScene(scene);
+        return idCommand;
+    }
 }

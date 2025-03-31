@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.particle</groupId>
+        <artifactId>global</artifactId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>global-ai-boot-starter</artifactId>
+
+    <dependencies>
+        <!-- 为了方便引入，直接引入web编译 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 主要为自动注入 springContextHolder -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-tool</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 添加 preAuthority权限注释使用 不传递依赖-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- milvus 是一个向量数据库，本地开发可以使用 devops/milvus 下的命令启动服务 -->
+        <!-- 参考文档：https://docs.spring.io/spring-ai/reference/api/vectordbs/milvus.html -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-milvus-store-spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除 slf4j-reload4j 使用log4j2-->
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 基于 postgresql 的 PGvector 可以存储向量数据 -->
+        <!-- 如果已经安装了postgresql，需要安装扩展：https://github.com/pgvector/pgvector -->
+<!--        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pgvector-store-spring-boot-starter</artifactId>
+        </dependency>-->
+        <!-- 基于 postgresql 的内嵌模型，将文本转换为向量 -->
+        <!-- 如果已经安装了postgresql，需要安装扩展：https://postgresml.org/docs/open-source/pgml/developers/installation -->
+        <!-- github：https://github.com/postgresml/postgresml -->
+<!--        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-postgresml-spring-boot-starter</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- OpenAI (Used also for Groq access) -->
+        <!-- OpenAI -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-markdown-document-reader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pdf-document-reader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-tika-document-reader</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

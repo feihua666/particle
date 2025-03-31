@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>agi</artifactId>
+        <groupId>com.particle</groupId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>agi-start</artifactId>
+
+    <properties>
+        
+        
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>agi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- spring starter web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-logging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 公共测试 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-test</artifactId>
+            <version>${particle.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>component-adapter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- 构建 build-info 这可以实现构建信息，参见 projectInfo 对象的引用 -->
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                <!-- git提交信息，在多个模块构建时比较慢注释了，在启动项目上添加即可 -->
+<!--            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+            </plugin>-->
+        </plugins>
+    </build>
+</project>

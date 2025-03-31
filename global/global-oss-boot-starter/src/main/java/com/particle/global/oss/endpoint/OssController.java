@@ -100,7 +100,8 @@ public class OssController {
 	 */
 	@Operation(summary = "下载文件或预览文件")
 	@GetMapping(API_DOWNLOAD + "/**")
-	public void download(HttpServletRequest request, HttpServletResponse response, String objectName, String client) throws Throwable {
+	public void download(HttpServletRequest request, HttpServletResponse response, String objectName, String client, String c) throws Throwable {
+		client = resolveClient(client, c);
 		String finalObjectName = getObjectName(request, objectName);
 
 		GlobalOssObject globalOssObject = globalOssClientService.download(finalObjectName, client);
@@ -126,7 +127,8 @@ public class OssController {
 	@DeleteMapping( API_DOWNLOAD + "/**")
 	@Operation(summary = "删除文件，只能超级管理员才能删除")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(HttpServletRequest request,String objectName, String client){
+	public void delete(HttpServletRequest request,String objectName, String client, String c){
+		client = resolveClient(client, c);
 		String finalObjectName = getObjectName(request, objectName);
 		globalOssClientService.delete(finalObjectName,client);
 	}
@@ -150,6 +152,9 @@ public class OssController {
 		return filePath;
 	}
 
+	private String resolveClient(String client, String c) {
+		return StrUtil.isNotEmpty(client) ? client : c;
+	}
 	/**
 	 * 获取下载前缀
 	 * @return

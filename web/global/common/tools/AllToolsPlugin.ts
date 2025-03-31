@@ -14,6 +14,7 @@ import * as UrlTools from './UrlTools'
 import * as DateTools from './DateTools'
 import * as PromiseTools from './PromiseTools'
 import * as ClipboardTools from './ClipboardTools'
+import * as MarkdownMarkedTools from './MarkdownMarkedTools'
 import CompAdapter from '../CompAdapter.vue'
 
 let prefix = "Pt"
@@ -39,6 +40,7 @@ export default {
         app.config.globalProperties.ptDateTools = DateTools
         app.config.globalProperties.ptPromiseTools = PromiseTools
         app.config.globalProperties.ptClipboardTools = ClipboardTools
+        app.config.globalProperties.ptMarkdownMarkedTools = MarkdownMarkedTools
         for (let mapKey in map) {
             app.component(prefix + mapKey,map[mapKey])
         }

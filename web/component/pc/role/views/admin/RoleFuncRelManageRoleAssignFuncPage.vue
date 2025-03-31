@@ -55,7 +55,7 @@ const formComps = ref(
               dataInitMethodParam: {roleId: form.roleId},
               // 可用数据列表
               dataMethod: () => {
-                return loginUserFuncList().then(res => {
+                return loginUserFuncList({includeTypeDictValues: 'all'}).then(res => {
                   // 注意这里直接取数据层，否则因为会转为树导致数据变少
                   reactiveData.dataMethodAllData = res.data.data
                   return Promise.resolve(res)

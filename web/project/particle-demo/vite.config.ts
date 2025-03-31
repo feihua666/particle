@@ -46,6 +46,13 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
         aliasItem('clipboard'),
         aliasItem('echarts'),
         aliasItem('vue-echarts'),
+        aliasItem('lexical'),
+        aliasItem('lexical-vue'),
+        aliasItem('marked'),
+        aliasItem('dompurify'),
+        aliasItem('highlight.js'),
+        aliasItem('marked-highlight'),
+        aliasItem('prismjs'),
       ]
     },
     server: {

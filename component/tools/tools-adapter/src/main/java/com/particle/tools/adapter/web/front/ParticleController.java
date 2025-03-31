@@ -8,6 +8,7 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.tools.client.dto.command.AddFieldCommand;
 import com.particle.tools.client.dto.command.BatchGenIdsCommand;
+import com.particle.tools.client.dto.command.DeleteModelServiceCommand;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -39,9 +40,27 @@ public class ParticleController extends AbstractBaseWebAdapter {
     public Response addField(@RequestBody @Validated AddFieldCommand addFieldCommand) {
 
         // 后端处理
-        handleBackend(addFieldCommand);
+        handleBackendForAddField(addFieldCommand);
         // 前端处理
-        handleFrontEnd(addFieldCommand);
+        handleFrontendForAddField(addFieldCommand);
+
+
+        return Response.buildSuccess();
+    }
+    /**
+     * 主要用于对已生成的代码，删除模型服务，主要用于生成错误，或者删除多余的服务
+     * @param deleteModelServiceCommand
+     * @return
+     */
+    @Operation(summary = "删除模型服务")
+    @PostMapping("/deleteModelService")
+    @ResponseStatus(HttpStatus.OK)
+    public Response deleteModelService(@RequestBody @Validated DeleteModelServiceCommand deleteModelServiceCommand) {
+
+        // 后端处理
+        handleBackendForDeleteModelService(deleteModelServiceCommand);
+        // 前端处理
+        handleFrontendForDeleteModelService(deleteModelServiceCommand);
 
 
         return Response.buildSuccess();
@@ -56,22 +75,85 @@ public class ParticleController extends AbstractBaseWebAdapter {
         }
         return MultiResponse.of(list);
     }
-
     /**
-     * 过滤后端文件
+     * 后端，删除模型服务，过滤后端文件
+     * 删除后，可能有一些未删除干净，如：数据库表创建语句，一般在 classpath:db/ 下
+     * @param deleteModelServiceCommand
+     */
+    private void handleBackendForDeleteModelService(DeleteModelServiceCommand deleteModelServiceCommand) {
+        if (StrUtil.isEmpty(deleteModelServiceCommand.getComponentBackendAbsolutePath())) {
+            return;
+        }
+        List<File> fileList = getFile(file -> {
+            // XxxxxCreateCommand.java
+            String name = FileUtil.getName(file);
+            // XxxxxCreateCommand
+            name = name.substring(0,name.lastIndexOf("."));
+            boolean equalsAny = StrUtil.equalsAny(name,
+                    deleteModelServiceCommand.getDomainName(),
+                    deleteModelServiceCommand.getDomainName() + "Id",
+
+                    deleteModelServiceCommand.getDomainName() + "AdminWebController",
+                    deleteModelServiceCommand.getDomainName() + "FrontWebController",
+                    deleteModelServiceCommand.getDomainName() + "AdminMobileController",
+                    deleteModelServiceCommand.getDomainName() + "FrontMobileController",
+                    deleteModelServiceCommand.getDomainName() + "AdminWapController",
+                    deleteModelServiceCommand.getDomainName() + "FrontWapController",
+                    deleteModelServiceCommand.getDomainName() + "RpcController",
+
+                    deleteModelServiceCommand.getDomainName() + "CreateCommand",
+                    deleteModelServiceCommand.getDomainName() + "UpdateCommand",
+                    deleteModelServiceCommand.getDomainName() + "PageQueryCommand",
+                    deleteModelServiceCommand.getDomainName() + "QueryListCommand",
+                    deleteModelServiceCommand.getDomainName() + "VO",
+
+                    "I" + deleteModelServiceCommand.getDomainName() + "RepresentationApplicationService",
+                    "I" + deleteModelServiceCommand.getDomainName() + "ApplicationService",
+                    deleteModelServiceCommand.getDomainName() + "RepresentationApplicationServiceImpl",
+                    deleteModelServiceCommand.getDomainName() + "ApplicationServiceImpl",
+
+                    deleteModelServiceCommand.getDomainName() + "CreateCommandExecutor",
+                    deleteModelServiceCommand.getDomainName() + "DeleteCommandExecutor",
+                    deleteModelServiceCommand.getDomainName() + "UpdateCommandExecutor",
+                    deleteModelServiceCommand.getDomainName() + "CommandExecutor",
+                    deleteModelServiceCommand.getDomainName() + "QueryCommandExecutor",
+
+                    deleteModelServiceCommand.getDomainName() + "Gateway",
+                    deleteModelServiceCommand.getDomainName() + "GatewayImpl",
+                    deleteModelServiceCommand.getDomainName() + "AppStructMapping",
+
+                    "I" + deleteModelServiceCommand.getDomainName() + "Service",
+                    deleteModelServiceCommand.getDomainName() + "ServiceImpl",
+                    deleteModelServiceCommand.getDomainName() + "Mapper",
+                    deleteModelServiceCommand.getDomainName() + "InfrastructureStructMapping",
+                    deleteModelServiceCommand.getDomainName() + "DO",
+
+                    deleteModelServiceCommand.getDomainName() + "RpcFeignClient"
+                    );
+
+            return equalsAny;
+        }, deleteModelServiceCommand.getComponentBackendAbsolutePath());
+
+        for (File file : fileList) {
+            FileUtil.del( file);
+        }
+    }
+    /**
+     * 后端，添加字段，过滤后端文件
      * @param addFieldCommand
      */
-    private void handleBackend(AddFieldCommand addFieldCommand) {
+    private void handleBackendForAddField(AddFieldCommand addFieldCommand) {
         // 添加字段主要是 DO、Domain、Command、VO等
         if (StrUtil.isEmpty(addFieldCommand.getComponentBackendAbsolutePath())) {
             return;
         }
         List<File> fileList = getFile(file -> {
+            // XxxxxCreateCommand.java
             String name = FileUtil.getName(file);
+            // XxxxxCreateCommand
             name = name.substring(0,name.lastIndexOf("."));
-            boolean equals = StrUtil.equals(name, addFieldCommand.getDomainName());
-            boolean startWidth = StrUtil.startWith(name, addFieldCommand.getDomainName());
-            boolean endWithAny = StrUtil.equalsAny(name,
+            boolean equalsAny = StrUtil.equalsAny(name,
+                    addFieldCommand.getDomainName(),
                     addFieldCommand.getDomainName() + "CreateCommand",
                    addFieldCommand.getDomainName() + "UpdateCommand",
                    addFieldCommand.getDomainName() + "PageQueryCommand",
@@ -80,20 +162,20 @@ public class ParticleController extends AbstractBaseWebAdapter {
                    addFieldCommand.getDomainName() + "VO"
             );
 
-            return equals || (startWidth && endWithAny);
+            return equalsAny;
         }, addFieldCommand.getComponentBackendAbsolutePath());
 
         for (File file : fileList) {
-            handleBackendFile(file, addFieldCommand);
+            handleBackendFileForAddField(file, addFieldCommand);
         }
     }
 
     /**
-     * 处理后端文件
+     * 后端，添加字段，处理后端文件
      * @param file
      * @param addFieldCommand
      */
-    private void handleBackendFile(File file,AddFieldCommand addFieldCommand) {
+    private void handleBackendFileForAddField(File file, AddFieldCommand addFieldCommand) {
         List<String> list = FileUtil.readUtf8Lines(file);
         boolean hasSchema = list.stream().anyMatch(line -> StrUtil.contains(line, "Schema"));
         boolean hasAfterFieldName = list.stream().anyMatch(line -> StrUtil.startWith(line.trim(),"private") && StrUtil.contains(line,addFieldCommand.getAfterFieldName()));
@@ -121,17 +203,45 @@ public class ParticleController extends AbstractBaseWebAdapter {
         }
         FileUtil.writeUtf8Lines(listResult, file);
     }
+    /**
+     * 前端暂不支持
+     * @param deleteModelServiceCommand
+     */
+    private void handleFrontendForDeleteModelService(DeleteModelServiceCommand deleteModelServiceCommand) {
+        if (StrUtil.isEmpty(deleteModelServiceCommand.getComponentFrontendAbsolutePath())) {
+            return;
+        }
+        List<File> fileList = getFile(file -> {
+            // XxxxxCreateCommand.java
+            String name = FileUtil.getName(file);
+            // XxxxxCreateCommand
+            name = name.substring(0,name.lastIndexOf("."));
+            boolean equalsAny = StrUtil.equalsAny(name,
+                    StrUtil.lowerFirst(deleteModelServiceCommand.getDomainName()) + "AdminApi",
+                    StrUtil.lowerFirst(deleteModelServiceCommand.getDomainName()) + "Manage",
+                    StrUtil.lowerFirst(deleteModelServiceCommand.getDomainName()) + "AdminRoutes",
+                    deleteModelServiceCommand.getDomainName() + "ManageAddPage",
+                    deleteModelServiceCommand.getDomainName() + "ManagePage",
+                    deleteModelServiceCommand.getDomainName() + "ManageUpdatePage"
+            );
 
+            return equalsAny;
+        }, deleteModelServiceCommand.getComponentFrontendAbsolutePath());
+
+        for (File file : fileList) {
+            FileUtil.del(file);
+        }
+    }
     /**
      * 前端暂不支持
      * @param addFieldCommand
      */
-    private void handleFrontEnd(AddFieldCommand addFieldCommand) {
+    private void handleFrontendForAddField(AddFieldCommand addFieldCommand) {
 
     }
 
     /**
-     * 获取需要的文件
+     * 在父目录下，递归获取所有需要的文件
      * @param predicate
      * @param parentPath
      * @return

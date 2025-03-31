@@ -41,6 +41,7 @@
         <module>data</module>
         <module>scheduler</module>
         <module>navigation</module>
+        <module>agi</module>
     </modules>
 
     <properties>

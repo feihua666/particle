@@ -45,7 +45,7 @@ public class NavigationSiteTagAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTag:create')")
     @Operation(summary = "添加导航网站标签")
     @PostMapping("/create")
-    @OpLog(name = "添加导航网站标签",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加导航网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.create)
     public SingleResponse<NavigationSiteTagVO> create(@RequestBody NavigationSiteTagCreateCommand navigationSiteTagCreateCommand){
         return iNavigationSiteTagApplicationService.create(navigationSiteTagCreateCommand);
     }
@@ -53,7 +53,7 @@ public class NavigationSiteTagAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTag:delete')")
     @Operation(summary = "删除导航网站标签")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除导航网站标签",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除导航网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public SingleResponse<NavigationSiteTagVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSiteTagApplicationService.delete(deleteCommand);
@@ -62,7 +62,7 @@ public class NavigationSiteTagAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTag:update')")
     @Operation(summary = "更新导航网站标签")
     @PutMapping("/update")
-    @OpLog(name = "更新导航网站标签",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新导航网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.update)
     public SingleResponse<NavigationSiteTagVO> update(@RequestBody NavigationSiteTagUpdateCommand navigationSiteTagUpdateCommand){
         navigationSiteTagUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iNavigationSiteTagApplicationService.update(navigationSiteTagUpdateCommand);

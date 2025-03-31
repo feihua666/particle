@@ -1,11 +1,14 @@
 package com.particle.func.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.IdCommand;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.dto.command.FuncCreateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.func.domain.Func;
 import com.particle.func.domain.gateway.FuncGateway;
+import com.particle.func.infrastructure.dos.FuncDO;
+import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
@@ -30,6 +33,7 @@ import org.springframework.validation.annotation.Validated;
 public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private FuncGateway funcGateway;
+	private IFuncService iFuncService;
 
 	/**
 	 * 执行菜单功能添加指令
@@ -48,6 +52,23 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
 
+	/**
+	 * 复制
+	 * @param idCommand
+	 * @return
+	 */
+	public SingleResponse<FuncVO> copy(@Valid IdCommand idCommand) {
+		FuncDO copy = iFuncService.copy(idCommand.getId(), item -> {
+			String copySuffix = "Copy";
+			item.setCode(item.getCode() + copySuffix);
+			item.setName(item.getName() + copySuffix);
+			return item;
+		});
+		if (copy == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+		}
+		return SingleResponse.of(FuncAppStructMapping.instance.funcDOToFuncVO(copy));
+	}
 	/**
 	 * 根据菜单功能创建指令创建菜单功能模型
 	 * @param funcCreateCommand
@@ -82,5 +103,9 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setFuncGateway(FuncGateway funcGateway) {
 		this.funcGateway = funcGateway;
+	}
+	@Autowired
+	public void setIFuncService(IFuncService iFuncService) {
+		this.iFuncService = iFuncService;
 	}
 }

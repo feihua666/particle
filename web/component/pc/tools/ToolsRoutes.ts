@@ -61,6 +61,16 @@ const UserRoutes = [
         },
     },
     {
+        path: '/front/deleteModelServicePage',
+        component: () => import('./views/front/DeleteModelServicePage.vue'),
+        meta: {
+            root: true,
+            code:'deleteModelServicePage',
+            name: '删除模型服务',
+            keepAlive: true
+        },
+    },
+    {
         path: '/front/BatchGenIdsPage',
         component: () => import('./views/front/BatchGenIdsPage.vue'),
         meta: {

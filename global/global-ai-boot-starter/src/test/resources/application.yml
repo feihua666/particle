@@ -1,0 +1,17 @@
+spring:
+  ai:
+    openai:
+      #base-url: https://api.openai.com
+      base-url: https://api.groq.com/openai
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          #model: gpt-4o
+          model: llama3-70b-8192
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        table-name: global_ai_vector_store

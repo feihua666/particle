@@ -3,3 +3,6 @@ particle:
       mysql:
         driver: com.mysql.cj.jdbc.Driver
         url-query: useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
+      postgresql:
+        driver: org.postgresql.Driver
+        url-query:

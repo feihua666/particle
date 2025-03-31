@@ -2,11 +2,11 @@
 DROP TABLE IF EXISTS component_data_company;
 CREATE TABLE `component_data_company` (
   `id` bigint NOT NULL COMMENT '主键ID',
-  `name` varchar(100) DEFAULT NULL COMMENT '企业名称',
+  `name` varchar(100) DEFAULT NULL COMMENT '企业名称，统一按中文括号存储',
   `uscc` varchar(100) DEFAULT NULL COMMENT '统一社会信用代码，unified_social_credit_code',
   `reg_no` varchar(100) DEFAULT NULL COMMENT '注册号，registration_no',
   `org_code` varchar(100) DEFAULT NULL COMMENT '组织机构代码，organization_code',
-  `en_name` varchar(100) DEFAULT NULL COMMENT '英文名称，english_name',
+  `en_name` varchar(100) DEFAULT NULL COMMENT '英文名称，english_name，统一按英文括号存储',
   `parent_id` bigint DEFAULT NULL COMMENT '父级id，如果存在父级id表示该企业为分支机构',
   `category` tinyint(2) NOT null COMMENT '分类，1=企业，2=个体，3=组代',
   `latest_update_at` datetime DEFAULT NULL COMMENT '最后更新时间，相关联的只要有更新，就需要更新该值',

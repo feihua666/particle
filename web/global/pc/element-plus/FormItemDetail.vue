@@ -122,7 +122,7 @@ watch(() => props.form[props.prop],(val,oldVal)=> {
     props.valueChange({form: props.form,formData: props.formData,prop:  props.prop,newValue: val,oldValue: oldVal})
   }
 
-})
+},{ deep: true } )
 // 方法
 // 值更新事件
 const updateModelValueEvent = updateDataModelValueEventHandle({reactiveData,hasPermission,emit,valueEventCallback:(value)=>{

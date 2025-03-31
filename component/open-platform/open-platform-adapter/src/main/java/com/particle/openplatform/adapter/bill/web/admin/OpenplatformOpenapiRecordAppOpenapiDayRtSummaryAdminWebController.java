@@ -43,7 +43,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:create')")
     @Operation(summary = "添加开放平台应用开放接口日实时汇总")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO> create(@RequestBody OpenplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand){
         return iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryApplicationService.create(openplatformOpenapiRecordAppOpenapiDayRtSummaryCreateCommand);
     }
@@ -51,7 +51,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:delete')")
     @Operation(summary = "删除开放平台应用开放接口日实时汇总")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDayRtSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiDayRtSummary:update')")
     @Operation(summary = "更新开放平台应用开放接口日实时汇总")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台应用开放接口日实时汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryVO> update(@RequestBody OpenplatformOpenapiRecordAppOpenapiDayRtSummaryUpdateCommand openplatformOpenapiRecordAppOpenapiDayRtSummaryUpdateCommand){
         openplatformOpenapiRecordAppOpenapiDayRtSummaryUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryApplicationService.update(openplatformOpenapiRecordAppOpenapiDayRtSummaryUpdateCommand);

@@ -97,11 +97,18 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 		return iFuncRepresentationApplicationService.pageQuery(funcPageQueryCommand);
 	}
 
-
 	@PreAuthorize("hasAuthority('admin:web:func:moveNode')")
 	@Operation(summary = "移动菜单功能")
 	@PostMapping("/moveNode")
 	public SingleResponse<FuncVO> moveNode(@RequestBody FuncMoveCommand funcMoveNodeCommand){
 		return iFuncApplicationService.moveNode(funcMoveNodeCommand);
+	}
+
+	@PreAuthorize("hasAuthority('admin:web:func:copy')")
+	@Operation(summary = "复制菜单功能")
+	@PostMapping("/copy")
+	@OpLog(name = "复制菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
+	public SingleResponse<FuncVO> copy(@RequestBody IdCommand copyCommand){
+		return iFuncApplicationService.copy(copyCommand);
 	}
 }

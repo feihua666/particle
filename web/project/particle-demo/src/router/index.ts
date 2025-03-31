@@ -10,6 +10,7 @@ import TestTimePicker from '../views/test/TestTimePicker.vue'
 import TestAceEditor from '../views/test/TestAceEditor.vue'
 import TestCompAdapter from '../views/test/TestCompAdapter.vue'
 import TestTinymceEditor from '../views/test/TestTinymceEditor.vue'
+import TestRealtimeRenderMarkdown from '../views/test/TestRealtimeRenderMarkdown.vue'
 
 import routes from "./routes";
 
@@ -68,6 +69,11 @@ const options = {
       path: '/testTinymceEditor',
       name: 'testTinymceEditor',
       component: TestTinymceEditor
+    },
+    {
+      path: '/testRealtimeRenderMarkdown',
+      name: 'testRealtimeRenderMarkdown',
+      component: TestRealtimeRenderMarkdown
     },
   ]
 }

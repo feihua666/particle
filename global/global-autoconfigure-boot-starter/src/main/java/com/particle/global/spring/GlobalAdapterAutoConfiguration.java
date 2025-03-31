@@ -1,9 +1,11 @@
 package com.particle.global.spring;
 
+import com.particle.global.spring.global.tool.DatasourceToolConfig;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-08-07 14:59
  */
 @Configuration(proxyBeanMethods = false)
+@Import({DatasourceToolConfig.class})
 public class GlobalAdapterAutoConfiguration {
 
 

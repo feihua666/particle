@@ -48,6 +48,9 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 	public String upload(String objectName, InputStream inputStream, String client,String contentType,Boolean concatEndPoint) {
 		GlobalOssClientWrapper globalOssClientWrapper = routeGlobalOssClient(client);
 		globalOssClientWrapper.getGlobalOssClient().putObject(globalOssClientWrapper.getBucketName(),objectName,inputStream,contentType);
+		String resolvedClient = resolveClient(client);
+		// 添加客户端标识为以后下载提供客户端路由
+		objectName = objectName + "?c=" + resolvedClient;
 		if ((concatEndPoint != null && concatEndPoint) || (concatEndPoint == null && globalOssProperties.getConcatEndpoint())) {
 			return NetPathTool.concat(globalOssClientWrapper.getEndpoint(),objectName);
 		}
@@ -88,14 +91,19 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 	}
 
 	private GlobalOssClientWrapper routeGlobalOssClient(String client) {
-		if (StrUtil.isEmpty(client)) {
-			client = globalOssProperties.getDefaultClient();
-		}
-		GlobalOssClientWrapper globalOssClient = clientMap.get(client);
+		String resolvedClient = resolveClient(client);
+		GlobalOssClientWrapper globalOssClient = clientMap.get(resolvedClient);
 		if (globalOssClient == null) {
 			throw new SystemException("can not find globalOssClient by client=" + client);
 		}
 		return globalOssClient;
+	}
+
+	private String resolveClient(String client) {
+		if (StrUtil.isEmpty(client)) {
+			client = globalOssProperties.getDefaultClient();
+		}
+		return client;
 	}
 
 	/**

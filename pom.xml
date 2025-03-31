@@ -7,7 +7,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <!-- 截止到目前（2023-12-07）该版本（2.7.18）是springboot支持的jdk1.8的最高版本 -->
         <!-- 升级spring3.x版本 -->
-        <version>3.4.0</version>
+        <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
@@ -132,6 +132,8 @@
         <nashorn-core.version>15.4</nashorn-core.version>
         <!-- 在使用大数据源时，主要用于编译，本系统默认不使用druid作为数据源连接池 -->
         <druid.version>1.2.24</druid.version>
+        <!-- spring ai 注意这里使用开发里程碑预览版本-->
+        <spring-ai.version>1.0.0-M6</spring-ai.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>
@@ -199,7 +201,35 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- spring ai -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <repositories>
+        <!-- maven中央仓库里面的都是spring官方发布的jar，这里面都是spring社区发布的jar，spring社区的在maven中央仓库没有，目前添加主要是使用spring ai -->
+        <!-- 里程碑版本 -->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- 快照版本 -->
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>

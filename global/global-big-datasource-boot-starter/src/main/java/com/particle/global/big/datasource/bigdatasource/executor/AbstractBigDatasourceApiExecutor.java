@@ -112,7 +112,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 		// 请求完处理，主要处理了出参扩展配置
 		postExe(bigDatasourceApi, command,queryString, o,postExeResultHolder);
 
-		// 如果有修改，使用返回的结果作为新的command
+		// 如果有修改，使用返回的结果作为新的结果数据
 		if (postExeResultHolder.containsKey("result")) {
 			o = postExeResultHolder.get("result");
 		}

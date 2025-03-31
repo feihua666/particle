@@ -30,19 +30,22 @@ public class OpLogConstants {
 		public static final String report = "report";
 		public static final String usageCount = "usageCount";
 
-
-		public static final String feedback = "feedback";
+		// 客户
+		public static final String crm = "crm";
 		// 梦想之源
 		public static final String dream = "dream";
 		// 参数配置
 		public static final String config = "config";
-		// 客户
-		public static final String crm = "crm";
 		public static final String dataconstraint = "dataconstraint";
-		public static final String data = "data";
 
 		public static final String scheduler = "scheduler";
+		public static final String opLog = "opLog";
+
+		public static final String data = "data";
+		public static final String feedback = "feedback";
+
 		public static final String navigation = "navigation";
+		public static final String agi = "agi";
 
 		public static final String unknown = "unknown";
 

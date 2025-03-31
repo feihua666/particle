@@ -46,3 +46,10 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(funcPrefix + '/page',{params: data})
 }
 
+/**
+ * 复制功能
+ * @param data
+ */
+export const copy = (data: IdParam): AxiosPromise => {
+    return axios.post(funcPrefix + '/copy',data)
+}

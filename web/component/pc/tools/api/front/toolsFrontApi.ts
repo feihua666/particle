@@ -25,6 +25,13 @@ export const addField = (data: anyObj): AxiosPromise => {
     return axios.post('/front/web/particle' + '/addField',data)
 }
 /**
+ * 删除模型服务
+ * @param data
+ */
+export const deleteModelService = (data: anyObj): AxiosPromise => {
+    return axios.post('/front/web/particle' + '/deleteModelService',data)
+}
+/**
  * 批量生成id
  * @param data
  */

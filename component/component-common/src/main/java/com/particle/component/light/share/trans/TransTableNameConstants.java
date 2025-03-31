@@ -76,4 +76,7 @@ public class TransTableNameConstants {
 	public static final String component_navigation_site_tag = "component_navigation_site_tag";
 
 
+	public static final String component_agi_vector_store_raw_document = "component_agi_vector_store_raw_document";
+
+
 }

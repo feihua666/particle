@@ -43,7 +43,7 @@ public class DataCompanyMd5IdsAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5Ids:create')")
     @Operation(summary = "添加企业md5ids")
     @PostMapping("/create")
-    @OpLog(name = "添加企业md5ids",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加企业md5ids",module = OpLogConstants.Module.data,type = OpLogConstants.Type.create)
     public SingleResponse<DataCompanyMd5IdsVO> create(@RequestBody DataCompanyMd5IdsCreateCommand dataCompanyMd5IdsCreateCommand){
         return iDataCompanyMd5IdsApplicationService.create(dataCompanyMd5IdsCreateCommand);
     }
@@ -51,7 +51,7 @@ public class DataCompanyMd5IdsAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5Ids:delete')")
     @Operation(summary = "删除企业md5ids")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除企业md5ids",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除企业md5ids",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
     public SingleResponse<DataCompanyMd5IdsVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyMd5IdsApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class DataCompanyMd5IdsAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5Ids:update')")
     @Operation(summary = "更新企业md5ids")
     @PutMapping("/update")
-    @OpLog(name = "更新企业md5ids",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新企业md5ids",module = OpLogConstants.Module.data,type = OpLogConstants.Type.update)
     public SingleResponse<DataCompanyMd5IdsVO> update(@RequestBody DataCompanyMd5IdsUpdateCommand dataCompanyMd5IdsUpdateCommand){
         dataCompanyMd5IdsUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iDataCompanyMd5IdsApplicationService.update(dataCompanyMd5IdsUpdateCommand);

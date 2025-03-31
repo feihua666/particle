@@ -22,6 +22,7 @@ import ConfigRoutes from "./config/ConfigRoutes";
 import DataConstraintRoutes from "./dataconstraint/DataConstraintRoutes";
 import SchedulerRoutes from "./scheduler/SchedulerRoutes";
 import NavigationRoutes from "./navigation/NavigationRoutes";
+import AgiRoutes from "./agi/AgiRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -48,4 +49,5 @@ let ComponentRoutes = []
     .concat(DataConstraintRoutes)
     .concat(SchedulerRoutes)
     .concat(NavigationRoutes)
+    .concat(AgiRoutes)
 export default ComponentRoutes

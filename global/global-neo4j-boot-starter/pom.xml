@@ -11,12 +11,6 @@
 
     <artifactId>global-neo4j-boot-starter</artifactId>
 
-    <properties>
-
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <!-- 使用spring data依赖 -->
         <dependency>

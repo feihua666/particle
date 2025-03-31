@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>agi</artifactId>
+        <groupId>com.particle</groupId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>agi-infrastructure</artifactId>
+
+    <properties>
+
+
+    </properties>
+    <dependencies>
+        <!-- 通用基础设施 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-infrastructure</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 领域模型 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>agi-domain</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ai 依赖 ai相关全局模块 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-ai-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 查询字典使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

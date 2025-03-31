@@ -104,7 +104,7 @@ const handleUserinfoCommand = (command) => {
     <div class="pt-pointer pt-flex-align-cross-center" style="padding: 0 5px;">
       <span style="margin-right: 0.8rem;"> {{ nickname }}</span>
       <el-avatar :src="avatar">
-        {{ nickname ? nickname.substr(0,1) : '无' }}
+        {{ nickname ? nickname.substring(0,1) : '无' }}
       </el-avatar>
     </div>
 

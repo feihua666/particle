@@ -12,7 +12,10 @@ export function timer (fn:(times: number)=>any,time: number,times: number) {
     }
     let t= setInterval(function () {
         if (fn && typeof fn == "function") {
-            fn.call(null,_times);
+            const result = fn.call(null,_times);
+            if(result === false){
+                clearInterval(t);
+            }
             _times ++;
             //如果到了执行次数
             if (_times == times) {

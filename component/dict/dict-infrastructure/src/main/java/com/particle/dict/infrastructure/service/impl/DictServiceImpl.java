@@ -42,10 +42,10 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 			assertByColumn(po.getCode(),DictDO::getCode,false);
 		}
 
-		if (po.getParentId() != null) {
-			DictDO byParentId = getById(po.getParentId());
-			Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
-		}
+		// if (po.getParentId() != null) {
+		// 	DictDO byParentId = getById(po.getParentId());
+		// 	Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
+		// }
 	}
 
 	@Override
@@ -58,9 +58,9 @@ public class DictServiceImpl extends IBaseServiceImpl<DictMapper, DictDO> implem
 				assertByColumn(po.getCode(),DictDO::getCode,false);
 			}
 		}
-		if (po.getParentId() != null) {
-			DictDO byParentId = getById(po.getParentId());
-			Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
-		}
+		// if (po.getParentId() != null) {
+		// 	DictDO byParentId = getById(po.getParentId());
+		// 	Assert.isTrue(byParentId.getIsGroup(),"字典项不能添加子节点");
+		// }
 	}
 }

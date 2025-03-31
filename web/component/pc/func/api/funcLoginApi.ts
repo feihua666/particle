@@ -24,5 +24,5 @@ export const loginUserFuncList = (data: loginUserFuncListParam): AxiosPromise =>
  * 当前登录用户的应用
  */
 export const loginUserFuncApplicationList = (data: anyObj): AxiosPromise => {
-    return axios.get('/func/login/loginUserFuncApplicationList',{params: data})
+    return axios.get('/func/login/getFuncApplicationList',{params: data})
 }

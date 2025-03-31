@@ -43,7 +43,7 @@ public class DataCompanyMd5AdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5:create')")
     @Operation(summary = "添加企业md5")
     @PostMapping("/create")
-    @OpLog(name = "添加企业md5",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加企业md5",module = OpLogConstants.Module.data,type = OpLogConstants.Type.create)
     public SingleResponse<DataCompanyMd5VO> create(@RequestBody DataCompanyMd5CreateCommand dataCompanyMd5CreateCommand){
         return iDataCompanyMd5ApplicationService.create(dataCompanyMd5CreateCommand);
     }
@@ -51,7 +51,7 @@ public class DataCompanyMd5AdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5:delete')")
     @Operation(summary = "删除企业md5")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除企业md5",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除企业md5",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
     public SingleResponse<DataCompanyMd5VO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyMd5ApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class DataCompanyMd5AdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5:update')")
     @Operation(summary = "更新企业md5")
     @PutMapping("/update")
-    @OpLog(name = "更新企业md5",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新企业md5",module = OpLogConstants.Module.data,type = OpLogConstants.Type.update)
     public SingleResponse<DataCompanyMd5VO> update(@RequestBody DataCompanyMd5UpdateCommand dataCompanyMd5UpdateCommand){
         dataCompanyMd5UpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iDataCompanyMd5ApplicationService.update(dataCompanyMd5UpdateCommand);

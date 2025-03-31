@@ -43,7 +43,7 @@ public class OpenplatformAppQuotaAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:openplatformAppQuota:create')")
     @Operation(summary = "添加开放平台应用额度")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台应用额度",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台应用额度",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformAppQuotaVO> create(@RequestBody OpenplatformAppQuotaCreateCommand openplatformAppQuotaCreateCommand){
         return iOpenplatformAppQuotaApplicationService.create(openplatformAppQuotaCreateCommand);
     }
@@ -51,7 +51,7 @@ public class OpenplatformAppQuotaAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:openplatformAppQuota:delete')")
     @Operation(summary = "删除开放平台应用额度")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台应用额度",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台应用额度",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformAppQuotaVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformAppQuotaApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class OpenplatformAppQuotaAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:openplatformAppQuota:update')")
     @Operation(summary = "更新开放平台应用额度")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台应用额度",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台应用额度",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformAppQuotaVO> update(@RequestBody OpenplatformAppQuotaUpdateCommand openplatformAppQuotaUpdateCommand){
         openplatformAppQuotaUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformAppQuotaApplicationService.update(openplatformAppQuotaUpdateCommand);

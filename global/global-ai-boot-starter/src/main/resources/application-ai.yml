@@ -1,0 +1,47 @@
+spring:
+  ai:
+    # openai 作为 大模型
+    openai:
+      #base-url: https://api.openai.com
+      #base-url: https://api.groq.com/openai
+      # DeepSeek
+      base-url: https://api.deepseek.com
+      api-key: ${OPENAI_API_KEY}
+      embedding:
+        enabled: false
+      chat:
+        options:
+          # 通过指定 model='deepseek-chat' 即可调用 DeepSeek-V3
+          # 通过指定 model='deepseek-reasoner'，即可调用 DeepSeek-R1
+          model: deepseek-chat
+    # ollama 作为 嵌入模型
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        # nomic-embed-text 目前在ollama嵌入模型排行第一
+        model: nomic-embed-text
+      chat:
+        # chat 使用 openai
+        enabled: false
+    vectorstore:
+      # Milvus 作为 vectorstore
+      milvus:
+        client:
+          host: localhost
+          port: 19530
+          username: root
+          password: milvus
+        databaseName: default
+        collectionName: global_ai_vector_store
+        idFieldName: id
+        # openai的内嵌模型，默认 1536，但本项目使用 ollama 部署 nomic-embed-text 模型最大768，所以这里设置为 768
+        #embeddingDimension: 1536
+        embeddingDimension: 768
+        indexType: IVF_FLAT
+        metricType: COSINE
+        initialize-schema: true
+    chat:
+      client:
+        # 禁用 ChatClient.Builder 自动配置，以为了支持多个模型同时使用
+        enabled: false
+

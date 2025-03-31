@@ -19,6 +19,7 @@ spring:
       - quartz
       - freemarker
       - freemarker-dev
+      - ai
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master
@@ -29,6 +30,13 @@ spring:
           username: root
           password: rootroot
           driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+        # postgresql 主要用于ai存储向量
+#        masterPg:
+#          url: jdbc:postgresql://localhost/particle_test?${particle.datasource.postgresql.url-query:}
+#          username: postgres
+#          password: postgrespostgres
+#          driver-class-name: ${particle.datasource.postgresql.driver}
+
   # 注意，这里的配置是spring的但实现已经自定义，参考 global-datasource-boot-starter 组件 sqlinit 包实现
   sql:
     init:
@@ -68,6 +76,7 @@ spring:
         - classpath:db/schema.scheduler.sql
         - classpath:org/quartz/impl/jdbcjobstore/tables_mysql_innodb.sql
         - classpath:db/schema.navigation.sql
+        - classpath:db/schema.agi.sql
       data-locations:
         - classpath:db/data.particle-demo.sql
         - classpath:db/data.area.sql
@@ -75,6 +84,7 @@ spring:
         - classpath:db/data.func.sql
         - classpath:db/data.user.sql
         - classpath:db/data.role.sql
+        - classpath:db/data.role.virtual_superadmin.sql
         - classpath:db/data.low-code.sql
         - classpath:db/data.low-code.demo.sql
         - classpath:db/data.tools.sql
@@ -99,6 +109,7 @@ spring:
         - classpath:db/data.data.sql
         - classpath:db/data.scheduler.sql
         - classpath:db/data.navigation.sql
+        - classpath:db/data.agi.sql
       # 默认 NEVER，太危险了，因为本机开发有部分是脚本配置依赖数据，比如数据查询和报告模板等，换了一个环境，全部数据没有了，还好通过binlog恢复了
       mode: NEVER # ALWAYS NEVER
   servlet:
@@ -130,6 +141,10 @@ spring:
     function:
       # 实现了 java.util.function.Consumer 接口的bean名称消费类，要与bindings的消费或生产者名称前缀一致（如：templatingNoticeMessageConsumer-in-0 的前缀应该是 templatingNoticeMessageConsumer）
       definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer
+  mvc:
+    async:
+      # 在agent流式对话中ai响应持续时间可能较慢，这里需要调整一下时间，目前5分钟
+      request-timeout: 5m
 
 server:
   servlet:

@@ -29,6 +29,12 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	 * @return
 	 */
 	SingleResponse<DataQueryDataApiVO> copy(IdCommand copyCommand);
+
+	/**
+	 * 复制开发版本
+	 * @param copyCommand
+	 * @return
+	 */
 	SingleResponse<DataQueryDataApiVO> copydev(IdCommand copyCommand);
 
 	/**

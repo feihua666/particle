@@ -48,7 +48,7 @@ public class OpenplatformOpenapiRecordAppMonthBillAdminWebController extends Abs
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppMonthBill:create')")
     @Operation(summary = "添加开放平台应用月账单")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台应用月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台应用月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> create(@RequestBody OpenplatformOpenapiRecordAppMonthBillCreateCommand openplatformOpenapiRecordAppMonthBillCreateCommand){
         return iOpenplatformOpenapiRecordAppMonthBillApplicationService.create(openplatformOpenapiRecordAppMonthBillCreateCommand);
     }
@@ -56,7 +56,7 @@ public class OpenplatformOpenapiRecordAppMonthBillAdminWebController extends Abs
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppMonthBill:delete')")
     @Operation(summary = "删除开放平台应用月账单")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台应用月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台应用月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordAppMonthBillApplicationService.delete(deleteCommand);
@@ -65,7 +65,7 @@ public class OpenplatformOpenapiRecordAppMonthBillAdminWebController extends Abs
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppMonthBill:update')")
     @Operation(summary = "更新开放平台应用月账单")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台应用月账单",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台应用月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> update(@RequestBody OpenplatformOpenapiRecordAppMonthBillUpdateCommand openplatformOpenapiRecordAppMonthBillUpdateCommand){
         openplatformOpenapiRecordAppMonthBillUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiRecordAppMonthBillApplicationService.update(openplatformOpenapiRecordAppMonthBillUpdateCommand);

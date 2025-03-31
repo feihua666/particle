@@ -33,6 +33,7 @@ public class Command extends DTO {
 	private Long loginUserId;
 	/**
 	 * 设置
+	 * dcdo = dataConstraintDataObject 的缩写
 	 * @param dataConstraintDataObject
 	 */
 	public DataConstraintContext dcdo(String dataConstraintDataObject, String action) {
@@ -50,6 +51,7 @@ public class Command extends DTO {
 
 	/**
 	 * 设置登录用户id
+	 * luid = loginUserId 的缩写
 	 * @param loginUserId
 	 */
 	public void luid(Long loginUserId) {

@@ -11,12 +11,6 @@
 
     <artifactId>global-cache-boot-starter</artifactId>
 
-    <properties>
-
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <!-- 为了方便引入，直接引入web编译 -->
         <dependency>

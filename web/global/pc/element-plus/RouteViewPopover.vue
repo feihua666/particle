@@ -87,6 +87,7 @@ const beforeClose = (done):void => {
     props.beforeClose(done)
   }else {
     drawer.value = false
+    dialog.value = false
     router.go(-1)
     done();
   }

@@ -7,6 +7,7 @@ import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.SingleResponse;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -23,6 +24,13 @@ public interface IFuncApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<FuncVO> create(FuncCreateCommand funcCreateCommand);
+
+	/**
+	 * 复制菜单功能
+	 * @param copyCommand
+	 * @return
+	 */
+	SingleResponse<FuncVO> copy(IdCommand copyCommand);
 
 	/**
 	 * 删除领域对象

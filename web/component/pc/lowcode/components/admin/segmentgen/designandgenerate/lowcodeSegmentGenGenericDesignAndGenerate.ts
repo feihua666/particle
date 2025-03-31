@@ -59,6 +59,7 @@ export const genericFormComps = [
             formItemProps: {
                 label: 'java包键名',
                 tips: '仅支持 global和ext键表转换，用于将形如：com.particle的包名转换为路径 com/particle,多个以逗号分隔',
+                displayBlock: true
             },
             compProps: {
                 clearable: true,
@@ -74,6 +75,7 @@ export const genericFormComps = [
             formItemProps: {
                 label: '输出文件的父目录绝对路径',
                 tips: '一般为组件的上一级目录，如：/user/yw/test 或 C:\\yw\\test。引用的模板有输出文件或目录时需要填写',
+                displayBlock: true
             },
             compProps: {
                 clearable: true,

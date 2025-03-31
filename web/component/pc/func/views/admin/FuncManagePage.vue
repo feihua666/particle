@@ -3,10 +3,9 @@
  * 功能菜单管理页面
  */
 import {reactive, ref} from 'vue'
-import {page as funcPageApi, remove as funcRemoveApi} from "../../api/admin/funcAdminApi"
+import {page as funcPageApi, remove as funcRemoveApi, copy as funcCopyApi} from "../../api/admin/funcAdminApi"
 import {pageFormItems} from "../../components/admin/funcManage";
 import {funcColumns} from "../../components/funcCompItem";
-
 const tableRef = ref(null)
 
 // 属性
@@ -52,12 +51,29 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
     {
       txt: '编辑',
-
       position: 'more',
       text: true,
       permission: 'admin:web:func:update',
       // 跳转到编辑
       route: {path: '/admin/funcManageUpdate',query: idData}
+    },
+    {
+      txt: '复制',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:func:copy',
+      methodConfirmText: `确定要复制 ${row.name} 吗？`,
+      methodSuccess: (res) => {
+        reactiveData.form.name = res.data.data.name
+        // 复制成功后刷新一下表格
+        submitMethod()
+      },
+      // 复制操作
+      method(){
+        return funcCopyApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
     },
     {
       txt: '删除',

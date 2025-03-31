@@ -139,6 +139,16 @@ const d = [
         icon: 'Setting',
         type:'primary'
     },
+    {
+        pattern:['嵌入','向量化'],
+        icon: 'Compass',
+        type:'primary'
+    },
+    {
+        pattern:['对话','聊天'],
+        icon: 'ChatLineRound',
+        type:'primary'
+    },
 ]
 
 /**

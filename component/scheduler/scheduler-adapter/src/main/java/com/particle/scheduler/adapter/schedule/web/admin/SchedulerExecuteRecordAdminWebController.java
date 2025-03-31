@@ -43,7 +43,7 @@ public class SchedulerExecuteRecordAdminWebController extends AbstractBaseWebAda
     @PreAuthorize("hasAuthority('admin:web:schedulerExecuteRecord:create')")
     @Operation(summary = "添加任务计划执行记录")
     @PostMapping("/create")
-    @OpLog(name = "添加任务计划执行记录",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加任务计划执行记录",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.create)
     public SingleResponse<SchedulerExecuteRecordVO> create(@RequestBody SchedulerExecuteRecordCreateCommand schedulerExecuteRecordCreateCommand){
         return iSchedulerExecuteRecordApplicationService.create(schedulerExecuteRecordCreateCommand);
     }
@@ -51,7 +51,7 @@ public class SchedulerExecuteRecordAdminWebController extends AbstractBaseWebAda
     @PreAuthorize("hasAuthority('admin:web:schedulerExecuteRecord:delete')")
     @Operation(summary = "删除任务计划执行记录")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除任务计划执行记录",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除任务计划执行记录",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.delete)
     public SingleResponse<SchedulerExecuteRecordVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iSchedulerExecuteRecordApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class SchedulerExecuteRecordAdminWebController extends AbstractBaseWebAda
     @PreAuthorize("hasAuthority('admin:web:schedulerExecuteRecord:update')")
     @Operation(summary = "更新任务计划执行记录")
     @PutMapping("/update")
-    @OpLog(name = "更新任务计划执行记录",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新任务计划执行记录",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.update)
     public SingleResponse<SchedulerExecuteRecordVO> update(@RequestBody SchedulerExecuteRecordUpdateCommand schedulerExecuteRecordUpdateCommand){
         schedulerExecuteRecordUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iSchedulerExecuteRecordApplicationService.update(schedulerExecuteRecordUpdateCommand);

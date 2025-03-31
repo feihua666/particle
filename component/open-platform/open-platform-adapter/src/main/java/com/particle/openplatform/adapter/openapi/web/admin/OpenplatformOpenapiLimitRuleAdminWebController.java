@@ -43,7 +43,7 @@ public class OpenplatformOpenapiLimitRuleAdminWebController extends AbstractBase
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiLimitRule:create')")
     @Operation(summary = "添加开放平台开放接口限制规则")
     @PostMapping("/create")
-    @OpLog(name = "添加开放平台开放接口限制规则",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加开放平台开放接口限制规则",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
     public SingleResponse<OpenplatformOpenapiLimitRuleVO> create(@RequestBody OpenplatformOpenapiLimitRuleCreateCommand openplatformOpenapiLimitRuleCreateCommand){
         return iOpenplatformOpenapiLimitRuleApplicationService.create(openplatformOpenapiLimitRuleCreateCommand);
     }
@@ -51,7 +51,7 @@ public class OpenplatformOpenapiLimitRuleAdminWebController extends AbstractBase
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiLimitRule:delete')")
     @Operation(summary = "删除开放平台开放接口限制规则")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除开放平台开放接口限制规则",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除开放平台开放接口限制规则",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
     public SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiLimitRuleApplicationService.delete(deleteCommand);
@@ -60,7 +60,7 @@ public class OpenplatformOpenapiLimitRuleAdminWebController extends AbstractBase
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiLimitRule:update')")
     @Operation(summary = "更新开放平台开放接口限制规则")
     @PutMapping("/update")
-    @OpLog(name = "更新开放平台开放接口限制规则",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新开放平台开放接口限制规则",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
     public SingleResponse<OpenplatformOpenapiLimitRuleVO> update(@RequestBody OpenplatformOpenapiLimitRuleUpdateCommand openplatformOpenapiLimitRuleUpdateCommand){
         openplatformOpenapiLimitRuleUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iOpenplatformOpenapiLimitRuleApplicationService.update(openplatformOpenapiLimitRuleUpdateCommand);

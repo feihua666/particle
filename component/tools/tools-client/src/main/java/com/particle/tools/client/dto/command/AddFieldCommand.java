@@ -80,6 +80,11 @@ public class AddFieldCommand extends AbstractBaseCommand {
     }
 
 
+    /**
+     * 将要生成的字段转为java属性字段，支持swagger注释
+     * @param swagger
+     * @return
+     */
     public List<String> properties(boolean swagger){
         return items.stream()
                 .map(item -> {

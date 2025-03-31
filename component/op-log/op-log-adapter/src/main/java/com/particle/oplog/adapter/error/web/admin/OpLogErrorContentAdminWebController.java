@@ -38,7 +38,7 @@ public class OpLogErrorContentAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:opLogErrorContent:delete')")
     @Operation(summary = "删除操作异常日志内容")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除操作异常日志内容",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除操作异常日志内容",module = OpLogConstants.Module.opLog,type = OpLogConstants.Type.delete)
     public SingleResponse<OpLogErrorContentVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpLogErrorContentApplicationService.delete(deleteCommand);

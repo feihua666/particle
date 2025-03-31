@@ -23,4 +23,9 @@ public class BatchIdCommand extends Command {
 	@Schema(description = "ids",requiredMode = Schema.RequiredMode.REQUIRED)
 	private List<Long> ids;
 
+	public static BatchIdCommand create(List<Long> ids) {
+		BatchIdCommand batchIdCommand = new BatchIdCommand();
+		batchIdCommand.setIds(ids);
+		return batchIdCommand;
+	}
 }

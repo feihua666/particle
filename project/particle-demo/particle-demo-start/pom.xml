@@ -201,6 +201,12 @@
             <artifactId>navigation-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- ai相关全局模块 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>agi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
         <!-- 新组件建议添加到该注释之前 -->
 
 
@@ -261,6 +267,8 @@
             <artifactId>global-ratelimit-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
+
     </dependencies>
     <build>
         <plugins>

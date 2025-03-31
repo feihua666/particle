@@ -1,0 +1,8 @@
+-- import classpath:db/rag/schema.component_agi_vector_store_raw_document.sql
+-- import classpath:db/rag/schema.component_agi_vector_store_raw_document_segment.sql
+-- import classpath:db/agent/schema.component_agi_agent.sql
+-- import classpath:db/chat/schema.component_agi_agent_chat.sql
+-- import classpath:db/chat/schema.component_agi_agent_chat_message.sql
+-- import classpath:db/chat/schema.component_agi_agent_chat_message_media.sql
+-- import classpath:db/chat/schema.component_agi_agent_chat_message_toolcall.sql
+-- import classpath:db/chat/schema.component_agi_agent_chat_message_tool.sql

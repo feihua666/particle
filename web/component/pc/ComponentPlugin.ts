@@ -19,7 +19,8 @@ import FeedbackPlugin from './feedback/FeedbackPlugin'
 import CrmPlugin from './crm/CrmPlugin'
 import DreamPlugin from './dream/DreamPlugin'
 import ConfigPlugin from './config/ConfigPlugin'
-import DataConstraintPlugin from './dataconstraint/DataConstraintPlugin.ts'
+import DataConstraintPlugin from './dataconstraint/DataConstraintPlugin'
+import AgiPlugin from './agi/AgiPlugin'
 
 export default {
     install: function (app, options) {
@@ -45,5 +46,6 @@ export default {
         DreamPlugin.install(app,options)
         ConfigPlugin.install(app,options)
         DataConstraintPlugin.install(app,options)
+        AgiPlugin.install(app,options)
     }
 }

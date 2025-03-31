@@ -29,7 +29,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            :columns="tableColumns"
            default-expand-all
            :dataMethodResultHandleConvertToTree="true"
-           :dataMethod="loginUserFuncList"
+           :dataMethod="() => {return loginUserFuncList({includeTypeDictValues: 'all'})}"
   >
 
     <!--  操作按钮  -->

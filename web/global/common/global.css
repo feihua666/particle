@@ -16,6 +16,10 @@ html, body {
     display: flex;
     flex-direction:column;
 }
+.pt-flex-direction-rr{
+    display: flex;
+    flex-direction: row-reverse
+}
 /* flex 主轴居中 */
 .pt-flex-align-center{
     display: flex;

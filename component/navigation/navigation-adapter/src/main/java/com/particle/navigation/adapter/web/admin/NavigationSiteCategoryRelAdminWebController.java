@@ -104,7 +104,7 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:navigationSiteAssignNavigationCategory')")
     @PostMapping("/navigationSite/assign/navigationCategory")
     @ResponseStatus(HttpStatus.CREATED)
-    @OpLog(name = "导航网站分配导航分类",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.relAsign)
+    @OpLog(name = "导航网站分配导航分类",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.relAsign)
     public Response navigationSiteAssignNavigationCategory(@RequestBody NavigationSiteAssignNavigationCategoryCommand cf) {
         return iNavigationSiteCategoryRelApplicationService.navigationSiteAssignNavigationCategory(cf);
     }
@@ -121,7 +121,7 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:deleteByNavigationSiteId')")
     @DeleteMapping("/deleteByNavigationSiteId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @OpLog(name = "清空导航网站下的所有导航分类",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "清空导航网站下的所有导航分类",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public Response deleteByNavigationSiteId(@RequestBody IdCommand idCommand) {
         return iNavigationSiteCategoryRelApplicationService.deleteByNavigationSiteId(idCommand);
     }
@@ -131,7 +131,7 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:navigationCategoryAssignNavigationSite')")
     @PostMapping("/navigationCategory/assign/navigationSite")
     @ResponseStatus(HttpStatus.CREATED)
-    @OpLog(name = "导航分类分配导航网站",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.relAsign)
+    @OpLog(name = "导航分类分配导航网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.relAsign)
     public Response navigationCategoryAssignNavigationSite(@RequestBody NavigationCategoryAssignNavigationSiteCommand cf) {
         return iNavigationSiteCategoryRelApplicationService.navigationCategoryAssignNavigationSite(cf);
     }
@@ -149,7 +149,7 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:deleteByNavigationCategoryId')")
     @DeleteMapping("/deleteByNavigationCategoryId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @OpLog(name = "清空导航分类下的所有导航网站",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "清空导航分类下的所有导航网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public Response deleteByNavigationCategoryId(@RequestBody IdCommand idCommand) {
         return iNavigationSiteCategoryRelApplicationService.deleteByNavigationCategoryId(idCommand);
     }

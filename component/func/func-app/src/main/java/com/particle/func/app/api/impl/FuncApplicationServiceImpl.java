@@ -41,6 +41,11 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 		return funcCreateCommandExecutor.execute(funcCreateCommand);
 	}
 
+	@Override
+	public SingleResponse<FuncVO> copy(IdCommand copyCommand) {
+		return funcCreateCommandExecutor.copy(copyCommand);
+	}
+
 	@Transactional
 	@Override
 	public SingleResponse<FuncVO> delete(IdCommand funcDeleteCommand) {

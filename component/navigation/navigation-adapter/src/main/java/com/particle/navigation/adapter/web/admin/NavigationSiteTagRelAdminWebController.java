@@ -47,7 +47,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:create')")
     @Operation(summary = "添加导航网站标签关系")
     @PostMapping("/create")
-    @OpLog(name = "添加导航网站标签关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.create)
+    @OpLog(name = "添加导航网站标签关系",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.create)
     public SingleResponse<NavigationSiteTagRelVO> create(@RequestBody NavigationSiteTagRelCreateCommand navigationSiteTagRelCreateCommand){
         return iNavigationSiteTagRelApplicationService.create(navigationSiteTagRelCreateCommand);
     }
@@ -55,7 +55,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:delete')")
     @Operation(summary = "删除导航网站标签关系")
     @DeleteMapping("/delete")
-    @OpLog(name = "删除导航网站标签关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "删除导航网站标签关系",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public SingleResponse<NavigationSiteTagRelVO> delete(@RequestBody IdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSiteTagRelApplicationService.delete(deleteCommand);
@@ -64,7 +64,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:update')")
     @Operation(summary = "更新导航网站标签关系")
     @PutMapping("/update")
-    @OpLog(name = "更新导航网站标签关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.update)
+    @OpLog(name = "更新导航网站标签关系",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.update)
     public SingleResponse<NavigationSiteTagRelVO> update(@RequestBody NavigationSiteTagRelUpdateCommand navigationSiteTagRelUpdateCommand){
         navigationSiteTagRelUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
         return iNavigationSiteTagRelApplicationService.update(navigationSiteTagRelUpdateCommand);
@@ -104,7 +104,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:navigationSiteAssignNavigationSiteTag')")
     @PostMapping("/navigationSite/assign/navigationSiteTag")
     @ResponseStatus(HttpStatus.CREATED)
-    @OpLog(name = "网站分配网站标签",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.relAsign)
+    @OpLog(name = "网站分配网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.relAsign)
     public Response navigationSiteAssignNavigationSiteTag(@RequestBody NavigationSiteAssignNavigationSiteTagCommand cf) {
         return iNavigationSiteTagRelApplicationService.navigationSiteAssignNavigationSiteTag(cf);
     }
@@ -121,7 +121,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:deleteByNavigationSiteId')")
     @DeleteMapping("/deleteByNavigationSiteId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @OpLog(name = "清空网站下的所有网站标签",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "清空网站下的所有网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public Response deleteByNavigationSiteId(@RequestBody IdCommand idCommand) {
         return iNavigationSiteTagRelApplicationService.deleteByNavigationSiteId(idCommand);
     }
@@ -131,7 +131,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:navigationSiteTagAssignNavigationSite')")
     @PostMapping("/navigationSiteTag/assign/navigationSite")
     @ResponseStatus(HttpStatus.CREATED)
-    @OpLog(name = "网站标签分配网站",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.relAsign)
+    @OpLog(name = "网站标签分配网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.relAsign)
     public Response navigationSiteTagAssignNavigationSite(@RequestBody NavigationSiteTagAssignNavigationSiteCommand cf) {
         return iNavigationSiteTagRelApplicationService.navigationSiteTagAssignNavigationSite(cf);
     }
@@ -149,7 +149,7 @@ public class NavigationSiteTagRelAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTagRel:deleteByNavigationSiteTagId')")
     @DeleteMapping("/deleteByNavigationSiteTagId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @OpLog(name = "清空网站标签下的所有网站",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
+    @OpLog(name = "清空网站标签下的所有网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
     public Response deleteByNavigationSiteTagId(@RequestBody IdCommand idCommand) {
         return iNavigationSiteTagRelApplicationService.deleteByNavigationSiteTagId(idCommand);
     }
