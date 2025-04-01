@@ -52,8 +52,12 @@ public class DictUpdateCommand extends AbstractBaseUpdateCommand {
     private Boolean isPublic;
 
     @NotNull(message = "是否为字典组不以为空")
-    @Schema(description = "是否为字典组，不是字典组就是字典项目，没有其它的",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "是否为字典组",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isGroup;
+
+    @NotNull(message = "是否为字典项不能为空")
+    @Schema(description = "是否为字典项",requiredMode = Schema.RequiredMode.REQUIRED)
+    private Boolean isItem;
 
     @NotNull(message = "是否禁用不能为空")
     @Schema(description = "是否禁用",requiredMode = Schema.RequiredMode.REQUIRED)

@@ -63,7 +63,15 @@ const reactiveData = reactive({
       label: '是否字典组',
       width: 100,
       formatter: (row, column, cellValue, index) => {
-        return cellValue ? '字典组' : '字典项'
+        return cellValue ? '字典组' : '非字典组'
+      }
+    },
+    {
+      prop: 'isItem',
+      label: '是否字典项',
+      width: 100,
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '字典项' : '非字典项'
       }
     },
     {

@@ -34,8 +34,11 @@ public class DictVO extends AbstractBaseIdTreeVO {
     @Schema(description = "是否为公共字典，如果为公共字典不限制使用，否则按相应数据权限查询")
     private Boolean isPublic;
 
-    @Schema(description = "是否为字典组，不是字典组就是字典项目，没有其它的")
+    @Schema(description = "是否为字典组")
     private Boolean isGroup;
+
+	@Schema(description = "是否为字典项")
+	private Boolean isItem;
 
     @Schema(description = "是否禁用")
     private Boolean isDisabled;

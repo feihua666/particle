@@ -65,17 +65,18 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 
 	@Override
 	public MultiResponse<DictVO> getItemsByGroupCode(@Valid DictItemsQueryListCommand dictItemsQueryListCommand) {
-		return getChildItemsByGroupCode(dictItemsQueryListCommand,false);
+		return getChildItemsByGroupCode(dictItemsQueryListCommand,null,true);
 	}
 
 
 	/**
-	 * 获取子一级
+	 * 获取子一级，字典组或字典项
 	 * @param dictItemsQueryListCommand
-	 * @param isGroup
+	 * @param isGroup 子一级条件，是否为字典组
+	 * @param isItem 子一级条件，是否为字典项
 	 * @return
 	 */
-	private MultiResponse<DictVO> getChildItemsByGroupCode(DictItemsQueryListCommand dictItemsQueryListCommand,boolean isGroup) {
+	private MultiResponse<DictVO> getChildItemsByGroupCode(DictItemsQueryListCommand dictItemsQueryListCommand,Boolean isGroup,Boolean isItem) {
 		DictDO groupDict = iDictService.getByCode(dictItemsQueryListCommand.getGroupCode());
 		if (groupDict == null) {
 			return MultiResponse.of(Collections.EMPTY_LIST);
@@ -85,7 +86,8 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 				.eq(DictDO::getParentId, groupDict.getId())
 				.eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getGroupFlag()), DictDO::getGroupFlag, dictItemsQueryListCommand.getGroupFlag())
 				.eq(DictDO::getIsDisabled, false)
-				.eq(DictDO::getIsGroup, isGroup)
+				.eq(isGroup !=null,DictDO::getIsGroup, isGroup)
+				.eq(isItem !=null,DictDO::getIsItem, isItem)
 				.and(wp -> {
 					wp.eq(DictDO::getIsPublic, true).or().eq(!StrUtil.isEmpty(dictItemsQueryListCommand.getPrivateFlag()), DictDO::getPrivateFlag, dictItemsQueryListCommand.getPrivateFlag());
 				}).orderByAsc(DictDO::getSeq).orderByAsc(DictDO::getId);
@@ -148,7 +150,7 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 
 	@Override
 	public MultiResponse<DictVO> getGroupsByGroupCode(@Valid DictItemsQueryListCommand dictItemsQueryListCommand) {
-		return getChildItemsByGroupCode(dictItemsQueryListCommand,true);
+		return getChildItemsByGroupCode(dictItemsQueryListCommand,true,null);
 	}
 
 	@Override

@@ -44,9 +44,14 @@ public class Dict extends AggreateRoot {
      */
     private Boolean isPublic;
     /**
-     * 是否为字典组，不是字典组就是字典项目，没有其它的
+     * 是否为字典组
      */
     private Boolean isGroup;
+
+	/**
+	 * 是否为字典项
+	 */
+	private Boolean isItem;
     /**
      * 是否禁用
      */

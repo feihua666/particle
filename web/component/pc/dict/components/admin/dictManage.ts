@@ -46,11 +46,28 @@ export const addPageFormItems = [
             comp: 'el-switch',
             formItemProps: {
                 label: '是否字典组',
-                tips: '字典项仅能添加在字典组下面，字典组可以添加到字典组下面'
+                tips: '字典组下可以添加字典项和字典组'
             },
             compProps: {
                 activeText: '字典组',
-                inactiveText: '字典项',
+                inactiveText: '非字典组',
+            }
+        }
+    },
+    {
+        field: {
+            name: 'isItem',
+            value: false
+        },
+        element: {
+            comp: 'el-switch',
+            formItemProps: {
+                label: '是否字典项',
+                tips: '字典组下不可以添加字典项和字典组'
+            },
+            compProps: {
+                activeText: '字典项',
+                inactiveText: '非字典项',
             }
         }
     },
@@ -63,7 +80,7 @@ export const addPageFormItems = [
             formItemProps: {
                 label: '编码',
                 required: ({form}) => form.isGroup == true,
-                tips: '编码全局唯一，用来唯一标识一个字典组'
+                tips: '编码全局唯一，字典组编码，用来唯一标识一个字典组,字典项无需填写'
             },
             compProps: ({form})=>{
                 let disabled = form.isGroup == false
@@ -101,7 +118,7 @@ export const addPageFormItems = [
             comp: 'el-input',
             formItemProps: {
                 label: '字典值',
-                required: ({form})=> form.isGroup == false,
+                required: ({form})=> form.isItem == true,
                 tips: '字典项值，字典项使用字典值表示，字典组使用编码表示，字典组无需填写'
             },
             compProps:  ({form})=>{
