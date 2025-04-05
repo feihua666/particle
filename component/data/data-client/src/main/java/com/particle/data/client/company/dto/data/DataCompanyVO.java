@@ -41,6 +41,9 @@ public class DataCompanyVO extends AbstractBaseIdVO {
     @Schema(description = "最后更新时间")
     private LocalDateTime latestUpdateAt;
 
+	@Schema(description = "最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动")
+	private LocalDateTime latestHandleAt;
+
 
 
 }

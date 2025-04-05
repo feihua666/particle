@@ -28,7 +28,24 @@ const DictRoutes = [
                     }
                 }
             },
-
+            {
+                path: '/admin/dictManageBatchAdd',
+                component: () => import('./views/admin/DictManageBatchAddPage.vue'),
+                props: route => ({ parentId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminDictManageBatchAdd',
+                    name: '字典批量添加',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminDictManageBatchAdd'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminDictManageBatchAdd'
+                    }
+                }
+            },
             {
                 path: '/admin/dictManageUpdate',
                 component: () => import('./views/admin/DictManageUpdatePage.vue'),

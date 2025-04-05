@@ -122,7 +122,7 @@ export const addPageFormItems = [
                 tips: '字典项值，字典项使用字典值表示，字典组使用编码表示，字典组无需填写'
             },
             compProps:  ({form})=>{
-                let disabled = form.isGroup == true
+                let disabled = form.isItem == false
                 if(disabled){
                     form.value = ''
                 }
@@ -307,7 +307,7 @@ export const addPageFormItems = [
             }
         }
     },
-    useCascaderDictCompItem({required: ({form}) => form.isGroup == false,tips: '一般选择一个字典组来做为父级'}),
+    useCascaderDictCompItem({required: ({form}) => form.isItem == true,tips: '一般选择一个字典组来做为父级'}),
     {
         field: {
             name: 'seq',
@@ -341,3 +341,27 @@ export const addPageFormItems = [
 
 // 更新和添加一致
 export const updatePageFormItems = addPageFormItems
+// 批量添加
+export const batchAddPageFormItems = addPageFormItems.concat([
+    {
+        field: {
+            name: 'batchContent'
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '批量添加内容',
+                required: true,
+                tips: '仅支持 编码、名称、字典值三项(在表单中请输入任意值来占位否则表单验证不通过)，其它项不支持，分三种情况<br/>' +
+                    '1. 只选择字典组，批量添加内容为两列中间空格分隔，左列为编码，右列为名称<br/>' +
+                    '2. 只选择字典项，批量添加内容为两列中间空格分隔，左列为名称，右列为字典值<br/>' +
+                    '3. 字典组字典项都选择，批量添加内容为三列中间空格分隔，左列为编码，中列为名称，右列为字典值<br/>'
+            },
+            compProps: {
+                clearable: true,
+                type: 'textarea',
+                rows: 10
+            }
+        }
+    },
+])

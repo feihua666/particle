@@ -203,6 +203,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :layout="[[8,8],3]"
           :comps="reactiveData.formComps">
     <template #buttons>
+      <PtButton permission="admin:web:dict:create" route="/admin/dictManageBatchAdd">批量添加</PtButton>
       <PtButton permission="admin:web:dict:create" route="/admin/dictManageAdd">添加</PtButton>
     </template>
   </PtForm>

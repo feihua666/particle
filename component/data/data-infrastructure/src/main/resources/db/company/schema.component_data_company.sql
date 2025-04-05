@@ -10,6 +10,7 @@ CREATE TABLE `component_data_company` (
   `parent_id` bigint DEFAULT NULL COMMENT '父级id，如果存在父级id表示该企业为分支机构',
   `category` tinyint(2) NOT null COMMENT '分类，1=企业，2=个体，3=组代',
   `latest_update_at` datetime DEFAULT NULL COMMENT '最后更新时间，相关联的只要有更新，就需要更新该值',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
