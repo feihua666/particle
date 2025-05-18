@@ -11,6 +11,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.Big
 import com.particle.global.tool.proxy.ProxyConfig;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,10 +33,11 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 	 * @param command
 	 * @param commandJsonStr
 	 * @param queryString
+	 * @param authMap 额外的扩展数据
 	 * @return
 	 */
-	private Map<String, String> getHeaders(Object command,String commandJsonStr,String queryString) {
-		Map<String, String> map = httpBigDatasourceConfig.renderAuthHeaders(command,commandJsonStr, queryString);
+	private Map<String, String> getHeaders(Object command,String commandJsonStr,String queryString,Map<String, Object> authMap) {
+		Map<String, String> map = httpBigDatasourceConfig.renderAuthHeaders(command,commandJsonStr, queryString,authMap);
 		if (map != null) {
 			return map;
 		}
@@ -47,13 +49,16 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 	 * 获取请求地址
 	 * @param bigDatasourceApi
 	 * @param command
+	 * @param queryString
+	 * @param authMap
 	 * @return
 	 */
-	private String getUrl(BigDatasourceApi bigDatasourceApi, Object command,String queryString) {
+	private String getUrl(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Map<String, Object> authMap) {
 
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = (HttpBigDatasourceApiConfig) config;
 		Map<String, Object> objectMap = httpBigDatasourceConfig.shareDataMap();
+		objectMap.put("authMap",authMap);
 		return httpBigDatasourceConfig.getDomainUrl() + httpBigDatasourceApiConfig.renderRequestUrl(command,queryString,objectMap);
 	}
 
@@ -78,8 +83,9 @@ public class HttpBigDatasourceApiExecutor extends AbstractHttpBigDatasourceApiEx
 		IBigDatasourceApiConfig config = bigDatasourceApi.config();
 		HttpBigDatasourceApiConfig httpBigDatasourceApiConfig = (HttpBigDatasourceApiConfig) config;
 		ProxyConfig proxyConfig = httpBigDatasourceConfig.getProxyConfig();
-		String url = getUrl(bigDatasourceApi, command,queryString);
-		Map<String, String> headers = getHeaders(command,commandString,queryString);
+		Map<String, Object> authMap = new HashMap<>();
+		Map<String, String> headers = getHeaders(command,commandString,queryString,authMap);
+		String url = getUrl(bigDatasourceApi, command,queryString,authMap);
 		BigDatasourceApiContext bigDatasourceApiContext = bigDatasourceApi.apiContext();
 
 		Integer connectTimeout = bigDatasourceApi.connectTimeout();

@@ -1,5 +1,6 @@
 package com.particle.global.openapi.api.portal.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.openapi.api.portal.OpenapiExecuteProvider;
 import com.particle.global.openapi.collect.OpenapiContext;
@@ -23,17 +24,17 @@ public class DemoOpenapiExecuteProvider implements OpenapiExecuteProvider {
 	public static final String test_provider_code = "test_provider_code";
 
 	@Override
-	public boolean supportApi(String apiCode) {
-		return "test_provider_demo".equals(apiCode);
+	public boolean supportApi(String apiCode,String apiVersion) {
+		return "test_provider_demo".equals(apiCode) && StrUtil.isEmpty(apiVersion);
 	}
 
 	@Override
-	public String getProviderIdentifier() {
-		return test_provider_code;
+	public boolean supportProvider(String providerCode) {
+		return test_provider_code.equals(providerCode);
 	}
 
 	@Override
-	public Object execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext) {
+	public SingleResponse<Map<String, Object>> execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("param", openapiCommand.getParam());
 		paramMap.put("queryString", openapiCommand.getQueryString());

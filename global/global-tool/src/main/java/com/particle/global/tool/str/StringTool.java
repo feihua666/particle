@@ -27,7 +27,11 @@ public class StringTool {
             matcher.appendReplacement(sb, "_" + matcher.group(0).toUpperCase());
         }
         matcher.appendTail(sb);
-        return sb.toString().toLowerCase();
+        String result = sb.toString().toLowerCase();
+        if (result.startsWith("_")) {
+            result = result.substring(1);
+        }
+        return result;
     }
 
     /**

@@ -18,6 +18,18 @@ import lombok.Data;
 @Schema
 public class DataQueryDataApiCreateCommand extends AbstractBaseCommand {
 
+	@Schema(description = "数据查询供应商id,用于支持开放接口")
+	private Long dataQueryProviderId;
+
+	@Schema(description = "接口标识，一般与url对等,用于支持开放接口")
+	private String apiIdentifier;
+
+	@Schema(description = "接口版本标识，标识同一个接口的不同版本,用于支持开放接口")
+	private String apiVersion;
+
+	@Schema(description = "是否支持入库,用于支持开放接口")
+	private Boolean isSupportWarehouse;
+
 
     @NotEmpty(message = "接口地址 不能为空")
     @Schema(description = "接口地址",requiredMode = Schema.RequiredMode.REQUIRED)

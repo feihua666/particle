@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * <p>
  * 开放接口数据接口
+ * 基础路径 {@link OpenapiPortalApiController#API_REQUEST_MAPPING} 中 pt 表示 portal 的缩写，为了缩短路径
  * 注：本接口肯定是经过了开放过滤器{@link GlobalOpenApiFilter}所有前置条件已经处理完成
  * </p>
  *
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(OpenapiPortalApiController.API_REQUEST_MAPPING)
 public class OpenapiPortalApiController {
 
-	public static final String API_REQUEST_MAPPING = "/openapi";
+	public static final String API_REQUEST_MAPPING = "/openapi/pt";
 	public static final String API_ENTRY = "";
 	public static final String API_ENTRY_PREFIX = API_REQUEST_MAPPING + API_ENTRY;
 	public static final String API_ENTRY_REQUEST_MAPPING = API_ENTRY + "/**";

@@ -1,4 +1,7 @@
-import {useCascaderOpenplatformDocDirCompItem} from "../../openplatformDocCompItem";
+import {
+  useCascaderOpenplatformDocDirCompItem,
+  useSelectOpenplatformDocApiDocTemplateCompItem
+} from "../../openplatformDocCompItem";
 import {useCascaderOpenapiCompItem} from "../../openplatformOpenapiCompItem";
 
 export const pageFormItems = [
@@ -57,7 +60,8 @@ export const pageFormItems = [
     disableGroup: true
   }),
 ]
-export const addPageFormItems = [
+
+export const addAndUpdatePageFormItems = [
 
       {
         field: {
@@ -189,7 +193,7 @@ export const addPageFormItems = [
     fieldName: 'openplatformOpenapiId',
     label: '开放接口',
     disableGroup: true,
-    tips: '关联开放接口，便于能确定关系，目前使用在接口查询中，用来根据开放接口获取文档配置，以方便在页面中渲染表单'
+    tips: '关联开放接口，便于能确定关系，目前使用在接口查询中，用来根据开放接口获取文档配置，以方便在页面中渲染表单,指定后将自动添加文档内容'
   }),
   {
     field: {
@@ -209,8 +213,29 @@ export const addPageFormItems = [
       }
     }
   },
-]
 
+]
+export const addPageFormItems = addAndUpdatePageFormItems.concat([
+  {
+    field: {
+      name: 'swaggerOpenDoc',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: 'swagger文档解析',
+        tips: 'swagger文档解析，将swagger文档复制到这里可以辅助解析入参和出参字段,解析后将自动添加文档内容',
+        displayBlock: true,
+      },
+      compProps: {
+        type: 'textarea',
+        clearable: true,
+        rows: 15
+      }
+    }
+  },
+  useSelectOpenplatformDocApiDocTemplateCompItem({tips: '为文档内容提供一个模板'})
+])
 // 更新和添加一致
-export const updatePageFormItems = addPageFormItems
+export const updatePageFormItems = addAndUpdatePageFormItems
 

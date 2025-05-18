@@ -68,6 +68,16 @@ public interface DictRpcFeignClient{
 	@GetMapping("/queryByCode")
 	public SingleResponse<DictVO> queryByCode(String code);
 	/**
+	 * 根据映射值获取字典
+	 * @param mappingValue
+	 * @param groupCode
+	 * @param includeName
+	 * @param includeValue
+	 * @return
+	 */
+	@GetMapping("/queryByMappingValue")
+	public SingleResponse<DictVO> queryByMappingValue(String mappingValue, String groupCode,Boolean includeName,Boolean includeValue);
+	/**
 	 * 根据字典id获取字典，多个
 	 * @param ids
 	 * @return

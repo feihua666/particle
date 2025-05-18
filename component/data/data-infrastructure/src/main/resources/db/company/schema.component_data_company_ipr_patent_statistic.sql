@@ -1,0 +1,28 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_ipr_patent_statistic;
+CREATE TABLE `component_data_company_ipr_patent_statistic` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `company_ipr_patent_id` bigint NOT NULL COMMENT '企业知识产权专利表id',
+  `family_num` int DEFAULT NULL COMMENT '同族专利数量',
+  `ext_family_num` int DEFAULT NULL COMMENT '扩展同族专利数量',
+  `cited_num` int DEFAULT NULL COMMENT '被引证数量',
+  `quote_num` int DEFAULT NULL COMMENT '引证专利数量',
+  `claim_num` int DEFAULT NULL COMMENT '权利要求数量',
+  `independent_claim_num` int DEFAULT NULL COMMENT '独权数',
+  `dependent_claim_num` int DEFAULT NULL COMMENT '从权数',
+  `transfer_num` int DEFAULT NULL COMMENT '转让次数',
+  `license_num` int DEFAULT NULL COMMENT '许可次数',
+  `pledge_num` int DEFAULT NULL COMMENT '质押次数',
+  `invalid_num` int DEFAULT NULL COMMENT '无效次数',
+  `litigation_num` int DEFAULT NULL COMMENT '诉讼次数',
+  `ipc_category_num` int DEFAULT NULL COMMENT 'IPC分类数量',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `company_ipr_patent_id` (`company_ipr_patent_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权专利统计表';

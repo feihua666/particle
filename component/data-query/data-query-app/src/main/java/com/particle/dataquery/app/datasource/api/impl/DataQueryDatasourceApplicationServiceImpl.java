@@ -7,6 +7,7 @@ import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceDeleteC
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceUpdateCommandExecutor;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
+import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceReloadCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceVO;
 import com.particle.global.catchlog.CatchAndLog;
@@ -47,6 +48,16 @@ public class DataQueryDatasourceApplicationServiceImpl extends AbstractBaseAppli
 	@Override
 	public SingleResponse<DataQueryDatasourceVO> update(DataQueryDatasourceUpdateCommand dataQueryDatasourceUpdateCommand) {
 		return dataQueryDatasourceUpdateCommandExecutor.execute(dataQueryDatasourceUpdateCommand);
+	}
+
+	@Override
+	public SingleResponse<String> reload(DataQueryDatasourceReloadCommand dataQueryDatasourceReloadCommand) {
+		return dataQueryDatasourceUpdateCommandExecutor.reload(dataQueryDatasourceReloadCommand);
+	}
+
+	@Override
+	public SingleResponse<DataQueryDatasourceVO> copy(IdCommand copyCommand) {
+		return dataQueryDatasourceCreateCommandExecutor.copy(copyCommand);
 	}
 
 	@Autowired

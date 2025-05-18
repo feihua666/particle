@@ -2,6 +2,7 @@ package com.particle.global.openapi.api.portal;
 
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.endpoint.command.OpenapiCommand;
+import com.particle.global.openapi.endpoint.command.OpenapiWarehouseCommand;
 
 /**
  * <p>
@@ -16,18 +17,18 @@ public interface OpenapiExecuteProvider {
 	/**
 	 * 是否支持某个接口
 	 *
-	 * @param apiCode
+	 * @param apiCode 接口编码、接口标识
+	 * @param apiVersion 接口版本
 	 * @return
 	 */
-	boolean supportApi(String apiCode);
+	boolean supportApi(String apiCode,String apiVersion);
 
 	/**
-	 * 获取 供应商 编码
-	 * 该编码必须同接口配置保持一致
+	 * 是否支持某个供应商
 	 * 用来匹配该接口支持的供应商
 	 * @return
 	 */
-	String getProviderIdentifier();
+	boolean supportProvider(String providerCode);
 
 
 	/**
@@ -37,5 +38,23 @@ public interface OpenapiExecuteProvider {
 	 * @param openapiContext
 	 * @return
 	 */
-	public Object execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext);
+	public <T> T  execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext);
+
+	/**
+	 * 是否支持入库
+	 * @return
+	 */
+	default boolean supportWareHouse() {
+		return false;
+	}
+
+	/**
+	 * 入库支持
+	 * @param warehouseCommand
+	 * @param openapiCommand
+	 * @param openapiContext
+	 */
+	default public void warehouse(OpenapiWarehouseCommand warehouseCommand,OpenapiCommand openapiCommand, OpenapiContext openapiContext) {
+
+	}
 }

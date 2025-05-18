@@ -96,7 +96,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       text: true,
       position: 'more',
       permission: 'admin:web:openplatformDocApi:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `确定要删除 ${row.name} 吗？删除后将级联删除文档内容及文档内容关联的参数字段、代码示例、响应码数据`,
       // 删除操作
       method(){
         return openplatformDocApiRemoveApi({id: row.id}).then(res => {

@@ -1,0 +1,27 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_ipr_patent_family;
+CREATE TABLE `component_data_company_ipr_patent_family` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `company_ipr_patent_id` bigint NOT NULL COMMENT '企业知识产权专利表id',
+  `apply_no` varchar(50) DEFAULT NULL COMMENT '原始申请号',
+  `standard_apply_no` varchar(50) DEFAULT NULL COMMENT '标准申请号，如：CN101995000006852',
+  `apply_date` date DEFAULT NULL COMMENT '申请日期',
+  `public_no` varchar(50) DEFAULT NULL COMMENT '原始公布号',
+  `standard_public_no` varchar(50) DEFAULT NULL COMMENT '标准公布号',
+  `public_date` date DEFAULT NULL COMMENT '公布日',
+  `title` varchar(200) DEFAULT NULL COMMENT '原始标题，如：一种环境检测仪用支撑设备',
+  `title_cn` varchar(200) DEFAULT NULL COMMENT '中文标题',
+  `title_en` varchar(200) DEFAULT NULL COMMENT '英文标题',
+  `country_code` varchar(50) DEFAULT NULL COMMENT '国别，如：CN',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `company_ipr_patent_id` (`company_ipr_patent_id`) USING BTREE,
+  UNIQUE KEY `uni_company_ipr_patent_id__apply_no` (`company_ipr_patent_id`,`apply_no`) USING BTREE,
+  UNIQUE KEY `uni_company_ipr_patent_id__public_no` (`company_ipr_patent_id`,`public_no`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权专利同族信息表';

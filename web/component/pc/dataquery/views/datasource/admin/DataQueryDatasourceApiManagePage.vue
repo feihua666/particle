@@ -255,6 +255,16 @@ const getTableRowButtons = ({row, column, $index}) => {
           permission: 'admin:web:dataQueryDatasourceApi:devMergeToMaster',
           methodConfirmText: `确定要将 ${row.name} 提交至master吗？提交成功后本数据将会被删除！`,
           methodSuccess: (res) => {
+            if (res.data.data.name) {
+              // 如果成功后有返回说明是以__dev 结尾的名称，后端已经处理了
+              reactiveData.form.name = res.data.data.name;
+            }else if(reactiveData.form.name){
+              // 如果查询表单中有值，则认为是复制dev后填充的，还原为原来名称
+              reactiveData.form.name = reactiveData.form.name.replace('Copydev', '')
+            }else{
+              // 如果查询表单中没有值，则认为是当前复制dev后没有编辑，这里直接取出名称
+              reactiveData.form.name = row.name.replace('Copydev', '')
+            }
             // 复制成功后刷新一下表格
             submitMethod()
           },

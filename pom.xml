@@ -7,7 +7,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <!-- 截止到目前（2023-12-07）该版本（2.7.18）是springboot支持的jdk1.8的最高版本 -->
         <!-- 升级spring3.x版本 -->
-        <version>3.4.2</version>
+        <version>3.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
@@ -42,7 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- spring cloud 版本 -->
-        <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <spring-cloud.version>2024.0.1</spring-cloud.version>
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 注意升级该版本，需要注意是否在global-tool中重写的类是否有变化-->
@@ -134,6 +134,8 @@
         <druid.version>1.2.24</druid.version>
         <!-- spring ai 注意这里使用开发里程碑预览版本-->
         <spring-ai.version>1.0.0-M6</spring-ai.version>
+        <!-- jetcache 多级缓存 阿里开源 https://github.com/alibaba/jetcache 添加主要是为了数据查询三方数据缓存，以节省费用-->
+        <jetcache.version>2.7.8</jetcache.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

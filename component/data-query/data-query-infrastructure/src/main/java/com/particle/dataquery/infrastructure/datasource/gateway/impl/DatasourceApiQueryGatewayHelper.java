@@ -11,6 +11,7 @@ import com.particle.dataquery.infrastructure.dataapi.gateway.impl.DataApiQueryGa
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApiContext;
 import com.particle.global.big.datasource.bigdatasource.api.DefaultBigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.*;
+import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiCacheType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiPageableAdapterType;
 import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceApiResponseWrapType;
 import com.particle.global.big.datasource.bigdatasource.enums.ParamValidateType;
@@ -178,6 +179,14 @@ public class DatasourceApiQueryGatewayHelper {
 		);
 		// 是否使用缓存
 		defaultBigDatasourceApi.setIsUseCache(datasourceApi.getIsUseCache());
+		// 缓存配置
+		DataQueryDatasourceApiCacheConfig dataQueryDatasourceApiCacheConfig = datasourceApi.cacheConfig();
+		if (dataQueryDatasourceApiCacheConfig != null) {
+			defaultBigDatasourceApi.setCacheConfig(BigDatasourceApiCacheConfig.create(
+					BigDatasourceApiCacheType.valueOf(dataQueryDatasourceApiCacheConfig.getCacheType().name()),
+					dataQueryDatasourceApiCacheConfig.getTtl(),
+					dataQueryDatasourceApiCacheConfig.getCacheKeyGroovyScript()));
+		}
 		// 扩展配置
 		DataQueryDatasourceApiInParamExtConfig dataQueryDatasourceApiInParamExtConfig = datasourceApi.inParamExtConfig();
 		if (dataQueryDatasourceApiInParamExtConfig != null) {

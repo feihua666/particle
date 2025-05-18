@@ -36,8 +36,8 @@ public class OpenplatformAppOpenapiUpdateCommand extends AbstractBaseUpdateComma
 	@Schema(description = "限制规则id，不配置不限制，应用和接口级限制")
 	private Long openplatformOpenapiLimitRuleId;
 
-	@Schema(description = "指定供应商，如果不指定将按默认编码调用")
-	private Long openplatformProviderId;
+	@Schema(description = "指定供应商配置json")
+	private String specifyProviderConfigJson;
 
 	@Schema(description = "描述")
 	private String remark;

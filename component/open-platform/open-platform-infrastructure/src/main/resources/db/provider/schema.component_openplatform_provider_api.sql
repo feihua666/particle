@@ -6,7 +6,7 @@ CREATE TABLE `component_openplatform_provider_api` (
   `name` varchar(50) NOT NULL COMMENT '供应商名称',
   `data_query_datasource_api_id` bigint DEFAULT NULL COMMENT '数据查询数据源接口id，兼容一下数据查询数据进行统一',
   `openplatform_openapi_fee_id` bigint DEFAULT NULL COMMENT '计费id，不配置不计费',
-  `request_url` varchar(500) DEFAULT NULL COMMENT '请求地址，一般为http开关的绝对地址',
+  `request_url` varchar(500) DEFAULT NULL COMMENT '请求地址，一般为http开头的绝对地址',
   `script_type_dict_value` varchar(100) DEFAULT NULL COMMENT '脚本类型，字典值，如：groovy_script',
   `script_content` text COMMENT '脚本内容',
   `read_timeout` int DEFAULT NULL COMMENT '读取等待时间，单位ms，超过该时间将会放弃',

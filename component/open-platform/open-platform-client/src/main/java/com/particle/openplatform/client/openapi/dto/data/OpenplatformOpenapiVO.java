@@ -19,30 +19,30 @@ public class OpenplatformOpenapiVO extends AbstractBaseIdTreeVO {
 
     @Schema(description = "编码")
     private String code;
-    
+
     @Schema(description = "名称")
     private String name;
-    
+
     @Schema(description = "是否为组")
     private Boolean isGroup;
-    
+
     @Schema(description = "接口权限码")
     private String permissions;
-    
+
     @Schema(description = "接口地址")
     private String url;
-    
+
     @Schema(description = "是否禁用")
     private Boolean isDisabled;
-    
+
     @Schema(description = "禁用原因")
     private String disabledReason;
-    
+
     @Schema(description = "默认计费规则id")
     private Long defaultOpenplatformOpenapiFeeId;
 
-	@Schema(description = "可用供应商")
-	private String openplatformProviderIds;
+	@Schema(description = "供应商配置json")
+	private String providerConfigJson;
 
     @TransBy(tableName = TransTableNameConstants.component_openplatform_openapi_fee, byFieldName = "defaultOpenplatformOpenapiFeeId", mapValueField = "name")
     @Schema(description = "计费规则id")

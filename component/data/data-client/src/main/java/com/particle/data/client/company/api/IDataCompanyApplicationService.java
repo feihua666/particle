@@ -4,8 +4,8 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyUpdateCommand;
-import com.particle.data.client.company.dto.command.DataCompanyWarehouseCommand;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseVO;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyWarehouseCommand;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.global.dto.response.SingleResponse;
 /**
@@ -39,9 +39,9 @@ public interface IDataCompanyApplicationService extends IBaseApplicationService 
 	SingleResponse<DataCompanyVO> update(DataCompanyUpdateCommand dataCompanyUpdateCommand);
 
 	/**
-	 * 企业入库
+	 * 企业标识信息入库
 	 * @param dataCompanyWarehouseCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyUniqueExWarehouseVO> warehouse(DataCompanyWarehouseCommand dataCompanyWarehouseCommand);
+	SingleResponse<DataCompanyExWarehouseVO> warehouse(DataCompanyWarehouseCommand dataCompanyWarehouseCommand);
 }

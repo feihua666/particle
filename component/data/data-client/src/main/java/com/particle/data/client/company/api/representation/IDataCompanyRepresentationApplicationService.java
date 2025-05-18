@@ -4,8 +4,8 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyQueryListCommand;
-import com.particle.data.client.company.dto.command.representation.DataCompanyUniqueExWarehouseQueryCommand;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseCandidateVO;
+import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseCandidateVO;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -50,10 +50,10 @@ public interface IDataCompanyRepresentationApplicationService extends IBaseAppli
 	PageResponse<DataCompanyVO> pageQuery(DataCompanyPageQueryCommand dataCompanyPageQueryCommand);
 
 	/**
-	 * 获取企业的唯一标识
-	 * @param uniqueExWarehouseQueryCommand
+	 * 出库
+	 * @param exWarehouseQueryCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyUniqueExWarehouseCandidateVO> uniqueExWarehouse(DataCompanyUniqueExWarehouseQueryCommand uniqueExWarehouseQueryCommand);
+	SingleResponse<DataCompanyExWarehouseCandidateVO> exWarehouse(DataCompanyExWarehouseQueryCommand exWarehouseQueryCommand);
 
 }

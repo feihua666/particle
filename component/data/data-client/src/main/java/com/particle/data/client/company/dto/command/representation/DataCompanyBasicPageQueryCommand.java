@@ -1,0 +1,247 @@
+package com.particle.data.client.company.dto.command.representation;
+import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
+/**
+ * <p>
+ * 企业基本信息 通用分页查询指令对象
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-05 16:34:19
+ */
+@Data
+@Schema
+public class DataCompanyBasicPageQueryCommand extends AbstractBasePageQueryCommand {
+
+
+
+    @Schema(description = "企业表ID")
+    private Long companyId;
+
+
+    @Schema(description = "纳税人识别号")
+    private String tin;
+
+
+    @Schema(description = "登记状态")
+    private Long statusDictId;
+
+
+    @Schema(description = "性质")
+    private Long natureDictId;
+
+
+    @Schema(description = "法人名称")
+    private String legalPersonName;
+
+
+    @Schema(description = "是否法人为自然人")
+    private Boolean isLegalPersonNaturalPerson;
+
+
+    @Schema(description = "法人公司id")
+    private Long legalPersonCompanyId;
+
+
+    @Schema(description = "法人个人id")
+    private Long legalPersonCompanyPersonId;
+
+
+    @Schema(description = "企业类型")
+    private Long typeDictId;
+
+
+    @Schema(description = "注册地址")
+    private String regAddress;
+
+
+    @Schema(description = "注册地址")
+    private String regAddressPostalCode;
+
+
+    @Schema(description = "经营地址")
+    private String businessAddress;
+
+
+    @Schema(description = "经营地址")
+    private String businessAddressPostalCode;
+
+
+    @Schema(description = "成立日期")
+    private LocalDate establishDate;
+    
+
+    @Schema(description = "营业期限开始日期")
+    private LocalDate businessFromDate;
+    
+
+    @Schema(description = "营业期限终止日期")
+    private LocalDate businessToDate;
+    
+
+    @Schema(description = "核准日期")
+    private LocalDate approveDate;
+    
+
+    @Schema(description = "注销日期")
+    private LocalDate cancelDate;
+    
+
+    @Schema(description = "注销原因")
+    private String cancelReason;
+
+
+    @Schema(description = "吊销日期")
+    private LocalDate revokeDate;
+    
+
+    @Schema(description = "吊销原因")
+    private String revokeReason;
+
+
+    @Schema(description = "经营范围")
+    private String businessScope;
+
+
+    @Schema(description = "注册机关公司id")
+    private Long regInstituteCompanyId;
+
+
+    @Schema(description = "注册机关名称")
+    private String regInstituteName;
+
+
+    @Schema(description = "注册资本（万元）")
+    private BigDecimal regCapital;
+    
+
+    @Schema(description = "注册资金币种")
+    private Long regCapitalCurrencyDictId;
+
+
+    @Schema(description = "认缴出资金额（万元）")
+    private BigDecimal subCapital;
+    
+
+    @Schema(description = "认缴出资金额币种")
+    private Long subCapitalCurrencyDictId;
+
+
+    @Schema(description = "认缴出资方式")
+    private Long subCapitalTypeDictId;
+
+
+    @Schema(description = "认缴出资日期")
+    private LocalDate subCapitalDate;
+    
+
+    @Schema(description = "实缴出资金额（万元）")
+    private BigDecimal actualCapital;
+    
+
+    @Schema(description = "实缴出资金额币种")
+    private Long actualCapitalCurrencyDictId;
+
+
+    @Schema(description = "实缴出资方式")
+    private Long capitalTypeDictId;
+
+
+    @Schema(description = "实缴出资日期")
+    private LocalDate actualCapitalDate;
+    
+
+    @Schema(description = "手机号码")
+    private String mobile;
+
+
+    @Schema(description = "电话号码")
+    private String telephone;
+
+
+    @Schema(description = "邮箱")
+    private String email;
+
+
+    @Schema(description = "从业人数")
+    private Integer employeeNum;
+
+
+    @Schema(description = "社保人数")
+    private Integer socialSecurityNum;
+
+
+    @Schema(description = "最新年报年份")
+    private Integer latestYearReportYear;
+
+
+    @Schema(description = "规模类型")
+    private Long scaleTypeDictId;
+
+
+    @Schema(description = "经度")
+    private String longitude;
+
+
+    @Schema(description = "纬度")
+    private String latitude;
+
+
+    @Schema(description = "所属行业")
+    private Long industryMainDictId;
+
+
+    @Schema(description = "所属行业")
+    private Long industryBigDictId;
+
+
+    @Schema(description = "所属行业")
+    private Long industryMiddleDictId;
+
+
+    @Schema(description = "所属行业")
+    private Long industrySmallDictId;
+
+
+    @Schema(description = "所在省份")
+    private Long provinceAreaId;
+
+
+    @Schema(description = "所在城市")
+    private Long cityAreaId;
+
+
+    @Schema(description = "所在区县")
+    private Long countyAreaId;
+
+
+    @Schema(description = "是否上市")
+    private Boolean isListed;
+
+
+    @Schema(description = "股票代码")
+    private String stockCode;
+
+
+    @Schema(description = "上市类型")
+    private Long listedTypeDictId;
+
+
+    @Schema(description = "最后处理时间")
+    private LocalDateTime latestHandleAt;
+    
+
+
+
+
+
+
+
+
+}

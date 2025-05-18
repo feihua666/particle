@@ -70,6 +70,9 @@ public class DataQueryDatasourceApiQueryListCommand extends AbstractBaseQueryCom
     @Schema(description = "是否使用缓存")
     private Boolean isUseCache;
 
+	@Schema(description = "缓存配置json")
+	private String cacheConfigJson;
+
 
 
 }

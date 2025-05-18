@@ -109,7 +109,7 @@ export function isEqual(a: Array<any>,b: Array<any>): boolean{
  */
 export function frontMove(array: Array<any>,index){
     // 如果数组中只有一个元素不处理
-    if(!array || array.length == 1){
+    if(!array || array.length == 1 || index == 0){
         return
     }
     let temp = array[index]
@@ -118,13 +118,13 @@ export function frontMove(array: Array<any>,index){
 
 }
 /**
- * 将 index位置的元素前移
+ * 将 index位置的元素后移
  * @param array
  * @param index
  */
 export function backMove(array: Array<any>,index){
     // 如果数组中只有一个元素不处理
-    if(!array || array.length == 1){
+    if(!array || array.length == 1 || index == array.length - 1){
         return
     }
     let temp = array[index]

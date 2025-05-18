@@ -1,10 +1,16 @@
 package com.particle.dict.client.dto.data;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONNull;
+import cn.hutool.json.JSONUtil;
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>
@@ -64,6 +70,9 @@ public class DictVO extends AbstractBaseIdTreeVO {
 	@Schema(description = "关联字典组编码，用于在字典项下还有字典项的扩展场景")
 	private String relatedGroupCode;
 
+	@Schema(description = "映射数组json，用于三方系统对接场景")
+	private String mappingArrayJson;
+
     @Schema(description = "描述")
     private String remark;
 
@@ -73,4 +82,24 @@ public class DictVO extends AbstractBaseIdTreeVO {
     @Schema(description = "父级名称")
     @TransBy(tableName = TransTableNameConstants.component_dict, byFieldName = "parentId", mapValueField = "name")
     private String parentName;
+
+    public List<DictMappingArrayJsonVO> obtainDictMappingArrayJsonVOs() {
+        if (StrUtil.isEmpty(mappingArrayJson)) {
+            return null;
+        }
+        return JSONUtil.toList(mappingArrayJson, DictMappingArrayJsonVO.class);
+    }
+
+    public boolean mappingByMappingValue(String mappingValue) {
+        List<DictMappingArrayJsonVO> dictMappingArrayJsonVOS = obtainDictMappingArrayJsonVOs();
+        if (CollectionUtil.isEmpty(dictMappingArrayJsonVOS)) {
+            return false;
+        }
+        for (DictMappingArrayJsonVO dictMappingArrayJsonVO : dictMappingArrayJsonVOS) {
+            if (dictMappingArrayJsonVO.match(mappingValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

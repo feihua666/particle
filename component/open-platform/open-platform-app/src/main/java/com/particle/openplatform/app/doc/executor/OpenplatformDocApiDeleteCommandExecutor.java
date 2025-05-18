@@ -10,6 +10,8 @@ import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApi;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiGateway;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocDO;
+import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,8 @@ import org.springframework.validation.annotation.Validated;
 public class OpenplatformDocApiDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	private OpenplatformDocApiGateway openplatformDocApiGateway;
+	private OpenplatformDocApiDocDeleteCommandExecutor openplatformDocApiDocDeleteCommandExecutor;
+	private IOpenplatformDocApiDocService iOpenplatformDocApiDocService;
 
 	/**
 	 * 执行 开放接口文档接口 删除指令
@@ -40,6 +44,9 @@ public class OpenplatformDocApiDeleteCommandExecutor  extends AbstractBaseExecut
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = openplatformDocApiGateway.delete(openplatformDocApiId,deleteCommand);
 		if (delete) {
+			// 删除后，将文档内容也删除
+			OpenplatformDocApiDocDO openplatformDocApiDocDO = iOpenplatformDocApiDocService.getByOpenplatformDocApiId(openplatformDocApiId.getId());
+			openplatformDocApiDocDeleteCommandExecutor.execute(IdCommand.create(openplatformDocApiDocDO.getId()));
 			return SingleResponse.of(OpenplatformDocApiAppStructMapping.instance.toOpenplatformDocApiVO(byId));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);
@@ -52,5 +59,13 @@ public class OpenplatformDocApiDeleteCommandExecutor  extends AbstractBaseExecut
 	@Autowired
 	public void setOpenplatformDocApiGateway(OpenplatformDocApiGateway openplatformDocApiGateway) {
 		this.openplatformDocApiGateway = openplatformDocApiGateway;
+	}
+	@Autowired
+	public void setOpenplatformDocApiDocDeleteCommandExecutor(OpenplatformDocApiDocDeleteCommandExecutor openplatformDocApiDocDeleteCommandExecutor) {
+		this.openplatformDocApiDocDeleteCommandExecutor = openplatformDocApiDocDeleteCommandExecutor;
+	}
+	@Autowired
+	public void setiOpenplatformDocApiDocService(IOpenplatformDocApiDocService iOpenplatformDocApiDocService) {
+		this.iOpenplatformDocApiDocService = iOpenplatformDocApiDocService;
 	}
 }

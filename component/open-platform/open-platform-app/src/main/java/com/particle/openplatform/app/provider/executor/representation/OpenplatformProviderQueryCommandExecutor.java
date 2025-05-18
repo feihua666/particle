@@ -1,6 +1,10 @@
 package com.particle.openplatform.app.provider.executor.representation;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.common.client.dto.command.IdCommand;
@@ -20,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,11 +54,23 @@ public class OpenplatformProviderQueryCommandExecutor  extends AbstractBaseQuery
 			if (byId == null) {
 				return MultiResponse.buildSuccess();
 			}
-			String openplatformProviderIds = byId.getOpenplatformProviderIds();
-			if (StrUtil.isEmpty(openplatformProviderIds)) {
+			String providerConfigJson = byId.getProviderConfigJson();
+			if (StrUtil.isEmpty(providerConfigJson)) {
 				return MultiResponse.buildSuccess();
 			}
-			List<Long> providerIds = Arrays.stream(openplatformProviderIds.split(",")).map(Long::valueOf).collect(Collectors.toList());
+			JSONArray providerConfigJsons = JSONUtil.parseArray(providerConfigJson);
+            if (CollectionUtil.isEmpty(providerConfigJsons)) {
+				return MultiResponse.buildSuccess();
+            }
+			List<Long> providerIds = new ArrayList<>(providerConfigJsons.size());
+			for (Object configJson : providerConfigJsons) {
+				// openplatformProviderId 在前端有写，数据存储为json就是这个字段，参见 openplatformOpenapiManage.ts 中 供应商配置
+				Long providerId = ((JSONObject) configJson).getLong("openplatformProviderId");
+				providerIds.add(providerId);
+			}
+			if (CollectionUtil.isEmpty(providerIds)) {
+				return MultiResponse.buildSuccess();
+			}
 			openplatformProviderQueryListCommand.setIds(providerIds);
 		}
 		List<OpenplatformProviderDO> openplatformProviderDO = iOpenplatformProviderService.list(openplatformProviderQueryListCommand);

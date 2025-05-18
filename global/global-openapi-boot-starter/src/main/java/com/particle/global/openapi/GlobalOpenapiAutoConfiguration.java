@@ -12,7 +12,6 @@ import com.particle.global.openapi.api.portal.OpenapiExecutePortalService;
 import com.particle.global.openapi.api.portal.OpenapiExecuteProviderLoadBalancer;
 import com.particle.global.openapi.api.portal.impl.DefaultOpenapiExecutePortalServiceImpl;
 import com.particle.global.openapi.api.portal.impl.DemoOpenapiExecuteProvider;
-import com.particle.global.openapi.api.portal.impl.OpenapiSingleExecuteProviderLoadBalancerImpl;
 import com.particle.global.openapi.api.portal.impl.OpenapiSpecifyExecuteProviderLoadBalancerImpl;
 import com.particle.global.openapi.filter.GlobalOpenApiFilter;
 import com.particle.global.openapi.filter.OpenapiRequestResponseLogMatchResponseResolver;
@@ -38,6 +37,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -56,6 +57,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class GlobalOpenapiAutoConfiguration {
 
 	public static final String global_openapi_scheduled_task_executor = "globalOpenapiScheduledTaskExecutor";
+	public static final String global_openapi_executor = "globalOpenapiExecutor";
 
 	@Bean
 	public GlobalOpenApiFilter globalOpenApiFilterBean() {
@@ -155,16 +157,6 @@ public class GlobalOpenapiAutoConfiguration {
 	}
 
 	/**
-	 * 当只有一个供应商时，就使用该供应商
-	 * @return
-	 */
-	@Bean
-	public OpenapiExecuteProviderLoadBalancer openapisingleExecuteProviderLoadBalancer(){
-		OpenapiSingleExecuteProviderLoadBalancerImpl openapisingleExecuteProviderLoadBalancer = new OpenapiSingleExecuteProviderLoadBalancerImpl();
-		return openapisingleExecuteProviderLoadBalancer;
-	}
-
-	/**
 	 * 开放接口依赖请求与响应可重复读，这里指定一个可重复读的匹配
 	 * @return
 	 */
@@ -207,6 +199,25 @@ public class GlobalOpenapiAutoConfiguration {
 				5,
 				// 如果拒绝自己执行
 				new ThreadPoolExecutor.CallerRunsPolicy(),
+				false);
+
+	}
+	/**
+	 * 全局开放接口线程池
+	 *
+	 * @param beanFactory
+	 * @return
+	 */
+	@Bean(name = global_openapi_executor, destroyMethod = "shutdown")
+	public ExecutorService dataAuditTaskExecutor(BeanFactory beanFactory) {
+		return CustomExecutors.newExecutorService(beanFactory,
+				global_openapi_executor,
+				2,
+				16,
+				1000 * 60,
+				new LinkedBlockingQueue<>(5000),
+				// 如果拒绝忽略
+				new ThreadPoolExecutor.DiscardPolicy(),
 				false);
 
 	}

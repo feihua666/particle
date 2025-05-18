@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>particle-project</artifactId>
+        <groupId>com.particle</groupId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>particle-project-start</artifactId>
+
+    <properties>
+
+
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>particle-project-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>area-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>func-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>user-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>role-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>low-code-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- spring starter web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-logging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 公共测试 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-test</artifactId>
+            <version>${particle.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>component-autoconfigure-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tools-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-query-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tenant-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dept-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 验证码支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-captcha-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- oss 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-oss-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 操作日志及数据审计功能支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>op-log-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>tracking-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>message-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>oauth2authorization-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>open-platform-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>report-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>usage-count-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>feedback-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>crm-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dream-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>config-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-constraint-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>scheduler-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>navigation-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ai相关全局模块 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>agi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 新组件建议添加到该注释之前 -->
+
+
+
+        <!-- 文档相关 支持 主要用来下载模板-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-document-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 开放接口相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-openapi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 监控相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-actuator-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 通知相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 集成 spring boot admin client -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <!-- 不需要直接去掉依赖即可 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
+        <!-- 集成 spring boot admin server -->
+        <!-- 版本已在 particle引入bom spring-boot-admin-dependencies -->
+        <!-- 不需要直接去掉依赖即可 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+
+        <!-- 使用数据库分布式锁 一般用于定时任务，高并发中可以使用redis，如果不使用数据库分页式锁，可以删除该依赖即可-->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+        </dependency>
+        <!-- 使用jdbc存储session 这样可以使用多实例部署，如果不使用jdbc session可以删除该依赖，并修改配置 spring.session.store-type=none 或不配置-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+        <!-- 限流相关，主要是开放接口使用，当然也支持其它配置使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-ratelimit-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- 构建 build-info 这可以实现构建信息，参见 projectInfo 对象的引用 -->
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- git提交信息，在多个模块构建时比较慢可以注释掉，在启动项目上添加即可 -->
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

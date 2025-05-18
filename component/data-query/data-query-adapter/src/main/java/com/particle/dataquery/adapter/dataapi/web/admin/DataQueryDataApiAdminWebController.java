@@ -120,6 +120,13 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.refreshCache(deleteCommand);
 	}
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:refreshOpenapiExecuteProviderCache')")
+	@Operation(summary = "刷新执行器供应商缓存")
+	@PutMapping("/refreshOpenapiExecuteProviderCache")
+	@OpLog(name = "刷新执行器供应商缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
+	public SingleResponse<String> refreshOpenapiExecuteProviderCache(){
+		return iDataQueryDataApiApplicationService.refreshOpenapiExecuteProviderCache();
+	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:devMergeToMaster')")
 	@Operation(summary = "dev合并到master")

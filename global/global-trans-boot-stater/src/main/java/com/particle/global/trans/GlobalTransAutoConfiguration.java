@@ -128,7 +128,7 @@ public class GlobalTransAutoConfiguration {
 		return CustomExecutors.newExecutorService(beanFactory,
 				transTaskExecutor,
 				10,
-				100,
+				20,
 				1000 * 60,
 				new LinkedBlockingQueue<>(100),
 				// 如果拒绝自己执行

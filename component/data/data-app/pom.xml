@@ -47,6 +47,12 @@
             <artifactId>data-infrastructure</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 开放接口相关 支持 ，提供的开放接口，主要是支持其数据策略-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-openapi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

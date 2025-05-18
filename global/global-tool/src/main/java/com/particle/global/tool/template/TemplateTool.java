@@ -5,6 +5,7 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author yangwei
  * @since 2021-11-26 18:33
  */
+@Slf4j
 public class TemplateTool {
 
 	/**
@@ -58,6 +60,7 @@ public class TemplateTool {
 			Template template1 = engine.getTemplate(template);
 			return template1.render(data);
 		} catch (Exception e) {
+			log.error("template render error,template={}",template);
 			throw new RuntimeException("template=" + template, e);
 		}
 	}

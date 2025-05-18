@@ -42,9 +42,6 @@ public class DataCompanyPageQueryCommand extends AbstractBasePageQueryCommand {
     @Schema(description = "父级id")
     private Long parentId;
 
-	@Schema(description = "分类，1=企业，2=个体，3=组代")
-	private Integer category;
-
 
     @Schema(description = "最后更新时间")
     private LocalDateTime latestUpdateAt;

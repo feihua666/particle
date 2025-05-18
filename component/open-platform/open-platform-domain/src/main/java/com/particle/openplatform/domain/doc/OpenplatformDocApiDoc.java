@@ -100,6 +100,23 @@ public class OpenplatformDocApiDoc extends AggreateRoot {
 	private Long openplatformDocApiDocTemplateId;
 
 
+    public void changeOpenplatformDocApiId(Long openplatformDocApiId) {
+        this.openplatformDocApiId = openplatformDocApiId;
+    }
+
+    public void changeRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl;
+    }
+
+    public void changeRequestParamExample(String requestParamExample) {
+        this.requestParamExample = requestParamExample;
+    }
+    public void changeResponseParamExample(String responseParamExample) {
+        this.responseParamExample = responseParamExample;
+    }
+    public void changeOpenplatformDocApiDocTemplateId(Long openplatformDocApiDocTemplateId) {
+        this.openplatformDocApiDocTemplateId = openplatformDocApiDocTemplateId;
+    }
 
     /**
      * 创建开放接口文档领域模型对象

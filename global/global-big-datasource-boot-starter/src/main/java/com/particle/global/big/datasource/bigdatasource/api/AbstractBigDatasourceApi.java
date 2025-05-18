@@ -34,6 +34,7 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	protected BigDatasourceApiCommandValidateConfig commandValidateConfig;
 	protected BigDatasourceApiResultExtConfig resultExtConfig;
 	protected BigDatasourceApiSuccessValidateConfig successValidateConfig;
+	protected BigDatasourceApiCacheConfig cacheConfig = BigDatasourceApiCacheConfig.memoryBigDatasourceApiCacheConfig;
 
 	/**
 	 * 使用缓存配置
@@ -115,6 +116,11 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	@Override
 	public boolean useCache() {
 		return isUseCache;
+	}
+
+	@Override
+	public BigDatasourceApiCacheConfig cacheConfig() {
+		return cacheConfig;
 	}
 
 	@Override

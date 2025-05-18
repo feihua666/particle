@@ -93,3 +93,12 @@ export const download = (httpUrl: string): AxiosPromise => {
     // 添加预期类型后，如果报错，则在全局的axiosRequest拦截中处理有一些问题，导致错误提示信息无法显示
     return axios.get(httpUrl,{responseType: 'blob'})
 }
+/**
+ * 提取文件名
+ * @param httpUrl 如：http://localhost:8080/file/download/1.png?a=1&b=2 将返回 1.png
+ */
+export const extractDownloadFileNameByUrl = (httpUrl: string): AxiosPromise => {
+    let fileName = httpUrl.split('?')[0]
+    fileName = fileName.substring(httpUrl.lastIndexOf('/') + 1)
+    return fileName
+}

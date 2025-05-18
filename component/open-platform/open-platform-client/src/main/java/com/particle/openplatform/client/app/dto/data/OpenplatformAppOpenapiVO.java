@@ -45,8 +45,8 @@ public class OpenplatformAppOpenapiVO extends AbstractBaseIdVO {
     @Schema(description = "限制规则名称")
     private String openplatformOpenapiLimitRuleName;
 
-	@Schema(description = "指定供应商，如果不指定将按默认编码调用")
-	private Long openplatformProviderId;
+	@Schema(description = "指定供应商配置json")
+	private String specifyProviderConfigJson;
 
     @TransBy(tableName = TransTableNameConstants.component_openplatform_provider, byFieldName = "openplatformOpenapiLimitRuleId", mapValueField = "name")
     @Schema(description = "指定供应商名称")

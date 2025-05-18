@@ -10,6 +10,7 @@ import com.particle.global.big.datasource.bigdatasource.enums.BigDatasourceType;
 import com.particle.global.big.datasource.bigdatasource.exception.BigDatasourceException;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.executor.BigDatasourceExecutor;
+import com.particle.global.big.datasource.bigdatasource.impl.jdbc.JdbcBigDatasource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -102,11 +103,34 @@ public class DynamicBigDatasource implements BigDatasource , InitializingBean, D
 		addBigDatasource(dynamicBigDatasourceRoutingKey, bigDatasource);
 	}
 
+	/**
+	 * 移除大数据源
+	 * @param routingKey
+	 */
+	public void removeBigDatasource(String routingKey) throws IOException {
+		DynamicBigDatasourceRoutingKey dynamicBigDatasourceRoutingKey = DynamicBigDatasourceRoutingKeyFactory.of(routingKey);
+		removeBigDatasource(dynamicBigDatasourceRoutingKey);
+	}
+	/**
+	 * 移除大数据源
+	 * @param routingKey
+	 */
+	public void removeBigDatasource(DynamicBigDatasourceRoutingKey routingKey) throws IOException {
+		synchronized(DynamicBigDatasource.class) {
+			BigDatasource bigDatasource = dynamicBigDatasourceRouter.routing(routingKey);
+			if (bigDatasource instanceof JdbcBigDatasource && routingKey instanceof JdbcBigDatasourceRoutingKey) {
+				((JdbcBigDatasource) bigDatasource).removeDataSource(((JdbcBigDatasourceRoutingKey<?>) routingKey).subKey());
+			}else {
+				bigDatasourceMap.remove(routingKey);
+				bigDatasource.close();
+			}
+		}
+	}
 
-		/**
-		 * 允许外部设置
-		 * @param dynamicBigDatasourceRouter
-		 */
+	/**
+	 * 允许外部设置
+	 * @param dynamicBigDatasourceRouter
+	 */
 	public void setDynamicBigDatasourceRouter(DynamicBigDatasourceRouter dynamicBigDatasourceRouter) {
 		this.dynamicBigDatasourceRouter = dynamicBigDatasourceRouter;
 	}

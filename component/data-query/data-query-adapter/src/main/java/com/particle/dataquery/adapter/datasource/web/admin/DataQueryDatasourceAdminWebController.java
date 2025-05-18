@@ -3,9 +3,11 @@ package com.particle.dataquery.adapter.datasource.web.admin;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
+import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceReloadCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourcePageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceQueryListCommand;
@@ -89,5 +91,18 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	public PageResponse<DataQueryDatasourceVO> pageQueryList(DataQueryDatasourcePageQueryCommand dataQueryDatasourcePageQueryCommand){
 		return iDataQueryDatasourceRepresentationApplicationService.pageQuery(dataQueryDatasourcePageQueryCommand);
 	}
-
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:reload')")
+	@Operation(summary = "重新加载数据查询数据源")
+	@PostMapping("/reload")
+	@OpLog(name = "重新加载数据查询数据源",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.other)
+	public SingleResponse<String> reload(@RequestBody DataQueryDatasourceReloadCommand dataQueryDatasourceReloadCommand){
+		return iDataQueryDatasourceApplicationService.reload(dataQueryDatasourceReloadCommand);
+	}
+	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:copy')")
+	@Operation(summary = "数据查询数据源复制")
+	@PostMapping("/copy")
+	@OpLog(name = "数据查询数据源复制",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
+	public SingleResponse<DataQueryDatasourceVO> copy(@RequestBody IdCommand copyCommand){
+		return iDataQueryDatasourceApplicationService.copy(copyCommand);
+	}
 }

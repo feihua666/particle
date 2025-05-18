@@ -166,13 +166,13 @@ public class GlobalOpenapiRequestLimitService {
      * 定时统计数据
      * 参见：{@link GlobalOpenapiRequestLimitOnApplicationRunnerListener}
      */
-    public void sheduleStatisticData() {
+    public void scheduleStatisticData() {
         if (globalOpenapiRequestLimitDataProvider == null) {
-            log.warn("sheduleStatisticData but not globalOpenapiRequestLimitStatisticProvider，ignored!");
+            log.warn("scheduleStatisticData but not globalOpenapiRequestLimitStatisticProvider，ignored!");
             return;
         }
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            log.debug("sheduleStatisticData requestLimitClientIdStatistic start");
+            log.debug("scheduleStatisticData requestLimitClientIdStatistic start");
             long start = System.currentTimeMillis();
             requestLimitClientIdStatisticMap.forEach((k, v) -> {
                 try {
@@ -180,15 +180,15 @@ public class GlobalOpenapiRequestLimitService {
                     RequestLimitClientIdStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.clientId, limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
-                    log.error("sheduleStatisticData requestLimitClientIdStatistic error", e);
+                    log.error("scheduleStatisticData requestLimitClientIdStatistic error", e);
                 }
             });
 
-            log.debug("sheduleStatisticData requestLimitClientIdStatistic end,duration={}ms", System.currentTimeMillis() - start);
+            log.debug("scheduleStatisticData requestLimitClientIdStatistic end,duration={}ms", System.currentTimeMillis() - start);
         }, 2, 2, TimeUnit.SECONDS);
 
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            log.debug("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic start");
+            log.debug("scheduleStatisticData requestLimitClientIdAndOpenapiStatistic start");
             long start = System.currentTimeMillis();
             requestLimitClientIdAndOpenapiStatisticMap.forEach((k, v) -> {
                 try {
@@ -197,10 +197,10 @@ public class GlobalOpenapiRequestLimitService {
                     RequestLimitClientIdAndOpenapiStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.getClientId(),v.getOpenapiCode(), limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
-                    log.error("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic error", e);
+                    log.error("scheduleStatisticData requestLimitClientIdAndOpenapiStatistic error", e);
                 }
             });
-            log.debug("sheduleStatisticData requestLimitClientIdAndOpenapiStatistic end,duration={}ms", System.currentTimeMillis() - start);
+            log.debug("scheduleStatisticData requestLimitClientIdAndOpenapiStatistic end,duration={}ms", System.currentTimeMillis() - start);
         }, 1, 2, TimeUnit.SECONDS);
     }
 

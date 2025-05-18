@@ -8,11 +8,11 @@ export const pageFormItems = [
           comp: 'PtDictFrontSelect',
           formItemProps: {
             label: '执行状态',
-            
+
           },
           compProps: {
             // 字典查询
-            dictParam: {groupCode: '这里填写字典组编码'}
+            dictParam: {groupCode: 'open_platform_batch_query_execute_status'}
           }
         }
       },
@@ -25,7 +25,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: 'traceId',
-            
+
           },
           compProps: {
             clearable: true,
@@ -40,7 +40,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: 'spanId',
-            
+
           },
           compProps: {
             clearable: true,

@@ -1,0 +1,31 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_judgment_document;
+CREATE TABLE `component_data_company_judgment_document` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `case_no` varchar(100) DEFAULT NULL COMMENT '案号',
+  `case_reason` varchar(100) DEFAULT NULL COMMENT '案由',
+  `case_court_company_id` bigint DEFAULT NULL COMMENT '案件审理法院公司id',
+  `case_court_name` varchar(150) DEFAULT NULL COMMENT '案件审理法院名称，冗余公司名称',
+  `case_judge_date` date DEFAULT NULL COMMENT '案件裁判日期',
+  `case_trial_procedure` varchar(255) DEFAULT NULL COMMENT '案件审理程序，如： 民事再审',
+  `case_legal_basis` varchar(500) DEFAULT NULL COMMENT '法律依据，如：《中华人民共和国民事诉讼法》第二百一十五条第一款最高人民法院关于适用《中华人民共和国民事诉讼法》的解释第三百九十三条第二款',
+  `case_type_dict_id` bigint DEFAULT NULL COMMENT '案件类型,字典id，如：刑事案件、民事案件',
+  `case_type_name` varchar(100) DEFAULT NULL COMMENT '案件类型名称',
+  `case_amount` decimal(16,5) DEFAULT NULL COMMENT '案件涉及金额（万元）',
+  `case_amount_currency_dict_id` bigint DEFAULT NULL COMMENT '案件涉及金额币种，字典id，如：人民币',
+  `document_type_dict_id` bigint DEFAULT NULL COMMENT '文书类型,字典id，如：判决书、裁定书、调解书、决定书、通知书、令、其他',
+  `document_type_name` varchar(100) DEFAULT NULL COMMENT '文书类型名称',
+  `document_publish_date` date DEFAULT NULL COMMENT '文书发布日期',
+  `document_publish_title` varchar(255) DEFAULT NULL COMMENT '文书发布标题，案件名称',
+  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + case_reason + case_judge_date + case_trial_procedure + case_type_name + document_type_name',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `case_no` (`case_no`) USING BTREE,
+  UNIQUE KEY `uni_data_md5` (`data_md5`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业裁判文书表';

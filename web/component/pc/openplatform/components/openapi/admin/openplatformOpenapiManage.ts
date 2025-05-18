@@ -2,6 +2,7 @@ import {useSelectOpenapiFeeCompItem} from "../../openplatformOpenapiFeeCompItem"
 import {useCascaderOpenapiCompItem} from "../../openplatformOpenapiCompItem";
 import {treeQueryComps} from "../../../../treeQueryComps";
 import {useSelectProviderCompItem} from "../../openplatformProviderCompItem";
+import {v4 as uuidv4} from 'uuid';
 
 export const pageFormItems = [
       {
@@ -201,12 +202,107 @@ export const addPageFormItems = [
 
 
   useCascaderOpenapiCompItem({}),
-  useSelectProviderCompItem({
-    fieldName: 'openplatformProviderIds',
-    labelTips: '如果接口是由供应商提供，需要选择正确的供应商，一般由开发人员来指定，和编码相关',
-    tips: '定义该接口由哪个供应商提供，如果有多个可以多选',
-    multiple: true
-  }),
+  {
+    field: {
+      name: 'providerConfigJson',
+    },
+    element: {
+      comp: 'PtTableFormButton',
+      formItemProps: {
+        label: '供应商配置',
+        tips: '一般由开发人员来填写，以开放平台为入口的实现才支持该配置'
+
+      },
+      compProps: {
+        formProps:{
+          labelWidth: '120',
+          layout: [2,1],
+          formSubmitDataHandler({isAdd,formRef,form,formData}){
+            form.openplatformProviderName = formData.openplatformProviderId?.name
+            form.openplatformProviderCode = formData.openplatformProviderId?.code
+            if (isAdd) {
+              form.id = uuidv4()
+            }
+            return form;
+          },
+          comps: [
+            useSelectProviderCompItem({
+              fieldName: 'openplatformProviderId',
+              required: true,
+              labelTips: '如果接口是由供应商提供，需要选择正确的供应商，一般由开发人员来指定，和编码相关',
+              tips: '定义该接口由哪个供应商提供，如果一个供应商存在多个接口版本，请添加多条，否则只需要添加一条',
+              multiple: false
+            }),
+            {
+              field: {
+                name: 'providerApiVersion',
+              },
+              element: {
+                comp: 'el-input',
+                formItemProps: {
+                  label: '供应商接口版本',
+                  tips: '用来指定接口版本，同一个供应商存在多个接口版本，需要指定'
+
+                },
+                compProps: {
+                  clearable: true,
+                }
+              }
+            },
+            {
+              field: {
+                name: 'dataLagGroovyScript',
+              },
+              element: {
+                comp: 'el-input',
+                formItemProps: {
+                  label: '数据滞后脚本',
+                  tips: '用来判断结果数据是否滞后，以便更新本地库',
+                  displayBlock: true,
+
+                },
+                compProps: {
+                  clearable: true,
+                  type: 'textarea',
+                  rows: 5
+                }
+              }
+            },
+          ]
+        },
+        tableProps:{
+          propForDeleteView: 'openplatformProviderName',
+          columns: [
+            {
+              prop: 'openplatformProviderId',
+              label: '供应商id',
+              showOverflowTooltip: true
+            },
+            {
+              prop: 'openplatformProviderCode',
+              label: '供应商编码',
+              showOverflowTooltip: true
+            },
+            {
+              prop: 'openplatformProviderName',
+              label: '供应商名称',
+              showOverflowTooltip: true
+            },
+            {
+              prop: 'providerApiVersion',
+              label: '供应商接口版本',
+              showOverflowTooltip: true
+            },
+            {
+              prop: 'dataLagGroovyScript',
+              label: '数据滞后脚本',
+              showOverflowTooltip: true
+            },
+          ]
+        }
+      }
+    }
+  },
   {
     field: {
       name: 'remark',

@@ -138,7 +138,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		httpData.put(apiContext_contentType,contentType);
 		httpData.put(apiContext_httpMethod,httpRequest.method());
 
-		apiContext.putData("http",httpData);
+		apiContext.putData(apiContext_root_http,httpData);
 
 		if (command != null) {
 			if (contentType != null && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
@@ -233,7 +233,7 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 	 * @return
 	 */
 	private Object adaptResult(String responseContentType, Object result) {
-		boolean b = responseContentType != null && responseContentType.startsWith("application/json");
+		boolean b = responseContentType != null && (responseContentType.startsWith("application/json") || responseContentType.startsWith("text/json"));
 		if (result != null && (result instanceof String) && b) {
 			String string = result.toString().trim();
 			if (string.startsWith("{")) {

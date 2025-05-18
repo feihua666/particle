@@ -3,8 +3,8 @@ package com.particle.data.app.company.structmapping;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyQueryListCommand;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseCandidateVO;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseCandidateVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.data.domain.company.DataCompany;
 import com.particle.data.domain.company.DataCompanyId;
@@ -89,45 +89,11 @@ public abstract class DataCompanyAppStructMapping  implements IBaseQueryCommandM
 	 * @param dataCompanyDO
 	 * @return
 	 */
-	public DataCompanyUniqueExWarehouseCandidateVO mappingUniqueExWarehouseCandidateVOCandidate(DataCompanyDO dataCompanyDO) {
-		if (dataCompanyDO == null) {
-			return null;
-		}
-		DataCompanyUniqueExWarehouseCandidateVO dataCompanyUniqueExWarehouseVO = new DataCompanyUniqueExWarehouseCandidateVO();
-		dataCompanyUniqueExWarehouseVO.setName(dataCompanyDO.getName());
-		dataCompanyUniqueExWarehouseVO.setEnName(dataCompanyDO.getEnName());
-		dataCompanyUniqueExWarehouseVO.setUscc(dataCompanyDO.getUscc());
-		dataCompanyUniqueExWarehouseVO.setRegNo(dataCompanyDO.getRegNo());
-		dataCompanyUniqueExWarehouseVO.setOrgCode(dataCompanyDO.getOrgCode());
-		dataCompanyUniqueExWarehouseVO.setId(dataCompanyDO.getId());
-		dataCompanyUniqueExWarehouseVO.setCreateAt(dataCompanyDO.getCreateAt());
-		dataCompanyUniqueExWarehouseVO.setUpdateAt(dataCompanyDO.getUpdateAt());
-		dataCompanyUniqueExWarehouseVO.setLatestUpdateAt(dataCompanyDO.getLatestUpdateAt());
-		dataCompanyUniqueExWarehouseVO.setVersion(dataCompanyDO.getVersion());
-		return dataCompanyUniqueExWarehouseVO;
-
-	}
+	public abstract DataCompanyExWarehouseCandidateVO mappingExWarehouseCandidateVOCandidate(DataCompanyDO dataCompanyDO);
 	/**
 	 * 对象转换映射
 	 * @param dataCompanyDO
 	 * @return
 	 */
-	public DataCompanyUniqueExWarehouseVO mappingUniqueExWarehouseVO(DataCompanyDO dataCompanyDO) {
-		if (dataCompanyDO == null) {
-			return null;
-		}
-		DataCompanyUniqueExWarehouseVO dataCompanyUniqueExWarehouseVO = new DataCompanyUniqueExWarehouseVO();
-		dataCompanyUniqueExWarehouseVO.setName(dataCompanyDO.getName());
-		dataCompanyUniqueExWarehouseVO.setEnName(dataCompanyDO.getEnName());
-		dataCompanyUniqueExWarehouseVO.setUscc(dataCompanyDO.getUscc());
-		dataCompanyUniqueExWarehouseVO.setRegNo(dataCompanyDO.getRegNo());
-		dataCompanyUniqueExWarehouseVO.setOrgCode(dataCompanyDO.getOrgCode());
-		dataCompanyUniqueExWarehouseVO.setId(dataCompanyDO.getId());
-		dataCompanyUniqueExWarehouseVO.setCreateAt(dataCompanyDO.getCreateAt());
-		dataCompanyUniqueExWarehouseVO.setUpdateAt(dataCompanyDO.getUpdateAt());
-		dataCompanyUniqueExWarehouseVO.setLatestUpdateAt(dataCompanyDO.getLatestUpdateAt());
-		dataCompanyUniqueExWarehouseVO.setVersion(dataCompanyDO.getVersion());
-		return dataCompanyUniqueExWarehouseVO;
-
-	}
+	public abstract DataCompanyExWarehouseVO mappingExWarehouseVO(DataCompanyDO dataCompanyDO);
 }

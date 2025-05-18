@@ -40,7 +40,7 @@ public class DefaultDynamicBigDatasourceRouterImpl implements DynamicBigDatasour
 		if (routedBigDatasource == null) {
 			routedBigDatasource = routedFailedFallback(routingKey);
 			// 尝试重新路由,因为 routedBigDatasource 为空不代表没有加载，可能是由于并发没有加载之前已经存在了
-			if (routedBigDatasource ==null) {
+			if (routedBigDatasource == null) {
 				routedBigDatasource = doRouting(routingKey);
 			}
 		}

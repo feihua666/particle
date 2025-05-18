@@ -29,7 +29,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 开放接口支持，但默认不强制依赖，主要是将 数据查询纳入开放接口 -->
+        <!-- 开放接口支持，但默认不强制依赖，主要是将 数据查询纳入开放接口，提供上游调用记录数据收集支持-->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-openapi-boot-starter</artifactId>

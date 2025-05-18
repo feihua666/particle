@@ -149,6 +149,11 @@ const d = [
         icon: 'ChatLineRound',
         type:'primary'
     },
+    {
+        pattern:['上移','下移','移动'],
+        icon: 'Rank',
+        type:'primary'
+    },
 ]
 
 /**

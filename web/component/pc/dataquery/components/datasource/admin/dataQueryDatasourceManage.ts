@@ -363,7 +363,14 @@ const datasource_http = [
       comp: 'el-input',
       formItemProps: {
         label: '认证脚本',
-        tips: "可用变量句柄 data(请求数据，一般为一个map根据接口定义类型不同而不同)、dataJsonStr（data对应的jsonStr，一般用来做签名等）、headers（是一个map可以设置值为请求头）、username（数据源配置的用户）、password（数据源配置的密码）<br/>" +
+        tips: "可用变量句柄：<br/>" +
+            "data(请求数据，一般为一个map根据接口定义类型不同而不同)<br/>" +
+            "dataJsonStr（data对应的jsonStr，一般用来做签名等）<br/>" +
+            "headers（是一个map可以设置值为请求头）<br/>" +
+            "username（数据源配置的用户）<br/>" +
+            "password（数据源配置的密码）<br/>" +
+            "authMap（内置认证额外数据map，设置后可以是数据源接口使用）<br/>" +
+            "<br/>" +
             "enjoy示例：#(headers.put('sign','xxxx')) 可以直接设置请求头。<br/>" +
             "groovy设置请求头示例：headers.put('sign','xxxx') 可以直接设置请求头。<br/>" +
             "groovy返回请求头示例：def map = new HashMap();map.put('sign','xxxx');map; 可以直接返回Map<String,String>对象作为请求头。"

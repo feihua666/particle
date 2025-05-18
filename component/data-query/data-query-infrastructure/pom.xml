@@ -47,7 +47,7 @@
             <artifactId>global-big-datasource-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 依赖开放接口，主要是使用其方法做数据签名 -->
+        <!-- 依赖开放接口，主要是使用其方法做数据签名,以支持数据查询的远程调用能力 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-openapi-boot-starter</artifactId>
@@ -60,6 +60,12 @@
             <artifactId>global-notification-boot-starter</artifactId>
             <version>${particle.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- 实现feign-client接口 主要用于获取供应商信息-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>open-platform-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
         </dependency>
     </dependencies>
 

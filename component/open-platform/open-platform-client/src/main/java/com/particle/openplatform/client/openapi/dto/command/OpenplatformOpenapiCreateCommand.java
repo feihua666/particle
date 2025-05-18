@@ -48,8 +48,8 @@ public class OpenplatformOpenapiCreateCommand extends AbstractBaseCommand {
 	@Schema(description = "默认计费id")
 	private Long defaultOpenplatformOpenapiFeeId;
 
-	@Schema(description = "可用供应商")
-	private String openplatformProviderIds;
+	@Schema(description = "供应商配置json")
+	private String providerConfigJson;
 
 	@Schema(description = "描述")
 	private String remark;

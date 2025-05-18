@@ -59,6 +59,12 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	SingleResponse<String> refreshCache(IdCommand deleteCommand);
 
 	/**
+	 * 刷新执行器供应商缓存
+	 * @return
+	 */
+	SingleResponse<String> refreshOpenapiExecuteProviderCache();
+
+	/**
 	 * dev合并到master
 	 * @param deleteCommand
 	 * @return

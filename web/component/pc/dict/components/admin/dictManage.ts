@@ -1,5 +1,6 @@
 import {treeQueryComps} from "../../../treeQueryComps";
 import {useCascaderDictCompItem} from "../dictCompItem";
+import {useSelectOpenapiProviderCompItem} from "../../../openplatform/components/openplatformOpenapiCompItem";
 
 export const pageFormItems = [
     {
@@ -320,6 +321,78 @@ export const addPageFormItems = [
             },
             compProps: {
                 clearable: true,
+            }
+        }
+    },
+    {
+        field: {
+            name: 'mappingArrayJson',
+        },
+        element: {
+            comp: 'PtTableFormButton',
+            formItemProps: {
+                label: '映射配置',
+                tips: '可以添加一些映射配置，以匹配该字典项'
+
+            },
+            compProps: ({form})=>{
+                return {
+                    formProps:{
+                        labelWidth: '120',
+                        formSubmitDataHandler({isAdd,formRef,form,formData}){
+                            return form
+                        },
+                        comps: [
+                            {
+                                field: {
+                                    name: 'mappingValue',
+                                },
+                                element: {
+                                    comp: 'el-input',
+                                    formItemProps: {
+                                        label: '映射值',
+                                        required: true,
+                                        tips: '使用该映射值匹配字典项'
+                                    },
+                                    compProps: {
+                                        clearable: true,
+                                    }
+                                }
+                            },
+                            {
+                                field: {
+                                    name: 'remark',
+                                },
+                                element: {
+                                    comp: 'el-input',
+                                    formItemProps: {
+                                        label: '备注',
+                                        tips: '备注信息'
+                                    },
+                                    compProps: {
+                                        clearable: true,
+                                    }
+                                }
+                            },
+                        ]
+                    },
+                    tableProps:{
+                        propForDeleteView: 'mappingValue',
+                        columns: [
+                            {
+                                prop: 'mappingValue',
+                                label: '映射值',
+                                showOverflowTooltip: true
+                            },
+                            {
+                                prop: 'remark',
+                                label: '备注',
+                                showOverflowTooltip: true
+                            },
+
+                        ]
+                    }
+                }
             }
         }
     },

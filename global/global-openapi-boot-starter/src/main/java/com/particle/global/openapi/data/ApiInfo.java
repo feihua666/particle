@@ -32,7 +32,7 @@ public class ApiInfo extends DTO {
 	/**
 	 * 接口调用规则信息
 	 */
-	private ApiRuleInfo apiRuleInfo;
+	private ApiLogicRuleInfo apiLogicRuleInfo;
 
 	/**
 	 * 接口调用限制规则配置信息，应用级
@@ -50,7 +50,7 @@ public class ApiInfo extends DTO {
 	public static ApiInfo create(String apiUrl,
 								 String apiCode,
 								 String permission,
-								 ApiRuleInfo apiRuleInfo,
+								 ApiLogicRuleInfo apiLogicRuleInfo,
 								 ApiFeeRuleInfo apiFeeRuleInfo,
 								 OpenapiLimitRuleInfo clientLimitRuleInfo,
 								 OpenapiLimitRuleInfo clientAndOpenapiLimitRuleInfo) {
@@ -58,7 +58,7 @@ public class ApiInfo extends DTO {
 		apiInfo.apiUrl = apiUrl;
 		apiInfo.apiCode = apiCode;
 		apiInfo.permission = permission;
-		apiInfo.apiRuleInfo = apiRuleInfo;
+		apiInfo.apiLogicRuleInfo = apiLogicRuleInfo;
 		apiInfo.apiFeeRuleInfo = apiFeeRuleInfo;
 		apiInfo.clientLimitRuleInfo = clientLimitRuleInfo;
 		apiInfo.clientAndOpenapiLimitRuleInfo = clientAndOpenapiLimitRuleInfo;

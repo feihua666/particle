@@ -36,6 +36,8 @@ import SecretText from './SecretText.vue'
 import FormDesign from './form-design/FormDesign.vue'
 import Divider from './Divider.vue'
 import Breadcrumb from './backend/Breadcrumb.vue'
+import FormButton from './FormButton.vue'
+import TableFormButton from './TableFormButton.vue'
 import * as ElStyleTools from './ElStyleTools'
 
 let prefix = 'Pt'
@@ -77,6 +79,8 @@ let map = {
     FormDesign,
     Divider,
     Breadcrumb,
+    FormButton,
+    TableFormButton,
 }
 export default {
     install: function (app, options) {

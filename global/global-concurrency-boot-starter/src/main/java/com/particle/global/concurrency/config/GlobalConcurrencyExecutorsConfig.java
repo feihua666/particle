@@ -31,7 +31,7 @@ public class GlobalConcurrencyExecutorsConfig {
 		return CustomExecutors.newExecutorService(beanFactory,
 				ConcurrencyConstants.default_global_asyn_slot_task_executor,
 				5,
-				100,
+				16,
 				1000 * 60,
 				new LinkedBlockingQueue<>(1000),
 				// 如果拒绝自己执行

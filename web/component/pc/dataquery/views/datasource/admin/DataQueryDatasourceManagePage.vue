@@ -4,11 +4,11 @@
  */
 import {reactive, ref} from 'vue'
 import {
+  copy as DataQueryDatasourceCopyApi,
   page as DataQueryDatasourcePageApi,
   remove as DataQueryDatasourceRemoveApi
 } from "../../../api/datasource/admin/dataQueryDatasourceAdminApi"
 import {pageFormItems} from "../../../components/datasource/admin/dataQueryDatasourceManage";
-
 
 const tableRef = ref(null)
 
@@ -40,6 +40,7 @@ const reactiveData = reactive({
     {
       prop: 'username',
       label: '用户名',
+      showOverflowTooltip: true
     },
     {
       prop: 'password',
@@ -91,8 +92,35 @@ const getTableRowButtons = ({row, column, $index}) => {
       route: {path: '/admin/DataQueryDatasourceManageUpdate',query: idData}
     },
     {
+      txt: '复制',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:dataQueryDatasource:copy',
+      methodConfirmText: `确定要复制 ${row.name} 吗？`,
+      methodSuccess: (res) => {
+        reactiveData.form.name = res.data.data.name
+        // 复制成功后刷新一下表格
+        submitMethod()
+      },
+      // 复制操作
+      method(){
+        return DataQueryDatasourceCopyApi({id: row.id}).then(res => {
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '重新加载',
+      text: true,
+      position: 'more',
+      permission: 'admin:web:dataQueryDatasource:reload',
+      // 跳转到重新加载数据源页面
+      route: {path: '/admin/DataQueryDatasourceManageReload',query: idData}
+    },
+    {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:dataQueryDatasource:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -134,7 +162,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

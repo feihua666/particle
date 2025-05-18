@@ -10,7 +10,7 @@ echo $VERSION
 ```
 2. 提取jar版本，需要在target目录下执行
 ```shell
-NAME=particle-demo-start
+NAME=particle-project-start
 NAMEPREFIX=$NAME-
 JAR_NAME=`ls |grep ${NAMEPREFIX}|grep -v original`
 MAVEN_VERSION=${JAR_NAME##*$NAMEPREFIX}

@@ -6,3 +6,5 @@ particle:
       postgresql:
         driver: org.postgresql.Driver
         url-query:
+      master:
+        url: jdbc:mysql://localhost/particle_test

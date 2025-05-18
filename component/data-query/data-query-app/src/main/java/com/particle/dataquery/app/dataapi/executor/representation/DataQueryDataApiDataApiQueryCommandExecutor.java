@@ -77,17 +77,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @return
 	 */
 	public Object dataApiQuery(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
-		String cacheUrlKey = cacheUrlKey(dataQueryDataApiQueryCommand.getUrl());
-		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(cacheUrlKey,
-				() -> {
-					DataQueryDataApi dataQueryDataApi1 = Optional.ofNullable(dataQueryDataApi(cacheUrlKey)).orElse(null);
-					Assert.notNull(dataQueryDataApi1,"数据接口地址不存" + dataQueryDataApiQueryCommand.getUrl());
-					Assert.isTrue(dataQueryDataApi1.getIsPublished(),"数据接口尚未发布" + dataQueryDataApiQueryCommand.getUrl());
-					return dataQueryDataApi1;
-				});
-
-
-
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiWithCache(dataQueryDataApiQueryCommand.getUrl());
 		return dataApiQueryGateway.query(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(),dataQueryDataApiQueryCommand.getQueryString());
 	}
 
@@ -372,6 +362,22 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		return o;
 	}
 
+	/**
+	 * 根据url获取 dataApi数据 带缓存
+	 * @param url
+	 * @return
+	 */
+	public DataQueryDataApi dataQueryDataApiWithCache(String url) {
+		String cacheUrlKey = cacheUrlKey(url);
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApiCache.get(cacheUrlKey,
+				() -> {
+					DataQueryDataApi dataQueryDataApi1 = Optional.ofNullable(dataQueryDataApi(cacheUrlKey)).orElse(null);
+					Assert.notNull(dataQueryDataApi1,"数据接口地址不存" + url);
+					Assert.isTrue(dataQueryDataApi1.getIsPublished(),"数据接口尚未发布" + url);
+					return dataQueryDataApi1;
+				});
+		return dataQueryDataApi;
+	}
 	/**
 	 * 根据url获取 dataApi数据
 	 * @param url

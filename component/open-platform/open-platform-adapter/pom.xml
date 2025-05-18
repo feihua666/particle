@@ -38,7 +38,7 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- 开放接口相关 支持,目前添加主要是使用其算法枚举 -->
+        <!-- 开放接口相关 支持,目前添加主要提供apiInfo、客户端密码、数据收集调用记录 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-openapi-boot-starter</artifactId>

@@ -46,6 +46,13 @@ export const deleteCache = (data: IdParam): AxiosPromise => {
     return axios.delete(dataQueryDataApiPrefix + '/deleteCache',{data: data})
 }
 /**
+ * 刷新执行器供应商缓存
+ * @param data
+ */
+export const refreshOpenapiExecuteProviderCache = (): AxiosPromise => {
+    return axios.put(dataQueryDataApiPrefix + '/refreshOpenapiExecuteProviderCache')
+}
+/**
  * 刷新缓存数据查询数据接口
  * @param data
  */

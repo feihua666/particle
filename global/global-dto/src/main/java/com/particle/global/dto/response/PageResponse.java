@@ -124,23 +124,23 @@ public class PageResponse<T> extends Response {
 		response.setErrMessage(handleUserTip(errCodeGlobal,userTip));
 		return response;
 	}
-	public static <T> PageResponse<T> of(int pageSize, int pageIndex) {
+	public static <T> PageResponse<T> of(int pageSize, int pageNo) {
 		PageResponse<T> response = new PageResponse<>();
 		response.setSuccess(true);
 		response.setData(Collections.emptyList());
 		response.setTotalCount(0);
 		response.setPageSize(pageSize);
-		response.setPageNo(pageIndex);
+		response.setPageNo(pageNo);
 		return response;
 	}
 
-	public static <T> PageResponse<T> of(Collection<T> data, int totalCount, int pageSize, int pageIndex) {
+	public static <T> PageResponse<T> of(Collection<T> data, int totalCount, int pageSize, int pageNo) {
 		PageResponse<T> response = new PageResponse<>();
 		response.setSuccess(true);
 		response.setData(data);
 		response.setTotalCount(totalCount);
 		response.setPageSize(pageSize);
-		response.setPageNo(pageIndex);
+		response.setPageNo(pageNo);
 		return response;
 	}
 

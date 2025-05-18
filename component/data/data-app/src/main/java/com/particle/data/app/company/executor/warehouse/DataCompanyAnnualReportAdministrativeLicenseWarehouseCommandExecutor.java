@@ -1,0 +1,101 @@
+package com.particle.data.app.company.executor.warehouse;
+
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor;
+import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor;
+import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor;
+import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseCreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseUpdateCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand;
+import com.particle.data.client.company.dto.data.DataCompanyAnnualReportAdministrativeLicenseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO;
+import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportAdministrativeLicenseService;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * <p>
+ * 企业年报行政许可入库 指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-07 11:14:10
+ */
+@Component
+@Validated
+public class DataCompanyAnnualReportAdministrativeLicenseWarehouseCommandExecutor extends AbstractBaseExecutor {
+
+	private DataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor;
+	private DataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor dataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor;
+	private IDataCompanyAnnualReportAdministrativeLicenseService iDataCompanyAnnualReportAdministrativeLicenseService;
+	private DataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor dataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor;
+
+
+	/**
+	 * 企业年报行政许可入库
+	 * @param dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand
+	 * @return
+	 */
+	public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO> warehouse(DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand) {
+		SingleResponse<DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO> dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse = null;
+		DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO = null;
+        if (dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.getCompanyAnnualReportId() != null) {
+			dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse = dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor.exWarehouseByCompanyAnnualReportIdAndDataMd5(dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.getCompanyAnnualReportId(),dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.obtainDataMd5());
+		}
+
+		dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO = dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse == null ? null : dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse.getData();
+		// 不存在，添加
+        if (dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO == null) {
+			DataCompanyAnnualReportAdministrativeLicenseCreateCommand dataCompanyAnnualReportAdministrativeLicenseCreateCommand = DataCompanyAnnualReportAdministrativeLicenseCreateCommand.createByWarehouseCommand(dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand);
+			SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> dataCompanyAnnualReportAdministrativeLicenseVOSingleResponse = dataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor.execute(dataCompanyAnnualReportAdministrativeLicenseCreateCommand);
+			Long id = dataCompanyAnnualReportAdministrativeLicenseVOSingleResponse.getData().getId();
+			// 新增后重新查询，返回最新数据
+			dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse = dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor.exWarehouseById(id);
+			return dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse;
+		}else {
+			Long id = dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO.getId();
+			// 	存在，尝试入库
+			// 仅更新有变化的字段，将相同的字段设置为null不更新
+			dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.compareAndSetNullWhenEquals(dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO);
+
+			// 判断是否所有字段都为空，所有字段都没有变化，不需要更新
+			if (dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.allFieldEmpty()) {
+				// 更新最后处理时间
+				iDataCompanyAnnualReportAdministrativeLicenseService.updateLatestHandleAt(id);
+				// 重新查询，返回最新数据
+				dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse = dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse;
+			} else {
+				// 更新处理
+				DataCompanyAnnualReportAdministrativeLicenseUpdateCommand dataCompanyAnnualReportAdministrativeLicenseUpdateCommand = DataCompanyAnnualReportAdministrativeLicenseUpdateCommand.createByWarehouseCommand(
+						id,
+						dataCompanyAnnualReportAdministrativeLicenseExWarehouseVO.getVersion(),
+						dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand
+				);
+				dataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor.execute(dataCompanyAnnualReportAdministrativeLicenseUpdateCommand);
+				// 重新查询，返回最新数据
+				dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse = dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyAnnualReportAdministrativeLicenseExWarehouseVOSingleResponse;
+			}
+		}
+	}
+
+	@Autowired
+	public void setDataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor(DataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor = dataCompanyAnnualReportAdministrativeLicenseExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor(DataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor dataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor) {
+		this.dataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor = dataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor;
+	}
+	@Autowired
+	public void setiDataCompanyAnnualReportAdministrativeLicenseService(IDataCompanyAnnualReportAdministrativeLicenseService iDataCompanyAnnualReportAdministrativeLicenseService) {
+		this.iDataCompanyAnnualReportAdministrativeLicenseService = iDataCompanyAnnualReportAdministrativeLicenseService;
+	}
+	@Autowired
+	public void setDataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor(DataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor dataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor) {
+		this.dataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor = dataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor;
+	}
+}

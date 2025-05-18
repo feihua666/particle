@@ -11,6 +11,7 @@ CREATE TABLE `component_openplatform_openapi` (
   `disabled_reason` varchar(255) DEFAULT NULL COMMENT '禁用原因',
   `default_openplatform_openapi_fee_id` bigint DEFAULT NULL COMMENT '默认计费id，不配置不计费',
   `openplatform_provider_ids` varchar(2000) DEFAULT NULL COMMENT '可用供应商',
+  `provider_config_json` varchar(2000) DEFAULT NULL COMMENT '供应商配置json',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `level` int NOT NULL COMMENT '层级、深度',
   `parent_id` bigint DEFAULT NULL COMMENT '父级',

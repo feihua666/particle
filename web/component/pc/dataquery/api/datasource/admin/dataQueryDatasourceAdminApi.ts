@@ -46,3 +46,17 @@ export const page = (data: anyObj): AxiosPromise => {
     return axios.get(dataQueryDatasourcePrefix + '/page',{params: data})
 }
 
+/**
+ * 重新加载数据源
+ * @param data
+ */
+export const reload = (data: updateParam): AxiosPromise => {
+    return axios.post(dataQueryDatasourcePrefix + '/reload',data)
+}
+/**
+ * 复制数据查询数据源
+ * @param data
+ */
+export const copy = (data: anyObj): AxiosPromise => {
+    return axios.post(dataQueryDatasourcePrefix + '/copy',data)
+}

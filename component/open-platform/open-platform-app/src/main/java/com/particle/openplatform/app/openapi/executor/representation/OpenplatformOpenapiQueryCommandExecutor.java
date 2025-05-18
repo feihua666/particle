@@ -265,7 +265,7 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 		byte[] byteArray = byteArrayOutputStream.toByteArray();
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArray);
 		return OpenplatformOpenapiDownloadBatchQueryTemplateVO.create(byteArrayInputStream,
-				openplatformDocApiName,
+				openplatformDocApiName + "_批量查询模板",
 				ExcelTool.xlsx_extension_suffix);
 	}
 

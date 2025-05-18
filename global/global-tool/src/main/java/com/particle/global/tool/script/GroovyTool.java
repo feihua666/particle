@@ -3,6 +3,7 @@ package com.particle.global.tool.script;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.script.ScriptUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.script.*;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @author yangwei
  * @since 2023-03-23 17:12
  */
+@Slf4j
 public class GroovyTool {
 
 	/**
@@ -63,7 +65,8 @@ public class GroovyTool {
 			compiledScript = compile(script, useCache);
 			evalResult = compiledScript.eval(bindings);
 		} catch (ScriptException e) {
-			throw new RuntimeException("groovyScript error script=" + script,e);
+			log.error("groovyScript error script=" + script);
+			throw new RuntimeException(e);
 		}
 		return evalResult;
 

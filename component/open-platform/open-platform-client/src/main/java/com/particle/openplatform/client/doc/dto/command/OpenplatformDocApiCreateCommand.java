@@ -25,7 +25,7 @@ public class OpenplatformDocApiCreateCommand extends AbstractBaseCommand {
 
 
     @NotEmpty(message = "名称 不能为空")
-        @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
@@ -52,7 +52,7 @@ public class OpenplatformDocApiCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "排序 不能为空")
-        @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
 
@@ -60,8 +60,14 @@ public class OpenplatformDocApiCreateCommand extends AbstractBaseCommand {
     private Long openplatformDocDirId;
 
 
+    /**
+     * swagger接口文档,支持swagger接口文档导出
+     * 填写该项会生成对应的接口内容文档及对应入参出参
+     */
+    @Schema(description = "swagger接口文档")
+    private String swaggerOpenDoc;
 
-
-
+    @Schema(description = "开放接口文档模板id")
+    private Long openplatformDocApiDocTemplateId;
 
 }

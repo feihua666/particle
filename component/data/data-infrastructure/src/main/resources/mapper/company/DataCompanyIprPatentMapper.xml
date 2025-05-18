@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.particle.data.infrastructure.company.mapper.DataCompanyIprPatentMapper">
+
+    <select id="listPage" resultType="com.particle.data.infrastructure.company.dos.DataCompanyIprPatentDO">
+        select p.* from component_data_company_ipr_patent p
+        <where>
+            <if test="param.companyId != null and param.companyId != ''">
+                and EXISTS (
+                SELECT 1
+                FROM component_data_company_ipr_patent_party par
+                WHERE par.company_ipr_patent_id = p.id
+                AND par.applicant_company_id = #{param.companyId}
+                <if test="param.isInvent != null and param.isInvent">
+                    AND par.is_invent = 1
+                </if>
+                <if test="param.isAgent != null and param.isAgent">
+                    AND par.is_agent = 1
+                </if>
+                <if test="param.isAgency != null and param.isAgency">
+                    AND par.is_agency = 1
+                </if>
+                <if test="param.isExaminer != null and param.isExaminer">
+                    AND par.is_examiner = 1
+                </if>
+                <if test="param.isRight != null and param.isRight">
+                    AND par.is_right = 1
+                </if>
+                <if test="param.isCurrentRight != null and param.isCurrentRight">
+                    AND par.is_current_right = 1
+                </if>
+                )
+            </if>
+            <if test="param.applyNo != null and param.applyNo != ''">
+                and p.apply_no = #{param.applyNo}
+            </if>
+            <if test="param.publicNo != null and param.publicNo != ''">
+                and p.public_no = #{param.publicNo}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -20,6 +20,7 @@
         <module>data-domain</module>
         <module>data-infrastructure</module>
         <module>data-start</module>
+        <module>data-common</module>
     </modules>
 
     <properties>

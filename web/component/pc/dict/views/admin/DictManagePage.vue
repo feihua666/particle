@@ -126,6 +126,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'mappingArrayJson',
+      label: '映射配置',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'remark',
       label: '描述',
       showOverflowTooltip: true

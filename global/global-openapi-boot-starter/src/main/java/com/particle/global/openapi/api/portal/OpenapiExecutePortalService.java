@@ -20,5 +20,5 @@ public interface OpenapiExecutePortalService {
 	 * @param openapiContext
 	 * @return
 	 */
-	Object execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext);
+	<T> T execute(OpenapiCommand openapiCommand, OpenapiContext openapiContext);
 }

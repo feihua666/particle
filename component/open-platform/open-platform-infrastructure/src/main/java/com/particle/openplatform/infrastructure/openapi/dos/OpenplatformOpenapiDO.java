@@ -56,9 +56,9 @@ public class OpenplatformOpenapiDO extends BaseTreeDO {
     private Long defaultOpenplatformOpenapiFeeId;
 
 	/**
-	 * 可用供应商
+	 * 供应商配置json
 	 */
-	private String openplatformProviderIds;
+	private String providerConfigJson;
 
     /**
     * 描述

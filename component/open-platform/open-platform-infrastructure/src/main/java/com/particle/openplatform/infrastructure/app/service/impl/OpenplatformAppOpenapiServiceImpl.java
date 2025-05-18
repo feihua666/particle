@@ -41,29 +41,12 @@ public class OpenplatformAppOpenapiServiceImpl extends IBaseServiceImpl<Openplat
 
 	@Override
 	protected void preAdd(OpenplatformAppOpenapiDO po) {
-		validateProvider(po);
 	}
 
 	@Override
 	protected void preUpdate(OpenplatformAppOpenapiDO po) {
-		validateProvider(po);
 	}
 
-	/**
-	 * 如果有选择供应商，需要判断是否正确
-	 * @param po
-	 */
-	private void validateProvider(OpenplatformAppOpenapiDO po) {
-		if (po.getOpenplatformProviderId() != null) {
-			OpenplatformOpenapiDO openplatformOpenapiDO = openplatformOpenapiMapper.selectById(po.getOpenplatformOpenapiId());
-			if (StrUtil.isNotEmpty(openplatformOpenapiDO.getOpenplatformProviderIds())) {
-				boolean anyMatch = Arrays.stream(openplatformOpenapiDO.getOpenplatformProviderIds()
-						.split(",")).map(Long::valueOf)
-						.anyMatch(item -> Objects.equals(item, po.getOpenplatformProviderId()));
-				Assert.isTrue(anyMatch,"选择的供应商，接口不支持");
-			}
-		}
-	}
 
 	@Override
 	public OpenplatformAppOpenapiDO getByAppIdAndOpenplatformOpenapiId(String appId, Long openplatformOpenapiId) {

@@ -1,0 +1,30 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_vc_financing;
+CREATE TABLE `component_data_company_vc_financing` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `company_id` bigint NOT NULL COMMENT '企业表ID',
+  `company_vc_product_id` bigint DEFAULT NULL COMMENT '公司产品id',
+  `product_name` varchar(100) DEFAULT NULL COMMENT '产品名称，冗余产品名称',
+  `round_dict_id` bigint DEFAULT NULL COMMENT '融资轮次,字典id',
+  `round_name` varchar(100) DEFAULT NULL COMMENT '融资轮次名称',
+  `amount` decimal(16,5) DEFAULT NULL COMMENT '融资金额（万元）',
+  `amount_currency_dict_id` bigint DEFAULT NULL COMMENT '融资金额币种，字典id，如：人民币',
+  `valuation` varchar(100) DEFAULT NULL COMMENT '估值',
+  `financing_date` date DEFAULT NULL COMMENT '融资日期',
+  `publish_at` datetime DEFAULT NULL COMMENT '报道时间',
+  `publish_title` varchar(200) DEFAULT NULL COMMENT '报道标题',
+  `publish_url` varchar(300) DEFAULT NULL COMMENT '报道链接地址，外部链接',
+  `publish_snapshot_url` varchar(300) DEFAULT NULL COMMENT '报道快照链接地址，内部链接',
+  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,product_name + round_name + amount + valuation + financing_date + publish_title',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `company_id` (`company_id`) USING BTREE,
+  KEY `company_vc_product_id` (`company_vc_product_id`) USING BTREE,
+  UNIQUE KEY `uni_company_id__data_md5` (`company_id`,`data_md5`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业融资表';

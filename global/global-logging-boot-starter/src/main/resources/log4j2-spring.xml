@@ -51,6 +51,8 @@
         <!-- 日志文件正则表达式 -->
         <Property name="FILE_LOG_PATTERN">%d{${sys:LOG_DATEFORMAT_PATTERN}} ${sys:LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.}:%-5L : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
         <Property name="FILE_LOG_CHARSET">UTF-8</Property>
+        <Property name="LOG_FILE">logs/${sys:LOG_ROLLING_FILE_PREFIX}.log</Property>
+        <Property name="LOG_PATH">logs</Property>
     </Properties>
 
     <!-- Doc: http://logging.apache.org/log4j/2.x/manual/appenders.html -->
@@ -62,7 +64,7 @@
 
         <!-- RollingFile 如果在这里定义，AppenderRef不添加，也会生成文件，但没有日志 -->
         <!-- File Level -->
-        <RollingFile name="File"  fileName="${sys:LOG_FILE}" filePattern="${sys:LOG_PATH}/$${date:yyyy-MM}/${sys:LOG_ROLLING_FILE_PREFIX}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+        <RollingFile name="File"  fileName="${sys:LOG_FILE}" filePattern="${sys:LOG_PATH}/${date:yyyy-MM}/${sys:LOG_ROLLING_FILE_PREFIX}-%d{yyyy-MM-dd-HH}-%i.log.gz">
             <PatternLayout pattern="${sys:FILE_LOG_PATTERN}" charset="${sys:FILE_LOG_CHARSET}"/>
             <Policies>
                 <!--

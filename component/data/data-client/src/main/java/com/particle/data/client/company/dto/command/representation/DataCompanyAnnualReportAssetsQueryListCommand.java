@@ -1,0 +1,143 @@
+package com.particle.data.client.company.dto.command.representation;
+
+import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
+import com.particle.global.light.share.mybatis.anno.Like;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
+/**
+ * <p>
+ * 企业资产状况信息 通用列表查询指令对象
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-05 16:35:31
+ */
+@Data
+@Schema
+public class DataCompanyAnnualReportAssetsQueryListCommand extends AbstractBaseQueryCommand {
+
+
+
+    @Schema(description = "企业表ID")
+    private Long companyId;
+
+
+    @Schema(description = "企业年报表ID")
+    private Long companyAnnualReportId;
+
+
+    @Schema(description = "年报年度")
+    private Integer year;
+
+
+    @Schema(description = "资产总额（万元）")
+    private BigDecimal totalAssets;
+    
+
+    @Schema(description = "资产总额币种")
+    private Long totalAssetsCurrencyDictId;
+
+
+    @Schema(description = "所有者权益合计（万元）")
+    private BigDecimal totalOwnerEquity;
+    
+
+    @Schema(description = "所有者权益合计币种")
+    private Long totalOwnerEquityCurrencyDictId;
+
+
+    @Schema(description = "销售总额(营业总收入)（万元）")
+    private BigDecimal totalSales;
+    
+
+    @Schema(description = "销售总额币种")
+    private Long totalSalesCurrencyDictId;
+
+
+    @Schema(description = "利润总额（万元）")
+    private BigDecimal totalProfit;
+    
+
+    @Schema(description = "利润总额币种")
+    private Long totalProfitCurrencyDictId;
+
+
+    @Schema(description = "主营业务收入（万元）")
+    private BigDecimal primeBusProfit;
+    
+
+    @Schema(description = "主营业务收入币种")
+    private Long primeBusProfitCurrencyDictId;
+
+
+    @Schema(description = "净利润（万元）")
+    private BigDecimal retainedProfit;
+    
+
+    @Schema(description = "净利润币种")
+    private Long retainedProfitCurrencyDictId;
+
+
+    @Schema(description = "纳税总额（万元）")
+    private BigDecimal totalTax;
+    
+
+    @Schema(description = "纳税总额币种")
+    private Long totalTaxCurrencyDictId;
+
+
+    @Schema(description = "负债总额（万元）")
+    private BigDecimal totalLiability;
+    
+
+    @Schema(description = "负债总额币种")
+    private Long totalLiabilityCurrencyDictId;
+
+
+    @Schema(description = "是否资产总额公示")
+    private Boolean isTotalAssetsPublic;
+
+
+    @Schema(description = "是否所有者权益合计公示")
+    private Boolean isTotalOwnerEquityPublic;
+
+
+    @Schema(description = "是否销售总额公示")
+    private Boolean isTotalSalesPublic;
+
+
+    @Schema(description = "是否利润总额公示")
+    private Boolean isTotalProfitPublic;
+
+
+    @Schema(description = "是否主营业务收入公示")
+    private Boolean isPrimeBusProfitPublic;
+
+
+    @Schema(description = "是否净利润公示")
+    private Boolean isRetainedProfitPublic;
+
+
+    @Schema(description = "是否纳税总额公示")
+    private Boolean isTotalTaxPublic;
+
+
+    @Schema(description = "是否负债总额公示")
+    private Boolean isTotalLiabilityPublic;
+
+
+    @Schema(description = "最后处理时间")
+    private LocalDateTime latestHandleAt;
+    
+
+
+
+
+
+
+
+
+}

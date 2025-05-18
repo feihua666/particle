@@ -79,7 +79,11 @@ public enum ErrorCodeOpenapiEnum implements IErrorCode {
 	/**
 	 * 供应商执行器不存在
 	 */
-	OPENAPI_EXECUTE_PROVIDER_NOT_EXIST(50000030002L, "供应商执行器不存在");
+	OPENAPI_EXECUTE_PROVIDER_NOT_EXIST(50000030002L, "供应商执行器不存在"),
+	/**
+	 * 未配置指定供应商信息
+	 */
+	OPENAPI_EXECUTE_PROVIDER_NOT_CONFIG(50000030003L, "未配置指定供应商信息");
 
 	ErrorCodeOpenapiEnum(long status, String errMessage) {
 		this.status = status;

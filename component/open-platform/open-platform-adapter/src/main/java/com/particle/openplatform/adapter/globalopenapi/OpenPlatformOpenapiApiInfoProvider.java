@@ -1,9 +1,15 @@
 package com.particle.openplatform.adapter.globalopenapi;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONConfig;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.particle.global.openapi.api.GlobalOpenapiApiInfoProvider;
 import com.particle.global.openapi.data.ApiFeeRuleInfo;
 import com.particle.global.openapi.data.ApiInfo;
-import com.particle.global.openapi.data.ApiRuleInfo;
+import com.particle.global.openapi.data.ApiLogicRuleInfo;
 import com.particle.global.openapi.data.OpenapiLimitRuleInfo;
 import com.particle.global.openapi.enums.*;
 import com.particle.openplatform.domain.gateway.OpenplatformDictGateway;
@@ -22,6 +28,8 @@ import com.particle.openplatform.infrastructure.provider.service.IOpenplatformPr
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,31 +63,24 @@ public class OpenPlatformOpenapiApiInfoProvider implements GlobalOpenapiApiInfoP
 		if (byUrl == null) {
 			return null;
 		}
-		ApiRuleInfo apiRuleInfo = null;
 		// 如果appid没有配置url这里会返回null
 		OpenplatformAppOpenapiDO byAppIdAndOpenplatformOpenapiId = iOpenplatformAppOpenapiService.getByAppIdAndOpenplatformOpenapiId(appId, byUrl.getId());
 		if (byAppIdAndOpenplatformOpenapiId == null) {
 			return null;
 		}
-		if (byAppIdAndOpenplatformOpenapiId.getOpenplatformProviderId() != null) {
-			OpenplatformProviderDO byId = iOpenplatformProviderService.getById(byAppIdAndOpenplatformOpenapiId.getOpenplatformProviderId());
-			apiRuleInfo = Optional.ofNullable(byId)
-					.map(item -> ApiRuleInfo.create(item.getCode())).orElse(null);
-		}
+		// 接口逻辑调用规则配置信息
+		ApiLogicRuleInfo apiLogicRuleInfo = getApiLogicRuleInfo(byUrl, byAppIdAndOpenplatformOpenapiId);
 		// 计费信息
 		ApiFeeRuleInfo apiFeeRuleInfo = getApiFeeRuleInfo(Optional.ofNullable(byAppIdAndOpenplatformOpenapiId.getOpenplatformOpenapiFeeId())
 				.orElse(byUrl.getDefaultOpenplatformOpenapiFeeId()));
-
 		// 应用级限制
 		OpenapiLimitRuleInfo clientLimitRuleInfo = null;
-		// 应用和接口级限制
-		OpenapiLimitRuleInfo clientAndOpenapiLimitRuleInfo = null;
-
 		OpenplatformAppDO byAppId = iOpenplatformAppService.getByAppId(appId);
 		if (byAppId.getOpenplatformOpenapiLimitRuleId() != null) {
 			clientLimitRuleInfo = getOpenapiLimitRuleInfo(byAppId.getOpenplatformOpenapiLimitRuleId(), LimitRuleTarget.client_id);
 		}
-
+		// 应用和接口级限制
+		OpenapiLimitRuleInfo clientAndOpenapiLimitRuleInfo = null;
 		if (byAppIdAndOpenplatformOpenapiId.getOpenplatformOpenapiLimitRuleId() != null) {
 			clientAndOpenapiLimitRuleInfo = getOpenapiLimitRuleInfo(byAppIdAndOpenplatformOpenapiId.getOpenplatformOpenapiLimitRuleId(),
 					LimitRuleTarget.client_id_and_openapi);
@@ -88,12 +89,68 @@ public class OpenPlatformOpenapiApiInfoProvider implements GlobalOpenapiApiInfoP
 		return ApiInfo.create(apiUrl,
 				byUrl.getCode(),
 				byUrl.getPermissions(),
-				apiRuleInfo,
+                apiLogicRuleInfo,
 				apiFeeRuleInfo,
 				clientLimitRuleInfo,
 				clientAndOpenapiLimitRuleInfo);
 	}
 
+	/**
+	 * 获取接口逻辑规则
+	 * @param openplatformOpenapiDO
+	 * @param openplatformAppOpenapiDO
+	 * @return
+	 */
+	private ApiLogicRuleInfo getApiLogicRuleInfo(OpenplatformOpenapiDO openplatformOpenapiDO,OpenplatformAppOpenapiDO openplatformAppOpenapiDO) {
+		ApiLogicRuleInfo apiLogicRuleInfo = null;
+		String specifyProviderConfigJson = openplatformAppOpenapiDO.getSpecifyProviderConfigJson();
+		if (StrUtil.isNotEmpty(specifyProviderConfigJson)) {
+			// 指定供应商配置
+			List<ApiLogicRuleInfo.SpecifyProviderConfig> specifyProviderConfigs = null;
+			// 可用供应商配置
+			List<ApiLogicRuleInfo.AvailableProviderConfig> availableProviderConfigs = null;
+			// 指定供应商配置转对象
+			JSONArray specifyProviderConfigsArray = JSONUtil.parseArray(specifyProviderConfigJson);
+			specifyProviderConfigs = new ArrayList<>(specifyProviderConfigsArray.size());
+			for (Object item : specifyProviderConfigsArray) {
+				JSONObject itemObject = (JSONObject) item;
+				ApiLogicRuleInfo.SpecifyProviderConfig specifyProviderConfig = new ApiLogicRuleInfo.SpecifyProviderConfig();
+				fillAvailableProviderConfig(specifyProviderConfig, itemObject);
+
+				specifyProviderConfig.setIsWhenDataLagNext(itemObject.getBool("isWhenDataLagNext"));
+				specifyProviderConfig.setIsWhenDataNotFoundNext(itemObject.getBool("isWhenDataNotFoundNext"));
+				specifyProviderConfig.setIsWhenDataExistNext(itemObject.getBool("isWhenDataExistNext"));
+				specifyProviderConfig.setIsWhenErrorNext(itemObject.getBool("isWhenErrorNext"));
+				specifyProviderConfig.setIsWarehouseResult(itemObject.getBool("isWarehouseResult"));
+				specifyProviderConfig.setIsWarehouseAsync(itemObject.getBool("isWarehouseAsync"));
+				specifyProviderConfigs.add(specifyProviderConfig);
+			}
+			// 可用供应商配置转对象
+			String providerConfigJson = openplatformOpenapiDO.getProviderConfigJson();
+			if (StrUtil.isNotEmpty(providerConfigJson)) {
+				JSONArray availableProviderConfigsArray = JSONUtil.parseArray(providerConfigJson);
+				availableProviderConfigs = new ArrayList<>(availableProviderConfigsArray.size());
+				for (Object item : availableProviderConfigsArray) {
+					JSONObject itemObject = (JSONObject) item;
+					ApiLogicRuleInfo.AvailableProviderConfig availableProviderConfig = new ApiLogicRuleInfo.AvailableProviderConfig();
+					fillAvailableProviderConfig(availableProviderConfig, itemObject);
+					availableProviderConfigs.add(availableProviderConfig);
+				}
+			}
+			apiLogicRuleInfo = ApiLogicRuleInfo.create(specifyProviderConfigs, availableProviderConfigs);
+
+		}
+
+		return apiLogicRuleInfo;
+	}
+
+	private void fillAvailableProviderConfig(ApiLogicRuleInfo.AvailableProviderConfig availableProviderConfig, JSONObject itemObject) {
+		availableProviderConfig.setId(itemObject.getStr("id"));
+		availableProviderConfig.setProviderCode(itemObject.getStr("openplatformProviderCode"));
+		availableProviderConfig.setProviderName(itemObject.getStr("openplatformProviderName"));
+		availableProviderConfig.setProviderApiVersion(itemObject.getStr("providerApiVersion"));
+		availableProviderConfig.setDataLagGroovyScript(itemObject.getStr("dataLagGroovyScript"));
+	}
 	/**
 	 * 获取限制规则
 	 * @param openplatformOpenapiLimitRuleId

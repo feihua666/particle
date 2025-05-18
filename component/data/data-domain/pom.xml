@@ -22,5 +22,10 @@
             <artifactId>common-domain</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

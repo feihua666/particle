@@ -366,6 +366,32 @@ export const pageableAdapterConfigJson = (dataQueryDatasourceApiFormItemConfigsR
     }
   }
 }
+export const cacheConfigJson = (dataQueryDatasourceApiFormItemConfigsRef,{tips=''} = {})=>{
+  return     {
+    field: {
+      name: 'cacheConfigJson',
+    },
+    element: {
+      comp: 'PtButton',
+      formItemProps: {
+        label: '缓存配置',
+        tips: tips || '用来配置缓存信息，仅在开启缓存后生效'
+      },
+      compProps:  ({form})=>{
+        return {
+          text: true,
+          type: form.cacheConfigJson ? 'primary' : 'default',
+          buttonText: '点击配置',
+          method: ()=>{
+            if(dataQueryDatasourceApiFormItemConfigsRef.value){
+              dataQueryDatasourceApiFormItemConfigsRef.value.reactiveData.cacheConfig.dialogVisible = true
+            }
+          }
+        }
+      }
+    }
+  }
+}
 export const pageFormItems = [
   {
     field: {
@@ -869,6 +895,7 @@ export const useAddPageFormItems = ({form,formData,
         }
       }
     },
+    cacheConfigJson(dataQueryDatasourceApiFormItemConfigsRef),
     {
       field: {
         name: 'sameTag',

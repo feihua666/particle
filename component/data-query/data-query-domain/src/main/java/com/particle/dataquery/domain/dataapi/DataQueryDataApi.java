@@ -152,6 +152,26 @@ public class DataQueryDataApi extends AggreateRoot {
 	 */
 	private Boolean isTestPassed;
 
+	/**
+	 * 数据查询供应商id,用于支持开放接口
+	 */
+	private Long dataQueryProviderId;
+
+	/**
+	 * 接口标识，一般与url对等,用于支持开放接口
+	 */
+	private String apiIdentifier;
+
+	/**
+	 * 接口版本标识，标识同一个接口的不同版本,用于支持开放接口
+	 */
+	private String apiVersion;
+
+	/**
+	 * 是否支持入库,用于支持开放接口
+	 */
+	private Boolean isSupportWarehouse;
+
     /**
     * 描述,注意事项等
     */

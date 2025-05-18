@@ -17,6 +17,7 @@ CREATE TABLE `component_dict` (
   `group_flag_memo` varchar(255) DEFAULT NULL COMMENT '分组标识备忘',
   `tags` varchar(255) DEFAULT NULL COMMENT '标签，多个以逗号分隔，用来区分字典项',
   `related_group_code` varchar(100) DEFAULT NULL COMMENT '关联字典组编码，用于在字典项下还有字典项的扩展场景',
+  `mapping_array_json` varchar(2000) DEFAULT NULL COMMENT '映射数组json，用于三方系统对接场景',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',
   `level` int NOT NULL COMMENT '层级、深度',

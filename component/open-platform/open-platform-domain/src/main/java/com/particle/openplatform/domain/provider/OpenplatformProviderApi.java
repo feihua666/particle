@@ -39,7 +39,7 @@ public class OpenplatformProviderApi extends AggreateRoot {
     private Long openplatformOpenapiFeeId;
 
     /**
-    * 请求地址，一般为http开关的绝对地址
+    * 请求地址，一般为http开头的绝对地址
     */
     private String requestUrl;
 

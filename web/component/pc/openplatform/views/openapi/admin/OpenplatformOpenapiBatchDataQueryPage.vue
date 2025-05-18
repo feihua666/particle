@@ -12,7 +12,11 @@ import {ElMessage} from 'element-plus'
 import {tableColumns} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordManage";
 import {detail} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi";
 import {removeAll, replace} from "../../../../../../global/common/tools/ArrayTools";
-import {download, getFinalDownloadUrl} from "../../../../../../global/common/api/globalApi";
+import {
+  download,
+  extractDownloadFileNameByUrl,
+  getFinalDownloadUrl
+} from "../../../../../../global/common/api/globalApi";
 
 let alert = (message,type='success')=>{
   ElMessage({
@@ -248,7 +252,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       // 刷新操作
       method(){
         let downloadUrl = getFinalDownloadUrl(row.exportFileUrl)
-        let exportFileName = downloadUrl.substring(downloadUrl.lastIndexOf('/') + 1)
+        let exportFileName = extractDownloadFileNameByUrl(downloadUrl)
         return download(downloadUrl).then(res => {
           let data = res.data
           let contentType = extractContentType(res)

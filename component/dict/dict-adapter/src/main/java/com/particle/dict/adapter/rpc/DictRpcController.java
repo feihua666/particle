@@ -1,5 +1,6 @@
 package com.particle.dict.adapter.rpc;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.dict.adapter.feign.client.rpc.DictRpcFeignClient;
@@ -10,6 +11,7 @@ import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,20 +76,42 @@ public class DictRpcController extends AbstractBaseRpcAdapter implements DictRpc
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
 
-	@Cacheable(cacheNames = {"DictRpcControllerCache_queryById"})
+	@Cacheable(cacheNames = {"dictRpcControllerCache_queryById"})
 	@Operation(summary = "根据字典id查询")
 	@Override
 	public SingleResponse<DictVO> queryById(Long id) {
 		DictDO dictDO = iDictService.getById(id);
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
-	@Cacheable(cacheNames = {"DictRpcControllerCache_queryByCode"})
+	@Cacheable(cacheNames = {"dictRpcControllerCache_queryByCode"})
 	@Operation(summary = "根据字典code查询")
 	@Override
 	public SingleResponse<DictVO> queryByCode(String code) {
 		DictDO dictDO = iDictService.getByCode(code);
 		return SingleResponse.of(DictAppStructMapping.instance.dictDOToDictVO(dictDO));
 	}
+	@Cacheable(cacheNames = {"dictRpcControllerCache_queryByMappingValue"})
+	@Operation(summary = "根据映射值获取字典")
+	@Override
+	public SingleResponse<DictVO> queryByMappingValue(String mappingValue, String groupCode,Boolean includeName,Boolean includeValue) {
+		List<DictDO> byCode = iDictService.getItemsByGroupCode(groupCode);
+
+		List<DictVO> dictVOS = DictAppStructMapping.instance.dictDOsToDictVOs(byCode);
+		for (DictVO dictVO : dictVOS) {
+			if (includeName != null && includeName && StrUtil.equals(dictVO.getName(), mappingValue)) {
+				return SingleResponse.of(dictVO);
+			}
+			if (includeValue != null && includeValue && StrUtil.equals(dictVO.getValue(), mappingValue)) {
+				return SingleResponse.of(dictVO);
+			}
+			if (dictVO.mappingByMappingValue(mappingValue)) {
+				return SingleResponse.of(dictVO);
+			}
+
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+	}
+
 	@Operation(summary = "根据字典id查询,多个")
 	@Override
 	public MultiResponse<DictVO> queryByIds(List<Long> ids) {

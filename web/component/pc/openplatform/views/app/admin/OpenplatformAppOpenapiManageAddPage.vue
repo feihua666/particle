@@ -16,7 +16,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    useAddPageFormItems({})
+    useAddPageFormItems({form: reactiveData.form})
 )
 
 // 提交按钮属性

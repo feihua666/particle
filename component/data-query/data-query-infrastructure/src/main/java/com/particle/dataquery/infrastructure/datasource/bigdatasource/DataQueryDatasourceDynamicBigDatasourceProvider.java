@@ -28,6 +28,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBig
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.Neo4jBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
 import com.particle.global.domain.ApplicationContextHelper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,7 +74,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 	 * 定义一个记录器，记录已经加载的数据源
 	 * key=数据源id，value=是否已加载
 	 */
-	private static Map<String, Boolean> loadedBigDatasourceMap = new ConcurrentHashMap<>();
+	private static Map<String, BigDatasource> loadedBigDatasourceMap = new ConcurrentHashMap<>();
 
 	/**
 	 * 是否已加载jdbc大数据源，这里单独记录一下，因为jdbc大数据源比较特殊，是一个多数据源
@@ -100,15 +101,17 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 		if (list.isEmpty()) {
 			return MapUtil.empty();
 		}
-		return loadDataSources(list);
+		return loadDataSources(list,false);
 	}
 
 	/**
 	 * 根据名单加载
 	 * @param list
+	 * @param isForce 已经加载过，是否重新加载
 	 * @return
 	 */
-	public synchronized Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources(List<DataQueryDatasourceDO> list) {
+	@SneakyThrows
+    public synchronized Map<DynamicBigDatasourceRoutingKey, BigDatasource> loadDataSources(List<DataQueryDatasourceDO> list, boolean isForce) {
 
 		// 已经禁用的供应商下面的数据源都不加载
 		List<Long> providerIds = list.stream().map(DataQueryDatasourceDO::getDataQueryProviderId).distinct().collect(Collectors.toList());
@@ -119,7 +122,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 				.filter(item->{
 					DataQueryProviderDO dataQueryProviderDO = providerIdMap.get(item.getDataQueryProviderId());
 					if (dataQueryProviderDO.getIsDisabled()) {
-						log.warn("数据源名称 {} 对应的供应商 {} 已禁用，已过滤",item.getName(),dataQueryProviderDO.getName());
+						log.warn("数据源名称 {} 对应的供应商 {} 已禁用，已忽略",item.getName(),dataQueryProviderDO.getName());
 					}
 					return !dataQueryProviderDO.getIsDisabled();
 				})
@@ -147,7 +150,12 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
 					// 如果已经存在，不再创建，防止并发问题导致多数据源
 					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
-						continue;
+						if (isForce) {
+							jdbcBigDatasource.removeDataSource(dataSourceKey);
+						}else {
+							map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataQueryGlobalBigDatasourceRoutingKey), jdbcBigDatasource);
+							continue;
+						}
 					}
 
 					DataQueryDatasourceJdbcConfig dataQueryDatasourceJdbcConfig = dataQueryDatasource.jdbcConfig();
@@ -162,7 +170,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 									dataQueryDatasourceJdbcConfig.getUsername(),
 									dataQueryDatasourceJdbcConfig.getPassword())
 					);
-					loadedBigDatasourceMap.put(dataSourceKey, true);
+					loadedBigDatasourceMap.put(dataSourceKey, jdbcBigDatasource);
 
 				}
 				if (!hasLoadJdbcBigDatasource) {
@@ -176,7 +184,12 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
 					// 如果已经存在，不再创建，防止并发问题导致多数据源
 					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
-						continue;
+						if (isForce) {
+							loadedBigDatasourceMap.get(dataSourceKey).close();
+						}else {
+							map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), loadedBigDatasourceMap.get(dataSourceKey));
+							continue;
+						}
 					}
 					DataQueryDatasourceHttpConfig config = dataQueryDatasource.httpConfig();
 					HttpBigDatasourceConfig httpBigDatasourceConfig = HttpBigDatasourceConfig.create(config.getDomainUrl(),
@@ -189,7 +202,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 							BigDatasourceType.datasource_http,httpBigDatasourceConfig);
 
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), httpBigDatasource);
-					loadedBigDatasourceMap.put(dataSourceKey, true);
+					loadedBigDatasourceMap.put(dataSourceKey, httpBigDatasource);
 
 				}
 			}// end http 数据源
@@ -198,7 +211,12 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
 					// 如果已经存在，不再创建，防止并发问题导致多数据源
 					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
-						continue;
+						if (isForce) {
+							loadedBigDatasourceMap.get(dataSourceKey).close();
+						}else {
+							map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), loadedBigDatasourceMap.get(dataSourceKey));
+							continue;
+						}
 					}
 					DataQueryDatasourceNeo4jConfig config = dataQueryDatasource.neo4jConfig();
 					Neo4jBigDatasourceConfig neo4jBigDatasourceConfig = Neo4jBigDatasourceConfig.create(
@@ -221,7 +239,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					}
 
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), neo4jBigDatasource);
-					loadedBigDatasourceMap.put(dataSourceKey, true);
+					loadedBigDatasourceMap.put(dataSourceKey, neo4jBigDatasource);
 
 				}
 			}// end neo4j 数据源
@@ -230,7 +248,12 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 					String dataSourceKey = dataQueryDatasource.getId().getId().toString();
 					// 如果已经存在，不再创建，防止并发问题导致多数据源
 					if (loadedBigDatasourceMap.containsKey(dataSourceKey)) {
-						continue;
+						if (isForce) {
+							loadedBigDatasourceMap.get(dataSourceKey).close();
+						}else {
+							map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), loadedBigDatasourceMap.get(dataSourceKey));
+							continue;
+						}
 					}
 					DataQueryDatasourceEsConfig config = dataQueryDatasource.esConfig();
 					ElasticsearchBigDatasourceConfig elasticsearchBigDatasourceConfig = ElasticsearchBigDatasourceConfig.create(
@@ -243,7 +266,7 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 							elasticsearchBigDatasourceConfig);
 
 					map.put(DynamicBigDatasourceRoutingKeyFactory.of(dataSourceKey), elasticsearchBigDatasource);
-					loadedBigDatasourceMap.put(dataSourceKey, true);
+					loadedBigDatasourceMap.put(dataSourceKey, elasticsearchBigDatasource);
 
 				}
 			}// end es 数据源

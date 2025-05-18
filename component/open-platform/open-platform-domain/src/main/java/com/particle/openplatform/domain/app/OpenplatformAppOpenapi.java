@@ -39,9 +39,9 @@ public class OpenplatformAppOpenapi extends AggreateRoot {
 	private Long openplatformOpenapiLimitRuleId;
 
 	/**
-	 * 指定供应商，如果不指定将按默认编码调用
+	 * 指定供应商配置json
 	 */
-	private Long openplatformProviderId;
+	private String specifyProviderConfigJson;
 
 	/**
 	 * 描述

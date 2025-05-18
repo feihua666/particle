@@ -54,7 +54,7 @@ public class DataAuditAuditAutoConfiguration {
 		return CustomExecutors.newExecutorService(beanFactory,
 				dataAuditTaskExecutor,
 				5,
-				100,
+				8,
 				1000 * 60,
 				new LinkedBlockingQueue<>(1000),
 				// 如果拒绝自己执行

@@ -1,0 +1,99 @@
+package com.particle.data.app.company.executor.warehouse;
+
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor;
+import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor;
+import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor;
+import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelCreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelUpdateCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyVcFinancingInvestInstitutionRelWarehouseCommand;
+import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestInstitutionRelVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyVcFinancingInvestInstitutionRelExWarehouseVO;
+import com.particle.data.infrastructure.company.service.IDataCompanyVcFinancingInvestInstitutionRelService;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * <p>
+ * 企业融资历史投资机构关系入库 指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-07 11:14:10
+ */
+@Component
+@Validated
+public class DataCompanyVcFinancingInvestInstitutionRelWarehouseCommandExecutor extends AbstractBaseExecutor {
+
+	private DataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor;
+	private DataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor dataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor;
+	private IDataCompanyVcFinancingInvestInstitutionRelService iDataCompanyVcFinancingInvestInstitutionRelService;
+	private DataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor dataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor;
+
+
+	/**
+	 * 企业融资历史投资机构关系入库
+	 * @param dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand
+	 * @return
+	 */
+	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelExWarehouseVO> warehouse(DataCompanyVcFinancingInvestInstitutionRelWarehouseCommand dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand) {
+		SingleResponse<DataCompanyVcFinancingInvestInstitutionRelExWarehouseVO> dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse = null;
+		DataCompanyVcFinancingInvestInstitutionRelExWarehouseVO dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO = null;
+		dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse = dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor.exWarehouseByCompanyVcFinancingIdAndCompanyVcInvestInstitutionId(dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand.getCompanyVcFinancingId(),dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand.getCompanyVcInvestInstitutionId());
+
+		dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO = dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse == null ? null : dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse.getData();
+		// 不存在，添加
+        if (dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO == null) {
+			DataCompanyVcFinancingInvestInstitutionRelCreateCommand dataCompanyVcFinancingInvestInstitutionRelCreateCommand = DataCompanyVcFinancingInvestInstitutionRelCreateCommand.createByWarehouseCommand(dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand);
+			SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> dataCompanyVcFinancingInvestInstitutionRelVOSingleResponse = dataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor.execute(dataCompanyVcFinancingInvestInstitutionRelCreateCommand);
+			Long id = dataCompanyVcFinancingInvestInstitutionRelVOSingleResponse.getData().getId();
+			// 新增后重新查询，返回最新数据
+			dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse = dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor.exWarehouseById(id);
+			return dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse;
+		}else {
+			Long id = dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO.getId();
+			// 	存在，尝试入库
+			// 仅更新有变化的字段，将相同的字段设置为null不更新
+			dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand.compareAndSetNullWhenEquals(dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO);
+
+			// 判断是否所有字段都为空，所有字段都没有变化，不需要更新
+			if (dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand.allFieldEmpty()) {
+				// 更新最后处理时间
+				iDataCompanyVcFinancingInvestInstitutionRelService.updateLatestHandleAt(id);
+				// 重新查询，返回最新数据
+				dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse = dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse;
+			} else {
+				// 更新处理
+				DataCompanyVcFinancingInvestInstitutionRelUpdateCommand dataCompanyVcFinancingInvestInstitutionRelUpdateCommand = DataCompanyVcFinancingInvestInstitutionRelUpdateCommand.createByWarehouseCommand(
+						id,
+						dataCompanyVcFinancingInvestInstitutionRelExWarehouseVO.getVersion(),
+						dataCompanyVcFinancingInvestInstitutionRelWarehouseCommand
+				);
+				dataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor.execute(dataCompanyVcFinancingInvestInstitutionRelUpdateCommand);
+				// 重新查询，返回最新数据
+				dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse = dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyVcFinancingInvestInstitutionRelExWarehouseVOSingleResponse;
+			}
+		}
+	}
+
+	@Autowired
+	public void setDataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor(DataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor) {
+		this.dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor = dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor(DataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor dataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor) {
+		this.dataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor = dataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor;
+	}
+	@Autowired
+	public void setiDataCompanyVcFinancingInvestInstitutionRelService(IDataCompanyVcFinancingInvestInstitutionRelService iDataCompanyVcFinancingInvestInstitutionRelService) {
+		this.iDataCompanyVcFinancingInvestInstitutionRelService = iDataCompanyVcFinancingInvestInstitutionRelService;
+	}
+	@Autowired
+	public void setDataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor(DataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor dataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor) {
+		this.dataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor = dataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor;
+	}
+}

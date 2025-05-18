@@ -100,6 +100,14 @@ public interface BigDatasourceApi {
 	}
 
 	/**
+	 * 缓存配置，在开启缓存的情况下，需要配置缓存配置
+	 * @return
+	 */
+	default BigDatasourceApiCacheConfig cacheConfig(){
+		return null;
+	}
+
+	/**
 	 * 连接超时时间，单位毫秒
 	 * @return
 	 */

@@ -15,7 +15,7 @@ public class IErrorCodeOpenapiStatusMax implements IErrorCodeStatusMax {
 	/**
 	 * s 前缀没有什么意义，statusMax 首字母可以这样认为，因为变量不允许为直接数字
 	 */
-	private static Long s_5000003 = 50000030002L;
+	private static Long s_5000003 = 50000030003L;
 	private static Long s_4000003 = 40000030007L;
 	private static Long s_4010003 = null;
 	private static Long s_4030003 = 40300030003L;

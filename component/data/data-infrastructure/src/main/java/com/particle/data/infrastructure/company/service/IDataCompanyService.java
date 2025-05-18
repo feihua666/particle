@@ -5,6 +5,7 @@ import com.particle.data.infrastructure.company.dos.DataCompanyDO;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -86,7 +87,21 @@ public interface IDataCompanyService extends IBaseService<DataCompanyDO> {
         return list(Wrappers.<DataCompanyDO>lambdaQuery().in(DataCompanyDO::getOrgCode, orgCodes));
     }
 
-
+    default boolean updateLatestUpdateAt(Long id) {
+        Assert.notNull(id,"id 不能为空");
+        return update(Wrappers.<DataCompanyDO>lambdaUpdate().eq(DataCompanyDO::getId, id)
+                .set(DataCompanyDO::getLatestHandleAt, LocalDateTime.now()));
+    }
+    /**
+     * 更新最后处理时间
+     * @param id
+     * @return
+     */
+    default boolean updateLatestHandleAt(Long id) {
+        Assert.notNull(id,"id 不能为空");
+        return update(Wrappers.<DataCompanyDO>lambdaUpdate().eq(DataCompanyDO::getId, id)
+                .set(DataCompanyDO::getLatestHandleAt, LocalDateTime.now()));
+    }
 
 
 

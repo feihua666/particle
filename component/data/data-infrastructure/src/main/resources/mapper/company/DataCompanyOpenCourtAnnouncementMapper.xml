@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.particle.data.infrastructure.company.mapper.DataCompanyOpenCourtAnnouncementMapper">
+
+    <select id="listPage"
+            resultType="com.particle.data.infrastructure.company.dos.DataCompanyOpenCourtAnnouncementDO">
+        select c.* from component_data_company_open_court_announcement c
+        <where>
+            <if test="param.companyId != null and param.companyId != ''">
+                and EXISTS (
+                SELECT 1
+                FROM component_data_company_open_court_announcement_party p
+                WHERE p.company_open_court_announcement_id = c.id
+                AND p.party_company_id = #{param.companyId}
+                )
+            </if>
+            <if test="param.caseNo != null and param.caseNo != ''">
+                and c.case_no = #{param.caseNo}
+            </if>
+        </where>
+    </select>
+</mapper>

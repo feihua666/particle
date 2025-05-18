@@ -45,6 +45,24 @@ const dataQueryDatasourceAdminRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/dataQueryDatasourceManageReload',
+                component: () => import('./DataQueryDatasourceManageReloadPage.vue'),
+                props: route => ({ dataQueryDatasourceId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminDataQueryDatasourceManageReload',
+                    name: '重新加载数据源',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminDataQueryDatasourceManageReload'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminDataQueryDatasourceManageReload'
+                    }
+                }
+            },
         ]
     },
 ]

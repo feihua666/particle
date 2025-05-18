@@ -93,8 +93,57 @@ particle:
       - component_data_scope_custom_data_rel
       # 数据相关
       - component_data_company
+      - component_data_company_annual_report
+      - component_data_company_annual_report_administrative_license
+      - component_data_company_annual_report_assets
+      - component_data_company_annual_report_change
+      - component_data_company_annual_report_equity_change
+      - component_data_company_annual_report_foreign_guarantee
+      - component_data_company_annual_report_foreign_invest
+      - component_data_company_annual_report_shareholder
+      - component_data_company_annual_report_social_security
+      - component_data_company_annual_report_website
+      - component_data_company_basic
+      - component_data_company_case_filing
+      - component_data_company_case_filing_party
+      - component_data_company_court_announcement
+      - component_data_company_court_announcement_content
+      - component_data_company_court_announcement_party
+      - component_data_company_discredited_judgment_debtor
+      - component_data_company_honor_qualification
+      - component_data_company_ipr_patent
+      - component_data_company_ipr_patent_certificate
+      - component_data_company_ipr_patent_cited
+      - component_data_company_ipr_patent_content
+      - component_data_company_ipr_patent_family
+      - component_data_company_ipr_patent_legal_status
+      - component_data_company_ipr_patent_license
+      - component_data_company_ipr_patent_notice
+      - component_data_company_ipr_patent_party
+      - component_data_company_ipr_patent_payment
+      - component_data_company_ipr_patent_pledge
+      - component_data_company_ipr_patent_quote
+      - component_data_company_ipr_patent_statistic
+      - component_data_company_ipr_patent_transfer
+      - component_data_company_judgment_debtor
+      - component_data_company_judgment_document
+      - component_data_company_judgment_document_content
+      - component_data_company_judgment_document_party
       - component_data_company_md5
-      - component_data_company_md5_ids
+      - component_data_company_open_court_announcement
+      - component_data_company_open_court_announcement_content
+      - component_data_company_open_court_announcement_party
+      - component_data_company_person
+      - component_data_company_punishment
+      - component_data_company_restrict_high_consume
+      - component_data_company_restrict_high_consume_party
+      - component_data_company_serious_illegal
+      - component_data_company_shareholder
+      - component_data_company_vc_financing
+      - component_data_company_vc_financing_invest_institution_rel
+      - component_data_company_vc_invest_institution
+      - component_data_company_vc_product
+      - component_data_company_vc_product_competitive_product_rel
       # 任务计划
       - component_scheduler_execute_record
       - component_scheduler_temp_task

@@ -44,5 +44,18 @@
             <version>${particle.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- 参数验证 不传递依赖 仅使用注解 依赖已在 common-app 中引入执行真正的验证-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-validation-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

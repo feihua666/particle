@@ -59,4 +59,7 @@ public class DictQueryListCommand extends AbstractBaseTreeQueryCommand {
 	@Schema(description = "关联字典组编码，用于在字典项下还有字典项的扩展场景")
 	private String relatedGroupCode;
 
+	@Schema(description = "映射数组json，用于三方系统对接场景")
+	private String mappingArrayJson;
+
 }

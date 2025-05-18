@@ -620,3 +620,9 @@ INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, c
 INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1887441604162142209, 1818107182885949441, 1887439963933425666, 1, 1, '2025-02-06 18:02:00', 1, '2025-02-06 18:02:00', null);
 INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1887441604166336514, 1818107182885949441, 1887439964940058626, 1, 1, '2025-02-06 18:02:00', 1, '2025-02-06 18:02:00', null);
 INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1892783622223052801, 1818107182885949441, 1892783066687488001, 1, 1, '2025-02-21 11:49:16', 1, '2025-02-21 11:49:16', null);
+INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1920365368140726274, 1818107182885949441, 1920364763695382530, 1, 1, '2025-05-08 14:29:17', 1, '2025-05-08 14:29:17', null);
+INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1922151502491820034, 1818107182885949441, 1922150736024707074, 1, 1, '2025-05-13 12:46:45', 1, '2025-05-13 12:46:45', null);
+INSERT INTO component_role_func_rel (id, role_id, func_id, version, tenant_id, create_at, create_by, update_at, update_by) VALUES (1922195780388855810, 1818107182885949441, 1922195125322457090, 1, 1, '2025-05-13 15:42:41', 1, '2025-05-13 15:42:41', null);
+
+
+

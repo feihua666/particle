@@ -26,7 +26,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param code
 	 * @return
 	 */
-	@Cacheable(cacheNames = {"DictServiceImplCache_getByCode"})
+	@Cacheable(cacheNames = {"dictServiceImplCache_getByCode"})
 	default DictDO getByCode(String code) {
 		Assert.hasText(code,"code 不能为空");
 		return getOne(Wrappers.<DictDO>lambdaQuery().eq(DictDO::getCode, code));
@@ -36,7 +36,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param groupId
 	 * @return
 	 */
-	@Cacheable(cacheNames = {"DictServiceImplCache_getItemsByGroupId"})
+	@Cacheable(cacheNames = {"dictServiceImplCache_getItemsByGroupId"})
 	default List<DictDO> getItemsByGroupId(Long groupId){
 		DictDO byCode = getById(groupId);
 		if (byCode == null) {
@@ -49,7 +49,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param groupCode
 	 * @return
 	 */
-	@Cacheable(cacheNames = {"DictServiceImplCache_getItemsByGroupCode"})
+	@Cacheable(cacheNames = {"dictServiceImplCache_getItemsByGroupCode"})
 	default List<DictDO> getItemsByGroupCode(String groupCode){
 		DictDO byCode = getByCode(groupCode);
 		if (byCode == null) {
@@ -65,7 +65,7 @@ public interface IDictService extends IBaseService<DictDO> {
 	 * @param value
 	 * @return
 	 */
-	@Cacheable(cacheNames = {"DictServiceImplCache_getByGroupCodeAndItemValue"})
+	@Cacheable(cacheNames = {"dictServiceImplCache_getByGroupCodeAndItemValue"})
 	default DictDO getByGroupCodeAndItemValue(String groupCode, String value){
 		Assert.hasText(value,"value 不能为空");
 		List<DictDO> items = getItemsByGroupCode(groupCode);

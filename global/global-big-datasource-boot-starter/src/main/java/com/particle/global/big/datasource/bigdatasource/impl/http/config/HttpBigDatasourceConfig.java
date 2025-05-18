@@ -75,10 +75,11 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 	/**
 	 * 根据脚本渲染认证请求头
 	 * @param command 原始请求参数，有可能为null，如果没有请求参数时
+	 * @param authMap 额外的扩展数据,可以放一些额外的数据
 	 * @return 空或者null也是有可能返回的
 	 */
 	@SneakyThrows
-	public Map<String, String> renderAuthHeaders(Object command,String commandJsonStr,String queryString) {
+	public Map<String, String> renderAuthHeaders(Object command,String commandJsonStr,String queryString,Map<String, Object> authMap) {
 
 		Map<String, String> result = new HashMap<>();
 
@@ -89,6 +90,7 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 		Map<String, Object> objectMap = objectTemplateRenderDataWrap.toRenderMap();
 		Map<String, Object> shareDataMap = shareDataMap();
 		objectMap.put("headers", result);
+		objectMap.put("authMap", authMap);
 
 		objectMap.put("dataJsonStr", commandJsonStr);
 		objectMap.put("commandStr", commandJsonStr);
@@ -113,7 +115,7 @@ public class HttpBigDatasourceConfig extends BigDatasourceAccountConfig {
 
 		}
 
-			return result;
+		return result;
 	}
 
 	/**

@@ -207,10 +207,10 @@ const getCheckboxProps = (optionsCheckboxProps={})=> {
         @update:modelValue="updateModelValueEventH"
         @change="changeModelValueEvent">
       <template v-if="buttonView">
-        <el-checkbox-button v-for="(itemData,index) in options" :key="index" v-bind="getCheckboxProps(itemData.checkboxProps)" :label="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-checkbox-button>
+        <el-checkbox-button v-for="(itemData,index) in options" :key="index" v-bind="getCheckboxProps(itemData.checkboxProps)" :value="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-checkbox-button>
       </template>
       <template v-else>
-        <el-checkbox v-for="(itemData,index) in options" :key="index" v-bind="getCheckboxProps(itemData.checkboxProps)" :label="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-checkbox>
+        <el-checkbox v-for="(itemData,index) in options" :key="index" v-bind="getCheckboxProps(itemData.checkboxProps)" :value="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-checkbox>
       </template>
     </el-checkbox-group>
 </template>

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 添加字段 指令
  * Created by yangwei
  * Created at 2023-05-11 12:41:05
  */
@@ -29,7 +30,7 @@ public class AddFieldCommand extends AbstractBaseCommand {
      * 注意后面带组件名称
      */
     @NotEmpty(message = "后端组件绝对路径 不能为空")
-    @Schema(description = "前端组件绝对路径")
+    @Schema(description = "后端组件绝对路径")
     private String componentBackendAbsolutePath;
 
     /**

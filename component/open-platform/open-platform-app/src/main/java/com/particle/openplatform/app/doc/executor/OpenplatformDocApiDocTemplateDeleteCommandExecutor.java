@@ -10,6 +10,12 @@ import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTempla
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplate;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplateId;
 import com.particle.openplatform.domain.doc.gateway.OpenplatformDocApiDocTemplateGateway;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateExampleCodeDO;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateParamFieldDO;
+import com.particle.openplatform.infrastructure.doc.dos.OpenplatformDocApiDocTemplateResponseCodeDO;
+import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocTemplateExampleCodeService;
+import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocTemplateParamFieldService;
+import com.particle.openplatform.infrastructure.doc.service.IOpenplatformDocApiDocTemplateResponseCodeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +34,9 @@ import org.springframework.validation.annotation.Validated;
 public class OpenplatformDocApiDocTemplateDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	private OpenplatformDocApiDocTemplateGateway openplatformDocApiDocTemplateGateway;
+	private IOpenplatformDocApiDocTemplateParamFieldService iOpenplatformDocApiDocTemplateParamFieldService;
+	private IOpenplatformDocApiDocTemplateExampleCodeService iOpenplatformDocApiDocTemplateExampleCodeService;
+	private IOpenplatformDocApiDocTemplateResponseCodeService iOpenplatformDocApiDocTemplateResponseCodeService;
 
 	/**
 	 * 执行 开放接口文档模板 删除指令
@@ -40,6 +49,12 @@ public class OpenplatformDocApiDocTemplateDeleteCommandExecutor  extends Abstrac
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		boolean delete = openplatformDocApiDocTemplateGateway.delete(openplatformDocApiDocTemplateId,deleteCommand);
 		if (delete) {
+			// 将参数字段删除
+			iOpenplatformDocApiDocTemplateParamFieldService.deleteByColumn(openplatformDocApiDocTemplateId.getId(), OpenplatformDocApiDocTemplateParamFieldDO::getOpenplatformDocApiDocTemplateId);
+			// 将示例代码删除
+			iOpenplatformDocApiDocTemplateExampleCodeService.deleteByColumn(openplatformDocApiDocTemplateId.getId(), OpenplatformDocApiDocTemplateExampleCodeDO::getOpenplatformDocApiDocTemplateId);
+			// 将响应代码删除
+			iOpenplatformDocApiDocTemplateResponseCodeService.deleteByColumn(openplatformDocApiDocTemplateId.getId(), OpenplatformDocApiDocTemplateResponseCodeDO::getOpenplatformDocApiDocTemplateId);
 			return SingleResponse.of(OpenplatformDocApiDocTemplateAppStructMapping.instance.toOpenplatformDocApiDocTemplateVO(byId));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);
@@ -52,5 +67,17 @@ public class OpenplatformDocApiDocTemplateDeleteCommandExecutor  extends Abstrac
 	@Autowired
 	public void setOpenplatformDocApiDocTemplateGateway(OpenplatformDocApiDocTemplateGateway openplatformDocApiDocTemplateGateway) {
 		this.openplatformDocApiDocTemplateGateway = openplatformDocApiDocTemplateGateway;
+	}
+	@Autowired
+	public void setiOpenplatformDocApiDocTemplateParamFieldService(IOpenplatformDocApiDocTemplateParamFieldService iOpenplatformDocApiDocTemplateParamFieldService) {
+		this.iOpenplatformDocApiDocTemplateParamFieldService = iOpenplatformDocApiDocTemplateParamFieldService;
+	}
+	@Autowired
+	public void setiOpenplatformDocApiDocTemplateExampleCodeService(IOpenplatformDocApiDocTemplateExampleCodeService iOpenplatformDocApiDocTemplateExampleCodeService) {
+		this.iOpenplatformDocApiDocTemplateExampleCodeService = iOpenplatformDocApiDocTemplateExampleCodeService;
+	}
+	@Autowired
+	public void setiOpenplatformDocApiDocTemplateResponseCodeService(IOpenplatformDocApiDocTemplateResponseCodeService iOpenplatformDocApiDocTemplateResponseCodeService) {
+		this.iOpenplatformDocApiDocTemplateResponseCodeService = iOpenplatformDocApiDocTemplateResponseCodeService;
 	}
 }

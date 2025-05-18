@@ -1,12 +1,15 @@
 package com.particle.dataquery.app.datasource.executor;
 
+import cn.hutool.core.net.NetUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceAppStructMapping;
+import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceReloadCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceVO;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.DataQueryDatasourceId;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceGateway;
+import com.particle.dataquery.domain.datasource.gateway.bigdatasource.DataQueryDatasourceDynamicBigDatasourceGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
@@ -31,6 +34,7 @@ import org.springframework.validation.annotation.Validated;
 public class DataQueryDatasourceUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private DataQueryDatasourceGateway dataQueryDatasourceGateway;
+	private DataQueryDatasourceDynamicBigDatasourceGateway dataQueryDatasourceDynamicBigDatasourceGateway;
 
 	/**
 	 * 执行 数据查询数据源 更新指令
@@ -45,6 +49,23 @@ public class DataQueryDatasourceUpdateCommandExecutor  extends AbstractBaseExecu
 			return SingleResponse.of(DataQueryDatasourceAppStructMapping.instance.toDataQueryDatasourceVO(dataQueryDatasource));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
+
+	/**
+	 * 重新加载数据源
+	 * @param dataQueryDatasourceReloadCommand
+	 * @return
+	 */
+	public SingleResponse<String> reload(@Valid DataQueryDatasourceReloadCommand dataQueryDatasourceReloadCommand) {
+		Boolean isRemoveOnly = dataQueryDatasourceReloadCommand.getIsRemoveOnly();
+		if (isRemoveOnly == null) {
+			isRemoveOnly = false;
+		}
+		boolean b = dataQueryDatasourceDynamicBigDatasourceGateway.reloadDataQueryDatasource(dataQueryDatasourceReloadCommand.getId(), isRemoveOnly);
+		if (!b) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.UNKNOWN_ERROR,"重新加载数据源失败");
+		}
+		return SingleResponse.of(NetUtil.getLocalhostStr());
 	}
 
 	/**
@@ -83,5 +104,9 @@ public class DataQueryDatasourceUpdateCommandExecutor  extends AbstractBaseExecu
 	@Autowired
 	public void setDataQueryDatasourceGateway(DataQueryDatasourceGateway dataQueryDatasourceGateway) {
 		this.dataQueryDatasourceGateway = dataQueryDatasourceGateway;
+	}
+	@Autowired
+	public void setDataQueryDatasourceDynamicBigDatasourceGateway(DataQueryDatasourceDynamicBigDatasourceGateway dataQueryDatasourceDynamicBigDatasourceGateway) {
+		this.dataQueryDatasourceDynamicBigDatasourceGateway = dataQueryDatasourceDynamicBigDatasourceGateway;
 	}
 }

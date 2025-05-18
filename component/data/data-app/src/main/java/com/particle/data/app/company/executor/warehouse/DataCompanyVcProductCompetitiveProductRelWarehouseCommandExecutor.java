@@ -1,0 +1,99 @@
+package com.particle.data.app.company.executor.warehouse;
+
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelCreateCommandExecutor;
+import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor;
+import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor;
+import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelCreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelUpdateCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyVcProductCompetitiveProductRelWarehouseCommand;
+import com.particle.data.client.company.dto.data.DataCompanyVcProductCompetitiveProductRelVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyVcProductCompetitiveProductRelExWarehouseVO;
+import com.particle.data.infrastructure.company.service.IDataCompanyVcProductCompetitiveProductRelService;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * <p>
+ * 企业融资产品竞品关系入库 指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-07 11:14:10
+ */
+@Component
+@Validated
+public class DataCompanyVcProductCompetitiveProductRelWarehouseCommandExecutor extends AbstractBaseExecutor {
+
+	private DataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor;
+	private DataCompanyVcProductCompetitiveProductRelCreateCommandExecutor dataCompanyVcProductCompetitiveProductRelCreateCommandExecutor;
+	private IDataCompanyVcProductCompetitiveProductRelService iDataCompanyVcProductCompetitiveProductRelService;
+	private DataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor dataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor;
+
+
+	/**
+	 * 企业融资产品竞品关系入库
+	 * @param dataCompanyVcProductCompetitiveProductRelWarehouseCommand
+	 * @return
+	 */
+	public SingleResponse<DataCompanyVcProductCompetitiveProductRelExWarehouseVO> warehouse(DataCompanyVcProductCompetitiveProductRelWarehouseCommand dataCompanyVcProductCompetitiveProductRelWarehouseCommand) {
+		SingleResponse<DataCompanyVcProductCompetitiveProductRelExWarehouseVO> dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse = null;
+		DataCompanyVcProductCompetitiveProductRelExWarehouseVO dataCompanyVcProductCompetitiveProductRelExWarehouseVO = null;
+		dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse = dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor.exWarehouseByCompanyVcProductIdAndCompanyVcCompetitiveProductId(dataCompanyVcProductCompetitiveProductRelWarehouseCommand.getCompanyVcProductId(),dataCompanyVcProductCompetitiveProductRelWarehouseCommand.getCompanyVcCompetitiveProductId());
+
+		dataCompanyVcProductCompetitiveProductRelExWarehouseVO = dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse == null ? null : dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse.getData();
+		// 不存在，添加
+        if (dataCompanyVcProductCompetitiveProductRelExWarehouseVO == null) {
+			DataCompanyVcProductCompetitiveProductRelCreateCommand dataCompanyVcProductCompetitiveProductRelCreateCommand = DataCompanyVcProductCompetitiveProductRelCreateCommand.createByWarehouseCommand(dataCompanyVcProductCompetitiveProductRelWarehouseCommand);
+			SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> dataCompanyVcProductCompetitiveProductRelVOSingleResponse = dataCompanyVcProductCompetitiveProductRelCreateCommandExecutor.execute(dataCompanyVcProductCompetitiveProductRelCreateCommand);
+			Long id = dataCompanyVcProductCompetitiveProductRelVOSingleResponse.getData().getId();
+			// 新增后重新查询，返回最新数据
+			dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse = dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor.exWarehouseById(id);
+			return dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse;
+		}else {
+			Long id = dataCompanyVcProductCompetitiveProductRelExWarehouseVO.getId();
+			// 	存在，尝试入库
+			// 仅更新有变化的字段，将相同的字段设置为null不更新
+			dataCompanyVcProductCompetitiveProductRelWarehouseCommand.compareAndSetNullWhenEquals(dataCompanyVcProductCompetitiveProductRelExWarehouseVO);
+
+			// 判断是否所有字段都为空，所有字段都没有变化，不需要更新
+			if (dataCompanyVcProductCompetitiveProductRelWarehouseCommand.allFieldEmpty()) {
+				// 更新最后处理时间
+				iDataCompanyVcProductCompetitiveProductRelService.updateLatestHandleAt(id);
+				// 重新查询，返回最新数据
+				dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse = dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse;
+			} else {
+				// 更新处理
+				DataCompanyVcProductCompetitiveProductRelUpdateCommand dataCompanyVcProductCompetitiveProductRelUpdateCommand = DataCompanyVcProductCompetitiveProductRelUpdateCommand.createByWarehouseCommand(
+						id,
+						dataCompanyVcProductCompetitiveProductRelExWarehouseVO.getVersion(),
+						dataCompanyVcProductCompetitiveProductRelWarehouseCommand
+				);
+				dataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor.execute(dataCompanyVcProductCompetitiveProductRelUpdateCommand);
+				// 重新查询，返回最新数据
+				dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse = dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor.exWarehouseById(id);
+				return dataCompanyVcProductCompetitiveProductRelExWarehouseVOSingleResponse;
+			}
+		}
+	}
+
+	@Autowired
+	public void setDataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor(DataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor) {
+		this.dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor = dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyVcProductCompetitiveProductRelCreateCommandExecutor(DataCompanyVcProductCompetitiveProductRelCreateCommandExecutor dataCompanyVcProductCompetitiveProductRelCreateCommandExecutor) {
+		this.dataCompanyVcProductCompetitiveProductRelCreateCommandExecutor = dataCompanyVcProductCompetitiveProductRelCreateCommandExecutor;
+	}
+	@Autowired
+	public void setiDataCompanyVcProductCompetitiveProductRelService(IDataCompanyVcProductCompetitiveProductRelService iDataCompanyVcProductCompetitiveProductRelService) {
+		this.iDataCompanyVcProductCompetitiveProductRelService = iDataCompanyVcProductCompetitiveProductRelService;
+	}
+	@Autowired
+	public void setDataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor(DataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor dataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor) {
+		this.dataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor = dataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor;
+	}
+}

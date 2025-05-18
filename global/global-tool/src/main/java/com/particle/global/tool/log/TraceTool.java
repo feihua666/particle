@@ -1,7 +1,9 @@
 package com.particle.global.tool.log;
 
+import brave.Span;
 import brave.Tracer;
 import com.particle.global.tool.spring.SpringContextHolder;
+import org.slf4j.MDC;
 
 /**
  * <p>
@@ -30,7 +32,12 @@ public class TraceTool {
 	 * @return
 	 */
 	public static String getTraceId(){
-		return getTracer().currentSpan().context().traceIdString();
+		Span span = getTracer().currentSpan();
+		// 在线程池中可能是null，这里使用日志的
+        if (span == null) {
+			return MDC.get("traceId");
+		}
+		return span.context().traceIdString();
 	}
 
 	/**
@@ -38,6 +45,11 @@ public class TraceTool {
 	 * @return
 	 */
 	public static String getSpanId(){
-		return getTracer().currentSpan().context().spanIdString();
+		Span span = getTracer().currentSpan();
+		// 在线程池中可能是null，这里使用日志的
+		if (span == null) {
+			return MDC.get("spanId");
+		}
+		return span.context().spanIdString();
 	}
 }

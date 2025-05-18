@@ -39,6 +39,8 @@ public class DataCompanyCreateCommandExecutor  extends AbstractBaseExecutor {
 	public SingleResponse<DataCompanyVO> execute(@Valid DataCompanyCreateCommand dataCompanyCreateCommand) {
 		DataCompany dataCompany = createByDataCompanyCreateCommand(dataCompanyCreateCommand);
 		dataCompany.setAddControl(dataCompanyCreateCommand);
+		dataCompany.initForAdd();
+
 		boolean save = dataCompanyGateway.save(dataCompany);
 		if (save) {
 			return SingleResponse.of(DataCompanyAppStructMapping.instance.toDataCompanyVO(dataCompany));

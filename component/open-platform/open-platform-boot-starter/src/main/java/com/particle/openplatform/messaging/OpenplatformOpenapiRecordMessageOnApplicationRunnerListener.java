@@ -24,7 +24,7 @@ public class OpenplatformOpenapiRecordMessageOnApplicationRunnerListener impleme
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("openplatformOpenapiRecordMessage sheduleData start");
+        log.info("openplatformOpenapiRecordMessage scheduleData start");
         openplatformOpenapiRecordMessageConsumer.scheduleDeductAppQuota();
         openplatformOpenapiRecordMessageConsumer.scheduleSaveAppOpenapiDayRtSummary();
     }

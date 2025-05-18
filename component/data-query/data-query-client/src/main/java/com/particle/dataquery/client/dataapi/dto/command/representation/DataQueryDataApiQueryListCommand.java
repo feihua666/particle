@@ -68,4 +68,16 @@ public class DataQueryDataApiQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "是否测试通过，测试通过才能发布")
     private Boolean isTestPassed;
 
+	@Schema(description = "数据查询供应商id,用于支持开放接口")
+	private Long dataQueryProviderId;
+
+	@Schema(description = "接口标识，一般与url对等,用于支持开放接口")
+	private String apiIdentifier;
+
+	@Schema(description = "接口版本标识，标识同一个接口的不同版本,用于支持开放接口")
+	private String apiVersion;
+
+	@Schema(description = "是否支持入库,用于支持开放接口")
+	private Boolean isSupportWarehouse;
+
 }

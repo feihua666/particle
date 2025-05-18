@@ -9,7 +9,7 @@ import {
   deleteCache as DataQueryDataApiRemoveCacheApi,
   devMergeToMaster as DataQueryDataApiDevMergeToMasterApi,
   page as DataQueryDataApiPageApi,
-  refreshCache as DataQueryDataApiRefreshCacheApi,
+  refreshCache as DataQueryDataApiRefreshCacheApi, refreshOpenapiExecuteProviderCache,
   remove as DataQueryDataApiRemoveApi
 } from "../../../api/dataapi/admin/dataQueryDataApiAdminApi"
 import {pageFormItems} from "../../../components/dataapi/admin/dataQueryDataApiManage";
@@ -103,6 +103,16 @@ const submitAttrs = ref({
   loading: false,
   permission: 'admin:web:dataQueryDataApi:pageQuery'
 })
+const refreshOpenapiExecuteProviderCacheConfig = {
+  permission: 'admin:web:dataQueryDataApi:refreshOpenapiExecuteProviderCache',
+  methodSuccess: (res) => '刷新缓存成功,如果部署多个实例可能要多次执行。 ' + res.data.data,
+  // 刷新缓存
+  method(){
+    return refreshOpenapiExecuteProviderCache().then(res => {
+      return Promise.resolve(res)
+    })
+  }
+}
 // 查询按钮
 const submitMethod = ():void => {
   tableRef.value.refreshData()
@@ -226,7 +236,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       txt: '查看',
       text: true,
       position: 'more',
-      permission: 'admin:web:dataQueryDataApi:view',
+      permission: 'admin:web:dataQueryDataApi:detail',
       // 跳转到查看
       route: {path: '/admin/DataQueryDataApiManageView',query: idData}
     },
@@ -242,10 +252,20 @@ const getTableRowButtons = ({row, column, $index}) => {
           permission: 'admin:web:dataQueryDatasourceApi:devMergeToMaster',
           methodConfirmText: `确定要将 ${row.name} 提交至master吗？提交成功后本数据将会被删除！`,
           methodSuccess: (res) => {
-            // 复制成功后刷新一下表格
+            if (res.data.data.name) {
+              // 如果成功后有返回说明是以__dev 结尾的名称，后端已经处理了
+              reactiveData.form.name = res.data.data.name;
+            }else if(reactiveData.form.name){
+              // 如果查询表单中有值，则认为是复制dev后填充的，还原为原来名称
+              reactiveData.form.name = reactiveData.form.name.replace('Copydev', '')
+            }else{
+              // 如果查询表单中没有值，则认为是当前复制dev后没有编辑，这里直接取出名称
+              reactiveData.form.name = row.name.replace('Copydev', '')
+            }
+            // 提交至master成功后刷新一下表格
             submitMethod()
           },
-          // 复制操作
+          // 提交至master操作
           method(){
             return DataQueryDataApiDevMergeToMasterApi({id: row.id}).then(res => {
               return Promise.resolve(res)
@@ -268,6 +288,7 @@ const getTableRowButtons = ({row, column, $index}) => {
   }
   return tableRowButtons
 }
+
 </script>
 <template>
   <!-- 查询表单 -->
@@ -280,6 +301,7 @@ const getTableRowButtons = ({row, column, $index}) => {
           :comps="reactiveData.formComps">
     <template #buttons>
       <PtButton permission="admin:web:dataQueryDataApi:create" route="/admin/DataQueryDataApiManageAdd">添加</PtButton>
+      <PtButton v-bind="refreshOpenapiExecuteProviderCacheConfig">刷新执行器供应商缓存</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

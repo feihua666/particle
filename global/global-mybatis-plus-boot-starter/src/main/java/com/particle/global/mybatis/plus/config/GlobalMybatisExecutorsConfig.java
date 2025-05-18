@@ -33,7 +33,7 @@ public class GlobalMybatisExecutorsConfig {
 		return CustomExecutors.newExecutorService(beanFactory,
 				commonDbTaskExecutor,
 				5,
-				100,
+				24,
 				1000 * 60,
 				new LinkedBlockingQueue<>(1000),
 				// 如果拒绝自己执行

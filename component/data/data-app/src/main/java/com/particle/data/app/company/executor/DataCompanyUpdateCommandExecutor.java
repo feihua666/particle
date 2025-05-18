@@ -40,6 +40,8 @@ public class DataCompanyUpdateCommandExecutor  extends AbstractBaseExecutor {
 	public SingleResponse<DataCompanyVO> execute(@Valid DataCompanyUpdateCommand dataCompanyUpdateCommand) {
 		DataCompany dataCompany = createByDataCompanyUpdateCommand(dataCompanyUpdateCommand);
 		dataCompany.setUpdateControl(dataCompanyUpdateCommand);
+		dataCompany.initForUpdate();
+
 		boolean save = dataCompanyGateway.save(dataCompany);
 		if (save) {
 			return SingleResponse.of(DataCompanyAppStructMapping.instance.toDataCompanyVO(dataCompany));

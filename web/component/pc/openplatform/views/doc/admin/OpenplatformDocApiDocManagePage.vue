@@ -139,7 +139,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       txt: '删除',
       text: true,
       permission: 'admin:web:openplatformDocApiDoc:delete',
-      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      methodConfirmText: `确定要删除 ${row.name} 吗？删除后将级联删除关联的参数字段、代码示例、响应码数据`,
       // 删除操作
       method(){
         return openplatformDocApiDocRemoveApi({id: row.id}).then(res => {

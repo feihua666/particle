@@ -34,6 +34,24 @@
             <artifactId>spring-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- 查询字典使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 调用数据查询api使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>data-query-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 查询区域使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>area-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

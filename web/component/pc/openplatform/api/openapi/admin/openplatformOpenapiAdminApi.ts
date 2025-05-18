@@ -32,6 +32,13 @@ export const detailForUpdate = (data: IdParam): AxiosPromise => {
     return axios.get(openplatformOpenapiPrefix + '/detail-for-update',{params: data})
 }
 /**
+ * 查看详情，加载要查看的数据
+ * @param data
+ */
+export const detail = (data: IdParam): AxiosPromise => {
+    return axios.get(openplatformOpenapiPrefix + '/detail',{params: data})
+}
+/**
  * 列表，没有分页，查询全部数据
  * @param data
  */

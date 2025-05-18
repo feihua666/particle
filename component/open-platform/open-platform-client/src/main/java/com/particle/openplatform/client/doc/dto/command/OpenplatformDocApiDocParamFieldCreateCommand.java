@@ -22,12 +22,12 @@ public class OpenplatformDocApiDocParamFieldCreateCommand extends AbstractBaseCo
 
 
     @NotEmpty(message = "字段名称 不能为空")
-        @Schema(description = "字段名称",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "字段名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
 
     @NotNull(message = "字段类型 不能为空")
-        @Schema(description = "字段类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "字段类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long typeDictId;
 
 	@Schema(description = "嵌套字段类型，字典id，一般用于字段类型为array时里面的类型，如：string、object")
@@ -35,12 +35,12 @@ public class OpenplatformDocApiDocParamFieldCreateCommand extends AbstractBaseCo
 
 
     @NotNull(message = "是否一定有值 不能为空")
-        @Schema(description = "是否一定有值",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "是否一定有值",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isRequired;
 
 
     @NotEmpty(message = "字段说明 不能为空")
-        @Schema(description = "字段说明",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "字段说明",requiredMode = Schema.RequiredMode.REQUIRED)
     private String explanation;
 
     /**
@@ -51,12 +51,12 @@ public class OpenplatformDocApiDocParamFieldCreateCommand extends AbstractBaseCo
 
 
     @NotNull(message = "开放接口文档id 不能为空")
-        @Schema(description = "开放接口文档id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "开放接口文档id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long openplatformDocApiDocId;
 
 
     @NotNull(message = "分类 不能为空")
-        @Schema(description = "分类",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "分类",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long categoryDictId;
 
 	@Schema(description = "默认值")
@@ -81,7 +81,7 @@ public class OpenplatformDocApiDocParamFieldCreateCommand extends AbstractBaseCo
 
 
     @NotNull(message = "排序 不能为空")
-        @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "排序",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer seq;
 
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2022-11-25
  */
-@FeignClient(name = "${particle.feign-client.name.user:user}",path = "/rpc")
+@FeignClient(name = "${particle.feign-client.name.user:user}",path = "/rpc/user")
 public interface UserRpcFeignClient {
 	/**
 	 * 添加用户

@@ -3,11 +3,12 @@ package com.particle.data.app.company.api.impl.representation;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.app.company.executor.representation.DataCompanyQueryCommandExecutor;
+import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyExWarehouseCommandExecutor;
 import com.particle.data.client.company.api.representation.IDataCompanyRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyQueryListCommand;
-import com.particle.data.client.company.dto.command.representation.DataCompanyUniqueExWarehouseQueryCommand;
-import com.particle.data.client.company.dto.data.DataCompanyUniqueExWarehouseCandidateVO;
+import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseCandidateVO;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 public class DataCompanyRepresentationApplicationServiceImpl extends AbstractBaseApplicationServiceImpl implements IDataCompanyRepresentationApplicationService {
 
     private DataCompanyQueryCommandExecutor dataCompanyQueryCommandExecutor;
+    private DataCompanyExWarehouseCommandExecutor dataCompanyExWarehouseCommandExecutor;
 
     @Override
     public SingleResponse<DataCompanyVO> queryDetail(IdCommand detailCommand) {
@@ -45,8 +47,8 @@ public class DataCompanyRepresentationApplicationServiceImpl extends AbstractBas
     }
 
     @Override
-    public SingleResponse<DataCompanyUniqueExWarehouseCandidateVO> uniqueExWarehouse(DataCompanyUniqueExWarehouseQueryCommand uniqueExWarehouseQueryCommand) {
-        return dataCompanyQueryCommandExecutor.uniqueExWarehouse(uniqueExWarehouseQueryCommand);
+    public SingleResponse<DataCompanyExWarehouseCandidateVO> exWarehouse(DataCompanyExWarehouseQueryCommand exWarehouseQueryCommand) {
+        return dataCompanyExWarehouseCommandExecutor.exWarehouse(exWarehouseQueryCommand);
     }
 
     @Override
@@ -58,5 +60,9 @@ public class DataCompanyRepresentationApplicationServiceImpl extends AbstractBas
     @Autowired
     public void setDataCompanyQueryCommandExecutor(DataCompanyQueryCommandExecutor dataCompanyQueryCommandExecutor) {
         this.dataCompanyQueryCommandExecutor = dataCompanyQueryCommandExecutor;
+    }
+    @Autowired
+    public void setDataCompanyExWarehouseCommandExecutor(DataCompanyExWarehouseCommandExecutor dataCompanyExWarehouseCommandExecutor) {
+        this.dataCompanyExWarehouseCommandExecutor = dataCompanyExWarehouseCommandExecutor;
     }
 }

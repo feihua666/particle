@@ -6,6 +6,7 @@ import com.particle.dataquery.app.dataapi.executor.DataQueryDataApiCreateCommand
 import com.particle.dataquery.app.dataapi.executor.DataQueryDataApiDeleteCommandExecutor;
 import com.particle.dataquery.app.dataapi.executor.DataQueryDataApiUpdateCommandExecutor;
 import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiDataApiQueryCommandExecutor;
+import com.particle.dataquery.app.openapi.DataQueryDataApiAdditionalOpenapiExecuteProviderFactoryImpl;
 import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiCreateCommand;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiUpdateCommand;
@@ -36,6 +37,7 @@ public class DataQueryDataApiApplicationServiceImpl extends AbstractBaseApplicat
 
 	private DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor;
 
+	private DataQueryDataApiAdditionalOpenapiExecuteProviderFactoryImpl dataQueryDataApiAdditionalOpenapiExecuteProviderFactory;
 
 	@Override
 	public SingleResponse<DataQueryDataApiVO> create(DataQueryDataApiCreateCommand dataQueryDataApiCreateCommand) {
@@ -65,6 +67,12 @@ public class DataQueryDataApiApplicationServiceImpl extends AbstractBaseApplicat
 	public SingleResponse<String> refreshCache(IdCommand deleteCommand) {
 		return dataQueryDataApiDataApiQueryCommandExecutor.refreshCache(deleteCommand);
 	}
+
+	@Override
+	public SingleResponse<String> refreshOpenapiExecuteProviderCache() {
+		return dataQueryDataApiAdditionalOpenapiExecuteProviderFactory.refreshOpenapiExecuteProviderCache();
+	}
+
 	@Override
 	public SingleResponse<DataQueryDataApiVO> devMergeToMaster(IdCommand deleteCommand) {
 		return dataQueryDataApiUpdateCommandExecutor.devMergeToMaster(deleteCommand);
@@ -91,5 +99,9 @@ public class DataQueryDataApiApplicationServiceImpl extends AbstractBaseApplicat
 	@Autowired
 	public void setDataQueryDataApiDataApiQueryCommandExecutor(DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor) {
 		this.dataQueryDataApiDataApiQueryCommandExecutor = dataQueryDataApiDataApiQueryCommandExecutor;
+	}
+	@Autowired
+	public void setDataQueryDataApiAdditionalOpenapiExecuteProviderFactory(DataQueryDataApiAdditionalOpenapiExecuteProviderFactoryImpl dataQueryDataApiAdditionalOpenapiExecuteProviderFactory) {
+		this.dataQueryDataApiAdditionalOpenapiExecuteProviderFactory = dataQueryDataApiAdditionalOpenapiExecuteProviderFactory;
 	}
 }

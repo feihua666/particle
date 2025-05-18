@@ -147,5 +147,43 @@ public enum FieldType implements IDictItem {
         }
         return null;
     }
+
+    /**
+     * 根据swagger类型解析
+     * @param swaggerType
+     * @return
+     */
+    public static FieldType parseBySwaggerType(String swaggerType) {
+        if (swaggerType == null) {
+            return null;
+        }
+        switch (swaggerType.toLowerCase()) {
+            case "string":
+                return FieldType.string;
+            case "integer":
+            case "long":
+            case "int32":
+            case "int64":
+                return FieldType.number;
+            case "number":
+            case "float":
+            case "double":
+                return FieldType.FLOAT;
+            case "boolean":
+                return FieldType.BOOLEAN;
+            case "array":
+                return FieldType.array;
+            case "object":
+                return FieldType.object;
+            case "date":
+                return FieldType.date;
+            case "date-time":
+                return FieldType.datetime;
+            case "time":
+                return FieldType.time;
+            default:
+                return null;
+        }
+    }
 }
 

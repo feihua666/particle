@@ -1,0 +1,1 @@
+import{l as a}from"./dataQueryProviderAdminApi-BdKPZMyj.js";const l=({fieldName:e="dataQueryProviderId",required:r=!1,label:t="数据查询供应商",tips:o=""})=>({field:{name:e},element:{comp:"PtSelect",formItemProps:{label:t,required:r,tips:o},compProps:{clearable:!0,dataMethod:a}}});export{l as u};

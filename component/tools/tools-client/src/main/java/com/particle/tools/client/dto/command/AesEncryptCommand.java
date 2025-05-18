@@ -16,11 +16,11 @@ import lombok.Setter;
 public class AesEncryptCommand extends AbstractBaseCommand {
 
 
-    @NotEmpty(message = "加密数据不能为空")
-    @Schema(description = "加密数据")
+    @NotEmpty(message = "明文数据不能为空")
+    @Schema(description = "明文数据")
     private String data;
 
     @NotEmpty(message = "加密密钥不能为空")
-    @Schema(description = "加密密钥")
+    @Schema(description = "加密密钥base64编码")
     private String key;
 }

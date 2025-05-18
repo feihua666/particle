@@ -150,6 +150,11 @@ public class DataQueryDatasourceApi extends AggreateRoot {
 	 */
 	private Boolean isUseCache;
 
+	/**
+	 * 缓存配置json
+	 */
+	private String cacheConfigJson;
+
     /**
     * 等同标签，如果两个api的入参和出参相同，对接口打一个标签，同时另一个相同的接口打同样的标签，以代表两个接口相同
     */
@@ -324,6 +329,17 @@ public class DataQueryDatasourceApi extends AggreateRoot {
             return null;
         }
         return DataQueryDatasourceApiDictConfig.createFromJsonStr(dictConfigJson);
+    }
+
+    /**
+     * 缓存配置
+     * @return
+     */
+    public DataQueryDatasourceApiCacheConfig cacheConfig(){
+        if (StrUtil.isEmpty(cacheConfigJson)) {
+            return null;
+        }
+        return DataQueryDatasourceApiCacheConfig.createFromJsonStr(cacheConfigJson);
     }
     /**
      * 出参扩展配置

@@ -8,7 +8,11 @@ import {
   remove as openplatformOpenapiBatchQueryRecordRemoveApi
 } from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi"
 import {pageFormItems, tableColumns} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordManage";
-import {download, getFinalDownloadUrl} from "../../../../../../global/common/api/globalApi";
+import {
+  download,
+  extractDownloadFileNameByUrl,
+  getFinalDownloadUrl
+} from "../../../../../../global/common/api/globalApi";
 import {downloadFileByData, extractContentType} from "../../../../../../global/common/tools/FileTools";
 
 
@@ -58,7 +62,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       // 刷新操作
       method(){
         let downloadUrl = getFinalDownloadUrl(row.exportFileUrl)
-        let exportFileName = downloadUrl.substring(downloadUrl.lastIndexOf('/') + 1)
+        let exportFileName = extractDownloadFileNameByUrl(downloadUrl)
         return download(downloadUrl).then(res => {
           let data = res.data
           let contentType = extractContentType(res)

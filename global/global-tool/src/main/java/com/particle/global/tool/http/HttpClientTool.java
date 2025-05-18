@@ -19,6 +19,8 @@ import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.CookieStore;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
+import org.apache.hc.client5.http.entity.mime.HttpMultipartMode;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
@@ -134,6 +136,7 @@ public class HttpClientTool{
 
     /**
      * 以普通表单形式请求
+     * x-www-form-urlencoded
      * @param url 请求地址
      * @param params 请求参数
      * @param extConfig 扩展配置
@@ -155,6 +158,35 @@ public class HttpClientTool{
         }
         String result = executeRequestAsString(post, getCLIENT(), extConfig);
         log.debug("end postForm.url={},result={}",url,result);
+        return result;
+
+    }
+    /**
+     * 以普通表单形式请求
+     * form-data
+     * @param url 请求地址
+     * @param params 请求参数
+     * @param extConfig 扩展配置
+     * @return
+     * @throws IOException
+     */
+    public static String postFormData(String url, Map<String,String> params, ExtConfig extConfig) throws IOException, ParseException, URISyntaxException {
+        log.debug("start postFormData.url={},params={},extConfig={}",url,params,extConfig == null? null : extConfig.toJsonString());
+        HttpPost post = new HttpPost(url);
+        // 创建参数列表
+        if (params != null) {
+
+            // 构建form-data格式的请求体
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.STRICT); // 设置兼容浏览器的模式
+            for (String key : params.keySet()) {
+                builder.addTextBody(key, params.get(key));
+            }
+            // 设置请求体
+            post.setEntity(builder.build());
+        }
+        String result = executeRequestAsString(post, getCLIENT(), extConfig);
+        log.debug("end postFormData.url={},result={}",url,result);
         return result;
 
     }

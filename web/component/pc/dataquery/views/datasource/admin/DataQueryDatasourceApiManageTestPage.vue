@@ -78,6 +78,7 @@ const reactiveData = reactive({
               if(detail.inParamTestCaseDataConfigJson){
                 let inParamTestCaseDataConfigJsonObj = JSON.parse(detail.inParamTestCaseDataConfigJson)
                 r = inParamTestCaseDataConfigJsonObj.inParamTestCases
+                console.log(r)
               }
               return Promise.resolve(r)
             })

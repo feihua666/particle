@@ -3,6 +3,8 @@ package com.particle.global.big.datasource.bigdatasource.executor;
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 在执行时缓存
@@ -32,7 +34,7 @@ public interface IBigDatasourceApiExecutorExeCache {
     void put(BigDatasourceApi bigDatasourceApi, Object command, String queryString, Object o);
 
     @Data
-    public static class CacheValue{
+    public static class CacheValue implements Serializable {
         private Object data;
         private Boolean isCacheHit;
 

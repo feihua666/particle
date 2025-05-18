@@ -120,11 +120,18 @@ const formComps = [
       formItemProps: {
         label: '请求地址',
         required: true,
-        tips: '必须返回地址字符串，data为请求参数句柄，queryString 为查询参数句柄,username和password为用户名和密码来源为数据源配置'
+        displayBlock: true,
+        tips: '必须返回地址字符串<br/>' +
+            'data为请求参数句柄<br/>' +
+            'queryString 为查询参数句柄<br/>' +
+            'username和password为用户名和密码来源为数据源配置<br/>' +
+            'authMap 为额外认证参数，在数据源认证脚本中设置后可使用'
       },
       compProps: {
         clearable: true,
-        placeholder: '如：/getUserList'
+        placeholder: '如：/getUserList',
+        type: 'textarea',
+        rows: 10
       }
     }
   },
@@ -158,7 +165,9 @@ defineExpose({
           :method="submitMethod"
           defaultButtonsShow="submit,reset"
           :submitAttrs="submitAttrs"
-          :layout="[3,1]"
+          labelWidth="150"
+          inline
+          :layout="[3,1,1]"
           :comps="formComps">
   </PtForm>
 </template>

@@ -142,7 +142,7 @@ export const useModuleFormComps = ({props}) => {
                 comp: 'el-input',
                 formItemProps: {
                     label: '模块名称',
-                    tips: '如：user 或 particle-demo，请不要使用大写',
+                    tips: '如：user 或 particle-project，请不要使用大写',
                     labelTips: '该值会自动放到全局变量中',
                     required: true
                 },

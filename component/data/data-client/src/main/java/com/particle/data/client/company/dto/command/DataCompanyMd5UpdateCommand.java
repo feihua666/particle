@@ -21,37 +21,24 @@ import lombok.Data;
 @Schema
 public class DataCompanyMd5UpdateCommand extends AbstractBaseUpdateCommand {
 
-
-
     @NotNull(message = "企业id 不能为空")
-        @Schema(description = "企业id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
-
-    @NotEmpty(message = "企业名称md5 不能为空")
-        @Schema(description = "企业名称md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业名称md5")
     private String nameMd5;
 
-
-    @NotEmpty(message = "统一社会信用代码md5 不能为空")
-        @Schema(description = "统一社会信用代码md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "统一社会信用代码md5")
     private String usccMd5;
-
 
     @Schema(description = "注册号md5")
     private String regNoMd5;
 
-
     @Schema(description = "组织机构代码md5")
     private String orgCodeMd5;
 
-
     @Schema(description = "英文名称md5")
     private String enNameMd5;
-
-
-
-
 
 
     /**

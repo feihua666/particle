@@ -12,6 +12,7 @@ import OutParamDocConfig from './apiconfigs/OutParamDocConfig.vue'
 import OutParamTransConfig from './apiconfigs/OutParamTransConfig.vue'
 import DictConfig from './apiconfigs/DictConfig.vue'
 import PageableAdapterConfig from './apiconfigs/PageableAdapterConfig.vue'
+import CacheConfig from './apiconfigs/CacheConfig.vue'
 
 
 const inParamExampleConfigRef = ref(null)
@@ -25,7 +26,8 @@ const outParamExtConfigRef = ref(null)
 const outParamDocConfigRef = ref(null)
 const outParamTransConfigRef = ref(null)
 const dictConfigRef = ref(null)
-const pageableAdapterConfigConfigRef = ref(null)
+const pageableAdapterConfigRef = ref(null)
+const cacheConfigRef = ref(null)
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
@@ -76,6 +78,9 @@ const reactiveData = reactive({
     dialogVisible: false,
   },
   pageableAdapterConfig:{
+    dialogVisible: false,
+  },
+  cacheConfig:{
     dialogVisible: false,
   },
 })
@@ -207,7 +212,7 @@ const dictConfigSubmit = ()=>{
 
 // 分页信息解析配置确认提交
 const pageableAdapterConfigSubmit = ()=>{
-  props.form.pageableAdapterConfigJson = toJsonStr(pageableAdapterConfigConfigRef.value.form)
+  props.form.pageableAdapterConfigJson = toJsonStr(pageableAdapterConfigRef.value.form)
   reactiveData.pageableAdapterConfig.dialogVisible=false;
 }
 
@@ -219,7 +224,20 @@ const pageableAdapterConfigDialogOpen = ()=>{
     pageableAdapterConfigRender.value = true
   })
 }
+// 缓存配置确认提交
+const cacheConfigSubmit = ()=>{
+  props.form.cacheConfigJson = toJsonStr(cacheConfigRef.value.form)
+  reactiveData.cacheConfig.dialogVisible=false;
+}
 
+// [Vue warn]: Failed to locate Teleport target with selector "#dataqueryDatasourceApicacheConfigDialogFooter". Note the target element must exist before the component is mounted - i.e. the target cannot be rendered by the component itself, and ideally should be outside of the entire Vue component tree.
+// 如上异常信息，如果不加控制表单中传送的按钮找不到目标位置，先让dialog渲染完成，再渲染内部表单即可
+const cacheConfigRender = ref(false)
+const cacheConfigDialogOpen = ()=>{
+  nextTick(()=>{
+    cacheConfigRender.value = true
+  })
+}
 // 暴露方法
 defineExpose({
   reactiveData
@@ -327,13 +345,23 @@ defineExpose({
   </el-dialog>
 
   <el-dialog  v-model="reactiveData.pageableAdapterConfig.dialogVisible" width="70%" title="分页信息解析配置Json" @open="pageableAdapterConfigDialogOpen" @closed="pageableAdapterConfigRender=false" append-to-body destroy-on-close>
-    <PageableAdapterConfig v-if="pageableAdapterConfigRender" ref="pageableAdapterConfigConfigRef" :initJsonStr="form.pageableAdapterConfigJson"
+    <PageableAdapterConfig v-if="pageableAdapterConfigRender" ref="pageableAdapterConfigRef" :initJsonStr="form.pageableAdapterConfigJson"
                         :onSubmit="pageableAdapterConfigSubmit"
                         :buttonsTeleportProps="{disabled: false,to: '#dataqueryDatasourceApipageableAdapterConfigDialogFooter'}">
     </PageableAdapterConfig>
     <template #footer>
       <!--   将表单按钮传送到这里   -->
       <div id="dataqueryDatasourceApipageableAdapterConfigDialogFooter"></div>
+    </template>
+  </el-dialog>
+  <el-dialog  v-model="reactiveData.cacheConfig.dialogVisible" width="70%" title="缓存配置Json" @open="cacheConfigDialogOpen" @closed="cacheConfigRender=false" append-to-body destroy-on-close>
+    <CacheConfig v-if="cacheConfigRender" ref="cacheConfigRef" :initJsonStr="form.cacheConfigJson"
+                 :onSubmit="cacheConfigSubmit"
+                 :buttonsTeleportProps="{disabled: false,to: '#dataqueryDatasourceApicacheConfigDialogFooter'}">
+    </CacheConfig>
+    <template #footer>
+      <!--   将表单按钮传送到这里   -->
+      <div id="dataqueryDatasourceApicacheConfigDialogFooter"></div>
     </template>
   </el-dialog>
 </template>

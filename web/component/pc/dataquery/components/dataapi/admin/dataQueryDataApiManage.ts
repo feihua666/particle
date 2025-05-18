@@ -14,6 +14,7 @@ import {
     pageableAdapterConfigJson
 } from "../../datasource/admin/dataQueryDatasourceApiManage";
 import {ElMessage} from 'element-plus'
+import {useSelectDataqueryProviderCompItem} from "../../dataqueryProviderCompItem";
 
 const alert = (message,type='success')=>{
   ElMessage({
@@ -147,6 +148,23 @@ export const pageFormItems = [
       compProps: {
         // 字典查询
         dictParam: {groupCode: 'dataquery_datasource_api_param_type'}
+      }
+    }
+  },
+  useSelectDataqueryProviderCompItem({}),
+  {
+    field: {
+      name: 'apiIdentifier',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '接口标识',
+
+      },
+      compProps: {
+        clearable: true,
+        placeholder: '精准匹配',
       }
     }
   },
@@ -429,6 +447,58 @@ export const useAddPageFormItems = ({form,formData,
         compProps: {
           activeText: '使用',
           inactiveText: '不使用',
+        }
+      }
+    },
+    useSelectDataqueryProviderCompItem({
+      required: false,
+      tips: '数据查询供应商,主要用于支持开放平台'
+    }),
+    {
+      field: {
+        name: 'apiIdentifier',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '接口标识',
+          tips: '主要用于支持开放平台，需和开放平台接口编码保持一致'
+
+        },
+        compProps: {
+          clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'apiVersion',
+      },
+      element: {
+        comp: 'el-input',
+        formItemProps: {
+          label: '接口版本标识',
+          tips: '主要用于支持开放平台'
+
+        },
+        compProps: {
+          clearable: true,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'isSupportWarehouse',
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '是否支持入库',
+          tips: '主要用于支持开放平台,用于入库逻辑处理',
+        },
+        compProps: {
+          activeText: '支持',
+          inactiveText: '不支持',
         }
       }
     },

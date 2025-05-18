@@ -28,6 +28,7 @@ const reactiveData = reactive({
     {
       prop: 'code',
       label: '编码',
+      showOverflowTooltip: true,
     },
 
     {

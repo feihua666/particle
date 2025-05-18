@@ -52,5 +52,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        <!-- jetcache 多级缓存 阿里开源 https://github.com/alibaba/jetcache -->
+        <!-- 暂用不到，先注释掉 添加时主要是实现数据查询数据源接口实现jdbc存储缓存-->
+        <!--<dependency>-->
+        <!--    <groupId>com.alicp.jetcache</groupId>-->
+        <!--    <artifactId>jetcache-starter-redis</artifactId>-->
+        <!--    <version>${jetcache.version}</version>-->
+        <!--</dependency>-->
+        <!-- 依赖数据源,在启用多实例时，使用jdbc支持，以实现jdbc缓存数据，主要是实现数据查询数据源接口实现jdbc存储缓存-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-datasource-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -70,6 +70,8 @@ export const dataMethodProps: DataMethodProps = {
                         p = success.data
                         data = success.data.data
                     }
+                }else {
+                    data = success
                 }
 
                 if(convertToTree && isArray(data)){

@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 /**
  * <p>
  * 开放接口文档接口后台管理pc或平板端前端适配器
@@ -89,5 +90,4 @@ public class OpenplatformDocApiAdminWebController extends AbstractBaseWebAdapter
 	public PageResponse<OpenplatformDocApiVO> pageQueryList(OpenplatformDocApiPageQueryCommand openplatformDocApiPageQueryCommand){
 		return iOpenplatformDocApiRepresentationApplicationService.pageQuery(openplatformDocApiPageQueryCommand);
 	}
-
 }

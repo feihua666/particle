@@ -146,6 +146,11 @@ public class DataQueryDatasourceApiDO extends BaseDO {
 	 */
 	private Boolean isUseCache;
 
+	/**
+	 * 缓存配置json
+	 */
+	private String cacheConfigJson;
+
     /**
     * 等同标签，如果两个api的入参和出参相同，对接口打一个标签，同时另一个相同的接口打同样的标签，以代表两个接口相同
     */

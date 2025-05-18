@@ -120,6 +120,14 @@ public class JdbcBigDatasource extends AbstractBigDatasource {
 	}
 
 	/**
+	 * 移除数据源
+	 * @param dataSourceName
+	 */
+	public void removeDataSource(String dataSourceName) {
+		dynamicRoutingDataSource.removeDataSource(dataSourceName);
+	}
+
+	/**
 	 * 根据自定义配置添加数据源
 	 * @param dataSourceName
 	 * @param jdbcBigDatasourceConfig

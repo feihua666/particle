@@ -5,7 +5,7 @@
    因为在生成对应的实体时，如果使用小写boolean类型，在json框架一般是根据get方法获取字段（Gson除外，没有这个问题），如果为小写boolean类型isDelete,则get方法和字段名会相同，导致区分不开真正的字段。  
    本项目中仍然使用is开关的数据库字段，因为实体都使用包装类型Boolean，其get方法不是is开关，并无此问题，方便前端判断类型。本项目一般局部变量用小写boolean，
    对象属性用大写包装类型Boolean。
-3. maven 指定模块打包 clean install -pl ./project/particle-demo -amd -Dmaven.test.skip=true 注意 -amd参数否则不构建子项目，参考：https://blog.csdn.net/FYW_wu/article/details/114095629
+3. maven 指定模块打包 clean install -pl ./project/particle-project -amd -Dmaven.test.skip=true 注意 -amd参数否则不构建子项目，参考：https://blog.csdn.net/FYW_wu/article/details/114095629
 4. idea 将字符首字母转大写正则 参考：https://blog.csdn.net/qq_35634181/article/details/111034194
 5. 前端打包不同的环境需要修改 package.json 添加一个scripts 如："build-only-test": "vite build --mode test" 是从build-only修改而来且指定的环境参数
 6. shell if 判断 中括号内容两边必须带空格
@@ -18,7 +18,7 @@
    c. 参考 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory 大概531行（Object bean = resolveBeforeInstantiation(beanName, mbdToUse);）  
    d. 总结在定义Advisor接口对应的bean和BeanPostProcessor对应的bean时，需要单独使用配置类配置，否则可能导致整个大配置类过早实例化缺少全部BeanPostProcessor处理的机会    
 9. 关于分布式部署的注意事项，针对单机多实例部署或微服务部署  
-   a. 被 @sheduled 注解的方法需要加锁，可以继承 global-scheduler-boot-starter 模块中的 AbstractGlobalScheduler 使用 lockExecutor 加钞  
+   a. 被 @scheduled 注解的方法需要加锁，可以继承 global-scheduler-boot-starter 模块中的 AbstractGlobalScheduler 使用 lockExecutor 加钞  
    b. 如果使用 lockExecutor ，目前在分布式下需要添加 <artifactId>shedlock-provider-jdbc-template</artifactId>依赖，使用数据库方式支持,详细内容参考 global-concurrency-boot-starter模块下的 README.md 
    c. session,在 global-session-boot-starter 模块中依赖了 spring session，分布式中可以使用数据库或redis等，详见：global-session-boot-starter 模块的 README.md  
    d. mq,如果不与第三方系统mq交互，可以使用默认的local binder，否则需要配置对应的mq配置，可参见 global-messaging-boot-starter 模块的 README.md，及测试资源中的 application.yml配置  
@@ -37,7 +37,7 @@
    echo 'buildAdminWeb start'
    echo $WORKSPACE
    cd $WORKSPACE
-   cd web/project/particle-demo
+   cd web/project/particle-project
    npm install
    #  package.json 自定义 打包命令
    # build-only-test = 自定义测试环境，build-only = 自带的生产环境仅构建，build=自带的生产环境（包括语法检测，一般通过不了，建议 build-only）
@@ -48,39 +48,39 @@
    ```
    b. build
    ```shell
-    clean install -pl ./project/particle-demo -amd -Dmaven.test.skip=true -T 1C
+    clean install -pl ./project/particle-project -amd -Dmaven.test.skip=true -T 1C
    ```
    c. Post Steps 结合docker打镜像  
    c1. 执行 shell
    ```shell
    cd $WORKSPACE
-   cd project/particle-demo/particle-demo-start
+   cd project/particle-project/particle-project-start
    date=$(date +%F-%H%M)
    # 获取版本
    cd target
-   NAME=particle-demo-start
+   NAME=particle-project-start
    NAMEPREFIX=$NAME-
    JAR_NAME=`ls |grep ${NAMEPREFIX}|grep -v original`
    MAVEN_VERSION=${JAR_NAME##*$NAMEPREFIX}
    VERSION=${MAVEN_VERSION%.*}
    
    cd $WORKSPACE
-   echo "VERSION=$VERSION" > particle-demo.env-vars.txt
+   echo "VERSION=$VERSION" > particle-project.env-vars.txt
    
-   cd project/particle-demo/particle-demo-start
-   docker build -t harbor-test.xxxx.com/e-bdp/particle-demo:$VERSION  -f Dockerfile .
-   docker push harbor-test.xxxx.com/e-bdp/particle-demo:$VERSION
+   cd project/particle-project/particle-project-start
+   docker build -t harbor-test.xxxx.com/e-bdp/particle-project:$VERSION  -f Dockerfile .
+   docker push harbor-test.xxxx.com/e-bdp/particle-project:$VERSION
    ```
    c2. Send files or execute commands over SSH  
    选择 SSH Publishers  
-   Source files 配置 particle-demo.env-vars.txt  
+   Source files 配置 particle-project.env-vars.txt  
    c3. Execute shell script on remote host using ssh
    ```shell
    # 使环境变量生效，目前是添加构建时的版本
-   source /data/jenkins_ssh_server/particle-demo.env-vars.txt
+   source /data/jenkins_ssh_server/particle-project.env-vars.txt
 
-   docker rm -f particle-demo
-   docker pull harbor-test.xxxx.com/e-bdp/particle-demo:$VERSION
-   docker run -d --name  particle-demo   -e spring.profiles.active=test --net=host  --restart=always  harbor-test.xxxx.com/e-bdp/particle-demo:$VERSION
+   docker rm -f particle-project
+   docker pull harbor-test.xxxx.com/e-bdp/particle-project:$VERSION
+   docker run -d --name  particle-project   -e spring.profiles.active=test --net=host  --restart=always  harbor-test.xxxx.com/e-bdp/particle-project:$VERSION
 
    ```
