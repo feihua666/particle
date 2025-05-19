@@ -23,8 +23,7 @@ public class DataCompanyShareholderUpdateCommand extends AbstractBaseUpdateComma
 
 
 
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 

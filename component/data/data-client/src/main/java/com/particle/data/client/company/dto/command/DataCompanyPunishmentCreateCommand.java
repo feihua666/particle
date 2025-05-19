@@ -139,6 +139,9 @@ public class DataCompanyPunishmentCreateCommand extends AbstractBaseCommand {
     @Schema(description = "是否数据标识为信用中国")
     private Boolean isDataFlagXyzg;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyPunishmentCreateCommand createByWarehouseCommand(DataCompanyPunishmentWarehouseCommand dataCompanyPunishmentWarehouseCommand) {
         DataCompanyPunishmentCreateCommand command = new DataCompanyPunishmentCreateCommand();
@@ -170,6 +173,7 @@ public class DataCompanyPunishmentCreateCommand extends AbstractBaseCommand {
         command.remark = dataCompanyPunishmentWarehouseCommand.getRemark();
         command.isDataFlagGs = dataCompanyPunishmentWarehouseCommand.getIsDataFlagGs();
         command.isDataFlagXyzg = dataCompanyPunishmentWarehouseCommand.getIsDataFlagXyzg();
+        command.dataMd5 = dataCompanyPunishmentWarehouseCommand.obtainDataMd5();
 
         return command;
     }

@@ -142,8 +142,14 @@ public class DataCompanyPunishmentWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "是否数据标识为信用中国")
     private Boolean isDataFlagXyzg;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyPunishmentDataMd5(companyName, punishNo, punishContent);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyPunishmentDataMd5(companyName, punishNo, punishContent);
+        }
+        return dataMd5;
     }
 
     /**

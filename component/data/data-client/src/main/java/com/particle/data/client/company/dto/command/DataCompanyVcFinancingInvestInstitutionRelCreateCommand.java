@@ -23,12 +23,12 @@ public class DataCompanyVcFinancingInvestInstitutionRelCreateCommand extends Abs
 
 
     @NotNull(message = "企业融资表ID 不能为空")
-        @Schema(description = "企业融资表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业融资表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyVcFinancingId;
 
 
     @NotNull(message = "企业投资机构表id 不能为空")
-        @Schema(description = "企业投资机构表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业投资机构表id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyVcInvestInstitutionId;
 
 

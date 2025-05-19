@@ -25,7 +25,7 @@ public class DataCompanyPersonUpdateCommand extends AbstractBaseUpdateCommand {
 
 
     @NotEmpty(message = "姓名 不能为空")
-    @Schema(description = "姓名",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "姓名")
     private String name;
 
 

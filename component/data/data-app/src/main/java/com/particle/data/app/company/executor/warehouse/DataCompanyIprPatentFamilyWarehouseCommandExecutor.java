@@ -47,9 +47,21 @@ public class DataCompanyIprPatentFamilyWarehouseCommandExecutor extends Abstract
 			dataCompanyIprPatentFamilyExWarehouseVOSingleResponse = dataCompanyIprPatentFamilyExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndApplyNo(dataCompanyIprPatentFamilyWarehouseCommand.getCompanyIprPatentId(),applyNo);
 		}
 		if (dataCompanyIprPatentFamilyExWarehouseVOSingleResponse == null || dataCompanyIprPatentFamilyExWarehouseVOSingleResponse.getData() == null) {
+			String standardApplyNo = dataCompanyIprPatentFamilyWarehouseCommand.getStandardApplyNo();
+			if (StrUtil.isNotEmpty(standardApplyNo)) {
+				dataCompanyIprPatentFamilyExWarehouseVOSingleResponse = dataCompanyIprPatentFamilyExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndStandardApplyNo(dataCompanyIprPatentFamilyWarehouseCommand.getCompanyIprPatentId(),standardApplyNo);
+			}
+		}
+		if (dataCompanyIprPatentFamilyExWarehouseVOSingleResponse == null || dataCompanyIprPatentFamilyExWarehouseVOSingleResponse.getData() == null) {
 			String publicNo = dataCompanyIprPatentFamilyWarehouseCommand.getPublicNo();
 			if (StrUtil.isNotEmpty(publicNo)) {
 				dataCompanyIprPatentFamilyExWarehouseVOSingleResponse = dataCompanyIprPatentFamilyExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndPublicNo(dataCompanyIprPatentFamilyWarehouseCommand.getCompanyIprPatentId(),publicNo);
+			}
+		}
+		if (dataCompanyIprPatentFamilyExWarehouseVOSingleResponse == null || dataCompanyIprPatentFamilyExWarehouseVOSingleResponse.getData() == null) {
+			String standardPublicNo = dataCompanyIprPatentFamilyWarehouseCommand.getStandardPublicNo();
+			if (StrUtil.isNotEmpty(standardPublicNo)) {
+				dataCompanyIprPatentFamilyExWarehouseVOSingleResponse = dataCompanyIprPatentFamilyExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndStandardPublicNo(dataCompanyIprPatentFamilyWarehouseCommand.getCompanyIprPatentId(),standardPublicNo);
 			}
 		}
 

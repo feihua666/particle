@@ -9,7 +9,7 @@ CREATE TABLE `component_data_company_annual_report_website` (
   `type_name` varchar(100) DEFAULT NULL COMMENT '类型名称，如：网站、网店',
   `name` varchar(100) DEFAULT NULL COMMENT '名称',
   `url` varchar(300) NOT NULL COMMENT '网址',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,type_name + name + url',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,type_name + name + url',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -52,9 +52,16 @@ public class DataCompanyRestrictHighConsumeWarehouseCommand extends AbstractBase
     @Schema(description = "执行法院名称")
     private String executeCourtName;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyRestrictHighConsumeDataMd5(caseNo,fileCaseDate,publishDate,executeCourtName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyRestrictHighConsumeDataMd5(caseNo,fileCaseDate,publishDate,executeCourtName);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

@@ -63,9 +63,16 @@ public class DataCompanyIprPatentTransferWarehouseCommand extends AbstractBaseCo
     @Schema(description = "变更生效日期")
     private LocalDate changeEffectiveDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentTransferDataMd5(transferType, dept, changeBeforeRightHolder, changeAfterRightHolder, currentRightHolder);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentTransferDataMd5(transferType, dept, changeBeforeRightHolder, changeAfterRightHolder, currentRightHolder);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

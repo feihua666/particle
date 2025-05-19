@@ -4,7 +4,7 @@ CREATE TABLE `component_data_company_open_court_announcement_content` (
   `id` bigint NOT NULL COMMENT '主键ID',
   `company_open_court_announcement_id` bigint DEFAULT NULL COMMENT '企业开庭公告id',
   `content` longtext COMMENT '公告内容',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,content',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,content',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -25,22 +26,22 @@ public class DataCompanyAnnualReportEquityChangeCreateCommand extends AbstractBa
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
     @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyAnnualReportId;
 
 
     @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer year;
 
 
 
-        @Schema(description = "序号")
+    @Schema(description = "序号")
     private Integer serialNumber;
 
 
@@ -71,6 +72,9 @@ public class DataCompanyAnnualReportEquityChangeCreateCommand extends AbstractBa
     @Schema(description = "变更日期")
     private LocalDate changeDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyAnnualReportEquityChangeCreateCommand createByWarehouseCommand(DataCompanyAnnualReportEquityChangeWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportEquityChangeCreateCommand command = new DataCompanyAnnualReportEquityChangeCreateCommand();
@@ -85,6 +89,7 @@ public class DataCompanyAnnualReportEquityChangeCreateCommand extends AbstractBa
         command.percentBefore = dataCompanyBasicWarehouseCommand.getPercentBefore();
         command.percentAfter = dataCompanyBasicWarehouseCommand.getPercentAfter();
         command.changeDate = dataCompanyBasicWarehouseCommand.getChangeDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

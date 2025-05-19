@@ -58,9 +58,16 @@ public class DataCompanyIprPatentLegalStatusWarehouseCommand extends AbstractBas
     @Schema(description = "法律状态日期")
     private LocalDate legalStatusDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentLegalStatusDataMd5(legalStatusName,legalStatusDetail,legalStatusDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentLegalStatusDataMd5(legalStatusName,legalStatusDetail,legalStatusDate);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

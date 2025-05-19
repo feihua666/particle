@@ -24,22 +24,22 @@ public class DataCompanyAnnualReportWebsiteCreateCommand extends AbstractBaseCom
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
     @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyAnnualReportId;
 
 
     @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer year;
 
 
     @NotNull(message = "类型 不能为空")
-        @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long typeDictId;
 
 	@Schema(description = "类型名称，如：网站、网店")
@@ -51,9 +51,13 @@ public class DataCompanyAnnualReportWebsiteCreateCommand extends AbstractBaseCom
 
 
     @NotEmpty(message = "网址 不能为空")
-        @Schema(description = "网址",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "网址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String url;
 
+
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyAnnualReportWebsiteCreateCommand createByWarehouseCommand(DataCompanyAnnualReportWebsiteWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportWebsiteCreateCommand command = new DataCompanyAnnualReportWebsiteCreateCommand();
@@ -64,6 +68,7 @@ public class DataCompanyAnnualReportWebsiteCreateCommand extends AbstractBaseCom
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
         command.name = dataCompanyBasicWarehouseCommand.getName();
         command.url = dataCompanyBasicWarehouseCommand.getUrl();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

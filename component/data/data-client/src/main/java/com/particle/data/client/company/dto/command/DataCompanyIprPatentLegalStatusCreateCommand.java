@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -55,6 +56,10 @@ public class DataCompanyIprPatentLegalStatusCreateCommand extends AbstractBaseCo
     @Schema(description = "法律状态日期")
     private LocalDate legalStatusDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyIprPatentLegalStatusCreateCommand createByWarehouseCommand(DataCompanyIprPatentLegalStatusWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyIprPatentLegalStatusCreateCommand command = new DataCompanyIprPatentLegalStatusCreateCommand();
         command.companyIprPatentId = dataCompanyBasicWarehouseCommand.getCompanyIprPatentId();
@@ -67,6 +72,7 @@ public class DataCompanyIprPatentLegalStatusCreateCommand extends AbstractBaseCo
         command.legalStatusDetailEn = dataCompanyBasicWarehouseCommand.getLegalStatusDetailEn();
         command.legalStatusDetailCn = dataCompanyBasicWarehouseCommand.getLegalStatusDetailCn();
         command.legalStatusDate = dataCompanyBasicWarehouseCommand.getLegalStatusDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

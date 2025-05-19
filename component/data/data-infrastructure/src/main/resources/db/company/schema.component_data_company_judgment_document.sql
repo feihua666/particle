@@ -17,7 +17,7 @@ CREATE TABLE `component_data_company_judgment_document` (
   `document_type_name` varchar(100) DEFAULT NULL COMMENT '文书类型名称',
   `document_publish_date` date DEFAULT NULL COMMENT '文书发布日期',
   `document_publish_title` varchar(255) DEFAULT NULL COMMENT '文书发布标题，案件名称',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + case_reason + case_judge_date + case_trial_procedure + case_type_name + document_type_name',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + case_reason + case_judge_date + case_trial_procedure + case_type_name + document_type_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

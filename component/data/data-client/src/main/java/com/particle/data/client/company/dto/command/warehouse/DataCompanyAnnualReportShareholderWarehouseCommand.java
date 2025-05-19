@@ -93,9 +93,14 @@ public class DataCompanyAnnualReportShareholderWarehouseCommand extends Abstract
     @Schema(description = "实缴出资日期")
     private LocalDate actualCapitalDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
 
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyAnnualReportShareholderDataMd5(shareholderName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportShareholderDataMd5(shareholderName);
+        }
+        return dataMd5;
     }
 
 

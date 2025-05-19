@@ -24,7 +24,7 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
@@ -33,12 +33,12 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
 
 
     @NotEmpty(message = "列入原因 不能为空")
-        @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
     private String putReason;
 
 
     @NotNull(message = "列入日期 不能为空")
-        @Schema(description = "列入日期",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入日期",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate putDate;
 
 
@@ -65,6 +65,10 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
     @Schema(description = "作出移除决定机关名称")
     private String removeInstituteName;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanySeriousIllegalCreateCommand createByWarehouseCommand(DataCompanySeriousIllegalWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanySeriousIllegalCreateCommand command = new DataCompanySeriousIllegalCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
@@ -77,6 +81,7 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();
         command.removeInstituteName = dataCompanyBasicWarehouseCommand.getRemoveInstituteName();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

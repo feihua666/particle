@@ -73,10 +73,16 @@ public class DataCompanyAnnualReportEquityChangeWarehouseCommand extends Abstrac
     @Schema(description = "变更日期")
     private LocalDate changeDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
 
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyAnnualReportEquityDataMd5(shareholderName, percentBefore, percentAfter, changeDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportEquityDataMd5(shareholderName, percentBefore, percentAfter, changeDate);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

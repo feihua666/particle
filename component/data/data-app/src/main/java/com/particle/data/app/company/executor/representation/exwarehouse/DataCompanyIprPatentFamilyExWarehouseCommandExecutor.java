@@ -75,11 +75,37 @@ public class DataCompanyIprPatentFamilyExWarehouseCommandExecutor extends Abstra
 	}
 	/**
 	 * 企业知识产权专利同族信息出库
+	 * @param standardApplyNo
+	 * @return
+	 */
+	public SingleResponse<DataCompanyIprPatentFamilyExWarehouseVO> exWarehouseByCompanyIprPatentIdAndStandardApplyNo(Long companyIprPatentId,String standardApplyNo) {
+		DataCompanyIprPatentFamilyDO dataCompanyIprPatentFamilyDO = iDataCompanyIprPatentFamilyService.getByCompanyIprPatentIdAndStandardApplyNo(companyIprPatentId,standardApplyNo);
+		if (dataCompanyIprPatentFamilyDO == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		}
+		DataCompanyIprPatentFamilyExWarehouseVO dataCompanyIprPatentFamilyExWarehouseVO = DataCompanyIprPatentFamilyAppStructMapping.instance.dataCompanyIprPatentFamilyDOToDataCompanyIprPatentFamilyExWarehouseVO(dataCompanyIprPatentFamilyDO);
+		return SingleResponse.of(dataCompanyIprPatentFamilyExWarehouseVO);
+	}
+	/**
+	 * 企业知识产权专利同族信息出库
 	 * @param publicNo
 	 * @return
 	 */
 	public SingleResponse<DataCompanyIprPatentFamilyExWarehouseVO> exWarehouseByCompanyIprPatentIdAndPublicNo(Long companyIprPatentId,String publicNo) {
 		DataCompanyIprPatentFamilyDO dataCompanyIprPatentFamilyDO = iDataCompanyIprPatentFamilyService.getByCompanyIprPatentIdAndPublicNo(companyIprPatentId,publicNo);
+		if (dataCompanyIprPatentFamilyDO == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		}
+		DataCompanyIprPatentFamilyExWarehouseVO dataCompanyIprPatentFamilyExWarehouseVO = DataCompanyIprPatentFamilyAppStructMapping.instance.dataCompanyIprPatentFamilyDOToDataCompanyIprPatentFamilyExWarehouseVO(dataCompanyIprPatentFamilyDO);
+		return SingleResponse.of(dataCompanyIprPatentFamilyExWarehouseVO);
+	}
+	/**
+	 * 企业知识产权专利同族信息出库
+	 * @param standardPublicNo
+	 * @return
+	 */
+	public SingleResponse<DataCompanyIprPatentFamilyExWarehouseVO> exWarehouseByCompanyIprPatentIdAndStandardPublicNo(Long companyIprPatentId,String standardPublicNo) {
+		DataCompanyIprPatentFamilyDO dataCompanyIprPatentFamilyDO = iDataCompanyIprPatentFamilyService.getByCompanyIprPatentIdAndStandardPublicNo(companyIprPatentId,standardPublicNo);
 		if (dataCompanyIprPatentFamilyDO == null) {
 			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		}

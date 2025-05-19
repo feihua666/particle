@@ -49,6 +49,10 @@ public class DataCompanyAnnualReportAdministrativeLicenseCreateCommand extends A
     @Schema(description = "许可文件到期日期")
     private LocalDate validToDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyAnnualReportAdministrativeLicenseCreateCommand createByWarehouseCommand(DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportAdministrativeLicenseCreateCommand command = new DataCompanyAnnualReportAdministrativeLicenseCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
@@ -57,6 +61,7 @@ public class DataCompanyAnnualReportAdministrativeLicenseCreateCommand extends A
         command.serialNumber = dataCompanyBasicWarehouseCommand.getSerialNumber();
         command.fileName = dataCompanyBasicWarehouseCommand.getFileName();
         command.validToDate = dataCompanyBasicWarehouseCommand.getValidToDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

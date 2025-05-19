@@ -11,7 +11,7 @@ CREATE TABLE `component_data_company_court_announcement` (
   `publish_page` varchar(50) DEFAULT NULL COMMENT '刊登板面页码',
   `publish_page_date` date DEFAULT NULL COMMENT '刊登板面日期',
   `publish_date` date DEFAULT NULL COMMENT '发布日期',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,announcement_no + announcement_type + case_no + case_reason + publish_date',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,announcement_no + announcement_type + case_no + case_reason + publish_date',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

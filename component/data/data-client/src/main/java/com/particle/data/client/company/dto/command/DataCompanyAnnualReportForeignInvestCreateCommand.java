@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -24,22 +25,22 @@ public class DataCompanyAnnualReportForeignInvestCreateCommand extends AbstractB
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
     @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyAnnualReportId;
 
 
     @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer year;
 
 
 
-        @Schema(description = "序号")
+    @Schema(description = "序号")
     private Integer serialNumber;
 
 
@@ -64,6 +65,9 @@ public class DataCompanyAnnualReportForeignInvestCreateCommand extends AbstractB
     @Schema(description = "对外投资金额币种")
     private Long investAmountCurrencyDictId;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyAnnualReportForeignInvestCreateCommand createByWarehouseCommand(DataCompanyAnnualReportForeignInvestWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportForeignInvestCreateCommand command = new DataCompanyAnnualReportForeignInvestCreateCommand();
@@ -77,6 +81,7 @@ public class DataCompanyAnnualReportForeignInvestCreateCommand extends AbstractB
         command.investPercent = dataCompanyBasicWarehouseCommand.getInvestPercent();
         command.investAmount = dataCompanyBasicWarehouseCommand.getInvestAmount();
         command.investAmountCurrencyDictId = dataCompanyBasicWarehouseCommand.getInvestAmountCurrencyDictId();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

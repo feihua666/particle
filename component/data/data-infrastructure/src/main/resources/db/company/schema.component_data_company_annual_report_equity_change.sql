@@ -13,7 +13,7 @@ CREATE TABLE `component_data_company_annual_report_equity_change` (
   `percent_before` decimal(11,2) DEFAULT NULL COMMENT '变更前比例',
   `percent_after` decimal(11,2) DEFAULT NULL COMMENT '变更后比例',
   `change_date` date DEFAULT NULL COMMENT '变更日期',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,shareholder_name + percent_before + percent_after + change_date',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,shareholder_name + percent_before + percent_after + change_date',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

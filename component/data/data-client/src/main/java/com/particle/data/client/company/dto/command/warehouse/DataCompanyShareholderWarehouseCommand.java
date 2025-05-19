@@ -109,9 +109,16 @@ public class DataCompanyShareholderWarehouseCommand extends AbstractBaseCommand 
     @Schema(description = "最新年报股东年份")
     private Integer yearReportLatestPublicYear;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyShareholderDataMd5(shareholderName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyShareholderDataMd5(shareholderName);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

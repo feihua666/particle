@@ -1,8 +1,10 @@
+import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiDataApiQueryCommandExecutor
 import com.particle.global.openapi.endpoint.command.OpenapiCommand
 import com.particle.global.openapi.endpoint.command.OpenapiWarehouseCommand
+import com.particle.global.tool.spring.SpringContextHolder
 
 def param = data
-
+def dataQueryDataApiDataApiQueryCommandExecutor = SpringContextHolder.getBean(DataQueryDataApiDataApiQueryCommandExecutor.class)
 // 查询
 if (param instanceof OpenapiCommand) {
     return doOpenapiCommand(param)

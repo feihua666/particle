@@ -9,7 +9,7 @@ CREATE TABLE `component_data_company_restrict_high_consume` (
   `publish_date` date DEFAULT NULL COMMENT '发布日期',
   `execute_court_company_id` bigint DEFAULT NULL COMMENT '执行法院公司id',
   `execute_court_name` varchar(150) DEFAULT NULL COMMENT '执行法院名称，冗余公司名称',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + file_case_date + publish_date + execute_court_name',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + file_case_date + publish_date + execute_court_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

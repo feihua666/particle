@@ -64,8 +64,14 @@ public class DataCompanyAnnualReportChangeWarehouseCommand extends AbstractBaseC
     @Schema(description = "变更日期")
     private LocalDate changeDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyAnnualReportChangeDataMd5(changeItemName, contentBefore, contentAfter, changeDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportChangeDataMd5(changeItemName, contentBefore, contentAfter, changeDate);
+        }
+        return dataMd5;
     }
 
     /**

@@ -60,8 +60,14 @@ public class DataCompanyOpenCourtAnnouncementWarehouseCommand extends AbstractBa
     @Schema(description = "观看链接/视频链接")
     private String videoUrl;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyOpenCourtAnnouncementDataMd5(caseNo, caseReason, openDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyOpenCourtAnnouncementDataMd5(caseNo, caseReason, openDate);
+        }
+        return dataMd5;
     }
 
     /**

@@ -136,6 +136,10 @@ public class DataQueryDataApiVO extends AbstractBaseIdVO {
 	@Schema(description = "数据查询供应商id,用于支持开放接口")
 	private Long dataQueryProviderId;
 
+    @TransBy(tableName = TransTableNameConstants.component_data_query_provider, byFieldName = "dataQueryProviderId", mapValueField = "name")
+    @Schema(description = "数据查询供应商名称")
+    private String dataQueryProviderName;
+
 	@Schema(description = "接口标识，一般与url对等,用于支持开放接口")
 	private String apiIdentifier;
 

@@ -24,8 +24,7 @@ public class DataCompanySeriousIllegalUpdateCommand extends AbstractBaseUpdateCo
 
 
 
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 
@@ -33,13 +32,11 @@ public class DataCompanySeriousIllegalUpdateCommand extends AbstractBaseUpdateCo
     private String type;
 
 
-    @NotEmpty(message = "列入原因 不能为空")
-        @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入原因")
     private String putReason;
 
 
-    @NotNull(message = "列入日期 不能为空")
-        @Schema(description = "列入日期",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入日期")
     private LocalDate putDate;
 
 

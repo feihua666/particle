@@ -95,8 +95,14 @@ public class DataCompanyVcInvestInstitutionWarehouseCommand extends AbstractBase
     @Schema(description = "机构介绍")
     private String description;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyVcInvestInstitutionDataMd5(name,enName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyVcInvestInstitutionDataMd5(name,enName);
+        }
+        return dataMd5;
     }
 
     /**

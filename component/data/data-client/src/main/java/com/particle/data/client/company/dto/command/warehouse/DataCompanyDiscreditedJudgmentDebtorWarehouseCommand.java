@@ -128,9 +128,16 @@ public class DataCompanyDiscreditedJudgmentDebtorWarehouseCommand extends Abstra
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyDiscreditedJudgmentDebtorDataMd5(caseNo,dishonestExecutedPersonName,obligation,performance);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyDiscreditedJudgmentDebtorDataMd5(caseNo,dishonestExecutedPersonName,obligation,performance);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

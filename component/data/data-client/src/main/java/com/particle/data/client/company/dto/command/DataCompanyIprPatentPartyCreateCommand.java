@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -21,13 +22,12 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand {
 
 
-
     @NotNull(message = "企业知识产权专利表id 不能为空")
-        @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
-
-    @Schema(description = "当事人名称原始名称")
+    @NotEmpty(message = "当事人名称原始名称 不能为空")
+    @Schema(description = "当事人名称原始名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String partyName;
 
 
@@ -51,47 +51,49 @@ public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand 
     private Long partyCompanyPersonId;
 
 
-    @Schema(description = "是否申请人")
+    @NotNull(message = "是否申请人 不能为空")
+    @Schema(description = "是否申请人",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isApplicant;
 
-
-    @Schema(description = "是否发明人")
+    @NotNull(message = "是否发明人 不能为空")
+    @Schema(description = "是否发明人",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isInvent;
 
-
-    @Schema(description = "是否代理人")
+    @NotNull(message = "是否代理人 不能为空")
+    @Schema(description = "是否代理人",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isAgent;
 
-
-    @Schema(description = "是否代理机构")
+    @NotNull(message = "是否代理机构 不能为空")
+    @Schema(description = "是否代理机构",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isAgency;
 
-
-    @Schema(description = "是否审查员")
+    @NotNull(message = "是否审查员 不能为空")
+    @Schema(description = "是否审查员",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isExaminer;
 
-
-    @Schema(description = "是否权利人")
+    @NotNull(message = "是否权利人 不能为空")
+    @Schema(description = "是否权利人",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isRight;
 
-
-    @Schema(description = "是否当前权利人")
+    @NotNull(message = "是否当前权利人 不能为空")
+    @Schema(description = "是否当前权利人",requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean isCurrentRight;
-
 
     @Schema(description = "地址")
     private String address;
 
-
     @Schema(description = "区域编码")
     private String areaCode;
-
 
     @Schema(description = "类型")
     private String typeName;
 
 	@Schema(description = "代码，主要是代理机构代码")
 	private String code;
+
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyIprPatentPartyCreateCommand createByWarehouseCommand(DataCompanyIprPatentPartyWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyIprPatentPartyCreateCommand command = new DataCompanyIprPatentPartyCreateCommand();
@@ -112,6 +114,8 @@ public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand 
         command.address = dataCompanyBasicWarehouseCommand.getAddress();
         command.areaCode = dataCompanyBasicWarehouseCommand.getAreaCode();
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
+        command.code = dataCompanyBasicWarehouseCommand.getCode();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

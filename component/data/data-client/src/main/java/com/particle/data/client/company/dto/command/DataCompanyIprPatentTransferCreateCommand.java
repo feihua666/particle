@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentTransferWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -62,6 +63,9 @@ public class DataCompanyIprPatentTransferCreateCommand extends AbstractBaseComma
     @Schema(description = "变更生效日期")
     private LocalDate changeEffectiveDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyIprPatentTransferCreateCommand createByWarehouseCommand(DataCompanyIprPatentTransferWarehouseCommand dataCompanyIprPatentTransferWarehouseCommand){
         DataCompanyIprPatentTransferCreateCommand command = new DataCompanyIprPatentTransferCreateCommand();
@@ -75,6 +79,7 @@ public class DataCompanyIprPatentTransferCreateCommand extends AbstractBaseComma
         command.currentRightHolder = dataCompanyIprPatentTransferWarehouseCommand.getCurrentRightHolder();
         command.currentAddress = dataCompanyIprPatentTransferWarehouseCommand.getCurrentAddress();
         command.changeEffectiveDate = dataCompanyIprPatentTransferWarehouseCommand.getChangeEffectiveDate();
+        command.dataMd5 = dataCompanyIprPatentTransferWarehouseCommand.obtainDataMd5();
 
         return command;
     }

@@ -58,6 +58,20 @@ public interface IDataCompanyIprPatentQuoteService extends IBaseService<DataComp
         );
     }
     /**
+     * 根据 专利id 和 标准申请号 查询
+     * @param companyIprPatentId
+     * @param standardApplyNo
+     * @return
+     */
+    default public DataCompanyIprPatentQuoteDO getByCompanyIprPatentIdAndStandardApplyNo(Long companyIprPatentId,String standardApplyNo) {
+        Assert.notNull(companyIprPatentId,"companyIprPatentId 不能为空");
+        Assert.notEmpty(standardApplyNo,"standardApplyNo 不能为空");
+        return getOne(Wrappers.<DataCompanyIprPatentQuoteDO>lambdaQuery()
+                .eq(DataCompanyIprPatentQuoteDO::getCompanyIprPatentId, companyIprPatentId)
+                .eq(DataCompanyIprPatentQuoteDO::getStandardApplyNo, standardApplyNo)
+        );
+    }
+    /**
      * 根据 专利id 和 原始公布号 查询
      * @param companyIprPatentId
      * @param publicNo
@@ -71,7 +85,20 @@ public interface IDataCompanyIprPatentQuoteService extends IBaseService<DataComp
                 .eq(DataCompanyIprPatentQuoteDO::getPublicNo, publicNo)
         );
     }
-
+    /**
+     * 根据 专利id 和 标准公布号 查询
+     * @param companyIprPatentId
+     * @param standardPublicNo
+     * @return
+     */
+    default public DataCompanyIprPatentQuoteDO getByCompanyIprPatentIdAndStandardPublicNo(Long companyIprPatentId,String standardPublicNo) {
+        Assert.notNull(companyIprPatentId,"companyIprPatentId 不能为空");
+        Assert.notEmpty(standardPublicNo,"standardPublicNo 不能为空");
+        return getOne(Wrappers.<DataCompanyIprPatentQuoteDO>lambdaQuery()
+                .eq(DataCompanyIprPatentQuoteDO::getCompanyIprPatentId, companyIprPatentId)
+                .eq(DataCompanyIprPatentQuoteDO::getStandardPublicNo, standardPublicNo)
+        );
+    }
     /**
      * 更新最后处理时间
      * @param id

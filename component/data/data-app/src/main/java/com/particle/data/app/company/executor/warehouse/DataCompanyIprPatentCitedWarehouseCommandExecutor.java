@@ -47,9 +47,21 @@ public class DataCompanyIprPatentCitedWarehouseCommandExecutor extends AbstractB
 			dataCompanyIprPatentCitedExWarehouseVOSingleResponse = dataCompanyIprPatentCitedExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndApplyNo(dataCompanyIprPatentCitedWarehouseCommand.getCompanyIprPatentId(),applyNo);
 		}
 		if (dataCompanyIprPatentCitedExWarehouseVOSingleResponse == null || dataCompanyIprPatentCitedExWarehouseVOSingleResponse.getData() == null) {
+			String standardApplyNo = dataCompanyIprPatentCitedWarehouseCommand.getStandardApplyNo();
+			if (StrUtil.isNotEmpty(standardApplyNo)) {
+				dataCompanyIprPatentCitedExWarehouseVOSingleResponse = dataCompanyIprPatentCitedExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndStandardApplyNo(dataCompanyIprPatentCitedWarehouseCommand.getCompanyIprPatentId(),standardApplyNo);
+			}
+		}
+		if (dataCompanyIprPatentCitedExWarehouseVOSingleResponse == null || dataCompanyIprPatentCitedExWarehouseVOSingleResponse.getData() == null) {
 			String publicNo = dataCompanyIprPatentCitedWarehouseCommand.getPublicNo();
 			if (StrUtil.isNotEmpty(publicNo)) {
 				dataCompanyIprPatentCitedExWarehouseVOSingleResponse = dataCompanyIprPatentCitedExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndPublicNo(dataCompanyIprPatentCitedWarehouseCommand.getCompanyIprPatentId(),publicNo);
+			}
+		}
+		if (dataCompanyIprPatentCitedExWarehouseVOSingleResponse == null || dataCompanyIprPatentCitedExWarehouseVOSingleResponse.getData() == null) {
+			String standardPublicNo = dataCompanyIprPatentCitedWarehouseCommand.getStandardPublicNo();
+			if (StrUtil.isNotEmpty(standardPublicNo)) {
+				dataCompanyIprPatentCitedExWarehouseVOSingleResponse = dataCompanyIprPatentCitedExWarehouseCommandExecutor.exWarehouseByCompanyIprPatentIdAndStandardPublicNo(dataCompanyIprPatentCitedWarehouseCommand.getCompanyIprPatentId(),standardPublicNo);
 			}
 		}
 		dataCompanyIprPatentCitedExWarehouseVO = dataCompanyIprPatentCitedExWarehouseVOSingleResponse == null ? null : dataCompanyIprPatentCitedExWarehouseVOSingleResponse.getData();

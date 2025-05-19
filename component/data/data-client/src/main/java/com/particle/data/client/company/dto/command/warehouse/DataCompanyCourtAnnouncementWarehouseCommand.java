@@ -57,9 +57,16 @@ public class DataCompanyCourtAnnouncementWarehouseCommand extends AbstractBaseCo
     @Schema(description = "发布日期")
     private LocalDate publishDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyCourtAnnouncementDataMd5(announcementNo, announcementType, caseNo, caseReason, publishDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyCourtAnnouncementDataMd5(announcementNo, announcementType, caseNo, caseReason, publishDate);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

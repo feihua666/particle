@@ -23,8 +23,8 @@ public class DataCompanyIprPatentStatisticUpdateCommand extends AbstractBaseUpda
 
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-        @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业知识产权专利表id")
     private Long companyIprPatentId;
 
 

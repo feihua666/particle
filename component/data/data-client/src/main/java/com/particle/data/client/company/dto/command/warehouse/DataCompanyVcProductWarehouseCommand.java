@@ -66,8 +66,14 @@ public class DataCompanyVcProductWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "融资金额（万元）")
     private BigDecimal amount;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyVcProductDataMd5(productName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyVcProductDataMd5(productName);
+        }
+        return dataMd5;
     }
 
     /**

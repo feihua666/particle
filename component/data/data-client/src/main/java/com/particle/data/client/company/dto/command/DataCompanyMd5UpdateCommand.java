@@ -21,8 +21,8 @@ import lombok.Data;
 @Schema
 public class DataCompanyMd5UpdateCommand extends AbstractBaseUpdateCommand {
 
-    @NotNull(message = "企业id 不能为空")
-    @Schema(description = "企业id",requiredMode = Schema.RequiredMode.REQUIRED)
+    
+    @Schema(description = "企业id")
     private Long companyId;
 
     @Schema(description = "企业名称md5")

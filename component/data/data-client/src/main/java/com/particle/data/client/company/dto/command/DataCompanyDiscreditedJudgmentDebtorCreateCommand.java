@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyDiscreditedJudgmentDebtorWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -124,6 +125,9 @@ public class DataCompanyDiscreditedJudgmentDebtorCreateCommand extends AbstractB
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyDiscreditedJudgmentDebtorCreateCommand createByWarehouseCommand(DataCompanyDiscreditedJudgmentDebtorWarehouseCommand dataCompanyDiscreditedJudgmentDebtorWarehouseCommand){
         DataCompanyDiscreditedJudgmentDebtorCreateCommand command = new DataCompanyDiscreditedJudgmentDebtorCreateCommand();
@@ -153,6 +157,7 @@ public class DataCompanyDiscreditedJudgmentDebtorCreateCommand extends AbstractB
         command.dishonestExecutedPersonBehavior = dataCompanyDiscreditedJudgmentDebtorWarehouseCommand.getDishonestExecutedPersonBehavior();
         command.executeAmount = dataCompanyDiscreditedJudgmentDebtorWarehouseCommand.getExecuteAmount();
         command.executeAmountCurrencyDictId = dataCompanyDiscreditedJudgmentDebtorWarehouseCommand.getExecuteAmountCurrencyDictId();
+        command.dataMd5 = dataCompanyDiscreditedJudgmentDebtorWarehouseCommand.obtainDataMd5();
 
 
         return command;

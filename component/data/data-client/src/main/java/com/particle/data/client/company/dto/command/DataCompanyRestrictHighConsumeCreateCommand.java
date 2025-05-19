@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -49,6 +50,9 @@ public class DataCompanyRestrictHighConsumeCreateCommand extends AbstractBaseCom
     @Schema(description = "执行法院名称")
     private String executeCourtName;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyRestrictHighConsumeCreateCommand createByWarehouseCommand(DataCompanyRestrictHighConsumeWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyRestrictHighConsumeCreateCommand command = new DataCompanyRestrictHighConsumeCreateCommand();
@@ -59,6 +63,8 @@ public class DataCompanyRestrictHighConsumeCreateCommand extends AbstractBaseCom
         command.publishDate = dataCompanyBasicWarehouseCommand.getPublishDate();
         command.executeCourtCompanyId = dataCompanyBasicWarehouseCommand.getExecuteCourtCompanyId();
         command.executeCourtName = dataCompanyBasicWarehouseCommand.getExecuteCourtName();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
+
 
         return command;
     }

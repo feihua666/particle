@@ -38,12 +38,12 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
 
 
     @NotEmpty(message = "列入原因 不能为空")
-        @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
     private String putReason;
 
 
     @NotNull(message = "列入日期 不能为空")
-        @Schema(description = "列入日期",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入日期",requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate putDate;
 
 
@@ -70,9 +70,16 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
     @Schema(description = "作出移除决定机关名称")
     private String removeInstituteName;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanySeriousIllegalDataMd5(type, putReason, putDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanySeriousIllegalDataMd5(type, putReason, putDate);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

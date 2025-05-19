@@ -25,13 +25,13 @@ public class DataCompanyIprPatentQuoteUpdateCommand extends AbstractBaseUpdateCo
 
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-        @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业知识产权专利表id")
     private Long companyIprPatentId;
 
 
     @NotEmpty(message = "原始申请号 不能为空")
-        @Schema(description = "原始申请号",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "原始申请号")
     private String applyNo;
 
 	@Schema(description = "标准申请号，如：CN101995000006852")

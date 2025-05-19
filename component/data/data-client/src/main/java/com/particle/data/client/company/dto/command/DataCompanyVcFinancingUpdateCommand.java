@@ -23,12 +23,8 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyVcFinan
 @Schema
 public class DataCompanyVcFinancingUpdateCommand extends AbstractBaseUpdateCommand {
 
-
-
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID")
     private Long companyId;
-
 
     @Schema(description = "公司产品id")
     private Long companyVcProductId;
@@ -36,21 +32,17 @@ public class DataCompanyVcFinancingUpdateCommand extends AbstractBaseUpdateComma
 	@Schema(description = "产品名称，冗余产品名称")
 	private String productName;
 
-
     @Schema(description = "融资轮次")
     private Long roundDictId;
 
 	@Schema(description = "融资轮次名称")
 	private String roundName;
 
-
     @Schema(description = "融资金额（万元）")
     private BigDecimal amount;
 
-
     @Schema(description = "融资金额币种")
     private Long amountCurrencyDictId;
-
 
     @Schema(description = "估值")
     private String valuation;

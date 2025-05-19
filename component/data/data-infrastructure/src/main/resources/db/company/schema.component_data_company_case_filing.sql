@@ -14,7 +14,7 @@ CREATE TABLE `component_data_company_case_filing` (
   `undertake_judger` varchar(150) DEFAULT NULL COMMENT '承办法官',
   `assistant` varchar(150) DEFAULT NULL COMMENT '法官助理',
   `case_trial_procedure` varchar(255) DEFAULT NULL COMMENT '案件审理程序，如： 民事再审',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + case_reason + execute_court_name + case_trial_procedure',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + case_reason + execute_court_name + case_trial_procedure',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

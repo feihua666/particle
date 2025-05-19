@@ -12,7 +12,7 @@ CREATE TABLE `component_data_company_ipr_patent_legal_status` (
   `legal_status_detail_en` varchar(500) DEFAULT NULL COMMENT '英文法律状态详情',
   `legal_status_detail_cn` varchar(500) DEFAULT NULL COMMENT '中文法律状态详情',
   `legal_status_date` date DEFAULT NULL COMMENT '法律状态日期',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,legal_status_name + legal_status_detail + legal_status_date',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,legal_status_name + legal_status_detail + legal_status_date',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

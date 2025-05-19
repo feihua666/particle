@@ -18,6 +18,9 @@ public class DataCompanyIprPatentListPageByCompanyIdParam extends DTO {
     @Schema(description = "企业id")
     private Long companyId;
 
+    @Schema(description = "是否申请人")
+    private Boolean isApplicant;
+
     @Schema(description = "是否发明人")
     private Boolean isInvent;
 
@@ -43,6 +46,7 @@ public class DataCompanyIprPatentListPageByCompanyIdParam extends DTO {
     private String publicNo;
 
     public static DataCompanyIprPatentListPageByCompanyIdParam create(Long companyId,
+                                                                      Boolean isApplicant,
                                                                       Boolean isInvent,
                                                                       Boolean isAgent,
                                                                       Boolean isAgency,
@@ -52,6 +56,7 @@ public class DataCompanyIprPatentListPageByCompanyIdParam extends DTO {
                                                                       String applyNo,String publicNo) {
         DataCompanyIprPatentListPageByCompanyIdParam dataCompanyCaseFilingListPageByCompanyIdParam = new DataCompanyIprPatentListPageByCompanyIdParam();
         dataCompanyCaseFilingListPageByCompanyIdParam.companyId = (companyId);
+        dataCompanyCaseFilingListPageByCompanyIdParam.isApplicant = (isApplicant);
         dataCompanyCaseFilingListPageByCompanyIdParam.isInvent = (isInvent);
         dataCompanyCaseFilingListPageByCompanyIdParam.isAgent = (isAgent);
         dataCompanyCaseFilingListPageByCompanyIdParam.isAgency = (isAgency);
@@ -65,6 +70,6 @@ public class DataCompanyIprPatentListPageByCompanyIdParam extends DTO {
     public static DataCompanyIprPatentListPageByCompanyIdParam create(Long companyId,
                                                                       String applyNo,String publicNo) {
 
-        return create(companyId,null,null,null,null,null,null,applyNo,publicNo);
+        return create(companyId,null,null,null,null,null,null,null,applyNo,publicNo);
     }
 }

@@ -11,7 +11,7 @@ CREATE TABLE `component_data_company_open_court_announcement` (
   `plan_date` date DEFAULT NULL COMMENT '排期日期',
   `presiding_judge` varchar(255) DEFAULT NULL COMMENT '审判长/主审人',
   `video_url` varchar(300) DEFAULT NULL COMMENT '观看链接/视频链接',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + case_reason + open_date',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + case_reason + open_date',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

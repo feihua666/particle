@@ -25,7 +25,6 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
     @Schema(description = "原始标题")
     private String title;
 
@@ -35,9 +34,7 @@ public class DataCompanyIprPatentUpdateCommand extends AbstractBaseUpdateCommand
 	@Schema(description = "英文标题")
 	private String titleEn;
 
-
-    @NotEmpty(message = "原始申请号 不能为空")
-        @Schema(description = "原始申请号",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "原始申请号")
     private String applyNo;
 
 	@Schema(description = "标准申请号")
@@ -131,9 +128,7 @@ public class DataCompanyIprPatentUpdateCommand extends AbstractBaseUpdateCommand
 	@Schema(description = "fterm分类号，File Term Search，专利检索的工具或方法分类号，多个以英文逗号分隔")
 	private String ftermNo;
 
-
-    @NotNull(message = "专利类型 不能为空")
-        @Schema(description = "专利类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "专利类型")
     private Long patentTypeDictId;
 
 

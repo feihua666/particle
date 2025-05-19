@@ -57,7 +57,9 @@ public class DataCompanyIprPatentExWarehouseQueryCommand extends AbstractBasePag
                                                                      Boolean isAgency,
                                                                      Boolean isExaminer,
                                                                      Boolean isRight,
-                                                                     Boolean isCurrentRight,String applyNo,String publicNo) {
+                                                                     Boolean isCurrentRight,
+                                                                     String applyNo,
+                                                                     String publicNo) {
         DataCompanyIprPatentExWarehouseQueryCommand command = new DataCompanyIprPatentExWarehouseQueryCommand();
         command.companyId = companyId;
         command.isApplicant = isApplicant;

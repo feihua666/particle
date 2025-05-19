@@ -24,23 +24,23 @@ public class DataCompanyAnnualReportShareholderUpdateCommand extends AbstractBas
 
 
 
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 
-    @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业年报表ID")
     private Long companyAnnualReportId;
 
 
-    @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "年报年度")
     private Integer year;
 
 
 
-        @Schema(description = "序号")
+    @Schema(description = "序号")
     private Integer serialNumber;
 
 

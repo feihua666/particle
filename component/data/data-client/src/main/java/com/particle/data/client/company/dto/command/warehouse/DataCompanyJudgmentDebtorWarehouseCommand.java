@@ -76,9 +76,16 @@ public class DataCompanyJudgmentDebtorWarehouseCommand extends AbstractBaseComma
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyJudgmentDebtorDataMd5(caseNo,executedPersonName,fileCaseDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyJudgmentDebtorDataMd5(caseNo,executedPersonName,fileCaseDate);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

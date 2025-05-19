@@ -28,7 +28,7 @@ CREATE TABLE `component_data_company_discredited_judgment_debtor` (
   `dishonest_executed_person_behavior` varchar(500) DEFAULT NULL COMMENT '失信被执行人行为具体情形，如：违反财产报告制度',
   `execute_amount` decimal(16,5) DEFAULT NULL COMMENT '执行标的金额(万元)',
   `execute_amount_currency_dict_id` bigint DEFAULT NULL COMMENT '执行标的金额币种，字典id，如：人民币',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + dishonest_executed_person_name + obligation + performance',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + dishonest_executed_person_name + obligation + performance',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -31,7 +31,7 @@ CREATE TABLE `component_data_company_punishment` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注，（工商公示）',
   `is_data_flag_gs` tinyint(1) DEFAULT NULL COMMENT '是否数据标识为工商公示，1=工商公示，0=非工商公示',
   `is_data_flag_xyzg` tinyint(1) DEFAULT NULL COMMENT '是否数据标识为信用中国，1=信用中国，0=非信用中国',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,company_name + punish_no + punish_content',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,company_name + punish_no + punish_content',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

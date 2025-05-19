@@ -43,10 +43,8 @@ public class DataCompanyIprPatentWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "标准申请号")
     private String standardApplyNo;
 
-
     @Schema(description = "申请日期")
     private LocalDate applyDate;
-
 
     @Schema(description = "原始公布号")
     private String publicNo;
@@ -57,18 +55,14 @@ public class DataCompanyIprPatentWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "公布日")
     private LocalDate publicDate;
 
-
     @Schema(description = "授权公告号")
     private String authorizePublicNo;
-
 
     @Schema(description = "授权公告日")
     private LocalDate authorizePublicDate;
 
-
     @Schema(description = "优先权号")
     private String priorityNo;
-
 
     @Schema(description = "优先权日")
     private LocalDate priorityDate;

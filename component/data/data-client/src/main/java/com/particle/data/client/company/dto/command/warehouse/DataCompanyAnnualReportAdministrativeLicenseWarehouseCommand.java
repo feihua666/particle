@@ -52,9 +52,16 @@ public class DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand extend
     @Schema(description = "许可文件到期日期")
     private LocalDate validToDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyAnnualReportAdministrativeLicensetDataMd5(fileName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportAdministrativeLicensetDataMd5(fileName);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

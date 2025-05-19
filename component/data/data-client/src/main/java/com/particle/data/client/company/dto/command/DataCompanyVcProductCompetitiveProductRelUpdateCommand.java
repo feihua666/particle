@@ -23,13 +23,13 @@ public class DataCompanyVcProductCompetitiveProductRelUpdateCommand extends Abst
 
 
 
-    @NotNull(message = "企业融资产品表ID 不能为空")
-        @Schema(description = "企业融资产品表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业融资产品表ID")
     private Long companyVcProductId;
 
 
-    @NotNull(message = "企业竞品id 不能为空")
-        @Schema(description = "企业竞品id",requiredMode = Schema.RequiredMode.REQUIRED)
+
+    @Schema(description = "企业竞品id")
     private Long companyVcCompetitiveProductId;
 
 

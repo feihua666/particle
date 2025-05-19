@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -56,7 +57,9 @@ public class DataCompanyCourtAnnouncementCreateCommand extends AbstractBaseComma
     @Schema(description = "发布日期")
     private LocalDate publishDate;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyCourtAnnouncementCreateCommand createByWarehouseCommand(DataCompanyCourtAnnouncementWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyCourtAnnouncementCreateCommand command = new DataCompanyCourtAnnouncementCreateCommand();
@@ -69,6 +72,7 @@ public class DataCompanyCourtAnnouncementCreateCommand extends AbstractBaseComma
         command.publishPage = dataCompanyBasicWarehouseCommand.getPublishPage();
         command.publishPageDate = dataCompanyBasicWarehouseCommand.getPublishPageDate();
         command.publishDate = dataCompanyBasicWarehouseCommand.getPublishDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

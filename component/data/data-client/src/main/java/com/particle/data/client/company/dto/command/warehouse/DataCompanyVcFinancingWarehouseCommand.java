@@ -81,9 +81,16 @@ public class DataCompanyVcFinancingWarehouseCommand extends AbstractBaseCommand 
     @Schema(description = "报道快照链接地址")
     private String publishSnapshotUrl;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyVcFinancingDataMd5(productName,roundName,amount,valuation,financingDate,publishTitle);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyVcFinancingDataMd5(productName,roundName,amount,valuation,financingDate,publishTitle);
+        }
+        return dataMd5;
     }
+
 
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据

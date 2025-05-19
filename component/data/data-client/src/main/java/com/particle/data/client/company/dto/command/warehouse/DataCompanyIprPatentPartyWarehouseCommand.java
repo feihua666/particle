@@ -95,8 +95,14 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
     @Schema(description = "代码，主要是代理机构代码")
     private String code;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentPartyDataMd5(partyName, isApplicant, isInvent, isAgent, isAgency, isExaminer, isRight, isCurrentRight);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentPartyDataMd5(partyName, isApplicant, isInvent, isAgent, isAgency, isExaminer, isRight, isCurrentRight);
+        }
+        return dataMd5;
     }
 
     /**

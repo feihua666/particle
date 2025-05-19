@@ -59,9 +59,16 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
     @Schema(description = "发布标题")
     private String publishTitle;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,level,certificateNo,publishOffice,publishTitle);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,level,certificateNo,publishOffice,publishTitle);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

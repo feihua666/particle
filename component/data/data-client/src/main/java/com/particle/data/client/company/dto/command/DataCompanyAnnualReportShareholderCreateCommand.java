@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportShareholderWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -24,22 +25,22 @@ public class DataCompanyAnnualReportShareholderCreateCommand extends AbstractBas
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
     @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyAnnualReportId;
 
 
     @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer year;
 
 
 
-        @Schema(description = "序号")
+    @Schema(description = "序号")
     private Integer serialNumber;
 
 
@@ -90,6 +91,9 @@ public class DataCompanyAnnualReportShareholderCreateCommand extends AbstractBas
     @Schema(description = "实缴出资日期")
     private LocalDate actualCapitalDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyAnnualReportShareholderCreateCommand createByWarehouseCommand(DataCompanyAnnualReportShareholderWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportShareholderCreateCommand command = new DataCompanyAnnualReportShareholderCreateCommand();
@@ -109,6 +113,7 @@ public class DataCompanyAnnualReportShareholderCreateCommand extends AbstractBas
         command.actualCapital = dataCompanyBasicWarehouseCommand.getActualCapital();
         command.actualCapitalCurrencyDictId = dataCompanyBasicWarehouseCommand.getActualCapitalCurrencyDictId();
         command.actualCapitalDate = dataCompanyBasicWarehouseCommand.getActualCapitalDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

@@ -82,8 +82,14 @@ public class DataCompanyJudgmentDocumentWarehouseCommand extends AbstractBaseCom
     @Schema(description = "文书发布标题")
     private String documentPublishTitle;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyJudgmentDocumentDataMd5(caseNo, caseReason, caseJudgeDate, caseTrialProcedure, caseTypeName, documentTypeName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyJudgmentDocumentDataMd5(caseNo, caseReason, caseJudgeDate, caseTrialProcedure, caseTypeName, documentTypeName);
+        }
+        return dataMd5;
     }
 
     /**

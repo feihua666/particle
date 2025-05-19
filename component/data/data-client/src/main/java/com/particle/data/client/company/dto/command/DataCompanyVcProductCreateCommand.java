@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class DataCompanyVcProductCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
@@ -59,6 +60,10 @@ public class DataCompanyVcProductCreateCommand extends AbstractBaseCommand {
     @Schema(description = "融资金额（万元）")
     private BigDecimal amount;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyVcProductCreateCommand createByWarehouseCommand(DataCompanyVcProductWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyVcProductCreateCommand command = new DataCompanyVcProductCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
@@ -70,6 +75,7 @@ public class DataCompanyVcProductCreateCommand extends AbstractBaseCommand {
         command.competitiveProductNum = dataCompanyBasicWarehouseCommand.getCompetitiveProductNum();
         command.currentRoundDictId = dataCompanyBasicWarehouseCommand.getCurrentRoundDictId();
         command.amount = dataCompanyBasicWarehouseCommand.getAmount();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

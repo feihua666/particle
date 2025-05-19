@@ -32,9 +32,16 @@ public class DataCompanyJudgmentDocumentContentWarehouseCommand extends Abstract
     @Schema(description = "裁判内容")
     private String content;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyJudgmentDocumentContentDataMd5(content);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyJudgmentDocumentContentDataMd5(content);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

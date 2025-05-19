@@ -15,7 +15,7 @@ CREATE TABLE `component_data_company_vc_financing` (
   `publish_title` varchar(200) DEFAULT NULL COMMENT '报道标题',
   `publish_url` varchar(300) DEFAULT NULL COMMENT '报道链接地址，外部链接',
   `publish_snapshot_url` varchar(300) DEFAULT NULL COMMENT '报道快照链接地址，内部链接',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,product_name + round_name + amount + valuation + financing_date + publish_title',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,product_name + round_name + amount + valuation + financing_date + publish_title',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -45,7 +45,6 @@ public class DataCompanyIprPatentFamilyWarehouseCommand extends AbstractBaseComm
     @Schema(description = "标准公布号")
     private String standardPublicNo;
 
-
     @Schema(description = "公布日")
     private LocalDate publicDate;
 

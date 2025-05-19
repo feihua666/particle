@@ -66,6 +66,7 @@ const reactiveData = reactive({
     {
       prop: 'responseTypeDictName',
       label: '输出类型',
+      showOverflowTooltip: true,
     },
     {
       prop: 'isPublished',
@@ -86,6 +87,28 @@ const reactiveData = reactive({
       label: '是否测试通过',
       formatter: (row, column, cellValue, index) => {
         return cellValue ? '测试通过' : '未测试通过'
+      }
+    },
+    {
+      prop: 'dataQueryProviderName',
+      label: '数据查询供应商',
+      showOverflowTooltip: true,
+    },
+    {
+      prop: 'apiIdentifier',
+      label: '接口标识',
+      showOverflowTooltip: true,
+    },
+    {
+      prop: 'apiVersion',
+      label: '接口版本标识',
+      showOverflowTooltip: true,
+    },
+    {
+      prop: 'isSupportWarehouse',
+      label: '支持入库',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '支持' : '不支持'
       }
     },
     {

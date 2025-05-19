@@ -22,7 +22,7 @@ CREATE TABLE `component_data_company_annual_report_foreign_guarantee` (
   `guarantee_scope` varchar(100) DEFAULT NULL COMMENT '保证担保的范围',
   `guarantee_term_dict_id` bigint DEFAULT NULL COMMENT '保证的期间，字典id，如：期限、未约定',
   `guarantee_type_dict_id` bigint DEFAULT NULL COMMENT '保证的方式，字典id，如：一般保证、连带保证、未约定',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,debtor_name + creditor_name',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,debtor_name + creditor_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

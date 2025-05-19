@@ -26,4 +26,11 @@ public class PageQueryCommand extends QueryCommand{
 	@Schema(description = "请求每页条数，不传默认为10")
 	private Long pageSize = 10L;
 
+	public void setPageNo(Long pageNo) {
+		this.pageNo = pageNo == null ? 1L : pageNo;
+	}
+
+	public void setPageSize(Long pageSize) {
+		this.pageSize = pageSize == null ? 10L : pageSize;
+	}
 }

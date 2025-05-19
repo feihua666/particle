@@ -23,24 +23,22 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualR
 public class DataCompanyAnnualReportWebsiteUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 
-    @NotNull(message = "企业年报表ID 不能为空")
-        @Schema(description = "企业年报表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    
+    @Schema(description = "企业年报表ID")
     private Long companyAnnualReportId;
 
 
-    @NotNull(message = "年报年度 不能为空")
-        @Schema(description = "年报年度",requiredMode = Schema.RequiredMode.REQUIRED)
+    
+    @Schema(description = "年报年度")
     private Integer year;
 
 
-    @NotNull(message = "类型 不能为空")
-        @Schema(description = "类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "类型")
     private Long typeDictId;
 
 	@Schema(description = "类型名称，如：网站、网店")
@@ -52,7 +50,7 @@ public class DataCompanyAnnualReportWebsiteUpdateCommand extends AbstractBaseUpd
 
 
     @NotEmpty(message = "网址 不能为空")
-        @Schema(description = "网址",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "网址")
     private String url;
 
 

@@ -23,9 +23,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyVcProdu
 public class DataCompanyVcProductUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 

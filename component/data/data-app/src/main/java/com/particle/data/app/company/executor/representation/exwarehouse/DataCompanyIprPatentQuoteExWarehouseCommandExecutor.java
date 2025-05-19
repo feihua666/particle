@@ -75,11 +75,38 @@ public class DataCompanyIprPatentQuoteExWarehouseCommandExecutor extends Abstrac
 	}
 	/**
 	 * 企业知识产权专利引证信息出库
+	 * @param standardApplyNo
+	 * @return
+	 */
+	public SingleResponse<DataCompanyIprPatentQuoteExWarehouseVO> exWarehouseByCompanyIprPatentIdAndStandardApplyNo(Long companyIprPatentId,String standardApplyNo) {
+		DataCompanyIprPatentQuoteDO dataCompanyIprPatentQuoteDO = iDataCompanyIprPatentQuoteService.getByCompanyIprPatentIdAndStandardApplyNo(companyIprPatentId,standardApplyNo);
+		if (dataCompanyIprPatentQuoteDO == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		}
+		DataCompanyIprPatentQuoteExWarehouseVO dataCompanyIprPatentQuoteExWarehouseVO = DataCompanyIprPatentQuoteAppStructMapping.instance.dataCompanyIprPatentQuoteDOToDataCompanyIprPatentQuoteExWarehouseVO(dataCompanyIprPatentQuoteDO);
+		return SingleResponse.of(dataCompanyIprPatentQuoteExWarehouseVO);
+	}
+	/**
+	 * 企业知识产权专利引证信息出库
 	 * @param publicNo
 	 * @return
 	 */
 	public SingleResponse<DataCompanyIprPatentQuoteExWarehouseVO> exWarehouseByCompanyIprPatentIdAndPublicNo(Long companyIprPatentId,String publicNo) {
 		DataCompanyIprPatentQuoteDO dataCompanyIprPatentQuoteDO = iDataCompanyIprPatentQuoteService.getByCompanyIprPatentIdAndPublicNo(companyIprPatentId,publicNo);
+		if (dataCompanyIprPatentQuoteDO == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+		}
+		DataCompanyIprPatentQuoteExWarehouseVO dataCompanyIprPatentQuoteExWarehouseVO = DataCompanyIprPatentQuoteAppStructMapping.instance.dataCompanyIprPatentQuoteDOToDataCompanyIprPatentQuoteExWarehouseVO(dataCompanyIprPatentQuoteDO);
+		return SingleResponse.of(dataCompanyIprPatentQuoteExWarehouseVO);
+	}
+
+	/**
+	 * 企业知识产权专利引证信息出库
+	 * @param standardPublicNo
+	 * @return
+	 */
+	public SingleResponse<DataCompanyIprPatentQuoteExWarehouseVO> exWarehouseByCompanyIprPatentIdAndStandardPublicNo(Long companyIprPatentId,String standardPublicNo) {
+		DataCompanyIprPatentQuoteDO dataCompanyIprPatentQuoteDO = iDataCompanyIprPatentQuoteService.getByCompanyIprPatentIdAndStandardPublicNo(companyIprPatentId,standardPublicNo);
 		if (dataCompanyIprPatentQuoteDO == null) {
 			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		}

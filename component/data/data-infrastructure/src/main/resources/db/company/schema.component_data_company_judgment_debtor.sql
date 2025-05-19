@@ -15,7 +15,7 @@ CREATE TABLE `component_data_company_judgment_debtor` (
   `is_finished` tinyint(1) DEFAULT NULL COMMENT '是否已结案，1=已结案，0=未结案，执行中',
   `execute_amount` decimal(16,5) DEFAULT NULL COMMENT '执行标的金额（万元）',
   `execute_amount_currency_dict_id` bigint DEFAULT NULL COMMENT '执行标的金额币种，字典id，如：人民币',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,case_no + executed_person_name + file_case_date',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,case_no + executed_person_name + file_case_date',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

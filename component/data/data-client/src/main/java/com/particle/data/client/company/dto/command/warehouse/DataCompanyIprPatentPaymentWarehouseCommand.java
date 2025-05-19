@@ -56,8 +56,14 @@ public class DataCompanyIprPatentPaymentWarehouseCommand extends AbstractBaseCom
     @Schema(description = "缴费日期")
     private LocalDate payDate;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentPaymentDataMd5(feeType,receiptNo,payer,handleStatus,payDate);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentPaymentDataMd5(feeType,receiptNo,payer,handleStatus,payDate);
+        }
+        return dataMd5;
     }
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据

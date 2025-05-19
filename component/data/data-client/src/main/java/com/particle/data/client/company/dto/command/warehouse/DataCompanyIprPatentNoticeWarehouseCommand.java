@@ -51,9 +51,16 @@ public class DataCompanyIprPatentNoticeWarehouseCommand extends AbstractBaseComm
     @Schema(description = "通知书类型说明")
     private String noticeTypeDescription;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentNoticeDataMd5(publicDate,mailNo,receiverName,noticeType,noticeTypeDescription);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentNoticeDataMd5(publicDate,mailNo,receiverName,noticeType,noticeTypeDescription);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

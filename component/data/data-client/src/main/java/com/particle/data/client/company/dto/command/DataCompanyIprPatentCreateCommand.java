@@ -22,8 +22,6 @@ import java.time.LocalDate;
 @Schema
 public class DataCompanyIprPatentCreateCommand extends AbstractBaseCommand {
 
-
-
     @Schema(description = "原始标题")
     private String title;
 

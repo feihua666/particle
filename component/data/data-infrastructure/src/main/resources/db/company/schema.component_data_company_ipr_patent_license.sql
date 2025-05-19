@@ -10,7 +10,7 @@ CREATE TABLE `component_data_company_ipr_patent_license` (
   `contract_change_date` date DEFAULT NULL COMMENT '合同变更日期',
   `assignee` varchar(50) DEFAULT NULL COMMENT '受让人，接收方，如：xxxx公司',
   `contract_rescission_date` date DEFAULT NULL COMMENT '合同解除日期',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,license_type + filing_contract_no + filing_contract_date + assignor + assignee',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,license_type + filing_contract_no + filing_contract_date + assignor + assignee',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

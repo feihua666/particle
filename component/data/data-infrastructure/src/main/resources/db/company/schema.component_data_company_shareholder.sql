@@ -23,7 +23,7 @@ CREATE TABLE `component_data_company_shareholder` (
   `listed_latest_public_date` date DEFAULT NULL COMMENT '上市最新公示股东日期',
   `is_year_report_latest_public` tinyint(1) DEFAULT NULL COMMENT '是否最新年报股东',
   `year_report_latest_public_year` int DEFAULT NULL COMMENT '最新年报股东年份',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,shareholder_name',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,shareholder_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

@@ -11,7 +11,7 @@ CREATE TABLE `component_data_company_vc_product` (
   `competitive_product_num` int DEFAULT NULL COMMENT '竞品数量',
   `current_round_dict_id` bigint DEFAULT NULL COMMENT '当前融资轮次',
   `amount` decimal(16,5) DEFAULT NULL COMMENT '融资金额（万元）',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,product_name',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,product_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',

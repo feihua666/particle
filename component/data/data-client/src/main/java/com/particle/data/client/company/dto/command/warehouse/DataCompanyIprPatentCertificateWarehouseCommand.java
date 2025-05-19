@@ -45,9 +45,16 @@ public class DataCompanyIprPatentCertificateWarehouseCommand extends AbstractBas
     @Schema(description = "专利证书收件人地址")
     private String receiverAddress;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyIprPatentCertificateDataMd5(publicDate,mailNo,receiverName,receiverAddress);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentCertificateDataMd5(publicDate,mailNo,receiverName,receiverAddress);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

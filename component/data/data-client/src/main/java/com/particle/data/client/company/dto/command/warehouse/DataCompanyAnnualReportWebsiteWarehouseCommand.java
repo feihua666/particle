@@ -56,8 +56,14 @@ public class DataCompanyAnnualReportWebsiteWarehouseCommand extends AbstractBase
     @Schema(description = "网址",requiredMode = Schema.RequiredMode.REQUIRED)
     private String url;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
+
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyAnnualReportWebsiteDataMd5(typeName, name, url);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportWebsiteDataMd5(typeName, name, url);
+        }
+        return dataMd5;
     }
 
 

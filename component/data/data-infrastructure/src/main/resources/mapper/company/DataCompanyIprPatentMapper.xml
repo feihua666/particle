@@ -10,25 +10,30 @@
                 SELECT 1
                 FROM component_data_company_ipr_patent_party par
                 WHERE par.company_ipr_patent_id = p.id
-                AND par.applicant_company_id = #{param.companyId}
+                AND par.party_company_id = #{param.companyId}
+                AND ( 1 != 1
+                <if test="param.isApplicant != null and param.isApplicant">
+                    OR par.is_applicant = 1
+                </if>
                 <if test="param.isInvent != null and param.isInvent">
-                    AND par.is_invent = 1
+                    OR par.is_invent = 1
                 </if>
                 <if test="param.isAgent != null and param.isAgent">
-                    AND par.is_agent = 1
+                    OR par.is_agent = 1
                 </if>
                 <if test="param.isAgency != null and param.isAgency">
-                    AND par.is_agency = 1
+                    OR par.is_agency = 1
                 </if>
                 <if test="param.isExaminer != null and param.isExaminer">
-                    AND par.is_examiner = 1
+                    OR par.is_examiner = 1
                 </if>
                 <if test="param.isRight != null and param.isRight">
-                    AND par.is_right = 1
+                    OR par.is_right = 1
                 </if>
                 <if test="param.isCurrentRight != null and param.isCurrentRight">
-                    AND par.is_current_right = 1
+                    OR par.is_current_right = 1
                 </if>
+                )
                 )
             </if>
             <if test="param.applyNo != null and param.applyNo != ''">

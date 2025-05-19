@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import java.time.LocalDateTime;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyOpenCourtAnnouncementPartyWarehouseCommand;
@@ -48,6 +49,10 @@ public class DataCompanyOpenCourtAnnouncementPartyCreateCommand extends Abstract
     @Schema(description = "当事人描述信息")
     private String partyDescription;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyOpenCourtAnnouncementPartyCreateCommand createByWarehouseCommand(DataCompanyOpenCourtAnnouncementPartyWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyOpenCourtAnnouncementPartyCreateCommand command = new DataCompanyOpenCourtAnnouncementPartyCreateCommand();
         command.companyOpenCourtAnnouncementId = dataCompanyBasicWarehouseCommand.getCompanyOpenCourtAnnouncementId();
@@ -57,6 +62,7 @@ public class DataCompanyOpenCourtAnnouncementPartyCreateCommand extends Abstract
         command.partyCompanyPersonId = dataCompanyBasicWarehouseCommand.getPartyCompanyPersonId();
         command.partyRoleDictId = dataCompanyBasicWarehouseCommand.getPartyRoleDictId();
         command.partyDescription = dataCompanyBasicWarehouseCommand.getPartyDescription();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

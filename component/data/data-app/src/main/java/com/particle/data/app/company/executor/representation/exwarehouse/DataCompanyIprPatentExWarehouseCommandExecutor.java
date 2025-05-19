@@ -38,6 +38,7 @@ public class DataCompanyIprPatentExWarehouseCommandExecutor extends AbstractBase
 		Page<DataCompanyIprPatentDO> dataCompanyIprPatentDOPage = null;
         if (dataCompanyExWarehouseQueryCommand.getCompanyId() != null) {
 			dataCompanyIprPatentDOPage = iDataCompanyIprPatentService.listPage(DataCompanyIprPatentListPageByCompanyIdParam.create(dataCompanyExWarehouseQueryCommand.getCompanyId(),
+							dataCompanyExWarehouseQueryCommand.getIsApplicant(),
 							dataCompanyExWarehouseQueryCommand.getIsInvent(),
 							dataCompanyExWarehouseQueryCommand.getIsAgent(),
 							dataCompanyExWarehouseQueryCommand.getIsAgency(),

@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class DataCompanyVcFinancingCreateCommand extends AbstractBaseCommand {
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
@@ -74,6 +75,10 @@ public class DataCompanyVcFinancingCreateCommand extends AbstractBaseCommand {
     @Schema(description = "报道快照链接地址")
     private String publishSnapshotUrl;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyVcFinancingCreateCommand createByWarehouseCommand(DataCompanyVcFinancingWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyVcFinancingCreateCommand command = new DataCompanyVcFinancingCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
@@ -89,6 +94,7 @@ public class DataCompanyVcFinancingCreateCommand extends AbstractBaseCommand {
         command.publishTitle = dataCompanyBasicWarehouseCommand.getPublishTitle();
         command.publishUrl = dataCompanyBasicWarehouseCommand.getPublishUrl();
         command.publishSnapshotUrl = dataCompanyBasicWarehouseCommand.getPublishSnapshotUrl();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

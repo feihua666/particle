@@ -51,10 +51,16 @@ public class DataCompanyCourtAnnouncementPartyWarehouseCommand extends AbstractB
     @Schema(description = "当事人描述信息")
     private String partyDescription;
 
+    @Schema(description = "数据md5")
+    private String dataMd5;
 
     public String obtainDataMd5() {
-        return SomeMd5Tool.dataCompanyCourtAnnouncementPartyDataMd5(partyName);
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyCourtAnnouncementPartyDataMd5(partyName);
+        }
+        return dataMd5;
     }
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class DataCompanyHonorQualificationCreateCommand extends AbstractBaseComm
 
 
     @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 
@@ -59,7 +60,9 @@ public class DataCompanyHonorQualificationCreateCommand extends AbstractBaseComm
     @Schema(description = "发布标题")
     private String publishTitle;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyHonorQualificationCreateCommand createByWarehouseCommand(DataCompanyHonorQualificationWarehouseCommand dataCompanyHonorQualificationWarehouseCommand){
         DataCompanyHonorQualificationCreateCommand command = new DataCompanyHonorQualificationCreateCommand();
@@ -72,6 +75,7 @@ public class DataCompanyHonorQualificationCreateCommand extends AbstractBaseComm
         command.certificateNo = dataCompanyHonorQualificationWarehouseCommand.getCertificateNo();
         command.publishOffice = dataCompanyHonorQualificationWarehouseCommand.getPublishOffice();
         command.publishTitle = dataCompanyHonorQualificationWarehouseCommand.getPublishTitle();
+        command.dataMd5 = dataCompanyHonorQualificationWarehouseCommand.obtainDataMd5();
 
 
         return command;

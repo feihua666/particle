@@ -4,6 +4,7 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyShareholderWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -107,6 +108,10 @@ public class DataCompanyShareholderCreateCommand extends AbstractBaseCommand {
     @Schema(description = "最新年报股东年份")
     private Integer yearReportLatestPublicYear;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyShareholderCreateCommand createByWarehouseCommand(DataCompanyShareholderWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyShareholderCreateCommand command = new DataCompanyShareholderCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
@@ -129,7 +134,7 @@ public class DataCompanyShareholderCreateCommand extends AbstractBaseCommand {
         command.isListedLatestPublic = dataCompanyBasicWarehouseCommand.getIsListedLatestPublic();
         command.listedLatestPublicDate = dataCompanyBasicWarehouseCommand.getListedLatestPublicDate();
         command.isYearReportLatestPublic = dataCompanyBasicWarehouseCommand.getIsYearReportLatestPublic();
-        command.yearReportLatestPublicYear = dataCompanyBasicWarehouseCommand.getYearReportLatestPublicYear();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

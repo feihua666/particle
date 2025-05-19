@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -53,7 +54,7 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
 
 
     @NotNull(message = "案件类型 不能为空")
-        @Schema(description = "案件类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "案件类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long caseTypeDictId;
 
 	@Schema(description = "案件类型名称")
@@ -69,7 +70,7 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
 
 
     @NotNull(message = "文书类型 不能为空")
-        @Schema(description = "文书类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "文书类型",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long documentTypeDictId;
 
 	@Schema(description = "文书类型名称")
@@ -82,6 +83,11 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
 
     @Schema(description = "文书发布标题")
     private String documentPublishTitle;
+
+
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
 
     public static DataCompanyJudgmentDocumentCreateCommand createByWarehouseCommand(DataCompanyJudgmentDocumentWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyJudgmentDocumentCreateCommand command = new DataCompanyJudgmentDocumentCreateCommand();
@@ -100,6 +106,7 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
         command.documentTypeName = dataCompanyBasicWarehouseCommand.getDocumentTypeName();
         command.documentPublishDate = dataCompanyBasicWarehouseCommand.getDocumentPublishDate();
         command.documentPublishTitle = dataCompanyBasicWarehouseCommand.getDocumentPublishTitle();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

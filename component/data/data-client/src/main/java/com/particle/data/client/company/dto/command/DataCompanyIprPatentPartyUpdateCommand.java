@@ -22,8 +22,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentPartyUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业知识产权专利表id")
     private Long companyIprPatentId;
 
 
@@ -114,6 +113,7 @@ public class DataCompanyIprPatentPartyUpdateCommand extends AbstractBaseUpdateCo
         command.address = dataCompanyBasicWarehouseCommand.getAddress();
         command.areaCode = dataCompanyBasicWarehouseCommand.getAreaCode();
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
+        command.code = dataCompanyBasicWarehouseCommand.getCode();
 
         return command;
     }

@@ -11,7 +11,7 @@ CREATE TABLE `component_data_company_honor_qualification` (
   `certificate_no` varchar(100) DEFAULT NULL COMMENT '证书编号',
   `publish_office` varchar(100) DEFAULT NULL COMMENT '发布单位，如：福州市工业和信息化局',
   `publish_title` varchar(200) DEFAULT NULL COMMENT '发布标题，如：福州市2022年工业龙头企业名单',
-  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,name + level + certificate_no + publish_office + publish_title',
+  `data_md5` varchar(32) NOT NULL COMMENT '数据md5,name + level + certificate_no + publish_office + publish_title',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
