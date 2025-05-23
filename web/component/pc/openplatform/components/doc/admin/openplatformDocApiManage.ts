@@ -158,7 +158,7 @@ export const addAndUpdatePageFormItems = [
           formItemProps: {
             label: '价格文本',
             tips: '如果接口不是按次计费，可以填写该字段以文本形式展示',
-            required: ({form}) => !form.pricePerTime,
+            required: ({form}) => form.pricePerTime < 0,
           },
           compProps: {
             clearable: true,

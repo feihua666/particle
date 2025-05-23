@@ -44,6 +44,23 @@ const openplatformDocApiDocParamFieldAdminRoutes = [
                 }
             },
             {
+                path: '/admin/openplatformDocApiDocParamFieldManageConditionDelete',
+                component: () => import('./OpenplatformDocApiDocParamFieldManageConditionDeletePage.vue'),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminOpenplatformDocApiDocParamFieldManageConditionDelete',
+                    name: '开放接口文档参数字段条件删除',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminOpenplatformDocApiDocParamFieldManageConditionDelete'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminOpenplatformDocApiDocParamFieldManageConditionDelete'
+                    }
+                }
+            },
+            {
                 path: '/admin/openplatformDocApiDocParamFieldManageUpdate',
                 component: () => import('./OpenplatformDocApiDocParamFieldManageUpdatePage.vue'),
                 props: route => ({ openplatformDocApiDocParamFieldId: route.query.id }),

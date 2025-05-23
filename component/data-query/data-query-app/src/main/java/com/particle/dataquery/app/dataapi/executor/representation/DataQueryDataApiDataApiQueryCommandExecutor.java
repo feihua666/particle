@@ -82,6 +82,21 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	}
 
 	/**
+	 * 测试
+	 * @param dataQueryDataApiQueryCommand
+	 * @return
+	 */
+	public Object dataApiQueryTest(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
+		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
+		DataQueryDataApi dataQueryDataApi = dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl());
+		Assert.notNull(dataQueryDataApi,"数据接口地址不存在" + dataQueryDataApiQueryCommand.getUrl());
+
+		Object o = dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(), dataQueryDataApiQueryCommand.getQueryString(),true);
+		dataQueryDataApi.changeTestPassed();
+		dataQueryDataApiGateway.save(dataQueryDataApi);
+		return o;
+	}
+	/**
 	 * 缓存key单独提出
 	 * @param url
 	 * @return
@@ -346,21 +361,6 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		}
 	}
 
-	/**
-	 * 测试
-	 * @param dataQueryDataApiQueryCommand
-	 * @return
-	 */
-	public Object dataApiQueryTest(@Valid DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand){
-		Assert.isTrue(StrUtil.isNotEmpty(dataQueryDataApiQueryCommand.getUrl()),"数据接口地址 不能为空");
-		DataQueryDataApi dataQueryDataApi = dataQueryDataApi(dataQueryDataApiQueryCommand.getUrl());
-		Assert.notNull(dataQueryDataApi,"数据接口地址不存在" + dataQueryDataApiQueryCommand.getUrl());
-
-		Object o = dataApiQueryGateway.queryRealtime(dataQueryDataApi, dataQueryDataApiQueryCommand.getParam(), dataQueryDataApiQueryCommand.getQueryString(),true);
-		dataQueryDataApi.changeTestPassed();
-		dataQueryDataApiGateway.save(dataQueryDataApi);
-		return o;
-	}
 
 	/**
 	 * 根据url获取 dataApi数据 带缓存

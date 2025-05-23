@@ -43,6 +43,9 @@ public class DataCompanyAnnualReportForeignInvestExWarehouseVO extends AbstractB
 	@Schema(description = "对外投资企业统一社会信用代码")
 	private String investCompanyUscc;
 
+    @Schema(description = "对外投资企业注册号")
+    private String investCompanyRegNo;
+    
     @Schema(description = "对外投资比例")
     private BigDecimal investPercent;
 
@@ -60,7 +63,7 @@ public class DataCompanyAnnualReportForeignInvestExWarehouseVO extends AbstractB
     @Schema(description = "对外投资金额币种对应字典名称")
     private String investAmountCurrencyDictName;
 
-	@Schema(description = "数据md5,invest_company_name + invest_company_uscc")
+	@Schema(description = "数据md5,invest_company_name")
 	private String dataMd5;
 
     @Schema(description = "最后处理时间")

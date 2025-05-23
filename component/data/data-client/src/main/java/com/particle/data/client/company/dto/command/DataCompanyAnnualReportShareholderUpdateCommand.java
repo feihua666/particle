@@ -87,6 +87,9 @@ public class DataCompanyAnnualReportShareholderUpdateCommand extends AbstractBas
     @Schema(description = "实缴出资金额币种")
     private Long actualCapitalCurrencyDictId;
 
+	@Schema(description = "实缴出资方式")
+	private Long actualCapitalTypeDictId;
+
 
     @Schema(description = "实缴出资日期")
     private LocalDate actualCapitalDate;

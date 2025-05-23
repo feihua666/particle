@@ -1,0 +1,68 @@
+package com.particle.scheduler.client.datatask.dto.data;
+
+import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 任务计划异步任务数据 数据通用响应对象
+ * </p>
+ *
+ * @author yw
+ * @since 2025-05-22 18:05:42
+ */
+@Data
+@Schema
+public class SchedulerAsyncDataTaskControlVO extends AbstractBaseIdVO {
+
+    @Schema(description = "任务分组标识")
+    private String groupIdentifier;
+
+    @Schema(description = "唯一标识")
+    private String uniqueIdentifier;
+
+    @Schema(description = "执行参数")
+    private String params;
+
+    @Schema(description = "执行状态")
+    private Long executeStatusDictId;
+
+    // 不翻译字段，已处理
+    // @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "executeStatusDictId",mapValueField = "value")
+    @Schema(description = "执行状态对应字典值")
+    private String executeStatusDictValue;
+    // 不翻译字段，已处理
+    // @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "executeStatusDictId",mapValueField = "name")
+    @Schema(description = "执行状态对应字典名称")
+    private String executeStatusDictName;
+
+    @Schema(description = "执行错误时提示信息")
+    private String errorMessage;
+
+    @Schema(description = "运行开始时间")
+    private LocalDateTime startAt;
+
+    @Schema(description = "运行结束时间")
+    private LocalDateTime finishAt;
+
+    @Schema(description = "本地主机ip")
+    private String localHostIp;
+
+    @Schema(description = "本地主机名称")
+    private String localHostName;
+
+    @Schema(description = "链路追踪id")
+    private String traceId;
+
+    @Schema(description = "运行结果")
+    private String result;
+
+    @Schema(description = "数据过期时间")
+    private LocalDateTime dataExpireAt;
+
+}

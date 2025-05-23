@@ -4,3 +4,5 @@
 -- import classpath:db/temptask/schema.component_scheduler_temp_task_run_record.sql
 -- import classpath:db/temptask/schema.component_scheduler_temp_task_run_record_log.sql
 -- import classpath:db/schedule/schema.component_scheduler_execute_record.sql
+-- import classpath:db/datatask/schema.component_scheduler_async_data_task.sql
+-- import classpath:db/datatask/schema.component_scheduler_job_data_task.sql

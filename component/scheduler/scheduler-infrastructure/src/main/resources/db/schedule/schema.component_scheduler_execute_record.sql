@@ -13,7 +13,7 @@ CREATE TABLE `component_scheduler_execute_record` (
   `local_host_ip` varchar(500) DEFAULT NULL COMMENT '本地主机ip，用来表明是在哪个机器上运行的',
   `local_host_name` varchar(500) DEFAULT NULL COMMENT '本地主机名称，用来表明是在哪个机器上运行的',
   `trace_id` varchar(100) DEFAULT NULL COMMENT '链路追踪id',
-  `result` varchar(2000) DEFAULT NULL COMMENT '运行结果，运行成果物',
+  `result` longtext DEFAULT NULL COMMENT '运行结果，运行成果物',
   `version` int NOT NULL COMMENT '乐观锁字段',
   `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
   `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',

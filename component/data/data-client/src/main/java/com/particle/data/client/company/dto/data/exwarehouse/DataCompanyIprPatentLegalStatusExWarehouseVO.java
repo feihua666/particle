@@ -25,8 +25,16 @@ public class DataCompanyIprPatentLegalStatusExWarehouseVO extends AbstractBaseId
     @Schema(description = "企业知识产权专利表id")
     private Long companyIprPatentId;
 
-    @Schema(description = "法律状态")
+    @Schema(description = "法律状态，字典id")
     private Long legalStatusDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "legalStatusDictId",mapValueField = "value")
+    @Schema(description = "法律状态，字典值")
+    private String legalStatusDictValue;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "legalStatusDictId",mapValueField = "name")
+    @Schema(description = "法律状态，字典名称")
+    private String legalStatusDictName;
 
     @Schema(description = "法律状态代码")
     private String legalStatusCode;

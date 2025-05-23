@@ -113,6 +113,10 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 * 接口地址不存在
 	 */
 	URL_NOT_FOUND(40400000002L,"接口地址不存在"),
+	/**
+	 * 任务数据不存在,主要用于后台任务或异步任务处理获取任务时找不到数据情况
+	 */
+	SCHEDULER_DATA_TASK_NOT_FOUND(40400000003L,"任务数据不存在"),
 
 
 	METHOD_NOT_SUPPORTED_ERROR(40500000002L,"不支持的方法"),

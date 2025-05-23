@@ -89,6 +89,8 @@ public class DataCompanyAnnualReportShareholderWarehouseCommand extends Abstract
     @Schema(description = "实缴出资金额币种")
     private Long actualCapitalCurrencyDictId;
 
+    @Schema(description = "实缴出资方式")
+    private Long actualCapitalTypeDictId;
 
     @Schema(description = "实缴出资日期")
     private LocalDate actualCapitalDate;
@@ -124,6 +126,7 @@ public class DataCompanyAnnualReportShareholderWarehouseCommand extends Abstract
                 && Objects.isNull(subCapitalDate)
                 && Objects.isNull(actualCapital)
                 && Objects.isNull(actualCapitalCurrencyDictId)
+                && Objects.isNull(actualCapitalTypeDictId)
                 && Objects.isNull(actualCapitalDate);
     }
 
@@ -177,6 +180,9 @@ public class DataCompanyAnnualReportShareholderWarehouseCommand extends Abstract
         if (Objects.equals(actualCapitalCurrencyDictId, exWarehouseVO.getActualCapitalCurrencyDictId())) {
             this.actualCapitalCurrencyDictId = null;
         }
+        if (Objects.equals(actualCapitalTypeDictId, exWarehouseVO.getActualCapitalTypeDictId())) {
+            this.actualCapitalTypeDictId = null;
+        }
         if (Objects.equals(actualCapitalDate, exWarehouseVO.getActualCapitalDate())) {
             this.actualCapitalDate = null;
         }
@@ -200,6 +206,7 @@ public class DataCompanyAnnualReportShareholderWarehouseCommand extends Abstract
         command.subCapitalDate = exWarehouseVO.getSubCapitalDate();
         command.actualCapital = exWarehouseVO.getActualCapital();
         command.actualCapitalCurrencyDictId = exWarehouseVO.getActualCapitalCurrencyDictId();
+        command.actualCapitalTypeDictId = exWarehouseVO.getActualCapitalTypeDictId();
         command.actualCapitalDate = exWarehouseVO.getActualCapitalDate();
 
 

@@ -57,6 +57,11 @@ public class DataCompanyAnnualReportForeignInvest extends AggreateRoot {
 	 */
 	private String investCompanyUscc;
 
+	/**
+	 * 对外投资企业注册号
+	 */
+	private String investCompanyRegNo;
+
     /**
     * 对外投资比例
     */
@@ -73,7 +78,7 @@ public class DataCompanyAnnualReportForeignInvest extends AggreateRoot {
     private Long investAmountCurrencyDictId;
 
 	/**
-	 * 数据md5,invest_company_name + invest_company_uscc
+	 * 数据md5,invest_company_name
 	 */
 	private String dataMd5;
 
@@ -94,7 +99,7 @@ public class DataCompanyAnnualReportForeignInvest extends AggreateRoot {
     }
 
     public void initDataMd5() {
-        this.dataMd5 = SomeMd5Tool.dataCompanyAnnualReportForeignInvestDataMd5(investCompanyName, investCompanyUscc);
+        this.dataMd5 = SomeMd5Tool.dataCompanyAnnualReportForeignInvestDataMd5(investCompanyName);
     }
 
     /**

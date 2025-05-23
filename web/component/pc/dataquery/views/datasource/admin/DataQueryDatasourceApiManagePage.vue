@@ -69,6 +69,13 @@ const reactiveData = reactive({
       label: '连接等待时间(ms)',
     },
     {
+      prop: 'isUseCache',
+      label: '使用缓存',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '使用' : '不使用'
+      }
+    },
+    {
       prop: 'sameTag',
       label: '等同标签',
     },

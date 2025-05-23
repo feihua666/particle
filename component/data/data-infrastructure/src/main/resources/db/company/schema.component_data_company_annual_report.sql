@@ -9,7 +9,7 @@ CREATE TABLE `component_data_company_annual_report` (
   `reg_no` varchar(100) DEFAULT NULL COMMENT '注册号',
   `capital` decimal(16,5) DEFAULT NULL COMMENT '资金数额（万元）',
   `capital_currency_dict_id` bigint DEFAULT NULL COMMENT '资金数额币种，字典id，如：人民币',
-  `operator_company_person_id` bigint DEFAULT NULL COMMENT '经营者名称，对应的人id',
+  `operator_company_person_id` bigint DEFAULT NULL COMMENT '经营者id，对应的人id',
   `operator_name` varchar(255) DEFAULT NULL COMMENT '经营者名称，人名，一般为法人，冗余 operator_company_person_id',
   `postal_address` varchar(255) DEFAULT NULL COMMENT '企业通信地址',
   `post_code` varchar(20) DEFAULT NULL COMMENT '邮政编码',

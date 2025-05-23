@@ -43,13 +43,13 @@ public class DataCompanyAnnualReportQueryListCommand extends AbstractBaseQueryCo
 
     @Schema(description = "资金数额（万元）")
     private BigDecimal capital;
-    
+
 
     @Schema(description = "资金数额币种")
     private Long capitalCurrencyDictId;
 
 
-    @Schema(description = "经营者名称")
+    @Schema(description = "经营者id")
     private Long operatorCompanyPersonId;
 
 
@@ -127,7 +127,7 @@ public class DataCompanyAnnualReportQueryListCommand extends AbstractBaseQueryCo
 
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;
-    
+
 
 
 

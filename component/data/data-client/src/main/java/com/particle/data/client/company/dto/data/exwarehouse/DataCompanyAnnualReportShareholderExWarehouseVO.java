@@ -92,6 +92,18 @@ public class DataCompanyAnnualReportShareholderExWarehouseVO extends AbstractBas
     @Schema(description = "实缴出资金额币种对应字典名称")
     private String actualCapitalCurrencyDictName;
 
+    @Schema(description = "实缴出资方式")
+    private Long actualCapitalTypeDictId;
+
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "actualCapitalTypeDictId",mapValueField = "value")
+    @Schema(description = "实缴出资方式对应字典值")
+    private String actualCapitalTypeDictValue;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "actualCapitalTypeDictId",mapValueField = "name")
+    @Schema(description = "实缴出资方式对应字典名称")
+    private String actualCapitalTypeDictName;
+
     @Schema(description = "实缴出资日期")
     private LocalDate actualCapitalDate;
 

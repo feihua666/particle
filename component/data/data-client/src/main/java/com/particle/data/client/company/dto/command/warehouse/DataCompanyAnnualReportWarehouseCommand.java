@@ -27,10 +27,7 @@ import cn.hutool.core.util.NumberUtil;
 @Schema
 public class DataCompanyAnnualReportWarehouseCommand extends AbstractBaseCommand {
 
-
-
-    @NotNull(message = "企业表ID 不能为空")
-    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业表ID")
     private Long companyId;
 
 
@@ -59,7 +56,7 @@ public class DataCompanyAnnualReportWarehouseCommand extends AbstractBaseCommand
     private Long capitalCurrencyDictId;
 
 
-    @Schema(description = "经营者名称")
+    @Schema(description = "经营者id")
     private Long operatorCompanyPersonId;
 
 

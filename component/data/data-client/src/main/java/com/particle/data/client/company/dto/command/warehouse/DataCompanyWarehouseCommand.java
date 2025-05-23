@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command.warehouse;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
+import com.particle.data.common.tool.SomeStrTool;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -39,6 +40,13 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
     @Schema(description = "父级id")
     private Long parentId;
 
+    public void normalize() {
+        this.name = SomeStrTool.normalizeCompanyName(name);
+        this.uscc = SomeStrTool.normalizeCompanyUscc(uscc);
+        this.regNo = SomeStrTool.normalizeCompanyRegNo(regNo);
+        this.orgCode = SomeStrTool.normalizeCompanyOrgCode(orgCode);
+        this.enName = SomeStrTool.normalizeCompanyEnName(enName);
+    }
     /**
      * 判断是否所有主要字段都为空
      * @return
@@ -92,6 +100,13 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
         DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
         dataCompanyWarehouseCommand.name = name;
         dataCompanyWarehouseCommand.uscc = uscc;
+        return dataCompanyWarehouseCommand;
+    }
+    public static DataCompanyWarehouseCommand create(String name, String uscc,String regNo) {
+        DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
+        dataCompanyWarehouseCommand.name = name;
+        dataCompanyWarehouseCommand.uscc = uscc;
+        dataCompanyWarehouseCommand.regNo = regNo;
         return dataCompanyWarehouseCommand;
     }
 

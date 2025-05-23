@@ -318,6 +318,29 @@ export const parseAndAddPageFormItems = [
     },
 
 ]
+
+export const conditionDeletePageFormItems = [
+    useSelectOpenplatformDocApiDocCompItem({required: true,tips: '字段绑定的文档内容'}),
+
+    {
+        field: {
+            name: 'categoryDictId',
+        },
+        element: {
+            comp: 'PtDictFrontSelect',
+            formItemProps: {
+                label: '分类',
+                required: true,
+                tips: '分类，旨在以通用的形式对各请求参数或响应参数、请求头进行分类'
+            },
+            compProps: {
+                // 字典查询
+                dictParam: {groupCode: 'open_platform_doc_param_field_type'}
+            }
+        }
+    },
+
+]
 // 更新和添加一致
 export const updatePageFormItems = addPageFormItems
 

@@ -56,7 +56,7 @@ public class DataCompanyAnnualReport extends AggreateRoot {
     private Long capitalCurrencyDictId;
 
     /**
-    * 经营者名称，对应的人id
+    * 经营者id，对应的人id
     */
     private Long operatorCompanyPersonId;
 

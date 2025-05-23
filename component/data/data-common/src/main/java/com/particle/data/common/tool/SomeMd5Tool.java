@@ -106,18 +106,15 @@ public class SomeMd5Tool {
     /**
      * 企业年报对外投资 唯一数据md5
      * @param investCompanyName
-     * @param investCompanyUscc
      * @return
      */
     public static String dataCompanyAnnualReportForeignInvestDataMd5(
-            String investCompanyName,
-            String investCompanyUscc
+            String investCompanyName
     ){
-        boolean hasValue = StrUtil.isNotEmpty(investCompanyName) || StrUtil.isNotEmpty(investCompanyUscc);
+        boolean hasValue = StrUtil.isNotEmpty(investCompanyName);
         if (hasValue) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(StrUtil.nullToEmpty(investCompanyName));
-            stringBuilder.append(StrUtil.nullToEmpty(investCompanyUscc));
             return DigestUtil.md5Hex(stringBuilder.toString());
         }
         return null;

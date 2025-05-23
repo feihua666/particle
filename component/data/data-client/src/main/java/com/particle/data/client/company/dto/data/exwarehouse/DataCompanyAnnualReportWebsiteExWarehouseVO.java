@@ -34,9 +34,6 @@ public class DataCompanyAnnualReportWebsiteExWarehouseVO extends AbstractBaseIdV
     @Schema(description = "类型")
     private Long typeDictId;
 
-	@Schema(description = "类型名称，如：网站、网店")
-	private String typeName;
-
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
     @Schema(description = "类型对应字典值")
     private String typeDictValue;
@@ -44,6 +41,10 @@ public class DataCompanyAnnualReportWebsiteExWarehouseVO extends AbstractBaseIdV
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
     @Schema(description = "类型对应字典名称")
     private String typeDictName;
+
+	@Schema(description = "类型名称，如：网站、网店")
+	private String typeName;
+
 
     @Schema(description = "名称")
     private String name;

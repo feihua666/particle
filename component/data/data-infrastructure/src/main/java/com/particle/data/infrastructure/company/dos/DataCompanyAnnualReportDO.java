@@ -51,14 +51,14 @@ public class DataCompanyAnnualReportDO extends BaseDO {
     * 资金数额（万元）
     */
     private BigDecimal capital;
-    
+
     /**
     * 资金数额币种，字典id，如：人民币
     */
     private Long capitalCurrencyDictId;
 
     /**
-    * 经营者名称，对应的人id
+    * 经营者id，对应的人id
     */
     private Long operatorCompanyPersonId;
 
@@ -156,6 +156,6 @@ public class DataCompanyAnnualReportDO extends BaseDO {
     * 最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动
     */
     private LocalDateTime latestHandleAt;
-    
+
 
 }

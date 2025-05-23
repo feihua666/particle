@@ -65,7 +65,7 @@ export const useSelectOpenplatformDocApiCompItem = ({required = false, tips = ''
         element: {
             comp: 'PtSelect',
             formItemProps: {
-                label: '绑定接口',
+                label: '文档接口',
                 required: required,
                 tips: tips || undefined
             },

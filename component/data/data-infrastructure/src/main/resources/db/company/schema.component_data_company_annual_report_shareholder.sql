@@ -17,6 +17,7 @@ CREATE TABLE `component_data_company_annual_report_shareholder` (
   `sub_capital_date` date DEFAULT NULL COMMENT '认缴出资日期',
   `actual_capital` decimal(16,5) DEFAULT NULL COMMENT '实缴出资金额（万元）',
   `actual_capital_currency_dict_id` bigint DEFAULT NULL COMMENT '实缴出资金额币种，字典id，如：人民币',
+  `actual_capital_type_dict_id` bigint DEFAULT NULL COMMENT '实缴出资方式',
   `actual_capital_date` date DEFAULT NULL COMMENT '实缴出资日期',
   `data_md5` varchar(32) NOT NULL COMMENT '数据md5,shareholder_name',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',

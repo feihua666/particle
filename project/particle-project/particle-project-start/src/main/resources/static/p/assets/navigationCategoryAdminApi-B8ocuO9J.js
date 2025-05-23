@@ -1,0 +1,1 @@
+import{k as e}from"./index-DY8PGGNe.js";let a="/admin/web/navigation_category";const s=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),p=t=>e.get(a+"/detail-for-update",{params:t}),i=t=>e.get(a+"/list",{params:t}),u=t=>e.get(a+"/page",{params:t});export{s as c,p as d,i as l,u as p,o as r,n as u};

@@ -10,6 +10,7 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocTemplateParamFieldApplicationService;
 import com.particle.openplatform.client.doc.api.representation.IOpenplatformDocApiDocTemplateParamFieldRepresentationApplicationService;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldConditionDeleteCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldUpdateCommand;
@@ -97,5 +98,12 @@ public class OpenplatformDocApiDocTemplateParamFieldAdminWebController extends A
 	@OpLog(name = "解析并添加开放接口文档模板参数字段",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.create)
 	public Response parseAndCreate(@RequestBody OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand command){
 		return iOpenplatformDocApiDocTemplateParamFieldApplicationService.parseAndCreate(command);
+	}
+	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplateParamField:delete')")
+	@Operation(summary = "条件删除接口文档模板参数字段")
+	@DeleteMapping("/conditionDelete")
+	@OpLog(name = "条件删除接口文档模板参数字段",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
+	public Response conditionDelete(@RequestBody OpenplatformDocApiDocTemplateParamFieldConditionDeleteCommand command){
+		return iOpenplatformDocApiDocTemplateParamFieldApplicationService.conditionDelete(command);
 	}
 }

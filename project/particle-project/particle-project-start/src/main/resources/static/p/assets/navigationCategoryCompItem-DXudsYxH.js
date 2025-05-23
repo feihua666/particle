@@ -1,1 +1,0 @@
-import{l as o}from"./navigationCategoryAdminApi-Yho7Bq5Z.js";const m=({fieldName:e="parentId",required:t=!1,label:a="父级",valueChange:r=()=>{}})=>({field:{name:e,valueChange:r},element:{comp:"PtCascader",formItemProps:{label:a,required:t},compProps:{dataMethod:()=>o({}),dataMethodResultHandleConvertToTree:!0}}});export{m as u};

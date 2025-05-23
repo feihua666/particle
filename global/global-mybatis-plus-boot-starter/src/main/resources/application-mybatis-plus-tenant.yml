@@ -149,6 +149,8 @@ particle:
       - component_scheduler_temp_task
       - component_scheduler_temp_task_run_record
       - component_scheduler_temp_task_run_record_log
+      - component_scheduler_job_data_task
+      - component_scheduler_async_data_task
       # 导航相关
       - component_navigation_category
       - component_navigation_site

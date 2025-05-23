@@ -1,13 +1,9 @@
 package com.particle.data.app.company.executor.warehousewrap;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
-import com.particle.component.light.share.dict.PatentCurrentRightStatus;
-import com.particle.component.light.share.dict.PatentType;
 import com.particle.data.app.company.executor.warehouse.*;
 import com.particle.data.client.company.dto.command.warehouse.*;
 import com.particle.data.client.company.dto.data.exwarehouse.*;
-import com.particle.data.common.tool.DataDictItemInfo;
 import com.particle.data.domain.gateway.DataDictGateway;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -41,7 +37,7 @@ public class DataCompanyIprPatentAllWrapWarehouseCommandExecutor extends Abstrac
 	private DataCompanyIprPatentQuoteWarehouseCommandExecutor dataCompanyIprPatentQuoteWarehouseCommandExecutor;
 	private DataCompanyIprPatentStatisticWarehouseCommandExecutor dataCompanyIprPatentStatisticWarehouseCommandExecutor;
 	private DataCompanyIprPatentTransferWarehouseCommandExecutor dataCompanyIprPatentTransferWarehouseCommandExecutor;
-	private DataCompanyIprPatentWarehouseCommandExecutor dataCompanyIprPatentWarehouseCommandExecutor;
+	private DataCompanyIprPatentWrapWarehouseCommandExecutor dataCompanyIprPatentWrapWarehouseCommandExecutor;
 
 	private DataCompanyIprPatentPartyWrapWarehouseCommandExecutor dataCompanyIprPatentPartyWrapWarehouseCommandExecutor;
 
@@ -58,32 +54,13 @@ public class DataCompanyIprPatentAllWrapWarehouseCommandExecutor extends Abstrac
 				DataCompanyIprPatentExWarehouseVO basic = companyIprPatentAllExWarehouseVO.getBasic();
 				Long dataCompanyIprPatentId = null;
 				if (basic != null) {
-					DataCompanyIprPatentWarehouseCommand dataCompanyIprPatentWarehouseCommand = DataCompanyIprPatentWarehouseCommand.createByDataCompanyIprPatentExWarehouseVO(basic);
-					// 专利类型字典处理
-					if (basic.getPatentTypeDictId() == null && StrUtil.isNotEmpty(basic.getPatentTypeDictName())) {
-						DataDictItemInfo dataDictItemInfo = dataDictGateway.matchWithMappingValue(basic.getPatentTypeDictName(), PatentType.Group.patent_type.groupCode(), true, true);
-                        if (dataDictItemInfo != null) {
-							dataCompanyIprPatentWarehouseCommand.setPatentTypeDictId(dataDictItemInfo.getId());
-                        }
-					}
-					// 当前权利状态字典处理
-					if (basic.getCurrentRightStatusDictId() == null && StrUtil.isNotEmpty(basic.getCurrentRightStatusDictName())) {
-						DataDictItemInfo dataDictItemInfo = dataDictGateway.matchWithMappingValue(basic.getCurrentRightStatusDictName(), PatentCurrentRightStatus.Group.patent_current_right_status.groupCode(), true, true);
-						if (dataDictItemInfo != null) {
-							dataCompanyIprPatentWarehouseCommand.setCurrentRightStatusDictId(dataDictItemInfo.getId());
-						}
-					}
-					SingleResponse<DataCompanyIprPatentExWarehouseVO> dataCompanyIprPatentExWarehouseVOSingleResponse = dataCompanyIprPatentWarehouseCommandExecutor.warehouse(dataCompanyIprPatentWarehouseCommand);
+					SingleResponse<DataCompanyIprPatentExWarehouseVO> dataCompanyIprPatentExWarehouseVOSingleResponse = dataCompanyIprPatentWrapWarehouseCommandExecutor.warehouse(basic);
 					dataCompanyIprPatentId = dataCompanyIprPatentExWarehouseVOSingleResponse.getData().getId();
 				}
 
 				List<DataCompanyIprPatentPartyExWarehouseVO> parties = companyIprPatentAllExWarehouseVO.getParties();
 				if (CollectionUtil.isNotEmpty(parties)) {
-					for (DataCompanyIprPatentPartyExWarehouseVO party : parties) {
-						DataCompanyIprPatentPartyWarehouseCommand dataCompanyIprPatentPartyWarehouseCommand = DataCompanyIprPatentPartyWarehouseCommand.createByDataCompanyIprPatentPartyExWarehouseVO(party);
-						dataCompanyIprPatentPartyWarehouseCommand.setCompanyIprPatentId(dataCompanyIprPatentId);
-						dataCompanyIprPatentPartyWrapWarehouseCommandExecutor.warehouse(dataCompanyIprPatentPartyWarehouseCommand);
-					}
+					dataCompanyIprPatentPartyWrapWarehouseCommandExecutor.warehouse(parties, dataCompanyIprPatentId);
 				}
 
 				List<DataCompanyIprPatentCertificateExWarehouseVO> certificates = companyIprPatentAllExWarehouseVO.getCertificates();
@@ -260,8 +237,8 @@ public class DataCompanyIprPatentAllWrapWarehouseCommandExecutor extends Abstrac
 	}
 
 	@Autowired
-	public void setDataCompanyIprPatentWarehouseCommandExecutor(DataCompanyIprPatentWarehouseCommandExecutor dataCompanyIprPatentWarehouseCommandExecutor) {
-		this.dataCompanyIprPatentWarehouseCommandExecutor = dataCompanyIprPatentWarehouseCommandExecutor;
+	public void setDataCompanyIprPatentWrapWarehouseCommandExecutor(DataCompanyIprPatentWrapWarehouseCommandExecutor dataCompanyIprPatentWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprPatentWrapWarehouseCommandExecutor = dataCompanyIprPatentWrapWarehouseCommandExecutor;
 	}
 
 	@Autowired

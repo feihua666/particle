@@ -353,6 +353,9 @@ public class HttpClientTool{
                     custom.setConnectionRequestTimeout(Timeout.ofMilliseconds(extConfig.getConnRequestTimeout()));
                 }
                 if (extConfig.getSocketTimeout() != null) {
+                    custom.setResponseTimeout(Timeout.ofMilliseconds(extConfig.getSocketTimeout()));
+                }
+                if (extConfig.getResponseTimeout() != null) {
                     custom.setResponseTimeout(Timeout.ofMilliseconds(extConfig.getResponseTimeout()));
                 }
                 requestConfig = custom.build();
@@ -429,7 +432,7 @@ public class HttpClientTool{
          */
         private Integer responseTimeout;
         /**
-         * 读取超时时间，ms，注意httpclient5已不支持单独请求设置socketTimout，这里保留是只有在设置httpclient时可以设置，所以想在单次请求中支持，必须先建议一个亲的httpclient，但这样是耗资源的
+         * 读取超时时间，ms，注意httpclient5已不支持单独请求设置socketTimout，这里保留是只有在设置httpclient时可以设置，所以想在单次请求中支持，必须先建议一个新的httpclient，但这样是耗资源的
          */
         private Integer socketTimeout;
 

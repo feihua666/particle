@@ -45,6 +45,9 @@ public class DataCompanyAnnualReportForeignInvestPageQueryCommand extends Abstra
 	@Schema(description = "对外投资企业统一社会信用代码")
 	private String investCompanyUscc;
 
+	@Schema(description = "对外投资企业注册号")
+	private String investCompanyRegNo;
+
 
     @Schema(description = "对外投资比例")
     private BigDecimal investPercent;
@@ -57,7 +60,7 @@ public class DataCompanyAnnualReportForeignInvestPageQueryCommand extends Abstra
     @Schema(description = "对外投资金额币种")
     private Long investAmountCurrencyDictId;
 
-	@Schema(description = "数据md5,invest_company_name + invest_company_uscc")
+	@Schema(description = "数据md5,invest_company_name")
 	private String dataMd5;
 
 

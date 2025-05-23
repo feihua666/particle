@@ -54,6 +54,8 @@ public class DataCompanyAnnualReportForeignInvestWarehouseCommand extends Abstra
 	@Schema(description = "对外投资企业统一社会信用代码")
 	private String investCompanyUscc;
 
+    @Schema(description = "对外投资企业注册号")
+    private String investCompanyRegNo;
 
     @Schema(description = "对外投资比例")
     private BigDecimal investPercent;
@@ -71,7 +73,7 @@ public class DataCompanyAnnualReportForeignInvestWarehouseCommand extends Abstra
 
     public String obtainDataMd5() {
         if (StrUtil.isEmpty(dataMd5)) {
-            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportForeignInvestDataMd5(investCompanyName, investCompanyUscc);
+            dataMd5 = SomeMd5Tool.dataCompanyAnnualReportForeignInvestDataMd5(investCompanyName);
         }
         return dataMd5;
     }
@@ -88,6 +90,7 @@ public class DataCompanyAnnualReportForeignInvestWarehouseCommand extends Abstra
                 && Objects.isNull(investCompanyId)
                 && StrUtil.isEmpty(investCompanyName)
                 && StrUtil.isEmpty(investCompanyUscc)
+                && StrUtil.isEmpty(investCompanyRegNo)
                 && Objects.isNull(investPercent)
                 && Objects.isNull(investAmount)
                 && Objects.isNull(investAmountCurrencyDictId);
@@ -119,6 +122,9 @@ public class DataCompanyAnnualReportForeignInvestWarehouseCommand extends Abstra
         if (Objects.equals(investCompanyUscc, exWarehouseVO.getInvestCompanyUscc())) {
             this.investCompanyUscc = null;
         }
+        if (Objects.equals(investCompanyRegNo, exWarehouseVO.getInvestCompanyRegNo())) {
+            this.investCompanyRegNo = null;
+        }
         if (NumberUtil.equals(investPercent, exWarehouseVO.getInvestPercent())) {
             this.investPercent = null;
         }
@@ -140,6 +146,7 @@ public class DataCompanyAnnualReportForeignInvestWarehouseCommand extends Abstra
         command.investCompanyId = exWarehouseVO.getInvestCompanyId();
         command.investCompanyName = exWarehouseVO.getInvestCompanyName();
         command.investCompanyUscc = exWarehouseVO.getInvestCompanyUscc();
+        command.investCompanyRegNo = exWarehouseVO.getInvestCompanyRegNo();
         command.investPercent = exWarehouseVO.getInvestPercent();
         command.investAmount = exWarehouseVO.getInvestAmount();
         command.investAmountCurrencyDictId = exWarehouseVO.getInvestAmountCurrencyDictId();

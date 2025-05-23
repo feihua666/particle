@@ -98,6 +98,11 @@ public class DataCompanyAnnualReportShareholder extends AggreateRoot {
     */
     private Long actualCapitalCurrencyDictId;
 
+	/**
+	 * 实缴出资方式
+	 */
+	private Long actualCapitalTypeDictId;
+
     /**
     * 实缴出资日期
     */

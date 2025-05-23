@@ -8,6 +8,7 @@ import com.particle.data.app.company.structmapping.DataCompanyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseCandidateVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
+import com.particle.data.common.tool.SomeStrTool;
 import com.particle.data.infrastructure.company.dos.DataCompanyDO;
 import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
 import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
@@ -49,6 +50,7 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 
 		if (dataCompanyMd5DO == null) {
 			String uscc = exWarehouseQueryCommand.getUscc();
+			uscc = SomeStrTool.normalizeCompanyUscc(uscc);
 			if (StrUtil.isNotEmpty(uscc)) {
 				String usccMd5 = StringTool.isMd5(uscc) ? uscc : DigestUtil.md5Hex(uscc);
 				dataCompanyMd5DO = iDataCompanyMd5Service.getByUsccMd5(usccMd5);
@@ -57,6 +59,7 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 
 		if (dataCompanyMd5DO == null) {
 			String regNo = exWarehouseQueryCommand.getRegNo();
+			regNo = SomeStrTool.normalizeCompanyRegNo(regNo);
 			if (StrUtil.isNotEmpty(regNo)) {
 				String regNoMd5 = StringTool.isMd5(regNo) ? regNo : DigestUtil.md5Hex(regNo);
 				dataCompanyMd5DO = iDataCompanyMd5Service.getByRegNoMd5(regNoMd5);
@@ -65,6 +68,7 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 
 		if (dataCompanyMd5DO == null) {
 			String orgCode = exWarehouseQueryCommand.getOrgCode();
+			orgCode = SomeStrTool.normalizeCompanyOrgCode(orgCode);
 			if (StrUtil.isNotEmpty(orgCode)) {
 				String orgCodeMd5 = StringTool.isMd5(orgCode) ? orgCode : DigestUtil.md5Hex(orgCode);
 				dataCompanyMd5DO = iDataCompanyMd5Service.getByOrgCodeMd5(orgCode);
@@ -73,6 +77,7 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 
 		if (dataCompanyMd5DO == null) {
 			String name = exWarehouseQueryCommand.getName();
+			name = SomeStrTool.normalizeCompanyName(name);
 			if (StrUtil.isNotEmpty(name)) {
 				String nameMd5 = StringTool.isMd5(name) ? name : DigestUtil.md5Hex(name);
 				List<DataCompanyMd5DO> byNameMd5 = iDataCompanyMd5Service.getByNameMd5(nameMd5);
@@ -93,6 +98,7 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 
 		if (dataCompanyMd5DO == null) {
 			String enName = exWarehouseQueryCommand.getEnName();
+			enName = SomeStrTool.normalizeCompanyEnName(enName);
 			if (StrUtil.isNotEmpty(enName)) {
 				String enNameMd5 = StringTool.isMd5(enName) ? enName : DigestUtil.md5Hex(enName);
 				List<DataCompanyMd5DO> byEnNameMd5 = iDataCompanyMd5Service.getByEnNameMd5(enNameMd5);

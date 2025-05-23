@@ -1,5 +1,7 @@
 package com.particle.data.common.tool;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 /**
@@ -31,7 +33,7 @@ public class CompanyNameCheckTool {
      * @return
      */
     public static boolean checkIsCompanyName(String name) {
-        if (name == null || name.trim().isEmpty()) {
+        if (StrUtil.isBlank(name)) {
             return false;
         }
         Matcher matcher = pattern.matcher(name.trim());
@@ -50,7 +52,8 @@ public class CompanyNameCheckTool {
                 "XX研究院",                // 组织机构
                 "Example Co., Ltd.",       // 英文企业
                 "Test GmbH",               // 德国企业
-                "Invalid Name"             // 无效名称
+                "Invalid Name",             // 无效名称
+                "商业银行"             // 简称
         };
 
         for (String testCase : testCases) {

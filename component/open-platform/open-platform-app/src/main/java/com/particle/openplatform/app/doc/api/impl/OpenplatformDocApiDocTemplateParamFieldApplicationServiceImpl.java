@@ -9,6 +9,7 @@ import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateP
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateParamFieldDeleteCommandExecutor;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateParamFieldUpdateCommandExecutor;
 import com.particle.openplatform.client.doc.api.IOpenplatformDocApiDocTemplateParamFieldApplicationService;
+import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldConditionDeleteCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldUpdateCommand;
@@ -54,6 +55,11 @@ public class OpenplatformDocApiDocTemplateParamFieldApplicationServiceImpl exten
 	@Override
 	public Response parseAndCreate(OpenplatformDocApiDocTemplateParamFieldParseAndCreateCommand command) {
 		return openplatformDocApiDocTemplateParamFieldCreateCommandExecutor.parseAndCreate(command);
+	}
+
+	@Override
+	public Response conditionDelete(OpenplatformDocApiDocTemplateParamFieldConditionDeleteCommand command) {
+		return openplatformDocApiDocTemplateParamFieldDeleteCommandExecutor.conditionDelete(command);
 	}
 
 	@Autowired

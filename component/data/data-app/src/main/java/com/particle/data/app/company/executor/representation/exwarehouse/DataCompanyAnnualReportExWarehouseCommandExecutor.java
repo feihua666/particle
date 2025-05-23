@@ -34,7 +34,7 @@ public class DataCompanyAnnualReportExWarehouseCommandExecutor extends AbstractB
 	 * @return
 	 */
 	public PageResponse<DataCompanyAnnualReportExWarehouseVO> exWarehouse(@Valid DataCompanyAnnualReportExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
-		Page<DataCompanyAnnualReportDO> dataCompanyAnnualReportDOPage = iDataCompanyAnnualReportService.listPageByCompanyId(dataCompanyExWarehouseQueryCommand.getCompanyId(),dataCompanyExWarehouseQueryCommand.getYear(), dataCompanyExWarehouseQueryCommand);
+		Page<DataCompanyAnnualReportDO> dataCompanyAnnualReportDOPage = iDataCompanyAnnualReportService.listPageByCompanyIdOrderByYearDesc(dataCompanyExWarehouseQueryCommand.getCompanyId(),dataCompanyExWarehouseQueryCommand.getYear(), dataCompanyExWarehouseQueryCommand);
 		if (dataCompanyAnnualReportDOPage == null || dataCompanyAnnualReportDOPage.getRecords() == null || dataCompanyAnnualReportDOPage.getRecords().isEmpty()) {
 			return PageResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
         }

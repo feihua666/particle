@@ -15,18 +15,19 @@ import java.util.regex.Pattern;
  * @since 2025-05-09 14:07:01
  */
 public class SomeStrAmountTool {
+    public static Pattern prefixNumberPattern = Pattern.compile("^(\\d+\\.?\\d*)(.*)$");
+
     /**
      * 解析金额字符串，返回金额和单位
      * @param input
      * @return
      */
     public static AmountParseResult parseAmount(String input) {
-        if (StrUtil.isEmpty(input)) {
+        if (StrUtil.isBlank(input)) {
             return null;
         }
         AmountParseResult result = new AmountParseResult();
-        Pattern pattern = Pattern.compile("^(\\d+\\.?\\d*)(.*)$");
-        Matcher matcher = pattern.matcher(input.trim());
+        Matcher matcher = prefixNumberPattern.matcher(input.trim());
 
         if (matcher.find()) {
             // 提取数字部分

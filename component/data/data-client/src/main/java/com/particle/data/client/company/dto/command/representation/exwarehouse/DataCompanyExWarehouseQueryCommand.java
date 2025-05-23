@@ -38,9 +38,13 @@ public class DataCompanyExWarehouseQueryCommand extends AbstractBaseQueryCommand
 
 
     public static DataCompanyExWarehouseQueryCommand create(String name, String uscc) {
+        return create(name, uscc,null);
+    }
+    public static DataCompanyExWarehouseQueryCommand create(String name, String uscc,String regNo) {
         DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand = new DataCompanyExWarehouseQueryCommand();
         dataCompanyExWarehouseQueryCommand.name = name;
         dataCompanyExWarehouseQueryCommand.uscc = uscc;
+        dataCompanyExWarehouseQueryCommand.regNo = regNo;
         return dataCompanyExWarehouseQueryCommand;
     }
 

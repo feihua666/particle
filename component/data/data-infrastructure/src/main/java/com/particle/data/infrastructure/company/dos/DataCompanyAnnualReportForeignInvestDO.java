@@ -57,6 +57,11 @@ public class DataCompanyAnnualReportForeignInvestDO extends BaseDO {
 	 */
 	private String investCompanyUscc;
 
+	/**
+	 * 对外投资企业注册号
+	 */
+	private String investCompanyRegNo;
+
     /**
     * 对外投资比例
     */
@@ -73,7 +78,7 @@ public class DataCompanyAnnualReportForeignInvestDO extends BaseDO {
     private Long investAmountCurrencyDictId;
 
 	/**
-	 * 数据md5,invest_company_name + invest_company_uscc
+	 * 数据md5,invest_company_name
 	 */
 	private String dataMd5;
 

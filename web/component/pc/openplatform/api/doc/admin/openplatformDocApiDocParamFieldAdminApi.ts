@@ -21,6 +21,13 @@ export const parseAndCreate = (data: anyObj): AxiosPromise => {
  * 删除开放接口文档参数字段
  * @param data
  */
+export const conditionRemove = (data: anyObj): AxiosPromise => {
+    return axios.delete(openplatformDocApiDocParamFieldPrefix + '/conditionDelete',data)
+}
+/**
+ * 删除开放接口文档参数字段
+ * @param data
+ */
 export const remove = (data: IdParam): AxiosPromise => {
     return axios.delete(openplatformDocApiDocParamFieldPrefix + '/delete',{data: data})
 }

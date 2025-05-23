@@ -53,6 +53,9 @@ public class DataCompanyAnnualReportForeignInvestCreateCommand extends AbstractB
 	@Schema(description = "对外投资企业统一社会信用代码")
 	private String investCompanyUscc;
 
+	@Schema(description = "对外投资企业注册号")
+	private String investCompanyRegNo;
+
 
     @Schema(description = "对外投资比例")
     private BigDecimal investPercent;
@@ -78,6 +81,7 @@ public class DataCompanyAnnualReportForeignInvestCreateCommand extends AbstractB
         command.investCompanyId = dataCompanyBasicWarehouseCommand.getInvestCompanyId();
         command.investCompanyName = dataCompanyBasicWarehouseCommand.getInvestCompanyName();
         command.investCompanyUscc = dataCompanyBasicWarehouseCommand.getInvestCompanyUscc();
+        command.investCompanyRegNo = dataCompanyBasicWarehouseCommand.getInvestCompanyRegNo();
         command.investPercent = dataCompanyBasicWarehouseCommand.getInvestPercent();
         command.investAmount = dataCompanyBasicWarehouseCommand.getInvestAmount();
         command.investAmountCurrencyDictId = dataCompanyBasicWarehouseCommand.getInvestAmountCurrencyDictId();

@@ -35,6 +35,22 @@ public interface IDataCompanyAnnualReportService extends IBaseService<DataCompan
                 .eq(year != null,DataCompanyAnnualReportDO::getYear, year))
                 ;
     }
+    /**
+     * 根据企业表ID分页查询列表
+     * @param companyId
+     * @param year 可选 年报年度
+     * @param pageQueryForm
+     * @return
+     */
+    default public Page<DataCompanyAnnualReportDO> listPageByCompanyIdOrderByYearDesc(Long companyId,Integer year, PageQueryCommand pageQueryForm){
+        Assert.notNull(companyId,"companyId 不能为空");
+        Page pageQuery = new Page((pageQueryForm).getPageNo(), (pageQueryForm).getPageSize());
+        return page(pageQuery, Wrappers.<DataCompanyAnnualReportDO>lambdaQuery()
+                .eq(DataCompanyAnnualReportDO::getCompanyId, companyId)
+                .eq(year != null,DataCompanyAnnualReportDO::getYear, year)
+                .orderByDesc(DataCompanyAnnualReportDO::getYear)
+        );
+    }
 
     /**
      * 根据公司id和年度查询
@@ -48,6 +64,21 @@ public interface IDataCompanyAnnualReportService extends IBaseService<DataCompan
         return getOne(Wrappers.<DataCompanyAnnualReportDO>lambdaQuery()
                 .eq(DataCompanyAnnualReportDO::getCompanyId, companyId)
                 .eq(DataCompanyAnnualReportDO::getYear, year));
+    }
+    /**
+     * 根据公司id和年度查询
+     * @param companyId
+     * @param year
+     * @return
+     */
+    default public DataCompanyAnnualReportDO getByCompanyIdAndYearOrderByYearDesc(Long companyId,Integer year) {
+        Assert.notNull(companyId,"companyId 不能为空");
+        Assert.notNull(year,"year 不能为空");
+        return getOne(Wrappers.<DataCompanyAnnualReportDO>lambdaQuery()
+                .eq(DataCompanyAnnualReportDO::getCompanyId, companyId)
+                .eq(DataCompanyAnnualReportDO::getYear, year)
+                .orderByDesc(DataCompanyAnnualReportDO::getYear)
+        );
     }
 
 

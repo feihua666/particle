@@ -4,7 +4,7 @@ CREATE TABLE global_cache  (
   `id` varchar(64)  NOT NULL COMMENT '主键',
   `cache_name` varchar(500) NOT NULL COMMENT '缓存名称',
   `cache_key` varchar(500) NOT NULL COMMENT '缓存键值',
-  `cache_value_json` text DEFAULT NULL COMMENT '缓存值，json形式',
+  `cache_value_json` longtext DEFAULT NULL COMMENT '缓存值，json形式',
   `cache_value_blob` blob DEFAULT NULL COMMENT '缓存值，blob形式',
   `cache_value_type` varchar(100) NOT NULL COMMENT '缓存值类型，如：java.lang.String',
   `cache_value_is_basic_type` tinyint(1) NOT NULL COMMENT '缓存值类型是否为基本数据类型，1=是，0=否',

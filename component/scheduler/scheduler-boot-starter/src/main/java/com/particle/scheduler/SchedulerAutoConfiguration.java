@@ -31,6 +31,7 @@
         "com.particle.scheduler.infrastructure.mapper",
         "com.particle.scheduler.infrastructure.temptask.mapper",
         "com.particle.scheduler.infrastructure.schedule.mapper",
+        "com.particle.scheduler.infrastructure.datatask.mapper",
 })
 public class SchedulerAutoConfiguration {
 

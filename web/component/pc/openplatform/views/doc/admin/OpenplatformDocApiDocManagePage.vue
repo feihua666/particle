@@ -21,12 +21,12 @@ const reactiveData = reactive({
   tableColumns: [
     {
       prop: 'openplatformDocApiName',
-      label: '绑定接口',
+      label: '文档接口',
       showOverflowTooltip: true
     },
     {
       prop: 'openplatformDocApiCode',
-      label: '绑定接口编码',
+      label: '文档接口编码',
       showOverflowTooltip: true
     },
     {

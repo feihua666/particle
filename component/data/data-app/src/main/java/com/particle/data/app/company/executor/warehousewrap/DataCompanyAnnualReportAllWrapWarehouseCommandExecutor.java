@@ -5,6 +5,7 @@ import com.particle.data.app.company.executor.warehouse.*;
 import com.particle.data.client.company.dto.command.warehouse.*;
 import com.particle.data.client.company.dto.data.exwarehouse.*;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -25,12 +26,12 @@ public class DataCompanyAnnualReportAllWrapWarehouseCommandExecutor extends Abst
 	private DataCompanyAnnualReportAdministrativeLicenseWarehouseCommandExecutor dataCompanyAnnualReportAdministrativeLicenseWarehouseCommandExecutor;
 	private DataCompanyAnnualReportAssetsWarehouseCommandExecutor dataCompanyAnnualReportAssetsWarehouseCommandExecutor;
 	private DataCompanyAnnualReportChangeWarehouseCommandExecutor dataCompanyAnnualReportChangeWarehouseCommandExecutor;
-	private DataCompanyAnnualReportEquityChangeWarehouseCommandExecutor dataCompanyAnnualReportEquityChangeWarehouseCommandExecutor;
-	private DataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor dataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor;
-	private DataCompanyAnnualReportForeignInvestWarehouseCommandExecutor dataCompanyAnnualReportForeignInvestWarehouseCommandExecutor;
-	private DataCompanyAnnualReportShareholderWarehouseCommandExecutor dataCompanyAnnualReportShareholderWarehouseCommandExecutor;
+	private DataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor dataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor;
+	private DataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor dataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor;
+	private DataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor dataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor;
+	private DataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor dataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor;
 	private DataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor dataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor;
-	private DataCompanyAnnualReportWarehouseCommandExecutor dataCompanyAnnualReportWarehouseCommandExecutor;
+	private DataCompanyAnnualReportWrapWarehouseCommandExecutor dataCompanyAnnualReportWrapWarehouseCommandExecutor;
 	private DataCompanyAnnualReportWebsiteWarehouseCommandExecutor dataCompanyAnnualReportWebsiteWarehouseCommandExecutor;
 
 	/**
@@ -43,18 +44,29 @@ public class DataCompanyAnnualReportAllWrapWarehouseCommandExecutor extends Abst
 		if (CollectionUtil.isNotEmpty(data)) {
 			for (DataCompanyAnnualReportAllExWarehouseVO companyAnnualReportAllExWarehouseVO : data) {
 				DataCompanyAnnualReportExWarehouseVO basic = companyAnnualReportAllExWarehouseVO.getBasic();
+				Long companyId = null;
+				Long companyAnnualReportId = null;
+				Integer year = null;
 				if (basic != null) {
-					DataCompanyAnnualReportWarehouseCommand dataCompanyAnnualReportWarehouseCommand = DataCompanyAnnualReportWarehouseCommand.createByDataCompanyAnnualReportExWarehouseVO(basic);
-					dataCompanyAnnualReportWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportWarehouseCommand);
+					SingleResponse<DataCompanyAnnualReportExWarehouseVO> warehouse = dataCompanyAnnualReportWrapWarehouseCommandExecutor.warehouse(basic);
+					companyId = warehouse.getData().getCompanyId();
+					companyAnnualReportId = warehouse.getData().getId();
+					year = warehouse.getData().getYear();
 				}
 				DataCompanyAnnualReportSocialSecurityExWarehouseVO socialSecurity = companyAnnualReportAllExWarehouseVO.getSocialSecurity();
 				if (socialSecurity != null) {
 					DataCompanyAnnualReportSocialSecurityWarehouseCommand dataCompanyAnnualReportSocialSecurityWarehouseCommand = DataCompanyAnnualReportSocialSecurityWarehouseCommand.createByDataCompanyAnnualReportSocialSecurityExWarehouseVO(socialSecurity);
+					dataCompanyAnnualReportSocialSecurityWarehouseCommand.setCompanyId(companyId);
+					dataCompanyAnnualReportSocialSecurityWarehouseCommand.setCompanyAnnualReportId(companyAnnualReportId);
+					dataCompanyAnnualReportSocialSecurityWarehouseCommand.setYear(year);
 					dataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportSocialSecurityWarehouseCommand);
 				}
 				DataCompanyAnnualReportAssetsExWarehouseVO assets = companyAnnualReportAllExWarehouseVO.getAssets();
 				if (assets != null) {
 					DataCompanyAnnualReportAssetsWarehouseCommand dataCompanyAnnualReportAssetsWarehouseCommand = DataCompanyAnnualReportAssetsWarehouseCommand.createByDataCompanyAnnualReportAssetsExWarehouseVO(assets);
+					dataCompanyAnnualReportAssetsWarehouseCommand.setCompanyId(companyId);
+					dataCompanyAnnualReportAssetsWarehouseCommand.setCompanyAnnualReportId(companyAnnualReportId);
+					dataCompanyAnnualReportAssetsWarehouseCommand.setYear(year);
 					dataCompanyAnnualReportAssetsWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportAssetsWarehouseCommand);
 				}
 
@@ -62,6 +74,9 @@ public class DataCompanyAnnualReportAllWrapWarehouseCommandExecutor extends Abst
 				if (CollectionUtil.isNotEmpty(administrativeLicenses)) {
 					for (DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO administrativeLicense : administrativeLicenses) {
 						DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand = DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.createByDataCompanyAnnualReportAdministrativeLicenseExWarehouseVO(administrativeLicense);
+						dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.setCompanyId(companyId);
+						dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.setCompanyAnnualReportId(companyAnnualReportId);
+						dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand.setYear(year);
 						dataCompanyAnnualReportAdministrativeLicenseWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportAdministrativeLicenseWarehouseCommand);
 					}
 				}
@@ -69,43 +84,37 @@ public class DataCompanyAnnualReportAllWrapWarehouseCommandExecutor extends Abst
 				if (CollectionUtil.isNotEmpty(changes)) {
 					for (DataCompanyAnnualReportChangeExWarehouseVO change : changes) {
 						DataCompanyAnnualReportChangeWarehouseCommand dataCompanyAnnualReportChangeWarehouseCommand = DataCompanyAnnualReportChangeWarehouseCommand.createByDataCompanyAnnualReportChangeExWarehouseVO(change);
+						dataCompanyAnnualReportChangeWarehouseCommand.setCompanyId(companyId);
+						dataCompanyAnnualReportChangeWarehouseCommand.setCompanyAnnualReportId(companyAnnualReportId);
+						dataCompanyAnnualReportChangeWarehouseCommand.setYear(year);
 						dataCompanyAnnualReportChangeWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportChangeWarehouseCommand);
 					}
 				}
 
 				List<DataCompanyAnnualReportEquityChangeExWarehouseVO> equityChanges = companyAnnualReportAllExWarehouseVO.getEquityChanges();
 				if (CollectionUtil.isNotEmpty(equityChanges)) {
-					for (DataCompanyAnnualReportEquityChangeExWarehouseVO equityChange : equityChanges) {
-						DataCompanyAnnualReportEquityChangeWarehouseCommand dataCompanyAnnualReportEquityChangeWarehouseCommand = DataCompanyAnnualReportEquityChangeWarehouseCommand.createByDataCompanyAnnualReportEquityChangeExWarehouseVO(equityChange);
-						dataCompanyAnnualReportEquityChangeWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportEquityChangeWarehouseCommand);
-					}
+					dataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor.warehouse(equityChanges,companyId,companyAnnualReportId,year);
 				}
 				List<DataCompanyAnnualReportForeignGuaranteeExWarehouseVO> foreignGuarantees = companyAnnualReportAllExWarehouseVO.getForeignGuarantees();
 				if (CollectionUtil.isNotEmpty(foreignGuarantees)) {
-					for (DataCompanyAnnualReportForeignGuaranteeExWarehouseVO foreignGuarantee : foreignGuarantees) {
-						DataCompanyAnnualReportForeignGuaranteeWarehouseCommand dataCompanyAnnualReportForeignGuaranteeWarehouseCommand = DataCompanyAnnualReportForeignGuaranteeWarehouseCommand.createByDataCompanyAnnualReportForeignGuaranteeExWarehouseVO(foreignGuarantee);
-						dataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportForeignGuaranteeWarehouseCommand);
-					}
+					dataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor.warehouse(foreignGuarantees,companyId,companyAnnualReportId,year);
 				}
 				List<DataCompanyAnnualReportForeignInvestExWarehouseVO> foreignInvest = companyAnnualReportAllExWarehouseVO.getForeignInvests();
 				if (CollectionUtil.isNotEmpty(foreignInvest)) {
-					for (DataCompanyAnnualReportForeignInvestExWarehouseVO foreignInvestExWarehouseVO : foreignInvest) {
-						DataCompanyAnnualReportForeignInvestWarehouseCommand dataCompanyAnnualReportForeignInvestWarehouseCommand = DataCompanyAnnualReportForeignInvestWarehouseCommand.createByDataCompanyAnnualReportForeignInvestExWarehouseVO(foreignInvestExWarehouseVO);
-						dataCompanyAnnualReportForeignInvestWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportForeignInvestWarehouseCommand);
-					}
+					dataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor.warehouse(foreignInvest, companyId, companyAnnualReportId, year);
 				}
 				List<DataCompanyAnnualReportShareholderExWarehouseVO> shareholders = companyAnnualReportAllExWarehouseVO.getShareholders();
 				if (CollectionUtil.isNotEmpty(shareholders)) {
-					for (DataCompanyAnnualReportShareholderExWarehouseVO shareholder : shareholders) {
-						DataCompanyAnnualReportShareholderWarehouseCommand dataCompanyAnnualReportShareholderWarehouseCommand = DataCompanyAnnualReportShareholderWarehouseCommand.createByDataCompanyAnnualReportShareholderExWarehouseVO(shareholder);
-						dataCompanyAnnualReportShareholderWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportShareholderWarehouseCommand);
-					}
+					dataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor.warehouse(shareholders, companyId, companyAnnualReportId, year);
 				}
 
 				List<DataCompanyAnnualReportWebsiteExWarehouseVO> websites = companyAnnualReportAllExWarehouseVO.getWebsites();
 				if (CollectionUtil.isNotEmpty(websites)) {
 					for (DataCompanyAnnualReportWebsiteExWarehouseVO website : websites) {
 						DataCompanyAnnualReportWebsiteWarehouseCommand dataCompanyAnnualReportWebsiteWarehouseCommand = DataCompanyAnnualReportWebsiteWarehouseCommand.createByDataCompanyAnnualReportWebsiteExWarehouseVO(website);
+						dataCompanyAnnualReportWebsiteWarehouseCommand.setCompanyId(companyId);
+						dataCompanyAnnualReportWebsiteWarehouseCommand.setCompanyAnnualReportId(companyAnnualReportId);
+						dataCompanyAnnualReportWebsiteWarehouseCommand.setYear(year);
 						dataCompanyAnnualReportWebsiteWarehouseCommandExecutor.warehouse(dataCompanyAnnualReportWebsiteWarehouseCommand);
 					}
 				}
@@ -128,29 +137,31 @@ public class DataCompanyAnnualReportAllWrapWarehouseCommandExecutor extends Abst
 		this.dataCompanyAnnualReportChangeWarehouseCommandExecutor = dataCompanyAnnualReportChangeWarehouseCommandExecutor;
 	}
 	@Autowired
-	public void setDataCompanyAnnualReportEquityChangeWarehouseCommandExecutor(DataCompanyAnnualReportEquityChangeWarehouseCommandExecutor dataCompanyAnnualReportEquityChangeWarehouseCommandExecutor) {
-		this.dataCompanyAnnualReportEquityChangeWarehouseCommandExecutor = dataCompanyAnnualReportEquityChangeWarehouseCommandExecutor;
+	public void setDataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor(DataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor dataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor = dataCompanyAnnualReportEquityChangeWrapWarehouseCommandExecutor;
 	}
 	@Autowired
-	public void setDataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor(DataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor dataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor) {
-		this.dataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor = dataCompanyAnnualReportForeignGuaranteeWarehouseCommandExecutor;
+	public void setDataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor(DataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor dataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor = dataCompanyAnnualReportForeignGuaranteeWrapWarehouseCommandExecutor;
 	}
 	@Autowired
-	public void setDataCompanyAnnualReportForeignInvestWarehouseCommandExecutor(DataCompanyAnnualReportForeignInvestWarehouseCommandExecutor dataCompanyAnnualReportForeignInvestWarehouseCommandExecutor) {
-		this.dataCompanyAnnualReportForeignInvestWarehouseCommandExecutor = dataCompanyAnnualReportForeignInvestWarehouseCommandExecutor;
+	public void setDataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor(DataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor dataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor = dataCompanyAnnualReportForeignInvestWrapWarehouseCommandExecutor;
 	}
 	@Autowired
-	public void setDataCompanyAnnualReportShareholderWarehouseCommandExecutor(DataCompanyAnnualReportShareholderWarehouseCommandExecutor dataCompanyAnnualReportShareholderWarehouseCommandExecutor) {
-		this.dataCompanyAnnualReportShareholderWarehouseCommandExecutor = dataCompanyAnnualReportShareholderWarehouseCommandExecutor;
+	public void setDataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor(DataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor dataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor = dataCompanyAnnualReportShareholderWrapWarehouseCommandExecutor;
 	}
 	@Autowired
 	public void setDataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor(DataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor dataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor) {
 		this.dataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor = dataCompanyAnnualReportSocialSecurityWarehouseCommandExecutor;
 	}
+
 	@Autowired
-	public void setDataCompanyAnnualReportWarehouseCommandExecutor(DataCompanyAnnualReportWarehouseCommandExecutor dataCompanyAnnualReportWarehouseCommandExecutor) {
-		this.dataCompanyAnnualReportWarehouseCommandExecutor = dataCompanyAnnualReportWarehouseCommandExecutor;
+	public void setDataCompanyAnnualReportWrapWarehouseCommandExecutor(DataCompanyAnnualReportWrapWarehouseCommandExecutor dataCompanyAnnualReportWrapWarehouseCommandExecutor) {
+		this.dataCompanyAnnualReportWrapWarehouseCommandExecutor = dataCompanyAnnualReportWrapWarehouseCommandExecutor;
 	}
+
 	@Autowired
 	public void setDataCompanyAnnualReportWebsiteWarehouseCommandExecutor(DataCompanyAnnualReportWebsiteWarehouseCommandExecutor dataCompanyAnnualReportWebsiteWarehouseCommandExecutor) {
 		this.dataCompanyAnnualReportWebsiteWarehouseCommandExecutor = dataCompanyAnnualReportWebsiteWarehouseCommandExecutor;

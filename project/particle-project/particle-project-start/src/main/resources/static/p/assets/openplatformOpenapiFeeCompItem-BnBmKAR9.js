@@ -1,1 +1,0 @@
-import{l as r}from"./openplatformOpenapiFeeAdminApi-BAi4A82M.js";const l=({props:a={},required:e=!1,fieldName:p="openplatformOpenapiFeeId",label:o="计费规则",valueChange:t=()=>{},tips:m=""})=>({field:{name:p,valueChange:t},element:{comp:"PtSelect",formItemProps:{label:o,required:e,tips:m},compProps:{dataMethod:r}}});export{l as u};

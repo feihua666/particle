@@ -27,6 +27,7 @@ import com.particle.global.exception.Assert;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.mybatis.plus.crud.ServiceHelperTool;
 import com.particle.global.tool.document.excel.ExcelTool;
+import com.particle.global.tool.http.HttpClientTool;
 import com.particle.global.tool.http.OpenApiClientTool;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.json.JsonTool;
@@ -1025,6 +1026,10 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 							 OpenApiClientTool.ClientConfig withSHA256DigestAndNoSign,
 							 HttpMethod requestType,
 							 HttpContentType requestContentType) {
+		HttpClientTool.ExtConfig extConfig = HttpClientTool.ExtConfig.create();
+		extConfig.setResponseTimeout(10 * 60 * 1000);
+		extConfig.setSocketTimeout(10 * 60 * 1000);
+
 		// 根据请求体类型分别请求
 		// post json
 		if (HttpMethod.post == requestType) {

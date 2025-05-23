@@ -52,7 +52,7 @@ public class DataCompanyAnnualReportCreateCommand extends AbstractBaseCommand {
     private Long capitalCurrencyDictId;
 
 
-    @Schema(description = "经营者名称")
+    @Schema(description = "经营者id")
     private Long operatorCompanyPersonId;
 
 

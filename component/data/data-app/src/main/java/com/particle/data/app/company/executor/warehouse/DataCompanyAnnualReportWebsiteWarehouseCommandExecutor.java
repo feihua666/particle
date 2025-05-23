@@ -1,5 +1,6 @@
 package com.particle.data.app.company.executor.warehouse;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportWebsiteCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportWebsiteUpdateCommandExecutor;
@@ -11,6 +12,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportWebsiteV
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportWebsiteExWarehouseVO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportWebsiteService;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -39,6 +41,9 @@ public class DataCompanyAnnualReportWebsiteWarehouseCommandExecutor extends Abst
 	 * @return
 	 */
 	public SingleResponse<DataCompanyAnnualReportWebsiteExWarehouseVO> warehouse(DataCompanyAnnualReportWebsiteWarehouseCommand dataCompanyAnnualReportWebsiteWarehouseCommand) {
+        if (StrUtil.isEmpty(dataCompanyAnnualReportWebsiteWarehouseCommand.getUrl())) {
+            return SingleResponse.buildFailure(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR,"网址不存在，未入库");
+        }
 		SingleResponse<DataCompanyAnnualReportWebsiteExWarehouseVO> dataCompanyAnnualReportWebsiteExWarehouseVOSingleResponse = null;
 		DataCompanyAnnualReportWebsiteExWarehouseVO dataCompanyAnnualReportWebsiteExWarehouseVO = null;
         if (dataCompanyAnnualReportWebsiteWarehouseCommand.getCompanyAnnualReportId() != null) {

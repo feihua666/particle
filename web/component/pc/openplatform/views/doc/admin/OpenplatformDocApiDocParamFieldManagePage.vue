@@ -69,12 +69,12 @@ const reactiveData = reactive({
     },
     {
       prop: 'openplatformDocApiName',
-      label: '绑定接口',
+      label: '文档接口',
       showOverflowTooltip: true
     },
     {
       prop: 'openplatformDocApiCode',
-      label: '绑定接口编码',
+      label: '文档接口编码',
       showOverflowTooltip: true
     },
     {
@@ -154,6 +154,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #buttons>
       <PtButton permission="admin:web:openplatformDocApiDocParamField:create" route="/admin/OpenplatformDocApiDocParamFieldManageAdd">添加</PtButton>
       <PtButton permission="admin:web:openplatformDocApiDocParamField:create" route="/admin/OpenplatformDocApiDocParamFieldManageParseAndAdd">解析并添加</PtButton>
+      <PtButton permission="admin:web:openplatformDocApiDocParamField:delete" route="/admin/openplatformDocApiDocParamFieldManageConditionDelete">条件删除</PtButton>
     </template>
   </PtForm>
 <!-- 指定 dataMethod，默认加载数据 -->

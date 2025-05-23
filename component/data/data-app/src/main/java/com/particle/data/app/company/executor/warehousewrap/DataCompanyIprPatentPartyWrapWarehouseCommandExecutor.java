@@ -1,14 +1,14 @@
 package com.particle.data.app.company.executor.warehousewrap;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.data.app.company.executor.warehouse.DataCompanyIprPatentPartyWarehouseCommandExecutor;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentPartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentPartyExWarehouseVO;
-import com.particle.data.common.tool.CompanyNameCheckTool;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 /**
  * <p>
@@ -27,10 +27,26 @@ public class DataCompanyIprPatentPartyWrapWarehouseCommandExecutor extends Abstr
     /**
      * 企业知识产权当事人入库
      *
-     * @param dataCompanyIprPatentPartyWarehouseCommand
+     * @param dataCompanyIprPatentPartyExWarehouseVOS
+     * @param companyIprPatentId
      * @return
      */
-    public SingleResponse<DataCompanyIprPatentPartyExWarehouseVO> warehouse(DataCompanyIprPatentPartyWarehouseCommand dataCompanyIprPatentPartyWarehouseCommand) {
+    public void warehouse(List<DataCompanyIprPatentPartyExWarehouseVO> dataCompanyIprPatentPartyExWarehouseVOS,Long companyIprPatentId) {
+        for (DataCompanyIprPatentPartyExWarehouseVO dataCompanyIprPatentPartyExWarehouseVO : dataCompanyIprPatentPartyExWarehouseVOS) {
+            warehouse(dataCompanyIprPatentPartyExWarehouseVO,companyIprPatentId);
+        }
+    }
+    /**
+     * 企业知识产权当事人入库
+     *
+     * @param dataCompanyIprPatentPartyExWarehouseVO
+     * @param companyIprPatentId
+     * @return
+     */
+    public SingleResponse<DataCompanyIprPatentPartyExWarehouseVO> warehouse(DataCompanyIprPatentPartyExWarehouseVO dataCompanyIprPatentPartyExWarehouseVO,Long companyIprPatentId) {
+
+        DataCompanyIprPatentPartyWarehouseCommand dataCompanyIprPatentPartyWarehouseCommand = DataCompanyIprPatentPartyWarehouseCommand.createByDataCompanyIprPatentPartyExWarehouseVO(dataCompanyIprPatentPartyExWarehouseVO);
+        dataCompanyIprPatentPartyWarehouseCommand.setCompanyIprPatentId(companyIprPatentId);
         fillCompanyId(dataCompanyIprPatentPartyWarehouseCommand);
         return dataCompanyIprPatentPartyWarehouseCommandExecutor.warehouse(dataCompanyIprPatentPartyWarehouseCommand);
     }
@@ -41,13 +57,14 @@ public class DataCompanyIprPatentPartyWrapWarehouseCommandExecutor extends Abstr
      */
     private void fillCompanyId(DataCompanyIprPatentPartyWarehouseCommand dataCompanyIprPatentPartyWarehouseCommand) {
         String partyNameCn = dataCompanyIprPatentPartyWarehouseCommand.getPartyNameCn();
-        if (StrUtil.isNotEmpty(partyNameCn)) {
-            boolean checkIsCompanyName = CompanyNameCheckTool.checkIsCompanyName(partyNameCn);
-            if (checkIsCompanyName) {
-                Long companyId = warehouseByCompanyNameAndGetCompanyId(partyNameCn);
-                dataCompanyIprPatentPartyWarehouseCommand.setPartyCompanyId(companyId);
-                dataCompanyIprPatentPartyWarehouseCommand.setIsPartyNaturalPerson(false);
-            }
+        NaturePerson naturePerson = checkNaturePerson(partyNameCn,
+                dataCompanyIprPatentPartyWarehouseCommand.getPartyCompanyId(),
+                dataCompanyIprPatentPartyWarehouseCommand.getPartyCompanyPersonId(),
+                dataCompanyIprPatentPartyWarehouseCommand.getIsPartyNaturalPerson());
+        if (naturePerson != null) {
+            dataCompanyIprPatentPartyWarehouseCommand.setPartyCompanyId(naturePerson.getCompanyId());
+            dataCompanyIprPatentPartyWarehouseCommand.setPartyCompanyPersonId(naturePerson.getPersonId());
+            dataCompanyIprPatentPartyWarehouseCommand.setIsPartyNaturalPerson(naturePerson.getIsNaturePerson());
         }
 
     }

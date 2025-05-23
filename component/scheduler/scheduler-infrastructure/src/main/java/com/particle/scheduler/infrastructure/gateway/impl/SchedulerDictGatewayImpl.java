@@ -5,6 +5,7 @@ import com.particle.dict.client.dto.data.DictVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.domain.gateway.SchedulerDictGateway;
+import com.particle.scheduler.domain.value.SchedulerDictItemInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -56,6 +57,16 @@ public class SchedulerDictGatewayImpl implements SchedulerDictGateway {
 			return null;
 		}
 		return byGroupCodeAndItemValue.getData().getId();
+	}
+
+	@Override
+	public SchedulerDictItemInfo getSchedulerDictItemInfoById(Long id) {
+		SingleResponse<DictVO> dictVOSingleResponse = dictRpcFeignClient.queryById(id);
+		DictVO data = dictVOSingleResponse.getData();
+		if (data == null) {
+			return null;
+		}
+		return SchedulerDictItemInfo.create(data.getId(), data.getCode(), data.getName(), data.getValue());
 	}
 
 	@Autowired

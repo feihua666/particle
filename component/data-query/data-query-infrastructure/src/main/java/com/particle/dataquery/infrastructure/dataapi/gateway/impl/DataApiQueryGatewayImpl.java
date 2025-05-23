@@ -153,14 +153,19 @@ public class DataApiQueryGatewayImpl implements DataApiQueryGateway {
 	}
 
 	public Object doExecuteByDatasourceApiId(Long datasourceApiId,Object param,String queryString,boolean isTest){
-		DataQueryDatasourceApi dataQueryDatasourceApi = dataQueryDatasourceApiByIdCache.get(datasourceApiId, () -> {
-			DataQueryDatasourceApi queryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId));
-			if (isTest) {
-				Assert.notNull(queryDatasourceApi,"数据查询数据源接口尚未发布,code=" + queryDatasourceApi.getCode());
-			}
-			return queryDatasourceApi;
-		});
-		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceByIdCache.get(dataQueryDatasourceApi.getDataQueryDatasourceId(), () -> dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceApi.getDataQueryDatasourceId())));
+		DataQueryDatasourceApi dataQueryDatasourceApi = null;
+		if (isTest) {
+			dataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId));
+		}else{
+			dataQueryDatasourceApi = dataQueryDatasourceApiByIdCache.get(datasourceApiId, () -> {
+				DataQueryDatasourceApi queryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(datasourceApiId));
+				Assert.isTrue(queryDatasourceApi.getIsPublished(),"数据查询数据源接口尚未发布,code=" + queryDatasourceApi.getCode());
+				return queryDatasourceApi;
+			});
+		}
+
+		DataQueryDatasourceApi finalDataQueryDatasourceApi = dataQueryDatasourceApi;
+		DataQueryDatasource dataQueryDatasource = dataQueryDatasourceByIdCache.get(dataQueryDatasourceApi.getDataQueryDatasourceId(), () -> dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(finalDataQueryDatasourceApi.getDataQueryDatasourceId())));
 		return datasourceApiQueryGateway.queryRealtime(dataQueryDatasource, dataQueryDatasourceApi, param,queryString,isTest);
 	}
 

@@ -23,12 +23,12 @@ public class DataCompanyAnnualReportUpdateCommand extends AbstractBaseUpdateComm
 
 
 
-    
+
     @Schema(description = "企业表ID")
     private Long companyId;
 
 
-    
+
     @Schema(description = "年报年度")
     private Integer year;
 
@@ -53,7 +53,7 @@ public class DataCompanyAnnualReportUpdateCommand extends AbstractBaseUpdateComm
     private Long capitalCurrencyDictId;
 
 
-    @Schema(description = "经营者名称")
+    @Schema(description = "经营者id")
     private Long operatorCompanyPersonId;
 
 

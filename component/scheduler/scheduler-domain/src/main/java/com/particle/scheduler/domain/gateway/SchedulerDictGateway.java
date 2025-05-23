@@ -1,6 +1,7 @@
 package com.particle.scheduler.domain.gateway;
 
 import com.particle.common.domain.gateway.IGateway;
+import com.particle.scheduler.domain.value.SchedulerDictItemInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,6 @@ public interface SchedulerDictGateway extends IGateway {
 	Map<Long,String> getMapDictValueByIds(List<Long> ids);
 
 	Long getDictIdByGroupCodeAndItemValue(String groupCode, String value);
+
+	SchedulerDictItemInfo getSchedulerDictItemInfoById(Long id);
 }

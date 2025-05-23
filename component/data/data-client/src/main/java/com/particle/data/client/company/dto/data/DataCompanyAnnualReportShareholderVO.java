@@ -75,6 +75,9 @@ public class DataCompanyAnnualReportShareholderVO extends AbstractBaseIdVO {
     @Schema(description = "实缴出资金额币种")
     private Long actualCapitalCurrencyDictId;
 
+	@Schema(description = "实缴出资方式")
+	private Long actualCapitalTypeDictId;
+
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "actualCapitalCurrencyDictId",mapValueField = "name")
     @Schema(description = "实缴出资金额币种对应字典名称")
     private String actualCapitalCurrencyDictName;

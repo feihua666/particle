@@ -51,7 +51,7 @@ public class DataCompanyAnnualReportExWarehouseVO extends AbstractBaseIdVO {
     @Schema(description = "资金数额币种对应字典名称")
     private String capitalCurrencyDictName;
 
-    @Schema(description = "经营者名称")
+    @Schema(description = "经营者id")
     private Long operatorCompanyPersonId;
 
     @Schema(description = "经营者名称")

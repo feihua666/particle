@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 /**
  * <p>
@@ -28,11 +29,25 @@ public class SomeStrTool {
      * @return
      */
     public static String normalizeCompanyName(String companyName) {
-        if (StrUtil.isEmpty(companyName)) {
+        if (StrUtil.isBlank(companyName)) {
             return null;
         }
         String result = companyName.replace("(", "（").replace(")", "）");
         return result;
+    }
+    /**
+     * 标准化公司名称
+     * @param uscc
+     * @return
+     */
+    public static String normalizeCompanyUscc(String uscc) {
+        if (StrUtil.isBlank(uscc)) {
+            return null;
+        }
+        if (!Validator.isCreditCode(uscc)) {
+            return null;
+        }
+        return uscc;
     }
     /**
      * 标准化公司英文名称
@@ -40,7 +55,7 @@ public class SomeStrTool {
      * @return
      */
     public static String normalizeCompanyEnName(String companyEnName) {
-        if (StrUtil.isEmpty(companyEnName)) {
+        if (StrUtil.isBlank(companyEnName)) {
             return null;
         }
         if (StrUtil.containsAny(companyEnName, "没有", "设置")) {
@@ -50,12 +65,23 @@ public class SomeStrTool {
         return result;
     }
     /**
+     * 标准化注册号
+     * @param regNo
+     * @return
+     */
+    public static String normalizeCompanyRegNo(String regNo) {
+        if (StrUtil.isBlank(regNo)) {
+            return null;
+        }
+        return regNo;
+    }
+    /**
      * 标准化组织机构代码
      * @param orgCode
      * @return
      */
-    public static String normalizeOrgCode(String orgCode) {
-        if (StrUtil.isEmpty(orgCode)) {
+    public static String normalizeCompanyOrgCode(String orgCode) {
+        if (StrUtil.isBlank(orgCode)) {
             return null;
         }
         String result = orgCode;
@@ -75,6 +101,19 @@ public class SomeStrTool {
     public static LocalDate parseLocalDateByNormal(String dateStr) {
         if (StrUtil.isNotEmpty(dateStr)) {
             return LocalDate.parse(dateStr);
+        }
+        return null;
+    }
+    /**
+     * 解析日期字符串
+     * @param dateStr 2018年06月18日
+     * @return
+     */
+    public static LocalDate parseLocalDateByChinese(String dateStr) {
+        if (StrUtil.isNotEmpty(dateStr)) {
+            // 自定义日期格式
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+            return LocalDate.parse(dateStr, formatter);
         }
         return null;
     }
@@ -108,18 +147,37 @@ public class SomeStrTool {
      * @return
      */
     public static Integer parseInt(String str) {
-        if (StrUtil.isEmpty(str)) {
+        if (StrUtil.isBlank(str)) {
             return null;
         }
         return Integer.parseInt(str);
     }
+
+    /**
+     * 提取数字前缀
+     * @param str
+     * @return
+     */
+    public static String extractPrefixNumber(String str) {
+        if (StrUtil.isBlank(str)) {
+            return null;
+        }
+        Matcher matcher = SomeStrAmountTool.prefixNumberPattern.matcher(str.trim());
+        if (matcher.find()) {
+            // 提取数字部分
+            String numberStr = matcher.group(1);
+            return numberStr;
+        }
+        return null;
+    }
+
     /**
      * 解析为BigDecimal
      * @param str
      * @return
      */
     public static BigDecimal parseBigDecimal(String str) {
-        if (StrUtil.isEmpty(str)) {
+        if (StrUtil.isBlank(str)) {
             return null;
         }
         // 将字符串转换为 BigDecimal
@@ -127,12 +185,32 @@ public class SomeStrTool {
         return bigDecimal;
     }
     /**
+     * 解析为BigDecimal
+     * @param str 如：2.3、2.3%
+     * @return
+     */
+    public static BigDecimal parseBigDecimalWithPercent(String str) {
+        if (StrUtil.isBlank(str)) {
+            return null;
+        }
+        // 检查是否包含百分号
+        if (str.endsWith("%")) {
+            // 去掉百分号并转换为小数形式
+            str = str.substring(0, str.length() - 1);
+            BigDecimal bigDecimal = new BigDecimal(str);
+            return bigDecimal.divide(new BigDecimal("100"));
+        } else {
+            // 直接转换为 BigDecimal
+            return new BigDecimal(str);
+        }
+    }
+    /**
      * 解析为BigDecimal，并保留两位小数，采用四舍五入模式
      * @param str
      * @return
      */
     public static BigDecimal parseBigDecimalWithScale2HalfUp(String str) {
-        if (StrUtil.isEmpty(str)) {
+        if (StrUtil.isBlank(str)) {
             return null;
         }
         // 将字符串转换为 BigDecimal
@@ -148,7 +226,7 @@ public class SomeStrTool {
      * @return
      */
     public static String normalizeEmail(String email) {
-        if (StrUtil.isEmpty(email)) {
+        if (StrUtil.isBlank(email)) {
             return null;
         }
         if (Validator.isEmail(email,true)) {
@@ -156,6 +234,7 @@ public class SomeStrTool {
         }
         return null;
     }
+
     private static Map<String,Boolean> parseBooleanMap = new HashMap<>();
     static {
         parseBooleanMap.put("true",true);
@@ -184,9 +263,18 @@ public class SomeStrTool {
      */
     public static Boolean parseBoolean(String str) {
 
-        if (StrUtil.isEmpty(str)) {
+        if (StrUtil.isBlank(str)) {
             return null;
         }
         return parseBooleanMap.get(str);
+    }
+
+    /**
+     * 是否企业选择不公示，主要是年报中数据判断
+     * @param str
+     * @return
+     */
+    public static Boolean isNotPublic(String str) {
+        return "企业选择不公示".equals(str);
     }
 }
