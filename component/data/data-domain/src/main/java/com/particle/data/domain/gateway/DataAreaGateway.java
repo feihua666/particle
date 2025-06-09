@@ -12,6 +12,13 @@ import com.particle.data.common.tool.DataAreaItemInfo;
  * @since 2025-05-09 16:06:33
  */
 public interface DataAreaGateway extends IGateway {
+
+	/**
+	 * 根据id获取名称
+	 * @param id
+	 * @return
+	 */
+	String getNameById(Long id);
 	/**
      * 获取省信息
 	 * @param provinceName

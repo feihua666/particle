@@ -9,6 +9,8 @@ import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * <p>
  * 区域依赖
@@ -23,6 +25,12 @@ public class DataAreaGatewayImpl implements DataAreaGateway {
 
 	private AreaRpcFeignClient areaRpcFeignClient;
 
+
+	@Override
+	public String getNameById(Long id) {
+		SingleResponse<AreaVO> areaVOSingleResponse = areaRpcFeignClient.queryById(id);
+		return Optional.ofNullable(areaVOSingleResponse).map(SingleResponse::getData).map(AreaVO::getName).orElse(null);
+	}
 
 	@Override
 	public DataAreaItemInfo getProvinceByName(String provinceName) {

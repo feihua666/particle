@@ -1,5 +1,6 @@
 package com.particle.global.tool.template;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.NumberUtil;
 
 /**
@@ -13,5 +14,7 @@ import cn.hutool.core.util.NumberUtil;
 public class NumberUtilTest {
 	public static void main(String[] args) {
 		System.out.println(NumberUtil.decimalFormat("#%", 5.5));
+
+		System.out.println(Convert.digitToChinese(2100.00));
 	}
 }

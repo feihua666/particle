@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="TenantFuncApplicationManageUpdatePage" lang="ts">
 /**
  * 租户功能应用管理更新页面
  */

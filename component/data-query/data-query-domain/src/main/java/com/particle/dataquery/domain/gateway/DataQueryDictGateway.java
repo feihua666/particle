@@ -16,6 +16,7 @@ import java.util.Map;
 public interface DataQueryDictGateway extends IGateway {
 
 	String getDictValueById(Long typeDictId);
+	String getDictNameById(Long typeDictId);
 
 	List<String> getDictValuesByIds(List<Long> ids);
 

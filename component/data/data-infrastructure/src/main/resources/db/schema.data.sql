@@ -50,3 +50,5 @@
 -- import classpath:db/company/schema.component_data_company_vc_invest_institution.sql
 -- import classpath:db/company/schema.component_data_company_vc_product.sql
 -- import classpath:db/company/schema.component_data_company_vc_product_competitive_product_rel.sql
+-- import classpath:db/company/schema.component_data_company_abnormal.sql
+-- import classpath:db/company/schema.component_data_company_statistic.sql

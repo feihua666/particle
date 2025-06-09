@@ -148,7 +148,27 @@ public class DataCompanyDataOpenApiController extends AbstractBaseApiAdapter {
                                                                      @RequestBody DataCompanyIprPatentExWarehouseQueryCommand dataCompanyIprPatentExWarehouseQueryCommand){
         return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprPatentExWarehouseQueryCommand, null);
     }
-
+    @PreAuthorize("hasAuthority('company:openapi:abnormal')")
+    @Operation(summary = "企业经营异常信息接口")
+    @PostMapping("/abnormal")
+    public PageResponse<DataCompanyAbnormalExWarehouseVO> abnormal(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                   @RequestBody DataCompanyAbnormalExWarehouseQueryCommand dataCompanyAbnormalExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyAbnormalExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:statistic')")
+    @Operation(summary = "企业统计信息接口")
+    @PostMapping("/statistic")
+    public SingleResponse<DataCompanyStatisticExWarehouseVO> basic(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                   @RequestBody DataCompanyStatisticExWarehouseQueryCommand dataCompanyStatisticExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyStatisticExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:companyAll')")
+    @Operation(summary = "企业全貌接口")
+    @PostMapping("/companyAll")
+    public SingleResponse<DataCompanyAllExWarehouseVO> companyAll(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                   @RequestBody DataCompanyAllExWarehouseQueryCommand dataCompanyAllExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand, null);
+    }
     /**
      * 执行开放接口
      * @param param

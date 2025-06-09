@@ -24,37 +24,37 @@ public class DataCompanyHonorQualificationExWarehouseVO extends AbstractBaseIdVO
 
     @Schema(description = "企业表ID")
     private Long companyId;
-    
+
     @Schema(description = "名称")
     private String name;
-    
+
     @Schema(description = "等级")
-    private String level;
-    
+    private String grade;
+
     @Schema(description = "发布日期")
     private LocalDate publishDate;
-        
+
     @Schema(description = "发布日期")
     private LocalDate startDate;
-        
+
     @Schema(description = "发布日期")
     private LocalDate endDate;
-        
+
     @Schema(description = "证书编号")
     private String certificateNo;
-    
+
     @Schema(description = "发布单位")
     private String publishOffice;
-    
+
     @Schema(description = "发布标题")
     private String publishTitle;
 
-	@Schema(description = "数据md5,name + level + certificate_no + publish_office + publish_title")
+	@Schema(description = "数据md5,name + grade + certificate_no + publish_office + publish_title")
 	private String dataMd5;
-    
+
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;
-        
+
 
 
 }

@@ -43,6 +43,9 @@ public class DataCompanyRestrictHighConsumeWrapExWarehouseCommandExecutor extend
     public PageResponse<DataCompanyRestrictHighConsumeExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                         DataCompanyRestrictHighConsumeExWarehouseQueryCommand dataCompanyRestrictHighConsumeExWarehouseQueryCommand) {
         if (dataCompanyRestrictHighConsumeExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyRestrictHighConsumeExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyRestrictHighConsumeExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyRestrictHighConsumeExWarehouseQueryCommand.setCompanyId(companyId);
         }

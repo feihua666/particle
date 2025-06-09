@@ -7,7 +7,7 @@ let ssqCodeOpenedPrefix = '/admin/web/ssq_code_opened'
  * @param data
  */
 export const allCodeInit = (data: anyObj): AxiosPromise => {
-    return axios.post(ssqCodeOpenedPrefix + '/allCodeInit',data,{timeout: 600000})
+    return axios.post(ssqCodeOpenedPrefix + '/allCodeInit',data,{timeout: 10 * 60 * 1000})
 }
 /**
  * 更新所有双色球开奖号码
@@ -28,20 +28,20 @@ export const allCodeStop = (data: anyObj): AxiosPromise => {
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(ssqCodeOpenedPrefix + '/list',{params: data,timeout: 600000})
+    return axios.get(ssqCodeOpenedPrefix + '/list',{params: data,timeout: 10 * 60 * 1000})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(ssqCodeOpenedPrefix + '/page',{params: data,timeout: 600000})
+    return axios.get(ssqCodeOpenedPrefix + '/page',{params: data,timeout: 10 * 60 * 1000})
 }
 /**
  * 预测调参
  * @param data
  */
 export const predictionParameterTuning = (data: anyObj): AxiosPromise => {
-    return axios.post(ssqCodeOpenedPrefix + '/predictionParameterTuning',data,{timeout: 600000})
+    return axios.post(ssqCodeOpenedPrefix + '/predictionParameterTuning',data,{timeout: 10 * 60 * 1000})
 }
 

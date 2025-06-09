@@ -506,6 +506,7 @@ public class DataCompanyBasicWarehouseCommand extends AbstractBaseCommand {
         command.scaleTypeDictId = dataCompanyBasicExWarehouseVO.getScaleTypeDictId();
         command.longitude = dataCompanyBasicExWarehouseVO.getLongitude();
         command.latitude = dataCompanyBasicExWarehouseVO.getLatitude();
+        command.industryMainDictId = dataCompanyBasicExWarehouseVO.getIndustryMainDictId();
         command.industryBigDictId = dataCompanyBasicExWarehouseVO.getIndustryBigDictId();
         command.industryMiddleDictId = dataCompanyBasicExWarehouseVO.getIndustryMiddleDictId();
         command.industrySmallDictId = dataCompanyBasicExWarehouseVO.getIndustrySmallDictId();

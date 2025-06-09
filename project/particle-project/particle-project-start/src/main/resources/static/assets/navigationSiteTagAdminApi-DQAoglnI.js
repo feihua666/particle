@@ -1,1 +1,0 @@
-import{k as e}from"./index-CmUqrYxc.js";let a="/admin/web/navigation_site_tag";const s=t=>e.post(a+"/create",t),n=t=>e.delete(a+"/delete",{data:t}),o=t=>e.put(a+"/update",t),i=t=>e.get(a+"/detail-for-update",{params:t}),p=t=>e.get(a+"/list",{params:t}),u=t=>e.get(a+"/page",{params:t});export{s as c,i as d,p as l,u as p,n as r,o as u};

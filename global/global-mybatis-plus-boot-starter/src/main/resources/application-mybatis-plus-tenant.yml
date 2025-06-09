@@ -93,6 +93,7 @@ particle:
       - component_data_scope_custom_data_rel
       # 数据相关
       - component_data_company
+      - component_data_company_abnormal
       - component_data_company_annual_report
       - component_data_company_annual_report_administrative_license
       - component_data_company_annual_report_assets
@@ -139,6 +140,7 @@ particle:
       - component_data_company_restrict_high_consume_party
       - component_data_company_serious_illegal
       - component_data_company_shareholder
+      - component_data_company_statistic
       - component_data_company_vc_financing
       - component_data_company_vc_financing_invest_institution_rel
       - component_data_company_vc_invest_institution

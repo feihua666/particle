@@ -55,5 +55,5 @@ public interface IDataCompanyVcInvestInstitutionRepresentationApplicationService
 	 * @param dataCompanyExWarehouseQueryCommand
 	 * @return
 	 */
-	public PageResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand);
+	public SingleResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand);
 }

@@ -1,11 +1,13 @@
 package com.particle.data.client.company.dto.data.exwarehouse;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -169,7 +171,121 @@ public class DataCompanyAnnualReportAssetsExWarehouseVO extends AbstractBaseIdVO
 
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;
+    @JsonIgnore
+    @Schema(description = "是否强制获取",hidden = true)
+    private transient Boolean isForceGet = false;
 
+    public BigDecimal getTotalAssets() {
+        if(isForceGet != null && isForceGet){
+            return totalAssets;
+        }
+        if (isTotalAssetsPublic == null || !isTotalAssetsPublic) {
+            return null;
+        }
+        return totalAssets;
+    }
 
+    public BigDecimal getTotalOwnerEquity() {
+        if(isForceGet != null && isForceGet){
+            return totalOwnerEquity;
+        }
+        if (isTotalOwnerEquityPublic == null || !isTotalOwnerEquityPublic) {
+            return null;
+        }
+        return totalOwnerEquity;
+    }
 
+    public BigDecimal getTotalSales() {
+        if(isForceGet != null && isForceGet){
+            return totalSales;
+        }
+        if (isTotalSalesPublic == null || !isTotalSalesPublic) {
+            return null;
+        }
+        return totalSales;
+    }
+
+    public BigDecimal getTotalProfit() {
+        if(isForceGet != null && isForceGet){
+            return totalProfit;
+        }
+        if (isTotalProfitPublic == null || !isTotalProfitPublic) {
+            return null;
+        }
+        return totalProfit;
+    }
+
+    public BigDecimal getPrimeBusProfit() {
+        if(isForceGet != null && isForceGet){
+            return primeBusProfit;
+        }
+        if (isPrimeBusProfitPublic == null || !isPrimeBusProfitPublic) {
+            return null;
+        }
+        return primeBusProfit;
+    }
+
+    public BigDecimal getRetainedProfit() {
+        if(isForceGet != null && isForceGet){
+            return retainedProfit;
+        }
+        if (isRetainedProfitPublic == null || !isRetainedProfitPublic) {
+            return null;
+        }
+        return retainedProfit;
+    }
+
+    public BigDecimal getTotalTax() {
+        if(isForceGet != null && isForceGet){
+            return totalTax;
+        }
+        if (isTotalTaxPublic == null || !isTotalTaxPublic) {
+            return null;
+        }
+        return totalTax;
+    }
+
+    @Transient
+    public Boolean getForceGet() {
+        return isForceGet;
+    }
+
+    public BigDecimal getTotalLiability() {
+        if (isTotalLiabilityPublic == null || !isTotalLiabilityPublic) {
+            return null;
+        }
+        return totalLiability;
+    }
+
+    public BigDecimal obtainTotalAssets() {
+        return totalAssets;
+    }
+
+    public BigDecimal obtainTotalOwnerEquity() {
+        return totalOwnerEquity;
+    }
+
+    public BigDecimal obtainTotalSales() {
+        return totalSales;
+    }
+
+    public BigDecimal obtainTotalProfit() {
+        return totalProfit;
+    }
+
+    public BigDecimal obtainPrimeBusProfit() {
+        return primeBusProfit;
+    }
+
+    public BigDecimal obtainRetainedProfit() {
+        return retainedProfit;
+    }
+
+    public BigDecimal obtainTotalTax() {
+        return totalTax;
+    }
+
+    public BigDecimal obtainTotalLiability() {
+        return totalLiability;
+    }
 }

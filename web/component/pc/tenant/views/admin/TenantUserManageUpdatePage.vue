@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="TenantUserManageUpdatePage" lang="ts">
 /**
  * 租户用户管理更新页面
  */

@@ -32,6 +32,9 @@ public class DataCompanyDiscreditedJudgmentDebtorWrapExWarehouseCommandExecutor 
     public PageResponse<DataCompanyDiscreditedJudgmentDebtorExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand dataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand) {
         if (dataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand.setCompanyId(companyId);
         }

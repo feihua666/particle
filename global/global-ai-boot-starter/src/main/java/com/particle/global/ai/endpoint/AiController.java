@@ -39,12 +39,12 @@ import java.util.List;
 @RequestMapping("/ai")
 public class AiController {
 
-	@Autowired
+	@Autowired(required = false)
 	private EmbeddingModel embeddingModel;
-	@Autowired
+	@Autowired(required = false)
 	private VectorStore vectorStore;
 
-	@Autowired
+	@Autowired(required = false)
 	private ChatModel chatModel;
 	/**
 	 * 嵌入

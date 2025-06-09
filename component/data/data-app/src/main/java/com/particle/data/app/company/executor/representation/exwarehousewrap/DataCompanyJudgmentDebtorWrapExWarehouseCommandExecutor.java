@@ -32,6 +32,9 @@ public class DataCompanyJudgmentDebtorWrapExWarehouseCommandExecutor extends Abs
     public PageResponse<DataCompanyJudgmentDebtorExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyJudgmentDebtorExWarehouseQueryCommand dataCompanyJudgmentDebtorExWarehouseQueryCommand) {
         if (dataCompanyJudgmentDebtorExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyJudgmentDebtorExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyJudgmentDebtorExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyJudgmentDebtorExWarehouseQueryCommand.setCompanyId(companyId);
         }

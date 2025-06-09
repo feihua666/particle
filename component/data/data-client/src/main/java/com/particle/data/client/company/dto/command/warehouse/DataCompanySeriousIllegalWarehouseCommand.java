@@ -32,10 +32,11 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
     @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
+    @Schema(description = "企业名称")
+    private String companyName;
 
-    @Schema(description = "类别")
-    private String type;
-
+    @Schema(description = "列入决定书文号")
+    private String putNo;
 
     @NotEmpty(message = "列入原因 不能为空")
     @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
@@ -54,6 +55,8 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
     @Schema(description = "作出列入决定机关名称")
     private String putInstituteName;
 
+    @Schema(description = "移出决定书文号")
+    private String removeNo;
 
     @Schema(description = "移除原因")
     private String removeReason;
@@ -75,7 +78,7 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
 
     public String obtainDataMd5() {
         if (StrUtil.isEmpty(dataMd5)) {
-            dataMd5 = SomeMd5Tool.dataCompanySeriousIllegalDataMd5(type, putReason, putDate);
+            dataMd5 = SomeMd5Tool.dataCompanySeriousIllegalDataMd5(putNo,putReason,putDate,putInstituteName);
         }
         return dataMd5;
     }
@@ -86,11 +89,13 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
      */
     public boolean allFieldEmpty() {
         return Objects.isNull(companyId)
-                && StrUtil.isEmpty(type)
+                && StrUtil.isEmpty(companyName)
+                && StrUtil.isEmpty(putNo)
                 && StrUtil.isEmpty(putReason)
                 && Objects.isNull(putDate)
                 && Objects.isNull(putInstituteCompanyId)
                 && StrUtil.isEmpty(putInstituteName)
+                && StrUtil.isEmpty(removeNo)
                 && StrUtil.isEmpty(removeReason)
                 && Objects.isNull(removeDate)
                 && Objects.isNull(removeInstituteCompanyId)
@@ -105,8 +110,11 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
         if (Objects.equals(companyId, exWarehouseVO.getCompanyId())) {
             this.companyId = null;
         }
-        if (Objects.equals(type, exWarehouseVO.getType())) {
-            this.type = null;
+        if (Objects.equals(companyName, exWarehouseVO.getCompanyName())) {
+            this.companyName = null;
+        }
+        if (Objects.equals(putNo, exWarehouseVO.getCompanyName())) {
+            this.putNo = null;
         }
         if (Objects.equals(putReason, exWarehouseVO.getPutReason())) {
             this.putReason = null;
@@ -119,6 +127,9 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
         }
         if (Objects.equals(putInstituteName, exWarehouseVO.getPutInstituteName())) {
             this.putInstituteName = null;
+        }
+        if (Objects.equals(removeNo, exWarehouseVO.getRemoveNo())) {
+            this.removeNo = null;
         }
         if (Objects.equals(removeReason, exWarehouseVO.getRemoveReason())) {
             this.removeReason = null;
@@ -138,11 +149,13 @@ public class DataCompanySeriousIllegalWarehouseCommand extends AbstractBaseComma
     public static DataCompanySeriousIllegalWarehouseCommand createByDataCompanySeriousIllegalExWarehouseVO(DataCompanySeriousIllegalExWarehouseVO dataCompanyBasicWarehouseCommand){
         DataCompanySeriousIllegalWarehouseCommand command = new DataCompanySeriousIllegalWarehouseCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
-        command.type = dataCompanyBasicWarehouseCommand.getType();
+        command.companyName = dataCompanyBasicWarehouseCommand.getCompanyName();
+        command.putNo = dataCompanyBasicWarehouseCommand.getPutNo();
         command.putReason = dataCompanyBasicWarehouseCommand.getPutReason();
         command.putDate = dataCompanyBasicWarehouseCommand.getPutDate();
         command.putInstituteCompanyId = dataCompanyBasicWarehouseCommand.getPutInstituteCompanyId();
         command.putInstituteName = dataCompanyBasicWarehouseCommand.getPutInstituteName();
+        command.removeNo = dataCompanyBasicWarehouseCommand.getRemoveNo();
         command.removeReason = dataCompanyBasicWarehouseCommand.getRemoveReason();
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();

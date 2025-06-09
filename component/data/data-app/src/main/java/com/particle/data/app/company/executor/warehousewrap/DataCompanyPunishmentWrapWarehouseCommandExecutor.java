@@ -1,6 +1,8 @@
 package com.particle.data.app.company.executor.warehousewrap;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import com.particle.component.light.share.dict.CurrencyType;
 import com.particle.data.app.company.executor.warehouse.DataCompanyPunishmentWarehouseCommandExecutor;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyPunishmentWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyPunishmentExWarehouseVO;
@@ -33,8 +35,41 @@ public class DataCompanyPunishmentWrapWarehouseCommandExecutor extends AbstractB
         List<DataCompanyPunishmentExWarehouseVO> dataCompanyPunishmentExWarehouseVOs = dataCompanyPunishmentExWarehouseVOPageResponse.getData();
         if (CollectionUtil.isNotEmpty(dataCompanyPunishmentExWarehouseVOs)) {
             for (DataCompanyPunishmentExWarehouseVO dataCompanyPunishmentExWarehouseVO : dataCompanyPunishmentExWarehouseVOs) {
-                DataCompanyPunishmentWarehouseCommand byDataCompanyPunishmentExWarehouseVO = DataCompanyPunishmentWarehouseCommand.createByDataCompanyPunishmentExWarehouseVO(dataCompanyPunishmentExWarehouseVO);
-                dataCompanyPunishmentWarehouseCommandExecutor.warehouse(byDataCompanyPunishmentExWarehouseVO);
+                DataCompanyPunishmentWarehouseCommand dataCompanyPunishmentWarehouseCommand = DataCompanyPunishmentWarehouseCommand.createByDataCompanyPunishmentExWarehouseVO(dataCompanyPunishmentExWarehouseVO);
+                fillIds(dataCompanyPunishmentWarehouseCommand, dataCompanyPunishmentExWarehouseVO);
+                dataCompanyPunishmentWarehouseCommandExecutor.warehouse(dataCompanyPunishmentWarehouseCommand);
+            }
+        }
+    }
+
+    private void fillIds(DataCompanyPunishmentWarehouseCommand dataCompanyPunishmentWarehouseCommand, DataCompanyPunishmentExWarehouseVO dataCompanyPunishmentExWarehouseVO) {
+        // 企业id
+        if (dataCompanyPunishmentWarehouseCommand.getCompanyId() == null) {
+            if (StrUtil.isNotEmpty(dataCompanyPunishmentWarehouseCommand.getCompanyName())) {
+                Long companyId = warehouseCompanyGetCompanyId(dataCompanyPunishmentWarehouseCommand.getCompanyName());
+                dataCompanyPunishmentWarehouseCommand.setCompanyId(companyId);
+            }
+        }
+        // 法人性质
+        NaturePerson legalNaturePerson = checkNaturePerson(dataCompanyPunishmentWarehouseCommand.getLegalPersonName(),
+                dataCompanyPunishmentWarehouseCommand.getLegalPersonCompanyId(),
+                dataCompanyPunishmentWarehouseCommand.getLegalPersonCompanyPersonId(),
+                dataCompanyPunishmentWarehouseCommand.getIsLegalPersonNaturalPerson());
+        if (legalNaturePerson != null) {
+            dataCompanyPunishmentWarehouseCommand.setLegalPersonCompanyId(legalNaturePerson.getCompanyId());
+            dataCompanyPunishmentWarehouseCommand.setLegalPersonCompanyPersonId(legalNaturePerson.getPersonId());
+            dataCompanyPunishmentWarehouseCommand.setIsLegalPersonNaturalPerson(legalNaturePerson.getIsNaturePerson());
+        }
+        if (dataCompanyPunishmentWarehouseCommand.getFineAmountCurrencyDictId() == null) {
+            if (StrUtil.isBlank(dataCompanyPunishmentExWarehouseVO.getFineAmountCurrencyDictName())) {
+                Long dictId = mappingDictItemGetDictId(dataCompanyPunishmentExWarehouseVO.getFineAmountCurrencyDictName(), CurrencyType.Group.currency_type.groupCode());
+                dataCompanyPunishmentWarehouseCommand.setFineAmountCurrencyDictId(dictId);
+            }
+        }
+        if (dataCompanyPunishmentWarehouseCommand.getConfiscateAmountCurrencyDictId() == null) {
+            if (StrUtil.isBlank(dataCompanyPunishmentExWarehouseVO.getConfiscateAmountCurrencyDictName())) {
+                Long dictId = mappingDictItemGetDictId(dataCompanyPunishmentExWarehouseVO.getConfiscateAmountCurrencyDictName(), CurrencyType.Group.currency_type.groupCode());
+                dataCompanyPunishmentWarehouseCommand.setConfiscateAmountCurrencyDictId(dictId);
             }
         }
 

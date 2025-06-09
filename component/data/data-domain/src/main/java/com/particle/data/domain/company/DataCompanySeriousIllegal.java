@@ -27,10 +27,15 @@ public class DataCompanySeriousIllegal extends AggreateRoot {
     */
     private Long companyId;
 
-    /**
-    * 类别，如：严重违法失信企业名单
-    */
-    private String type;
+	/**
+	 * 企业名称
+	 */
+	private String companyName;
+
+	/**
+	 * 列入决定书文号
+	 */
+	private String putNo;
 
     /**
     * 列入原因
@@ -51,6 +56,11 @@ public class DataCompanySeriousIllegal extends AggreateRoot {
     * 作出列入决定机关名称，冗余公司名称
     */
     private String putInstituteName;
+
+	/**
+	 * 移出决定书文号
+	 */
+	private String removeNo;
 
     /**
     * 移除原因
@@ -94,7 +104,7 @@ public class DataCompanySeriousIllegal extends AggreateRoot {
     }
 
     public void initDataMd5() {
-        this.dataMd5 = SomeMd5Tool.dataCompanySeriousIllegalDataMd5(type,putReason,putDate);
+        this.dataMd5 = SomeMd5Tool.dataCompanySeriousIllegalDataMd5(putNo,putReason,putDate,putInstituteName);
     }
 
     /**

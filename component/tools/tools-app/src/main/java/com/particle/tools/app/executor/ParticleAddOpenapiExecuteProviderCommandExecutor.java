@@ -31,11 +31,11 @@ public class ParticleAddOpenapiExecuteProviderCommandExecutor extends AbstractBa
 
 	public static void main(String[] args) {
 		AddOpenapiExecuteProviderCommand addOpenapiExecuteProviderCommand = new AddOpenapiExecuteProviderCommand();
-		addOpenapiExecuteProviderCommand.setDomainName("DataCompanyIprPatent");
+		addOpenapiExecuteProviderCommand.setDomainName("DataCompanyStatistic");
 		addOpenapiExecuteProviderCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
 
 		addOpenapiExecuteProviderCommand.setTemplateComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
-		addOpenapiExecuteProviderCommand.setIsSingle(false);
+		addOpenapiExecuteProviderCommand.setIsSingle(true);
 		new ParticleAddOpenapiExecuteProviderCommandExecutor().addWarehouseAndExWarehouse(addOpenapiExecuteProviderCommand);
 	}
 

@@ -34,7 +34,7 @@ public class DataCompanyHonorQualification extends AggreateRoot {
     /**
     * 等级，如：国家级
     */
-    private String level;
+    private String grade;
 
     /**
     * 发布日期
@@ -88,7 +88,7 @@ public class DataCompanyHonorQualification extends AggreateRoot {
     }
 
     public void initDataMd5() {
-        this.dataMd5 = SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,level,certificateNo,publishOffice,publishTitle);
+        this.dataMd5 = SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,grade,certificateNo,publishOffice,publishTitle);
     }
 
     /**

@@ -1,5 +1,8 @@
 spring:
   ai:
+    model:
+      chat: openai
+      embedding: ollama
     # openai 作为 大模型
     openai:
       #base-url: https://api.openai.com

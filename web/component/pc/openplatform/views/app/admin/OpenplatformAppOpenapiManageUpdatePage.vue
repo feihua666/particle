@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="OpenplatformAppOpenapiManageUpdatePage" lang="ts">
 /**
  * 开放平台应用与开放接口配置管理更新页面
  */

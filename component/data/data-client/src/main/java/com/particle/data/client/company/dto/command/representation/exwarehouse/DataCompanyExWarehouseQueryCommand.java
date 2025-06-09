@@ -18,6 +18,9 @@ import lombok.Data;
 @Schema
 public class DataCompanyExWarehouseQueryCommand extends AbstractBaseQueryCommand {
 
+    @Schema(description = "企业id")
+    private Long id;
+
     @Schema(description = "企业名称，支持md5")
     private String name;
 
@@ -36,7 +39,11 @@ public class DataCompanyExWarehouseQueryCommand extends AbstractBaseQueryCommand
     @Schema(description = "如果出现多条时的返回策略")
     private String multipleStrategy;
 
-
+    public static DataCompanyExWarehouseQueryCommand create(Long id) {
+        DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand = new DataCompanyExWarehouseQueryCommand();
+        dataCompanyExWarehouseQueryCommand.id = id;
+        return dataCompanyExWarehouseQueryCommand;
+    }
     public static DataCompanyExWarehouseQueryCommand create(String name, String uscc) {
         return create(name, uscc,null);
     }

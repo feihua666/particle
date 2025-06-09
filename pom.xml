@@ -46,7 +46,7 @@
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 注意升级该版本，需要注意是否在global-tool中重写的类是否有变化-->
-        <hutool-all.version>5.8.34</hutool-all.version>
+        <hutool-all.version>5.8.38</hutool-all.version>
         <!-- 强大的java工具类 ，全局引入，方便使用-->
         <guava.version>33.3.1-jre</guava.version>
         <!-- 实体转换 -->
@@ -133,7 +133,7 @@
         <!-- 在使用大数据源时，主要用于编译，本系统默认不使用druid作为数据源连接池 -->
         <druid.version>1.2.24</druid.version>
         <!-- spring ai 注意这里使用开发里程碑预览版本-->
-        <spring-ai.version>1.0.0-M6</spring-ai.version>
+        <spring-ai.version>1.0.0</spring-ai.version>
         <!-- jetcache 多级缓存 阿里开源 https://github.com/alibaba/jetcache 添加主要是为了数据查询三方数据缓存，以节省费用-->
         <jetcache.version>2.7.8</jetcache.version>
     </properties>

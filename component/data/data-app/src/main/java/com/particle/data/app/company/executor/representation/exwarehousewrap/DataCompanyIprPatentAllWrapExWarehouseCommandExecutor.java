@@ -1,6 +1,7 @@
 package com.particle.data.app.company.executor.representation.exwarehousewrap;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.data.app.company.executor.representation.exwarehouse.*;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyIprPatentExWarehouseQueryCommand;
@@ -53,11 +54,17 @@ public class DataCompanyIprPatentAllWrapExWarehouseCommandExecutor extends Abstr
 	 */
 	public PageResponse<DataCompanyIprPatentAllExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
 																		  @Valid DataCompanyIprPatentExWarehouseQueryCommand dataCompanyIprPatentExWarehouseQueryCommand) {
-        if (dataCompanyIprPatentExWarehouseQueryCommand.getCompanyId() == null) {
+		if (dataCompanyIprPatentExWarehouseQueryCommand.getCompanyId() == null) {
+			dataCompanyIprPatentExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+		}
+		if (dataCompanyIprPatentExWarehouseQueryCommand.getCompanyId() == null) {
 			Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
 			dataCompanyIprPatentExWarehouseQueryCommand.setCompanyId(companyId);
 		}
-		if (dataCompanyIprPatentExWarehouseQueryCommand.getCompanyId() == null) {
+		if (dataCompanyIprPatentExWarehouseQueryCommand.getCompanyId() == null
+				&& StrUtil.isEmpty(dataCompanyIprPatentExWarehouseQueryCommand.getApplyNo())
+				&& StrUtil.isEmpty(dataCompanyIprPatentExWarehouseQueryCommand.getPublicNo())
+		) {
 			return PageResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		}
 		PageResponse<DataCompanyIprPatentExWarehouseVO> response = dataCompanyIprPatentExWarehouseCommandExecutor.exWarehouse(dataCompanyIprPatentExWarehouseQueryCommand);

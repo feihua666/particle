@@ -195,7 +195,6 @@ const handleTestCasesData = (detail)=>{
           :submitAttrs="submitAttrs"
           labelWidth="100"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
-
           :onResetForm="onResetForm"
           inline
           :layout="1"

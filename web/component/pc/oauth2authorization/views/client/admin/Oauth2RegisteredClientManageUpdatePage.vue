@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="Oauth2RegisteredClientManageUpdatePage" lang="ts">
 /**
  * oauth2客户端管理更新页面
  */

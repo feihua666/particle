@@ -4,9 +4,12 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.particle.data.app.company.executor.warehouse.DataCompanyJudgmentDocumentContentWarehouseCommandExecutor;
 import com.particle.data.app.company.executor.warehouse.DataCompanyJudgmentDocumentPartyWarehouseCommandExecutor;
 import com.particle.data.app.company.executor.warehouse.DataCompanyJudgmentDocumentWarehouseCommandExecutor;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyJudgmentDocumentPartyWarehouseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyJudgmentDocumentContentWarehouseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyJudgmentDocumentPartyWarehouseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyJudgmentDocumentWarehouseCommand;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyJudgmentDocumentPartyExWarehouseVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyJudgmentDocumentExWarehouseVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyJudgmentDocumentPartyExWarehouseVO;
 import com.particle.global.dto.response.PageResponse;
@@ -41,13 +44,15 @@ public class DataCompanyJudgmentDocumentWrapWarehouseCommandExecutor extends Abs
         List<DataCompanyJudgmentDocumentExWarehouseVO> data = dataCompanyJudgmentDocumentExWarehouseVOPageResponse.getData();
         if (CollectionUtil.isNotEmpty(data)) {
             for (DataCompanyJudgmentDocumentExWarehouseVO dataCompanyJudgmentDocumentExWarehouseVO : data) {
-                DataCompanyJudgmentDocumentWarehouseCommand byDataCompanyJudgmentDocumentExWarehouseVO = DataCompanyJudgmentDocumentWarehouseCommand.createByDataCompanyJudgmentDocumentExWarehouseVO(dataCompanyJudgmentDocumentExWarehouseVO);
-                SingleResponse<DataCompanyJudgmentDocumentExWarehouseVO> warehouse = dataCompanyJudgmentDocumentWarehouseCommandExecutor.warehouse(byDataCompanyJudgmentDocumentExWarehouseVO);
+                DataCompanyJudgmentDocumentWarehouseCommand dataCompanyJudgmentDocumentWarehouseCommand = DataCompanyJudgmentDocumentWarehouseCommand.createByDataCompanyJudgmentDocumentExWarehouseVO(dataCompanyJudgmentDocumentExWarehouseVO);
+                fillIds(dataCompanyJudgmentDocumentWarehouseCommand, dataCompanyJudgmentDocumentExWarehouseVO);
+                SingleResponse<DataCompanyJudgmentDocumentExWarehouseVO> warehouse = dataCompanyJudgmentDocumentWarehouseCommandExecutor.warehouse(dataCompanyJudgmentDocumentWarehouseCommand);
                 if (CollectionUtil.isNotEmpty(dataCompanyJudgmentDocumentExWarehouseVO.getParties())) {
                     for (DataCompanyJudgmentDocumentPartyExWarehouseVO party : dataCompanyJudgmentDocumentExWarehouseVO.getParties()) {
-                        DataCompanyJudgmentDocumentPartyWarehouseCommand byDataCompanyJudgmentDocumentPartyExWarehouseVO = DataCompanyJudgmentDocumentPartyWarehouseCommand.createByDataCompanyJudgmentDocumentPartyExWarehouseVO(party);
-                        byDataCompanyJudgmentDocumentPartyExWarehouseVO.setCompanyJudgmentDocumentId(warehouse.getData().getId());
-                        dataCompanyJudgmentDocumentPartyWarehouseCommandExecutor.warehouse(byDataCompanyJudgmentDocumentPartyExWarehouseVO);
+                        DataCompanyJudgmentDocumentPartyWarehouseCommand dataCompanyJudgmentDocumentPartyWarehouseCommand = DataCompanyJudgmentDocumentPartyWarehouseCommand.createByDataCompanyJudgmentDocumentPartyExWarehouseVO(party);
+                        dataCompanyJudgmentDocumentPartyWarehouseCommand.setCompanyJudgmentDocumentId(warehouse.getData().getId());
+                        fillPartyIds(dataCompanyJudgmentDocumentPartyWarehouseCommand, party);
+                        dataCompanyJudgmentDocumentPartyWarehouseCommandExecutor.warehouse(dataCompanyJudgmentDocumentPartyWarehouseCommand);
                     }
                 }
                 if (dataCompanyJudgmentDocumentExWarehouseVO.getContent() != null) {
@@ -57,6 +62,31 @@ public class DataCompanyJudgmentDocumentWrapWarehouseCommandExecutor extends Abs
                 }
             }
 
+        }
+    }
+    private void fillIds(DataCompanyJudgmentDocumentWarehouseCommand dataCompanyJudgmentDocumentWarehouseCommand, DataCompanyJudgmentDocumentExWarehouseVO dataCompanyJudgmentDocumentExWarehouseVO) {
+        // 法院id
+        if (dataCompanyJudgmentDocumentWarehouseCommand.getCaseCourtCompanyId() == null) {
+            Long companyId = warehouseCompanyGetCompanyId(dataCompanyJudgmentDocumentExWarehouseVO.getCaseCourtName());
+            dataCompanyJudgmentDocumentWarehouseCommand.setCaseCourtCompanyId(companyId);
+        }
+    }
+    /**
+     * 当事人相关id设置
+     * @param dataCompanyJudgmentDocumentPartyWarehouseCommand
+     * @param party
+     */
+    private void fillPartyIds(DataCompanyJudgmentDocumentPartyWarehouseCommand dataCompanyJudgmentDocumentPartyWarehouseCommand,
+                              DataCompanyJudgmentDocumentPartyExWarehouseVO party) {
+        // 当事人性质
+        NaturePerson legalNaturePerson = checkNaturePerson(dataCompanyJudgmentDocumentPartyWarehouseCommand.getPartyName(),
+                dataCompanyJudgmentDocumentPartyWarehouseCommand.getPartyCompanyId(),
+                dataCompanyJudgmentDocumentPartyWarehouseCommand.getPartyCompanyPersonId(),
+                dataCompanyJudgmentDocumentPartyWarehouseCommand.getIsPartyNaturalPerson());
+        if (legalNaturePerson != null) {
+            dataCompanyJudgmentDocumentPartyWarehouseCommand.setPartyCompanyId(legalNaturePerson.getCompanyId());
+            dataCompanyJudgmentDocumentPartyWarehouseCommand.setPartyCompanyPersonId(legalNaturePerson.getPersonId());
+            dataCompanyJudgmentDocumentPartyWarehouseCommand.setIsPartyNaturalPerson(legalNaturePerson.getIsNaturePerson());
         }
     }
     @Autowired

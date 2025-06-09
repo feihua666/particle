@@ -20,10 +20,7 @@ const reactiveData = reactive({
       prop: 'companyId',
       label: '企业表ID',
     },
-    {
-      prop: 'type',
-      label: '类别',
-    },
+
     {
       prop: 'putReason',
       label: '列入原因',
@@ -128,7 +125,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataCompanySeriousIllegalPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

@@ -22,7 +22,7 @@ import com.particle.global.dto.basic.IdCommand;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
-import org.springframework.ai.chat.client.advisor.VectorStoreChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.MessageType;
@@ -154,16 +154,15 @@ public class AgiAgentGatewayImpl extends AbstractBaseGatewayImpl<AgiAgentId,AgiA
 
         // 用户消息设置
         chatClientRequestSpec.user(agiAgentChatParam.getMessage());
-        // 对话记忆
-        MessageChatMemoryAdvisor messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemory,
-                agiAgentChatParam.getChatId(),
-                agiAgent.getHistoryMessageMaxLength() == null ? 12 : agiAgent.getHistoryMessageMaxLength());
+        // 对话记忆 todo agiAgent.getHistoryMessageMaxLength()
+        MessageChatMemoryAdvisor messageChatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory)
+                .conversationId(agiAgentChatParam.getChatId()).build();
         chatClientRequestSpec.advisors(messageChatMemoryAdvisor);
         // 长期记忆
         if (agiAgent.getIsUseLongTermMemory()) {
             VectorStoreChatMemoryAdvisor vectorStoreChatMemoryAdvisor = (VectorStoreChatMemoryAdvisor)VectorStoreChatMemoryAdvisor.builder(vectorStore)
                     .conversationId(agiAgentChatParam.getChatId())
-                    .chatMemoryRetrieveSize(5)
+                    .defaultTopK(5)
                     .build();
             chatClientRequestSpec.advisors(vectorStoreChatMemoryAdvisor);
         }
@@ -304,7 +303,7 @@ public class AgiAgentGatewayImpl extends AbstractBaseGatewayImpl<AgiAgentId,AgiA
         this.iAgiAgentService = iAgiAgentService;
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setChatModel(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
@@ -320,7 +319,7 @@ public class AgiAgentGatewayImpl extends AbstractBaseGatewayImpl<AgiAgentId,AgiA
     public void setiAgiAgentChatMessageService(IAgiAgentChatMessageService iAgiAgentChatMessageService) {
         this.iAgiAgentChatMessageService = iAgiAgentChatMessageService;
     }
-    @Autowired
+    @Autowired(required = false)
     public void setVectorStore(VectorStore vectorStore) {
         this.vectorStore = vectorStore;
     }

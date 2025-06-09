@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="LowcodeDataSourceManageUpdatePage" lang="ts">
 /**
  * 低代码数据源管理更新页面
  */

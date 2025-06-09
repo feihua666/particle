@@ -46,7 +46,9 @@ public class DataCompanyOpenCourtAnnouncementWrapExWarehouseCommandExecutor exte
      */
     public PageResponse<DataCompanyOpenCourtAnnouncementExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                DataCompanyOpenCourtAnnouncementExWarehouseQueryCommand dataCompanyOpenCourtAnnouncementExWarehouseQueryCommand) {
-
+        if (dataCompanyOpenCourtAnnouncementExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyOpenCourtAnnouncementExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
         if (dataCompanyOpenCourtAnnouncementExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyOpenCourtAnnouncementExWarehouseQueryCommand.setCompanyId(companyId);

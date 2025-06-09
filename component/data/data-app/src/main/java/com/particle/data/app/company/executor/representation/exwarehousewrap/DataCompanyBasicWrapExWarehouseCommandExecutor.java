@@ -4,6 +4,7 @@ import com.particle.data.app.company.executor.representation.exwarehouse.DataCom
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyBasicExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyBasicExWarehouseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseCandidateVO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,29 @@ public class DataCompanyBasicWrapExWarehouseCommandExecutor extends AbstractBase
      */
     public SingleResponse<DataCompanyBasicExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                  DataCompanyBasicExWarehouseQueryCommand dataCompanyBasicExWarehouseQueryCommand) {
+        DataCompanyExWarehouseCandidateVO company = null;
         if (dataCompanyBasicExWarehouseQueryCommand.getCompanyId() == null) {
-            Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
-            dataCompanyBasicExWarehouseQueryCommand.setCompanyId(companyId);
+            dataCompanyBasicExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyBasicExWarehouseQueryCommand.getCompanyId() == null) {
+            company = getCompany(dataCompanyExWarehouseQueryCommand);
+            if (company != null) {
+                dataCompanyBasicExWarehouseQueryCommand.setCompanyId(company.getId());
+            }
         }
         if (dataCompanyBasicExWarehouseQueryCommand.getCompanyId() == null) {
             return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
         }
-        return dataCompanyBasicExWarehouseCommandExecutor.exWarehouse(dataCompanyBasicExWarehouseQueryCommand);
+        SingleResponse<DataCompanyBasicExWarehouseVO> dataCompanyBasicExWarehouseVOSingleResponse = dataCompanyBasicExWarehouseCommandExecutor.exWarehouse(dataCompanyBasicExWarehouseQueryCommand);
+        DataCompanyBasicExWarehouseVO dataCompanyBasicExWarehouseVO = dataCompanyBasicExWarehouseVOSingleResponse.getData();
+        if (dataCompanyBasicExWarehouseVO != null) {
+            if (company == null) {
+                DataCompanyExWarehouseQueryCommand command = DataCompanyExWarehouseQueryCommand.create(dataCompanyBasicExWarehouseVO.getCompanyId());
+                company = getCompany(dataCompanyExWarehouseQueryCommand);
+            }
+            dataCompanyBasicExWarehouseVO.setCompanyUnique(company);
+        }
+        return dataCompanyBasicExWarehouseVOSingleResponse;
     }
 
     @Autowired

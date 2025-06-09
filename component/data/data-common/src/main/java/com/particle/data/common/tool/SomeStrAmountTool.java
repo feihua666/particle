@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class SomeStrAmountTool {
     public static Pattern prefixNumberPattern = Pattern.compile("^(\\d+\\.?\\d*)(.*)$");
+    public static String defaultCurrency = "人民币";
 
     /**
      * 解析金额字符串，返回金额和单位
@@ -68,7 +69,7 @@ public class SomeStrAmountTool {
             // 转换为万元单位
             if ("元".equals(unit)) {
                 result.setAmount(number.divide(BigDecimal.valueOf(10000)));
-            }if ("亿".equals(unit)) {
+            }else if ("亿".equals(unit)) {
                 result.setAmount(number.divide(BigDecimal.valueOf(10000 * 10000)));
             } else {
                 result.setAmount(number);
@@ -84,6 +85,20 @@ public class SomeStrAmountTool {
         return result;
     }
 
+    /**
+     * 如果没有币种，则默认为人民币
+     * @param input
+     * @return
+     */
+    public static AmountParseResult parseAmountWithDefaultCny(String input) {
+        AmountParseResult amountParseResult = parseAmount(input);
+        if (amountParseResult != null) {
+            if (StrUtil.isEmpty(amountParseResult.getCurrency())) {
+                amountParseResult.setCurrency(defaultCurrency);
+            }
+        }
+        return amountParseResult;
+    }
     /**
      * 解析结果
      */
@@ -130,7 +145,7 @@ public class SomeStrAmountTool {
         public String toString() {
             return "ParseResult{" +
                     "amount=" + amount.toPlainString() +
-                    ", unit='" + originUnit + '\'' +
+                    ", originUnit='" + originUnit + '\'' +
                     ", currency='" + currency + '\'' +
                     '}';
         }
@@ -143,7 +158,9 @@ public class SomeStrAmountTool {
         String[] testCases = {
                 "1342128万元人民币",
                 "1342123.22",
+                "1980.22",
                 "1342128万元",
+                "1342128百万元",
                 "1342128元人民币",
                 "1342128万欧元",
                 "123.45万人民币",
@@ -153,6 +170,7 @@ public class SomeStrAmountTool {
                 "1234元港元",
                 "1234亿港元",
                 "1234亿元港元",
+                "1234十亿元港元",
                 "00亿元港元",
         };
 

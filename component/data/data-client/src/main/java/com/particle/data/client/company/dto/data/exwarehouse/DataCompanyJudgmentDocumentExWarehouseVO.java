@@ -50,6 +50,10 @@ public class DataCompanyJudgmentDocumentExWarehouseVO extends AbstractBaseIdVO {
 	@Schema(description = "案件类型名称")
 	private String caseTypeName;
 
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "caseTypeDictId",mapValueField = "value")
+    @Schema(description = "案件类型对应字典值")
+    private String caseTypeDictValue;
+
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "caseTypeDictId",mapValueField = "name")
     @Schema(description = "案件类型对应字典名称")
     private String caseTypeDictName;
@@ -69,6 +73,11 @@ public class DataCompanyJudgmentDocumentExWarehouseVO extends AbstractBaseIdVO {
 
 	@Schema(description = "文书类型名称")
 	private String documentTypeName;
+
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "documentTypeDictId",mapValueField = "value")
+    @Schema(description = "文书类型对应字典值")
+    private String documentTypeDictValue;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "documentTypeDictId",mapValueField = "name")
     @Schema(description = "文书类型对应字典名称")

@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="MessageManageUpdatePage" lang="ts">
 /**
  * 消息管理更新页面
  */

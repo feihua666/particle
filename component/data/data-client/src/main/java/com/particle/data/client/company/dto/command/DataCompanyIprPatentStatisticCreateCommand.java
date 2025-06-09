@@ -5,6 +5,8 @@ import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentStatisticWarehouseCommand;
 
@@ -78,6 +80,36 @@ public class DataCompanyIprPatentStatisticCreateCommand extends AbstractBaseComm
     @Schema(description = "IPC分类数量")
     private Integer ipcCategoryNum;
 
+	@Schema(description = "技术评分")
+	private BigDecimal technologyScore;
+
+	@Schema(description = "法律评分")
+	private BigDecimal legalScore;
+
+	@Schema(description = "战略评分")
+	private BigDecimal strategyScore;
+
+	@Schema(description = "市场评分")
+	private BigDecimal marketScore;
+
+	@Schema(description = "经济评分")
+	private BigDecimal economicScore;
+
+	@Schema(description = "综合评分")
+	private BigDecimal comprehensiveScore;
+
+	@Schema(description = "估值（元）")
+	private BigDecimal valuation;
+
+	@Schema(description = "等级，A+ 到 D-，12个等级，A+最优")
+	private String grade;
+
+	@Schema(description = "评估得分超过比,评估得分在领域内的相对位置")
+	private BigDecimal comprehensiveScorePercent;
+
+	@Schema(description = "评估价格超过比,评估价格在领域内的相对位置")
+	private BigDecimal valuationPercent;
+
 
 
     public static DataCompanyIprPatentStatisticCreateCommand createByWarehouseCommand(DataCompanyIprPatentStatisticWarehouseCommand dataCompanyIprPatentStatisticWarehouseCommand){
@@ -96,6 +128,16 @@ public class DataCompanyIprPatentStatisticCreateCommand extends AbstractBaseComm
         command.invalidNum = dataCompanyIprPatentStatisticWarehouseCommand.getInvalidNum();
         command.litigationNum = dataCompanyIprPatentStatisticWarehouseCommand.getLitigationNum();
         command.ipcCategoryNum = dataCompanyIprPatentStatisticWarehouseCommand.getIpcCategoryNum();
+        command.technologyScore = dataCompanyIprPatentStatisticWarehouseCommand.getTechnologyScore();
+        command.legalScore = dataCompanyIprPatentStatisticWarehouseCommand.getLegalScore();
+        command.strategyScore = dataCompanyIprPatentStatisticWarehouseCommand.getStrategyScore();
+        command.marketScore = dataCompanyIprPatentStatisticWarehouseCommand.getMarketScore();
+        command.economicScore = dataCompanyIprPatentStatisticWarehouseCommand.getEconomicScore();
+        command.comprehensiveScore = dataCompanyIprPatentStatisticWarehouseCommand.getComprehensiveScore();
+        command.valuation = dataCompanyIprPatentStatisticWarehouseCommand.getValuation();
+        command.grade = dataCompanyIprPatentStatisticWarehouseCommand.getGrade();
+        command.comprehensiveScorePercent = dataCompanyIprPatentStatisticWarehouseCommand.getComprehensiveScorePercent();
+        command.valuationPercent = dataCompanyIprPatentStatisticWarehouseCommand.getValuationPercent();
 
 
         return command;

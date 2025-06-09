@@ -3,8 +3,10 @@ package com.particle.report.adapter.api;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.particle.common.adapter.api.AbstractBaseApiAdapter;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.report.client.api.IReportApiApplicationService;
 import com.particle.report.client.dto.command.ReportApiGenerateCommand;
+import com.particle.report.client.dto.data.ReportApiGenerateVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +41,7 @@ public class ReportApiForOpenapiController extends AbstractBaseApiAdapter {
 	@PreAuthorize("@pms.hasPermission('report:openapi')")
 	@Operation(summary = "报告服务开放接口入口")
 	@PostMapping(API_ENTRY_REQUEST_MAPPING)
-	public Object reportApiEntry(@RequestBody Object param,HttpServletRequest request){
+	public SingleResponse<ReportApiGenerateVO> reportApiEntry(@RequestBody Object param, HttpServletRequest request){
 
 		ReportApiGenerateCommand reportApiGenerateCommand = new ReportApiGenerateCommand();
 		reportApiGenerateCommand.setUrl(getReportReportApiUrl(request));

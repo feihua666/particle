@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="DataQueryDataApiManageUpdatePage" lang="ts">
 /**
  * 数据查询数据接口管理更新页面
  */

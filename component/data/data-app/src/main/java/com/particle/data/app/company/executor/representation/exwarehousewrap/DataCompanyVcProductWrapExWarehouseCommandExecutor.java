@@ -39,6 +39,9 @@ public class DataCompanyVcProductWrapExWarehouseCommandExecutor extends Abstract
     public PageResponse<DataCompanyVcProductExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyVcProductExWarehouseQueryCommand dataCompanyVcProductExWarehouseQueryCommand) {
         if (dataCompanyVcProductExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyVcProductExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyVcProductExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyVcProductExWarehouseQueryCommand.setCompanyId(companyId);
         }

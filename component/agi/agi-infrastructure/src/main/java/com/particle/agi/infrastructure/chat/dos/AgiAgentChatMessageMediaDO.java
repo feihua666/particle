@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.ai.model.Media;
+import org.springframework.ai.content.Media;
 
 /**
  * <p>

@@ -32,6 +32,9 @@ public class DataCompanySeriousIllegalWrapExWarehouseCommandExecutor extends Abs
     public PageResponse<DataCompanySeriousIllegalExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanySeriousIllegalExWarehouseQueryCommand dataCompanySeriousIllegalExWarehouseQueryCommand) {
         if (dataCompanySeriousIllegalExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanySeriousIllegalExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanySeriousIllegalExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanySeriousIllegalExWarehouseQueryCommand.setCompanyId(companyId);
         }

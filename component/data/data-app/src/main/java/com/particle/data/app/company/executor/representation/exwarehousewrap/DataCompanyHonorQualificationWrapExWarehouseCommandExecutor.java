@@ -32,6 +32,9 @@ public class DataCompanyHonorQualificationWrapExWarehouseCommandExecutor extends
     public PageResponse<DataCompanyHonorQualificationExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyHonorQualificationExWarehouseQueryCommand dataCompanyHonorQualificationExWarehouseQueryCommand) {
         if (dataCompanyHonorQualificationExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyHonorQualificationExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyHonorQualificationExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyHonorQualificationExWarehouseQueryCommand.setCompanyId(companyId);
         }

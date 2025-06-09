@@ -35,18 +35,18 @@ public class ParticleAddWarehouseAndExWarehouseCommandExecutor extends AbstractB
 
 	public static void main(String[] args) {
 		AddWarehouseAndExWarehouseCommand addWarehouseAndExWarehouseCommand = new AddWarehouseAndExWarehouseCommand();
-		addWarehouseAndExWarehouseCommand.setDomainName("DataCompanyIprPatentParty");
+		addWarehouseAndExWarehouseCommand.setDomainName("DataCompanyStatistic");
 		addWarehouseAndExWarehouseCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
 
 		addWarehouseAndExWarehouseCommand.setTemplateComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
-		addWarehouseAndExWarehouseCommand.setIsSingle(false);
+		addWarehouseAndExWarehouseCommand.setIsSingle(true);
 		new ParticleAddWarehouseAndExWarehouseCommandExecutor().addWarehouseAndExWarehouse(addWarehouseAndExWarehouseCommand);
 	}
 	// 以行政处罚作为分页模板
-	// private String pageDomainName = "DataCompanyPunishment";
+	private String pageDomainName = "DataCompanyPunishment";
 	// private String pageDomainName = "DataCompanyAnnualReportAdministrativeLicense";
 	// private String pageDomainName = "DataCompanyCaseFiling";
-	private String pageDomainName = "DataCompanyCaseFilingParty";
+	// private String pageDomainName = "DataCompanyCaseFilingParty";
 	// private String pageDomainName = "DataCompanyIprPatentApplicantRight";
 	// private String pageDomainName = "DataCompanyIprPatentCited";
 	// private String pageDomainName = "DataCompanyCourtAnnouncement";

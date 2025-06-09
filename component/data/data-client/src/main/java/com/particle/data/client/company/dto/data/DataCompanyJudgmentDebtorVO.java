@@ -31,10 +31,10 @@ public class DataCompanyJudgmentDebtorVO extends AbstractBaseIdVO {
     @Schema(description = "是否被执行人为自然人")
     private Boolean isExecutedPersonNaturalPerson;
 
-    @Schema(description = "法人公司id")
+    @Schema(description = "被执行人公司id")
     private Long executedPersonCompanyId;
 
-    @Schema(description = "法人个人id")
+    @Schema(description = "被执行人个人id")
     private Long executedPersonCompanyPersonId;
 
     @Schema(description = "被执行人证照/证件号码")

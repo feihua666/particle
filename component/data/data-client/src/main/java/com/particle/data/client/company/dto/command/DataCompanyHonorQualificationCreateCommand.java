@@ -34,7 +34,7 @@ public class DataCompanyHonorQualificationCreateCommand extends AbstractBaseComm
 
 
     @Schema(description = "等级")
-    private String level;
+    private String grade;
 
 
     @Schema(description = "发布日期")
@@ -68,7 +68,7 @@ public class DataCompanyHonorQualificationCreateCommand extends AbstractBaseComm
         DataCompanyHonorQualificationCreateCommand command = new DataCompanyHonorQualificationCreateCommand();
         command.companyId = dataCompanyHonorQualificationWarehouseCommand.getCompanyId();
         command.name = dataCompanyHonorQualificationWarehouseCommand.getName();
-        command.level = dataCompanyHonorQualificationWarehouseCommand.getLevel();
+        command.grade = dataCompanyHonorQualificationWarehouseCommand.getGrade();
         command.publishDate = dataCompanyHonorQualificationWarehouseCommand.getPublishDate();
         command.startDate = dataCompanyHonorQualificationWarehouseCommand.getStartDate();
         command.endDate = dataCompanyHonorQualificationWarehouseCommand.getEndDate();

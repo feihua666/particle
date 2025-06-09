@@ -37,11 +37,11 @@ public class DataCompanyJudgmentDebtorPageQueryCommand extends AbstractBasePageQ
     private Boolean isExecutedPersonNaturalPerson;
 
 
-    @Schema(description = "法人公司id")
+    @Schema(description = "被执行人公司id")
     private Long executedPersonCompanyId;
 
 
-    @Schema(description = "法人个人id")
+    @Schema(description = "被执行人个人id")
     private Long executedPersonCompanyPersonId;
 
 
@@ -59,11 +59,11 @@ public class DataCompanyJudgmentDebtorPageQueryCommand extends AbstractBasePageQ
 
     @Schema(description = "立案日期")
     private LocalDate fileCaseDate;
-    
+
 
     @Schema(description = "结案日期")
     private LocalDate finishedCaseDate;
-    
+
 
     @Schema(description = "是否已结案")
     private Boolean isFinished;
@@ -71,7 +71,7 @@ public class DataCompanyJudgmentDebtorPageQueryCommand extends AbstractBasePageQ
 
     @Schema(description = "执行标的金额（万元）")
     private BigDecimal executeAmount;
-    
+
 
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
@@ -82,7 +82,7 @@ public class DataCompanyJudgmentDebtorPageQueryCommand extends AbstractBasePageQ
 
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;
-    
+
 
 
 

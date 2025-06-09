@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.agi.domain.values.AgiDocument;
 import com.particle.agi.domain.values.AgiMedia;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.model.Media;
+import org.springframework.ai.content.Media;
 import org.springframework.util.MimeType;
 
 import java.util.List;

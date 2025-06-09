@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="DataQueryDatasourceManageUpdatePage" lang="ts">
 /**
  * 数据查询数据源管理更新页面
  */

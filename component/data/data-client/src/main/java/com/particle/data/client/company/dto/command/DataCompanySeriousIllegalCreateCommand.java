@@ -27,10 +27,11 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
     @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
+	@Schema(description = "企业名称")
+	private String companyName;
 
-    @Schema(description = "类别")
-    private String type;
-
+	@Schema(description = "列入决定书文号")
+	private String putNo;
 
     @NotEmpty(message = "列入原因 不能为空")
     @Schema(description = "列入原因",requiredMode = Schema.RequiredMode.REQUIRED)
@@ -48,6 +49,9 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
 
     @Schema(description = "作出列入决定机关名称")
     private String putInstituteName;
+
+	@Schema(description = "移出决定书文号")
+	private String removeNo;
 
 
     @Schema(description = "移除原因")
@@ -72,11 +76,13 @@ public class DataCompanySeriousIllegalCreateCommand extends AbstractBaseCommand 
     public static DataCompanySeriousIllegalCreateCommand createByWarehouseCommand(DataCompanySeriousIllegalWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanySeriousIllegalCreateCommand command = new DataCompanySeriousIllegalCreateCommand();
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
-        command.type = dataCompanyBasicWarehouseCommand.getType();
+        command.companyName = dataCompanyBasicWarehouseCommand.getCompanyName();
+        command.putNo = dataCompanyBasicWarehouseCommand.getPutNo();
         command.putReason = dataCompanyBasicWarehouseCommand.getPutReason();
         command.putDate = dataCompanyBasicWarehouseCommand.getPutDate();
         command.putInstituteCompanyId = dataCompanyBasicWarehouseCommand.getPutInstituteCompanyId();
         command.putInstituteName = dataCompanyBasicWarehouseCommand.getPutInstituteName();
+        command.removeNo = dataCompanyBasicWarehouseCommand.getRemoveNo();
         command.removeReason = dataCompanyBasicWarehouseCommand.getRemoveReason();
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();

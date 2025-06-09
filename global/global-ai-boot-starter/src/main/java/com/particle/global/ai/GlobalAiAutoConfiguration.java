@@ -8,7 +8,7 @@ import io.micrometer.observation.ObservationRegistry;
 import io.milvus.client.MilvusServiceClient;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
-import org.springframework.ai.autoconfigure.vectorstore.milvus.MilvusVectorStoreProperties;
+import org.springframework.ai.vectorstore.milvus.autoconfigure.MilvusVectorStoreProperties;
 import org.springframework.ai.embedding.BatchingStrategy;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.milvus.MilvusVectorStore;
@@ -51,6 +51,7 @@ public class GlobalAiAutoConfiguration {
                 .build());
     }
 
+    @ConditionalOnBean({MilvusServiceClient.class,EmbeddingModel.class})
     @Bean
     public MilvusVectorStore vectorStore(MilvusServiceClient milvusClient, EmbeddingModel embeddingModel,
                                          MilvusVectorStoreProperties properties, BatchingStrategy batchingStrategy,

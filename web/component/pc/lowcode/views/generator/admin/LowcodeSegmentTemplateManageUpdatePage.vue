@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="LowcodeSegmentTemplateManageUpdatePage" lang="ts">
 /**
  * 低代码片段模板管理更新页面
  */

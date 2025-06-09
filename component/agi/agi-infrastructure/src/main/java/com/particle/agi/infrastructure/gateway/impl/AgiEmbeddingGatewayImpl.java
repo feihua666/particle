@@ -43,7 +43,7 @@ public class AgiEmbeddingGatewayImpl implements AgiEmbeddingGateway {
         return true;
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setVectorStore(VectorStore vectorStore) {
         this.vectorStore = vectorStore;
     }

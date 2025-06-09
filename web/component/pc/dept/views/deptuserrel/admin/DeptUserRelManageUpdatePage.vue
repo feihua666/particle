@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="DeptUserRelManageUpdatePage" lang="ts">
 /**
  * 部门用户关系管理更新页面
  */

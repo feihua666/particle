@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="UsageCountDefineManageUpdatePage" lang="ts">
 /**
  * 使用次数定义管理更新页面
  */

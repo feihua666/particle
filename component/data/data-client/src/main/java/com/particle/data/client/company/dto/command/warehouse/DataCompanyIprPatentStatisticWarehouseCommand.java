@@ -1,11 +1,13 @@
 package com.particle.data.client.company.dto.command.warehouse;
 
+import cn.hutool.core.util.NumberUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentStatisticExWarehouseVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -79,6 +81,37 @@ public class DataCompanyIprPatentStatisticWarehouseCommand extends AbstractBaseC
     private Integer ipcCategoryNum;
 
 
+    @Schema(description = "技术评分")
+    private BigDecimal technologyScore;
+
+    @Schema(description = "法律评分")
+    private BigDecimal legalScore;
+
+    @Schema(description = "战略评分")
+    private BigDecimal strategyScore;
+
+    @Schema(description = "市场评分")
+    private BigDecimal marketScore;
+
+    @Schema(description = "经济评分")
+    private BigDecimal economicScore;
+
+    @Schema(description = "综合评分")
+    private BigDecimal comprehensiveScore;
+
+    @Schema(description = "估值（元）")
+    private BigDecimal valuation;
+
+    @Schema(description = "等级，A+ 到 D-，12个等级，A+最优")
+    private String grade;
+
+    @Schema(description = "评估得分超过比,评估得分在领域内的相对位置")
+    private BigDecimal comprehensiveScorePercent;
+
+    @Schema(description = "评估价格超过比,评估价格在领域内的相对位置")
+    private BigDecimal valuationPercent;
+
+
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return
@@ -97,9 +130,18 @@ public class DataCompanyIprPatentStatisticWarehouseCommand extends AbstractBaseC
                 && Objects.isNull(pledgeNum)
                 && Objects.isNull(invalidNum)
                 && Objects.isNull(litigationNum)
-                && Objects.isNull(ipcCategoryNum);
+                && Objects.isNull(ipcCategoryNum)
+                && Objects.isNull(technologyScore)
+                && Objects.isNull(legalScore)
+                && Objects.isNull(strategyScore)
+                && Objects.isNull(marketScore)
+                && Objects.isNull(economicScore)
+                && Objects.isNull(comprehensiveScore)
+                && Objects.isNull(valuation)
+                && Objects.isNull(grade)
+                && Objects.isNull(comprehensiveScorePercent)
+                && Objects.isNull(valuationPercent);
     }
-
     /**
      * 主要用于更新，如果字段与现有数据一致，则设置为null
      * @param exWarehouseVO
@@ -148,6 +190,37 @@ public class DataCompanyIprPatentStatisticWarehouseCommand extends AbstractBaseC
             this.ipcCategoryNum = null;
         }
 
+        if (NumberUtil.equals(technologyScore, exWarehouseVO.getTechnologyScore())) {
+            this.technologyScore = null;
+        }
+        if (NumberUtil.equals(legalScore, exWarehouseVO.getLegalScore())) {
+            this.legalScore = null;
+        }
+        if (NumberUtil.equals(strategyScore, exWarehouseVO.getStrategyScore())) {
+            this.strategyScore = null;
+        }
+        if (NumberUtil.equals(marketScore, exWarehouseVO.getMarketScore())) {
+            this.marketScore = null;
+        }
+        if (NumberUtil.equals(economicScore, exWarehouseVO.getEconomicScore())) {
+            this.economicScore = null;
+        }
+        if (NumberUtil.equals(comprehensiveScore, exWarehouseVO.getComprehensiveScore())) {
+            this.comprehensiveScore = null;
+        }
+
+        if (Objects.equals(grade, exWarehouseVO.getGrade())) {
+            this.grade = null;
+        }
+        if (NumberUtil.equals(valuation, exWarehouseVO.getValuation())) {
+            this.valuation = null;
+        }
+        if (NumberUtil.equals(comprehensiveScorePercent, exWarehouseVO.getComprehensiveScorePercent())) {
+            this.comprehensiveScorePercent = null;
+        }
+        if (NumberUtil.equals(valuationPercent, exWarehouseVO.getValuationPercent())) {
+            this.valuationPercent = null;
+        }
     }
 
     public static DataCompanyIprPatentStatisticWarehouseCommand createByDataCompanyIprPatentStatisticExWarehouseVO(DataCompanyIprPatentStatisticExWarehouseVO exWarehouseVO) {
@@ -166,7 +239,16 @@ public class DataCompanyIprPatentStatisticWarehouseCommand extends AbstractBaseC
         command.invalidNum = exWarehouseVO.getInvalidNum();
         command.litigationNum = exWarehouseVO.getLitigationNum();
         command.ipcCategoryNum = exWarehouseVO.getIpcCategoryNum();
-
+        command.technologyScore = exWarehouseVO.getTechnologyScore();
+        command.legalScore = exWarehouseVO.getLegalScore();
+        command.strategyScore = exWarehouseVO.getStrategyScore();
+        command.marketScore = exWarehouseVO.getMarketScore();
+        command.economicScore = exWarehouseVO.getEconomicScore();
+        command.comprehensiveScore = exWarehouseVO.getComprehensiveScore();
+        command.valuation = exWarehouseVO.getValuation();
+        command.grade = exWarehouseVO.getGrade();
+        command.comprehensiveScorePercent = exWarehouseVO.getComprehensiveScorePercent();
+        command.valuationPercent = exWarehouseVO.getValuationPercent();
 
         return command;
     }

@@ -49,7 +49,9 @@ public class DataCompanyAnnualReportAllWrapExWarehouseCommandExecutor extends Ab
 	 */
 	public PageResponse<DataCompanyAnnualReportAllExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
 																		  @Valid DataCompanyAnnualReportExWarehouseQueryCommand dataCompanyAnnualReportExWarehouseQueryCommand) {
-
+		if (dataCompanyAnnualReportExWarehouseQueryCommand.getCompanyId() == null) {
+			dataCompanyAnnualReportExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+		}
         if (dataCompanyAnnualReportExWarehouseQueryCommand.getCompanyId() == null) {
 			Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
 			dataCompanyAnnualReportExWarehouseQueryCommand.setCompanyId(companyId);

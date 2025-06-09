@@ -7,27 +7,13 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '企业表ID',
-            
+
           },
           compProps: {
           }
         }
       },
-      {
-        field: {
-          name: 'type',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '类别',
-            
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
+
       {
         field: {
           name: 'putReason',
@@ -36,7 +22,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '列入原因',
-            
+
           },
           compProps: {
             clearable: true,
@@ -51,7 +37,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '列入日期',
-            
+
           },
           compProps: {
           }
@@ -65,7 +51,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出列入决定机关公司id',
-            
+
           },
           compProps: {
           }
@@ -79,7 +65,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出列入决定机关名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -94,7 +80,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '移除原因',
-            
+
           },
           compProps: {
             clearable: true,
@@ -109,7 +95,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '移除日期',
-            
+
           },
           compProps: {
           }
@@ -123,7 +109,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出移除决定机关公司id',
-            
+
           },
           compProps: {
           }
@@ -137,7 +123,7 @@ export const pageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出移除决定机关名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -166,21 +152,6 @@ export const addPageFormItems = [
       },
 
 
-      {
-        field: {
-          name: 'type',
-        },
-        element: {
-          comp: 'el-input',
-          formItemProps: {
-            label: '类别',
-            
-          },
-          compProps: {
-            clearable: true,
-          }
-        }
-      },
 
 
       {
@@ -224,7 +195,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出列入决定机关公司id',
-            
+
           },
           compProps: {
           }
@@ -240,7 +211,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出列入决定机关名称',
-            
+
           },
           compProps: {
             clearable: true,
@@ -257,7 +228,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '移除原因',
-            
+
           },
           compProps: {
             clearable: true,
@@ -274,7 +245,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '移除日期',
-            
+
           },
           compProps: {
           }
@@ -290,7 +261,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出移除决定机关公司id',
-            
+
           },
           compProps: {
           }
@@ -306,7 +277,7 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '作出移除决定机关名称',
-            
+
           },
           compProps: {
             clearable: true,

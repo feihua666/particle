@@ -1,6 +1,5 @@
 package com.particle.data.app.company.executor.representation.exwarehouse;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.data.app.company.structmapping.DataCompanyVcInvestInstitutionAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyVcInvestInstitutionExWarehouseQueryCommand;
@@ -9,8 +8,6 @@ import com.particle.data.infrastructure.company.dos.DataCompanyVcFinancingInvest
 import com.particle.data.infrastructure.company.dos.DataCompanyVcInvestInstitutionDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcFinancingInvestInstitutionRelService;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcInvestInstitutionService;
-import com.particle.global.dto.response.MultiResponse;
-import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
@@ -43,12 +40,13 @@ public class DataCompanyVcInvestInstitutionExWarehouseCommandExecutor extends Ab
 	 * @param dataCompanyExWarehouseQueryCommand
 	 * @return
 	 */
-	public PageResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(@Valid DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
-		Page<DataCompanyVcInvestInstitutionDO> dataCompanyVcInvestInstitutionDOPage = iDataCompanyVcInvestInstitutionService.listPageByCompanyId(dataCompanyExWarehouseQueryCommand.getCompanyId(), dataCompanyExWarehouseQueryCommand);
-		if (dataCompanyVcInvestInstitutionDOPage == null || dataCompanyVcInvestInstitutionDOPage.getRecords() == null || dataCompanyVcInvestInstitutionDOPage.getRecords().isEmpty()) {
-			return PageResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
+	public SingleResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(@Valid DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
+		DataCompanyVcInvestInstitutionDO dataCompanyVcInvestInstitutionDO = iDataCompanyVcInvestInstitutionService.getByCompanyId(dataCompanyExWarehouseQueryCommand.getCompanyId());
+		if (dataCompanyVcInvestInstitutionDO == null) {
+			return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
         }
-		return DataCompanyVcInvestInstitutionAppStructMapping.instance.infrastructureExWarehousePageToPageResponse(dataCompanyVcInvestInstitutionDOPage);
+		DataCompanyVcInvestInstitutionExWarehouseVO dataCompanyVcInvestInstitutionExWarehouseVO = DataCompanyVcInvestInstitutionAppStructMapping.instance.dataCompanyVcInvestInstitutionDOToDataCompanyVcInvestInstitutionExWarehouseVO(dataCompanyVcInvestInstitutionDO);
+		return SingleResponse.of(dataCompanyVcInvestInstitutionExWarehouseVO);
 	}
 	/**
 	 * 企业投资机构出库

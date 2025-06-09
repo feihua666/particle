@@ -19,6 +19,7 @@ import lombok.SneakyThrows;
 
 import javax.script.Bindings;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -280,6 +281,18 @@ public class CustomEnjoyEngine implements TemplateEngine{
 			return new ArrayList<>();
 		}
 
+		/**
+		 * 将集合转为字符串
+		 * @param collection
+		 * @param split
+		 * @return
+		 */
+		public static String arrayJoin(Collection<String> collection, String split) {
+            if (CollectionUtil.isEmpty(collection)) {
+				return null;
+            }
+			return collection.stream().collect(Collectors.joining(split));
+		}
 		/**
 		 * 将对象转为jsonStr
 		 * @param obj

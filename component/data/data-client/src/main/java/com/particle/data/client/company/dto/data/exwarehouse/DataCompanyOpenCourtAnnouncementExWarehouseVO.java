@@ -20,8 +20,6 @@ import java.util.List;
 @Schema
 public class DataCompanyOpenCourtAnnouncementExWarehouseVO extends AbstractBaseIdVO {
 
-    @Schema(description = "企业表ID")
-    private Long companyId;
 
     @Schema(description = "案号")
     private String caseNo;

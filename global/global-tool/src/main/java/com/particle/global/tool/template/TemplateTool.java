@@ -61,7 +61,7 @@ public class TemplateTool {
 			return template1.render(data);
 		} catch (Exception e) {
 			log.error("template render error,template={}",template);
-			throw new RuntimeException("template=" + template, e);
+			throw new RuntimeException(e);
 		}
 	}
 }

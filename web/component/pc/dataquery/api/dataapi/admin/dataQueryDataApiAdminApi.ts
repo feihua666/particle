@@ -102,7 +102,7 @@ export interface ApiTestParam{
     queryString?: string
 }
 export const apiTest = (data: ApiTestParam): AxiosPromise => {
-    return axios.post(dataQueryDataApiTestPrefix + '/api_test',data)
+    return axios.post(dataQueryDataApiTestPrefix + '/api_test',data,{timeout: 15 * 60 * 1000})
 }
 
 /**

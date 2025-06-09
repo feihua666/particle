@@ -1,1 +1,0 @@
-import{a as e}from"./roleCompItem-CJX6qsB8.js";import{u as s,a as r}from"./dataconstraintCompItem-D0UCCx4F.js";const m=[e({props:{},required:!1}),s({props:{}}),r({props:{},required:!1})],a=({props:t={}})=>[e({props:t,required:!0}),s({props:{}}),r({props:{},required:!1})],u=a;export{u as a,m as p,a as u};

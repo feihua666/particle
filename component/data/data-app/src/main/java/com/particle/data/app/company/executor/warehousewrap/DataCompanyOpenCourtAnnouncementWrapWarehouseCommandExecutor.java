@@ -41,13 +41,14 @@ public class DataCompanyOpenCourtAnnouncementWrapWarehouseCommandExecutor extend
         List<DataCompanyOpenCourtAnnouncementExWarehouseVO> data = dataCompanyOpenCourtAnnouncementExWarehouseVOPageResponse.getData();
         if (CollectionUtil.isNotEmpty(data)) {
             for (DataCompanyOpenCourtAnnouncementExWarehouseVO dataCompanyOpenCourtAnnouncementExWarehouseVO : data) {
-                DataCompanyOpenCourtAnnouncementWarehouseCommand byDataCompanyOpenCourtAnnouncementExWarehouseVO = DataCompanyOpenCourtAnnouncementWarehouseCommand.createByDataCompanyOpenCourtAnnouncementExWarehouseVO(dataCompanyOpenCourtAnnouncementExWarehouseVO);
-                SingleResponse<DataCompanyOpenCourtAnnouncementExWarehouseVO> warehouse = dataCompanyOpenCourtAnnouncementWarehouseCommandExecutor.warehouse(byDataCompanyOpenCourtAnnouncementExWarehouseVO);
+                DataCompanyOpenCourtAnnouncementWarehouseCommand dataCompanyOpenCourtAnnouncementWarehouseCommand = DataCompanyOpenCourtAnnouncementWarehouseCommand.createByDataCompanyOpenCourtAnnouncementExWarehouseVO(dataCompanyOpenCourtAnnouncementExWarehouseVO);
+                SingleResponse<DataCompanyOpenCourtAnnouncementExWarehouseVO> warehouse = dataCompanyOpenCourtAnnouncementWarehouseCommandExecutor.warehouse(dataCompanyOpenCourtAnnouncementWarehouseCommand);
                 if (CollectionUtil.isNotEmpty(dataCompanyOpenCourtAnnouncementExWarehouseVO.getParties())) {
                     for (DataCompanyOpenCourtAnnouncementPartyExWarehouseVO party : dataCompanyOpenCourtAnnouncementExWarehouseVO.getParties()) {
-                        DataCompanyOpenCourtAnnouncementPartyWarehouseCommand byDataCompanyOpenCourtAnnouncementPartyExWarehouseVO = DataCompanyOpenCourtAnnouncementPartyWarehouseCommand.createByDataCompanyOpenCourtAnnouncementPartyExWarehouseVO(party);
-                        byDataCompanyOpenCourtAnnouncementPartyExWarehouseVO.setCompanyOpenCourtAnnouncementId(warehouse.getData().getId());
-                        dataCompanyOpenCourtAnnouncementPartyWarehouseCommandExecutor.warehouse(byDataCompanyOpenCourtAnnouncementPartyExWarehouseVO);
+                        DataCompanyOpenCourtAnnouncementPartyWarehouseCommand dataCompanyOpenCourtAnnouncementPartyWarehouseCommand = DataCompanyOpenCourtAnnouncementPartyWarehouseCommand.createByDataCompanyOpenCourtAnnouncementPartyExWarehouseVO(party);
+                        dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.setCompanyOpenCourtAnnouncementId(warehouse.getData().getId());
+                        fillPartyIds(dataCompanyOpenCourtAnnouncementPartyWarehouseCommand, party);
+                        dataCompanyOpenCourtAnnouncementPartyWarehouseCommandExecutor.warehouse(dataCompanyOpenCourtAnnouncementPartyWarehouseCommand);
                     }
                 }
                 if (dataCompanyOpenCourtAnnouncementExWarehouseVO.getContent() != null) {
@@ -57,6 +58,25 @@ public class DataCompanyOpenCourtAnnouncementWrapWarehouseCommandExecutor extend
                 }
             }
 
+        }
+    }
+
+    /**
+     * 当事人相关id设置
+     * @param dataCompanyOpenCourtAnnouncementPartyWarehouseCommand
+     * @param party
+     */
+    private void fillPartyIds(DataCompanyOpenCourtAnnouncementPartyWarehouseCommand dataCompanyOpenCourtAnnouncementPartyWarehouseCommand,
+                              DataCompanyOpenCourtAnnouncementPartyExWarehouseVO party) {
+        // 当事人性质
+        NaturePerson legalNaturePerson = checkNaturePerson(dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.getPartyName(),
+                dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.getPartyCompanyId(),
+                dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.getPartyCompanyPersonId(),
+                dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.getIsPartyNaturalPerson());
+        if (legalNaturePerson != null) {
+            dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.setPartyCompanyId(legalNaturePerson.getCompanyId());
+            dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.setPartyCompanyPersonId(legalNaturePerson.getPersonId());
+            dataCompanyOpenCourtAnnouncementPartyWarehouseCommand.setIsPartyNaturalPerson(legalNaturePerson.getIsNaturePerson());
         }
     }
     @Autowired

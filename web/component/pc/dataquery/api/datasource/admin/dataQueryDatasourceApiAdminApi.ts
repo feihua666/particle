@@ -97,7 +97,7 @@ export interface ApiTestParam{
     queryString?: string
 }
 export const apiTest = (data: ApiTestParam): AxiosPromise => {
-    return axios.post(dataQueryDatasourceApiTestPrefix + '/api_test',data)
+    return axios.post(dataQueryDatasourceApiTestPrefix + '/api_test',data,{timeout: 15 * 60 * 1000})
 }
 /**
  * 获取详情数据，目前添加该方法主要是测试接口时加载用例数据

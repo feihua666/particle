@@ -48,6 +48,9 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 		// 存储候选的
 		List<DataCompanyMd5DO> candidatesDataCompanyMd5DOs = null;
 
+		if (exWarehouseQueryCommand.getId() != null) {
+			dataCompanyMd5DO = iDataCompanyMd5Service.getByCompanyId(exWarehouseQueryCommand.getId());
+		}
 		if (dataCompanyMd5DO == null) {
 			String uscc = exWarehouseQueryCommand.getUscc();
 			uscc = SomeStrTool.normalizeCompanyUscc(uscc);
@@ -137,7 +140,6 @@ public class DataCompanyExWarehouseCommandExecutor extends AbstractBaseQueryExec
 		DataCompanyExWarehouseCandidateVO dataCompanyExWarehouseVO = null;
 		List<DataCompanyExWarehouseVO> candidateDataCompanyExWarehouseVO = new ArrayList<>(size);
 		for (DataCompanyDO dataCompanyDO : dataCompanyDOS) {
-
 			if (dataCompanyDO.getId().equals(dataCompanyMd5DO.getCompanyId())) {
 				dataCompanyExWarehouseVO = DataCompanyAppStructMapping.instance.mappingExWarehouseCandidateVOCandidate(dataCompanyDO);
 			}else {

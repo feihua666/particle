@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="TrackingPageManageUpdatePage" lang="ts">
 /**
  * 埋点页面管理更新页面
  */

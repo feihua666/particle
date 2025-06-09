@@ -53,8 +53,7 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
     private String caseLegalBasis;
 
 
-    @NotNull(message = "案件类型 不能为空")
-    @Schema(description = "案件类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "案件类型")
     private Long caseTypeDictId;
 
 	@Schema(description = "案件类型名称")
@@ -69,8 +68,7 @@ public class DataCompanyJudgmentDocumentCreateCommand extends AbstractBaseComman
     private Long caseAmountCurrencyDictId;
 
 
-    @NotNull(message = "文书类型 不能为空")
-    @Schema(description = "文书类型",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "文书类型")
     private Long documentTypeDictId;
 
 	@Schema(description = "文书类型名称")

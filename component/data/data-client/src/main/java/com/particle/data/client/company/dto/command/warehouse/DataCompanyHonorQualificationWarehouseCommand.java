@@ -33,7 +33,7 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
 
 
     @Schema(description = "等级")
-    private String level;
+    private String grade;
 
 
     @Schema(description = "发布日期")
@@ -64,7 +64,7 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
 
     public String obtainDataMd5() {
         if (StrUtil.isEmpty(dataMd5)) {
-            dataMd5 = SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,level,certificateNo,publishOffice,publishTitle);
+            dataMd5 = SomeMd5Tool.dataCompanyHonorQualificationDataMd5(name,grade,certificateNo,publishOffice,publishTitle);
         }
         return dataMd5;
     }
@@ -76,7 +76,7 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
     public boolean allFieldEmpty() {
         return Objects.isNull(companyId)
                 && StrUtil.isEmpty(name)
-                && StrUtil.isEmpty(level)
+                && StrUtil.isEmpty(grade)
                 && Objects.isNull(publishDate)
                 && Objects.isNull(startDate)
                 && Objects.isNull(endDate)
@@ -96,8 +96,8 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
         if (Objects.equals(name, exWarehouseVO.getName())) {
             this.name = null;
         }
-        if (Objects.equals(level, exWarehouseVO.getLevel())) {
-            this.level = null;
+        if (Objects.equals(grade, exWarehouseVO.getGrade())) {
+            this.grade = null;
         }
         if (Objects.equals(publishDate, exWarehouseVO.getPublishDate())) {
             this.publishDate = null;
@@ -123,7 +123,7 @@ public class DataCompanyHonorQualificationWarehouseCommand extends AbstractBaseC
         DataCompanyHonorQualificationWarehouseCommand command = new DataCompanyHonorQualificationWarehouseCommand();
         command.companyId = exWarehouseVO.getCompanyId();
         command.name = exWarehouseVO.getName();
-        command.level = exWarehouseVO.getLevel();
+        command.grade = exWarehouseVO.getGrade();
         command.publishDate = exWarehouseVO.getPublishDate();
         command.startDate = exWarehouseVO.getStartDate();
         command.endDate = exWarehouseVO.getEndDate();

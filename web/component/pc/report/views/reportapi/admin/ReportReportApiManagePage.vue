@@ -97,8 +97,16 @@ const getTableRowButtons = ({row, column, $index}) => {
   let idData = {id: row.id}
   let tableRowButtons = [
     {
+      txt: '接口测试',
+      text: true,
+      permission: 'admin:web:reportReportApi:test',
+      // 跳转到编辑
+      route: {path: '/admin/reportReportApiManageTest',query: idData}
+    },
+    {
       txt: '编辑',
       text: true,
+      position: 'more',
       permission: 'admin:web:reportReportApi:update',
       // 跳转到编辑
       route: {path: '/admin/ReportReportApiManageUpdate',query: idData}

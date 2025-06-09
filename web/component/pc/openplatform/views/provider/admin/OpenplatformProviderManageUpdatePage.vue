@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="OpenplatformProviderManageUpdatePage" lang="ts">
 /**
  * 开放平台开放接口供应商管理更新页面
  */

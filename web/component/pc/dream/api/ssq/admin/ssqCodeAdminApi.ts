@@ -36,6 +36,6 @@ export const list = (data: anyObj): AxiosPromise => {
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(ssqCodePrefix + '/page',{params: data,timeout: 600000})
+    return axios.get(ssqCodePrefix + '/page',{params: data,timeout: 10 * 60 * 1000})
 }
 

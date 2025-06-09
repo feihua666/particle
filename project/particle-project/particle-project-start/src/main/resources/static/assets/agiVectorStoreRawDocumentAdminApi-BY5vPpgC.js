@@ -1,0 +1,1 @@
+import{k as t}from"./index-BAoWe_iC.js";let r="/admin/web/agi_vector_store_raw_document";const o=e=>t.post(r+"/create",e),n=e=>t.delete(r+"/delete",{data:e}),s=e=>t.get(r+"/page",{params:e}),c=e=>t.post(r+"/embedding",e),d=e=>t.post(r+"/reEmbedding",e);export{n as a,o as c,c as e,s as p,d as r};

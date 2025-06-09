@@ -1,1 +1,0 @@
-import{k as t}from"./index-CmUqrYxc.js";let a="/admin/web/dept_tree_name";const s=e=>t.post(a+"/create",e),p=e=>t.delete(a+"/delete",{data:e}),n=e=>t.put(a+"/update",e),o=e=>t.get(a+"/detail-for-update",{params:e}),d=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{s as c,o as d,d as l,u as p,p as r,n as u};

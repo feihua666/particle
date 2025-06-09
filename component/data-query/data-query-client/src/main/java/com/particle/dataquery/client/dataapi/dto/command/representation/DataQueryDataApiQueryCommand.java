@@ -32,4 +32,12 @@ public class DataQueryDataApiQueryCommand extends AbstractBaseCommand {
      */
     @Schema(description = "查询参数")
     private String queryString;
+
+    public static DataQueryDataApiQueryCommand create(String url, Object param, String queryString) {
+        DataQueryDataApiQueryCommand command = new DataQueryDataApiQueryCommand();
+        command.url = url;
+        command.param = param;
+        command.queryString = queryString;
+        return command;
+    }
 }

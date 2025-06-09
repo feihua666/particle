@@ -37,11 +37,11 @@ public class DataCompanyJudgmentDebtorWarehouseCommand extends AbstractBaseComma
     private Boolean isExecutedPersonNaturalPerson;
 
 
-    @Schema(description = "法人公司id")
+    @Schema(description = "被执行人公司id")
     private Long executedPersonCompanyId;
 
 
-    @Schema(description = "法人个人id")
+    @Schema(description = "被执行人个人id")
     private Long executedPersonCompanyPersonId;
 
 

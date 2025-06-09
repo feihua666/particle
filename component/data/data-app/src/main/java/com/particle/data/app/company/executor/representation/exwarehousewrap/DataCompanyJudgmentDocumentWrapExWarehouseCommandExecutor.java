@@ -46,7 +46,9 @@ public class DataCompanyJudgmentDocumentWrapExWarehouseCommandExecutor extends A
      */
     public PageResponse<DataCompanyJudgmentDocumentExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                DataCompanyJudgmentDocumentExWarehouseQueryCommand dataCompanyJudgmentDocumentExWarehouseQueryCommand) {
-
+        if (dataCompanyJudgmentDocumentExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyJudgmentDocumentExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
         if (dataCompanyJudgmentDocumentExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyJudgmentDocumentExWarehouseQueryCommand.setCompanyId(companyId);

@@ -42,6 +42,9 @@ public class DataCompanyVcFinancingWrapExWarehouseCommandExecutor extends Abstra
     public PageResponse<DataCompanyVcFinancingExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyVcFinancingExWarehouseQueryCommand dataCompanyVcFinancingExWarehouseQueryCommand) {
         if (dataCompanyVcFinancingExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyVcFinancingExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyVcFinancingExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyVcFinancingExWarehouseQueryCommand.setCompanyId(companyId);
         }

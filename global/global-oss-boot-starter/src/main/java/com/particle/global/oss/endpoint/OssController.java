@@ -105,7 +105,7 @@ public class OssController {
 		String finalObjectName = getObjectName(request, objectName);
 
 		GlobalOssObject globalOssObject = globalOssClientService.download(finalObjectName, client);
-		if (globalOssObject.getObjectContent() != null) {
+		if (globalOssObject != null && globalOssObject.getObjectContent() != null) {
 			if (Strings.isEmpty(globalOssObject.getContentType())) {
 			//	尝试获取
 				String mimeType = FileTool.getMimeType(finalObjectName);

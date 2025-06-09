@@ -34,7 +34,7 @@ public class DataCompanyHonorQualificationUpdateCommand extends AbstractBaseUpda
 
 
     @Schema(description = "等级")
-    private String level;
+    private String grade;
 
 
     @Schema(description = "发布日期")
@@ -66,7 +66,7 @@ public class DataCompanyHonorQualificationUpdateCommand extends AbstractBaseUpda
         command.setVersion(version);
         command.companyId = dataCompanyBasicWarehouseCommand.getCompanyId();
         command.name = dataCompanyBasicWarehouseCommand.getName();
-        command.level = dataCompanyBasicWarehouseCommand.getLevel();
+        command.grade = dataCompanyBasicWarehouseCommand.getGrade();
         command.publishDate = dataCompanyBasicWarehouseCommand.getPublishDate();
         command.startDate = dataCompanyBasicWarehouseCommand.getStartDate();
         command.endDate = dataCompanyBasicWarehouseCommand.getEndDate();

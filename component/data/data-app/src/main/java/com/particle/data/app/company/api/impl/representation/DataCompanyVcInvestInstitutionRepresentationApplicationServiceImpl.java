@@ -53,7 +53,7 @@ public class DataCompanyVcInvestInstitutionRepresentationApplicationServiceImpl 
 
 
     @Override
-    public PageResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
+    public SingleResponse<DataCompanyVcInvestInstitutionExWarehouseVO> exWarehouse(DataCompanyVcInvestInstitutionExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
         return dataCompanyVcInvestInstitutionExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand);
     }
 

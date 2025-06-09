@@ -100,11 +100,20 @@ public class ReportSegmentTemplateRenderServiceImpl implements IReportSegmentTem
 
 	@Override
 	public Boolean refreshCache(Long reportSegmentTemplateId) {
+		return doRefreshCache(reportSegmentTemplateId);
+	}
+
+	private Boolean doRefreshCache(Long reportSegmentTemplateId) {
 		reportSegmentTemplateDOCache.remove(reportSegmentTemplateId);
 		getReportSegmentTemplateDOById(reportSegmentTemplateId);
 
 		childrenReportSegmentTemplateDOsCache.remove(reportSegmentTemplateId);
-		getReportSegmentTemplateChildrenById(reportSegmentTemplateId);
+		List<ReportSegmentTemplateDO> reportSegmentTemplateChildrenById = getReportSegmentTemplateChildrenById(reportSegmentTemplateId);
+        if (CollectionUtil.isNotEmpty(reportSegmentTemplateChildrenById)) {
+			for (ReportSegmentTemplateDO reportSegmentTemplateDO : reportSegmentTemplateChildrenById) {
+				doRefreshCache(reportSegmentTemplateDO.getId());
+			}
+        }
 		return true;
 	}
 

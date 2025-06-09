@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="ReportSegmentTemplateManageUpdatePage" lang="ts">
 /**
  * 报告片段模板管理更新页面
  */

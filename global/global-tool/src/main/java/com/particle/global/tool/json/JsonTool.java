@@ -21,8 +21,15 @@ import java.util.Collection;
  */
 public class JsonTool {
 
+	public static JSONConfig jsonConfig = null;
+	static {
+		jsonConfig = new CustomJSONConfig()
+				.setLocalDateFormat(CalendarTool.DateStyle.YYYY_MM_DD.getValue())
+				.setLocalDateTimeFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue())
+				.setDateFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue())
+				.setIgnoreNullValue(false);
 
-	public static JSONConfig jsonConfig = JSONConfig.create().setDateFormat(CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()).setIgnoreNullValue(false);
+	}
 	/**
 	 * 转化为json
 	 * @param object
@@ -43,7 +50,7 @@ public class JsonTool {
 
 	/**
 	 * 首选确定一点，本项目整体使用 jackson 对json和对象之间做http转换
-	 * 在某一些 filter过滤器中如果使用 {@link JsonTool#toJsonStr(java.lang.Object)} 转为json字符串，最终表现可能和 spring controller 中返回的数据转json不一致
+	 * 在某一些 filter过滤器中如果使用 {@link JsonTool#toJsonStr(Object)} 转为json字符串，最终表现可能和 spring controller 中返回的数据转json不一致
 	 * 其原因是因为转换原理不同，如果要手动转json响应到页面，使用该方法表现一致
 	 * @param object 支持集合和对象
 	 * @return

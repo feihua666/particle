@@ -25,10 +25,11 @@ public class DataCompanySeriousIllegalQueryListCommand extends AbstractBaseQuery
     @Schema(description = "企业表ID")
     private Long companyId;
 
+	@Schema(description = "企业名称")
+	private String companyName;
 
-    @Schema(description = "类别")
-    private String type;
-
+	@Schema(description = "列入决定书文号")
+	private String putNo;
 
     @Schema(description = "列入原因")
     private String putReason;
@@ -44,6 +45,9 @@ public class DataCompanySeriousIllegalQueryListCommand extends AbstractBaseQuery
 
     @Schema(description = "作出列入决定机关名称")
     private String putInstituteName;
+
+	@Schema(description = "移出决定书文号")
+	private String removeNo;
 
 
     @Schema(description = "移除原因")

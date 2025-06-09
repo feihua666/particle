@@ -3,6 +3,7 @@ package com.particle.data.app.company.executor.warehousewrap;
 import cn.hutool.core.util.StrUtil;
 import com.particle.data.app.company.executor.warehouse.DataCompanyBasicWarehouseCommandExecutor;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyBasicWarehouseCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyBasicExWarehouseVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
 import com.particle.data.common.tool.CompanyNameCheckTool;
@@ -43,6 +44,7 @@ public class DataCompanyBasicWrapWarehouseCommandExecutor extends AbstractBaseWr
         DataCompanyBasicExWarehouseVO dataCompanyBasicExWarehouseVO = dataCompanyBasicExWarehouseVOSingleResponse.getData();
         if (dataCompanyBasicExWarehouseVO != null) {
             DataCompanyBasicWarehouseCommand dataCompanyBasicWarehouseCommand = DataCompanyBasicWarehouseCommand.createByDataCompanyBasicExWarehouseVO(dataCompanyBasicExWarehouseVO);
+            fillIds(dataCompanyBasicWarehouseCommand, dataCompanyBasicExWarehouseVO);
             dataCompanyBasicWarehouseCommandExecutor.warehouse(dataCompanyBasicWarehouseCommand);
         }
     }
@@ -53,6 +55,20 @@ public class DataCompanyBasicWrapWarehouseCommandExecutor extends AbstractBaseWr
      * @param dataCompanyBasicExWarehouseVO
      */
     private void fillIds(DataCompanyBasicWarehouseCommand dataCompanyBasicWarehouseCommand, DataCompanyBasicExWarehouseVO dataCompanyBasicExWarehouseVO) {
+        // 企业id
+        if (dataCompanyBasicWarehouseCommand.getCompanyId() == null) {
+            DataCompanyExWarehouseVO companyUnique = dataCompanyBasicExWarehouseVO.getCompanyUnique();
+            if (companyUnique != null) {
+                if (companyUnique.getId() != null) {
+                    dataCompanyBasicWarehouseCommand.setCompanyId(companyUnique.getId());
+                }else{
+                    DataCompanyExWarehouseVO dataCompanyExWarehouseVO = warehouseCompany(DataCompanyWarehouseCommand.createByDataCompanyExWarehouseVO(companyUnique));
+                    if (dataCompanyExWarehouseVO != null) {
+                        dataCompanyBasicWarehouseCommand.setCompanyId(dataCompanyExWarehouseVO.getId());
+                    }
+                }
+            }
+        }
         // 登记状态
         if (dataCompanyBasicWarehouseCommand.getStatusDictId() == null) {
             Long statusDictId = mappingDictItemGetDictId(dataCompanyBasicExWarehouseVO.getStatusDictName(), CompanyStatus.Group.company_status.groupCode());

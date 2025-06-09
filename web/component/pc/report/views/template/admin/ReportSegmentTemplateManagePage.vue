@@ -42,7 +42,8 @@ const reactiveData = reactive({
     },
     {
       label: "父级",
-      prop: "parentName"
+      prop: "parentName",
+      showOverflowTooltip: true,
     },
     {
       label: "计算模板",

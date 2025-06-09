@@ -100,12 +100,16 @@ public class DataCompanyDiscreditedJudgmentDebtorExWarehouseVO extends AbstractB
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
 
-	@Schema(description = "数据md5,case_no + dishonest_executed_person_name + obligation + performance")
-	private String dataMd5;
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "executeAmountCurrencyDictId",mapValueField = "value")
+    @Schema(description = "执行标的金额币种对应字典值")
+    private String executeAmountCurrencyDictValue;
 
     @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "executeAmountCurrencyDictId",mapValueField = "name")
     @Schema(description = "执行标的金额币种对应字典名称")
     private String executeAmountCurrencyDictName;
+
+    @Schema(description = "数据md5,case_no + dishonest_executed_person_name + obligation + performance")
+    private String dataMd5;
 
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;

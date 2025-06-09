@@ -6,9 +6,12 @@ import cn.hutool.core.util.StrUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -23,6 +26,31 @@ import java.util.regex.Matcher;
  */
 public class SomeStrTool {
 
+    /**
+     * 标准化字符串
+     * @param str
+     * @return
+     */
+    public static String normalizeStr(String str, Collection<String> invalidStrs) {
+        if (StrUtil.isBlank(str)) {
+            return null;
+        }
+        if (invalidStrs != null && invalidStrs.contains(str)) {
+            return null;
+        }
+        return str.trim();
+    }
+    /**
+     * 标准化字符串
+     * @param str
+     * @return
+     */
+    public static String normalizeStr(String str) {
+        if (StrUtil.isBlank(str)) {
+            return null;
+        }
+        return str.trim();
+    }
     /**
      * 标准化公司名称
      * @param companyName
@@ -95,12 +123,35 @@ public class SomeStrTool {
 
     /**
      * 解析日期字符串
-     * @param dateStr 2023-05-09
+     * @param dateStr 2023-05-09 或 2021-12-15 00:00:00
      * @return
      */
     public static LocalDate parseLocalDateByNormal(String dateStr) {
         if (StrUtil.isNotEmpty(dateStr)) {
-            return LocalDate.parse(dateStr);
+            return LocalDate.parse(dateStr.substring(0, 10));
+        }
+        return null;
+    }
+    /**
+     * 解析日期字符串
+     * @param dateStr 毫秒时间戳（13位）如：1748509699724、秒时间戳（10位）如：1748509699
+     * @return
+     */
+    public static LocalDate parseLocalDateByTimestamp(String dateStr) {
+
+        if (StrUtil.isNotEmpty(dateStr)) {
+            Long timestamp = null;
+            if (dateStr.length() == 13) {
+                timestamp = Long.parseLong(dateStr);
+            } else if (dateStr.length() == 10) {
+                timestamp = Long.parseLong(dateStr) * 1000;
+            }
+            if (timestamp != null) {
+                LocalDate localDate = Instant.ofEpochMilli(timestamp)
+                        .atZone(ZoneId.systemDefault()) // 使用系统默认时区
+                        .toLocalDate();
+                return localDate;
+            }
         }
         return null;
     }

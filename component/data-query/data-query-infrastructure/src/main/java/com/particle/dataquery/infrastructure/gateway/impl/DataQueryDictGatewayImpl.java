@@ -36,6 +36,15 @@ public class DataQueryDictGatewayImpl implements DataQueryDictGateway {
 	}
 
 	@Override
+	public String getDictNameById(Long typeDictId) {
+		SingleResponse<DictVO> dictVOSingleResponse = dictRpcFeignClient.queryById(typeDictId);
+		if (dictVOSingleResponse.getData() == null) {
+			return null;
+		}
+		return dictVOSingleResponse.getData().getName();
+	}
+
+	@Override
 	public List<String> getDictValuesByIds(List<Long> ids) {
 		MultiResponse<DictVO> dictVOMultiResponse = dictRpcFeignClient.queryByIds(ids);
 		List<String> collect = dictVOMultiResponse.getData().stream().map(DictVO::getValue).collect(Collectors.toList());

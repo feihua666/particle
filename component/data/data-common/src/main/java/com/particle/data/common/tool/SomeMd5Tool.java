@@ -325,7 +325,7 @@ public class SomeMd5Tool {
     /**
      * 企业荣誉资质 唯一数据md5
      * @param name
-     * @param level
+     * @param grade
      * @param certificateNo
      * @param publishOffice
      * @param publishTitle
@@ -333,17 +333,17 @@ public class SomeMd5Tool {
      */
     public static String dataCompanyHonorQualificationDataMd5(
             String name,
-            String level,
+            String grade,
             String certificateNo,
             String publishOffice,
             String publishTitle
     ){
-        boolean hasValue = StrUtil.isNotEmpty(name) || StrUtil.isNotEmpty(level)
+        boolean hasValue = StrUtil.isNotEmpty(name) || StrUtil.isNotEmpty(grade)
                 || StrUtil.isNotEmpty(certificateNo) || StrUtil.isNotEmpty(publishOffice) || StrUtil.isNotEmpty(publishTitle);
         if (hasValue) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(StrUtil.nullToEmpty(name));
-            stringBuilder.append(StrUtil.nullToEmpty(level));
+            stringBuilder.append(StrUtil.nullToEmpty(grade));
             stringBuilder.append(StrUtil.nullToEmpty(certificateNo));
             stringBuilder.append(StrUtil.nullToEmpty(publishOffice));
             stringBuilder.append(StrUtil.nullToEmpty(publishTitle));
@@ -807,27 +807,30 @@ public class SomeMd5Tool {
 
     /**
      * 企业严重违法 唯一数据md5
-     * @param type
+     * @param putNo
      * @param putReason
      * @param putDate
+     * @param putInstituteName
      * @return
      */
     public static String dataCompanySeriousIllegalDataMd5(
-            String type,
+            String putNo,
             String putReason,
-            LocalDate putDate
+            LocalDate putDate,
+            String putInstituteName
+
     ){
-        boolean hasValue = StrUtil.isNotEmpty(type)
+        boolean hasValue = StrUtil.isNotEmpty(putNo)
                 || StrUtil.isNotEmpty(putReason)
-                || putDate != null;
+                || putDate != null
+                || StrUtil.isNotEmpty(putInstituteName);
         if (hasValue) {
             StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append(StrUtil.nullToEmpty(type));
+            stringBuilder.append(StrUtil.nullToEmpty(putNo));
             stringBuilder.append(StrUtil.nullToEmpty(putReason));
-
             String putDateStr = LocalDateTimeUtil.formatNormal(putDate);
             stringBuilder.append(StrUtil.nullToEmpty(putDateStr));
+            stringBuilder.append(StrUtil.nullToEmpty(putInstituteName));
 
             return DigestUtil.md5Hex(stringBuilder.toString());
         }
@@ -910,6 +913,34 @@ public class SomeMd5Tool {
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.append(StrUtil.nullToEmpty(productName));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业经营异常 唯一数据md5
+     * @param putNo
+     * @return
+     */
+    public static String dataCompanyAbnormalDataMd5(
+            String putNo,
+            String putReason,
+            LocalDate putDate,
+            String putInstituteName
+
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(putNo)
+                || StrUtil.isNotEmpty(putReason)
+                || putDate != null
+                || StrUtil.isNotEmpty(putInstituteName);
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(putNo));
+            stringBuilder.append(StrUtil.nullToEmpty(putReason));
+            String putDateStr = LocalDateTimeUtil.formatNormal(putDate);
+            stringBuilder.append(StrUtil.nullToEmpty(putDateStr));
+            stringBuilder.append(StrUtil.nullToEmpty(putInstituteName));
 
             return DigestUtil.md5Hex(stringBuilder.toString());
         }

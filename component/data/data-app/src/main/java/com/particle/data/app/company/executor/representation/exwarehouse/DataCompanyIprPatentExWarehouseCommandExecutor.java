@@ -36,18 +36,16 @@ public class DataCompanyIprPatentExWarehouseCommandExecutor extends AbstractBase
 	 */
 	public PageResponse<DataCompanyIprPatentExWarehouseVO> exWarehouse(@Valid DataCompanyIprPatentExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
 		Page<DataCompanyIprPatentDO> dataCompanyIprPatentDOPage = null;
-        if (dataCompanyExWarehouseQueryCommand.getCompanyId() != null) {
-			dataCompanyIprPatentDOPage = iDataCompanyIprPatentService.listPage(DataCompanyIprPatentListPageByCompanyIdParam.create(dataCompanyExWarehouseQueryCommand.getCompanyId(),
-							dataCompanyExWarehouseQueryCommand.getIsApplicant(),
-							dataCompanyExWarehouseQueryCommand.getIsInvent(),
-							dataCompanyExWarehouseQueryCommand.getIsAgent(),
-							dataCompanyExWarehouseQueryCommand.getIsAgency(),
-							dataCompanyExWarehouseQueryCommand.getIsExaminer(),
-							dataCompanyExWarehouseQueryCommand.getIsRight(),
-							dataCompanyExWarehouseQueryCommand.getIsCurrentRight(),
-							dataCompanyExWarehouseQueryCommand.getApplyNo(), dataCompanyExWarehouseQueryCommand.getPublicNo()),
-					dataCompanyExWarehouseQueryCommand);
-        }
+		dataCompanyIprPatentDOPage = iDataCompanyIprPatentService.listPage(DataCompanyIprPatentListPageByCompanyIdParam.create(dataCompanyExWarehouseQueryCommand.getCompanyId(),
+						dataCompanyExWarehouseQueryCommand.getIsApplicant(),
+						dataCompanyExWarehouseQueryCommand.getIsInvent(),
+						dataCompanyExWarehouseQueryCommand.getIsAgent(),
+						dataCompanyExWarehouseQueryCommand.getIsAgency(),
+						dataCompanyExWarehouseQueryCommand.getIsExaminer(),
+						dataCompanyExWarehouseQueryCommand.getIsRight(),
+						dataCompanyExWarehouseQueryCommand.getIsCurrentRight(),
+						dataCompanyExWarehouseQueryCommand.getApplyNo(), dataCompanyExWarehouseQueryCommand.getPublicNo()),
+				dataCompanyExWarehouseQueryCommand);
 
 		if (dataCompanyIprPatentDOPage == null || dataCompanyIprPatentDOPage.getRecords() == null || dataCompanyIprPatentDOPage.getRecords().isEmpty()) {
 			return PageResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);

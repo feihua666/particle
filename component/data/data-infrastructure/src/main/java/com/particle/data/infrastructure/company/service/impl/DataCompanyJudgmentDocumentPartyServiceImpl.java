@@ -1,14 +1,13 @@
 package com.particle.data.infrastructure.company.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.data.infrastructure.company.dos.DataCompanyJudgmentDocumentPartyDO;
 import com.particle.data.infrastructure.company.mapper.DataCompanyJudgmentDocumentPartyMapper;
 import com.particle.data.infrastructure.company.service.IDataCompanyJudgmentDocumentPartyService;
-import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.dto.basic.QueryCommand;
-import org.springframework.stereotype.Component;
+import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -34,23 +33,9 @@ public class DataCompanyJudgmentDocumentPartyServiceImpl extends IBaseServiceImp
 
 	@Override
 	protected void preAdd(DataCompanyJudgmentDocumentPartyDO po) {
-	    // 裁判文书表id 已存在不能添加
-	    assertByColumn(po.getCompanyJudgmentDocumentId(),DataCompanyJudgmentDocumentPartyDO::getCompanyJudgmentDocumentId,false);
-
 	}
 
 	@Override
 	protected void preUpdate(DataCompanyJudgmentDocumentPartyDO po) {
-	    DataCompanyJudgmentDocumentPartyDO byId = null;
-	    if (po.getCompanyJudgmentDocumentId() != null) {
-	        byId = byId == null ? getById(po.getId()) : byId;
-	        // 如果裁判文书表id有改动
-	        if (!po.getCompanyJudgmentDocumentId().equals(byId.getCompanyJudgmentDocumentId())) {
-	            // 裁判文书表id已存在不能修改
-	            assertByColumn(po.getCompanyJudgmentDocumentId(),DataCompanyJudgmentDocumentPartyDO::getCompanyJudgmentDocumentId,false);
-	        }
-	    }
-
-    
 	}
 }

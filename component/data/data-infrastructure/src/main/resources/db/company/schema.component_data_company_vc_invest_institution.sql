@@ -1,4 +1,5 @@
 -- 建表语句sql
+-- 企业投资机构表 企业属性，表示一个企业的投资机构信息
 DROP TABLE IF EXISTS component_data_company_vc_invest_institution;
 CREATE TABLE `component_data_company_vc_invest_institution` (
   `id` bigint NOT NULL COMMENT '主键ID',
@@ -32,5 +33,6 @@ CREATE TABLE `component_data_company_vc_invest_institution` (
   KEY `company_id` (`company_id`) USING BTREE,
   KEY `name` (`name`) USING BTREE,
   KEY `en_name` (`en_name`) USING BTREE,
+  UNIQUE KEY `uni_company_id` (`company_id`) USING BTREE
   UNIQUE KEY `uni_data_md5` (`data_md5`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业投资机构表';

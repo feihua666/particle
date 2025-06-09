@@ -35,23 +35,23 @@ public class DataCompanyHonorQualificationDO extends BaseDO {
     /**
     * 等级，如：国家级
     */
-    private String level;
+    private String grade;
 
     /**
     * 发布日期
     */
     private LocalDate publishDate;
-    
+
     /**
     * 发布日期
     */
     private LocalDate startDate;
-    
+
     /**
     * 发布日期
     */
     private LocalDate endDate;
-    
+
     /**
     * 证书编号
     */
@@ -76,6 +76,6 @@ public class DataCompanyHonorQualificationDO extends BaseDO {
     * 最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动
     */
     private LocalDateTime latestHandleAt;
-    
+
 
 }

@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="ReportReportApiManageUpdatePage" lang="ts">
 /**
  * 报告接口管理更新页面
  */

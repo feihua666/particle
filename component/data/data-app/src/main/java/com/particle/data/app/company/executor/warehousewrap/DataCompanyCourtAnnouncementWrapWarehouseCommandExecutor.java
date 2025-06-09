@@ -13,8 +13,10 @@ import com.particle.data.client.company.dto.command.representation.exwarehouse.D
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyCourtAnnouncementContentWarehouseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyCourtAnnouncementPartyWarehouseCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyCourtAnnouncementWarehouseCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyCourtAnnouncementPartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementContentExWarehouseVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementExWarehouseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementPartyExWarehouseVO;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementPartyExWarehouseVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -58,9 +60,10 @@ public class DataCompanyCourtAnnouncementWrapWarehouseCommandExecutor extends Ab
                 SingleResponse<DataCompanyCourtAnnouncementExWarehouseVO> warehouse = dataCompanyCourtAnnouncementWarehouseCommandExecutor.warehouse(byDataCompanyCourtAnnouncementExWarehouseVO);
                 if (CollectionUtil.isNotEmpty(dataCompanyCourtAnnouncementExWarehouseVO.getParties())) {
                     for (DataCompanyCourtAnnouncementPartyExWarehouseVO party : dataCompanyCourtAnnouncementExWarehouseVO.getParties()) {
-                        DataCompanyCourtAnnouncementPartyWarehouseCommand byDataCompanyCourtAnnouncementPartyExWarehouseVO = DataCompanyCourtAnnouncementPartyWarehouseCommand.createByDataCompanyCourtAnnouncementPartyExWarehouseVO(party);
-                        byDataCompanyCourtAnnouncementPartyExWarehouseVO.setCompanyCourtAnnouncementId(warehouse.getData().getId());
-                        dataCompanyCourtAnnouncementPartyWarehouseCommandExecutor.warehouse(byDataCompanyCourtAnnouncementPartyExWarehouseVO);
+                        DataCompanyCourtAnnouncementPartyWarehouseCommand dataCompanyCourtAnnouncementPartyWarehouseCommand = DataCompanyCourtAnnouncementPartyWarehouseCommand.createByDataCompanyCourtAnnouncementPartyExWarehouseVO(party);
+                        dataCompanyCourtAnnouncementPartyWarehouseCommand.setCompanyCourtAnnouncementId(warehouse.getData().getId());
+                        fillPartyIds(dataCompanyCourtAnnouncementPartyWarehouseCommand, party);
+                        dataCompanyCourtAnnouncementPartyWarehouseCommandExecutor.warehouse(dataCompanyCourtAnnouncementPartyWarehouseCommand);
                     }
                 }
                 if (dataCompanyCourtAnnouncementExWarehouseVO.getContent() != null) {
@@ -70,6 +73,24 @@ public class DataCompanyCourtAnnouncementWrapWarehouseCommandExecutor extends Ab
                 }
             }
 
+        }
+    }
+    /**
+     * 当事人相关id设置
+     * @param dataCompanyCourtAnnouncementPartyWarehouseCommand
+     * @param party
+     */
+    private void fillPartyIds(DataCompanyCourtAnnouncementPartyWarehouseCommand dataCompanyCourtAnnouncementPartyWarehouseCommand,
+                              DataCompanyCourtAnnouncementPartyExWarehouseVO party) {
+        // 当事人性质
+        NaturePerson legalNaturePerson = checkNaturePerson(dataCompanyCourtAnnouncementPartyWarehouseCommand.getPartyName(),
+                dataCompanyCourtAnnouncementPartyWarehouseCommand.getPartyCompanyId(),
+                dataCompanyCourtAnnouncementPartyWarehouseCommand.getPartyCompanyPersonId(),
+                dataCompanyCourtAnnouncementPartyWarehouseCommand.getIsPartyNaturalPerson());
+        if (legalNaturePerson != null) {
+            dataCompanyCourtAnnouncementPartyWarehouseCommand.setPartyCompanyId(legalNaturePerson.getCompanyId());
+            dataCompanyCourtAnnouncementPartyWarehouseCommand.setPartyCompanyPersonId(legalNaturePerson.getPersonId());
+            dataCompanyCourtAnnouncementPartyWarehouseCommand.setIsPartyNaturalPerson(legalNaturePerson.getIsNaturePerson());
         }
     }
     @Autowired

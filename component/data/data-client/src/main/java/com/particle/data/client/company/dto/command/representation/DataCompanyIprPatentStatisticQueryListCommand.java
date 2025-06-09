@@ -5,6 +5,8 @@ import com.particle.global.light.share.mybatis.anno.Like;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 /**
  * <p>
@@ -75,10 +77,40 @@ public class DataCompanyIprPatentStatisticQueryListCommand extends AbstractBaseQ
     @Schema(description = "IPC分类数量")
     private Integer ipcCategoryNum;
 
+	@Schema(description = "技术评分")
+	private BigDecimal technologyScore;
+
+	@Schema(description = "法律评分")
+	private BigDecimal legalScore;
+
+	@Schema(description = "战略评分")
+	private BigDecimal strategyScore;
+
+	@Schema(description = "市场评分")
+	private BigDecimal marketScore;
+
+	@Schema(description = "经济评分")
+	private BigDecimal economicScore;
+
+	@Schema(description = "综合评分")
+	private BigDecimal comprehensiveScore;
+
+	@Schema(description = "估值（元）")
+	private BigDecimal valuation;
+
+	@Schema(description = "等级，A+ 到 D-，12个等级，A+最优")
+	private String grade;
+
+	@Schema(description = "评估得分超过比,评估得分在领域内的相对位置")
+	private BigDecimal comprehensiveScorePercent;
+
+	@Schema(description = "评估价格超过比,评估价格在领域内的相对位置")
+	private BigDecimal valuationPercent;
+
 
     @Schema(description = "最后处理时间")
     private LocalDateTime latestHandleAt;
-    
+
 
 
 

@@ -10,7 +10,7 @@ import com.particle.agi.infrastructure.chat.dos.*;
 import com.particle.agi.infrastructure.chat.service.*;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.*;
-import org.springframework.ai.model.Media;
+import org.springframework.ai.content.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MimeType;
 
@@ -135,7 +135,8 @@ public class AgiAgentChatMemory implements ChatMemory {
     }
 
     @Override
-    public List<Message> get(String conversationId, int lastN) {
+    public List<Message> get(String conversationId) {
+        int lastN = 12;
         Page page = new Page<>();
         page.setCurrent(0);
         page.setSize(lastN);
@@ -203,9 +204,7 @@ public class AgiAgentChatMemory implements ChatMemory {
         }
 
         if (MessageType.USER.getValue().equals(agiAgentChatMessageDO.getMessageType())) {
-            UserMessage userMessage = new UserMessage(
-                    agiAgentChatMessageDO.getContent(),
-                    medias,metadata);
+            UserMessage userMessage = UserMessage.builder().text(agiAgentChatMessageDO.getContent()).media(medias).metadata(metadata).build();
             return userMessage;
 
         }else if (MessageType.ASSISTANT.getValue().equals(agiAgentChatMessageDO.getMessageType())) {

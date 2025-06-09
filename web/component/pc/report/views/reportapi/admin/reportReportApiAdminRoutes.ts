@@ -45,6 +45,17 @@ const reportReportApiAdminRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/reportReportApiManageTest',
+                component: () => import('./ReportReportApiManageTestPage.vue'),
+                props: route => ({ reportReportApiId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminReportReportApiManageTest',
+                    name: '报告接口测试',
+
+                }
+            },
         ]
     },
 ]

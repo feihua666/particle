@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="FuncApplicationManageUpdatePage" lang="ts">
 /**
  * 功能应用管理更新页面
  */

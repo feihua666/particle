@@ -1,4 +1,4 @@
-<script setup name="AreaManageUpdatePage" lang="ts">
+<script setup name="DeptTreeNameManageUpdatePage" lang="ts">
 /**
  * 部门树名称管理更新页面
  */

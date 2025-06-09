@@ -32,6 +32,9 @@ public class DataCompanyPunishmentWrapExWarehouseCommandExecutor extends Abstrac
     public PageResponse<DataCompanyPunishmentExWarehouseVO> exWarehouse(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
                                                                                        DataCompanyPunishmentExWarehouseQueryCommand dataCompanyPunishmentExWarehouseQueryCommand) {
         if (dataCompanyPunishmentExWarehouseQueryCommand.getCompanyId() == null) {
+            dataCompanyPunishmentExWarehouseQueryCommand.setCompanyId(dataCompanyExWarehouseQueryCommand.getId());
+        }
+        if (dataCompanyPunishmentExWarehouseQueryCommand.getCompanyId() == null) {
             Long companyId = getCompanyId(dataCompanyExWarehouseQueryCommand);
             dataCompanyPunishmentExWarehouseQueryCommand.setCompanyId(companyId);
         }
