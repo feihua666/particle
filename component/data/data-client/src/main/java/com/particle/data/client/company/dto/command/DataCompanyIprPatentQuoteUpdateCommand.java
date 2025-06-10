@@ -24,13 +24,10 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentQuoteUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
-
     @Schema(description = "企业知识产权专利表id")
     private Long companyIprPatentId;
 
 
-    @NotEmpty(message = "原始申请号 不能为空")
     @Schema(description = "原始申请号")
     private String applyNo;
 

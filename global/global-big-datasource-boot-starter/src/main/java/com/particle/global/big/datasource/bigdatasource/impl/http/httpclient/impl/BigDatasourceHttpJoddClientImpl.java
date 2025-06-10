@@ -192,8 +192,20 @@ public class BigDatasourceHttpJoddClientImpl implements BigDatasourceHttpClient 
 		String result = null;
 		Integer statusCode = null;
 		Integer handleDuration = null;
+		int retryTimes = 3;
 		try {
-			httpResponse = httpRequest.send();
+			while(true) {
+				try {
+					httpResponse = httpRequest.send();
+					break;
+				} catch (HttpException e) {
+					retryTimes--;
+					if (retryTimes < 0) {
+						throw e;
+					}
+					log.warn("http request exception，url={}", httpRequest.url(), e);
+				}
+			}
 		} finally {
 			if (httpResponse != null) {
 				result = httpResponse.charset("utf-8").bodyText();

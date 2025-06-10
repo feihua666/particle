@@ -25,7 +25,7 @@ public class DataCompanyBasicUpdateCommand extends AbstractBaseUpdateCommand {
 
 
 
-    
+
     @Schema(description = "企业表ID")
     private Long companyId;
 
@@ -284,6 +284,7 @@ public class DataCompanyBasicUpdateCommand extends AbstractBaseUpdateCommand {
         command.scaleTypeDictId = dataCompanyBasicWarehouseCommand.getScaleTypeDictId();
         command.longitude = dataCompanyBasicWarehouseCommand.getLongitude();
         command.latitude = dataCompanyBasicWarehouseCommand.getLatitude();
+        command.industryMainDictId = dataCompanyBasicWarehouseCommand.getIndustryMainDictId();
         command.industryBigDictId = dataCompanyBasicWarehouseCommand.getIndustryBigDictId();
         command.industryMiddleDictId = dataCompanyBasicWarehouseCommand.getIndustryMiddleDictId();
         command.industrySmallDictId = dataCompanyBasicWarehouseCommand.getIndustrySmallDictId();

@@ -46,15 +46,20 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 				command.toString();
 			}
 		}
+		String identifier = Optional.ofNullable(bigDatasourceApi).map(BigDatasourceApi::identifier).orElse(null);
 		log.info("execute BigDatasourceApi start identifier={},command={},queryString={}",
-				Optional.ofNullable(bigDatasourceApi).map(BigDatasourceApi::identifier).orElse("empty"),
+				identifier,
 				commandJsonStr,
 				queryString
 		);
 		try {
 			return handleExecute(bigDatasourceApi, command, queryString);
 		} finally {
-			log.info("execute BigDatasourceApi end duration={}ms",System.currentTimeMillis() - startAt);
+			log.info("execute BigDatasourceApi end identifier={},command={},queryString={}, duration={}ms",
+					identifier,
+					commandJsonStr,
+					queryString,
+					System.currentTimeMillis() - startAt);
 
 		}
 	}

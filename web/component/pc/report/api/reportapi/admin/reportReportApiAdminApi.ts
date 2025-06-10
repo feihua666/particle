@@ -78,5 +78,5 @@ export interface ApiTestParam{
  * @param data
  */
 export const test = (data: ApiTestParam): AxiosPromise => {
-    return axios.post(reportReportApiTestPrefix + '/api_test',data)
+    return axios.post(reportReportApiTestPrefix + '/api_test',data,{timeout: 15 * 60 * 1000})
 }

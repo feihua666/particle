@@ -2,6 +2,8 @@ package com.particle.global.tool.template;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.comparator.CompareUtil;
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.*;
 import cn.hutool.extra.template.Template;
@@ -18,6 +20,7 @@ import com.particle.global.tool.str.NetPathTool;
 import lombok.SneakyThrows;
 
 import javax.script.Bindings;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -427,6 +430,30 @@ public class CustomEnjoyEngine implements TemplateEngine{
 		 */
 		public static String filePathConcat(String ...str) {
 			return FilePathTool.concat(str);
+		}
+
+		/**
+		 * 格式化日期
+		 * @param localDate
+		 * @return
+		 */
+		public static String formatLocalDateCn(LocalDate localDate) {
+			if (localDate == null) {
+				return null;
+			}
+			return LocalDateTimeUtil.format(localDate, DatePattern.CHINESE_DATE_PATTERN);
+		}
+
+		/**
+		 * 解析日期字符串
+		 * @param dateStr
+		 * @return
+		 */
+		public static LocalDate parseLocalDateByNormal(String dateStr) {
+			if (StrUtil.isNotEmpty(dateStr)) {
+				return LocalDate.parse(dateStr.substring(0, 10));
+			}
+			return null;
 		}
 	}
 }

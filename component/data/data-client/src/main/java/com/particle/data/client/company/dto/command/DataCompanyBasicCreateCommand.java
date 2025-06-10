@@ -282,6 +282,7 @@ public class DataCompanyBasicCreateCommand extends AbstractBaseCommand {
         command.scaleTypeDictId = dataCompanyBasicWarehouseCommand.getScaleTypeDictId();
         command.longitude = dataCompanyBasicWarehouseCommand.getLongitude();
         command.latitude = dataCompanyBasicWarehouseCommand.getLatitude();
+        command.industryMainDictId = dataCompanyBasicWarehouseCommand.getIndustryMainDictId();
         command.industryBigDictId = dataCompanyBasicWarehouseCommand.getIndustryBigDictId();
         command.industryMiddleDictId = dataCompanyBasicWarehouseCommand.getIndustryMiddleDictId();
         command.industrySmallDictId = dataCompanyBasicWarehouseCommand.getIndustrySmallDictId();
