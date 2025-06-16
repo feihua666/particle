@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 企业知识产权当事人 数据响应对象
+ * 企业知识产权专利当事人 数据响应对象
  * </p>
  *
  * @author yw

@@ -13,7 +13,7 @@ import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPaten
 
 /**
  * <p>
- * 企业知识产权当事人 应用门面展示服务类
+ * 企业知识产权专利当事人 应用门面展示服务类
  * </p>
  *
  * @author yw
@@ -51,7 +51,7 @@ public interface IDataCompanyIprPatentPartyRepresentationApplicationService exte
 
 
 	/**
-	 * 企业知识产权当事人出库
+	 * 企业知识产权专利当事人出库
 	 * @param dataCompanyExWarehouseQueryCommand
 	 * @return
 	 */

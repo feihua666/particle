@@ -1,6 +1,6 @@
 <script setup name="DataCompanyIprPatentPartyManageUpdatePage" lang="ts">
 /**
- * 企业知识产权当事人管理更新页面
+ * 企业知识产权专利当事人管理更新页面
  */
 import {reactive, ref} from 'vue'
 import {

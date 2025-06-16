@@ -1,6 +1,6 @@
 <script setup name="DataCompanyIprPatentPartyManageAddPage" lang="ts">
 /**
- * 企业知识产权当事人管理添加页面
+ * 企业知识产权专利当事人管理添加页面
  */
 import {reactive ,ref} from 'vue'
 import {create as dataCompanyIprPatentPartyCreateApi} from "../../../api/company/admin/dataCompanyIprPatentPartyAdminApi"

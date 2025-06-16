@@ -18,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * <p>
- * 企业知识产权当事人入库 指令执行器
+ * 企业知识产权专利当事人入库 指令执行器
  * </p>
  *
  * @author yw
@@ -35,7 +35,7 @@ public class DataCompanyIprPatentPartyWarehouseCommandExecutor extends AbstractB
 
 
 	/**
-	 * 企业知识产权当事人入库
+	 * 企业知识产权专利当事人入库
 	 * @param dataCompanyIprPatentPartyWarehouseCommand
 	 * @return
 	 */

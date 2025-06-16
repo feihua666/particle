@@ -23,7 +23,7 @@ import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPaten
 import com.particle.data.app.company.executor.warehouse.DataCompanyIprPatentPartyWarehouseCommandExecutor;
 /**
  * <p>
- * 企业知识产权当事人 门面服务实现类
+ * 企业知识产权专利当事人 门面服务实现类
  * </p>
  *
  * @author yw

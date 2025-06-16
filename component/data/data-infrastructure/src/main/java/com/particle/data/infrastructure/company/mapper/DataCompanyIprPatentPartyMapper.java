@@ -5,7 +5,7 @@ import com.particle.global.mybatis.plus.crud.IBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>
- * 企业知识产权当事人 Mapper 接口
+ * 企业知识产权专利当事人 Mapper 接口
  * </p>
  *
  * @author yw

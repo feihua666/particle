@@ -18,7 +18,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 /**
  * <p>
- * 企业知识产权当事人 app应用层数据实体映射转换
+ * 企业知识产权专利当事人 app应用层数据实体映射转换
  * </p>
  *
  * @author yw
@@ -35,7 +35,7 @@ public abstract class DataCompanyIprPatentPartyAppStructMapping  implements IBas
 		return dataCompanyIprPatentPartyId.getId();
 	}
 	/**
-	 * 企业知识产权当事人领域模型对象转视图对象
+	 * 企业知识产权专利当事人领域模型对象转视图对象
 	 * MapStruct自动映射,其中枚举也会自动映射，id转换会自动使用{@link DataCompanyIprPatentPartyAppStructMapping#map(DataCompanyIprPatentPartyId)}
 	 * @param dataCompanyIprPatentParty
 	 * @return

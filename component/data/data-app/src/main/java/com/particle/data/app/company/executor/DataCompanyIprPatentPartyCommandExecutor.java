@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 
 /**
  * <p>
- * 企业知识产权当事人 指令执行器
+ * 企业知识产权专利当事人 指令执行器
  * </p>
  *
  * @author yw

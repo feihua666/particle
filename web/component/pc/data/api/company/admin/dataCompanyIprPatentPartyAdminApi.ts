@@ -4,21 +4,21 @@ import {IdParam, updateParam} from "../../../../../../common/api/api";
 
 let dataCompanyIprPatentPartyPrefix = '/admin/web/data_company_ipr_patent_party'
 /**
- * 添加企业知识产权当事人
+ * 添加企业知识产权专利当事人
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
     return axios.post(dataCompanyIprPatentPartyPrefix + '/create',data)
 }
 /**
- * 删除企业知识产权当事人
+ * 删除企业知识产权专利当事人
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
     return axios.delete(dataCompanyIprPatentPartyPrefix + '/delete',{data: data})
 }
 /**
- * 更新企业知识产权当事人
+ * 更新企业知识产权专利当事人
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {

@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 /**
  * <p>
- * 企业知识产权当事人表
+ * 企业知识产权专利当事人表
  * </p>
  *
  * @author yw

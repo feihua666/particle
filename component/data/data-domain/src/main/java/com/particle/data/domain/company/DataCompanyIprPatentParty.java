@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 /**
  * <p>
- * 企业知识产权当事人 领域模型
+ * 企业知识产权专利当事人 领域模型
  * </p>
  *
  * @author yw
@@ -136,8 +136,8 @@ public class DataCompanyIprPatentParty extends AggreateRoot {
     }
 
     /**
-     * 创建企业知识产权当事人领域模型对象
-     * @return 企业知识产权当事人领域模型对象，该对应所有属性为空，需要进行初始化操作
+     * 创建企业知识产权专利当事人领域模型对象
+     * @return 企业知识产权专利当事人领域模型对象，该对应所有属性为空，需要进行初始化操作
      */
     public static DataCompanyIprPatentParty create(){
         return DomainFactory.create(DataCompanyIprPatentParty.class);

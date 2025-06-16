@@ -6,7 +6,7 @@ import com.particle.common.domain.gateway.IBaseGateway;
 
 /**
  * <p>
- * 企业知识产权当事人 防腐层
+ * 企业知识产权专利当事人 防腐层
  * </p>
  *
  * @author yw

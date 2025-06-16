@@ -11,7 +11,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 
 /**
  * <p>
- * 企业知识产权当事人 通用更新指令对象
+ * 企业知识产权专利当事人 通用更新指令对象
  * </p>
  *
  * @author yw

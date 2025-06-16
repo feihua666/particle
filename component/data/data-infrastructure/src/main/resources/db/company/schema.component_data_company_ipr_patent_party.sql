@@ -33,4 +33,4 @@ CREATE TABLE `component_data_company_ipr_patent_party` (
   KEY `company_ipr_patent_id` (`company_ipr_patent_id`) USING BTREE,
   KEY `party_company_id` (`party_company_id`) USING BTREE,
   KEY `party_company_person_id` (`party_company_person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权当事人表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权专利当事人表';

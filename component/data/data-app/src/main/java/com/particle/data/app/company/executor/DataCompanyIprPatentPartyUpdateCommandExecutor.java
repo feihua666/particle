@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 /**
  * <p>
- * 企业知识产权当事人 更新指令执行器
+ * 企业知识产权专利当事人 更新指令执行器
  * </p>
  *
  * @author yw
@@ -34,7 +34,7 @@ public class DataCompanyIprPatentPartyUpdateCommandExecutor  extends AbstractBas
 	private DataCompanyIprPatentPartyGateway dataCompanyIprPatentPartyGateway;
 
 	/**
-	 * 执行 企业知识产权当事人 更新指令
+	 * 执行 企业知识产权专利当事人 更新指令
 	 * @param dataCompanyIprPatentPartyUpdateCommand
 	 * @return
 	 */
@@ -49,7 +49,7 @@ public class DataCompanyIprPatentPartyUpdateCommandExecutor  extends AbstractBas
 	}
 
 	/**
-	 * 根据企业知识产权当事人更新指令创建企业知识产权当事人模型
+	 * 根据企业知识产权专利当事人更新指令创建企业知识产权专利当事人模型
 	 * @param dataCompanyIprPatentPartyUpdateCommand
 	 * @return
 	 */

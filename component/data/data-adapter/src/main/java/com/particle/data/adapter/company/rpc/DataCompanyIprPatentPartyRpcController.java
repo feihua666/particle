@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 企业知识产权当事人远程调用适配器
+ * 企业知识产权专利当事人远程调用适配器
  * 主要用于OpenFeignClient远程调用
  * </p>
  *
  * @author yw
  * @since 2025-04-27 18:00:12
  */
-@Tag(name = "企业知识产权当事人远程调用相关接口")
+@Tag(name = "企业知识产权专利当事人远程调用相关接口")
 @RestController
 @RequestMapping("/rpc/data_company_ipr_patent_party")
 public class DataCompanyIprPatentPartyRpcController extends AbstractBaseRpcAdapter implements DataCompanyIprPatentPartyRpcFeignClient  {

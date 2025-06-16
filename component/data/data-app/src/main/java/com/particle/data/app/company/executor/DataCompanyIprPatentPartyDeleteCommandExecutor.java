@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 
 /**
  * <p>
- * 企业知识产权当事人 创建指令执行器
+ * 企业知识产权专利当事人 创建指令执行器
  * </p>
  *
  * @author yw
@@ -34,7 +34,7 @@ public class DataCompanyIprPatentPartyDeleteCommandExecutor  extends AbstractBas
 	private IDataCompanyIprPatentPartyService iDataCompanyIprPatentPartyService;
 
 	/**
-	 * 执行 企业知识产权当事人 删除指令
+	 * 执行 企业知识产权专利当事人 删除指令
 	 * @param deleteCommand
 	 * @return
 	 */

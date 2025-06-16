@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * <p>
- * 企业知识产权当事人入库
+ * 企业知识产权专利当事人入库
  * </p>
  *
  * @author yangwei
@@ -25,7 +25,7 @@ public class DataCompanyIprPatentPartyWrapWarehouseCommandExecutor extends Abstr
     private DataCompanyIprPatentPartyWarehouseCommandExecutor dataCompanyIprPatentPartyWarehouseCommandExecutor;
 
     /**
-     * 企业知识产权当事人入库
+     * 企业知识产权专利当事人入库
      *
      * @param dataCompanyIprPatentPartyExWarehouseVOS
      * @param companyIprPatentId
@@ -37,7 +37,7 @@ public class DataCompanyIprPatentPartyWrapWarehouseCommandExecutor extends Abstr
         }
     }
     /**
-     * 企业知识产权当事人入库
+     * 企业知识产权专利当事人入库
      *
      * @param dataCompanyIprPatentPartyExWarehouseVO
      * @param companyIprPatentId

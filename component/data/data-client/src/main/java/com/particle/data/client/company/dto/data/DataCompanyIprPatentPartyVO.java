@@ -9,7 +9,7 @@ import com.particle.global.light.share.trans.anno.TransBy;
 import java.time.LocalDateTime;
 /**
  * <p>
- * 企业知识产权当事人 数据通用响应对象
+ * 企业知识产权专利当事人 数据通用响应对象
  * </p>
  *
  * @author yw

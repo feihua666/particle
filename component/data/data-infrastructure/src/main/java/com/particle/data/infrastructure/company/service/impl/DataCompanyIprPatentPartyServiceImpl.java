@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
- * 企业知识产权当事人 服务实现类
+ * 企业知识产权专利当事人 服务实现类
  * </p>
  *
  * @author yw

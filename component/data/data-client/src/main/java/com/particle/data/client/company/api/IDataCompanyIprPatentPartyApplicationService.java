@@ -11,7 +11,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentPartyExWarehouseVO;
 /**
  * <p>
- * 企业知识产权当事人 应用门面服务类
+ * 企业知识产权专利当事人 应用门面服务类
  * </p>
  *
  * @author yw
@@ -40,7 +40,7 @@ public interface IDataCompanyIprPatentPartyApplicationService extends IBaseAppli
 	SingleResponse<DataCompanyIprPatentPartyVO> update(DataCompanyIprPatentPartyUpdateCommand dataCompanyIprPatentPartyUpdateCommand);
 
 	/**
-	 * 企业知识产权当事人入库
+	 * 企业知识产权专利当事人入库
 	 * @param dataCompanyBasicWarehouseCommand
 	 * @return
 	 */

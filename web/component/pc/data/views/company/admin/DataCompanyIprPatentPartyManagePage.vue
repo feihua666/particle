@@ -1,6 +1,6 @@
 <script setup name="DataCompanyIprPatentPartyManagePage" lang="ts">
 /**
- * 企业知识产权当事人管理页面
+ * 企业知识产权专利当事人管理页面
  */
 import {reactive, ref} from 'vue'
 import { page as dataCompanyIprPatentPartyPageApi, remove as dataCompanyIprPatentPartyRemoveApi} from "../../../api/company/admin/dataCompanyIprPatentPartyAdminApi"
@@ -164,7 +164,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataCompanyIprPatentPartyPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

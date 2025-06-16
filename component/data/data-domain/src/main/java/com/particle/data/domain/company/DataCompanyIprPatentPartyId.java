@@ -4,7 +4,7 @@ import com.particle.common.domain.id.Id;
 
 /**
  * <p>
- * 企业知识产权当事人 领域模型id
+ * 企业知识产权专利当事人 领域模型id
  * </p>
  *
  * @author yw
@@ -17,7 +17,7 @@ public class DataCompanyIprPatentPartyId extends Id {
 	}
 
 	/**
-	 * 基本数据类型 id 转 企业知识产权当事人 领域模型id
+	 * 基本数据类型 id 转 企业知识产权专利当事人 领域模型id
 	 * @param id
 	 * @return
 	 */

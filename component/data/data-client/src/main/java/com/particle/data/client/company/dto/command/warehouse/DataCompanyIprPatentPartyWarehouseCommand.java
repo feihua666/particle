@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 企业知识产权当事人入库 指令对象
+ * 企业知识产权专利当事人入库 指令对象
  * </p>
  *
  * @author yw

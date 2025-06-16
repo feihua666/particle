@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * 企业知识产权当事人 防腐层网关实现
+ * 企业知识产权专利当事人 防腐层网关实现
  * </p>
  *
  * @author yw

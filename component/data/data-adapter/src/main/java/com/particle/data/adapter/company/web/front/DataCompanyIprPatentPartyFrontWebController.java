@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 企业知识产权当事人前台应用pc或平板端前端适配器
+ * 企业知识产权专利当事人前台应用pc或平板端前端适配器
  * 主要用于pc或平板端前台应用
  * </p>
  *
  * @author yw
  * @since 2025-04-27 18:00:12
  */
-@Tag(name = "企业知识产权当事人pc或平板端前台应用相关接口")
+@Tag(name = "企业知识产权专利当事人pc或平板端前台应用相关接口")
 @RestController
 @RequestMapping("/front/web/data_company_ipr_patent_party")
 public class DataCompanyIprPatentPartyFrontWebController extends AbstractBaseWebAdapter {

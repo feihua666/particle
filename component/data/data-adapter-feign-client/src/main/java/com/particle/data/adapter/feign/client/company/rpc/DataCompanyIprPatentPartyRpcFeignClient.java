@@ -3,7 +3,7 @@ package com.particle.data.adapter.feign.client.company.rpc;
 import org.springframework.cloud.openfeign.FeignClient;
 /**
  * <p>
- * 企业知识产权当事人远程调用
+ * 企业知识产权专利当事人远程调用
  * </p>
  *
  * @author yw

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 企业知识产权当事人 列表查询指令执行器
+ * 企业知识产权专利当事人 列表查询指令执行器
  * </p>
  * @author yw
  * @since 2025-04-27 18:00:12
@@ -33,7 +33,7 @@ public class DataCompanyIprPatentPartyQueryCommandExecutor  extends AbstractBase
 	private IDataCompanyIprPatentPartyService iDataCompanyIprPatentPartyService;
 
 	/**
-	 * 执行 企业知识产权当事人 列表查询指令
+	 * 执行 企业知识产权专利当事人 列表查询指令
 	 * @param dataCompanyIprPatentPartyQueryListCommand
 	 * @return
 	 */
@@ -43,7 +43,7 @@ public class DataCompanyIprPatentPartyQueryCommandExecutor  extends AbstractBase
 		return MultiResponse.of(dataCompanyIprPatentPartyVOs);
 	}
 	/**
-	 * 执行 企业知识产权当事人 分页查询指令
+	 * 执行 企业知识产权专利当事人 分页查询指令
 	 * @param dataCompanyIprPatentPartyPageQueryCommand
 	 * @return
 	 */
@@ -53,7 +53,7 @@ public class DataCompanyIprPatentPartyQueryCommandExecutor  extends AbstractBase
 	}
 
 	/**
-	 * 执行 企业知识产权当事人 展示用详情查询指令
+	 * 执行 企业知识产权专利当事人 展示用详情查询指令
 	 * @param detailCommand
 	 * @return
 	 */
@@ -63,7 +63,7 @@ public class DataCompanyIprPatentPartyQueryCommandExecutor  extends AbstractBase
 		return SingleResponse.of(dataCompanyIprPatentPartyVO);
 	}
 	/**
-	 * 执行 企业知识产权当事人 更新用详情查询指令
+	 * 执行 企业知识产权专利当事人 更新用详情查询指令
 	 * @param detailForUpdateCommand
 	 * @return
 	 */

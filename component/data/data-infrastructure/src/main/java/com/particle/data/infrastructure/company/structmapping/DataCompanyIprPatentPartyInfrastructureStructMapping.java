@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * <p>
- * 企业知识产权当事人 基础设施层数据实体映射转换
+ * 企业知识产权专利当事人 基础设施层数据实体映射转换
  * </p>
  *
  * @author yw

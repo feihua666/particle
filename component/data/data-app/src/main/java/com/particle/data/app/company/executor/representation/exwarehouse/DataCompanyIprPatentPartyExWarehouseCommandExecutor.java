@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * <p>
- * 企业知识产权当事人出库 查询指令执行器
+ * 企业知识产权专利当事人出库 查询指令执行器
  * </p>
  * @author yw
  * @since 2025-04-07 11:30:08
@@ -33,7 +33,7 @@ public class DataCompanyIprPatentPartyExWarehouseCommandExecutor extends Abstrac
 	private IDataCompanyIprPatentPartyService iDataCompanyIprPatentPartyService;
 
 	/**
-	 * 企业知识产权当事人出库
+	 * 企业知识产权专利当事人出库
 	 * @param dataCompanyExWarehouseQueryCommand
 	 * @return
 	 */
@@ -51,7 +51,7 @@ public class DataCompanyIprPatentPartyExWarehouseCommandExecutor extends Abstrac
 		return DataCompanyIprPatentPartyAppStructMapping.instance.infrastructureExWarehousePageToPageResponse(dataCompanyIprPatentPartyDOPage);
 	}
 	/**
-	 * 企业知识产权当事人出库
+	 * 企业知识产权专利当事人出库
 	 * @param companyCaseFilingIds
 	 * @return
 	 */
@@ -64,7 +64,7 @@ public class DataCompanyIprPatentPartyExWarehouseCommandExecutor extends Abstrac
 		return MultiResponse.of(dataCompanyIprPatentPartyExWarehouseVOS);
 	}
 	/**
-	 * 企业知识产权当事人出库
+	 * 企业知识产权专利当事人出库
 	 * @param companyCaseFilingId
 	 * @param dataMd5
 	 * @return
@@ -78,7 +78,7 @@ public class DataCompanyIprPatentPartyExWarehouseCommandExecutor extends Abstrac
 		return SingleResponse.of(dataCompanyIprPatentPartyExWarehouseVO);
 	}
 	/**
-	 * 企业知识产权当事人出库
+	 * 企业知识产权专利当事人出库
 	 * @param id
 	 * @return
 	 */

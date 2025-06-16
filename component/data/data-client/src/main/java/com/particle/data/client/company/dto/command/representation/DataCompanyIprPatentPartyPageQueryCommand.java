@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 /**
  * <p>
- * 企业知识产权当事人 通用分页查询指令对象
+ * 企业知识产权专利当事人 通用分页查询指令对象
  * </p>
  *
  * @author yw
