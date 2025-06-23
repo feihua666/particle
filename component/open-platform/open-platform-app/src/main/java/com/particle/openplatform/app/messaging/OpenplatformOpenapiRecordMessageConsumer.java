@@ -157,7 +157,8 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 		// 应用
 		OpenplatformAppDO openplatformAppDO = iOpenplatformAppService.getByAppId(contentRecord.getAppId());
-		Long ownerCustomerId = openplatformAppDO.getOwnerCustomerId();
+		Long ownerCustomerId = contentRecord.getCustomerId();
+		Long ownerUserId = contentRecord.getUserId();
 		// 供应商信息
 		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = data.getProviderRecords();
 		// 标识是否存在供应商记录
@@ -188,7 +189,9 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 		//	供应商调用记录
 		if (hasProviderRecords) {
-			ppenplatformOpenapiProviderRecordMessageConsumer.saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
+			ppenplatformOpenapiProviderRecordMessageConsumer.saveProviderRecord(providerRecords,
+					openplatformOpenapiRecordDOId,
+					ownerCustomerId,ownerUserId);
 		}
 		// 	实时日汇总
 		if (isSaveAppOpenapiDayRtSummary != null && isSaveAppOpenapiDayRtSummary) {
@@ -411,8 +414,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		openplatformOpenapiRecordDO.setAppId(contentRecord.getAppId());
 		openplatformOpenapiRecordDO.setUserId(contentRecord.getUserId());
 		openplatformOpenapiRecordDO.setIsApp(contentRecord.getIsApp());
-		Long ownerCustomerId = openplatformAppDO.getOwnerCustomerId();
-		openplatformOpenapiRecordDO.setCustomerId(ownerCustomerId);
+		openplatformOpenapiRecordDO.setCustomerId(contentRecord.getCustomerId());
 		if (StrUtil.isNotEmpty(contentRecord.getRequestUrl())) {
 			OpenplatformOpenapiDO byUrl = iOpenplatformOpenapiService.getByUrl(contentRecord.getRequestUrl());
 			if (byUrl != null) {

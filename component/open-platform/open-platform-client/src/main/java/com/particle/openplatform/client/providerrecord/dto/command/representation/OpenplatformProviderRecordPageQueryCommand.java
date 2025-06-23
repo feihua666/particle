@@ -24,6 +24,9 @@ public class OpenplatformProviderRecordPageQueryCommand extends AbstractBasePage
     @Schema(description = "调用记录id")
     private Long openplatformOpenapiRecordId;
 
+	@Schema(description = "用户id")
+	private Long userId;
+
 
     @Schema(description = "客户id")
     private Long customerId;

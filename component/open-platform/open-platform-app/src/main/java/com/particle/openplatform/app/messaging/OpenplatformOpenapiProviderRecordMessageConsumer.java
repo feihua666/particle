@@ -84,7 +84,8 @@ public class OpenplatformOpenapiProviderRecordMessageConsumer implements Consume
 		if (hasProviderRecords) {
 			Long openplatformOpenapiRecordDOId = providerRecords.get(0).getOpenapiRecordId();
 			Long ownerCustomerId = providerRecords.get(0).getCustomerId();
-			saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
+			Long userId = providerRecords.get(0).getUserId();
+			saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId,userId);
 		}
 
 	}
@@ -96,10 +97,10 @@ public class OpenplatformOpenapiProviderRecordMessageConsumer implements Consume
 	 * @param ownerCustomerId
 	 */
 	protected void saveProviderRecord(List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords,
-									Long openplatformOpenapiRecordDOId,Long ownerCustomerId) {
+									Long openplatformOpenapiRecordDOId,Long ownerCustomerId,Long ownerUserId) {
 		for (OpenplatformOpenapiRecordDomainEventContentProviderRecord providerRecord : providerRecords) {
 			// 映射
-			OpenplatformProviderRecordDO openplatformProviderRecordDO = mappingOpenplatformProviderRecordDO(providerRecord, openplatformOpenapiRecordDOId, ownerCustomerId);
+			OpenplatformProviderRecordDO openplatformProviderRecordDO = mappingOpenplatformProviderRecordDO(providerRecord, openplatformOpenapiRecordDOId, ownerCustomerId, ownerUserId);
 			iOpenplatformProviderRecordService.save(openplatformProviderRecordDO);
 			Long openplatformProviderRecordDOId = openplatformProviderRecordDO.getId();
 
@@ -124,11 +125,12 @@ public class OpenplatformOpenapiProviderRecordMessageConsumer implements Consume
 	 * @return
 	 */
 	private OpenplatformProviderRecordDO mappingOpenplatformProviderRecordDO(OpenplatformOpenapiRecordDomainEventContentProviderRecord providerRecord,
-																			 Long openplatformOpenapiRecordDOId,Long ownerCustomerId) {
+																			 Long openplatformOpenapiRecordDOId,Long ownerCustomerId,Long ownerUserId) {
 		OpenplatformProviderRecordDO openplatformProviderRecordDO = new OpenplatformProviderRecordDO();
 
 		openplatformProviderRecordDO.setOpenplatformOpenapiRecordId(providerRecord.getOpenapiRecordId() != null ? providerRecord.getOpenapiRecordId() : openplatformOpenapiRecordDOId);
 		openplatformProviderRecordDO.setCustomerId(providerRecord.getCustomerId() != null ? providerRecord.getCustomerId() : ownerCustomerId);
+		openplatformProviderRecordDO.setUserId(providerRecord.getUserId() != null ? providerRecord.getUserId() : ownerUserId);
 		openplatformProviderRecordDO.setRequestName(providerRecord.getRequestName());
 		openplatformProviderRecordDO.setRequestUrl(providerRecord.getRequestUrl());
 		openplatformProviderRecordDO.setRequestParameterMd5(providerRecord.getRequestParameterMd5());

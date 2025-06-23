@@ -22,6 +22,11 @@ public class OpenplatformProviderRecordDO extends BaseDO {
     */
     private Long openplatformOpenapiRecordId;
 
+	/**
+	 * 用户id
+	 */
+	private Long userId;
+
     /**
     * 客户id
     */

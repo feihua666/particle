@@ -29,6 +29,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'customerName',
+      label: '客户',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'isApp',
       label: '调用方式',
       formatter: (row, column, cellValue, index) => {
@@ -36,11 +41,7 @@ const reactiveData = reactive({
         return r
       }
     },
-    {
-      prop: 'customerName',
-      label: '客户',
-      showOverflowTooltip: true
-    },
+
     {
       prop: 'openplatformOpenapiName',
       label: '开放接口',

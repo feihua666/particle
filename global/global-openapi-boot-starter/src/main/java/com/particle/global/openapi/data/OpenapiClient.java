@@ -52,14 +52,22 @@ public class OpenapiClient extends DTO {
 	 */
 	private Boolean isDisabled;
 
+	/**
+	 * 归属用户id，预留
+	 */
+	private Long ownerUserId;
 
+	/**
+	 * 归属客户id，预留
+	 */
+	private Long ownerCustomerId;
 	public static OpenapiClient create(String clientId,
 									   String secret,
 									   Boolean isCheckSignature,
 									   OpenapiAlgorithmSecret requestAlgorithmSecret,
 									   OpenapiAlgorithmSecret responseAlgorithmSecret,
 									   Set<String> authorities,
-									   Boolean isDisabled) {
+									   Boolean isDisabled,Long ownerUserId,Long ownerCustomerId) {
 		OpenapiClient openapiClient = new OpenapiClient();
 		openapiClient.clientId = clientId;
 		openapiClient.secret = secret;
@@ -68,6 +76,8 @@ public class OpenapiClient extends DTO {
 		openapiClient.responseAlgorithmSecret = responseAlgorithmSecret;
 		openapiClient.authorities = authorities;
 		openapiClient.isDisabled = isDisabled;
+		openapiClient.ownerUserId = ownerUserId;
+		openapiClient.ownerCustomerId = ownerCustomerId;
 		return openapiClient;
 	}
 }

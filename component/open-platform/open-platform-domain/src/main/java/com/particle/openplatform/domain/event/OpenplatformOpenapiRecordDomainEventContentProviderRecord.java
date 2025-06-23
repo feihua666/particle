@@ -23,6 +23,10 @@ public class OpenplatformOpenapiRecordDomainEventContentProviderRecord extends D
 	private Long openapiRecordId;
 
 	/**
+	 * 用户id
+	 */
+	private Long userId;
+	/**
 	 * 客户id
 	 */
 	private Long customerId;

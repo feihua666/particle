@@ -26,6 +26,11 @@ public class OpenplatformProviderRecord extends AggreateRoot {
     */
     private Long openplatformOpenapiRecordId;
 
+	/**
+	 * 用户id
+	 */
+	private Long userId;
+
     /**
     * 客户id
     */

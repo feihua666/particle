@@ -27,6 +27,11 @@ const reactiveData = reactive({
   formComps: pageFormItems,
   tableColumns: [
     {
+      prop: 'userNickname',
+      label: '用户昵称',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'customerName',
       label: '客户',
       showOverflowTooltip: true

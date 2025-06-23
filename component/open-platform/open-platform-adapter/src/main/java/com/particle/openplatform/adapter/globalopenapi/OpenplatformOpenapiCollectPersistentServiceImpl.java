@@ -137,6 +137,7 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 			for (OpenapiCollectProviderDTO providerDTO : openapiContext.getProviderDTOS()) {
 				openplatformOpenapiRecordDomainEventContentProviderRecord = new OpenplatformOpenapiRecordDomainEventContentProviderRecord();
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setOpenapiRecordId(openapiContext.getId());
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setUserId(providerDTO.getUserId());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setCustomerId(providerDTO.getCustomerId());
 				String requestParamString = parseObjToString(providerDTO.getRequestParam());
 				String queryString = providerDTO.getQueryString();

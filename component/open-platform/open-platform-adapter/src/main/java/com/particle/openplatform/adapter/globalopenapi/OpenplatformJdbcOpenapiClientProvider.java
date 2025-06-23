@@ -61,7 +61,9 @@ public class OpenplatformJdbcOpenapiClientProvider implements GlobalOpenapiClien
 				OpenapiAlgorithmSecret.createFromJsonStr(appDO.getRequestAlgorithmSecretJson()),
 				OpenapiAlgorithmSecret.createFromJsonStr(appDO.getResponseAlgorithmSecretJson()),
 				scopes,
-				appDO.getIsDisabled()
+				appDO.getIsDisabled(),
+				appDO.getOwnerUserId(),
+				appDO.getOwnerCustomerId()
 		);
 	}
 

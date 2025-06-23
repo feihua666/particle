@@ -80,6 +80,10 @@ public class OpenapiCollectProviderDTO {
 	private Boolean isCacheHit;
 
 	/**
+	 * 用户id
+	 */
+	private Long userId;
+	/**
 	 * 客户id
 	 */
 	private Long customerId;
@@ -100,7 +104,7 @@ public class OpenapiCollectProviderDTO {
 												   String queryString,
 												   Object responseResult,
 												   String providerIdentifier,
-												   Boolean isCacheHit,Long customerId) {
+												   Boolean isCacheHit,Long userId,Long customerId) {
 		OpenapiCollectProviderDTO openapiCollectProviderDTO = new OpenapiCollectProviderDTO();
 
 		openapiCollectProviderDTO.requestStartAt = requestStartAt;
@@ -116,6 +120,7 @@ public class OpenapiCollectProviderDTO {
 		openapiCollectProviderDTO.responseResult = responseResult;
 		openapiCollectProviderDTO.providerIdentifier = providerIdentifier;
 		openapiCollectProviderDTO.isCacheHit = isCacheHit;
+		openapiCollectProviderDTO.userId = userId;
 		openapiCollectProviderDTO.customerId = customerId;
 
 		return openapiCollectProviderDTO;
