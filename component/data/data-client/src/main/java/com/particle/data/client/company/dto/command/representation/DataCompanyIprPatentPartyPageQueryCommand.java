@@ -89,6 +89,9 @@ public class DataCompanyIprPatentPartyPageQueryCommand extends AbstractBasePageQ
 	@Schema(description = "代码，主要是代理机构代码")
 	private String code;
 
+	@Schema(description = "排序,默认按该字段升序排序")
+	private Integer seq;
+
 
     @Schema(description = "数据md5")
     private String dataMd5;

@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -47,6 +48,10 @@ public class DataCompanyAnnualReportAdministrativeLicenseUpdateCommand extends A
     private LocalDate validToDate;
 
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyAnnualReportAdministrativeLicenseUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportAdministrativeLicenseUpdateCommand command = new DataCompanyAnnualReportAdministrativeLicenseUpdateCommand();
         command.setId(id);
@@ -57,6 +62,7 @@ public class DataCompanyAnnualReportAdministrativeLicenseUpdateCommand extends A
         command.serialNumber = dataCompanyBasicWarehouseCommand.getSerialNumber();
         command.fileName = dataCompanyBasicWarehouseCommand.getFileName();
         command.validToDate = dataCompanyBasicWarehouseCommand.getValidToDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

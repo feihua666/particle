@@ -130,6 +130,83 @@ public class DataCompanyAllExWarehouseQueryCommand extends AbstractBaseQueryComm
     @Schema(description = "是否包括企业经营异常信息")
     private Boolean isIncludeAbnormal;
 
+    @Schema(description = "企业知识产权商标信息")
+    private DataCompanyIprTrademarkExWarehouseQueryCommand iprTrademarkAllQuery;
+
+    @Schema(description = "是否包括企业知识产权商标信息")
+    private Boolean isIncludeIprTrademarkAll;
+
+    @Schema(description = "企业知识产权软件著作权信息")
+    private DataCompanyIprSoftwareCopyrightExWarehouseQueryCommand iprSoftwareCopyrightQuery;
+
+    @Schema(description = "是否包括企业知识产权软件著作权信息")
+    private Boolean isIncludeIprSoftwareCopyright;
+
+    @Schema(description = "企业知识产权作品著作权信息")
+    private DataCompanyIprWorkCopyrightExWarehouseQueryCommand iprWorkCopyrightQuery;
+
+    @Schema(description = "是否包括企业知识产权作品著作权信息")
+    private Boolean isIncludeIprWorkCopyright;
+
+    @Schema(description = "企业知识产权地理标志信息")
+    private DataCompanyIprGeograExWarehouseQueryCommand iprGeograQuery;
+
+    @Schema(description = "是否包括企业知识产权地理标志信息")
+    private Boolean isIncludeIprGeogra;
+
+    @Schema(description = "企业知识产权集成电路信息")
+    private DataCompanyIprIntegratedCircuitExWarehouseQueryCommand iprIntegratedCircuitQuery;
+
+    @Schema(description = "是否包括企业知识产权集成电路信息")
+    private Boolean isIncludeIprIntegratedCircuit;
+
+    @Schema(description = "企业知识产权植物新品种信息")
+    private DataCompanyIprPlantVarietyExWarehouseQueryCommand iprPlantVarietyQuery;
+
+    @Schema(description = "是否包括企业知识产权植物新品种信息")
+    private Boolean isIncludeIprPlantVariety;
+
+    @Schema(description = "企业行政许可信息")
+    private DataCompanyAdministrativeLicenseExWarehouseQueryCommand administrativeLicenseQuery;
+
+    @Schema(description = "是否包括企业行政许可信息")
+    private Boolean isIncludeAdministrativeLicense;
+
+    @Schema(description = "企业送达公告信息")
+    private DataCompanyDeliveryAnnouncementExWarehouseQueryCommand deliveryAnnouncementQuery;
+
+    @Schema(description = "是否包括企业送达公告信息")
+    private Boolean isIncludeDeliveryAnnouncement;
+
+    @Schema(description = "企业终本案件信息")
+    private DataCompanyEndCaseExWarehouseQueryCommand endCaseQuery;
+
+    @Schema(description = "是否包括企业终本案件信息")
+    private Boolean isIncludeEndCase;
+
+    @Schema(description = "企业股权质押信息")
+    private DataCompanyEquityPledgeExWarehouseQueryCommand equityPledgeQuery;
+
+    @Schema(description = "是否包括企业股权质押信息")
+    private Boolean isIncludeEquityPledge;
+
+    @Schema(description = "企业知识产权质押信息")
+    private DataCompanyIprPledgeExWarehouseQueryCommand iprPledgeQuery;
+
+    @Schema(description = "是否包括企业知识产权质押信息")
+    private Boolean isIncludeIprPledge;
+
+    @Schema(description = "企业主要人员信息")
+    private DataCompanyPrimeStaffExWarehouseQueryCommand primeStaffQuery;
+
+    @Schema(description = "是否包括企业主要人员信息")
+    private Boolean isIncludePrimeStaff;
+
+    @Schema(description = "企业抽查检查信息")
+    private DataCompanySpotCheckExWarehouseQueryCommand spotCheckQuery;
+
+    @Schema(description = "是否包括企业抽查检查信息")
+    private Boolean isIncludeSpotCheck;
     public static DataCompanyAllExWarehouseQueryCommand create(Long companyId) {
         DataCompanyAllExWarehouseQueryCommand command = new DataCompanyAllExWarehouseQueryCommand();
         command.companyId = companyId;

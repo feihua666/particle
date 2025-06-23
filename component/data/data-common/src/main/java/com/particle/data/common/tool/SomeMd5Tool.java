@@ -946,4 +946,304 @@ public class SomeMd5Tool {
         }
         return null;
     }
+    /**
+     * 企业商标质押信息 唯一数据md5
+     * @param pledgor
+     * @param pledgee
+     * @param pledge_public_page_no
+     * @return
+     */
+    public static String dataCompanyIprTrademarkPledgeDataMd5(
+            String pledgor,
+            String pledgee,
+            String pledge_public_page_no
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(pledgor)|| StrUtil.isNotEmpty(pledgee)
+                || StrUtil.isNotEmpty(pledge_public_page_no);
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(pledgor));
+            stringBuilder.append(StrUtil.nullToEmpty(pledgee));
+            stringBuilder.append(StrUtil.nullToEmpty(pledge_public_page_no));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业商标许可信息 唯一数据md5
+     * @param licenseIssueNo
+     * @return
+     */
+    public static String dataCompanyIprTrademarkLicenseDataMd5(
+            String licenseIssueNo
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(licenseIssueNo);
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(licenseIssueNo));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业商标许可人信息 唯一数据md5
+     * @param licenseName
+     * @param isLicensed
+     * @return
+     */
+    public static String dataCompanyIprTrademarkLicensePersonDataMd5(
+            String licenseName,
+            Boolean isLicensed
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(licenseName)|| isLicensed != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(licenseName));
+            stringBuilder.append(StrUtil.nullToEmpty(isLicensed == null ? null : isLicensed.toString()));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业商标转让信息 唯一数据md5
+     * @param transferIssueNo
+     * @return
+     */
+    public static String dataCompanyIprTrademarkTransferDataMd5(
+            String transferIssueNo
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(transferIssueNo);
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(transferIssueNo));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业商标转让人信息 唯一数据md5
+     * @param transferName
+     * @param isTransferred
+     * @return
+     */
+    public static String dataCompanyIprTrademarkTransferPersonDataMd5(
+            String transferName,
+            Boolean isTransferred
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(transferName)|| isTransferred != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(transferName));
+            stringBuilder.append(StrUtil.nullToEmpty(isTransferred == null ? null : isTransferred.toString()));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业商标当事人信息 唯一数据md5
+     * @param partyName
+     * @param isApplicant
+     * @param isAgent
+     * @return
+     */
+    public static String dataCompanyIprTrademarkPartyDataMd5(
+            String partyName,
+            Boolean isApplicant,
+            Boolean isAgent
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(partyName)|| isApplicant != null || isAgent != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append(StrUtil.nullToEmpty(partyName));
+            stringBuilder.append(StrUtil.nullToEmpty(isApplicant == null? null : isApplicant.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isAgent == null ? null : isAgent.toString()));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业植物新品种变更信息 唯一数据md5
+     * @param changeDate
+     * @param isApplicant
+     * @param isAgent
+     * @return
+     */
+    public static String dataCompanyIprPlantVarietyChangeDataMd5(
+            LocalDate changeDate,
+            String changeBefore,
+            String changeAfter,
+            String changeReason,
+            Boolean isName,
+            Boolean isTransfer,
+            Boolean isCultivate,
+            Boolean isApplicant,
+            Boolean isAgent,
+            Boolean isAgency
+    ){
+        boolean hasValue = changeDate != null
+                || StrUtil.isNotEmpty(changeBefore)
+                || StrUtil.isNotEmpty(changeAfter)
+                || StrUtil.isNotEmpty(changeReason)
+                || isName != null || isTransfer != null || isCultivate != null || isApplicant != null || isAgent != null || isAgency != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String changeDateStr = LocalDateTimeUtil.formatNormal(changeDate);
+            stringBuilder.append(StrUtil.nullToEmpty(changeDateStr));
+            stringBuilder.append(StrUtil.nullToEmpty(changeBefore));
+            stringBuilder.append(StrUtil.nullToEmpty(changeAfter));
+            stringBuilder.append(StrUtil.nullToEmpty(changeReason));
+            stringBuilder.append(StrUtil.nullToEmpty(isName == null? null : isName.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isTransfer == null ? null : isTransfer.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isCultivate == null ? null : isCultivate.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isApplicant == null ? null : isApplicant.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isAgent == null ? null : isAgent.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isAgency == null ? null : isAgency.toString()));
+
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业企业行政许可 唯一数据md5
+     * @param decision_document_no
+     * @return
+     */
+    public static String dataCompanyAdministrativeLicenseDataMd5(
+            String decision_document_no,
+            LocalDate decisionDate,
+            String licenceContent,
+            String licenceType,
+            Boolean isDataFlagGs,
+            Boolean isDataFlagXyzg
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(decision_document_no) || decisionDate != null
+                || StrUtil.isNotEmpty(licenceContent)
+                || StrUtil.isNotEmpty(licenceType)
+                || isDataFlagGs != null || isDataFlagXyzg != null
+                ;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(decision_document_no));
+            String decisionDateStr = LocalDateTimeUtil.formatNormal(decisionDate);
+            stringBuilder.append(StrUtil.nullToEmpty(decisionDateStr));
+            stringBuilder.append(StrUtil.nullToEmpty(licenceContent));
+            stringBuilder.append(StrUtil.nullToEmpty(licenceType));
+            stringBuilder.append(StrUtil.nullToEmpty(isDataFlagGs == null ? null : isDataFlagGs.toString()));
+            stringBuilder.append(StrUtil.nullToEmpty(isDataFlagXyzg == null ? null : isDataFlagXyzg.toString()));
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业企业送达公告 唯一数据md5
+     * @param caseNo
+     * @param caseReason
+     * @param courtName
+     * @param publishDate
+     * @return
+     */
+    public static String dataCompanyDeliveryAnnouncementDataMd5(
+            String caseNo,
+            String caseReason,
+            String title,
+            String courtName,
+            LocalDate publishDate
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(caseNo)
+                || StrUtil.isNotEmpty(caseReason)
+                || StrUtil.isNotEmpty(title)
+                || StrUtil.isNotEmpty(courtName)
+                || publishDate != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(caseNo));
+            stringBuilder.append(StrUtil.nullToEmpty(caseReason));
+            stringBuilder.append(StrUtil.nullToEmpty(title));
+            stringBuilder.append(StrUtil.nullToEmpty(courtName));
+            String publishDateStr = LocalDateTimeUtil.formatNormal(publishDate);
+            stringBuilder.append(StrUtil.nullToEmpty(publishDateStr));
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业企业终本案件 唯一数据md5
+     * @param caseNo
+     * @param executedPersonName
+     * @param fileCaseDate
+     * @return
+     */
+    public static String dataCompanyEndCaseDataMd5(
+            String caseNo,
+            String executedPersonName,
+            LocalDate fileCaseDate
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(caseNo)
+                || StrUtil.isNotEmpty(executedPersonName)
+                || fileCaseDate != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(caseNo));
+            stringBuilder.append(StrUtil.nullToEmpty(executedPersonName));
+            String publishDateStr = LocalDateTimeUtil.formatNormal(fileCaseDate);
+            stringBuilder.append(StrUtil.nullToEmpty(publishDateStr));
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业抽查检查 唯一数据md5
+     * @param checkInstitute
+     * @param checkTypeName
+     * @param checkDate
+     * @return
+     */
+    public static String dataCompanySpotCheckDataMd5(
+            String checkInstitute,
+            String checkTypeName,
+            LocalDate checkDate,
+            String checkResult
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(checkInstitute)
+                || StrUtil.isNotEmpty(checkTypeName)
+                || checkDate != null;
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(checkInstitute));
+            stringBuilder.append(StrUtil.nullToEmpty(checkTypeName));
+            String publishDateStr = LocalDateTimeUtil.formatNormal(checkDate);
+            stringBuilder.append(StrUtil.nullToEmpty(publishDateStr));
+            stringBuilder.append(StrUtil.nullToEmpty(checkResult));
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
+    /**
+     * 企业送达公告当事人 唯一数据md5
+     * @param partyName
+     * @return
+     */
+    public static String dataCompanyDeliveryAnnouncementPartyDataMd5(
+            String partyName
+    ){
+        boolean hasValue = StrUtil.isNotEmpty(partyName);
+        if (hasValue) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(StrUtil.nullToEmpty(partyName));
+            return DigestUtil.md5Hex(stringBuilder.toString());
+        }
+        return null;
+    }
 }

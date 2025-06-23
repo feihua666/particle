@@ -1,27 +1,16 @@
 package com.particle.data.app.company.executor.representation.exwarehousewrap;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.BooleanUtil;
-import com.particle.data.app.company.executor.representation.exwarehouse.*;
-import com.particle.data.app.company.executor.warehousewrap.*;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.*;
 import com.particle.data.client.company.dto.data.exwarehouse.*;
-import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -53,6 +42,22 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 	private DataCompanyVcProductWrapExWarehouseCommandExecutor dataCompanyVcProductWrapExWarehouseCommandExecutor;
 	private DataCompanyVcInvestInstitutionWrapExWarehouseCommandExecutor dataCompanyVcInvestInstitutionWrapExWarehouseCommandExecutor;
 	private DataCompanyAbnormalWrapExWarehouseCommandExecutor dataCompanyAbnormalWrapExWarehouseCommandExecutor;
+
+	private DataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor;
+	private DataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor;
+	private DataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor;
+	private DataCompanyIprGeograWrapExWarehouseCommandExecutor dataCompanyIprGeograWrapExWarehouseCommandExecutor;
+	private DataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor;
+	private DataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor;
+
+	private DataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor;
+	private DataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor;
+	private DataCompanyEndCaseWrapExWarehouseCommandExecutor dataCompanyEndCaseWrapExWarehouseCommandExecutor;
+	private DataCompanyEquityPledgeWrapExWarehouseCommandExecutor dataCompanyEquityPledgeWrapExWarehouseCommandExecutor;
+	private DataCompanyIprPledgeWrapExWarehouseCommandExecutor dataCompanyIprPledgeWrapExWarehouseCommandExecutor;
+	private DataCompanyPrimeStaffWrapExWarehouseCommandExecutor dataCompanyPrimeStaffWrapExWarehouseCommandExecutor;
+	private DataCompanySpotCheckWrapExWarehouseCommandExecutor dataCompanySpotCheckWrapExWarehouseCommandExecutor;
+
 	/**
 	 * 企业全貌全部出库
 	 * @param dataCompanyExWarehouseQueryCommand
@@ -274,6 +279,134 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			dataCompanyAllExWarehouseVO.setAbnormalCount(vcProductCount);
 			hasValue = true;
 		}
+		// 企业商标信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprTrademarkAll())) {
+			PageResponse<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarkPageResponse = dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprTrademarkAllQuery());
+			List<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarks = iprTrademarkPageResponse.getData();
+			Integer iprTrademarkCount = iprTrademarkPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprTrademarkAlls(iprTrademarks);
+			dataCompanyAllExWarehouseVO.setIprTrademarkAllCount(iprTrademarkCount);
+			hasValue = true;
+		}
+
+		// 企业软件著作权信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprSoftwareCopyright())) {
+			PageResponse<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrightPageResponse = dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprSoftwareCopyrightQuery());
+			List<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrights = iprSoftwareCopyrightPageResponse.getData();
+			Integer iprSoftwareCopyrightCount = iprSoftwareCopyrightPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprSoftwareCopyrights(iprSoftwareCopyrights);
+			dataCompanyAllExWarehouseVO.setIprSoftwareCopyrightCount(iprSoftwareCopyrightCount);
+			hasValue = true;
+		}
+
+		// 企业作品著作权信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprWorkCopyright())) {
+			PageResponse<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrightPageResponse = dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprWorkCopyrightQuery());
+			List<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrights = iprWorkCopyrightPageResponse.getData();
+			Integer iprWorkCopyrightCount = iprWorkCopyrightPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprWorkCopyrights(iprWorkCopyrights);
+			dataCompanyAllExWarehouseVO.setIprWorkCopyrightCount(iprWorkCopyrightCount);
+			hasValue = true;
+		}
+
+		// 企业地理标志信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprGeogra())) {
+			PageResponse<DataCompanyIprGeograExWarehouseVO> iprGeograPageResponse = dataCompanyIprGeograWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprGeograQuery());
+			List<DataCompanyIprGeograExWarehouseVO> iprGeogras = iprGeograPageResponse.getData();
+			Integer iprGeograCount = iprGeograPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprGeogras(iprGeogras);
+			dataCompanyAllExWarehouseVO.setIprGeograCount(iprGeograCount);
+			hasValue = true;
+		}
+
+		// 企业集成电路布图设计信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprIntegratedCircuit())) {
+			PageResponse<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuitPageResponse = dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprIntegratedCircuitQuery());
+			List<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuits = iprIntegratedCircuitPageResponse.getData();
+			Integer iprIntegratedCircuitCount = iprIntegratedCircuitPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprIntegratedCircuits(iprIntegratedCircuits);
+			dataCompanyAllExWarehouseVO.setIprIntegratedCircuitCount(iprIntegratedCircuitCount);
+			hasValue = true;
+		}
+
+		// 企业植物新品种信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprPlantVariety())) {
+			PageResponse<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarietyPageResponse = dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprPlantVarietyQuery());
+			List<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarieties = iprPlantVarietyPageResponse.getData();
+			Integer iprPlantVarietyCount = iprPlantVarietyPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprPlantVarieties(iprPlantVarieties);
+			dataCompanyAllExWarehouseVO.setIprPlantVarietyCount(iprPlantVarietyCount);
+			hasValue = true;
+		}
+		// 企业行政许可信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeAdministrativeLicense())) {
+			PageResponse<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicensePageResponse = dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getAdministrativeLicenseQuery());
+			List<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicenses = administrativeLicensePageResponse.getData();
+			Integer administrativeLicenseCount = administrativeLicensePageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setAdministrativeLicenses(administrativeLicenses);
+			dataCompanyAllExWarehouseVO.setAdministrativeLicenseCount(administrativeLicenseCount);
+			hasValue = true;
+		}
+
+		// 企业送达公告信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeDeliveryAnnouncement())) {
+			PageResponse<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncementPageResponse = dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getDeliveryAnnouncementQuery());
+			List<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncements = deliveryAnnouncementPageResponse.getData();
+			Integer deliveryAnnouncementCount = deliveryAnnouncementPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setDeliveryAnnouncements(deliveryAnnouncements);
+			dataCompanyAllExWarehouseVO.setDeliveryAnnouncementCount(deliveryAnnouncementCount);
+			hasValue = true;
+		}
+
+		// 企业终本案件信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeEndCase())) {
+			PageResponse<DataCompanyEndCaseExWarehouseVO> endCasePageResponse = dataCompanyEndCaseWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getEndCaseQuery());
+			List<DataCompanyEndCaseExWarehouseVO> endCases = endCasePageResponse.getData();
+			Integer endCaseCount = endCasePageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setEndCases(endCases);
+			dataCompanyAllExWarehouseVO.setEndCaseCount(endCaseCount);
+			hasValue = true;
+		}
+
+		// 企业股权质押信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeEquityPledge())) {
+			PageResponse<DataCompanyEquityPledgeExWarehouseVO> equityPledgePageResponse = dataCompanyEquityPledgeWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getEquityPledgeQuery());
+			List<DataCompanyEquityPledgeExWarehouseVO> equityPledges = equityPledgePageResponse.getData();
+			Integer equityPledgeCount = equityPledgePageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setEquityPledges(equityPledges);
+			dataCompanyAllExWarehouseVO.setEquityPledgeCount(equityPledgeCount);
+			hasValue = true;
+		}
+
+		// 企业知识产权质押信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprPledge())) {
+			PageResponse<DataCompanyIprPledgeExWarehouseVO> iprPledgePageResponse = dataCompanyIprPledgeWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprPledgeQuery());
+			List<DataCompanyIprPledgeExWarehouseVO> iprPledges = iprPledgePageResponse.getData();
+			Integer iprPledgeCount = iprPledgePageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setIprPledges(iprPledges);
+			dataCompanyAllExWarehouseVO.setIprPledgeCount(iprPledgeCount);
+			hasValue = true;
+		}
+
+		// 企业主要人员信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludePrimeStaff())) {
+			PageResponse<DataCompanyPrimeStaffExWarehouseVO> primeStaffPageResponse = dataCompanyPrimeStaffWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getPrimeStaffQuery());
+			List<DataCompanyPrimeStaffExWarehouseVO> primeStaffs = primeStaffPageResponse.getData();
+			Integer primeStaffCount = primeStaffPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setPrimeStaffs(primeStaffs);
+			dataCompanyAllExWarehouseVO.setPrimeStaffCount(primeStaffCount);
+			hasValue = true;
+		}
+
+		// 企业抽查检查信息
+		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeSpotCheck())) {
+			PageResponse<DataCompanySpotCheckExWarehouseVO> spotCheckPageResponse = dataCompanySpotCheckWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getSpotCheckQuery());
+			List<DataCompanySpotCheckExWarehouseVO> spotChecks = spotCheckPageResponse.getData();
+			Integer spotCheckCount = spotCheckPageResponse.getTotalCount();
+			dataCompanyAllExWarehouseVO.setSpotChecks(spotChecks);
+			dataCompanyAllExWarehouseVO.setSpotCheckCount(spotCheckCount);
+			hasValue = true;
+		}
 		if (hasValue) {
 			return SingleResponse.of(dataCompanyAllExWarehouseVO);
 		}
@@ -373,5 +506,57 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 	@Autowired
 	public void setDataCompanyAbnormalWrapExWarehouseCommandExecutor(DataCompanyAbnormalWrapExWarehouseCommandExecutor dataCompanyAbnormalWrapExWarehouseCommandExecutor) {
 		this.dataCompanyAbnormalWrapExWarehouseCommandExecutor = dataCompanyAbnormalWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor(DataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor = dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor(DataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor = dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor(DataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor = dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprGeograWrapExWarehouseCommandExecutor(DataCompanyIprGeograWrapExWarehouseCommandExecutor dataCompanyIprGeograWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprGeograWrapExWarehouseCommandExecutor = dataCompanyIprGeograWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor(DataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor = dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor(DataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor = dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor(DataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor) {
+		this.dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor = dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor(DataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor) {
+		this.dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor = dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyEndCaseWrapExWarehouseCommandExecutor(DataCompanyEndCaseWrapExWarehouseCommandExecutor dataCompanyEndCaseWrapExWarehouseCommandExecutor) {
+		this.dataCompanyEndCaseWrapExWarehouseCommandExecutor = dataCompanyEndCaseWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyEquityPledgeWrapExWarehouseCommandExecutor(DataCompanyEquityPledgeWrapExWarehouseCommandExecutor dataCompanyEquityPledgeWrapExWarehouseCommandExecutor) {
+		this.dataCompanyEquityPledgeWrapExWarehouseCommandExecutor = dataCompanyEquityPledgeWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprPledgeWrapExWarehouseCommandExecutor(DataCompanyIprPledgeWrapExWarehouseCommandExecutor dataCompanyIprPledgeWrapExWarehouseCommandExecutor) {
+		this.dataCompanyIprPledgeWrapExWarehouseCommandExecutor = dataCompanyIprPledgeWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyPrimeStaffWrapExWarehouseCommandExecutor(DataCompanyPrimeStaffWrapExWarehouseCommandExecutor dataCompanyPrimeStaffWrapExWarehouseCommandExecutor) {
+		this.dataCompanyPrimeStaffWrapExWarehouseCommandExecutor = dataCompanyPrimeStaffWrapExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanySpotCheckWrapExWarehouseCommandExecutor(DataCompanySpotCheckWrapExWarehouseCommandExecutor dataCompanySpotCheckWrapExWarehouseCommandExecutor) {
+		this.dataCompanySpotCheckWrapExWarehouseCommandExecutor = dataCompanySpotCheckWrapExWarehouseCommandExecutor;
 	}
 }

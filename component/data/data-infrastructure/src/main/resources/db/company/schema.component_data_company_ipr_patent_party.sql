@@ -20,6 +20,7 @@ CREATE TABLE `component_data_company_ipr_patent_party` (
   `area_code` varchar(200) DEFAULT NULL COMMENT '区域编码，主要是申请人区域代码、当前权利人区域代码',
   `type_name` varchar(200) DEFAULT NULL COMMENT '类型，主要是当前权利人类型、专利权人类型、申请人类型',
   `code` varchar(200) DEFAULT NULL COMMENT '代码，主要是代理机构代码',
+  `seq` int DEFAULT NULL COMMENT '排序,默认按该字段升序排序',
   `data_md5` varchar(32) NOT NULL COMMENT '数据md5,party_name + is_applicant + is_invent + is_agent + is_agency + is_examiner + is_right + is_current_right',
   `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
   `version` int NOT NULL COMMENT '乐观锁字段',

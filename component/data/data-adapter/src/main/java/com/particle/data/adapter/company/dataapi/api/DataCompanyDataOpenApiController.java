@@ -169,6 +169,110 @@ public class DataCompanyDataOpenApiController extends AbstractBaseApiAdapter {
                                                                    @RequestBody DataCompanyAllExWarehouseQueryCommand dataCompanyAllExWarehouseQueryCommand){
         return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand, null);
     }
+    @PreAuthorize("hasAuthority('company:openapi:iprTrademarkAll')")
+    @Operation(summary = "企业知识产权商标信息接口")
+    @PostMapping("/iprTrademarkAll")
+    public PageResponse<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarkAll(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                   @RequestBody DataCompanyIprTrademarkExWarehouseQueryCommand dataCompanyIprTrademarkExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprTrademarkExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:iprSoftwareCopyright')")
+    @Operation(summary = "企业知识产权软件著作接口")
+    @PostMapping("/iprSoftwareCopyright")
+    public PageResponse<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyright(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                            @RequestBody DataCompanyIprSoftwareCopyrightExWarehouseQueryCommand dataCompanyIprSoftwareCopyrightExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprSoftwareCopyrightExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:iprWorkCopyright')")
+    @Operation(summary = "企业知识产权作品著作接口")
+    @PostMapping("/iprWorkCopyright")
+    public PageResponse<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyright(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                                @RequestBody DataCompanyIprWorkCopyrightExWarehouseQueryCommand dataCompanyIprWorkCopyrightExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprWorkCopyrightExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:iprGeogra')")
+    @Operation(summary = "企业知识产权地理标识接口")
+    @PostMapping("/iprGeogra")
+    public PageResponse<DataCompanyIprGeograExWarehouseVO> iprGeogra(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                     @RequestBody DataCompanyIprGeograExWarehouseQueryCommand dataCompanyIprGeograExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprGeograExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:iprIntegratedCircuit')")
+    @Operation(summary = "企业知识产权集成电路接口")
+    @PostMapping("/iprIntegratedCircuit")
+    public PageResponse<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuit(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                                           @RequestBody DataCompanyIprIntegratedCircuitExWarehouseQueryCommand dataCompanyIprIntegratedCircuitExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprIntegratedCircuitExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:iprPlantVariety')")
+    @Operation(summary = "企业知识产权植物新品种接口")
+    @PostMapping("/iprPlantVariety")
+    public PageResponse<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVariety(@RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+                                                                                 @RequestBody DataCompanyIprPlantVarietyExWarehouseQueryCommand dataCompanyIprPlantVarietyExWarehouseQueryCommand){
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprPlantVarietyExWarehouseQueryCommand, null);
+    }
+    @PreAuthorize("hasAuthority('company:openapi:administrativeLicense')")
+    @Operation(summary = "企业行政许可接口")
+    @PostMapping("/administrativeLicense")
+    public PageResponse<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicense(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyAdministrativeLicenseExWarehouseQueryCommand dataCompanyAdministrativeLicenseExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyAdministrativeLicenseExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:deliveryAnnouncement')")
+    @Operation(summary = "企业送达公告接口")
+    @PostMapping("/deliveryAnnouncement")
+    public PageResponse<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncement(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyDeliveryAnnouncementExWarehouseQueryCommand dataCompanyDeliveryAnnouncementExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyDeliveryAnnouncementExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:endCase')")
+    @Operation(summary = "企业终本案件接口")
+    @PostMapping("/endCase")
+    public PageResponse<DataCompanyEndCaseExWarehouseVO> endCase(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyEndCaseExWarehouseQueryCommand dataCompanyEndCaseExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyEndCaseExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:equityPledge')")
+    @Operation(summary = "企业股权质押接口")
+    @PostMapping("/equityPledge")
+    public PageResponse<DataCompanyEquityPledgeExWarehouseVO> equityPledge(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyEquityPledgeExWarehouseQueryCommand dataCompanyEquityPledgeExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyEquityPledgeExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:iprPledge')")
+    @Operation(summary = "企业知识产权质押接口")
+    @PostMapping("/iprPledge")
+    public PageResponse<DataCompanyIprPledgeExWarehouseVO> iprPledge(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyIprPledgeExWarehouseQueryCommand dataCompanyIprPledgeExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyIprPledgeExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:primeStaff')")
+    @Operation(summary = "企业主要人员接口")
+    @PostMapping("/primeStaff")
+    public PageResponse<DataCompanyPrimeStaffExWarehouseVO> primeStaff(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanyPrimeStaffExWarehouseQueryCommand dataCompanyPrimeStaffExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanyPrimeStaffExWarehouseQueryCommand, null);
+    }
+
+    @PreAuthorize("hasAuthority('company:openapi:spotCheck')")
+    @Operation(summary = "企业抽查检查接口")
+    @PostMapping("/spotCheck")
+    public PageResponse<DataCompanySpotCheckExWarehouseVO> spotCheck(
+            @RequestBody DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand,
+            @RequestBody DataCompanySpotCheckExWarehouseQueryCommand dataCompanySpotCheckExWarehouseQueryCommand) {
+        return doExecute(dataCompanyExWarehouseQueryCommand, dataCompanySpotCheckExWarehouseQueryCommand, null);
+    }
     /**
      * 执行开放接口
      * @param param

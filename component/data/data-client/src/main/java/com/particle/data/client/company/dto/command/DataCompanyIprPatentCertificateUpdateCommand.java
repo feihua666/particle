@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +45,9 @@ public class DataCompanyIprPatentCertificateUpdateCommand extends AbstractBaseUp
     @Schema(description = "专利证书收件人地址")
     private String receiverAddress;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyIprPatentCertificateUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyIprPatentCertificateWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyIprPatentCertificateUpdateCommand command = new DataCompanyIprPatentCertificateUpdateCommand();
         command.setId(id);
@@ -53,6 +57,7 @@ public class DataCompanyIprPatentCertificateUpdateCommand extends AbstractBaseUp
         command.mailNo = dataCompanyBasicWarehouseCommand.getMailNo();
         command.receiverName = dataCompanyBasicWarehouseCommand.getReceiverName();
         command.receiverAddress = dataCompanyBasicWarehouseCommand.getReceiverAddress();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

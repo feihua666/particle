@@ -3,7 +3,9 @@ package com.particle.data.client.company.dto.command.warehouse;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementContentExWarehouseVO;
+import com.particle.data.common.tool.SomeMd5Tool;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.Objects;
@@ -28,6 +30,16 @@ public class DataCompanyCourtAnnouncementContentWarehouseCommand extends Abstrac
     @Schema(description = "公告内容")
     private String content;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
+    public String obtainDataMd5() {
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyCourtAnnouncementContentDataMd5(content);
+        }
+        return dataMd5;
+    }
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

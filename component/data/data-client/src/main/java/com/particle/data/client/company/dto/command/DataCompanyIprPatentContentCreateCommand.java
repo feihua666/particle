@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -22,8 +23,8 @@ public class DataCompanyIprPatentContentCreateCommand extends AbstractBaseComman
 
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-	@Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业知识产权专利id 不能为空")
+	@Schema(description = "企业知识产权专利id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
 
@@ -90,6 +91,9 @@ public class DataCompanyIprPatentContentCreateCommand extends AbstractBaseComman
 	@Schema(description = "中文权利要求书地址")
 	private String claimContentCnUrl;
 
+	@NotEmpty(message = "数据md5 不能为空")
+	@Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+	private String dataMd5;
 	public static DataCompanyIprPatentContentCreateCommand createByWarehouseCommand(DataCompanyIprPatentContentWarehouseCommand dataCompanyIprPatentContentWarehouseCommand){
 		DataCompanyIprPatentContentCreateCommand command = new DataCompanyIprPatentContentCreateCommand();
 		command.companyIprPatentId = dataCompanyIprPatentContentWarehouseCommand.getCompanyIprPatentId();
@@ -114,6 +118,7 @@ public class DataCompanyIprPatentContentCreateCommand extends AbstractBaseComman
 		command.claimContentUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentUrl();
 		command.claimContentEnUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentEnUrl();
 		command.claimContentCnUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentCnUrl();
+		command.dataMd5 = dataCompanyIprPatentContentWarehouseCommand.obtainDataMd5();
 		return command;
 	}
 }

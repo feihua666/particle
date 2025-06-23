@@ -1,0 +1,31 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_ipr_integrated_circuit;
+CREATE TABLE `component_data_company_ipr_integrated_circuit` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `public_no` varchar(50) DEFAULT NULL COMMENT '公告号',
+  `public_date` date DEFAULT NULL COMMENT '公告日期',
+  `name` varchar(500) DEFAULT NULL COMMENT '布图设计名称',
+  `reg_no` varchar(50) DEFAULT NULL COMMENT '布图设计登记号',
+  `apply_date` date DEFAULT NULL COMMENT '布图设计申请日',
+  `right_holder` varchar(50) DEFAULT NULL COMMENT '布图设计权利人名称',
+  `is_right_holder_natural_person` tinyint(1) DEFAULT NULL COMMENT '是否权利人为自然人，1=自然人，0=非自然人',
+  `right_holder_company_id` bigint DEFAULT NULL COMMENT '权利人公司id，is_right_holder_natural_person = 0 时有值',
+  `right_holder_company_person_id` bigint DEFAULT NULL COMMENT '权利人个人id，is_right_holder_natural_person = 1 时有值',
+  `right_holder_country` varchar(500) DEFAULT NULL COMMENT '布图设计权利人国籍,如：中国',
+  `right_holder_address` varchar(500) DEFAULT NULL COMMENT '布图设计权利人地址',
+  `design_creator` varchar(500) DEFAULT NULL COMMENT '布图设计创作人',
+  `complete_date` date DEFAULT NULL COMMENT '布图设计创作完成日',
+  `type_name` varchar(500) DEFAULT NULL COMMENT '布图设计类别,如：结构：MOS 技术：CMOS 功能：其他',
+  `first_business_date` date DEFAULT NULL COMMENT '首次商业利用日期 ',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `public_no` (`public_no`) USING BTREE,
+  KEY `right_holder_company_id` (`right_holder_company_id`) USING BTREE,
+  KEY `right_holder_company_person_id` (`right_holder_company_person_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权集成电路表';

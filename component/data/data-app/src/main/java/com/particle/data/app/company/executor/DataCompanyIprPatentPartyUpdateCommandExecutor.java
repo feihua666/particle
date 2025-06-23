@@ -41,6 +41,7 @@ public class DataCompanyIprPatentPartyUpdateCommandExecutor  extends AbstractBas
 	public SingleResponse<DataCompanyIprPatentPartyVO> execute(@Valid DataCompanyIprPatentPartyUpdateCommand dataCompanyIprPatentPartyUpdateCommand) {
 		DataCompanyIprPatentParty dataCompanyIprPatentParty = createByDataCompanyIprPatentPartyUpdateCommand(dataCompanyIprPatentPartyUpdateCommand);
 		dataCompanyIprPatentParty.setUpdateControl(dataCompanyIprPatentPartyUpdateCommand);
+		dataCompanyIprPatentParty.initForUpdate();
 		boolean save = dataCompanyIprPatentPartyGateway.save(dataCompanyIprPatentParty);
 		if (save) {
 			return SingleResponse.of(DataCompanyIprPatentPartyAppStructMapping.instance.toDataCompanyIprPatentPartyVO(dataCompanyIprPatentParty));

@@ -1,11 +1,13 @@
 package com.particle.data.app.company.openapi.localdatabasedata;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.data.app.company.executor.representation.exwarehousewrap.DataCompanyPunishmentWrapExWarehouseCommandExecutor;
 import com.particle.data.app.company.executor.warehousewrap.DataCompanyPunishmentWrapWarehouseCommandExecutor;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyPunishmentExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyPunishmentExWarehouseVO;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanySpotCheckExWarehouseVO;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.endpoint.command.OpenapiCommand;
@@ -46,8 +48,20 @@ public class DataCompanyPunishmentOpenapiExecuteProvider extends AbstractDataCom
 
     @Override
     public void warehouse(OpenapiWarehouseCommand warehouseCommand,OpenapiCommand openapiCommand,  OpenapiContext openapiContext) {
-        PageResponse<DataCompanyPunishmentExWarehouseVO> dataCompanyPunishmentExWarehouseVOPageResponse = (PageResponse<DataCompanyPunishmentExWarehouseVO>) warehouseCommand.getParam();
-        dataCompanyPunishmentWrapWarehouseCommandExecutor.warehouse(dataCompanyPunishmentExWarehouseVOPageResponse);
+        PageResponse<DataCompanyPunishmentExWarehouseVO> response = (PageResponse<DataCompanyPunishmentExWarehouseVO>) warehouseCommand.getParam();
+        if (response != null && CollectionUtil.isNotEmpty(response.getData())) {
+            DataCompanyPunishmentExWarehouseVO next = response.getData().iterator().next();
+            // 有一条有 companyId 则认为所有数据都有
+            Long companyId = next.getCompanyId();
+            if (companyId == null) {
+                DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand = (DataCompanyExWarehouseQueryCommand) openapiCommand.getParam();
+                companyId = tryWarehouseCompanyAndGetCompanyId(dataCompanyExWarehouseQueryCommand);
+                for (DataCompanyPunishmentExWarehouseVO item : response.getData()) {
+                    item.setCompanyId(companyId);
+                }
+            }
+        }
+        dataCompanyPunishmentWrapWarehouseCommandExecutor.warehouse(response);
     }
 
     @Autowired

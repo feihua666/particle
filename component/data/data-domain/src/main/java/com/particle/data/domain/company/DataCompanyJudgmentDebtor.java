@@ -38,12 +38,12 @@ public class DataCompanyJudgmentDebtor extends AggreateRoot {
     private Boolean isExecutedPersonNaturalPerson;
 
     /**
-    * 法人公司id，is_executed_person_natural_person = 0 时有值
+    * 被执行人公司id，is_executed_person_natural_person = 0 时有值
     */
     private Long executedPersonCompanyId;
 
     /**
-    * 法人个人id，is_executed_person_natural_person = 1 时有值
+    * 被执行人个人id，is_executed_person_natural_person = 1 时有值
     */
     private Long executedPersonCompanyPersonId;
 
@@ -100,12 +100,12 @@ public class DataCompanyJudgmentDebtor extends AggreateRoot {
     public void initForAdd() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
     public void initForUpdate() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
 
     public void initDataMd5() {

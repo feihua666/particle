@@ -30,13 +30,13 @@ public class DataCompanyVcFinancingInvestInstitutionRelWarehouseCommand extends 
 
 
 
-    @NotNull(message = "企业融资表ID 不能为空")
-    @Schema(description = "企业融资表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业融资id 不能为空")
+    @Schema(description = "企业融资id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyVcFinancingId;
 
 
-    @NotNull(message = "企业投资机构表id 不能为空")
-    @Schema(description = "企业投资机构表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业投资机构id 不能为空")
+    @Schema(description = "企业投资机构id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyVcInvestInstitutionId;
 
 

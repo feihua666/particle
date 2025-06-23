@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -58,7 +59,9 @@ public class DataCompanyOpenCourtAnnouncementUpdateCommand extends AbstractBaseU
     private String videoUrl;
 
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyOpenCourtAnnouncementUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyOpenCourtAnnouncementWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyOpenCourtAnnouncementUpdateCommand command = new DataCompanyOpenCourtAnnouncementUpdateCommand();
         command.setId(id);
@@ -72,6 +75,7 @@ public class DataCompanyOpenCourtAnnouncementUpdateCommand extends AbstractBaseU
         command.planDate = dataCompanyBasicWarehouseCommand.getPlanDate();
         command.presidingJudge = dataCompanyBasicWarehouseCommand.getPresidingJudge();
         command.videoUrl = dataCompanyBasicWarehouseCommand.getVideoUrl();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

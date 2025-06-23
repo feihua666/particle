@@ -2,6 +2,7 @@ package com.particle.data.client.company.dto.command.warehouse;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
+import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyExWarehouseVO;
 import com.particle.data.common.tool.SomeStrTool;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -109,6 +110,23 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
         dataCompanyWarehouseCommand.regNo = regNo;
         return dataCompanyWarehouseCommand;
     }
+    public static DataCompanyWarehouseCommand create(String name, String uscc,String regNo,String orgCode) {
+        DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
+        dataCompanyWarehouseCommand.name = name;
+        dataCompanyWarehouseCommand.uscc = uscc;
+        dataCompanyWarehouseCommand.regNo = regNo;
+        dataCompanyWarehouseCommand.orgCode = orgCode;
+        return dataCompanyWarehouseCommand;
+    }
+    public static DataCompanyWarehouseCommand create(String name, String uscc,String regNo,String orgCode,String enName) {
+        DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
+        dataCompanyWarehouseCommand.name = name;
+        dataCompanyWarehouseCommand.uscc = uscc;
+        dataCompanyWarehouseCommand.regNo = regNo;
+        dataCompanyWarehouseCommand.orgCode = orgCode;
+        dataCompanyWarehouseCommand.enName = enName;
+        return dataCompanyWarehouseCommand;
+    }
 
     public static DataCompanyWarehouseCommand createByDataCompanyExWarehouseVO(DataCompanyExWarehouseVO dataCompanyExWarehouseVO) {
         DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
@@ -118,6 +136,17 @@ public class DataCompanyWarehouseCommand extends AbstractBaseCommand {
         dataCompanyWarehouseCommand.orgCode = dataCompanyExWarehouseVO.getOrgCode();
         dataCompanyWarehouseCommand.enName = dataCompanyExWarehouseVO.getEnName();
         dataCompanyWarehouseCommand.parentId = dataCompanyExWarehouseVO.getParentId();
+
+        return dataCompanyWarehouseCommand;
+    }
+
+    public static DataCompanyWarehouseCommand createByDataCompanyExWarehouseQueryCommand(DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand) {
+        DataCompanyWarehouseCommand dataCompanyWarehouseCommand = new DataCompanyWarehouseCommand();
+        dataCompanyWarehouseCommand.name = dataCompanyExWarehouseQueryCommand.getName();
+        dataCompanyWarehouseCommand.uscc = dataCompanyExWarehouseQueryCommand.getUscc();
+        dataCompanyWarehouseCommand.regNo = dataCompanyExWarehouseQueryCommand.getRegNo();
+        dataCompanyWarehouseCommand.orgCode = dataCompanyExWarehouseQueryCommand.getOrgCode();
+        dataCompanyWarehouseCommand.enName = dataCompanyExWarehouseQueryCommand.getEnName();
 
         return dataCompanyWarehouseCommand;
     }

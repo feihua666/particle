@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.particle.data.infrastructure.company.mapper.DataCompanyIprTrademarkMapper">
+
+    <select id="listPage" resultType="com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkDO">
+        select p.* from component_data_company_ipr_trademark p
+        <where>
+            <if test="param.companyId != null and param.companyId != ''">
+                and EXISTS (
+                SELECT 1
+                FROM component_data_company_ipr_trademark_party par
+                WHERE par.company_ipr_trademark_id = p.id
+                AND par.party_company_id = #{param.companyId}
+                AND ( 1 != 1
+                <if test="param.isApplicant != null and param.isApplicant">
+                    OR par.is_applicant = 1
+                </if>
+                <if test="param.isAgent != null and param.isAgent">
+                    OR par.is_agent = 1
+                </if>
+                )
+                )
+            </if>
+            <if test="param.applyNo != null and param.applyNo != ''">
+                and p.apply_no = #{param.applyNo}
+            </if>
+            <if test="param.regNo != null and param.regNo != ''">
+                and p.public_no = #{param.regNo}
+            </if>
+        </where>
+    </select>
+</mapper>

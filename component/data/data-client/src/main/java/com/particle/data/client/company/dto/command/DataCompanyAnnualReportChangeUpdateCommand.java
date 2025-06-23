@@ -65,7 +65,9 @@ public class DataCompanyAnnualReportChangeUpdateCommand extends AbstractBaseUpda
     @Schema(description = "变更日期")
     private LocalDate changeDate;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyAnnualReportChangeUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAnnualReportChangeWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportChangeUpdateCommand command = new DataCompanyAnnualReportChangeUpdateCommand();
         command.setId(id);
@@ -79,6 +81,7 @@ public class DataCompanyAnnualReportChangeUpdateCommand extends AbstractBaseUpda
         command.contentBefore = dataCompanyBasicWarehouseCommand.getContentBefore();
         command.contentAfter = dataCompanyBasicWarehouseCommand.getContentAfter();
         command.changeDate = dataCompanyBasicWarehouseCommand.getChangeDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

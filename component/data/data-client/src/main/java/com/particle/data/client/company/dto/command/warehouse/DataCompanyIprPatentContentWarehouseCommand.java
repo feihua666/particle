@@ -3,7 +3,9 @@ package com.particle.data.client.company.dto.command.warehouse;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentContentExWarehouseVO;
+import com.particle.data.common.tool.SomeMd5Tool;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -21,8 +23,8 @@ import java.util.Objects;
 @Schema
 public class DataCompanyIprPatentContentWarehouseCommand extends AbstractBaseCommand {
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业知识产权专利id 不能为空")
+    @Schema(description = "企业知识产权专利id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
     @Schema(description = "原始摘要内容")
@@ -88,6 +90,16 @@ public class DataCompanyIprPatentContentWarehouseCommand extends AbstractBaseCom
     @Schema(description = "中文权利要求书地址")
     private String claimContentCnUrl;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
+    public String obtainDataMd5() {
+        if (StrUtil.isEmpty(dataMd5)) {
+            dataMd5 = SomeMd5Tool.dataCompanyIprPatentContentDataMd5(abstractContent);
+        }
+        return dataMd5;
+    }
     /**
      * 判断是否所有字段都为空,主要用来检查是否需要更新数据
      * @return

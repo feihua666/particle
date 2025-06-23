@@ -22,8 +22,8 @@ public class DataCompanyAnnualReportCreateCommand extends AbstractBaseCommand {
 
 
 
-    @NotNull(message = "企业表ID 不能为空")
-    @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业id 不能为空")
+    @Schema(description = "企业id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 

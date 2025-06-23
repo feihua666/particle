@@ -23,17 +23,17 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualR
 public class DataCompanyAnnualReportWebsiteUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-    
+
     @Schema(description = "企业表ID")
     private Long companyId;
 
 
-    
+
     @Schema(description = "企业年报表ID")
     private Long companyAnnualReportId;
 
 
-    
+
     @Schema(description = "年报年度")
     private Integer year;
 
@@ -53,7 +53,9 @@ public class DataCompanyAnnualReportWebsiteUpdateCommand extends AbstractBaseUpd
     @Schema(description = "网址")
     private String url;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyAnnualReportWebsiteUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAnnualReportWebsiteWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportWebsiteUpdateCommand command = new DataCompanyAnnualReportWebsiteUpdateCommand();
         command.setId(id);
@@ -65,6 +67,7 @@ public class DataCompanyAnnualReportWebsiteUpdateCommand extends AbstractBaseUpd
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
         command.name = dataCompanyBasicWarehouseCommand.getName();
         command.url = dataCompanyBasicWarehouseCommand.getUrl();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

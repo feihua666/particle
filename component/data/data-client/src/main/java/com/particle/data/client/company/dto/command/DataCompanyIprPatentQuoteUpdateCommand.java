@@ -86,6 +86,8 @@ public class DataCompanyIprPatentQuoteUpdateCommand extends AbstractBaseUpdateCo
         command.publicNo = dataCompanyBasicWarehouseCommand.getPublicNo();
         command.publicDate = dataCompanyBasicWarehouseCommand.getPublicDate();
         command.title = dataCompanyBasicWarehouseCommand.getTitle();
+        command.titleCn = dataCompanyBasicWarehouseCommand.getTitleCn();
+        command.titleEn = dataCompanyBasicWarehouseCommand.getTitleEn();
         command.quoteFrom = dataCompanyBasicWarehouseCommand.getQuoteFrom();
         command.quoteFromType = dataCompanyBasicWarehouseCommand.getQuoteFromType();
         command.applicantQuoteNo = dataCompanyBasicWarehouseCommand.getApplicantQuoteNo();

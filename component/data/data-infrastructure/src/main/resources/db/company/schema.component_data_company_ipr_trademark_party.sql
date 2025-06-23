@@ -1,0 +1,31 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_data_company_ipr_trademark_party;
+CREATE TABLE `component_data_company_ipr_trademark_party` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `company_ipr_trademark_id` bigint NOT NULL COMMENT '企业知识产权商标表id',
+  `party_name` varchar(100) DEFAULT NULL COMMENT '当事人名称原始名称，is_party_natural_person 等于0时为人名，等于1时为公司名',
+  `party_name_en` varchar(100) DEFAULT NULL COMMENT '当事人名称英文名称，is_party_natural_person 等于0时为人名，等于1时为公司名',
+  `party_name_cn` varchar(100) DEFAULT NULL COMMENT '当事人名称中文名称，is_party_natural_person 等于0时为人名，等于1时为公司名',
+  `is_party_natural_person` tinyint(1) DEFAULT NULL COMMENT '是否当事人为自然人，1=自然人，0=非自然人',
+  `party_company_id` bigint DEFAULT NULL COMMENT '当事人公司id，is_party_natural_person = 0 时有值',
+  `party_company_person_id` bigint DEFAULT NULL COMMENT '当事人个人id，is_party_natural_person = 1 时有值',
+  `is_applicant` tinyint(1) DEFAULT NULL COMMENT '是否申请人，1=申请人，0=非申请人',
+  `is_agent` tinyint(1) DEFAULT NULL COMMENT '是否代理人，1=代理人，0=非代理人',
+  `address` varchar(200) DEFAULT NULL COMMENT '原始地址',
+  `address_cn` varchar(200) DEFAULT NULL COMMENT '中文地址',
+  `address_en` varchar(200) DEFAULT NULL COMMENT '英文地址',
+  `area_code` varchar(200) DEFAULT NULL COMMENT '区域编码',
+  `data_md5` varchar(32) DEFAULT NULL COMMENT '数据md5,party_name + is_applicant + is_agent',
+  `latest_handle_at` datetime DEFAULT NULL COMMENT '最后处理时间，不代表数据有变动，用来表示数据处理过，但可能无需处理，不影响版本号变动',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `uni_company_ipr_trademark_id__data_md5` (`company_ipr_trademark_id`,`data_md5`) USING BTREE,
+  KEY `company_ipr_trademark_id` (`company_ipr_trademark_id`) USING BTREE,
+  KEY `party_company_id` (`party_company_id`) USING BTREE,
+  KEY `party_company_person_id` (`party_company_person_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权商标当事人表';

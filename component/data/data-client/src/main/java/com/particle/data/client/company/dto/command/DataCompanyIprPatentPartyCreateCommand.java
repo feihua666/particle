@@ -22,8 +22,8 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand {
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业知识产权专利id 不能为空")
+    @Schema(description = "企业知识产权专利id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
     @NotEmpty(message = "当事人名称原始名称 不能为空")
@@ -91,6 +91,9 @@ public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand 
 	@Schema(description = "代码，主要是代理机构代码")
 	private String code;
 
+	@Schema(description = "排序,默认按该字段升序排序")
+	private Integer seq;
+
     @NotEmpty(message = "数据md5 不能为空")
     @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
     private String dataMd5;
@@ -115,6 +118,7 @@ public class DataCompanyIprPatentPartyCreateCommand extends AbstractBaseCommand 
         command.areaCode = dataCompanyBasicWarehouseCommand.getAreaCode();
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
         command.code = dataCompanyBasicWarehouseCommand.getCode();
+        command.seq = dataCompanyBasicWarehouseCommand.getSeq();
         command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 

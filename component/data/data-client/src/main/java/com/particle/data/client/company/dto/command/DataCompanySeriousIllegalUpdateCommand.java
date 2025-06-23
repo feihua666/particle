@@ -68,6 +68,9 @@ public class DataCompanySeriousIllegalUpdateCommand extends AbstractBaseUpdateCo
     @Schema(description = "作出移除决定机关名称")
     private String removeInstituteName;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanySeriousIllegalUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanySeriousIllegalWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanySeriousIllegalUpdateCommand command = new DataCompanySeriousIllegalUpdateCommand();
         command.setId(id);
@@ -84,6 +87,7 @@ public class DataCompanySeriousIllegalUpdateCommand extends AbstractBaseUpdateCo
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();
         command.removeInstituteName = dataCompanyBasicWarehouseCommand.getRemoveInstituteName();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

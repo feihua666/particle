@@ -17,7 +17,7 @@ public class CompanyNameCheckTool {
     // 正则表达式匹配常见企业后缀（中文和英文）
     private static String chineseSuffix = "有限公司|有限责任公司|股份有限公司|集团有限公司|集团股份有限公司|个体工商戶|个体工商户|个体经营|"
             + "经营部|工作室|店|商行|协会|联合会|基金会|促进会|中心|研究所|研究院|学院|大学|学会|委员会|"
-            + "股份有限公司|有限公?司|企業|集團|實業|社|医院|学校|合作社|合伙企業|無限公司|控股集团";
+            + "股份有限公司|有限公?司|企業|集團|實業|社|医院|学校|合作社|合伙企業|無限公司|控股集团|事务所";
 
     private static String englishSuffix = "(Co\\.,?\\s*Ltd\\.?|Ltd\\.?|Inc\\.?|Corp\\.?|LLC|GmbH|B\\.V\\.|S\\.A\\.|"
             + "Company\\s+Limited|Limited|Enterprises|Holdings|Group|国际|Global|Technologies|Tech|"
@@ -37,7 +37,14 @@ public class CompanyNameCheckTool {
             return false;
         }
         Matcher matcher = pattern.matcher(name.trim());
-        return matcher.matches();
+        boolean result = matcher.matches();
+        if (!result) {
+            // 如果有中文括号去掉再检查，如：北京市xx知识产权代理事务所（普通合伙），直接使用 北京市xx知识产权代理事务所 去匹配
+            name = name.replaceAll("[（(][^)）]*[)）]", "");
+            matcher = pattern.matcher(name.trim());
+            result = matcher.matches();
+        }
+        return result;
     }
 
     public static void main(String[] args) {
@@ -53,7 +60,10 @@ public class CompanyNameCheckTool {
                 "Example Co., Ltd.",       // 英文企业
                 "Test GmbH",               // 德国企业
                 "Invalid Name",             // 无效名称
-                "商业银行"             // 简称
+                "商业银行",             // 简称 无效
+                "北京市xx知识产权代理事务所",             // 事务所
+                "北京市xx知识产权代理事务所（普通合伙）",             // 事务所
+                "北京市xx知识产权代理事务所(普通合伙)",             // 事务所
         };
 
         for (String testCase : testCases) {

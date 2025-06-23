@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -60,6 +61,9 @@ public class DataCompanyHonorQualificationUpdateCommand extends AbstractBaseUpda
     @Schema(description = "发布标题")
     private String publishTitle;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyHonorQualificationUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyHonorQualificationWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyHonorQualificationUpdateCommand command = new DataCompanyHonorQualificationUpdateCommand();
         command.setId(id);
@@ -73,6 +77,7 @@ public class DataCompanyHonorQualificationUpdateCommand extends AbstractBaseUpda
         command.certificateNo = dataCompanyBasicWarehouseCommand.getCertificateNo();
         command.publishOffice = dataCompanyBasicWarehouseCommand.getPublishOffice();
         command.publishTitle = dataCompanyBasicWarehouseCommand.getPublishTitle();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -92,6 +93,12 @@ public class DataCompanyIprPatentPartyUpdateCommand extends AbstractBaseUpdateCo
 	@Schema(description = "代码，主要是代理机构代码")
 	private String code;
 
+	@Schema(description = "排序,默认按该字段升序排序")
+	private Integer seq;
+
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyIprPatentPartyUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyIprPatentPartyWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyIprPatentPartyUpdateCommand command = new DataCompanyIprPatentPartyUpdateCommand();
         command.setId(id);
@@ -114,6 +121,8 @@ public class DataCompanyIprPatentPartyUpdateCommand extends AbstractBaseUpdateCo
         command.areaCode = dataCompanyBasicWarehouseCommand.getAreaCode();
         command.typeName = dataCompanyBasicWarehouseCommand.getTypeName();
         command.code = dataCompanyBasicWarehouseCommand.getCode();
+        command.seq = dataCompanyBasicWarehouseCommand.getSeq();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

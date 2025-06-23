@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -67,6 +68,9 @@ public class DataCompanyVcFinancingUpdateCommand extends AbstractBaseUpdateComma
     @Schema(description = "报道快照链接地址")
     private String publishSnapshotUrl;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyVcFinancingUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyVcFinancingWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyVcFinancingUpdateCommand command = new DataCompanyVcFinancingUpdateCommand();
         command.setId(id);
@@ -84,6 +88,7 @@ public class DataCompanyVcFinancingUpdateCommand extends AbstractBaseUpdateComma
         command.publishTitle = dataCompanyBasicWarehouseCommand.getPublishTitle();
         command.publishUrl = dataCompanyBasicWarehouseCommand.getPublishUrl();
         command.publishSnapshotUrl = dataCompanyBasicWarehouseCommand.getPublishSnapshotUrl();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

@@ -21,8 +21,8 @@ public class AgiVectorStoreRawDocumentSegmentCreateCommand extends AbstractBaseC
 
 
 
-    @NotNull(message = "知识存储原始文档表id 不能为空")
-        @Schema(description = "知识存储原始文档表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "知识存储原始文档id 不能为空")
+        @Schema(description = "知识存储原始文档id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long agiVectorStoreRawDocumentId;
 
 

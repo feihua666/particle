@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -91,6 +92,9 @@ public class DataCompanyIprPatentContentUpdateCommand extends AbstractBaseUpdate
 	@Schema(description = "中文权利要求书地址")
 	private String claimContentCnUrl;
 
+	@NotEmpty(message = "数据md5 不能为空")
+	@Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+	private String dataMd5;
     public static DataCompanyIprPatentContentUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyIprPatentContentWarehouseCommand dataCompanyIprPatentContentWarehouseCommand){
         DataCompanyIprPatentContentUpdateCommand command = new DataCompanyIprPatentContentUpdateCommand();
         command.setId(id);
@@ -117,6 +121,7 @@ public class DataCompanyIprPatentContentUpdateCommand extends AbstractBaseUpdate
 		command.claimContentUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentUrl();
 		command.claimContentEnUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentEnUrl();
 		command.claimContentCnUrl = dataCompanyIprPatentContentWarehouseCommand.getClaimContentCnUrl();
+		command.dataMd5 = dataCompanyIprPatentContentWarehouseCommand.obtainDataMd5();
 
         return command;
     }

@@ -165,12 +165,12 @@ public class DataCompanyDiscreditedJudgmentDebtor extends AggreateRoot {
     public void initForAdd() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
     public void initForUpdate() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
 
     public void initDataMd5() {

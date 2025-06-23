@@ -24,8 +24,8 @@ public class DataCompanyAbnormalCreateCommand extends AbstractBaseCommand {
 
 
 
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业id 不能为空")
+        @Schema(description = "企业id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyId;
 
 	@Schema(description = "企业名称")
@@ -93,7 +93,7 @@ public class DataCompanyAbnormalCreateCommand extends AbstractBaseCommand {
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();
         command.removeInstituteName = dataCompanyBasicWarehouseCommand.getRemoveInstituteName();
-        command.dataMd5 = dataCompanyBasicWarehouseCommand.getDataMd5();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

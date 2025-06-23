@@ -1,0 +1,95 @@
+package com.particle.data.app.company.executor.warehouse;
+
+import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.data.app.company.executor.DataCompanyDeliveryAnnouncementContentCreateCommandExecutor;
+import com.particle.data.app.company.executor.DataCompanyDeliveryAnnouncementContentUpdateCommandExecutor;
+import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor;
+import com.particle.data.client.company.dto.command.DataCompanyDeliveryAnnouncementContentCreateCommand;
+import com.particle.data.client.company.dto.command.DataCompanyDeliveryAnnouncementContentUpdateCommand;
+import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand;
+import com.particle.data.client.company.dto.command.warehouse.DataCompanyDeliveryAnnouncementContentWarehouseCommand;
+import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyDeliveryAnnouncementContentExWarehouseVO;
+import com.particle.data.infrastructure.company.service.IDataCompanyDeliveryAnnouncementContentService;
+import com.particle.global.dto.response.SingleResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * <p>
+ * 企业送达公告内容入库 指令执行器
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-07 11:14:10
+ */
+@Component
+@Validated
+public class DataCompanyDeliveryAnnouncementContentWarehouseCommandExecutor extends AbstractBaseExecutor {
+
+	private DataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor;
+	private DataCompanyDeliveryAnnouncementContentCreateCommandExecutor dataCompanyDeliveryAnnouncementContentCreateCommandExecutor;
+	private IDataCompanyDeliveryAnnouncementContentService iDataCompanyDeliveryAnnouncementContentService;
+	private DataCompanyDeliveryAnnouncementContentUpdateCommandExecutor dataCompanyDeliveryAnnouncementContentUpdateCommandExecutor;
+
+
+	/**
+	 * 企业送达公告内容入库
+	 * @param dataCompanyDeliveryAnnouncementContentWarehouseCommand
+	 * @return
+	 */
+	public SingleResponse<DataCompanyDeliveryAnnouncementContentExWarehouseVO> warehouse(DataCompanyDeliveryAnnouncementContentWarehouseCommand dataCompanyDeliveryAnnouncementContentWarehouseCommand) {
+		DataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand dataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand = DataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand.create(dataCompanyDeliveryAnnouncementContentWarehouseCommand.getCompanyDeliveryAnnouncementId());
+		SingleResponse<DataCompanyDeliveryAnnouncementContentExWarehouseVO> dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse = dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor.exWarehouse(dataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand);
+		DataCompanyDeliveryAnnouncementContentExWarehouseVO dataCompanyDeliveryAnnouncementContentExWarehouseVO = dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse.getData();
+		// 不存在，添加
+        if (dataCompanyDeliveryAnnouncementContentExWarehouseVO == null) {
+			DataCompanyDeliveryAnnouncementContentCreateCommand dataCompanyDeliveryAnnouncementContentCreateCommand = DataCompanyDeliveryAnnouncementContentCreateCommand.createByWarehouseCommand(dataCompanyDeliveryAnnouncementContentWarehouseCommand);
+			dataCompanyDeliveryAnnouncementContentCreateCommandExecutor.execute(dataCompanyDeliveryAnnouncementContentCreateCommand);
+			// 新增后重新查询，返回最新数据
+			dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse = dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor.exWarehouse(dataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand);
+			return dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse;
+		}else {
+			// 	存在，尝试入库
+			// 仅更新有变化的字段，将相同的字段设置为null不更新
+			dataCompanyDeliveryAnnouncementContentWarehouseCommand.compareAndSetNullWhenEquals(dataCompanyDeliveryAnnouncementContentExWarehouseVO);
+
+			// 判断是否所有字段都为空，所有字段都没有变化，不需要更新
+			if (dataCompanyDeliveryAnnouncementContentWarehouseCommand.allFieldEmpty()) {
+				// 更新最后处理时间
+				iDataCompanyDeliveryAnnouncementContentService.updateLatestHandleAt(dataCompanyDeliveryAnnouncementContentExWarehouseVO.getId());
+				// 如果没有需要更新的字段，则直接返回
+				return dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse;
+			} else {
+				// 更新处理
+				DataCompanyDeliveryAnnouncementContentUpdateCommand dataCompanyDeliveryAnnouncementContentUpdateCommand = DataCompanyDeliveryAnnouncementContentUpdateCommand.createByWarehouseCommand(
+						dataCompanyDeliveryAnnouncementContentExWarehouseVO.getId(),
+						dataCompanyDeliveryAnnouncementContentExWarehouseVO.getVersion(),
+						dataCompanyDeliveryAnnouncementContentWarehouseCommand
+				);
+				dataCompanyDeliveryAnnouncementContentUpdateCommandExecutor.execute(dataCompanyDeliveryAnnouncementContentUpdateCommand);
+			}
+
+			// 更新完成后，新增的情况已经在新增逻辑里面直接返回了，查询返回
+			dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse = dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor.exWarehouse(dataCompanyDeliveryAnnouncementContentExWarehouseQueryCommand);
+			return dataCompanyDeliveryAnnouncementContentExWarehouseVOSingleResponse;
+		}
+	}
+
+	@Autowired
+	public void setDataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor(DataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor) {
+		this.dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor = dataCompanyDeliveryAnnouncementContentExWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyDeliveryAnnouncementContentCreateCommandExecutor(DataCompanyDeliveryAnnouncementContentCreateCommandExecutor dataCompanyDeliveryAnnouncementContentCreateCommandExecutor) {
+		this.dataCompanyDeliveryAnnouncementContentCreateCommandExecutor = dataCompanyDeliveryAnnouncementContentCreateCommandExecutor;
+	}
+	@Autowired
+	public void setiDataCompanyDeliveryAnnouncementContentService(IDataCompanyDeliveryAnnouncementContentService iDataCompanyDeliveryAnnouncementContentService) {
+		this.iDataCompanyDeliveryAnnouncementContentService = iDataCompanyDeliveryAnnouncementContentService;
+	}
+	@Autowired
+	public void setDataCompanyDeliveryAnnouncementContentUpdateCommandExecutor(DataCompanyDeliveryAnnouncementContentUpdateCommandExecutor dataCompanyDeliveryAnnouncementContentUpdateCommandExecutor) {
+		this.dataCompanyDeliveryAnnouncementContentUpdateCommandExecutor = dataCompanyDeliveryAnnouncementContentUpdateCommandExecutor;
+	}
+}

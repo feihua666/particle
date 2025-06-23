@@ -1,5 +1,6 @@
 package com.particle.data.app.company.executor.warehousewrap;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.data.app.company.executor.warehouse.DataCompanyIprPatentPartyWarehouseCommandExecutor;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentPartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentPartyExWarehouseVO;
@@ -56,8 +57,9 @@ public class DataCompanyIprPatentPartyWrapWarehouseCommandExecutor extends Abstr
      * @param dataCompanyIprPatentPartyWarehouseCommand
      */
     private void fillCompanyId(DataCompanyIprPatentPartyWarehouseCommand dataCompanyIprPatentPartyWarehouseCommand) {
-        String partyNameCn = dataCompanyIprPatentPartyWarehouseCommand.getPartyNameCn();
-        NaturePerson naturePerson = checkNaturePerson(partyNameCn,
+        String partyName = dataCompanyIprPatentPartyWarehouseCommand.getPartyName();
+        NaturePerson naturePerson = checkNaturePerson(partyName,
+                StrUtil.emptyToNull(dataCompanyIprPatentPartyWarehouseCommand.getPartyNameEn()),
                 dataCompanyIprPatentPartyWarehouseCommand.getPartyCompanyId(),
                 dataCompanyIprPatentPartyWarehouseCommand.getPartyCompanyPersonId(),
                 dataCompanyIprPatentPartyWarehouseCommand.getIsPartyNaturalPerson());

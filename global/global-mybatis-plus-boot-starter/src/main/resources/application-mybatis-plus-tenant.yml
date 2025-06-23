@@ -94,6 +94,7 @@ particle:
       # 数据相关
       - component_data_company
       - component_data_company_abnormal
+      - component_data_company_administrative_license
       - component_data_company_annual_report
       - component_data_company_annual_report_administrative_license
       - component_data_company_annual_report_assets
@@ -110,8 +111,16 @@ particle:
       - component_data_company_court_announcement
       - component_data_company_court_announcement_content
       - component_data_company_court_announcement_party
+      - component_data_company_delivery_announcement
+      - component_data_company_delivery_announcement_content
+      - component_data_company_delivery_announcement_party
       - component_data_company_discredited_judgment_debtor
+      - component_data_company_end_case
+      - component_data_company_equity_pledge
       - component_data_company_honor_qualification
+      - component_data_company_ipr_geogra
+      - component_data_company_ipr_geogra_approve_announcement
+      - component_data_company_ipr_integrated_circuit
       - component_data_company_ipr_patent
       - component_data_company_ipr_patent_certificate
       - component_data_company_ipr_patent_cited
@@ -126,6 +135,18 @@ particle:
       - component_data_company_ipr_patent_quote
       - component_data_company_ipr_patent_statistic
       - component_data_company_ipr_patent_transfer
+      - component_data_company_ipr_plant_variety
+      - component_data_company_ipr_plant_variety_change
+      - component_data_company_ipr_pledge
+      - component_data_company_ipr_software_copyright
+      - component_data_company_ipr_trademark
+      - component_data_company_ipr_trademark_license
+      - component_data_company_ipr_trademark_license_person
+      - component_data_company_ipr_trademark_party
+      - component_data_company_ipr_trademark_pledge
+      - component_data_company_ipr_trademark_transfer
+      - component_data_company_ipr_trademark_transfer_person
+      - component_data_company_ipr_work_copyright
       - component_data_company_judgment_debtor
       - component_data_company_judgment_document
       - component_data_company_judgment_document_content
@@ -135,11 +156,14 @@ particle:
       - component_data_company_open_court_announcement_content
       - component_data_company_open_court_announcement_party
       - component_data_company_person
+      - component_data_company_prime_staff
+      - component_data_company_prime_staff_position
       - component_data_company_punishment
       - component_data_company_restrict_high_consume
       - component_data_company_restrict_high_consume_party
       - component_data_company_serious_illegal
       - component_data_company_shareholder
+      - component_data_company_spot_check
       - component_data_company_statistic
       - component_data_company_vc_financing
       - component_data_company_vc_financing_invest_institution_rel

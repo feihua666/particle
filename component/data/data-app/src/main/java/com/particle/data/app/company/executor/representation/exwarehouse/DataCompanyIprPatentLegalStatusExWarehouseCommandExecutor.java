@@ -51,11 +51,11 @@ public class DataCompanyIprPatentLegalStatusExWarehouseCommandExecutor extends A
 	}
 	/**
 	 * 企业知识产权专利法律状态出库
-	 * @param companyCaseFilingIds
+	 * @param companyIprPatentIds
 	 * @return
 	 */
-	public MultiResponse<DataCompanyIprPatentLegalStatusExWarehouseVO> exWarehouseByCompanyIprPatentIds(List<Long> companyCaseFilingIds) {
-		List<DataCompanyIprPatentLegalStatusDO> dataCompanyIprPatentLegalStatusDOList = iDataCompanyIprPatentLegalStatusService.listByCompanyIprPatentIds(companyCaseFilingIds);
+	public MultiResponse<DataCompanyIprPatentLegalStatusExWarehouseVO> exWarehouseByCompanyIprPatentIds(List<Long> companyIprPatentIds) {
+		List<DataCompanyIprPatentLegalStatusDO> dataCompanyIprPatentLegalStatusDOList = iDataCompanyIprPatentLegalStatusService.listByCompanyIprPatentIds(companyIprPatentIds);
 		if (CollectionUtil.isEmpty(dataCompanyIprPatentLegalStatusDOList)) {
 			return MultiResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		}

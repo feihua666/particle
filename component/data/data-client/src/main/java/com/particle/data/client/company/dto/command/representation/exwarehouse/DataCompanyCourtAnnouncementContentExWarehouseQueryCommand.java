@@ -18,8 +18,8 @@ import lombok.Data;
 @Schema
 public class DataCompanyCourtAnnouncementContentExWarehouseQueryCommand extends AbstractBaseQueryCommand {
 
-    @NotNull(message = "法院公告表id 不能为空")
-    @Schema(description = "法院公告表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "法院公告id 不能为空")
+    @Schema(description = "法院公告id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyCourtAnnouncementId;
 
     public static DataCompanyCourtAnnouncementContentExWarehouseQueryCommand create(Long companyCourtAnnouncementId) {

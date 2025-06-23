@@ -42,12 +42,28 @@ public class DataCompanyAllWrapWarehouseCommandExecutor extends AbstractBaseWrap
 	private DataCompanyVcProductWrapWarehouseCommandExecutor dataCompanyVcProductWrapWarehouseCommandExecutor;
 	private DataCompanyVcInvestInstitutionWrapWarehouseCommandExecutor dataCompanyVcInvestInstitutionWrapWarehouseCommandExecutor;
 	private DataCompanyAbnormalWrapWarehouseCommandExecutor dataCompanyAbnormalWrapWarehouseCommandExecutor;
+
+	private DataCompanyIprTrademarkAllWrapWarehouseCommandExecutor dataCompanyIprTrademarkAllWrapWarehouseCommandExecutor;
+	private DataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor dataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor;
+	private DataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor dataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor;
+	private DataCompanyIprGeograWrapWarehouseCommandExecutor dataCompanyIprGeograWrapWarehouseCommandExecutor;
+	private DataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor dataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor;
+	private DataCompanyIprPlantVarietyWrapWarehouseCommandExecutor dataCompanyIprPlantVarietyWrapWarehouseCommandExecutor;
+
+
+	private DataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor dataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor;
+	private DataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor dataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor;
+	private DataCompanyEndCaseWrapWarehouseCommandExecutor dataCompanyEndCaseWrapWarehouseCommandExecutor;
+	private DataCompanyEquityPledgeWrapWarehouseCommandExecutor dataCompanyEquityPledgeWrapWarehouseCommandExecutor;
+	private DataCompanyIprPledgeWrapWarehouseCommandExecutor dataCompanyIprPledgeWrapWarehouseCommandExecutor;
+	private DataCompanyPrimeStaffWrapWarehouseCommandExecutor dataCompanyPrimeStaffWrapWarehouseCommandExecutor;
+	private DataCompanySpotCheckWrapWarehouseCommandExecutor dataCompanySpotCheckWrapWarehouseCommandExecutor;
 	/**
 	 * 企业全貌全部入库
 	 * @param dataCompanyAllExWarehouseVOPageResponse
 	 * @return
 	 */
-	public void warehouse(SingleResponse<DataCompanyAllExWarehouseVO> dataCompanyAllExWarehouseVOPageResponse) {
+	public void warehouse(SingleResponse<DataCompanyAllExWarehouseVO> dataCompanyAllExWarehouseVOPageResponse,Long paramCompanyId) {
 		DataCompanyAllExWarehouseVO dataCompanyAllExWarehouseVO = dataCompanyAllExWarehouseVOPageResponse.getData();
 		if (dataCompanyAllExWarehouseVO == null) {
 			return;
@@ -58,6 +74,9 @@ public class DataCompanyAllWrapWarehouseCommandExecutor extends AbstractBaseWrap
 		DataCompanyExWarehouseVO dataCompanyExWarehouseVO = warehouseCompany(DataCompanyWarehouseCommand.createByDataCompanyExWarehouseVO(companyUnique));
 		Long companyId = dataCompanyExWarehouseVO == null ? null : dataCompanyExWarehouseVO.getId();
 
+		if (companyId == null) {
+			companyId = paramCompanyId;
+		}
 		// 企业基本信息
 		DataCompanyBasicExWarehouseVO basic = dataCompanyAllExWarehouseVO.getBasic();
 		if (basic != null && basic.getCompanyId() == null) {
@@ -238,6 +257,7 @@ public class DataCompanyAllWrapWarehouseCommandExecutor extends AbstractBaseWrap
 		if (vcInvestInstitution != null && vcInvestInstitution.getCompanyId() == null) {
 			vcInvestInstitution.setCompanyId(companyId);
 		}
+		dataCompanyVcInvestInstitutionWrapWarehouseCommandExecutor.warehouse(SingleResponse.of(vcInvestInstitution));
 
 		// 企业经营异常信息
 		List<DataCompanyAbnormalExWarehouseVO> abnormals = dataCompanyAllExWarehouseVO.getAbnormals();
@@ -253,8 +273,174 @@ public class DataCompanyAllWrapWarehouseCommandExecutor extends AbstractBaseWrap
 		Integer abnormalCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getAbnormalCount());
 		dataCompanyAbnormalWrapWarehouseCommandExecutor.warehouse(PageResponse.of(abnormals,abnormalCount,CollectionUtil.emptyIfNull(abnormals).size(),1));
 
+		// 企业商标信息
+		List<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarks = dataCompanyAllExWarehouseVO.getIprTrademarkAlls();
 
-		dataCompanyVcInvestInstitutionWrapWarehouseCommandExecutor.warehouse(SingleResponse.of(vcInvestInstitution));
+		// 企业商标信息总数
+		Integer iprTrademarkCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprTrademarkAllCount());
+		dataCompanyIprTrademarkAllWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprTrademarks, iprTrademarkCount, CollectionUtil.emptyIfNull(iprTrademarks).size(), 1));
+
+		// 企业软件著作权信息
+		List<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrights = dataCompanyAllExWarehouseVO.getIprSoftwareCopyrights();
+		if (iprSoftwareCopyrights != null) {
+			for (DataCompanyIprSoftwareCopyrightExWarehouseVO iprSoftwareCopyright : iprSoftwareCopyrights) {
+				if (iprSoftwareCopyright != null && iprSoftwareCopyright.getCopyrightOwnerCompanyId() == null) {
+					iprSoftwareCopyright.setCopyrightOwnerCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业软件著作权信息总数
+		Integer iprSoftwareCopyrightCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprSoftwareCopyrightCount());
+		dataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprSoftwareCopyrights, iprSoftwareCopyrightCount, CollectionUtil.emptyIfNull(iprSoftwareCopyrights).size(), 1));
+
+		// 企业作品著作权信息
+		List<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrights = dataCompanyAllExWarehouseVO.getIprWorkCopyrights();
+		if (iprWorkCopyrights != null) {
+			for (DataCompanyIprWorkCopyrightExWarehouseVO iprWorkCopyright : iprWorkCopyrights) {
+				if (iprWorkCopyright != null && iprWorkCopyright.getCopyrightOwnerCompanyId() == null) {
+					iprWorkCopyright.setCopyrightOwnerCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业作品著作权信息总数
+		Integer iprWorkCopyrightCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprWorkCopyrightCount());
+		dataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprWorkCopyrights, iprWorkCopyrightCount, CollectionUtil.emptyIfNull(iprWorkCopyrights).size(), 1));
+
+		// 企业地理标志信息
+		List<DataCompanyIprGeograExWarehouseVO> iprGeogras = dataCompanyAllExWarehouseVO.getIprGeogras();
+		if (iprGeogras != null) {
+			for (DataCompanyIprGeograExWarehouseVO iprGeograItem : iprGeogras) {
+				if (iprGeograItem != null && iprGeograItem.getApplicantNameCompanyId() == null) {
+					iprGeograItem.setApplicantNameCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业地理标志信息总数
+		Integer iprGeograCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprGeograCount());
+		dataCompanyIprGeograWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprGeogras, iprGeograCount, CollectionUtil.emptyIfNull(iprGeogras).size(), 1));
+
+		// 企业集成电路布图设计信息
+		List<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuits = dataCompanyAllExWarehouseVO.getIprIntegratedCircuits();
+		if (iprIntegratedCircuits != null) {
+			for (DataCompanyIprIntegratedCircuitExWarehouseVO iprIntegratedCircuit : iprIntegratedCircuits) {
+				if (iprIntegratedCircuit != null && iprIntegratedCircuit.getRightHolderCompanyId() == null) {
+					iprIntegratedCircuit.setRightHolderCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业集成电路布图设计信息总数
+		Integer iprIntegratedCircuitCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprIntegratedCircuitCount());
+		dataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprIntegratedCircuits, iprIntegratedCircuitCount, CollectionUtil.emptyIfNull(iprIntegratedCircuits).size(), 1));
+
+		// 企业植物新品种信息
+		List<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarieties = dataCompanyAllExWarehouseVO.getIprPlantVarieties();
+		if (iprPlantVarieties != null) {
+			for (DataCompanyIprPlantVarietyExWarehouseVO iprPlantVariety : iprPlantVarieties) {
+				if (iprPlantVariety != null && iprPlantVariety.getApplicantNameCompanyId() == null) {
+					iprPlantVariety.setApplicantNameCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业植物新品种信息总数
+		Integer iprPlantVarietyCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprPlantVarietyCount());
+
+	// 企业行政许可信息
+		List<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicenses = dataCompanyAllExWarehouseVO.getAdministrativeLicenses();
+		if (administrativeLicenses != null) {
+			for (DataCompanyAdministrativeLicenseExWarehouseVO administrativeLicense : administrativeLicenses) {
+				if (administrativeLicense != null && administrativeLicense.getCompanyId() == null) {
+					administrativeLicense.setCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业行政许可信息总数
+		Integer administrativeLicenseCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getAdministrativeLicenseCount());
+		dataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor.warehouse(PageResponse.of(administrativeLicenses, administrativeLicenseCount, CollectionUtil.emptyIfNull(administrativeLicenses).size(), 1));
+
+		// 企业送达公告信息
+		List<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncements = dataCompanyAllExWarehouseVO.getDeliveryAnnouncements();
+
+		// 企业送达公告信息总数
+		Integer deliveryAnnouncementCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getDeliveryAnnouncementCount());
+		dataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor.warehouse(PageResponse.of(deliveryAnnouncements, deliveryAnnouncementCount, CollectionUtil.emptyIfNull(deliveryAnnouncements).size(), 1));
+
+		// 企业终本案件信息
+		List<DataCompanyEndCaseExWarehouseVO> endCases = dataCompanyAllExWarehouseVO.getEndCases();
+		if (endCases != null) {
+			for (DataCompanyEndCaseExWarehouseVO endCase : endCases) {
+				if (endCase != null && endCase.getExecutedPersonCompanyId() == null) {
+					endCase.setExecutedPersonCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业终本案件信息总数
+		Integer endCaseCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getEndCaseCount());
+		dataCompanyEndCaseWrapWarehouseCommandExecutor.warehouse(PageResponse.of(endCases, endCaseCount, CollectionUtil.emptyIfNull(endCases).size(), 1));
+
+		// 企业股权质押信息
+		List<DataCompanyEquityPledgeExWarehouseVO> equityPledges = dataCompanyAllExWarehouseVO.getEquityPledges();
+		if (equityPledges != null) {
+			for (DataCompanyEquityPledgeExWarehouseVO equityPledge : equityPledges) {
+				if (equityPledge != null && equityPledge.getCompanyId() == null) {
+					equityPledge.setCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业股权质押信息总数
+		Integer equityPledgeCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getEquityPledgeCount());
+		dataCompanyEquityPledgeWrapWarehouseCommandExecutor.warehouse(PageResponse.of(equityPledges, equityPledgeCount, CollectionUtil.emptyIfNull(equityPledges).size(), 1));
+
+		// 企业知识产权质押信息
+		List<DataCompanyIprPledgeExWarehouseVO> iprPledges = dataCompanyAllExWarehouseVO.getIprPledges();
+		if (iprPledges != null) {
+			for (DataCompanyIprPledgeExWarehouseVO iprPledge : iprPledges) {
+				if (iprPledge != null && iprPledge.getCompanyId() == null) {
+					iprPledge.setCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业知识产权质押信息总数
+		Integer iprPledgeCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getIprPledgeCount());
+		dataCompanyIprPledgeWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprPledges, iprPledgeCount, CollectionUtil.emptyIfNull(iprPledges).size(), 1));
+
+		// 企业主要人员信息
+		List<DataCompanyPrimeStaffExWarehouseVO> primeStaffs = dataCompanyAllExWarehouseVO.getPrimeStaffs();
+		if (primeStaffs != null) {
+			for (DataCompanyPrimeStaffExWarehouseVO primeStaff : primeStaffs) {
+				if (primeStaff != null && primeStaff.getCompanyId() == null) {
+					primeStaff.setCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业主要人员信息总数
+		Integer primeStaffCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getPrimeStaffCount());
+		dataCompanyPrimeStaffWrapWarehouseCommandExecutor.warehouse(PageResponse.of(primeStaffs, primeStaffCount, CollectionUtil.emptyIfNull(primeStaffs).size(), 1));
+
+		// 企业抽查检查信息
+		List<DataCompanySpotCheckExWarehouseVO> spotChecks = dataCompanyAllExWarehouseVO.getSpotChecks();
+		if (spotChecks != null) {
+			for (DataCompanySpotCheckExWarehouseVO spotCheck : spotChecks) {
+				if (spotCheck != null && spotCheck.getCompanyId() == null) {
+					spotCheck.setCompanyId(companyId);
+				}
+			}
+		}
+
+		// 企业抽查检查信息总数
+		Integer spotCheckCount = NumberUtil.nullToZero(dataCompanyAllExWarehouseVO.getSpotCheckCount());
+		dataCompanySpotCheckWrapWarehouseCommandExecutor.warehouse(PageResponse.of(spotChecks, spotCheckCount, CollectionUtil.emptyIfNull(spotChecks).size(), 1));
+
+		dataCompanyIprPlantVarietyWrapWarehouseCommandExecutor.warehouse(PageResponse.of(iprPlantVarieties, iprPlantVarietyCount, CollectionUtil.emptyIfNull(iprPlantVarieties).size(), 1));
 
 	}
 
@@ -334,5 +520,57 @@ public class DataCompanyAllWrapWarehouseCommandExecutor extends AbstractBaseWrap
 	@Autowired
 	public void setDataCompanyAbnormalWrapWarehouseCommandExecutor(DataCompanyAbnormalWrapWarehouseCommandExecutor dataCompanyAbnormalWrapWarehouseCommandExecutor) {
 		this.dataCompanyAbnormalWrapWarehouseCommandExecutor = dataCompanyAbnormalWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprTrademarkAllWrapWarehouseCommandExecutor(DataCompanyIprTrademarkAllWrapWarehouseCommandExecutor dataCompanyIprTrademarkAllWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprTrademarkAllWrapWarehouseCommandExecutor = dataCompanyIprTrademarkAllWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor(DataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor dataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor = dataCompanyIprSoftwareCopyrightWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor(DataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor dataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor = dataCompanyIprWorkCopyrightWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprGeograWrapWarehouseCommandExecutor(DataCompanyIprGeograWrapWarehouseCommandExecutor dataCompanyIprGeograWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprGeograWrapWarehouseCommandExecutor = dataCompanyIprGeograWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor(DataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor dataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor = dataCompanyIprIntegratedCircuitWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprPlantVarietyWrapWarehouseCommandExecutor(DataCompanyIprPlantVarietyWrapWarehouseCommandExecutor dataCompanyIprPlantVarietyWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprPlantVarietyWrapWarehouseCommandExecutor = dataCompanyIprPlantVarietyWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor(DataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor dataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor) {
+		this.dataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor = dataCompanyAdministrativeLicenseWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor(DataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor dataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor) {
+		this.dataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor = dataCompanyDeliveryAnnouncementWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyEndCaseWrapWarehouseCommandExecutor(DataCompanyEndCaseWrapWarehouseCommandExecutor dataCompanyEndCaseWrapWarehouseCommandExecutor) {
+		this.dataCompanyEndCaseWrapWarehouseCommandExecutor = dataCompanyEndCaseWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyEquityPledgeWrapWarehouseCommandExecutor(DataCompanyEquityPledgeWrapWarehouseCommandExecutor dataCompanyEquityPledgeWrapWarehouseCommandExecutor) {
+		this.dataCompanyEquityPledgeWrapWarehouseCommandExecutor = dataCompanyEquityPledgeWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyIprPledgeWrapWarehouseCommandExecutor(DataCompanyIprPledgeWrapWarehouseCommandExecutor dataCompanyIprPledgeWrapWarehouseCommandExecutor) {
+		this.dataCompanyIprPledgeWrapWarehouseCommandExecutor = dataCompanyIprPledgeWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanyPrimeStaffWrapWarehouseCommandExecutor(DataCompanyPrimeStaffWrapWarehouseCommandExecutor dataCompanyPrimeStaffWrapWarehouseCommandExecutor) {
+		this.dataCompanyPrimeStaffWrapWarehouseCommandExecutor = dataCompanyPrimeStaffWrapWarehouseCommandExecutor;
+	}
+	@Autowired
+	public void setDataCompanySpotCheckWrapWarehouseCommandExecutor(DataCompanySpotCheckWrapWarehouseCommandExecutor dataCompanySpotCheckWrapWarehouseCommandExecutor) {
+		this.dataCompanySpotCheckWrapWarehouseCommandExecutor = dataCompanySpotCheckWrapWarehouseCommandExecutor;
 	}
 }

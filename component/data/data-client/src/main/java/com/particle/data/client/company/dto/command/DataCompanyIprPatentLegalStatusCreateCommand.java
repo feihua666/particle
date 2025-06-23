@@ -23,8 +23,8 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPate
 public class DataCompanyIprPatentLegalStatusCreateCommand extends AbstractBaseCommand {
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业知识产权专利id 不能为空")
+    @Schema(description = "企业知识产权专利id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
     @Schema(description = "法律状态")

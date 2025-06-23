@@ -1,7 +1,6 @@
 package com.particle.data.client.company.dto.data.exwarehouse;
 
 import com.particle.global.dto.basic.VO;
-import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -127,4 +126,82 @@ public class DataCompanyAllExWarehouseVO extends VO {
 
     @Schema(description = "企业经营异常信息总数")
     private Integer abnormalCount;
+
+    @Schema(description = "企业商标信息")
+    private List<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarkAlls;
+
+    @Schema(description = "企业商标信息总数")
+    private Integer iprTrademarkAllCount;
+
+    @Schema(description = "企业软件著作权信息")
+    private List<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrights;
+
+    @Schema(description = "企业软件著作权信息总数")
+    private Integer iprSoftwareCopyrightCount;
+
+    @Schema(description = "企业作品著作权信息")
+    private List<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrights;
+
+    @Schema(description = "企业作品著作权信息总数")
+    private Integer iprWorkCopyrightCount;
+
+    @Schema(description = "企业地理标志信息")
+    private List<DataCompanyIprGeograExWarehouseVO> iprGeogras;
+
+    @Schema(description = "企业地理标志信息总数")
+    private Integer iprGeograCount;
+
+    @Schema(description = "企业集成电路布图设计信息")
+    private List<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuits;
+
+    @Schema(description = "企业集成电路布图设计信息总数")
+    private Integer iprIntegratedCircuitCount;
+
+    @Schema(description = "企业植物新品种信息")
+    private List<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarieties;
+
+    @Schema(description = "企业植物新品种信息总数")
+    private Integer iprPlantVarietyCount;
+
+    @Schema(description = "企业行政许可信息")
+    private List<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicenses;
+
+    @Schema(description = "企业行政许可信息总数")
+    private Integer administrativeLicenseCount;
+
+    @Schema(description = "企业送达公告信息")
+    private List<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncements;
+
+    @Schema(description = "企业送达公告信息总数")
+    private Integer deliveryAnnouncementCount;
+
+    @Schema(description = "企业终本案件信息")
+    private List<DataCompanyEndCaseExWarehouseVO> endCases;
+
+    @Schema(description = "企业终本案件信息总数")
+    private Integer endCaseCount;
+
+    @Schema(description = "企业股权质押信息")
+    private List<DataCompanyEquityPledgeExWarehouseVO> equityPledges;
+
+    @Schema(description = "企业股权质押信息总数")
+    private Integer equityPledgeCount;
+
+    @Schema(description = "企业知识产权质押信息")
+    private List<DataCompanyIprPledgeExWarehouseVO> iprPledges;
+
+    @Schema(description = "企业知识产权质押信息总数")
+    private Integer iprPledgeCount;
+
+    @Schema(description = "企业主要人员信息")
+    private List<DataCompanyPrimeStaffExWarehouseVO> primeStaffs;
+
+    @Schema(description = "企业主要人员信息总数")
+    private Integer primeStaffCount;
+
+    @Schema(description = "企业抽查检查信息")
+    private List<DataCompanySpotCheckExWarehouseVO> spotChecks;
+
+    @Schema(description = "企业抽查检查信息总数")
+    private Integer spotCheckCount;
 }

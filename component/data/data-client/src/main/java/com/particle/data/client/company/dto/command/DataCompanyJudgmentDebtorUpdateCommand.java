@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -75,7 +76,9 @@ public class DataCompanyJudgmentDebtorUpdateCommand extends AbstractBaseUpdateCo
     @Schema(description = "执行标的金额币种")
     private Long executeAmountCurrencyDictId;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyJudgmentDebtorUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyJudgmentDebtorWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyJudgmentDebtorUpdateCommand command = new DataCompanyJudgmentDebtorUpdateCommand();
         command.setId(id);
@@ -93,6 +96,7 @@ public class DataCompanyJudgmentDebtorUpdateCommand extends AbstractBaseUpdateCo
         command.isFinished = dataCompanyBasicWarehouseCommand.getIsFinished();
         command.executeAmount = dataCompanyBasicWarehouseCommand.getExecuteAmount();
         command.executeAmountCurrencyDictId = dataCompanyBasicWarehouseCommand.getExecuteAmountCurrencyDictId();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

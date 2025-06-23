@@ -22,9 +22,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyStatist
 public class DataCompanyStatisticUpdateCommand extends AbstractBaseUpdateCommand {
 
 
-
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业id")
     private Long companyId;
 
 

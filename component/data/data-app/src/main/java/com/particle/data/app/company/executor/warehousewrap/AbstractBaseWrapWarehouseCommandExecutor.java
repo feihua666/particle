@@ -111,6 +111,24 @@ public class AbstractBaseWrapWarehouseCommandExecutor extends AbstractBaseQueryE
     }
     /**
      * 入库
+     * @param companyName
+     * @param companyUscc
+     * @return
+     */
+    public DataCompanyExWarehouseVO warehouseCompany(String companyName,String companyUscc,String regNo,String orgCode) {
+        return warehouseCompany(DataCompanyWarehouseCommand.create(companyName, companyUscc,regNo,orgCode));
+    }
+    /**
+     * 入库
+     * @param companyName
+     * @param companyUscc
+     * @return
+     */
+    public DataCompanyExWarehouseVO warehouseCompany(String companyName,String companyUscc,String regNo,String orgCode,String enName) {
+        return warehouseCompany(DataCompanyWarehouseCommand.create(companyName, companyUscc,regNo,orgCode,enName));
+    }
+    /**
+     * 入库
      * @param dataCompanyWarehouseCommand
      * @return
      */
@@ -145,6 +163,24 @@ public class AbstractBaseWrapWarehouseCommandExecutor extends AbstractBaseQueryE
         DataCompanyExWarehouseVO dataCompanyExWarehouseCandidateVO = warehouseCompany(companyName,uscc,regNo);
         return dataCompanyExWarehouseCandidateVO == null ? null : dataCompanyExWarehouseCandidateVO.getId();
     }
+    /**
+     * 入库
+     * @param companyName
+     * @return
+     */
+    public Long warehouseCompanyGetCompanyId(String companyName,String uscc,String regNo,String orgCode) {
+        DataCompanyExWarehouseVO dataCompanyExWarehouseCandidateVO = warehouseCompany(companyName,uscc,regNo,orgCode);
+        return dataCompanyExWarehouseCandidateVO == null ? null : dataCompanyExWarehouseCandidateVO.getId();
+    }
+    /**
+     * 入库
+     * @param companyName
+     * @return
+     */
+    public Long warehouseCompanyGetCompanyId(String companyName,String uscc,String regNo,String orgCode,String enName) {
+        DataCompanyExWarehouseVO dataCompanyExWarehouseCandidateVO = warehouseCompany(companyName,uscc,regNo,orgCode,enName);
+        return dataCompanyExWarehouseCandidateVO == null ? null : dataCompanyExWarehouseCandidateVO.getId();
+    }
 
     /**
      * 统一检测一个字符串是否为自然人或企业，并返回其id
@@ -152,8 +188,21 @@ public class AbstractBaseWrapWarehouseCommandExecutor extends AbstractBaseQueryE
      * @param originCompanyId
      * @param originPersonId
      * @param originNaturePerson
+     * @return
      */
     public NaturePerson checkNaturePerson(String someStr,Long originCompanyId,Long originPersonId,Boolean originNaturePerson) {
+        return checkNaturePerson(someStr, null, originCompanyId, originPersonId, originNaturePerson);
+    }
+
+    /**
+     * 统一检测一个字符串是否为自然人或企业，并返回其id
+     * @param someStr 原始字符串名称
+     * @param someStrEn 原始字符串英文名称
+     * @param originCompanyId
+     * @param originPersonId
+     * @param originNaturePerson
+     */
+    public NaturePerson checkNaturePerson(String someStr,String someStrEn,Long originCompanyId,Long originPersonId,Boolean originNaturePerson) {
         if (StrUtil.isBlank(someStr)) {
             return null;
         }
@@ -180,7 +229,7 @@ public class AbstractBaseWrapWarehouseCommandExecutor extends AbstractBaseQueryE
         // 企业
         else{
             if (companyId == null) {
-                companyId = warehouseCompanyGetCompanyId(someStr);
+                companyId = warehouseCompanyGetCompanyId(someStr,null,null,null,someStrEn);
             }
         }
         return NaturePerson.create(companyId, personId, isNaturePerson);

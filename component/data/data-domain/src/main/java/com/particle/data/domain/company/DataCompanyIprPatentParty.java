@@ -110,6 +110,11 @@ public class DataCompanyIprPatentParty extends AggreateRoot {
 	 */
 	private String code;
 
+	/**
+	 * 排序,默认按该字段升序排序
+	 */
+	private Integer seq;
+
     /**
     * 数据md5,party_name + is_applicant + is_invent + is_agent + is_agency + is_examiner + is_right + is_current_right
     */
@@ -123,12 +128,12 @@ public class DataCompanyIprPatentParty extends AggreateRoot {
     public void initForAdd() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
     public void initForUpdate() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
 
     public void initDataMd5() {

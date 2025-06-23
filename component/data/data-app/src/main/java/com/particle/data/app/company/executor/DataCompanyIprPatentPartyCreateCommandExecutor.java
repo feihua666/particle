@@ -39,6 +39,7 @@ public class DataCompanyIprPatentPartyCreateCommandExecutor  extends AbstractBas
 	 */
 	public SingleResponse<DataCompanyIprPatentPartyVO> execute(@Valid DataCompanyIprPatentPartyCreateCommand dataCompanyIprPatentPartyCreateCommand) {
 		DataCompanyIprPatentParty dataCompanyIprPatentParty = createByDataCompanyIprPatentPartyCreateCommand(dataCompanyIprPatentPartyCreateCommand);
+		dataCompanyIprPatentParty.initForAdd();
 		dataCompanyIprPatentParty.setAddControl(dataCompanyIprPatentPartyCreateCommand);
 		boolean save = dataCompanyIprPatentPartyGateway.save(dataCompanyIprPatentParty);
 		if (save) {

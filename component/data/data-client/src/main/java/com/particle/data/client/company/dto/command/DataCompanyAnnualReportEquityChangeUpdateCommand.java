@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -72,7 +73,9 @@ public class DataCompanyAnnualReportEquityChangeUpdateCommand extends AbstractBa
     @Schema(description = "变更日期")
     private LocalDate changeDate;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyAnnualReportEquityChangeUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAnnualReportEquityChangeWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportEquityChangeUpdateCommand command = new DataCompanyAnnualReportEquityChangeUpdateCommand();
         command.setId(id);
@@ -88,6 +91,7 @@ public class DataCompanyAnnualReportEquityChangeUpdateCommand extends AbstractBa
         command.percentBefore = dataCompanyBasicWarehouseCommand.getPercentBefore();
         command.percentAfter = dataCompanyBasicWarehouseCommand.getPercentAfter();
         command.changeDate = dataCompanyBasicWarehouseCommand.getChangeDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

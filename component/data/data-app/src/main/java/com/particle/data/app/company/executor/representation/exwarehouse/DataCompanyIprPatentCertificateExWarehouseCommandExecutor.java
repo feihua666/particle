@@ -49,11 +49,11 @@ public class DataCompanyIprPatentCertificateExWarehouseCommandExecutor extends A
 	}
 	/**
 	 * 企业知识产权专利证书信息出库
-	 * @param companyCaseFilingIds
+	 * @param companyIprPatentIds
 	 * @return
 	 */
-	public MultiResponse<DataCompanyIprPatentCertificateExWarehouseVO> exWarehouseByCompanyIprPatentIds(List<Long> companyCaseFilingIds) {
-		List<DataCompanyIprPatentCertificateDO> dataCompanyIprPatentCertificateDOList = iDataCompanyIprPatentCertificateService.listByCompanyIprPatentIds(companyCaseFilingIds);
+	public MultiResponse<DataCompanyIprPatentCertificateExWarehouseVO> exWarehouseByCompanyIprPatentIds(List<Long> companyIprPatentIds) {
+		List<DataCompanyIprPatentCertificateDO> dataCompanyIprPatentCertificateDOList = iDataCompanyIprPatentCertificateService.listByCompanyIprPatentIds(companyIprPatentIds);
 		if (CollectionUtil.isEmpty(dataCompanyIprPatentCertificateDOList)) {
 			return MultiResponse.buildFailure(ErrorCodeGlobalEnum.DATA_NOT_FOUND);
 		}

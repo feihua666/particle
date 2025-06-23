@@ -23,10 +23,7 @@ import com.particle.data.client.company.dto.command.warehouse.DataCompanyAbnorma
 @Schema
 public class DataCompanyAbnormalUpdateCommand extends AbstractBaseUpdateCommand {
 
-
-
-    @NotNull(message = "企业表ID 不能为空")
-        @Schema(description = "企业表ID",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "企业id")
     private Long companyId;
 
 	@Schema(description = "企业名称")
@@ -36,14 +33,10 @@ public class DataCompanyAbnormalUpdateCommand extends AbstractBaseUpdateCommand 
     @Schema(description = "列入决定书文号")
     private String putNo;
 
-
-    @NotEmpty(message = "列入异常名录原因 不能为空")
-        @Schema(description = "列入异常名录原因",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入异常名录原因")
     private String putReason;
 
-
-    @NotNull(message = "列入异常名录日期 不能为空")
-        @Schema(description = "列入异常名录日期",requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "列入异常名录日期")
     private LocalDate putDate;
 
 
@@ -74,6 +67,9 @@ public class DataCompanyAbnormalUpdateCommand extends AbstractBaseUpdateCommand 
     @Schema(description = "作出移出决定机关名称")
     private String removeInstituteName;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyAbnormalUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAbnormalWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAbnormalUpdateCommand command = new DataCompanyAbnormalUpdateCommand();
         command.setId(id);
@@ -90,7 +86,7 @@ public class DataCompanyAbnormalUpdateCommand extends AbstractBaseUpdateCommand 
         command.removeDate = dataCompanyBasicWarehouseCommand.getRemoveDate();
         command.removeInstituteCompanyId = dataCompanyBasicWarehouseCommand.getRemoveInstituteCompanyId();
         command.removeInstituteName = dataCompanyBasicWarehouseCommand.getRemoveInstituteName();
-
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

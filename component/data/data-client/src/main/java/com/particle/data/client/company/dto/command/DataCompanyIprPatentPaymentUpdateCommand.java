@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -53,6 +54,10 @@ public class DataCompanyIprPatentPaymentUpdateCommand extends AbstractBaseUpdate
     @Schema(description = "缴费日期")
     private LocalDate payDate;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
+
     public static DataCompanyIprPatentPaymentUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyIprPatentPaymentWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyIprPatentPaymentUpdateCommand command = new DataCompanyIprPatentPaymentUpdateCommand();
         command.setId(id);
@@ -64,6 +69,7 @@ public class DataCompanyIprPatentPaymentUpdateCommand extends AbstractBaseUpdate
         command.payer = dataCompanyBasicWarehouseCommand.getPayer();
         command.handleStatus = dataCompanyBasicWarehouseCommand.getHandleStatus();
         command.payDate = dataCompanyBasicWarehouseCommand.getPayDate();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

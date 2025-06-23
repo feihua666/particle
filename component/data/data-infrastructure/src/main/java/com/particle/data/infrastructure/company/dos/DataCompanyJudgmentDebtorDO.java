@@ -39,12 +39,12 @@ public class DataCompanyJudgmentDebtorDO extends BaseDO {
     private Boolean isExecutedPersonNaturalPerson;
 
     /**
-    * 法人公司id，is_executed_person_natural_person = 0 时有值
+    * 被执行人公司id，is_executed_person_natural_person = 0 时有值
     */
     private Long executedPersonCompanyId;
 
     /**
-    * 法人个人id，is_executed_person_natural_person = 1 时有值
+    * 被执行人个人id，is_executed_person_natural_person = 1 时有值
     */
     private Long executedPersonCompanyPersonId;
 

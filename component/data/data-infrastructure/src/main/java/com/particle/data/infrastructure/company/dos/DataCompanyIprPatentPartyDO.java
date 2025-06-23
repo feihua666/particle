@@ -111,6 +111,11 @@ public class DataCompanyIprPatentPartyDO extends BaseDO {
 	 */
 	private String code;
 
+	/**
+	 * 排序,默认按该字段升序排序
+	 */
+	private Integer seq;
+
     /**
     * 数据md5,party_name + is_applicant + is_invent + is_agent + is_agency + is_examiner + is_right + is_current_right
     */

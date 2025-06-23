@@ -1,0 +1,17 @@
+package com.particle.data.infrastructure.company.mapper;
+
+import com.particle.data.infrastructure.company.dos.DataCompanyPrimeStaffDO;
+import com.particle.global.mybatis.plus.crud.IBaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+/**
+ * <p>
+ * 企业主要人员 Mapper 接口
+ * </p>
+ *
+ * @author yw
+ * @since 2025-06-20 16:18:44
+ */
+@Mapper
+public interface DataCompanyPrimeStaffMapper extends IBaseMapper<DataCompanyPrimeStaffDO> {
+
+}

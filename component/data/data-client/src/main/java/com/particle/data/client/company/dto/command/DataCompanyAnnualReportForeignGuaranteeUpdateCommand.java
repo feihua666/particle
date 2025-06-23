@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -108,7 +109,9 @@ public class DataCompanyAnnualReportForeignGuaranteeUpdateCommand extends Abstra
     @Schema(description = "保证的方式")
     private Long guaranteeTypeDictId;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyAnnualReportForeignGuaranteeUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyAnnualReportForeignGuaranteeWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyAnnualReportForeignGuaranteeUpdateCommand command = new DataCompanyAnnualReportForeignGuaranteeUpdateCommand();
         command.setId(id);
@@ -133,6 +136,7 @@ public class DataCompanyAnnualReportForeignGuaranteeUpdateCommand extends Abstra
         command.guaranteeScope = dataCompanyBasicWarehouseCommand.getGuaranteeScope();
         command.guaranteeTermDictId = dataCompanyBasicWarehouseCommand.getGuaranteeTermDictId();
         command.guaranteeTypeDictId = dataCompanyBasicWarehouseCommand.getGuaranteeTypeDictId();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

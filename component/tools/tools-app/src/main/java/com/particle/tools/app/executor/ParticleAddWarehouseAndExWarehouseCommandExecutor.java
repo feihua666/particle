@@ -35,11 +35,11 @@ public class ParticleAddWarehouseAndExWarehouseCommandExecutor extends AbstractB
 
 	public static void main(String[] args) {
 		AddWarehouseAndExWarehouseCommand addWarehouseAndExWarehouseCommand = new AddWarehouseAndExWarehouseCommand();
-		addWarehouseAndExWarehouseCommand.setDomainName("DataCompanyStatistic");
+		addWarehouseAndExWarehouseCommand.setDomainName("DataCompanyPrimeStaffPosition");
 		addWarehouseAndExWarehouseCommand.setComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
 
 		addWarehouseAndExWarehouseCommand.setTemplateComponentBackendAbsolutePath("/Users/yw/fh/git-source/particle/component/data");
-		addWarehouseAndExWarehouseCommand.setIsSingle(true);
+		addWarehouseAndExWarehouseCommand.setIsSingle(false);
 		new ParticleAddWarehouseAndExWarehouseCommandExecutor().addWarehouseAndExWarehouse(addWarehouseAndExWarehouseCommand);
 	}
 	// 以行政处罚作为分页模板

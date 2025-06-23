@@ -24,8 +24,8 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
 
 
 
-    @NotNull(message = "企业知识产权专利表id 不能为空")
-    @Schema(description = "企业知识产权专利表id",requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "企业知识产权专利id 不能为空")
+    @Schema(description = "企业知识产权专利id",requiredMode = Schema.RequiredMode.REQUIRED)
     private Long companyIprPatentId;
 
 
@@ -95,6 +95,9 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
     @Schema(description = "代码，主要是代理机构代码")
     private String code;
 
+    @Schema(description = "排序,默认按该字段升序排序")
+    private Integer seq;
+
     @Schema(description = "数据md5")
     private String dataMd5;
 
@@ -127,7 +130,8 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
                 && StrUtil.isEmpty(address)
                 && StrUtil.isEmpty(areaCode)
                 && StrUtil.isEmpty(typeName)
-                && StrUtil.isEmpty(code);
+                && StrUtil.isEmpty(code)
+                && Objects.isNull(seq);
     }
 
     /**
@@ -189,6 +193,9 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
         if (Objects.equals(code, exWarehouseVO.getCode())) {
             this.code = null;
         }
+        if (Objects.equals(seq, exWarehouseVO.getSeq())) {
+            this.seq = null;
+        }
     }
 
     public static DataCompanyIprPatentPartyWarehouseCommand createByDataCompanyIprPatentPartyExWarehouseVO(DataCompanyIprPatentPartyExWarehouseVO exWarehouseVO) {
@@ -211,6 +218,7 @@ public class DataCompanyIprPatentPartyWarehouseCommand extends AbstractBaseComma
         command.areaCode = exWarehouseVO.getAreaCode();
         command.typeName = exWarehouseVO.getTypeName();
         command.code = exWarehouseVO.getCode();
+        command.seq = exWarehouseVO.getSeq();
 
 
         return command;

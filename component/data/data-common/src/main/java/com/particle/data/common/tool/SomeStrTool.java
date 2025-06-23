@@ -63,8 +63,18 @@ public class SomeStrTool {
         String result = companyName.replace("(", "（").replace(")", "）");
         return result;
     }
+
     /**
-     * 标准化公司名称
+     * 公司名称是否一致
+     * @param companyName
+     * @param companyName2
+     * @return
+     */
+    public static boolean companyNameEquals(String companyName, String companyName2) {
+        return StrUtil.equals(normalizeCompanyName(companyName), normalizeCompanyName(companyName2));
+    }
+    /**
+     * 标准统一社会信用代码
      * @param uscc
      * @return
      */
@@ -91,6 +101,15 @@ public class SomeStrTool {
         }
         String result = companyEnName.replace("（", "(").replace("）", ")");
         return result;
+    }
+    /**
+     * 公司英文名称是否一致
+     * @param companyName
+     * @param companyName2
+     * @return
+     */
+    public static boolean companyEnNameEquals(String companyName, String companyName2) {
+        return StrUtil.equals(normalizeCompanyEnName(companyName), normalizeCompanyEnName(companyName2));
     }
     /**
      * 标准化注册号

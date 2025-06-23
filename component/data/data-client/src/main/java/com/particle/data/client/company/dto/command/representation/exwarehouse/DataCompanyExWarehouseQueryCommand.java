@@ -1,5 +1,6 @@
 package com.particle.data.client.company.dto.command.representation.exwarehouse;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.AbstractBaseQueryCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyWarehouseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,6 +39,15 @@ public class DataCompanyExWarehouseQueryCommand extends AbstractBaseQueryCommand
 
     @Schema(description = "如果出现多条时的返回策略")
     private String multipleStrategy;
+
+
+    /**
+     * 是否查询条件都为空
+     * @return
+     */
+    public Boolean isQueryConditionAllEmpty() {
+        return id == null && StrUtil.isAllEmpty(name, uscc, regNo, orgCode, enName);
+    }
 
     public static DataCompanyExWarehouseQueryCommand create(Long id) {
         DataCompanyExWarehouseQueryCommand dataCompanyExWarehouseQueryCommand = new DataCompanyExWarehouseQueryCommand();

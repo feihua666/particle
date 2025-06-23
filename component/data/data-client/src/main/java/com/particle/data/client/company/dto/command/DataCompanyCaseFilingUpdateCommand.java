@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -70,7 +71,9 @@ public class DataCompanyCaseFilingUpdateCommand extends AbstractBaseUpdateComman
     @Schema(description = "案件审理程序")
     private String caseTrialProcedure;
 
-
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyCaseFilingUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyCaseFilingWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyCaseFilingUpdateCommand command = new DataCompanyCaseFilingUpdateCommand();
         command.setId(id);
@@ -87,6 +90,7 @@ public class DataCompanyCaseFilingUpdateCommand extends AbstractBaseUpdateComman
         command.undertakeJudger = dataCompanyBasicWarehouseCommand.getUndertakeJudger();
         command.assistant = dataCompanyBasicWarehouseCommand.getAssistant();
         command.caseTrialProcedure = dataCompanyBasicWarehouseCommand.getCaseTrialProcedure();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
 
         return command;

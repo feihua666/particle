@@ -3,6 +3,7 @@ package com.particle.data.client.company.dto.command;
 import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -94,6 +95,9 @@ public class DataCompanyVcInvestInstitutionUpdateCommand extends AbstractBaseUpd
     @Schema(description = "机构介绍")
     private String description;
 
+    @NotEmpty(message = "数据md5 不能为空")
+    @Schema(description = "数据md5",requiredMode = Schema.RequiredMode.REQUIRED)
+    private String dataMd5;
     public static DataCompanyVcInvestInstitutionUpdateCommand createByWarehouseCommand(Long id, Integer version,DataCompanyVcInvestInstitutionWarehouseCommand dataCompanyBasicWarehouseCommand){
         DataCompanyVcInvestInstitutionUpdateCommand command = new DataCompanyVcInvestInstitutionUpdateCommand();
         command.setId(id);
@@ -116,6 +120,7 @@ public class DataCompanyVcInvestInstitutionUpdateCommand extends AbstractBaseUpd
         command.weiboUrl = dataCompanyBasicWarehouseCommand.getWeiboUrl();
         command.wechatNo = dataCompanyBasicWarehouseCommand.getWechatNo();
         command.description = dataCompanyBasicWarehouseCommand.getDescription();
+        command.dataMd5 = dataCompanyBasicWarehouseCommand.obtainDataMd5();
 
         return command;
     }

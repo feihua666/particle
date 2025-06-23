@@ -141,12 +141,12 @@ public class DataCompanyShareholder extends AggreateRoot {
     public void initForAdd() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
     public void initForUpdate() {
         LocalDateTime now = LocalDateTime.now();
         this.latestHandleAt = now;
-        initDataMd5();
+        // initDataMd5();
     }
     public void initDataMd5() {
         this.dataMd5 = SomeMd5Tool.dataCompanyShareholderDataMd5(shareholderName);

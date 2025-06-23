@@ -1,0 +1,72 @@
+package com.particle.data.client.company.dto.data.exwarehouse;
+
+import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.component.light.share.trans.TransConstants;
+import com.particle.global.light.share.trans.anno.TransBy;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 企业知识产权商标当事人 数据响应对象
+ * </p>
+ *
+ * @author yw
+ * @since 2025-04-06 11:53:55
+ */
+@Data
+@Schema
+public class DataCompanyIprTrademarkPartyExWarehouseVO extends AbstractBaseIdVO {
+
+    @Schema(description = "企业知识产权商标表id")
+    private Long companyIprTrademarkId;
+    
+    @Schema(description = "当事人名称原始名称")
+    private String partyName;
+    
+    @Schema(description = "当事人名称英文名称")
+    private String partyNameEn;
+    
+    @Schema(description = "当事人名称中文名称")
+    private String partyNameCn;
+    
+    @Schema(description = "是否当事人为自然人")
+    private Boolean isPartyNaturalPerson;
+    
+    @Schema(description = "当事人公司id")
+    private Long partyCompanyId;
+    
+    @Schema(description = "当事人个人id")
+    private Long partyCompanyPersonId;
+    
+    @Schema(description = "是否申请人")
+    private Boolean isApplicant;
+    
+    @Schema(description = "是否代理人")
+    private Boolean isAgent;
+    
+    @Schema(description = "原始地址")
+    private String address;
+    
+    @Schema(description = "中文地址")
+    private String addressCn;
+    
+    @Schema(description = "英文地址")
+    private String addressEn;
+    
+    @Schema(description = "区域编码")
+    private String areaCode;
+    
+    @Schema(description = "数据md5")
+    private String dataMd5;
+    
+    @Schema(description = "最后处理时间")
+    private LocalDateTime latestHandleAt;
+        
+
+
+}
