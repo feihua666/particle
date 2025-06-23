@@ -176,7 +176,8 @@ const getTableRowButtons = ({row, column, $index}) => {
     },
 
   ]
-  if (row.isExistProviderRecord) {
+  // 供应商调用记录单独mq消息，这个字段不准确，暂放开
+  // if (row.isExistProviderRecord) {
    tableRowButtons.push(    {
      txt: '查看供应商调用记录',
      text: true,
@@ -185,7 +186,7 @@ const getTableRowButtons = ({row, column, $index}) => {
      // 跳转到编辑
      route: {path: '/admin/openplatformProviderRecordManagePage',query: openplatformOpenapiRecordIdData}
    })
-  }
+  // }
   return tableRowButtons
 }
 </script>

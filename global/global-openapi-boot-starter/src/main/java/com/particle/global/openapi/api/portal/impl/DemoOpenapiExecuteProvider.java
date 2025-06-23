@@ -38,7 +38,7 @@ public class DemoOpenapiExecuteProvider implements OpenapiExecuteProvider {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("param", openapiCommand.getParam());
 		paramMap.put("queryString", openapiCommand.getQueryString());
-		OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(LocalDateTime.now(),LocalDateTime.now(),"/test_provider_demo_none",
+		OpenapiCollectProviderDTO openapiCollectProviderDTO = OpenapiCollectProviderDTO.create(LocalDateTime.now(),LocalDateTime.now(),"测试供应商示例","/test_provider_demo_none",
 				50,
 				true,
 				200, null, paramMap,null, paramMap, test_provider_code,false);

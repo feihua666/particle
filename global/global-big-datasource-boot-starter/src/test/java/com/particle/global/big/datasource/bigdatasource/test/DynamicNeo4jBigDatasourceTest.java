@@ -71,6 +71,7 @@ public class DynamicNeo4jBigDatasourceTest {
 	public static BigDatasourceApi neo4jBigDatasourceListApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"neo4jBigDatasourceListApi",
 				BigDatasourceApiResponseWrapType.multiple,
 				Neo4jBigDatasourceApiConfig.createByWithRawType(Neo4jBigDatasourceApiConfigDataType.multiple,
@@ -81,6 +82,7 @@ public class DynamicNeo4jBigDatasourceTest {
 	public static BigDatasourceApi neo4jBigDatasourceOneApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"neo4jBigDatasourceOneApi",
 				BigDatasourceApiResponseWrapType.single,
 				Neo4jBigDatasourceApiConfig.createByWithRawType(Neo4jBigDatasourceApiConfigDataType.single,
@@ -90,6 +92,7 @@ public class DynamicNeo4jBigDatasourceTest {
 	}
 	public static BigDatasourceApi neo4jBigDatasourcePageApi(){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"neo4jBigDatasourcePageApi",
 				BigDatasourceApiResponseWrapType.page,
 				Neo4jBigDatasourceApiConfig.createByWithRawType(Neo4jBigDatasourceApiConfigDataType.page,

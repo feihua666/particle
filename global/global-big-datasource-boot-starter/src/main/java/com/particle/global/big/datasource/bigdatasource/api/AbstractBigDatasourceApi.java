@@ -19,6 +19,7 @@ import java.util.List;
 @Setter
 public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 
+	protected String name;
 	protected String identifier;
 
 	protected BigDatasourceApiContext apiContext;
@@ -50,6 +51,11 @@ public abstract class AbstractBigDatasourceApi implements BigDatasourceApi{
 	 * 连接等待时间，单位ms，超过该时间将会放弃
 	 */
 	private Integer connectTimeout = 1000;
+
+	@Override
+	public String name() {
+		return name;
+	}
 
 	@Override
 	public String identifier() {

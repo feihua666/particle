@@ -29,10 +29,8 @@ import com.particle.openplatform.infrastructure.openapirecord.dos.OpenplatformOp
 import com.particle.openplatform.infrastructure.openapirecord.dos.OpenplatformOpenapiRecordParamDO;
 import com.particle.openplatform.infrastructure.openapirecord.service.IOpenplatformOpenapiRecordParamService;
 import com.particle.openplatform.infrastructure.openapirecord.service.IOpenplatformOpenapiRecordService;
-import com.particle.openplatform.infrastructure.provider.dos.OpenplatformProviderDO;
 import com.particle.openplatform.infrastructure.provider.service.IOpenplatformProviderService;
 import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordDO;
-import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformProviderRecordParamDO;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordParamService;
 import com.particle.openplatform.infrastructure.providerrecord.service.IOpenplatformProviderRecordService;
 import lombok.Data;
@@ -52,7 +50,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -110,14 +111,6 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	private IOpenplatformOpenapiRecordParamService iOpenplatformOpenapiRecordParamService;
 
 	@Autowired
-	private IOpenplatformProviderService iOpenplatformProviderService;
-
-	@Autowired
-	private IOpenplatformProviderRecordService iOpenplatformProviderRecordService;
-	@Autowired
-	private IOpenplatformProviderRecordParamService iOpenplatformProviderRecordParamService;
-
-	@Autowired
 	private IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService;
 
 	@Autowired
@@ -135,6 +128,8 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 	@Value("${particle.openplatform.openapi.deduct-app-quota.enable:true}")
 	private Boolean isDeductAppQuota;
 
+	@Autowired
+	private OpenplatformOpenapiProviderRecordMessageConsumer ppenplatformOpenapiProviderRecordMessageConsumer;
 	@Override
 	public void accept(OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent) {
 		log.debug("received openplatformRecordDomainEvent message. content={}", JsonTool.toJsonStr(openplatformOpenapiRecordDomainEvent));
@@ -159,15 +154,14 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		OpenplatformOpenapiRecordDomainEventContentRecord contentRecord = data.getRecord();
 		// 计费信息配置
 		OpenplatformOpenapiFeeValue openplatformOpenapiFee = contentRecord.getOpenplatformOpenapiFee();
-		// 供应商信息
-		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = data.getProviderRecords();
-		// 标识是否存在供应商记录
-		boolean hasProviderRecords = CollectionUtil.isNotEmpty(providerRecords);
 
 		// 应用
 		OpenplatformAppDO openplatformAppDO = iOpenplatformAppService.getByAppId(contentRecord.getAppId());
 		Long ownerCustomerId = openplatformAppDO.getOwnerCustomerId();
-
+		// 供应商信息
+		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = data.getProviderRecords();
+		// 标识是否存在供应商记录
+		boolean hasProviderRecords = CollectionUtil.isNotEmpty(providerRecords);
 		// 映射实体
 		OpenplatformOpenapiRecordDO openplatformOpenapiRecordDO = mappingOpenplatformOpenapiRecordDO(contentRecord,
 				hasProviderRecords, openplatformAppDO);
@@ -194,7 +188,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 		//	供应商调用记录
 		if (hasProviderRecords) {
-			saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
+			ppenplatformOpenapiProviderRecordMessageConsumer.saveProviderRecord(providerRecords, openplatformOpenapiRecordDOId, ownerCustomerId);
 		}
 		// 	实时日汇总
 		if (isSaveAppOpenapiDayRtSummary != null && isSaveAppOpenapiDayRtSummary) {
@@ -412,8 +406,8 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 
 		OpenplatformOpenapiRecordDO openplatformOpenapiRecordDO = new OpenplatformOpenapiRecordDO();
 
+		openplatformOpenapiRecordDO.setId(contentRecord.getId());
 		openplatformOpenapiRecordDO.setOpenplatformAppId(openplatformAppDO.getId());
-		openplatformOpenapiRecordDO.setOpenplatformOpenapiId(openplatformAppDO.getId());
 		openplatformOpenapiRecordDO.setAppId(contentRecord.getAppId());
 		openplatformOpenapiRecordDO.setUserId(contentRecord.getUserId());
 		openplatformOpenapiRecordDO.setIsApp(contentRecord.getIsApp());
@@ -459,87 +453,6 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		openplatformOpenapiRecordParamDO.setResponseResult(recordParam.getResponseResult());
 
 		return openplatformOpenapiRecordParamDO;
-	}
-	/**
-	 * 保存供应商记录
-	 * @param providerRecords
-	 * @param openplatformOpenapiRecordDOId
-	 * @param ownerCustomerId
-	 */
-	private void saveProviderRecord(List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords,
-									Long openplatformOpenapiRecordDOId,Long ownerCustomerId) {
-		for (OpenplatformOpenapiRecordDomainEventContentProviderRecord providerRecord : providerRecords) {
-			// 映射
-			OpenplatformProviderRecordDO openplatformProviderRecordDO = mappingOpenplatformProviderRecordDO(providerRecord, openplatformOpenapiRecordDOId, ownerCustomerId);
-			iOpenplatformProviderRecordService.save(openplatformProviderRecordDO);
-			Long openplatformProviderRecordDOId = openplatformProviderRecordDO.getId();
-
-			// 参数保存
-			OpenplatformOpenapiRecordDomainEventContentRecordParam providerRecordParam = providerRecord.getRecordParam();
-			if (providerRecordParam != null) {
-				OpenplatformProviderRecordParamDO openplatformProviderRecordParamDO = new OpenplatformProviderRecordParamDO();
-				openplatformProviderRecordParamDO.setOpenplatformProviderRecordId(openplatformProviderRecordDOId);
-				openplatformProviderRecordParamDO.setRequestParam(providerRecordParam.getRequestParam());
-				openplatformProviderRecordParamDO.setResponseResult(providerRecordParam.getResponseResult());
-				iOpenplatformProviderRecordParamService.save(openplatformProviderRecordParamDO);
-			}
-		}
-	}
-
-	/**
-	 * 供应商调用记录映射实体
-	 * @param providerRecord
-	 * @param openplatformOpenapiRecordDOId
-	 * @param ownerCustomerId
-	 * @return
-	 */
-	private OpenplatformProviderRecordDO mappingOpenplatformProviderRecordDO(OpenplatformOpenapiRecordDomainEventContentProviderRecord providerRecord,
-																			 Long openplatformOpenapiRecordDOId,Long ownerCustomerId) {
-		OpenplatformProviderRecordDO openplatformProviderRecordDO = new OpenplatformProviderRecordDO();
-
-		openplatformProviderRecordDO.setOpenplatformOpenapiRecordId(openplatformOpenapiRecordDOId);
-		openplatformProviderRecordDO.setCustomerId(ownerCustomerId);
-		openplatformProviderRecordDO.setRequestUrl(providerRecord.getRequestUrl());
-		openplatformProviderRecordDO.setRequestParameterMd5(providerRecord.getRequestParameterMd5());
-
-		openplatformProviderRecordDO.setRequestAt(providerRecord.getRequestStartAt());
-
-		openplatformProviderRecordDO.setResponseResultMd5(providerRecord.getResponseResultMd5());
-		openplatformProviderRecordDO.setTraceId(providerRecord.getTraceId());
-		openplatformProviderRecordDO.setHandleDuration(providerRecord.getHandleDuration());
-		openplatformProviderRecordDO.setIsResponseHasEffectiveValue(providerRecord.getIsResponseHasEffectiveValue());
-		openplatformProviderRecordDO.setResponseHttpStatus(providerRecord.getResponseHttpStatus());
-		openplatformProviderRecordDO.setResponseBusinessStatus(providerRecord.getResponseBusinessStatus());
-		// todo 供应商调用记录计费待完善
-		openplatformProviderRecordDO.setFeeAmount(0);
-		openplatformProviderRecordDO.setFeeReasonDictId(openFlatformFeeReasonDictId(OpenFlatformFeeReason.other_not_support));
-
-		// 供应用商信息
-		String providerIdentifier = providerRecord.getProviderIdentifier();
-		if (StrUtil.isNotEmpty(providerIdentifier)) {
-			OpenplatformProviderDO openplatformProviderDO = iOpenplatformProviderService.getByCode(providerIdentifier);
-			if (openplatformProviderDO == null) {
-				try {
-
-					/**
-					 * 尝试该值是否为数据查询供应商id，兼容数据查询数据收集
-					 * 参见：{@link com.particle.dataquery.DataqueryAutoConfiguration.OpenapiConfiguration#executorInfrastructureListener()}
-					 */
-					long dataQueryProviderId = Long.parseLong(providerIdentifier);
-					openplatformProviderDO = iOpenplatformProviderService.getBydataQueryProviderId(dataQueryProviderId);
-				} catch (NumberFormatException e) {
-
-				}
-			}
-			if (openplatformProviderDO != null) {
-				openplatformProviderRecordDO.setOpenplatformProviderId(openplatformProviderDO.getId());
-				openplatformProviderRecordDO.setDataQueryProviderId(openplatformProviderDO.getDataQueryProviderId());
-			}
-		}
-		openplatformProviderRecordDO.setIsCacheHit(Optional.ofNullable(providerRecord.getIsCacheHit()).orElse(false));
-		openplatformProviderRecordDO.setRemark(providerRecord.getRemark());
-
-		return openplatformProviderRecordDO;
 	}
 	/**
 	 * 计算调用费用

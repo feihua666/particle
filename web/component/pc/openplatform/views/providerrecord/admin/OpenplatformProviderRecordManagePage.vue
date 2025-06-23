@@ -32,6 +32,11 @@ const reactiveData = reactive({
       showOverflowTooltip: true
     },
     {
+      prop: 'requestName',
+      label: '接口名称',
+      showOverflowTooltip: true
+    },
+    {
       prop: 'requestUrl',
       label: '接口地址',
       showOverflowTooltip: true

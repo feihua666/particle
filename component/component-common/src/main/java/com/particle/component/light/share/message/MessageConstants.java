@@ -31,5 +31,11 @@ public class MessageConstants {
 		public static final String openplatformOpenapiRecordProducer = "openplatformOpenapiRecordProducer";
 		public static final String openplatformOpenapiRecordProducerOutZeroBindingName = openplatformOpenapiRecordProducer + __out_zero;
 
+		/**
+		 * 开放平台供应商调用记录消息
+		 */
+		public static final String openplatformOpenapiProviderRecordProducer = "openplatformOpenapiProviderRecordProducer";
+		public static final String openplatformOpenapiProviderRecordProducerOutZeroBindingName = openplatformOpenapiProviderRecordProducer + __out_zero;
+
 	}
 }

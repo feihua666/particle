@@ -13,6 +13,7 @@ import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.*;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
 import com.particle.global.security.security.PermissionService;
+import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.log.TraceTool;
 import com.particle.global.tool.servlet.RequestTool;
@@ -75,6 +76,7 @@ public class OpenapiHelper {
 	public void requestStart(HttpServletRequest request, OpenApi openApi) {
 		// 标记开始
 		OpenapiContext openapiContext = new OpenapiContext();
+		openapiContext.setId(SnowflakeIdTool.nextId());
 		// 开始
 		openApiStart(openapiContext);
 		openapiContext.setRequestStartAt(LocalDateTime.now());

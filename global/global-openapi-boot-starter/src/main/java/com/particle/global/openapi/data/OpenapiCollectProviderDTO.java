@@ -24,6 +24,10 @@ public class OpenapiCollectProviderDTO {
 	 */
 	private LocalDateTime requestEndAt;
 	/**
+	 * 接口名称
+	 */
+	private String requestName;
+	/**
 	 * 请求地址
 	 */
 	private String requestUrl;
@@ -76,12 +80,17 @@ public class OpenapiCollectProviderDTO {
 	private Boolean isCacheHit;
 
 	/**
+	 * 客户id
+	 */
+	private Long customerId;
+	/**
 	 * 描述说明，备注
 	 */
 	private String remark;
 
 	public static OpenapiCollectProviderDTO create(LocalDateTime requestStartAt,
 												   LocalDateTime requestEndAt,
+												   String requestName,
 												   String requestUrl,
 												   Integer handleDuration,
 												   Boolean isResponseHasEffectiveValue,
@@ -91,11 +100,12 @@ public class OpenapiCollectProviderDTO {
 												   String queryString,
 												   Object responseResult,
 												   String providerIdentifier,
-												   Boolean isCacheHit) {
+												   Boolean isCacheHit,Long customerId) {
 		OpenapiCollectProviderDTO openapiCollectProviderDTO = new OpenapiCollectProviderDTO();
 
 		openapiCollectProviderDTO.requestStartAt = requestStartAt;
 		openapiCollectProviderDTO.requestEndAt = requestEndAt;
+		openapiCollectProviderDTO.requestName = requestName;
 		openapiCollectProviderDTO.requestUrl = requestUrl;
 		openapiCollectProviderDTO.handleDuration = handleDuration;
 		openapiCollectProviderDTO.isResponseHasEffectiveValue = isResponseHasEffectiveValue;
@@ -106,6 +116,7 @@ public class OpenapiCollectProviderDTO {
 		openapiCollectProviderDTO.responseResult = responseResult;
 		openapiCollectProviderDTO.providerIdentifier = providerIdentifier;
 		openapiCollectProviderDTO.isCacheHit = isCacheHit;
+		openapiCollectProviderDTO.customerId = customerId;
 
 		return openapiCollectProviderDTO;
 	}

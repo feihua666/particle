@@ -18,6 +18,19 @@ import java.time.LocalDateTime;
 public class OpenplatformOpenapiRecordDomainEventContentProviderRecord extends DTO {
 
 	/**
+	 * 记录唯一标识id
+	 */
+	private Long openapiRecordId;
+
+	/**
+	 * 客户id
+	 */
+	private Long customerId;
+	/**
+	 * 接口名称
+	 */
+	private String requestName;
+	/**
 	 * 接口地址，一般为http开头的绝对地址
 	 */
 	private String requestUrl;

@@ -18,6 +18,11 @@ import java.util.List;
 public interface BigDatasourceApi {
 
 	/**
+	 * api 名称
+	 */
+	String name();
+
+	/**
 	 * api的一个标识，一般是唯一的，用来标识该api是哪一个api
 	 * @return
 	 */

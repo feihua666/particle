@@ -2,9 +2,10 @@
 DROP TABLE IF EXISTS component_openplatform_provider_record;
 CREATE TABLE `component_openplatform_provider_record` (
   `id` bigint NOT NULL COMMENT '表主键',
-  `openplatform_openapi_record_id` bigint NOT NULL COMMENT '调用记录id',
+  `openplatform_openapi_record_id` bigint DEFAULT NULL COMMENT '调用记录id',
   `customer_id` bigint DEFAULT NULL COMMENT '客户id',
-  `request_url` varchar(255) DEFAULT NULL COMMENT '接口地址，一般为http开头的绝对地址',
+  `request_name` varchar(150) DEFAULT NULL COMMENT '接口名称',
+  `request_url` varchar(300) DEFAULT NULL COMMENT '接口地址，一般为http开头的绝对地址',
   `request_parameter_md5` varchar(100) DEFAULT NULL COMMENT '请求参数md5',
   `request_at` datetime NOT NULL COMMENT '开始请求时间',
   `response_result_md5` varchar(100) DEFAULT NULL COMMENT '响应结果md5',

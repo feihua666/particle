@@ -16,6 +16,7 @@ import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
 import com.particle.openplatform.domain.event.*;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiFeeValue;
 import com.particle.openplatform.domain.openapirecord.gateway.OpenplatformOpenapiRecordGateway;
+import com.particle.openplatform.domain.providerrecord.gateway.OpenplatformProviderRecordGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,8 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 
 	@Autowired
 	private OpenplatformOpenapiRecordGateway openplatformOpenapiRecordGateway;
+	@Autowired
+	private OpenplatformProviderRecordGateway openplatformProviderRecordGateway;
 
 	/**
 	 * 将收集的数据整理成mq事件，并发布到mq
@@ -42,14 +45,50 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 	@Override
 	public void save(OpenapiContext openapiContext) {
 		// 开放接口调用记录
+		OpenplatformOpenapiRecordDomainEventContentRecord record = record(openapiContext);
+		//	供应商调用记录
+		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = providerRecords(openapiContext);
+
+		OpenplatformOpenapiRecordDomainEventContent openplatformOpenapiRecordDomainEventContent = OpenplatformOpenapiRecordDomainEventContent.create(record, providerRecords);
+		OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent = new OpenplatformOpenapiRecordDomainEvent(openplatformOpenapiRecordDomainEventContent);
+		//	将该事件发布到mq并不直接保存
+		openplatformOpenapiRecordGateway.sendDomainEventAsync(openplatformOpenapiRecordDomainEvent);
+	}
+
+	@Override
+	public void saveProvider(OpenapiContext openapiContext) {
+		//	供应商调用记录
+		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = providerRecords(openapiContext);
+		if (CollectionUtil.isEmpty(providerRecords)) {
+			return;
+		}
+
+		OpenplatformOpenapiProviderRecordDomainEventContent openplatformOpenapiRecordDomainEventContent = OpenplatformOpenapiProviderRecordDomainEventContent.create(providerRecords);
+		OpenplatformOpenapiProviderRecordDomainEvent openplatformOpenapiRecordDomainEvent = new OpenplatformOpenapiProviderRecordDomainEvent(openplatformOpenapiRecordDomainEventContent);
+		//	将该事件发布到mq并不直接保存
+		openplatformProviderRecordGateway.sendDomainEventAsync(openplatformOpenapiRecordDomainEvent);
+	}
+
+	/**
+	 * 开放接口调用记录处理映射
+	 * @param openapiContext
+	 * @return
+	 */
+	private OpenplatformOpenapiRecordDomainEventContentRecord record(OpenapiContext openapiContext) {
 		OpenplatformOpenapiRecordDomainEventContentRecord openplatformOpenapiRecordDomainEventContentRecord = new OpenplatformOpenapiRecordDomainEventContentRecord();
+
+		openplatformOpenapiRecordDomainEventContentRecord.setId(openapiContext.getId());
+
 		OpenplatformOpenapiRecordDomainEventContentRecordParam openplatformOpenapiRecordDomainEventContentRecordParam
 				= OpenplatformOpenapiRecordDomainEventContentRecordParam.create(JsonTool.toJsonStr(openapiContext.getRequestParameterDTO()),
 				parseObjToString(openapiContext.getResponseResult()));
 		openplatformOpenapiRecordDomainEventContentRecord.setRecordParam(openplatformOpenapiRecordDomainEventContentRecordParam);
 		String appId = openapiContext.getOpenapiClient().getClientId();
 		openplatformOpenapiRecordDomainEventContentRecord.setAppId(appId);
-		openplatformOpenapiRecordDomainEventContentRecord.setUserId(LoginUserTool.getLoginUserId());
+		Long customerId = openapiContext.getOpenapiClient().getOwnerCustomerId();
+		Long userId = openapiContext.getOpenapiClient().getOwnerUserId();
+		openplatformOpenapiRecordDomainEventContentRecord.setUserId(userId != null ? userId : LoginUserTool.getLoginUserId());
+		openplatformOpenapiRecordDomainEventContentRecord.setCustomerId(customerId);
 		openplatformOpenapiRecordDomainEventContentRecord.setIsApp(appId != null);
 		ApiInfo apiInfo = openapiContext.getApiInfo();
 		ApiFeeRuleInfo apiFeeRuleInfo = null;
@@ -81,8 +120,14 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 		openplatformOpenapiRecordDomainEventContentRecord.setRemark(openapiContext.getRemark());
 		OpenplatformOpenapiFeeValue openplatformOpenapiFeeValue = mapFeeValue(apiFeeRuleInfo);
 		openplatformOpenapiRecordDomainEventContentRecord.setOpenplatformOpenapiFee(openplatformOpenapiFeeValue);
-
-		//	供应商调用记录
+		return openplatformOpenapiRecordDomainEventContentRecord;
+	}
+	/**
+	 * 供应商调用记录收集处理映射
+	 * @param openapiContext
+	 * @return
+	 */
+	private List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords(OpenapiContext openapiContext) {
 		OpenplatformOpenapiRecordDomainEventContentProviderRecord openplatformOpenapiRecordDomainEventContentProviderRecord = null;
 		OpenplatformOpenapiRecordDomainEventContentRecordParam openplatformRecordDomainEventContentProviderRecordParam = null;
 		List<OpenplatformOpenapiRecordDomainEventContentProviderRecord> providerRecords = null;
@@ -91,6 +136,8 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 
 			for (OpenapiCollectProviderDTO providerDTO : openapiContext.getProviderDTOS()) {
 				openplatformOpenapiRecordDomainEventContentProviderRecord = new OpenplatformOpenapiRecordDomainEventContentProviderRecord();
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setOpenapiRecordId(openapiContext.getId());
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setCustomerId(providerDTO.getCustomerId());
 				String requestParamString = parseObjToString(providerDTO.getRequestParam());
 				String queryString = providerDTO.getQueryString();
 				String requestParam = null;
@@ -109,6 +156,7 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 						parseObjToString(providerDTO.getResponseResult()));
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setRecordParam(openplatformRecordDomainEventContentProviderRecordParam);
 
+				openplatformOpenapiRecordDomainEventContentProviderRecord.setRequestName(providerDTO.getRequestName());
 				openplatformOpenapiRecordDomainEventContentProviderRecord.setRequestUrl(providerDTO.getRequestUrl());
 				if (StrUtil.isNotEmpty(openplatformRecordDomainEventContentProviderRecordParam.getRequestParam())) {
 					openplatformOpenapiRecordDomainEventContentProviderRecord.setRequestParameterMd5(DigestUtil.md5Hex(openplatformRecordDomainEventContentProviderRecordParam.getRequestParam()));
@@ -133,14 +181,8 @@ public class OpenplatformOpenapiCollectPersistentServiceImpl implements GlobalOp
 			}// end for
 		}// end if
 
-
-		OpenplatformOpenapiRecordDomainEventContent openplatformOpenapiRecordDomainEventContent = OpenplatformOpenapiRecordDomainEventContent.create(openplatformOpenapiRecordDomainEventContentRecord, providerRecords);
-
-		OpenplatformOpenapiRecordDomainEvent openplatformOpenapiRecordDomainEvent = new OpenplatformOpenapiRecordDomainEvent(openplatformOpenapiRecordDomainEventContent);
-		//	将该事件发布到mq并不直接保存
-		openplatformOpenapiRecordGateway.sendDomainEventAsync(openplatformOpenapiRecordDomainEvent);
+		return providerRecords;
 	}
-
 	/**
 	 * 计费规则对象转换
 	 * @param apiFeeRuleInfo

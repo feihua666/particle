@@ -21,6 +21,11 @@ import java.util.List;
 public class OpenapiContext extends DTO {
 
 	/**
+	 * 唯一 id
+	 * 主要用来设置请求记录id
+	 */
+	private Long id;
+	/**
 	 * 请求开始时间
 	 */
 	private LocalDateTime requestStartAt;

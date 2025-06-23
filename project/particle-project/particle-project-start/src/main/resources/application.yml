@@ -136,12 +136,17 @@ spring:
           destination: openplatform_openapirecord_message
         openplatformOpenapiRecordProducer-out-0:
           destination: openplatform_openapirecord_message
+        # 开放平台开放接口供应商调用记录
+        openplatformOpenapiProviderRecordMessageConsumer-in-0:
+          destination: openplatform_openapi_providerrecord_message
+        openplatformOpenapiProviderRecordProducer-out-0:
+          destination: openplatform_openapi_providerrecord_message
       # 配置多个 binder 时，必需指定的一个默认binder,否则启动报错，随便写一个不存在的字符串也会报错
       default-binder: integration
     # 声名的函数式编程定义，如果使用交互式编程(如：TestController手动发送)发送消息，可以不指定生产者
     function:
       # 实现了 java.util.function.Consumer 接口的bean名称消费类，要与bindings的消费或生产者名称前缀一致（如：templatingNoticeMessageConsumer-in-0 的前缀应该是 templatingNoticeMessageConsumer）
-      definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer
+      definition: templatingNoticeMessageConsumer;openplatformOpenapiRecordMessageConsumer;openplatformOpenapiProviderRecordMessageConsumer
   mvc:
     async:
       # 在agent流式对话中ai响应持续时间可能较慢，这里需要调整一下时间，目前15分钟

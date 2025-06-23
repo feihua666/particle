@@ -27,4 +27,18 @@ public interface IOpenplatformOpenapiRecordService extends IBaseService<Openplat
     List<OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsVIEWDO> openAppIdOpenapiIdStatistics (OpenplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam openplatformOpenapiRecordOpenAppIdOpenapiIdStatisticsParam);
 
 
+    /**
+     * 将是否存在供应商调用记录设置为true
+     * @param id
+     * @return
+     */
+    default boolean updateIsExistProviderRecordToTrue(Long id) {
+        if (id == null) {
+            return false;
+        }
+        OpenplatformOpenapiRecordDO openplatformOpenapiRecordDO = new OpenplatformOpenapiRecordDO();
+        openplatformOpenapiRecordDO.setId(id);
+        openplatformOpenapiRecordDO.setIsExistProviderRecord(true);
+        return updateById(openplatformOpenapiRecordDO);
+    }
 }

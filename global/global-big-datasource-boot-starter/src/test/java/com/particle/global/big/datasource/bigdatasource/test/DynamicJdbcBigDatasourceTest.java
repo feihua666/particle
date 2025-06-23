@@ -69,6 +69,7 @@ public class DynamicJdbcBigDatasourceTest {
 	public static BigDatasourceApi jdbcBigDatasourceListApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"jdbcBigDatasourceListApi",
 				BigDatasourceApiResponseWrapType.multiple,
 				JdbcBigDatasourceApiConfig.createByWithRawType(JdbcBigDatasourceApiConfigDataType.multiple,
@@ -81,6 +82,7 @@ public class DynamicJdbcBigDatasourceTest {
 	}
 	public static BigDatasourceApi jdbcBigDatasourcePageApi(){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"jdbcBigDatasourcePageApi",
 				BigDatasourceApiResponseWrapType.page,
 				JdbcBigDatasourceApiConfig.createByWithRawType(JdbcBigDatasourceApiConfigDataType.page,

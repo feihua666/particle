@@ -26,6 +26,9 @@ public class OpenplatformProviderRecordVO extends AbstractBaseIdVO {
     @Schema(description = "客户id")
     private Long customerId;
 
+	@Schema(description = "接口名称")
+	private String requestName;
+
     @TransBy(type = TransConstants.TRANS_CRM_CUSTOMER_BY_ID,byFieldName = "customerId",mapValueField = "name")
     @Schema(description = "客户id")
     private String customerName;

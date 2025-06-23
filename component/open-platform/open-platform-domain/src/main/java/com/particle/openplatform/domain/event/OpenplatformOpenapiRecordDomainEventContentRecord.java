@@ -19,6 +19,10 @@ public class OpenplatformOpenapiRecordDomainEventContentRecord extends DTO {
 
 
 	/**
+	 * 记录唯一标识id
+	 */
+	private Long id;
+	/**
 	 * appId
 	 */
 	private String appId;
@@ -27,6 +31,11 @@ public class OpenplatformOpenapiRecordDomainEventContentRecord extends DTO {
 	 * 用户id
 	 */
 	private Long userId;
+
+	/**
+	 * 客户id
+	 */
+	private Long customerId;
 
 	/**
 	 * 是否为app调用，1=appId调用（app_id字段有值），0=用户页面调用（user_id字段有值）

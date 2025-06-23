@@ -14,6 +14,7 @@ import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.spring.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -222,6 +223,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 */
 	protected void preExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Map<String,Object> preExeResultHolder) {
 		commandValidate(bigDatasourceApi,command,queryString);
+		bigDatasourceApi.apiContext().putData("requestStartAt", LocalDateTime.now());
 		Object newCommand = commandExtConfigHandle(bigDatasourceApi, command, queryString);
 		if (newCommand != null) {
 			preExeResultHolder.put("command", newCommand);
@@ -235,7 +237,7 @@ public abstract class AbstractBigDatasourceApiExecutor implements BigDatasourceA
 	 * @return
 	 */
 	protected void postExe(BigDatasourceApi bigDatasourceApi, Object command,String queryString,Object o,Map<String,Object> postExeResultHolder) {
-
+		bigDatasourceApi.apiContext().putData("requestEndAt", LocalDateTime.now());
 		// 出参扩展配置执行
 		Object newResult = resultExtConfigHandle(bigDatasourceApi, command, queryString, o,postExeResultHolder);
 		Object result = postExeResultHolder.get("result");

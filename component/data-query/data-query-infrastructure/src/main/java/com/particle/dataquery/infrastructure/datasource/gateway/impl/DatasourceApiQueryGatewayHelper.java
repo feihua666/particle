@@ -113,6 +113,7 @@ public class DatasourceApiQueryGatewayHelper {
 		String datasourceApiResponseTypeDictIdValue = dataQueryDictGateway.getDictValueById(dataQueryDataApi.getResponseTypeDictId());
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				dataQueryDataApi.getName(),
 				dataQueryDataApi.getId().toString()+ "_dataQueryDataApi_" + dataQueryDataApi.getName(),
 				// 响应包装
 				datasourceApiResponseTypeDictIdValue == null ? BigDatasourceApiResponseWrapType.proxy : BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),
@@ -168,6 +169,7 @@ public class DatasourceApiQueryGatewayHelper {
 		}
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				datasourceApi.getName(),
 				datasourceApi.getId().toString()+ "_" + datasourceApi.getName(),
 				// 响应包装
 				BigDatasourceApiResponseWrapType.valueOf(datasourceApiResponseTypeDictIdValue),

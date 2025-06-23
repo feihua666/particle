@@ -27,6 +27,11 @@ public class OpenplatformProviderRecordDO extends BaseDO {
     */
     private Long customerId;
 
+	/**
+	 * 接口名称
+	 */
+	private String requestName;
+
     /**
     * 接口地址，一般为http开头的绝对地址
     */

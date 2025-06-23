@@ -13,23 +13,4 @@ import com.particle.openplatform.infrastructure.providerrecord.dos.OpenplatformP
  */
 public interface IOpenplatformProviderRecordService extends IBaseService<OpenplatformProviderRecordDO> {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

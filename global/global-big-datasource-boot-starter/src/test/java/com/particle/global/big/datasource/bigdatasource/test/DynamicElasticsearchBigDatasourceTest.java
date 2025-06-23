@@ -74,6 +74,7 @@ public class DynamicElasticsearchBigDatasourceTest {
 	public static BigDatasourceApi elasticsearchBigDatasourceListApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"elasticsearchBigDatasourceListApi",
 				BigDatasourceApiResponseWrapType.multiple,
 				ElasticsearchBigDatasourceApiConfig.createByWithRawType(ElasticsearchBigDatasourceApiConfigDataType.multiple,
@@ -89,13 +90,14 @@ public class DynamicElasticsearchBigDatasourceTest {
 								"                \"order\": \"desc\"\n" +
 								"            }\n" +
 								"        }\n" +
-								"}",null).withIndexNames("test_esdo")
+								"}", null).withIndexNames("test_esdo")
 		);
 		return defaultBigDatasourceApi;
 	}
 	public static BigDatasourceApi elasticsearchBigDatasourceOneApi(){
 
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"elasticsearchBigDatasourceOneApi",
 				BigDatasourceApiResponseWrapType.single,
 				ElasticsearchBigDatasourceApiConfig.createByWithRawType(ElasticsearchBigDatasourceApiConfigDataType.single,
@@ -113,6 +115,7 @@ public class DynamicElasticsearchBigDatasourceTest {
 	}
 	public static BigDatasourceApi elasticsearchBigDatasourcePageApi(){
 		DefaultBigDatasourceApi defaultBigDatasourceApi = DefaultBigDatasourceApi.create(
+				"testName",
 				"elasticsearchBigDatasourcePageApi",
 				BigDatasourceApiResponseWrapType.page,
 				ElasticsearchBigDatasourceApiConfig.createByWithRawType(ElasticsearchBigDatasourceApiConfigDataType.page,
