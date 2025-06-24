@@ -12,8 +12,8 @@
     <artifactId>agi-start</artifactId>
 
     <properties>
-        
-        
+
+
     </properties>
 
     <dependencies>
@@ -57,7 +57,7 @@
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>component-adapter-boot-starter</artifactId>
+            <artifactId>component-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>
