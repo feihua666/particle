@@ -17,13 +17,14 @@ public class AliOssTest extends GlobalOssTestBase {
 
     static com.particle.global.oss.client.GlobalOssClient globalOssClient;
 
+    static String bucketName = "xxxx";
     static {
         GlobalAwsOssProperties globalAwsOssProperties = new GlobalAwsOssProperties();
-        globalAwsOssProperties.setAccessKey("LTAI5tDuoiRKnw2yTJ9i9WXL");
-        globalAwsOssProperties.setSecretKey("x0wPsMchlTUEzY3Whg8QPlW2K0oAoQ");
+        globalAwsOssProperties.setAccessKey("xxxx");
+        globalAwsOssProperties.setSecretKey("xxxxx");
         // globalAwsOssProperties.setEndpoint("https://oss-cn-beijing.aliyuncs.com");
         // globalAwsOssProperties.setPathStyleAccessEnabled(false);
-        globalAwsOssProperties.setEndpoint("https://pargj.oss-cn-beijing.aliyuncs.com");
+        globalAwsOssProperties.setEndpoint("https://" + bucketName + ".oss-cn-beijing.aliyuncs.com");
         globalAwsOssProperties.setRegion("cn-beijing");
 
 
@@ -34,7 +35,7 @@ public class AliOssTest extends GlobalOssTestBase {
     @Override
     public void test() {
         ossClient = globalOssClient;
-        testBucket = "pargj";
+        testBucket = bucketName;
         // super.test();
         putObjectTest();
     }
