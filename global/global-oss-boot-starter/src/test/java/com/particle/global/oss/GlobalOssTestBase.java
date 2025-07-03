@@ -22,7 +22,7 @@ public abstract class GlobalOssTestBase {
 
 	GlobalOssClient ossClient;
 	String testBucket = null;
-	String objectName = "/testpath/arthas-boot.jar";
+	String objectName = "testpath/arthas-boot.jar";
 	String localSourceFileFullPath = "/Users/yw/fh/arthas-boot.jar";
 	String localObjectFullPath = "/Users/yw/temp/" + objectName;
 

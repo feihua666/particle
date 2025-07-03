@@ -1,8 +1,9 @@
 package com.particle.global.scheduler;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.tool.thread.ThreadContextTool;
-import org.mapstruct.ap.internal.util.Strings;
+
 
 /**
  * <p>
@@ -45,7 +46,7 @@ public class SchedulerParamTool {
 	 */
 	public static  <T> T getBean(Class<T> beanClass) {
 		String str = get();
-		if (Strings.isEmpty(str)) {
+		if (StrUtil.isEmpty(str)) {
 			return null;
 		}
 		return JSONUtil.toBean(str, beanClass);

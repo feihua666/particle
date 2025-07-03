@@ -21,6 +21,7 @@ import DreamPlugin from './dream/DreamPlugin'
 import ConfigPlugin from './config/ConfigPlugin'
 import DataConstraintPlugin from './dataconstraint/DataConstraintPlugin'
 import AgiPlugin from './agi/AgiPlugin'
+import CmsPlugin from './cms/CmsPlugin'
 
 export default {
     install: function (app, options) {
@@ -47,5 +48,6 @@ export default {
         ConfigPlugin.install(app,options)
         DataConstraintPlugin.install(app,options)
         AgiPlugin.install(app,options)
+        CmsPlugin.install(app,options)
     }
 }

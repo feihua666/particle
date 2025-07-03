@@ -1,5 +1,6 @@
 package com.particle.message.domain;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.particle.common.domain.AggreateRoot;
 import com.particle.global.domain.DomainFactory;
@@ -7,7 +8,6 @@ import com.particle.global.domain.Entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.mapstruct.ap.internal.util.Strings;
 
 import java.util.Map;
 
@@ -118,7 +118,7 @@ public class MessageTemplate extends AggreateRoot {
 
 
     public static ContentDetailJson parseContentDetailJson(String contentDetailJson) {
-        if (Strings.isEmpty(contentDetailJson)) {
+        if (StrUtil.isEmpty(contentDetailJson)) {
             return null;
         }
         return JSONUtil.toBean(contentDetailJson, ContentDetailJson.class);

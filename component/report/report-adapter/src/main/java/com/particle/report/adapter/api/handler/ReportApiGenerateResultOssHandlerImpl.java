@@ -29,7 +29,8 @@ import java.util.Optional;
 @Slf4j
 public class ReportApiGenerateResultOssHandlerImpl implements IReportApiGenerateResultHandler {
 
-    private static final String path = "/report";
+    // 不能添加前缀斜杠，经测试 阿里 oss key不支持以斜杠开头
+    private static final String path = "report";
 
     @Autowired
     private GlobalOssClientService globalOssClientService;

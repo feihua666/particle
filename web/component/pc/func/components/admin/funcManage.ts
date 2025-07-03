@@ -37,6 +37,20 @@ export const pageFormItems = [
 
     useSelectFuncGroupCompItem({}),
     useCascaderFuncCompItem({}),
+    {
+        field: {
+            name: 'level',
+        },
+        element: {
+            comp: 'el-input',
+            formItemProps: {
+                label: '层级',
+            },
+            compProps: {
+                clearable: true,
+            }
+        }
+    },
     ...treeQueryComps
 ]
 

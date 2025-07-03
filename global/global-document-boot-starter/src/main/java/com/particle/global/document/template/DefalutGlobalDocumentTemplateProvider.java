@@ -2,9 +2,9 @@ package com.particle.global.document.template;
 
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
 import cn.hutool.setting.SettingUtil;
-import org.mapstruct.ap.internal.util.Strings;
 
 import java.io.InputStream;
 
@@ -38,7 +38,7 @@ public class DefalutGlobalDocumentTemplateProvider implements GlobalDocumentTemp
 		Setting setting = SettingUtil.get(prefix_name + templateIdentifier + "." + ext_name);
 		String templatePath = setting.getStr(meta_template_path);
 		String templateName = setting.getStr(meta_template_name);
-		if (Strings.isEmpty(templateName)) {
+		if (StrUtil.isEmpty(templateName)) {
 			templateName = FileNameUtil.getName(templatePath);
 		}
 

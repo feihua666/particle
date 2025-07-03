@@ -1,8 +1,8 @@
 package com.particle.global.exception;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.global.exception.biz.AssertException;
 import com.particle.global.exception.code.IErrorCode;
-import org.mapstruct.ap.internal.util.Strings;
 
 import java.util.Collection;
 import java.util.Map;
@@ -152,13 +152,13 @@ public abstract class Assert {
 
 
 	public static void notEmpty(String str, IErrorCode errorCode) {
-		if (Strings.isEmpty(str)) {
+		if (StrUtil.isEmpty(str)) {
 			throw new AssertException(errorCode);
 		}
 	}
 
 	public static void notEmpty(String str, String errMessage) {
-		if (Strings.isEmpty(str)) {
+		if (StrUtil.isEmpty(str)) {
 			throw new AssertException(errMessage);
 		}
 	}

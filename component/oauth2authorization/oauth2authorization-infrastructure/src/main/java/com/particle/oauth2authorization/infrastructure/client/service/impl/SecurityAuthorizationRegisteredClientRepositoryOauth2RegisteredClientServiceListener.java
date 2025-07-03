@@ -12,7 +12,6 @@ import com.particle.oauth2authorization.domain.enums.Oauth2AuthorizationAuthoriz
 import com.particle.oauth2authorization.domain.enums.Oauth2AuthorizationClientAuthenticationMethod;
 import com.particle.oauth2authorization.infrastructure.client.dos.Oauth2RegisteredClientDO;
 import com.particle.oauth2authorization.infrastructure.client.mapper.Oauth2RegisteredClientMapper;
-import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -79,12 +78,12 @@ public class SecurityAuthorizationRegisteredClientRepositoryOauth2RegisteredClie
 					authorizationGrantTypes.addAll(Oauth2AuthorizationAuthorizationGrantType.convertAuthorizationGrantTypes(po.getAuthorizationGrantTypes()));
 				})
 				.redirectUris(strings -> {
-					if (Strings.isNotEmpty(po.getRedirectUris())) {
+					if (StrUtil.isNotEmpty(po.getRedirectUris())) {
 						strings.addAll(Arrays.stream(po.getRedirectUris().split(",")).collect(Collectors.toList()));
 					}
 				})
 				.scopes(strings -> {
-					if (Strings.isNotEmpty(po.getScopes())) {
+					if (StrUtil.isNotEmpty(po.getScopes())) {
 						strings.addAll(Arrays.stream(po.getScopes().split(",")).collect(Collectors.toList()));
 					}
 				})

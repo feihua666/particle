@@ -79,4 +79,10 @@ public class TransTableNameConstants {
 	public static final String component_agi_vector_store_raw_document = "component_agi_vector_store_raw_document";
 
 
+	public static final String component_cms_site = "component_cms_site";
+	public static final String component_cms_channel = "component_cms_channel";
+	public static final String component_cms_content = "component_cms_content";
+	public static final String component_cms_content_category = "component_cms_content_category";
+
+
 }

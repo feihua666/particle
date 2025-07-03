@@ -46,6 +46,7 @@ public class OpLogConstants {
 
 		public static final String navigation = "navigation";
 		public static final String agi = "agi";
+		public static final String cms = "cms";
 
 		public static final String unknown = "unknown";
 

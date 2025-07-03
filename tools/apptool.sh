@@ -37,7 +37,8 @@ APP_PARAMS=""
 ERROR_MSG="参数错误，当前只支持一个参数，请参照以下参数传递： [start|stop|restart|status|info]"
 
 # java 启动参数
-JAVA_OPTS="-server -Dparticle.actuator.bootadmin.server.enabled=false -Dspring.boot.admin.client.enabled=false -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8  -Xms5g -Xmx5g -Xmn3g -Xss256k -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=500m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSScavengeBeforeRemark -XX:+ExplicitGCInvokesConcurrent -XX:+CMSClassUnloadingEnabled -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=5 -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+UseCompressedOops -XX:StringTableSize=100013"
+#JAVA_OPTS="-server -Dparticle.actuator.bootadmin.server.enabled=false -Dspring.boot.admin.client.enabled=false -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8  -Xms5g -Xmx5g -Xmn3g -Xss256k -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=500m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+CMSScavengeBeforeRemark -XX:+ExplicitGCInvokesConcurrent -XX:+CMSClassUnloadingEnabled -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=5 -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+UseCompressedOops -XX:StringTableSize=100013"
+JAVA_OPTS="-server  -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xms5g -Xmx5g -Xmn3g -Xss256k -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+ExplicitGCInvokesConcurrent -XX:+AlwaysPreTouch -XX:+ParallelRefProcEnabled -XX:-ResizePLAB --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
 
 # 10 秒后判断应用是否停止, 否则 kill -9
 SHUTDOWN_WAIT=10

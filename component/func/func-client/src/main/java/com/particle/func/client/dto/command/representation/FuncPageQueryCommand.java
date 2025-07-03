@@ -42,6 +42,9 @@ public class FuncPageQueryCommand extends AbstractBaseTreePageQueryCommand {
     @Schema(description = "归属组件")
     private String componentOf;
 
+    @Schema(description = "层级")
+    private Integer level;
+
     @Schema(description = "父级id")
     private Long parentId;
 

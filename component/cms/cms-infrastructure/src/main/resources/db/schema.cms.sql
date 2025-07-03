@@ -1,0 +1,9 @@
+-- import classpath:db/schema.component_cms_channel.sql
+-- import classpath:db/schema.component_cms_channel_view_record.sql
+-- import classpath:db/schema.component_cms_content.sql
+-- import classpath:db/schema.component_cms_content_category.sql
+-- import classpath:db/schema.component_cms_content_multimedia.sql
+-- import classpath:db/schema.component_cms_content_view_record.sql
+-- import classpath:db/schema.component_cms_site.sql
+-- import classpath:db/schema.component_cms_site_index_view_record.sql
+-- import classpath:db/schema.component_cms_template_content.sql

@@ -10,15 +10,21 @@ import com.particle.global.oss.dto.GlobalOssObject;
 import com.particle.global.oss.exception.BucketNotEmptyException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -96,6 +102,39 @@ public class GlobalAwsOssClient extends AbstractGlobalOssClient {
 				.key(key), RequestBody.fromInputStream(inputStream, inputStream.available()));
 		IoUtil.close(inputStream);
 	}
+	/**
+	 * 创建一个预签名的URL，用于下载文件
+	 * @param bucketName
+	 * @param keyName
+	 * @param signatureDuration
+	 * @return
+	 */
+	private String createPresignedGetUrl(String bucketName, String keyName,Duration signatureDuration) {
+		// 创建凭证
+		AwsBasicCredentials awsCreds = AwsBasicCredentials.create(
+				"your_access_key",
+				"your_secret_key");
+
+		try (S3Presigner presigner = S3Presigner.builder()
+				.region(Region.of(awsOssProperties.getRegion()))
+				.credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+				.build()) {
+
+			GetObjectRequest objectRequest = GetObjectRequest.builder()
+					.bucket(bucketName)
+					.key(keyName)
+					.build();
+
+			GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+					.signatureDuration(signatureDuration)
+					.getObjectRequest(objectRequest)
+					.build();
+
+			return presigner.presignGetObject(presignRequest)
+					.url().toExternalForm();
+		}
+	}
+
 
 	@Override
 	public GlobalOssObject getObject(String bucketName, String objectName) {

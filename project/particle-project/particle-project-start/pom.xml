@@ -207,6 +207,11 @@
             <artifactId>agi-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>cms-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
         <!-- 新组件建议添加到该注释之前 -->
 
 

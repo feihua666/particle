@@ -42,6 +42,7 @@
         <module>scheduler</module>
         <module>navigation</module>
         <module>agi</module>
+        <module>cms</module>
     </modules>
 
     <properties>

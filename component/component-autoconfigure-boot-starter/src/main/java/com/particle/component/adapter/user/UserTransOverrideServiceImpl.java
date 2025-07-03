@@ -1,9 +1,9 @@
 package com.particle.component.adapter.user;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.tenant.infrastructure.dos.TenantUserDO;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
 import com.particle.user.adapter.rpc.UserTransOverrideService;
-import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -25,6 +25,6 @@ public class UserTransOverrideServiceImpl implements UserTransOverrideService {
 	@Override
 	public List<UserTransOverrideDTO> getOverrideData(List<Long> userIds) {
 		List<TenantUserDO> byUserIds = iTenantUserService.getByUserIds(userIds);
-		return byUserIds.stream().filter(item -> Strings.isNotEmpty(item.getName())).map(item -> UserTransOverrideDTO.create(item.getId(), item.getName())).collect(Collectors.toList());
+		return byUserIds.stream().filter(item -> StrUtil.isNotEmpty(item.getName())).map(item -> UserTransOverrideDTO.create(item.getId(), item.getName())).collect(Collectors.toList());
 	}
 }

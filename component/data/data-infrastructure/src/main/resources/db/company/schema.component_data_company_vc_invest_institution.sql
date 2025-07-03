@@ -33,6 +33,6 @@ CREATE TABLE `component_data_company_vc_invest_institution` (
   KEY `company_id` (`company_id`) USING BTREE,
   KEY `name` (`name`) USING BTREE,
   KEY `en_name` (`en_name`) USING BTREE,
-  UNIQUE KEY `uni_company_id` (`company_id`) USING BTREE
+  UNIQUE KEY `uni_company_id` (`company_id`) USING BTREE,
   UNIQUE KEY `uni_data_md5` (`data_md5`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业投资机构表';

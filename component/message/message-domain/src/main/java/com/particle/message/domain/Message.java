@@ -7,7 +7,6 @@ import com.particle.global.domain.Entity;
 import com.particle.message.domain.enums.MessageSendStatus;
 import com.particle.message.domain.gateway.MessageDictGateway;
 import lombok.Data;
-import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -119,7 +118,7 @@ public class Message extends AggreateRoot {
      * @return
      */
     public static String caculateShortContent(String content,String defaultShortContent){
-        if(Strings.isNotEmpty(content)){
+        if(StrUtil.isNotEmpty(content)){
             return  StrUtil.sub(content, 0, 20);
         }
         return defaultShortContent;

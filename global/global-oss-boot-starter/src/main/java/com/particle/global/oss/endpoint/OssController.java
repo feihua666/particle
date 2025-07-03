@@ -11,6 +11,7 @@ import com.particle.global.oss.endpoint.dto.UploadCommand;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.tool.file.FileTool;
+import com.particle.global.tool.str.NetPathTool;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,6 +83,8 @@ public class OssController {
 		String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
 		String newFileName = IdUtil.fastSimpleUUID()+ "--" + originalFilename;
 		String objectName =  Optional.ofNullable(uploadCommand.getPath()).orElse("") + "/" + DateUtil.date().toDateStr() + "/" + newFileName;
+		// 不能添加前缀斜杠，经测试 阿里 oss key不支持以斜杠开头
+		objectName = NetPathTool.ensureNotBeginSlash(objectName);
 		Long fileLength = fileTemp.getSize();
 		log.info("文件上传开始，path={},originalFilename={},fileLength={},objectName={}",uploadCommand.getPath(),originalFilename,fileLength,objectName);
 
@@ -103,13 +105,14 @@ public class OssController {
 	public void download(HttpServletRequest request, HttpServletResponse response, String objectName, String client, String c) throws Throwable {
 		client = resolveClient(client, c);
 		String finalObjectName = getObjectName(request, objectName);
-
+		// 不能添加前缀斜杠，经测试 阿里 oss key不支持以斜杠开头
+		finalObjectName = NetPathTool.ensureNotBeginSlash(finalObjectName);
 		GlobalOssObject globalOssObject = globalOssClientService.download(finalObjectName, client);
 		if (globalOssObject != null && globalOssObject.getObjectContent() != null) {
-			if (Strings.isEmpty(globalOssObject.getContentType())) {
+			if (StrUtil.isEmpty(globalOssObject.getContentType())) {
 			//	尝试获取
 				String mimeType = FileTool.getMimeType(finalObjectName);
-				if (Strings.isNotEmpty(mimeType)) {
+				if (StrUtil.isNotEmpty(mimeType)) {
 					response.setContentType(mimeType);
 				}
 			}
@@ -130,6 +133,8 @@ public class OssController {
 	public void delete(HttpServletRequest request,String objectName, String client, String c){
 		client = resolveClient(client, c);
 		String finalObjectName = getObjectName(request, objectName);
+		// 不能添加前缀斜杠，经测试 阿里 oss key不支持以斜杠开头
+		finalObjectName = NetPathTool.ensureNotBeginSlash(finalObjectName);
 		globalOssClientService.delete(finalObjectName,client);
 	}
 

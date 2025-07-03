@@ -5,6 +5,7 @@ import {isFunction} from '../../../common/tools/FunctionTools'
 import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
 import {anyObj} from "../../../common/tools/ObjectTools";
 import {getRaw} from "../../../common/tools/StorageTools";
+import {concatPaths} from "../../../common/tools/PathTools";
 // store 变量缓存
 let loginUserStoreCache = null
 /**
@@ -72,7 +73,7 @@ export const getPreviewUrl = (url: string) => {
     if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0  || url.indexOf('data:') == 0){
         return url
     }
-    return getDownloadPrefixUrl() + url
+    return concatPaths('/',getDownloadPrefixUrl(), url)
 }
 
 /*
