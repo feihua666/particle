@@ -83,7 +83,7 @@ export const addPageFormItems = [
           formItemProps: {
             label: '栏目模板路径',
             required: true,
-            tips: '支持绝对路径和相对路径，相对路径是相对于系统的 classpath:/template-cms'
+            tips: '相对于站点模板路径，该路径需在站点模板路径下,使用系统内置模板请填写 channel'
           },
           compProps: {
             clearable: true,
@@ -101,7 +101,7 @@ export const addPageFormItems = [
           formItemProps: {
             label: '栏目模板',
             required: true,
-            tips: '相对于栏目模板路径，如：index.html'
+            tips: '相对于栏目模板路径，如：index.ftlh,使用系统内置模板请填写 index.ftlh'
           },
           compProps: {
             clearable: true,

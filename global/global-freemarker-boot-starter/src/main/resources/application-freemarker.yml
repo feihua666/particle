@@ -13,3 +13,5 @@ spring:
       # 开启api调用，在获取map的key为数字时使用
       api_builtin_enabled: true
     request-context-attribute: request
+    # 默认为 classpath:/templates/
+    template-loader-path: classpath:/templates/,file:/opt/particle/cms/templates/

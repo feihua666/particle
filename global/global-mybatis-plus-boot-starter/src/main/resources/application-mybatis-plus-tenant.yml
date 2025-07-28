@@ -186,6 +186,16 @@ particle:
       - component_navigation_static_deploy
       - component_navigation_site_tag
       - component_navigation_site_tag_rel
+      # cms 相关
+      - component_cms_channel
+      - component_cms_channel_view_record
+      - component_cms_content
+      - component_cms_content_category
+      - component_cms_content_multimedia
+      - component_cms_content_view_record
+      - component_cms_site
+      - component_cms_site_index_view_record
+      - component_cms_template_content
     # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
     tmdp:
       # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id

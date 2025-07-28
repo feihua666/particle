@@ -35,6 +35,9 @@ public class CmsChannelUpdateCommand extends AbstractBaseUpdateCommand {
         @Schema(description = "栏目名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
+	@Schema(description = "栏目访问上下文路径，主要应用于动态页访问，可以实现在一个站点下不同的栏目")
+	private String path;
+
 
     @NotEmpty(message = "栏目模板路径 不能为空")
         @Schema(description = "栏目模板路径",requiredMode = Schema.RequiredMode.REQUIRED)

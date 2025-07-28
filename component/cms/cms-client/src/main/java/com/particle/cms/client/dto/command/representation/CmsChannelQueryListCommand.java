@@ -17,7 +17,8 @@ import lombok.Data;
 @Schema
 public class CmsChannelQueryListCommand extends AbstractBaseTreeQueryCommand {
 
-
+    @Schema(description = "栏目id")
+    private Long id;
 
     @Schema(description = "站点id")
     private Long cmsSiteId;
@@ -30,6 +31,9 @@ public class CmsChannelQueryListCommand extends AbstractBaseTreeQueryCommand {
     @Like
     @Schema(description = "栏目名称,左前缀匹配")
     private String name;
+
+	@Schema(description = "栏目访问上下文路径，主要应用于动态页访问，可以实现在一个站点下不同的栏目")
+	private String path;
 
 
     @Schema(description = "栏目模板路径")

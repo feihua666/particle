@@ -35,6 +35,11 @@ public class CmsSiteDO extends BaseDO {
     */
     private String domain;
 
+	/**
+	 * 部署路径，主要用于动态页前端静态页面路径访问
+	 */
+	private String deployPath;
+
     /**
     * 站点访问上下文路径，主要应用于动态页访问，可以实现在一个域名下区分不同的站点
     */
@@ -49,6 +54,16 @@ public class CmsSiteDO extends BaseDO {
     * 站点首页模板,默认index.html
     */
     private String templateIndex;
+
+	/**
+	 * 404模板路径
+	 */
+	private String template404Path;
+
+	/**
+	 * 404内容模板,默认404.html
+	 */
+	private String template404Index;
 
     /**
     * 站点静态页存放路径

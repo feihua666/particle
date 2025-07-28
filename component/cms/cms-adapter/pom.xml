@@ -12,8 +12,8 @@
     <artifactId>cms-adapter</artifactId>
 
     <properties>
-        
-        
+
+
     </properties>
     <dependencies>
         <!-- 通用 适配层依赖 -->
@@ -37,6 +37,11 @@
             <artifactId>cms-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- freemarker的依赖 注意 navigation 组件也使用了freemarker-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-freemarker-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

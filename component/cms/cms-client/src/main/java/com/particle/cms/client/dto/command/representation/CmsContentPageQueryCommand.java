@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 @Schema
 public class CmsContentPageQueryCommand extends AbstractBasePageQueryCommand {
 
-
+    @Schema(description = "内容id")
+    private Long id;
 
     @Schema(description = "站点id")
     private Long cmsSiteId;

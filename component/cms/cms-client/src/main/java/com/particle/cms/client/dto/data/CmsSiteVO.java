@@ -26,6 +26,9 @@ public class CmsSiteVO extends AbstractBaseIdVO {
     
     @Schema(description = "站点域名")
     private String domain;
+
+	@Schema(description = "部署路径，主要用于动态页前端静态页面路径访问")
+	private String deployPath;
     
     @Schema(description = "站点访问上下文路径")
     private String path;
@@ -35,6 +38,12 @@ public class CmsSiteVO extends AbstractBaseIdVO {
     
     @Schema(description = "站点首页模板")
     private String templateIndex;
+
+	@Schema(description = "404模板路径")
+	private String template404Path;
+
+	@Schema(description = "404内容模板,默认404.html")
+	private String template404Index;
     
     @Schema(description = "站点静态页存放路径")
     private String staticPath;

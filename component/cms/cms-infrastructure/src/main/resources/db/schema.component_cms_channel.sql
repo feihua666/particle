@@ -5,6 +5,7 @@ CREATE TABLE `component_cms_channel` (
   `cms_site_id` bigint NOT NULL COMMENT '站点id',
   `code` varchar(100) DEFAULT NULL COMMENT '栏目编码',
   `name` varchar(100) NOT NULL COMMENT '栏目名称',
+  `path` varchar(200) DEFAULT NULL COMMENT '栏目访问上下文路径，主要应用于动态页访问，可以实现在一个站点下不同的栏目',
   `template_path` varchar(200) NOT NULL COMMENT '栏目模板路径',
   `template_index` varchar(200) NOT NULL COMMENT '栏目模板,默认index.html',
   `static_path` varchar(200) DEFAULT NULL COMMENT '栏目静态页存放路径',

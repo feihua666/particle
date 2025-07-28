@@ -18,6 +18,8 @@ import lombok.Data;
 public class CmsContentCategoryQueryListCommand extends AbstractBaseTreeQueryCommand {
 
 
+    @Schema(description = "分类id")
+    private Long id;
 
     @Schema(description = "站点id")
     private Long cmsSiteId;

@@ -127,8 +127,7 @@ public class RequestTool {
 
     /**
      * 获得站点url
-     *
-     * @return
+     * @return http://localhost:8080/{contextPath}
      */
     public static String getWebUrl(HttpServletRequest request) {
         String url = request.getScheme() + "://" + request.getServerName();

@@ -33,10 +33,6 @@ export const pageFormItems = [
 
 ]
 export const addPageFormItems = [
-
-
-
-
       {
         field: {
           name: 'code',
@@ -79,8 +75,8 @@ export const addPageFormItems = [
           comp: 'el-input',
           formItemProps: {
             label: '站点域名',
-            tips: '如：www.example.com、example.com'
-
+            required: true,
+            tips: '如：http://www.example.com、https://example.com'
           },
           compProps: {
             clearable: true,
@@ -116,7 +112,7 @@ export const addPageFormItems = [
           formItemProps: {
             label: '站点模板路径',
             required: true,
-            tips: '支持绝对路径和相对路径，相对路径是相对于系统的 classpath:/template-cms'
+            tips: '相对于系统配置的根路径，如：类路径是相对于 classpath:/templates/cms/、文件系统绝对路径默认相对于 file:/opt/particle/templates/cms/,使用系统内置模板请填写 default'
           },
           compProps: {
             clearable: true,
@@ -134,7 +130,7 @@ export const addPageFormItems = [
           formItemProps: {
             label: '站点首页模板',
             required: true,
-            tips: '相对于站点模板路径，如：index.html'
+            tips: '相对于站点模板路径，如：index.ftlh,使用系统内置模板请填写 index.ftlh'
           },
           compProps: {
             clearable: true,
@@ -142,6 +138,40 @@ export const addPageFormItems = [
         }
       },
 
+  {
+    field: {
+      name: 'template404Path',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '站点404模板路径',
+        required: true,
+        tips: '相对于站点模板路径，如：404,使用系统内置模板请填写 404'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
+
+
+  {
+    field: {
+      name: 'template404Index',
+    },
+    element: {
+      comp: 'el-input',
+      formItemProps: {
+        label: '站点404页面模板',
+        required: true,
+        tips: '相对于站点模板路径，如：index.ftlh,使用系统内置模板请填写 404.ftlh'
+      },
+      compProps: {
+        clearable: true,
+      }
+    }
+  },
 
       {
         field: {
