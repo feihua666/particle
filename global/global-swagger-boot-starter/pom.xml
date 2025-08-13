@@ -42,9 +42,9 @@
 
         <!-- 直接使用 knife4j，已经间接引入了对应版本的 springdoc 参考：https://doc.xiaominfo.com/docs/quick-start-->
         <dependency>
-            <!--<groupId>com.github.xiaoymin</groupId>-->
+            <groupId>com.github.xiaoymin</groupId>
             <!-- 文档参考：https://doc.xiaominfo.com/ 注意：该版本是三方临时版本 group已修改 参见：https://github.com/xiaoymin/knife4j/issues/865-->
-            <groupId>com.github.xingfudeshi</groupId>
+            <!--<groupId>com.github.xingfudeshi</groupId>-->
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
             <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
             <!--排除低版本-->
@@ -71,6 +71,18 @@
             <!--        <artifactId>swagger-annotations-jakarta</artifactId>-->
             <!--    </exclusion>-->
             <!--</exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- knife4j 依赖的版本有些低，这里使用高版本 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>

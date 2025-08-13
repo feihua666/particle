@@ -19,6 +19,7 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -81,10 +82,15 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 		return iFuncRepresentationApplicationService.queryDetail(funcQueryDetailCommand);
 	}
 
+	/**
+	 * 这里测试添加了 {@link ParameterObject} 会展开对象参数以全局开启，参见 application-swagger.yml springdoc.default-flat-param-object
+	 * @param funcQueryListCommand
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('admin:web:func:queryList')")
 	@Operation(summary = "列表查询菜单功能")
 	@GetMapping("/list")
-	public MultiResponse<FuncVO> queryList(FuncQueryListCommand funcQueryListCommand){
+	public MultiResponse<FuncVO> queryList(@ParameterObject FuncQueryListCommand funcQueryListCommand){
 		funcQueryListCommand.dcdo(DataConstraintConstants.data_object_func_func,DataConstraintContext.Action.query.name());
 		return iFuncRepresentationApplicationService.queryList(funcQueryListCommand);
 	}

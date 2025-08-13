@@ -4,6 +4,6 @@ springdoc:
   # 主要是解决 Knife4j v4.0版本针对参数解析ParameterObject的问题说明 参见：https://doc.xiaominfo.com/docs/faq/v4/knife4j-parameterobject-flat-param
   # false 是默认配置，这意味着查询表单对象默认会被解析为一个参数，而不是将查询表单对象中的字段解析为参数，如果设置为true，查询表单没问题了，但标注了RequestBody的json对象会被解析为不是json的参数请求
   # 所以都有问题，为了解决问题已经重写了 类 org.springdoc.core.DelegatingMethodParameter
-  default-flat-param-object: false
+  default-flat-param-object: true
   api-docs:
     enabled: ${particle.swagger.enabled:true}
