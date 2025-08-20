@@ -118,6 +118,11 @@ public enum ErrorCodeGlobalEnum implements IErrorCode {
 	 */
 	SCHEDULER_DATA_TASK_NOT_FOUND(40400000003L,"任务数据不存在"),
 
+	/**
+	 * 静态资源不存在
+	 */
+	STATIC_RESOURCE_NOT_FOUND(40400000004L,"静态资源不还在"),
+
 
 	METHOD_NOT_SUPPORTED_ERROR(40500000002L,"不支持的方法"),
 

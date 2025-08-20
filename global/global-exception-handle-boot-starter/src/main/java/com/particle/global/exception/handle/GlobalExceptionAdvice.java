@@ -13,6 +13,7 @@ import com.particle.global.exception.code.IErrorCode;
 import com.particle.global.exception.system.SystemException;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -31,6 +32,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,6 +41,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.sql.SQLSyntaxErrorException;
 import java.util.List;
@@ -339,7 +342,11 @@ public class GlobalExceptionAdvice {
         String propertyName = ((PathImpl) ((ConstraintViolationImpl) next).getPropertyPath()).getLeafNode().asString();
         return createRM(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, message, propertyName, ex);
     }
-
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response handleNoResourceFoundException(HttpServletRequest request, NoResourceFoundException ex) {
+        return createRM(ErrorCodeGlobalEnum.STATIC_RESOURCE_NOT_FOUND,ex.getMessage(), request.getRequestURI(), ex);
+    }
     /**
      * 其它不可预知的异常，通常定义为系统异常
      *

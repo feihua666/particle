@@ -1,7 +1,7 @@
 package com.particle.global.tool.log;
 
-import brave.Span;
-import brave.Tracer;
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
 import com.particle.global.tool.spring.SpringContextHolder;
 import org.slf4j.MDC;
 
@@ -37,7 +37,7 @@ public class TraceTool {
         if (span == null) {
 			return MDC.get("traceId");
 		}
-		return span.context().traceIdString();
+		return span.context().traceId();
 	}
 
 	/**
@@ -50,6 +50,6 @@ public class TraceTool {
 		if (span == null) {
 			return MDC.get("spanId");
 		}
-		return span.context().spanIdString();
+		return span.context().spanId();
 	}
 }

@@ -1,9 +1,9 @@
 package com.particle.global.web.filter;
 
-import brave.Tracer;
 import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.tracing.brave.bridge.BraveTracer;
+import io.micrometer.tracing.Tracer;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -25,6 +25,7 @@ import java.util.Arrays;
  * @author yangwei
  * @since 2021-08-02 14:21
  */
+@AutoConfigureAfter(name = "org.springframework.boot.actuate.autoconfigure.tracing.MicrometerTracingAutoConfiguration")
 @Configuration(proxyBeanMethods = true)
 public class GlobalWebFilterAutoConfiguration {
 
@@ -106,8 +107,7 @@ public class GlobalWebFilterAutoConfiguration {
 	 * 条件配置参考：{@link org.springframework.boot.actuate.autoconfigure.tracing.BraveAutoConfiguration}
 	 */
 	@Configuration(proxyBeanMethods = true)
-	@ConditionalOnClass({ Tracer.class, BraveTracer.class })
-	@ConditionalOnBean(Tracer.class)
+	@ConditionalOnClass({ Tracer.class})
 	protected static class TraceConfigurationDependConfig{
 
 		/**
@@ -115,6 +115,7 @@ public class GlobalWebFilterAutoConfiguration {
 		 * @return
 		 */
 		@Bean
+		@ConditionalOnBean(Tracer.class)
 		public FilterRegistrationBean responseTraceIdFilter(Tracer tracer) {
 			FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 			registrationBean.setFilter(responseTraceIdFilterBean(tracer));
@@ -123,6 +124,7 @@ public class GlobalWebFilterAutoConfiguration {
 		}
 
 		@Bean
+		@ConditionalOnBean(Tracer.class)
 		public ResponseTraceIdFilter responseTraceIdFilterBean(Tracer tracer) {
 			return new ResponseTraceIdFilter(tracer);
 		}

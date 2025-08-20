@@ -1,7 +1,7 @@
 package com.particle.global.web.filter;
 
-import brave.Span;
-import brave.Tracer;
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
 import com.particle.global.tool.thread.ThreadContextTool;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -34,7 +34,7 @@ public class ResponseTraceIdFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		Span currentSpan = this.tracer.currentSpan();
-		response.addHeader(RESPONSE_TRACE_ID_KEY, currentSpan.context().traceIdString());
+		response.addHeader(RESPONSE_TRACE_ID_KEY, currentSpan.context().traceId());
 		// 在配置中该 filter排名第一位，直接在这里全局清除线程变量
 		filterChain.doFilter(request,response);
 	}

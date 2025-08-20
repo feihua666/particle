@@ -1,6 +1,6 @@
 package com.particle.global.notification.notify;
 
-import brave.Tracer;
+import io.micrometer.tracing.Tracer;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
@@ -90,9 +90,9 @@ public abstract class AbstractNotifyListener implements INotifyListener{
 		}
 		if (includeTraceInfo()) {
 			if (tracer != null) {
-				String traceId = Optional.ofNullable(tracer).map(Tracer::currentSpan).map(i -> i.context()).map(i -> i.traceIdString()).orElse(null);
+				String traceId = Optional.ofNullable(tracer).map(Tracer::currentSpan).map(i -> i.context()).map(i -> i.traceId()).orElse(null);
 				if (StrUtil.isNotEmpty(traceId)) {
-					result.add(StrUtil.format("[traceId|spanId] : {}|{}",tracer.currentSpan().context().traceIdString(),tracer.currentSpan().context().spanIdString()));
+					result.add(StrUtil.format("[traceId|spanId] : {}|{}",tracer.currentSpan().context().traceId(),tracer.currentSpan().context().spanId()));
 				}
 			}else {
 				log.warn("tracer is null,notice will not include traceinfo. check your config or consider depend global-actuator-boot-starter module");
