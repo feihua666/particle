@@ -49,6 +49,18 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @return
 	 */
 	List<RoleDO> getByFuncId(Long funcId,Boolean isDisabled);
+	/**
+	 * 根据角色类型字典id查询
+	 * @param roleTypeDictId
+	 * @return
+	 */
+	default List<RoleDO> getByRoleTypeDictId(Long roleTypeDictId,Boolean isDisabled) {
+		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().eq(RoleDO::getTypeDictId, roleTypeDictId));
+		if (isDisabled == null) {
+			return list;
+		}
+		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
+	}
 
 	/**
 	 * 根据 roleIds 查询

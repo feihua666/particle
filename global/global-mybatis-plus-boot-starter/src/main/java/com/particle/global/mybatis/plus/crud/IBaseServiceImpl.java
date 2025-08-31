@@ -89,7 +89,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }
         preAdd(po);
         if (!isEmpty(addServiceListeners)) {
-            addServiceListeners.parallelStream().forEach(listener->listener.preAdd(po));
+            for (IAddServiceListener<DO> addServiceListener : addServiceListeners) {
+                addServiceListener.preAdd(po);
+            }
         }
     }
 
@@ -108,7 +110,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void postAdd(DO po,Object options){
         postAdd(po);
         if (!isEmpty(addServiceListeners)) {
-            addServiceListeners.parallelStream().forEach(listener->listener.postAdd(po));
+            for (IAddServiceListener<DO> addServiceListener : addServiceListeners) {
+                addServiceListener.postAdd(po);
+            }
         }
     }
     @Override
@@ -322,7 +326,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void preDeleteById(Long id, DO DO, Object options){
         preDeleteById(id, DO);
         if (!isEmpty(deleteServiceListeners)) {
-            deleteServiceListeners.parallelStream().forEach(listener->listener.preDeleteById(id, DO));
+            for (IDeleteServiceListener<DO> deleteServiceListener : deleteServiceListeners) {
+                deleteServiceListener.preDeleteById(id, DO);
+            }
         }
     }
 
@@ -341,7 +347,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void postDeleteById(Long id, DO DO, Object options){
         postDeleteById(id, DO);
         if (!isEmpty(deleteServiceListeners)) {
-            deleteServiceListeners.parallelStream().forEach(listener->listener.postDeleteById(id, DO));
+            for (IDeleteServiceListener<DO> deleteServiceListener : deleteServiceListeners) {
+                deleteServiceListener.postDeleteById(id, DO);
+            }
         }
     }
 
@@ -395,7 +403,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void preDeleteByColumn(Object columnId, SFunction<DO, ?> column , List<DO> DOS, Object options){
         preDeleteByColumn(columnId,column, DOS);
         if (!isEmpty(deleteServiceListeners)) {
-            deleteServiceListeners.parallelStream().forEach(listener->listener.preDeleteByColumn(columnId,column, DOS));
+            for (IDeleteServiceListener<DO> deleteServiceListener : deleteServiceListeners) {
+                deleteServiceListener.preDeleteByColumn(columnId,column, DOS);
+            }
         }
     }
 
@@ -415,7 +425,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void postDeleteByColumn(Object columnId , SFunction<DO, ?> column , List<DO> DOS, Object options){
         postDeleteByColumn(columnId ,column , DOS);
         if (!isEmpty(deleteServiceListeners)) {
-            deleteServiceListeners.parallelStream().forEach(listener->listener.postDeleteByColumn(columnId,column, DOS));
+            for (IDeleteServiceListener<DO> deleteServiceListener : deleteServiceListeners) {
+                deleteServiceListener.postDeleteByColumn(columnId,column, DOS);
+            }
         }
     }
     @Override
@@ -535,7 +547,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }
         preUpdate(po);
         if (!isEmpty(updateServiceListeners)) {
-            updateServiceListeners.parallelStream().forEach(listener->listener.preUpdate(po));
+            for (IUpdateServiceListener<DO> updateServiceListener : updateServiceListeners) {
+                updateServiceListener.preUpdate(po);
+            }
         }
     }
 
@@ -553,7 +567,9 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     private void postUpdate(DO po,Object options){
         postUpdate(po);
         if (!isEmpty(updateServiceListeners)) {
-            updateServiceListeners.parallelStream().forEach(listener->listener.postUpdate(po));
+            for (IUpdateServiceListener<DO> updateServiceListener : updateServiceListeners) {
+                updateServiceListener.postUpdate(po);
+            }
         }
     }
     @Override

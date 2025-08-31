@@ -40,8 +40,12 @@ public class RoleUserRelRepresentationApplicationServiceImpl extends AbstractBas
 
 	@Override
 	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand) {
-
 		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleId(roleIdCommand);
+	}
+
+	@Override
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(IdCommand roleTypeDictIdCommand) {
+		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleTypeDictIdAndRoleEnabled(roleTypeDictIdCommand);
 	}
 
 	@Override

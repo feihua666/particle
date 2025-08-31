@@ -1,6 +1,7 @@
 package com.particle.role.client.dto.data;
 
 import com.particle.common.client.dto.data.AbstractBaseIdTreeVO;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.component.light.share.trans.TransTableNameConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +34,17 @@ public class RoleVO extends AbstractBaseIdTreeVO {
 
     @Schema(description = "是否超级管理员")
     private Boolean isSuperadmin;
+
+	@Schema(description = "角色类型，字典id")
+	private Long typeDictId;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "value")
+    @Schema(description = "角色类型，字典值")
+    private String typeDictValue;
+
+    @TransBy(type = TransConstants.TRANS_DICT_BY_ID,byFieldName = "typeDictId",mapValueField = "name")
+    @Schema(description = "角色类型，字典名称")
+    private String typeDictName;
 
     @Schema(description = "排序,默认按该字段升序排序")
     private Integer seq;

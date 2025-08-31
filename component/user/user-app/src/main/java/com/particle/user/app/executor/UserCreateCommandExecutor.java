@@ -8,6 +8,8 @@ import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.UserCreateCommand;
+import com.particle.user.client.dto.command.UserExtraInfoCommand;
+import com.particle.user.client.dto.command.UserExtraInfoCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
@@ -48,6 +50,8 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	private UserIdentifierPwdGateway userIdentifierPwdGateway;
 
 	private IUserIdentifierService userIdentifierService;
+
+	private UserExtraInfoCreateCommandExecutor userExtraInfoCreateCommandExecutor;
 
 	/**
 	 * 执行用户添加指令
@@ -98,6 +102,13 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 					userIdentifierPwdCommand.getIsPwdNeedUpdate(), userIdentifierPwdCommand.getPwdNeedUpdateMessage());
 			userIdentifierPwdGateway.save(userIdentifierPwd);
 
+			// 添加扩展信息
+			UserExtraInfoCommand userExtraInfoCommand = userCreateCommand.getUserExtraInfo();
+			if (userExtraInfoCommand != null) {
+				UserExtraInfoCreateCommand userExtraInfoCreateCommand = UserExtraInfoCreateCommand.createByUserExtraInfoCommand(userExtraInfoCommand, user.getId().getId());
+				userExtraInfoCreateCommandExecutor.execute(userExtraInfoCreateCommand);
+			}
+
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -146,5 +157,9 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setUserIdentifierService(IUserIdentifierService userIdentifierService) {
 		this.userIdentifierService = userIdentifierService;
+	}
+	@Autowired
+	public void setUserExtraInfoCreateCommandExecutor(UserExtraInfoCreateCommandExecutor userExtraInfoCreateCommandExecutor) {
+		this.userExtraInfoCreateCommandExecutor = userExtraInfoCreateCommandExecutor;
 	}
 }

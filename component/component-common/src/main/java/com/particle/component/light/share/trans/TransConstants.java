@@ -19,6 +19,7 @@ public class TransConstants {
 	public static final String TRANS_USER_BY_ID = "TRANS_USER_BY_ID";
 	// 比直接翻译用户多了其它属性，如邮箱，手机号
 	public static final String TRANS_USER_INFO_BY_ID = "TRANS_USER_INFO_BY_ID";
+	public static final String TRANS_USER_EXTRA_INFO_BY_ID = "TRANS_USER_EXTRA_INFO_BY_ID";
 	public static final String TRANS_FUNC_BY_ID = "TRANS_FUNC_BY_ID";
 	public static final String TRANS_DEPT_TREE_BY_ID = "TRANS_DEPT_TREE_BY_ID";
 	public static final String TRANS_DEPT_BY_ID = "TRANS_DEPT_BY_ID";

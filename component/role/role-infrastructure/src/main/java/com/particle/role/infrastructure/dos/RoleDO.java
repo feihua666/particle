@@ -35,6 +35,11 @@ public class RoleDO extends BaseTreeDO {
      * 是否超级管理员
      */
     private Boolean isSuperadmin;
+
+	/**
+	 * 角色类型，字典id
+	 */
+	private Long typeDictId;
     /**
      * 排序,默认按该字段升序排序
      */

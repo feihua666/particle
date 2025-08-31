@@ -71,4 +71,10 @@ public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
 
     @Schema(description = "是否包含角色信息响应")
     private Boolean isIncludeRoleInfo;
+
+    @Schema(description = "角色id")
+    private Long roleId;
+
+    @Schema(description = "角色类型字典id")
+    private Long roleTypeDictId;
 }

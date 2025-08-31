@@ -25,11 +25,19 @@ public interface IRoleUserRelService extends IBaseService<RoleUserRelDO> {
 		return listByColumn(userId, RoleUserRelDO::getUserId);
 	}
 	/**
-	 * 根据用户id查询
+	 * 根据用户ids查询
 	 * @param userIds
 	 * @return
 	 */
 	default List<RoleUserRelDO> getByUserIds(List<Long> userIds) {
 		return listByColumns(userIds, RoleUserRelDO::getUserId);
+	}
+	/**
+	 * 根据角色ids查询
+	 * @param roleIds
+	 * @return
+	 */
+	default List<RoleUserRelDO> getByRoleIds(List<Long> roleIds) {
+		return listByColumns(roleIds, RoleUserRelDO::getRoleId);
 	}
 }

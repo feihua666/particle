@@ -32,4 +32,7 @@ public class RolePageQueryCommand extends AbstractBaseTreePageQueryCommand {
 
     @Schema(description = "是否超级管理员")
     private Boolean isSuperadmin;
+
+	@Schema(description = "角色类型，字典id")
+	private Long typeDictId;
 }

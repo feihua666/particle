@@ -5,12 +5,13 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.structmapping.UserAppStructMapping;
-import com.particle.user.client.dto.command.UserUpdateCommand;
-import com.particle.user.client.dto.command.UserUpdateInfoCommand;
+import com.particle.user.client.dto.command.*;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
+import com.particle.user.infrastructure.dos.UserExtraInfoDO;
+import com.particle.user.infrastructure.service.IUserExtraInfoService;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -33,6 +34,9 @@ import org.springframework.validation.annotation.Validated;
 public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private UserGateway userGateway;
+	private IUserExtraInfoService userExtraInfoService;
+	private UserExtraInfoCreateCommandExecutor userExtraInfoCreateCommandExecutor;
+	private UserExtraInfoUpdateCommandExecutor userExtraInfoUpdateCommandExecutor;
 
 	/**
 	 * 执行 用户 更新指令
@@ -44,6 +48,23 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 		user.setUpdateControl(userUpdateCommand);
 		boolean save = userGateway.save(user);
 		if (save) {
+			// 更新扩展信息
+			UserExtraInfoCommand userExtraInfoCommand = userUpdateCommand.getUserExtraInfo();
+			if (userExtraInfoCommand != null) {
+				UserExtraInfoDO userExtraInfoDO = userExtraInfoService.getByUserId(user.getId().getId());
+				// 如果不存在的话
+				if (userExtraInfoDO == null) {
+					// 添加扩展信息
+
+					UserExtraInfoCreateCommand userExtraInfoCreateCommand = UserExtraInfoCreateCommand.createByUserExtraInfoCommand(userExtraInfoCommand, user.getId().getId());
+					userExtraInfoCreateCommandExecutor.execute(userExtraInfoCreateCommand);
+				}else{
+					UserExtraInfoUpdateCommand userExtraInfoUpdateCommand = UserExtraInfoUpdateCommand.createByUserExtraInfoCommand(userExtraInfoCommand,
+							userExtraInfoDO.getUserId(), userExtraInfoDO.getId(), userExtraInfoDO.getVersion());
+					userExtraInfoUpdateCommandExecutor.execute(userExtraInfoUpdateCommand);
+				}
+
+			}
 			return SingleResponse.of(UserAppStructMapping.instance.toUserVO(user));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -111,5 +132,17 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setUserGateway(UserGateway userGateway) {
 		this.userGateway = userGateway;
+	}
+	@Autowired
+	public void setUserExtraInfoService(IUserExtraInfoService userExtraInfoService) {
+		this.userExtraInfoService = userExtraInfoService;
+	}
+	@Autowired
+	public void setUserExtraInfoCreateCommandExecutor(UserExtraInfoCreateCommandExecutor userExtraInfoCreateCommandExecutor) {
+		this.userExtraInfoCreateCommandExecutor = userExtraInfoCreateCommandExecutor;
+	}
+	@Autowired
+	public void setUserExtraInfoUpdateCommandExecutor(UserExtraInfoUpdateCommandExecutor userExtraInfoUpdateCommandExecutor) {
+		this.userExtraInfoUpdateCommandExecutor = userExtraInfoUpdateCommandExecutor;
 	}
 }

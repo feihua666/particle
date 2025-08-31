@@ -98,5 +98,7 @@ public class UserVO extends AbstractBaseIdVO {
 	@Schema(description = "备注")
 	private String remark;
 
-
+    @TransBy(type = TransConstants.TRANS_USER_EXTRA_INFO_BY_ID,byFieldName = "id")
+    @Schema(description = "用户扩展信息")
+    private UserExtraInfoVO userExtraInfoVO;
 }

@@ -100,4 +100,6 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
 	private String remark;
 
 
+    @Schema(description = "用户扩展信息")
+    private UserExtraInfoCommand userExtraInfo;
 }

@@ -43,6 +43,9 @@ public class RoleCreateCommand extends AbstractBaseCommand {
     @Schema(description = "是否超级管理员")
     private Boolean isSuperadmin = false;
 
+	@Schema(description = "角色类型，字典id")
+	private Long typeDictId;
+
     @Schema(description = "描述")
     private String remark;
 

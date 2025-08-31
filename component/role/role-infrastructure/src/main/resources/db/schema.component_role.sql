@@ -6,6 +6,7 @@ CREATE TABLE `component_role` (
   `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',
   `disabled_reason` varchar(255) DEFAULT NULL COMMENT '禁用原因',
   `is_superadmin` tinyint(1) NOT NULL COMMENT '是否超级管理员',
+  `type_dict_id` bigint DEFAULT NULL COMMENT '角色类型，字典id',
   `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `level` int NOT NULL COMMENT '层级、深度',

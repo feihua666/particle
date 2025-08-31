@@ -4,3 +4,4 @@
 -- import classpath:db/identifier/schema.component_user_identifier_pwd.sql
 -- import classpath:db/login/schema.component_user_login_device.sql
 -- import classpath:db/login/schema.component_user_login_record.sql
+-- import classpath:db/login/schema.component_user_extra_info.sql

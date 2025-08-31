@@ -96,6 +96,19 @@ public class RoleUserRelAdminWebController extends AbstractBaseWebAdapter {
 		return iRoleUserRelRepresentationApplicationService.queryUserIdsByRoleId( roleIdCommand);
 	}
 
+	/**
+	 * 添加主要是查询某一类角色下的用户ids
+	 * @param roleTypeDictIdCommand
+	 * @return
+	 */
+	@Operation(summary = "根据角色类型字典ID查询已分配的用户id")
+	@PreAuthorize("hasAuthority('admin:web:roleUserRel:queryUserIdsByRoleTypeDictId')")
+	@GetMapping("/queryUserIdsByRoleTypeDictId")
+	@ResponseStatus(HttpStatus.OK)
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(IdCommand roleTypeDictIdCommand) {
+		return iRoleUserRelRepresentationApplicationService.queryUserIdsByRoleTypeDictId(roleTypeDictIdCommand);
+	}
+
 	@Operation(summary = "清空角色下的所有用户")
 	@PreAuthorize("hasAuthority('admin:web:roleUserRel:deleteByRoleId')")
 	@DeleteMapping("/deleteByRoleId")

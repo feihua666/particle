@@ -1,5 +1,6 @@
 package com.particle.role.app.roleuserrel.executor.representation;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.common.client.dto.command.IdCommand;
@@ -10,8 +11,10 @@ import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMappi
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelPageQueryCommand;
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
+import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
+import com.particle.role.infrastructure.service.IRoleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +35,7 @@ import java.util.stream.Collectors;
 public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 
 	private IRoleUserRelService iRoleUserRelService;
+	private IRoleService iRoleService;
 
 	/**
 	 * 执行 角色用户关系 列表查询指令
@@ -65,7 +69,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	}
 
 	/**
-	 * 查询角色已分配的用户菜单ids
+	 * 查询角色已分配的用户ids
 	 * @param roleIdCommand
 	 * @return
 	 */
@@ -78,6 +82,22 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getUserId).collect(Collectors.toList());
 			return MultiResponse.of(collect);
 		}
+		return MultiResponse.buildSuccess();
+	}
+	/**
+	 * 查询角色类型已分配的用户ids
+	 * @param roleTypeDictIdCommand
+	 * @return 返回未禁用角色的用户ids
+	 */
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictIdAndRoleEnabled(@Valid IdCommand roleTypeDictIdCommand) {
+		List<RoleDO> byRoleTypeDictId = iRoleService.getByRoleTypeDictId(roleTypeDictIdCommand.getId(), false);
+		List<Long> roleIds = byRoleTypeDictId.stream().map(RoleDO::getId).collect(Collectors.toList());
+        if (CollectionUtil.isNotEmpty(roleIds)) {
+			List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByRoleIds(roleIds);
+			List<Long> collect = roleUserRelDOS.stream().map(RoleUserRelDO::getUserId).collect(Collectors.toList());
+			return MultiResponse.of(collect);
+		}
+
 		return MultiResponse.buildSuccess();
 	}
 	/**
@@ -99,5 +119,9 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	@Autowired
 	public void setIRoleUserRelService(IRoleUserRelService iRoleUserRelService) {
 		this.iRoleUserRelService = iRoleUserRelService;
+	}
+	@Autowired
+	public void setIRoleService(IRoleService iRoleService) {
+		this.iRoleService = iRoleService;
 	}
 }

@@ -47,6 +47,12 @@ public interface IRoleUserRelRepresentationApplicationService extends IBaseAppli
 	 * @return
 	 */
 	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand);
+	/**
+	 * 角色类型字典id查询角色已分配的用户id
+	 * @param roleTypeDictIdCommand
+	 * @return
+	 */
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(IdCommand roleTypeDictIdCommand);
 
 	/**
 	 * 查询用户已分配的角色id

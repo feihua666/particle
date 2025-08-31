@@ -108,4 +108,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
      */
     @Schema(description = "角色id")
     private List<Long> roleIds;
+
+    @Schema(description = "用户扩展信息")
+    private UserExtraInfoCommand userExtraInfo;
 }
