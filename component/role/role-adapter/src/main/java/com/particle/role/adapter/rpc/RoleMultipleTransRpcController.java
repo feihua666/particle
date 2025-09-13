@@ -3,7 +3,7 @@ package com.particle.role.adapter.rpc;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.trans.result.TransResult;
 import com.particle.role.adapter.feign.client.rpc.RoleMultipleTransRpcFeignClient;
-import com.particle.role.client.dto.data.RoleTransVO;
+import com.particle.component.light.share.role.RoleTransVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

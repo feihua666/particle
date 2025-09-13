@@ -78,6 +78,12 @@ public class UserIdentifier extends AggreateRoot {
     private String lastLoginIp;
 
 
+	public void changeId(UserIdentifierId id) {
+		this.id = id;
+	}
+	public void changeId(Long id) {
+		this.id = UserIdentifierId.of(id);
+	}
 	public void changeIdentityTypeDictIdByValueIfNeccesary(String identityTypeDictValue) {
 		if (identityTypeDictId != null) {
 			return;

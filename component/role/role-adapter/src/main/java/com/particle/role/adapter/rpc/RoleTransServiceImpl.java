@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
-import com.particle.role.client.dto.data.RoleTransVO;
+import com.particle.component.light.share.role.RoleTransVO;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,11 +7,13 @@ import com.particle.dept.infrastructure.deptuserrel.dos.DeptUserRelDO;
 import com.particle.global.dto.basic.QueryCommand;
 import com.particle.global.mybatis.plus.crud.IAddServiceListener;
 import com.particle.global.mybatis.plus.crud.IQueryWrapperHandler;
+import com.particle.global.mybatis.plus.crud.IUpdateServiceListener;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.roleuserrel.dos.RoleUserRelDO;
 import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import com.particle.role.infrastructure.service.IRoleService;
 import com.particle.user.client.dto.command.UserCreateCommand;
+import com.particle.user.client.dto.command.UserUpdateCommand;
 import com.particle.user.client.dto.command.representation.UserPageQueryCommand;
 import com.particle.user.client.dto.command.representation.UserQueryListCommand;
 import com.particle.user.infrastructure.dos.UserDO;
@@ -28,7 +30,7 @@ import java.util.stream.Collectors;
  * @author yangwei
  * @since 2023-05-26 16:38:47
  */
-public class RoleUserAddServiceListener implements IAddServiceListener<UserDO> , IQueryWrapperHandler<UserDO> {
+public class RoleUserAddServiceListener implements IAddServiceListener<UserDO> , IUpdateServiceListener<UserDO>, IQueryWrapperHandler<UserDO> {
 
 	@Autowired
 	private IRoleUserRelService roleUserRelService;
@@ -50,6 +52,22 @@ public class RoleUserAddServiceListener implements IAddServiceListener<UserDO> ,
 
 		roleUserRelService.assignRel(po.getId(), roleIds, (relDto) -> new RoleUserRelDO().setUserId(relDto.getMainId()).setRoleId(relDto.getOtherId()));
 	}
+
+	@Override
+	public void postUpdate(UserDO po) {
+		List<Long> roleIds = null;
+		if (po.getAddControl() != null) {
+			if (po.getUpdateControl() instanceof UserUpdateCommand) {
+				roleIds = ((UserUpdateCommand) po.getUpdateControl()).getRoleIds();
+				if (CollectionUtil.isEmpty(roleIds)) {
+					return;
+				}
+			}
+		}
+
+		roleUserRelService.removeAndAssignRel(po.getId(), roleIds,RoleUserRelDO::getUserId, (relDto) -> new RoleUserRelDO().setUserId(relDto.getMainId()).setRoleId(relDto.getOtherId()));
+	}
+
 	/**
 	 * 查询时，如果存在角色id，添加角色id查询条件，如果存在角色类型字典id，添加角色类型字典id查询条件
 	 * @param queryWrapper

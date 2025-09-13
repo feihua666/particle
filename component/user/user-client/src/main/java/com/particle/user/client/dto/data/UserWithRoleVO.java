@@ -1,9 +1,12 @@
 package com.particle.user.client.dto.data;
 
+import com.particle.component.light.share.role.RoleTransVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,8 +20,8 @@ import lombok.Data;
 @Schema
 public class UserWithRoleVO extends UserVO {
 
-    @TransBy(type = TransConstants.TRANS_ROLE_BY_USER_ID,byFieldName = "id",mapValueField = "name")
-    @Schema(description = "角色名称")
-    private String roleName;
+    @TransBy(type = TransConstants.TRANS_ROLE_BY_USER_ID,byFieldName = "id")
+    @Schema(description = "角色信息")
+    private List<RoleTransVO> roleVOs;
 
 }

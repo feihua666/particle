@@ -1,7 +1,7 @@
 package com.particle.role.adapter.feign.client.rpc;
 
 import com.particle.global.trans.api.ITransService;
-import com.particle.role.client.dto.data.RoleTransVO;
+import com.particle.component.light.share.role.RoleTransVO;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;

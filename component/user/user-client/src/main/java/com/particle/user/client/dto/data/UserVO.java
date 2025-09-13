@@ -3,10 +3,12 @@ package com.particle.user.client.dto.data;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.light.share.trans.anno.TransBy;
+import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -25,7 +27,6 @@ public class UserVO extends AbstractBaseIdVO {
 
     @Schema(description = "昵称，模糊查询")
     private String nickname;
-
 
     @Schema(description = "性别，字典id")
     private Long genderDictId;
@@ -101,4 +102,8 @@ public class UserVO extends AbstractBaseIdVO {
     @TransBy(type = TransConstants.TRANS_USER_EXTRA_INFO_BY_ID,byFieldName = "id")
     @Schema(description = "用户扩展信息")
     private UserExtraInfoVO userExtraInfoVO;
+
+    @TransBy(type = TransConstants.TRANS_USER_IDENTIFIER_BY_USER_ID,byFieldName = "id")
+    @Schema(description = "用户登录标识")
+    private List<UserIdentifierVO> userIdentifierVOs;
 }

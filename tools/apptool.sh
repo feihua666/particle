@@ -90,7 +90,7 @@ taillog(){
     sleep 5
     if test -f "$APP_LOG_PATH"; then
         echo "$APP_LOG_PATH"
-        tail -f $APP_LOG_PATH
+        tail -F $APP_LOG_PATH
     else
       echo -e "日志文件不存在：$APP_LOG_PATH"
     fi

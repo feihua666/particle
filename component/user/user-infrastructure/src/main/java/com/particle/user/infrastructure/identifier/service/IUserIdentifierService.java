@@ -57,6 +57,15 @@ public interface IUserIdentifierService extends IBaseService<UserIdentifierDO> {
 		Assert.notNull(userId,"userId不能为空");
 		return list(Wrappers.<UserIdentifierDO>lambdaQuery().eq(UserIdentifierDO::getUserId, userId));
 	}
+	/**
+	 * 根据用户ids查询
+	 * @param userIds
+	 * @return
+	 */
+	default List<UserIdentifierDO> getByUserIds(List<Long> userIds) {
+		Assert.notEmpty(userIds,"userIds不能为空");
+		return list(Wrappers.<UserIdentifierDO>lambdaQuery().in(UserIdentifierDO::getUserId, userIds));
+	}
 
 	/**
 	 * 根据用户id查询,key=用户id

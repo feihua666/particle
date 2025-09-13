@@ -16,4 +16,18 @@
 
     </properties>
 
+    <dependencies>
+        <!-- 全局dto依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- swagger 接口文档工具 不传递依赖 仅使用注解-->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>${swagger-annotations-jakarta.version}</version>
+        </dependency>
+    </dependencies>
 </project>

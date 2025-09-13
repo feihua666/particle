@@ -78,15 +78,25 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
 	@Operation(summary = "用户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand){
-		return iUserRepresentationApplicationService.queryDetailForUpdate(userQueryDetailForUpdateCommand);
+	public SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand,Boolean isIncludeRoleInfo){
+		SingleResponse<UserVO> userVOSingleResponse = iUserRepresentationApplicationService.queryDetailForUpdate(userQueryDetailForUpdateCommand);
+		if (isIncludeRoleInfo != null && isIncludeRoleInfo && userVOSingleResponse != null) {
+			userVOSingleResponse.setData(UserAppStructMapping.instance.mapUserWithRoleVO(userVOSingleResponse.getData()));
+		}
+
+		return userVOSingleResponse;
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:detail')")
 	@Operation(summary = "用户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand){
-		return iUserRepresentationApplicationService.queryDetail(userQueryDetailCommand);
+	public SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand,Boolean isIncludeRoleInfo){
+		SingleResponse<UserVO> userVOSingleResponse = iUserRepresentationApplicationService.queryDetail(userQueryDetailCommand);
+		if (isIncludeRoleInfo != null && isIncludeRoleInfo && userVOSingleResponse != null) {
+			userVOSingleResponse.setData(UserAppStructMapping.instance.mapUserWithRoleVO(userVOSingleResponse.getData()));
+		}
+
+		return userVOSingleResponse;
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:queryList')")

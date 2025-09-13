@@ -1,6 +1,6 @@
-package com.particle.role.client.dto.data;
+package com.particle.component.light.share.role;
 
-import com.particle.common.client.dto.data.AbstractBaseIdVO;
+import com.particle.global.dto.basic.VO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -16,7 +16,13 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Data
 @Schema
-public class RoleTransVO extends AbstractBaseIdVO {
+public class RoleTransVO extends VO {
+
+    /**
+     * 主键id
+     */
+    @Schema(description = "主键id")
+    private Long id;
 
     @Schema(description = "角色编码")
     private String code;
