@@ -56,7 +56,7 @@ public class RoleUserAddServiceListener implements IAddServiceListener<UserDO> ,
 	@Override
 	public void postUpdate(UserDO po) {
 		List<Long> roleIds = null;
-		if (po.getAddControl() != null) {
+		if (po.getUpdateControl() != null) {
 			if (po.getUpdateControl() instanceof UserUpdateCommand) {
 				roleIds = ((UserUpdateCommand) po.getUpdateControl()).getRoleIds();
 				if (CollectionUtil.isEmpty(roleIds)) {
@@ -79,8 +79,10 @@ public class RoleUserAddServiceListener implements IAddServiceListener<UserDO> ,
 		Long roleTypeDictId = null;
 		if (queryForm instanceof UserQueryListCommand) {
 			roleId = ((UserQueryListCommand) queryForm).getRoleId();
+			roleTypeDictId = ((UserQueryListCommand) queryForm).getRoleTypeDictId();
 		}else if (queryForm instanceof UserPageQueryCommand) {
 			roleId = ((UserPageQueryCommand) queryForm).getRoleId();
+			roleTypeDictId = ((UserPageQueryCommand) queryForm).getRoleTypeDictId();
 		}
 
 		if (roleId != null) {

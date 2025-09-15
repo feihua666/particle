@@ -4,6 +4,7 @@ import com.particle.common.client.dto.command.AbstractBaseUpdateCommand;
 import com.particle.global.light.share.mybatis.anno.SetNullWhenNull;
 import com.particle.global.validation.props.PropValid;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleUpdateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -104,9 +105,8 @@ public class UserUpdateCommand extends AbstractBaseUpdateCommand {
     /**
      * 账号信息
      */
-    @NotEmpty(message = "登录标识 不能为空")
     @Schema(description = "登录标识，支持多个")
-    private List<UserIdentifierSimpleCreateCommand> identifiers;
+    private List<UserIdentifierSimpleUpdateCommand> identifiers;
 
     /**
      * 角色id，在依赖 角色 组件时可用

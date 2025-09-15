@@ -11,6 +11,7 @@ import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.dto.command.*;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
+import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleUpdateCommand;
 import com.particle.user.domain.User;
 import com.particle.user.domain.UserId;
 import com.particle.user.domain.gateway.UserGateway;
@@ -62,15 +63,33 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 		if (CollectionUtil.isNotEmpty(userUpdateCommand.getIdentifiers())) {
 			List<String> identifiers = userUpdateCommand.getIdentifiers().stream().map(UserIdentifierSimpleCreateCommand::getIdentifier).distinct().collect(Collectors.toList());
 			if (identifiers.size() < userUpdateCommand.getIdentifiers().size()) {
-				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识存在重复"));
+				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("填写的登录标识存在重复"));
 			}
+			// 判断是否跟库里冲突
 			byIdentifiers = userIdentifierService.getByIdentifiers(identifiers);
 			if (CollectionUtil.isNotEmpty(byIdentifiers)) {
-				long otherUserCount = byIdentifiers.stream().filter(userIdentifierDO -> !userIdentifierDO.getUserId().equals(userUpdateCommand.getId())).count();
-				if (otherUserCount > 0) {
-					throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", byIdentifiers.iterator().next().getIdentifier()));
+				for (UserIdentifierSimpleUpdateCommand identifier : userUpdateCommand.getIdentifiers()) {
+					// 如果传过来的id为空，说明是添加
+					if (identifier.getId() != null){
+						for (UserIdentifierDO byIdentifier : byIdentifiers) {
+							if (byIdentifier.getIdentifier().equals(identifier.getIdentifier())) {
+								throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", identifier.getIdentifier()));
+							}
+						}
+					}
+					// 否则为更新
+					else{
+						for (UserIdentifierDO byIdentifier : byIdentifiers) {
+							if (byIdentifier.getIdentifier().equals(identifier.getIdentifier())) {
+								if(!identifier.getId().equals(byIdentifier.getId())){
+									throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", identifier.getIdentifier()));
+								}
+							}
+						}
+					}
 				}
 			}
+
 		}
 		User user = createByUserUpdateCommand(userUpdateCommand);
 		user.setUpdateControl(userUpdateCommand);
@@ -78,20 +97,18 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 		if (save) {
 			// 修改成功，添加或更新账号
 			if (CollectionUtil.isNotEmpty(userUpdateCommand.getIdentifiers())) {
-				for (UserIdentifierSimpleCreateCommand identifier : userUpdateCommand.getIdentifiers()) {
+				// List<UserIdentifierDO> UserIdentifierDOsbyUserId = userIdentifierService.getByUserId(userUpdateCommand.getId());
+				for (UserIdentifierSimpleUpdateCommand identifier : userUpdateCommand.getIdentifiers()) {
 					UserIdentifier userIdentifierTemp = UserIdentifier.create(
 							user.getId().getId(),
 							identifier.getIdentifier(),
 							identifier.getIdentityTypeDictId(),
 							userUpdateCommand.getGroupFlag()
 					);
-					if (CollectionUtil.isNotEmpty(byIdentifiers)) {
-						for (UserIdentifierDO byIdentifier : byIdentifiers) {
-                            if (byIdentifier.getIdentifier().equals(identifier.getIdentifier())) {
-								userIdentifierTemp.changeId(byIdentifier.getId());
-								userIdentifierTemp.changeVersionTo(byIdentifier.getVersion());
-                            }
-						}
+					// 如果有id是更新
+					if (identifier.getId() != null) {
+						userIdentifierTemp.changeId(identifier.getId());
+						userIdentifierTemp.changeVersionTo(identifier.getVersion());
 					}
 
 					userIdentifierTemp.changeIdentityTypeDictIdByValueIfNeccesary(identifier.getIdentityTypeDictValue());

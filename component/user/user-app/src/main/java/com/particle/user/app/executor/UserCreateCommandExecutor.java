@@ -62,9 +62,18 @@ public class UserCreateCommandExecutor  extends AbstractBaseExecutor {
 		// 校验，登录标识是否存在
 		if (CollectionUtil.isNotEmpty(userCreateCommand.getIdentifiers())) {
 			List<String> identifiers = userCreateCommand.getIdentifiers().stream().map(UserIdentifierSimpleCreateCommand::getIdentifier).distinct().collect(Collectors.toList());
+			if (identifiers.size() < userCreateCommand.getIdentifiers().size()) {
+				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("填写的登录标识存在重复"));
+			}
 			List<UserIdentifierDO> byIdentifiers = userIdentifierService.getByIdentifiers(identifiers);
 			if (CollectionUtil.isNotEmpty(byIdentifiers)) {
-				throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", byIdentifiers.iterator().next().getIdentifier()));
+				for (UserIdentifierSimpleCreateCommand identifier : userCreateCommand.getIdentifiers()) {
+					for (UserIdentifierDO byIdentifier : byIdentifiers) {
+						if (byIdentifier.getIdentifier().equals(identifier.getIdentifier())) {
+							throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", identifier.getIdentifier()));
+						}
+					}
+				}
 			}
 		}
 
