@@ -1,5 +1,6 @@
 package com.particle.global.dto.basic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.light.share.mybatis.anno.Ignore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,15 +22,17 @@ public class Command extends DTO {
 	/**
 	 * 数据范围结束，数据对象编码
 	 */
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Ignore
-	@Schema(description = "数据范围结束",hidden = true)
+	@Schema(description = "数据范围结束",hidden = true, accessMode = Schema.AccessMode.READ_ONLY)
 	private DataConstraintContext dataConstraintContext;
 
 	/**
-	 * 统一添加一个登录用户id以文件后续使用
+	 * 统一添加一个登录用户id以方便后续使用
 	 */
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@Ignore
-	@Schema(description = "当前登录用户id",hidden = true)
+	@Schema(description = "当前登录用户id",hidden = true, accessMode = Schema.AccessMode.READ_ONLY)
 	private Long loginUserId;
 	/**
 	 * 设置
@@ -42,26 +45,11 @@ public class Command extends DTO {
 	}
 
 	/**
-	 * 空的设置方法，防止前端传值
-	 * @param dataConstraintDataObject
-	 */
-	public void setDataConstraintDataObject(String dataConstraintDataObject) {
-
-	}
-
-	/**
 	 * 设置登录用户id
 	 * luid = loginUserId 的缩写
 	 * @param loginUserId
 	 */
 	public void luid(Long loginUserId) {
 		this.loginUserId = loginUserId;
-	}
-	/**
-	 * 空的设置方法，防止前端传值
-	 * @param loginUserId
-	 */
-	public void setLoginUserId(Long loginUserId) {
-
 	}
 }
