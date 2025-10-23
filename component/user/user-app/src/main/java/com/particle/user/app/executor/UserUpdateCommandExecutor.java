@@ -70,7 +70,7 @@ public class UserUpdateCommandExecutor  extends AbstractBaseExecutor {
 			if (CollectionUtil.isNotEmpty(byIdentifiers)) {
 				for (UserIdentifierSimpleUpdateCommand identifier : userUpdateCommand.getIdentifiers()) {
 					// 如果传过来的id为空，说明是添加
-					if (identifier.getId() != null){
+					if (identifier.getId() == null){
 						for (UserIdentifierDO byIdentifier : byIdentifiers) {
 							if (byIdentifier.getIdentifier().equals(identifier.getIdentifier())) {
 								throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, StrUtil.format("登录标识 {} 已存在", identifier.getIdentifier()));
