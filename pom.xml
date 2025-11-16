@@ -140,6 +140,10 @@
         <spring-ai.version>1.0.0</spring-ai.version>
         <!-- jetcache 多级缓存 阿里开源 https://github.com/alibaba/jetcache 添加主要是为了数据查询三方数据缓存，以节省费用-->
         <jetcache.version>2.7.8</jetcache.version>
+        <!-- 使用java结合驱动，启动本地浏览器，模拟浏览器浏览数据 -->
+        <selenium-java.version>4.38.0</selenium-java.version>
+        <!-- 自动管理 selenium-java 驱动的包 -->
+        <webdrivermanager.version>6.3.3</webdrivermanager.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

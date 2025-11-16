@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>global</artifactId>
+        <groupId>com.particle</groupId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>global-crawler-boot-starter</artifactId>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <!-- https://www.selenium.dev -->
+        <!-- Selenium WebDriver -->
+        <!-- 该包已经依赖了 selenium-chrome-driver selenium-firefox-driver 等，所以下载的注释了-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+
+        <!-- Chrome Driver -->
+        <!--<dependency>-->
+        <!--    <groupId>org.seleniumhq.selenium</groupId>-->
+        <!--    <artifactId>selenium-chrome-driver</artifactId>-->
+        <!--    <version>${selenium-java.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- https://github.com/bonigarcia/webdrivermanager -->
+        <!-- 提供自动下载驱动 -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+    </dependencies>
+</project>

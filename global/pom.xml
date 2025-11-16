@@ -53,6 +53,7 @@
         <module>global-elasticsearch-boot-starter</module>
         <module>global-freemarker-boot-starter</module>
         <module>global-ai-boot-starter</module>
+        <module>global-crawler-boot-starter</module>
 
 
     </modules>
