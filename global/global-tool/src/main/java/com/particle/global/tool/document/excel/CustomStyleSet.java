@@ -41,15 +41,18 @@ public class CustomStyleSet extends StyleSet {
 		if (row != null) {
 			firstCellNum = row.getFirstCellNum();
 			lastCellNum = row.getLastCellNum();
-			headCellStyles = new ArrayList<>(lastCellNum);
-			for (int i = firstCellNum; i < lastCellNum; i++) {
-				headCellStyles.add(row.getCell(i) == null ? null : row.getCell(i).getCellStyle());
-			}
+            if (firstCellNum != null && lastCellNum != null && firstCellNum >= 0 && lastCellNum >= 0) {
+                headCellStyles = new ArrayList<>(lastCellNum);
+                for (int i = firstCellNum; i < lastCellNum; i++) {
+                    headCellStyles.add(row.getCell(i) == null ? null : row.getCell(i).getCellStyle());
+                }
+            }
+
 		}
 
 
 		row = sheetAt.getRow(1);
-		if (row != null && firstCellNum != null && lastCellNum != null) {
+		if (row != null && firstCellNum != null && lastCellNum != null && firstCellNum >= 0 && lastCellNum >= 0) {
 			cellStyles = new ArrayList<>(lastCellNum);
 			for (int i = firstCellNum; i < lastCellNum; i++) {
 				cellStyles.add(row.getCell(i) == null ? null : row.getCell(i).getCellStyle());

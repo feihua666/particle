@@ -102,4 +102,9 @@ public class DataConstraintConstants {
      */
     public static final String data_object_op_log_op_log = "data_object_op_log_op_log";
 
+    /**
+     * data 动态数据 数据对象
+     */
+    public static final String data_object_data_dynamic_data = "data_object_data_dynamic_data";
+
 }

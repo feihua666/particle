@@ -1,0 +1,1 @@
+import{k as e}from"./index-q46_oeYE.js";let a="/admin/web/dynamic_data_category";const s=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),p=t=>e.get(a+"/detail-for-update",{params:t}),d=t=>e.get(a+"/list",{params:t}),c=t=>e.get(a+"/page",{params:t});export{s as c,p as d,d as l,c as p,o as r,n as u};

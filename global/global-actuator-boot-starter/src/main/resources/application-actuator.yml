@@ -7,10 +7,14 @@ management:
     web:
       exposure:
         include: "*"
+    access:
+      # 允许所有访问
+      default: unrestricted
   # 普罗米修斯 监控开启
   endpoint:
     prometheus:
-      enabled: true
+      # 允许所有访问
+      access: unrestricted
     health:
       show-details: always
       probes:

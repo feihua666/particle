@@ -1,0 +1,1 @@
+import{k as t}from"./index-BIT85eDf.js";let a="/admin/web/openplatform_openapi_limit_rule";const p=e=>t.post(a+"/create",e),s=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),i=e=>t.get(a+"/list",{params:e}),l=e=>t.get(a+"/page",{params:e});export{p as c,n as d,i as l,l as p,s as r,o as u};

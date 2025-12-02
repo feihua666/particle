@@ -7,6 +7,7 @@ import {
     getUploadUrl as getUploadUrlRequest,
     getWebTitleUrl as getWebTitleUrlRequest,
 } from "../../pc/common/axios/axiosRequest";
+import {concatPaths} from "../tools/PathTools";
 
 /**
  * 文件上传的url地址
@@ -31,7 +32,7 @@ export const getFinalDownloadUrl = (url: string) => {
     if(url.indexOf('blob:/') == 0 || url.indexOf('http') == 0  || url.indexOf('data:') == 0){
         return url
     }
-    return getDownloadPrefixUrl() + url
+    return concatPaths('/',getDownloadPrefixUrl() , url)
 }
 /**
  * 获取 favicon.ico，后端支持动态配置图标

@@ -341,12 +341,14 @@ const submitMethodSuccess = () => {
           :layout="[2,1]"
           :comps="formComps">
   </PtForm>
-  <div><el-text type="success">常用字段类型：一般建议要添加的字段类型输入简单名称如：输入String即可</el-text></div>
+  <div><el-text type="success">常用字段类型：一般建议要添加的字段类型输入简单名称如：输入 String 即可</el-text></div>
   <div><el-text>java.lang.String</el-text></div>
   <div><el-text>java.lang.Integer</el-text></div>
   <div><el-text>java.lang.Boolean</el-text></div>
   <div><el-text>java.lang.Long</el-text></div>
   <div><el-text>java.math.BigDecimal</el-text></div>
+  <div><el-text>java.time.LocalDate</el-text></div>
+  <div><el-text>java.time.LocalDateTime</el-text></div>
 </template>
 
 

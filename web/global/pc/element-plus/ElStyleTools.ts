@@ -38,7 +38,7 @@ const d = [
         icon: 'Refresh'
     },
     {
-        pattern:['确认','提交'],
+        pattern:['确认','提交','发布'],
         icon: 'Check',
         type:'primary',
     },
@@ -64,12 +64,12 @@ const d = [
         type:'primary'
     },
     {
-        pattern:['下载'],
+        pattern:['下载','导出'],
         icon: 'Download',
         type:'primary'
     },
     {
-        pattern:['上传'],
+        pattern:['上传','导入'],
         icon: 'Upload',
         type:'primary'
     },

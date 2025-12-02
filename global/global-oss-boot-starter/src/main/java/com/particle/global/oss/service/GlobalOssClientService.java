@@ -17,7 +17,7 @@ public interface GlobalOssClientService {
 	/**
 	 * 上传
 	 * @param objectName 存储对象名称
-	 * @param inputStream 上传的文件输入流
+	 * @param inputStream 上传的文件输入流，将会自动关闭流
 	 * @param client 表示使用哪个客户端，为空表示使用默认的客户端
 	 * @param concatEndPoint 使用程序控制里不拼接 endpoint，否则根据配置决定
 	 * @return 存储对象可访问的 web 绝对地址
@@ -27,7 +27,7 @@ public interface GlobalOssClientService {
 	/**
 	 * 上传
 	 * @param objectName 存储对象名称
-	 * @param inputStream 上传的文件输入流
+	 * @param inputStream 上传的文件输入流，将会自动关闭流
 	 * @param client 表示使用哪个客户端，为空表示使用默认的客户端
 	 * @return 存储对象可访问的 web 绝对地址
 	 */
@@ -38,7 +38,7 @@ public interface GlobalOssClientService {
 	/**
 	 * 使用默认的客户端上传
 	 * @param objectName 存储对象名称
-	 * @param inputStream 上传的文件输入流
+	 * @param inputStream 上传的文件输入流，将会自动关闭流
 	 * @return 存储对象可访问的 web 绝对地址
 	 */
 	default String upload(String objectName, InputStream inputStream,String contentType){

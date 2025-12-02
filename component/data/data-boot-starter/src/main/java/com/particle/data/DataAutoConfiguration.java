@@ -28,7 +28,8 @@
 @MapperScan({
         "com.particle.data.infrastructure.mapper",
         "com.particle.data.infrastructure.company.mapper",
-        "com.particle.data.infrastructure.temp.mapper",
+        "com.particle.data.infrastructure.dynamicdata.mapper",
+        "com.particle.data.infrastructure.dynamictable.mapper",
 })
 public class DataAutoConfiguration {
 

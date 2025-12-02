@@ -1,0 +1,1 @@
+import{k as t}from"./index-BIT85eDf.js";const n=e=>t.get("/front/web/cron/cronRunTimes",{params:e}),o=e=>t.post("/front/web/particle/addField",e),s=e=>t.post("/front/web/particle/deleteModelService",e),a=e=>t.post("/front/web/particle/batchGenIds",e),c=e=>t.post("/front/web/json/parseMultipleLine",e);export{o as a,a as b,n as c,s as d,c as p};

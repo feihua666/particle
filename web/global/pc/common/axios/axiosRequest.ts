@@ -141,12 +141,21 @@ const defaultConfig: Config = {
  * 处理异常
  * @param {*} error
  */
-function httpErrorStatusHandle(error,config: Config) {
+async function httpErrorStatusHandle(error,config: Config) {
     // 处理被取消的请求
     if (axios.isCancel(error)) return console.error(('axios.Automatic cancellation due to duplicate request:') + error.message)
     let message = ''
     if (error && error.response && error.response.data && error.response.data.errMessage) {
         message = error.response.data.errMessage
+    }
+    if (error && error.response && error.response.data && error.response.data instanceof Blob) {
+        if (error.response.data.type == 'application/json') {
+            const blobText = await error.response.data.text()
+            const errorData = JSON.parse(blobText)
+            if (errorData.errMessage) {
+                message = errorData.errMessage
+            }
+        }
     }
     if (error.message.includes('timeout')) message = ('请求超时')
     if (error.message.includes('Network'))

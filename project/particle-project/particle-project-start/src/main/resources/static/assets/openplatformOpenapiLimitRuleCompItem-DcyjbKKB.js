@@ -1,1 +1,0 @@
-import{l}from"./openplatformOpenapiLimitRuleAdminApi-Dz5-1tdR.js";const i=({props:r={},required:e=!1,fieldName:t="openplatformOpenapiLimitRuleId",label:p="限制规则",valueChange:o=()=>{},tips:m=""})=>({field:{name:t,valueChange:o},element:{comp:"PtSelect",formItemProps:{label:p,required:e,tips:m},compProps:{dataMethod:l}}});export{i as u};

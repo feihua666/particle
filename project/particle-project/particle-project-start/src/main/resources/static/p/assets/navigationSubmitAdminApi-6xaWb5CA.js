@@ -1,0 +1,1 @@
+import{k as e}from"./index-BIT85eDf.js";let a="/admin/web/navigation_submit";const s=t=>e.post(a+"/create",t),n=t=>e.delete(a+"/delete",{data:t}),o=t=>e.put(a+"/update",t),u=t=>e.get(a+"/detail-for-update",{params:t}),i=t=>e.get(a+"/page",{params:t}),p=t=>e.post(a+"/sureSubmit",t);export{s as c,u as d,i as p,n as r,p as s,o as u};

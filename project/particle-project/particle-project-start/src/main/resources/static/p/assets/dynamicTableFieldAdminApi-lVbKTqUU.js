@@ -1,0 +1,1 @@
+import{k as t}from"./index-BIT85eDf.js";let a="/admin/web/dynamic_table_field";const s=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),d=e=>t.put(a+"/update",e),o=e=>t.get(a+"/detail-for-update",{params:e}),p=e=>t.get(a+"/list",{params:e}),i=e=>t.get(a+"/page",{params:e});export{s as c,o as d,p as l,i as p,n as r,d as u};

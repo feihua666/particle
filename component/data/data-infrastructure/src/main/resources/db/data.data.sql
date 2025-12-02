@@ -1,2 +1,3 @@
+-- import classpath:db/data.data.func.sql
 -- import classpath:db/data.data.dict.sql
 -- import classpath:db/data.data.dict1.sql

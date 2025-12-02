@@ -1,0 +1,1 @@
+import{a as e}from"./roleCompItem-io_U28ib.js";import{u as s,a as r}from"./dataconstraintCompItem-DnnjPzp-.js";const m=[e({props:{},required:!1}),s({props:{}}),r({props:{},required:!1})],a=({props:t={}})=>[e({props:t,required:!0}),s({props:{}}),r({props:{},required:!1})],u=a;export{u as a,m as p,a as u};

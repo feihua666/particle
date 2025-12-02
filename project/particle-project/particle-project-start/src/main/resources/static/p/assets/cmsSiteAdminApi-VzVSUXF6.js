@@ -1,0 +1,1 @@
+import{k as t}from"./index-BIT85eDf.js";let a="/admin/web/cms_site";const s=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),p=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),c=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{s as c,n as d,c as l,u as p,o as r,p as u};

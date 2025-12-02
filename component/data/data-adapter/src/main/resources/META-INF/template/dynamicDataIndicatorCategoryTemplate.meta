@@ -1,0 +1,4 @@
+# 必填用来读取模板
+particle.document.template.path=dynamicDataIndicatorCategoryTemplate/动态数据指标分类模板.xlsx
+# 选填，默认使用 path中的文件名
+particle.document.template.name=动态数据指标分类模板.xlsx

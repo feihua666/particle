@@ -1,0 +1,49 @@
+package com.particle.data.infrastructure.dynamicdata.dos;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.particle.global.mybatis.plus.dto.BaseDO;
+import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.experimental.Accessors;
+/**
+ * <p>
+ * 动态数据指标表
+ * </p>
+ *
+ * @author yw
+ * @since 2025-11-05 20:31:12
+ */
+@Accessors(chain = true)
+@Data
+@TableName("component_data_dynamic_data_indicator")
+public class DynamicDataIndicatorDO extends BaseDO {
+
+    /**
+    * 动态数据分类id
+    */
+    private Long dynamicDataCategoryId;
+
+    /**
+    * 动态数据指标分类id
+    */
+    private Long dynamicDataIndicatorCategoryId;
+
+    /**
+    * 指标名称
+    */
+    private String name;
+
+    /**
+    * 是否禁用，1=是，0=否
+    */
+    private Boolean isDisabled;
+
+    /**
+    * 备注信息
+    */
+    private String remark;
+
+
+}

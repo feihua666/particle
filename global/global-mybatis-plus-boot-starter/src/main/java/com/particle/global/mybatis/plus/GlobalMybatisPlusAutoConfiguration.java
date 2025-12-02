@@ -4,6 +4,8 @@ import com.particle.global.dataaudit.audit.DataAuditCollectTool;
 import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.mybatis.plus.config.GlobalMybatisPlusConfig;
 import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool;
+import com.particle.global.mybatis.plus.table.TableServiceImpl;
+import com.particle.global.mybatis.plus.table.TableServivce;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -35,4 +37,9 @@ public class GlobalMybatisPlusAutoConfiguration {
 			return dataAuditHelperTool;
 		}
 	}
+
+    @Bean
+    public TableServivce tableServivce(){
+        return new TableServiceImpl();
+    }
 }

@@ -24,6 +24,7 @@ import SchedulerRoutes from "./scheduler/SchedulerRoutes";
 import NavigationRoutes from "./navigation/NavigationRoutes";
 import AgiRoutes from "./agi/AgiRoutes";
 import CmsRoutes from "./cms/CmsRoutes";
+import DataRoutes from "./data/DataRoutes";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -52,4 +53,5 @@ let ComponentRoutes = []
     .concat(NavigationRoutes)
     .concat(AgiRoutes)
     .concat(CmsRoutes)
+    .concat(DataRoutes)
 export default ComponentRoutes

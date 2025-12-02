@@ -76,3 +76,10 @@
 -- import classpath:db/company/schema.component_data_company_prime_staff.sql
 -- import classpath:db/company/schema.component_data_company_prime_staff_position.sql
 -- import classpath:db/company/schema.component_data_company_spot_check.sql
+-- import classpath:db/dynamictable/schema.component_data_dynamic_table.sql
+-- import classpath:db/dynamictable/schema.component_data_dynamic_table_field.sql
+-- import classpath:db/dynamictable/schema.component_data_dynamic_table_upload_record.sql
+-- import classpath:db/dynamicdata/schema.component_data_dynamic_data_category.sql
+-- import classpath:db/dynamicdata/schema.component_data_dynamic_data_indicator_category.sql
+-- import classpath:db/dynamicdata/schema.component_data_dynamic_data_indicator.sql
+-- import classpath:db/dynamicdata/schema.component_data_dynamic_data_indicator_category_upload_record.sql

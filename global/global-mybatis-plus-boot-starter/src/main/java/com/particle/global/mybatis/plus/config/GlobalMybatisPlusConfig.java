@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.*;
 import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.mybatis.plus.crud.MetricsAndSlowSqlMybatisInterceptor;
 import com.particle.global.mybatis.plus.datapermission.CustomMultiDataPermissionHandler;
@@ -16,12 +13,14 @@ import com.particle.global.mybatis.plus.datapermission.LoginUserSuperAdminResolv
 import com.particle.global.mybatis.plus.datapermission.TenantMultiDataPermissionHandler;
 import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
+import com.particle.global.mybatis.plus.table.CustomDynamicTableNameHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.id.SnowflakeIdTool;
+import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -95,6 +94,9 @@ public class GlobalMybatisPlusConfig {
 	@Bean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();
+        dynamicTableNameInnerInterceptor.setTableNameHandler(new CustomDynamicTableNameHandler());
+        mybatisPlusInterceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
 		if (tenantEnable) {
 			TenantTool.tenantEnable();
 			mybatisPlusInterceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler()));

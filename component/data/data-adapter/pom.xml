@@ -37,6 +37,18 @@
             <artifactId>data-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- 用来导出数据 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-document-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- oss 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-oss-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

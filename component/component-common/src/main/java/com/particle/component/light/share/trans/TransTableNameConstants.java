@@ -84,5 +84,9 @@ public class TransTableNameConstants {
 	public static final String component_cms_content = "component_cms_content";
 	public static final String component_cms_content_category = "component_cms_content_category";
 
+    public static final String component_data_dynamic_table = "component_data_dynamic_table";
+    public static final String component_data_dynamic_data_category = "component_data_dynamic_data_category";
+    public static final String component_data_dynamic_data_indicator_category = "component_data_dynamic_data_indicator_category";
+
 
 }

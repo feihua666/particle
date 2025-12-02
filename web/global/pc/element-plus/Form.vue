@@ -284,7 +284,7 @@ defineExpose({
           </template>
         </el-row>
       </template>
-      <el-form-item v-if="comps && comps.length > 0 || showButtonItem" class="pt-button-form-item" v-bind="submitFormItemAttrs">
+      <el-form-item v-if="(comps && comps.length > 0) || showButtonItem" class="pt-button-form-item" v-bind="submitFormItemAttrs">
         <!--    一个空的提交按钮占位，在传送开启时保证可以回车提交    -->
         <PtButton style="visibility: hidden;" v-if="buttonsTeleportProps.disabled == false && defaultButtonsShowComputed.submit" type="primary" v-bind="submitAttrs" :loading="submitAttrs.loading || reactiveData.methodLocalLoading" native-type="submit" @click="submitForm"></PtButton>
 
