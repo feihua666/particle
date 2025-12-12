@@ -1,12 +1,71 @@
 # 全局消息模块
-消息主要常用于mq异步消息支持
-基于cloud stream,消息生产与消息消费统一的使用方式，屏蔽了底层中间件的差异，
-支持kafka与rabbitmq中间件。  
-支持在不存在kafka与rabbitmq依赖时，本地异步消息处理（比如单机模式），
-这使得整体框架与消息的集成使用一致，切换中间件不用修改代码成为可能。
 
+该模块主要用于MQ异步消息支持，基于Spring Cloud Stream实现消息生产和消费的统一使用方式，屏蔽了底层中间件的差异。
 
-#主要思路
-使用一般发消息时，先将消息存储到消息到持久化表中（MessageEventRepository），默认提供了数据库实现，然后再通过消息发布器将消息发布到消息中间件。
-消息消费时，通过中间件消息消费包装器统一处理消息消费，并记录消费消费情况（JdbcTemplateMessageEventConsumeRecorder），然后通知到消息消费实际处理器。  
-所以依赖两个表，一个消息事件表，一个消息消费记录表（参见db目录两个表建表语句）
+## 功能特性
+
+1. **消息中间件抽象**：屏蔽底层中间件差异，支持Kafka和RabbitMQ
+2. **本地异步支持**：在没有Kafka和RabbitMQ依赖时，支持本地异步消息处理
+3. **统一接口**：消息生产和消费使用统一的接口方式
+4. **持久化支持**：支持消息事件的持久化存储
+
+## 使用方法
+
+### 添加依赖
+
+```xml
+<dependency>
+    <groupId>com.particle</groupId>
+    <artifactId>global-messaging-boot-starter</artifactId>
+</dependency>
+```
+
+### 配置选项
+
+```yaml
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+```
+
+### 核心组件
+
+- MessageEventRepository：消息事件仓储接口
+- 消息发布器：负责将消息发布到消息中间件
+- 消息消费包装器：统一处理消息消费逻辑
+- 消费记录器：记录消息消费情况
+
+## 依赖组件
+
+- Spring Cloud Stream
+- Kafka/RabbitMQ客户端（可选）
+- Spring Boot Starter JDBC（用于消息持久化）
+
+## 示例代码
+
+```java
+// 发送消息
+@Service
+public class MessageService {
+    @Autowired
+    private MessagePublisher messagePublisher;
+    
+    public void sendMessage(String message) {
+        MessageEvent event = new MessageEvent();
+        event.setContent(message);
+        messagePublisher.publish(event);
+    }
+}
+
+// 接收消息
+@Component
+public class MessageConsumer {
+    @StreamListener("input")
+    public void handleMessage(MessageEvent event) {
+        // 处理消息
+    }
+}
+```

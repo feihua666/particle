@@ -122,7 +122,7 @@ export const addPageFormItems = [
             tips: '是否系统内置参数，一般内置参数不要删除',
           },
           compProps: {
-            activeText: '系统内容',
+            activeText: '系统内置',
             inactiveText: '用户自定义',
           }
         }

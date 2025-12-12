@@ -67,7 +67,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- 日志链路追踪 global-sleuth-boot-starter 在springboot3中已不再使用-->
+        <!-- 日志链路追踪 global-sleuth-boot-starter 在 springboot3 中已不再使用-->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>

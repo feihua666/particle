@@ -19,3 +19,6 @@ jetcache:
         maxTotal: 50
       host: ${redis.host}
       port: ${redis.port}
+spring:
+  cache:
+    type: simple
