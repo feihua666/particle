@@ -19,6 +19,24 @@ import java.util.stream.Collectors;
  */
 public interface IRoleService extends IBaseService<RoleDO> {
 
+    /**
+	 * 根据名称查询
+	 * @param name
+	 * @return
+	 */
+    default List<RoleDO> listByName(String name) {
+		Assert.hasText(name,"name不能为空");
+		return list(Wrappers.<RoleDO>lambdaQuery().eq(RoleDO::getName, name));
+	}
+    /**
+     * 根据名称查询
+     * @param name
+     * @return
+     */
+    default List<RoleDO> listByLikeName(String name) {
+        Assert.hasText(name,"name不能为空");
+        return list(Wrappers.<RoleDO>lambdaQuery().like(RoleDO::getName, name));
+    }
 	/**
 	 * 根据角色编码查询
 	 * @param code

@@ -1,6 +1,5 @@
 # 简介
-[Particle](https://gitee.com/feihua666/particle)是一个基于SpringBoot2.x、vuejs，前后端分离的快速开发脚手架。  
-后端采用springboot以最小单位拆分业务组件，旨在快速开发（组装）新模块/项目。  
+[Particle](https://gitee.com/feihua666/particle)是一个基于SpringBoot2.x、vuejs，前后端分离的快速开发脚手架。后端采用springboot以最小单位拆分业务组件，旨在快速开发（组装）新模块/项目。  
 
 ## 主要技术点
 **后端**：swagger接口文档、表单验证、MyBatisPlus、springSecurity、springboot、lombok、mapstruct  

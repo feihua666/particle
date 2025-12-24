@@ -38,5 +38,10 @@
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-tool</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

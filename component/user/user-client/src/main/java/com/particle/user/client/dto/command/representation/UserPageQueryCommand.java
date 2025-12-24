@@ -19,18 +19,6 @@ import java.time.LocalDateTime;
 @Schema
 public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
 
-	@Schema(description = "生效日期，从什么时候开始生效")
-	private LocalDateTime effectiveAt;
-
-	@Schema(description = "生效日期，触发方式，一般为首次登录触发")
-	private Long effectiveAtTriggerDictId;
-
-	@Schema(description = "有效天数,0或空为不限制")
-	private Integer effectiveDays;
-
-	@Schema(description = "备注")
-	private String remark;
-
     @Like
     @Schema(description = "姓名，左前缀匹配")
     private String name;
@@ -75,6 +63,15 @@ public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
     @Schema(description = "角色id")
     private Long roleId;
 
+    @Schema(description = "角色名称，模糊匹配")
+    private String roleName;
+
     @Schema(description = "角色类型字典id")
     private Long roleTypeDictId;
+
+    @Schema(description = "用户标识id")
+    private Long identifierId;
+
+    @Schema(description = "登录标识，模糊匹配")
+    private String userIdentifier;
 }

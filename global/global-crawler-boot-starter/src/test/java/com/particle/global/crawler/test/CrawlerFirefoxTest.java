@@ -20,7 +20,7 @@ public class CrawlerFirefoxTest {
 
     public static void main(String[] args) {
         setupDriver();
-        openUrl("https://www.creditchina.gov.cn");
+        openUrl("https://jd.com");
         // openUrl("https://wenshu.court.gov.cn/");
         // closeDriver();
     }

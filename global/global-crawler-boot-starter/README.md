@@ -19,7 +19,6 @@
 
 ### 驱动管理
 - WebDriverManager 自动驱动下载
-- 驱动路径配置管理
 
 ### 反检测工具
 - WebDriver 属性隐藏

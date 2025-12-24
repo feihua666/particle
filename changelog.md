@@ -1,7 +1,6 @@
-
 # Changelog
 
-# 4.0.1-beta(2024-12-06)
+## 4.0.1-beta (2024-12-06)
 ### 新特性
 
 * 【navigation】导航业务组件添加
@@ -19,7 +18,7 @@
 * 其它细节功能的修改
 
 
-# 4.0.0-beta(2024-10-22)
+## 4.0.0-beta (2024-10-22)
 ### 新特性
 
 * 【particle-demo】默认使用jdbc存储session方便快速部署多实例
@@ -54,7 +53,7 @@
 
 * 其它细节功能的修改
 
-# 3.0.0-beta(2024-01-23)
+## 3.0.0-beta (2024-01-23)
 ### 新特性
 
 * 【global-security-boot-starter】添加LoginTool工具类，以支持在租户区分时的差异
@@ -70,7 +69,7 @@
 * 无
 
 
-# 2.1.0-beta(2023-10-31)
+## 2.1.0-beta (2023-10-31)
 ### 新特性
 
 * 【前端】支持组件内容变更监听
@@ -88,7 +87,7 @@
 ### 其它
 * 【global-tool】模板树渲染获取数据脚本去掉try catch 主要不转换异常，统一由全局异常处理  
 
-# 2.0.0-beta(2023-08-28)
+## 2.0.0-beta (2023-08-28)
 ### 新特性
 
 * 【open-platform】添加开放接口管理业务组件，配合 global-openapi-boot-starter，实现方便的接入开放接口，支持对 data-query 业务组件的配置化兼容
@@ -109,7 +108,7 @@
 * 【global-notification-boot-starter】修改notification，alertAccount 字符proxyConfig改为proxy
 * 【global-trans-boot-stater】修改翻译时去掉了租户不考虑问题，否则在多租户下这将导致数据错乱
 
-# 1.0.0-beta(2023-07-03)
+## 1.0.0-beta (2023-07-03)
 ### 新特性
 * 【global-captcha-boot-starter】添加验证码全局模块，支持图片、动画、算术、中文，支持动态验证码如：短信、邮件
 * 【global-data-audit-boot-starter】添加全局操作日志及数据审计功能框架部分
@@ -125,7 +124,7 @@
 * 【global-tool】ThreadContextTool使用ttl线程变量，结合线程池使用，添加proxyConfig全局工具对象，以支持接口调用代理情况、重构HttpClientTool
 * 【tenant】添加租户用户添加多参数支持功能、添加租户用户列表查询可以根据部门查询、租户申请添加用户时默认正式
 
-# 0.1.0-beta (2023-04-24)
+## 0.1.0-beta (2023-04-24)
 ### 新特性
 * 【data-query】
     1. 数据服务添加groovy脚本动态配置支持
@@ -142,7 +141,7 @@
     2. 代码生成的import引用文件名与实际文件名首字母大小写不匹配
 * 【low-code】代码生成的权限问题处理
 
-# 0.0.1-beta (2023-03-22)
+## 0.0.1-beta (2023-03-22)
 0.0.1-beta初始发布
 ### 业务组件
 * 【area】

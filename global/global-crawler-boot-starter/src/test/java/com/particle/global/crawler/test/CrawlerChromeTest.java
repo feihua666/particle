@@ -21,7 +21,7 @@ public class CrawlerChromeTest {
 
     public static void main(String[] args) {
         setupDriver();
-        openUrl("https://www.creditchina.gov.cn");
+        openUrl("https://www.jd.com/");
         // openUrl("https://wenshu.court.gov.cn/");
         // closeDriver();
     }

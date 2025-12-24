@@ -9,7 +9,7 @@ module.exports = {
     title: 'Particle 技术文档',
     // 它将会在最终渲染出的 HTML 中作为 <meta name="description" /> 标签的 content 属性。它会被每个页面的 Frontmatter 中的 description 字段覆盖。
     description: 'particle 意为粒子，粒子内高内聚、粒子间低耦合',
-    port: 9090,
+    port: 9091,
     head: [
         // favicon.ico
         ['link', { rel: 'icon', type: "image/png", href: `/favicon.png` }]
