@@ -19,11 +19,11 @@ import java.time.LocalDateTime;
 @Schema
 public class UserPageQueryCommand extends AbstractBasePageQueryCommand {
 
-    @Like
+    @Like(left = true,right = true)
     @Schema(description = "姓名，左前缀匹配")
     private String name;
 
-    @Like
+    @Like(left = true,right = true)
     @Schema(description = "昵称，左前缀匹配")
     private String nickname;
 
