@@ -6,16 +6,21 @@ management:
   endpoints:
     web:
       exposure:
+        # 暴露所有端点，默认只暴露 health 端点
         include: "*"
     access:
-      # 允许所有访问
+      # 允许所有访问，控制已暴露的端点允许何种操作
       default: unrestricted
-  # 普罗米修斯 监控开启
+  # 配置特定端点的详细行为
   endpoint:
+    # 普罗米修斯 端点
     prometheus:
       # 允许所有访问
       access: unrestricted
+    # 健康检查端点
     health:
+      # 除了看到总体状态（如 UP 或 DOWN），是否还能看到背后每个具体健康检查组件（HealthIndicator）的详细状态
       show-details: always
+      # 探针，主要针对 k8s 配置服务状态监测
       probes:
         enabled: true

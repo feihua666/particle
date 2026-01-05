@@ -16,18 +16,34 @@ import org.springframework.boot.availability.ReadinessState;
  */
 public class AvailableTool {
 
+    /**
+     * 拒绝流量
+     * @return
+     */
     public static Response refusing_traffic(){
         AvailabilityChangeEvent.publish(SpringContextHolder.getApplicationContext(), ReadinessState.REFUSING_TRAFFIC);
         return Response.buildSuccess();
     }
+    /**
+     * 接受流量
+     * @return
+     */
     public static Response accepting_traffic(){
         AvailabilityChangeEvent.publish(SpringContextHolder.getApplicationContext(), ReadinessState.ACCEPTING_TRAFFIC);
         return Response.buildSuccess();
     }
+    /**
+     * 熔断
+     * @return
+     */
     public static Response broken(){
         AvailabilityChangeEvent.publish(SpringContextHolder.getApplicationContext(), LivenessState.BROKEN);
         return Response.buildSuccess();
     }
+    /**
+     * 正常
+     * @return
+     */
     public static Response correct(){
         AvailabilityChangeEvent.publish(SpringContextHolder.getApplicationContext(), LivenessState.CORRECT);
         return Response.buildSuccess();

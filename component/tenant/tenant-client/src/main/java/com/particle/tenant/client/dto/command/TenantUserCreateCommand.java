@@ -40,7 +40,7 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     @Schema(description = "是否发送邮件通知，1=发送，0=不发送，仅存在邮箱时发送")
     private Boolean isSendEmailNotice;
 
-    @Schema(description = "密码，没有指定 applyUserId 时，用户创建用户登录密码")
+    @Schema(description = "是否发送短信通知，1=发送，0=不发送，仅存在手机号时发送")
     private Boolean isSendMobileNotice;
 
     @Schema(description = "真实姓名")
@@ -84,7 +84,7 @@ public class TenantUserCreateCommand extends AbstractBaseCommand {
     private Long tenantId;
 
     /**
-     * 部门id， 在依赖 角色 组件时可用
+     * 部门id， 在依赖 部门 组件时可用
      */
     @Schema(description = "部门id")
     private Long deptId;

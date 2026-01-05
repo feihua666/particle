@@ -32,14 +32,9 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
-        <!-- 导航参数配置使用 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>config-adapter-feign-client</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
+
         <!-- 查询字典使用 -->
         <dependency>
             <groupId>com.particle</groupId>

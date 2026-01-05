@@ -53,6 +53,7 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
         aliasItem('highlight.js'),
         aliasItem('marked-highlight'),
         aliasItem('prismjs'),
+        aliasItem('@antv/g6'),
       ]
     },
     server: {

@@ -17,13 +17,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class OpenplatformOauth2RegisteredClientGatewayImpl implements OpenplatformOauth2RegisteredClientGateway {
-    
+
     private Oauth2RegisteredClientRpcFeignClient oauth2RegisteredClientRpcFeignClient;
 
     @Override
     public String getSecretByAppId(String appId) {
-
-        SingleResponse<Oauth2RegisteredClientVO> oauth2RegisteredClientVOSingleResponse = oauth2RegisteredClientRpcFeignClient.getByAppId(appId);
+        SingleResponse<Oauth2RegisteredClientVO> oauth2RegisteredClientVOSingleResponse = oauth2RegisteredClientRpcFeignClient.getByClientId(appId);
         if (oauth2RegisteredClientVOSingleResponse != null) {
             Oauth2RegisteredClientVO data = oauth2RegisteredClientVOSingleResponse.getData();
             if (data != null) {

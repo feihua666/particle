@@ -129,7 +129,12 @@ public class OpLogAspect {
 		if (StrUtil.isEmpty(name)) {
 			//	todo 如果为空，尝试获取 swagget apiAction 注解
 		}
-		opLogDTO = OpLogDTO.create(SnowflakeIdTool.nextId(),name, annotation.module(), annotation.type(),OpLogTool.getParentId(),OpLogTool.getMainDataId(),null,null);
+		opLogDTO = OpLogDTO.create(SnowflakeIdTool.nextId(),
+                name,
+                annotation.module(),
+                annotation.type(),
+                OpLogTool.getParentId(),
+                OpLogTool.getMainDataId(),null,null);
 
 		// 被处理的最终结果存储在这里
 		List<OpLogAndDataAuditResultsDTO> opLogAndDataAuditResultsDTOList = new ArrayList<>();
@@ -207,7 +212,7 @@ public class OpLogAspect {
 	}
 
 	/**
-	 * 对 oplog做最后的处理，主要是自动根据主数据id添加主表名和主实体数据
+	 * 对 oplog 做最后的处理，主要是自动根据主数据 id 添加主表名和主实体数据
 	 * @param opLogAndDataAuditResultsDTO
 	 */
 	private void handleOpLogAndDataAuditResultsDTO(OpLogAndDataAuditResultsDTO opLogAndDataAuditResultsDTO) {
@@ -216,7 +221,8 @@ public class OpLogAspect {
 			if (opLogDTO1.getMainDataId() != null) {
 				List<DataAuditResultDTO> dataAuditResultDTOS = opLogAndDataAuditResultsDTO.getDataAuditResultDTOS();
 				if (CollectionUtil.isNotEmpty(dataAuditResultDTOS)) {
-					DataAuditResultDTO dataAuditResultDTO = dataAuditResultDTOS.stream().filter(d -> opLogDTO1.getMainDataId().equals(d.getDataId())).findFirst().orElse(null);
+					DataAuditResultDTO dataAuditResultDTO = dataAuditResultDTOS.stream()
+                            .filter(d -> opLogDTO1.getMainDataId().equals(d.getDataId())).findFirst().orElse(null);
 					if (dataAuditResultDTO != null) {
 						opLogDTO1.setMainDataEntity(dataAuditResultDTO.getDataEntity());
 						opLogDTO1.setMainDataTable(dataAuditResultDTO.getDataTable());

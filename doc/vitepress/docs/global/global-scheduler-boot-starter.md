@@ -1,0 +1,1 @@
+<!--@include: ../../../../global/global-scheduler-boot-starter/README.md-->

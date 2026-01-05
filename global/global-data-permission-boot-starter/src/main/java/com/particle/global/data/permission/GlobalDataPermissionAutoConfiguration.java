@@ -1,5 +1,7 @@
 package com.particle.global.data.permission;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,4 +14,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 public class GlobalDataPermissionAutoConfiguration {
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DataPermissionService dataPermissionEmptyService(){
+        return new DataPermissionEmptyService();
+    }
 }

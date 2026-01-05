@@ -12,13 +12,6 @@
 4. **Prometheus 集成**：开箱即用地支持 Prometheus 监控指标导出
 5. **健康探针支持**：支持 Kubernetes 风格的就绪和存活探针
 
-## 核心组件
-
-### 监控工具 (Monitor)
-- [IMonitor](src/main/java/com/particle/global/actuator/monitor/IMonitor.java)：监控接口定义，包含 timer 和 count 方法
-- [MicrometerMonitorImpl](src/main/java/com/particle/global/actuator/monitor/MicrometerMonitorImpl.java)：基于 Micrometer 的监控实现
-- [MonitorTool](src/main/java/com/particle/global/actuator/monitor/MonitorTool.java)：监控工具类，提供静态方法调用监控功能
-
 ### 服务可用性控制
 - [ApplicationAvailabilityController](src/main/java/com/particle/global/actuator/endpoint/ApplicationAvailabilityController.java)：REST API 控制器，提供四种状态变更接口：
   - `/actuator/available/refusing_traffic`：服务下线
@@ -41,19 +34,36 @@
 
 1. 禁用 Spring Boot Admin 服务端：
    ```yaml
-   particle.actuator.bootadmin.server.enabled=false
+   particle:
+     actuator:
+       bootadmin:
+         server:
+           enabled: false
    ```
 
 2. 禁用 Spring Boot Admin 客户端：
    ```yaml
-   spring.boot.admin.client.enabled=false
+   spring:
+     boot:
+       admin:
+         client:
+           enabled: false
    ```
 
 3. 禁用 Actuator Endpoints：
    ```yaml
-   management.endpoints.access.default=none
-   management.endpoints.web.exposure.include=
-   management.endpoint.prometheus.access=none
+   management:
+     endpoints:
+       web:
+         # 配置哪些端点被暴露
+         exposure:
+           include: ""
+       # 控制已暴露的端点允许何种操作
+       access:
+         default: none
+     endpoint:
+       prometheus:
+         access: none
    ```
 
 ### 默认配置
@@ -91,18 +101,3 @@ MonitorTool.count("my.event.counter", "事件计数");
 - `accepting_traffic`：需要 `availabel_accepting_traffic` 或超级管理员角色
 - `broken`：需要 `availabel_broken` 或超级管理员角色
 - `correct`：需要 `availabel_correct` 或超级管理员角色
-
-## 自动配置
-
-[GlobalActuatorAutoConfiguration](src/main/java/com/particle/global/actuator/GlobalActuatorAutoConfiguration.java) 自动配置了以下内容：
-- 扫描 [endpoint](src/main/java/com/particle/global/actuator/endpoint) 包下的所有 Endpoint
-- 注册默认的 [IMonitor](src/main/java/com/particle/global/actuator/monitor/IMonitor.java) 实现 [MicrometerMonitorImpl](src/main/java/com/particle/global/actuator/monitor/MicrometerMonitorImpl.java)
-
-## 依赖组件
-
-- Spring Boot Actuator
-- Micrometer Registry Prometheus
-- Spring Boot Admin Starter Client (可选)
-- Spring Boot Admin Starter Server (可选)
-- Spring Security (用于权限控制,仅使用注解)
-- Micrometer Tracing Bridge Brave (链路追踪)

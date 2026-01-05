@@ -1,0 +1,1 @@
+<!--@include: ../../../../global/global-autoconfigure-boot-starter/README.md-->

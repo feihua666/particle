@@ -24,12 +24,4 @@ public class DeptUserRelQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "部门id")
     private Long deptId;
 
-
-
-
-
-
-
-
-
 }

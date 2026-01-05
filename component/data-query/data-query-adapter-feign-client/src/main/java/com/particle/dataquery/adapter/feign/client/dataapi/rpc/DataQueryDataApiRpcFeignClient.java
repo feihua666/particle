@@ -1,7 +1,10 @@
 package com.particle.dataquery.adapter.feign.client.dataapi.rpc;
 
+import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
+import com.particle.global.dto.response.RawResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -16,12 +19,10 @@ public interface DataQueryDataApiRpcFeignClient {
 
 	/**
 	 *
-	 * @param code 一般是一个类似于url的字符串 如：/jc/quality_analyse
-	 * @param command
-	 * @param queryString
+	 * @param dataQueryDataApiQueryCommand
 	 * @return
 	 */
 	@PostMapping("/invoke")
-	Object invoke(String code, Object command, String queryString);
+    RawResponse invoke(@RequestBody DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand);
 
 }

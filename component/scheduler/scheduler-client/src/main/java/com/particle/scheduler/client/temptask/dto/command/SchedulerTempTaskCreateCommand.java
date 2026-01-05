@@ -17,8 +17,6 @@ import lombok.Data;
 @Schema
 public class SchedulerTempTaskCreateCommand extends AbstractBaseCommand {
 
-
-
     @NotEmpty(message = "临时任务编码 不能为空")
         @Schema(description = "临时任务编码",requiredMode = Schema.RequiredMode.REQUIRED)
     private String code;
@@ -27,13 +25,6 @@ public class SchedulerTempTaskCreateCommand extends AbstractBaseCommand {
     @NotEmpty(message = "临时任务名称 不能为空")
         @Schema(description = "临时任务名称",requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
-
-
-
-
-
-
-
 
 
 }

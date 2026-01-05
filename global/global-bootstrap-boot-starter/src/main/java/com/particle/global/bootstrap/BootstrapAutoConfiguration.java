@@ -21,7 +21,6 @@ import org.springframework.core.annotation.Order;
 @ComponentScan
 public class BootstrapAutoConfiguration {
 
-
 	@Bean
 	@Order(Ordered.LOWEST_PRECEDENCE)
 	public OnCommandLineListener systemInfoPrintListener(SystemInfoPrinter systemInfoPrinter){

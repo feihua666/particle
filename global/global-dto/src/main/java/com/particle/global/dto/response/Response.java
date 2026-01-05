@@ -77,7 +77,11 @@ public class Response extends DTO {
 		response.setSuccess(true);
 		return response;
 	}
-
+    public static Response buildUnSuccess() {
+        Response response = new Response();
+        response.setSuccess(false);
+        return response;
+    }
 	public static Response buildFailure(IErrorCode errorCode) {
 
 		return buildFailure(errorCode, null);

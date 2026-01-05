@@ -1,6 +1,10 @@
 package com.particle.role.adapter.feign.client.roledatascoperel.rpc;
 
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
 /**
  * <p>
  * 角色数据范围关系远程调用
@@ -12,9 +16,13 @@ import org.springframework.cloud.openfeign.FeignClient;
 @FeignClient(name = "${particle.feign-client.name.role:role}",path = "/rpc/role_data_scope_rel")
 public interface RoleDataScopeRelRpcFeignClient {
 
-
-
-
+    /**
+     * 根据字典roleId查询
+     * @param roleId
+     * @return
+     */
+    @GetMapping("/getByRoleId")
+    public MultiResponse<RoleDataScopeRelVO> getByRoleId(Long roleId);
 
 
 

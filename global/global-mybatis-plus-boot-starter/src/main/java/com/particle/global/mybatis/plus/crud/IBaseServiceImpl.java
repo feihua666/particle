@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.dataaudit.audit.dto.DataAuditResultWithOpLogDTO;
 import com.particle.global.dataaudit.op.OpLogTool;
 import com.particle.global.dataaudit.op.OpLogType;
@@ -29,9 +28,9 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.dataaudit.DataAuditHelperTool;
+import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.mybatis.plus.dto.BaseDO;
 import com.particle.global.mybatis.plus.dto.BaseTreeDO;
-import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
@@ -40,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.javers.common.collections.Lists;
 import org.javers.core.diff.Change;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.util.Assert;
 
 import java.util.*;
@@ -56,9 +56,7 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 @Slf4j()
 public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO> extends ServiceImpl<Mapper, DO> implements IBaseService<DO> {
 
-    protected DataPermissionService dataPermissionService;
-
-    protected Boolean isHasGetDataPermissionService = false;
+    protected List<DataPermissionService> dataPermissionServices;
 
     protected List<IDeleteServiceListener<DO>> deleteServiceListeners;
 
@@ -68,8 +66,6 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
 
     private List<IQueryWrapperHandler<DO>> queryWrapperHandlers;
 
-    @Autowired(required = false)
-    private DataPermissionServiceWrapper dataPermissionServiceWrapper;
 
     /**
      * 添加前
@@ -251,10 +247,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         Assert.notNull(idCommand.getId(),"id 不能为空");
         QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, idCommand.getId());
 
-
-        if (dataPermissionServiceWrapper !=null && getQueryDataPermissionService() != null) {
-            getQueryDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
-        }
+        getQueryDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
         DO dbDO = getOne(queryWrapper,true);
         return dbDO;
     }
@@ -290,9 +283,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         }
 
         // 数据范围约束
-        if (dataPermissionServiceWrapper !=null && getQueryDataPermissionService() != null) {
-            getQueryDataPermissionService().dataConstraint(queryWrapper,queryForm.getDataConstraintContext());
-        }
+        getQueryDataPermissionService().dataConstraint(queryWrapper,queryForm.getDataConstraintContext());
 
         queryWrapper.orderByAsc(BaseDO.COLUMN_ID);
         if (queryWrapperHandlers != null) {
@@ -371,9 +362,8 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         preDeleteById(idCommand.getId(),byId,null);
         QueryWrapper<DO> queryWrapper = Wrappers.<DO>query().eq(BaseDO.COLUMN_ID, idCommand.getId());
 
-        if (dataPermissionServiceWrapper !=null && getDeleteDataPermissionService() != null) {
-            getDeleteDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
-        }
+        // 数据范围约束
+        getDeleteDataPermissionService().dataConstraint(queryWrapper,idCommand.getDataConstraintContext());
         boolean r = remove(queryWrapper);
         if(r){
             if (byId.getDataAuditEnabled() != null && byId.getDataAuditEnabled()) {
@@ -440,9 +430,10 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         Assert.notNull(column,"column 不能为空");
         Assert.notNull(columnId,"columnId 不能为空");
         LambdaQueryWrapper<DO> queryWrapper = Wrappers.<DO>lambdaQuery().eq(column, columnId);
-        if (dataPermissionServiceWrapper !=null && getDeleteDataPermissionService() != null) {
-            getDeleteDataPermissionService().dataConstraint(queryWrapper,dataConstraintContext);
-        }
+
+        // 数据范围约束
+        getDeleteDataPermissionService().dataConstraint(queryWrapper,dataConstraintContext);
+
         List<DO> list = list(queryWrapper);
         preDeleteByColumn(columnId,column,list,null);
 
@@ -585,7 +576,7 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
         annotationSupportUpdateWrapper(updateWrapper,po instanceof BaseDO ? po.getUpdateControl(): null);
         updateWrapper.eq(BaseDO.COLUMN_ID, ReflectUtil.getFieldValue(po, BaseDO.PROPERTY_ID));
         // 数据范围约束
-        if (dataPermissionServiceWrapper !=null && getUpdateDataPermissionService() != null) {
+        if (getUpdateDataPermissionService() != null) {
             DataConstraintContext dataConstraintContext = null;
             if (updateCommand == null || updateCommand == UpdateCommand.empty) {
                 if (po.getUpdateControl() instanceof UpdateCommand) {
@@ -695,37 +686,16 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
     }
 
     /**
-     * 这里不能使用注解注入，因为会循环依赖问题，两种方式，一种使用@Lazy注解，另一种是使用自己从容器中获取注解
-     * @param dataPermissionService
-     */
-    //@Autowired(required = false)
-    public void setDataPermissionService(DataPermissionService dataPermissionService) {
-        this.dataPermissionService = dataPermissionService;
-    }
-    @Autowired(required = false)
-    public void setDeleteServiceListeners(List<IDeleteServiceListener<DO>> deleteServiceListeners) {
-        this.deleteServiceListeners = deleteServiceListeners;
-    }
-
-    /**
      * 获取查询数据范围约束服务
      * @return
      */
     protected DataPermissionService getQueryDataPermissionService(){
-        /**
-         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
-         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
-          */
-
-        if (dataPermissionService == null && !isHasGetDataPermissionService) {
-            try {
-                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
-            } catch (Exception e) {
-            }
-            isHasGetDataPermissionService = true;
+        if (CollectionUtil.isEmpty(dataPermissionServices)) {
+            return null;
         }
-
-        return dataPermissionService;
+        return dataPermissionServices.stream()
+                .filter(dataPermissionService -> dataPermissionService.support(DataPermissionService.Action.query))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -733,18 +703,12 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @return
      */
     protected DataPermissionService getDeleteDataPermissionService(){
-        /**
-         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
-         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
-         */
-        if (dataPermissionService == null && !isHasGetDataPermissionService) {
-            try {
-                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
-            } catch (Exception e) {
-            }
-            isHasGetDataPermissionService = true;
+        if (CollectionUtil.isEmpty(dataPermissionServices)) {
+            return null;
         }
-        return dataPermissionService;
+        return dataPermissionServices.stream()
+                .filter(dataPermissionService -> dataPermissionService.support(DataPermissionService.Action.delete))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -752,29 +716,40 @@ public class IBaseServiceImpl<Mapper extends IBaseMapper<DO>, DO extends BaseDO>
      * @return
      */
     protected DataPermissionService getUpdateDataPermissionService(){
-        /**
-         * 主要是为了解决循环依赖问题，因为在数据权限实现中有可能不可避免的依赖其它的底层服务
-         * 如：在默认的实现中{@link com.particle.component.adapter.dataconstraint.DefaultDataConstraintDataPermissionServiceImpl}就是这种情况
-         */
-        if (dataPermissionService == null && !isHasGetDataPermissionService) {
-            try {
-                dataPermissionService = SpringContextHolder.getBean(DataPermissionService.class);
-            } catch (Exception e) {
-            }
-            isHasGetDataPermissionService = true;
+        if (CollectionUtil.isEmpty(dataPermissionServices)) {
+            return null;
         }
-        return dataPermissionService;
+        return dataPermissionServices.stream()
+                .filter(dataPermissionService -> dataPermissionService.support(DataPermissionService.Action.update))
+                .findFirst().orElse(null);
     }
 
+    /**
+     * 这里不能使用注解注入，因为会循环依赖问题，两种方式，一种使用@Lazy注解，另一种是使用自己从容器中获取注解
+     * @param dataPermissionServices
+     */
+    @Lazy
+    @Autowired(required = false)
+    public void setDataPermissionServices(List<DataPermissionService> dataPermissionServices) {
+        this.dataPermissionServices = dataPermissionServices;
+    }
+    @Lazy
+    @Autowired(required = false)
+    public void setDeleteServiceListeners(List<IDeleteServiceListener<DO>> deleteServiceListeners) {
+        this.deleteServiceListeners = deleteServiceListeners;
+    }
+
+    @Lazy
     @Autowired(required = false)
     public void setAddServiceListeners(List<IAddServiceListener<DO>> addServiceListeners) {
         this.addServiceListeners = addServiceListeners;
     }
+    @Lazy
     @Autowired(required = false)
     public void setUpdateServiceListeners(List<IUpdateServiceListener<DO>> updateServiceListeners) {
         this.updateServiceListeners = updateServiceListeners;
     }
-
+    @Lazy
     @Autowired(required = false)
     public void setQueryWrapperHandlers(List<IQueryWrapperHandler<DO>> queryWrapperHandlers) {
         this.queryWrapperHandlers = queryWrapperHandlers;

@@ -1,6 +1,12 @@
 package com.particle.oplog.adapter.feign.client.rpc;
 
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.oplog.client.dto.command.OpLogCreateCommand;
+import com.particle.oplog.client.dto.data.OpLogVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 /**
  * <p>
  * 操作日志远程调用
@@ -12,12 +18,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 @FeignClient(name = "${particle.feign-client.name.op-log:op-log}",path = "/rpc/op_log")
 public interface OpLogRpcFeignClient {
 
-
-
-
-
-
-
-
+    /**
+     * 添加操作日志
+     * @param opLogCreateCommand
+     * @return
+     */
+    @PostMapping("/create")
+    public SingleResponse<OpLogVO> create(@RequestBody OpLogCreateCommand opLogCreateCommand);
 
 }

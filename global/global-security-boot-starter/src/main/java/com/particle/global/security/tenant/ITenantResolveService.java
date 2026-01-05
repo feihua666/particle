@@ -6,17 +6,13 @@ import org.apache.logging.log4j.util.Strings;
 /**
  * <p>
  * 用户租户处理
+ * 在用户登录或者切换身份时使用，主要处理用户租户信息
  * </p>
  *
  * @author yangwei
  * @since 2023-04-14 17:37
  */
 public interface ITenantResolveService {
-
-	/**
-	 * 清除缓存
-	 */
-	default public void removeCache(){}
 
 	/**
 	 * 处理用户租户

@@ -2,6 +2,8 @@ package com.particle.data.infrastructure.gateway.impl;
 
 import com.particle.data.domain.gateway.DataDataQueryDataApiGateway;
 import com.particle.dataquery.adapter.feign.client.dataapi.rpc.DataQueryDataApiRpcFeignClient;
+import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
+import com.particle.global.dto.response.RawResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +22,14 @@ public class DataDataQueryDataApiGatewayImpl implements DataDataQueryDataApiGate
 
 	@Override
 	public Object invoke(String code, Object command, String queryString) {
-		return dataQueryDataApiRpcFeignClient.invoke(code,command,queryString);
-	}
+        DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();
+        dataQueryDataApiQueryCommand.setUrl(code);
+        dataQueryDataApiQueryCommand.setParam(command);
+        dataQueryDataApiQueryCommand.setQueryString(queryString);
+
+        RawResponse rawResponse = dataQueryDataApiRpcFeignClient.invoke(dataQueryDataApiQueryCommand);
+        return rawResponse.getData();
+    }
 
 	@Autowired
 	public void setDataQueryDataApiRpcFeignClient(DataQueryDataApiRpcFeignClient dataQueryDataApiRpcFeignClient) {

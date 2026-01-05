@@ -7,8 +7,7 @@ import lombok.experimental.Accessors;
 /**
  * <p>
  * 数据范围约束配置
- * 注：该类本应该放在global-data-permission-boot-starter 模块中，但是由于该模块是通用的，所以放在这里，避免循环依赖
- * 需要与 {@link com.particle.global.data.permission.DataConstraintContext} 保持一致
+ * 注：该类本应该放在 global-data-permission-boot-starter 模块中，但是由于该模块是通用的，所以放在这里，避免循环依赖
  * </p>
  *
  * @author yangwei

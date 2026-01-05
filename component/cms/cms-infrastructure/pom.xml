@@ -12,8 +12,8 @@
     <artifactId>cms-infrastructure</artifactId>
 
     <properties>
-        
-        
+
+
     </properties>
     <dependencies>
         <!-- 通用基础设施 依赖 -->
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

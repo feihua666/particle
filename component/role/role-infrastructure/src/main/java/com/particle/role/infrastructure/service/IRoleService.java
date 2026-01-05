@@ -7,7 +7,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -51,7 +50,14 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @param userId
 	 * @return
 	 */
-	List<RoleDO> getByUserId(Long userId, Boolean isDisabled);
+	List<RoleDO> listByUserId(Long userId, Boolean isDisabled);
+    /**
+	 * 根据用户ids查询
+	 * @param userIds
+	 * @param isDisabled
+	 * @return
+	 */
+	List<RoleDO> listByUserIds(List<Long> userIds, Boolean isDisabled);
 
 	/**
 	 * 根据用户id查询
@@ -66,18 +72,15 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @param funcId
 	 * @return
 	 */
-	List<RoleDO> getByFuncId(Long funcId,Boolean isDisabled);
+	List<RoleDO> listByFuncId(Long funcId, Boolean isDisabled);
 	/**
 	 * 根据角色类型字典id查询
 	 * @param roleTypeDictId
 	 * @return
 	 */
-	default List<RoleDO> getByRoleTypeDictId(Long roleTypeDictId,Boolean isDisabled) {
-		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().eq(RoleDO::getTypeDictId, roleTypeDictId));
-		if (isDisabled == null) {
-			return list;
-		}
-		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
+	default List<RoleDO> listByRoleTypeDictId(Long roleTypeDictId, Boolean isDisabled) {
+		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().eq(RoleDO::getTypeDictId, roleTypeDictId).eq(isDisabled != null,RoleDO::getIsDisabled,isDisabled));
+		return list;
 	}
 
 	/**
@@ -86,12 +89,8 @@ public interface IRoleService extends IBaseService<RoleDO> {
 	 * @param isDisabled
 	 * @return
 	 */
-	default List<RoleDO> getByRoleIds(List<Long> roleIds,Boolean isDisabled){
-		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().in(RoleDO::getId, roleIds));
-
-		if (isDisabled == null) {
-			return list;
-		}
-		return list.stream().filter(item -> isDisabled.equals(item.getIsDisabled())).collect(Collectors.toList());
+	default List<RoleDO> listByRoleIds(List<Long> roleIds, Boolean isDisabled){
+		List<RoleDO> list = list(Wrappers.<RoleDO>lambdaQuery().in(RoleDO::getId, roleIds).eq(isDisabled != null,RoleDO::getIsDisabled,isDisabled));
+		return list;
 	}
 }

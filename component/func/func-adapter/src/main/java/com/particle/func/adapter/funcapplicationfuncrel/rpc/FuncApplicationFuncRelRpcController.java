@@ -5,6 +5,7 @@ import com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc.FuncApp
 import com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
 import com.particle.func.infrastructure.funcapplicationfuncrel.dos.FuncApplicationFuncRelDO;
 import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncApplicationFuncRelService;
+import com.particle.global.dto.response.MultiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,10 @@ public class FuncApplicationFuncRelRpcController extends AbstractBaseRpcAdapter 
 	@Override
 	@Operation(summary = "菜单功能更新详情")
 	@GetMapping("/getFuncIdsByFuncApplicationId")
-	public List<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId) {
+	public MultiResponse<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId) {
 		List<FuncApplicationFuncRelDO> funcApplicationFuncRelDOS = iFuncApplicationFuncRelService.listByColumn(funcApplicationId, FuncApplicationFuncRelDO::getFuncApplicationId);
 		List<Long> collect = funcApplicationFuncRelDOS.stream().map(FuncApplicationFuncRelDO::getFuncId).collect(Collectors.toList());
 
-		return collect;
+		return MultiResponse.of( collect);
 	}
 }

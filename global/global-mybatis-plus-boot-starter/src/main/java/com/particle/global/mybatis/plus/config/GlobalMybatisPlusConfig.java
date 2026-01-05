@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.*;
-import com.particle.global.data.permission.DataPermissionService;
 import com.particle.global.mybatis.plus.crud.MetricsAndSlowSqlMybatisInterceptor;
 import com.particle.global.mybatis.plus.datapermission.CustomMultiDataPermissionHandler;
 import com.particle.global.mybatis.plus.datapermission.DefaultTenantMultiDataPermissionHandler;
@@ -15,12 +14,10 @@ import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
 import com.particle.global.mybatis.plus.table.CustomDynamicTableNameHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
-import com.particle.global.mybatis.plus.wrapper.DataPermissionServiceWrapper;
 import com.particle.global.security.security.login.LoginUser;
 import com.particle.global.security.security.login.LoginUserTool;
 import com.particle.global.security.tenant.TenantTool;
 import com.particle.global.tool.id.SnowflakeIdTool;
-import com.particle.global.tool.thread.ThreadContextTool;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -41,7 +38,7 @@ import java.util.Optional;
  * @since 2022-06-29 17:35
  */
 @Data
-@Configuration(proxyBeanMethods = false)
+@Configuration(proxyBeanMethods = true)
 @ConfigurationProperties(prefix = "particle.mybatis-plus")
 public class GlobalMybatisPlusConfig {
 
@@ -61,27 +58,12 @@ public class GlobalMybatisPlusConfig {
 	 */
 	private List<String> tenantIgnoreTables;
 
-	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnClass(DataPermissionService.class)
-	protected static class DataPermissionServiceDependConfig{
-
-		/**
-		 * 自定义一个包装类，占位，用来判定 {@link DataPermissionService} 类是否存在来动态启动是否获取数据权限
-		 * @return
-		 */
-		@Bean
-		@ConditionalOnClass(DataPermissionService.class)
-		DataPermissionServiceWrapper dataPermissionServiceWrapper (){
-			return new DataPermissionServiceWrapper();
-		}
-
-	}
 	/**
 	 * 监控通知 mybatis 拦截器
 	 * 不依赖于mybatis plus
 	 * @return
 	 */
-	@Order(INTERCEPTOR_ORDER_START - 5)
+	@Order(INTERCEPTOR_ORDER_START + 5)
 	@Bean
 	public MetricsAndSlowSqlMybatisInterceptor metricsAndSlowSqlMybatisPlusInterceptor(){
 		return new MetricsAndSlowSqlMybatisInterceptor();

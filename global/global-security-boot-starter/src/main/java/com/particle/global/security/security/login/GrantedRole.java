@@ -22,10 +22,13 @@ public class GrantedRole implements Serializable {
 
 	@Schema(description = "role id")
 	private Long id;
+
 	@Schema(description = "role code")
 	private String code;
+
 	@Schema(description = "role name")
 	private String name;
+
 	@Schema(description = "是否超级管理员")
 	private Boolean isSuperadmin;
 

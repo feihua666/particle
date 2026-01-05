@@ -1,5 +1,6 @@
 package com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc;
 
+import com.particle.global.dto.response.MultiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -23,7 +24,7 @@ public interface FuncApplicationFuncRelRpcFeignClient {
 	 * @return
 	 */
 	@GetMapping("/getFuncIdsByFuncApplicationId")
-	public List<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId);
+	public MultiResponse<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId);
 
 
 

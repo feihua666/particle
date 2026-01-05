@@ -36,7 +36,7 @@ public class RoleMultipleTransServiceImpl implements ITransService<List<RoleTran
     @Override
     public TransResult<List<RoleTransVO>, Long> trans(String type, Long key) {
         if (StrUtil.equals(type,TransConstants.TRANS_ROLE_BY_USER_ID)) {
-            List<RoleDO> roleDOS = iRoleService.getByUserId(key, null);
+            List<RoleDO> roleDOS = iRoleService.listByUserId(key, null);
             if (CollectionUtil.isEmpty(roleDOS)) {
                 return null;
             }

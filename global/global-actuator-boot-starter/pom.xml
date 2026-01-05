@@ -43,7 +43,7 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 集成 spring boot admin server -->
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 全局dto依赖类 -->
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 日志链路追踪 global-sleuth-boot-starter 在 springboot3 中已不再使用-->
         <dependency>

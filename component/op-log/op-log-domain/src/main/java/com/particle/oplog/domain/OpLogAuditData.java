@@ -1,9 +1,14 @@
 package com.particle.oplog.domain;
 
 import com.particle.common.domain.AggreateRoot;
+import com.particle.component.light.share.dict.oplog.OpLogAuditDataChangeType;
+import com.particle.component.light.share.dict.oplog.OpLogType;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.oplog.domain.gateway.OpLogDictGateway;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * <p>
  * 操作日志审计数据 领域模型
@@ -89,6 +94,17 @@ public class OpLogAuditData extends AggreateRoot {
     private String remark;
 
 
+    @Autowired
+    private OpLogDictGateway opLogDictGateway;
+
+    public void initForAdd() {
+        if (this.changeTypeDictId == null && this.changeType != null) {
+            this.changeTypeDictId = opLogDictGateway.getDictIdByGroupCodeAndItemValue(OpLogAuditDataChangeType.Group.op_log_audit_data_change_type.groupCode(), this.changeType);
+        }
+        if (this.typeDictId == null && this.type != null) {
+            this.typeDictId = opLogDictGateway.getDictIdByGroupCodeAndItemValue(OpLogType.Group.op_log_type.groupCode(), this.type);
+        }
+    }
 
     /**
      * 创建操作日志审计数据领域模型对象

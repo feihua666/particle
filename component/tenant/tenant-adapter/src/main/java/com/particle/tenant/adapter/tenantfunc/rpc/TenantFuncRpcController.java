@@ -1,8 +1,13 @@
 package com.particle.tenant.adapter.tenantfunc.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.tenant.adapter.feign.client.tenantfunc.rpc.TenantFuncRpcFeignClient;
 import com.particle.tenant.client.tenantfunc.api.ITenantFuncApplicationService;
+import com.particle.tenant.client.tenantfunc.api.representation.ITenantFuncRepresentationApplicationService;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
+import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +29,12 @@ public class TenantFuncRpcController extends AbstractBaseRpcAdapter implements T
 
 	@Autowired
 	private ITenantFuncApplicationService iTenantFuncApplicationService;
+    @Autowired
+    private ITenantFuncRepresentationApplicationService iTenantFuncRepresentationApplicationService;
 
-
+    @Operation(summary = "列表查询租户功能菜单")
+    @Override
+    public MultiResponse<TenantFuncVO> queryList(TenantFuncQueryListCommand tenantFuncQueryListCommand) {
+        return iTenantFuncRepresentationApplicationService.queryList(tenantFuncQueryListCommand);
+    }
 }

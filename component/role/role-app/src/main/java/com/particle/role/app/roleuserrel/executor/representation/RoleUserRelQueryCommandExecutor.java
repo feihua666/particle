@@ -90,7 +90,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @return 返回未禁用角色的用户ids
 	 */
 	public MultiResponse<Long> queryUserIdsByRoleTypeDictIdAndRoleEnabled(@Valid IdCommand roleTypeDictIdCommand) {
-		List<RoleDO> byRoleTypeDictId = iRoleService.getByRoleTypeDictId(roleTypeDictIdCommand.getId(), false);
+		List<RoleDO> byRoleTypeDictId = iRoleService.listByRoleTypeDictId(roleTypeDictIdCommand.getId(), false);
 		List<Long> roleIds = byRoleTypeDictId.stream().map(RoleDO::getId).collect(Collectors.toList());
         if (CollectionUtil.isNotEmpty(roleIds)) {
 			List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByRoleIds(roleIds);

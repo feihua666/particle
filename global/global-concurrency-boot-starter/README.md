@@ -37,7 +37,7 @@
 <dependency>
     <groupId>net.javacrumbs.shedlock</groupId>
     <artifactId>shedlock-provider-jdbc-template</artifactId>
-    <scope>provided</scope>
+    <optional>true</optional>
 </dependency>
 ```
 

@@ -7,6 +7,7 @@ import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
 import com.particle.dept.domain.deptuserrel.DeptUserRel;
 import com.particle.dept.domain.deptuserrel.DeptUserRelId;
 import com.particle.dept.domain.deptuserrel.gateway.DeptUserRelGateway;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
@@ -43,6 +44,16 @@ public class DeptUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 			return SingleResponse.of(DeptUserRelAppStructMapping.instance.toDeptUserRelVO(byId));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);
+	}
+
+	/**
+	 * 根据用户ID删除部门用户关系
+	 * @param deleteCommand
+	 * @return
+	 */
+	public Response deleteByUserId(IdCommand deleteCommand) {
+		boolean result = deptUserRelGateway.deleteByUserId(deleteCommand.getId());
+		return Response.buildSuccess();
 	}
 
 	/**

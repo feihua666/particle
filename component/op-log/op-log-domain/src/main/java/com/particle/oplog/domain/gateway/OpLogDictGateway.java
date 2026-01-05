@@ -16,6 +16,8 @@ public interface OpLogDictGateway extends IGateway {
 
 	String getDictValueById(Long typeDictId);
 
+    Long getDictIdByGroupCodeAndItemValue(String groupCode, String value);
+
 	/**
 	 * key为value，value为id
 	 * @param groupCode

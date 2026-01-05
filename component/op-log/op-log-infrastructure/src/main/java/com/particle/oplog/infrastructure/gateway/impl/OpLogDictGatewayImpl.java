@@ -36,7 +36,14 @@ public class OpLogDictGatewayImpl implements OpLogDictGateway {
 
 		return dictVOSingleResponse.getData().getValue();
 	}
-
+    @Override
+    public Long getDictIdByGroupCodeAndItemValue(String groupCode, String value) {
+        SingleResponse<DictVO> byGroupCodeAndItemValue = dictRpcFeignClient.getByGroupCodeAndItemValue(groupCode, value);
+        if (byGroupCodeAndItemValue.getData() == null) {
+            return null;
+        }
+        return byGroupCodeAndItemValue.getData().getId();
+    }
 	@Override
 	public Map<String, Long> getItemsByGroupCode(String groupCode) {
 		MultiResponse<DictVO> itemsByGroupCode = dictRpcFeignClient.getItemsByGroupCode(groupCode);

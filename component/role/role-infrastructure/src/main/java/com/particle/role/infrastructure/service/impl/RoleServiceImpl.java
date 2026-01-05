@@ -70,22 +70,33 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 	}
 
 	@Override
-	public List<RoleDO> getByUserId(Long userId, Boolean isDisabled) {
+	public List<RoleDO> listByUserId(Long userId, Boolean isDisabled) {
 		List<Long> roleIds = (List<Long>)iRoleUserRelService.listSingleColumnFieldByColumn(RoleUserRelDO::getRoleId,userId,RoleUserRelDO::getUserId);
 		if (CollectionUtil.isEmpty(roleIds)) {
 			return Collections.emptyList();
 		}
-		return getByRoleIds(roleIds,isDisabled);
+		return listByRoleIds(roleIds,isDisabled);
 	}
 
-	@Override
+    @Override
+    public List<RoleDO> listByUserIds(List<Long> userIds, Boolean isDisabled) {
+        List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByUserIds(userIds);
+        if (CollectionUtil.isEmpty(roleUserRelDOS)) {
+            return Collections.emptyList();
+        }
+        List<Long> roleIds = roleUserRelDOS.stream().map(RoleUserRelDO::getRoleId).collect(Collectors.toList());
+        List<RoleDO> roleDOS = listByRoleIds(roleIds, isDisabled);
+        return roleDOS;
+    }
+
+    @Override
 	public Map<Long, List<RoleDO>> getByUserIds(List<Long> userIds, Boolean isDisabled) {
 		List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByUserIds(userIds);
 		if (CollectionUtil.isEmpty(roleUserRelDOS)) {
 			return Collections.emptyMap();
 		}
 		List<Long> roleIds = roleUserRelDOS.stream().map(RoleUserRelDO::getRoleId).collect(Collectors.toList());
-		List<RoleDO> roleDOS = getByRoleIds(roleIds, isDisabled);
+		List<RoleDO> roleDOS = listByRoleIds(roleIds, isDisabled);
 		if (CollectionUtil.isEmpty(roleDOS)) {
 			return Collections.emptyMap();
 		}
@@ -101,11 +112,11 @@ public class RoleServiceImpl extends IBaseServiceImpl<RoleMapper, RoleDO> implem
 	}
 
 	@Override
-	public List<RoleDO> getByFuncId(Long funcId,Boolean isDisabled) {
+	public List<RoleDO> listByFuncId(Long funcId, Boolean isDisabled) {
 		List<Long> roleIds = (List<Long>)iRoleFuncRelService.listSingleColumnFieldByColumn(RoleFuncRelDO::getRoleId,funcId,RoleFuncRelDO::getFuncId);
 		if (CollectionUtil.isEmpty(roleIds)) {
 			return Collections.emptyList();
 		}
-		return getByRoleIds(roleIds,isDisabled);
+		return listByRoleIds(roleIds,isDisabled);
 	}
 }

@@ -1,5 +1,6 @@
 <template>
-  <PtBaiduMap>
+  <!--  一定要设置一个高度  -->
+  <PtBaiduMap style="height:500px;">
   </PtBaiduMap>
 </template>
 

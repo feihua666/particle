@@ -17,12 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface Oauth2RegisteredClientRpcFeignClient {
 
 
-    @GetMapping("/getByAppId")
-    public SingleResponse<Oauth2RegisteredClientVO> getByAppId(String appId);
-
-
-
-
-
+    @GetMapping("/getByClientId")
+    public SingleResponse<Oauth2RegisteredClientVO> getByClientId(String clientId);
 
 }

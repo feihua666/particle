@@ -6,10 +6,12 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.date.TemporalAccessorUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -18,18 +20,23 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.apache.logging.log4j.core.pattern.NameAbbreviator;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
+
+import static com.baomidou.mybatisplus.core.toolkit.PluginUtils.realTarget;
 
 /**
  * <p>
@@ -39,17 +46,16 @@ import java.util.regex.Matcher;
  * @author yangwei
  * @since 2021-08-31 10:33
  */
-@Intercepts(
-		{
-				@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-				@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-				@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-		}
-)
+@Intercepts({
+        @Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),
+        @Signature(type = StatementHandler.class, method = "update", args = {Statement.class})
+})
 @Slf4j
 public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 	private static final String slowSqlNotifyThresholdValueKey = "particle.notify.slowSql.threshold";
+    // 参数同 log4j2 配置 pattern中 %c{1.}
+    private static final NameAbbreviator abbreviator = NameAbbreviator.getAbbreviator("1.");
 
 	/**
 	 * 慢sql通知阈值
@@ -70,19 +76,33 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 		}finally {
 			long end = System.currentTimeMillis();
 			long duration = end - start;
-			Object target = invocation.getTarget();
-			Object[] args = invocation.getArgs();
-			MappedStatement ms = (MappedStatement) args[0];
-			Object parameter = args[1];
 
-			String finalSql = null;
+            // 1. 获取被拦截的 StatementHandler 对象（注意：可能是代理对象，需先解包）
+            StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
+
+            // 2. 通过 MetaObject 反射获取 StatementHandler 的内部属性（MyBatis 提供的安全反射工具）
+            MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
+
+            // 3. 获取 MappedStatement（核心：封装 SQL、参数映射、Mapper 信息）
+            MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+            // 获取 Mapper 方法名（如：com.xxx.mapper.UserMapper.selectById）
+            String mapperMethod = mappedStatement.getId();
+
+            // 4. 获取 BoundSql（封装最终执行的 SQL 语句 + 参数映射）
+            BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
+            String sql = boundSql.getSql(); // 最终执行的 SQL（已解析动态 SQL）
+
+            // 5. 核心：直接从 StatementHandler 的 delegate 中获取 Configuration
+            Configuration configuration = (Configuration) metaObject.getValue("delegate.configuration");
+
+            String finalSql = null;
 
 			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.NOTIFY_TOOL_CLASS_NAME)) {
 
 				// 超过阈值通知
 				if (duration > slowSqlNotifyThreshold) {
 					if (finalSql == null) {
-						finalSql = finalSql(ms, parameter);
+						finalSql = finalSql(configuration, boundSql, mapperMethod);
 					}
 					com.particle.global.notification.notify.NotifyParam notifyParam = com.particle.global.notification.notify.NotifyParam.system()
 								.setTitle("慢sql")
@@ -94,14 +114,14 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 			}
 			if (ClassLoaderUtil.isPresent(ClassAdapterConstants.MONITOR_TOOL_TOOL_CLASS_NAME)) {
-				String commandType = ms.getSqlCommandType().name();
+				String commandType = mappedStatement.getSqlCommandType().name();
 				// sql监控
 				com.particle.global.actuator.monitor.MonitorTool.timer(
 						"mybatis.interceptor.request",
 						end - start,
 						"dao层监控",
 						"executorMethod",invocation.getMethod().getName(),
-						"mapperMethod",ms.getId(),
+						"mapperMethod",mappedStatement.getId(),
 						"commandType",commandType
 
 				);
@@ -110,11 +130,10 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 			if (logSqlEnable) {
 				if (finalSql == null) {
-					finalSql = finalSql(ms, parameter);
+					finalSql = finalSql(configuration, boundSql, mapperMethod);
 				}
-				log.info("sql={}",finalSql);
+				log.info("duration={}ms,sql={}",duration,finalSql);
 			}
-			log.debug("mapperMethod={},duration={}ms",ms.getId(),duration);
 
 		}
 
@@ -122,24 +141,39 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
 	/**
 	 * 获取最终sql
-	 * @param ms
+	 * @param configuration
+	 * @param boundSql
+	 * @param sqlId
 	 * @return
 	 */
-	private String finalSql(MappedStatement ms,Object parameter){
-		return getSql(ms.getConfiguration(), ms.getBoundSql(parameter),ms.getId() );
-	}
-
-
-	private static String getSql(Configuration configuration, BoundSql boundSql,
+	private static String finalSql(Configuration configuration, BoundSql boundSql,
 								 String sqlId) {
 		String sql = showSql(configuration, boundSql);
 		StringBuilder str = new StringBuilder(100);
-		str.append(sqlId);
-		str.append(":");
+		str.append(formatSqlId(sqlId));
+		str.append(": ");
 		str.append(sql);
 		return str.toString();
 	}
 
+    /**
+     * 获取sqlId
+     * @param sqlId
+     * @return
+     */
+    private static String formatSqlId(String sqlId) {
+        String packageName = sqlId.substring(0, sqlId.lastIndexOf("."));
+        String methodName = sqlId.substring(sqlId.lastIndexOf(".") + 1);
+        StringBuilder sb = new StringBuilder();
+        abbreviator.abbreviate(packageName, sb);
+        sb.append(".").append(methodName);
+        return sb.toString();
+	}
+    /**
+     * 获取参数值
+     * @param obj
+     * @return
+     */
 	private static String getParameterValue(Object obj) {
 		String value = null;
 		if (obj instanceof String) {
@@ -163,6 +197,12 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 		return value;
 	}
 
+    /**
+     * 获取sql
+     * @param configuration
+     * @param boundSql
+     * @return
+     */
 	private static String showSql(Configuration configuration, BoundSql boundSql) {
 		Object parameterObject = boundSql.getParameterObject();
 		List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
@@ -187,8 +227,9 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 								.getAdditionalParameter(propertyName);
 						sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(obj)));
 					} else {
+                        //打印出缺失，提醒该参数缺失并防止错位
 						sql = sql.replaceFirst("\\?", "缺失");
-					}//打印出缺失，提醒该参数缺失并防止错位
+					}
 				}
 			}
 		}

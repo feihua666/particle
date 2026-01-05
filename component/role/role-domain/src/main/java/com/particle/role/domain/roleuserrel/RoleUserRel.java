@@ -27,6 +27,14 @@ public class RoleUserRel extends AggreateRoot {
      */
     private Long roleId;
 
+    /**
+     * 租户id
+     */
+    private Long tenantId;
+
+    public void changeTenantId(Long tenantId){
+    	this.tenantId = tenantId;
+    }
 
 	/**
 	 * 创建角色用户关系领域模型对象

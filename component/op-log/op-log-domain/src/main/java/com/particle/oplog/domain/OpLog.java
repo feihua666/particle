@@ -1,9 +1,13 @@
 package com.particle.oplog.domain;
 
 import com.particle.common.domain.AggreateRoot;
+import com.particle.component.light.share.dict.oplog.OpLogModule;
+import com.particle.component.light.share.dict.oplog.OpLogType;
 import com.particle.global.domain.DomainFactory;
 import com.particle.global.domain.Entity;
+import com.particle.oplog.domain.gateway.OpLogDictGateway;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 /**
@@ -106,7 +110,26 @@ public class OpLog extends AggreateRoot {
     private Long parentId;
 
 
+    @Autowired
+    private OpLogDictGateway opLogDictGateway;
 
+    public void initForAdd(){
+        if (this.moduleDictId == null && this.module != null) {
+            this.moduleDictId = opLogDictGateway.getDictIdByGroupCodeAndItemValue(OpLogModule.Group.op_log_module.groupCode(), this.module);
+        }
+        if (this.typeDictId == null && this.type != null) {
+            this.typeDictId = opLogDictGateway.getDictIdByGroupCodeAndItemValue(OpLogType.Group.op_log_type.groupCode(), this.type);
+        }
+    }
+
+    /**
+     * 强制创建,如果id不为空
+     */
+    public void changeForceAddIfIdExist(){
+        if (this.id != null) {
+            this.changeForceAdd();
+        }
+    }
     /**
      * 创建操作日志领域模型对象
      * @return 操作日志领域模型对象，该对应所有属性为空，需要进行初始化操作

@@ -5,6 +5,7 @@ import com.particle.common.client.dto.command.IdCommand;
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelCreateCommand;
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelUpdateCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 
 /**
@@ -36,5 +37,12 @@ public interface IDeptUserRelApplicationService extends IBaseApplicationService 
 	 * @return
 	 */
 	SingleResponse<DeptUserRelVO> update(DeptUserRelUpdateCommand deptUserRelUpdateCommand);
+
+	/**
+	 * 根据用户ID删除部门用户关系
+	 * @param deleteCommand
+	 * @return
+	 */
+	Response deleteByUserId(IdCommand deleteCommand);
 
 }

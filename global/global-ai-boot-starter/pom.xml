@@ -16,7 +16,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <!-- 排除默认的logback，使用log4j2 -->
                 <exclusion>
@@ -51,7 +51,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-security-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- milvus 是一个向量数据库，本地开发可以使用 devops/milvus 下的命令启动服务 -->
         <!-- 参考文档：https://docs.spring.io/spring-ai/reference/api/vectordbs/milvus.html -->

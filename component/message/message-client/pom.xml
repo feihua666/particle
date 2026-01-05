@@ -36,14 +36,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 仅使用注解-->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-trans-boot-stater</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 参数验证 不传递依赖 仅使用注解 依赖已在 common-app 中引入执行真正的验证-->
@@ -51,7 +51,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-validation-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

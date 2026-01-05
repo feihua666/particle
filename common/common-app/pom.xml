@@ -22,14 +22,14 @@
             <groupId>com.particle</groupId>
             <artifactId>common-client</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 依赖基础设施 不传递依赖 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>common-infrastructure</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 参数验证 依赖 -->

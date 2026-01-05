@@ -1,12 +1,19 @@
 package com.particle.scheduler.adapter.temptask.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.adapter.feign.client.temptask.rpc.SchedulerTempTaskControlRpcFeignClient;
 import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskApplicationService;
 import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskControlApplicationService;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskFinishCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskLogBaseCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskLogCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskStartCommand;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,34 +39,34 @@ public class SchedulerTempTaskControlRpcController extends AbstractBaseRpcAdapte
 
 	@Operation(summary = "临时任务开始")
 	@Override
-	public Long start(String code, String name) {
-		return iSchedulerTempTaskControlApplicationService.start(code,name);
+	public SingleResponse<Long> start(@RequestBody SchedulerTempTaskStartCommand schedulerTempTaskStartCommand) {
+		return iSchedulerTempTaskControlApplicationService.start(schedulerTempTaskStartCommand);
 	}
 
 	@Operation(summary = "临时任务结束")
 	@Override
-	public void finish(Long id, Boolean isHasError, String result) {
-		iSchedulerTempTaskControlApplicationService.finish(id,isHasError,result);
+	public Response finish(SchedulerTempTaskFinishCommand schedulerTempTaskFinishCommand) {
+		return iSchedulerTempTaskControlApplicationService.finish(schedulerTempTaskFinishCommand);
 	}
 
 	@Operation(summary = "临时任务通用日志")
 	@Override
-	public void log(String level, Long id, String message) {
-		iSchedulerTempTaskControlApplicationService.log(level,id,message);
+	public Response log(SchedulerTempTaskLogCommand schedulerTempTaskLogCommand) {
+		return iSchedulerTempTaskControlApplicationService.log(schedulerTempTaskLogCommand);
 	}
 	@Operation(summary = "临时任务info日志")
 	@Override
-	public void logInfo(Long id, String message) {
-		iSchedulerTempTaskControlApplicationService.logInfo(id,message);
+	public Response logInfo(SchedulerTempTaskLogBaseCommand schedulerTempTaskLogBaseCommand) {
+		return iSchedulerTempTaskControlApplicationService.logInfo(schedulerTempTaskLogBaseCommand);
 	}
 	@Operation(summary = "临时任务error日志")
 	@Override
-	public void logError(Long id, String message) {
-		iSchedulerTempTaskControlApplicationService.logError(id,message);
+	public Response logError(SchedulerTempTaskLogBaseCommand schedulerTempTaskLogBaseCommand) {
+		return iSchedulerTempTaskControlApplicationService.logError(schedulerTempTaskLogBaseCommand);
 	}
 	@Operation(summary = "临时任务检查允许运行开关")
 	@Override
-	public boolean checkIsAllowRunSwitch(Long id) {
+	public Response checkIsAllowRunSwitch(Long id) {
 		return iSchedulerTempTaskControlApplicationService.checkIsAllowRunSwitch(id);
 	}
 }

@@ -34,10 +34,10 @@ public class Oauth2RegisteredClientRpcController extends AbstractBaseRpcAdapter 
 	@Autowired
 	private IOauth2RegisteredClientService iOauth2RegisteredClientService;
 
-	@Operation(summary = "根据appId获取")
+	@Operation(summary = "根据 clientId 获取")
 	@Override
-	public SingleResponse<Oauth2RegisteredClientVO> getByAppId(String appId) {
-		Oauth2RegisteredClientDO byClientId = iOauth2RegisteredClientService.getByClientId(appId);
+	public SingleResponse<Oauth2RegisteredClientVO> getByClientId(String clientId) {
+		Oauth2RegisteredClientDO byClientId = iOauth2RegisteredClientService.getByClientId(clientId);
 		return SingleResponse.of(Oauth2RegisteredClientAppStructMapping.instance.oauth2RegisteredClientDOToOauth2RegisteredClientVO(byClientId));
 	}
 }

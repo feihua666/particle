@@ -25,11 +25,9 @@ import org.springframework.context.annotation.Import;
 @MapperScan("com.particle.global.mybatis.plus.mapper")
 public class GlobalMybatisPlusAutoConfiguration {
 
-
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(DataAuditCollectTool.class)
 	protected static class DataAuditCollectToolDependConfig{
-
 		@Bean
 		@ConditionalOnClass(DataAuditCollectTool.class)
 		public DataAuditHelperTool dataAuditHelperTool(){
@@ -42,4 +40,5 @@ public class GlobalMybatisPlusAutoConfiguration {
     public TableServivce tableServivce(){
         return new TableServiceImpl();
     }
+
 }

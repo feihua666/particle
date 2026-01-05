@@ -1,5 +1,6 @@
 package com.particle.tenant.adapter.rpc;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
 import com.particle.global.dto.basic.PageQueryCommand;
@@ -8,6 +9,7 @@ import com.particle.global.dto.response.PageResponse;
 import com.particle.tenant.adapter.feign.client.rpc.TenantRpcFeignClient;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
 import com.particle.tenant.client.api.ITenantApplicationService;
+import com.particle.tenant.client.dto.command.representation.TenantQueryAllCommand;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.service.ITenantService;
@@ -40,13 +42,18 @@ public class TenantRpcController extends AbstractBaseRpcAdapter implements Tenan
 
 	@Operation(summary = "获取所有租户，不加任何条件")
 	@Override
-	public MultiResponse<TenantVO> getAllTenant() {
-		List<TenantDO> allIgnoreTenantLimit = iTenantService.getAllIgnoreTenantLimit();
-		List<TenantVO> tenantVOS = TenantAppStructMapping.instance.tenantDOsToTenantVOs(allIgnoreTenantLimit);
-		return MultiResponse.of(tenantVOS);
-	}
+	public MultiResponse<TenantVO> getAllTenant(TenantQueryAllCommand tenantQueryAllCommand) {
+        List<TenantDO> allIgnoreTenantLimit = iTenantService.getAllIgnoreTenantLimit();
+        List<TenantVO> tenantVOS = TenantAppStructMapping.instance.tenantDOsToTenantVOs(allIgnoreTenantLimit);
 
-	@Operation(summary = "分页获取所有租户，不加任何条件")
+        List<Long> filterTenantIds = tenantQueryAllCommand.getFilterTenantIds();
+        if (CollectionUtil.isNotEmpty(filterTenantIds)) {
+            tenantVOS = tenantVOS.stream().filter(tenantVO -> filterTenantIds.contains(tenantVO.getId())).toList();
+        }
+
+        return MultiResponse.of(tenantVOS);
+	}
+    @Operation(summary = "分页获取所有租户，不加任何条件")
 	@Override
 	public PageResponse<TenantVO> pageAllTenant(PageQueryCommand pageQueryCommand) {
 		Page<TenantDO> tenantDOPage = iTenantService.pageAllIgnoreTenantLimit(pageQueryCommand.getPageNo(), pageQueryCommand.getPageSize());

@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <!-- 排除默认的logback，使用log4j2 -->
                 <exclusion>
@@ -40,7 +40,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-actuator-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 应用启动或停止发通知 -->
@@ -48,7 +48,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-bootstrap-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>

@@ -9,6 +9,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
+import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteWithTenantIdCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import com.particle.role.domain.rolefuncrel.RoleFuncRel;
 import com.particle.role.domain.rolefuncrel.RoleFuncRelId;
@@ -74,10 +75,12 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	/**
 	 * 删除范围外的数据
-	 * @param scopedFuncIds
+	 * @param roleFuncRelDeleteWithTenantIdCommand
 	 * @return
 	 */
-	public Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
+	public Response deleteWithTenantId(RoleFuncRelDeleteWithTenantIdCommand roleFuncRelDeleteWithTenantIdCommand) {
+        List<Long> scopedFuncIds = roleFuncRelDeleteWithTenantIdCommand.getExcludeFuncIds();
+        Long tenantId = roleFuncRelDeleteWithTenantIdCommand.getTenantId();
 		if (CollectionUtil.isEmpty(scopedFuncIds)) {
 			iRoleFuncRelService.remove(Wrappers.emptyWrapper());
 			return Response.buildSuccess();

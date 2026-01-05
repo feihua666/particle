@@ -1,1 +1,1 @@
-com.particle.global.spring.GlobalAdapterAutoConfiguration
+com.particle.global.autoconfigure.GlobalAutoConfigureAutoConfiguration

@@ -12,6 +12,7 @@ import com.particle.role.client.rolefuncrel.api.IRoleFuncRelApplicationService;
 import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
+import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteWithTenantIdCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,13 +50,13 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public Response deleteOutOfScopeByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
-		return roleFuncRelDeleteCommandExecutor.deleteOutOfScopeByScopedFuncIds(scopedFuncIds,tenantId);
+	public Response deleteWithTenantId(RoleFuncRelDeleteWithTenantIdCommand roleFuncRelDeleteWithTenantIdCommand) {
+		return roleFuncRelDeleteCommandExecutor.deleteWithTenantId(roleFuncRelDeleteWithTenantIdCommand);
 	}
 
 	@Override
 	public Response roleAssignFunc(RoleAssignFuncCommand cf) {
-		return roleFuncRelCommandExecutor.roleAssignFunc(cf);
+		return roleFuncRelCommandExecutor.roleAssignFunc(cf,null);
 	}
 
 	@Override

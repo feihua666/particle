@@ -46,7 +46,7 @@
         <!-- 定义项目的版本和本pom一致，所有子项目间相互依赖请使用该变量版本 -->
         <particle.version>${project.version}</particle.version>
         <!-- 第三方工具集合，请优先使用该工具集 注意升级该版本，需要注意是否在global-tool中重写的类是否有变化-->
-        <hutool-all.version>5.8.38</hutool-all.version>
+        <hutool-all.version>5.8.42</hutool-all.version>
         <!-- 强大的java工具类 ，全局引入，方便使用-->
         <guava.version>33.3.1-jre</guava.version>
         <!-- 实体转换 -->
@@ -141,9 +141,10 @@
         <!-- jetcache 多级缓存 阿里开源 https://github.com/alibaba/jetcache 添加主要是为了数据查询三方数据缓存，以节省费用-->
         <jetcache.version>2.7.8</jetcache.version>
         <!-- 使用java结合驱动，启动本地浏览器，模拟浏览器浏览数据 -->
-        <selenium-java.version>4.38.0</selenium-java.version>
+        <selenium-java.version>4.39.0</selenium-java.version>
         <!-- 自动管理 selenium-java 驱动的包 -->
         <webdrivermanager.version>6.3.3</webdrivermanager.version>
+        <playwright.version>1.57.0</playwright.version>
     </properties>
     <!-- 依赖 -->
     <dependencies>

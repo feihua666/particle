@@ -21,6 +21,7 @@ import axiosInstance from '../../../global/pc/common/axios/axiosRequest'
 import ElementPlusPlugin from '../../../global/pc/element-plus/ElementPlusPlugin'
 import CommonPlugin from '../../../global/pc/common/CommonPlugin'
 import ComponentPlugin from '../../../component/pc/ComponentPlugin'
+import GlobalCommonPlugin from '../../../global/common/CommonPlugin'
 
 /****************************** 自定义 结束 *********************************/
 async function start() {
@@ -42,6 +43,7 @@ async function start() {
     app.use(ElementPlusPlugin, {})
     app.use(CommonPlugin, {})
     app.use(ComponentPlugin, {})
+    app.use(GlobalCommonPlugin, {})
 
 
     app.mount('#app')

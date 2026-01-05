@@ -3,6 +3,7 @@ package com.particle.tenant.adapter.feign.client.rpc;
 import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.tenant.client.dto.command.representation.TenantQueryAllCommand;
 import com.particle.tenant.client.dto.data.TenantVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +21,14 @@ public interface TenantRpcFeignClient {
 
 
 	/**
-	 * 获取所有租户
+	 * 获取所有租户,没有任何限制
 	 * @return
 	 */
 	@GetMapping("getAllTenant")
-	MultiResponse<TenantVO> getAllTenant();
+	MultiResponse<TenantVO> getAllTenant(TenantQueryAllCommand tenantQueryAllCommand);
 
 	/**
-	 * 分页获取所有租户
+	 * 分页获取所有租户，没有任何限制
 	 * @return
 	 */
 	@GetMapping("pageAllTenant")

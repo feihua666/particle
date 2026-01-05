@@ -36,7 +36,9 @@ public class OpLogGatewayImpl extends AbstractBaseGatewayImpl<OpLogId,OpLog> imp
 	@Override
 	public boolean doSave(OpLog opLog) {
 		OpLogDO opLogDO = OpLogInfrastructureStructMapping.instance.opLogToOpLogDO(opLog);
-		if (opLogDO.getId() == null) {
+        // 添加或更新操作日志不再记录 操作日志数据审计
+        opLogDO.setDataAuditEnabled(false);
+		if (opLogDO.getId() == null || (opLog.getIsForceAdd() !=  null && opLog.getIsForceAdd())) {
 			opLogDO.setAddControl(opLog.getAddControl());
 			OpLogDO add = iOpLogService.add(opLogDO);
 			opLog.setId(OpLogId.of(add.getId()));

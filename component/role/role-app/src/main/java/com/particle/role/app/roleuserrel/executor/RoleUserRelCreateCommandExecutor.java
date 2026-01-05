@@ -5,6 +5,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
 import com.particle.role.domain.roleuserrel.gateway.RoleUserRelGateway;
@@ -44,6 +45,20 @@ public class RoleUserRelCreateCommandExecutor  extends AbstractBaseExecutor {
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
+    /**
+     * 执行角色用户关系添加指令
+     * @param roleUserRelCreateCommand
+     * @return
+     */
+    public SingleResponse<RoleUserRelVO> execute(@Valid RoleUserRelWithTenantIdCreateCommand roleUserRelCreateCommand) {
+        RoleUserRel roleUserRel = createByRoleUserRelCreateCommand(roleUserRelCreateCommand);
+        roleUserRel.changeTenantId(roleUserRelCreateCommand.getTenantId());
+        boolean save = roleUserRelGateway.save(roleUserRel);
+        if (save) {
+            return SingleResponse.of(RoleUserRelAppStructMapping.instance.toRoleUserRelVO(roleUserRel));
+        }
+        return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+    }
 
 	/**
 	 * 根据角色用户关系创建指令创建角色用户关系模型

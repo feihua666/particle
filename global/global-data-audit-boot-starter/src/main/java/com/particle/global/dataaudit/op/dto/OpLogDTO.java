@@ -60,7 +60,14 @@ public class OpLogDTO extends DTO {
 	 */
 	private String mainDataEntity;
 
-	public static OpLogDTO create(Long id,String name, String module, String type,Long parentId,Long mainDataId,String mainDataTable,String mainDataEntity) {
+	public static OpLogDTO create(Long id,
+                                  String name,
+                                  String module,
+                                  String type,
+                                  Long parentId,
+                                  Long mainDataId,
+                                  String mainDataTable,
+                                  String mainDataEntity) {
 		OpLogDTO opLogDTO = new OpLogDTO();
 
 		opLogDTO.setId(id);
@@ -69,6 +76,8 @@ public class OpLogDTO extends DTO {
 		opLogDTO.setType(type);
 		opLogDTO.setParentId(parentId);
 		opLogDTO.setMainDataId(mainDataId);
+        opLogDTO.setMainDataTable(mainDataTable);
+        opLogDTO.setMainDataEntity(mainDataEntity);
 		return opLogDTO;
 	}
 }

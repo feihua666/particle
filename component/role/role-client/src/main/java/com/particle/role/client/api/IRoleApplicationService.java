@@ -4,6 +4,7 @@ import com.particle.common.client.api.IBaseApplicationService;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.dto.command.RoleCreateCommand;
+import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.dto.data.RoleVO;
 
@@ -22,6 +23,12 @@ public interface IRoleApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<RoleVO> create(RoleCreateCommand roleCreateCommand);
+    /**
+	 * 添加/创建一个领域对象
+	 * @param roleCreateWithTenantIdCommand
+	 * @return
+	 */
+	SingleResponse<RoleVO> createWithTenantId(RoleCreateWithTenantIdCommand roleCreateWithTenantIdCommand);
 
 	/**
 	 * 删除领域对象

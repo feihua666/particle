@@ -142,7 +142,7 @@ public class RoleUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/deleteByUserId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空用户下的所有角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public Response deleteByUserId(@RequestBody IdCommand roleIdCommand) {
-		return iRoleUserRelApplicationService.deleteByUserId(roleIdCommand);
+	public Response deleteByUserId(@RequestBody IdCommand userIdCommand) {
+		return iRoleUserRelApplicationService.deleteByUserId(userIdCommand);
 	}
 }

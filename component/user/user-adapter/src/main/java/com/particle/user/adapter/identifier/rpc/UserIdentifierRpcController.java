@@ -11,7 +11,6 @@ import com.particle.user.infrastructure.identifier.service.IUserIdentifierServic
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +36,6 @@ public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implemen
 	private IUserIdentifierService iIdentifierService;
 
 	@Operation(summary = "根据登录标识获取")
-	@GetMapping("/getByIdentifier")
 	@Override
 	public SingleResponse<UserIdentifierVO> getByIdentifier(String identifier) {
 		UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(identifier);
@@ -48,7 +46,7 @@ public class UserIdentifierRpcController extends AbstractBaseRpcAdapter implemen
 		UserIdentifierVO userIdentifierVO = UserIdentifierAppStructMapping.instance.userIdentifierDOToUserIdentifierVO(userIdentifierDO);
 		return SingleResponse.of(userIdentifierVO);
 	}
-
+    @Operation(summary = "根据用户id和类型获取")
 	@Override
 	public SingleResponse<UserIdentifierVO> getByUserIdAndType(Long userId, Long identifierTypeDictId) {
 		UserIdentifierDO userIdentifierDO = iIdentifierService.getByUserIdAndIdentifierTypeDictId(userId, identifierTypeDictId);

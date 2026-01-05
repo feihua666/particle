@@ -1,12 +1,13 @@
 package com.particle.tenant.infrastructure.gateway.impl;
 
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.adapter.feign.client.rolefuncrel.rpc.RoleFuncRelRpcFeignClient;
 import com.particle.role.adapter.feign.client.roleuserrel.rpc.RoleUserRelRpcFeignClient;
 import com.particle.role.adapter.feign.client.rpc.RoleRpcFeignClient;
 import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
 import com.particle.role.client.dto.data.RoleVO;
+import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteWithTenantIdCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
-import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.tenant.domain.gateway.TenantRoleGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,8 +39,9 @@ public class TenantRoleGatewayImpl implements TenantRoleGateway {
 		roleCreateCommand.setIsDisabled(false);
 		roleCreateCommand.setTenantId(tenantId);
 
-		RoleVO add = roleRpcFeignClient.add(roleCreateCommand);
-		return Optional.ofNullable(add).map(RoleVO::getId).orElse(null);
+        SingleResponse<RoleVO> roleVOSingleResponse = roleRpcFeignClient.createWithTenantId(roleCreateCommand);
+        RoleVO roleVO = roleVOSingleResponse.getData();
+		return Optional.ofNullable(roleVO).map(RoleVO::getId).orElse(null);
 	}
 
 	@Override
@@ -48,12 +50,15 @@ public class TenantRoleGatewayImpl implements TenantRoleGateway {
 		roleUserRelWithTenantIdCreateCommand.setRoleId(roleId);
 		roleUserRelWithTenantIdCreateCommand.setUserId(userId);
 		roleUserRelWithTenantIdCreateCommand.setTenantId(tenantId);
-		RoleUserRelVO add = roleUserRelRpcFeignClient.add(roleUserRelWithTenantIdCreateCommand);
+		roleUserRelRpcFeignClient.createWithTenantId(roleUserRelWithTenantIdCreateCommand);
 	}
 
 	@Override
 	public void deleteOutOfScopeRoleFuncRelByScopedFuncIds(List<Long> scopedFuncIds,Long tenantId) {
-		roleFuncRelRpcFeignClient.deleteOutOfScopeByScopedFuncIds(scopedFuncIds,tenantId);
+        RoleFuncRelDeleteWithTenantIdCommand roleFuncRelDeleteWithTenantIdCommand = new RoleFuncRelDeleteWithTenantIdCommand();
+        roleFuncRelDeleteWithTenantIdCommand.setExcludeFuncIds(scopedFuncIds);
+        roleFuncRelDeleteWithTenantIdCommand.setTenantId(tenantId);
+        roleFuncRelRpcFeignClient.deleteWithTenantId(roleFuncRelDeleteWithTenantIdCommand);
 	}
 
 	@Autowired

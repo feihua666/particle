@@ -57,6 +57,15 @@ public class Role extends AggreateRoot {
      */
     private Long parentId;
 
+    /**
+     * 租户id
+     */
+    private Long tenantId;
+
+    public void changeTenantId(Long tenantId){
+    	this.tenantId = tenantId;
+    }
+
 	/**
 	 * 创建角色领域模型对象
 	 * @return 角色领域模型对象，该对应所有属性为空，需要进行初始化操作

@@ -72,4 +72,14 @@ public abstract class AggreateRoot extends DTO {
 	 * 同 {@link com.particle.global.mybatis.plus.dto.BaseDO#addControl} 透传
 	 */
 	private Object addControl;
+    /**
+     * 在保存时，可能会主动添加id，如果添加了id，则强制添加，不会检查id是否存在
+     */
+    private Boolean isForceAdd;
+    /**
+     * 强制添加
+     */
+    public void changeForceAdd() {
+        this.isForceAdd = true;
+    }
 }

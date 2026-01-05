@@ -6,6 +6,7 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.roleuserrel.dto.command.RoleAssignUserCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
 import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 
@@ -24,6 +25,12 @@ public interface IRoleUserRelApplicationService extends IBaseApplicationService 
 	 * @return
 	 */
 	SingleResponse<RoleUserRelVO> create(RoleUserRelCreateCommand roleUserRelCreateCommand);
+    /**
+	 * 添加/创建一个领域对象 指定租户id
+	 * @param roleUserRelCreateCommand
+	 * @return
+	 */
+	SingleResponse<RoleUserRelVO> create(RoleUserRelWithTenantIdCreateCommand roleUserRelCreateCommand);
 
 	/**
 	 * 删除领域对象

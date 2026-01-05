@@ -1,8 +1,6 @@
 package com.particle.role.client.roleuserrel.dto.command;
 
-import com.particle.common.client.dto.command.AbstractBaseCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -15,17 +13,7 @@ import lombok.Data;
  */
 @Data
 @Schema
-public class RoleUserRelWithTenantIdCreateCommand extends AbstractBaseCommand {
-
-
-    @NotNull(message = "用户id不能为空")
-    @Schema(description = "用户id",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Long userId;
-
-    @NotNull(message = "角色id不能为空")
-    @Schema(description = "角色id",requiredMode = Schema.RequiredMode.REQUIRED)
-    private Long roleId;
-
+public class RoleUserRelWithTenantIdCreateCommand extends RoleUserRelCreateCommand {
     @Schema(description = "租户id")
     private Long tenantId;
 }

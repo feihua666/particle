@@ -159,10 +159,10 @@ const getRadioProps = (optionsRadioProps={})=> {
         @update:modelValue="updateModelValueEventH"
         @change="changeModelValueEvent">
       <template v-if="buttonView">
-        <el-radio-button v-for="(itemData,index) in options" :key="index" v-bind="getRadioProps(itemData.radioProps)" :label="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-radio-button>
+        <el-radio-button v-for="(itemData,index) in options" :key="index" v-bind="getRadioProps(itemData.radioProps)" :value="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-radio-button>
       </template>
       <template v-else>
-        <el-radio v-for="(itemData,index) in options" :key="index" v-bind="getRadioProps(itemData.radioProps)" :label="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-radio>
+        <el-radio v-for="(itemData,index) in options" :key="index" v-bind="getRadioProps(itemData.radioProps)" :value="itemData[propsOptions.value]">{{itemData[propsOptions.label] }}</el-radio>
       </template>
 
 

@@ -19,7 +19,6 @@ public class TenantFuncQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "功能id")
     private Long funcId;
 
-
     @Like
     @Schema(description = "名称,左前缀匹配")
     private String name;

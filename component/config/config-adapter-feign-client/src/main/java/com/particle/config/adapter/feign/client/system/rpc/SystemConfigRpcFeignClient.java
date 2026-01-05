@@ -10,10 +10,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -32,7 +29,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @PostMapping("/create")
-    public SingleResponse<SystemConfigVO> create(SystemConfigCreateCommand systemConfigCreateCommand);
+    public SingleResponse<SystemConfigVO> create(@RequestBody SystemConfigCreateCommand systemConfigCreateCommand);
 
     /**
      * 删除系统参数配置
@@ -40,7 +37,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @DeleteMapping("/delete")
-    public SingleResponse<SystemConfigVO> delete(IdCommand deleteCommand);
+    public SingleResponse<SystemConfigVO> delete(@RequestBody IdCommand deleteCommand);
 
     /**
      * 更新系统参数配置
@@ -48,7 +45,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @PutMapping("/update")
-    public SingleResponse<SystemConfigVO> update(SystemConfigUpdateCommand systemConfigUpdateCommand);
+    public SingleResponse<SystemConfigVO> update(@RequestBody SystemConfigUpdateCommand systemConfigUpdateCommand);
 
     /**
      * 系统参数配置更新详情

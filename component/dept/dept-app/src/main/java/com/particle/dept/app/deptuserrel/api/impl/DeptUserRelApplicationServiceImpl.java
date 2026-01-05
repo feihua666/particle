@@ -10,6 +10,7 @@ import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelCreateCommand
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelUpdateCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,11 @@ public class DeptUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	@Override
 	public SingleResponse<DeptUserRelVO> update(DeptUserRelUpdateCommand deptUserRelUpdateCommand) {
 		return deptUserRelUpdateCommandExecutor.execute(deptUserRelUpdateCommand);
+	}
+
+	@Override
+	public Response deleteByUserId(IdCommand deleteCommand) {
+		return deptUserRelDeleteCommandExecutor.deleteByUserId(deleteCommand);
 	}
 
 	@Autowired

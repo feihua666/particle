@@ -57,6 +57,11 @@ public class DeptUserRelGatewayImpl extends AbstractBaseGatewayImpl<DeptUserRelI
 		return iDeptUserRelService.deleteById(idCommand);
 	}
 
+	@Override
+	public boolean deleteByUserId(Long userId) {
+		return iDeptUserRelService.deleteByUserId(userId);
+	}
+
 	@Autowired
 	public void setIDeptUserRelService(IDeptUserRelService iDeptUserRelService) {
 		this.iDeptUserRelService = iDeptUserRelService;

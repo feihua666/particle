@@ -4,8 +4,10 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.oplog.app.executor.OpLogAuditDataCreateCommandExecutor;
 import com.particle.oplog.app.executor.OpLogAuditDataDeleteCommandExecutor;
 import com.particle.oplog.client.api.IOpLogAuditDataApplicationService;
+import com.particle.oplog.client.dto.command.OpLogAuditDataCreateCommand;
 import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +26,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class OpLogAuditDataApplicationServiceImpl extends AbstractBaseApplicationServiceImpl implements IOpLogAuditDataApplicationService {
 
 
+	private OpLogAuditDataCreateCommandExecutor opLogAuditDataCreateCommandExecutor;
 	private OpLogAuditDataDeleteCommandExecutor opLogAuditDataDeleteCommandExecutor;
 
 
-	@Override
+    @Override
+    public SingleResponse<OpLogAuditDataVO> create(OpLogAuditDataCreateCommand opLogAuditDataCreateCommand) {
+        return opLogAuditDataCreateCommandExecutor.execute(opLogAuditDataCreateCommand);
+    }
+
+    @Override
 	public SingleResponse<OpLogAuditDataVO> delete(IdCommand deleteCommand) {
 		return opLogAuditDataDeleteCommandExecutor.execute(deleteCommand);
 	}
 
 
+    @Autowired
+    public void setOpLogAuditDataCreateCommandExecutor(OpLogAuditDataCreateCommandExecutor opLogAuditDataCreateCommandExecutor) {
+		this.opLogAuditDataCreateCommandExecutor = opLogAuditDataCreateCommandExecutor;
+	}
 	@Autowired
 	public void setOpLogAuditDataDeleteCommandExecutor(OpLogAuditDataDeleteCommandExecutor opLogAuditDataDeleteCommandExecutor) {
 		this.opLogAuditDataDeleteCommandExecutor = opLogAuditDataDeleteCommandExecutor;

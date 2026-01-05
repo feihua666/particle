@@ -13,4 +13,12 @@ import com.particle.dept.domain.deptuserrel.DeptUserRelId;
  * @since 2023-05-17 10:28:42
  */
 public interface DeptUserRelGateway extends IBaseGateway<DeptUserRelId,DeptUserRel> {
+
+	/**
+	 * 根据用户ID删除部门用户关系
+	 * @param userId 用户ID
+	 * @return
+	 */
+	boolean deleteByUserId(Long userId);
+
 }

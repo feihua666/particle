@@ -5,6 +5,7 @@ import com.particle.user.client.dto.command.UserCreateCommand;
 import com.particle.user.client.dto.data.UserVO;
 import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -23,6 +24,7 @@ public interface UserRpcFeignClient {
 	 * @param userIdentifierPwdCommand
 	 * @return
 	 */
+    @PostMapping("/create")
 	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand, @RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand);
 
 }

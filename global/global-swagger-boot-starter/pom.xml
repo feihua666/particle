@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <!-- 排除默认的logback，使用log4j2 -->
                 <exclusion>
@@ -95,7 +95,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-project-info-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

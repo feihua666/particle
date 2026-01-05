@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * <p>
  * 角色数据范围约束服务
+ * 主要是在用户登录时获取角色已配置的数据范围约束
  * </p>
  *
  * @author yangwei

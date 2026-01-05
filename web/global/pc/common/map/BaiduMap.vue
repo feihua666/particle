@@ -36,7 +36,8 @@ const props = defineProps({
   // 百度申请的key
   ak: {
     type: String,
-    default: '69a5a1e7260cd2cd298c33666e436530'
+    // 该 ak 是测试用的，正式项目请自行申请
+    default: 'Ah0z2pF2sPr0b5h7fknfTiZd38Rb5fur'
   }
 })
 // 属性

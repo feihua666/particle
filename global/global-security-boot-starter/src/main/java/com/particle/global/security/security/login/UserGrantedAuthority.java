@@ -40,7 +40,7 @@ public class UserGrantedAuthority implements GrantedAuthority {
 	}
 
 	/**
-	 * 单纯user权限
+	 * 单纯user权限，和角色无关
 	 *
 	 * @return
 	 */
@@ -49,6 +49,13 @@ public class UserGrantedAuthority implements GrantedAuthority {
 			GrantedPermission.create(GrantedPermission.Source.sys).permission(GrantedPermission.userGrantedPermissionCode).build()
 	);
 
+    /**
+     * 角色和对应的权限
+     *
+     * @param grantedPermissionRole
+     * @param grantedPermission
+     * @return
+     */
 	public static UserGrantedAuthority create(GrantedRole grantedPermissionRole,GrantedPermission grantedPermission) {
 		return UserGrantedAuthority.builder()
 				.grantedPermissionRole(grantedPermissionRole)

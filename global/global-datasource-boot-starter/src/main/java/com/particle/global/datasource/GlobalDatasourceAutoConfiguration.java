@@ -1,5 +1,6 @@
 package com.particle.global.datasource;
 
+import com.particle.global.datasource.global.tool.GlobalToolDatasourceToolConfig;
 import com.particle.global.datasource.sqlinit.CustomDataSourceInitializationConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -13,6 +14,6 @@ import org.springframework.context.annotation.Import;
  * @since 2022-06-29 18:58
  */
 @Configuration(proxyBeanMethods = false)
-@Import(CustomDataSourceInitializationConfiguration.class)
+@Import({CustomDataSourceInitializationConfiguration.class, GlobalToolDatasourceToolConfig.class})
 public class GlobalDatasourceAutoConfiguration {
 }

@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 查询字典使用 -->
@@ -59,7 +59,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-notification-boot-starter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 实现feign-client接口 主要用于获取供应商信息-->
         <dependency>

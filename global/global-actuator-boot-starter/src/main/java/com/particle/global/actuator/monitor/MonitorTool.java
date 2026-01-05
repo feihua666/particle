@@ -28,7 +28,7 @@ public class MonitorTool {
 					try {
 						iMonitor = SpringContextHolder.getBean(IMonitor.class);
 					}catch (Exception e){
-						log.warn("未从spring容器中获取到IMonitorListener实例");
+						log.warn("未从 Spring 容器中获取到 IMonitorListener 实例,实例化一下空的实例！");
 						iMonitor = new IMonitor() {
 
 							@Override

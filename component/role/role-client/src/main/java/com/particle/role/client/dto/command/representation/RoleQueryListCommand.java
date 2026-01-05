@@ -20,12 +20,12 @@ import lombok.Data;
 public class RoleQueryListCommand extends AbstractBaseTreeQueryCommand {
 
 
-    @Like
-    @Schema(description = "角色编码,左匹配查询")
+    @Like(left = true,right = true)
+    @Schema(description = "角色编码,模糊匹配")
     private String code;
 
-    @Like
-    @Schema(description = "角色名称,左匹配查询")
+    @Like(left = true,right = true)
+    @Schema(description = "角色名称,模糊匹配")
     private String name;
 
     @Schema(description = "是否禁用")

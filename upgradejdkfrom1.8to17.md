@@ -67,4 +67,4 @@
 <artifactId>git-commit-id-maven-plugin</artifactId>
 ```
 ### 其它问题
-修改了不不兼容可即将过期的spring框架方法调用
+修改了不不兼容或即将过期的spring框架方法调用

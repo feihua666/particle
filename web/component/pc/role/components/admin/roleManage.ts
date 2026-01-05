@@ -13,7 +13,7 @@ export const pageFormItems = [
             },
             compProps: {
                 clearable: true,
-                placeholder: '左前缀匹配'
+                placeholder: '模糊匹配'
             }
         }
     },
@@ -28,7 +28,7 @@ export const pageFormItems = [
             },
             compProps: {
                 clearable: true,
-                placeholder: '左前缀匹配'
+                placeholder: '模糊匹配'
             }
         }
     },

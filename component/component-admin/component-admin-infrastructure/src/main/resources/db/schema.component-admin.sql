@@ -1,1 +1,3 @@
 -- 建表语句sql
+-- import classpath:db/schema.component_admin_component.sql
+-- import classpath:db/schema.component_admin_component_dependency.sql

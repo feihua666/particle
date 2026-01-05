@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <!-- 排除默认的logback，使用log4j2 -->
                 <exclusion>
@@ -33,7 +33,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-trans-boot-stater</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 用户登录适配，主要是为了获取权限 -->
@@ -41,23 +41,22 @@
             <groupId>com.particle</groupId>
             <artifactId>user-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 获取用户权限实现 -->
         <!-- 用来监听用户添加可以添加角色 -->
-
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>func-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 获取用户权限实现 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>role-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
@@ -70,7 +69,7 @@
             <groupId>com.particle</groupId>
             <artifactId>tenant-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 操作日志适配，主要实现 global-data-audit-boot-starter 操作日志持久化-->
@@ -78,7 +77,7 @@
             <groupId>com.particle</groupId>
             <artifactId>op-log-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 部门 主要用来监听用户添加或修改时处理部门 -->
@@ -86,7 +85,7 @@
             <groupId>com.particle</groupId>
             <artifactId>dept-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- oauth2authorization 结合 open-platform 搞点事情，主要是获取客户端密码 -->
@@ -94,14 +93,14 @@
             <groupId>com.particle</groupId>
             <artifactId>oauth2authorization-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- oauth2authorization 结合 open-platform 搞点事情，主要是获取客户端密码 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>open-platform-adapter</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- 间接适合数据范围约束，这里使用远程调用，主要考虑分布式部署情况 -->
@@ -109,7 +108,7 @@
             <groupId>com.particle</groupId>
             <artifactId>data-constraint-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>

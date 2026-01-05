@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <!-- 排除默认的logback，使用log4j2 -->
                 <exclusion>
@@ -39,13 +39,13 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- 不启用默认，默认使用内存session -->
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-jdbc</artifactId>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <!-- swagger 定义全局请求头文档与 session 保持一致 -->
         <dependency>

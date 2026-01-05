@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- *
+ * 用户翻译覆盖，主要是使用租户的人员姓名
  * </p>
  *
  * @author yangwei

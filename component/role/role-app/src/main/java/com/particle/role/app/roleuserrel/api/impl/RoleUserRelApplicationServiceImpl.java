@@ -11,6 +11,7 @@ import com.particle.role.app.roleuserrel.executor.RoleUserRelDeleteCommandExecut
 import com.particle.role.client.roleuserrel.api.IRoleUserRelApplicationService;
 import com.particle.role.client.roleuserrel.dto.command.RoleAssignUserCommand;
 import com.particle.role.client.roleuserrel.dto.command.RoleUserRelCreateCommand;
+import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdCreateCommand;
 import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,12 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 		return roleUserRelCreateCommandExecutor.execute(roleUserRelCreateCommand);
 	}
 
-	@Override
+    @Override
+    public SingleResponse<RoleUserRelVO> create(RoleUserRelWithTenantIdCreateCommand roleUserRelCreateCommand) {
+        return roleUserRelCreateCommandExecutor.execute(roleUserRelCreateCommand);
+    }
+
+    @Override
 	public SingleResponse<RoleUserRelVO> delete(IdCommand roleUserRelDeleteCommand) {
 		return roleUserRelDeleteCommandExecutor.execute(roleUserRelDeleteCommand);
 	}

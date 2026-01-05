@@ -55,7 +55,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
-    @Autowired
+    @Autowired(required = false)
     private ITenantResolveService iTenantResolveService;
 
     @Override
@@ -66,7 +66,9 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
             TenantTool.clear();
             // 不再解析租户信息
         }else {
-            grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
+            if (iTenantResolveService != null) {
+                grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
+            }
         }
 
         LoginUser loginUser = doLoadUserByUsername(username);

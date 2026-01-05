@@ -23,16 +23,11 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class WkhtmltopdfTool {
-
-
-
     /**
      * html转pdf工具封装
      * @param cmdConfig
      */
-    public static void   htmlToPdf(WkhtmltopdfCmdConfig cmdConfig){
-
-
+    public static void htmlToPdf(WkhtmltopdfCmdConfig cmdConfig){
         long start = System.currentTimeMillis();
 
         log.info("Wkhtmltopdf start");
@@ -50,7 +45,6 @@ public class WkhtmltopdfTool {
      * @param cmdConfig
      */
     public static void htmlToPdfEn(WkhtmltopdfCmdConfig cmdConfig){
-
         long start = System.currentTimeMillis();
         log.info("Wkhtmltopdf en start");
         String cmd = cmdConfig.toCmdString(true);
@@ -69,7 +63,6 @@ public class WkhtmltopdfTool {
      * @param flags 参数列表，拼接成一个字符串
      */
     public static void exec(String cmd,String flags) {
-
         OsInfo osInfo = SystemUtil.getOsInfo();
         String[] cmds = null;
         String cmdNew = cmd + " " + flags;
@@ -219,9 +212,11 @@ public class WkhtmltopdfTool {
             }
 
             cmd.append(" ");
-            cmd.append(htmlFileAbsolutePath);//可多个
+            //可多个
+            cmd.append(htmlFileAbsolutePath);
             cmd.append(" ");
-            cmd.append(saveFileAbsolutePath);//保存路径
+            //保存路径
+            cmd.append(saveFileAbsolutePath);
 
             return cmd.toString();
         }

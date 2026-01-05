@@ -1,6 +1,7 @@
 package com.particle.tenant.infrastructure.gateway.impl;
 
 import com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc.FuncApplicationFuncRelRpcFeignClient;
+import com.particle.global.dto.response.MultiResponse;
 import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,9 @@ public class TenantFuncFuncGatewayImpl implements TenantFuncFuncGateway {
 
 	@Override
 	public List<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId) {
-		return funcApplicationFuncRelRpcFeignClient.getFuncIdsByFuncApplicationId(funcApplicationId);
-	}
+        MultiResponse<Long> multiResponse = funcApplicationFuncRelRpcFeignClient.getFuncIdsByFuncApplicationId(funcApplicationId);
+        return multiResponse.getData();
+    }
 
 
 	@Autowired

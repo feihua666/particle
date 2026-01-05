@@ -48,6 +48,11 @@ public enum OpLogType implements IDictItem {
 	 * 未知
 	 */
 	unknown
+    ,
+    /**
+     * 其他
+     */
+    other
 	;
 
 	@Override

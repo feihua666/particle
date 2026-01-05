@@ -72,9 +72,7 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 				"com.particle.func.client.dto.command.representation.FuncQueryListCommand")) {
 			Object funcApplicationId = ReflectUtil.getFieldValue(queryForm, "funcApplicationId");
 			//addExistSqlIffuncApplicationIdNotNull(queryWrapper, funcApplicationId);
-			if (funcApplicationId != null) {
-				addInIfFuncApplicationIdNotNull(queryWrapper, funcApplicationId);
-			}
+            addInIfFuncApplicationIdNotNull(queryWrapper, funcApplicationId);
 
 		}
 
@@ -88,6 +86,9 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 	 * @param funcApplicationId
 	 */
 	public void addExistSqlIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId) {
+        if (funcApplicationId == null) {
+            return;
+        }
 		if (funcApplicationFuncRelDOTableNameCache == null) {
 			TableName annotation = AnnotationUtil.getAnnotation(FuncApplicationFuncRelDO.class, TableName.class);
 			funcApplicationFuncRelDOTableNameCache = annotation.value();
@@ -115,16 +116,17 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 	 * @param funcApplicationId
 	 */
 	public void addInIfFuncApplicationIdNotNull(QueryWrapper<FuncDO> queryWrapper, Object funcApplicationId){
-		if (funcApplicationId != null) {
-			List<FuncApplicationFuncRelDO> funcApplicationFuncRelDOS = funcApplicationFuncRelMapper.selectList(Wrappers.<FuncApplicationFuncRelDO>lambdaQuery().eq(FuncApplicationFuncRelDO::getFuncApplicationId, funcApplicationId));
-			List<Long> collect = funcApplicationFuncRelDOS.stream().map(FuncApplicationFuncRelDO::getFuncId).collect(Collectors.toList());
-			if (collect.isEmpty()) {
-				// 为空就是不存在，不存在，得加一个不存在的条件
-				queryWrapper.apply("false");
-			}else {
-				queryWrapper.in(FuncDO.COLUMN_ID,collect);
-			}
+		if (funcApplicationId == null) {
+            return;
 		}
+        List<FuncApplicationFuncRelDO> funcApplicationFuncRelDOS = funcApplicationFuncRelMapper.selectList(Wrappers.<FuncApplicationFuncRelDO>lambdaQuery().eq(FuncApplicationFuncRelDO::getFuncApplicationId, funcApplicationId));
+        List<Long> collect = funcApplicationFuncRelDOS.stream().map(FuncApplicationFuncRelDO::getFuncId).collect(Collectors.toList());
+        if (collect.isEmpty()) {
+            // 为空就是不存在，不存在，得加一个不存在的条件
+            queryWrapper.apply("false");
+        }else {
+            queryWrapper.in(FuncDO.COLUMN_ID,collect);
+        }
 	}
 	@Autowired
 	public void setQueryCommandMapStruct(IBaseQueryCommandMapStruct<FuncDO> queryCommandMapStruct) {

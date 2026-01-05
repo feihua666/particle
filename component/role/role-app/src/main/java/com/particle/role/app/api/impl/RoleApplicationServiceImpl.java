@@ -9,6 +9,7 @@ import com.particle.role.app.executor.RoleDeleteCommandExecutor;
 import com.particle.role.app.executor.RoleUpdateCommandExecutor;
 import com.particle.role.client.api.IRoleApplicationService;
 import com.particle.role.client.dto.command.RoleCreateCommand;
+import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
 import com.particle.role.client.dto.command.RoleUpdateCommand;
 import com.particle.role.client.dto.data.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,12 @@ public class RoleApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 		return roleCreateCommandExecutor.execute(roleCreateCommand);
 	}
 
-	@Override
+    @Override
+    public SingleResponse<RoleVO> createWithTenantId(RoleCreateWithTenantIdCommand roleCreateWithTenantIdCommand) {
+        return roleCreateCommandExecutor.execute(roleCreateWithTenantIdCommand);
+    }
+
+    @Override
 	public SingleResponse<RoleVO> delete(IdCommand roleDeleteCommand) {
 		return roleDeleteCommandExecutor.execute(roleDeleteCommand);
 	}

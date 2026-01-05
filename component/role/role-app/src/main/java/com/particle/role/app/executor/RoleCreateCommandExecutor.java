@@ -7,6 +7,7 @@ import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCommandExecutor;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.command.RoleCreateCommand;
+import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import com.particle.role.domain.Role;
@@ -53,13 +54,34 @@ public class RoleCreateCommandExecutor  extends AbstractBaseExecutor {
 				RoleAssignFuncCommand roleAssignFuncCommand = new RoleAssignFuncCommand();
 				roleAssignFuncCommand.setRoleId(role.getId().getId());
 				roleAssignFuncCommand.setCheckedFuncIds(roleCreateCommand.getFuncIds());
-				roleFuncRelCommandExecutor.roleAssignFunc(roleAssignFuncCommand);
+				roleFuncRelCommandExecutor.roleAssignFunc(roleAssignFuncCommand,null);
 			}
 			return SingleResponse.of(RoleAppStructMapping.instance.toRoleVO(role));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
-
+    /**
+     * 执行角色添加指令
+     * @param roleCreateCommand
+     * @return
+     */
+    public SingleResponse<RoleVO> execute(@Valid RoleCreateWithTenantIdCommand roleCreateCommand) {
+        Role role = createByRoleCreateCommand(roleCreateCommand);
+        role.changeTenantId(roleCreateCommand.getTenantId());
+        role.setAddControl(roleCreateCommand);
+        boolean save = roleGateway.save(role);
+        if (save) {
+            // 如果存在 funcIds，则分配功能
+            if (CollectionUtil.isNotEmpty(roleCreateCommand.getFuncIds())) {
+                RoleAssignFuncCommand roleAssignFuncCommand = new RoleAssignFuncCommand();
+                roleAssignFuncCommand.setRoleId(role.getId().getId());
+                roleAssignFuncCommand.setCheckedFuncIds(roleCreateCommand.getFuncIds());
+                roleFuncRelCommandExecutor.roleAssignFunc(roleAssignFuncCommand,roleCreateCommand.getTenantId());
+            }
+            return SingleResponse.of(RoleAppStructMapping.instance.toRoleVO(role));
+        }
+        return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+    }
 	/**
 	 * 根据角色创建指令创建角色模型
 	 * @param roleCreateCommand

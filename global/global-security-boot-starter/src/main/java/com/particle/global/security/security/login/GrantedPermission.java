@@ -24,10 +24,13 @@ public class GrantedPermission implements Serializable {
 
 	@Schema(description = "permission id")
 	private Long id;
+
 	@Schema(description = "permission code")
 	private String permission;
+
 	@Schema(description = "permission name")
 	private String name;
+
 	@Schema(description = "permission type")
 	private String type;
 

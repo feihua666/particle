@@ -23,5 +23,6 @@ public class RoleFuncRelQueryListCommand extends AbstractBaseQueryCommand {
     @Schema(description = "功能id")
     private Long funcId;
 
-
+    @Schema(description = "租户id")
+    private Long tenantId;
 }

@@ -1,11 +1,17 @@
 package com.particle.scheduler.app.temptask.api.impl;
 
 import com.particle.global.catchlog.CatchAndLog;
+import com.particle.global.dto.response.Response;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.app.temptask.executor.SchedulerTempTaskCommandExecutor;
 import com.particle.scheduler.app.temptask.executor.SchedulerTempTaskCreateCommandExecutor;
 import com.particle.scheduler.app.temptask.executor.SchedulerTempTaskDeleteCommandExecutor;
 import com.particle.scheduler.app.temptask.executor.SchedulerTempTaskUpdateCommandExecutor;
 import com.particle.scheduler.client.temptask.api.ISchedulerTempTaskControlApplicationService;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskFinishCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskLogBaseCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskLogCommand;
+import com.particle.scheduler.client.temptask.dto.command.control.SchedulerTempTaskStartCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,32 +38,32 @@ public class SchedulerTempTaskControlApplicationServiceImpl implements ISchedule
     private SchedulerTempTaskCommandExecutor schedulerTempTaskCommandExecutor;
 
     @Override
-    public Long start(String code, String name) {
-        return schedulerTempTaskCommandExecutor.start(code,name);
+    public SingleResponse<Long> start(SchedulerTempTaskStartCommand schedulerTempTaskStartCommand) {
+        return schedulerTempTaskCommandExecutor.start(schedulerTempTaskStartCommand);
     }
 
     @Override
-    public void finish(Long id, Boolean isHasError,String result) {
-        schedulerTempTaskCommandExecutor.finish(id, isHasError, result);
+    public Response finish(SchedulerTempTaskFinishCommand schedulerTempTaskFinishCommand) {
+        return schedulerTempTaskCommandExecutor.finish(schedulerTempTaskFinishCommand);
     }
 
     @Override
-    public void log(String level, Long id, String message) {
-        schedulerTempTaskCommandExecutor.log(level,id,message);
+    public Response log(SchedulerTempTaskLogCommand schedulerTempTaskLogCommand) {
+        return schedulerTempTaskCommandExecutor.log(schedulerTempTaskLogCommand);
     }
 
     @Override
-    public void logInfo(Long id, String message) {
-        this.log("info",id,message);
+    public Response logInfo(SchedulerTempTaskLogBaseCommand schedulerTempTaskLogBaseCommand) {
+        return this.log(schedulerTempTaskLogBaseCommand.toLogCommand("info"));
     }
 
     @Override
-    public void logError(Long id, String message) {
-        this.log("error",id,message);
+    public Response logError(SchedulerTempTaskLogBaseCommand schedulerTempTaskLogBaseCommand) {
+        return this.log(schedulerTempTaskLogBaseCommand.toLogCommand("error"));
     }
 
     @Override
-    public boolean checkIsAllowRunSwitch(Long id) {
+    public Response checkIsAllowRunSwitch(Long id) {
         return schedulerTempTaskCommandExecutor.checkIsAllowRunSwitch(id);
     }
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 服务可用性控制器
+ * 服务可用性控制器,同对应的端点方法，只不过是对应加了自定义接口
  * </p>
  *
  * @author yangwei

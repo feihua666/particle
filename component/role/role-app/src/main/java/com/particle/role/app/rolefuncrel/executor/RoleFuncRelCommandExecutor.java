@@ -34,11 +34,15 @@ public class RoleFuncRelCommandExecutor extends AbstractBaseExecutor {
 	 * @param roleAssignFuncCommand
 	 * @return
 	 */
-	public Response roleAssignFunc(@Valid RoleAssignFuncCommand roleAssignFuncCommand) {
+	public Response roleAssignFunc(@Valid RoleAssignFuncCommand roleAssignFuncCommand,Long tenantId) {
 		boolean result = iRoleFuncRelService.removeAndAssignRel(roleAssignFuncCommand.getRoleId(),
 				roleAssignFuncCommand.getCheckedFuncIds(),roleAssignFuncCommand.getUncheckedFuncIds(),
 				roleAssignFuncCommand.getIsLazyLoad(), RoleFuncRelDO::getRoleId,RoleFuncRelDO::getFuncId,
-				(relDto)->new RoleFuncRelDO().setRoleId(relDto.getMainId()).setFuncId(relDto.getOtherId()));
+				(relDto)-> {
+                    RoleFuncRelDO roleFuncRelDO = new RoleFuncRelDO().setRoleId(relDto.getMainId()).setFuncId(relDto.getOtherId());
+                    roleFuncRelDO.setTenantId(tenantId);
+                    return roleFuncRelDO;
+                });
 		return Response.buildSuccess();
 	}
 

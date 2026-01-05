@@ -8,6 +8,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.security.tenant.TenantTool;
 import com.particle.tenant.client.api.ITenantUserApplicationService;
 import com.particle.tenant.client.api.representation.ITenantUserRepresentationApplicationService;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
@@ -45,9 +46,9 @@ public class TenantUserAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "添加租户用户")
 	@PostMapping("/create")
 	@OpLog(name = "添加租户用户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.create)
-	public SingleResponse<TenantUserVO> create(@RequestBody TenantUserCreateCommand tenantUserCreateCommand, @Parameter(hidden = true) LoginUser loginUser){
+	public SingleResponse<TenantUserVO> create(@RequestBody TenantUserCreateCommand tenantUserCreateCommand){
 		if (tenantUserCreateCommand.getTenantId() == null) {
-			tenantUserCreateCommand.setTenantId(loginUser.getCurrentTenant().getId());
+			tenantUserCreateCommand.setTenantId(TenantTool.getTenantId());
 		}
 		return iTenantUserApplicationService.create(tenantUserCreateCommand);
 	}

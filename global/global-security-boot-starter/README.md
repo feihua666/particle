@@ -83,7 +83,7 @@
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-jdbc</artifactId>
-    <scope>provided</scope>
+    <optional>true</optional>
     <exclusions>
         <!-- 排除默认的logback，使用log4j2 -->
         <exclusion>

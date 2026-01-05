@@ -34,6 +34,7 @@
             <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
             <version>${dynamic-datasource-spring-boot3-starter.version}</version>
         </dependency>
+        <!-- 全局工具 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-tool</artifactId>

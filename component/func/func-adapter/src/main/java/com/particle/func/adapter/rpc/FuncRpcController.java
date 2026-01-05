@@ -1,12 +1,22 @@
 package com.particle.func.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.common.client.dto.command.BatchIdCommand;
 import com.particle.func.adapter.feign.client.rpc.FuncRpcFeignClient;
+import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.api.IFuncApplicationService;
+import com.particle.func.client.dto.command.representation.FuncQueryListByIdsCommand;
+import com.particle.func.client.dto.data.FuncVO;
+import com.particle.func.infrastructure.dos.FuncDO;
+import com.particle.func.infrastructure.service.IFuncService;
+import com.particle.global.dto.response.MultiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +34,14 @@ public class FuncRpcController extends AbstractBaseRpcAdapter implements FuncRpc
 
 	@Autowired
 	private IFuncApplicationService iFuncApplicationService;
+    @Autowired
+    private IFuncService iFuncService;
 
-
+    @Operation(summary = "列表查询菜单功能")
+    @Override
+    public MultiResponse<FuncVO> queryListByIds(FuncQueryListByIdsCommand funcQueryListByIdsCommand) {
+        List<FuncDO> funcDOS = iFuncService.listByFuncIds(funcQueryListByIdsCommand.getIds(), funcQueryListByIdsCommand.getIsDisabled());
+        List<FuncVO> funcVOS = FuncAppStructMapping.instance.funcDOsToFuncVOs(funcDOS);
+        return MultiResponse.of(funcVOS);
+    }
 }

@@ -1,0 +1,1 @@
+<!--@include: ../../../../component/component-autoconfigure-boot-starter/README.md-->

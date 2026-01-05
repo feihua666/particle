@@ -17,13 +17,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.javers.common.string.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -82,7 +80,7 @@ public class RoleLoginController {
         if (CollectionUtil.isEmpty(roles)) {
             return MultiResponse.buildSuccess();
         }
-		List<RoleDO> byRoleIds = iRoleService.getByRoleIds(roles.stream().map(GrantedRole::getId).collect(Collectors.toList()), null);
+		List<RoleDO> byRoleIds = iRoleService.listByRoleIds(roles.stream().map(GrantedRole::getId).collect(Collectors.toList()), null);
 		List<RoleVO> roleVOS = RoleAppStructMapping.instance.roleDOsToRoleVOs(byRoleIds);
 		return MultiResponse.of(roleVOS);
 

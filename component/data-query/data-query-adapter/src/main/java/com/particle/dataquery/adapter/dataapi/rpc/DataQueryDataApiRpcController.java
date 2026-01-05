@@ -5,9 +5,11 @@ import com.particle.dataquery.adapter.feign.client.dataapi.rpc.DataQueryDataApiR
 import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
+import com.particle.global.dto.response.RawResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,13 +35,9 @@ public class DataQueryDataApiRpcController extends AbstractBaseRpcAdapter implem
 
 	@PostMapping("/invoke")
 	@Override
-	public Object invoke(String code, Object command, String queryString) {
+	public RawResponse invoke(@RequestBody DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand) {
 
-		DataQueryDataApiQueryCommand dataQueryDataApiQueryCommand = new DataQueryDataApiQueryCommand();
-		dataQueryDataApiQueryCommand.setUrl(code);
-		dataQueryDataApiQueryCommand.setParam(command);
-		dataQueryDataApiQueryCommand.setQueryString(queryString);
-
-		return iDataQueryDataApiRepresentationApplicationService.dataApiQuery(dataQueryDataApiQueryCommand);
-	}
+        Object o = iDataQueryDataApiRepresentationApplicationService.dataApiQuery(dataQueryDataApiQueryCommand);
+        return RawResponse.ofRaw(o);
+    }
 }

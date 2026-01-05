@@ -33,6 +33,7 @@
         <module>global-session-boot-starter</module>
         <module>global-concurrency-boot-starter</module>
         <module>global-actuator-boot-starter</module>
+        <module>global-dag-boot-starter</module>
         <module>global-notification-boot-starter</module>
         <module>global-ratelimit-boot-starter</module>
         <module>global-trans-boot-stater</module>
