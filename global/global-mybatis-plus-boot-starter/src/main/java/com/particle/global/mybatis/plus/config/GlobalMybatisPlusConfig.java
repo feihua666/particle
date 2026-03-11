@@ -14,9 +14,9 @@ import com.particle.global.mybatis.plus.fill.LoginUserIdResolver;
 import com.particle.global.mybatis.plus.fill.MpMetaObjectHandler;
 import com.particle.global.mybatis.plus.table.CustomDynamicTableNameHandler;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.tool.login.LoginUserTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -39,7 +39,7 @@ import java.util.Optional;
  */
 @Data
 @Configuration(proxyBeanMethods = true)
-@ConfigurationProperties(prefix = "particle.mybatis-plus")
+@ConfigurationProperties(prefix = "particle.global.mybatis-plus")
 public class GlobalMybatisPlusConfig {
 
 	public static final int INTERCEPTOR_ORDER_START = 1;
@@ -47,7 +47,7 @@ public class GlobalMybatisPlusConfig {
 	/**
 	 * 在没有该类时 {@link LoginUserTool} 使用默认bean
 	 */
-	public static final String LoginUserToolClassName = "com.particle.global.security.security.login.LoginUserTool";
+	public static final String LoginUserToolClassName = "com.particle.global.tool.login.LoginUserTool";
 
 	/**
 	 * 启动多租户，支持，默认不启动
@@ -120,7 +120,7 @@ public class GlobalMybatisPlusConfig {
 	}
 
 	@Bean
-	@ConfigurationProperties(prefix = "particle.mybatis-plus.tmdp")
+	@ConfigurationProperties(prefix = "particle.global.mybatis-plus.tmdp")
 	public TenantMultiDataPermissionHandler tenantMultiDataPermissionHandler() {
 		return new DefaultTenantMultiDataPermissionHandler();
 	}

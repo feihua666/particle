@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkTransferAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkTransferQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkTransferVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkTransferDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkTransferService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkTransferPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprTrademarkTransferQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkTransferVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprTrademarkTransferVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprTrademarkTransferDO byId = iDataCompanyIprTrademarkTransferService.getById(detailCommand.getId());
 		DataCompanyIprTrademarkTransferVO dataCompanyIprTrademarkTransferVO = DataCompanyIprTrademarkTransferAppStructMapping.instance.dataCompanyIprTrademarkTransferDOToDataCompanyIprTrademarkTransferVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkTransferVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprTrademarkTransferQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkTransferVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprTrademarkTransferVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprTrademarkTransferDO byId = iDataCompanyIprTrademarkTransferService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprTrademarkTransferVO dataCompanyIprTrademarkTransferVO = DataCompanyIprTrademarkTransferAppStructMapping.instance.dataCompanyIprTrademarkTransferDOToDataCompanyIprTrademarkTransferVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkTransferVO);

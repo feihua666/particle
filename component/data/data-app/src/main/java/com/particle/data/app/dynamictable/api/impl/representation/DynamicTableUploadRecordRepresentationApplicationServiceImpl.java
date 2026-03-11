@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamictable.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class DynamicTableUploadRecordRepresentationApplicationServiceImpl extend
     private DynamicTableUploadRecordQueryCommandExecutor dynamicTableUploadRecordQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DynamicTableUploadRecordVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DynamicTableUploadRecordVO> queryDetail(CommonIdCommand detailCommand) {
         return dynamicTableUploadRecordQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DynamicTableUploadRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DynamicTableUploadRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dynamicTableUploadRecordQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

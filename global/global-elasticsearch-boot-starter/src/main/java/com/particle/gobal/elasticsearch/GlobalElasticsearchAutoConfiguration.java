@@ -1,7 +1,7 @@
 package com.particle.gobal.elasticsearch;
 
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.login.LoginUserTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.gobal.elasticsearch.dto.basic.IElasticsearchCurrentUserResolver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;

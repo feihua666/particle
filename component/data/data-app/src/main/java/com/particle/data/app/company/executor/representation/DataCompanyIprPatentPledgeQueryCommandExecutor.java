@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprPatentPledgeVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentPledgeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentPledgeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentPledgePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentPledgeQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentPledgeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentPledgeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentPledgeDO byId = iDataCompanyIprPatentPledgeService.getById(detailCommand.getId());
 		DataCompanyIprPatentPledgeVO dataCompanyIprPatentPledgeVO = DataCompanyIprPatentPledgeAppStructMapping.instance.dataCompanyIprPatentPledgeDOToDataCompanyIprPatentPledgeVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentPledgeVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentPledgeQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentPledgeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentPledgeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentPledgeDO byId = iDataCompanyIprPatentPledgeService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentPledgeVO dataCompanyIprPatentPledgeVO = DataCompanyIprPatentPledgeAppStructMapping.instance.dataCompanyIprPatentPledgeDOToDataCompanyIprPatentPledgeVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentPledgeVO);

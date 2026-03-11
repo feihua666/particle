@@ -1,6 +1,5 @@
 package com.particle.global.dto.messaging.event;
 
-import cn.hutool.core.lang.UUID;
 import com.particle.global.dto.basic.DTO;
 import lombok.Data;
 
@@ -63,7 +62,7 @@ public class AbstractMessageEvent<T> extends DTO {
 	/**
 	 * 消息id
 	 */
-	private String messageId = UUID.fastUUID().toString(true);
+	private String messageId = java.util.UUID.randomUUID().toString();
 	/**
 	 * 消息创建时间
 	 */

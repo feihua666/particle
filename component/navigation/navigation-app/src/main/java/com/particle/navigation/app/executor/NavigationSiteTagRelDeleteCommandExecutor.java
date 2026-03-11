@@ -1,11 +1,11 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationSiteTagRelAppStructMapping;
 import com.particle.navigation.client.dto.data.NavigationSiteTagRelVO;
 import com.particle.navigation.domain.NavigationSiteTagRel;
@@ -38,7 +38,7 @@ public class NavigationSiteTagRelDeleteCommandExecutor  extends AbstractBaseExec
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteTagRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<NavigationSiteTagRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		NavigationSiteTagRelId navigationSiteTagRelId = NavigationSiteTagRelId.of(deleteCommand.getId());
 		NavigationSiteTagRel byId = navigationSiteTagRelGateway.getById(navigationSiteTagRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class NavigationSiteTagRelDeleteCommandExecutor  extends AbstractBaseExec
 
 	/**
 	 * 根据 navigationSiteId 删除
-	 * @param navigationSiteIdCommand
+	 * @param navigationSiteCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationSiteId(@Valid IdCommand navigationSiteIdCommand) {
-		boolean result = iNavigationSiteTagRelService.deleteByColumn(navigationSiteIdCommand.getId(), NavigationSiteTagRelDO::getNavigationSiteId);
+	public Response deleteByNavigationSiteId(@Valid CommonIdCommand navigationSiteCommonIdCommand) {
+		boolean result = iNavigationSiteTagRelService.deleteByColumn(navigationSiteCommonIdCommand.getId(), NavigationSiteTagRelDO::getNavigationSiteId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 navigationSiteTagId 删除
-	 * @param navigationSiteTagIdCommand
+	 * @param navigationSiteTagCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationSiteTagId(@Valid IdCommand navigationSiteTagIdCommand) {
-		boolean result = iNavigationSiteTagRelService.deleteByColumn(navigationSiteTagIdCommand.getId(), NavigationSiteTagRelDO::getNavigationSiteTagId);
+	public Response deleteByNavigationSiteTagId(@Valid CommonIdCommand navigationSiteTagCommonIdCommand) {
+		boolean result = iNavigationSiteTagRelService.deleteByColumn(navigationSiteTagCommonIdCommand.getId(), NavigationSiteTagRelDO::getNavigationSiteTagId);
 		return Response.buildSuccess();
 	}
 

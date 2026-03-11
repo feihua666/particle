@@ -1,7 +1,7 @@
 package com.particle.feedback.app.feedback.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.feedback.executor.FeedbackCreateCommandExecutor;
 import com.particle.feedback.app.feedback.executor.FeedbackDeleteCommandExecutor;
 import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
@@ -41,7 +41,7 @@ public class FeedbackApplicationServiceImpl extends AbstractBaseApplicationServi
 	}
 
 	@Override
-	public SingleResponse<FeedbackVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<FeedbackVO> delete(CommonIdCommand deleteCommand) {
 		return feedbackDeleteCommandExecutor.execute(deleteCommand);
 	}
 

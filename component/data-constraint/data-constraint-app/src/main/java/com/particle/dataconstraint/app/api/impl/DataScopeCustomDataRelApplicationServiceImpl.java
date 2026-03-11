@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.executor.DataScopeCustomDataRelCommandExecutor;
 import com.particle.dataconstraint.app.executor.DataScopeCustomDataRelCreateCommandExecutor;
 import com.particle.dataconstraint.app.executor.DataScopeCustomDataRelDeleteCommandExecutor;
@@ -44,7 +44,7 @@ public class DataScopeCustomDataRelApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public SingleResponse<DataScopeCustomDataRelVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DataScopeCustomDataRelVO> delete(CommonIdCommand deleteCommand) {
 		return dataScopeCustomDataRelDeleteCommandExecutor.execute(deleteCommand);
 	}
 
@@ -59,8 +59,8 @@ public class DataScopeCustomDataRelApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public Response deleteByDataScopeId(IdCommand dataScopeIdCommand) {
-		return dataScopeCustomDataRelDeleteCommandExecutor.deleteByDataScopeId(dataScopeIdCommand);
+	public Response deleteByDataScopeId(CommonIdCommand dataScopeCommonIdCommand) {
+		return dataScopeCustomDataRelDeleteCommandExecutor.deleteByDataScopeId(dataScopeCommonIdCommand);
 	}
 
 	@Autowired

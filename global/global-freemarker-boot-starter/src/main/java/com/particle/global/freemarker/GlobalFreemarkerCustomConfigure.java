@@ -1,5 +1,7 @@
 package com.particle.global.freemarker;
 
+import freemarker.template.TemplateModelException;
+
 /**
  * <p>
  * 提供自定义配置
@@ -10,5 +12,5 @@ package com.particle.global.freemarker;
  */
 public interface GlobalFreemarkerCustomConfigure {
 
-    void customConfigure(freemarker.template.Configuration configuration);
+    void customConfigure(freemarker.template.Configuration configuration) throws TemplateModelException;
 }

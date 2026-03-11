@@ -2,6 +2,7 @@ package com.particle.func.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.func.adapter.feign.client.rpc.FuncTransRpcFeignClient;
 import com.particle.func.client.dto.data.FuncTransVO;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.func.infrastructure.service.IFuncService;
@@ -30,7 +31,7 @@ public class FuncTransServiceImpl implements ITransService<FuncTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_FUNC_BY_ID);
+        return FuncTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

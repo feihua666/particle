@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamicdata.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class DynamicDataIndicatorCategoryUploadRecordRepresentationApplicationSe
     private DynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor dynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> queryDetail(CommonIdCommand detailCommand) {
         return dynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

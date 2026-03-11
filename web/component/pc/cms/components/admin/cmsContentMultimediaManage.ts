@@ -1,4 +1,4 @@
-import {useRemoteSelectCmsContentCompItem, useSelectCmsSiteCompItem} from "../cmsSiteCompItem";
+import {useRemoteSelectCmsContentCompItem, useSelectCmsSiteCompItem} from "../cmsCompItem";
 
 export const pageFormItems = [
   useSelectCmsSiteCompItem({}),
@@ -40,6 +40,24 @@ export const useAddPageFormItems = ({props})=> {
           clearable: true,
           type: 'textarea',
           rows: 20,
+        }
+      }
+    },
+    {
+      field: {
+        name: 'isUseArticleAnalyzer',
+        value: false
+      },
+      element: {
+        comp: 'el-switch',
+        formItemProps: {
+          label: '内容字数统计',
+          tips: '启用后将自动重置内容中文章字数、图表数量、引用数量、参考文献数量'
+        },
+        compProps: {
+          clearable: true,
+          activeText: '是',
+          inactiveText: '否',
         }
       }
     },

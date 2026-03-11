@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformDocApiDocTemplateRepresentationApplicationServiceImpl e
     private OpenplatformDocApiDocTemplateQueryCommandExecutor openplatformDocApiDocTemplateQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformDocApiDocTemplateQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformDocApiDocTemplateQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

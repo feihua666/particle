@@ -1,10 +1,10 @@
 package com.particle.usagecount.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.usagecount.app.structmapping.UsageCountConfigAppStructMapping;
 import com.particle.usagecount.client.dto.data.UsageCountConfigVO;
 import com.particle.usagecount.domain.UsageCountConfig;
@@ -34,7 +34,7 @@ public class UsageCountConfigDeleteCommandExecutor  extends AbstractBaseExecutor
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<UsageCountConfigVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<UsageCountConfigVO> execute(@Valid CommonIdCommand deleteCommand) {
 		UsageCountConfigId usageCountConfigId = UsageCountConfigId.of(deleteCommand.getId());
 		UsageCountConfig byId = usageCountConfigGateway.getById(usageCountConfigId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

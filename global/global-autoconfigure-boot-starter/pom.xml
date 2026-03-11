@@ -43,5 +43,24 @@
             <version>${particle.version}</version>
             <optional>true</optional>
         </dependency>
+        <!-- 用于配置拦截器，添加主要是统一远程调用传递租户id -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 当前添加主要是使用租户常量，远程调用传递 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 版本已在 spring-boot-starter-parent 中定义 -->
+        <!-- 主要实现在 feign 调用时传递 traceId 信息 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

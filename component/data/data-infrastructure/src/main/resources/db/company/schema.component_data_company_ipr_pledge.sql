@@ -31,4 +31,4 @@ CREATE TABLE `component_data_company_ipr_pledge` (
   UNIQUE KEY `reg_no` (`reg_no`) USING BTREE,
   UNIQUE KEY `uni_company_id__reg_no` (`company_id`,`reg_no`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权出质表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权出质表';

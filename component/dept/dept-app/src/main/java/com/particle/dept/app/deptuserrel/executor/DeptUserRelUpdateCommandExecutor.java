@@ -8,7 +8,7 @@ import com.particle.dept.domain.deptuserrel.DeptUserRel;
 import com.particle.dept.domain.deptuserrel.DeptUserRelId;
 import com.particle.dept.domain.deptuserrel.gateway.DeptUserRelGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

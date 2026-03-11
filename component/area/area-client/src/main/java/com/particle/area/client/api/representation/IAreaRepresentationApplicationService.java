@@ -5,7 +5,7 @@ import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -25,14 +25,14 @@ public interface IAreaRepresentationApplicationService extends IBaseApplicationS
 	 * @param areaQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand);
+	SingleResponse<AreaVO> queryDetailForUpdate(CommonIdCommand areaQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param areaQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand);
+	SingleResponse<AreaVO> queryDetail(CommonIdCommand areaQueryDetailCommand);
 
 	/**
 	 * 列表查询

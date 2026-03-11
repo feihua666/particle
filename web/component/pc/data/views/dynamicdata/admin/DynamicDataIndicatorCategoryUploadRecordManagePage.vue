@@ -106,7 +106,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       text: true,
       position: 'more',
       permission: 'admin:web:dynamicDataIndicatorCategory:dataPageQuery',
-      // 跳转到编辑
+      // 导入数据管理
       route: {path: '/admin/dynamicDataIndicatorCategoryUploadRecordManageData',query: {id: row.id,dynamicDataIndicatorCategoryId: row.dynamicDataIndicatorCategoryId}}
     },
     {

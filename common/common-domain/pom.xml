@@ -11,6 +11,12 @@
 
     <artifactId>common-domain</artifactId>
 
+    <description>
+        DDD 架构中的通用领域层模块，承载跨业务组件复用的核心领域模型与业务语义，
+        包括实体、值对象、领域服务及领域接口定义，
+        不依赖任何技术框架，专注于表达稳定的业务规则与领域概念。
+    </description>
+
     <properties>
 
 

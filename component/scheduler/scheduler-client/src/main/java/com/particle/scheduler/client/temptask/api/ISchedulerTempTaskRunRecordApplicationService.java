@@ -1,7 +1,7 @@
 package com.particle.scheduler.client.temptask.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskRunRecordCreateCommand;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskRunRecordUpdateCommand;
@@ -27,7 +27,7 @@ public interface ISchedulerTempTaskRunRecordApplicationService extends IBaseAppl
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<SchedulerTempTaskRunRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<SchedulerTempTaskRunRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

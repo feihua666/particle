@@ -1,7 +1,7 @@
 package com.particle.scheduler.app.temptask.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class SchedulerTempTaskRunRecordLogRepresentationApplicationServiceImpl e
     private SchedulerTempTaskRunRecordLogQueryCommandExecutor schedulerTempTaskRunRecordLogQueryCommandExecutor;
 
     @Override
-    public SingleResponse<SchedulerTempTaskRunRecordLogVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<SchedulerTempTaskRunRecordLogVO> queryDetail(CommonIdCommand detailCommand) {
         return schedulerTempTaskRunRecordLogQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<SchedulerTempTaskRunRecordLogVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<SchedulerTempTaskRunRecordLogVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return schedulerTempTaskRunRecordLogQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

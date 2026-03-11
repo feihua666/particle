@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationFriendshipLinkCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationFriendshipLinkUpdateCommand;
@@ -27,7 +27,7 @@ public interface INavigationFriendshipLinkApplicationService extends IBaseApplic
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<NavigationFriendshipLinkVO> delete(IdCommand deleteCommand);
+	SingleResponse<NavigationFriendshipLinkVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -4,7 +4,6 @@ import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorAppSt
 import com.particle.data.app.dynamictable.executor.DynamicTableFieldUpdateCommandExecutor;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
-import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldCreateCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldUpdateCommand;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicator;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicatorId;
@@ -14,7 +13,7 @@ import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldService;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

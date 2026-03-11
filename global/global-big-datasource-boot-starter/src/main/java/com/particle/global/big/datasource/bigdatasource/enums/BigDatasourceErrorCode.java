@@ -1,7 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.enums;
 
-import com.particle.global.exception.code.ErrorCodeGlobalStatusMax;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.ErrorCodeGlobalStatusMax;
+import com.particle.global.light.share.code.IErrorCode;
 
 /**
  * <p>

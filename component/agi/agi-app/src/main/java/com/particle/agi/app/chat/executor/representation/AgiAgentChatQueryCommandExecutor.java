@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatVO;
 import com.particle.agi.infrastructure.chat.dos.AgiAgentChatDO;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatService;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentChatQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentChatVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentChatDO byId = iAgiAgentChatService.getById(detailCommand.getId());
 		AgiAgentChatVO agiAgentChatVO = AgiAgentChatAppStructMapping.instance.agiAgentChatDOToAgiAgentChatVO(byId);
 		return SingleResponse.of(agiAgentChatVO);
@@ -67,7 +66,7 @@ public class AgiAgentChatQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentChatVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentChatDO byId = iAgiAgentChatService.getById(detailForUpdateCommand.getId());
 		AgiAgentChatVO agiAgentChatVO = AgiAgentChatAppStructMapping.instance.agiAgentChatDOToAgiAgentChatVO(byId);
 		return SingleResponse.of(agiAgentChatVO);

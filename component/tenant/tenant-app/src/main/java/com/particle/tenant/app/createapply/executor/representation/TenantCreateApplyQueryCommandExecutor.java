@@ -2,7 +2,7 @@ package com.particle.tenant.app.createapply.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class TenantCreateApplyQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TenantCreateApplyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<TenantCreateApplyVO> executeDetail(CommonIdCommand detailCommand) {
 		TenantCreateApplyDO byId = iTenantCreateApplyService.getById(detailCommand.getId());
 		TenantCreateApplyVO tenantCreateApplyVO = TenantCreateApplyAppStructMapping.instance.tenantCreateApplyDOToTenantCreateApplyVO(byId);
 		return SingleResponse.of(tenantCreateApplyVO);
@@ -67,7 +67,7 @@ public class TenantCreateApplyQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TenantCreateApplyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<TenantCreateApplyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		TenantCreateApplyDO byId = iTenantCreateApplyService.getById(detailForUpdateCommand.getId());
 		TenantCreateApplyVO tenantCreateApplyVO = TenantCreateApplyAppStructMapping.instance.tenantCreateApplyDOToTenantCreateApplyVO(byId);
 		return SingleResponse.of(tenantCreateApplyVO);

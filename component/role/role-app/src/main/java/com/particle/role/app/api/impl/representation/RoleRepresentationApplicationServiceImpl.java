@@ -1,7 +1,7 @@
 package com.particle.role.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class RoleRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	private RoleQueryCommandExecutor roleQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<RoleVO> queryDetail(IdCommand roleQueryDetailCommand) {
+	public SingleResponse<RoleVO> queryDetail(CommonIdCommand roleQueryDetailCommand) {
 		return roleQueryCommandExecutor.executeDetail(roleQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<RoleVO> queryDetailForUpdate(IdCommand roleQueryDetailForUpdateCommand) {
+	public SingleResponse<RoleVO> queryDetailForUpdate(CommonIdCommand roleQueryDetailForUpdateCommand) {
 		return roleQueryCommandExecutor.executeDetailForUpdate(roleQueryDetailForUpdateCommand);
 	}
 

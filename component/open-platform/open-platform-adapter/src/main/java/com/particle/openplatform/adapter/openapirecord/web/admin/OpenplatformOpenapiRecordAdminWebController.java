@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapirecord.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -40,14 +40,14 @@ public class OpenplatformOpenapiRecordAdminWebController extends AbstractBaseWeb
 	@Operation(summary = "删除开放平台开放接口调用记录")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口调用记录",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformOpenapiRecordVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformOpenapiRecordVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformOpenapiRecordApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecord:detail')")
 	@Operation(summary = "开放平台开放接口调用记录详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformOpenapiRecordVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformOpenapiRecordVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformOpenapiRecordRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

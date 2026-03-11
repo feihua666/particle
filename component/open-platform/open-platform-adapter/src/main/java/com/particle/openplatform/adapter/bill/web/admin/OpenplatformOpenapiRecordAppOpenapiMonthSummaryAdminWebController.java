@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.bill.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     @Operation(summary = "删除开放平台应用开放接口月汇总")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台应用开放接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryApplicationService.delete(deleteCommand);
     }
@@ -74,14 +74,14 @@ public class OpenplatformOpenapiRecordAppOpenapiMonthSummaryAdminWebController e
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:update')")
     @Operation(summary = "开放平台应用开放接口月汇总更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordAppOpenapiMonthSummary:detail')")
     @Operation(summary = "开放平台应用开放接口月汇总详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformOpenapiRecordAppOpenapiMonthSummaryVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformOpenapiRecordAppOpenapiMonthSummaryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

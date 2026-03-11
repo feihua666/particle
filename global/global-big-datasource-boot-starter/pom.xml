@@ -94,6 +94,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-neo4j-boot-starter</artifactId>
             <version>${particle.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- 大数据源支持elasticsearch数据，即es -->
@@ -101,6 +102,7 @@
             <groupId>com.particle</groupId>
             <artifactId>global-elasticsearch-boot-starter</artifactId>
             <version>${particle.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- 针对数据源接口字典配置翻译和数据查询接口翻译提供支持 -->

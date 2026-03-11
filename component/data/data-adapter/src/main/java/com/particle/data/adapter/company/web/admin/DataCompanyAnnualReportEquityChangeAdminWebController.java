@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyAnnualReportEquityChangeApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyAnnualReportEquityChangeRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportEquityChangeCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportEquityChangeVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportEquityChangeUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportEquityChangePageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportEquityChangeQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业年报股权变更后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyAnnualReportEquityChangeAdminWebController extends Abstr
     @Operation(summary = "删除企业年报股权变更")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业年报股权变更",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyAnnualReportEquityChangeApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyAnnualReportEquityChangeAdminWebController extends Abstr
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAnnualReportEquityChange:update')")
     @Operation(summary = "企业年报股权变更更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyAnnualReportEquityChangeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAnnualReportEquityChange:detail')")
     @Operation(summary = "企业年报股权变更详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyAnnualReportEquityChangeVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyAnnualReportEquityChangeRepresentationApplicationService.queryDetail(detailCommand);
     }
 

@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.doc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocTemplateAppStructMapping;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDocTemplate;
@@ -43,7 +43,7 @@ public class OpenplatformDocApiDocTemplateDeleteCommandExecutor  extends Abstrac
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocTemplateVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiDocTemplateVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformDocApiDocTemplateId openplatformDocApiDocTemplateId = OpenplatformDocApiDocTemplateId.of(deleteCommand.getId());
 		OpenplatformDocApiDocTemplate byId = openplatformDocApiDocTemplateGateway.getById(openplatformDocApiDocTemplateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

@@ -45,6 +45,24 @@ const cmsSiteAdminRoutes = [
                     }
                 }
             },
+            {
+                path: '/admin/cmsSiteManageUrlPage',
+                component: () => import('./CmsSiteManageUrlPage.vue'),
+                props: route => ({ cmsSiteId: route.query.id }),
+                meta: {
+                    showInDrawer: true,
+                    code:'adminCmsSiteManageUrl',
+                    name: '站点地址',
+                    // 将表单按钮显示在 drawer footer中
+                    drawerProps: {
+                        footerBoxId: 'adminCmsSiteManageUrl'
+                    },
+                    formButtonsTeleportProps: {
+                        disabled: false,
+                        to: '#adminCmsSiteManageUrl'
+                    }
+                }
+            },
         ]
     },
 ]

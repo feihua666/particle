@@ -2,7 +2,7 @@ package com.particle.dataquery.app.provider.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.provider.structmapping.DataQueryProviderAppStructMapping;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
@@ -57,7 +57,7 @@ public class DataQueryProviderQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryProviderVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataQueryProviderVO> executeDetail(CommonIdCommand detailCommand) {
 		DataQueryProviderDO byId = iDataQueryProviderService.getById(detailCommand.getId());
 		DataQueryProviderVO dataQueryProviderVO = DataQueryProviderAppStructMapping.instance.dataQueryProviderDOToDataQueryProviderVO(byId);
 		return SingleResponse.of(dataQueryProviderVO);
@@ -67,7 +67,7 @@ public class DataQueryProviderQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryProviderVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataQueryProviderVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataQueryProviderDO byId = iDataQueryProviderService.getById(detailForUpdateCommand.getId());
 		DataQueryProviderVO dataQueryProviderVO = DataQueryProviderAppStructMapping.instance.dataQueryProviderDOToDataQueryProviderVO(byId);
 		return SingleResponse.of(dataQueryProviderVO);

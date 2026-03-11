@@ -4,8 +4,8 @@ import cn.hutool.json.JSONUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.spring.SpringContextHolder;
 import com.particle.tools.client.dto.command.JsonParseCommand;
 import com.particle.tools.client.dto.command.JsonParseMultipleLineCommand;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +45,7 @@ public class JsonController extends AbstractBaseWebAdapter {
     @PostMapping("/parseMultipleLine")
     @ResponseStatus(HttpStatus.OK)
     public MultiResponse<String> parse(@RequestBody @Validated JsonParseMultipleLineCommand form) {
-        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
+        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
         List<String> result = new ArrayList<>(form.getJsonStrs().size());
         for (String jsonStr : form.getJsonStrs()) {
             Object o = parseJson(jsonStr);

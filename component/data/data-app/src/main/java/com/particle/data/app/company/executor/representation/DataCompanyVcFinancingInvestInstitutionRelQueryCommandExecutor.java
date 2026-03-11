@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestIns
 import com.particle.data.infrastructure.company.dos.DataCompanyVcFinancingInvestInstitutionRelDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcFinancingInvestInstitutionRelService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcFinancingInvestInstitutionRelPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor  ext
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyVcFinancingInvestInstitutionRelDO byId = iDataCompanyVcFinancingInvestInstitutionRelService.getById(detailCommand.getId());
 		DataCompanyVcFinancingInvestInstitutionRelVO dataCompanyVcFinancingInvestInstitutionRelVO = DataCompanyVcFinancingInvestInstitutionRelAppStructMapping.instance.dataCompanyVcFinancingInvestInstitutionRelDOToDataCompanyVcFinancingInvestInstitutionRelVO(byId);
 		return SingleResponse.of(dataCompanyVcFinancingInvestInstitutionRelVO);
@@ -67,7 +67,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor  ext
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyVcFinancingInvestInstitutionRelDO byId = iDataCompanyVcFinancingInvestInstitutionRelService.getById(detailForUpdateCommand.getId());
 		DataCompanyVcFinancingInvestInstitutionRelVO dataCompanyVcFinancingInvestInstitutionRelVO = DataCompanyVcFinancingInvestInstitutionRelAppStructMapping.instance.dataCompanyVcFinancingInvestInstitutionRelDOToDataCompanyVcFinancingInvestInstitutionRelVO(byId);
 		return SingleResponse.of(dataCompanyVcFinancingInvestInstitutionRelVO);
@@ -76,13 +76,13 @@ public class DataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor  ext
 
 	/**
 	 * 查询企业融资表ID已分配的企业投资机构表ids
-	 * @param companyVcFinancingIdCommand
+	 * @param companyVcFinancingCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(@Valid IdCommand companyVcFinancingIdCommand) {
+	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(@Valid CommonIdCommand companyVcFinancingCommonIdCommand) {
 
 		DataCompanyVcFinancingInvestInstitutionRelQueryListCommand dataCompanyVcFinancingInvestInstitutionRelQueryListCommand = new DataCompanyVcFinancingInvestInstitutionRelQueryListCommand();
-		dataCompanyVcFinancingInvestInstitutionRelQueryListCommand.setCompanyVcFinancingId(companyVcFinancingIdCommand.getId());
+		dataCompanyVcFinancingInvestInstitutionRelQueryListCommand.setCompanyVcFinancingId(companyVcFinancingCommonIdCommand.getId());
 		MultiResponse<DataCompanyVcFinancingInvestInstitutionRelVO> dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse = execute(dataCompanyVcFinancingInvestInstitutionRelQueryListCommand);
 		if(dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse.getData().stream().map(DataCompanyVcFinancingInvestInstitutionRelVO::getCompanyVcInvestInstitutionId).collect(Collectors.toList());
@@ -92,13 +92,13 @@ public class DataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor  ext
 	}
 	/**
 	 * 查询企业投资机构表已分配的企业融资表IDids
-	 * @param companyVcInvestInstitutionIdCommand
+	 * @param companyVcInvestInstitutionCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(@Valid IdCommand companyVcInvestInstitutionIdCommand) {
+	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(@Valid CommonIdCommand companyVcInvestInstitutionCommonIdCommand) {
 
 		DataCompanyVcFinancingInvestInstitutionRelQueryListCommand dataCompanyVcFinancingInvestInstitutionRelQueryListCommand = new DataCompanyVcFinancingInvestInstitutionRelQueryListCommand();
-		dataCompanyVcFinancingInvestInstitutionRelQueryListCommand.setCompanyVcInvestInstitutionId(companyVcInvestInstitutionIdCommand.getId());
+		dataCompanyVcFinancingInvestInstitutionRelQueryListCommand.setCompanyVcInvestInstitutionId(companyVcInvestInstitutionCommonIdCommand.getId());
 		MultiResponse<DataCompanyVcFinancingInvestInstitutionRelVO> dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse = execute(dataCompanyVcFinancingInvestInstitutionRelQueryListCommand);
 		if(dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = dataCompanyVcFinancingInvestInstitutionRelVOMultiResponse.getData().stream().map(DataCompanyVcFinancingInvestInstitutionRelVO::getCompanyVcFinancingId).collect(Collectors.toList());

@@ -5,7 +5,7 @@ import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.exception.biz.BizException;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.identifier.structmapping.UserIdentifierPwdAppStructMapping;
 import com.particle.user.app.structmapping.UserAppStructMapping;
 import com.particle.user.client.exception.ErrorCodeUserEnum;

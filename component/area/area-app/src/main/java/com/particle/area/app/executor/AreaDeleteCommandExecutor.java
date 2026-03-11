@@ -6,10 +6,10 @@ import com.particle.area.domain.Area;
 import com.particle.area.domain.AreaId;
 import com.particle.area.domain.gateway.AreaGateway;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class AreaDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param areaDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> execute(@Valid IdCommand areaDeleteCommand) {
+	public SingleResponse<AreaVO> execute(@Valid CommonIdCommand areaDeleteCommand) {
 		AreaId areaId = AreaId.of(areaDeleteCommand.getId());
 		Area byId = areaGateway.getById(areaId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkPartyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkPartyQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkPartyVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkPartyDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkPartyService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkPartyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprTrademarkPartyQueryCommandExecutor  extends AbstractB
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkPartyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprTrademarkPartyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprTrademarkPartyDO byId = iDataCompanyIprTrademarkPartyService.getById(detailCommand.getId());
 		DataCompanyIprTrademarkPartyVO dataCompanyIprTrademarkPartyVO = DataCompanyIprTrademarkPartyAppStructMapping.instance.dataCompanyIprTrademarkPartyDOToDataCompanyIprTrademarkPartyVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkPartyVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprTrademarkPartyQueryCommandExecutor  extends AbstractB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkPartyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprTrademarkPartyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprTrademarkPartyDO byId = iDataCompanyIprTrademarkPartyService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprTrademarkPartyVO dataCompanyIprTrademarkPartyVO = DataCompanyIprTrademarkPartyAppStructMapping.instance.dataCompanyIprTrademarkPartyDOToDataCompanyIprTrademarkPartyVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkPartyVO);

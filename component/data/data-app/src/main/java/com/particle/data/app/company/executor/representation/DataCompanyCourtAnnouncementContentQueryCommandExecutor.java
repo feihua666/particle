@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyCourtAnnouncementContentAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCourtAnnouncementContentQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyCourtAnnouncementContentVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyCourtAnnouncementContentDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyCourtAnnouncementContentService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCourtAnnouncementContentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyCourtAnnouncementContentQueryCommandExecutor  extends Ab
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCourtAnnouncementContentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyCourtAnnouncementContentVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyCourtAnnouncementContentDO byId = iDataCompanyCourtAnnouncementContentService.getById(detailCommand.getId());
 		DataCompanyCourtAnnouncementContentVO dataCompanyCourtAnnouncementContentVO = DataCompanyCourtAnnouncementContentAppStructMapping.instance.dataCompanyCourtAnnouncementContentDOToDataCompanyCourtAnnouncementContentVO(byId);
 		return SingleResponse.of(dataCompanyCourtAnnouncementContentVO);
@@ -67,7 +66,7 @@ public class DataCompanyCourtAnnouncementContentQueryCommandExecutor  extends Ab
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCourtAnnouncementContentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyCourtAnnouncementContentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyCourtAnnouncementContentDO byId = iDataCompanyCourtAnnouncementContentService.getById(detailForUpdateCommand.getId());
 		DataCompanyCourtAnnouncementContentVO dataCompanyCourtAnnouncementContentVO = DataCompanyCourtAnnouncementContentAppStructMapping.instance.dataCompanyCourtAnnouncementContentDOToDataCompanyCourtAnnouncementContentVO(byId);
 		return SingleResponse.of(dataCompanyCourtAnnouncementContentVO);

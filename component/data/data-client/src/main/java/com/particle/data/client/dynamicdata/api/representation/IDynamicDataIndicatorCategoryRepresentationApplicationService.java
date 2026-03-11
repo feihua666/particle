@@ -1,7 +1,7 @@
 package com.particle.data.client.dynamicdata.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorCategoryDataPageQueryCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -27,14 +27,14 @@ public interface IDynamicDataIndicatorCategoryRepresentationApplicationService e
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DynamicDataIndicatorCategoryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DynamicDataIndicatorCategoryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DynamicDataIndicatorCategoryVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DynamicDataIndicatorCategoryVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

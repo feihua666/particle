@@ -2,7 +2,7 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformDocApiDocParamFieldQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformDocApiDocParamFieldDO byId = iOpenplatformDocApiDocParamFieldService.getById(detailCommand.getId());
 		OpenplatformDocApiDocParamFieldVO openplatformDocApiDocParamFieldVO = OpenplatformDocApiDocParamFieldAppStructMapping.instance.openplatformDocApiDocParamFieldDOToOpenplatformDocApiDocParamFieldVO(byId);
 		return SingleResponse.of(openplatformDocApiDocParamFieldVO);
@@ -67,7 +67,7 @@ public class OpenplatformDocApiDocParamFieldQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformDocApiDocParamFieldDO byId = iOpenplatformDocApiDocParamFieldService.getById(detailForUpdateCommand.getId());
 		OpenplatformDocApiDocParamFieldVO openplatformDocApiDocParamFieldVO = OpenplatformDocApiDocParamFieldAppStructMapping.instance.openplatformDocApiDocParamFieldDOToOpenplatformDocApiDocParamFieldVO(byId);
 		return SingleResponse.of(openplatformDocApiDocParamFieldVO);

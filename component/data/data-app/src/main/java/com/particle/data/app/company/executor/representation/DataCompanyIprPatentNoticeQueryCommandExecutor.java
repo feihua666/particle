@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprPatentNoticeVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentNoticeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentNoticeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentNoticePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentNoticeQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentNoticeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentNoticeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentNoticeDO byId = iDataCompanyIprPatentNoticeService.getById(detailCommand.getId());
 		DataCompanyIprPatentNoticeVO dataCompanyIprPatentNoticeVO = DataCompanyIprPatentNoticeAppStructMapping.instance.dataCompanyIprPatentNoticeDOToDataCompanyIprPatentNoticeVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentNoticeVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentNoticeQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentNoticeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentNoticeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentNoticeDO byId = iDataCompanyIprPatentNoticeService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentNoticeVO dataCompanyIprPatentNoticeVO = DataCompanyIprPatentNoticeAppStructMapping.instance.dataCompanyIprPatentNoticeDOToDataCompanyIprPatentNoticeVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentNoticeVO);

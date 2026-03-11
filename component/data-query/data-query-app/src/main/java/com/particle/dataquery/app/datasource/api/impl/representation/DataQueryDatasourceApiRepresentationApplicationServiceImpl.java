@@ -1,7 +1,7 @@
 package com.particle.dataquery.app.datasource.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.dataapi.executor.representation.DataQueryDataApiDataApiQueryCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceApiQueryCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.representation.DataQueryDatasourceApiTestCommandExecutor;
@@ -33,12 +33,12 @@ public class DataQueryDatasourceApiRepresentationApplicationServiceImpl extends 
     private DataQueryDatasourceApiTestCommandExecutor dataQueryDatasourceApiTestCommandExecutor;
     private DataQueryDataApiDataApiQueryCommandExecutor dataQueryDataApiDataApiQueryCommandExecutor;
     @Override
-    public SingleResponse<DataQueryDatasourceApiVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataQueryDatasourceApiVO> queryDetail(CommonIdCommand detailCommand) {
         return dataQueryDatasourceApiQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataQueryDatasourceApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataQueryDatasourceApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataQueryDatasourceApiQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

@@ -3,13 +3,16 @@ package com.particle.tenant.adapter.rpc;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.basic.PageQueryCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.adapter.feign.client.rpc.TenantRpcFeignClient;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.dto.command.representation.TenantQueryAllCommand;
+import com.particle.tenant.client.dto.data.TenantRpcVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.service.ITenantService;
@@ -42,9 +45,9 @@ public class TenantRpcController extends AbstractBaseRpcAdapter implements Tenan
 
 	@Operation(summary = "获取所有租户，不加任何条件")
 	@Override
-	public MultiResponse<TenantVO> getAllTenant(TenantQueryAllCommand tenantQueryAllCommand) {
+	public MultiResponse<TenantRpcVO> getAllTenant(TenantQueryAllCommand tenantQueryAllCommand) {
         List<TenantDO> allIgnoreTenantLimit = iTenantService.getAllIgnoreTenantLimit();
-        List<TenantVO> tenantVOS = TenantAppStructMapping.instance.tenantDOsToTenantVOs(allIgnoreTenantLimit);
+        List<TenantRpcVO> tenantVOS = TenantAppStructMapping.instance.tenantDOsToTenantRpcVOs(allIgnoreTenantLimit);
 
         List<Long> filterTenantIds = tenantQueryAllCommand.getFilterTenantIds();
         if (CollectionUtil.isNotEmpty(filterTenantIds)) {
@@ -55,9 +58,16 @@ public class TenantRpcController extends AbstractBaseRpcAdapter implements Tenan
 	}
     @Operation(summary = "分页获取所有租户，不加任何条件")
 	@Override
-	public PageResponse<TenantVO> pageAllTenant(PageQueryCommand pageQueryCommand) {
+	public PageResponse<TenantRpcVO> pageAllTenant(PageQueryCommand pageQueryCommand) {
 		Page<TenantDO> tenantDOPage = iTenantService.pageAllIgnoreTenantLimit(pageQueryCommand.getPageNo(), pageQueryCommand.getPageSize());
-		return TenantAppStructMapping.instance.infrastructurePageToPageResponse(tenantDOPage);
+		return TenantAppStructMapping.instance.infrastructurePageToRpcPageResponse(tenantDOPage);
+	}
+
+	@Operation(summary = "根据id获取租户，不加任何条件")
+	@Override
+	public SingleResponse<TenantRpcVO> getById(CommonIdCommand commonIdCommand) {
+		TenantDO tenantDO = iTenantService.getByIdIgnoreTenantLimit(commonIdCommand.getId());
+		return SingleResponse.of(TenantAppStructMapping.instance.tenantDOToTenantRpcVO(tenantDO));
 	}
 
 

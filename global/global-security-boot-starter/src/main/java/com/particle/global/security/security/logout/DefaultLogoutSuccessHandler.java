@@ -3,7 +3,7 @@ package com.particle.global.security.security.logout;
 import cn.hutool.core.io.IoUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
-import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.tool.login.LoginUserTool;
 import com.particle.global.tool.json.JsonTool;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,6 +51,5 @@ public class DefaultLogoutSuccessHandler extends DefaultAbstractLogoutSuccessHan
 			securityContextLogoutHandler.logout(request,response,authentication);
 		}
 		LoginUserTool.clear();
-		LoginUserTool.removeFromSession(request);
 	}
 }

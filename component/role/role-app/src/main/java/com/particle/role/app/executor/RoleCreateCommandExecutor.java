@@ -3,7 +3,7 @@ package com.particle.role.app.executor;
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.rolefuncrel.executor.RoleFuncRelCommandExecutor;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.command.RoleCreateCommand;

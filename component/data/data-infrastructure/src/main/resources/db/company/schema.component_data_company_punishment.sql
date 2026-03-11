@@ -45,4 +45,4 @@ CREATE TABLE `component_data_company_punishment` (
   KEY `is_data_flag_gs` (`is_data_flag_gs`) USING BTREE,
   KEY `is_data_flag_xyzg` (`is_data_flag_xyzg`) USING BTREE,
   UNIQUE KEY `uni_company_id__data_md5` (`company_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业行政处罚表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业行政处罚表';

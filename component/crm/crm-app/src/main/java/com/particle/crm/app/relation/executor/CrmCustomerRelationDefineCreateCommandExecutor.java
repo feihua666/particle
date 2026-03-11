@@ -7,7 +7,7 @@ import com.particle.crm.client.relation.dto.data.CrmCustomerRelationDefineVO;
 import com.particle.crm.domain.relation.CrmCustomerRelationDefine;
 import com.particle.crm.domain.relation.gateway.CrmCustomerRelationDefineGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -1,6 +1,6 @@
 package com.particle.config.adapter.feign.client.system.rpc;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.client.system.dto.command.SystemConfigCreateCommand;
 import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
@@ -10,6 +10,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2024-05-30 10:29:04
  */
-@FeignClient(name = "${particle.feign-client.name.config:config}",path = "/rpc/system_config")
+@FeignClient(name = "${particle.feign-client.config.name:config-start}", contextId = "systemConfigRpcFeignClient", url = "${particle.feign-client.config.url:}", path = "/rpc/system_config")
 public interface SystemConfigRpcFeignClient {
 
     /**
@@ -37,7 +38,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @DeleteMapping("/delete")
-    public SingleResponse<SystemConfigVO> delete(@RequestBody IdCommand deleteCommand);
+    public SingleResponse<SystemConfigVO> delete(@RequestBody CommonIdCommand deleteCommand);
 
     /**
      * 更新系统参数配置
@@ -53,7 +54,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/detail-for-update")
-    public SingleResponse<SystemConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+    public SingleResponse<SystemConfigVO> queryDetailForUpdate(@SpringQueryMap CommonIdCommand detailForUpdateCommand);
 
     /**
      * 系统参数配置详情
@@ -61,7 +62,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/detail")
-    public SingleResponse<SystemConfigVO> queryDetail(IdCommand detailCommand);
+    public SingleResponse<SystemConfigVO> queryDetail(@SpringQueryMap CommonIdCommand detailCommand);
 
     /**
      * 列表查询系统参数配置
@@ -69,7 +70,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/list")
-    public MultiResponse<SystemConfigVO> queryList(SystemConfigQueryListCommand systemConfigQueryListCommand);
+    public MultiResponse<SystemConfigVO> queryList(@SpringQueryMap SystemConfigQueryListCommand systemConfigQueryListCommand);
 
     /**
      * 分页查询系统参数配置
@@ -77,7 +78,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/page")
-    public PageResponse<SystemConfigVO> pageQueryList(SystemConfigPageQueryCommand systemConfigPageQueryCommand);
+    public PageResponse<SystemConfigVO> pageQueryList(@SpringQueryMap SystemConfigPageQueryCommand systemConfigPageQueryCommand);
 
 
     /**
@@ -86,7 +87,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/queryByCode")
-    public SingleResponse<SystemConfigVO> queryByCode(String code);
+    public SingleResponse<SystemConfigVO> queryByCode(@RequestParam String code,@RequestParam Boolean isDisabled);
 
 
     /**
@@ -95,7 +96,7 @@ public interface SystemConfigRpcFeignClient {
      * @return
      */
     @GetMapping("/queryByTag")
-    public MultiResponse<SystemConfigVO> queryByTag(String tag);
+    public MultiResponse<SystemConfigVO> queryByTag(@RequestParam String tag,@RequestParam Boolean isDisabled);
 
 
 }

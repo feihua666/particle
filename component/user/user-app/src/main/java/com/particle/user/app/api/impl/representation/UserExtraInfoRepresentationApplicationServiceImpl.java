@@ -1,7 +1,7 @@
 package com.particle.user.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class UserExtraInfoRepresentationApplicationServiceImpl extends AbstractB
     private UserExtraInfoQueryCommandExecutor userExtraInfoQueryCommandExecutor;
 
     @Override
-    public SingleResponse<UserExtraInfoVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<UserExtraInfoVO> queryDetail(CommonIdCommand detailCommand) {
         return userExtraInfoQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<UserExtraInfoVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<UserExtraInfoVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return userExtraInfoQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

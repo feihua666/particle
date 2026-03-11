@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignInvestCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignInvestDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignInvestUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignInvestCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportForeignInvestUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyAnnualReportForeignInvestApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportForeignInvestCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportForeignInvestWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportForeignInvestExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyAnnualReportForeignInvestApplicationServiceImpl extends 
     }
 
     @Override
-    public SingleResponse<DataCompanyAnnualReportForeignInvestVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyAnnualReportForeignInvestVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyAnnualReportForeignInvestDeleteCommandExecutor.execute(deleteCommand);
     }
 

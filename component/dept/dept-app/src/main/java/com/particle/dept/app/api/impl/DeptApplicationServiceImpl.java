@@ -1,7 +1,7 @@
 package com.particle.dept.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.executor.DeptCreateCommandExecutor;
 import com.particle.dept.app.executor.DeptDeleteCommandExecutor;
 import com.particle.dept.app.executor.DeptUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class DeptApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<DeptVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DeptVO> delete(CommonIdCommand deleteCommand) {
 		return deptDeleteCommandExecutor.execute(deleteCommand);
 	}
 

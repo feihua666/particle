@@ -86,7 +86,8 @@ public class CmsContentMultimediaUpdateCommand extends AbstractBaseUpdateCommand
 
 
 
-
+    @Schema(description = "是否使用文章分析来统计")
+    private Boolean isUseArticleAnalyzer;
 
 
 

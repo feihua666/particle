@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -43,7 +43,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailAdminWebController extends
     @Operation(summary = "删除开放接口批量查询记录明细")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放接口批量查询记录明细",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiBatchQueryRecordDetailApplicationService.delete(deleteCommand);
     }
@@ -52,7 +52,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailAdminWebController extends
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecordDetail:detail')")
     @Operation(summary = "开放接口批量查询记录明细详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformOpenapiBatchQueryRecordDetailRepresentationApplicationService.queryDetail(detailCommand);
     }
 

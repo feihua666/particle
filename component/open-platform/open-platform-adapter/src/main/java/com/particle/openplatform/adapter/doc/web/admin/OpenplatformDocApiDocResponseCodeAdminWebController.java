@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformDocApiDocResponseCodeAdminWebController extends Abstrac
 	@Operation(summary = "删除开放接口文档响应码")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档响应码",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocResponseCodeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformDocApiDocResponseCodeAdminWebController extends Abstrac
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocResponseCode:update')")
 	@Operation(summary = "开放接口文档响应码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocResponseCodeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocResponseCode:detail')")
 	@Operation(summary = "开放接口文档响应码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocResponseCodeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

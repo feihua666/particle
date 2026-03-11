@@ -1,10 +1,10 @@
 package com.particle.cms.client.api;
 
-import com.particle.cms.client.dto.command.CmsContentPublicCommand;
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonAuditCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.common.client.dto.command.CommonPublicCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsContentCreateCommand;
 import com.particle.cms.client.dto.command.CmsContentUpdateCommand;
 import com.particle.cms.client.dto.data.CmsContentVO;
@@ -29,7 +29,7 @@ public interface ICmsContentApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsContentVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsContentVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -38,9 +38,16 @@ public interface ICmsContentApplicationService extends IBaseApplicationService {
 	 */
 	SingleResponse<CmsContentVO> update(CmsContentUpdateCommand cmsContentUpdateCommand);
 	/**
-	 * 发布内容
+	 * 发布内容或取消发布
 	 * @param cmsContentPublicCommand
 	 * @return
 	 */
-	SingleResponse<CmsContentVO> publish(CmsContentPublicCommand cmsContentPublicCommand);
+	SingleResponse<CmsContentVO> publish(CommonPublicCommand cmsContentPublicCommand);
+
+	/**
+	 * 审核内容
+	 * @param commonAuditCommand
+	 * @return
+	 */
+	SingleResponse<CmsContentVO> audit(CommonAuditCommand commonAuditCommand);
 }

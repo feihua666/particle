@@ -7,7 +7,7 @@ import com.particle.data.domain.company.DataCompanyVcFinancing;
 import com.particle.data.domain.company.DataCompanyVcFinancingId;
 import com.particle.data.domain.company.gateway.DataCompanyVcFinancingGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

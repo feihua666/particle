@@ -7,7 +7,7 @@ import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -30,12 +30,12 @@ public class AreaRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	private AreaQueryCommandExecutor areaQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand) {
+	public SingleResponse<AreaVO> queryDetail(CommonIdCommand areaQueryDetailCommand) {
 		return areaQueryCommandExecutor.executeDetail(areaQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand) {
+	public SingleResponse<AreaVO> queryDetailForUpdate(CommonIdCommand areaQueryDetailForUpdateCommand) {
 		return areaQueryCommandExecutor.executeDetailForUpdate(areaQueryDetailForUpdateCommand);
 	}
 

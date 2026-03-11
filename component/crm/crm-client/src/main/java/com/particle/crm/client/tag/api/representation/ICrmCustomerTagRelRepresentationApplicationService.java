@@ -1,7 +1,7 @@
 package com.particle.crm.client.tag.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagRelPageQueryCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagRelQueryListCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagRelVO;
@@ -24,14 +24,14 @@ public interface ICrmCustomerTagRelRepresentationApplicationService extends IBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerTagRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<CrmCustomerTagRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerTagRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<CrmCustomerTagRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

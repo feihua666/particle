@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.doc.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldCreateCommand;
@@ -30,7 +30,7 @@ public interface IOpenplatformDocApiDocParamFieldApplicationService extends IBas
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

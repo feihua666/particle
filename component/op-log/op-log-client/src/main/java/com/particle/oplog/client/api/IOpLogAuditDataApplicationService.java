@@ -1,12 +1,10 @@
 package com.particle.oplog.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.client.dto.command.OpLogAuditDataCreateCommand;
-import com.particle.oplog.client.dto.command.OpLogCreateCommand;
 import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
-import com.particle.oplog.client.dto.data.OpLogVO;
 
 /**
  * <p>
@@ -30,6 +28,6 @@ public interface IOpLogAuditDataApplicationService extends IBaseApplicationServi
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpLogAuditDataVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpLogAuditDataVO> delete(CommonIdCommand deleteCommand);
 
 }

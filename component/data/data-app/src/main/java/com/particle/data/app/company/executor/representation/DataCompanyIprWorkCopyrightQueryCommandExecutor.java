@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprWorkCopyrightAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprWorkCopyrightQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprWorkCopyrightVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprWorkCopyrightDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprWorkCopyrightService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprWorkCopyrightPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprWorkCopyrightQueryCommandExecutor  extends AbstractBa
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprWorkCopyrightVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprWorkCopyrightVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprWorkCopyrightDO byId = iDataCompanyIprWorkCopyrightService.getById(detailCommand.getId());
 		DataCompanyIprWorkCopyrightVO dataCompanyIprWorkCopyrightVO = DataCompanyIprWorkCopyrightAppStructMapping.instance.dataCompanyIprWorkCopyrightDOToDataCompanyIprWorkCopyrightVO(byId);
 		return SingleResponse.of(dataCompanyIprWorkCopyrightVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprWorkCopyrightQueryCommandExecutor  extends AbstractBa
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprWorkCopyrightVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprWorkCopyrightVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprWorkCopyrightDO byId = iDataCompanyIprWorkCopyrightService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprWorkCopyrightVO dataCompanyIprWorkCopyrightVO = DataCompanyIprWorkCopyrightAppStructMapping.instance.dataCompanyIprWorkCopyrightDOToDataCompanyIprWorkCopyrightVO(byId);
 		return SingleResponse.of(dataCompanyIprWorkCopyrightVO);

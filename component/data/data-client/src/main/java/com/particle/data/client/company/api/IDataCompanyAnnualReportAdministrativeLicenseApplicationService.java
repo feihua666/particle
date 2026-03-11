@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportAdministrativeLicenseVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyAnnualReportAdministrativeLicenseApplicationService
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

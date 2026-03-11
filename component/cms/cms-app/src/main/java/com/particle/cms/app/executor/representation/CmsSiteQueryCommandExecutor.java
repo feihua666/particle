@@ -6,7 +6,8 @@ import com.particle.cms.client.dto.data.CmsSiteVO;
 import com.particle.cms.infrastructure.dos.CmsSiteDO;
 import com.particle.cms.infrastructure.service.ICmsSiteService;
 import com.particle.cms.client.dto.command.representation.CmsSitePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -54,20 +54,31 @@ public class CmsSiteQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 
 	/**
 	 * 执行 站点 展示用详情查询指令
+	 *
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CmsSiteVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CmsSiteVO> executeDetail(CommonIdCommand detailCommand) {
 		CmsSiteDO byId = iCmsSiteService.getById(detailCommand.getId());
 		CmsSiteVO cmsSiteVO = CmsSiteAppStructMapping.instance.cmsSiteDOToCmsSiteVO(byId);
 		return SingleResponse.of(cmsSiteVO);
 	}
+    /**
+     * 执行 站点 列表查询指令
+     * @param commonBatchIdCommand
+     * @return
+     */
+    public MultiResponse<CmsSiteVO> execute(@Valid CommonBatchIdCommand commonBatchIdCommand) {
+        List<CmsSiteDO> cmsSiteDO = iCmsSiteService.listByIds(commonBatchIdCommand.getIds());
+        List<CmsSiteVO> cmsSiteVOs = CmsSiteAppStructMapping.instance.cmsSiteDOsToCmsSiteVOs(cmsSiteDO);
+        return MultiResponse.of(cmsSiteVOs);
+    }
 	/**
 	 * 执行 站点 更新用详情查询指令
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CmsSiteVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CmsSiteVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CmsSiteDO byId = iCmsSiteService.getById(detailForUpdateCommand.getId());
 		CmsSiteVO cmsSiteVO = CmsSiteAppStructMapping.instance.cmsSiteDOToCmsSiteVO(byId);
 		return SingleResponse.of(cmsSiteVO);

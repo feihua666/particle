@@ -8,7 +8,7 @@ import com.particle.agi.client.agent.dto.command.representation.AgiAgentPageQuer
 import com.particle.agi.client.agent.dto.command.representation.AgiAgentQueryListCommand;
 import com.particle.agi.client.agent.dto.data.AgiAgentVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -53,7 +53,7 @@ public class AgiAgentAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除智能体")
     @DeleteMapping("/delete")
     @OpLog(name = "删除智能体",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-    public SingleResponse<AgiAgentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AgiAgentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAgiAgentApplicationService.delete(deleteCommand);
     }
@@ -70,14 +70,14 @@ public class AgiAgentAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:agiAgent:update')")
     @Operation(summary = "智能体更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<AgiAgentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<AgiAgentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iAgiAgentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:agiAgent:detail')")
     @Operation(summary = "智能体详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AgiAgentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AgiAgentVO> queryDetail(CommonIdCommand detailCommand){
         return iAgiAgentRepresentationApplicationService.queryDetail(detailCommand);
     }
 

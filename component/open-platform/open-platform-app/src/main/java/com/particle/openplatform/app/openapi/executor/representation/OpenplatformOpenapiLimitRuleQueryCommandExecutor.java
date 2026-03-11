@@ -2,7 +2,7 @@ package com.particle.openplatform.app.openapi.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiLimitRuleQueryCommandExecutor  extends AbstractB
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiLimitRuleVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiLimitRuleVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiLimitRuleDO byId = iOpenplatformOpenapiLimitRuleService.getById(detailCommand.getId());
 		OpenplatformOpenapiLimitRuleVO openplatformOpenapiLimitRuleVO = OpenplatformOpenapiLimitRuleAppStructMapping.instance.openplatformOpenapiLimitRuleDOToOpenplatformOpenapiLimitRuleVO(byId);
 		return SingleResponse.of(openplatformOpenapiLimitRuleVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiLimitRuleQueryCommandExecutor  extends AbstractB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiLimitRuleVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiLimitRuleVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiLimitRuleDO byId = iOpenplatformOpenapiLimitRuleService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiLimitRuleVO openplatformOpenapiLimitRuleVO = OpenplatformOpenapiLimitRuleAppStructMapping.instance.openplatformOpenapiLimitRuleDOToOpenplatformOpenapiLimitRuleVO(byId);
 		return SingleResponse.of(openplatformOpenapiLimitRuleVO);

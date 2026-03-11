@@ -1,17 +1,72 @@
 spring:
   freemarker:
+    # 是否启用模板缓存，生产环境建议为true以提高性能
+    # true: 启用缓存，模板编译后缓存，提升性能
+    # false: 不启用缓存，每次请求都重新编译模板，开发时便于调试
     cache: true
-    settings:
-      tag_syntax: auto_detect
-      default_encoding: UTF-8
-      url_escaping_charset: UTF-8
-      locale: zh_CN
-      boolean_format: true,false
-      datetime_format: yyyy-MM-dd HH:mm:ss
-      date_format: yyyy-MM-dd
-      time_format: HH:mm:ss
-      # 开启api调用，在获取map的key为数字时使用
-      api_builtin_enabled: true
+
+    # 请求上下文属性名称
+    # 在模板中可以通过此属性名访问HttpServletRequest对象
+    # 例如：${request.contextPath} 获取上下文路径
     request-context-attribute: request
-    # 默认为 classpath:/templates/
+
+    # 模板文件加载路径
+    # 支持多个路径，用逗号分隔，按顺序查找模板文件
+    # classpath:/templates/: 从类路径的templates目录加载（Spring Boot默认）
+    # file:/opt/particle/cms/templates/: 从文件系统的绝对路径加载
+    # 优先级：前面的路径优先查找，支持热更新（修改文件系统模板无需重启）
     template-loader-path: classpath:/templates/,file:/opt/particle/cms/templates/
+
+    settings:
+      # FreeMarker标签语法模式
+      # auto_detect: 自动检测标签语法(兼容<#...>和[@...])
+      # angle_bracket: 只使用<>标签语法
+      # square_bracket: 只使用[]标签语法
+      tag_syntax: auto_detect
+
+      # 模板文件的默认编码格式
+      # UTF-8: 支持多语言，推荐使用
+      default_encoding: UTF-8
+
+      # URL转义时使用的字符集
+      # 当使用?url内建函数进行URL编码时使用的字符集
+      url_escaping_charset: UTF-8
+
+      # 本地化设置（地区/语言）
+      # zh_CN: 简体中文，影响数字、日期等格式的本地化显示
+      locale: zh_CN
+
+      # 布尔值显示格式
+      # 第一个值为true的显示文本，第二个值为false的显示文本
+      # 默认为"true,false"，设置为"是,否"等中文显示
+      boolean_format: true,false
+
+      # 日期时间类型（LocalDateTime/Date等）的默认显示格式
+      # 当模板中直接输出日期时间对象时使用的格式
+      datetime_format: yyyy-MM-dd HH:mm:ss
+
+      # 日期类型（LocalDate/Date等）的默认显示格式
+      # 只包含日期部分的格式
+      date_format: yyyy-MM-dd
+
+      # 时间类型（LocalTime/Time等）的默认显示格式
+      # 只包含时间部分的格式
+      time_format: HH:mm:ss
+
+      # 启用API内置函数支持
+      # true: 允许在模板中使用Java Bean风格的API调用
+      # 例如：获取map中key为数字的项时，可以使用 map[1] 或 map.get(1)
+      # 当Map的key是数字时特别有用
+      api_builtin_enabled: true
+
+      # 模板异常处理方式，在默认情况下是debug，即有异常会直接写到页面中，但也会抛出异常，这将导致最终会让 /error 控制器处理，直接显示异常栈在页面上，响应状态吗为 200
+      # 为什么响应状态码为200，因为 debug 处理器会将异常信息写入到响应中，一旦写入，响应对应为提交状态，后续在 /error 控制器处理时修改状态码无效，而且再渲染视图也是追加数据，最终导致页面有异常栈信息，
+      # 配置FreeMarker模板引擎遇到错误时的处理策略
+      # 默认值：debug (FreeMarker默认为DEBUG_HANDLER，但在Spring Boot中通常建议使用rethrow)
+      # 可选值及其含义：
+      # rethrow: 直接抛出异常到上层处理器，适合生产环境
+      # ignore: 忽略异常，继续执行模板（不推荐）
+      # log: 记录异常日志但继续执行，适合生产环境
+      # debug: 记录详细调试信息，适合开发调试（FreeMarker默认值，但生产环境不推荐）
+      template_exception_handler: rethrow
+

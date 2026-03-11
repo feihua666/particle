@@ -2,7 +2,7 @@ package com.particle.feedback.app.reply.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.reply.structmapping.FeedbackReplyAttachmentAppStructMapping;
 import com.particle.feedback.client.reply.dto.command.representation.FeedbackReplyAttachmentPageQueryCommand;
 import com.particle.feedback.client.reply.dto.command.representation.FeedbackReplyAttachmentQueryListCommand;
@@ -57,7 +57,7 @@ public class FeedbackReplyAttachmentQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<FeedbackReplyAttachmentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<FeedbackReplyAttachmentVO> executeDetail(CommonIdCommand detailCommand) {
 		FeedbackReplyAttachmentDO byId = iFeedbackReplyAttachmentService.getById(detailCommand.getId());
 		FeedbackReplyAttachmentVO feedbackReplyAttachmentVO = FeedbackReplyAttachmentAppStructMapping.instance.feedbackReplyAttachmentDOToFeedbackReplyAttachmentVO(byId);
 		return SingleResponse.of(feedbackReplyAttachmentVO);
@@ -67,7 +67,7 @@ public class FeedbackReplyAttachmentQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FeedbackReplyAttachmentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<FeedbackReplyAttachmentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		FeedbackReplyAttachmentDO byId = iFeedbackReplyAttachmentService.getById(detailForUpdateCommand.getId());
 		FeedbackReplyAttachmentVO feedbackReplyAttachmentVO = FeedbackReplyAttachmentAppStructMapping.instance.feedbackReplyAttachmentDOToFeedbackReplyAttachmentVO(byId);
 		return SingleResponse.of(feedbackReplyAttachmentVO);

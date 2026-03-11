@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamicdata.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorCategoryAppStructMapping;
 import com.particle.data.app.dynamictable.executor.DynamicTableDeleteCommandExecutor;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryDataDeleteCommand;
@@ -14,11 +14,10 @@ import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataIndicatorDO;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorCategoryService;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorService;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableDO;
-import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.table.TableServivce;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class DynamicDataIndicatorCategoryDeleteCommandExecutor  extends Abstract
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DynamicDataIndicatorCategoryId dynamicDataIndicatorCategoryId = DynamicDataIndicatorCategoryId.of(deleteCommand.getId());
 		DynamicDataIndicatorCategory byId = dynamicDataIndicatorCategoryGateway.getById(dynamicDataIndicatorCategoryId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -66,7 +65,7 @@ public class DynamicDataIndicatorCategoryDeleteCommandExecutor  extends Abstract
                 // 删除动态表信息
                 DynamicTableDO byName = dynamicTableService.getByName(tableName);
                 if (byName != null) {
-                    dynamicTableDeleteCommandExecutor.execute(IdCommand.create(byName.getId()));
+                    dynamicTableDeleteCommandExecutor.execute(CommonIdCommand.create(byName.getId()));
                 }
             }else{
                 dynamicDataIndicatorCategoryGateway.dropTable(tableName);

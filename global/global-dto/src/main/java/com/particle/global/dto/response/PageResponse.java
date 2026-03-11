@@ -1,6 +1,6 @@
 package com.particle.global.dto.response;
 
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,48 +22,48 @@ public class PageResponse<T> extends Response {
 	/**
 	 * 默认分页条数
 	 */
-	private static int defaultPageSize = 10;
+	private static long defaultPageSize = 10;
 	/**
 	 * 默认当前页数
 	 */
-	private static int defaultPageNo = 1;
+	private static long defaultPageNo = 1;
 
 	/**
 	 * 总条数
 	 */
-	private int totalCount = 0;
+	private long totalCount = 0;
 
 	/**
 	 * 每页分页条数
 	 */
-	private int pageSize = defaultPageSize;
+	private long pageSize = defaultPageSize;
 
 	/**
 	 * 当前页数
 	 */
-	private int pageNo = defaultPageNo;
+	private long pageNo = defaultPageNo;
 
 	/**
 	 * 数据
 	 */
 	private Collection<T> data;
 
-	public int getTotalCount() {
+	public long getTotalCount() {
 		return totalCount;
 	}
 
-	public void setTotalCount(int totalCount) {
+	public void setTotalCount(long totalCount) {
 		this.totalCount = totalCount;
 	}
 
-	public int getPageSize() {
+	public long getPageSize() {
 		if (pageSize < 1) {
 			return 10;
 		}
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(long pageSize) {
 		if (pageSize < 1) {
 			this.pageSize = defaultPageSize;
 		} else {
@@ -71,14 +71,14 @@ public class PageResponse<T> extends Response {
 		}
 	}
 
-	public int getPageNo() {
+	public long getPageNo() {
 		if (pageNo < defaultPageNo) {
 			return defaultPageNo;
 		}
 		return pageNo;
 	}
 
-	public void setPageNo(int pageNo) {
+	public void setPageNo(long pageNo) {
 		if (pageNo < defaultPageNo) {
 			this.pageNo = defaultPageNo;
 		} else {
@@ -94,7 +94,7 @@ public class PageResponse<T> extends Response {
 		this.data = data;
 	}
 
-	public int getTotalPages() {
+	public long getTotalPages() {
 		return this.totalCount % this.pageSize == 0 ? this.totalCount
 				/ this.pageSize : (this.totalCount / this.pageSize) + 1;
 	}
@@ -124,7 +124,7 @@ public class PageResponse<T> extends Response {
 		response.setErrMessage(handleUserTip(errCodeGlobal,userTip));
 		return response;
 	}
-	public static <T> PageResponse<T> of(int pageSize, int pageNo) {
+	public static <T> PageResponse<T> of(long pageSize, long pageNo) {
 		PageResponse<T> response = new PageResponse<>();
 		response.setSuccess(true);
 		response.setData(Collections.emptyList());
@@ -134,7 +134,7 @@ public class PageResponse<T> extends Response {
 		return response;
 	}
 
-	public static <T> PageResponse<T> of(Collection<T> data, int totalCount, int pageSize, int pageNo) {
+	public static <T> PageResponse<T> of(Collection<T> data, long totalCount, long pageSize, long pageNo) {
 		PageResponse<T> response = new PageResponse<>();
 		response.setSuccess(true);
 		response.setData(data);

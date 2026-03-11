@@ -1,14 +1,16 @@
 package com.particle.role.adapter.login;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.global.dto.login.GrantedRole;
+import com.particle.global.dto.login.GrantedTenant;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.exception.ExceptionFactory;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
-import com.particle.global.security.security.login.GrantedRole;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.GrantedTenant;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.security.security.login.LoginTool;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.infrastructure.dos.RoleDO;
@@ -45,9 +47,8 @@ public class RoleLoginController {
 	private IRoleService iRoleService;
 
 	/**
-	 * 这里也提供一个角色切换接口，仅多一种选择
-	 * 参考{@link com.particle.user.adapter.login.UserLoginController#changeRole(IdCommand, LoginUser)}保持一致
-	 * @param idCommand
+	 * 角色切换
+	 * @param commonIdCommand
 	 * @param loginUser
 	 * @return
 	 */
@@ -55,13 +56,22 @@ public class RoleLoginController {
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/changeRole")
 	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser) {
+	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody CommonIdCommand commonIdCommand, @Parameter(hidden = true) LoginUser loginUser) {
 
-		loginUser.changeRole(idCommand.getId());
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null), Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null));
+		GrantedRole grantedRole = null;
+		List<GrantedRole> roles = loginUser.getRoles();
+		if (CollectionUtil.isNotEmpty( roles)) {
+			grantedRole = roles.stream().filter(item -> item.getId().equals(commonIdCommand.getId())).findFirst().orElse(null);
+		}
+		if (grantedRole == null) {
+			throw ExceptionFactory.bizException(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR,"切换角色失败，角色不存在");
+		}
+		loginUser.clearUserGrantedAuthorities();
+		Long defaultRoleId = commonIdCommand.getId();
+		abstractUserDetailsService.loginUserDetailsFillRoleAndAuthority(loginUser,defaultRoleId);
 
 		// 需要刷新一下权限，否则权限不会生效
-		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
+		LoginTool.refreshAuthorities(loginUser);
 		return SingleResponse.of(loginUser);
 	}
 

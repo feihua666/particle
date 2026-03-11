@@ -19,4 +19,4 @@ CREATE TABLE `component_data_company_ipr_trademark_pledge` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_company_ipr_trademark_id__data_md5` (`company_ipr_trademark_id`,`data_md5`) USING BTREE,
   KEY `company_ipr_trademark_id` (`company_ipr_trademark_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权商标质押信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权商标质押信息表';

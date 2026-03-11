@@ -1,10 +1,10 @@
 package com.particle.user.app.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.user.app.executor.UserExtraInfoCreateCommandExecutor;
 import com.particle.user.app.executor.UserExtraInfoDeleteCommandExecutor;
 import com.particle.user.app.executor.UserExtraInfoUpdateCommandExecutor;
 import com.particle.user.app.executor.UserExtraInfoCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.user.client.dto.command.UserExtraInfoUpdateCommand;
 import com.particle.user.client.api.IUserExtraInfoApplicationService;
 import com.particle.user.client.dto.command.UserExtraInfoCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class UserExtraInfoApplicationServiceImpl extends AbstractBaseApplication
     }
 
     @Override
-    public SingleResponse<UserExtraInfoVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<UserExtraInfoVO> delete(CommonIdCommand deleteCommand) {
         return userExtraInfoDeleteCommandExecutor.execute(deleteCommand);
     }
 

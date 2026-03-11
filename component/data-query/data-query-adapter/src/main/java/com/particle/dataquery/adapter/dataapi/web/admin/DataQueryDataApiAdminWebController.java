@@ -1,7 +1,7 @@
 package com.particle.dataquery.adapter.dataapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.dataapi.api.IDataQueryDataApiApplicationService;
 import com.particle.dataquery.client.dataapi.api.representation.IDataQueryDataApiRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除数据查询数据接口")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除数据查询数据接口",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
-	public SingleResponse<DataQueryDataApiVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataQueryDataApiVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:update')")
 	@Operation(summary = "数据查询数据接口更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DataQueryDataApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DataQueryDataApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDataQueryDataApiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:detail')")
 	@Operation(summary = "数据查询数据接口详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DataQueryDataApiVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DataQueryDataApiVO> queryDetail(CommonIdCommand detailCommand){
 		return iDataQueryDataApiRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -95,21 +95,21 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "数据查询数据接口复制")
 	@PostMapping("/copy")
 	@OpLog(name = "数据查询数据接口复制",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
-	public SingleResponse<DataQueryDataApiVO> copy(@RequestBody IdCommand copyCommand){
+	public SingleResponse<DataQueryDataApiVO> copy(@RequestBody CommonIdCommand copyCommand){
 		return iDataQueryDataApiApplicationService.copy(copyCommand);
 	}
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:copydev')")
 	@Operation(summary = "数据查询数据接口复制dev")
 	@PostMapping("/copydev")
 	@OpLog(name = "数据查询数据接口复制dev",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
-	public SingleResponse<DataQueryDataApiVO> copydev(@RequestBody IdCommand copyCommand){
+	public SingleResponse<DataQueryDataApiVO> copydev(@RequestBody CommonIdCommand copyCommand){
 		return iDataQueryDataApiApplicationService.copydev(copyCommand);
 	}
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:deleteCache')")
 	@Operation(summary = "删除数据查询数据接口缓存")
 	@DeleteMapping("/deleteCache")
 	@OpLog(name = "删除数据查询数据接口缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
-	public SingleResponse<String> deleteCache(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<String> deleteCache(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.deleteCache(deleteCommand);
 	}
 
@@ -117,7 +117,7 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "刷新数据查询数据接口缓存")
 	@PutMapping("/refreshCache")
 	@OpLog(name = "刷新数据查询数据接口缓存",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
-	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<String> refreshCache(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.refreshCache(deleteCommand);
 	}
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDataApi:refreshOpenapiExecuteProviderCache')")
@@ -132,7 +132,7 @@ public class DataQueryDataApiAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "dev合并到master")
 	@PutMapping("/devMergeToMaster")
 	@OpLog(name = "数据查询数据接口dev合并到master",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.update)
-	public SingleResponse<DataQueryDataApiVO> devMergeToMaster(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataQueryDataApiVO> devMergeToMaster(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryDataApiApplicationService.devMergeToMaster(deleteCommand);
 	}
 }

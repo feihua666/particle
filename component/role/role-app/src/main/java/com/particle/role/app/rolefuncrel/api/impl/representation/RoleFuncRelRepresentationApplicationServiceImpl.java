@@ -1,7 +1,7 @@
 package com.particle.role.app.rolefuncrel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -29,7 +29,7 @@ public class RoleFuncRelRepresentationApplicationServiceImpl extends AbstractBas
 	private RoleFuncRelQueryCommandExecutor roleFuncRelQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> queryDetail(IdCommand roleFuncRelQueryDetailCommand) {
+	public SingleResponse<RoleFuncRelVO> queryDetail(CommonIdCommand roleFuncRelQueryDetailCommand) {
 		return roleFuncRelQueryCommandExecutor.executeDetail(roleFuncRelQueryDetailCommand);
 	}
 
@@ -39,14 +39,14 @@ public class RoleFuncRelRepresentationApplicationServiceImpl extends AbstractBas
 	}
 
 	@Override
-	public MultiResponse<Long> queryFuncIdsByRoleId(IdCommand roleIdCommand) {
+	public MultiResponse<Long> queryFuncIdsByRoleId(CommonIdCommand roleCommonIdCommand) {
 
-		return roleFuncRelQueryCommandExecutor.queryFuncIdsByRoleId(roleIdCommand);
+		return roleFuncRelQueryCommandExecutor.queryFuncIdsByRoleId(roleCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryRoleIdsByFuncId(IdCommand funcIdCommand) {
-		return roleFuncRelQueryCommandExecutor.queryRoleIdsByFuncId(funcIdCommand);
+	public MultiResponse<Long> queryRoleIdsByFuncId(CommonIdCommand funcCommonIdCommand) {
+		return roleFuncRelQueryCommandExecutor.queryRoleIdsByFuncId(funcCommonIdCommand);
 	}
 
 	@Override

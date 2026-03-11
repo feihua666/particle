@@ -7,7 +7,7 @@ import com.particle.data.domain.company.DataCompanyAnnualReportWebsite;
 import com.particle.data.domain.company.DataCompanyAnnualReportWebsiteId;
 import com.particle.data.domain.company.gateway.DataCompanyAnnualReportWebsiteGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

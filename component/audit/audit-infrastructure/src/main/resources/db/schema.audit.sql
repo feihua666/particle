@@ -1,0 +1,3 @@
+-- import classpath:db/auditrecord/schema.component_audit_record.sql
+-- import classpath:db/auditrecord/schema.component_audit_record_snapshot_data.sql
+-- import classpath:db/auditrecord/schema.component_audit_record_snapshot_attachment.sql

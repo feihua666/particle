@@ -1,7 +1,7 @@
 package com.particle.crm.adapter.customer.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.crm.client.customer.api.ICrmCustomerContactApplicationService;
 import com.particle.crm.client.customer.api.representation.ICrmCustomerContactRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class CrmCustomerContactAdminWebController extends AbstractBaseWebAdapter
 	@Operation(summary = "删除客户联系方式")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除客户联系方式",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
-	public SingleResponse<CrmCustomerContactVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<CrmCustomerContactVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iCrmCustomerContactApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class CrmCustomerContactAdminWebController extends AbstractBaseWebAdapter
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerContact:update')")
 	@Operation(summary = "客户联系方式更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<CrmCustomerContactVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<CrmCustomerContactVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iCrmCustomerContactRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerContact:detail')")
 	@Operation(summary = "客户联系方式详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<CrmCustomerContactVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<CrmCustomerContactVO> queryDetail(CommonIdCommand detailCommand){
 		return iCrmCustomerContactRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

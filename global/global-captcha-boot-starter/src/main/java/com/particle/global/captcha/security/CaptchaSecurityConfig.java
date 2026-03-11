@@ -2,9 +2,14 @@ package com.particle.global.captcha.security;
 
 import com.particle.global.captcha.GlobalCaptchaAutoConfiguration;
 import com.particle.global.captcha.ICaptchaService;
+import com.particle.global.light.share.filter.FilterConstants;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.util.Arrays;
 
 /**
  * <p>
@@ -21,24 +26,39 @@ public class CaptchaSecurityConfig {
 
 	/**
 	 * 该配置不能放到 {@link GlobalCaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
-	 * 注意:如果Filter声明为一个Bean,则不需要定义为FilterRegistrationBean,也会被spring发现并添加,该方式无法定义拦截规则等,默认全局,慎用
+	 * 注意:如果Filter声明为一个Bean,则不需要定义为 FilterRegistrationBean,也会被spring发现并添加,该方式无法定义拦截规则等,默认全局,慎用
 	 * @return
 	 */
 	@Bean
-	public CaptchaSecurityFilter captchaSecurityFilter(ICaptchaService captchaService){
+	public CaptchaSecurityFilter captchaSecurityFilterBean(ICaptchaService captchaService){
 		CaptchaSecurityFilter captchaSecurityFilter = new CaptchaSecurityFilter();
 		captchaSecurityFilter.setCaptchaService(captchaService);
 		return captchaSecurityFilter;
 	}
 	/**
 	 * 该配置不能放到 {@link GlobalCaptchaAutoConfiguration} 中，因为该过滤器需要 验证码服务自动
-	 * 注意:如果Filter声明为一个Bean,则不需要定义为FilterRegistrationBean,也会被spring发现并添加,该方式无法定义拦截规则等,默认全局,慎用
+	 * 注意:如果Filter声明为一个Bean,则不需要定义为 FilterRegistrationBean,也会被spring发现并添加,该方式无法定义拦截规则等,默认全局,慎用
 	 * @return
 	 */
 	@Bean
-	public DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter(ICaptchaService captchaService){
+	public DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilterBean(ICaptchaService captchaService){
 		DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter = new DynamicCaptchaSecurityFilter();
 		dynamicCaptchaSecurityFilter.setCaptchaService(captchaService);
 		return dynamicCaptchaSecurityFilter;
+	}
+
+	@Bean
+	public FilterRegistrationBean captchaSecurityFilter(CaptchaSecurityFilter captchaSecurityFilter) {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(captchaSecurityFilter);
+		registrationBean.setEnabled(false);
+		return registrationBean;
+	}
+	@Bean
+	public FilterRegistrationBean dynamicCaptchaSecurityFilter(DynamicCaptchaSecurityFilter dynamicCaptchaSecurityFilter) {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(dynamicCaptchaSecurityFilter);
+		registrationBean.setEnabled(false);
+		return registrationBean;
 	}
 }

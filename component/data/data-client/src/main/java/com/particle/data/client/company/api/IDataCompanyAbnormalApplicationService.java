@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyAbnormalCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAbnormalUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAbnormalVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyAbnormalApplicationService extends IBaseApplication
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAbnormalVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyAbnormalVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -2,7 +2,7 @@ package com.particle.message.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.message.app.structmapping.MessageUserStateAppStructMapping;
 import com.particle.message.client.dto.command.MessageUserStateUpdateCommand;
 import com.particle.message.client.dto.data.MessageUserStateVO;

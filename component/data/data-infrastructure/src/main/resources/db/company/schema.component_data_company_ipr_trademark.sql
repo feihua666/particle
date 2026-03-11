@@ -36,4 +36,4 @@ CREATE TABLE `component_data_company_ipr_trademark` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `reg_no` (`reg_no`) USING BTREE,
   UNIQUE KEY `apply_no` (`apply_no`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权商标表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权商标表';

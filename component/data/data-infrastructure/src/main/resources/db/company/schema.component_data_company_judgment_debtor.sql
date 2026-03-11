@@ -27,4 +27,4 @@ CREATE TABLE `component_data_company_judgment_debtor` (
   KEY `case_no` (`case_no`) USING BTREE,
   UNIQUE KEY `uni_executed_person_company_id__data_md5` (`executed_person_company_id`,`data_md5`) USING BTREE,
   UNIQUE KEY `uni_executed_person_company_person_id__data_md5` (`executed_person_company_person_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业被执行人表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业被执行人表';

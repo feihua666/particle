@@ -1,7 +1,7 @@
 package com.particle.crm.client.customer.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerPageQueryCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerQueryListCommand;
 import com.particle.crm.client.customer.dto.data.CrmCustomerVO;
@@ -24,14 +24,14 @@ public interface ICrmCustomerRepresentationApplicationService extends IBaseAppli
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<CrmCustomerVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<CrmCustomerVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

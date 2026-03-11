@@ -35,7 +35,7 @@ public interface MysqlTableMapper {
             "    `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',\n" +
             "    `update_by` bigint DEFAULT NULL COMMENT '修改人',\n" +
             "    PRIMARY KEY (`id`) USING BTREE\n" +
-            "    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='${comment}'")
+            "    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='${comment}'")
     int createTable(@Param("tableName") String tableName,@Param("comment") String comment);
 
     @Update("DROP TABLE IF EXISTS `${tableName}`")

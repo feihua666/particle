@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2023-05-18 15:34:49
  */
-@FeignClient(name = "${particle.feign-client.name.message:message}",path = "/rpc/message_template")
+@FeignClient(name = "${particle.feign-client.message.name:message-start}", contextId = "messageTemplateRpcFeignClient", url = "${particle.feign-client.message.url:}", path = "/rpc/message_template")
 public interface MessageTemplateRpcFeignClient {
 
 

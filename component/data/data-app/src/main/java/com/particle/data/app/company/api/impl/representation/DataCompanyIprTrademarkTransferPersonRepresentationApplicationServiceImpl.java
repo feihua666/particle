@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyIprTrademarkTransferPersonRepresentationApplicationServi
     private DataCompanyIprTrademarkTransferPersonExWarehouseCommandExecutor dataCompanyIprTrademarkTransferPersonExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyIprTrademarkTransferPersonQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyIprTrademarkTransferPersonQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

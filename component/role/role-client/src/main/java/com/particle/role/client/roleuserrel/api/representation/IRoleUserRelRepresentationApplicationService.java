@@ -1,7 +1,7 @@
 package com.particle.role.client.roleuserrel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,7 +24,7 @@ public interface IRoleUserRelRepresentationApplicationService extends IBaseAppli
 	 * @param roleUserRelQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<RoleUserRelVO> queryDetail(IdCommand roleUserRelQueryDetailCommand);
+	SingleResponse<RoleUserRelVO> queryDetail(CommonIdCommand roleUserRelQueryDetailCommand);
 
 	/**
 	 * 列表查询
@@ -43,21 +43,21 @@ public interface IRoleUserRelRepresentationApplicationService extends IBaseAppli
 
 	/**
 	 * 查询角色已分配的用户id
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand);
+	public MultiResponse<Long> queryUserIdsByRoleId(CommonIdCommand roleCommonIdCommand);
 	/**
 	 * 角色类型字典id查询角色已分配的用户id
-	 * @param roleTypeDictIdCommand
+	 * @param roleTypeDictCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(IdCommand roleTypeDictIdCommand);
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(CommonIdCommand roleTypeDictCommonIdCommand);
 
 	/**
 	 * 查询用户已分配的角色id
-	 * @param userIdCommand
+	 * @param userCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByUserId(IdCommand userIdCommand);
+	public MultiResponse<Long> queryRoleIdsByUserId(CommonIdCommand userCommonIdCommand);
 }

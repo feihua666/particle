@@ -61,6 +61,8 @@ public class OpenapiClient extends DTO {
 	 * 归属客户id，预留
 	 */
 	private Long ownerCustomerId;
+
+
 	public static OpenapiClient create(String clientId,
 									   String secret,
 									   Boolean isCheckSignature,
@@ -78,6 +80,7 @@ public class OpenapiClient extends DTO {
 		openapiClient.isDisabled = isDisabled;
 		openapiClient.ownerUserId = ownerUserId;
 		openapiClient.ownerCustomerId = ownerCustomerId;
+
 		return openapiClient;
 	}
 }

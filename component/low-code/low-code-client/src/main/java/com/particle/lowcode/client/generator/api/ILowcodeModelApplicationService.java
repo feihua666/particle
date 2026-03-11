@@ -1,7 +1,7 @@
 package com.particle.lowcode.client.generator.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.client.generator.dto.command.LowcodeModelCreateCommand;
@@ -37,7 +37,7 @@ public interface ILowcodeModelApplicationService extends IBaseApplicationService
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<LowcodeModelVO> delete(IdCommand deleteCommand);
+	SingleResponse<LowcodeModelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

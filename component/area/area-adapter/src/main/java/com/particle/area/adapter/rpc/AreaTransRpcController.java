@@ -29,11 +29,6 @@ public class AreaTransRpcController extends AbstractBaseRpcAdapter implements Ar
 	private AreaTransServiceImpl areaTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return areaTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<AreaTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return areaTransService.transBatch(type, keys);
 	}

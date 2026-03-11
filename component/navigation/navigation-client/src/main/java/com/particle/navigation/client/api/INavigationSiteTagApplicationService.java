@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationSiteTagCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationSiteTagUpdateCommand;
@@ -27,7 +27,7 @@ public interface INavigationSiteTagApplicationService extends IBaseApplicationSe
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSiteTagVO> delete(IdCommand deleteCommand);
+	SingleResponse<NavigationSiteTagVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -1,7 +1,7 @@
 package com.particle.scheduler.adapter.schedule.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class SchedulerExecuteRecordAdminWebController extends AbstractBaseWebAda
     @Operation(summary = "删除任务计划执行记录")
     @DeleteMapping("/delete")
     @OpLog(name = "删除任务计划执行记录",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.delete)
-    public SingleResponse<SchedulerExecuteRecordVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<SchedulerExecuteRecordVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iSchedulerExecuteRecordApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class SchedulerExecuteRecordAdminWebController extends AbstractBaseWebAda
     @PreAuthorize("hasAuthority('admin:web:schedulerExecuteRecord:update')")
     @Operation(summary = "任务计划执行记录更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<SchedulerExecuteRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<SchedulerExecuteRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iSchedulerExecuteRecordRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:schedulerExecuteRecord:detail')")
     @Operation(summary = "任务计划执行记录详情展示")
     @GetMapping("/detail")
-    public SingleResponse<SchedulerExecuteRecordVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<SchedulerExecuteRecordVO> queryDetail(CommonIdCommand detailCommand){
         return iSchedulerExecuteRecordRepresentationApplicationService.queryDetail(detailCommand);
     }
 

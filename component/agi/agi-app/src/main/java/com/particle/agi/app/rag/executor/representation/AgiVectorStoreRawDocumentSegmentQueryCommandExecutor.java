@@ -6,7 +6,7 @@ import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentSegmentVO;
 import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentSegmentDO;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentSegmentService;
 import com.particle.agi.client.rag.dto.command.representation.AgiVectorStoreRawDocumentSegmentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiVectorStoreRawDocumentSegmentQueryCommandExecutor  extends Abstr
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiVectorStoreRawDocumentSegmentDO byId = iAgiVectorStoreRawDocumentSegmentService.getById(detailCommand.getId());
 		AgiVectorStoreRawDocumentSegmentVO agiVectorStoreRawDocumentSegmentVO = AgiVectorStoreRawDocumentSegmentAppStructMapping.instance.agiVectorStoreRawDocumentSegmentDOToAgiVectorStoreRawDocumentSegmentVO(byId);
 		return SingleResponse.of(agiVectorStoreRawDocumentSegmentVO);
@@ -67,7 +66,7 @@ public class AgiVectorStoreRawDocumentSegmentQueryCommandExecutor  extends Abstr
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiVectorStoreRawDocumentSegmentDO byId = iAgiVectorStoreRawDocumentSegmentService.getById(detailForUpdateCommand.getId());
 		AgiVectorStoreRawDocumentSegmentVO agiVectorStoreRawDocumentSegmentVO = AgiVectorStoreRawDocumentSegmentAppStructMapping.instance.agiVectorStoreRawDocumentSegmentDOToAgiVectorStoreRawDocumentSegmentVO(byId);
 		return SingleResponse.of(agiVectorStoreRawDocumentSegmentVO);

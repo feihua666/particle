@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAnnualReportAdministrativeLicenseAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportAdministrativeLicenseQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportAdministrativeLicenseVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportAdministrativeLicenseDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportAdministrativeLicenseService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportAdministrativeLicensePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportAdministrativeLicenseQueryCommandExecutor  e
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportAdministrativeLicenseDO byId = iDataCompanyAnnualReportAdministrativeLicenseService.getById(detailCommand.getId());
 		DataCompanyAnnualReportAdministrativeLicenseVO dataCompanyAnnualReportAdministrativeLicenseVO = DataCompanyAnnualReportAdministrativeLicenseAppStructMapping.instance.dataCompanyAnnualReportAdministrativeLicenseDOToDataCompanyAnnualReportAdministrativeLicenseVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportAdministrativeLicenseVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportAdministrativeLicenseQueryCommandExecutor  e
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportAdministrativeLicenseDO byId = iDataCompanyAnnualReportAdministrativeLicenseService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportAdministrativeLicenseVO dataCompanyAnnualReportAdministrativeLicenseVO = DataCompanyAnnualReportAdministrativeLicenseAppStructMapping.instance.dataCompanyAnnualReportAdministrativeLicenseDOToDataCompanyAnnualReportAdministrativeLicenseVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportAdministrativeLicenseVO);

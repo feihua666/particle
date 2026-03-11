@@ -3,13 +3,11 @@ package com.particle.agi.client.agent.api;
 import com.particle.agi.client.agent.dto.command.AgiAgentChatCommand;
 import com.particle.agi.client.agent.dto.data.AgiAgentChatResponseVO;
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.agi.client.agent.dto.command.AgiAgentCreateCommand;
 import com.particle.agi.client.agent.dto.command.AgiAgentUpdateCommand;
 import com.particle.agi.client.agent.dto.data.AgiAgentVO;
-import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Flux;
 
 /**
@@ -33,7 +31,7 @@ public interface IAgiAgentApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<AgiAgentVO> delete(IdCommand deleteCommand);
+	SingleResponse<AgiAgentVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

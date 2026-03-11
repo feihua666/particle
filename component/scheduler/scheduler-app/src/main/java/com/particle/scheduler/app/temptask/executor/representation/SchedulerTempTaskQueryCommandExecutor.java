@@ -2,7 +2,7 @@ package com.particle.scheduler.app.temptask.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class SchedulerTempTaskQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SchedulerTempTaskVO> executeDetail(CommonIdCommand detailCommand) {
 		SchedulerTempTaskDO byId = iSchedulerTempTaskService.getById(detailCommand.getId());
 		SchedulerTempTaskVO schedulerTempTaskVO = SchedulerTempTaskAppStructMapping.instance.schedulerTempTaskDOToSchedulerTempTaskVO(byId);
 		return SingleResponse.of(schedulerTempTaskVO);
@@ -67,7 +67,7 @@ public class SchedulerTempTaskQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SchedulerTempTaskVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SchedulerTempTaskDO byId = iSchedulerTempTaskService.getById(detailForUpdateCommand.getId());
 		SchedulerTempTaskVO schedulerTempTaskVO = SchedulerTempTaskAppStructMapping.instance.schedulerTempTaskDOToSchedulerTempTaskVO(byId);
 		return SingleResponse.of(schedulerTempTaskVO);

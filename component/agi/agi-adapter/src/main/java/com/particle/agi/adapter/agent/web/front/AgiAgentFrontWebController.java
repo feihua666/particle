@@ -6,7 +6,7 @@ import com.particle.agi.client.agent.dto.data.AgiAgentChatResponseVO;
 import com.particle.agi.client.agent.dto.data.AgiAgentVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.agi.client.agent.api.IAgiAgentApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +39,7 @@ public class AgiAgentFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:agiAgent:detail')")
 	@Operation(summary = "智能体详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<AgiAgentVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<AgiAgentVO> queryDetail(CommonIdCommand detailCommand){
 		return iAgiAgentRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

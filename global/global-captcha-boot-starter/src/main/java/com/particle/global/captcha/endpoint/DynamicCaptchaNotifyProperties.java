@@ -14,7 +14,7 @@ import java.util.Map;
  * @since 2023-05-25 09:28
  */
 @Data
-@ConfigurationProperties(prefix = "particle.dynamic-captcha")
+@ConfigurationProperties(prefix = "particle.global.dynamic-captcha")
 public class DynamicCaptchaNotifyProperties {
 	/**
 	 * key为场景值 即：{@link CaptchaGenCommand#captchaScene}

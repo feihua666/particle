@@ -6,8 +6,8 @@ import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
 import com.particle.feedback.client.feedback.dto.command.FeedbackCreateCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
 import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUserTool;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,8 @@ public class FeedbackFrontWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "添加意见反馈")
 	@PostMapping("/create")
 	@OpLog(name = "添加意见反馈",module = OpLogConstants.Module.feedback,type = OpLogConstants.Type.create)
-	public SingleResponse<FeedbackVO> create(@RequestBody FeedbackCreateCommand feedbackCreateCommand){
-		Long loginUserId = LoginUserTool.getLoginUserId();
+	public SingleResponse<FeedbackVO> create(@RequestBody FeedbackCreateCommand feedbackCreateCommand, LoginUser loginUser){
+		Long loginUserId = loginUser == null ? null : loginUser.getId();
 		feedbackCreateCommand.setFeedbackUserId(loginUserId);
 		return iFeedbackApplicationService.create(feedbackCreateCommand);
 	}

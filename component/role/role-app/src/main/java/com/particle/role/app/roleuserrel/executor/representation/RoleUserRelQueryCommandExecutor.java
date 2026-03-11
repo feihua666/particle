@@ -3,7 +3,7 @@ package com.particle.role.app.roleuserrel.executor.representation;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -62,7 +62,7 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param roleUserRelQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> executeDetail(IdCommand roleUserRelQueryDetailCommand) {
+	public SingleResponse<RoleUserRelVO> executeDetail(CommonIdCommand roleUserRelQueryDetailCommand) {
 		RoleUserRelDO byId = iRoleUserRelService.getById(roleUserRelQueryDetailCommand.getId());
 		RoleUserRelVO roleUserRelVO = RoleUserRelAppStructMapping.instance.roleUserRelDOToRoleUserRelVO(byId);
 		return SingleResponse.of(roleUserRelVO);
@@ -70,13 +70,13 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 
 	/**
 	 * 查询角色已分配的用户ids
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryUserIdsByRoleId(@Valid IdCommand roleIdCommand) {
+	public MultiResponse<Long> queryUserIdsByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
 
 		RoleUserRelQueryListCommand roleUserRelQueryListCommand = new RoleUserRelQueryListCommand();
-		roleUserRelQueryListCommand.setRoleId(roleIdCommand.getId());
+		roleUserRelQueryListCommand.setRoleId(roleCommonIdCommand.getId());
 		MultiResponse<RoleUserRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
 		if(roleUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getUserId).collect(Collectors.toList());
@@ -86,11 +86,11 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	}
 	/**
 	 * 查询角色类型已分配的用户ids
-	 * @param roleTypeDictIdCommand
+	 * @param roleTypeDictCommonIdCommand
 	 * @return 返回未禁用角色的用户ids
 	 */
-	public MultiResponse<Long> queryUserIdsByRoleTypeDictIdAndRoleEnabled(@Valid IdCommand roleTypeDictIdCommand) {
-		List<RoleDO> byRoleTypeDictId = iRoleService.listByRoleTypeDictId(roleTypeDictIdCommand.getId(), false);
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictIdAndRoleEnabled(@Valid CommonIdCommand roleTypeDictCommonIdCommand) {
+		List<RoleDO> byRoleTypeDictId = iRoleService.listByRoleTypeDictId(roleTypeDictCommonIdCommand.getId(), false);
 		List<Long> roleIds = byRoleTypeDictId.stream().map(RoleDO::getId).collect(Collectors.toList());
         if (CollectionUtil.isNotEmpty(roleIds)) {
 			List<RoleUserRelDO> roleUserRelDOS = iRoleUserRelService.getByRoleIds(roleIds);
@@ -102,13 +102,13 @@ public class RoleUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	}
 	/**
 	 * 查询用户已分配的角色ids
-	 * @param userIdCommand
+	 * @param userCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByUserId(@Valid IdCommand userIdCommand) {
+	public MultiResponse<Long> queryRoleIdsByUserId(@Valid CommonIdCommand userCommonIdCommand) {
 
 		RoleUserRelQueryListCommand roleUserRelQueryListCommand = new RoleUserRelQueryListCommand();
-		roleUserRelQueryListCommand.setUserId(userIdCommand.getId());
+		roleUserRelQueryListCommand.setUserId(userCommonIdCommand.getId());
 		MultiResponse<RoleUserRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
 		if(roleUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleUserRelVO::getRoleId).collect(Collectors.toList());

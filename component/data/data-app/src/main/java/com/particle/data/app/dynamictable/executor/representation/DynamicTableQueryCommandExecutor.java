@@ -1,5 +1,6 @@
 package com.particle.data.app.dynamictable.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamictable.structmapping.DynamicTableAppStructMapping;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableDataPageQueryCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableQueryListCommand;
@@ -9,7 +10,6 @@ import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldService;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTablePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.mybatis.plus.table.TableServivce;
@@ -63,7 +63,7 @@ public class DynamicTableQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicTableVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicTableDO byId = iDynamicTableService.getById(detailCommand.getId());
 		DynamicTableVO dynamicTableVO = DynamicTableAppStructMapping.instance.dynamicTableDOToDynamicTableVO(byId);
 		return SingleResponse.of(dynamicTableVO);
@@ -73,7 +73,7 @@ public class DynamicTableQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicTableVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicTableDO byId = iDynamicTableService.getById(detailForUpdateCommand.getId());
 		DynamicTableVO dynamicTableVO = DynamicTableAppStructMapping.instance.dynamicTableDOToDynamicTableVO(byId);
 		return SingleResponse.of(dynamicTableVO);

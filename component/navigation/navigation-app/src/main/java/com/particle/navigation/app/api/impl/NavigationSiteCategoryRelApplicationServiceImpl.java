@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -46,7 +46,7 @@ public class NavigationSiteCategoryRelApplicationServiceImpl extends AbstractBas
     }
 
     @Override
-    public SingleResponse<NavigationSiteCategoryRelVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<NavigationSiteCategoryRelVO> delete(CommonIdCommand deleteCommand) {
         return navigationSiteCategoryRelDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -67,13 +67,13 @@ public class NavigationSiteCategoryRelApplicationServiceImpl extends AbstractBas
     }
 
     @Override
-    public Response deleteByNavigationSiteId(IdCommand idCommand){
-        return navigationSiteCategoryRelDeleteCommandExecutor.deleteByNavigationSiteId(idCommand);
+    public Response deleteByNavigationSiteId(CommonIdCommand commonIdCommand){
+        return navigationSiteCategoryRelDeleteCommandExecutor.deleteByNavigationSiteId(commonIdCommand);
     }
 
     @Override
-    public Response deleteByNavigationCategoryId(IdCommand idCommand){
-        return navigationSiteCategoryRelDeleteCommandExecutor.deleteByNavigationCategoryId(idCommand);
+    public Response deleteByNavigationCategoryId(CommonIdCommand commonIdCommand){
+        return navigationSiteCategoryRelDeleteCommandExecutor.deleteByNavigationCategoryId(commonIdCommand);
     }
 
     @Autowired

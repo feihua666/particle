@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.providerrecord.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -40,14 +40,14 @@ public class OpenplatformProviderRecordParamAdminWebController extends AbstractB
 	@Operation(summary = "删除开放平台开放接口供应商调用记录参数")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口供应商调用记录参数",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformProviderRecordParamVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformProviderRecordParamVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformProviderRecordParamApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordParam:detail')")
 	@Operation(summary = "开放平台开放接口供应商调用记录参数详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformProviderRecordParamVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformProviderRecordParamVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformProviderRecordParamRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -55,7 +55,7 @@ public class OpenplatformProviderRecordParamAdminWebController extends AbstractB
 	@PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordParam:detail')")
 	@Operation(summary = "开放平台开放接口供应商调用记录参数详情展示1")
 	@GetMapping("/detailByOpenplatformProviderRecordId")
-	public SingleResponse<OpenplatformProviderRecordParamVO> detailByOpenplatformProviderRecordId(IdCommand detailCommand){
+	public SingleResponse<OpenplatformProviderRecordParamVO> detailByOpenplatformProviderRecordId(CommonIdCommand detailCommand){
 		return iOpenplatformProviderRecordParamRepresentationApplicationService.detailByOpenplatformProviderRecordId(detailCommand);
 	}
 

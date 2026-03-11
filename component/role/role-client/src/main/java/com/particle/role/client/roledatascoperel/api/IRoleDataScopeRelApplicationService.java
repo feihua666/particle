@@ -1,7 +1,7 @@
 package com.particle.role.client.roledatascoperel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.roledatascoperel.dto.command.DataScopeAssignRoleCommand;
@@ -30,7 +30,7 @@ public interface IRoleDataScopeRelApplicationService extends IBaseApplicationSer
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<RoleDataScopeRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<RoleDataScopeRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -56,16 +56,16 @@ public interface IRoleDataScopeRelApplicationService extends IBaseApplicationSer
 
 	/**
 	 * 根据角色id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByRoleId(IdCommand idCommand);
+	public Response deleteByRoleId(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 根据数据范围id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByDataScopeId(IdCommand idCommand);
+	public Response deleteByDataScopeId(CommonIdCommand commonIdCommand);
 
 }

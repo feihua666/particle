@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignGuar
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignGuaranteeDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignGuaranteeUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportForeignGuaranteeCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportForeignGuaranteeUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyAnnualReportForeignGuaranteeApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportForeignGuaranteeCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportForeignGuaranteeWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportForeignGuaranteeExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyAnnualReportForeignGuaranteeApplicationServiceImpl exten
     }
 
     @Override
-    public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyAnnualReportForeignGuaranteeDeleteCommandExecutor.execute(deleteCommand);
     }
 

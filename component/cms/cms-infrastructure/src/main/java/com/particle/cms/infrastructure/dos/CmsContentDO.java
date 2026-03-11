@@ -46,15 +46,45 @@ public class CmsContentDO extends BaseDO {
     */
     private String author;
 
+	/**
+	 * 作者介绍
+	 */
+	private String authorProfile;
+
     /**
     * 来源，原文，如果是原创，写原创即可
     */
     private String original;
 
+	/**
+	 * 原文地址
+	 */
+	private String originalUrl;
+
+	/**
+	 * 原文发布时间
+	 */
+	private LocalDateTime originalPublicAt;
+
     /**
     * 简介
     */
     private String profile;
+
+	/**
+	 * 摘要，一般用于详情页
+	 */
+	private String summary;
+
+	/**
+	 * 关键词，逗号分隔
+	 */
+	private String keywords;
+
+	/**
+	 * 标签，逗号分隔
+	 */
+	private String tags;
 
     /**
     * 审核状态，字典id
@@ -119,12 +149,22 @@ public class CmsContentDO extends BaseDO {
     /**
     * 内容静态页存放路径
     */
-    private String staticPath;
+    private String staticSavePath;
+
+	/**
+	 * 备注
+	 */
+	private String remark;
 
     /**
     * 页面访问量,页面展示次数
     */
     private Integer pv;
+
+	/**
+	 * 初始页面访问量,页面展示次数
+	 */
+	private Integer initPv;
 
     /**
     * 页面访问ip数,一天之内相同IP地址只被计算一次
@@ -135,6 +175,46 @@ public class CmsContentDO extends BaseDO {
     * 页面访问用户数,页面访问电脑客户端数,一天之内相同cookie的访问只被计算1次
     */
     private Integer uv;
+
+	/**
+	 * 文章字数,中文单字 + 英文单词
+	 */
+	private Integer wordCount;
+
+	/**
+	 * 阅读耗时
+	 */
+	private String readingDuration;
+
+	/**
+	 * 图表数量，图片表格数量
+	 */
+	private Integer imageTableCount;
+
+	/**
+	 * 引用数量，一般是正文标注的引用来源数量，如作者姓氏和年份
+	 */
+	private Integer citationCount;
+
+	/**
+	 * 参考文献数量，一般是文末列出的引用列表数量，如书名、期刊名、页码
+	 */
+	private Integer referenceCount;
+
+	/**
+	 * 是否也作为栏目使用
+	 */
+	private Boolean isAlsoAsChannel;
+
+	/**
+	 * 作为栏目使用时的排序
+	 */
+	private Integer alsoAsChannelSeq;
+
+	/**
+	 * 是否在列表中展示
+	 */
+	private String isShowInList;
 
     /**
     * 排序,默认按该字段升序排序

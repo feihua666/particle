@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyAnnualReportEquityChangeAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportEquityChangeVO;
 import com.particle.data.domain.company.DataCompanyAnnualReportEquityChange;
 import com.particle.data.domain.company.DataCompanyAnnualReportEquityChangeId;
 import com.particle.data.domain.company.gateway.DataCompanyAnnualReportEquityChangeGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportEquityChangeService;
-import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportEquityChangeDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyAnnualReportEquityChangeDeleteCommandExecutor  extends A
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyAnnualReportEquityChangeId dataCompanyAnnualReportEquityChangeId = DataCompanyAnnualReportEquityChangeId.of(deleteCommand.getId());
 		DataCompanyAnnualReportEquityChange byId = dataCompanyAnnualReportEquityChangeGateway.getById(dataCompanyAnnualReportEquityChangeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

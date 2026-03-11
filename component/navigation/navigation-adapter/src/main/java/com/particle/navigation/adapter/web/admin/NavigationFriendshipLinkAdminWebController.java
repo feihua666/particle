@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class NavigationFriendshipLinkAdminWebController extends AbstractBaseWebA
     @Operation(summary = "删除导航友情链接")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航友情链接",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationFriendshipLinkVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationFriendshipLinkVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationFriendshipLinkApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class NavigationFriendshipLinkAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:navigationFriendshipLink:update')")
     @Operation(summary = "导航友情链接更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationFriendshipLinkVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationFriendshipLinkVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationFriendshipLinkRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationFriendshipLink:detail')")
     @Operation(summary = "导航友情链接详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationFriendshipLinkVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationFriendshipLinkVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationFriendshipLinkRepresentationApplicationService.queryDetail(detailCommand);
     }
 

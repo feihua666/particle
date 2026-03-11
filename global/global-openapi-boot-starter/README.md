@@ -24,7 +24,8 @@
 
 ```yaml
 particle:
-  openapi:
+  global:
+    openapi:
     # 开放接口相关配置
 ```
 

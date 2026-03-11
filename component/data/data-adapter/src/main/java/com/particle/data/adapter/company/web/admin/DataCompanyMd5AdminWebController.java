@@ -1,7 +1,7 @@
 package com.particle.data.adapter.company.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.data.client.company.api.IDataCompanyMd5ApplicationService;
@@ -52,7 +52,7 @@ public class DataCompanyMd5AdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除企业md5")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业md5",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyMd5VO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyMd5VO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyMd5ApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class DataCompanyMd5AdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5:update')")
     @Operation(summary = "企业md5更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyMd5VO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyMd5VO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyMd5RepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyMd5:detail')")
     @Operation(summary = "企业md5详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyMd5VO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyMd5VO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyMd5RepresentationApplicationService.queryDetail(detailCommand);
     }
 

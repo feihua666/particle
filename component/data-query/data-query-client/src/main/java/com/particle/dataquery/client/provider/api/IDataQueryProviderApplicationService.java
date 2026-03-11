@@ -1,7 +1,7 @@
 package com.particle.dataquery.client.provider.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.provider.dto.command.DataQueryProviderCreateCommand;
 import com.particle.dataquery.client.provider.dto.command.DataQueryProviderUpdateCommand;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
@@ -28,7 +28,7 @@ public interface IDataQueryProviderApplicationService extends IBaseApplicationSe
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryProviderVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataQueryProviderVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

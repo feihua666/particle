@@ -1,4 +1,5 @@
 mybatis-plus:
+  printWarnLogIfNotFoundMappers: false
   # classpath*:/mapper/**/*.xml 为默认值
   mapper-locations: classpath*:/mapper/**/*.xml
   global-config:

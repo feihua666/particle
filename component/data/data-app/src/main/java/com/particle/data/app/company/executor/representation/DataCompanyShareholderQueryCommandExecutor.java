@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyShareholderVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyShareholderDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyShareholderService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyShareholderPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyShareholderQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyShareholderVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyShareholderVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyShareholderDO byId = iDataCompanyShareholderService.getById(detailCommand.getId());
 		DataCompanyShareholderVO dataCompanyShareholderVO = DataCompanyShareholderAppStructMapping.instance.dataCompanyShareholderDOToDataCompanyShareholderVO(byId);
 		return SingleResponse.of(dataCompanyShareholderVO);
@@ -67,7 +66,7 @@ public class DataCompanyShareholderQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyShareholderVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyShareholderVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyShareholderDO byId = iDataCompanyShareholderService.getById(detailForUpdateCommand.getId());
 		DataCompanyShareholderVO dataCompanyShareholderVO = DataCompanyShareholderAppStructMapping.instance.dataCompanyShareholderDOToDataCompanyShareholderVO(byId);
 		return SingleResponse.of(dataCompanyShareholderVO);

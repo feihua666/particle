@@ -1,9 +1,8 @@
 package com.particle.data.client.dynamictable.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordCreateCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordUpdateCommand;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableUploadRecordVO;
@@ -28,7 +27,7 @@ public interface IDynamicTableUploadRecordApplicationService extends IBaseApplic
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DynamicTableUploadRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<DynamicTableUploadRecordVO> delete(CommonIdCommand deleteCommand);
 
 
 	/**
@@ -43,5 +42,5 @@ public interface IDynamicTableUploadRecordApplicationService extends IBaseApplic
      * @param publishCommand
      * @return
      */
-    SingleResponse<DynamicTableUploadRecordVO> publish(IdCommand publishCommand);
+    SingleResponse<DynamicTableUploadRecordVO> publish(CommonIdCommand publishCommand);
 }

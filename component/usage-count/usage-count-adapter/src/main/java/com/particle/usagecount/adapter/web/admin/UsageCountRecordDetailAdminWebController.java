@@ -1,7 +1,7 @@
 package com.particle.usagecount.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -41,14 +41,14 @@ public class UsageCountRecordDetailAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除使用次数记录明细")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除使用次数记录明细",module = OpLogConstants.Module.usageCount,type = OpLogConstants.Type.delete)
-	public SingleResponse<UsageCountRecordDetailVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<UsageCountRecordDetailVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iUsageCountRecordDetailApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:usageCountRecordDetail:detail')")
 	@Operation(summary = "使用次数记录明细详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UsageCountRecordDetailVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<UsageCountRecordDetailVO> queryDetail(CommonIdCommand detailCommand){
 		return iUsageCountRecordDetailRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

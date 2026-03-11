@@ -19,4 +19,4 @@ CREATE TABLE `component_usage_count_record_detail` (
   KEY `usage_tenant_id` (`usage_tenant_id`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='使用次数记录明细表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='使用次数记录明细表';

@@ -24,14 +24,26 @@ public class CmsContentDirectivePageQueryCommand extends CmsDirectivePageQueryCo
     @Schema(description = "栏目id")
     private Long cmsChannelId;
 
+    @Schema(description = "是否使用 is null 查询 id字段,如果为true,则查询 id 为 null 的记录，id 字段不要赋值")
+    private Boolean isChannelIdNull;
+
     @Schema(description = "内容分类id")
     private Long cmsContentCategoryId;
 
+
+    @Schema(description = "是否也作为栏目使用")
+    private Boolean isAlsoAsChannel;
+
+    @Schema(description = "是否发布")
+    private Boolean isPublic;
     public static CmsContentDirectivePageQueryCommand create(CmsDirectivePageQueryCommand pageQueryCommand,
                                                              Long id,
                                                              Long cmsSiteId,
                                                              Long cmsChannelId,
-                                                             Long cmsContentCategoryId) {
+                                                             Boolean isChannelIdNull,
+                                                             Long cmsContentCategoryId,
+                                                             Boolean isAlsoAsChannel,
+                                                             Boolean isPublic) {
         CmsContentDirectivePageQueryCommand cmsSiteDirectivePageQueryCommand = new CmsContentDirectivePageQueryCommand();
         cmsSiteDirectivePageQueryCommand.setIsPage(pageQueryCommand.getIsPage());
         cmsSiteDirectivePageQueryCommand.setPageNo(pageQueryCommand.getPageNo());
@@ -42,7 +54,10 @@ public class CmsContentDirectivePageQueryCommand extends CmsDirectivePageQueryCo
         cmsSiteDirectivePageQueryCommand.setId(id);
         cmsSiteDirectivePageQueryCommand.setCmsSiteId(cmsSiteId);
         cmsSiteDirectivePageQueryCommand.setCmsChannelId(cmsChannelId);
+        cmsSiteDirectivePageQueryCommand.setIsChannelIdNull(isChannelIdNull);
         cmsSiteDirectivePageQueryCommand.setCmsContentCategoryId(cmsContentCategoryId);
+        cmsSiteDirectivePageQueryCommand.setIsAlsoAsChannel(isAlsoAsChannel);
+        cmsSiteDirectivePageQueryCommand.setIsPublic(isPublic);
         return cmsSiteDirectivePageQueryCommand;
     }
 }

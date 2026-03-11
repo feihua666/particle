@@ -6,12 +6,11 @@ import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkAppStr
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyIprTrademarkExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprTrademarkExWarehouseVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkDO;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkDO;
 import com.particle.data.infrastructure.company.dto.DataCompanyIprTrademarkListPageByCompanyIdParam;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkService;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,8 @@ import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam} from "../../../../../../common/api/api";
 
-let openplatformProviderRecordPrefix = '/admin/web/openplatform_provider_record'
+import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_OPEN_PLATFORM) + '/admin/web/openplatform_provider_record'
 
 let openplatformProviderRecordParamPrefix = '/admin/web/openplatform_provider_record_param'
 
@@ -11,7 +12,7 @@ let openplatformProviderRecordParamPrefix = '/admin/web/openplatform_provider_re
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(openplatformProviderRecordPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 
 /**
@@ -19,14 +20,14 @@ export const remove = (data: IdParam): AxiosPromise => {
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(openplatformProviderRecordPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(openplatformProviderRecordPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
 /**

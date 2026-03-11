@@ -8,7 +8,7 @@ import com.particle.dataconstraint.domain.DataScope;
 import com.particle.dataconstraint.domain.DataScopeId;
 import com.particle.dataconstraint.domain.gateway.DataScopeGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

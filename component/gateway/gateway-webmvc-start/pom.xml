@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.particle</groupId>
+        <artifactId>gateway</artifactId>
+        <version>6.0.1-beta-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>gateway-webmvc-start</artifactId>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway-server-webmvc</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 监控相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-actuator-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 版本已在 spring-boot-starter-parent 中定义 -->
+        <!-- 主要实现在 feign 调用时传递 traceId 信息 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-bootstrap-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-logging-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 测试依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-test</artifactId>
+            <version>${particle.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-autoconfigure-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 通知相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ********** 一般在启动模块添加 *********** 开始 -->
+        <!-- web全局异常处理 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-exception-handle-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 通知相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 网关中暂不需要 web访问安全 -->
+        <!--<dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-filter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-mvc-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 网关中暂不需要 session -->
+        <!--<dependency>-->
+        <!--    <groupId>com.particle</groupId>-->
+        <!--    <artifactId>global-session-boot-starter</artifactId>-->
+        <!--    <version>${particle.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- 网关中暂不需要 接口文档 -->
+        <!--<dependency>-->
+        <!--    <groupId>com.particle</groupId>-->
+        <!--    <artifactId>global-swagger-boot-starter</artifactId>-->
+        <!--    <version>${particle.version}</version>-->
+        <!--</dependency>-->
+        <!-- ********** 一般在启动模块添加 *********** 结束 -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

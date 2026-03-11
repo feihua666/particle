@@ -161,7 +161,7 @@ export const funcColumns = [
     },
     {
         prop: 'seq',
-        label: '排序',
+        label: '排序↑',
         width: 60,
     },
     {

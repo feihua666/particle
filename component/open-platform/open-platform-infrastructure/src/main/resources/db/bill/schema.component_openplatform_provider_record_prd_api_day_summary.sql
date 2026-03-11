@@ -23,4 +23,4 @@ CREATE TABLE `component_openplatform_provider_record_prd_api_day_summary` (
   KEY `day_at` (`day_at`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放平台供应商接口日汇总表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='开放平台供应商接口日汇总表';

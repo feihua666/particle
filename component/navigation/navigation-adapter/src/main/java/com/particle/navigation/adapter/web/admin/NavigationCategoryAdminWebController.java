@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class NavigationCategoryAdminWebController extends AbstractBaseWebAdapter
     @Operation(summary = "删除导航分类")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航分类",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationCategoryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationCategoryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationCategoryApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class NavigationCategoryAdminWebController extends AbstractBaseWebAdapter
     @PreAuthorize("hasAuthority('admin:web:navigationCategory:update')")
     @Operation(summary = "导航分类更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationCategoryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationCategoryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationCategoryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationCategory:detail')")
     @Operation(summary = "导航分类详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationCategoryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationCategoryVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationCategoryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

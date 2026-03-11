@@ -2,7 +2,7 @@ package com.particle.user.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class UserQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param userQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> executeDetail(IdCommand userQueryDetailCommand) {
+	public SingleResponse<UserVO> executeDetail(CommonIdCommand userQueryDetailCommand) {
 		UserDO byId = iUserService.getById(userQueryDetailCommand.getId());
 		UserVO userVO = UserAppStructMapping.instance.userDOToUserVO(byId);
 		return SingleResponse.of(userVO);
@@ -67,7 +67,7 @@ public class UserQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param userQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UserVO> executeDetailForUpdate(IdCommand userQueryDetailForUpdateCommand) {
+	public SingleResponse<UserVO> executeDetailForUpdate(CommonIdCommand userQueryDetailForUpdateCommand) {
 		UserDO byId = iUserService.getById(userQueryDetailForUpdateCommand.getId());
 		UserVO userVO = UserAppStructMapping.instance.userDOToUserVO(byId);
 		return SingleResponse.of(userVO);

@@ -16,4 +16,4 @@ CREATE TABLE `component_admin_component_dependency` (
   UNIQUE KEY `uni_component_id__depend_component_id` (`component_id`,`depend_component_id`),
   KEY `component_id` (`component_id`) USING BTREE,
   KEY `depend_component_id` (`depend_component_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='组件依赖关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='组件依赖关系表';

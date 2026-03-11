@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAdministrativeLicenseAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAdministrativeLicenseQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAdministrativeLicenseVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAdministrativeLicenseDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAdministrativeLicenseService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAdministrativeLicensePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAdministrativeLicenseQueryCommandExecutor  extends Abstr
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAdministrativeLicenseVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAdministrativeLicenseVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAdministrativeLicenseDO byId = iDataCompanyAdministrativeLicenseService.getById(detailCommand.getId());
 		DataCompanyAdministrativeLicenseVO dataCompanyAdministrativeLicenseVO = DataCompanyAdministrativeLicenseAppStructMapping.instance.dataCompanyAdministrativeLicenseDOToDataCompanyAdministrativeLicenseVO(byId);
 		return SingleResponse.of(dataCompanyAdministrativeLicenseVO);
@@ -67,7 +66,7 @@ public class DataCompanyAdministrativeLicenseQueryCommandExecutor  extends Abstr
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAdministrativeLicenseVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAdministrativeLicenseVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAdministrativeLicenseDO byId = iDataCompanyAdministrativeLicenseService.getById(detailForUpdateCommand.getId());
 		DataCompanyAdministrativeLicenseVO dataCompanyAdministrativeLicenseVO = DataCompanyAdministrativeLicenseAppStructMapping.instance.dataCompanyAdministrativeLicenseDOToDataCompanyAdministrativeLicenseVO(byId);
 		return SingleResponse.of(dataCompanyAdministrativeLicenseVO);

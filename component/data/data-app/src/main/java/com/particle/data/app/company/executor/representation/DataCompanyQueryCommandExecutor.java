@@ -2,7 +2,7 @@ package com.particle.data.app.company.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyQueryListCommand;
@@ -57,7 +57,7 @@ public class DataCompanyQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyDO byId = iDataCompanyService.getById(detailCommand.getId());
 		DataCompanyVO dataCompanyVO = DataCompanyAppStructMapping.instance.dataCompanyDOToDataCompanyVO(byId);
 		return SingleResponse.of(dataCompanyVO);
@@ -67,7 +67,7 @@ public class DataCompanyQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyDO byId = iDataCompanyService.getById(detailForUpdateCommand.getId());
 		DataCompanyVO dataCompanyVO = DataCompanyAppStructMapping.instance.dataCompanyDOToDataCompanyVO(byId);
 		return SingleResponse.of(dataCompanyVO);

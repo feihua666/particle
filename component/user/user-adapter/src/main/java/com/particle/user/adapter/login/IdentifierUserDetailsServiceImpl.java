@@ -1,11 +1,13 @@
 package com.particle.user.adapter.login;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import com.particle.global.dto.login.PasswordInfo;
+import com.particle.global.dto.login.UserIdentifierInfo;
 import com.particle.global.security.security.PasswordEncryptEnum;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.PasswordInfo;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.security.security.login.SecurityLoginUser;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.user.infrastructure.dos.UserDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierDO;
 import com.particle.user.infrastructure.identifier.dos.UserIdentifierPwdDO;
@@ -19,10 +21,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * 这个bean如果放到配置文件中通过bean注解方式会导致其依赖的注入为空
+ * 这个 bean 如果放到配置文件中通过 bean 注解方式会导致其依赖的注入为空
  * Created by yangwei
  * Created at 2020/12/10 20:59
  */
@@ -30,7 +33,6 @@ import java.util.Optional;
 @Service
 public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService {
 
-    public static String user_ext_identifier_key ="userIdentifier";
 
     @Autowired
     private IUserIdentifierService iIdentifierService;
@@ -42,7 +44,7 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
     private IUserService iUserService;
 
     @Override
-    public LoginUser doLoadUserByUsername(String username) throws UsernameNotFoundException {
+    public SecurityLoginUser doLoadUserByUsername(String username) throws UsernameNotFoundException {
 
         UserIdentifierDO userIdentifierDO = iIdentifierService.getByIdentifier(username);
         if (userIdentifierDO == null) {
@@ -68,7 +70,7 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
                 userIdentifierPwdDO = userIdentifierPwdDOS.iterator().next();
             }
         }
-        LoginUser loginUser = new LoginUser();
+        SecurityLoginUser loginUser = new SecurityLoginUser();
 
         // 帐号信息
         loginUser.setNickname(userDO.getNickname());
@@ -108,8 +110,25 @@ public class IdentifierUserDetailsServiceImpl extends AbstractUserDetailsService
                         userIdentifierPwdDO.getComplexity()
                 ));
 
+        loginUser.setIdentifierInfo(
 
-        loginUser.addExt(user_ext_identifier_key, userIdentifierDO);
+                UserIdentifierInfo.create(
+                        userIdentifierDO.getId(),
+                        userIdentifierDO.getUserId(),
+                        userIdentifierDO.getIdentifier(),
+                        userIdentifierDO.getIdentityTypeDictId(),
+                        userIdentifierDO.getIsLock(),
+                        userIdentifierDO.getLockReason(),
+                        userIdentifierDO.getUnionId(),
+                        userIdentifierDO.getIsExpired(),
+                        userIdentifierDO.getExpiredReason(),
+                        userIdentifierDO.getExpireAt(),
+                        userIdentifierDO.getGroupFlag(),
+                        userIdentifierDO.getLastLoginAt(),
+                        userIdentifierDO.getLastLoginIp()
+                )
+        );
+
         return loginUser;
     }
 

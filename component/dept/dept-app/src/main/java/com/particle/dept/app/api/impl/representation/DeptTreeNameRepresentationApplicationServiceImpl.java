@@ -1,7 +1,7 @@
 package com.particle.dept.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.executor.representation.DeptTreeNameQueryCommandExecutor;
 import com.particle.dept.client.api.representation.IDeptTreeNameRepresentationApplicationService;
 import com.particle.dept.client.dto.command.representation.DeptTreeNamePageQueryCommand;
@@ -28,12 +28,12 @@ public class DeptTreeNameRepresentationApplicationServiceImpl extends AbstractBa
     private DeptTreeNameQueryCommandExecutor deptTreeNameQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DeptTreeNameVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DeptTreeNameVO> queryDetail(CommonIdCommand detailCommand) {
         return deptTreeNameQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DeptTreeNameVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DeptTreeNameVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return deptTreeNameQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

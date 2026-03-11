@@ -14,7 +14,7 @@ import jakarta.servlet.ServletRequest;
 public interface SecurityFilterPersistentLoginUserReadyListener {
 
 	/**
-	 * 可以通过 {@link LoginUserTool} 获取登录用户
+	 * 可以通过 {@link com.particle.global.tool.login.LoginUserTool} 获取登录用户
 	 * @param request
 	 */
 	void onLoginUserReady(ServletRequest request);

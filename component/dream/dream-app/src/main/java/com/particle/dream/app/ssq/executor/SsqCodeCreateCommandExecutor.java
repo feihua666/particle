@@ -12,7 +12,7 @@ import com.particle.global.domain.DomainFactory;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.Assert;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

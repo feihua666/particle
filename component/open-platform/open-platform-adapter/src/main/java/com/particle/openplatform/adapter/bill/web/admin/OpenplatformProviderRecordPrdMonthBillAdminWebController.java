@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.bill.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformProviderRecordPrdMonthBillAdminWebController extends Ab
     @Operation(summary = "删除开放平台供应商月账单")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台供应商月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderRecordPrdMonthBillApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformProviderRecordPrdMonthBillAdminWebController extends Ab
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdMonthBill:update')")
     @Operation(summary = "开放平台供应商月账单更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformProviderRecordPrdMonthBillRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdMonthBill:detail')")
     @Operation(summary = "开放平台供应商月账单详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformProviderRecordPrdMonthBillRepresentationApplicationService.queryDetail(detailCommand);
     }
 

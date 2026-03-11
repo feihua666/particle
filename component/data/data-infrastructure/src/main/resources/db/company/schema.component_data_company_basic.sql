@@ -74,4 +74,4 @@ CREATE TABLE `component_data_company_basic` (
   KEY `status_dict_id` (`status_dict_id`) USING BTREE,
   KEY `is_listed` (`is_listed`) USING BTREE,
   KEY `establish_date` (`establish_date`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业基本信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业基本信息表';

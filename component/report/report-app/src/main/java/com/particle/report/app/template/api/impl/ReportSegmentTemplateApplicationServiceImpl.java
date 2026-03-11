@@ -1,7 +1,7 @@
 package com.particle.report.app.template.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.report.app.template.executor.ReportSegmentTemplateCopyCommandExecutor;
@@ -49,7 +49,7 @@ public class ReportSegmentTemplateApplicationServiceImpl extends AbstractBaseApp
 	}
 
 	@Override
-	public SingleResponse<ReportSegmentTemplateVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<ReportSegmentTemplateVO> delete(CommonIdCommand deleteCommand) {
 		return reportSegmentTemplateDeleteCommandExecutor.execute(deleteCommand);
 	}
 
@@ -59,8 +59,8 @@ public class ReportSegmentTemplateApplicationServiceImpl extends AbstractBaseApp
 	}
 
 	@Override
-	public SingleResponse<String> refreshCache(IdCommand idCommand) {
-		return reportSegmentTemplateUpdateCommandExecutor.refreshCache(idCommand);
+	public SingleResponse<String> refreshCache(CommonIdCommand commonIdCommand) {
+		return reportSegmentTemplateUpdateCommandExecutor.refreshCache(commonIdCommand);
 	}
 
 	@Autowired

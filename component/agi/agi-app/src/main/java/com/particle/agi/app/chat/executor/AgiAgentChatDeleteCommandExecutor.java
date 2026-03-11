@@ -1,21 +1,19 @@
 package com.particle.agi.app.chat.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.agi.app.chat.structmapping.AgiAgentChatAppStructMapping;
 import com.particle.agi.client.chat.dto.data.AgiAgentChatVO;
 import com.particle.agi.domain.chat.AgiAgentChat;
 import com.particle.agi.domain.chat.AgiAgentChatId;
 import com.particle.agi.domain.chat.gateway.AgiAgentChatGateway;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatService;
-import com.particle.agi.infrastructure.chat.dos.AgiAgentChatDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class AgiAgentChatDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<AgiAgentChatVO> execute(@Valid CommonIdCommand deleteCommand) {
 		AgiAgentChatId agiAgentChatId = AgiAgentChatId.of(deleteCommand.getId());
 		AgiAgentChat byId = agiAgentChatGateway.getById(agiAgentChatId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

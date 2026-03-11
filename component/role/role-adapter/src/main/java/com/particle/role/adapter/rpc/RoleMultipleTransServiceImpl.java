@@ -6,6 +6,7 @@ import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
 import com.particle.component.light.share.role.RoleTransVO;
+import com.particle.role.adapter.feign.client.rpc.RoleMultipleTransRpcFeignClient;
 import com.particle.role.infrastructure.dos.RoleDO;
 import com.particle.role.infrastructure.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class RoleMultipleTransServiceImpl implements ITransService<List<RoleTran
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_ROLE_BY_USER_ID);
+        return RoleMultipleTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

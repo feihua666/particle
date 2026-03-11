@@ -39,6 +39,8 @@ public class GlobalFreemarkerAutoConfiguration {
         }
         configuration.setSharedVariable("contextPath", contextPath);
         configuration.setSharedVariable("contextPathSimple", "/".equals(contextPath) ? null : contextPath);
+        configuration.setSharedVariable("contextPathSimple", "/".equals(contextPath) ? null : contextPath);
+
         // 设置 ObjectWrapper 并启用 useAdaptersForContainers
         DefaultObjectWrapperBuilder owb = new DefaultObjectWrapperBuilder(freemarker.template.Configuration.VERSION_2_3_0);
         owb.setUseAdaptersForContainers(true);

@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationCategoryAppStructMapping;
 import com.particle.navigation.client.dto.command.NavigationCategoryUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationCategoryVO;

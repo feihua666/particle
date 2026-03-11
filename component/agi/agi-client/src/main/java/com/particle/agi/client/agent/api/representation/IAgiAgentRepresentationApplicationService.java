@@ -1,7 +1,7 @@
 package com.particle.agi.client.agent.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface IAgiAgentRepresentationApplicationService extends IBaseApplicat
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<AgiAgentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<AgiAgentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<AgiAgentVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<AgiAgentVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

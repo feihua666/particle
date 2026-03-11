@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.executor.representation.DataScopeCustomDataRelQueryCommandExecutor;
 import com.particle.dataconstraint.client.api.representation.IDataScopeCustomDataRelRepresentationApplicationService;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelPageQueryCommand;
@@ -28,12 +28,12 @@ public class DataScopeCustomDataRelRepresentationApplicationServiceImpl extends 
     private DataScopeCustomDataRelQueryCommandExecutor dataScopeCustomDataRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DataScopeCustomDataRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataScopeCustomDataRelVO> queryDetail(CommonIdCommand detailCommand) {
         return dataScopeCustomDataRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataScopeCustomDataRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -43,8 +43,8 @@ public class DataScopeCustomDataRelRepresentationApplicationServiceImpl extends 
     }
 
     @Override
-    public MultiResponse<Long> queryCustomDataIdsByDataScopeId(IdCommand dataScopeIdCommand) {
-        return dataScopeCustomDataRelQueryCommandExecutor.queryCustomDataIdsByDataScopeId(dataScopeIdCommand);
+    public MultiResponse<Long> queryCustomDataIdsByDataScopeId(CommonIdCommand dataScopeCommonIdCommand) {
+        return dataScopeCustomDataRelQueryCommandExecutor.queryCustomDataIdsByDataScopeId(dataScopeCommonIdCommand);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2022-11-26
  */
-@FeignClient(name = "${particle.feign-client.name.userLoginDevice:userLoginDevice}",path = "/rpc/userLoginDevice")
+@FeignClient(name = "${particle.feign-client.user.name:user-start}", contextId = "userLoginDeviceRpcFeignClient", url = "${particle.feign-client.user.url:}", path = "/rpc/userLoginDevice")
 public interface UserLoginDeviceRpcFeignClient {
 
 

@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.provider.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformProviderAdminWebController extends AbstractBaseWebAdapt
 	@Operation(summary = "删除开放平台开放接口供应商")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口供应商",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformProviderVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformProviderVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformProviderApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformProviderAdminWebController extends AbstractBaseWebAdapt
 	@PreAuthorize("hasAuthority('admin:web:openplatformProvider:update')")
 	@Operation(summary = "开放平台开放接口供应商更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformProviderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformProviderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformProviderRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformProvider:detail')")
 	@Operation(summary = "开放平台开放接口供应商详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformProviderVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformProviderVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformProviderRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

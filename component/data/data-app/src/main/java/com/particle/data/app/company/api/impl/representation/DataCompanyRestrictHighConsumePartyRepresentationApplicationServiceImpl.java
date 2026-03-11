@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyRestrictHighConsumePartyRepresentationApplicationService
     private DataCompanyRestrictHighConsumePartyExWarehouseCommandExecutor dataCompanyRestrictHighConsumePartyExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyRestrictHighConsumePartyQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyRestrictHighConsumePartyQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

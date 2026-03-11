@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkPledgeAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkPledgeVO;
 import com.particle.data.domain.company.DataCompanyIprTrademarkPledge;
 import com.particle.data.domain.company.DataCompanyIprTrademarkPledgeId;
 import com.particle.data.domain.company.gateway.DataCompanyIprTrademarkPledgeGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkPledgeService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkPledgeDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprTrademarkPledgeDeleteCommandExecutor  extends Abstrac
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkPledgeVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprTrademarkPledgeVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprTrademarkPledgeId dataCompanyIprTrademarkPledgeId = DataCompanyIprTrademarkPledgeId.of(deleteCommand.getId());
 		DataCompanyIprTrademarkPledge byId = dataCompanyIprTrademarkPledgeGateway.getById(dataCompanyIprTrademarkPledgeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

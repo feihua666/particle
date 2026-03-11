@@ -111,53 +111,58 @@ spring:
 
 ```yaml
 particle:
-  session:
-    store-type: jdbc             # Session存储类型 jdbc/none
+  global:
+    session:
+       store-type: jdbc             # Session存储类型 jdbc/none
 ```
 
 #### 项目信息配置
 
 ```yaml
 particle:
-  project-info:
-    component:
-      enable:
-        all: true                # 启用所有组件
+  global:
+    project-info:
+      component:
+        enable:
+          all: true                # 启用所有组件
 ```
 
 #### 验证码配置
 
 ```yaml
 particle:
-  captcha:
-    filter:
-      enabled: true              # 是否启用验证码过滤器
-      uris:
-        - /login                 # 需要验证码的URI
+  global:
+    captcha:
+      filter:
+        enabled: true              # 是否启用验证码过滤器
+        uris:
+          - /login                 # 需要验证码的URI
 ```
 
 #### 动态验证码配置
 
 ```yaml
 particle:
-  dynamic-captcha:
-    filter:
-      enabled: true
-      uris:
-        - /loginCaptcha
+  global:
+    dynamic-captcha:
+      filter:
+        enabled: true
+        uris:
+          - /loginCaptcha
 ```
 
 #### 对象存储配置
 
 ```yaml
 particle:
-  oss:
-    defaultClient: localClient
-    local:
-      localClient:
-        endpoint: http://localhost:8080/oss/download
-        basePath: /Users/yw/temp/localosstest
-        bucketName: localClientBucket
+  global:
+    oss:
+      defaultClient: localClient
+      local:
+        localClient:
+          endpoint: http://localhost:8080/oss/download
+          basePath: /Users/yw/temp/localosstest
+          bucketName: localClientBucket
 ```
 
 #### 通知配置

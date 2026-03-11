@@ -4,7 +4,10 @@ import com.particle.func.client.dto.command.representation.FuncQueryListByIdsCom
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2022-07-19
  */
-@FeignClient(name = "${particle.feign-client.name.func:func}",path = "/rpc/func")
+@FeignClient(name = "${particle.feign-client.func.name:func-start}", contextId = "funcRpcFeignClient", url = "${particle.feign-client.func.url:}", path = "/rpc/func")
 public interface FuncRpcFeignClient {
 
     /**
@@ -23,7 +26,7 @@ public interface FuncRpcFeignClient {
      * @return
      */
 
-    @GetMapping("/listByIds")
-    public MultiResponse<FuncVO> queryListByIds(FuncQueryListByIdsCommand funcQueryListByIdsCommand);
+    @PostMapping("/listByIds")
+    public MultiResponse<FuncVO> queryListByIds(@RequestBody FuncQueryListByIdsCommand funcQueryListByIdsCommand);
 
 }

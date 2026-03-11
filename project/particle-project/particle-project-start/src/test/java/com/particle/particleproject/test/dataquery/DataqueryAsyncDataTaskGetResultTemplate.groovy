@@ -6,7 +6,7 @@ package com.particle.particleproject.test.dataquery
  */
 
 import com.particle.global.dto.response.SingleResponse
-import com.particle.global.exception.code.ErrorCodeGlobalEnum
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum
 import com.particle.global.tool.spring.SpringContextHolder
 import com.particle.scheduler.client.datatask.api.ISchedulerAsyncDataTaskControlApplicationService
 

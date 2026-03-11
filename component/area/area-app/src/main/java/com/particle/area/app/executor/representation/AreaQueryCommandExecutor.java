@@ -13,7 +13,7 @@ import com.particle.area.domain.gateway.AreaDictGateway;
 import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.infrastructure.service.IAreaService;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -65,7 +65,7 @@ public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param areaQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> executeDetail(IdCommand areaQueryDetailCommand) {
+	public SingleResponse<AreaVO> executeDetail(CommonIdCommand areaQueryDetailCommand) {
 		AreaDO byId = iAreaService.getById(areaQueryDetailCommand.getId());
 		AreaVO areaVO = AreaAppStructMapping.instance.areaDOToAreaVO(byId);
 		return SingleResponse.of(areaVO);
@@ -75,7 +75,7 @@ public class AreaQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param areaQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AreaVO> executeDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand) {
+	public SingleResponse<AreaVO> executeDetailForUpdate(CommonIdCommand areaQueryDetailForUpdateCommand) {
 		AreaDO byId = iAreaService.getById(areaQueryDetailForUpdateCommand.getId());
 		AreaVO areaVO = AreaAppStructMapping.instance.areaDOToAreaVO(byId);
 		return SingleResponse.of(areaVO);

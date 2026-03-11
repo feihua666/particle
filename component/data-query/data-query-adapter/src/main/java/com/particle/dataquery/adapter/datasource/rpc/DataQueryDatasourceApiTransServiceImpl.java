@@ -103,6 +103,12 @@ public class DataQueryDatasourceApiTransServiceImpl implements ITransService<Obj
         return collect;
 
     }
+
+    @Override
+    public TransResult<Object, Object> trans(String type, Object key) {
+        return null;
+    }
+
     /**
      * 给一个后缀转化为支持的形式
      * @param code

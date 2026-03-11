@@ -1,12 +1,12 @@
 package com.particle.cms.client.api;
 
-import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsSiteCreateCommand;
 import com.particle.cms.client.dto.command.CmsSiteUpdateCommand;
 import com.particle.cms.client.dto.data.CmsSiteVO;
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.common.client.dto.command.CommonPublicCommand;
+import com.particle.global.dto.response.SingleResponse;
 /**
  * <p>
  * 站点 应用门面服务类
@@ -28,7 +28,7 @@ public interface ICmsSiteApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsSiteVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsSiteVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -36,4 +36,11 @@ public interface ICmsSiteApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<CmsSiteVO> update(CmsSiteUpdateCommand cmsSiteUpdateCommand);
+
+	/**
+	 * 发布站点或取消发布
+	 * @param cmsSitePublicCommand
+	 * @return
+	 */
+	SingleResponse<CmsSiteVO> publish(CommonPublicCommand cmsSitePublicCommand);
 }

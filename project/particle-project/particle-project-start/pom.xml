@@ -217,6 +217,11 @@
             <artifactId>component-admin-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>audit-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
         <!-- 新组件建议添加到该注释之前 -->
 
 
@@ -278,7 +283,43 @@
             <version>${particle.version}</version>
         </dependency>
 
+        <!-- ********** 一般在启动模块添加 *********** 开始 -->
+        <!-- web全局异常处理 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-exception-handle-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
 
+        <!-- web访问安全 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-filter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-mvc-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-session-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 接口文档 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ********** 一般在启动模块添加 *********** 结束 -->
     </dependencies>
     <build>
         <plugins>

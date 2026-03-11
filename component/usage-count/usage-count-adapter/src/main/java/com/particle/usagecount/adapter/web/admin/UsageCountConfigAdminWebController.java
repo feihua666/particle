@@ -1,7 +1,7 @@
 package com.particle.usagecount.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class UsageCountConfigAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除使用次数配置")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除使用次数配置",module = OpLogConstants.Module.usageCount,type = OpLogConstants.Type.delete)
-	public SingleResponse<UsageCountConfigVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<UsageCountConfigVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iUsageCountConfigApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class UsageCountConfigAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:usageCountConfig:update')")
 	@Operation(summary = "使用次数配置更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UsageCountConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<UsageCountConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iUsageCountConfigRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:usageCountConfig:detail')")
 	@Operation(summary = "使用次数配置详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UsageCountConfigVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<UsageCountConfigVO> queryDetail(CommonIdCommand detailCommand){
 		return iUsageCountConfigRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

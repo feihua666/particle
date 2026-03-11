@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprPlantVarietyAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprPlantVarietyVO;
 import com.particle.data.domain.company.DataCompanyIprPlantVariety;
 import com.particle.data.domain.company.DataCompanyIprPlantVarietyId;
 import com.particle.data.domain.company.gateway.DataCompanyIprPlantVarietyGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPlantVarietyService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprPlantVarietyDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprPlantVarietyDeleteCommandExecutor  extends AbstractBa
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPlantVarietyVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprPlantVarietyVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprPlantVarietyId dataCompanyIprPlantVarietyId = DataCompanyIprPlantVarietyId.of(deleteCommand.getId());
 		DataCompanyIprPlantVariety byId = dataCompanyIprPlantVarietyGateway.getById(dataCompanyIprPlantVarietyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

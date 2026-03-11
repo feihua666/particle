@@ -1,7 +1,7 @@
 package com.particle.dept.app.depttreeuserrel.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.depttreeuserrel.executor.DeptTreeUserRelCreateCommandExecutor;
 import com.particle.dept.app.depttreeuserrel.executor.DeptTreeUserRelDeleteCommandExecutor;
 import com.particle.dept.app.depttreeuserrel.executor.DeptTreeUserRelUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class DeptTreeUserRelApplicationServiceImpl extends AbstractBaseApplicati
 	}
 
 	@Override
-	public SingleResponse<DeptTreeUserRelVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DeptTreeUserRelVO> delete(CommonIdCommand deleteCommand) {
 		return deptTreeUserRelDeleteCommandExecutor.execute(deleteCommand);
 	}
 

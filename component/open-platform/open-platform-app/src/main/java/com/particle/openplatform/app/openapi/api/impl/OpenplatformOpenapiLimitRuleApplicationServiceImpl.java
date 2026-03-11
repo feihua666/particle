@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.openapi.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.openapi.executor.OpenplatformOpenapiLimitRuleCommandExecutor;
@@ -43,7 +43,7 @@ public class OpenplatformOpenapiLimitRuleApplicationServiceImpl extends Abstract
     }
 
     @Override
-    public SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(CommonIdCommand deleteCommand) {
         return openplatformOpenapiLimitRuleDeleteCommandExecutor.execute(deleteCommand);
     }
 

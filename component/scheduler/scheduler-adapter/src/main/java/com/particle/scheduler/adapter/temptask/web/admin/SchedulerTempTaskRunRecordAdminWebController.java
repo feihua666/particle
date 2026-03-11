@@ -1,7 +1,7 @@
 package com.particle.scheduler.adapter.temptask.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -44,7 +44,7 @@ public class SchedulerTempTaskRunRecordAdminWebController extends AbstractBaseWe
     @Operation(summary = "删除任务计划临时任务运行记录")
     @DeleteMapping("/delete")
     @OpLog(name = "删除任务计划临时任务运行记录",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.delete)
-    public SingleResponse<SchedulerTempTaskRunRecordVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<SchedulerTempTaskRunRecordVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iSchedulerTempTaskRunRecordApplicationService.delete(deleteCommand);
     }
@@ -61,14 +61,14 @@ public class SchedulerTempTaskRunRecordAdminWebController extends AbstractBaseWe
     @PreAuthorize("hasAuthority('admin:web:schedulerTempTaskRunRecord:update')")
     @Operation(summary = "任务计划临时任务运行记录更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<SchedulerTempTaskRunRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<SchedulerTempTaskRunRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iSchedulerTempTaskRunRecordRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:schedulerTempTaskRunRecord:detail')")
     @Operation(summary = "任务计划临时任务运行记录详情展示")
     @GetMapping("/detail")
-    public SingleResponse<SchedulerTempTaskRunRecordVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<SchedulerTempTaskRunRecordVO> queryDetail(CommonIdCommand detailCommand){
         return iSchedulerTempTaskRunRecordRepresentationApplicationService.queryDetail(detailCommand);
     }
 

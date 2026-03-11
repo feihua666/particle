@@ -1,7 +1,7 @@
 package com.particle.dataquery.client.datasource.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourcePageQueryCommand;
 import com.particle.dataquery.client.datasource.dto.command.representation.DataQueryDatasourceQueryListCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceVO;
@@ -25,14 +25,14 @@ public interface IDataQueryDatasourceRepresentationApplicationService extends IB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDatasourceVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataQueryDatasourceVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDatasourceVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataQueryDatasourceVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

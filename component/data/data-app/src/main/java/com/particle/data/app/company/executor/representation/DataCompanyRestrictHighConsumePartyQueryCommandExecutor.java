@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyRestrictHighConsumePartyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyRestrictHighConsumePartyQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyRestrictHighConsumePartyVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyRestrictHighConsumePartyDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyRestrictHighConsumePartyService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyRestrictHighConsumePartyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyRestrictHighConsumePartyQueryCommandExecutor  extends Ab
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyRestrictHighConsumePartyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyRestrictHighConsumePartyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyRestrictHighConsumePartyDO byId = iDataCompanyRestrictHighConsumePartyService.getById(detailCommand.getId());
 		DataCompanyRestrictHighConsumePartyVO dataCompanyRestrictHighConsumePartyVO = DataCompanyRestrictHighConsumePartyAppStructMapping.instance.dataCompanyRestrictHighConsumePartyDOToDataCompanyRestrictHighConsumePartyVO(byId);
 		return SingleResponse.of(dataCompanyRestrictHighConsumePartyVO);
@@ -67,7 +66,7 @@ public class DataCompanyRestrictHighConsumePartyQueryCommandExecutor  extends Ab
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyRestrictHighConsumePartyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyRestrictHighConsumePartyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyRestrictHighConsumePartyDO byId = iDataCompanyRestrictHighConsumePartyService.getById(detailForUpdateCommand.getId());
 		DataCompanyRestrictHighConsumePartyVO dataCompanyRestrictHighConsumePartyVO = DataCompanyRestrictHighConsumePartyAppStructMapping.instance.dataCompanyRestrictHighConsumePartyDOToDataCompanyRestrictHighConsumePartyVO(byId);
 		return SingleResponse.of(dataCompanyRestrictHighConsumePartyVO);

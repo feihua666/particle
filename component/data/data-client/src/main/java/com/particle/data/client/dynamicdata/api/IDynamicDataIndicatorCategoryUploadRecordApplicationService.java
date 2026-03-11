@@ -1,9 +1,8 @@
 package com.particle.data.client.dynamicdata.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUploadRecordCreateCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUploadRecordUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorCategoryUploadRecordVO;
@@ -28,7 +27,7 @@ public interface IDynamicDataIndicatorCategoryUploadRecordApplicationService ext
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -42,6 +41,6 @@ public interface IDynamicDataIndicatorCategoryUploadRecordApplicationService ext
      * @param publishCommand
      * @return
      */
-    SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> publish(IdCommand publishCommand);
+    SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> publish(CommonIdCommand publishCommand);
 
 }

@@ -1,7 +1,7 @@
 package com.particle.componentadmin.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface IAdminComponentDependencyRepresentationApplicationService exten
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<AdminComponentDependencyVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<AdminComponentDependencyVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -49,15 +49,15 @@ public interface IAdminComponentDependencyRepresentationApplicationService exten
 
 	/**
 	 * 查询源组件已分配的依赖组件id
-	 * @param componentIdCommand
+	 * @param componentCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryDependComponentIdsByComponentId(IdCommand componentIdCommand);
+	public MultiResponse<Long> queryDependComponentIdsByComponentId(CommonIdCommand componentCommonIdCommand);
 
 	/**
 	 * 查询依赖组件已分配的源组件id
-	 * @param dependComponentIdCommand
+	 * @param dependComponentCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryComponentIdsByDependComponentId(IdCommand dependComponentIdCommand);
+	public MultiResponse<Long> queryComponentIdsByDependComponentId(CommonIdCommand dependComponentCommonIdCommand);
 }

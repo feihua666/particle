@@ -1,7 +1,7 @@
 package com.particle.tracking.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
@@ -29,7 +29,7 @@ public interface ITrackingPageRecordApplicationService extends IBaseApplicationS
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<TrackingPageRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<TrackingPageRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

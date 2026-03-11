@@ -1,8 +1,10 @@
 package com.particle.openplatform.infrastructure.bill.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.openplatform.infrastructure.bill.dos.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO;
 import com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdOpenapiIdStatisticsVIEWDO;
 import com.particle.openplatform.infrastructure.bill.dos.view.OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsVIEWDO;
@@ -51,7 +53,9 @@ public interface IOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService extends
      */
     List<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsVIEWDO> openAppIdStatistics (OpenplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam openplatformOpenapiRecordAppOpenapiDayRtSummaryOpenAppIdStatisticsParam);
 
-
+    default boolean removeIgnoreTenantLimit(Wrapper<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO> queryWrapper) {
+        return CustomTenantLineHandler.executeIgnoreTenant(() -> remove(queryWrapper));
+    }
 
 
 

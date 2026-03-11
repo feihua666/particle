@@ -1,11 +1,11 @@
 package com.particle.data.adapter.dynamicdata.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.dynamicdata.api.IDynamicDataCategoryApplicationService;
 import com.particle.data.client.dynamicdata.api.representation.IDynamicDataCategoryRepresentationApplicationService;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataCategoryCreateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataCategoryVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataCategoryUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataCategoryPageQueryCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataCategoryQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 动态数据分类后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DynamicDataCategoryAdminWebController extends AbstractBaseWebAdapte
     @Operation(summary = "删除动态数据分类")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据分类",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicDataCategoryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicDataCategoryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicDataCategoryApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DynamicDataCategoryAdminWebController extends AbstractBaseWebAdapte
     @PreAuthorize("hasAuthority('admin:web:dynamicDataCategory:update')")
     @Operation(summary = "动态数据分类更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicDataCategoryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicDataCategoryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicDataCategoryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicDataCategory:detail')")
     @Operation(summary = "动态数据分类详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicDataCategoryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicDataCategoryVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicDataCategoryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

@@ -1,19 +1,20 @@
 package com.particle.tenant.adapter.login;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.global.dto.login.GrantedTenant;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
+import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.security.security.login.AbstractUserDetailsService;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.GrantedTenant;
-import com.particle.global.security.tenant.ITenantResolveService;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.security.security.login.LoginTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.tenant.app.structmapping.TenantAppStructMapping;
 import com.particle.tenant.client.dto.data.TenantCurrentVO;
 import com.particle.tenant.client.dto.data.TenantLoginVO;
 import com.particle.tenant.client.dto.data.TenantVO;
+import com.particle.tenant.client.exception.ErrorCodeTenantEnum;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.service.ITenantService;
 import com.particle.tenant.infrastructure.service.ITenantUserService;
@@ -27,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -46,8 +48,6 @@ public class TenantLoginController {
 	private ITenantUserService tenantUserService;
 	@Autowired
 	private ITenantService tenantService;
-	@Autowired
-	private ITenantResolveService iTenantResolveService;
 
 	@Autowired
 	private AbstractUserDetailsService abstractUserDetailsService;
@@ -55,7 +55,9 @@ public class TenantLoginController {
 	@PreAuthorize("hasAuthority('user')")
 	@GetMapping("/tenantInfo")
 	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<TenantLoginVO> tenantInfo(@Parameter(description = "租户id，默认当前正在使用的租户") Long tenantId, @Parameter(description = "是否过期，true=过期，false=不过期，不传=全部") Boolean isExpired, @Parameter(hidden = true) LoginUser loginUser) {
+	public SingleResponse<TenantLoginVO> tenantInfo(@Parameter(description = "租户id，默认当前正在使用的租户") Long tenantId,
+													@Parameter(description = "是否过期，true=过期，false=不过期，不传=全部") Boolean isExpired,
+													@Parameter(hidden = true) LoginUser loginUser) {
 		if (CollectionUtil.isEmpty(loginUser.getTenants())) {
 			return SingleResponse.buildSuccess();
 		}
@@ -75,10 +77,9 @@ public class TenantLoginController {
 	}
 
 	/**
-	 * 这里也提供一个租户切换接口，仅多一种选择
-	 * 参考{@link com.particle.user.adapter.login.UserLoginController#changeTenant(com.particle.common.client.dto.command.IdCommand, com.particle.global.security.security.login.LoginUser, jakarta.servlet.http.HttpServletRequest)}保持一致
+	 * 租户切换
 	 *
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @param loginUser
 	 * @param httpServletRequest
 	 * @return
@@ -87,14 +88,21 @@ public class TenantLoginController {
 	@PreAuthorize("hasAuthority('user')")
 	@PostMapping("/changeTenant")
 	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser, HttpServletRequest httpServletRequest) {
+	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody CommonIdCommand commonIdCommand, @Parameter(hidden = true) LoginUser loginUser, HttpServletRequest httpServletRequest) {
 
+		GrantedTenant grantedTenant = null;
+		List<GrantedTenant> tenants = loginUser.getTenants();
+		if (CollectionUtil.isNotEmpty( tenants)) {
+			grantedTenant = tenants.stream().filter(item -> item.getId().equals(commonIdCommand.getId())).findFirst().orElse(null);
+		}
+		if (grantedTenant == null) {
+			throw ExceptionFactory.bizException(ErrorCodeTenantEnum.tenant_not_available_tenant);
+		}
 		loginUser.clearUserGrantedAuthorities();
-		GrantedTenant grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
-
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(), Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
+        loginUser.initTenants(commonIdCommand.getId());
+        abstractUserDetailsService.loginUserDetailsFillRoleAndAuthority(loginUser,null);
 		// 需要刷新一下权限，否则权限不会生效
-		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
+		LoginTool.refreshAuthorities(loginUser);
 		return SingleResponse.of(loginUser);
 	}
 	@Operation(summary = "获取当前租户信息")

@@ -1,7 +1,7 @@
 package com.particle.oplog.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,7 +28,7 @@ public class OpLogRepresentationApplicationServiceImpl extends AbstractBaseAppli
     private OpLogQueryCommandExecutor opLogQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpLogVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpLogVO> queryDetail(CommonIdCommand detailCommand) {
         return opLogQueryCommandExecutor.executeDetail(detailCommand);
     }
 

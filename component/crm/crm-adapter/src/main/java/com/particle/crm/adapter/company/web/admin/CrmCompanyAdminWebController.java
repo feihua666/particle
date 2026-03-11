@@ -1,7 +1,7 @@
 package com.particle.crm.adapter.company.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.crm.client.company.api.ICrmCompanyApplicationService;
@@ -52,7 +52,7 @@ public class CrmCompanyAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除客户公司")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除客户公司",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
-	public SingleResponse<CrmCompanyVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<CrmCompanyVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_crm_company, DataConstraintContext.Action.delete.name());
 		return iCrmCompanyApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class CrmCompanyAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:crmCompany:update')")
 	@Operation(summary = "客户公司更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<CrmCompanyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<CrmCompanyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iCrmCompanyRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:crmCompany:detail')")
 	@Operation(summary = "客户公司详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<CrmCompanyVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<CrmCompanyVO> queryDetail(CommonIdCommand detailCommand){
 		return iCrmCompanyRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

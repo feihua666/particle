@@ -1,14 +1,11 @@
 package com.particle.agi.app.rag.executor;
 
-import com.particle.agi.domain.rag.AgiVectorStoreRawDocument;
-import com.particle.agi.domain.rag.AgiVectorStoreRawDocumentId;
 import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentGateway;
 import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentSegmentDO;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentSegmentService;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentService;
-import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentDO;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,39 +35,39 @@ public class AgiVectorStoreRawDocumentCommandExecutor  extends AbstractBaseExecu
 
 	/**
 	 * 嵌入文档下所有片段，已经嵌入的片段会被忽略
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response embedding(@Valid IdCommand idCommand) {
+	public Response embedding(@Valid CommonIdCommand commonIdCommand) {
 
-		return embedding(idCommand, true);
+		return embedding(commonIdCommand, true);
 	}
 
 
 	/**
 	 * 重新嵌入所有片段，已经嵌入的片段会重新嵌入
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response reEmbedding(@Valid IdCommand idCommand) {
-		return embedding(idCommand, false);
+	public Response reEmbedding(@Valid CommonIdCommand commonIdCommand) {
+		return embedding(commonIdCommand, false);
 	}
 
 	/**
 	 * 嵌入
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @param isIgnoreEmbeddedSegment 是否忽略已经嵌入的片段，true=忽略，false=不忽略
 	 * @return
 	 */
-	private Response embedding(@Valid IdCommand idCommand,Boolean isIgnoreEmbeddedSegment) {
-		List<AgiVectorStoreRawDocumentSegmentDO> byAgiVectorStoreRawDocumentId = iAgiVectorStoreRawDocumentSegmentService.getByAgiVectorStoreRawDocumentId(idCommand.getId());
+	private Response embedding(@Valid CommonIdCommand commonIdCommand, Boolean isIgnoreEmbeddedSegment) {
+		List<AgiVectorStoreRawDocumentSegmentDO> byAgiVectorStoreRawDocumentId = iAgiVectorStoreRawDocumentSegmentService.getByAgiVectorStoreRawDocumentId(commonIdCommand.getId());
 		for (AgiVectorStoreRawDocumentSegmentDO agiVectorStoreRawDocumentSegmentDO : byAgiVectorStoreRawDocumentId) {
 			Boolean isEmbedded = agiVectorStoreRawDocumentSegmentDO.getIsEmbedded();
 			if (isIgnoreEmbeddedSegment && isEmbedded) {
 				continue;
 			}
-			IdCommand segmentIdCommand = IdCommand.create(agiVectorStoreRawDocumentSegmentDO.getId());
-			agiVectorStoreRawDocumentSegmentCommandExecutor.embedding(segmentIdCommand);
+			CommonIdCommand segmentCommonIdCommand = CommonIdCommand.create(agiVectorStoreRawDocumentSegmentDO.getId());
+			agiVectorStoreRawDocumentSegmentCommandExecutor.embedding(segmentCommonIdCommand);
 		}
 		return Response.buildSuccess();
 	}

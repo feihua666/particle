@@ -1,7 +1,7 @@
 package com.particle.lowcode.app.generator.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class LowcodeModelItemRepresentationApplicationServiceImpl extends Abstra
 	private LowcodeModelItemQueryCommandExecutor lowcodeModelItemQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<LowcodeModelItemVO> queryDetail(IdCommand detailCommand) {
+	public SingleResponse<LowcodeModelItemVO> queryDetail(CommonIdCommand detailCommand) {
 		return lowcodeModelItemQueryCommandExecutor.executeDetail(detailCommand);
 	}
 
 	@Override
-	public SingleResponse<LowcodeModelItemVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<LowcodeModelItemVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		return lowcodeModelItemQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
 	}
 

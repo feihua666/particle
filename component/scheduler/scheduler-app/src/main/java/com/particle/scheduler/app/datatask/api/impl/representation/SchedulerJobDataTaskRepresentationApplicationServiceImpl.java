@@ -1,7 +1,7 @@
 package com.particle.scheduler.app.datatask.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class SchedulerJobDataTaskRepresentationApplicationServiceImpl extends Ab
     private SchedulerJobDataTaskQueryCommandExecutor schedulerJobDataTaskQueryCommandExecutor;
 
     @Override
-    public SingleResponse<SchedulerJobDataTaskVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<SchedulerJobDataTaskVO> queryDetail(CommonIdCommand detailCommand) {
         return schedulerJobDataTaskQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<SchedulerJobDataTaskVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<SchedulerJobDataTaskVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return schedulerJobDataTaskQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

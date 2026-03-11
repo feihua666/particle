@@ -5,6 +5,8 @@ import cn.hutool.core.util.ClassLoaderUtil;
 import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.particle.global.light.share.constant.ClassAdapterConstants;
 import com.particle.global.tool.thread.ThreadContextTool;
+import io.micrometer.context.ContextExecutorService;
+import io.micrometer.context.ContextScheduledExecutorService;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -106,11 +108,20 @@ public class CustomExecutors{
 		ExecutorService executorService = threadPoolExecutor;
 
 		// 不像 TraceableExecutorService ，目前好像没有找到自动添加监控的方式，这里手动添加
+		// 线程池队列大小、活跃线程数、任务执行时间等 Metrics 上报到 Prometheus/Grafana
 		if (meterRegistry != null && ClassLoaderUtil.isPresent(ClassAdapterConstants.EXECUTOR_SERVICE_METRICS_CLASS_NAME)) {
 			if (scheduled) {
 				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, ((ScheduledExecutorService) executorService), threadPoolName);
 			}else{
 				executorService = io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics.monitor(meterRegistry, executorService, threadPoolName);
+			}
+		}
+		// 子线程继承父线程的 TraceId，日志能打印链路追踪信息，不过 ttl 会自动传播，但在某些场景下是需要的，如：reactive 架构下，ttl 不行
+		if (ClassLoaderUtil.isPresent(ClassAdapterConstants.CONTEXT_EXECUTOR_SERVICE_CLASS_NAME)) {
+			if (scheduled) {
+				executorService = ContextScheduledExecutorService.wrap((ScheduledExecutorService) executorService);
+			}else{
+				executorService = ContextExecutorService.wrap(executorService);
 			}
 		}
 

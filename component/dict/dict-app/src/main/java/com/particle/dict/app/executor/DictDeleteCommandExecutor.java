@@ -1,7 +1,7 @@
 package com.particle.dict.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.dto.data.DictVO;
 import com.particle.dict.domain.Dict;
@@ -9,7 +9,7 @@ import com.particle.dict.domain.DictId;
 import com.particle.dict.domain.gateway.DictGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DictDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param dictDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<DictVO> execute(@Valid IdCommand dictDeleteCommand) {
+	public SingleResponse<DictVO> execute(@Valid CommonIdCommand dictDeleteCommand) {
 		DictId dictId = DictId.of(dictDeleteCommand.getId());
 		Dict byId = dictGateway.getById(dictId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

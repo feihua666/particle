@@ -2,7 +2,7 @@ package com.particle.scheduler.app.schedule.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class SchedulerExecuteRecordQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerExecuteRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SchedulerExecuteRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		SchedulerExecuteRecordDO byId = iSchedulerExecuteRecordService.getById(detailCommand.getId());
 		SchedulerExecuteRecordVO schedulerExecuteRecordVO = SchedulerExecuteRecordAppStructMapping.instance.schedulerExecuteRecordDOToSchedulerExecuteRecordVO(byId);
 		return SingleResponse.of(schedulerExecuteRecordVO);
@@ -67,7 +67,7 @@ public class SchedulerExecuteRecordQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerExecuteRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SchedulerExecuteRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SchedulerExecuteRecordDO byId = iSchedulerExecuteRecordService.getById(detailForUpdateCommand.getId());
 		SchedulerExecuteRecordVO schedulerExecuteRecordVO = SchedulerExecuteRecordAppStructMapping.instance.schedulerExecuteRecordDOToSchedulerExecuteRecordVO(byId);
 		return SingleResponse.of(schedulerExecuteRecordVO);

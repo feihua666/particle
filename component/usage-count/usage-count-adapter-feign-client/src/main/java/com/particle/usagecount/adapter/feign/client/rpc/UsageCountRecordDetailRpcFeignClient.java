@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2023-10-23 16:23:29
  */
-@FeignClient(name = "${particle.feign-client.name.usage-count:usage-count}",path = "/rpc/usage_count_record_detail")
+@FeignClient(name = "${particle.feign-client.usagecount.name:usagecount-start}", contextId = "usageCountRecordDetailRpcFeignClient", url = "${particle.feign-client.usagecount.url:}", path = "/rpc/usage_count_record_detail")
 public interface UsageCountRecordDetailRpcFeignClient {
 
 

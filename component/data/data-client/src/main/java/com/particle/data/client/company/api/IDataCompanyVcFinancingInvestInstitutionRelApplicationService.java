@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelCreateCommand;
@@ -32,7 +32,7 @@ public interface IDataCompanyVcFinancingInvestInstitutionRelApplicationService e
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -58,17 +58,17 @@ public interface IDataCompanyVcFinancingInvestInstitutionRelApplicationService e
 
 	/**
 	 * 根据企业融资表IDid删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcFinancingId(IdCommand idCommand);
+	public Response deleteByCompanyVcFinancingId(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 根据企业投资机构表id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcInvestInstitutionId(IdCommand idCommand);
+	public Response deleteByCompanyVcInvestInstitutionId(CommonIdCommand commonIdCommand);
 
 
 	/**

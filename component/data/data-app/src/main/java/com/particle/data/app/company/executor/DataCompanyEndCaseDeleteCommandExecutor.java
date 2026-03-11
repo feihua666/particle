@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyEndCaseAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyEndCaseVO;
 import com.particle.data.domain.company.DataCompanyEndCase;
 import com.particle.data.domain.company.DataCompanyEndCaseId;
 import com.particle.data.domain.company.gateway.DataCompanyEndCaseGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyEndCaseService;
-import com.particle.data.infrastructure.company.dos.DataCompanyEndCaseDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyEndCaseDeleteCommandExecutor  extends AbstractBaseExecut
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyEndCaseVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyEndCaseVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyEndCaseId dataCompanyEndCaseId = DataCompanyEndCaseId.of(deleteCommand.getId());
 		DataCompanyEndCase byId = dataCompanyEndCaseGateway.getById(dataCompanyEndCaseId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

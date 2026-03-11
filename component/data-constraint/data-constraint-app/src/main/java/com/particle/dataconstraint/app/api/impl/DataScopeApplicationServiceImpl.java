@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.executor.DataScopeCreateCommandExecutor;
 import com.particle.dataconstraint.app.executor.DataScopeDeleteCommandExecutor;
 import com.particle.dataconstraint.app.executor.DataScopeUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class DataScopeApplicationServiceImpl extends AbstractBaseApplicationServ
 	}
 
 	@Override
-	public SingleResponse<DataScopeVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DataScopeVO> delete(CommonIdCommand deleteCommand) {
 		return dataScopeDeleteCommandExecutor.execute(deleteCommand);
 	}
 

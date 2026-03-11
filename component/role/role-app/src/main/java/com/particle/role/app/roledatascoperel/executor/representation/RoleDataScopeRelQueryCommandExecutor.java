@@ -2,7 +2,7 @@ package com.particle.role.app.roledatascoperel.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +58,7 @@ public class RoleDataScopeRelQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<RoleDataScopeRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<RoleDataScopeRelVO> executeDetail(CommonIdCommand detailCommand) {
 		RoleDataScopeRelDO byId = iRoleDataScopeRelService.getById(detailCommand.getId());
 		RoleDataScopeRelVO roleDataScopeRelVO = RoleDataScopeRelAppStructMapping.instance.roleDataScopeRelDOToRoleDataScopeRelVO(byId);
 		return SingleResponse.of(roleDataScopeRelVO);
@@ -68,7 +68,7 @@ public class RoleDataScopeRelQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<RoleDataScopeRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<RoleDataScopeRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		RoleDataScopeRelDO byId = iRoleDataScopeRelService.getById(detailForUpdateCommand.getId());
 		RoleDataScopeRelVO roleDataScopeRelVO = RoleDataScopeRelAppStructMapping.instance.roleDataScopeRelDOToRoleDataScopeRelVO(byId);
 		return SingleResponse.of(roleDataScopeRelVO);
@@ -77,13 +77,13 @@ public class RoleDataScopeRelQueryCommandExecutor  extends AbstractBaseQueryExec
 
 	/**
 	 * 查询角色已分配的数据范围ids
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryDataScopeIdsByRoleId(@Valid IdCommand roleIdCommand) {
+	public MultiResponse<Long> queryDataScopeIdsByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
 
 		RoleDataScopeRelQueryListCommand roleDataScopeRelQueryListCommand = new RoleDataScopeRelQueryListCommand();
-		roleDataScopeRelQueryListCommand.setRoleId(roleIdCommand.getId());
+		roleDataScopeRelQueryListCommand.setRoleId(roleCommonIdCommand.getId());
 		MultiResponse<RoleDataScopeRelVO> roleDataScopeRelVOMultiResponse = execute(roleDataScopeRelQueryListCommand);
 		if(roleDataScopeRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleDataScopeRelVOMultiResponse.getData().stream().map(RoleDataScopeRelVO::getDataScopeId).collect(Collectors.toList());
@@ -93,13 +93,13 @@ public class RoleDataScopeRelQueryCommandExecutor  extends AbstractBaseQueryExec
 	}
 	/**
 	 * 查询数据范围已分配的角色ids
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByDataScopeId(@Valid IdCommand dataScopeIdCommand) {
+	public MultiResponse<Long> queryRoleIdsByDataScopeId(@Valid CommonIdCommand dataScopeCommonIdCommand) {
 
 		RoleDataScopeRelQueryListCommand roleDataScopeRelQueryListCommand = new RoleDataScopeRelQueryListCommand();
-		roleDataScopeRelQueryListCommand.setDataScopeId(dataScopeIdCommand.getId());
+		roleDataScopeRelQueryListCommand.setDataScopeId(dataScopeCommonIdCommand.getId());
 		MultiResponse<RoleDataScopeRelVO> roleDataScopeRelVOMultiResponse = execute(roleDataScopeRelQueryListCommand);
 		if(roleDataScopeRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleDataScopeRelVOMultiResponse.getData().stream().map(RoleDataScopeRelVO::getRoleId).collect(Collectors.toList());

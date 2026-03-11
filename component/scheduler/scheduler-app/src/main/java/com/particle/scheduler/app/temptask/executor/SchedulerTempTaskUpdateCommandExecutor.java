@@ -2,7 +2,7 @@ package com.particle.scheduler.app.temptask.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.temptask.structmapping.SchedulerTempTaskAppStructMapping;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskUpdateCommand;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskVO;

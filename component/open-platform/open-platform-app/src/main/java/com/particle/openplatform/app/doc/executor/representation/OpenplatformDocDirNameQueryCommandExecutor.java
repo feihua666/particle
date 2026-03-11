@@ -2,7 +2,7 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformDocDirNameQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocDirNameVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformDocDirNameVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformDocDirNameDO byId = iOpenplatformDocDirNameService.getById(detailCommand.getId());
 		OpenplatformDocDirNameVO openplatformDocDirNameVO = OpenplatformDocDirNameAppStructMapping.instance.openplatformDocDirNameDOToOpenplatformDocDirNameVO(byId);
 		return SingleResponse.of(openplatformDocDirNameVO);
@@ -67,7 +67,7 @@ public class OpenplatformDocDirNameQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocDirNameVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformDocDirNameVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformDocDirNameDO byId = iOpenplatformDocDirNameService.getById(detailForUpdateCommand.getId());
 		OpenplatformDocDirNameVO openplatformDocDirNameVO = OpenplatformDocDirNameAppStructMapping.instance.openplatformDocDirNameDOToOpenplatformDocDirNameVO(byId);
 		return SingleResponse.of(openplatformDocDirNameVO);

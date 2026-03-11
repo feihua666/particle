@@ -5,6 +5,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2023-08-16 16:15:58
  */
-@FeignClient(name = "${particle.feign-client.name.open-platform:open-platform}",path = "/rpc/openplatform_provider")
+@FeignClient(name = "${particle.feign-client.openplatform.name:open-platform-start}", contextId = "openplatformProviderRpcFeignClient", url = "${particle.feign-client.openplatform.url:}", path = "/rpc/openplatform_provider")
 public interface OpenplatformProviderRpcFeignClient {
     /**
      * 根据id查询
@@ -22,7 +23,7 @@ public interface OpenplatformProviderRpcFeignClient {
      * @return
      */
     @GetMapping("/getById")
-    public SingleResponse<OpenplatformProviderVO> getById(Long openplatformProviderId);
+    public SingleResponse<OpenplatformProviderVO> getById(@RequestParam Long openplatformProviderId);
 
     /**
      * 根据数据查询供应商id查询
@@ -30,5 +31,5 @@ public interface OpenplatformProviderRpcFeignClient {
      * @return
      */
     @GetMapping("/getByDataQueryProviderId")
-    public SingleResponse<OpenplatformProviderVO> getByDataQueryProviderId(Long dataQueryProviderId);
+    public SingleResponse<OpenplatformProviderVO> getByDataQueryProviderId(@RequestParam Long dataQueryProviderId);
 }

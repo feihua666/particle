@@ -1,7 +1,7 @@
 package com.particle.dept.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreePageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeQueryListCommand;
 import com.particle.dept.client.dto.data.DeptTreeVO;
@@ -24,14 +24,14 @@ public interface IDeptTreeRepresentationApplicationService extends IBaseApplicat
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DeptTreeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DeptTreeVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

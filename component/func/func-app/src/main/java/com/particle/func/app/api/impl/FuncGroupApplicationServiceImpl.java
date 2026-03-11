@@ -1,7 +1,7 @@
 package com.particle.func.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.executor.FuncGroupCreateCommandExecutor;
 import com.particle.func.app.executor.FuncGroupDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncGroupUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class FuncGroupApplicationServiceImpl extends AbstractBaseApplicationServ
 	}
 
 	@Override
-	public SingleResponse<FuncGroupVO> delete(IdCommand funcGroupDeleteCommand) {
+	public SingleResponse<FuncGroupVO> delete(CommonIdCommand funcGroupDeleteCommand) {
 		return funcGroupDeleteCommandExecutor.execute(funcGroupDeleteCommand);
 	}
 

@@ -1,8 +1,9 @@
 import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../../common/api/api";
+import getApiPrefix from "../../../../../../common/api/apiPrefixConfig";
 
-let funcApplicationPrefix = '/admin/web/func_application'
+let funcApplicationPrefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_FUNC) + '/admin/web/func_application'
 /**
  * 添加功能应用
  * @param data

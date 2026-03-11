@@ -1,7 +1,7 @@
 package com.particle.usagecount.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.usagecount.app.executor.UsageCountConfigCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class UsageCountConfigApplicationServiceImpl extends AbstractBaseApplicat
 	}
 
 	@Override
-	public SingleResponse<UsageCountConfigVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<UsageCountConfigVO> delete(CommonIdCommand deleteCommand) {
 		return usageCountConfigDeleteCommandExecutor.execute(deleteCommand);
 	}
 

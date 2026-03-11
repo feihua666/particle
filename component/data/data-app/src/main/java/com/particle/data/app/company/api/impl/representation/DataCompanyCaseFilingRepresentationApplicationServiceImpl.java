@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyCaseFilingRepresentationApplicationServiceImpl extends A
     private DataCompanyCaseFilingExWarehouseCommandExecutor dataCompanyCaseFilingExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyCaseFilingVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyCaseFilingVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyCaseFilingQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyCaseFilingVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyCaseFilingVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyCaseFilingQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

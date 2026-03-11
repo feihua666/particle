@@ -1,7 +1,7 @@
 package com.particle.usagecount.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,7 +24,7 @@ public interface IUsageCountRecordRepresentationApplicationService extends IBase
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<UsageCountRecordVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<UsageCountRecordVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

@@ -5,7 +5,7 @@ import com.particle.data.client.company.dto.command.representation.exwarehouse.*
 import com.particle.data.client.company.dto.data.exwarehouse.*;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -101,7 +101,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyAnnualReportAllExWarehouseVO> annualReportAllPageResponse = dataCompanyAnnualReportAllWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getAnnualReportAllQuery());
 			List<DataCompanyAnnualReportAllExWarehouseVO> annualReportAlls = annualReportAllPageResponse.getData();
 			// 企业年报信息总数
-			Integer annualReportAllCount = annualReportAllPageResponse.getTotalCount();
+			Integer annualReportAllCount = (int) annualReportAllPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setAnnualReportAlls(annualReportAlls);
 			dataCompanyAllExWarehouseVO.setAnnualReportAllCount(annualReportAllCount);
 			hasValue = true;
@@ -112,7 +112,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyCaseFilingExWarehouseVO> caseFilingPageResponse = dataCompanyCaseFilingWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getCaseFilingQuery());
 			List<DataCompanyCaseFilingExWarehouseVO> caseFilings = caseFilingPageResponse.getData();
 			// 企业立案信息总数
-			Integer caseFilingCount = caseFilingPageResponse.getTotalCount();
+			Integer caseFilingCount = (int) caseFilingPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setCaseFilings(caseFilings);
 			dataCompanyAllExWarehouseVO.setCaseFilingCount(caseFilingCount);
 			hasValue = true;
@@ -123,7 +123,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyCourtAnnouncementExWarehouseVO> courtAnnouncementPageResponse = dataCompanyCourtAnnouncementWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getCourtAnnouncementQuery());
 			List<DataCompanyCourtAnnouncementExWarehouseVO> courtAnnouncements = courtAnnouncementPageResponse.getData();
 			// 企业法院公告信息总数
-			Integer courtAnnouncementCount = courtAnnouncementPageResponse.getTotalCount();
+			Integer courtAnnouncementCount = (int) courtAnnouncementPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setCourtAnnouncements(courtAnnouncements);
 			dataCompanyAllExWarehouseVO.setCourtAnnouncementCount(courtAnnouncementCount);
 			hasValue = true;
@@ -134,7 +134,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyHonorQualificationExWarehouseVO> honorQualificationPageResponse = dataCompanyHonorQualificationWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getHonorQualificationQuery());
 			List<DataCompanyHonorQualificationExWarehouseVO> honorQualifications = honorQualificationPageResponse.getData();
 			// 企业荣誉资质信息总数
-			Integer honorQualificationCount = honorQualificationPageResponse.getTotalCount();
+			Integer honorQualificationCount = (int) honorQualificationPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setHonorQualifications(honorQualifications);
 			dataCompanyAllExWarehouseVO.setHonorQualificationCount(honorQualificationCount);
 			hasValue = true;
@@ -146,7 +146,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyIprPatentAllExWarehouseVO> iprPatentAllPageResponse = dataCompanyIprPatentAllWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprPatentAllQuery());
 			List<DataCompanyIprPatentAllExWarehouseVO> iprPatentAlls = iprPatentAllPageResponse.getData();
 			// 企业知识产权专利信息总数
-			Integer iprPatentAllCount = iprPatentAllPageResponse.getTotalCount();
+			Integer iprPatentAllCount = (int) iprPatentAllPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprPatentAlls(iprPatentAlls);
 			dataCompanyAllExWarehouseVO.setIprPatentAllCount(iprPatentAllCount);
 			hasValue = true;
@@ -157,7 +157,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyJudgmentDebtorExWarehouseVO> judgmentDebtorPageResponse = dataCompanyJudgmentDebtorWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getJudgmentDebtorQuery());
 			List<DataCompanyJudgmentDebtorExWarehouseVO> judgmentDebtors = judgmentDebtorPageResponse.getData();
 			// 企业被执行人信息总数
-			Integer judgmentDebtorCount = judgmentDebtorPageResponse.getTotalCount();
+			Integer judgmentDebtorCount = (int) judgmentDebtorPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setJudgmentDebtors(judgmentDebtors);
 			dataCompanyAllExWarehouseVO.setJudgmentDebtorCount(judgmentDebtorCount);
 			hasValue = true;
@@ -168,7 +168,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyDiscreditedJudgmentDebtorExWarehouseVO> discreditedJudgmentDebtorPageResponse = dataCompanyDiscreditedJudgmentDebtorWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getDiscreditedJudgmentDebtorQuery());
 			List<DataCompanyDiscreditedJudgmentDebtorExWarehouseVO> discreditedJudgmentDebtors = discreditedJudgmentDebtorPageResponse.getData();
 			// 企业失信被执行人信息总数
-			Integer discreditedJudgmentDebtorCount = discreditedJudgmentDebtorPageResponse.getTotalCount();
+			Integer discreditedJudgmentDebtorCount = (int) discreditedJudgmentDebtorPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setDiscreditedJudgmentDebtors(discreditedJudgmentDebtors);
 			dataCompanyAllExWarehouseVO.setDiscreditedJudgmentDebtorCount(discreditedJudgmentDebtorCount);
 			hasValue = true;
@@ -179,7 +179,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyJudgmentDocumentExWarehouseVO> judgmentDocumentPageResponse = dataCompanyJudgmentDocumentWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getJudgmentDocumentQuery());
 			List<DataCompanyJudgmentDocumentExWarehouseVO> judgmentDocuments = judgmentDocumentPageResponse.getData();
 			// 企业裁判文书信息总数
-			Integer judgmentDocumentCount = judgmentDocumentPageResponse.getTotalCount();
+			Integer judgmentDocumentCount = (int) judgmentDocumentPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setJudgmentDocuments(judgmentDocuments);
 			dataCompanyAllExWarehouseVO.setJudgmentDocumentCount(judgmentDocumentCount);
 			hasValue = true;
@@ -190,7 +190,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyOpenCourtAnnouncementExWarehouseVO> openCourtAnnouncementPageResponse = dataCompanyOpenCourtAnnouncementWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getOpenCourtAnnouncementQuery());
 			List<DataCompanyOpenCourtAnnouncementExWarehouseVO> openCourtAnnouncements = openCourtAnnouncementPageResponse.getData();
 			// 企业开庭公告信息总数
-			Integer openCourtAnnouncementCount = openCourtAnnouncementPageResponse.getTotalCount();
+			Integer openCourtAnnouncementCount = (int) openCourtAnnouncementPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setOpenCourtAnnouncements(openCourtAnnouncements);
 			dataCompanyAllExWarehouseVO.setOpenCourtAnnouncementCount(openCourtAnnouncementCount);
 			hasValue = true;
@@ -201,7 +201,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyPunishmentExWarehouseVO> punishmentPageResponse = dataCompanyPunishmentWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getPunishmentQuery());
 			List<DataCompanyPunishmentExWarehouseVO> punishments = punishmentPageResponse.getData();
 			dataCompanyAllExWarehouseVO.setPunishments(punishments);
-			Integer punishmentCount = punishmentPageResponse.getTotalCount();
+			Integer punishmentCount = (int) punishmentPageResponse.getTotalCount();
 			hasValue = true;
 		}
 
@@ -209,7 +209,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeRestrictHighConsume())) {
 			PageResponse<DataCompanyRestrictHighConsumeExWarehouseVO> restrictHighConsumePageResponse = dataCompanyRestrictHighConsumeWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getRestrictHighConsumeQuery());
 			List<DataCompanyRestrictHighConsumeExWarehouseVO> restrictHighConsumes = restrictHighConsumePageResponse.getData();
-			Integer restrictHighConsumeCount = restrictHighConsumePageResponse.getTotalCount();
+			Integer restrictHighConsumeCount = (int) restrictHighConsumePageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setRestrictHighConsumes(restrictHighConsumes);
 			dataCompanyAllExWarehouseVO.setRestrictHighConsumeCount(restrictHighConsumeCount);
 			hasValue = true;
@@ -219,7 +219,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeSeriousIllegal())) {
 			PageResponse<DataCompanySeriousIllegalExWarehouseVO> seriousIllegalPageResponse = dataCompanySeriousIllegalWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getSeriousIllegalQuery());
 			List<DataCompanySeriousIllegalExWarehouseVO> seriousIllegals = seriousIllegalPageResponse.getData();
-			Integer seriousIllegalCount = seriousIllegalPageResponse.getTotalCount();
+			Integer seriousIllegalCount = (int) seriousIllegalPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setSeriousIllegals(seriousIllegals);
 			dataCompanyAllExWarehouseVO.setSeriousIllegalCount(seriousIllegalCount);
 			hasValue = true;
@@ -230,7 +230,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 			PageResponse<DataCompanyShareholderExWarehouseVO> shareholderPageResponse = dataCompanyShareholderWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getShareholderQuery());
 			List<DataCompanyShareholderExWarehouseVO> shareholders = shareholderPageResponse.getData();
 			dataCompanyAllExWarehouseVO.setShareholders(shareholders);
-			Integer shareholderCount = shareholderPageResponse.getTotalCount();
+			Integer shareholderCount = (int) shareholderPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setShareholderCount(shareholderCount);
 			hasValue = true;
 		}
@@ -247,7 +247,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeVcFinancing())) {
 			PageResponse<DataCompanyVcFinancingExWarehouseVO> vcFinancingPageResponse = dataCompanyVcFinancingWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getVcFinancingQuery());
 			List<DataCompanyVcFinancingExWarehouseVO> vcFinancings = vcFinancingPageResponse.getData();
-			Integer vcFinancingCount = vcFinancingPageResponse.getTotalCount();
+			Integer vcFinancingCount = (int) vcFinancingPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setVcFinancings(vcFinancings);
 			dataCompanyAllExWarehouseVO.setVcFinancingCount(vcFinancingCount);
 			hasValue = true;
@@ -257,7 +257,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeVcProduct())) {
 			PageResponse<DataCompanyVcProductExWarehouseVO> vcProductPageResponse = dataCompanyVcProductWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getVcProductQuery());
 			List<DataCompanyVcProductExWarehouseVO> vcProducts = vcProductPageResponse.getData();
-			Integer vcProductCount = vcProductPageResponse.getTotalCount();
+			Integer vcProductCount = (int) vcProductPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setVcProducts(vcProducts);
 			dataCompanyAllExWarehouseVO.setVcProductCount(vcProductCount);
 			hasValue = true;
@@ -274,7 +274,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeAbnormal())) {
 			PageResponse<DataCompanyAbnormalExWarehouseVO> vcProductPageResponse = dataCompanyAbnormalWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getAbnormalQuery());
 			List<DataCompanyAbnormalExWarehouseVO> vcProducts = vcProductPageResponse.getData();
-			Integer vcProductCount = vcProductPageResponse.getTotalCount();
+			Integer vcProductCount = (int) vcProductPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setAbnormals(vcProducts);
 			dataCompanyAllExWarehouseVO.setAbnormalCount(vcProductCount);
 			hasValue = true;
@@ -283,7 +283,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprTrademarkAll())) {
 			PageResponse<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarkPageResponse = dataCompanyIprTrademarkAllWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprTrademarkAllQuery());
 			List<DataCompanyIprTrademarkAllExWarehouseVO> iprTrademarks = iprTrademarkPageResponse.getData();
-			Integer iprTrademarkCount = iprTrademarkPageResponse.getTotalCount();
+			Integer iprTrademarkCount = (int) iprTrademarkPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprTrademarkAlls(iprTrademarks);
 			dataCompanyAllExWarehouseVO.setIprTrademarkAllCount(iprTrademarkCount);
 			hasValue = true;
@@ -293,7 +293,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprSoftwareCopyright())) {
 			PageResponse<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrightPageResponse = dataCompanyIprSoftwareCopyrightWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprSoftwareCopyrightQuery());
 			List<DataCompanyIprSoftwareCopyrightExWarehouseVO> iprSoftwareCopyrights = iprSoftwareCopyrightPageResponse.getData();
-			Integer iprSoftwareCopyrightCount = iprSoftwareCopyrightPageResponse.getTotalCount();
+			Integer iprSoftwareCopyrightCount = (int) iprSoftwareCopyrightPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprSoftwareCopyrights(iprSoftwareCopyrights);
 			dataCompanyAllExWarehouseVO.setIprSoftwareCopyrightCount(iprSoftwareCopyrightCount);
 			hasValue = true;
@@ -303,7 +303,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprWorkCopyright())) {
 			PageResponse<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrightPageResponse = dataCompanyIprWorkCopyrightWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprWorkCopyrightQuery());
 			List<DataCompanyIprWorkCopyrightExWarehouseVO> iprWorkCopyrights = iprWorkCopyrightPageResponse.getData();
-			Integer iprWorkCopyrightCount = iprWorkCopyrightPageResponse.getTotalCount();
+			Integer iprWorkCopyrightCount = (int) iprWorkCopyrightPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprWorkCopyrights(iprWorkCopyrights);
 			dataCompanyAllExWarehouseVO.setIprWorkCopyrightCount(iprWorkCopyrightCount);
 			hasValue = true;
@@ -313,7 +313,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprGeogra())) {
 			PageResponse<DataCompanyIprGeograExWarehouseVO> iprGeograPageResponse = dataCompanyIprGeograWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprGeograQuery());
 			List<DataCompanyIprGeograExWarehouseVO> iprGeogras = iprGeograPageResponse.getData();
-			Integer iprGeograCount = iprGeograPageResponse.getTotalCount();
+			Integer iprGeograCount = (int) iprGeograPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprGeogras(iprGeogras);
 			dataCompanyAllExWarehouseVO.setIprGeograCount(iprGeograCount);
 			hasValue = true;
@@ -323,7 +323,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprIntegratedCircuit())) {
 			PageResponse<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuitPageResponse = dataCompanyIprIntegratedCircuitWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprIntegratedCircuitQuery());
 			List<DataCompanyIprIntegratedCircuitExWarehouseVO> iprIntegratedCircuits = iprIntegratedCircuitPageResponse.getData();
-			Integer iprIntegratedCircuitCount = iprIntegratedCircuitPageResponse.getTotalCount();
+			Integer iprIntegratedCircuitCount = (int) iprIntegratedCircuitPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprIntegratedCircuits(iprIntegratedCircuits);
 			dataCompanyAllExWarehouseVO.setIprIntegratedCircuitCount(iprIntegratedCircuitCount);
 			hasValue = true;
@@ -333,7 +333,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprPlantVariety())) {
 			PageResponse<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarietyPageResponse = dataCompanyIprPlantVarietyWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprPlantVarietyQuery());
 			List<DataCompanyIprPlantVarietyExWarehouseVO> iprPlantVarieties = iprPlantVarietyPageResponse.getData();
-			Integer iprPlantVarietyCount = iprPlantVarietyPageResponse.getTotalCount();
+			Integer iprPlantVarietyCount = (int) iprPlantVarietyPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprPlantVarieties(iprPlantVarieties);
 			dataCompanyAllExWarehouseVO.setIprPlantVarietyCount(iprPlantVarietyCount);
 			hasValue = true;
@@ -342,7 +342,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeAdministrativeLicense())) {
 			PageResponse<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicensePageResponse = dataCompanyAdministrativeLicenseWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getAdministrativeLicenseQuery());
 			List<DataCompanyAdministrativeLicenseExWarehouseVO> administrativeLicenses = administrativeLicensePageResponse.getData();
-			Integer administrativeLicenseCount = administrativeLicensePageResponse.getTotalCount();
+			Integer administrativeLicenseCount = (int) administrativeLicensePageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setAdministrativeLicenses(administrativeLicenses);
 			dataCompanyAllExWarehouseVO.setAdministrativeLicenseCount(administrativeLicenseCount);
 			hasValue = true;
@@ -352,7 +352,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeDeliveryAnnouncement())) {
 			PageResponse<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncementPageResponse = dataCompanyDeliveryAnnouncementWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getDeliveryAnnouncementQuery());
 			List<DataCompanyDeliveryAnnouncementExWarehouseVO> deliveryAnnouncements = deliveryAnnouncementPageResponse.getData();
-			Integer deliveryAnnouncementCount = deliveryAnnouncementPageResponse.getTotalCount();
+			Integer deliveryAnnouncementCount = (int) deliveryAnnouncementPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setDeliveryAnnouncements(deliveryAnnouncements);
 			dataCompanyAllExWarehouseVO.setDeliveryAnnouncementCount(deliveryAnnouncementCount);
 			hasValue = true;
@@ -362,7 +362,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeEndCase())) {
 			PageResponse<DataCompanyEndCaseExWarehouseVO> endCasePageResponse = dataCompanyEndCaseWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getEndCaseQuery());
 			List<DataCompanyEndCaseExWarehouseVO> endCases = endCasePageResponse.getData();
-			Integer endCaseCount = endCasePageResponse.getTotalCount();
+			Integer endCaseCount = (int) endCasePageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setEndCases(endCases);
 			dataCompanyAllExWarehouseVO.setEndCaseCount(endCaseCount);
 			hasValue = true;
@@ -372,7 +372,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeEquityPledge())) {
 			PageResponse<DataCompanyEquityPledgeExWarehouseVO> equityPledgePageResponse = dataCompanyEquityPledgeWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getEquityPledgeQuery());
 			List<DataCompanyEquityPledgeExWarehouseVO> equityPledges = equityPledgePageResponse.getData();
-			Integer equityPledgeCount = equityPledgePageResponse.getTotalCount();
+			Integer equityPledgeCount = (int) equityPledgePageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setEquityPledges(equityPledges);
 			dataCompanyAllExWarehouseVO.setEquityPledgeCount(equityPledgeCount);
 			hasValue = true;
@@ -382,7 +382,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeIprPledge())) {
 			PageResponse<DataCompanyIprPledgeExWarehouseVO> iprPledgePageResponse = dataCompanyIprPledgeWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getIprPledgeQuery());
 			List<DataCompanyIprPledgeExWarehouseVO> iprPledges = iprPledgePageResponse.getData();
-			Integer iprPledgeCount = iprPledgePageResponse.getTotalCount();
+			Integer iprPledgeCount = (int) iprPledgePageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setIprPledges(iprPledges);
 			dataCompanyAllExWarehouseVO.setIprPledgeCount(iprPledgeCount);
 			hasValue = true;
@@ -392,7 +392,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludePrimeStaff())) {
 			PageResponse<DataCompanyPrimeStaffExWarehouseVO> primeStaffPageResponse = dataCompanyPrimeStaffWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getPrimeStaffQuery());
 			List<DataCompanyPrimeStaffExWarehouseVO> primeStaffs = primeStaffPageResponse.getData();
-			Integer primeStaffCount = primeStaffPageResponse.getTotalCount();
+			Integer primeStaffCount = (int) primeStaffPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setPrimeStaffs(primeStaffs);
 			dataCompanyAllExWarehouseVO.setPrimeStaffCount(primeStaffCount);
 			hasValue = true;
@@ -402,7 +402,7 @@ public class DataCompanyAllWrapExWarehouseCommandExecutor extends AbstractBaseWr
 		if (BooleanUtil.isTrue(dataCompanyAllExWarehouseQueryCommand.getIsIncludeSpotCheck())) {
 			PageResponse<DataCompanySpotCheckExWarehouseVO> spotCheckPageResponse = dataCompanySpotCheckWrapExWarehouseCommandExecutor.exWarehouse(dataCompanyExWarehouseQueryCommand, dataCompanyAllExWarehouseQueryCommand.getSpotCheckQuery());
 			List<DataCompanySpotCheckExWarehouseVO> spotChecks = spotCheckPageResponse.getData();
-			Integer spotCheckCount = spotCheckPageResponse.getTotalCount();
+			Integer spotCheckCount = (int) spotCheckPageResponse.getTotalCount();
 			dataCompanyAllExWarehouseVO.setSpotChecks(spotChecks);
 			dataCompanyAllExWarehouseVO.setSpotCheckCount(spotCheckCount);
 			hasValue = true;

@@ -1,10 +1,10 @@
 package com.particle.oplog.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.oplog.app.structmapping.OpLogAuditDataAppStructMapping;
 import com.particle.oplog.client.dto.data.OpLogAuditDataVO;
 import com.particle.oplog.domain.OpLogAuditData;
@@ -34,7 +34,7 @@ public class OpLogAuditDataDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpLogAuditDataVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpLogAuditDataVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpLogAuditDataId opLogAuditDataId = OpLogAuditDataId.of(deleteCommand.getId());
 		OpLogAuditData byId = opLogAuditDataGateway.getById(opLogAuditDataId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

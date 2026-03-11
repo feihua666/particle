@@ -1,6 +1,7 @@
 package com.particle.area.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.area.adapter.feign.client.rpc.AreaTransRpcFeignClient;
 import com.particle.area.client.dto.data.AreaTransVO;
 import com.particle.area.infrastructure.dos.AreaDO;
 import com.particle.area.infrastructure.service.IAreaService;
@@ -29,7 +30,7 @@ public class AreaTransServiceImpl implements ITransService<AreaTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_AREA_BY_ID);
+        return AreaTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

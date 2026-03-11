@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyShareholderCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyShareholderUpdateCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyShareholderWarehouseCommand;
@@ -29,7 +29,7 @@ public interface IDataCompanyShareholderApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyShareholderVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyShareholderVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

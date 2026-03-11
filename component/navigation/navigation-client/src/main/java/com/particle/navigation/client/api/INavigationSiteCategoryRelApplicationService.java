@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationCategoryAssignNavigationSiteCommand;
@@ -30,7 +30,7 @@ public interface INavigationSiteCategoryRelApplicationService extends IBaseAppli
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSiteCategoryRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<NavigationSiteCategoryRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -56,16 +56,16 @@ public interface INavigationSiteCategoryRelApplicationService extends IBaseAppli
 
 	/**
 	 * 根据导航网站id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationSiteId(IdCommand idCommand);
+	public Response deleteByNavigationSiteId(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 根据导航分类id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationCategoryId(IdCommand idCommand);
+	public Response deleteByNavigationCategoryId(CommonIdCommand commonIdCommand);
 
 }

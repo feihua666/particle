@@ -1,12 +1,12 @@
 package com.particle.user.app.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.user.app.structmapping.UserExtraInfoAppStructMapping;
 import com.particle.user.client.dto.command.representation.UserExtraInfoQueryListCommand;
 import com.particle.user.client.dto.data.UserExtraInfoVO;
 import com.particle.user.infrastructure.dos.UserExtraInfoDO;
 import com.particle.user.infrastructure.service.IUserExtraInfoService;
 import com.particle.user.client.dto.command.representation.UserExtraInfoPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class UserExtraInfoQueryCommandExecutor  extends AbstractBaseQueryExecuto
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<UserExtraInfoVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<UserExtraInfoVO> executeDetail(CommonIdCommand detailCommand) {
 		UserExtraInfoDO byId = iUserExtraInfoService.getById(detailCommand.getId());
 		UserExtraInfoVO userExtraInfoVO = UserExtraInfoAppStructMapping.instance.userExtraInfoDOToUserExtraInfoVO(byId);
 		return SingleResponse.of(userExtraInfoVO);
@@ -67,7 +66,7 @@ public class UserExtraInfoQueryCommandExecutor  extends AbstractBaseQueryExecuto
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UserExtraInfoVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<UserExtraInfoVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		UserExtraInfoDO byId = iUserExtraInfoService.getById(detailForUpdateCommand.getId());
 		UserExtraInfoVO userExtraInfoVO = UserExtraInfoAppStructMapping.instance.userExtraInfoDOToUserExtraInfoVO(byId);
 		return SingleResponse.of(userExtraInfoVO);

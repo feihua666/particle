@@ -2,7 +2,7 @@ package com.particle.tracking.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class TrackingPageRecordQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TrackingPageRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<TrackingPageRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		TrackingPageRecordDO byId = iTrackingPageRecordService.getById(detailCommand.getId());
 		TrackingPageRecordVO trackingPageRecordVO = TrackingPageRecordAppStructMapping.instance.trackingPageRecordDOToTrackingPageRecordVO(byId);
 		return SingleResponse.of(trackingPageRecordVO);

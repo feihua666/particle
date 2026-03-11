@@ -1,7 +1,7 @@
 package com.particle.tenant.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface ITenantRepresentationApplicationService extends IBaseApplicatio
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<TenantVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<TenantVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<TenantVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<TenantVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

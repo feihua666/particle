@@ -6,7 +6,7 @@ import com.particle.agi.app.agent.executor.AgiAgentUpdateCommandExecutor;
 import com.particle.agi.app.agent.executor.AgiAgentCommandExecutor;
 import com.particle.agi.client.agent.dto.command.AgiAgentChatCommand;
 import com.particle.agi.client.agent.dto.data.AgiAgentChatResponseVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.agi.client.agent.dto.command.AgiAgentUpdateCommand;
 import com.particle.agi.client.agent.api.IAgiAgentApplicationService;
 import com.particle.agi.client.agent.dto.command.AgiAgentCreateCommand;
@@ -18,7 +18,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 
@@ -50,7 +49,7 @@ public class AgiAgentApplicationServiceImpl extends AbstractBaseApplicationServi
     }
 
     @Override
-    public SingleResponse<AgiAgentVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<AgiAgentVO> delete(CommonIdCommand deleteCommand) {
         return agiAgentDeleteCommandExecutor.execute(deleteCommand);
     }
 

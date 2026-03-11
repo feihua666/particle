@@ -2,7 +2,7 @@ package com.particle.global.cache.endpoint;
 
 import com.particle.global.cache.CacheHelper;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

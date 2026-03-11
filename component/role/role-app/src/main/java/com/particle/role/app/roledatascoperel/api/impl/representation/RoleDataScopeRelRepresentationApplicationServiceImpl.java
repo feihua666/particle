@@ -1,7 +1,7 @@
 package com.particle.role.app.roledatascoperel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class RoleDataScopeRelRepresentationApplicationServiceImpl extends Abstra
     private RoleDataScopeRelQueryCommandExecutor roleDataScopeRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<RoleDataScopeRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<RoleDataScopeRelVO> queryDetail(CommonIdCommand detailCommand) {
         return roleDataScopeRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return roleDataScopeRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -48,14 +48,14 @@ public class RoleDataScopeRelRepresentationApplicationServiceImpl extends Abstra
     }
 
 	@Override
-	public MultiResponse<Long> queryDataScopeIdsByRoleId(IdCommand roleIdCommand) {
+	public MultiResponse<Long> queryDataScopeIdsByRoleId(CommonIdCommand roleCommonIdCommand) {
 
-		return roleDataScopeRelQueryCommandExecutor.queryDataScopeIdsByRoleId(roleIdCommand);
+		return roleDataScopeRelQueryCommandExecutor.queryDataScopeIdsByRoleId(roleCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryRoleIdsByDataScopeId(IdCommand dataScopeIdCommand) {
-		return roleDataScopeRelQueryCommandExecutor.queryRoleIdsByDataScopeId(dataScopeIdCommand);
+	public MultiResponse<Long> queryRoleIdsByDataScopeId(CommonIdCommand dataScopeCommonIdCommand) {
+		return roleDataScopeRelQueryCommandExecutor.queryRoleIdsByDataScopeId(dataScopeCommonIdCommand);
 	}
 
     @Autowired

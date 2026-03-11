@@ -1,218 +1,61 @@
 particle:
-  mybatis-plus:
-    tenant-enable: true
-    # 以下配置的表数据属于平台系统，不处理租户字段
-    tenant-ignore-tables:
-      - component_tenant
-      - component_tenant_create_apply
-      - component_tenant_user
-      - component_tenant_func_application
-      - component_tenant_func
-      - component_user
-      - component_user_identifier
-      - component_user_identifier_pwd
-      - component_user_login_device
-      - component_user_login_record
-      - global_message_event
-      - global_message_event_consume_record
-      - component_dict
-      - component_func
-      - component_func_group
-      - component_func_application
-      - component_func_application_func_rel
-      - component_area
-      - component_op_log
-      - component_op_log_audit_data
-      # 埋点数据是系统级别的数据
-      - component_tracking_page
-      - component_tracking_page_record
-      # 数据查询数据相当于开发的功能为系统级别的数据
-      - component_data_query_data_api
-      - component_data_query_datasource
-      - component_data_query_datasource_api
-      - component_data_query_provider
-      # 消息模板
-      - component_message_template
-      # oauth2 注册客户端不使用租户id
-      - oauth2_registered_client
-      # 客户端业务表
-      - component_oauth2_registered_client
-      # 开放平台相关表
-      - component_openplatform_app
-      - component_openplatform_app_openapi
-      - component_openplatform_app_quota
-      - component_openplatform_doc_api
-      - component_openplatform_doc_api_dir_rel
-      - component_openplatform_doc_api_doc
-      - component_openplatform_doc_api_doc_example_code
-      - component_openplatform_doc_api_doc_param_field
-      - component_openplatform_doc_api_doc_response_code
-      - component_openplatform_doc_api_doc_template
-      - component_openplatform_doc_api_doc_template_example_code
-      - component_openplatform_doc_api_doc_template_param_field
-      - component_openplatform_doc_api_doc_template_response_code
-      - component_openplatform_doc_dir
-      - component_openplatform_doc_dir_name
-      - component_openplatform_openapi
-      - component_openplatform_openapi_batch_query_record
-      - component_openplatform_openapi_batch_query_record_detail
-      - component_openplatform_openapi_fee
-      - component_openplatform_openapi_limit_rule
-      - component_openplatform_openapi_record
-      - component_openplatform_openapi_record_app_month_bill
-      - component_openplatform_openapi_record_app_openapi_day_rt_summary
-      - component_openplatform_openapi_record_app_openapi_day_summary
-      - component_openplatform_openapi_record_app_openapi_month_summary
-      - component_openplatform_openapi_record_customer_month_bill
-      - component_openplatform_openapi_record_param
-      - component_openplatform_provider
-      - component_openplatform_provider_api
-      - component_openplatform_provider_record
-      - component_openplatform_provider_record_param
-      - component_openplatform_provider_record_prd_api_day_summary
-      - component_openplatform_provider_record_prd_api_month_summary
-      - component_openplatform_provider_record_prd_month_bill
-      # 报告相关表
-      - component_report_report_api
-      - component_report_segment_template
-      # 使用次数相关表
-      - component_usage_count_define
-      - component_usage_count_config
-      - component_usage_count_record
-      - component_usage_count_record_detail
-      # 意见反馈相关
-      - component_feedback
-      - component_feedback_attachment
-      - component_feedback_reply
-      - component_feedback_reply_attachment
-      # 参数配置相关，系统参数配置不使用租户id
-      - component_system_config
-      # 数据范围约束相关
-      - component_data_object
-      - component_data_scope
-      - component_data_scope_custom_data_rel
-      # 数据相关
-      - component_data_company
-      - component_data_company_abnormal
-      - component_data_company_administrative_license
-      - component_data_company_annual_report
-      - component_data_company_annual_report_administrative_license
-      - component_data_company_annual_report_assets
-      - component_data_company_annual_report_change
-      - component_data_company_annual_report_equity_change
-      - component_data_company_annual_report_foreign_guarantee
-      - component_data_company_annual_report_foreign_invest
-      - component_data_company_annual_report_shareholder
-      - component_data_company_annual_report_social_security
-      - component_data_company_annual_report_website
-      - component_data_company_basic
-      - component_data_company_case_filing
-      - component_data_company_case_filing_party
-      - component_data_company_court_announcement
-      - component_data_company_court_announcement_content
-      - component_data_company_court_announcement_party
-      - component_data_company_delivery_announcement
-      - component_data_company_delivery_announcement_content
-      - component_data_company_delivery_announcement_party
-      - component_data_company_discredited_judgment_debtor
-      - component_data_company_end_case
-      - component_data_company_equity_pledge
-      - component_data_company_honor_qualification
-      - component_data_company_ipr_geogra
-      - component_data_company_ipr_geogra_approve_announcement
-      - component_data_company_ipr_integrated_circuit
-      - component_data_company_ipr_patent
-      - component_data_company_ipr_patent_certificate
-      - component_data_company_ipr_patent_cited
-      - component_data_company_ipr_patent_content
-      - component_data_company_ipr_patent_family
-      - component_data_company_ipr_patent_legal_status
-      - component_data_company_ipr_patent_license
-      - component_data_company_ipr_patent_notice
-      - component_data_company_ipr_patent_party
-      - component_data_company_ipr_patent_payment
-      - component_data_company_ipr_patent_pledge
-      - component_data_company_ipr_patent_quote
-      - component_data_company_ipr_patent_statistic
-      - component_data_company_ipr_patent_transfer
-      - component_data_company_ipr_plant_variety
-      - component_data_company_ipr_plant_variety_change
-      - component_data_company_ipr_pledge
-      - component_data_company_ipr_software_copyright
-      - component_data_company_ipr_trademark
-      - component_data_company_ipr_trademark_license
-      - component_data_company_ipr_trademark_license_person
-      - component_data_company_ipr_trademark_party
-      - component_data_company_ipr_trademark_pledge
-      - component_data_company_ipr_trademark_transfer
-      - component_data_company_ipr_trademark_transfer_person
-      - component_data_company_ipr_work_copyright
-      - component_data_company_judgment_debtor
-      - component_data_company_judgment_document
-      - component_data_company_judgment_document_content
-      - component_data_company_judgment_document_party
-      - component_data_company_md5
-      - component_data_company_open_court_announcement
-      - component_data_company_open_court_announcement_content
-      - component_data_company_open_court_announcement_party
-      - component_data_company_person
-      - component_data_company_prime_staff
-      - component_data_company_prime_staff_position
-      - component_data_company_punishment
-      - component_data_company_restrict_high_consume
-      - component_data_company_restrict_high_consume_party
-      - component_data_company_serious_illegal
-      - component_data_company_shareholder
-      - component_data_company_spot_check
-      - component_data_company_statistic
-      - component_data_company_vc_financing
-      - component_data_company_vc_financing_invest_institution_rel
-      - component_data_company_vc_invest_institution
-      - component_data_company_vc_product
-      - component_data_company_vc_product_competitive_product_rel
-      # 任务计划
-      - component_scheduler_execute_record
-      - component_scheduler_temp_task
-      - component_scheduler_temp_task_run_record
-      - component_scheduler_temp_task_run_record_log
-      - component_scheduler_job_data_task
-      - component_scheduler_async_data_task
-      # 导航相关
-      - component_navigation_category
-      - component_navigation_site
-      - component_navigation_site_category_rel
-      - component_navigation_friendship_link
-      - component_navigation_submit
-      - component_navigation_static_deploy
-      - component_navigation_site_tag
-      - component_navigation_site_tag_rel
-      # cms 相关
-      - component_cms_channel
-      - component_cms_channel_view_record
-      - component_cms_content
-      - component_cms_content_category
-      - component_cms_content_multimedia
-      - component_cms_content_view_record
-      - component_cms_site
-      - component_cms_site_index_view_record
-      - component_cms_template_content
-    # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
-    tmdp:
-      # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
-      # 下面这些配置的表是在租户拦截器忽略的，但又想通过租户区分数据
-      tenantDataPermmision:
-        component_tenant: component_tenant.id = {tenantId}
-        component_tenant_user: component_tenant_user.tenant_id = {tenantId}
-        component_tenant_func_application: component_tenant_func_application.tenant_id = {tenantId}
-        component_tenant_func: component_tenant_func.tenant_id = {tenantId}
-        component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
-        component_user_identifier: exists(select id from component_tenant_user tu where tu.user_id = component_user_identifier.user_id and tu.tenant_id = {tenantId} )
-        component_user_identifier_pwd: exists(select id from component_tenant_user tu where tu.user_id = component_user_identifier_pwd.user_id and tu.tenant_id = {tenantId} )
-        component_user_login_device: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_device.user_id and tu.tenant_id = {tenantId} )
-        component_user_login_record: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_record.user_id and tu.tenant_id = {tenantId} )
-        component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
-        component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
-        component_func_application_func_rel: exists(select id from component_tenant_func tf where tf.func_application_id = component_func_application_func_rel.func_application_id and tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = 1 )
-        component_op_log: component_tenant_user.tenant_id = {tenantId}
-        component_op_log_audit_data: component_tenant_user.tenant_id = {tenantId}
+  global:
+    mybatis-plus:
+      tenant-enable: true
+      # 以下配置的表数据属于平台系统，不处理租户字段
+      tenant-ignore-tables:
+        - component_tenant
+        - component_tenant_create_apply
+        - component_tenant_user
+        - component_tenant_func_application
+        - component_tenant_func
+        - component_user
+        - component_user_identifier
+        - component_user_identifier_pwd
+        - component_user_login_device
+        - component_user_login_record
+        - component_dict
+        - component_func
+        - component_func_group
+        - component_func_application
+        - component_func_application_func_rel
+        - component_area
+        # 埋点数据是系统级别的数据，以产品角度来看，主要统计页面使用情况数据
+        - component_tracking_page
+        - component_tracking_page_record
+        # 使用次数相关表，是系统级别的数据，一般仅主租户使用，以给其它租户和用户限制使用次数
+        - component_usage_count_define
+        - component_usage_count_config
+        - component_usage_count_record
+        - component_usage_count_record_detail
+        # 数据范围约束相关
+        - component_data_object
+        - component_data_scope
+        - component_data_scope_custom_data_rel
+        # 任务计划
+        - component_scheduler_execute_record
+        - component_scheduler_temp_task
+        - component_scheduler_temp_task_run_record
+        - component_scheduler_temp_task_run_record_log
+        - component_scheduler_job_data_task
+        - component_scheduler_async_data_task
+      # tmdp 代表 TenantMultiDataPermission 首字母即租户多表数据权限
+      tmdp:
+        # 该配置是一个map，key为表名，value为条件限制，请不要添加 and 或 or 前缀，可用变量 {tenantId}=租户id，将被替换为实际租户的id
+        # 下面这些配置的表是在租户拦截器忽略的，但又想通过租户区分数据
+        tenantDataPermmision:
+          component_tenant: component_tenant.id = {tenantId}
+          component_tenant_user: component_tenant_user.tenant_id = {tenantId}
+          component_tenant_func_application: component_tenant_func_application.tenant_id = {tenantId}
+          component_tenant_func: component_tenant_func.tenant_id = {tenantId}
+          component_user: exists(select id from component_tenant_user tu where tu.user_id = component_user.id and tu.tenant_id = {tenantId} )
+          component_user_identifier: exists(select id from component_tenant_user tu where tu.user_id = component_user_identifier.user_id and tu.tenant_id = {tenantId} )
+          component_user_identifier_pwd: exists(select id from component_tenant_user tu where tu.user_id = component_user_identifier_pwd.user_id and tu.tenant_id = {tenantId} )
+          component_user_login_device: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_device.user_id and tu.tenant_id = {tenantId} )
+          component_user_login_record: exists(select id from component_tenant_user tu where tu.user_id = component_user_login_record.user_id and tu.tenant_id = {tenantId} )
+          component_func_application: exists(select id from component_tenant_func_application tfp where tfp.func_application_id = component_func_application.id and tfp.tenant_id = {tenantId} )
+          component_func: exists(select id from component_tenant_func tf where tf.func_id = component_func.id and tf.tenant_id = {tenantId} )
+          component_func_application_func_rel: exists(select id from component_tenant_func tf where tf.func_application_id = component_func_application_func_rel.func_application_id and tf.func_id = component_func_application_func_rel.func_id and tf.tenant_id = 1 )
+          component_op_log: component_tenant_user.tenant_id = {tenantId}
+          component_op_log_audit_data: component_tenant_user.tenant_id = {tenantId}
 

@@ -1,7 +1,7 @@
 package com.particle.data.adapter.company.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.data.client.company.api.IDataCompanyApplicationService;
@@ -52,7 +52,7 @@ public class DataCompanyAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除企业")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class DataCompanyAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dataCompany:update')")
     @Operation(summary = "企业更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompany:detail')")
     @Operation(summary = "企业详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyRepresentationApplicationService.queryDetail(detailCommand);
     }
 

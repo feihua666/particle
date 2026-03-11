@@ -1,7 +1,7 @@
 package com.particle.oauth2authorization.adapter.client.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class Oauth2RegisteredClientAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除oauth2客户端")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除oauth2客户端",module = OpLogConstants.Module.oauth2authorization,type = OpLogConstants.Type.delete)
-	public SingleResponse<Oauth2RegisteredClientVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<Oauth2RegisteredClientVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOauth2RegisteredClientApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class Oauth2RegisteredClientAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:oauth2RegisteredClient:update')")
 	@Operation(summary = "oauth2客户端更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<Oauth2RegisteredClientVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<Oauth2RegisteredClientVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOauth2RegisteredClientRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:oauth2RegisteredClient:detail')")
 	@Operation(summary = "oauth2客户端详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<Oauth2RegisteredClientVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<Oauth2RegisteredClientVO> queryDetail(CommonIdCommand detailCommand){
 		return iOauth2RegisteredClientRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

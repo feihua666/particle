@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CJSXDm6g.js";let a=r()+"/admin/web/admin_component";const p=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),i=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{p as c,d,i as l,u as p,n as r,o as u};

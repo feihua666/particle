@@ -1,6 +1,6 @@
 package com.particle.global.security.security.config;
 
-import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.tool.login.LoginUserTool;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 /**
  * <p>
- * 持久化线程变量，方便后面获取，主要解决匿名登录时设置匿名变量到{@link com.particle.global.security.security.login.LoginUserTool}
+ * 持久化线程变量，方便后面获取，主要解决匿名登录时设置匿名变量到{@link com.particle.global.tool.login.LoginUserTool}
  * </p>
  *
  * @author yangwei
@@ -49,7 +49,6 @@ public class LoginUserToolAnonymousPersistentSecurityFilter extends GenericFilte
 			chain.doFilter(request, response);
 		} finally {
 			LoginUserTool.clear();
-
 		}
 	}
 

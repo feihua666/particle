@@ -6,7 +6,7 @@ import com.particle.scheduler.client.datatask.dto.data.SchedulerAsyncDataTaskVO;
 import com.particle.scheduler.domain.datatask.SchedulerAsyncDataTask;
 import com.particle.scheduler.domain.datatask.gateway.SchedulerAsyncDataTaskGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

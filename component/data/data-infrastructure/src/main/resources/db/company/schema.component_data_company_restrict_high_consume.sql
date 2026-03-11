@@ -20,4 +20,4 @@ CREATE TABLE `component_data_company_restrict_high_consume` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `case_no` (`case_no`) USING BTREE,
   UNIQUE KEY `uni_data_md5` (`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业限制高消费表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业限制高消费表';

@@ -35,7 +35,8 @@ public class UserRpcController extends AbstractBaseRpcAdapter implements UserRpc
 
 	@Operation(summary = "添加用户")
 	@Override
-	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand, @RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
+	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand){
+		UserIdentifierPwdCommand userIdentifierPwdCommand = userCreateCommand.getIdentifierPwd();
 		PasswordTool.encodePassword(userIdentifierPwdCommand);
 
 		return iUserApplicationService.create(userCreateCommand, userIdentifierPwdCommand);

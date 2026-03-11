@@ -1,7 +1,7 @@
 package com.particle.dept.app.depttreeuserrel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.depttreeuserrel.structmapping.DeptTreeUserRelAppStructMapping;
 import com.particle.dept.client.depttreeuserrel.dto.data.DeptTreeUserRelVO;
 import com.particle.dept.domain.depttreeuserrel.DeptTreeUserRel;
@@ -9,7 +9,7 @@ import com.particle.dept.domain.depttreeuserrel.DeptTreeUserRelId;
 import com.particle.dept.domain.depttreeuserrel.gateway.DeptTreeUserRelGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DeptTreeUserRelDeleteCommandExecutor  extends AbstractBaseExecutor 
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DeptTreeUserRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DeptTreeUserRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DeptTreeUserRelId deptTreeUserRelId = DeptTreeUserRelId.of(deleteCommand.getId());
 		DeptTreeUserRel byId = deptTreeUserRelGateway.getById(deptTreeUserRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

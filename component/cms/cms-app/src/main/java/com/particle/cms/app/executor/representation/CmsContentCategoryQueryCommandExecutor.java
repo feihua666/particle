@@ -6,7 +6,7 @@ import com.particle.cms.client.dto.data.CmsContentCategoryVO;
 import com.particle.cms.infrastructure.dos.CmsContentCategoryDO;
 import com.particle.cms.infrastructure.service.ICmsContentCategoryService;
 import com.particle.cms.client.dto.command.representation.CmsContentCategoryPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class CmsContentCategoryQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentCategoryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CmsContentCategoryVO> executeDetail(CommonIdCommand detailCommand) {
 		CmsContentCategoryDO byId = iCmsContentCategoryService.getById(detailCommand.getId());
 		CmsContentCategoryVO cmsContentCategoryVO = CmsContentCategoryAppStructMapping.instance.cmsContentCategoryDOToCmsContentCategoryVO(byId);
 		return SingleResponse.of(cmsContentCategoryVO);
@@ -67,7 +66,7 @@ public class CmsContentCategoryQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentCategoryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CmsContentCategoryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CmsContentCategoryDO byId = iCmsContentCategoryService.getById(detailForUpdateCommand.getId());
 		CmsContentCategoryVO cmsContentCategoryVO = CmsContentCategoryAppStructMapping.instance.cmsContentCategoryDOToCmsContentCategoryVO(byId);
 		return SingleResponse.of(cmsContentCategoryVO);

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-04-05 16:45:19
  */
-@FeignClient(name = "${particle.feign-client.name.data:data}",path = "/rpc/data_company_restrict_high_consume")
+@FeignClient(name = "${particle.feign-client.data.name:data-start}", contextId = "dataCompanyRestrictHighConsumeRpcFeignClient", url = "${particle.feign-client.data.url:}", path = "/rpc/data_company_restrict_high_consume")
 public interface DataCompanyRestrictHighConsumeRpcFeignClient {
 
 

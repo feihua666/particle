@@ -1,0 +1,1 @@
+import{k as t,l as s}from"./index-CJSXDm6g.js";let r=s()+"/admin/web/scheduler_temp_task";const p=e=>t.delete(r+"/delete",{data:e}),i=e=>t.get(r+"/list",{params:e}),l=e=>t.get(r+"/page",{params:e});export{i as l,l as p,p as r};

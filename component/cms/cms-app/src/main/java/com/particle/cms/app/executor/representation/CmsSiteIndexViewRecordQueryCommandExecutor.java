@@ -6,7 +6,7 @@ import com.particle.cms.client.dto.data.CmsSiteIndexViewRecordVO;
 import com.particle.cms.infrastructure.dos.CmsSiteIndexViewRecordDO;
 import com.particle.cms.infrastructure.service.ICmsSiteIndexViewRecordService;
 import com.particle.cms.client.dto.command.representation.CmsSiteIndexViewRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class CmsSiteIndexViewRecordQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CmsSiteIndexViewRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CmsSiteIndexViewRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		CmsSiteIndexViewRecordDO byId = iCmsSiteIndexViewRecordService.getById(detailCommand.getId());
 		CmsSiteIndexViewRecordVO cmsSiteIndexViewRecordVO = CmsSiteIndexViewRecordAppStructMapping.instance.cmsSiteIndexViewRecordDOToCmsSiteIndexViewRecordVO(byId);
 		return SingleResponse.of(cmsSiteIndexViewRecordVO);
@@ -67,7 +66,7 @@ public class CmsSiteIndexViewRecordQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CmsSiteIndexViewRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CmsSiteIndexViewRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CmsSiteIndexViewRecordDO byId = iCmsSiteIndexViewRecordService.getById(detailForUpdateCommand.getId());
 		CmsSiteIndexViewRecordVO cmsSiteIndexViewRecordVO = CmsSiteIndexViewRecordAppStructMapping.instance.cmsSiteIndexViewRecordDOToCmsSiteIndexViewRecordVO(byId);
 		return SingleResponse.of(cmsSiteIndexViewRecordVO);

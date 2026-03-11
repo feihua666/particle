@@ -1,7 +1,7 @@
 package com.particle.oplog.client.error.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.client.error.dto.data.OpLogErrorContentVO;
 
@@ -20,8 +20,8 @@ public interface IOpLogErrorContentRepresentationApplicationService extends IBas
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpLogErrorContentVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<OpLogErrorContentVO> queryDetail(CommonIdCommand detailCommand);
 
-	SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(IdCommand detailCommand);
+	SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(CommonIdCommand detailCommand);
 
 }

@@ -1,6 +1,7 @@
 package com.particle.global.security.security.config;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.particle.global.light.share.login.LoginConstants;
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.authorizationserver.AuthorizationServerSecurityAutoConfiguration;
 import com.particle.global.security.security.PasswordEncryptEnum;
@@ -34,9 +35,9 @@ public class WebSecurityConfig {
 
     public static final int defaultSecurityFilterChainOrder = Ordered.LOWEST_PRECEDENCE - 10000;
 
-    public static final String login_page_url = "/loginpage";
-    public static final String login_processing_url = "/login";
-    public static final String logout_processing_url = "/logout";
+    public static final String login_page_url = LoginConstants.login_page_url;
+    public static final String login_processing_url = LoginConstants.login_url;
+    public static final String logout_processing_url = LoginConstants.logout_url;
 
     @Autowired(required = false)
     private GlobalSecurityProperties globalSecurityProperties;
@@ -53,9 +54,6 @@ public class WebSecurityConfig {
     private List<CustomWebSecurityConfigure> customWebSecurityConfigureList;
     @Autowired(required = false)
     private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
-
-    @Autowired
-    private GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper;
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
@@ -125,15 +123,7 @@ public class WebSecurityConfig {
         // 自定义当前登录用户工具类
         LoginUserToolPersistentSecurityFilter loginUserToolPersistentSecurityFilter = new LoginUserToolPersistentSecurityFilter();
         loginUserToolPersistentSecurityFilter.setSecurityFilterPersistentLoginUserReadyListenerList(securityFilterPersistentLoginUserReadyListenerList);
-        loginUserToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
         http.addFilterAfter(loginUserToolPersistentSecurityFilter, SecurityContextPersistenceFilter.class);
-        /**
-         * 默认排序
-         * @see https://docs.spring.io/spring-security/reference/5.7/servlet/configuration/xml-namespace.html#filter-stack
-         */
-        TenantToolPersistentSecurityFilter tenantToolPersistentSecurityFilter = new TenantToolPersistentSecurityFilter();
-        tenantToolPersistentSecurityFilter.setGrantedTenantResolveAndPersistentHelper(grantedTenantResolveAndPersistentHelper);
-        http.addFilterAfter(tenantToolPersistentSecurityFilter, SecurityContextPersistenceFilter.class);
 
         // 判断是否为匿名登录
         LoginUserToolAnonymousPersistentSecurityFilter anonymousPersistentSecurityFilter = new LoginUserToolAnonymousPersistentSecurityFilter();

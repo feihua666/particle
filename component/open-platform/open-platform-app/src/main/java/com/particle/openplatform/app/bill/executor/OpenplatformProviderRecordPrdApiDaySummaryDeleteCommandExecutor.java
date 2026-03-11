@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.bill.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.bill.structmapping.OpenplatformProviderRecordPrdApiDaySummaryAppStructMapping;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformProviderRecordPrdApiDaySummaryVO;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdApiDaySummary;
@@ -36,7 +36,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryDeleteCommandExecutor  ex
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformProviderRecordPrdApiDaySummaryId openplatformProviderRecordPrdApiDaySummaryId = OpenplatformProviderRecordPrdApiDaySummaryId.of(deleteCommand.getId());
 		OpenplatformProviderRecordPrdApiDaySummary byId = openplatformProviderRecordPrdApiDaySummaryGateway.getById(openplatformProviderRecordPrdApiDaySummaryId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

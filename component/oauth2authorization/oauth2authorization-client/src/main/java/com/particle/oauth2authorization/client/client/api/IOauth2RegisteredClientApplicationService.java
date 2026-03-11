@@ -1,7 +1,7 @@
 package com.particle.oauth2authorization.client.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oauth2authorization.client.client.dto.command.Oauth2RegisteredClientCreateCommand;
 import com.particle.oauth2authorization.client.client.dto.command.Oauth2RegisteredClientUpdateCommand;
@@ -28,7 +28,7 @@ public interface IOauth2RegisteredClientApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<Oauth2RegisteredClientVO> delete(IdCommand deleteCommand);
+	SingleResponse<Oauth2RegisteredClientVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

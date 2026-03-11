@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyVcFinancingVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyVcFinancingDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcFinancingService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcFinancingPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyVcFinancingQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcFinancingVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyVcFinancingVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyVcFinancingDO byId = iDataCompanyVcFinancingService.getById(detailCommand.getId());
 		DataCompanyVcFinancingVO dataCompanyVcFinancingVO = DataCompanyVcFinancingAppStructMapping.instance.dataCompanyVcFinancingDOToDataCompanyVcFinancingVO(byId);
 		return SingleResponse.of(dataCompanyVcFinancingVO);
@@ -67,7 +66,7 @@ public class DataCompanyVcFinancingQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcFinancingVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyVcFinancingVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyVcFinancingDO byId = iDataCompanyVcFinancingService.getById(detailForUpdateCommand.getId());
 		DataCompanyVcFinancingVO dataCompanyVcFinancingVO = DataCompanyVcFinancingAppStructMapping.instance.dataCompanyVcFinancingDOToDataCompanyVcFinancingVO(byId);
 		return SingleResponse.of(dataCompanyVcFinancingVO);

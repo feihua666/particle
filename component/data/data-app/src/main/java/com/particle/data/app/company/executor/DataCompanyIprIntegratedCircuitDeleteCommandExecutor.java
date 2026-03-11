@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprIntegratedCircuitAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprIntegratedCircuitVO;
 import com.particle.data.domain.company.DataCompanyIprIntegratedCircuit;
 import com.particle.data.domain.company.DataCompanyIprIntegratedCircuitId;
 import com.particle.data.domain.company.gateway.DataCompanyIprIntegratedCircuitGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprIntegratedCircuitService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprIntegratedCircuitDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprIntegratedCircuitDeleteCommandExecutor  extends Abstr
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprIntegratedCircuitVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprIntegratedCircuitVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprIntegratedCircuitId dataCompanyIprIntegratedCircuitId = DataCompanyIprIntegratedCircuitId.of(deleteCommand.getId());
 		DataCompanyIprIntegratedCircuit byId = dataCompanyIprIntegratedCircuitGateway.getById(dataCompanyIprIntegratedCircuitId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

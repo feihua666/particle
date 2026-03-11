@@ -1,7 +1,7 @@
 package com.particle.crm.app.tag.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.tag.executor.representation.CrmCustomerTagRelQueryCommandExecutor;
 import com.particle.crm.client.tag.api.representation.ICrmCustomerTagRelRepresentationApplicationService;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagRelPageQueryCommand;
@@ -28,12 +28,12 @@ public class CrmCustomerTagRelRepresentationApplicationServiceImpl extends Abstr
     private CrmCustomerTagRelQueryCommandExecutor crmCustomerTagRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<CrmCustomerTagRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<CrmCustomerTagRelVO> queryDetail(CommonIdCommand detailCommand) {
         return crmCustomerTagRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<CrmCustomerTagRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<CrmCustomerTagRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return crmCustomerTagRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -52,7 +52,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "删除低代码生成")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码生成",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
-	public SingleResponse<LowcodeSegmentGenVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<LowcodeSegmentGenVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iLowcodeSegmentGenApplicationService.delete(deleteCommand);
 	}
 
@@ -67,14 +67,14 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:update')")
 	@Operation(summary = "低代码生成更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<LowcodeSegmentGenVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<LowcodeSegmentGenVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iLowcodeSegmentGenRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentGen:detail')")
 	@Operation(summary = "低代码生成详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<LowcodeSegmentGenVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<LowcodeSegmentGenVO> queryDetail(CommonIdCommand detailCommand){
 		return iLowcodeSegmentGenRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -96,7 +96,7 @@ public class LowcodeSegmentGenAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "重新加载模型json数据")
 	@PutMapping("/reloadLowcodeModelJson")
 	@OpLog(name = "重新加载模型json数据",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.update)
-	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@RequestBody IdCommand reloadCommand){
+	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@RequestBody CommonIdCommand reloadCommand){
 		return iLowcodeSegmentGenApplicationService.reloadLowcodeModelJson(reloadCommand);
 	}
 

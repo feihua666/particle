@@ -1,7 +1,7 @@
 package com.particle.role.client.rolefuncrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.rolefuncrel.dto.command.FuncAssignRoleCommand;
@@ -9,8 +9,6 @@ import com.particle.role.client.rolefuncrel.dto.command.RoleAssignFuncCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteWithTenantIdCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -33,7 +31,7 @@ public interface IRoleFuncRelApplicationService extends IBaseApplicationService 
 	 * @param roleFuncRelDeleteCommand
 	 * @return
 	 */
-	SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand);
+	SingleResponse<RoleFuncRelVO> delete(CommonIdCommand roleFuncRelDeleteCommand);
 
 	/**
 	 * 删除功能id范围外的角色功能关系数据
@@ -60,15 +58,15 @@ public interface IRoleFuncRelApplicationService extends IBaseApplicationService 
 
 	/**
 	 * 根据角色id删除
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByRoleId(IdCommand roleIdCommand);
+	public Response deleteByRoleId(CommonIdCommand roleCommonIdCommand);
 
 	/**
 	 * 根据功能id删除
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncId(IdCommand funcIdCommand);
+	public Response deleteByFuncId(CommonIdCommand funcCommonIdCommand);
 }

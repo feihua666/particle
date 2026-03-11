@@ -2,47 +2,69 @@ import axios, { AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../common/api/api";
 
-let cmsChannelPrefix = '/admin/web/cms_channel'
+import {getApiPrefix} from "../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_CMS) + '/admin/web/cms_channel'
 /**
  * 添加栏目
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
-    return axios.post(cmsChannelPrefix + '/create',data)
+    return axios.post(prefix + '/create',data)
 }
 /**
  * 删除栏目
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(cmsChannelPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 /**
  * 更新栏目
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.put(cmsChannelPrefix + '/update',data)
+    return axios.put(prefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据
  * @param data
  */
 export const detailForUpdate = (data: IdParam): AxiosPromise => {
-    return axios.get(cmsChannelPrefix + '/detail-for-update',{params: data})
+    return axios.get(prefix + '/detail-for-update',{params: data})
 }
 /**
  * 列表，没有分页，查询全部数据
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(cmsChannelPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(cmsChannelPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
+/**
+ * 发布栏目
+ * @param data
+ */
+export const publish = (data: IdParam): AxiosPromise => {
+    return axios.put(prefix + '/public',data)
+}
+/**
+ * 取消发布栏目
+ * @param data
+ */
+export const unPublish = (data: IdParam): AxiosPromise => {
+    return axios.put(prefix + '/unPublic',data)
+}
+/**
+ * 栏目首页地址
+ * @param data
+ */
+export const indexItemsUrl = (data: IdParam): AxiosPromise => {
+    return axios.get(prefix + '/indexItemsUrl',{params: data})
+}

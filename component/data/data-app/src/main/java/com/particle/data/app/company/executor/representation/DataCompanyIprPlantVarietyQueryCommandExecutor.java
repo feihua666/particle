@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprPlantVarietyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPlantVarietyQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPlantVarietyVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPlantVarietyDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPlantVarietyService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPlantVarietyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPlantVarietyQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPlantVarietyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPlantVarietyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPlantVarietyDO byId = iDataCompanyIprPlantVarietyService.getById(detailCommand.getId());
 		DataCompanyIprPlantVarietyVO dataCompanyIprPlantVarietyVO = DataCompanyIprPlantVarietyAppStructMapping.instance.dataCompanyIprPlantVarietyDOToDataCompanyIprPlantVarietyVO(byId);
 		return SingleResponse.of(dataCompanyIprPlantVarietyVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPlantVarietyQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPlantVarietyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPlantVarietyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPlantVarietyDO byId = iDataCompanyIprPlantVarietyService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPlantVarietyVO dataCompanyIprPlantVarietyVO = DataCompanyIprPlantVarietyAppStructMapping.instance.dataCompanyIprPlantVarietyDOToDataCompanyIprPlantVarietyVO(byId);
 		return SingleResponse.of(dataCompanyIprPlantVarietyVO);

@@ -6,12 +6,11 @@ import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentVO;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocument;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocumentId;
 import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentGateway;
-import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentSegmentDO;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentSegmentService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -22,8 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.Valid;
-
-import java.util.List;
 
 /**
  * <p>
@@ -58,13 +55,13 @@ public class AgiVectorStoreRawDocumentUpdateCommandExecutor  extends AbstractBas
 
 	/**
 	 * 更新嵌入状态，根据片段状态更新
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response updateEmbedStatus(IdCommand idCommand) {
-		long noneEmbeddedSegmentCount = iAgiVectorStoreRawDocumentSegmentService.countNoneEmbeddedByAgiVectorStoreRawDocumentId(idCommand.getId());
+	public Response updateEmbedStatus(CommonIdCommand commonIdCommand) {
+		long noneEmbeddedSegmentCount = iAgiVectorStoreRawDocumentSegmentService.countNoneEmbeddedByAgiVectorStoreRawDocumentId(commonIdCommand.getId());
 
-		AgiVectorStoreRawDocument agiVectorStoreRawDocument = agiVectorStoreRawDocumentGateway.getById(AgiVectorStoreRawDocumentId.of(idCommand.getId()));
+		AgiVectorStoreRawDocument agiVectorStoreRawDocument = agiVectorStoreRawDocumentGateway.getById(AgiVectorStoreRawDocumentId.of(commonIdCommand.getId()));
         if (noneEmbeddedSegmentCount > 0) {
 			agiVectorStoreRawDocument.changeToNotEmbedded();
         }else {

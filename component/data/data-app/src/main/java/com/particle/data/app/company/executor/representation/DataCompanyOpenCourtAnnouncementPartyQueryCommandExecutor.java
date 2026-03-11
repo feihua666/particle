@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyOpenCourtAnnouncementPartyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyOpenCourtAnnouncementPartyQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyOpenCourtAnnouncementPartyVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyOpenCourtAnnouncementPartyDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyOpenCourtAnnouncementPartyService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyOpenCourtAnnouncementPartyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyOpenCourtAnnouncementPartyQueryCommandExecutor  extends 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyOpenCourtAnnouncementPartyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyOpenCourtAnnouncementPartyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyOpenCourtAnnouncementPartyDO byId = iDataCompanyOpenCourtAnnouncementPartyService.getById(detailCommand.getId());
 		DataCompanyOpenCourtAnnouncementPartyVO dataCompanyOpenCourtAnnouncementPartyVO = DataCompanyOpenCourtAnnouncementPartyAppStructMapping.instance.dataCompanyOpenCourtAnnouncementPartyDOToDataCompanyOpenCourtAnnouncementPartyVO(byId);
 		return SingleResponse.of(dataCompanyOpenCourtAnnouncementPartyVO);
@@ -67,7 +66,7 @@ public class DataCompanyOpenCourtAnnouncementPartyQueryCommandExecutor  extends 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyOpenCourtAnnouncementPartyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyOpenCourtAnnouncementPartyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyOpenCourtAnnouncementPartyDO byId = iDataCompanyOpenCourtAnnouncementPartyService.getById(detailForUpdateCommand.getId());
 		DataCompanyOpenCourtAnnouncementPartyVO dataCompanyOpenCourtAnnouncementPartyVO = DataCompanyOpenCourtAnnouncementPartyAppStructMapping.instance.dataCompanyOpenCourtAnnouncementPartyDOToDataCompanyOpenCourtAnnouncementPartyVO(byId);
 		return SingleResponse.of(dataCompanyOpenCourtAnnouncementPartyVO);

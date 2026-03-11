@@ -1,7 +1,7 @@
 package com.particle.usagecount.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class UsageCountConfigRepresentationApplicationServiceImpl extends Abstra
     private UsageCountConfigQueryCommandExecutor usageCountConfigQueryCommandExecutor;
 
     @Override
-    public SingleResponse<UsageCountConfigVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<UsageCountConfigVO> queryDetail(CommonIdCommand detailCommand) {
         return usageCountConfigQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<UsageCountConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<UsageCountConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return usageCountConfigQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

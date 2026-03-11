@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyEndCaseCreateCommandExe
 import com.particle.data.app.company.executor.DataCompanyEndCaseDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyEndCaseUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyEndCaseCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyEndCaseUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyEndCaseApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyEndCaseCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyEndCaseWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyEndCaseExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyEndCaseApplicationServiceImpl extends AbstractBaseApplic
     }
 
     @Override
-    public SingleResponse<DataCompanyEndCaseVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyEndCaseVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyEndCaseDeleteCommandExecutor.execute(deleteCommand);
     }
 

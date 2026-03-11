@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyJudgmentDocumentContentAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyJudgmentDocumentContentVO;
 import com.particle.data.domain.company.DataCompanyJudgmentDocumentContent;
 import com.particle.data.domain.company.DataCompanyJudgmentDocumentContentId;
 import com.particle.data.domain.company.gateway.DataCompanyJudgmentDocumentContentGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyJudgmentDocumentContentService;
-import com.particle.data.infrastructure.company.dos.DataCompanyJudgmentDocumentContentDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyJudgmentDocumentContentDeleteCommandExecutor  extends Ab
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDocumentContentVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyJudgmentDocumentContentVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyJudgmentDocumentContentId dataCompanyJudgmentDocumentContentId = DataCompanyJudgmentDocumentContentId.of(deleteCommand.getId());
 		DataCompanyJudgmentDocumentContent byId = dataCompanyJudgmentDocumentContentGateway.getById(dataCompanyJudgmentDocumentContentId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

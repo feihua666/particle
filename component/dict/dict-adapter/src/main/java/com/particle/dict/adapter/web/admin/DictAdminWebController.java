@@ -1,7 +1,7 @@
 package com.particle.dict.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dict.client.api.IDictApplicationService;
@@ -53,7 +53,7 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除字典")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除字典",module = OpLogConstants.Module.dict,type = OpLogConstants.Type.delete)
-	public SingleResponse<DictVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DictVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_dict_dict, DataConstraintContext.Action.delete.name());
 		return iDictApplicationService.delete(deleteCommand);
 	}
@@ -70,14 +70,14 @@ public class DictAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dict:update')")
 	@Operation(summary = "字典更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand){
+	public SingleResponse<DictVO> queryDetailForUpdate(CommonIdCommand dictQueryDetailForUpdateCommand){
 		return iDictRepresentationApplicationService.queryDetailForUpdate(dictQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dict:detail')")
 	@Operation(summary = "字典详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand){
+	public SingleResponse<DictVO> queryDetail(CommonIdCommand dictQueryDetailCommand){
 		return iDictRepresentationApplicationService.queryDetail(dictQueryDetailCommand);
 	}
 

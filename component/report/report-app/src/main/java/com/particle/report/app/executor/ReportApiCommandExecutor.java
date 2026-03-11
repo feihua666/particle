@@ -12,7 +12,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.str.FilePathTool;

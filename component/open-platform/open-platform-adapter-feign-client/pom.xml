@@ -38,5 +38,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- 依赖开放接口，主要是使用相关 dto 以声明 feign client -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-openapi-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2023-04-28 09:54:58
  */
 @Data
-@ConfigurationProperties("particle.oss.sftp")
+@ConfigurationProperties("particle.global.oss.sftp")
 public class GlobalSftpOssProperties extends GlobalLocalOssProperties {
 	/**
 	 * 主机

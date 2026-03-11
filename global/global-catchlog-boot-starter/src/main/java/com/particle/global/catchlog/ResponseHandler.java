@@ -3,7 +3,7 @@ package com.particle.global.catchlog;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.BaseException;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;

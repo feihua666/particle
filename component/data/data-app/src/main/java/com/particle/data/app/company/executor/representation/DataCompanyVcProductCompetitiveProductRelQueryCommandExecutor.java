@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyVcProductCompetitiveProductRelAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcProductCompetitiveProductRelQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcProductCompetitiveProductRelVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyVcProductCompetitiveProductRelDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcProductCompetitiveProductRelService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcProductCompetitiveProductRelPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class DataCompanyVcProductCompetitiveProductRelQueryCommandExecutor  exte
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyVcProductCompetitiveProductRelDO byId = iDataCompanyVcProductCompetitiveProductRelService.getById(detailCommand.getId());
 		DataCompanyVcProductCompetitiveProductRelVO dataCompanyVcProductCompetitiveProductRelVO = DataCompanyVcProductCompetitiveProductRelAppStructMapping.instance.dataCompanyVcProductCompetitiveProductRelDOToDataCompanyVcProductCompetitiveProductRelVO(byId);
 		return SingleResponse.of(dataCompanyVcProductCompetitiveProductRelVO);
@@ -67,7 +67,7 @@ public class DataCompanyVcProductCompetitiveProductRelQueryCommandExecutor  exte
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyVcProductCompetitiveProductRelDO byId = iDataCompanyVcProductCompetitiveProductRelService.getById(detailForUpdateCommand.getId());
 		DataCompanyVcProductCompetitiveProductRelVO dataCompanyVcProductCompetitiveProductRelVO = DataCompanyVcProductCompetitiveProductRelAppStructMapping.instance.dataCompanyVcProductCompetitiveProductRelDOToDataCompanyVcProductCompetitiveProductRelVO(byId);
 		return SingleResponse.of(dataCompanyVcProductCompetitiveProductRelVO);
@@ -76,13 +76,13 @@ public class DataCompanyVcProductCompetitiveProductRelQueryCommandExecutor  exte
 
 	/**
 	 * 查询企业融资产品表ID已分配的企业竞品ids
-	 * @param companyVcProductIdCommand
+	 * @param companyVcProductCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(@Valid IdCommand companyVcProductIdCommand) {
+	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(@Valid CommonIdCommand companyVcProductCommonIdCommand) {
 
 		DataCompanyVcProductCompetitiveProductRelQueryListCommand dataCompanyVcProductCompetitiveProductRelQueryListCommand = new DataCompanyVcProductCompetitiveProductRelQueryListCommand();
-		dataCompanyVcProductCompetitiveProductRelQueryListCommand.setCompanyVcProductId(companyVcProductIdCommand.getId());
+		dataCompanyVcProductCompetitiveProductRelQueryListCommand.setCompanyVcProductId(companyVcProductCommonIdCommand.getId());
 		MultiResponse<DataCompanyVcProductCompetitiveProductRelVO> dataCompanyVcProductCompetitiveProductRelVOMultiResponse = execute(dataCompanyVcProductCompetitiveProductRelQueryListCommand);
 		if(dataCompanyVcProductCompetitiveProductRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = dataCompanyVcProductCompetitiveProductRelVOMultiResponse.getData().stream().map(DataCompanyVcProductCompetitiveProductRelVO::getCompanyVcCompetitiveProductId).collect(Collectors.toList());
@@ -92,13 +92,13 @@ public class DataCompanyVcProductCompetitiveProductRelQueryCommandExecutor  exte
 	}
 	/**
 	 * 查询企业竞品已分配的企业融资产品表IDids
-	 * @param companyVcCompetitiveProductIdCommand
+	 * @param companyVcCompetitiveProductCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(@Valid IdCommand companyVcCompetitiveProductIdCommand) {
+	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(@Valid CommonIdCommand companyVcCompetitiveProductCommonIdCommand) {
 
 		DataCompanyVcProductCompetitiveProductRelQueryListCommand dataCompanyVcProductCompetitiveProductRelQueryListCommand = new DataCompanyVcProductCompetitiveProductRelQueryListCommand();
-		dataCompanyVcProductCompetitiveProductRelQueryListCommand.setCompanyVcCompetitiveProductId(companyVcCompetitiveProductIdCommand.getId());
+		dataCompanyVcProductCompetitiveProductRelQueryListCommand.setCompanyVcCompetitiveProductId(companyVcCompetitiveProductCommonIdCommand.getId());
 		MultiResponse<DataCompanyVcProductCompetitiveProductRelVO> dataCompanyVcProductCompetitiveProductRelVOMultiResponse = execute(dataCompanyVcProductCompetitiveProductRelQueryListCommand);
 		if(dataCompanyVcProductCompetitiveProductRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = dataCompanyVcProductCompetitiveProductRelVOMultiResponse.getData().stream().map(DataCompanyVcProductCompetitiveProductRelVO::getCompanyVcProductId).collect(Collectors.toList());

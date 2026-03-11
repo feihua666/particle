@@ -67,7 +67,6 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
 
 
     function changeToken(tk: string): void{
-
         token.value = tk
         let loginUserToken = getRaw(loginUserTokenKey)
         if (tk == loginUserToken) {

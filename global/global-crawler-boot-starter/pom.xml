@@ -48,5 +48,17 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dag-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 测试依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-test</artifactId>
+            <version>${particle.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

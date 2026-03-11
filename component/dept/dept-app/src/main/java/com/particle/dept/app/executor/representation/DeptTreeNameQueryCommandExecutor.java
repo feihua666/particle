@@ -2,7 +2,7 @@ package com.particle.dept.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.structmapping.DeptTreeNameAppStructMapping;
 import com.particle.dept.client.dto.command.representation.DeptTreeNamePageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptTreeNameQueryListCommand;
@@ -57,7 +57,7 @@ public class DeptTreeNameQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DeptTreeNameVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DeptTreeNameVO> executeDetail(CommonIdCommand detailCommand) {
 		DeptTreeNameDO byId = iDeptTreeNameService.getById(detailCommand.getId());
 		DeptTreeNameVO deptTreeNameVO = DeptTreeNameAppStructMapping.instance.deptTreeNameDOToDeptTreeNameVO(byId);
 		return SingleResponse.of(deptTreeNameVO);
@@ -67,7 +67,7 @@ public class DeptTreeNameQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DeptTreeNameVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DeptTreeNameVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DeptTreeNameDO byId = iDeptTreeNameService.getById(detailForUpdateCommand.getId());
 		DeptTreeNameVO deptTreeNameVO = DeptTreeNameAppStructMapping.instance.deptTreeNameDOToDeptTreeNameVO(byId);
 		return SingleResponse.of(deptTreeNameVO);

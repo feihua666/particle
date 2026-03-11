@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopePageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeQueryListCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeVO;
@@ -24,14 +24,14 @@ public interface IDataScopeRepresentationApplicationService extends IBaseApplica
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataScopeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataScopeVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

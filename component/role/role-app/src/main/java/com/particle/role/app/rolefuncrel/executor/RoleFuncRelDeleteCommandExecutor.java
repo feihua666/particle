@@ -3,11 +3,11 @@ package com.particle.role.app.rolefuncrel.executor;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelDeleteWithTenantIdCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
@@ -43,7 +43,7 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param roleFuncRelDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleFuncRelVO> execute(@Valid IdCommand roleFuncRelDeleteCommand) {
+	public SingleResponse<RoleFuncRelVO> execute(@Valid CommonIdCommand roleFuncRelDeleteCommand) {
 		RoleFuncRelId roleFuncRelId = RoleFuncRelId.of(roleFuncRelDeleteCommand.getId());
 		RoleFuncRel byId = roleFuncRelGateway.getById(roleFuncRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -56,20 +56,20 @@ public class RoleFuncRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 
 	/**
 	 * 根据 roleId 删除
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByRoleId(@Valid IdCommand roleIdCommand) {
-		boolean result = iRoleFuncRelService.deleteByColumn(roleIdCommand.getId(), RoleFuncRelDO::getRoleId);
+	public Response deleteByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
+		boolean result = iRoleFuncRelService.deleteByColumn(roleCommonIdCommand.getId(), RoleFuncRelDO::getRoleId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 funcId 删除
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncId(@Valid IdCommand funcIdCommand) {
-		boolean result = iRoleFuncRelService.deleteByColumn(funcIdCommand.getId(), RoleFuncRelDO::getFuncId);
+	public Response deleteByFuncId(@Valid CommonIdCommand funcCommonIdCommand) {
+		boolean result = iRoleFuncRelService.deleteByColumn(funcCommonIdCommand.getId(), RoleFuncRelDO::getFuncId);
 		return Response.buildSuccess();
 	}
 

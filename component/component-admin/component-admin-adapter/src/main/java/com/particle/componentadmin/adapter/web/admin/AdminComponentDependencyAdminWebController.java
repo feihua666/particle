@@ -5,7 +5,7 @@ import com.particle.componentadmin.client.api.IAdminComponentDependencyApplicati
 import com.particle.componentadmin.client.api.representation.IAdminComponentDependencyRepresentationApplicationService;
 import com.particle.componentadmin.client.dto.command.AdminComponentDependencyCreateCommand;
 import com.particle.componentadmin.client.dto.data.AdminComponentDependencyVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.componentadmin.client.dto.command.AdminComponentDependencyUpdateCommand;
 import com.particle.componentadmin.client.dto.command.representation.AdminComponentDependencyPageQueryCommand;
 import com.particle.componentadmin.client.dto.command.representation.AdminComponentDependencyQueryListCommand;
@@ -60,7 +60,7 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @Operation(summary = "删除组件依赖关系")
     @DeleteMapping("/delete")
     @OpLog(name = "删除组件依赖关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<AdminComponentDependencyVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AdminComponentDependencyVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAdminComponentDependencyApplicationService.delete(deleteCommand);
     }
@@ -77,14 +77,14 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:adminComponentDependency:update')")
     @Operation(summary = "组件依赖关系更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iAdminComponentDependencyRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:adminComponentDependency:detail')")
     @Operation(summary = "组件依赖关系详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AdminComponentDependencyVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AdminComponentDependencyVO> queryDetail(CommonIdCommand detailCommand){
         return iAdminComponentDependencyRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -117,8 +117,8 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:adminComponentDependency:queryDependComponentIdsByComponentId')")
     @GetMapping("/queryDependComponentIdsByComponentId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryDependComponentIdsByComponentId(IdCommand idCommand) {
-        return iAdminComponentDependencyRepresentationApplicationService.queryDependComponentIdsByComponentId( idCommand);
+    public MultiResponse<Long> queryDependComponentIdsByComponentId(CommonIdCommand commonIdCommand) {
+        return iAdminComponentDependencyRepresentationApplicationService.queryDependComponentIdsByComponentId(commonIdCommand);
     }
 
     @Operation(summary = "清空源组件下的所有依赖组件")
@@ -126,8 +126,8 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @DeleteMapping("/deleteByComponentId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空源组件下的所有依赖组件",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByComponentId(@RequestBody IdCommand idCommand) {
-        return iAdminComponentDependencyApplicationService.deleteByComponentId(idCommand);
+    public Response deleteByComponentId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iAdminComponentDependencyApplicationService.deleteByComponentId(commonIdCommand);
     }
 
 
@@ -144,8 +144,8 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:adminComponentDependency:queryComponentIdsByDependComponentId')")
     @GetMapping("/queryComponentIdsByDependComponentId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryByDependComponentId(IdCommand idCommand) {
-        return iAdminComponentDependencyRepresentationApplicationService.queryComponentIdsByDependComponentId( idCommand);
+    public MultiResponse<Long> queryByDependComponentId(CommonIdCommand commonIdCommand) {
+        return iAdminComponentDependencyRepresentationApplicationService.queryComponentIdsByDependComponentId(commonIdCommand);
 
     }
 
@@ -154,8 +154,8 @@ public class AdminComponentDependencyAdminWebController extends AbstractBaseWebA
     @DeleteMapping("/deleteByDependComponentId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空依赖组件下的所有源组件",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByDependComponentId(@RequestBody IdCommand idCommand) {
-        return iAdminComponentDependencyApplicationService.deleteByDependComponentId(idCommand);
+    public Response deleteByDependComponentId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iAdminComponentDependencyApplicationService.deleteByDependComponentId(commonIdCommand);
     }
 
 }

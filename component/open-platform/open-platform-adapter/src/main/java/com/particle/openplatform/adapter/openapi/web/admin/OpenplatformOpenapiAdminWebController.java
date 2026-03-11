@@ -2,13 +2,13 @@ package com.particle.openplatform.adapter.openapi.web.admin;
 
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.tool.document.excel.ExcelTool;
 import com.particle.openplatform.adapter.globalopenapi.OpenplatformOpenapiClientSecretProvider;
 import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiApplicationService;
@@ -62,7 +62,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@Operation(summary = "删除开放平台开放接口")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformOpenapiVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformOpenapiVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformOpenapiApplicationService.delete(deleteCommand);
 	}
 
@@ -77,14 +77,14 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:update')")
 	@Operation(summary = "开放平台开放接口更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformOpenapiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:detail')")
 	@Operation(summary = "开放平台开放接口详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformOpenapiVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformOpenapiVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformOpenapiRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -97,7 +97,7 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapi:queryList')")
 	@Operation(summary = "根据开放平台应用id列表查询开放平台开放接口")
 	@GetMapping("/listByOpenplatformAppId")
-	public MultiResponse<OpenplatformOpenapiVO> listByOpenplatformAppId(@Valid IdCommand detailCommand){
+	public MultiResponse<OpenplatformOpenapiVO> listByOpenplatformAppId(@Valid CommonIdCommand detailCommand){
 		OpenplatformOpenapiQueryListCommand openplatformOpenapiQueryListCommand = new OpenplatformOpenapiQueryListCommand();
 		openplatformOpenapiQueryListCommand.setFilterOpenplatformAppId(detailCommand.getId());
 		return iOpenplatformOpenapiRepresentationApplicationService.queryList(openplatformOpenapiQueryListCommand);
@@ -123,9 +123,9 @@ public class OpenplatformOpenapiAdminWebController extends AbstractBaseWebAdapte
 	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> batchQuery(OpenplatformOpenapiBatchQueryCommand openplatformOpenapiBatchQueryCommand, LoginUser loginUser){
 		openplatformOpenapiBatchQueryCommand.setUserId(loginUser.getId());
 		SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> singleResponse = iOpenplatformOpenapiRepresentationApplicationService.batchQuery(openplatformOpenapiBatchQueryCommand);
-		IdCommand idCommand = new IdCommand();
-		idCommand.setId(singleResponse.getData().getId());
-		iOpenplatformOpenapiRepresentationApplicationService.asyncBatchQueryAndExport(idCommand);
+		CommonIdCommand commonIdCommand = new CommonIdCommand();
+		commonIdCommand.setId(singleResponse.getData().getId());
+		iOpenplatformOpenapiRepresentationApplicationService.asyncBatchQueryAndExport(commonIdCommand);
 
 		return singleResponse;
 	}

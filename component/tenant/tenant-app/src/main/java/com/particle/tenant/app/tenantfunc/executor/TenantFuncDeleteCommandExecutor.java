@@ -1,10 +1,10 @@
 package com.particle.tenant.app.tenantfunc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.tenantfunc.structmapping.TenantFuncAppStructMapping;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import com.particle.tenant.domain.tenantfunc.TenantFunc;
@@ -34,7 +34,7 @@ public class TenantFuncDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<TenantFuncVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<TenantFuncVO> execute(@Valid CommonIdCommand deleteCommand) {
 		TenantFuncId tenantFuncId = TenantFuncId.of(deleteCommand.getId());
 		TenantFunc byId = tenantFuncGateway.getById(tenantFuncId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

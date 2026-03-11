@@ -2,48 +2,49 @@ import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../../common/api/api";
 
-let roleDataScopeRelPrefix = '/admin/web/role_data_scope_rel'
+import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_ROLE) + '/admin/web/role_data_scope_rel'
 /**
  * 添加角色数据范围关系
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
-    return axios.post(roleDataScopeRelPrefix + '/create',data)
+    return axios.post(prefix + '/create',data)
 }
 /**
  * 删除角色数据范围关系
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(roleDataScopeRelPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 /**
  * 更新角色数据范围关系
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.put(roleDataScopeRelPrefix + '/update',data)
+    return axios.put(prefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据
  * @param data
  */
 export const detailForUpdate = (data: IdParam): AxiosPromise => {
-    return axios.get(roleDataScopeRelPrefix + '/detail-for-update',{params: data})
+    return axios.get(prefix + '/detail-for-update',{params: data})
 }
 /**
  * 列表，没有分页，查询全部数据
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(roleDataScopeRelPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(roleDataScopeRelPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
 export interface RoleAssignDataScope{
@@ -57,21 +58,21 @@ export interface RoleAssignDataScope{
  * @param data
  */
 export const roleAssignDataScope = (data: RoleAssignDataScope): AxiosPromise => {
-    return axios.post(roleDataScopeRelPrefix + '/role/assign/dataScope',data)
+    return axios.post(prefix + '/role/assign/dataScope',data)
 }
 /**
  * 根据角色ID查询已分配的数据范围id
  * @param data
  */
 export const queryDataScopeIdsByRoleId = (data: IdParam): AxiosPromise => {
-    return axios.get(roleDataScopeRelPrefix + '/queryDataScopeIdsByRoleId',{params: data})
+    return axios.get(prefix + '/queryDataScopeIdsByRoleId',{params: data})
 }
 /**
  * 清空角色下的所有数据范围
  * @param data
  */
 export const deleteByRoleId = (data: IdParam): AxiosPromise => {
-    return axios.delete(roleDataScopeRelPrefix + '/deleteByRoleId',{data: data})
+    return axios.delete(prefix + '/deleteByRoleId',{data: data})
 }
 export interface DataScopeAssignRole{
     dataScopeId: string,// 数据范围id
@@ -84,19 +85,19 @@ export interface DataScopeAssignRole{
  * @param data
  */
 export const dataScopeAssignRole = (data: DataScopeAssignRole): AxiosPromise => {
-    return axios.post(roleDataScopeRelPrefix + '/dataScope/assign/role',data)
+    return axios.post(prefix + '/dataScope/assign/role',data)
 }
 /**
  * 根据数据范围ID查询已分配的角色id
  * @param data
  */
 export const queryRoleIdsByDataScopeId = (data: IdParam): AxiosPromise => {
-    return axios.get(roleDataScopeRelPrefix + '/queryRoleIdsByDataScopeId',{params: data})
+    return axios.get(prefix + '/queryRoleIdsByDataScopeId',{params: data})
 }
 /**
  * 清空数据范围下的所有角色
  * @param data
  */
 export const deleteByDataScopeId = (data: IdParam): AxiosPromise => {
-    return axios.delete(roleDataScopeRelPrefix + '/deleteByDataScopeId',{data: data})
+    return axios.delete(prefix + '/deleteByDataScopeId',{data: data})
 }

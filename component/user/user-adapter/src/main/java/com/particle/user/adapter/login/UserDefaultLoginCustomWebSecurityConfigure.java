@@ -1,6 +1,7 @@
 package com.particle.user.adapter.login;
 
 import com.particle.global.captcha.ICaptchaService;
+import com.particle.global.light.share.login.LoginConstants;
 import com.particle.global.security.security.config.CustomDaoAuthenticationProvider;
 import com.particle.global.security.security.config.CustomWebSecurityConfigure;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDefaultLoginCustomWebSecurityConfigure implements CustomWebSecurityConfigure {
 
-	public static final String login_captcha_url = "/loginCaptcha";
+	public static final String login_captcha_url = LoginConstants.login_captcha_url;
 
 
 	@Autowired

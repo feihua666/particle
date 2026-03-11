@@ -30,7 +30,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @ComponentScan
 @ConditionalOnClass(EnableScheduling.class)
-@ConditionalOnProperty(prefix = "particle.scheduler", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.scheduler", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalSchedulerAutoConfiguration {
 
 	/**

@@ -9,8 +9,34 @@ package com.particle.cms.client.constants;
  * @since 2025-07-07 11:17:09
  */
 public class CmsConstants {
+
+    public static final String requestPathPrefix = "/cms";
+    public static final String requestChannelPathPrefix = "/channel";
+    public static final String requestContentPathPrefix = "/content";
+
     public static final String dot = ".";
-    public static final String templatePathDefault = "/default";
+    public static final String index = "index";
+    public static final String html = "html";
+    public static final String htm = "htm";
+    public static final String htmp = "htmp";
+
+    public static final String dothtml = ".html";
+    public static final String dothtm = ".htm";
+    /**
+     * 预览使用
+     * 结尾 p 为 preview 缩写
+     */
+    public static final String dothtmp = ".htmp";
+
+    public static final String indexDothtml = "index.html";
+    public static final String indexDothtm = "index.htm";
+    public static final String indexDothtmp = "index.htmp";
+
+
+
+
+
+    public static final String templatePathGlobal = "/global";
     public static final String staticPath = "/static";
     /**
      * classpath:/templates/cms
@@ -18,17 +44,21 @@ public class CmsConstants {
      */
     public static final String templateRootPath = "cms";
     public static final String template404Path = "/404";
-    public static final String templateChannelPath = "/channel";
-    public static final String templateContentPath = "/content";
+    public static final String template403Path = "/403";
 
     public static final String templateSuffix = ".ftlh";
     public static final String templateIndexHtml = "index" + templateSuffix;
     public static final String templateIndex404Html = "404" + templateSuffix;
+    public static final String templateIndex403Html = "403" + templateSuffix;
 
 
 
 
+    /**
+     * 页面模板可访问的变量
+     */
     public static final String model_site = "site";
     public static final String model_channel = "channel";
     public static final String model_content = "content";
+    public static final String model_page = "page";
 }

@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamictable.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableDataPageQueryCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -32,12 +32,12 @@ public class DynamicTableRepresentationApplicationServiceImpl extends AbstractBa
     private DynamicTableQueryCommandExecutor dynamicTableQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DynamicTableVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DynamicTableVO> queryDetail(CommonIdCommand detailCommand) {
         return dynamicTableQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DynamicTableVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DynamicTableVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dynamicTableQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

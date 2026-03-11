@@ -1,8 +1,9 @@
 import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../common/api/api";
+import getApiPrefix from "../../../../../common/api/apiPrefixConfig";
 
-let dictPrefix = '/admin/web/dict'
+let dictPrefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_DICT) + '/admin/web/dict'
 /**
  * 添加字典
  * @param data

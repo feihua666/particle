@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.executor.representation.DataObjectQueryCommandExecutor;
 import com.particle.dataconstraint.client.api.representation.IDataObjectRepresentationApplicationService;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectPageQueryCommand;
@@ -28,12 +28,12 @@ public class DataObjectRepresentationApplicationServiceImpl extends AbstractBase
     private DataObjectQueryCommandExecutor dataObjectQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DataObjectVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataObjectVO> queryDetail(CommonIdCommand detailCommand) {
         return dataObjectQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataObjectVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataObjectVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataObjectQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

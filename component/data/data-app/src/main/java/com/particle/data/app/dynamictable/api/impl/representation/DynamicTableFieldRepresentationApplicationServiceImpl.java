@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamictable.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class DynamicTableFieldRepresentationApplicationServiceImpl extends Abstr
     private DynamicTableFieldQueryCommandExecutor dynamicTableFieldQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DynamicTableFieldVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DynamicTableFieldVO> queryDetail(CommonIdCommand detailCommand) {
         return dynamicTableFieldQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DynamicTableFieldVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DynamicTableFieldVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dynamicTableFieldQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyCourtAnnouncementPar
 import com.particle.data.domain.company.DataCompanyCourtAnnouncementParty;
 import com.particle.data.domain.company.gateway.DataCompanyCourtAnnouncementPartyGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

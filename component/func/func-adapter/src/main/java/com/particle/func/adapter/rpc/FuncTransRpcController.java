@@ -30,11 +30,6 @@ public class FuncTransRpcController extends AbstractBaseRpcAdapter implements Fu
 	private FuncTransServiceImpl funcTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return funcTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<FuncTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return funcTransService.transBatch(type, keys);
 	}

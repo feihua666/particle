@@ -1,7 +1,7 @@
 package com.particle.user.client.identifier.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.identifier.dto.command.*;
@@ -42,7 +42,7 @@ public interface IUserIdentifierPwdApplicationService extends IBaseApplicationSe
 	 * @param userIdentifierPwdDeleteCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> delete(IdCommand userIdentifierPwdDeleteCommand);
+	SingleResponse<UserIdentifierPwdVO> delete(CommonIdCommand userIdentifierPwdDeleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Order
 @Component
-@ConfigurationProperties(prefix = "particle.rate-limit.local.threadlocal")
+@ConfigurationProperties(prefix = "particle.global.rate-limit.local.threadlocal")
 public class DefaultThreadLocalRateLimitInterceptServiceImpl implements RateLimitInterceptService {
 
 	public static final String theadLocalRateLimitConfigKey = "theadLocalRateLimitConfigKey";

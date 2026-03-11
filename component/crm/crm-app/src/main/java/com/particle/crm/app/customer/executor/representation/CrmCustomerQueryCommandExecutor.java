@@ -2,7 +2,7 @@ package com.particle.crm.app.customer.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.customer.structmapping.CrmCustomerAppStructMapping;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerPageQueryCommand;
 import com.particle.crm.client.customer.dto.command.representation.CrmCustomerQueryListCommand;
@@ -57,7 +57,7 @@ public class CrmCustomerQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CrmCustomerVO> executeDetail(CommonIdCommand detailCommand) {
 		CrmCustomerDO byId = iCrmCustomerService.getById(detailCommand.getId());
 		CrmCustomerVO crmCustomerVO = CrmCustomerAppStructMapping.instance.crmCustomerDOToCrmCustomerVO(byId);
 		return SingleResponse.of(crmCustomerVO);
@@ -67,7 +67,7 @@ public class CrmCustomerQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CrmCustomerVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CrmCustomerDO byId = iCrmCustomerService.getById(detailForUpdateCommand.getId());
 		CrmCustomerVO crmCustomerVO = CrmCustomerAppStructMapping.instance.crmCustomerDOToCrmCustomerVO(byId);
 		return SingleResponse.of(crmCustomerVO);

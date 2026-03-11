@@ -23,4 +23,4 @@ CREATE TABLE `component_data_company` (
   UNIQUE KEY `org_code` (`org_code`) USING BTREE,
   KEY `en_name` (`en_name`) USING BTREE,
   KEY `name` (`name`) USING BTREE COMMENT '企业名称可能存在重复'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业表';

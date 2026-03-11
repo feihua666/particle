@@ -21,6 +21,8 @@
 <Configuration status="WARN" name="log4j2" monitorInterval="60">
 
     <Properties>
+        <!-- Log4j2 不要自动扫描其他配置 -->
+        <Property name="log4j.skipJansi">true</Property>
         <!-- ALL日志最大大小 -->
         <property name="MAX_ALL_LOG_FILE_SIZE" value="200MB"/>
         <!-- DEBUG日志最大大小 保留-->

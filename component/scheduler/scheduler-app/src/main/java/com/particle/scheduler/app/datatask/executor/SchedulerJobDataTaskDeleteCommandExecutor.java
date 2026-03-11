@@ -1,21 +1,19 @@
 package com.particle.scheduler.app.datatask.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.datatask.structmapping.SchedulerJobDataTaskAppStructMapping;
 import com.particle.scheduler.client.datatask.dto.data.SchedulerJobDataTaskVO;
 import com.particle.scheduler.domain.datatask.SchedulerJobDataTask;
 import com.particle.scheduler.domain.datatask.SchedulerJobDataTaskId;
 import com.particle.scheduler.domain.datatask.gateway.SchedulerJobDataTaskGateway;
 import com.particle.scheduler.infrastructure.datatask.service.ISchedulerJobDataTaskService;
-import com.particle.scheduler.infrastructure.datatask.dos.SchedulerJobDataTaskDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class SchedulerJobDataTaskDeleteCommandExecutor  extends AbstractBaseExec
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerJobDataTaskVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SchedulerJobDataTaskVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SchedulerJobDataTaskId schedulerJobDataTaskId = SchedulerJobDataTaskId.of(deleteCommand.getId());
 		SchedulerJobDataTask byId = schedulerJobDataTaskGateway.getById(schedulerJobDataTaskId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

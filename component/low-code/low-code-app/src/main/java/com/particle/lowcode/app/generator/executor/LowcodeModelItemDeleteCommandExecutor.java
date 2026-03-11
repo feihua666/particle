@@ -1,10 +1,10 @@
 package com.particle.lowcode.app.generator.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelItemAppStructMapping;
 import com.particle.lowcode.client.generator.dto.data.LowcodeModelItemVO;
 import com.particle.lowcode.domain.generator.LowcodeModelItem;
@@ -34,7 +34,7 @@ public class LowcodeModelItemDeleteCommandExecutor  extends AbstractBaseExecutor
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeModelItemVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<LowcodeModelItemVO> execute(@Valid CommonIdCommand deleteCommand) {
 		LowcodeModelItemId lowcodeModelItemId = LowcodeModelItemId.of(deleteCommand.getId());
 		LowcodeModelItem byId = lowcodeModelItemGateway.getById(lowcodeModelItemId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

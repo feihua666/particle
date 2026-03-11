@@ -3,7 +3,7 @@ package com.particle.tracking.app.executor;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tracking.client.dto.command.TrackingPageRecordCreateCommand;
 import com.particle.tracking.domain.TrackingPageRecord;
 import com.particle.tracking.domain.gateway.TrackingPageRecordGateway;

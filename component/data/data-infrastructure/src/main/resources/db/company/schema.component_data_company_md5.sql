@@ -20,4 +20,4 @@ CREATE TABLE `component_data_company_md5` (
   UNIQUE KEY `org_code_md5` (`org_code_md5`) USING BTREE,
   KEY `en_name_md5` (`en_name_md5`) USING BTREE,
   KEY `name_md5` (`name_md5`) USING BTREE COMMENT '企业名称可能存在重复'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业md5表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业md5表';

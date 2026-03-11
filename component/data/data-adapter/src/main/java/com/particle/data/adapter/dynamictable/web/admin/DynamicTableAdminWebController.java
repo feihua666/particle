@@ -12,7 +12,6 @@ import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.WorkbookUtil;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.trans.TransConstants;
-import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUploadRecordCreateCommand;
 import com.particle.data.client.dynamictable.api.IDynamicTableApplicationService;
 import com.particle.data.client.dynamictable.api.IDynamicTableUploadRecordApplicationService;
 import com.particle.data.client.dynamictable.api.representation.IDynamicTableFieldRepresentationApplicationService;
@@ -22,13 +21,13 @@ import com.particle.data.client.dynamictable.dto.command.representation.*;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableFieldVO;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableUploadRecordVO;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.global.document.template.GlobalDocumentTemplate;
 import com.particle.global.document.template.GlobalDocumentTemplateService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.table.DynamicDO;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.tool.document.excel.CustomExcelWriter;
@@ -112,7 +111,7 @@ public class DynamicTableAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除动态数据表格")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据表格",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicTableVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicTableVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicTableApplicationService.delete(deleteCommand);
     }
@@ -129,14 +128,14 @@ public class DynamicTableAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:dynamicTable:update')")
     @Operation(summary = "动态数据表格更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicTableVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicTableVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicTableRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicTable:detail')")
     @Operation(summary = "动态数据表格详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicTableVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicTableVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicTableRepresentationApplicationService.queryDetail(detailCommand);
     }
 

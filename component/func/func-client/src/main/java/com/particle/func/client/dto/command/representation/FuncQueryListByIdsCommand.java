@@ -1,10 +1,6 @@
 package com.particle.func.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.BatchIdCommand;
-import com.particle.common.client.dto.command.tree.AbstractBaseTreeQueryCommand;
-import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
-import com.particle.global.light.share.mybatis.anno.OrderBy;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -18,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @Schema
-public class FuncQueryListByIdsCommand extends BatchIdCommand {
+public class FuncQueryListByIdsCommand extends CommonBatchIdCommand {
 
     @Schema(description = "是否禁用")
     private Boolean isDisabled;

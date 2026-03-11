@@ -1,14 +1,12 @@
 package com.particle.dataquery.client.datasource.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceReloadCommand;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceVO;
-import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -31,7 +29,7 @@ public interface IDataQueryDatasourceApplicationService extends IBaseApplication
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDatasourceVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataQueryDatasourceVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -53,6 +51,6 @@ public interface IDataQueryDatasourceApplicationService extends IBaseApplication
 	 * @param copyCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDatasourceVO> copy(IdCommand copyCommand);
+	public SingleResponse<DataQueryDatasourceVO> copy(CommonIdCommand copyCommand);
 
 }

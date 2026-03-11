@@ -2,6 +2,7 @@ package com.particle.user.client.dto.command;
 
 import com.particle.common.client.dto.command.AbstractBaseCommand;
 import com.particle.global.validation.props.PropValid;
+import com.particle.user.client.identifier.dto.command.UserIdentifierPwdCommand;
 import com.particle.user.client.identifier.dto.command.UserIdentifierSimpleCreateCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
@@ -111,4 +112,7 @@ public class UserCreateCommand extends AbstractBaseCommand {
 
     @Schema(description = "用户扩展信息")
     private UserExtraInfoCommand userExtraInfo;
+
+    @Schema(description = "用户密码,目前只支持多个账号时设置同一个密码")
+    private UserIdentifierPwdCommand identifierPwd;
 }

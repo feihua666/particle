@@ -2,16 +2,17 @@ package com.particle.global.security.security;
 
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.config.CustomWebSecurityConfigureExt;
-import com.particle.global.security.security.config.GrantedTenantResolveAndPersistentHelper;
 import com.particle.global.security.security.config.InnerPathConfig;
 import com.particle.global.security.security.login.DefaultAuthenticationFailureHandler;
 import com.particle.global.security.security.login.DefaultAuthenticationSuccessHandler;
+import com.particle.global.security.security.login.EmptyUserDetailsService;
 import com.particle.global.security.security.login.GlobalSecurityAuthenticationHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * <p>
@@ -60,7 +61,8 @@ public class GlobalSecurityAutoConfiguration {
 	}
 
 	@Bean
-	public GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper() {
-		return new GrantedTenantResolveAndPersistentHelper();
+	@ConditionalOnMissingBean(UserDetailsService.class)
+	public EmptyUserDetailsService emptyUserDetailsService() {
+		return new EmptyUserDetailsService();
 	}
 }

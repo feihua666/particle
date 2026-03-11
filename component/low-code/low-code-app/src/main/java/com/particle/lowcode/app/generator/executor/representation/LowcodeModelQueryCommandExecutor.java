@@ -2,7 +2,7 @@ package com.particle.lowcode.app.generator.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class LowcodeModelQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeModelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<LowcodeModelVO> executeDetail(CommonIdCommand detailCommand) {
 		LowcodeModelDO byId = iLowcodeModelService.getById(detailCommand.getId());
 		LowcodeModelVO lowcodeModelVO = LowcodeModelAppStructMapping.instance.lowcodeModelDOToLowcodeModelVO(byId);
 		return SingleResponse.of(lowcodeModelVO);
@@ -67,7 +67,7 @@ public class LowcodeModelQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeModelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<LowcodeModelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		LowcodeModelDO byId = iLowcodeModelService.getById(detailForUpdateCommand.getId());
 		LowcodeModelVO lowcodeModelVO = LowcodeModelAppStructMapping.instance.lowcodeModelDOToLowcodeModelVO(byId);
 		return SingleResponse.of(lowcodeModelVO);

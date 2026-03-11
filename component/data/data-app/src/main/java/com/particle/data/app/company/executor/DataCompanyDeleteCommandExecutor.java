@@ -1,7 +1,7 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyVO;
 import com.particle.data.domain.company.DataCompany;
@@ -10,7 +10,7 @@ import com.particle.data.domain.company.gateway.DataCompanyGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class DataCompanyDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyId dataCompanyId = DataCompanyId.of(deleteCommand.getId());
 		DataCompany byId = dataCompanyGateway.getById(dataCompanyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

@@ -1,7 +1,6 @@
 package com.particle.func.adapter.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.common.client.dto.command.BatchIdCommand;
 import com.particle.func.adapter.feign.client.rpc.FuncRpcFeignClient;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.api.IFuncApplicationService;

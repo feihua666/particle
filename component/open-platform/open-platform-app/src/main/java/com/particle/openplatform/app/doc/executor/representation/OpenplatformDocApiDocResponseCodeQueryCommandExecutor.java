@@ -2,7 +2,7 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformDocApiDocResponseCodeQueryCommandExecutor  extends Abst
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformDocApiDocResponseCodeDO byId = iOpenplatformDocApiDocResponseCodeService.getById(detailCommand.getId());
 		OpenplatformDocApiDocResponseCodeVO openplatformDocApiDocResponseCodeVO = OpenplatformDocApiDocResponseCodeAppStructMapping.instance.openplatformDocApiDocResponseCodeDOToOpenplatformDocApiDocResponseCodeVO(byId);
 		return SingleResponse.of(openplatformDocApiDocResponseCodeVO);
@@ -67,7 +67,7 @@ public class OpenplatformDocApiDocResponseCodeQueryCommandExecutor  extends Abst
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformDocApiDocResponseCodeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformDocApiDocResponseCodeDO byId = iOpenplatformDocApiDocResponseCodeService.getById(detailForUpdateCommand.getId());
 		OpenplatformDocApiDocResponseCodeVO openplatformDocApiDocResponseCodeVO = OpenplatformDocApiDocResponseCodeAppStructMapping.instance.openplatformDocApiDocResponseCodeDOToOpenplatformDocApiDocResponseCodeVO(byId);
 		return SingleResponse.of(openplatformDocApiDocResponseCodeVO);

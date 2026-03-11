@@ -1,7 +1,7 @@
 package com.particle.global.exception;
 
 import com.particle.global.exception.biz.BizException;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 import com.particle.global.exception.system.SystemException;
 
 import java.util.Map;

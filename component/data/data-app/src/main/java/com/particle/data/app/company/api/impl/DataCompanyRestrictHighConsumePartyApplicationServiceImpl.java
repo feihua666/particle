@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyRestrictHighConsumePartyCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyRestrictHighConsumePartyDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyRestrictHighConsumePartyUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyRestrictHighConsumePartyCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyRestrictHighConsumePartyUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyRestrictHighConsumePartyApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyRestrictHighConsumePartyCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyRestrictHighConsumePartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyRestrictHighConsumePartyExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyRestrictHighConsumePartyApplicationServiceImpl extends A
     }
 
     @Override
-    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyRestrictHighConsumePartyVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyRestrictHighConsumePartyDeleteCommandExecutor.execute(deleteCommand);
     }
 

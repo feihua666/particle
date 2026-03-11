@@ -1,13 +1,13 @@
 package com.particle.tenant.adapter.feign.client.rpc;
 
-import com.particle.common.client.dto.command.BatchIdCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
 import com.particle.tenant.client.dto.data.TenantUserVO;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2023-04-12 15:36:44
  */
-@FeignClient(name = "${particle.feign-client.name.tenant:tenant}",path = "/rpc/tenant_user")
+@FeignClient(name = "${particle.feign-client.tenant.name:tenant-start}", contextId = "tenantUserRpcFeignClient", url = "${particle.feign-client.tenant.url:}", path = "/rpc/tenant_user")
 public interface TenantUserRpcFeignClient {
 
     /**
@@ -34,19 +34,19 @@ public interface TenantUserRpcFeignClient {
     /**
      * 根据用户id查询用户租户信息
      * 不限制用户租户
-     * @param userIdCommand
+     * @param userCommonIdCommand
      * @return
      */
     @GetMapping("/listByUserIdIgnoreTenantLimit")
-    public MultiResponse<TenantUserVO> queryListByUserIdIgnoreTenantLimit(IdCommand userIdCommand);
+    public MultiResponse<TenantUserVO> queryListByUserIdIgnoreTenantLimit(@SpringQueryMap CommonIdCommand userCommonIdCommand);
 
     /**
      * 根据用户id查询用户租户信息
-     * @param batchIdCommand
+     * @param commonBatchIdCommand
      * @return
      */
     @GetMapping("/listByUserIds")
-    public MultiResponse<TenantUserVO> queryListByUserIds(BatchIdCommand batchIdCommand);
+    public MultiResponse<TenantUserVO> queryListByUserIds(@SpringQueryMap CommonBatchIdCommand commonBatchIdCommand);
 
 
 

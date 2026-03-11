@@ -1,5 +1,6 @@
 package com.particle.global.swagger;
 
+import com.particle.global.light.share.login.LoginConstants;
 import com.particle.global.swagger.factory.SwaggerFactory;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.models.info.Contact;
@@ -27,7 +28,7 @@ public class SwaggerInfo {
     /**
      * 自定义请求头 token
      */
-    public static String token = "c-token-id";
+    public static String token = LoginConstants.header_c_token;
 
     /**
      * 分组名称

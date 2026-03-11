@@ -1,10 +1,10 @@
 package com.particle.oauth2authorization.app.client.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.oauth2authorization.app.client.structmapping.Oauth2RegisteredClientAppStructMapping;
 import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredClientVO;
 import com.particle.oauth2authorization.domain.client.Oauth2RegisteredClient;
@@ -34,7 +34,7 @@ public class Oauth2RegisteredClientDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<Oauth2RegisteredClientVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<Oauth2RegisteredClientVO> execute(@Valid CommonIdCommand deleteCommand) {
 		Oauth2RegisteredClientId oauth2RegisteredClientId = Oauth2RegisteredClientId.of(deleteCommand.getId());
 		Oauth2RegisteredClient byId = oauth2RegisteredClientGateway.getById(oauth2RegisteredClientId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

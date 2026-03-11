@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyVcProductCompetitiveProductRelRepresentationApplicationS
     private DataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor dataCompanyVcProductCompetitiveProductRelExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -52,14 +52,14 @@ public class DataCompanyVcProductCompetitiveProductRelRepresentationApplicationS
     }
 
 	@Override
-	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(IdCommand companyVcProductIdCommand) {
+	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(CommonIdCommand companyVcProductCommonIdCommand) {
 
-		return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(companyVcProductIdCommand);
+		return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(companyVcProductCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(IdCommand companyVcCompetitiveProductIdCommand) {
-		return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(companyVcCompetitiveProductIdCommand);
+	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(CommonIdCommand companyVcCompetitiveProductCommonIdCommand) {
+		return dataCompanyVcProductCompetitiveProductRelQueryCommandExecutor.queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(companyVcCompetitiveProductCommonIdCommand);
 	}
 
     @Override

@@ -1,7 +1,7 @@
 package com.particle.report.adapter.template.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -51,7 +51,7 @@ public class ReportSegmentTemplateAdminWebController extends AbstractBaseWebAdap
 	@Operation(summary = "删除报告片段模板")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除报告片段模板",module = OpLogConstants.Module.report,type = OpLogConstants.Type.delete)
-	public SingleResponse<ReportSegmentTemplateVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<ReportSegmentTemplateVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iReportSegmentTemplateApplicationService.delete(deleteCommand);
 	}
 
@@ -66,14 +66,14 @@ public class ReportSegmentTemplateAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:reportSegmentTemplate:update')")
 	@Operation(summary = "报告片段模板更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<ReportSegmentTemplateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<ReportSegmentTemplateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iReportSegmentTemplateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:reportSegmentTemplate:detail')")
 	@Operation(summary = "报告片段模板详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<ReportSegmentTemplateVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<ReportSegmentTemplateVO> queryDetail(CommonIdCommand detailCommand){
 		return iReportSegmentTemplateRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -102,7 +102,7 @@ public class ReportSegmentTemplateAdminWebController extends AbstractBaseWebAdap
 	@Operation(summary = "刷新报告片段模板缓存")
 	@PutMapping("/refreshCache")
 	@OpLog(name = "刷新报告片段模板缓存",module = OpLogConstants.Module.report,type = OpLogConstants.Type.update)
-	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<String> refreshCache(@RequestBody CommonIdCommand deleteCommand){
 		return iReportSegmentTemplateApplicationService.refreshCache(deleteCommand);
 	}
 }

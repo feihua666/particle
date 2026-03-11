@@ -3,7 +3,7 @@
  * 栏目管理页面
  */
 import {reactive, ref} from 'vue'
-import { page as cmsChannelPageApi, remove as cmsChannelRemoveApi} from "../../api/admin/cmsChannelAdminApi"
+import { page as cmsChannelPageApi, remove as cmsChannelRemoveApi,publish as cmsChannelPublishApi,unPublish as cmsChannelUnPublishApi} from "../../api/admin/cmsChannelAdminApi"
 import {pageFormItems} from "../../components/admin/cmsChannelManage";
 
 
@@ -19,14 +19,24 @@ const reactiveData = reactive({
     {
       prop: 'name',
       label: '栏目名称',
+      width: 150,
     },
     {
       prop: 'code',
       label: '栏目编码',
     },
     {
+      prop: 'title',
+      label: '站点标题',
+      showOverflowTooltip: true,
+    },
+    {
       prop: 'cmsSiteName',
       label: '站点',
+    },
+    {
+      prop: 'channelContextPath',
+      label: '栏目上下文路径',
     },
     {
       prop: 'templatePath',
@@ -37,12 +47,41 @@ const reactiveData = reactive({
       label: '栏目模板',
     },
     {
-      prop: 'staticPath',
-      label: '静态页路径',
+      prop: 'staticSavePath',
+      label: '静态化存储路径',
+    },
+    {
+      prop: 'seq',
+      label: '排序',
+    },
+    {
+      prop: 'profile',
+      label: '简介',
+      showOverflowTooltip: true,
+    },
+    {
+      prop: 'isPublic',
+      label: '是否发布',
+      formatter: (row, column, cellValue, index) => {
+        return cellValue ? '是' : '否'
+      }
+    },
+    {
+      prop: 'publicAt',
+      label: '发布时间',
+    },
+    {
+      prop: 'remark',
+      label: '备注',
+      showOverflowTooltip: true,
     },
     {
       prop: 'pv',
       label: '页面访问量',
+    },
+    {
+      prop: 'initPv',
+      label: '初始页面访问量',
     },
     {
       prop: 'iv',
@@ -53,9 +92,11 @@ const reactiveData = reactive({
       label: '页面访问用户数',
     },
     {
-      prop: 'seq',
-      label: '排序',
+      prop: 'customUrl',
+      label: '自定义url',
+      showOverflowTooltip: true,
     },
+
   ],
 
 })
@@ -83,18 +124,61 @@ const getTableRowButtons = ({row, column, $index}) => {
     return []
   }
   let idData = {id: row.id}
-
+  let editData = {
+    id: row.id,
+    relatedCmsContentId: row.relatedCmsContentId, relatedCmsContentTitle: row.relatedCmsContentTitle
+  }
   let tableRowButtons = [
     {
       txt: '编辑',
       text: true,
       permission: 'admin:web:cmsChannel:update',
       // 跳转到编辑
-      route: {path: '/admin/CmsChannelManageUpdate',query: idData}
+      route: {path: '/admin/CmsChannelManageUpdate',query: editData}
+    },
+    {
+      txt: '查看地址',
+      text: true,
+      position: 'more',
+      // 跳转到编辑
+      route: {path: '/admin/cmsChannelManageUrlPage',query: idData}
+    },
+    {
+      txt: '发布',
+      text: true,
+      position: 'more',
+      disabled: row.isPublic,
+      permission: 'admin:web:cmsChannel:public',
+      methodConfirmText: `确定要发布 ${row.name} 吗？该发布只针对栏目数据本身，不影响站点和内容的发布状态`,
+      // 发布操作
+      method(){
+        return cmsChannelPublishApi({id: row.id}).then(res => {
+          // 发布成功后刷新一下表格
+          submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    },
+    {
+      txt: '取消发布',
+      text: true,
+      position: 'more',
+      disabled: !row.isPublic,
+      permission: 'admin:web:cmsChannel:unPublic',
+      methodConfirmText: `确定要取消发布 ${row.name} 吗？该取消发布只针对栏目数据本身，不影响站点和内容的发布状态`,
+      // 取消发布操作
+      method(){
+        return cmsChannelUnPublishApi({id: row.id}).then(res => {
+          // 取消发布成功后刷新一下表格
+          submitMethod()
+          return Promise.resolve(res)
+        })
+      }
     },
     {
       txt: '删除',
       text: true,
+      position: 'more',
       permission: 'admin:web:cmsChannel:delete',
       methodConfirmText: `确定要删除 ${row.name} 吗？`,
       // 删除操作
@@ -136,7 +220,7 @@ const getTableRowButtons = ({row, column, $index}) => {
     <template #defaultAppend>
       <el-table-column label="操作" width="180">
         <template #default="{row, column, $index}">
-          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})" :dropdownTriggerButtonOptions="{  text: true,buttonText: '更多'}">
           </PtButtonGroup>
         </template>
       </el-table-column>

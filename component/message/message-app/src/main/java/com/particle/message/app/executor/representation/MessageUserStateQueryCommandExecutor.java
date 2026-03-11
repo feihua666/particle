@@ -2,7 +2,7 @@ package com.particle.message.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class MessageUserStateQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<MessageUserStateVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<MessageUserStateVO> executeDetail(CommonIdCommand detailCommand) {
 		MessageUserStateDO byId = iMessageUserStateService.getById(detailCommand.getId());
 		MessageUserStateVO messageUserStateVO = MessageUserStateAppStructMapping.instance.messageUserStateDOToMessageUserStateVO(byId);
 		return SingleResponse.of(messageUserStateVO);
@@ -67,7 +67,7 @@ public class MessageUserStateQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<MessageUserStateVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<MessageUserStateVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		MessageUserStateDO byId = iMessageUserStateService.getById(detailForUpdateCommand.getId());
 		MessageUserStateVO messageUserStateVO = MessageUserStateAppStructMapping.instance.messageUserStateDOToMessageUserStateVO(byId);
 		return SingleResponse.of(messageUserStateVO);

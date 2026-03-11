@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.structmapping.DataObjectAppStructMapping;
 import com.particle.dataconstraint.client.dto.data.DataObjectVO;
 import com.particle.dataconstraint.domain.DataObject;
@@ -9,7 +9,7 @@ import com.particle.dataconstraint.domain.DataObjectId;
 import com.particle.dataconstraint.domain.gateway.DataObjectGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DataObjectDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataObjectVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataObjectVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataObjectId dataObjectId = DataObjectId.of(deleteCommand.getId());
 		DataObject byId = dataObjectGateway.getById(dataObjectId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

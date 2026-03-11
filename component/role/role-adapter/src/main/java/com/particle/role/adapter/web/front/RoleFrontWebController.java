@@ -1,13 +1,13 @@
 package com.particle.role.adapter.web.front;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.role.adapter.web.admin.RoleAdminWebController;
 import com.particle.role.client.api.IRoleApplicationService;
 import com.particle.role.client.api.representation.IRoleRepresentationApplicationService;
@@ -55,7 +55,7 @@ public class RoleFrontWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除角色")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public SingleResponse<RoleVO> delete(@RequestBody IdCommand roleDeleteCommand){
+	public SingleResponse<RoleVO> delete(@RequestBody CommonIdCommand roleDeleteCommand){
 		return iRoleApplicationService.delete(roleDeleteCommand);
 	}
 
@@ -72,14 +72,14 @@ public class RoleFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:role:update')")
 	@Operation(summary = "角色更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<RoleVO> queryDetailForUpdate(IdCommand roleQueryDetailForUpdateCommand){
+	public SingleResponse<RoleVO> queryDetailForUpdate(CommonIdCommand roleQueryDetailForUpdateCommand){
 		return iRoleRepresentationApplicationService.queryDetailForUpdate(roleQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:role:detail')")
 	@Operation(summary = "角色详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<RoleVO> queryDetail(IdCommand roleQueryDetailCommand){
+	public SingleResponse<RoleVO> queryDetail(CommonIdCommand roleQueryDetailCommand){
 		return iRoleRepresentationApplicationService.queryDetail(roleQueryDetailCommand);
 	}
 

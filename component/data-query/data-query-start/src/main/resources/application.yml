@@ -7,9 +7,13 @@ spring:
       - knife4j
       - swagger
       - log4j2
-      - sleuth
       - datasource
       - mybatis-plus
+      - mybatis-plus-tenant
+      - actuator
+      - boot-admin-client-local
+      - boot-admin-server
+      - session
   datasource:
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为 master
@@ -27,8 +31,19 @@ spring:
         - classpath:db/schema.data-query.sql
       data-locations:
         - classpath:db/data.data-query.sql
-      mode: ALWAYS # ALWAYS NEVER
+      mode: NEVER # ALWAYS NEVER
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    openfeign:
+      client:
+        config:
+          default:
+            # 开启 feign client 调用日志日志，需要设置日志级别为 debug，参见：feign.slf4j.Slf4jLogger
+            loggerLevel: FULL
 server:
+  port: 8020
   servlet:
     encoding:
       # 在接收请求和返回数据，强制 utf-8 编码
@@ -41,5 +56,17 @@ particle:
         # 是否在系统启动的初始化大数据源，默认false
         enable: false
     api:
-      # 是否开启预热,默认false
+      # 是否开启 api 预热,开启将根据配置参数调用一次接口，默认false
       warm-up: false
+  global:
+    web:
+      filter:
+        cors:
+          # 在使用 webmvc 网关时禁用，因为网关中也存在跨域过滤器，否则会导致响应头重复
+          enabled: false
+        response-trace-id:
+          # 在使用 webmvc 网关时禁用，因为网关中也存在跨域过滤器，否则会导致响应头重复
+          enabled: false
+    session:
+     # 使用jdbc存储session，如果单机部署可以使用内存存储，改为 none
+      store-type: jdbc

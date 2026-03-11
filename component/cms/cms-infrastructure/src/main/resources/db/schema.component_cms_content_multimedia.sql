@@ -26,4 +26,4 @@ CREATE TABLE `component_cms_content_multimedia` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `cms_site_id` (`cms_site_id`) USING BTREE,
   KEY `cms_content_id` (`cms_content_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='内容多媒体表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='内容多媒体表';

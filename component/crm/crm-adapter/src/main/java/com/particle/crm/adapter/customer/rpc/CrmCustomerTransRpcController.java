@@ -30,11 +30,6 @@ public class CrmCustomerTransRpcController extends AbstractBaseRpcAdapter implem
 	private CrmCustomerTransServiceImpl deptTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return deptTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<CrmCustomerTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return deptTransService.transBatch(type, keys);
 	}

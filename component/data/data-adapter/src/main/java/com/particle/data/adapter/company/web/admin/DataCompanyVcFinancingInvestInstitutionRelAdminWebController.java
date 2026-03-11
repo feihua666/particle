@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyVcFinancingInvestInstitutionRelApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestInstitutionRelVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcFinancingInvestInstitutionRelPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcFinancingInvestInstitutionRelQueryListCommand;
@@ -60,7 +60,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @Operation(summary = "删除企业融资历史投资机构关系")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业融资历史投资机构关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyVcFinancingInvestInstitutionRelApplicationService.delete(deleteCommand);
     }
@@ -77,14 +77,14 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcFinancingInvestInstitutionRel:update')")
     @Operation(summary = "企业融资历史投资机构关系更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcFinancingInvestInstitutionRel:detail')")
     @Operation(summary = "企业融资历史投资机构关系详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -103,7 +103,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
         dataCompanyVcFinancingInvestInstitutionRelPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.pageQuery(dataCompanyVcFinancingInvestInstitutionRelPageQueryCommand);
     }
-    
+
     @Operation(summary = "企业融资表ID分配企业投资机构表")
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcFinancingInvestInstitutionRel:companyVcFinancingAssignCompanyVcInvestInstitution')")
     @PostMapping("/companyVcFinancing/assign/companyVcInvestInstitution")
@@ -117,8 +117,8 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcFinancingInvestInstitutionRel:queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId')")
     @GetMapping("/queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(IdCommand idCommand) {
-        return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId( idCommand);
+    public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(commonIdCommand);
     }
 
     @Operation(summary = "清空企业融资表ID下的所有企业投资机构表")
@@ -126,8 +126,8 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @DeleteMapping("/deleteByCompanyVcFinancingId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空企业融资表ID下的所有企业投资机构表",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByCompanyVcFinancingId(@RequestBody IdCommand idCommand) {
-        return iDataCompanyVcFinancingInvestInstitutionRelApplicationService.deleteByCompanyVcFinancingId(idCommand);
+    public Response deleteByCompanyVcFinancingId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcFinancingInvestInstitutionRelApplicationService.deleteByCompanyVcFinancingId(commonIdCommand);
     }
 
 
@@ -144,8 +144,8 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcFinancingInvestInstitutionRel:queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId')")
     @GetMapping("/queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryByCompanyVcInvestInstitutionId(IdCommand idCommand) {
-        return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId( idCommand);
+    public MultiResponse<Long> queryByCompanyVcInvestInstitutionId(CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcFinancingInvestInstitutionRelRepresentationApplicationService.queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(commonIdCommand);
 
     }
 
@@ -154,8 +154,8 @@ public class DataCompanyVcFinancingInvestInstitutionRelAdminWebController extend
     @DeleteMapping("/deleteByCompanyVcInvestInstitutionId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空企业投资机构表下的所有企业融资表ID",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByCompanyVcInvestInstitutionId(@RequestBody IdCommand idCommand) {
-        return iDataCompanyVcFinancingInvestInstitutionRelApplicationService.deleteByCompanyVcInvestInstitutionId(idCommand);
+    public Response deleteByCompanyVcInvestInstitutionId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcFinancingInvestInstitutionRelApplicationService.deleteByCompanyVcInvestInstitutionId(commonIdCommand);
     }
 
 }

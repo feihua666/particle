@@ -30,11 +30,6 @@ public class DataScopeTransRpcController extends AbstractBaseRpcAdapter implemen
 	private DataScopeTransServiceImpl dataScopeTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return dataScopeTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<DataScopeTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dataScopeTransService.transBatch(type, keys);
 	}

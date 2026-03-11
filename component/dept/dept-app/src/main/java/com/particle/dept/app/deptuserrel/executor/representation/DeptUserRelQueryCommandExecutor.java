@@ -2,7 +2,7 @@ package com.particle.dept.app.deptuserrel.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.deptuserrel.structmapping.DeptUserRelAppStructMapping;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
@@ -57,7 +57,7 @@ public class DeptUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DeptUserRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DeptUserRelVO> executeDetail(CommonIdCommand detailCommand) {
 		DeptUserRelDO byId = iDeptUserRelService.getById(detailCommand.getId());
 		DeptUserRelVO deptUserRelVO = DeptUserRelAppStructMapping.instance.deptUserRelDOToDeptUserRelVO(byId);
 		return SingleResponse.of(deptUserRelVO);
@@ -67,7 +67,7 @@ public class DeptUserRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DeptUserRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DeptUserRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DeptUserRelDO byId = iDeptUserRelService.getById(detailForUpdateCommand.getId());
 		DeptUserRelVO deptUserRelVO = DeptUserRelAppStructMapping.instance.deptUserRelDOToDeptUserRelVO(byId);
 		return SingleResponse.of(deptUserRelVO);

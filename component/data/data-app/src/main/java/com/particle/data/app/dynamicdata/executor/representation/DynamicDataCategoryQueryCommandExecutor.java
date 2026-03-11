@@ -1,12 +1,12 @@
 package com.particle.data.app.dynamicdata.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataCategoryAppStructMapping;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataCategoryQueryListCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataCategoryVO;
 import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataCategoryDO;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataCategoryService;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataCategoryPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DynamicDataCategoryQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataCategoryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicDataCategoryVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicDataCategoryDO byId = iDynamicDataCategoryService.getById(detailCommand.getId());
 		DynamicDataCategoryVO dynamicDataCategoryVO = DynamicDataCategoryAppStructMapping.instance.dynamicDataCategoryDOToDynamicDataCategoryVO(byId);
 		return SingleResponse.of(dynamicDataCategoryVO);
@@ -67,7 +66,7 @@ public class DynamicDataCategoryQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataCategoryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicDataCategoryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicDataCategoryDO byId = iDynamicDataCategoryService.getById(detailForUpdateCommand.getId());
 		DynamicDataCategoryVO dynamicDataCategoryVO = DynamicDataCategoryAppStructMapping.instance.dynamicDataCategoryDOToDynamicDataCategoryVO(byId);
 		return SingleResponse.of(dynamicDataCategoryVO);

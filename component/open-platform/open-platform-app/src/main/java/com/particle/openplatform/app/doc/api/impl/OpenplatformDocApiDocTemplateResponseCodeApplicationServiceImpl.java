@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocApiDocTemplateResponseCodeCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class OpenplatformDocApiDocTemplateResponseCodeApplicationServiceImpl ext
 	}
 
 	@Override
-	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> delete(CommonIdCommand deleteCommand) {
 		return openplatformDocApiDocTemplateResponseCodeDeleteCommandExecutor.execute(deleteCommand);
 	}
 

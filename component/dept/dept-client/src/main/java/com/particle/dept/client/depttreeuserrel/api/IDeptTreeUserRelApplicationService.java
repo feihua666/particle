@@ -1,7 +1,7 @@
 package com.particle.dept.client.depttreeuserrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelCreateCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.DeptTreeUserRelUpdateCommand;
 import com.particle.dept.client.depttreeuserrel.dto.data.DeptTreeUserRelVO;
@@ -28,7 +28,7 @@ public interface IDeptTreeUserRelApplicationService extends IBaseApplicationServ
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeUserRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<DeptTreeUserRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2023-05-10 11:39:06
  */
-@FeignClient(name = "${particle.feign-client.name.tracking:tracking}",path = "/rpc/tracking_page")
+@FeignClient(name = "${particle.feign-client.tracking.name:tracking-start}", contextId = "trackingPageRpcFeignClient", url = "${particle.feign-client.tracking.url:}", path = "/rpc/tracking_page")
 public interface TrackingPageRpcFeignClient {
 
 

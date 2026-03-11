@@ -6,7 +6,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -99,7 +99,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     @Operation(summary = "删除导航网站静态部署")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航网站静态部署",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationStaticDeployVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationStaticDeployVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationStaticDeployApplicationService.delete(deleteCommand);
     }
@@ -116,14 +116,14 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     @PreAuthorize("hasAuthority('admin:web:navigationStaticDeploy:update')")
     @Operation(summary = "导航网站静态部署更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationStaticDeployVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationStaticDeployVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationStaticDeployRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationStaticDeploy:detail')")
     @Operation(summary = "导航网站静态部署详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationStaticDeployVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationStaticDeployVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationStaticDeployRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -149,10 +149,10 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
     @OpLog(name = "导航网站静态部署",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.other)
     public Response deploy(@RequestBody NavigationStaticDeployDoDeployCommand doDeployCommand) throws ScriptException {
 
-        IdCommand idCommand = new IdCommand();
-        idCommand.setId(doDeployCommand.getId());
+        CommonIdCommand commonIdCommand = new CommonIdCommand();
+        commonIdCommand.setId(doDeployCommand.getId());
 
-        SingleResponse<NavigationStaticDeployVO> navigationStaticDeployVOSingleResponse = iNavigationStaticDeployRepresentationApplicationService.queryDetail(idCommand);
+        SingleResponse<NavigationStaticDeployVO> navigationStaticDeployVOSingleResponse = iNavigationStaticDeployRepresentationApplicationService.queryDetail(commonIdCommand);
         NavigationStaticDeployVO navigationStaticDeployVO = navigationStaticDeployVOSingleResponse.getData();
 
         DeployContextDTO deployContextDTO = new DeployContextDTO();
@@ -169,7 +169,7 @@ public class NavigationStaticDeployAdminWebController extends AbstractBaseWebAda
         }
 
         // 更新部署时间
-        iNavigationStaticDeployApplicationService.updateLastDeployAt(idCommand, LocalDateTime.now());
+        iNavigationStaticDeployApplicationService.updateLastDeployAt(commonIdCommand, LocalDateTime.now());
         return Response.buildSuccess();
     }
 

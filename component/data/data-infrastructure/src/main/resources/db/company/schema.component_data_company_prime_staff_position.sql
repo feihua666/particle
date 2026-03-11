@@ -15,4 +15,4 @@ CREATE TABLE `component_data_company_prime_staff_position` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `unique_company_prime_staff_id__position_name` (`company_prime_staff_id`,`position_name`) USING BTREE,
   KEY `company_prime_staff_id` (`company_prime_staff_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业主要人员职位表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业主要人员职位表';

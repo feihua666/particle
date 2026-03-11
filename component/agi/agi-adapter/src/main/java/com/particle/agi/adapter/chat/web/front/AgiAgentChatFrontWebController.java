@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatPageQ
 import com.particle.agi.client.chat.dto.data.AgiAgentChatVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.agi.client.chat.api.IAgiAgentChatApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -42,7 +42,7 @@ public class AgiAgentChatFrontWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除智能体对话")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除智能体对话",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-	public SingleResponse<AgiAgentChatVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<AgiAgentChatVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
 		return iAgiAgentChatApplicationService.delete(deleteCommand);
 	}
@@ -59,7 +59,7 @@ public class AgiAgentChatFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:agiAgentChat:update')")
 	@Operation(summary = "智能体对话更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<AgiAgentChatVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<AgiAgentChatVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iAgiAgentChatRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 	@PreAuthorize("hasAuthority('front:web:agiAgentChat:pageQuery')")

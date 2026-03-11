@@ -1,7 +1,7 @@
 package com.particle.feedback.client.feedback.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackAttachmentPageQueryCommand;
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackAttachmentQueryListCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackAttachmentVO;
@@ -23,7 +23,7 @@ public interface IFeedbackAttachmentRepresentationApplicationService extends IBa
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<FeedbackAttachmentVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<FeedbackAttachmentVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

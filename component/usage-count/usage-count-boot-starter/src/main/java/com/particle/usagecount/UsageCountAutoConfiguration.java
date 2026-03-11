@@ -1,16 +1,13 @@
  package com.particle.usagecount;
 
  import com.particle.global.projectinfo.ProjectInfo;
- import com.particle.global.security.security.config.WebSecurityConfig;
  import com.particle.global.swagger.ApplicationContexSwaggertHelper;
  import com.particle.global.swagger.SwaggerInfo;
  import com.particle.global.swagger.factory.SwaggerFactory;
- import com.particle.usagecount.adapter.filter.UsageCountFilter;
  import io.swagger.v3.oas.models.security.SecurityScheme;
  import org.mybatis.spring.annotation.MapperScan;
  import org.springdoc.core.models.GroupedOpenApi;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
- import org.springframework.boot.web.servlet.FilterRegistrationBean;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.ComponentScan;
  import org.springframework.context.annotation.Configuration;
@@ -50,22 +47,5 @@ public class UsageCountAutoConfiguration {
                 .title(ProjectInfo.NAME + " Swagger Apis")
                 .description(ProjectInfo.NAME + " Swagger Apis Description")
                 .build());
-    }
-
-    @Bean
-    public UsageCountFilter usageCountFilterBean() {
-        return new UsageCountFilter();
-    }
-
-    /**
-     * 使用次数统计过滤器，顺序在 spirng security 之后
-     * @return
-     */
-    @Bean
-    public FilterRegistrationBean usageCountFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(usageCountFilterBean());
-        registrationBean.setOrder(WebSecurityConfig.defaultSecurityFilterChainOrder + 10);
-        return registrationBean;
     }
 }

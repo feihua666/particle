@@ -1,7 +1,7 @@
 package com.particle.func.adapter.application.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.application.api.IFuncApplicationApplicationService;
@@ -52,7 +52,7 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除功能应用")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public SingleResponse<FuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<FuncApplicationVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_func_application, DataConstraintContext.Action.delete.name());
 		return iFuncApplicationApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class FuncApplicationAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcApplication:update')")
 	@Operation(summary = "功能应用更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<FuncApplicationVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<FuncApplicationVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iFuncApplicationRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplication:detail')")
 	@Operation(summary = "功能应用详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncApplicationVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<FuncApplicationVO> queryDetail(CommonIdCommand detailCommand){
 		return iFuncApplicationRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

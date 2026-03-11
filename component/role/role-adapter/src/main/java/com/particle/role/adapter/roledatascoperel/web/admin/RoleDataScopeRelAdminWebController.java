@@ -1,7 +1,7 @@
 package com.particle.role.adapter.roledatascoperel.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -54,7 +54,7 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除角色数据范围关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除角色数据范围关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public SingleResponse<RoleDataScopeRelVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<RoleDataScopeRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iRoleDataScopeRelApplicationService.delete(deleteCommand);
 	}
 
@@ -69,14 +69,14 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:update')")
 	@Operation(summary = "角色数据范围关系更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iRoleDataScopeRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:detail')")
 	@Operation(summary = "角色数据范围关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<RoleDataScopeRelVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<RoleDataScopeRelVO> queryDetail(CommonIdCommand detailCommand){
 		return iRoleDataScopeRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -107,8 +107,8 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:queryDataScopeIdsByRoleId')")
 	@GetMapping("/queryDataScopeIdsByRoleId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryDataScopeIdsByRoleId(IdCommand idCommand) {
-		return iRoleDataScopeRelRepresentationApplicationService.queryDataScopeIdsByRoleId( idCommand);
+	public MultiResponse<Long> queryDataScopeIdsByRoleId(CommonIdCommand commonIdCommand) {
+		return iRoleDataScopeRelRepresentationApplicationService.queryDataScopeIdsByRoleId(commonIdCommand);
 	}
 
 	@Operation(summary = "清空角色下的所有数据范围")
@@ -116,8 +116,8 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/deleteByRoleId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空角色下的所有数据范围",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public Response deleteByRoleId(@RequestBody IdCommand idCommand) {
-		return iRoleDataScopeRelApplicationService.deleteByRoleId(idCommand);
+	public Response deleteByRoleId(@RequestBody CommonIdCommand commonIdCommand) {
+		return iRoleDataScopeRelApplicationService.deleteByRoleId(commonIdCommand);
 	}
 
 
@@ -134,8 +134,8 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:roleDataScopeRel:queryRoleIdsByDataScopeId')")
 	@GetMapping("/queryRoleIdsByDataScopeId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryByDataScopeId(IdCommand idCommand) {
-		return iRoleDataScopeRelRepresentationApplicationService.queryRoleIdsByDataScopeId( idCommand);
+	public MultiResponse<Long> queryByDataScopeId(CommonIdCommand commonIdCommand) {
+		return iRoleDataScopeRelRepresentationApplicationService.queryRoleIdsByDataScopeId(commonIdCommand);
 
 	}
 
@@ -144,8 +144,8 @@ public class RoleDataScopeRelAdminWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/deleteByDataScopeId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空数据范围下的所有角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public Response deleteByDataScopeId(@RequestBody IdCommand idCommand) {
-		return iRoleDataScopeRelApplicationService.deleteByDataScopeId(idCommand);
+	public Response deleteByDataScopeId(@RequestBody CommonIdCommand commonIdCommand) {
+		return iRoleDataScopeRelApplicationService.deleteByDataScopeId(commonIdCommand);
 	}
 
 }

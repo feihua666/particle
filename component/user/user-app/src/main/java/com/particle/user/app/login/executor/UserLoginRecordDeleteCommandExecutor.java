@@ -3,7 +3,7 @@ package com.particle.user.app.login.executor;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
 import com.particle.user.client.login.dto.command.UserLoginRecordDeleteCommand;
 import com.particle.user.client.login.dto.data.UserLoginRecordVO;

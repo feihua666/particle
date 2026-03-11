@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprPlantVarietyChang
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPlantVarietyChangeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPlantVarietyChangeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPlantVarietyChangePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPlantVarietyChangeQueryCommandExecutor  extends Abstr
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPlantVarietyChangeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPlantVarietyChangeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPlantVarietyChangeDO byId = iDataCompanyIprPlantVarietyChangeService.getById(detailCommand.getId());
 		DataCompanyIprPlantVarietyChangeVO dataCompanyIprPlantVarietyChangeVO = DataCompanyIprPlantVarietyChangeAppStructMapping.instance.dataCompanyIprPlantVarietyChangeDOToDataCompanyIprPlantVarietyChangeVO(byId);
 		return SingleResponse.of(dataCompanyIprPlantVarietyChangeVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPlantVarietyChangeQueryCommandExecutor  extends Abstr
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPlantVarietyChangeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPlantVarietyChangeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPlantVarietyChangeDO byId = iDataCompanyIprPlantVarietyChangeService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPlantVarietyChangeVO dataCompanyIprPlantVarietyChangeVO = DataCompanyIprPlantVarietyChangeAppStructMapping.instance.dataCompanyIprPlantVarietyChangeDOToDataCompanyIprPlantVarietyChangeVO(byId);
 		return SingleResponse.of(dataCompanyIprPlantVarietyChangeVO);

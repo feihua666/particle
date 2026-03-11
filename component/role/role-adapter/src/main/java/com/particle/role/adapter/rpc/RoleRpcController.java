@@ -2,8 +2,6 @@ package com.particle.role.adapter.rpc;
 
 import com.google.common.collect.Lists;
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
-import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.adapter.feign.client.rpc.RoleRpcFeignClient;
@@ -18,7 +16,6 @@ import com.particle.role.infrastructure.service.IRoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +51,7 @@ public class RoleRpcController extends AbstractBaseRpcAdapter implements RoleRpc
 
     @Operation(summary = "根据用户id查询角色")
     @Override
-    public MultiResponse<RoleVO> queryListByUserId(RoleQueryListByUserIdCommand roleQueryListByUserIdCommand) {
+    public MultiResponse<RoleVO> queryListByUserId(RoleQueryListByUserCommonIdCommand roleQueryListByUserIdCommand) {
         List<RoleDO> roleDOS = iRoleService.listByUserId(roleQueryListByUserIdCommand.getId(), roleQueryListByUserIdCommand.getIsDisabled());
         List<RoleVO> roleVOS = RoleAppStructMapping.instance.roleDOsToRoleVOs(roleDOS);
         return MultiResponse.of(roleVOS);
@@ -68,7 +65,7 @@ public class RoleRpcController extends AbstractBaseRpcAdapter implements RoleRpc
     }
     @Operation(summary = "根据角色id查询角色")
     @Override
-    public SingleResponse<RoleVO> queryListByRoleId(RoleQueryListByRoleIdCommand roleQueryListByRoleIdCommand) {
+    public SingleResponse<RoleVO> queryListByRoleId(RoleQueryListByRoleCommonIdCommand roleQueryListByRoleIdCommand) {
         List<RoleDO> roleDOList = iRoleService.listByRoleIds(Lists.newArrayList(roleQueryListByRoleIdCommand.getId()), roleQueryListByRoleIdCommand.getIsDisabled());
         List<RoleVO> roleVOS = RoleAppStructMapping.instance.roleDOsToRoleVOs(roleDOList);
         RoleVO roleVO = null;

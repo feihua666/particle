@@ -36,4 +36,4 @@ CREATE TABLE `component_data_company_shareholder` (
   KEY `shareholder_company_id` (`shareholder_company_id`) USING BTREE,
   KEY `shareholder_company_person_id` (`shareholder_company_person_id`) USING BTREE,
   UNIQUE KEY `uni_company_id__data_md5` (`company_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业股东表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业股东表';

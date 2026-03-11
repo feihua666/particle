@@ -30,11 +30,6 @@ public class DeptTreeTransRpcController extends AbstractBaseRpcAdapter implement
 	private DeptTreeTransServiceImpl deptTreeTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return deptTreeTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<DeptTreeTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return deptTreeTransService.transBatch(type, keys);
 	}

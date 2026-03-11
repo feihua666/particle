@@ -1,7 +1,7 @@
 package com.particle.lowcode.client.generator.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenCreateCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentGenRenderGenCommand;
@@ -36,7 +36,7 @@ public interface ILowcodeSegmentGenApplicationService extends IBaseApplicationSe
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<LowcodeSegmentGenVO> delete(IdCommand deleteCommand);
+	SingleResponse<LowcodeSegmentGenVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -50,6 +50,6 @@ public interface ILowcodeSegmentGenApplicationService extends IBaseApplicationSe
 	 * @param reloadCommand
 	 * @return
 	 */
-	SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(IdCommand reloadCommand);
+	SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(CommonIdCommand reloadCommand);
 
 }

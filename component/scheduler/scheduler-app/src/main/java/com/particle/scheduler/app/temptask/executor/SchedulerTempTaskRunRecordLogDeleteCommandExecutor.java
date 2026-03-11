@@ -1,10 +1,10 @@
 package com.particle.scheduler.app.temptask.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.temptask.structmapping.SchedulerTempTaskRunRecordLogAppStructMapping;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskRunRecordLogVO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTaskRunRecordLog;
@@ -36,7 +36,7 @@ public class SchedulerTempTaskRunRecordLogDeleteCommandExecutor  extends Abstrac
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskRunRecordLogVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SchedulerTempTaskRunRecordLogVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SchedulerTempTaskRunRecordLogId schedulerTempTaskRunRecordLogId = SchedulerTempTaskRunRecordLogId.of(deleteCommand.getId());
 		SchedulerTempTaskRunRecordLog byId = schedulerTempTaskRunRecordLogGateway.getById(schedulerTempTaskRunRecordLogId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

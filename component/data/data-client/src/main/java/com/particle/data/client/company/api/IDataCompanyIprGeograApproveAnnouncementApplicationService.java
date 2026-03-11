@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyIprGeograApproveAnnouncementCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprGeograApproveAnnouncementUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprGeograApproveAnnouncementVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyIprGeograApproveAnnouncementApplicationService exte
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

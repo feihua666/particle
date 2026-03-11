@@ -2,7 +2,7 @@ package com.particle.openplatform.app.providerrecord.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordDO byId = iOpenplatformProviderRecordService.getById(detailCommand.getId());
 		OpenplatformProviderRecordVO openplatformProviderRecordVO = OpenplatformProviderRecordAppStructMapping.instance.openplatformProviderRecordDOToOpenplatformProviderRecordVO(byId);
 		return SingleResponse.of(openplatformProviderRecordVO);
@@ -67,7 +67,7 @@ public class OpenplatformProviderRecordQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderRecordDO byId = iOpenplatformProviderRecordService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderRecordVO openplatformProviderRecordVO = OpenplatformProviderRecordAppStructMapping.instance.openplatformProviderRecordDOToOpenplatformProviderRecordVO(byId);
 		return SingleResponse.of(openplatformProviderRecordVO);

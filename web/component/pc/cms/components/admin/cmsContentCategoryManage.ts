@@ -2,7 +2,8 @@ import {
   useCascaderCmsChannelCompItem,
   useCascaderCmsContentCategoryCompItem,
   useSelectCmsSiteCompItem
-} from "../cmsSiteCompItem";
+} from "../cmsCompItem";
+import {treeQueryComps} from "../../../treeQueryComps";
 
 export const pageFormItems = [
   useSelectCmsSiteCompItem({}),
@@ -24,6 +25,8 @@ export const pageFormItems = [
         }
       },
 
+  useCascaderCmsContentCategoryCompItem({}),
+  ...treeQueryComps
 ]
 export const addPageFormItems = [
   useSelectCmsSiteCompItem({required: true}),

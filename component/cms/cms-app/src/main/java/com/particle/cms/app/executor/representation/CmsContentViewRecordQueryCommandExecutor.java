@@ -6,7 +6,7 @@ import com.particle.cms.client.dto.data.CmsContentViewRecordVO;
 import com.particle.cms.infrastructure.dos.CmsContentViewRecordDO;
 import com.particle.cms.infrastructure.service.ICmsContentViewRecordService;
 import com.particle.cms.client.dto.command.representation.CmsContentViewRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class CmsContentViewRecordQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentViewRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CmsContentViewRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		CmsContentViewRecordDO byId = iCmsContentViewRecordService.getById(detailCommand.getId());
 		CmsContentViewRecordVO cmsContentViewRecordVO = CmsContentViewRecordAppStructMapping.instance.cmsContentViewRecordDOToCmsContentViewRecordVO(byId);
 		return SingleResponse.of(cmsContentViewRecordVO);
@@ -67,7 +66,7 @@ public class CmsContentViewRecordQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentViewRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CmsContentViewRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CmsContentViewRecordDO byId = iCmsContentViewRecordService.getById(detailForUpdateCommand.getId());
 		CmsContentViewRecordVO cmsContentViewRecordVO = CmsContentViewRecordAppStructMapping.instance.cmsContentViewRecordDOToCmsContentViewRecordVO(byId);
 		return SingleResponse.of(cmsContentViewRecordVO);

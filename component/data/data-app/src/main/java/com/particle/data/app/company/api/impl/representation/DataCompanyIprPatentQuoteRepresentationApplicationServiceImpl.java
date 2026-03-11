@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyIprPatentQuoteRepresentationApplicationServiceImpl exten
     private DataCompanyIprPatentQuoteExWarehouseCommandExecutor dataCompanyIprPatentQuoteExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyIprPatentQuoteVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyIprPatentQuoteVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyIprPatentQuoteQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyIprPatentQuoteVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyIprPatentQuoteVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyIprPatentQuoteQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

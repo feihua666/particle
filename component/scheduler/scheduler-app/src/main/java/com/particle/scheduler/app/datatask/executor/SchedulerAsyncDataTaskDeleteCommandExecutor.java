@@ -1,21 +1,19 @@
 package com.particle.scheduler.app.datatask.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.datatask.structmapping.SchedulerAsyncDataTaskAppStructMapping;
 import com.particle.scheduler.client.datatask.dto.data.SchedulerAsyncDataTaskVO;
 import com.particle.scheduler.domain.datatask.SchedulerAsyncDataTask;
 import com.particle.scheduler.domain.datatask.SchedulerAsyncDataTaskId;
 import com.particle.scheduler.domain.datatask.gateway.SchedulerAsyncDataTaskGateway;
 import com.particle.scheduler.infrastructure.datatask.service.ISchedulerAsyncDataTaskService;
-import com.particle.scheduler.infrastructure.datatask.dos.SchedulerAsyncDataTaskDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class SchedulerAsyncDataTaskDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerAsyncDataTaskVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SchedulerAsyncDataTaskVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SchedulerAsyncDataTaskId schedulerAsyncDataTaskId = SchedulerAsyncDataTaskId.of(deleteCommand.getId());
 		SchedulerAsyncDataTask byId = schedulerAsyncDataTaskGateway.getById(schedulerAsyncDataTaskId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

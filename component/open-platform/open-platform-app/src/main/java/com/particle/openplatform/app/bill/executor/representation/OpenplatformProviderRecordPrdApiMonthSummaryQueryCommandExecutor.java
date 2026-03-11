@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryQueryCommandExecutor  e
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordPrdApiMonthSummaryDO byId = iOpenplatformProviderRecordPrdApiMonthSummaryService.getById(detailCommand.getId());
 		OpenplatformProviderRecordPrdApiMonthSummaryVO openplatformProviderRecordPrdApiMonthSummaryVO = OpenplatformProviderRecordPrdApiMonthSummaryAppStructMapping.instance.openplatformProviderRecordPrdApiMonthSummaryDOToOpenplatformProviderRecordPrdApiMonthSummaryVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdApiMonthSummaryVO);
@@ -67,7 +67,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryQueryCommandExecutor  e
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderRecordPrdApiMonthSummaryDO byId = iOpenplatformProviderRecordPrdApiMonthSummaryService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderRecordPrdApiMonthSummaryVO openplatformProviderRecordPrdApiMonthSummaryVO = OpenplatformProviderRecordPrdApiMonthSummaryAppStructMapping.instance.openplatformProviderRecordPrdApiMonthSummaryDOToOpenplatformProviderRecordPrdApiMonthSummaryVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdApiMonthSummaryVO);

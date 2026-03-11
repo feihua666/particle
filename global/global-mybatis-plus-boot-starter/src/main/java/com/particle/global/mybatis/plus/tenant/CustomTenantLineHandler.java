@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.plugins.IgnoreStrategy;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.particle.global.dto.basic.DO;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.tenant.TenantTool;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.schema.Column;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -22,6 +24,7 @@ import java.util.function.Supplier;
  * @author yangwei
  * @since 2022-06-30 14:44
  */
+@Slf4j
 @Data
 public class CustomTenantLineHandler implements TenantLineHandler {
 
@@ -34,6 +37,8 @@ public class CustomTenantLineHandler implements TenantLineHandler {
 	public Expression getTenantId() {
 		Long tenantId = TenantTool.getTenantId();
 		if (tenantId == null) {
+			// 在多租户情况下，租户id必须存在，这里断言一下，方便排查问题
+			Assert.notNull(tenantId, "未获取到租户id");
 			return null;
 		}
 		return new LongValue(tenantId);

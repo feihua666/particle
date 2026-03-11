@@ -1,7 +1,7 @@
 package com.particle.tenant.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
@@ -93,7 +93,7 @@ public class TenantApplicationServiceImpl extends AbstractBaseApplicationService
 	}
 
 	@Override
-	public SingleResponse<TenantVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<TenantVO> delete(CommonIdCommand deleteCommand) {
 		return tenantDeleteCommandExecutor.execute(deleteCommand);
 	}
 

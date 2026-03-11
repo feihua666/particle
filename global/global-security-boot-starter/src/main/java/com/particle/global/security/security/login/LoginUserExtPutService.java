@@ -1,5 +1,7 @@
 package com.particle.global.security.security.login;
 
+import com.particle.global.dto.login.LoginUser;
+
 /**
  * 定义通用的用户登录时，添加当前登录用户额外的配置信息
  * 注意该类使用是在使用登录时，但还未登录成功或完成

@@ -2,7 +2,7 @@ package com.particle.func.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.structmapping.FuncGroupAppStructMapping;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
@@ -57,7 +57,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<FuncGroupVO> executeDetail(IdCommand funcGroupQueryDetailCommand) {
+	public SingleResponse<FuncGroupVO> executeDetail(CommonIdCommand funcGroupQueryDetailCommand) {
 		FuncGroupDO byId = iFuncGroupService.getById(funcGroupQueryDetailCommand.getId());
 		FuncGroupVO funcGroupVO = FuncGroupAppStructMapping.instance.funcGroupDOToFuncGroupVO(byId);
 		return SingleResponse.of(funcGroupVO);
@@ -67,7 +67,7 @@ public class FuncGroupQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param funcGroupQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FuncGroupVO> executeDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand) {
+	public SingleResponse<FuncGroupVO> executeDetailForUpdate(CommonIdCommand funcGroupQueryDetailForUpdateCommand) {
 		FuncGroupDO byId = iFuncGroupService.getById(funcGroupQueryDetailForUpdateCommand.getId());
 		FuncGroupVO funcGroupVO = FuncGroupAppStructMapping.instance.funcGroupDOToFuncGroupVO(byId);
 		return SingleResponse.of(funcGroupVO);

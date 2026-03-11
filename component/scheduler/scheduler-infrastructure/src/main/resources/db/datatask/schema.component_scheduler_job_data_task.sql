@@ -25,4 +25,4 @@ CREATE TABLE `component_scheduler_job_data_task` (
   KEY `group_identifier` (`group_identifier`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='任务计划任务数据表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='任务计划任务数据表';

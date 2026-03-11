@@ -1,8 +1,8 @@
 package com.particle.global.exception;
 
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.IErrorCode;
 
 import java.util.HashMap;
 import java.util.Map;

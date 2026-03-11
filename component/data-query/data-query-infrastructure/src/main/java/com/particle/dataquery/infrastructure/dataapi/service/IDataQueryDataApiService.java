@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,5 +28,8 @@ public interface IDataQueryDataApiService extends IBaseService<DataQueryDataApiD
 		return getOne(Wrappers.<DataQueryDataApiDO>lambdaQuery().eq(DataQueryDataApiDO::getUrl,url));
 	}
 
+	default List<DataQueryDataApiDO> listIgnoreTenantLimit() {
+		return CustomTenantLineHandler.executeIgnoreTenant(() -> list());
+	}
 
 }

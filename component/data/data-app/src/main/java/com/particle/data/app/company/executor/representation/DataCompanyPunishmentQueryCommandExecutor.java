@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyPunishmentAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPunishmentQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyPunishmentVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyPunishmentDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyPunishmentService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPunishmentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyPunishmentQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyPunishmentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyPunishmentVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyPunishmentDO byId = iDataCompanyPunishmentService.getById(detailCommand.getId());
 		DataCompanyPunishmentVO dataCompanyPunishmentVO = DataCompanyPunishmentAppStructMapping.instance.dataCompanyPunishmentDOToDataCompanyPunishmentVO(byId);
 		return SingleResponse.of(dataCompanyPunishmentVO);
@@ -67,7 +66,7 @@ public class DataCompanyPunishmentQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyPunishmentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyPunishmentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyPunishmentDO byId = iDataCompanyPunishmentService.getById(detailForUpdateCommand.getId());
 		DataCompanyPunishmentVO dataCompanyPunishmentVO = DataCompanyPunishmentAppStructMapping.instance.dataCompanyPunishmentDOToDataCompanyPunishmentVO(byId);
 		return SingleResponse.of(dataCompanyPunishmentVO);

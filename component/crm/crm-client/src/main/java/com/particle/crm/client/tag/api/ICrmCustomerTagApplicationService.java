@@ -1,7 +1,7 @@
 package com.particle.crm.client.tag.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.client.tag.dto.command.CrmCustomerTagCreateCommand;
 import com.particle.crm.client.tag.dto.command.CrmCustomerTagUpdateCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagVO;
@@ -28,7 +28,7 @@ public interface ICrmCustomerTagApplicationService extends IBaseApplicationServi
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerTagVO> delete(IdCommand deleteCommand);
+	SingleResponse<CrmCustomerTagVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

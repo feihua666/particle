@@ -43,7 +43,7 @@
             <artifactId>global-document-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- oss 支持 -->
+        <!-- oss 支持,添加时主要是动态数据指标上传 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-oss-boot-starter</artifactId>

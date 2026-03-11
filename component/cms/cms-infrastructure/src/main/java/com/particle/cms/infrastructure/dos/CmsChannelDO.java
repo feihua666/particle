@@ -5,6 +5,8 @@ import com.particle.global.mybatis.plus.dto.BaseTreeDO;
 import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 /**
@@ -36,9 +38,14 @@ public class CmsChannelDO extends BaseTreeDO {
     private String name;
 
 	/**
+	 * 网页标题，用于页面标题
+	 */
+	private String title;
+
+	/**
 	 * 栏目访问上下文路径，主要应用于动态页访问，可以实现在一个站点下不同的栏目
 	 */
-	private String path;
+	private String channelContextPath;
 
     /**
     * 栏目模板路径
@@ -53,12 +60,37 @@ public class CmsChannelDO extends BaseTreeDO {
     /**
     * 栏目静态页存放路径
     */
-    private String staticPath;
+    private String staticSavePath;
+
+	/**
+	 * 简介
+	 */
+	private String profile;
+
+	/**
+	 * 是否发布
+	 */
+	private Boolean isPublic;
+
+	/**
+	 * 发布时间
+	 */
+	private LocalDateTime publicAt;
+
+	/**
+	 * 备注
+	 */
+	private String remark;
 
     /**
     * 页面访问量,页面展示次数
     */
     private Integer pv;
+
+	/**
+	 * 初始页面访问量,页面展示次数
+	 */
+	private Integer initPv;
 
     /**
     * 页面访问ip数,一天之内相同IP地址只被计算一次
@@ -69,6 +101,16 @@ public class CmsChannelDO extends BaseTreeDO {
     * 页面访问用户数,页面访问电脑客户端数,一天之内相同cookie的访问只被计算1次
     */
     private Integer uv;
+
+	/**
+	 * 关联的内容id,适用点击栏目访问内容详情的场景
+	 */
+	private Long relatedCmsContentId;
+
+	/**
+	 * 自定义url,适用于点击栏目访问自定义url的场景
+	 */
+	private String customUrl;
 
     /**
     * 排序,默认按该字段升序排序

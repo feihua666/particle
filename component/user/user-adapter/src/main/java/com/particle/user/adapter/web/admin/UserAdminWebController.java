@@ -1,7 +1,7 @@
 package com.particle.user.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -47,21 +47,31 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@Autowired
 	private IUserRepresentationApplicationService iUserRepresentationApplicationService;
 
+	/**
+	 * 不建议使用两个 RequestBody 接收参数，这在 feignClient 中会有异常，为保持统一直接放到 userCreateCommand 中
+	 * @param userCreateCommand
+	 * @param userIdentifierPwdCommand
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('admin:web:user:create')")
 	@Operation(summary = "添加用户")
 	@PostMapping("/create")
 	@OpLog(name = "添加用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.create)
-	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody UserIdentifierPwdCommand userIdentifierPwdCommand){
-		PasswordTool.encodePassword(userIdentifierPwdCommand);
+	public SingleResponse<UserVO> create(@RequestBody UserCreateCommand userCreateCommand,@RequestBody @Deprecated UserIdentifierPwdCommand userIdentifierPwdCommand){
+		UserIdentifierPwdCommand userIdentifierPwdCmd = userCreateCommand.getIdentifierPwd();
+		if (userIdentifierPwdCmd == null) {
+			userIdentifierPwdCmd = userIdentifierPwdCommand;
+		}
+		PasswordTool.encodePassword(userIdentifierPwdCmd);
 
-		return iUserApplicationService.create(userCreateCommand, userIdentifierPwdCommand);
+		return iUserApplicationService.create(userCreateCommand, userIdentifierPwdCmd);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:user:delete')")
 	@Operation(summary = "删除用户")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
-	public SingleResponse<UserVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<UserVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_user_user, DataConstraintContext.Action.delete.name());
 		return iUserApplicationService.delete(deleteCommand);
 	}
@@ -78,7 +88,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:update')")
 	@Operation(summary = "用户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserVO> queryDetailForUpdate(IdCommand userQueryDetailForUpdateCommand,Boolean isIncludeRoleInfo){
+	public SingleResponse<UserVO> queryDetailForUpdate(CommonIdCommand userQueryDetailForUpdateCommand, Boolean isIncludeRoleInfo){
 		SingleResponse<UserVO> userVOSingleResponse = iUserRepresentationApplicationService.queryDetailForUpdate(userQueryDetailForUpdateCommand);
 		if (isIncludeRoleInfo != null && isIncludeRoleInfo && userVOSingleResponse != null) {
 			userVOSingleResponse.setData(UserAppStructMapping.instance.mapUserWithRoleVO(userVOSingleResponse.getData()));
@@ -90,7 +100,7 @@ public class UserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:user:detail')")
 	@Operation(summary = "用户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserVO> queryDetail(IdCommand userQueryDetailCommand,Boolean isIncludeRoleInfo){
+	public SingleResponse<UserVO> queryDetail(CommonIdCommand userQueryDetailCommand, Boolean isIncludeRoleInfo){
 		SingleResponse<UserVO> userVOSingleResponse = iUserRepresentationApplicationService.queryDetail(userQueryDetailCommand);
 		if (isIncludeRoleInfo != null && isIncludeRoleInfo && userVOSingleResponse != null) {
 			userVOSingleResponse.setData(UserAppStructMapping.instance.mapUserWithRoleVO(userVOSingleResponse.getData()));

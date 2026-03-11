@@ -2,7 +2,7 @@ package com.particle.user.adapter.identifier.web.admin;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -57,7 +57,7 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "删除用户密码")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户密码",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
-	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<UserIdentifierPwdVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier_pwd, DataConstraintContext.Action.delete.name());
 		return iUserIdentifierPwdApplicationService.delete(deleteCommand);
 	}
@@ -98,14 +98,14 @@ public class UserIdentifierPwdAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:update')")
 	@Operation(summary = "用户密码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand){
+	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(CommonIdCommand userIdentifierPwdQueryDetailForUpdateCommand){
 		return iUserIdentifierPwdRepresentationApplicationService.queryDetailForUpdate(userIdentifierPwdQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifierPwd:detail')")
 	@Operation(summary = "用户密码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserIdentifierPwdVO> queryDetail(IdCommand userIdentifierPwdQueryDetailCommand){
+	public SingleResponse<UserIdentifierPwdVO> queryDetail(CommonIdCommand userIdentifierPwdQueryDetailCommand){
 		return iUserIdentifierPwdRepresentationApplicationService.queryDetail(userIdentifierPwdQueryDetailCommand);
 	}
 

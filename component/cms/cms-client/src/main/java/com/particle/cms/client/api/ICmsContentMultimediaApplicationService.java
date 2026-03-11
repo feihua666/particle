@@ -1,9 +1,8 @@
 package com.particle.cms.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsContentMultimediaCreateCommand;
 import com.particle.cms.client.dto.command.CmsContentMultimediaUpdateCommand;
 import com.particle.cms.client.dto.data.CmsContentMultimediaVO;
@@ -28,7 +27,7 @@ public interface ICmsContentMultimediaApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsContentMultimediaVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsContentMultimediaVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

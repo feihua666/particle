@@ -11,6 +11,14 @@
 
     <artifactId>common-client</artifactId>
 
+    <description>
+        面向外部系统或其他业务组件的通用客户端契约模块，
+        用于定义对本系统能力的调用接口与数据模型，
+        作为跨模块或跨系统调用的稳定 API 边界，
+        不包含具体调用技术实现（如 Feign、HTTP 等）。
+        如需其他协议调用可拆分模块，如 Feign 模块。
+    </description>
+
     <properties>
 
 
@@ -23,19 +31,31 @@
             <version>${particle.version}</version>
         </dependency>
 
-        <!-- swagger 接口文档工具 不传递依赖 仅使用注解-->
-
+        <!-- swagger 接口文档工具 仅使用注解-->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations-jakarta</artifactId>
             <version>${swagger-annotations-jakarta.version}</version>
         </dependency>
 
+        <!-- 仅使用注解，添加这个主要是为了在基类QueryCommand上添加一个 @ParameterObject 注解 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-common</artifactId>
+            <version>${springdoc-openapi.version}</version>
+        </dependency>
 
         <!-- 表单验证使用 不传递依赖 仅使用注解 版本已在spring父级定义 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
             <optional>true</optional>
         </dependency>
 
@@ -50,6 +70,14 @@
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>component-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 参数验证 理论上不传递依赖 仅使用注解 依赖已在 common-app 中引入执行真正的验证-->
+        <!-- 但为了方便，这里传递依赖，方便所有模板能直接使用 -->
+        <!-- 该模块内容自定义了校验注解 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-validation-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
     </dependencies>

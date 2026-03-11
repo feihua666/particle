@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkLicenseV
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkLicenseDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkLicenseService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkLicensePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprTrademarkLicenseQueryCommandExecutor  extends Abstrac
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkLicenseVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprTrademarkLicenseVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprTrademarkLicenseDO byId = iDataCompanyIprTrademarkLicenseService.getById(detailCommand.getId());
 		DataCompanyIprTrademarkLicenseVO dataCompanyIprTrademarkLicenseVO = DataCompanyIprTrademarkLicenseAppStructMapping.instance.dataCompanyIprTrademarkLicenseDOToDataCompanyIprTrademarkLicenseVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkLicenseVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprTrademarkLicenseQueryCommandExecutor  extends Abstrac
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkLicenseVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprTrademarkLicenseVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprTrademarkLicenseDO byId = iDataCompanyIprTrademarkLicenseService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprTrademarkLicenseVO dataCompanyIprTrademarkLicenseVO = DataCompanyIprTrademarkLicenseAppStructMapping.instance.dataCompanyIprTrademarkLicenseDOToDataCompanyIprTrademarkLicenseVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkLicenseVO);

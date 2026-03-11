@@ -4,7 +4,7 @@ import com.particle.global.openapi.data.ApiInfo;
 
 /**
  * <p>
- * 开放接口接口地址权限码
+ * 开放接口接口信息提供者
  * </p>
  *
  * @author yangwei

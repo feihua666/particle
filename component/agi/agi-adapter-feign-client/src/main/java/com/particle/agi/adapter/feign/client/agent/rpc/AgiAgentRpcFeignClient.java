@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-02-06 15:50:10
  */
-@FeignClient(name = "${particle.feign-client.name.agi:agi}",path = "/rpc/agi_agent")
+@FeignClient(name = "${particle.feign-client.agi.name:agi-start}", contextId = "agiAgentRpcFeignClient", url = "${particle.feign-client.agi.url:}", path = "/rpc/agi_agent")
 public interface AgiAgentRpcFeignClient {
 
 

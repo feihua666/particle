@@ -1,5 +1,7 @@
 package com.particle.cms.client.dto.command.directive;
 
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 import com.particle.common.client.dto.command.tree.AbstractBaseTreePageQueryCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -21,5 +23,30 @@ public class CmsDirectivePageQueryCommand  extends AbstractBaseTreePageQueryComm
 
     @Schema(description = "是否开启排序")
     private Boolean isOrderBy = false;
+
+    public static CmsDirectivePageQueryCommand createNew(Boolean isPage,
+                                                         String pageNo,
+                                                         String pageSize,
+                                                         Boolean isOrderBy,
+                                                         String orderBy) {
+        CmsDirectivePageQueryCommand cmsDirectivePageQueryCommand = new CmsDirectivePageQueryCommand();
+        cmsDirectivePageQueryCommand.setIsPage(isPage);
+        if (StrUtil.isNotEmpty(pageNo)) {
+            cmsDirectivePageQueryCommand.setPageNo(NumberUtil.parseLong(pageNo));
+        }
+        if (StrUtil.isNotEmpty(pageSize)) {
+            cmsDirectivePageQueryCommand.setPageSize(NumberUtil.parseLong(pageSize));
+        }
+
+        cmsDirectivePageQueryCommand.setIsOrderBy(isOrderBy);
+        if (isOrderBy) {
+            cmsDirectivePageQueryCommand.setOrderBy(orderBy);
+        }
+        return cmsDirectivePageQueryCommand;
+    }
+    public static CmsDirectivePageQueryCommand createEmpty() {
+        CmsDirectivePageQueryCommand cmsDirectivePageQueryCommand = new CmsDirectivePageQueryCommand();
+        return cmsDirectivePageQueryCommand;
+    }
 
 }

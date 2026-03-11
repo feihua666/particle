@@ -1,10 +1,10 @@
 package com.particle.message.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.message.app.structmapping.MessageUserStateAppStructMapping;
 import com.particle.message.client.dto.data.MessageUserStateVO;
 import com.particle.message.domain.MessageUserState;
@@ -34,7 +34,7 @@ public class MessageUserStateDeleteCommandExecutor  extends AbstractBaseExecutor
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<MessageUserStateVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<MessageUserStateVO> execute(@Valid CommonIdCommand deleteCommand) {
 		MessageUserStateId messageUserStateId = MessageUserStateId.of(deleteCommand.getId());
 		MessageUserState byId = messageUserStateGateway.getById(messageUserStateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

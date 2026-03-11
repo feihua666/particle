@@ -110,6 +110,43 @@
             <version>${particle.version}</version>
             <optional>true</optional>
         </dependency>
+        <!-- cms 适配，主要是为了 权限判断 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>cms-adapter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
 
+        <!-- web全局异常处理 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-exception-handle-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 主要实现一些接口 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-filter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- 配置 适配，添加是主要是为了 favicon、logo、webTitle 实现配置 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>config-adapter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 使用次数 适配，添加是主要是为了 usage count 实现 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>usage-count-adapter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

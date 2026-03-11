@@ -81,5 +81,50 @@ public class StringTool {
         }
         return true;
     }
+    /**
+     * 拼接两个字符串，如果a的结尾与b的开头重叠，则去重后拼接。
+     * @param a 第一个字符串
+     * @param b 第二个字符串
+     * @return 拼接后的字符串
+     */
+    public static String concatWithOverlap(String a, String b) {
+        if (StrUtil.hasBlank(a, b)) {
+            return StrUtil.nullToEmpty(a) + StrUtil.nullToEmpty(b);
+        }
 
+        // 从最大可能重叠长度开始，递减判断
+        int maxOverlap = Math.min(a.length(), b.length());
+        for (int i = maxOverlap; i > 0; i--) {
+            // 使用subSuf获取a的末尾i位，使用sub获取b的开头i位
+            if (StrUtil.subSuf(a, a.length() - i).equals(StrUtil.sub(b, 0, i))) {
+                // 找到重叠，拼接a和b去除重叠部分后的内容
+                return a + StrUtil.sub(b, i, b.length());
+            }
+        }
+        // 无重叠，直接拼接
+        return a + b;
+    }
+    /**
+     * 拼接多个字符串，依次处理重叠
+     * @param strings 要拼接的字符串数组
+     * @return 拼接后的字符串
+     */
+    public static String concatWithOverlap(String... strings) {
+        if (strings == null || strings.length == 0) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder(strings[0]);
+
+        for (int i = 1; i < strings.length; i++) {
+            String current = result.toString();
+            String next = strings[i];
+
+            // 对当前结果和下一个字符串进行智能拼接
+            result.setLength(0);
+            result.append(concatWithOverlap(current, next));
+        }
+
+        return result.toString();
+    }
 }

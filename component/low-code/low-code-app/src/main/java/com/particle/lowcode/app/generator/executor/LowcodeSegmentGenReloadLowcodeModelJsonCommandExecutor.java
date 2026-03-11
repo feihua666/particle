@@ -2,9 +2,9 @@ package com.particle.lowcode.app.generator.executor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.trans.helper.TransHelper;
 import com.particle.lowcode.app.generator.structmapping.LowcodeModelAppStructMapping;
@@ -48,7 +48,7 @@ public class LowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor extends Abst
 
 	private TransHelper transHelper;
 
-	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@Valid IdCommand reloadCommand) {
+	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(@Valid CommonIdCommand reloadCommand) {
 		LowcodeSegmentGen lowcodeSegmentGen = lowcodeSegmentGenGateway.getById(LowcodeSegmentGenId.of(reloadCommand.getId()));
 
 		if (!lowcodeSegmentGen.canReloadLowcodeModelJson()) {

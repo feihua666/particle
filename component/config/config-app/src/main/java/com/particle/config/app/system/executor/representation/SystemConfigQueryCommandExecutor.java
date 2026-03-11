@@ -2,7 +2,7 @@ package com.particle.config.app.system.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.app.system.structmapping.SystemConfigAppStructMapping;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigQueryListCommand;
@@ -57,7 +57,7 @@ public class SystemConfigQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SystemConfigVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SystemConfigVO> executeDetail(CommonIdCommand detailCommand) {
 		SystemConfigDO byId = iSystemConfigService.getById(detailCommand.getId());
 		SystemConfigVO systemConfigVO = SystemConfigAppStructMapping.instance.systemConfigDOToSystemConfigVO(byId);
 		return SingleResponse.of(systemConfigVO);
@@ -67,7 +67,7 @@ public class SystemConfigQueryCommandExecutor  extends AbstractBaseQueryExecutor
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SystemConfigVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SystemConfigVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SystemConfigDO byId = iSystemConfigService.getById(detailForUpdateCommand.getId());
 		SystemConfigVO systemConfigVO = SystemConfigAppStructMapping.instance.systemConfigDOToSystemConfigVO(byId);
 		return SingleResponse.of(systemConfigVO);

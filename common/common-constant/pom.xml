@@ -11,6 +11,12 @@
 
     <artifactId>common-constant</artifactId>
 
+    <description>
+        通用常量定义模块，用于集中管理跨模块共享的常量信息，
+        仅包含无业务行为的静态常量定义，
+        避免在各层中散落硬编码值，不承载业务规则与领域逻辑。
+    </description>
+
     <properties>
 
 

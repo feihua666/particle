@@ -1,7 +1,7 @@
 package com.particle.agi.app.rag.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,7 +28,7 @@ public class AgiVectorStoreRawDocumentRepresentationApplicationServiceImpl exten
     private AgiVectorStoreRawDocumentQueryCommandExecutor agiVectorStoreRawDocumentQueryCommandExecutor;
 
     @Override
-    public SingleResponse<AgiVectorStoreRawDocumentVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<AgiVectorStoreRawDocumentVO> queryDetail(CommonIdCommand detailCommand) {
         return agiVectorStoreRawDocumentQueryCommandExecutor.executeDetail(detailCommand);
     }
 

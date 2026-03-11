@@ -1,7 +1,7 @@
 package com.particle.dataquery.app.provider.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.provider.structmapping.DataQueryProviderAppStructMapping;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
 import com.particle.dataquery.domain.provider.DataQueryProvider;
@@ -9,7 +9,7 @@ import com.particle.dataquery.domain.provider.DataQueryProviderId;
 import com.particle.dataquery.domain.provider.gateway.DataQueryProviderGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DataQueryProviderDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryProviderVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataQueryProviderVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataQueryProviderId dataQueryProviderId = DataQueryProviderId.of(deleteCommand.getId());
 		DataQueryProvider byId = dataQueryProviderGateway.getById(dataQueryProviderId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

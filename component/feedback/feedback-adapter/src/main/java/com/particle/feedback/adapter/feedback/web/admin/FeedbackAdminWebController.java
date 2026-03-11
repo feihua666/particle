@@ -1,7 +1,7 @@
 package com.particle.feedback.adapter.feedback.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.feedback.client.feedback.api.IFeedbackApplicationService;
@@ -52,7 +52,7 @@ public class FeedbackAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除意见反馈")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除意见反馈",module = OpLogConstants.Module.feedback,type = OpLogConstants.Type.delete)
-	public SingleResponse<FeedbackVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<FeedbackVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_feedback_feedback, DataConstraintContext.Action.delete.name());
 		return iFeedbackApplicationService.delete(deleteCommand);
 	}
@@ -60,7 +60,7 @@ public class FeedbackAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:feedback:detail')")
 	@Operation(summary = "意见反馈详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FeedbackVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<FeedbackVO> queryDetail(CommonIdCommand detailCommand){
 		return iFeedbackRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

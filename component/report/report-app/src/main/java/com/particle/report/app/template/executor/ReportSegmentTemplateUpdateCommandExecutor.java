@@ -2,9 +2,9 @@ package com.particle.report.app.template.executor;
 
 import cn.hutool.core.net.NetUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.report.app.template.structmapping.ReportSegmentTemplateAppStructMapping;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateUpdateCommand;
 import com.particle.report.client.template.dto.data.ReportSegmentTemplateVO;
@@ -83,11 +83,11 @@ public class ReportSegmentTemplateUpdateCommandExecutor  extends AbstractBaseExe
 
 	/**
 	 * 刷新缓存
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<String> refreshCache(@Valid IdCommand idCommand) {
-		iReportSegmentTemplateRenderService.refreshCache(idCommand.getId());
+	public SingleResponse<String> refreshCache(@Valid CommonIdCommand commonIdCommand) {
+		iReportSegmentTemplateRenderService.refreshCache(commonIdCommand.getId());
 		return SingleResponse.of(NetUtil.getLocalhostStr());
 
 	}

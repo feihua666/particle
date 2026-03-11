@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyAnnualReportWebsiteApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyAnnualReportWebsiteRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportWebsiteCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportWebsiteVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportWebsiteUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportWebsitePageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportWebsiteQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业年报网站网店后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyAnnualReportWebsiteAdminWebController extends AbstractBa
     @Operation(summary = "删除企业年报网站网店")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业年报网站网店",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyAnnualReportWebsiteVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyAnnualReportWebsiteVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyAnnualReportWebsiteApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyAnnualReportWebsiteAdminWebController extends AbstractBa
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAnnualReportWebsite:update')")
     @Operation(summary = "企业年报网站网店更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyAnnualReportWebsiteVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyAnnualReportWebsiteVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyAnnualReportWebsiteRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAnnualReportWebsite:detail')")
     @Operation(summary = "企业年报网站网店详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyAnnualReportWebsiteVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyAnnualReportWebsiteVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyAnnualReportWebsiteRepresentationApplicationService.queryDetail(detailCommand);
     }
 

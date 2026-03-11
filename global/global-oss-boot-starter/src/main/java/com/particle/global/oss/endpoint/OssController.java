@@ -9,7 +9,7 @@ import com.particle.global.oss.dto.GlobalOssObject;
 import com.particle.global.oss.endpoint.dto.GlobalOssVO;
 import com.particle.global.oss.endpoint.dto.UploadCommand;
 import com.particle.global.oss.service.GlobalOssClientService;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.tool.file.FileTool;
 import com.particle.global.tool.str.NetPathTool;
 import io.swagger.v3.oas.annotations.Operation;

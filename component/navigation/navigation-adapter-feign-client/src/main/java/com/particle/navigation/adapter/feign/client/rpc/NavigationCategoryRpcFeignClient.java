@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2024-10-22 15:34:42
  */
-@FeignClient(name = "${particle.feign-client.name.navigation:navigation}",path = "/rpc/navigation_category")
+@FeignClient(name = "${particle.feign-client.navigation.name:navigation-start}", contextId = "navigationCategoryRpcFeignClient", url = "${particle.feign-client.navigation.url:}", path = "/rpc/navigation_category")
 public interface NavigationCategoryRpcFeignClient {
 
 

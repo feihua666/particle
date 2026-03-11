@@ -1,7 +1,7 @@
 package com.particle.oplog.adapter.error.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -39,7 +39,7 @@ public class OpLogErrorContentAdminWebController extends AbstractBaseWebAdapter 
     @Operation(summary = "删除操作异常日志内容")
     @DeleteMapping("/delete")
     @OpLog(name = "删除操作异常日志内容",module = OpLogConstants.Module.opLog,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpLogErrorContentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpLogErrorContentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpLogErrorContentApplicationService.delete(deleteCommand);
     }
@@ -47,14 +47,14 @@ public class OpLogErrorContentAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:opLogErrorContent:detail')")
     @Operation(summary = "根据异常id获取操作异常日志内容详情展示")
     @GetMapping("/detailByOpLogErrorId")
-    public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(CommonIdCommand detailForUpdateCommand){
         return iOpLogErrorContentRepresentationApplicationService.detailByOpLogErrorId(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:opLogErrorContent:detail')")
     @Operation(summary = "操作异常日志内容详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpLogErrorContentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpLogErrorContentVO> queryDetail(CommonIdCommand detailCommand){
         return iOpLogErrorContentRepresentationApplicationService.queryDetail(detailCommand);
     }
 }

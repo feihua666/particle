@@ -2,48 +2,49 @@ import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../../common/api/api";
 
-let tenantFuncPrefix = '/admin/web/tenant_func'
+import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_TENANT) + '/admin/web/tenant_func'
 /**
  * 添加租户功能菜单
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
-    return axios.post(tenantFuncPrefix + '/create',data)
+    return axios.post(prefix + '/create',data)
 }
 /**
  * 删除租户功能菜单
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(tenantFuncPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 /**
  * 更新租户功能菜单
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.put(tenantFuncPrefix + '/update',data)
+    return axios.put(prefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据
  * @param data
  */
 export const detailForUpdate = (data: IdParam): AxiosPromise => {
-    return axios.get(tenantFuncPrefix + '/detail-for-update',{params: data})
+    return axios.get(prefix + '/detail-for-update',{params: data})
 }
 /**
  * 列表，没有分页，查询全部数据
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(tenantFuncPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(tenantFuncPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
 export interface TenantAssignFunc{
@@ -57,7 +58,7 @@ export interface TenantAssignFunc{
  * @param data
  */
 export const tenantAssignFunc = (data: TenantAssignFunc): AxiosPromise => {
-    return axios.post(tenantFuncPrefix + '/tenant/assign/func',data)
+    return axios.post(prefix + '/tenant/assign/func',data)
 }
 export interface QueryFuncIdsByTenantId extends IdParam{
     // 功能应用id
@@ -68,5 +69,5 @@ export interface QueryFuncIdsByTenantId extends IdParam{
  * @param data
  */
 export const queryFuncIdsByTenantId = (data: QueryFuncIdsByTenantId): AxiosPromise => {
-    return axios.get(tenantFuncPrefix + '/queryFuncIdsByTenantId',{params: data})
+    return axios.get(prefix + '/queryFuncIdsByTenantId',{params: data})
 }

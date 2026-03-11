@@ -4,6 +4,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2023-04-17 18:11:17
  */
-@FeignClient(name = "${particle.feign-client.name.tenant:tenant}",path = "/rpc/tenant_func")
+@FeignClient(name = "${particle.feign-client.tenant.name:tenant-start}", contextId = "tenantFuncRpcFeignClient", url = "${particle.feign-client.tenant.url:}", path = "/rpc/tenant_func")
 public interface TenantFuncRpcFeignClient {
 
 
@@ -24,7 +25,7 @@ public interface TenantFuncRpcFeignClient {
      * @return
      */
     @GetMapping("/list")
-    public MultiResponse<TenantFuncVO> queryList(TenantFuncQueryListCommand tenantFuncQueryListCommand);
+    public MultiResponse<TenantFuncVO> queryList(@SpringQueryMap TenantFuncQueryListCommand tenantFuncQueryListCommand);
 
 
 

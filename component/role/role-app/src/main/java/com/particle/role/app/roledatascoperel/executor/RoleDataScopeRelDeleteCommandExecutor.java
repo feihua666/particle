@@ -1,11 +1,11 @@
 package com.particle.role.app.roledatascoperel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.roledatascoperel.structmapping.RoleDataScopeRelAppStructMapping;
 import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
 import com.particle.role.domain.roledatascoperel.RoleDataScopeRel;
@@ -38,7 +38,7 @@ public class RoleDataScopeRelDeleteCommandExecutor  extends AbstractBaseExecutor
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleDataScopeRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<RoleDataScopeRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		RoleDataScopeRelId roleDataScopeRelId = RoleDataScopeRelId.of(deleteCommand.getId());
 		RoleDataScopeRel byId = roleDataScopeRelGateway.getById(roleDataScopeRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class RoleDataScopeRelDeleteCommandExecutor  extends AbstractBaseExecutor
 
 	/**
 	 * 根据 roleId 删除
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByRoleId(@Valid IdCommand roleIdCommand) {
-		boolean result = iRoleDataScopeRelService.deleteByColumn(roleIdCommand.getId(), RoleDataScopeRelDO::getRoleId);
+	public Response deleteByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
+		boolean result = iRoleDataScopeRelService.deleteByColumn(roleCommonIdCommand.getId(), RoleDataScopeRelDO::getRoleId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 dataScopeId 删除
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByDataScopeId(@Valid IdCommand dataScopeIdCommand) {
-		boolean result = iRoleDataScopeRelService.deleteByColumn(dataScopeIdCommand.getId(), RoleDataScopeRelDO::getDataScopeId);
+	public Response deleteByDataScopeId(@Valid CommonIdCommand dataScopeCommonIdCommand) {
+		boolean result = iRoleDataScopeRelService.deleteByColumn(dataScopeCommonIdCommand.getId(), RoleDataScopeRelDO::getDataScopeId);
 		return Response.buildSuccess();
 	}
 

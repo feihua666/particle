@@ -28,4 +28,4 @@ CREATE TABLE `component_data_company_ipr_integrated_circuit` (
   UNIQUE KEY `public_no` (`public_no`) USING BTREE,
   KEY `right_holder_company_id` (`right_holder_company_id`) USING BTREE,
   KEY `right_holder_company_person_id` (`right_holder_company_person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权集成电路表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权集成电路表';

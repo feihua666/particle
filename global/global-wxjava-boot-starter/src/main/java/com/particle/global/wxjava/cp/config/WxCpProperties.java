@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2023-06-28 14:42:15
  */
 @Data
-@ConfigurationProperties(prefix = "particle.wxcp")
+@ConfigurationProperties(prefix = "particle.global.wxcp")
 public class WxCpProperties {
 
   private List<AppConfig> appConfigs;

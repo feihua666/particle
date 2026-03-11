@@ -1,7 +1,7 @@
 package com.particle.cms.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class CmsChannelRepresentationApplicationServiceImpl extends AbstractBase
     private CmsChannelQueryCommandExecutor cmsChannelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<CmsChannelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<CmsChannelVO> queryDetail(CommonIdCommand detailCommand) {
         return cmsChannelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<CmsChannelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<CmsChannelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return cmsChannelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

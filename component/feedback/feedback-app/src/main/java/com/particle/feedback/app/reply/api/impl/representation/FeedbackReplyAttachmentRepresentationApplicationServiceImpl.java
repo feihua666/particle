@@ -1,7 +1,7 @@
 package com.particle.feedback.app.reply.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.reply.executor.representation.FeedbackReplyAttachmentQueryCommandExecutor;
 import com.particle.feedback.client.reply.api.representation.IFeedbackReplyAttachmentRepresentationApplicationService;
 import com.particle.feedback.client.reply.dto.command.representation.FeedbackReplyAttachmentPageQueryCommand;
@@ -28,7 +28,7 @@ public class FeedbackReplyAttachmentRepresentationApplicationServiceImpl extends
     private FeedbackReplyAttachmentQueryCommandExecutor feedbackReplyAttachmentQueryCommandExecutor;
 
     @Override
-    public SingleResponse<FeedbackReplyAttachmentVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<FeedbackReplyAttachmentVO> queryDetail(CommonIdCommand detailCommand) {
         return feedbackReplyAttachmentQueryCommandExecutor.executeDetail(detailCommand);
     }
 

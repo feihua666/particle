@@ -1,8 +1,9 @@
 import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../common/api/api";
+import {getApiPrefix} from "../../../../../common/api/apiPrefixConfig";
 
-let prefix = '/admin/web/user-identifier'
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_USER) + '/admin/web/user-identifier'
 /**
  * 添加用户登录标识
  * @param data

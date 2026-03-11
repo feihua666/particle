@@ -1,8 +1,7 @@
 package com.particle.global.dto.response;
 
-import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.basic.DTO;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 
 import java.util.Optional;
 
@@ -96,10 +95,13 @@ public class Response extends DTO {
 	}
 
 	protected static String handleUserTip(IErrorCode errorCode, String userTip) {
-		return Optional.ofNullable(StrUtil.emptyToNull(userTip))
-				.map(ut -> StrUtil.format(userTip,errorCode.getErrMessage()))
-				.orElse(errorCode.getErrMessage());
+		if (userTip == null || userTip.isBlank()) {
+			return errorCode.getErrMessage();
+		}
+		// 将第一个 {} 替换为错误信息
+		return userTip.replaceFirst("\\{\\}", errorCode.getErrMessage());
 	}
+
 
 	public IErrorCode iErrorCode(){
 		return new IErrorCode() {

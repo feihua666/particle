@@ -1,10 +1,10 @@
 package com.particle.role.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.structmapping.RoleAppStructMapping;
 import com.particle.role.client.dto.data.RoleVO;
 import com.particle.role.domain.Role;
@@ -34,7 +34,7 @@ public class RoleDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param roleDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleVO> execute(@Valid IdCommand roleDeleteCommand) {
+	public SingleResponse<RoleVO> execute(@Valid CommonIdCommand roleDeleteCommand) {
 		RoleId roleId = RoleId.of(roleDeleteCommand.getId());
 		Role byId = roleGateway.getById(roleId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

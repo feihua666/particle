@@ -5,7 +5,7 @@ import com.particle.data.client.company.api.IDataCompanyDeliveryAnnouncementCont
 import com.particle.data.client.company.api.representation.IDataCompanyDeliveryAnnouncementContentRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyDeliveryAnnouncementContentCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyDeliveryAnnouncementContentVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyDeliveryAnnouncementContentUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDeliveryAnnouncementContentPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDeliveryAnnouncementContentQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业送达公告内容后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyDeliveryAnnouncementContentAdminWebController extends Ab
     @Operation(summary = "删除企业送达公告内容")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业送达公告内容",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyDeliveryAnnouncementContentApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyDeliveryAnnouncementContentAdminWebController extends Ab
     @PreAuthorize("hasAuthority('admin:web:dataCompanyDeliveryAnnouncementContent:update')")
     @Operation(summary = "企业送达公告内容更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyDeliveryAnnouncementContentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyDeliveryAnnouncementContent:detail')")
     @Operation(summary = "企业送达公告内容详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyDeliveryAnnouncementContentVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyDeliveryAnnouncementContentRepresentationApplicationService.queryDetail(detailCommand);
     }
 

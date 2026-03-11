@@ -1,7 +1,7 @@
 package com.particle.feedback.app.reply.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.reply.structmapping.FeedbackReplyAppStructMapping;
 import com.particle.feedback.client.reply.dto.data.FeedbackReplyVO;
 import com.particle.feedback.domain.reply.FeedbackReply;
@@ -9,7 +9,7 @@ import com.particle.feedback.domain.reply.FeedbackReplyId;
 import com.particle.feedback.domain.reply.gateway.FeedbackReplyGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class FeedbackReplyDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<FeedbackReplyVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<FeedbackReplyVO> execute(@Valid CommonIdCommand deleteCommand) {
 		FeedbackReplyId feedbackReplyId = FeedbackReplyId.of(deleteCommand.getId());
 		FeedbackReply byId = feedbackReplyGateway.getById(feedbackReplyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

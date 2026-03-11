@@ -1,12 +1,12 @@
 package com.particle.tenant.client.tenantfunc.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
-import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantCommonId;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 
@@ -25,14 +25,14 @@ public interface ITenantFuncRepresentationApplicationService extends IBaseApplic
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<TenantFuncVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<TenantFuncVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<TenantFuncVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<TenantFuncVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -53,5 +53,5 @@ public interface ITenantFuncRepresentationApplicationService extends IBaseApplic
 	 * @param funcIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantIdCommand funcIdCommand);
+	public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantCommonId funcIdCommand);
 }

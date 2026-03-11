@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "particle.proxy")
+@ConfigurationProperties(prefix = "particle.global.proxy")
 public class ProxyConfig implements InitializingBean, Serializable {
 
 

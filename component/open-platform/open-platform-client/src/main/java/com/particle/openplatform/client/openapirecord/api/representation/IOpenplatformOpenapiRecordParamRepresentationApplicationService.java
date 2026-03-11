@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.openapirecord.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface IOpenplatformOpenapiRecordParamRepresentationApplicationService
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiRecordParamVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<OpenplatformOpenapiRecordParamVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 查询详情，仅展示使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(IdCommand detailCommand);
+	SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

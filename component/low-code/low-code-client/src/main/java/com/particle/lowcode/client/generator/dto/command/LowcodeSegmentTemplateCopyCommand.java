@@ -1,6 +1,6 @@
 package com.particle.lowcode.client.generator.dto.command;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @Schema
-public class LowcodeSegmentTemplateCopyCommand extends IdCommand {
+public class LowcodeSegmentTemplateCopyCommand extends CommonIdCommand {
 
 	@Schema(description = "父级id,可以重新指定一个父级id")
 	private Long parentId;

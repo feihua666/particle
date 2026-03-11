@@ -1,10 +1,10 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationStaticDeployAppStructMapping;
 import com.particle.navigation.client.dto.data.NavigationStaticDeployVO;
 import com.particle.navigation.domain.NavigationStaticDeploy;
@@ -36,7 +36,7 @@ public class NavigationStaticDeployDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationStaticDeployVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<NavigationStaticDeployVO> execute(@Valid CommonIdCommand deleteCommand) {
 		NavigationStaticDeployId navigationStaticDeployId = NavigationStaticDeployId.of(deleteCommand.getId());
 		NavigationStaticDeploy byId = navigationStaticDeployGateway.getById(navigationStaticDeployId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

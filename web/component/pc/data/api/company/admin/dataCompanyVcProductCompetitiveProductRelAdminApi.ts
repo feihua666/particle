@@ -2,48 +2,49 @@ import axios, { AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../../common/api/api";
 
-let dataCompanyVcProductCompetitiveProductRelPrefix = '/admin/web/data_company_vc_product_competitive_product_rel'
+import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_DATA) + '/admin/web/data_company_vc_product_competitive_product_rel'
 /**
  * 添加企业融资产品竞品关系
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
-    return axios.post(dataCompanyVcProductCompetitiveProductRelPrefix + '/create',data)
+    return axios.post(prefix + '/create',data)
 }
 /**
  * 删除企业融资产品竞品关系
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(dataCompanyVcProductCompetitiveProductRelPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 /**
  * 更新企业融资产品竞品关系
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.put(dataCompanyVcProductCompetitiveProductRelPrefix + '/update',data)
+    return axios.put(prefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据
  * @param data
  */
 export const detailForUpdate = (data: IdParam): AxiosPromise => {
-    return axios.get(dataCompanyVcProductCompetitiveProductRelPrefix + '/detail-for-update',{params: data})
+    return axios.get(prefix + '/detail-for-update',{params: data})
 }
 /**
  * 列表，没有分页，查询全部数据
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(dataCompanyVcProductCompetitiveProductRelPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(dataCompanyVcProductCompetitiveProductRelPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
 export interface CompanyVcProductAssignCompanyVcCompetitiveProduct{
@@ -57,21 +58,21 @@ export interface CompanyVcProductAssignCompanyVcCompetitiveProduct{
  * @param data
  */
 export const companyVcProductAssignCompanyVcCompetitiveProduct = (data: CompanyVcProductAssignCompanyVcCompetitiveProduct): AxiosPromise => {
-    return axios.post(dataCompanyVcProductCompetitiveProductRelPrefix + '/companyVcProduct/assign/companyVcCompetitiveProduct',data)
+    return axios.post(prefix + '/companyVcProduct/assign/companyVcCompetitiveProduct',data)
 }
 /**
  * 根据企业融资产品表IDID查询已分配的企业竞品id
  * @param data
  */
 export const queryCompanyVcCompetitiveProductIdsByCompanyVcProductId = (data: IdParam): AxiosPromise => {
-    return axios.get(dataCompanyVcProductCompetitiveProductRelPrefix + '/queryCompanyVcCompetitiveProductIdsByCompanyVcProductId',{params: data})
+    return axios.get(prefix + '/queryCompanyVcCompetitiveProductIdsByCompanyVcProductId',{params: data})
 }
 /**
  * 清空企业融资产品表ID下的所有企业竞品
  * @param data
  */
 export const deleteByCompanyVcProductId = (data: IdParam): AxiosPromise => {
-    return axios.delete(dataCompanyVcProductCompetitiveProductRelPrefix + '/deleteByCompanyVcProductId',{data: data})
+    return axios.delete(prefix + '/deleteByCompanyVcProductId',{data: data})
 }
 export interface CompanyVcCompetitiveProductAssignCompanyVcProduct{
     companyVcCompetitiveProductId: string,// 企业竞品id
@@ -84,19 +85,19 @@ export interface CompanyVcCompetitiveProductAssignCompanyVcProduct{
  * @param data
  */
 export const companyVcCompetitiveProductAssignCompanyVcProduct = (data: CompanyVcCompetitiveProductAssignCompanyVcProduct): AxiosPromise => {
-    return axios.post(dataCompanyVcProductCompetitiveProductRelPrefix + '/companyVcCompetitiveProduct/assign/companyVcProduct',data)
+    return axios.post(prefix + '/companyVcCompetitiveProduct/assign/companyVcProduct',data)
 }
 /**
  * 根据企业竞品ID查询已分配的企业融资产品表IDid
  * @param data
  */
 export const queryCompanyVcProductIdsByCompanyVcCompetitiveProductId = (data: IdParam): AxiosPromise => {
-    return axios.get(dataCompanyVcProductCompetitiveProductRelPrefix + '/queryCompanyVcProductIdsByCompanyVcCompetitiveProductId',{params: data})
+    return axios.get(prefix + '/queryCompanyVcProductIdsByCompanyVcCompetitiveProductId',{params: data})
 }
 /**
  * 清空企业竞品下的所有企业融资产品表ID
  * @param data
  */
 export const deleteByCompanyVcCompetitiveProductId = (data: IdParam): AxiosPromise => {
-    return axios.delete(dataCompanyVcProductCompetitiveProductRelPrefix + '/deleteByCompanyVcCompetitiveProductId',{data: data})
+    return axios.delete(prefix + '/deleteByCompanyVcCompetitiveProductId',{data: data})
 }

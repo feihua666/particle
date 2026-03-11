@@ -111,4 +111,4 @@ Spring Session JDBC提供了自定义SQL适配，如MySQL：`org.springframework
 
 ### 响应头问题
 
-在登录时返回数据响应头中可能没有c-token-id的情况，这是因为使用了Cookies里面的数据。
+在登录时返回数据响应头中可能没有X-Token-Id的情况，这是因为使用了Cookies里面的数据。

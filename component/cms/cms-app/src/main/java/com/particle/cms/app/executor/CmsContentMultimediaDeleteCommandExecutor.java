@@ -1,21 +1,19 @@
 package com.particle.cms.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.cms.app.structmapping.CmsContentMultimediaAppStructMapping;
 import com.particle.cms.client.dto.data.CmsContentMultimediaVO;
 import com.particle.cms.domain.CmsContentMultimedia;
 import com.particle.cms.domain.CmsContentMultimediaId;
 import com.particle.cms.domain.gateway.CmsContentMultimediaGateway;
 import com.particle.cms.infrastructure.service.ICmsContentMultimediaService;
-import com.particle.cms.infrastructure.dos.CmsContentMultimediaDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class CmsContentMultimediaDeleteCommandExecutor  extends AbstractBaseExec
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentMultimediaVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<CmsContentMultimediaVO> execute(@Valid CommonIdCommand deleteCommand) {
 		CmsContentMultimediaId cmsContentMultimediaId = CmsContentMultimediaId.of(deleteCommand.getId());
 		CmsContentMultimedia byId = cmsContentMultimediaGateway.getById(cmsContentMultimediaId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

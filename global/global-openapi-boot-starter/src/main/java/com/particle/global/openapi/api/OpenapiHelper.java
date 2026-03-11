@@ -12,7 +12,7 @@ import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.*;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
-import com.particle.global.security.security.PermissionService;
+import com.particle.global.security.security.SecurityPermissionService;
 import com.particle.global.tool.id.SnowflakeIdTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.log.TraceTool;
@@ -126,7 +126,7 @@ public class OpenapiHelper {
 		if (apiInfo != null) {
 			openapiContext.setApiInfo(apiInfo);
 			// 设置接口的权限，以供后面逻辑校验使用
-			PermissionService.putPermission(apiInfo.getPermission());
+			SecurityPermissionService.putPermission(apiInfo.getPermission());
 		}
 
 
@@ -175,7 +175,7 @@ public class OpenapiHelper {
 
 		// 限制规则支持
 		if (apiInfo != null) {
-			String requestIp = RequestTool.getClientIP(request);
+			String requestIp = RequestTool.getClientRealIP(request);
 			OpenapiLimitRuleInfo clientLimitRuleInfo = apiInfo.getClientLimitRuleInfo();
 			if (clientLimitRuleInfo != null) {
 				// 	流量限制

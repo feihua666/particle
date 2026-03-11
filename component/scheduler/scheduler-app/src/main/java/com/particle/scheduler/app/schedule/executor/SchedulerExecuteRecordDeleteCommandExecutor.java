@@ -1,10 +1,10 @@
 package com.particle.scheduler.app.schedule.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.schedule.structmapping.SchedulerExecuteRecordAppStructMapping;
 import com.particle.scheduler.client.schedule.dto.data.SchedulerExecuteRecordVO;
 import com.particle.scheduler.domain.schedule.SchedulerExecuteRecord;
@@ -36,7 +36,7 @@ public class SchedulerExecuteRecordDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerExecuteRecordVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SchedulerExecuteRecordVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SchedulerExecuteRecordId schedulerExecuteRecordId = SchedulerExecuteRecordId.of(deleteCommand.getId());
 		SchedulerExecuteRecord byId = schedulerExecuteRecordGateway.getById(schedulerExecuteRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

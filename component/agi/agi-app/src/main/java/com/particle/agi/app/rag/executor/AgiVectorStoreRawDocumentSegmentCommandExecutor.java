@@ -7,7 +7,7 @@ import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentSegmentGatew
 import com.particle.agi.domain.values.AgiDocument;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentSegmentService;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +33,11 @@ public class AgiVectorStoreRawDocumentSegmentCommandExecutor  extends AbstractBa
 
 	/**
 	 * 执行嵌入操作，将文档嵌入到向量存储中
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response embedding(@Valid IdCommand idCommand) {
-		AgiVectorStoreRawDocumentSegment agiVectorStoreRawDocumentSegment = agiVectorStoreRawDocumentSegmentGateway.getById(AgiVectorStoreRawDocumentSegmentId.of(idCommand.getId()));
+	public Response embedding(@Valid CommonIdCommand commonIdCommand) {
+		AgiVectorStoreRawDocumentSegment agiVectorStoreRawDocumentSegment = agiVectorStoreRawDocumentSegmentGateway.getById(AgiVectorStoreRawDocumentSegmentId.of(commonIdCommand.getId()));
 		AgiDocument agiDocument = agiVectorStoreRawDocumentSegment.toAgiDocument();
 		String id = agiDocument.getId();
 		// 嵌入之前，先尝试删除已存在的数据
@@ -50,7 +50,7 @@ public class AgiVectorStoreRawDocumentSegmentCommandExecutor  extends AbstractBa
 		agiVectorStoreRawDocumentSegmentGateway.save(agiVectorStoreRawDocumentSegment);
 
 		// 修改对应文档的状态
-		agiVectorStoreRawDocumentUpdateCommandExecutor.updateEmbedStatus(IdCommand.create(agiVectorStoreRawDocumentSegment.getAgiVectorStoreRawDocumentId()));
+		agiVectorStoreRawDocumentUpdateCommandExecutor.updateEmbedStatus(CommonIdCommand.create(agiVectorStoreRawDocumentSegment.getAgiVectorStoreRawDocumentId()));
 		return Response.buildSuccess();
 	}
 

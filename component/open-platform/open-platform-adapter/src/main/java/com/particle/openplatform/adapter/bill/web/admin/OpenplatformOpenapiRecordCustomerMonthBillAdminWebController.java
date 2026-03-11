@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.bill.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     @Operation(summary = "删除开放平台客户月账单")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台客户月账单",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiRecordCustomerMonthBillApplicationService.delete(deleteCommand);
     }
@@ -74,14 +74,14 @@ public class OpenplatformOpenapiRecordCustomerMonthBillAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordCustomerMonthBill:update')")
     @Operation(summary = "开放平台客户月账单更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformOpenapiRecordCustomerMonthBillRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordCustomerMonthBill:detail')")
     @Operation(summary = "开放平台客户月账单详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformOpenapiRecordCustomerMonthBillRepresentationApplicationService.queryDetail(detailCommand);
     }
 

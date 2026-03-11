@@ -26,7 +26,7 @@ import static com.particle.cms.adapter.dynamic.directive.ContentListDirective.pa
 @Component
 public class ContentCategoryListDirective extends AbstractDirective {
 
-    private final static String varName = "categoryList";
+    protected static final String param_content_category_is_channel_id_null = "isChannelIdNull";
 
     /**
      *
@@ -57,21 +57,27 @@ public class ContentCategoryListDirective extends AbstractDirective {
         Long parentId9 = getParentId9(params);
         Long parentId10 = getParentId10(params);
 
+        Boolean isChannelIdNull = getParamBoolean(param_content_category_is_channel_id_null,params);
+        if(isChannelIdNull != null && isChannelIdNull){
+            channelId = null;
+        }
+
         if (body != null) {
             CmsDirectivePageQueryCommand pageQueryCommand = getPageQueryCommand(params);
             CmsContentCategoryDirectivePageQueryCommand cmsContentCategoryDirectivePageQueryCommand = CmsContentCategoryDirectivePageQueryCommand.create(pageQueryCommand,
-                    categoryId,siteId,channelId,parentId);
+                    categoryId,siteId,channelId,isChannelIdNull,parentId);
             List<CmsContentCategoryVO> cmsContentCategoryVOs = null;
+            PageResponse pageResponse = null;
             if (pageQueryCommand.getIsPage()) {
                 PageResponse<CmsContentCategoryVO> cmsContentCategoryVOPageResponse = iCmsDynamicApplicationService.pageQueryContentCategory(cmsContentCategoryDirectivePageQueryCommand);
+                pageResponse = cmsContentCategoryVOPageResponse;
                 cmsContentCategoryVOs = cmsContentCategoryVOPageResponse.getData();
             }else{
                 MultiResponse<CmsContentCategoryVO> cmsContentCategoryVOMultiResponse = iCmsDynamicApplicationService.queryListContentCategory(cmsContentCategoryDirectivePageQueryCommand);
                 cmsContentCategoryVOs = cmsContentCategoryVOMultiResponse.getData();
             }
 
-            bodyRender(env, params, loopVars, body, cmsContentCategoryVOs,
-                    varName,
+            bodyRender(env, params, loopVars, body, cmsContentCategoryVOs, pageResponse,
                     cmsContentCategoryVO -> CmsContentCategoryTemplateModelVO.createByCmsContentCategoryVO((CmsContentCategoryVO) cmsContentCategoryVO)
             );
         }

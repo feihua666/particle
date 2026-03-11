@@ -1,1 +1,0 @@
--- import classpath:db/schema.component_test.sql

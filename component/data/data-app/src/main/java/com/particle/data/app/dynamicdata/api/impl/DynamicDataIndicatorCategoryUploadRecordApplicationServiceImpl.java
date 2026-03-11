@@ -1,10 +1,10 @@
 package com.particle.data.app.dynamicdata.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryUploadRecordCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryUploadRecordDeleteCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryUploadRecordUpdateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryUploadRecordCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUploadRecordUpdateCommand;
 import com.particle.data.client.dynamicdata.api.IDynamicDataIndicatorCategoryUploadRecordApplicationService;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUploadRecordCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class DynamicDataIndicatorCategoryUploadRecordApplicationServiceImpl exte
     }
 
     @Override
-    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> delete(CommonIdCommand deleteCommand) {
         return dynamicDataIndicatorCategoryUploadRecordDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -56,7 +55,7 @@ public class DynamicDataIndicatorCategoryUploadRecordApplicationServiceImpl exte
     }
 
     @Override
-    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> publish(IdCommand publishCommand) {
+    public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> publish(CommonIdCommand publishCommand) {
         return dynamicDataIndicatorCategoryUploadRecordCommandExecutor.publish(publishCommand);
     }
 

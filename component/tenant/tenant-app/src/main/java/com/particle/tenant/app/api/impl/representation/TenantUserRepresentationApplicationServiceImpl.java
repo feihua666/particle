@@ -1,7 +1,7 @@
 package com.particle.tenant.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class TenantUserRepresentationApplicationServiceImpl extends AbstractBase
     private TenantUserQueryCommandExecutor tenantUserQueryCommandExecutor;
 
     @Override
-    public SingleResponse<TenantUserVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<TenantUserVO> queryDetail(CommonIdCommand detailCommand) {
         return tenantUserQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<TenantUserVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<TenantUserVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return tenantUserQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

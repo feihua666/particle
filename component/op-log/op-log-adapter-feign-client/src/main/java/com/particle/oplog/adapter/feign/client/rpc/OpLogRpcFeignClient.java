@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2023-05-08 18:32:34
  */
-@FeignClient(name = "${particle.feign-client.name.op-log:op-log}",path = "/rpc/op_log")
+@FeignClient(name = "${particle.feign-client.oplog.name:oplog-start}", contextId = "opLogRpcFeignClient", url = "${particle.feign-client.oplog.url:}", path = "/rpc/op_log")
 public interface OpLogRpcFeignClient {
 
     /**

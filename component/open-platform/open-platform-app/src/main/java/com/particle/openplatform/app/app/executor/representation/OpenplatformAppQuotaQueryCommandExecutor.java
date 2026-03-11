@@ -2,7 +2,7 @@ package com.particle.openplatform.app.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformAppQuotaQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformAppQuotaVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformAppQuotaVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformAppQuotaDO byId = iOpenplatformAppQuotaService.getById(detailCommand.getId());
 		OpenplatformAppQuotaVO openplatformAppQuotaVO = OpenplatformAppQuotaAppStructMapping.instance.openplatformAppQuotaDOToOpenplatformAppQuotaVO(byId);
 		return SingleResponse.of(openplatformAppQuotaVO);
@@ -67,7 +67,7 @@ public class OpenplatformAppQuotaQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformAppQuotaVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformAppQuotaVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformAppQuotaDO byId = iOpenplatformAppQuotaService.getById(detailForUpdateCommand.getId());
 		OpenplatformAppQuotaVO openplatformAppQuotaVO = OpenplatformAppQuotaAppStructMapping.instance.openplatformAppQuotaDOToOpenplatformAppQuotaVO(byId);
 		return SingleResponse.of(openplatformAppQuotaVO);

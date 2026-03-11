@@ -184,9 +184,9 @@ public class AgiAgentChatMemory implements ChatMemory {
                 );
                 toolResponses.add(tool);
             }
-            ToolResponseMessage toolResponseMessage = new ToolResponseMessage(
-                    toolResponses,
-                    metadata);
+            ToolResponseMessage toolResponseMessage = ToolResponseMessage.builder()
+                    .responses(toolResponses)
+                    .metadata(metadata).build();
             return toolResponseMessage;
         }
 
@@ -221,11 +221,13 @@ public class AgiAgentChatMemory implements ChatMemory {
             }
 
 
-            AssistantMessage assistantMessage = new AssistantMessage(
-                    agiAgentChatMessageDO.getContent(),
-                    metadata,
-                    toolCalls,
-                    medias);
+
+            AssistantMessage assistantMessage = AssistantMessage.builder()
+                    .content(agiAgentChatMessageDO.getContent())
+                    .properties(metadata)
+                    .toolCalls(toolCalls)
+                    .media(medias)
+                    .build();
             return assistantMessage;
         }
         throw new IllegalArgumentException("不支持的消息类型");

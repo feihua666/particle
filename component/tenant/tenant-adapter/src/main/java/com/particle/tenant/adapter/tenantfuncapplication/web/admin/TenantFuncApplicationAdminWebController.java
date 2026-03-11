@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.tenantfuncapplication.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -53,7 +53,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@Operation(summary = "删除租户功能应用")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户功能应用",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantFuncApplicationVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantFuncApplicationVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTenantFuncApplicationApplicationService.delete(deleteCommand);
 	}
 
@@ -68,14 +68,14 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:update')")
 	@Operation(summary = "租户功能应用更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:detail')")
 	@Operation(summary = "租户功能应用详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantFuncApplicationVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantFuncApplicationVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantFuncApplicationRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -107,7 +107,7 @@ public class TenantFuncApplicationAdminWebController extends AbstractBaseWebAdap
 	@PreAuthorize("hasAuthority('admin:web:tenantFuncApplication:queryFuncApplicationIdsByTenantId')")
 	@GetMapping("/queryFuncApplicationIdsByTenantId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(IdCommand tenantIdCommand) {
-		return iTenantFuncApplicationRepresentationApplicationService.queryFuncApplicationIdsByTenantId( tenantIdCommand);
+	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(CommonIdCommand tenantCommonIdCommand) {
+		return iTenantFuncApplicationRepresentationApplicationService.queryFuncApplicationIdsByTenantId(tenantCommonIdCommand);
 	}
 }

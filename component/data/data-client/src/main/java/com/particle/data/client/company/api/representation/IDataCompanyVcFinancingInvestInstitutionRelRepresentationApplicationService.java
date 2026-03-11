@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -26,14 +26,14 @@ public interface IDataCompanyVcFinancingInvestInstitutionRelRepresentationApplic
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -51,17 +51,17 @@ public interface IDataCompanyVcFinancingInvestInstitutionRelRepresentationApplic
 
 	/**
 	 * 查询企业融资表ID已分配的企业投资机构表id
-	 * @param companyVcFinancingIdCommand
+	 * @param companyVcFinancingCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(IdCommand companyVcFinancingIdCommand);
+	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(CommonIdCommand companyVcFinancingCommonIdCommand);
 
 	/**
 	 * 查询企业投资机构表已分配的企业融资表IDid
-	 * @param companyVcInvestInstitutionIdCommand
+	 * @param companyVcInvestInstitutionCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(IdCommand companyVcInvestInstitutionIdCommand);
+	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(CommonIdCommand companyVcInvestInstitutionCommonIdCommand);
 
 	/**
 	 * 企业融资历史投资机构关系出库

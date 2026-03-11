@@ -2,7 +2,7 @@ package com.particle.usagecount.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class UsageCountRecordDetailQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<UsageCountRecordDetailVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<UsageCountRecordDetailVO> executeDetail(CommonIdCommand detailCommand) {
 		UsageCountRecordDetailDO byId = iUsageCountRecordDetailService.getById(detailCommand.getId());
 		UsageCountRecordDetailVO usageCountRecordDetailVO = UsageCountRecordDetailAppStructMapping.instance.usageCountRecordDetailDOToUsageCountRecordDetailVO(byId);
 		return SingleResponse.of(usageCountRecordDetailVO);

@@ -1,7 +1,7 @@
 package com.particle.dept.client.deptuserrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelCreateCommand;
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelUpdateCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
@@ -29,7 +29,7 @@ public interface IDeptUserRelApplicationService extends IBaseApplicationService 
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DeptUserRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<DeptUserRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -43,6 +43,6 @@ public interface IDeptUserRelApplicationService extends IBaseApplicationService 
 	 * @param deleteCommand
 	 * @return
 	 */
-	Response deleteByUserId(IdCommand deleteCommand);
+	Response deleteByUserId(CommonIdCommand deleteCommand);
 
 }

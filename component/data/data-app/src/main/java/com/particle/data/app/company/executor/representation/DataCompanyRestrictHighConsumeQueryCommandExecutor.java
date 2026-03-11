@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyRestrictHighConsumeV
 import com.particle.data.infrastructure.company.dos.DataCompanyRestrictHighConsumeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyRestrictHighConsumeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyRestrictHighConsumePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyRestrictHighConsumeQueryCommandExecutor  extends Abstrac
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyRestrictHighConsumeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyRestrictHighConsumeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyRestrictHighConsumeDO byId = iDataCompanyRestrictHighConsumeService.getById(detailCommand.getId());
 		DataCompanyRestrictHighConsumeVO dataCompanyRestrictHighConsumeVO = DataCompanyRestrictHighConsumeAppStructMapping.instance.dataCompanyRestrictHighConsumeDOToDataCompanyRestrictHighConsumeVO(byId);
 		return SingleResponse.of(dataCompanyRestrictHighConsumeVO);
@@ -67,7 +66,7 @@ public class DataCompanyRestrictHighConsumeQueryCommandExecutor  extends Abstrac
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyRestrictHighConsumeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyRestrictHighConsumeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyRestrictHighConsumeDO byId = iDataCompanyRestrictHighConsumeService.getById(detailForUpdateCommand.getId());
 		DataCompanyRestrictHighConsumeVO dataCompanyRestrictHighConsumeVO = DataCompanyRestrictHighConsumeAppStructMapping.instance.dataCompanyRestrictHighConsumeDOToDataCompanyRestrictHighConsumeVO(byId);
 		return SingleResponse.of(dataCompanyRestrictHighConsumeVO);

@@ -2,7 +2,7 @@ package com.particle.report.app.reportapi.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.report.app.reportapi.structmapping.ReportReportApiAppStructMapping;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
 import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;

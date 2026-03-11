@@ -1,7 +1,7 @@
 package com.particle.tenant.client.userinvite.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.client.userinvite.dto.command.TenantUserInviteUserRecordCreateCommand;
 import com.particle.tenant.client.userinvite.dto.command.TenantUserInviteUserRecordUpdateCommand;
@@ -28,7 +28,7 @@ public interface ITenantUserInviteUserRecordApplicationService extends IBaseAppl
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<TenantUserInviteUserRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<TenantUserInviteUserRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

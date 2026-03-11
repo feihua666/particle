@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelQueryListCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
@@ -24,14 +24,14 @@ public interface IDataScopeCustomDataRelRepresentationApplicationService extends
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeCustomDataRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataScopeCustomDataRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -49,8 +49,8 @@ public interface IDataScopeCustomDataRelRepresentationApplicationService extends
 
 	/**
 	 * 根据数据范围id查询已分配的自定义数据id
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(IdCommand dataScopeIdCommand);
+	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(CommonIdCommand dataScopeCommonIdCommand);
 }

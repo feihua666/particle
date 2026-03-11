@@ -4,6 +4,7 @@ import com.particle.global.dto.response.MultiResponse;
 import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2024-07-01 16:45:06
  */
-@FeignClient(name = "${particle.feign-client.name.role:role}",path = "/rpc/role_data_scope_rel")
+@FeignClient(name = "${particle.feign-client.role.name:role-start}", contextId = "roleDataScopeRelRpcFeignClient", url = "${particle.feign-client.role.url:}", path = "/rpc/role_data_scope_rel")
 public interface RoleDataScopeRelRpcFeignClient {
 
     /**
@@ -22,7 +23,7 @@ public interface RoleDataScopeRelRpcFeignClient {
      * @return
      */
     @GetMapping("/getByRoleId")
-    public MultiResponse<RoleDataScopeRelVO> getByRoleId(Long roleId);
+    public MultiResponse<RoleDataScopeRelVO> getByRoleId(@RequestParam Long roleId);
 
 
 

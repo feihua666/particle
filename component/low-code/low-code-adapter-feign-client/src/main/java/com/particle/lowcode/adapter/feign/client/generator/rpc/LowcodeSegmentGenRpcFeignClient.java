@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2023-02-10
  */
-@FeignClient(name = "${particle.feign-client.name.low-code:low-code}",path = "/rpc/lowcode-segment-gen")
+@FeignClient(name = "${particle.feign-client.lowcode.name:lowcode-start}", contextId = "lowcodeSegmentGenRpcFeignClient", url = "${particle.feign-client.lowcode.url:}", path = "/rpc/lowcode-segment-gen")
 public interface LowcodeSegmentGenRpcFeignClient {
 
 

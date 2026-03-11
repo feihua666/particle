@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2023-03-21 13:11:05
  */
-@FeignClient(name = "${particle.feign-client.name.data-query:data-query}",path = "/rpc/data_query_data_api")
+@FeignClient(name = "${particle.feign-client.dataquery.name:dataquery-start}", contextId = "dataQueryDataApiRpcFeignClient", url = "${particle.feign-client.dataquery.url:}", path = "/rpc/data_query_data_api")
 public interface DataQueryDataApiRpcFeignClient {
 
 	/**

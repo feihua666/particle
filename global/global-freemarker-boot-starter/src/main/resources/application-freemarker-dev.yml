@@ -1,6 +1,14 @@
-# 开发时使用
 spring:
   freemarker:
+    # 模板缓存设置
+    # false: 禁用模板缓存
+    # 开发环境中设置为false，修改模板文件后立即生效，无需重启应用
+    # 生产环境应设置为true以提高性能
     cache: false
+
     settings:
+      # 模板更新延迟时间（秒）
+      # 0: 无延迟，每次请求都检查模板是否有更新
+      # 当检测到模板文件被修改时，自动重新加载模板
+      # 这个设置与cache: false配合使用，实现模板热更新
       template_update_delay: 0

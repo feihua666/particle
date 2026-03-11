@@ -40,4 +40,4 @@ CREATE TABLE `component_data_company_annual_report_assets` (
   KEY `company_id` (`company_id`) USING BTREE,
   KEY `year` (`year`) USING BTREE,
   UNIQUE KEY `company_annual_report_id` (`company_annual_report_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业资产状况信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业资产状况信息表';

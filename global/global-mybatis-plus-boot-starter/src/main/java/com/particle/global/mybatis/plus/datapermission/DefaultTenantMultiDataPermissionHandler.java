@@ -1,7 +1,7 @@
 package com.particle.global.mybatis.plus.datapermission;
 
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.tenant.TenantTool;
 import lombok.Data;
 import lombok.SneakyThrows;
 import net.sf.jsqlparser.expression.Expression;

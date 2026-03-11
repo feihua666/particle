@@ -1,7 +1,7 @@
 package com.particle.oplog.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -38,7 +38,7 @@ public class OpLogAuditDataAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:opLogAuditData:delete')")
 	@Operation(summary = "删除操作日志审计数据")
 	@DeleteMapping("/delete")
-	public SingleResponse<OpLogAuditDataVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpLogAuditDataVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpLogAuditDataApplicationService.delete(deleteCommand);
 	}
 
@@ -46,7 +46,7 @@ public class OpLogAuditDataAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:opLogAuditData:detail')")
 	@Operation(summary = "操作日志审计数据详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpLogAuditDataVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpLogAuditDataVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpLogAuditDataRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -57,7 +57,7 @@ public class NavigationSubmitAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除导航提交")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航提交",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationSubmitVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationSubmitVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSubmitApplicationService.delete(deleteCommand);
     }
@@ -74,14 +74,14 @@ public class NavigationSubmitAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:navigationSubmit:update')")
     @Operation(summary = "导航提交更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationSubmitVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationSubmitVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationSubmitRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationSubmit:detail')")
     @Operation(summary = "导航提交详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationSubmitVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationSubmitVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationSubmitRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -105,7 +105,7 @@ public class NavigationSubmitAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "确认导航提交")
     @PostMapping("/sureSubmit")
     @OpLog(name = "确认导航提交",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.create)
-    public Response sureSubmit(@RequestBody IdCommand idCommand){
-        return iNavigationSubmitApplicationService.sureSubmit(idCommand);
+    public Response sureSubmit(@RequestBody CommonIdCommand commonIdCommand){
+        return iNavigationSubmitApplicationService.sureSubmit(commonIdCommand);
     }
 }

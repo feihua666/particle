@@ -6,7 +6,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryCommand;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApi;
 import com.particle.dataquery.domain.dataapi.DataQueryDataApiId;
@@ -32,7 +32,8 @@ import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDataso
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import com.particle.global.tool.tenant.TenantTool;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +116,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		long start = System.currentTimeMillis();
 		log.info("dataquery api warmUp start");
 		// 查询所有接口
-		List<DataQueryDataApiDO> list = iDataQueryDataApiService.list();
+		List<DataQueryDataApiDO> list = iDataQueryDataApiService.listIgnoreTenantLimit();
 		if (CollectionUtil.isEmpty(list)) {
 			log.info("dataquery api warmUp end,no data");
 			// 无数据直接返回
@@ -131,67 +132,72 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 
 		// 遍历接口
 		for (DataQueryDataApiDO dataQueryDataApiDO : list) {
-			log.warn("dataquery api warmUp process,current url={},name={},{}/{}",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName(),++current,size);
-			// 取出测试用例，以作为参数
-			String inParamTestCaseDataConfigJson = dataQueryDataApiDO.getInParamTestCaseDataConfigJson();
-			// 入参类型
-			Long inParamTypeDictId = dataQueryDataApiDO.getInParamTypeDictId();
+            try {
+				TenantTool.setTenantId(dataQueryDataApiDO.getTenantId());
+                log.warn("dataquery api warmUp process,current url={},name={},{}/{}",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName(),++current,size);
+                // 取出测试用例，以作为参数
+                String inParamTestCaseDataConfigJson = dataQueryDataApiDO.getInParamTestCaseDataConfigJson();
+                // 入参类型
+                Long inParamTypeDictId = dataQueryDataApiDO.getInParamTypeDictId();
 
-			Long adaptTypeDictId = dataQueryDataApiDO.getAdaptTypeDictId();
-			String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
-			DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
+                Long adaptTypeDictId = dataQueryDataApiDO.getAdaptTypeDictId();
+                String adaptTypeDictValue = dataQueryDictGateway.getDictValueById(adaptTypeDictId);
+                DataQueryDataApiAdaptType dataQueryDataApiAdaptType = DataQueryDataApiAdaptType.valueOf(adaptTypeDictValue);
 
-			// 为空，且为一对一直连，取一对一直连配置
-			if (inParamTypeDictId == null) {
-				if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
-					DataQueryDatasourceApiDO byId = iDataQueryDatasourceApiService.getById(dataQueryDataApiDO.getDataQueryDatasourceApiId());
-					inParamTypeDictId = byId.getInParamTypeDictId();
-				}
-			}
-			// 入参类型为空，代表无入参
-			if (inParamTypeDictId == null) {
-				doSingleWarmUp(dataQueryDataApiDO.getUrl(), null);
-				continue;
-			}
+                // 为空，且为一对一直连，取一对一直连配置
+                if (inParamTypeDictId == null) {
+                    if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
+                        DataQueryDatasourceApiDO byId = iDataQueryDatasourceApiService.getById(dataQueryDataApiDO.getDataQueryDatasourceApiId());
+                        inParamTypeDictId = byId.getInParamTypeDictId();
+                    }
+                }
+                // 入参类型为空，代表无入参
+                if (inParamTypeDictId == null) {
+                    doSingleWarmUp(dataQueryDataApiDO.getUrl(), null);
+                    continue;
+                }
 
-			// 为空，且为一对一直连，取一对一直连配置
-			if (StrUtil.isEmpty(inParamTestCaseDataConfigJson)) {
-				if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
-					DataQueryDatasourceApiDO byId = iDataQueryDatasourceApiService.getById(dataQueryDataApiDO.getDataQueryDatasourceApiId());
-					inParamTestCaseDataConfigJson = byId.getInParamTestCaseDataConfigJson();
-				}
-			}
-			// 入参类型
-			DataQueryDatasourceApiParamType dataQueryDatasourceApiParamType = null;
-			if (inParamTypeDictId != null) {
-				String inParamTypeDictValue = dataQueryDictGateway.getDictValueById(inParamTypeDictId);
-				dataQueryDatasourceApiParamType = DataQueryDatasourceApiParamType.valuesOf(inParamTypeDictValue);
-			}
-			// 配置了测试用例
-			if (StrUtil.isNotEmpty(inParamTestCaseDataConfigJson)) {
-				// 多个测试用例，都跑一次
-				DataQueryDatasourceApiInParamTestCaseConfig fromJsonStr = DataQueryDatasourceApiInParamTestCaseConfig.createFromJsonStr(inParamTestCaseDataConfigJson);
-				List<DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem> inParamTestCases = fromJsonStr.getInParamTestCases();
-				for (DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem inParamTestCase : inParamTestCases) {
-					Object object = null;
-					try {
-						object = inParamTestCase.contentToObj(dataQueryDatasourceApiParamType);
-					} catch (Exception e) {
-						log.warn("dataquery api warmUp error,contentToObj,url={},name={}",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName(),e);
-						dataQueryNotifyGateway.notifySystem("数据查询接口预热异常",
-								"dataquery.warmup.contentToObj",
-								"您可以通过添加配置 particle.dataquery.api.warm-up=false 来关闭应用启动预热",
-								StrUtil.format("testCase={},url={},name={}", inParamTestCase.getName(), dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName()));
-					}
-					doSingleWarmUp(dataQueryDataApiDO.getUrl(), object);
-				}
+                // 为空，且为一对一直连，取一对一直连配置
+                if (StrUtil.isEmpty(inParamTestCaseDataConfigJson)) {
+                    if (DataQueryDataApiAdaptType.single_direct == dataQueryDataApiAdaptType) {
+                        DataQueryDatasourceApiDO byId = iDataQueryDatasourceApiService.getById(dataQueryDataApiDO.getDataQueryDatasourceApiId());
+                        inParamTestCaseDataConfigJson = byId.getInParamTestCaseDataConfigJson();
+                    }
+                }
+                // 入参类型
+                DataQueryDatasourceApiParamType dataQueryDatasourceApiParamType = null;
+                if (inParamTypeDictId != null) {
+                    String inParamTypeDictValue = dataQueryDictGateway.getDictValueById(inParamTypeDictId);
+                    dataQueryDatasourceApiParamType = DataQueryDatasourceApiParamType.valuesOf(inParamTypeDictValue);
+                }
+                // 配置了测试用例
+                if (StrUtil.isNotEmpty(inParamTestCaseDataConfigJson)) {
+                    // 多个测试用例，都跑一次
+                    DataQueryDatasourceApiInParamTestCaseConfig fromJsonStr = DataQueryDatasourceApiInParamTestCaseConfig.createFromJsonStr(inParamTestCaseDataConfigJson);
+                    List<DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem> inParamTestCases = fromJsonStr.getInParamTestCases();
+                    for (DataQueryDatasourceApiInParamTestCaseConfig.TestCaseItem inParamTestCase : inParamTestCases) {
+                        Object object = null;
+                        try {
+                            object = inParamTestCase.contentToObj(dataQueryDatasourceApiParamType);
+                        } catch (Exception e) {
+                            log.warn("dataquery api warmUp error,contentToObj,url={},name={}",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName(),e);
+                            dataQueryNotifyGateway.notifySystem("数据查询接口预热异常",
+                                    "dataquery.warmup.contentToObj",
+                                    "您可以通过添加配置 particle.dataquery.api.warm-up=false 来关闭应用启动预热",
+                                    StrUtil.format("testCase={},url={},name={}", inParamTestCase.getName(), dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName()));
+                        }
+                        doSingleWarmUp(dataQueryDataApiDO.getUrl(), object);
+                    }
 
-			}else {
-				// 	没有配置测试用例
-				// 	暂先不跑
-				log.warn("url={},name={},no test case，ignored!",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName());
-			}
-		}
+                }else {
+                    // 	没有配置测试用例
+                    // 	暂先不跑
+                    log.warn("url={},name={},no test case，ignored!",dataQueryDataApiDO.getUrl(),dataQueryDataApiDO.getName());
+                }
+            } finally {
+                TenantTool.clear();
+            }
+        }
 
 		long end = System.currentTimeMillis();
 		log.info("dataquery api warmUp end,duration={}ms",end - start);
@@ -214,7 +220,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		long start = System.currentTimeMillis();
 		log.info("dataquery api warmUpLight start");
 		// 查询所有接口
-		List<DataQueryDataApiDO> dataQueryDataApiList = iDataQueryDataApiService.list();
+		List<DataQueryDataApiDO> dataQueryDataApiList = iDataQueryDataApiService.listIgnoreTenantLimit();
 		if (CollectionUtil.isEmpty(dataQueryDataApiList)) {
 			log.info("dataquery api warmUpLight end,no data");
 		}else {
@@ -232,10 +238,15 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 						dataQueryDataApiDO.getUrl(),
 						dataQueryDataApiDO.getName()
 						);
-				DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(DataQueryDataApiId.of(dataQueryDataApiDO.getId()));
-				dataQueryDataApi.warmUpLight();
+                try {
+					TenantTool.setTenantId(dataQueryDataApiDO.getTenantId());
+                    DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(DataQueryDataApiId.of(dataQueryDataApiDO.getId()));
+                    dataQueryDataApi.warmUpLight();
+                } finally {
+                    TenantTool.clear();
+                }
 
-			}
+            }
 			long end = System.currentTimeMillis();
 			log.info("dataquery api warmUpLight end,duration={}ms",end - start);
 			dataQueryNotifyGateway.notifySystem("数据查询接口经量级预热完成",
@@ -255,7 +266,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		long start = System.currentTimeMillis();
 		log.info("dataqueryDatasource api warmUpLight start");
 		// 查询所有接口
-		List<DataQueryDatasourceApiDO> dataQueryDatasourceApiList = iDataQueryDatasourceApiService.list();
+		List<DataQueryDatasourceApiDO> dataQueryDatasourceApiList = iDataQueryDatasourceApiService.listIgnoreTenantLimit();
 		if (CollectionUtil.isEmpty(dataQueryDatasourceApiList)) {
 			log.info("dataqueryDatasource api warmUpLight end,no data");
 		}else {
@@ -268,10 +279,15 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 
 			for (DataQueryDatasourceApiDO dataQueryDatasourceApiDO : dataQueryDatasourceApiList) {
 				log.warn("dataqueryDatasource api warmUpLight process,current code={},name={},{}/{}",dataQueryDatasourceApiDO.getCode(),dataQueryDatasourceApiDO.getName(),++current,size);
-				DataQueryDatasourceApi queryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDatasourceApiDO.getId()));
-				queryDatasourceApi.warmUpLight();
+                try {
+					TenantTool.setTenantId(dataQueryDatasourceApiDO.getTenantId());
+                    DataQueryDatasourceApi queryDatasourceApi = dataQueryDatasourceApiGateway.getById(DataQueryDatasourceApiId.of(dataQueryDatasourceApiDO.getId()));
+                    queryDatasourceApi.warmUpLight();
+                } finally {
+                    TenantTool.clear();
+                }
 
-			}
+            }
 			long end = System.currentTimeMillis();
 			log.info("dataqueryDatasource api warmUpLight end,duration={}ms",end - start);
 			dataQueryNotifyGateway.notifySystem("数据源接口经量级预热完成",
@@ -292,7 +308,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 		long start = System.currentTimeMillis();
 		log.info("dataqueryDatasource warmUpLight start");
 		// 查询所有接口
-		List<DataQueryDatasourceDO> dataQueryDatasourceList = iDataQueryDatasourceService.list();
+		List<DataQueryDatasourceDO> dataQueryDatasourceList = iDataQueryDatasourceService.listIgnoreTenantLimit();
 		if (CollectionUtil.isEmpty(dataQueryDatasourceList)) {
 			log.info("dataqueryDatasource warmUpLight end,no data");
 		}else {
@@ -305,10 +321,15 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 
 			for (DataQueryDatasourceDO dataQueryDatasourceDO : dataQueryDatasourceList) {
 				log.warn("dataqueryDatasource warmUpLight process,current code={},name={},{}/{}",dataQueryDatasourceDO.getCode(),dataQueryDatasourceDO.getName(),++current,size);
-				DataQueryDatasource queryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceDO.getId()));
-				queryDatasource.warmUpLight();
+                try {
+					TenantTool.setTenantId(dataQueryDatasourceDO.getTenantId());
+                    DataQueryDatasource queryDatasource = dataQueryDatasourceGateway.getById(DataQueryDatasourceId.of(dataQueryDatasourceDO.getId()));
+                    queryDatasource.warmUpLight();
+                } finally {
+                    TenantTool.clear();
+                }
 
-			}
+            }
 			long end = System.currentTimeMillis();
 			log.info("dataqueryDatasource warmUpLight end,duration={}ms",end - start);
 			dataQueryNotifyGateway.notifySystem("数据源接口经量级预热完成",
@@ -323,7 +344,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<String> deleteCache(@Valid IdCommand deleteCommand) {
+	public SingleResponse<String> deleteCache(@Valid CommonIdCommand deleteCommand) {
 		DataQueryDataApiId dataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(dataQueryDataApiId);
 		Assert.notNull(dataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -336,7 +357,7 @@ public class DataQueryDataApiDataApiQueryCommandExecutor extends AbstractBaseQue
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<String> refreshCache(@Valid IdCommand deleteCommand) {
+	public SingleResponse<String> refreshCache(@Valid CommonIdCommand deleteCommand) {
 		DataQueryDataApiId dataQueryDataApiId = DataQueryDataApiId.of(deleteCommand.getId());
 		DataQueryDataApi dataQueryDataApi = dataQueryDataApiGateway.getById(dataQueryDataApiId);
 		Assert.notNull(dataQueryDataApi, ErrorCodeGlobalEnum.DATA_NOT_FOUND);

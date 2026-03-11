@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
+import com.particle.tenant.adapter.feign.client.rpc.TenantTransRpcFeignClient;
 import com.particle.tenant.client.dto.data.TenantTransVO;
 import com.particle.tenant.infrastructure.dos.TenantDO;
 import com.particle.tenant.infrastructure.mapper.TenantMapper;
@@ -33,7 +34,7 @@ public class TenantTransServiceImpl implements ITransService<TenantTransVO,Long>
     private TenantMapper tenantMapper;
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_TENANT_BY_ID);
+        return TenantTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

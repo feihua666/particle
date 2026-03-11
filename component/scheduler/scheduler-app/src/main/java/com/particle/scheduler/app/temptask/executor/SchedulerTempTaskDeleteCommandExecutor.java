@@ -1,10 +1,10 @@
 package com.particle.scheduler.app.temptask.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.scheduler.app.temptask.structmapping.SchedulerTempTaskAppStructMapping;
 import com.particle.scheduler.client.temptask.dto.data.SchedulerTempTaskVO;
 import com.particle.scheduler.domain.temptask.SchedulerTempTask;
@@ -40,7 +40,7 @@ public class SchedulerTempTaskDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SchedulerTempTaskVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SchedulerTempTaskId schedulerTempTaskId = SchedulerTempTaskId.of(deleteCommand.getId());
 		SchedulerTempTask byId = schedulerTempTaskGateway.getById(schedulerTempTaskId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -48,9 +48,9 @@ public class SchedulerTempTaskDeleteCommandExecutor  extends AbstractBaseExecuto
 		if (delete) {
 			// 删除成功后，将运行记录删除
 			for (SchedulerTempTaskRunRecordDO schedulerTempTaskRunRecordDO : iSchedulerTempTaskRunRecordService.getBySchedulerTempTaskId(schedulerTempTaskId.getId())) {
-				IdCommand idCommand = new IdCommand();
-				idCommand.setId(schedulerTempTaskRunRecordDO.getId());
-				schedulerTempTaskRunRecordDeleteCommandExecutor.execute(idCommand);
+				CommonIdCommand commonIdCommand = new CommonIdCommand();
+				commonIdCommand.setId(schedulerTempTaskRunRecordDO.getId());
+				schedulerTempTaskRunRecordDeleteCommandExecutor.execute(commonIdCommand);
 			}
 			return SingleResponse.of(SchedulerTempTaskAppStructMapping.instance.toSchedulerTempTaskVO(byId));
 		}

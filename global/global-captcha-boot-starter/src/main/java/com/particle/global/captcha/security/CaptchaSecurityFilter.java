@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Slf4j
 @Setter
-@ConfigurationProperties(prefix = "particle.captcha.filter")
+@ConfigurationProperties(prefix = "particle.global.captcha.filter")
 public class CaptchaSecurityFilter extends BaseCaptchaSecurityFilter {
 
 }

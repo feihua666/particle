@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
 import java.util.TimeZone;
 
 import static java.time.ZoneId.of;
@@ -19,7 +22,15 @@ import static java.util.TimeZone.getTimeZone;
  * @since 2025-06-24 17:11:55
  */
 @Slf4j
+// 经尝试，该注解必须添加到启动类上，否则启动报错
+// common-infrastructure 依赖了 global-cache-boot-starter，该依赖中定义了缓存注解，需要添加该注解
+@EnableCaching
 @SpringBootApplication
+@EnableFeignClients(basePackages = {
+		"com.particle.dict.adapter.feign.client.rpc",
+		"com.particle.audit.adapter.feign.client",
+		"com.particle.tenant.adapter.feign.client",
+})
 public class CmsApplication {
 
 	public static void main(String[] args) {

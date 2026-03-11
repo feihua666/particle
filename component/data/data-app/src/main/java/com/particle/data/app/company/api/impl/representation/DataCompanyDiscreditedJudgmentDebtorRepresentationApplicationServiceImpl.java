@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.representation.DataCompanyDiscreditedJudgmentDebtorQueryCommandExecutor;
 import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyDiscreditedJudgmentDebtorExWarehouseCommandExecutor;
 import com.particle.data.client.company.api.representation.IDataCompanyDiscreditedJudgmentDebtorRepresentationApplicationService;
@@ -32,12 +32,12 @@ public class DataCompanyDiscreditedJudgmentDebtorRepresentationApplicationServic
     private DataCompanyDiscreditedJudgmentDebtorExWarehouseCommandExecutor dataCompanyDiscreditedJudgmentDebtorExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyDiscreditedJudgmentDebtorQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyDiscreditedJudgmentDebtorQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

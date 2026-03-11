@@ -11,7 +11,9 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 import java.util.*;
 
@@ -58,7 +60,7 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 	/**
 	 * 用来匹配请求
 	 */
-	protected List<AntPathRequestMatcher> antPathRequestMatchers;
+	protected List<RequestMatcher> requestMatchers;
 	/**
 	 * 用于存储匹配的url
 	 */
@@ -79,18 +81,20 @@ public abstract class AbstractGlobalOpenapi implements OpenApi{
 	 * 初始化
 	 */
 	@PostConstruct
-	protected void initAntPathRequestMatchers() {
-		if (antPathRequestMatchers == null) {
-			antPathRequestMatchers = new ArrayList<>(urlPatterns.size());
+	protected void initPathPatternRequestMatchers() {
+		if (requestMatchers == null) {
+			requestMatchers = new ArrayList<>(urlPatterns.size());
+			// 创建 Builder（使用默认的 PathPatternParser）
+			PathPatternRequestMatcher.Builder builder = PathPatternRequestMatcher.withDefaults();
 			for (String urlPattern : urlPatterns) {
-				antPathRequestMatchers.add(new AntPathRequestMatcher(urlPattern));
+				requestMatchers.add(builder.matcher(urlPattern));
 			}
 			if (CollectionUtil.isNotEmpty(globalOpenapiUrlPatternConfigures)) {
 				for (GlobalOpenapiUrlPatternConfigure globalOpenapiUrlPatternConfigure : globalOpenapiUrlPatternConfigures) {
 					Set<String> patterns = globalOpenapiUrlPatternConfigure.urlPatterns();
 					if (CollectionUtil.isNotEmpty(patterns)) {
 						for (String urlPattern : patterns) {
-							antPathRequestMatchers.add(new AntPathRequestMatcher(urlPattern));
+							requestMatchers.add(builder.matcher(urlPattern));
 						}
 					}
 				}

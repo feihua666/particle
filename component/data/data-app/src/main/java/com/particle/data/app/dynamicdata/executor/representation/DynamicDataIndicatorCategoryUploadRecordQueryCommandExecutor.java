@@ -6,7 +6,7 @@ import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorCategor
 import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataIndicatorCategoryUploadRecordDO;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorCategoryUploadRecordService;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorCategoryUploadRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor  exten
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicDataIndicatorCategoryUploadRecordDO byId = iDynamicDataIndicatorCategoryUploadRecordService.getById(detailCommand.getId());
 		DynamicDataIndicatorCategoryUploadRecordVO dynamicDataIndicatorCategoryUploadRecordVO = DynamicDataIndicatorCategoryUploadRecordAppStructMapping.instance.dynamicDataIndicatorCategoryUploadRecordDOToDynamicDataIndicatorCategoryUploadRecordVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorCategoryUploadRecordVO);
@@ -67,7 +66,7 @@ public class DynamicDataIndicatorCategoryUploadRecordQueryCommandExecutor  exten
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicDataIndicatorCategoryUploadRecordDO byId = iDynamicDataIndicatorCategoryUploadRecordService.getById(detailForUpdateCommand.getId());
 		DynamicDataIndicatorCategoryUploadRecordVO dynamicDataIndicatorCategoryUploadRecordVO = DynamicDataIndicatorCategoryUploadRecordAppStructMapping.instance.dynamicDataIndicatorCategoryUploadRecordDOToDynamicDataIndicatorCategoryUploadRecordVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorCategoryUploadRecordVO);

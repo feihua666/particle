@@ -1,7 +1,7 @@
 package com.particle.scheduler.client.schedule.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.client.schedule.dto.command.SchedulerExecuteRecordCreateCommand;
 import com.particle.scheduler.client.schedule.dto.command.SchedulerExecuteRecordUpdateCommand;
@@ -27,7 +27,7 @@ public interface ISchedulerExecuteRecordApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<SchedulerExecuteRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<SchedulerExecuteRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

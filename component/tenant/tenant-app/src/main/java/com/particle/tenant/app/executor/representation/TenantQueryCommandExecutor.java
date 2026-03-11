@@ -2,7 +2,7 @@ package com.particle.tenant.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class TenantQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TenantVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<TenantVO> executeDetail(CommonIdCommand detailCommand) {
 		TenantDO byId = iTenantService.getById(detailCommand.getId());
 		TenantVO tenantVO = TenantAppStructMapping.instance.tenantDOToTenantVO(byId);
 		return SingleResponse.of(tenantVO);
@@ -67,7 +67,7 @@ public class TenantQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TenantVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<TenantVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		TenantDO byId = iTenantService.getById(detailForUpdateCommand.getId());
 		TenantVO tenantVO = TenantAppStructMapping.instance.tenantDOToTenantVO(byId);
 		return SingleResponse.of(tenantVO);

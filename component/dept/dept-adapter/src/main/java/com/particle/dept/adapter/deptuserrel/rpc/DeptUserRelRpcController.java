@@ -1,8 +1,7 @@
 package com.particle.dept.adapter.deptuserrel.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.adapter.feign.client.deptuserrel.rpc.DeptUserRelRpcFeignClient;
 import com.particle.dept.client.deptuserrel.api.IDeptUserRelApplicationService;
 import com.particle.dept.client.deptuserrel.api.representation.IDeptUserRelRepresentationApplicationService;
@@ -10,7 +9,6 @@ import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelCreateCommand
 import com.particle.dept.client.deptuserrel.dto.command.DeptUserRelUpdateCommand;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelQueryListCommand;
 import com.particle.dept.client.deptuserrel.dto.data.DeptUserRelVO;
-import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -46,7 +44,7 @@ public class DeptUserRelRpcController extends AbstractBaseRpcAdapter implements 
     }
     @Operation(summary = "根据用户id删除")
     @Override
-	public Response deleteByUserId(@RequestBody IdCommand deleteCommand) {
+	public Response deleteByUserId(@RequestBody CommonIdCommand deleteCommand) {
 		return iDeptUserRelApplicationService.deleteByUserId(deleteCommand);
 	}
 

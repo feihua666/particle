@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataconstraint.client.api.IDataScopeApplicationService;
@@ -52,7 +52,7 @@ public class DataScopeAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除数据范围")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除数据范围",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
-	public SingleResponse<DataScopeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataScopeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_data_constraint_data_scope, DataConstraintContext.Action.delete.name());
 		return iDataScopeApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class DataScopeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:dataScope:update')")
 	@Operation(summary = "数据范围更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DataScopeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DataScopeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDataScopeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataScope:detail')")
 	@Operation(summary = "数据范围详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DataScopeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DataScopeVO> queryDetail(CommonIdCommand detailCommand){
 		return iDataScopeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryQueryCommandExecutor  
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiRecordAppOpenapiDaySummaryDO byId = iOpenplatformOpenapiRecordAppOpenapiDaySummaryService.getById(detailCommand.getId());
 		OpenplatformOpenapiRecordAppOpenapiDaySummaryVO openplatformOpenapiRecordAppOpenapiDaySummaryVO = OpenplatformOpenapiRecordAppOpenapiDaySummaryAppStructMapping.instance.openplatformOpenapiRecordAppOpenapiDaySummaryDOToOpenplatformOpenapiRecordAppOpenapiDaySummaryVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordAppOpenapiDaySummaryVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiRecordAppOpenapiDaySummaryQueryCommandExecutor  
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordAppOpenapiDaySummaryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiRecordAppOpenapiDaySummaryDO byId = iOpenplatformOpenapiRecordAppOpenapiDaySummaryService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiRecordAppOpenapiDaySummaryVO openplatformOpenapiRecordAppOpenapiDaySummaryVO = OpenplatformOpenapiRecordAppOpenapiDaySummaryAppStructMapping.instance.openplatformOpenapiRecordAppOpenapiDaySummaryDOToOpenplatformOpenapiRecordAppOpenapiDaySummaryVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordAppOpenapiDaySummaryVO);

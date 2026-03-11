@@ -1,7 +1,7 @@
 package com.particle.oplog.adapter.error.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
@@ -51,7 +51,7 @@ public class OpLogErrorAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:opLogError:delete')")
     @Operation(summary = "删除操作异常日志")
     @DeleteMapping("/delete")
-    public SingleResponse<OpLogErrorVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpLogErrorVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpLogErrorApplicationService.delete(deleteCommand);
     }
@@ -59,7 +59,7 @@ public class OpLogErrorAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:opLogError:detail')")
     @Operation(summary = "操作异常日志详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpLogErrorVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpLogErrorVO> queryDetail(CommonIdCommand detailCommand){
         return iOpLogErrorRepresentationApplicationService.queryDetail(detailCommand);
     }
 

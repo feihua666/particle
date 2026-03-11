@@ -7,7 +7,7 @@ import com.particle.cms.domain.CmsChannelViewRecord;
 import com.particle.cms.domain.CmsChannelViewRecordId;
 import com.particle.cms.domain.gateway.CmsChannelViewRecordGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

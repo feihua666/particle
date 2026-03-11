@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformDocDirNameRepresentationApplicationServiceImpl extends 
     private OpenplatformDocDirNameQueryCommandExecutor openplatformDocDirNameQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformDocDirNameVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformDocDirNameVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformDocDirNameQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformDocDirNameVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformDocDirNameVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformDocDirNameQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

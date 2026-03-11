@@ -2,7 +2,7 @@ package com.particle.tenant.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.structmapping.TenantUserAppStructMapping;
 import com.particle.tenant.client.dto.command.TenantUserUpdateCommand;
 import com.particle.tenant.client.dto.data.TenantUserVO;

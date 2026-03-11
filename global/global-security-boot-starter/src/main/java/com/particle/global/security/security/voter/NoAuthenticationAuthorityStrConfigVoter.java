@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "particle.security.authority-str")
+@ConfigurationProperties(prefix = "particle.global.security.authority-str")
 public class NoAuthenticationAuthorityStrConfigVoter extends RoleVoter {
 
     private List<String> grantedAuthority;

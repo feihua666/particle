@@ -15,7 +15,7 @@ import java.util.List;
  * @author yw
  * @since 2024-06-28 13:10:38
  */
-@FeignClient(name = "${particle.feign-client.name.data-constraint:data-constraint}",path = "/rpc/data_scope")
+@FeignClient(name = "${particle.feign-client.dataconstraint.name:dataconstraint-start}", contextId = "dataScopeRpcFeignClient", url = "${particle.feign-client.dataconstraint.url:}", path = "/rpc/data_scope")
 public interface DataScopeRpcFeignClient {
 
 

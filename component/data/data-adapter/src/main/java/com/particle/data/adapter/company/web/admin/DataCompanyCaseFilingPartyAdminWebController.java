@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyCaseFilingPartyApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyCaseFilingPartyRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingPartyCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyCaseFilingPartyVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingPartyUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingPartyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingPartyQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业立案信息当事人后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyCaseFilingPartyAdminWebController extends AbstractBaseWe
     @Operation(summary = "删除企业立案信息当事人")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业立案信息当事人",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyCaseFilingPartyVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyCaseFilingPartyVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyCaseFilingPartyApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyCaseFilingPartyAdminWebController extends AbstractBaseWe
     @PreAuthorize("hasAuthority('admin:web:dataCompanyCaseFilingParty:update')")
     @Operation(summary = "企业立案信息当事人更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyCaseFilingPartyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyCaseFilingPartyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyCaseFilingPartyRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyCaseFilingParty:detail')")
     @Operation(summary = "企业立案信息当事人详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyCaseFilingPartyVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyCaseFilingPartyVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyCaseFilingPartyRepresentationApplicationService.queryDetail(detailCommand);
     }
 

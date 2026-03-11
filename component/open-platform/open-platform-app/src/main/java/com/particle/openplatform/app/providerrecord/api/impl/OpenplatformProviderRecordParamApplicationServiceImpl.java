@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.providerrecord.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.providerrecord.executor.OpenplatformProviderRecordParamDeleteCommandExecutor;
@@ -26,7 +26,7 @@ public class OpenplatformProviderRecordParamApplicationServiceImpl extends Abstr
 	private OpenplatformProviderRecordParamDeleteCommandExecutor openplatformProviderRecordParamDeleteCommandExecutor;
 
 	@Override
-	public SingleResponse<OpenplatformProviderRecordParamVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformProviderRecordParamVO> delete(CommonIdCommand deleteCommand) {
 		return openplatformProviderRecordParamDeleteCommandExecutor.execute(deleteCommand);
 	}
 

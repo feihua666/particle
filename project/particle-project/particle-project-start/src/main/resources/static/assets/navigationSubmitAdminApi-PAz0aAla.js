@@ -1,0 +1,1 @@
+import{k as t,l as a}from"./index-CJSXDm6g.js";let r=a()+"/admin/web/navigation_submit";const o=e=>t.post(r+"/create",e),p=e=>t.delete(r+"/delete",{data:e}),u=e=>t.put(r+"/update",e),n=e=>t.get(r+"/detail-for-update",{params:e}),i=e=>t.get(r+"/page",{params:e}),d=e=>t.post(r+"/sureSubmit",e);export{o as c,n as d,i as p,p as r,d as s,u};

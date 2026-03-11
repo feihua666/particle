@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyIprIntegratedCircuitApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyIprIntegratedCircuitRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprIntegratedCircuitCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprIntegratedCircuitVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprIntegratedCircuitUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprIntegratedCircuitPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprIntegratedCircuitQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业知识产权集成电路后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyIprIntegratedCircuitAdminWebController extends AbstractB
     @Operation(summary = "删除企业知识产权集成电路")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业知识产权集成电路",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyIprIntegratedCircuitVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyIprIntegratedCircuitVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyIprIntegratedCircuitApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyIprIntegratedCircuitAdminWebController extends AbstractB
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprIntegratedCircuit:update')")
     @Operation(summary = "企业知识产权集成电路更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyIprIntegratedCircuitVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyIprIntegratedCircuitVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyIprIntegratedCircuitRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprIntegratedCircuit:detail')")
     @Operation(summary = "企业知识产权集成电路详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyIprIntegratedCircuitVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyIprIntegratedCircuitVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyIprIntegratedCircuitRepresentationApplicationService.queryDetail(detailCommand);
     }
 

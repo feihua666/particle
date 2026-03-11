@@ -2,7 +2,7 @@ package com.particle.openplatform.app.openapi.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiFeeQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiFeeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiFeeVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiFeeDO byId = iOpenplatformOpenapiFeeService.getById(detailCommand.getId());
 		OpenplatformOpenapiFeeVO openplatformOpenapiFeeVO = OpenplatformOpenapiFeeAppStructMapping.instance.openplatformOpenapiFeeDOToOpenplatformOpenapiFeeVO(byId);
 		return SingleResponse.of(openplatformOpenapiFeeVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiFeeQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiFeeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiFeeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiFeeDO byId = iOpenplatformOpenapiFeeService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiFeeVO openplatformOpenapiFeeVO = OpenplatformOpenapiFeeAppStructMapping.instance.openplatformOpenapiFeeDOToOpenplatformOpenapiFeeVO(byId);
 		return SingleResponse.of(openplatformOpenapiFeeVO);

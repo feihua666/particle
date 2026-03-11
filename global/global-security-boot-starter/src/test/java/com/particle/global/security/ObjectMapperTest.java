@@ -3,8 +3,8 @@ package com.particle.global.security;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.UserGrantedAuthority;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.dto.login.UserGrantedAuthority;
 import lombok.Data;
 
 import java.io.ByteArrayOutputStream;

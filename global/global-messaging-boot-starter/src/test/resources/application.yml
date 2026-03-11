@@ -9,6 +9,11 @@ spring:
       - log4j2
       - datasource
       - mybatis-plus
+      - mybatis-plus-tenant
+      - actuator
+      - boot-admin-client-local
+      - boot-admin-server
+      - session
   # 定义 rabbit 连接，多个请使用 address
   rabbitmq:
     host: localhost

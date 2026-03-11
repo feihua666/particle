@@ -2,7 +2,7 @@ package com.particle.dept.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.structmapping.DeptAppStructMapping;
 import com.particle.dept.client.dto.command.representation.DeptPageQueryCommand;
 import com.particle.dept.client.dto.command.representation.DeptQueryListCommand;
@@ -57,7 +57,7 @@ public class DeptQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DeptVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DeptVO> executeDetail(CommonIdCommand detailCommand) {
 		DeptDO byId = iDeptService.getById(detailCommand.getId());
 		DeptVO deptVO = DeptAppStructMapping.instance.deptDOToDeptVO(byId);
 		return SingleResponse.of(deptVO);
@@ -67,7 +67,7 @@ public class DeptQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DeptVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DeptVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DeptDO byId = iDeptService.getById(detailForUpdateCommand.getId());
 		DeptVO deptVO = DeptAppStructMapping.instance.deptDOToDeptVO(byId);
 		return SingleResponse.of(deptVO);

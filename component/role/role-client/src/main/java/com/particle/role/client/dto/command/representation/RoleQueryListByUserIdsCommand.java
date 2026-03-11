@@ -1,6 +1,6 @@
 package com.particle.role.client.dto.command.representation;
 
-import com.particle.common.client.dto.command.BatchIdCommand;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @Schema
-public class RoleQueryListByUserIdsCommand extends BatchIdCommand {
+public class RoleQueryListByUserIdsCommand extends CommonBatchIdCommand {
 
     @Schema(description = "是否禁用")
     private Boolean isDisabled;

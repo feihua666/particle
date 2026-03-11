@@ -8,12 +8,11 @@ import com.particle.global.exception.biz.AssertException;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.biz.InvalidDataVersionException;
 import com.particle.global.exception.biz.NoDataPrivilegeException;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.IErrorCode;
 import com.particle.global.exception.system.SystemException;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -32,7 +31,6 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -50,6 +48,7 @@ import java.util.Optional;
 
 /**
  * controller 异常统一处理类
+ * 注意：/error 的异常这里捕获不到，需要额外处理
  * 不要在该类的任何地方抛出异常，因为这里就是处理异常的地方，如果这里抛出异常，将会被转发到BasicErrorController.error方法处理
  * 注意这里处理的返回结果也会进入到GlobalResponseBodyAdvice里处理
  * @author yangwei
@@ -356,6 +355,16 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(Exception.class)
     public  ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex) {
+        return handleException(request, ex, null);
+    }
+    /**
+     * 统一异常，未单独处理的异常
+     * @param request
+     * @param ex
+     * @param status
+     * @return
+     */
+    public ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex,Integer status) {
 
         // 兼容一下内部 BizException
         ResponseEntity<Response> responseResponseEntity = handleCauseBizException(request, ex, 5);
@@ -373,7 +382,7 @@ public class GlobalExceptionAdvice {
         NotifyTool.notify(notifyParam);
         Response rm = createRM(ErrorCodeGlobalEnum.SYSTEM_ERROR, "系统内部异常", null, ex);
 
-        int httpStatus = HttpStatus.INTERNAL_SERVER_ERROR.value();
+        int httpStatus = status == null ? HttpStatus.INTERNAL_SERVER_ERROR.value() : status;
 
         if (globalMvcExceptionListeners != null) {
 

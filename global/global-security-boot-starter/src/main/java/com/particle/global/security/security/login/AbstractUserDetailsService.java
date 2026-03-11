@@ -1,10 +1,11 @@
 package com.particle.global.security.security.login;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.login.*;
 import com.particle.global.light.share.concurrency.ConcurrencyConstants;
-import com.particle.global.security.tenant.*;
+import com.particle.global.security.tenant.SecurityUserTenantService;
 import com.particle.global.tool.servlet.RequestTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.global.tool.thread.ThreadContextTool;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -32,19 +33,16 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
     public static String login_loaded_user_in_threadcontext_key ="loginLoadedUser";
 
     @Autowired(required = false)
-    private UserTenantService userTenantService;
+    private SecurityUserTenantService securityUserTenantService;
 
     @Autowired(required = false)
-    private UserDeptService userDeptService;
+    private SecurityUserDeptService securityUserDeptService;
 
     @Autowired(required = false)
-    private RoleDataConstraintService roleDataConstraintService;
+    private SecurityRoleDataConstraintService securityRoleDataConstraintService;
 
     @Autowired(required = false)
-    private List<IUserTenantChangeListener> iUserTenantChangeListeners;
-
-    @Autowired(required = false)
-    private UserAuthorityService userAuthorityService;
+    private SecurityUserAuthorityService securityUserAuthorityService;
 
     @Autowired(required = false)
     private List<LoginUserExtPutService> loginUserExtPutServices;
@@ -55,156 +53,75 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
-    @Autowired(required = false)
-    private ITenantResolveService iTenantResolveService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        GrantedTenant grantedTenant = null;
-        if (LoginTool.checkIgnoreTenantResolveAndClearTenantLocal()) {
-            // 在登录时重置租户解析，重新解析，因为在登录之前可能用户已经登录或配置了域名已经解析到租户了
-            TenantTool.clear();
-            // 不再解析租户信息
-        }else {
-            if (iTenantResolveService != null) {
-                grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
-            }
-        }
-
-        LoginUser loginUser = doLoadUserByUsername(username);
+        SecurityLoginUser loginUser = doLoadUserByUsername(username);
         if (loginUser == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
 
-        // 加载额外信息
-        loginUserDetailsFill(loginUser,null,Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
+        /**
+         * 填充额外信息
+         * TenantTool.getTenantId() 在用户登录前已经设置 参考 {@link com.particle.global.web.filter.TenantContextLoginFilter}
+         */
+        loginUserDetailsFillTenant(loginUser, null, TenantTool.getTenantId());
+        loginUserDetailsFill(loginUser,null);
 
         return loginUser;
     }
 
 
     /**
-     * 用户额外详细信息加载
+     * 实际获取用户信息
+     * @param username
+     * @return
+     */
+    public abstract SecurityLoginUser doLoadUserByUsername(String username);
+    /**
+     * 登录用户信息填充 租户
      * @param loginUser
      * @param defaultTenantId 默认切换到的租户id,如果为空默认切换到第一个
      * @param limitedTenantId 限制租户id，如果指定，只能限制在该租户下
      */
-    public void loginUserDetailsFill(LoginUser loginUser,Long defaultTenantId,Long limitedTenantId) {
-
-        String clientIP = RequestTool.getClientIP(httpServletRequest);
-        loginUser.setLoginIp(clientIP);
-
-        if (userTenantService != null) {
-            // limitedTenantId，这一般是通过 com.particle.global.security.security.config.TenantToolPersistentSecurityFilter 过滤器根据域名配置获取到的
+    public void loginUserDetailsFillTenant(LoginUser loginUser, Long defaultTenantId, Long limitedTenantId) {
+        if (securityUserTenantService != null) {
             // 如果有值那么租户就锁定在该租户下
-            List<GrantedTenant> grantedTenants = userTenantService.retrieveUserTenantByUserId(loginUser.getId(),limitedTenantId);
-            if (limitedTenantId != null) {
-                if (CollectionUtil.isNotEmpty(grantedTenants)) {
-                    // 限定在已解析到的租户下
-                    grantedTenants = grantedTenants.stream().filter(item -> limitedTenantId.equals(item.getId())).collect(Collectors.toList());
-                }else {
-                    throw new UsernameNotFoundException("未获取到租户数据userId="+loginUser.getId());
+            List<GrantedTenant> grantedTenants = securityUserTenantService.retrieveUserTenantByUserId(loginUser.getId());
+            if (CollectionUtil.isNotEmpty(grantedTenants) && limitedTenantId != null) {
+                // 限定在已解析到的租户下
+                grantedTenants = grantedTenants.stream().filter(item -> limitedTenantId.equals(item.getId())).collect(Collectors.toList());
+                if (CollectionUtil.isEmpty(grantedTenants)) {
+                    throw new UsernameNotFoundException("未获取到租户数据 userId=" + loginUser.getId());
                 }
-                defaultTenantId = limitedTenantId;
             }
             loginUser.setTenants(grantedTenants);
-            if (CollectionUtil.isNotEmpty(grantedTenants)) {
-                // 默认使用第一个租户
-                GrantedTenant defaultFirstGrantedTenant = grantedTenants.iterator().next();
-                if (defaultTenantId != null) {
-                    Long finalDefaultTenantId = defaultTenantId;
-                    GrantedTenant first = grantedTenants.stream().filter(item -> finalDefaultTenantId.equals(item.getId())).findFirst().orElse(null);
-                    if (first == null) {
-                        log.warn("defaultTenantId has value but can not found grantedTenant, user default instead. defaultTenantId={}",defaultFirstGrantedTenant.getId());
-                        loginUser.setCurrentTenant(defaultFirstGrantedTenant);
-                    }else {
-                        loginUser.setCurrentTenant(first);
-                    }
-                }else {
-                    loginUser.setCurrentTenant(defaultFirstGrantedTenant);
-                }
-                // 如果已经解析租户，不再处理
-                if (iUserTenantChangeListeners != null) {
-                    for (IUserTenantChangeListener iUserTenantChangeListener : iUserTenantChangeListeners) {
-                        iUserTenantChangeListener.onTenantChanged(loginUser.getCurrentTenant(),null);
-                    }
-                }
+            if (limitedTenantId != null) {
+                defaultTenantId = limitedTenantId;
             }
+            loginUser.initTenants(defaultTenantId);
         }
+    }
+    /**
+     * 用户额外详细信息加载
+     * @param loginUser
+     */
+    public void loginUserDetailsFill(LoginUser loginUser,Long defaultRoleId) {
+
+        String clientIP = RequestTool.getClientRealIP(httpServletRequest);
+        loginUser.setLoginIp(clientIP);
+
         // 默认添加用户权限,注意该块代码的位置，不能在最后执行，否则可能导致角色等绑定的数据范围约束有误
         loginUser.addAuthority(UserGrantedAuthority.userGrantedAuthority);
 
         CountDownLatch countDownLatch = new CountDownLatch(3);
-        if (userAuthorityService != null) {
-            Long tenantId = TenantTool.getTenantId();
-            asynSlotTaskExecutor.execute(() -> {
-                try {
-                    TenantTool.setTenantId(tenantId);
-                    List<UserGrantedAuthority> list = userAuthorityService.retrieveUserAuthoritiesByUserId(loginUser);
-                    if (CollectionUtil.isNotEmpty(list)) {
-                        boolean superAdminRole = list.stream().anyMatch(item ->
-                                // 包括超级管理员编码或角色设置了超级管理员
-                                StrUtil.equals(LoginUser.super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
-                                        || Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getIsSuperadmin).orElse(false)
-                        );
-                        loginUser.setIsSuperAdmin(superAdminRole);
-
-                        boolean tenantsSuperAdminRole = list.stream().anyMatch(item ->
-                                StrUtil.equals(LoginUser.tenant_super_admin_role, Optional.ofNullable(item).map(UserGrantedAuthority::getGrantedPermissionRole).map(GrantedRole::getCode).orElse(null))
-                        );
-                        loginUser.setIsTenantSuperAdmin(tenantsSuperAdminRole);
-                    }
-                    // 在这个方法里面初始化默认选中的角色
-                    loginUser.addAuthority(list);
-                    if (roleDataConstraintService != null) {
-                        GrantedRole currentRole = loginUser.getCurrentRole();
-                        if (currentRole != null) {
-                            List<GrantedDataConstraint> grantedDataConstraints = roleDataConstraintService.retrieveRoleDataConstraintByRoleId(currentRole.getId());
-                            loginUser.setCurrentRoleBindDataConstraints(grantedDataConstraints);
-                        }
-                    }
-
-
-                } finally {
-                    countDownLatch.countDown();
-                    TenantTool.clear();
-
-                }
-            });
-
-        }else {
-            countDownLatch.countDown();
-        }
-
+        // 角色和权限
+        loginUserDetailsFillRoleAndAuthority(loginUser, countDownLatch,defaultRoleId);
         // 部门信息
-        if (userDeptService != null) {
-            asynSlotTaskExecutor.execute(() -> {
-                try {
-                    DeptInfo deptInfo = userDeptService.retrieveUserDeptInfoByUserId(loginUser.getId());
-                    loginUser.setDeptInfo(deptInfo);
-                } finally {
-                    countDownLatch.countDown();
-                }
-            });
-        }else {
-            countDownLatch.countDown();
-        }
-        if (loginUserExtPutServices != null) {
-            Long tenantId = TenantTool.getTenantId();
-            asynSlotTaskExecutor.execute(() -> {
-                try {
-                    TenantTool.setTenantId(tenantId);
-                    for (LoginUserExtPutService loginUserExtPutService : loginUserExtPutServices) {
-                        loginUserExtPutService.addExt(loginUser);
-                    }
-                } finally {
-                    countDownLatch.countDown();
-                    TenantTool.clear();
-                }
-            });
-        }else {
-            countDownLatch.countDown();
-        }
+        loginUserDetailsFillDept(loginUser, countDownLatch);
+        // 扩展信息
+        loginUserDetailsFillExt(loginUser, countDownLatch);
+
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
@@ -217,5 +134,86 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
         ThreadContextTool.put(login_loaded_user_in_threadcontext_key,loginUser);
 
     }
-    public abstract LoginUser doLoadUserByUsername(String username);
+    /**
+     * 登录用户信息填充 角色和权限
+     * @param loginUser
+     */
+    public void loginUserDetailsFillRoleAndAuthority(LoginUser loginUser,Long defaultRoleId) {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        loginUserDetailsFillRoleAndAuthority(loginUser, countDownLatch,defaultRoleId);
+    }
+
+    /**
+     * 登录用户信息填充 角色和权限
+     * @param loginUser
+     */
+    private void loginUserDetailsFillRoleAndAuthority(LoginUser loginUser,CountDownLatch countDownLatch,Long defaultRoleId) {
+        if (securityUserAuthorityService != null) {
+            Long tenantId = Optional.ofNullable(loginUser.getCurrentTenant()).map(tenant -> tenant.getId ()).orElse(null);
+            asynSlotTaskExecutor.execute(() -> {
+                try {
+                    TenantTool.setTenantId(tenantId);
+                    List<UserGrantedAuthority> list = securityUserAuthorityService.retrieveUserAuthoritiesByUserId(loginUser);
+                    // 在这个方法里面初始化默认选中的角色
+                    loginUser.addAuthority(list);
+                    loginUser.initRoles(defaultRoleId);
+                    if (securityRoleDataConstraintService != null) {
+                        GrantedRole currentRole = loginUser.getCurrentRole();
+                        if (currentRole != null) {
+                            List<GrantedDataConstraint> grantedDataConstraints = securityRoleDataConstraintService.retrieveRoleDataConstraintByRoleId(currentRole.getId());
+                            loginUser.setDataConstraints(grantedDataConstraints);
+                        }
+                    }
+                } finally {
+                    countDownLatch.countDown();
+                    TenantTool.clear();
+                }
+            });
+
+        }else {
+            countDownLatch.countDown();
+        }
+    }
+    /**
+     * 登录用户信息填充 部门信息
+     * @param loginUser
+     */
+    private void loginUserDetailsFillDept(LoginUser loginUser,CountDownLatch countDownLatch) {
+        // 部门信息
+        if (securityUserDeptService != null) {
+            asynSlotTaskExecutor.execute(() -> {
+                try {
+                    DeptInfo deptInfo = securityUserDeptService.retrieveUserDeptInfoByUserId(loginUser.getId());
+                    loginUser.setDeptInfo(deptInfo);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }else {
+            countDownLatch.countDown();
+        }
+    }
+    /**
+     * 登录用户信息填充 扩展信息
+     * @param loginUser
+     */
+    private void loginUserDetailsFillExt(LoginUser loginUser,CountDownLatch countDownLatch) {
+
+        if (loginUserExtPutServices != null) {
+            Long tenantId = com.particle.global.tool.tenant.TenantTool.getTenantId();
+            asynSlotTaskExecutor.execute(() -> {
+                try {
+                    com.particle.global.tool.tenant.TenantTool.setTenantId(tenantId);
+                    for (LoginUserExtPutService loginUserExtPutService : loginUserExtPutServices) {
+                        loginUserExtPutService.addExt(loginUser);
+                    }
+                } finally {
+                    countDownLatch.countDown();
+                    com.particle.global.tool.tenant.TenantTool.clear();
+                }
+            });
+        }else {
+            countDownLatch.countDown();
+        }
+    }
 }

@@ -7,7 +7,7 @@ import com.particle.data.domain.company.DataCompanyVcProductCompetitiveProductRe
 import com.particle.data.domain.company.DataCompanyVcProductCompetitiveProductRelId;
 import com.particle.data.domain.company.gateway.DataCompanyVcProductCompetitiveProductRelGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class NavigationSiteQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationSiteVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationSiteDO byId = iNavigationSiteService.getById(detailCommand.getId());
 		NavigationSiteVO navigationSiteVO = NavigationSiteAppStructMapping.instance.navigationSiteDOToNavigationSiteVO(byId);
 		return SingleResponse.of(navigationSiteVO);
@@ -67,7 +67,7 @@ public class NavigationSiteQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationSiteVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationSiteDO byId = iNavigationSiteService.getById(detailForUpdateCommand.getId());
 		NavigationSiteVO navigationSiteVO = NavigationSiteAppStructMapping.instance.navigationSiteDOToNavigationSiteVO(byId);
 		return SingleResponse.of(navigationSiteVO);

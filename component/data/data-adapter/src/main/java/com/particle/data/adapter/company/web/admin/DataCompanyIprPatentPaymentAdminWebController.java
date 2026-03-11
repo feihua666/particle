@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyIprPatentPaymentApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyIprPatentPaymentRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentPaymentCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentPaymentVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentPaymentUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentPaymentPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentPaymentQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业知识产权专利缴费信息后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyIprPatentPaymentAdminWebController extends AbstractBaseW
     @Operation(summary = "删除企业知识产权专利缴费信息")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业知识产权专利缴费信息",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyIprPatentPaymentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyIprPatentPaymentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyIprPatentPaymentApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyIprPatentPaymentAdminWebController extends AbstractBaseW
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprPatentPayment:update')")
     @Operation(summary = "企业知识产权专利缴费信息更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyIprPatentPaymentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyIprPatentPaymentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyIprPatentPaymentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprPatentPayment:detail')")
     @Operation(summary = "企业知识产权专利缴费信息详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyIprPatentPaymentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyIprPatentPaymentVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyIprPatentPaymentRepresentationApplicationService.queryDetail(detailCommand);
     }
 

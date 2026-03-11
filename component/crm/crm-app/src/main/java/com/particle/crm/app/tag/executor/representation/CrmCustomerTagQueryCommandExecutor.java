@@ -2,7 +2,7 @@ package com.particle.crm.app.tag.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.tag.structmapping.CrmCustomerTagAppStructMapping;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagPageQueryCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagQueryListCommand;
@@ -57,7 +57,7 @@ public class CrmCustomerTagQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerTagVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CrmCustomerTagVO> executeDetail(CommonIdCommand detailCommand) {
 		CrmCustomerTagDO byId = iCrmCustomerTagService.getById(detailCommand.getId());
 		CrmCustomerTagVO crmCustomerTagVO = CrmCustomerTagAppStructMapping.instance.crmCustomerTagDOToCrmCustomerTagVO(byId);
 		return SingleResponse.of(crmCustomerTagVO);
@@ -67,7 +67,7 @@ public class CrmCustomerTagQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerTagVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CrmCustomerTagVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CrmCustomerTagDO byId = iCrmCustomerTagService.getById(detailForUpdateCommand.getId());
 		CrmCustomerTagVO crmCustomerTagVO = CrmCustomerTagAppStructMapping.instance.crmCustomerTagDOToCrmCustomerTagVO(byId);
 		return SingleResponse.of(crmCustomerTagVO);

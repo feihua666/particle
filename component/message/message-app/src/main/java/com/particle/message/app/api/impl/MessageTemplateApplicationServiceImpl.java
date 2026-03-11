@@ -1,7 +1,7 @@
 package com.particle.message.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.message.app.executor.MessageTemplateCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class MessageTemplateApplicationServiceImpl extends AbstractBaseApplicati
 	}
 
 	@Override
-	public SingleResponse<MessageTemplateVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<MessageTemplateVO> delete(CommonIdCommand deleteCommand) {
 		return messageTemplateDeleteCommandExecutor.execute(deleteCommand);
 	}
 

@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyPersonCreateCommandExec
 import com.particle.data.app.company.executor.DataCompanyPersonDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyPersonUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyPersonCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyPersonUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyPersonApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyPersonCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyPersonWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyPersonExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyPersonApplicationServiceImpl extends AbstractBaseApplica
     }
 
     @Override
-    public SingleResponse<DataCompanyPersonVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyPersonVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyPersonDeleteCommandExecutor.execute(deleteCommand);
     }
 

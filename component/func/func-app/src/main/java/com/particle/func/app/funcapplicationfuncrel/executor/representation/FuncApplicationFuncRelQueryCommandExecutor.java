@@ -2,7 +2,7 @@ package com.particle.func.app.funcapplicationfuncrel.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.funcapplicationfuncrel.structmapping.FuncApplicationFuncRelAppStructMapping;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelPageQueryCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelQueryListCommand;
@@ -58,7 +58,7 @@ public class FuncApplicationFuncRelQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationFuncRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<FuncApplicationFuncRelVO> executeDetail(CommonIdCommand detailCommand) {
 		FuncApplicationFuncRelDO byId = iFuncApplicationFuncRelService.getById(detailCommand.getId());
 		FuncApplicationFuncRelVO funcApplicationFuncRelVO = FuncApplicationFuncRelAppStructMapping.instance.funcApplicationFuncRelDOToFuncApplicationFuncRelVO(byId);
 		return SingleResponse.of(funcApplicationFuncRelVO);
@@ -68,7 +68,7 @@ public class FuncApplicationFuncRelQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationFuncRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<FuncApplicationFuncRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		FuncApplicationFuncRelDO byId = iFuncApplicationFuncRelService.getById(detailForUpdateCommand.getId());
 		FuncApplicationFuncRelVO funcApplicationFuncRelVO = FuncApplicationFuncRelAppStructMapping.instance.funcApplicationFuncRelDOToFuncApplicationFuncRelVO(byId);
 		return SingleResponse.of(funcApplicationFuncRelVO);
@@ -78,13 +78,13 @@ public class FuncApplicationFuncRelQueryCommandExecutor  extends AbstractBaseQue
 
 	/**
 	 * 查询功能已分配的功能应用菜单ids
-	 * @param funcApplicationIdCommand
+	 * @param funcApplicationCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByFuncApplicationId(@Valid IdCommand funcApplicationIdCommand) {
+	public MultiResponse<Long> queryFuncIdsByFuncApplicationId(@Valid CommonIdCommand funcApplicationCommonIdCommand) {
 
 		FuncApplicationFuncRelQueryListCommand funcApplicationFuncRelQueryListCommand = new FuncApplicationFuncRelQueryListCommand();
-		funcApplicationFuncRelQueryListCommand.setFuncApplicationId(funcApplicationIdCommand.getId());
+		funcApplicationFuncRelQueryListCommand.setFuncApplicationId(funcApplicationCommonIdCommand.getId());
 		MultiResponse<FuncApplicationFuncRelVO> funcApplicationFuncRelVOMultiResponse = execute(funcApplicationFuncRelQueryListCommand);
 		if(funcApplicationFuncRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = funcApplicationFuncRelVOMultiResponse.getData().stream().map(FuncApplicationFuncRelVO::getFuncId).collect(Collectors.toList());
@@ -94,13 +94,13 @@ public class FuncApplicationFuncRelQueryCommandExecutor  extends AbstractBaseQue
 	}
 	/**
 	 * 查询功能应用已分配的功能ids
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(@Valid IdCommand funcIdCommand) {
+	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(@Valid CommonIdCommand funcCommonIdCommand) {
 
 		FuncApplicationFuncRelQueryListCommand funcApplicationFuncRelQueryListCommand = new FuncApplicationFuncRelQueryListCommand();
-		funcApplicationFuncRelQueryListCommand.setFuncApplicationId(funcIdCommand.getId());
+		funcApplicationFuncRelQueryListCommand.setFuncApplicationId(funcCommonIdCommand.getId());
 		MultiResponse<FuncApplicationFuncRelVO> funcApplicationFuncRelVOMultiResponse = execute(funcApplicationFuncRelQueryListCommand);
 		if(funcApplicationFuncRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = funcApplicationFuncRelVOMultiResponse.getData().stream().map(FuncApplicationFuncRelVO::getFuncApplicationId).collect(Collectors.toList());

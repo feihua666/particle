@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.openapi.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.openapi.structmapping.OpenplatformOpenapiBatchQueryRecordDetailAppStructMapping;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiBatchQueryRecordDetailVO;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapiBatchQueryRecordDetail;
@@ -36,7 +36,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailDeleteCommandExecutor  ext
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformOpenapiBatchQueryRecordDetailId openplatformOpenapiBatchQueryRecordDetailId = OpenplatformOpenapiBatchQueryRecordDetailId.of(deleteCommand.getId());
 		OpenplatformOpenapiBatchQueryRecordDetail byId = openplatformOpenapiBatchQueryRecordDetailGateway.getById(openplatformOpenapiBatchQueryRecordDetailId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

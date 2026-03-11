@@ -1,8 +1,13 @@
 package com.particle.role.adapter.feign.client.rpc;
 
+import cn.hutool.core.util.StrUtil;
+import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.component.light.share.role.RoleTransVO;
+import com.particle.global.trans.result.TransResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,6 +19,32 @@ import java.util.List;
  * @author yw
  * @since 2022-07-19
  */
-@FeignClient(name = "${particle.feign-client.name.role:role}",path = "/rpc/role/mt")
+@FeignClient(name = "${particle.feign-client.role.name:role-start}", contextId = "roleMultipleTransRpcFeignClient", url = "${particle.feign-client.role.url:}", path = "/rpc/role/mt")
 public interface RoleMultipleTransRpcFeignClient extends ITransService<List<RoleTransVO>,Long> {
+    /**
+     * 通用支持
+     * @param type
+     * @return
+     */
+    public static boolean supportCommon(String type) {
+        return StrUtil.containsAny(type, TransConstants.TRANS_ROLE_BY_USER_ID);
+    }
+
+
+    @Override
+    default public boolean support(String type) {
+        return false;
+    }
+
+
+    @Override
+    default public boolean supportBatch(String type) {
+        return supportCommon(type);
+    }
+
+    @GetMapping("/trans/trans")
+    @Override
+    default public TransResult<List<RoleTransVO>, Long> trans(@RequestParam String type, @RequestParam Long key) {
+        return null;
+    }
 }

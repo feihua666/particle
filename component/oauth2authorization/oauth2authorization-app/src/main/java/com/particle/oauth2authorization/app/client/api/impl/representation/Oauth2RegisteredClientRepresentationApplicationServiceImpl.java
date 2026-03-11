@@ -1,7 +1,7 @@
 package com.particle.oauth2authorization.app.client.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class Oauth2RegisteredClientRepresentationApplicationServiceImpl extends 
     private Oauth2RegisteredClientQueryCommandExecutor oauth2RegisteredClientQueryCommandExecutor;
 
     @Override
-    public SingleResponse<Oauth2RegisteredClientVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<Oauth2RegisteredClientVO> queryDetail(CommonIdCommand detailCommand) {
         return oauth2RegisteredClientQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<Oauth2RegisteredClientVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<Oauth2RegisteredClientVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return oauth2RegisteredClientQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

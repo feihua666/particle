@@ -16,4 +16,4 @@ CREATE TABLE `component_cms_site_index_view_record` (
   KEY `cms_site_id` (`cms_site_id`) USING BTREE,
   KEY `device_id` (`device_id`) USING BTREE,
   KEY `ip` (`ip`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='站点首页访问记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='站点首页访问记录表';

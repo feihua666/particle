@@ -1,7 +1,7 @@
 package com.particle.oauth2authorization.app.client.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oauth2authorization.app.client.executor.Oauth2RegisteredClientCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class Oauth2RegisteredClientApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public SingleResponse<Oauth2RegisteredClientVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<Oauth2RegisteredClientVO> delete(CommonIdCommand deleteCommand) {
 		return oauth2RegisteredClientDeleteCommandExecutor.execute(deleteCommand);
 	}
 

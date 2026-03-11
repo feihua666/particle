@@ -8,7 +8,7 @@ import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
 import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.tool.json.JsonTool;
 import jakarta.servlet.FilterChain;

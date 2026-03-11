@@ -1,21 +1,19 @@
 package com.particle.cms.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.cms.app.structmapping.CmsChannelAppStructMapping;
 import com.particle.cms.client.dto.data.CmsChannelVO;
 import com.particle.cms.domain.CmsChannel;
 import com.particle.cms.domain.CmsChannelId;
 import com.particle.cms.domain.gateway.CmsChannelGateway;
 import com.particle.cms.infrastructure.service.ICmsChannelService;
-import com.particle.cms.infrastructure.dos.CmsChannelDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class CmsChannelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<CmsChannelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<CmsChannelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		CmsChannelId cmsChannelId = CmsChannelId.of(deleteCommand.getId());
 		CmsChannel byId = cmsChannelGateway.getById(cmsChannelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

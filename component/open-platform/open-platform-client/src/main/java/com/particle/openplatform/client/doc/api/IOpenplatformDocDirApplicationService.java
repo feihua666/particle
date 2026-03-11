@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.doc.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocDirCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocDirUpdateCommand;
@@ -28,7 +28,7 @@ public interface IOpenplatformDocDirApplicationService extends IBaseApplicationS
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformDocDirVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformDocDirVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

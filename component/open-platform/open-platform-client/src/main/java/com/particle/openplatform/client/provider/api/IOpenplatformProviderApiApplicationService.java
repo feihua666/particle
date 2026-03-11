@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.provider.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.provider.dto.command.OpenplatformProviderApiCreateCommand;
 import com.particle.openplatform.client.provider.dto.command.OpenplatformProviderApiUpdateCommand;
@@ -27,7 +27,7 @@ public interface IOpenplatformProviderApiApplicationService extends IBaseApplica
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformProviderApiVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformProviderApiVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

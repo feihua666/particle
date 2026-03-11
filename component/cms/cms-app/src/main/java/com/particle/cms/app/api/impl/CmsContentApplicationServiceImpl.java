@@ -4,20 +4,20 @@ import com.particle.cms.app.executor.CmsContentCreateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentDeleteCommandExecutor;
 import com.particle.cms.app.executor.CmsContentUpdateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentCommandExecutor;
-import com.particle.cms.client.dto.command.CmsContentPublicCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonAuditCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.cms.client.dto.command.CmsContentUpdateCommand;
 import com.particle.cms.client.api.ICmsContentApplicationService;
 import com.particle.cms.client.dto.command.CmsContentCreateCommand;
 import com.particle.cms.client.dto.data.CmsContentVO;
 
 
+import com.particle.common.client.dto.command.CommonPublicCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -47,7 +47,7 @@ public class CmsContentApplicationServiceImpl extends AbstractBaseApplicationSer
     }
 
     @Override
-    public SingleResponse<CmsContentVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<CmsContentVO> delete(CommonIdCommand deleteCommand) {
         return cmsContentDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -57,8 +57,13 @@ public class CmsContentApplicationServiceImpl extends AbstractBaseApplicationSer
     }
 
     @Override
-    public SingleResponse<CmsContentVO> publish(CmsContentPublicCommand cmsContentPublicCommand) {
+    public SingleResponse<CmsContentVO> publish(CommonPublicCommand cmsContentPublicCommand) {
         return cmsContentUpdateCommandExecutor.publish(cmsContentPublicCommand);
+    }
+
+    @Override
+    public SingleResponse<CmsContentVO> audit(CommonAuditCommand commonAuditCommand) {
+        return cmsContentUpdateCommandExecutor.audit(commonAuditCommand);
     }
 
 

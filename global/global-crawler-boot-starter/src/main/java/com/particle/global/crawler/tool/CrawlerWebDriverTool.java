@@ -117,7 +117,47 @@ public class CrawlerWebDriverTool {
      * @param locator
      * @return
      */
-    public static WebElement findElement(FirefoxDriver driver, By locator) {
+    public static List<WebElement> findElements(WebDriver driver, By locator) {
+        long start = System.currentTimeMillis();
+        List<WebElement> elements = null;
+        try {
+            elements = driver.findElements(locator);
+        } catch (Exception e) {
+            log.error("findElementsByCssSelector error,cssSelector={}",locator.toString(),e);
+            return  null;
+        }finally {
+            long end = System.currentTimeMillis();
+            log.error("findElementsByCssSelector time={}ms,cssSelector={}",end-start,locator.toString());
+        }
+        return elements;
+    }
+    /**
+     * 通过cssSelector获取元素
+     * @param driver
+     * @param locator
+     * @return
+     */
+    public static WebElement findElement(WebDriver driver, By locator) {
+        long start = System.currentTimeMillis();
+        WebElement element = null;
+        try {
+            element = driver.findElement(locator);
+        } catch (Exception e) {
+            log.error("findElementByCssSelector error,cssSelector={}",locator.toString(),e);
+            return  null;
+        }finally {
+            long end = System.currentTimeMillis();
+            log.error("findElementByCssSelector time={}ms,cssSelector={}",end-start,locator.toString());
+        }
+        return element;
+    }
+    /**
+     * 通过cssSelector获取元素
+     * @param driver
+     * @param locator
+     * @return
+     */
+    public static WebElement findElement(WebElement driver, By locator) {
         long start = System.currentTimeMillis();
         WebElement element = null;
         try {
@@ -153,33 +193,17 @@ public class CrawlerWebDriverTool {
             ChromeDriver driver = new ChromeDriver(chromeOptions);
             return driver;
         }
-        /**
-         * 新建chrome选项
-         * @return
-         */
-        public static ChromeOptions newOptions() {
-            return new ChromeOptions();
-        }
 
         /**
-         * 反检测配置
-         * 返爬虫反检测配置，适用于简单返爬虫场景
+         * 新建chrome选项
+         * 真实的路径 浏览器输入 chrome://version/ 查看
          * @param userDataDir 用户数据目录建议使用真实的路径 如：/Users/xxx/Library/Application Support/Google/Chrome
          * @param profileDir 用户数据目录建议使用真实的路径，如：Default
          * @param userAgent 浏览器UA
          * @return
          */
-        public static ChromeOptions antiDetectOptions(String userDataDir,String profileDir,String userAgent) {
+        public static ChromeOptions newOptions(String userDataDir,String profileDir,String userAgent) {
             ChromeOptions options = new ChromeOptions();
-
-            // ===== 基础稳定性 =====
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--disable-gpu");
-
-            // ===== 拟人化 =====
-            options.addArguments("--start-maximized");
-            options.addArguments("--lang=zh-CN");
 
             // 使用真实用户数据目录（非常重要）
             if (StrUtil.isNotEmpty(userDataDir)) {
@@ -189,24 +213,18 @@ public class CrawlerWebDriverTool {
             if (StrUtil.isNotEmpty(profileDir)) {
                 options.addArguments("--profile-directory=" + profileDir);
             }
-            // ===== 反自动化标识 =====
-            options.addArguments("--disable-blink-features=AutomationControlled");
 
             // User-Agent（与你 Test.chromeAgent 保持一致）
             if (StrUtil.isNotEmpty(userAgent)) {
                 options.addArguments("--user-agent=" + userAgent);
             }
 
-            // ===== 实验性 =====
-            options.setExperimentalOption("useAutomationExtension", false);
-            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-
             return options;
         }
 
         /**
          * 注入反检测脚本
-         * 必须在 driver.get(url) 之前调用
+         * 必须在 driver.get(url) 之后调用
          * @param driver
          */
         public static void injectAntiDetectJS(WebDriver driver) {
@@ -215,46 +233,6 @@ public class CrawlerWebDriverTool {
             // webdriver
             js.executeScript(
                     "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
-            );
-
-            // chrome
-            js.executeScript(
-                    "window.navigator.chrome = { runtime: {} };"
-            );
-
-            // plugins
-            js.executeScript(
-                    "Object.defineProperty(navigator, 'plugins', {get: () => [1,2,3,4,5]});"
-            );
-
-            // languages
-            js.executeScript(
-                    "Object.defineProperty(navigator, 'languages', {get: () => ['zh-CN','zh','en-US']});"
-            );
-
-            // permissions
-            js.executeScript(
-                    "const originalQuery = navigator.permissions.query;" +
-                            "navigator.permissions.query = (parameters) => (" +
-                            " parameters.name === 'notifications' ?" +
-                            " Promise.resolve({ state: Notification.permission }) :" +
-                            " originalQuery(parameters)" +
-                            ");"
-            );
-
-            // WebGL 指纹（重要）
-            js.executeScript(
-                    "const getParameter = WebGLRenderingContext.prototype.getParameter;" +
-                            "WebGLRenderingContext.prototype.getParameter = function(parameter) {" +
-                            " if (parameter === 37445) return 'Intel Inc.';" +
-                            " if (parameter === 37446) return 'Intel Iris OpenGL Engine';" +
-                            " return getParameter.call(this, parameter);" +
-                            "};"
-            );
-
-            // hairline fix（部分站点）
-            js.executeScript(
-                    "Object.defineProperty(screen, 'availTop', {get: () => 0});"
             );
         }
 
@@ -266,14 +244,35 @@ public class CrawlerWebDriverTool {
     public static class Firefox{
         /**
          * 初始化Selenium WebDriver
+         *
+         * 关于窗口最大化：
+         * 当你 使用固定 profile 时：
+         * Firefox 会记住上一次窗口状态
+         * 如果上次不是最大化,本次也不是
+         * <code>
+         *     WebDriver driver = new FirefoxDriver(options);
+         *     driver.manage().window().maximize();
+         * </code>
          */
-        public static FirefoxDriver setUpDriver(String path,FirefoxOptions chromeOptions) {
+        public static FirefoxDriver setUpDriver(String path,FirefoxOptions firefoxOptions) {
             System.setProperty("webdriver.gecko.driver", path);
-            FirefoxDriver driver = new FirefoxDriver(chromeOptions);
+            FirefoxDriver driver = new FirefoxDriver(firefoxOptions);
             return driver;
         }
         /**
          * 新建chrome选项
+         *
+         * 注意：options.setProfile(...) 本质上还是 FirefoxProfile 对象
+         * 这就是你“每次登录都丢”的根因
+         *
+         * 唯一可靠方式：-profile <真实路径>
+         *  <code>
+         *      FirefoxOptions options = new FirefoxOptions();
+         *      options.addArguments("-profile");
+         *      options.addArguments("/absolute/path/to/your/profile");
+         *
+         *       WebDriver driver = new FirefoxDriver(options);
+         *  </code>
          * @return
          */
         public static FirefoxOptions newOptions(FirefoxProfile profile) {
@@ -286,6 +285,12 @@ public class CrawlerWebDriverTool {
 
         /**
          * 新建 firefox profile 配置
+         *
+         * 浏览器 输入 about:support 查看 profile 路径
+         *
+         * 注意：使用 FirefoxProfile 对象（99% 的坑）
+         * 官方原话（简化版）：FirefoxProfile is copied to a temporary directory before use
+         * 这就是你“每次登录都丢”的根因
          * @param profileDir
          * @param userAgent
          * @return
@@ -306,64 +311,16 @@ public class CrawlerWebDriverTool {
         }
         /**
          * Firefox 专用反检测脚本注入
-         * 必须在 driver.get(url) 之前调用
+         * 必须在 driver.get(url) 之后调用
          */
         public static void injectAntiDetectJSForFirefox(WebDriver driver) {
             JavascriptExecutor js = (JavascriptExecutor) driver;
 
-            // ===== webdriver =====
+            // 经测试，在打开页面后调用，在网页控制台中访问 window.navigator.webdriver 返回 undefined，如果不调用这个注入会返回 true
             js.executeScript(
                     "Object.defineProperty(navigator, 'webdriver', {" +
                             "  get: () => undefined" +
                             "});"
-            );
-
-            // ===== languages =====
-            js.executeScript(
-                    "Object.defineProperty(navigator, 'languages', {" +
-                            "  get: () => ['zh-CN', 'zh', 'en-US']" +
-                            "});"
-            );
-
-            // ===== plugins（Firefox 本身不暴露真实插件列表）=====
-            js.executeScript(
-                    "Object.defineProperty(navigator, 'plugins', {" +
-                            "  get: () => [1, 2, 3]" +
-                            "});"
-            );
-
-            // ===== permissions.query（Firefox 安全写法）=====
-            js.executeScript(
-                    "const originalQuery = navigator.permissions.query.bind(navigator.permissions);" +
-                            "navigator.permissions.query = (parameters) => {" +
-                            "  if (parameters && parameters.name === 'notifications') {" +
-                            "    return Promise.resolve({ state: Notification.permission });" +
-                            "  }" +
-                            "  return originalQuery(parameters);" +
-                            "};"
-            );
-
-            // ===== WebGL 指纹（Firefox 必修）=====
-            js.executeScript(
-                    "const getParameter = WebGLRenderingContext.prototype.getParameter;" +
-                            "WebGLRenderingContext.prototype.getParameter = function(parameter) {" +
-                            "  if (parameter === 37445) return 'Mozilla';" +   // UNMASKED_VENDOR_WEBGL
-                            "  if (parameter === 37446) return 'Mozilla GPU';" + // UNMASKED_RENDERER_WEBGL
-                            "  return getParameter.call(this, parameter);" +
-                            "};"
-            );
-
-            // ===== timezone 偏差（Firefox 常被查）=====
-            js.executeScript(
-                    "Object.defineProperty(Intl.DateTimeFormat().resolvedOptions(), 'timeZone', {" +
-                            "  get: () => 'Asia/Shanghai'" +
-                            "});"
-            );
-
-            // ===== screen 修正（防 headless）=====
-            js.executeScript(
-                    "Object.defineProperty(screen, 'availTop', { get: () => 0 });" +
-                            "Object.defineProperty(screen, 'availLeft', { get: () => 0 });"
             );
         }
 

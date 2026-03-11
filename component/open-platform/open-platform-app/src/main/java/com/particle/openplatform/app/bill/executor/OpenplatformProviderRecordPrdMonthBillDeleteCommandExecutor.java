@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.bill.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.bill.structmapping.OpenplatformProviderRecordPrdMonthBillAppStructMapping;
 import com.particle.openplatform.client.bill.dto.data.OpenplatformProviderRecordPrdMonthBillVO;
 import com.particle.openplatform.domain.bill.OpenplatformProviderRecordPrdMonthBill;
@@ -36,7 +36,7 @@ public class OpenplatformProviderRecordPrdMonthBillDeleteCommandExecutor  extend
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformProviderRecordPrdMonthBillId openplatformProviderRecordPrdMonthBillId = OpenplatformProviderRecordPrdMonthBillId.of(deleteCommand.getId());
 		OpenplatformProviderRecordPrdMonthBill byId = openplatformProviderRecordPrdMonthBillGateway.getById(openplatformProviderRecordPrdMonthBillId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

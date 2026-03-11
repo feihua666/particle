@@ -702,7 +702,7 @@ public interface IBaseService<DO> extends IService<DO> {
                     }else if (queryNull.nullsOrEmpty()) {
                         ((AbstractWrapper) queryWrapper).nested(wq -> {
                             ((AbstractWrapper) wq).isNull(StringTool.humpToLine(queryNullValue));
-                            ((AbstractWrapper) ((AbstractWrapper) queryWrapper).or()).eq(StringTool.humpToLine(queryNullValue), "");
+                            ((AbstractWrapper) ((AbstractWrapper) wq).or()).eq(StringTool.humpToLine(queryNullValue), "");
                         });
                     }
                     setObjectValueNull(queryWrapper.getEntity(), queryNullValue);

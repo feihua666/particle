@@ -1,7 +1,7 @@
 package com.particle.oplog.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.app.executor.OpLogAuditDataCreateCommandExecutor;
@@ -36,7 +36,7 @@ public class OpLogAuditDataApplicationServiceImpl extends AbstractBaseApplicatio
     }
 
     @Override
-	public SingleResponse<OpLogAuditDataVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpLogAuditDataVO> delete(CommonIdCommand deleteCommand) {
 		return opLogAuditDataDeleteCommandExecutor.execute(deleteCommand);
 	}
 

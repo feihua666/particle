@@ -1,7 +1,7 @@
 package com.particle.dict.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dict.app.executor.DictCreateCommandExecutor;
 import com.particle.dict.app.executor.DictDeleteCommandExecutor;
 import com.particle.dict.app.executor.DictUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class DictApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<DictVO> delete(IdCommand dictDeleteCommand) {
+	public SingleResponse<DictVO> delete(CommonIdCommand dictDeleteCommand) {
 		return dictDeleteCommandExecutor.execute(dictDeleteCommand);
 	}
 	@Override

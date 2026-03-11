@@ -4,7 +4,7 @@ import com.particle.area.client.dto.command.AreaCreateCommand;
 import com.particle.area.client.dto.command.AreaUpdateCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 
 /**
@@ -28,7 +28,7 @@ public interface IAreaApplicationService extends IBaseApplicationService {
 	 * @param areaDeleteCommand
 	 * @return
 	 */
-	SingleResponse<AreaVO> delete(IdCommand areaDeleteCommand);
+	SingleResponse<AreaVO> delete(CommonIdCommand areaDeleteCommand);
 
 	/**
 	 * 更新领域对象

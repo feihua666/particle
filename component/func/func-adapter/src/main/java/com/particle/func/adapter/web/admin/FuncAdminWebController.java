@@ -1,7 +1,7 @@
 package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.api.IFuncApplicationService;
@@ -54,7 +54,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除菜单功能")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public SingleResponse<FuncVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<FuncVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_func_func, DataConstraintContext.Action.delete.name());
 		return iFuncApplicationService.delete(deleteCommand);
 	}
@@ -71,14 +71,14 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:func:update')")
 	@Operation(summary = "菜单功能更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<FuncVO> queryDetailForUpdate(IdCommand funcQueryDetailForUpdateCommand){
+	public SingleResponse<FuncVO> queryDetailForUpdate(CommonIdCommand funcQueryDetailForUpdateCommand){
 		return iFuncRepresentationApplicationService.queryDetailForUpdate(funcQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:func:detail')")
 	@Operation(summary = "菜单功能详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncVO> queryDetail(IdCommand funcQueryDetailCommand){
+	public SingleResponse<FuncVO> queryDetail(CommonIdCommand funcQueryDetailCommand){
 		return iFuncRepresentationApplicationService.queryDetail(funcQueryDetailCommand);
 	}
 
@@ -114,7 +114,7 @@ public class FuncAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "复制菜单功能")
 	@PostMapping("/copy")
 	@OpLog(name = "复制菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.create)
-	public SingleResponse<FuncVO> copy(@RequestBody IdCommand copyCommand){
+	public SingleResponse<FuncVO> copy(@RequestBody CommonIdCommand copyCommand){
 		return iFuncApplicationService.copy(copyCommand);
 	}
 }

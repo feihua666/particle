@@ -1,7 +1,7 @@
 package com.particle.dept.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.structmapping.DeptAppStructMapping;
 import com.particle.dept.client.dto.data.DeptVO;
 import com.particle.dept.domain.Dept;
@@ -9,7 +9,7 @@ import com.particle.dept.domain.DeptId;
 import com.particle.dept.domain.gateway.DeptGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DeptDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DeptVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DeptVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DeptId deptId = DeptId.of(deleteCommand.getId());
 		Dept byId = deptGateway.getById(deptId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

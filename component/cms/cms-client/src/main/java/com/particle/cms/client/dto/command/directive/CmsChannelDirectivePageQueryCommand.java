@@ -19,13 +19,25 @@ public class CmsChannelDirectivePageQueryCommand extends CmsDirectivePageQueryCo
     @Schema(description = "栏目id")
     private Long id;
 
+    private Boolean isChannelIdNull;
+
     @Schema(description = "站点id")
     private Long cmsSiteId;
+
+    @Schema(description = "树深度等级")
+    private Integer level;
+
+
+    @Schema(description = "是否发布")
+    private Boolean isPublic;
+
 
 
     public static CmsChannelDirectivePageQueryCommand create(CmsDirectivePageQueryCommand pageQueryCommand,
                                                              Long id,
                                                              Long cmsSiteId,
+                                                             Integer level,
+                                                             Boolean isPublic,
                                                              Long parentId) {
         CmsChannelDirectivePageQueryCommand cmsSiteDirectivePageQueryCommand = new CmsChannelDirectivePageQueryCommand();
         cmsSiteDirectivePageQueryCommand.setIsPage(pageQueryCommand.getIsPage());
@@ -36,6 +48,8 @@ public class CmsChannelDirectivePageQueryCommand extends CmsDirectivePageQueryCo
 
         cmsSiteDirectivePageQueryCommand.setId(id);
         cmsSiteDirectivePageQueryCommand.setCmsSiteId(cmsSiteId);
+        cmsSiteDirectivePageQueryCommand.setLevel(level);
+        cmsSiteDirectivePageQueryCommand.setIsPublic(isPublic);
         cmsSiteDirectivePageQueryCommand.setParentId(parentId);
         return cmsSiteDirectivePageQueryCommand;
     }

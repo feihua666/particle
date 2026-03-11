@@ -1,7 +1,7 @@
 package com.particle.dream.adapter.ssq.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dream.client.ssq.api.ISsqCodeApplicationService;
 import com.particle.dream.client.ssq.api.representation.ISsqCodeRepresentationApplicationService;
@@ -42,7 +42,7 @@ public class SsqCodeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCode:detail')")
 	@Operation(summary = "双色球号码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<SsqCodeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<SsqCodeVO> queryDetail(CommonIdCommand detailCommand){
 		return iSsqCodeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

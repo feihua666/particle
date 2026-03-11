@@ -7,9 +7,9 @@ import com.particle.agi.domain.gateway.AgiEmbeddingGateway;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocumentSegment;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocumentSegmentId;
 import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentSegmentGateway;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -51,7 +51,7 @@ public class AgiVectorStoreRawDocumentSegmentUpdateCommandExecutor  extends Abst
 			// 修改成功后，删除已嵌入的向量数据
 			agiEmbeddingGateway.deleteEmbeddingDataById(agiVectorStoreRawDocumentSegment.getId().getId().toString());
 			// 将文档嵌入状态更新
-			agiVectorStoreRawDocumentUpdateCommandExecutor.updateEmbedStatus(IdCommand.create(agiVectorStoreRawDocumentSegment.getAgiVectorStoreRawDocumentId()));
+			agiVectorStoreRawDocumentUpdateCommandExecutor.updateEmbedStatus(CommonIdCommand.create(agiVectorStoreRawDocumentSegment.getAgiVectorStoreRawDocumentId()));
 			return SingleResponse.of(AgiVectorStoreRawDocumentSegmentAppStructMapping.instance.toAgiVectorStoreRawDocumentSegmentVO(agiVectorStoreRawDocumentSegment));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);

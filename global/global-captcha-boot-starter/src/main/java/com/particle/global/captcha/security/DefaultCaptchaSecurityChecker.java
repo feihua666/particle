@@ -22,7 +22,7 @@ import java.util.Objects;
  * @since 2023/12/15 13:30
  */
 @Data
-@ConfigurationProperties(prefix = "particle.captcha.filter.check")
+@ConfigurationProperties(prefix = "particle.global.captcha.filter.check")
 public class DefaultCaptchaSecurityChecker implements ICaptchaSecurityCheck{
 
     private List<String> noCaptchaLoginUsernames;

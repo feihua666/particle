@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyIprTrademarkApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyIprTrademarkRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业知识产权商标后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyIprTrademarkAdminWebController extends AbstractBaseWebAd
     @Operation(summary = "删除企业知识产权商标")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业知识产权商标",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyIprTrademarkVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyIprTrademarkVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyIprTrademarkApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyIprTrademarkAdminWebController extends AbstractBaseWebAd
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprTrademark:update')")
     @Operation(summary = "企业知识产权商标更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyIprTrademarkVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyIprTrademarkVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyIprTrademarkRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprTrademark:detail')")
     @Operation(summary = "企业知识产权商标详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyIprTrademarkVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyIprTrademarkVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyIprTrademarkRepresentationApplicationService.queryDetail(detailCommand);
     }
 

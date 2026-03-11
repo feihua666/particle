@@ -8,7 +8,7 @@ import com.particle.func.domain.application.FuncApplication;
 import com.particle.func.domain.application.FuncApplicationId;
 import com.particle.func.domain.application.gateway.FuncApplicationGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

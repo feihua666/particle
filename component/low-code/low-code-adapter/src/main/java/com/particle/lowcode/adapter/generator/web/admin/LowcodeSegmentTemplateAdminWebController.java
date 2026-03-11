@@ -1,7 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -53,7 +53,7 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除低代码片段模板")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码片段模板",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
-	public SingleResponse<LowcodeSegmentTemplateVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<LowcodeSegmentTemplateVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iLowcodeSegmentTemplateApplicationService.delete(deleteCommand);
 	}
 
@@ -68,14 +68,14 @@ public class LowcodeSegmentTemplateAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:update')")
 	@Operation(summary = "低代码片段模板更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<LowcodeSegmentTemplateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<LowcodeSegmentTemplateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iLowcodeSegmentTemplateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeSegmentTemplate:detail')")
 	@Operation(summary = "低代码片段模板详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<LowcodeSegmentTemplateVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<LowcodeSegmentTemplateVO> queryDetail(CommonIdCommand detailCommand){
 		return iLowcodeSegmentTemplateRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

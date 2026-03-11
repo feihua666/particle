@@ -1,18 +1,13 @@
 package com.particle.user.adapter.login;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.captcha.endpoint.CaptchaVerifyCommand;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.security.security.config.WebSecurityConfig;
-import com.particle.global.security.security.login.AbstractUserDetailsService;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.GrantedTenant;
-import com.particle.global.security.tenant.ITenantResolveService;
 import com.particle.user.app.login.structmapping.UserLoginDeviceAppStructMapping;
 import com.particle.user.app.login.structmapping.UserLoginRecordAppStructMapping;
 import com.particle.user.client.api.IUserApplicationService;
@@ -33,7 +28,6 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -47,7 +41,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -158,47 +151,6 @@ public class UserLoginController {
 	public SingleResponse<LoginUser> info(@Parameter(hidden = true) LoginUser loginUser) {
 		return SingleResponse.of(loginUser);
 	}
-
-
-	@Autowired
-	private AbstractUserDetailsService abstractUserDetailsService;
-
-	@Autowired(required = false)
-	private ITenantResolveService iTenantResolveService;
-
-
-	@Operation(summary = "切换当前登录用户租户")
-	@PreAuthorize("hasAuthority('user')")
-	@PostMapping("/changeTenant")
-	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeTenant(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser, HttpServletRequest httpServletRequest) {
-
-		loginUser.clearUserGrantedAuthorities();
-        GrantedTenant grantedTenant = null;
-        if (iTenantResolveService != null) {
-            grantedTenant = iTenantResolveService.resolveGrantedTenant(httpServletRequest,false);
-        }
-
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, idCommand.getId(), Optional.ofNullable(grantedTenant).map(GrantedTenant::getId).orElse(null));
-		// 需要刷新一下权限，否则权限不会生效
-		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
-		return SingleResponse.of(loginUser);
-	}
-
-	@Operation(summary = "切换当前登录用户角色")
-	@PreAuthorize("hasAuthority('user')")
-	@PostMapping("/changeRole")
-	@ResponseStatus(HttpStatus.OK)
-	public SingleResponse<LoginUser> changeRole(@Valid @RequestBody IdCommand idCommand, @Parameter(hidden = true) LoginUser loginUser) {
-
-		loginUser.changeRole(idCommand.getId());
-		abstractUserDetailsService.loginUserDetailsFill(loginUser, Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null), Optional.ofNullable(loginUser.getCurrentTenant()).map(GrantedTenant::getId).orElse(null));
-
-		// 需要刷新一下权限，否则权限不会生效
-		LoginUserTool.refreshAuthorities(loginUser.getAuthorities());
-		return SingleResponse.of(loginUser);
-	}
-
 
 	@Operation(summary = "获取当前登录用户的登录记录")
 	@PreAuthorize("hasAuthority('user')")

@@ -1,7 +1,7 @@
 package com.particle.crm.app.relation.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.relation.structmapping.CrmCustomerRelationAppStructMapping;
 import com.particle.crm.client.relation.dto.data.CrmCustomerRelationVO;
 import com.particle.crm.domain.relation.CrmCustomerRelation;
@@ -9,7 +9,7 @@ import com.particle.crm.domain.relation.CrmCustomerRelationId;
 import com.particle.crm.domain.relation.gateway.CrmCustomerRelationGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class CrmCustomerRelationDeleteCommandExecutor  extends AbstractBaseExecu
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerRelationVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<CrmCustomerRelationVO> execute(@Valid CommonIdCommand deleteCommand) {
 		CrmCustomerRelationId crmCustomerRelationId = CrmCustomerRelationId.of(deleteCommand.getId());
 		CrmCustomerRelation byId = crmCustomerRelationGateway.getById(crmCustomerRelationId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

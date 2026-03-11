@@ -1,10 +1,10 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyVcProductCompetitiveProductRelAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyVcProductCompetitiveProductRelVO;
 import com.particle.data.domain.company.DataCompanyVcProductCompetitiveProductRel;
@@ -38,7 +38,7 @@ public class DataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor  ext
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyVcProductCompetitiveProductRelId dataCompanyVcProductCompetitiveProductRelId = DataCompanyVcProductCompetitiveProductRelId.of(deleteCommand.getId());
 		DataCompanyVcProductCompetitiveProductRel byId = dataCompanyVcProductCompetitiveProductRelGateway.getById(dataCompanyVcProductCompetitiveProductRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class DataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor  ext
 
 	/**
 	 * 根据 companyVcProductId 删除
-	 * @param companyVcProductIdCommand
+	 * @param companyVcProductCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcProductId(@Valid IdCommand companyVcProductIdCommand) {
-		boolean result = iDataCompanyVcProductCompetitiveProductRelService.deleteByColumn(companyVcProductIdCommand.getId(), DataCompanyVcProductCompetitiveProductRelDO::getCompanyVcProductId);
+	public Response deleteByCompanyVcProductId(@Valid CommonIdCommand companyVcProductCommonIdCommand) {
+		boolean result = iDataCompanyVcProductCompetitiveProductRelService.deleteByColumn(companyVcProductCommonIdCommand.getId(), DataCompanyVcProductCompetitiveProductRelDO::getCompanyVcProductId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 companyVcCompetitiveProductId 删除
-	 * @param companyVcCompetitiveProductIdCommand
+	 * @param companyVcCompetitiveProductCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcCompetitiveProductId(@Valid IdCommand companyVcCompetitiveProductIdCommand) {
-		boolean result = iDataCompanyVcProductCompetitiveProductRelService.deleteByColumn(companyVcCompetitiveProductIdCommand.getId(), DataCompanyVcProductCompetitiveProductRelDO::getCompanyVcCompetitiveProductId);
+	public Response deleteByCompanyVcCompetitiveProductId(@Valid CommonIdCommand companyVcCompetitiveProductCommonIdCommand) {
+		boolean result = iDataCompanyVcProductCompetitiveProductRelService.deleteByColumn(companyVcCompetitiveProductCommonIdCommand.getId(), DataCompanyVcProductCompetitiveProductRelDO::getCompanyVcCompetitiveProductId);
 		return Response.buildSuccess();
 	}
 

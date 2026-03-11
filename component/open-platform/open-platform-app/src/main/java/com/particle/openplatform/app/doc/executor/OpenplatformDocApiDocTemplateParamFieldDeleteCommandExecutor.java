@@ -1,11 +1,11 @@
 package com.particle.openplatform.app.doc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDocTemplateParamFieldAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocTemplateParamFieldConditionDeleteCommand;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDocTemplateParamFieldVO;
@@ -38,7 +38,7 @@ public class OpenplatformDocApiDocTemplateParamFieldDeleteCommandExecutor  exten
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformDocApiDocTemplateParamFieldId openplatformDocApiDocTemplateParamFieldId = OpenplatformDocApiDocTemplateParamFieldId.of(deleteCommand.getId());
 		OpenplatformDocApiDocTemplateParamField byId = openplatformDocApiDocTemplateParamFieldGateway.getById(openplatformDocApiDocTemplateParamFieldId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

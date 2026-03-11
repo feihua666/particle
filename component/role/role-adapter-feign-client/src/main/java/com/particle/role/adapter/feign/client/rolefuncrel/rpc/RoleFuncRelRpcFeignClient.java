@@ -7,11 +7,10 @@ import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncR
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListByRoleIdsCommand;
 import com.particle.role.client.rolefuncrel.dto.command.representation.RoleFuncRelQueryListCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2022-11-25
  */
-@FeignClient(name = "${particle.feign-client.name.roleFuncRel:roleFuncRel}",path = "/rpc/role-func-rel")
+@FeignClient(name = "${particle.feign-client.role.name:role-start}", contextId = "roleFuncRelRpcFeignClient", url = "${particle.feign-client.role.url:}", path = "/rpc/role-func-rel")
 public interface RoleFuncRelRpcFeignClient {
 
 
@@ -41,7 +40,7 @@ public interface RoleFuncRelRpcFeignClient {
      * @return
      */
     @GetMapping("/list")
-    public MultiResponse<RoleFuncRelVO> queryList(RoleFuncRelQueryListCommand roleFuncRelQueryListCommand);
+    public MultiResponse<RoleFuncRelVO> queryList(@SpringQueryMap RoleFuncRelQueryListCommand roleFuncRelQueryListCommand);
 
     /**
      * 列表查询角色菜单功能关系
@@ -49,7 +48,7 @@ public interface RoleFuncRelRpcFeignClient {
      * @return
      */
     @GetMapping("/listByRoleIds")
-    public MultiResponse<RoleFuncRelVO> queryListByRoleIds(RoleFuncRelQueryListByRoleIdsCommand roleFuncRelQueryListByRoleIdsCommand);
+    public MultiResponse<RoleFuncRelVO> queryListByRoleIds(@SpringQueryMap RoleFuncRelQueryListByRoleIdsCommand roleFuncRelQueryListByRoleIdsCommand);
 
 
     /**
@@ -58,5 +57,5 @@ public interface RoleFuncRelRpcFeignClient {
      * @return
      */
     @GetMapping("/listByFuncIds")
-    public MultiResponse<RoleFuncRelVO> queryListByFuncIds(RoleFuncRelQueryListByFuncIdsCommand roleFuncRelQueryListByFuncIdsCommand);
+    public MultiResponse<RoleFuncRelVO> queryListByFuncIds(@SpringQueryMap RoleFuncRelQueryListByFuncIdsCommand roleFuncRelQueryListByFuncIdsCommand);
 }

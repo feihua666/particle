@@ -3,6 +3,7 @@ package com.particle.dept.adapter.rpc;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.dept.adapter.feign.client.rpc.DeptTransRpcFeignClient;
 import com.particle.dept.client.dto.data.DeptTransVO;
 import com.particle.dept.infrastructure.dos.DeptDO;
 import com.particle.dept.infrastructure.service.IDeptService;
@@ -32,7 +33,7 @@ public class DeptTransServiceImpl implements ITransService<DeptTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DEPT_BY_ID,TransConstants.TRANS_DEPT_BY_USER_ID);
+        return DeptTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

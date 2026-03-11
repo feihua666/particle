@@ -4,7 +4,7 @@ particle 是一个简易 spring-boot 工具封装。
 它使用了较新的依赖版本，在 spring-boot 的基础上进一步封装了常见的基本配置，开箱即用，统一了开发风格，减少了大部分重复开发的工作，同时也让维护更加容易。
 希望本项目能帮助到您。
 #### 介绍
-基于SpringBoot2.x、vuejs，前后端分离。  
+基于SpringBoot 3.x、vue 3.x，前后端分离。  
 后端springboot业务组件拆分，旨在快速开发新模块。主要技术点：swagger接口文档、表单验证、MyBatisPlus、springSecurity、lombok、mapstruct    
 前端vuejs、element-ui。
 ### 理念

@@ -4,7 +4,7 @@ import com.particle.cms.app.executor.CmsContentMultimediaCreateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentMultimediaDeleteCommandExecutor;
 import com.particle.cms.app.executor.CmsContentMultimediaUpdateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentMultimediaCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.cms.client.dto.command.CmsContentMultimediaUpdateCommand;
 import com.particle.cms.client.api.ICmsContentMultimediaApplicationService;
 import com.particle.cms.client.dto.command.CmsContentMultimediaCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class CmsContentMultimediaApplicationServiceImpl extends AbstractBaseAppl
     }
 
     @Override
-    public SingleResponse<CmsContentMultimediaVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<CmsContentMultimediaVO> delete(CommonIdCommand deleteCommand) {
         return cmsContentMultimediaDeleteCommandExecutor.execute(deleteCommand);
     }
 

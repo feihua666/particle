@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationSiteCreateCommand;
 import com.particle.navigation.client.dto.command.NavigationSiteUpdateCommand;
@@ -27,7 +27,7 @@ public interface INavigationSiteApplicationService extends IBaseApplicationServi
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSiteVO> delete(IdCommand deleteCommand);
+	SingleResponse<NavigationSiteVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

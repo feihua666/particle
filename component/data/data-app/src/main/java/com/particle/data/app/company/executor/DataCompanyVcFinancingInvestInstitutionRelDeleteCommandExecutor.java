@@ -1,10 +1,10 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyVcFinancingInvestInstitutionRelAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestInstitutionRelVO;
 import com.particle.data.domain.company.DataCompanyVcFinancingInvestInstitutionRel;
@@ -38,7 +38,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor  ex
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyVcFinancingInvestInstitutionRelId dataCompanyVcFinancingInvestInstitutionRelId = DataCompanyVcFinancingInvestInstitutionRelId.of(deleteCommand.getId());
 		DataCompanyVcFinancingInvestInstitutionRel byId = dataCompanyVcFinancingInvestInstitutionRelGateway.getById(dataCompanyVcFinancingInvestInstitutionRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class DataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor  ex
 
 	/**
 	 * 根据 companyVcFinancingId 删除
-	 * @param companyVcFinancingIdCommand
+	 * @param companyVcFinancingCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcFinancingId(@Valid IdCommand companyVcFinancingIdCommand) {
-		boolean result = iDataCompanyVcFinancingInvestInstitutionRelService.deleteByColumn(companyVcFinancingIdCommand.getId(), DataCompanyVcFinancingInvestInstitutionRelDO::getCompanyVcFinancingId);
+	public Response deleteByCompanyVcFinancingId(@Valid CommonIdCommand companyVcFinancingCommonIdCommand) {
+		boolean result = iDataCompanyVcFinancingInvestInstitutionRelService.deleteByColumn(companyVcFinancingCommonIdCommand.getId(), DataCompanyVcFinancingInvestInstitutionRelDO::getCompanyVcFinancingId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 companyVcInvestInstitutionId 删除
-	 * @param companyVcInvestInstitutionIdCommand
+	 * @param companyVcInvestInstitutionCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcInvestInstitutionId(@Valid IdCommand companyVcInvestInstitutionIdCommand) {
-		boolean result = iDataCompanyVcFinancingInvestInstitutionRelService.deleteByColumn(companyVcInvestInstitutionIdCommand.getId(), DataCompanyVcFinancingInvestInstitutionRelDO::getCompanyVcInvestInstitutionId);
+	public Response deleteByCompanyVcInvestInstitutionId(@Valid CommonIdCommand companyVcInvestInstitutionCommonIdCommand) {
+		boolean result = iDataCompanyVcFinancingInvestInstitutionRelService.deleteByColumn(companyVcInvestInstitutionCommonIdCommand.getId(), DataCompanyVcFinancingInvestInstitutionRelDO::getCompanyVcInvestInstitutionId);
 		return Response.buildSuccess();
 	}
 

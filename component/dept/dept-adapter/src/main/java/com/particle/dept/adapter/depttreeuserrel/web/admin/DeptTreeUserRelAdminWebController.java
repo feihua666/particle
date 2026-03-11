@@ -1,7 +1,7 @@
 package com.particle.dept.adapter.depttreeuserrel.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.depttreeuserrel.api.IDeptTreeUserRelApplicationService;
 import com.particle.dept.client.depttreeuserrel.api.representation.IDeptTreeUserRelRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class DeptTreeUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除部门树用户关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门树用户关系",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
-	public SingleResponse<DeptTreeUserRelVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DeptTreeUserRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDeptTreeUserRelApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class DeptTreeUserRelAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTreeUserRel:update')")
 	@Operation(summary = "部门树用户关系更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DeptTreeUserRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DeptTreeUserRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDeptTreeUserRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTreeUserRel:detail')")
 	@Operation(summary = "部门树用户关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DeptTreeUserRelVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DeptTreeUserRelVO> queryDetail(CommonIdCommand detailCommand){
 		return iDeptTreeUserRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

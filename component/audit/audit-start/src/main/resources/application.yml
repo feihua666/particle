@@ -1,0 +1,64 @@
+spring:
+  application:
+    # 应用名称
+    name: audit-start
+  profiles:
+    include:
+      - knife4j
+      - swagger
+      - log4j2
+      - datasource
+      - mybatis-plus
+      - mybatis-plus-tenant
+      - actuator
+      - boot-admin-client-local
+      - boot-admin-server
+      - session
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为 master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://localhost/particle_test?${particle.datasource.mysql.url-query}
+          username: root
+          password: rootroot
+          driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+  # 注意，这里的配置是spring的但实现已经自定义，参考 global-datasource-boot-starter 组件 sqlinit 包实现
+  sql:
+    init:
+      schema-locations:
+        - classpath:db/schema.audit.sql
+      data-locations:
+        - classpath:db/data.audit.sql
+      mode: NEVER # ALWAYS NEVER
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    openfeign:
+      client:
+        config:
+          default:
+            # 开启 feign client 调用日志日志，需要设置日志级别为 debug，参见：feign.slf4j.Slf4jLogger
+            loggerLevel: FULL
+server:
+  port: 8013
+  servlet:
+    encoding:
+      # 在接收请求和返回数据，强制 utf-8 编码
+      # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
+      force: true
+particle:
+  global:
+    web:
+      filter:
+        cors:
+          # 在使用 webmvc 网关时禁用，因为网关中也存在跨域过滤器，否则会导致响应头重复
+          enabled: false
+        response-trace-id:
+          # 在使用 webmvc 网关时禁用，因为网关中也存在跨域过滤器，否则会导致响应头重复
+          enabled: false
+    session:
+     # 使用jdbc存储session，如果单机部署可以使用内存存储，改为 none
+      store-type: jdbc

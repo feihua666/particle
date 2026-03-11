@@ -37,7 +37,7 @@ import static com.particle.global.tool.collection.CollectionTool.newArrayList;
 @Slf4j
 @Order
 @Component
-@ConfigurationProperties(prefix = "particle.rate-limit.local.configable")
+@ConfigurationProperties(prefix = "particle.global.rate-limit.local.configable")
 public class DefaultConfigableRateLimitInterceptServiceImpl implements RateLimitInterceptService {
 
 

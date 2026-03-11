@@ -7,7 +7,7 @@ import com.particle.data.domain.dynamictable.DynamicTable;
 import com.particle.data.domain.dynamictable.DynamicTableId;
 import com.particle.data.domain.dynamictable.gateway.DynamicTableGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

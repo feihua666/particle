@@ -1,7 +1,7 @@
 package com.particle.config.adapter.system.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.config.client.system.api.ISystemConfigApplicationService;
@@ -52,7 +52,7 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除系统参数配置")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除系统参数配置",module = OpLogConstants.Module.config,type = OpLogConstants.Type.delete)
-	public SingleResponse<SystemConfigVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<SystemConfigVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_config_system_config, DataConstraintContext.Action.delete.name());
 		return iSystemConfigApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class SystemConfigAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:systemConfig:update')")
 	@Operation(summary = "系统参数配置更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<SystemConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<SystemConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iSystemConfigRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:systemConfig:detail')")
 	@Operation(summary = "系统参数配置详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<SystemConfigVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<SystemConfigVO> queryDetail(CommonIdCommand detailCommand){
 		return iSystemConfigRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

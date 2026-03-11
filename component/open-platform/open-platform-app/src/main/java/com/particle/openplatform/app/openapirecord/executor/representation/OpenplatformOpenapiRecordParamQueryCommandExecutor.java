@@ -2,7 +2,7 @@ package com.particle.openplatform.app.openapirecord.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordParamQueryCommandExecutor  extends Abstrac
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiRecordParamDO byId = iOpenplatformOpenapiRecordParamService.getById(detailCommand.getId());
 		OpenplatformOpenapiRecordParamVO openplatformOpenapiRecordParamVO = OpenplatformOpenapiRecordParamAppStructMapping.instance.openplatformOpenapiRecordParamDOToOpenplatformOpenapiRecordParamVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordParamVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiRecordParamQueryCommandExecutor  extends Abstrac
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiRecordParamDO byId = iOpenplatformOpenapiRecordParamService.getByOpenplatformOpenapiRecordId(detailCommand.getId());
 		OpenplatformOpenapiRecordParamVO openplatformOpenapiRecordParamVO = OpenplatformOpenapiRecordParamAppStructMapping.instance.openplatformOpenapiRecordParamDOToOpenplatformOpenapiRecordParamVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordParamVO);

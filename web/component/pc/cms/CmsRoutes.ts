@@ -3,6 +3,7 @@ import cmsChannelAdminRoutes from "./views/admin/cmsChannelAdminRoutes";
 import cmsContentAdminRoutes from "./views/admin/cmsContentAdminRoutes";
 import cmsContentMultimediaAdminRoutes from "./views/admin/cmsContentMultimediaAdminRoutes";
 import cmsContentCategoryAdminRoutes from "./views/admin/cmsContentCategoryAdminRoutes";
+import cmsTemplateAdminRoutes from "./views/admin/cmsTemplateAdminRoutes";
 
 const CmsRoutes = []
     .concat(cmsSiteAdminRoutes)
@@ -10,4 +11,5 @@ const CmsRoutes = []
     .concat(cmsContentAdminRoutes)
     .concat(cmsContentMultimediaAdminRoutes)
     .concat(cmsContentCategoryAdminRoutes)
+    .concat(cmsTemplateAdminRoutes)
 export default CmsRoutes

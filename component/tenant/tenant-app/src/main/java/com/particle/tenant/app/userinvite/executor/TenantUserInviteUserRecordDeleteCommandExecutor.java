@@ -1,10 +1,10 @@
 package com.particle.tenant.app.userinvite.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.userinvite.structmapping.TenantUserInviteUserRecordAppStructMapping;
 import com.particle.tenant.client.userinvite.dto.data.TenantUserInviteUserRecordVO;
 import com.particle.tenant.domain.userinvite.TenantUserInviteUserRecord;
@@ -34,7 +34,7 @@ public class TenantUserInviteUserRecordDeleteCommandExecutor  extends AbstractBa
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<TenantUserInviteUserRecordVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<TenantUserInviteUserRecordVO> execute(@Valid CommonIdCommand deleteCommand) {
 		TenantUserInviteUserRecordId tenantUserInviteUserRecordId = TenantUserInviteUserRecordId.of(deleteCommand.getId());
 		TenantUserInviteUserRecord byId = tenantUserInviteUserRecordGateway.getById(tenantUserInviteUserRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

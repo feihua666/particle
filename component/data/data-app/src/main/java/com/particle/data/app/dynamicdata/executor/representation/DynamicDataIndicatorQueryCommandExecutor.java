@@ -1,11 +1,11 @@
 package com.particle.data.app.dynamicdata.executor.representation;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorAppStructMapping;
 import com.particle.data.app.dynamictable.structmapping.DynamicTableFieldAppStructMapping;
-import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryCreateCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorQueryListCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorWithDynamicTableFieldVO;
@@ -13,7 +13,6 @@ import com.particle.data.client.dynamictable.dto.data.DynamicTableFieldVO;
 import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataIndicatorDO;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorService;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableDO;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
@@ -136,7 +135,7 @@ public class DynamicDataIndicatorQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicDataIndicatorVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicDataIndicatorDO byId = iDynamicDataIndicatorService.getById(detailCommand.getId());
 		DynamicDataIndicatorVO dynamicDataIndicatorVO = DynamicDataIndicatorAppStructMapping.instance.dynamicDataIndicatorDOToDynamicDataIndicatorVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorVO);
@@ -146,7 +145,7 @@ public class DynamicDataIndicatorQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicDataIndicatorVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicDataIndicatorDO byId = iDynamicDataIndicatorService.getById(detailForUpdateCommand.getId());
 		DynamicDataIndicatorVO dynamicDataIndicatorVO = DynamicDataIndicatorAppStructMapping.instance.dynamicDataIndicatorDOToDynamicDataIndicatorVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorVO);

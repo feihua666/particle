@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyDiscreditedJudgmentD
 import com.particle.data.infrastructure.company.dos.DataCompanyDiscreditedJudgmentDebtorDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyDiscreditedJudgmentDebtorService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDiscreditedJudgmentDebtorPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyDiscreditedJudgmentDebtorQueryCommandExecutor  extends A
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyDiscreditedJudgmentDebtorDO byId = iDataCompanyDiscreditedJudgmentDebtorService.getById(detailCommand.getId());
 		DataCompanyDiscreditedJudgmentDebtorVO dataCompanyDiscreditedJudgmentDebtorVO = DataCompanyDiscreditedJudgmentDebtorAppStructMapping.instance.dataCompanyDiscreditedJudgmentDebtorDOToDataCompanyDiscreditedJudgmentDebtorVO(byId);
 		return SingleResponse.of(dataCompanyDiscreditedJudgmentDebtorVO);
@@ -67,7 +66,7 @@ public class DataCompanyDiscreditedJudgmentDebtorQueryCommandExecutor  extends A
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyDiscreditedJudgmentDebtorDO byId = iDataCompanyDiscreditedJudgmentDebtorService.getById(detailForUpdateCommand.getId());
 		DataCompanyDiscreditedJudgmentDebtorVO dataCompanyDiscreditedJudgmentDebtorVO = DataCompanyDiscreditedJudgmentDebtorAppStructMapping.instance.dataCompanyDiscreditedJudgmentDebtorDOToDataCompanyDiscreditedJudgmentDebtorVO(byId);
 		return SingleResponse.of(dataCompanyDiscreditedJudgmentDebtorVO);

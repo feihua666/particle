@@ -22,4 +22,4 @@ CREATE TABLE `component_data_company_annual_report_website` (
   KEY `company_annual_report_id` (`company_annual_report_id`) USING BTREE,
   KEY `year` (`year`) USING BTREE,
   UNIQUE KEY `uni_company_annual_report_id__data_md5` (`company_annual_report_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业年报网站网店表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业年报网站网店表';

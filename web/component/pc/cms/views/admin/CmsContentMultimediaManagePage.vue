@@ -23,10 +23,7 @@ const reactiveData = reactive({
     {
       prop: 'cmsContentTitle',
       label: '内容标题',
-    },
-    {
-      prop: 'content',
-      label: '文本内容',
+      showOverflowTooltip: true,
     },
     {
       prop: 'imageUrl',

@@ -30,12 +30,6 @@ public class RoleMultipleTransRpcController extends AbstractBaseRpcAdapter imple
 	@Autowired
 	private RoleMultipleTransServiceImpl roleMultipleTransService;
 
-
-	@Override
-	public boolean supportBatch(String type) {
-		return roleMultipleTransService.supportBatch(type);
-	}
-
 	@Override
 	public List<TransResult<List<RoleTransVO>, Long>> transBatch(String type, Set<Long> keys) {
 		return roleMultipleTransService.transBatch(type, keys);

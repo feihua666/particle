@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2023-05-19 17:39
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = "particle.message.testBinder", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.message.testBinder", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableTestBinder
 public class GlobalMessageTestBinderAutoConfiguration {
 }

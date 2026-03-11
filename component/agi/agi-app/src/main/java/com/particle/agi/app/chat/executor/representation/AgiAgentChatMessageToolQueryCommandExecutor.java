@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageToolVO;
 import com.particle.agi.infrastructure.chat.dos.AgiAgentChatMessageToolDO;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatMessageToolService;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessageToolPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentChatMessageToolQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageToolVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentChatMessageToolVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentChatMessageToolDO byId = iAgiAgentChatMessageToolService.getById(detailCommand.getId());
 		AgiAgentChatMessageToolVO agiAgentChatMessageToolVO = AgiAgentChatMessageToolAppStructMapping.instance.agiAgentChatMessageToolDOToAgiAgentChatMessageToolVO(byId);
 		return SingleResponse.of(agiAgentChatMessageToolVO);
@@ -67,7 +66,7 @@ public class AgiAgentChatMessageToolQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageToolVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentChatMessageToolVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentChatMessageToolDO byId = iAgiAgentChatMessageToolService.getById(detailForUpdateCommand.getId());
 		AgiAgentChatMessageToolVO agiAgentChatMessageToolVO = AgiAgentChatMessageToolAppStructMapping.instance.agiAgentChatMessageToolDOToAgiAgentChatMessageToolVO(byId);
 		return SingleResponse.of(agiAgentChatMessageToolVO);

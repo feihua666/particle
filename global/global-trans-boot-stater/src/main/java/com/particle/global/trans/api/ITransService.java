@@ -4,6 +4,9 @@ package com.particle.global.trans.api;
 import com.particle.global.trans.result.TransResult;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Set;
@@ -19,7 +22,27 @@ import java.util.Set;
 public interface ITransService<R, K> {
 
 
-    public static final ITransService emptyTransService = new ITransService(){};
+    public static final ITransService emptyTransService = new ITransService(){
+        @Override
+        public boolean support(String type) {
+            return false;
+        }
+
+        @Override
+        public boolean supportBatch(String type) {
+            return false;
+        }
+
+        @Override
+        public List<TransResult> transBatch(String type, Set keys) {
+            return null;
+        }
+
+        @Override
+        public TransResult trans(String type, Object key) {
+            return null;
+        }
+    };
 
     /**
      * 是否支持
@@ -28,7 +51,7 @@ public interface ITransService<R, K> {
      */
     @Operation(summary = "判断是否支持单个翻译")
     @GetMapping("/trans/support")
-    default boolean support(String type){return false;}
+    boolean support(@RequestParam String type);
 
     /**
      * 是否支持批量翻译
@@ -38,9 +61,7 @@ public interface ITransService<R, K> {
 
     @Operation(summary = "判断是否支持批量翻译")
     @GetMapping("/trans/supportBatch")
-    default boolean supportBatch(String type){
-        return false;
-    }
+    boolean supportBatch(@RequestParam String type);
 
     /**
      * 根据key批量翻译辅助，加速翻译减少数据库io
@@ -49,10 +70,8 @@ public interface ITransService<R, K> {
      * @return
      */
     @Operation(summary = "批量翻译")
-    @GetMapping("/trans/transBatch")
-    default List<TransResult<R,K>> transBatch(String type, Set<K> keys){
-        return null;
-    }
+    @PostMapping("/trans/transBatch")
+    List<TransResult<R,K>> transBatch(@RequestParam String type,@RequestBody Set<K> keys);
     /**
      * 根据key翻译
      * @param type 支持的类型
@@ -61,7 +80,5 @@ public interface ITransService<R, K> {
      */
     @Operation(summary = "单个翻译")
     @GetMapping("/trans/trans")
-    default TransResult<R,K> trans(String type, K key){
-        return null;
-    }
+    TransResult<R,K> trans(@RequestParam String type,@RequestParam  K key);
 }

@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyDiscreditedJudgmentDebtorCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyDiscreditedJudgmentDebtorCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyDiscreditedJudgmentDebtorDeleteCommandExecutor;
@@ -48,7 +48,7 @@ public class DataCompanyDiscreditedJudgmentDebtorApplicationServiceImpl extends 
     }
 
     @Override
-    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyDiscreditedJudgmentDebtorDeleteCommandExecutor.execute(deleteCommand);
     }
 

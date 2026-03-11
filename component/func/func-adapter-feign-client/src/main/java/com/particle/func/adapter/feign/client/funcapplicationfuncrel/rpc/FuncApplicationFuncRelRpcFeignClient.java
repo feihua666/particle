@@ -3,6 +3,7 @@ package com.particle.func.adapter.feign.client.funcapplicationfuncrel.rpc;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author yw
  * @since 2023-04-17 10:15:29
  */
-@FeignClient(name = "${particle.feign-client.name.func:func}",path = "/rpc/func_application_func_rel")
+@FeignClient(name = "${particle.feign-client.func.name:func-start}", contextId = "funcApplicationFuncRelRpcFeignClient", url = "${particle.feign-client.func.url:}", path = "/rpc/func_application_func_rel")
 public interface FuncApplicationFuncRelRpcFeignClient {
 
 
@@ -24,7 +25,7 @@ public interface FuncApplicationFuncRelRpcFeignClient {
 	 * @return
 	 */
 	@GetMapping("/getFuncIdsByFuncApplicationId")
-	public MultiResponse<Long> getFuncIdsByFuncApplicationId(Long funcApplicationId);
+	public MultiResponse<Long> getFuncIdsByFuncApplicationId(@RequestParam Long funcApplicationId);
 
 
 

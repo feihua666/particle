@@ -8,4 +8,4 @@ CREATE TABLE global_message_event  (
   `tenant_id` bigint NULL DEFAULT NULL COMMENT '租户id，预留',
   `create_at` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin  COMMENT = '消息事件表';
+) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin  COMMENT = '消息事件表';

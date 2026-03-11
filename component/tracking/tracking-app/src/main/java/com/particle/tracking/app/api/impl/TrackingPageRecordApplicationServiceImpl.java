@@ -1,7 +1,7 @@
 package com.particle.tracking.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.client.dto.data.AbstractBaseIdVO;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
@@ -41,7 +41,7 @@ public class TrackingPageRecordApplicationServiceImpl extends AbstractBaseApplic
 	}
 
 	@Override
-	public SingleResponse<TrackingPageRecordVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<TrackingPageRecordVO> delete(CommonIdCommand deleteCommand) {
 		return trackingPageRecordDeleteCommandExecutor.execute(deleteCommand);
 	}
 

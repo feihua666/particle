@@ -4,6 +4,7 @@ import com.particle.area.client.dto.data.AreaVO;
 import com.particle.global.dto.response.SingleResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2022-07-18
  */
-@FeignClient(name = "${particle.feign-client.name.area:area}",path = "/rpc/area")
+@FeignClient(name = "${particle.feign-client.area.name:area-start}", contextId = "areaRpcFeignClient", url = "${particle.feign-client.area.url:}", path = "/rpc/area")
 public interface AreaRpcFeignClient {
 
 
@@ -23,7 +24,7 @@ public interface AreaRpcFeignClient {
      * @return
      */
     @GetMapping("/queryById")
-    public SingleResponse<AreaVO> queryById(Long id);
+    public SingleResponse<AreaVO> queryById(@RequestParam Long id);
 
     /**
      * 根据code获取
@@ -31,7 +32,7 @@ public interface AreaRpcFeignClient {
      * @return
      */
     @GetMapping("/queryByCode")
-    public SingleResponse<AreaVO> queryByCode(String code);
+    public SingleResponse<AreaVO> queryByCode(@RequestParam String code);
 
     /**
      * 根据名称查询省
@@ -39,7 +40,7 @@ public interface AreaRpcFeignClient {
      * @return
      */
     @GetMapping("/queryProvinceByName")
-    public SingleResponse<AreaVO> queryProvinceByName(String provinceName);
+    public SingleResponse<AreaVO> queryProvinceByName(@RequestParam String provinceName);
 
     /**
      * 根据名称查询市,限定要某个省下
@@ -48,7 +49,7 @@ public interface AreaRpcFeignClient {
      * @return
      */
     @GetMapping("/queryCityByNameAndProvinceId")
-    public SingleResponse<AreaVO> queryCityByNameAndProvinceId(String cityName,Long provinceId);
+    public SingleResponse<AreaVO> queryCityByNameAndProvinceId(@RequestParam String cityName,@RequestParam Long provinceId);
     /**
      * 根据名称查询区县,限定要某个市下
      * @param countyName
@@ -56,6 +57,6 @@ public interface AreaRpcFeignClient {
      * @return
      */
     @GetMapping("/queryCountyByNameAndCityId")
-    public SingleResponse<AreaVO> queryCountyByNameAndCityId(String countyName,Long cityId);
+    public SingleResponse<AreaVO> queryCountyByNameAndCityId(@RequestParam String countyName,@RequestParam Long cityId);
 
 }

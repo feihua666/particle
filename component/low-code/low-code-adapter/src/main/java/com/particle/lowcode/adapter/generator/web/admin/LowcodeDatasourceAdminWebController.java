@@ -1,7 +1,7 @@
 package com.particle.lowcode.adapter.generator.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "删除低代码数据源")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除低代码数据源",module = OpLogConstants.Module.lowCode,type = OpLogConstants.Type.delete)
-	public SingleResponse<LowcodeDatasourceVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<LowcodeDatasourceVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iLowcodeDatasourceApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class LowcodeDatasourceAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:update')")
 	@Operation(summary = "低代码数据源更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<LowcodeDatasourceVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<LowcodeDatasourceVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:lowcodeDatasource:detail')")
 	@Operation(summary = "低代码数据源详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<LowcodeDatasourceVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<LowcodeDatasourceVO> queryDetail(CommonIdCommand detailCommand){
 		return iLowcodeDatasourceRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

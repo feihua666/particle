@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageToolcallVO;
 import com.particle.agi.domain.chat.AgiAgentChatMessageToolcall;
 import com.particle.agi.domain.chat.gateway.AgiAgentChatMessageToolcallGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

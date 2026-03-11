@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprPatentStatisticAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentStatisticQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentStatisticVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentStatisticDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentStatisticService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentStatisticPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentStatisticQueryCommandExecutor  extends Abstract
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentStatisticVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentStatisticVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentStatisticDO byId = iDataCompanyIprPatentStatisticService.getById(detailCommand.getId());
 		DataCompanyIprPatentStatisticVO dataCompanyIprPatentStatisticVO = DataCompanyIprPatentStatisticAppStructMapping.instance.dataCompanyIprPatentStatisticDOToDataCompanyIprPatentStatisticVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentStatisticVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentStatisticQueryCommandExecutor  extends Abstract
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentStatisticVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentStatisticVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentStatisticDO byId = iDataCompanyIprPatentStatisticService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentStatisticVO dataCompanyIprPatentStatisticVO = DataCompanyIprPatentStatisticAppStructMapping.instance.dataCompanyIprPatentStatisticDOToDataCompanyIprPatentStatisticVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentStatisticVO);

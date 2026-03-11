@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprPatentCertificateAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentCertificateVO;
 import com.particle.data.domain.company.DataCompanyIprPatentCertificate;
 import com.particle.data.domain.company.DataCompanyIprPatentCertificateId;
 import com.particle.data.domain.company.gateway.DataCompanyIprPatentCertificateGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentCertificateService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentCertificateDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprPatentCertificateDeleteCommandExecutor  extends Abstr
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentCertificateVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprPatentCertificateVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprPatentCertificateId dataCompanyIprPatentCertificateId = DataCompanyIprPatentCertificateId.of(deleteCommand.getId());
 		DataCompanyIprPatentCertificate byId = dataCompanyIprPatentCertificateGateway.getById(dataCompanyIprPatentCertificateId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

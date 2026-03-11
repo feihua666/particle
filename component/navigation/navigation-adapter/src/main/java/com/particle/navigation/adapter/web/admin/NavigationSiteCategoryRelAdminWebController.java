@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -56,7 +56,7 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @Operation(summary = "删除导航网站分类关系")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航网站分类关系",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationSiteCategoryRelVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationSiteCategoryRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSiteCategoryRelApplicationService.delete(deleteCommand);
     }
@@ -73,14 +73,14 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:update')")
     @Operation(summary = "导航网站分类关系更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationSiteCategoryRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationSiteCategoryRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationSiteCategoryRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:detail')")
     @Operation(summary = "导航网站分类关系详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationSiteCategoryRelVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationSiteCategoryRelVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationSiteCategoryRelRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -113,8 +113,8 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:queryNavigationCategoryIdsByNavigationSiteId')")
     @GetMapping("/queryNavigationCategoryIdsByNavigationSiteId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(IdCommand idCommand) {
-        return iNavigationSiteCategoryRelRepresentationApplicationService.queryNavigationCategoryIdsByNavigationSiteId( idCommand);
+    public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(CommonIdCommand commonIdCommand) {
+        return iNavigationSiteCategoryRelRepresentationApplicationService.queryNavigationCategoryIdsByNavigationSiteId(commonIdCommand);
     }
 
     @Operation(summary = "清空导航网站下的所有导航分类")
@@ -122,8 +122,8 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @DeleteMapping("/deleteByNavigationSiteId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空导航网站下的所有导航分类",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public Response deleteByNavigationSiteId(@RequestBody IdCommand idCommand) {
-        return iNavigationSiteCategoryRelApplicationService.deleteByNavigationSiteId(idCommand);
+    public Response deleteByNavigationSiteId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iNavigationSiteCategoryRelApplicationService.deleteByNavigationSiteId(commonIdCommand);
     }
 
 
@@ -140,8 +140,8 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:navigationSiteCategoryRel:queryNavigationSiteIdsByNavigationCategoryId')")
     @GetMapping("/queryNavigationSiteIdsByNavigationCategoryId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryByNavigationCategoryId(IdCommand idCommand) {
-        return iNavigationSiteCategoryRelRepresentationApplicationService.queryNavigationSiteIdsByNavigationCategoryId( idCommand);
+    public MultiResponse<Long> queryByNavigationCategoryId(CommonIdCommand commonIdCommand) {
+        return iNavigationSiteCategoryRelRepresentationApplicationService.queryNavigationSiteIdsByNavigationCategoryId(commonIdCommand);
 
     }
 
@@ -150,8 +150,8 @@ public class NavigationSiteCategoryRelAdminWebController extends AbstractBaseWeb
     @DeleteMapping("/deleteByNavigationCategoryId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空导航分类下的所有导航网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public Response deleteByNavigationCategoryId(@RequestBody IdCommand idCommand) {
-        return iNavigationSiteCategoryRelApplicationService.deleteByNavigationCategoryId(idCommand);
+    public Response deleteByNavigationCategoryId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iNavigationSiteCategoryRelApplicationService.deleteByNavigationCategoryId(commonIdCommand);
     }
 
 }

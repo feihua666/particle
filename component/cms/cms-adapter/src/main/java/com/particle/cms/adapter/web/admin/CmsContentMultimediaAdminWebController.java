@@ -1,11 +1,11 @@
 package com.particle.cms.adapter.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.cms.client.api.ICmsContentMultimediaApplicationService;
 import com.particle.cms.client.api.representation.ICmsContentMultimediaRepresentationApplicationService;
 import com.particle.cms.client.dto.command.CmsContentMultimediaCreateCommand;
 import com.particle.cms.client.dto.data.CmsContentMultimediaVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.cms.client.dto.command.CmsContentMultimediaUpdateCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentMultimediaPageQueryCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentMultimediaQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 内容多媒体后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class CmsContentMultimediaAdminWebController extends AbstractBaseWebAdapt
     @Operation(summary = "删除内容多媒体")
     @DeleteMapping("/delete")
     @OpLog(name = "删除内容多媒体",module = OpLogConstants.Module.cms,type = OpLogConstants.Type.delete)
-    public SingleResponse<CmsContentMultimediaVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<CmsContentMultimediaVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iCmsContentMultimediaApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class CmsContentMultimediaAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:cmsContentMultimedia:update')")
     @Operation(summary = "内容多媒体更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<CmsContentMultimediaVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<CmsContentMultimediaVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iCmsContentMultimediaRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:cmsContentMultimedia:detail')")
     @Operation(summary = "内容多媒体详情展示")
     @GetMapping("/detail")
-    public SingleResponse<CmsContentMultimediaVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<CmsContentMultimediaVO> queryDetail(CommonIdCommand detailCommand){
         return iCmsContentMultimediaRepresentationApplicationService.queryDetail(detailCommand);
     }
 

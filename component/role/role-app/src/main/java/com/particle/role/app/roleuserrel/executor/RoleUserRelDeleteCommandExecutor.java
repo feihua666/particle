@@ -1,11 +1,11 @@
 package com.particle.role.app.roleuserrel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.roleuserrel.structmapping.RoleUserRelAppStructMapping;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
 import com.particle.role.domain.roleuserrel.RoleUserRel;
@@ -39,7 +39,7 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param roleUserRelDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<RoleUserRelVO> execute(@Valid IdCommand roleUserRelDeleteCommand) {
+	public SingleResponse<RoleUserRelVO> execute(@Valid CommonIdCommand roleUserRelDeleteCommand) {
 		RoleUserRelId roleUserRelId = RoleUserRelId.of(roleUserRelDeleteCommand.getId());
 		RoleUserRel byId = roleUserRelGateway.getById(roleUserRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class RoleUserRelDeleteCommandExecutor  extends AbstractBaseExecutor {
 	}
 	/**
 	 * 根据 roleId 删除
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByRoleId(@Valid IdCommand roleIdCommand) {
-		boolean result = iRoleUserRelService.deleteByColumn(roleIdCommand.getId(), RoleUserRelDO::getRoleId);
+	public Response deleteByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
+		boolean result = iRoleUserRelService.deleteByColumn(roleCommonIdCommand.getId(), RoleUserRelDO::getRoleId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 userId 删除
-	 * @param userIdCommand
+	 * @param userCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByUserId(@Valid IdCommand userIdCommand) {
-		boolean result = iRoleUserRelService.deleteByColumn(userIdCommand.getId(), RoleUserRelDO::getUserId);
+	public Response deleteByUserId(@Valid CommonIdCommand userCommonIdCommand) {
+		boolean result = iRoleUserRelService.deleteByColumn(userCommonIdCommand.getId(), RoleUserRelDO::getUserId);
 		return Response.buildSuccess();
 	}
 	/**

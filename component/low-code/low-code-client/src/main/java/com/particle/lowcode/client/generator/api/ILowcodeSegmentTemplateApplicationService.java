@@ -1,7 +1,7 @@
 package com.particle.lowcode.client.generator.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCopyCommand;
 import com.particle.lowcode.client.generator.dto.command.LowcodeSegmentTemplateCreateCommand;
@@ -44,7 +44,7 @@ public interface ILowcodeSegmentTemplateApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<LowcodeSegmentTemplateVO> delete(IdCommand deleteCommand);
+	SingleResponse<LowcodeSegmentTemplateVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillQueryCommandExecutor  ext
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiRecordCustomerMonthBillDO byId = iOpenplatformOpenapiRecordCustomerMonthBillService.getById(detailCommand.getId());
 		OpenplatformOpenapiRecordCustomerMonthBillVO openplatformOpenapiRecordCustomerMonthBillVO = OpenplatformOpenapiRecordCustomerMonthBillAppStructMapping.instance.openplatformOpenapiRecordCustomerMonthBillDOToOpenplatformOpenapiRecordCustomerMonthBillVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordCustomerMonthBillVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiRecordCustomerMonthBillQueryCommandExecutor  ext
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordCustomerMonthBillVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiRecordCustomerMonthBillDO byId = iOpenplatformOpenapiRecordCustomerMonthBillService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiRecordCustomerMonthBillVO openplatformOpenapiRecordCustomerMonthBillVO = OpenplatformOpenapiRecordCustomerMonthBillAppStructMapping.instance.openplatformOpenapiRecordCustomerMonthBillDOToOpenplatformOpenapiRecordCustomerMonthBillVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordCustomerMonthBillVO);

@@ -51,7 +51,7 @@ public class DynamicHttpBigDatasourceTest {
 		HttpBigDatasourceConfig httpBigDatasourceConfig = HttpBigDatasourceConfig.create(
 				"http://localhost:8080",
 				HttpBigDatasourceAuthScriptType.groovy_script,
-				"headers.put('c-token-id','e37818ef-8f15-48c4-a6f8-fc85dfe36395')",null,null);
+				"headers.put('X-Token-Id','e37818ef-8f15-48c4-a6f8-fc85dfe36395')",null,null);
 		HttpBigDatasource httpBigDatasource = HttpBigDatasource.create("testHttpName", BigDatasourceType.datasource_http,httpBigDatasourceConfig);
 
 		return httpBigDatasource;

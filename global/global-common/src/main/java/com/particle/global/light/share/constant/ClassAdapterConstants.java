@@ -27,8 +27,14 @@ public class ClassAdapterConstants {
 	 */
 	public static final String EXECUTOR_SERVICE_METRICS_CLASS_NAME = "io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics";
 	/**
+	 * @see io.micrometer.context.ContextExecutorService
+	 */
+	public static final String CONTEXT_EXECUTOR_SERVICE_CLASS_NAME = "io.micrometer.context.ContextExecutorService";
+	/**
+	 * 新版本已经不存在了
 	 * @see org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService
 	 */
+	@Deprecated
 	public static final String TRACEABLE_EXECUTOR_SERVICE_CLASS_NAME = "org.springframework.cloud.sleuth.instrument.async.TraceableExecutorService";
 
 }

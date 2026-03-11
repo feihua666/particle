@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyIprPlantVarietyCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPlantVarietyDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPlantVarietyUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPlantVarietyCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPlantVarietyUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyIprPlantVarietyApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprPlantVarietyCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPlantVarietyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPlantVarietyExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyIprPlantVarietyApplicationServiceImpl extends AbstractBa
     }
 
     @Override
-    public SingleResponse<DataCompanyIprPlantVarietyVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyIprPlantVarietyVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyIprPlantVarietyDeleteCommandExecutor.execute(deleteCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.func.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.api.IFuncGroupApplicationService;
 import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除功能组")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除功能组",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public SingleResponse<FuncGroupVO> delete(@RequestBody IdCommand funcGroupDeleteCommand){
+	public SingleResponse<FuncGroupVO> delete(@RequestBody CommonIdCommand funcGroupDeleteCommand){
 		return iFuncGroupApplicationService.delete(funcGroupDeleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class FuncGroupAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:update')")
 	@Operation(summary = "功能组更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<FuncGroupVO> queryDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand){
+	public SingleResponse<FuncGroupVO> queryDetailForUpdate(CommonIdCommand funcGroupQueryDetailForUpdateCommand){
 		return iFuncGroupRepresentationApplicationService.queryDetailForUpdate(funcGroupQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcGroup:detail')")
 	@Operation(summary = "功能组详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncGroupVO> queryDetail(IdCommand funcGroupQueryDetailCommand){
+	public SingleResponse<FuncGroupVO> queryDetail(CommonIdCommand funcGroupQueryDetailCommand){
 		return iFuncGroupRepresentationApplicationService.queryDetail(funcGroupQueryDetailCommand);
 	}
 

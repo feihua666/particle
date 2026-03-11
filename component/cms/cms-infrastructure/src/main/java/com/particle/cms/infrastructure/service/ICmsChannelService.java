@@ -1,6 +1,7 @@
 package com.particle.cms.infrastructure.service;
 
 import com.particle.cms.infrastructure.dos.CmsChannelDO;
+import com.particle.cms.infrastructure.dos.CmsChannelDO;
 import com.particle.global.mybatis.plus.crud.IBaseService;
 import com.particle.global.exception.Assert;
 import java.util.List;
@@ -38,7 +39,7 @@ public interface ICmsChannelService extends IBaseService<CmsChannelDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CmsChannelDO>lambdaQuery().in(CmsChannelDO::getCode, codes));
     }
-            
+
 
     /**
      * 根据栏目名称查询
@@ -61,31 +62,27 @@ public interface ICmsChannelService extends IBaseService<CmsChannelDO> {
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<CmsChannelDO>lambdaQuery().in(CmsChannelDO::getName, names));
     }
-            
 
 
+    /**
+     * 根据栏目 id 和 isPublic 查询
+     * @param id
+     * @return
+     */
+    default CmsChannelDO getByIdAndIsPublic(Long id, Boolean isPublic) {
+        Assert.notNull(id,"id 不能为空");
+        return getOne(Wrappers.<CmsChannelDO>lambdaQuery().eq(CmsChannelDO::getId, id).eq(isPublic != null,CmsChannelDO::getIsPublic, isPublic));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 根据栏目 ids 和 isPublic 查询
+     * @param ids
+     * @return
+     */
+    default List<CmsChannelDO> listByIdsAndIsPublic(List<Long> ids, Boolean isPublic) {
+        Assert.notEmpty(ids,"ids 不能为空");
+        return list(Wrappers.<CmsChannelDO>lambdaQuery().in(CmsChannelDO::getId, ids).eq(isPublic != null,CmsChannelDO::getIsPublic, isPublic));
+    }
 
 
 

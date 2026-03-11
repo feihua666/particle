@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeCreateCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeUpdateCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeVO;
@@ -28,7 +28,7 @@ public interface IDataScopeApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataScopeVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

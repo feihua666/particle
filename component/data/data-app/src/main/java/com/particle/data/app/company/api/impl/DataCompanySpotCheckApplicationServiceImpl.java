@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanySpotCheckCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanySpotCheckDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanySpotCheckUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanySpotCheckCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanySpotCheckUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanySpotCheckApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanySpotCheckCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanySpotCheckWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanySpotCheckExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanySpotCheckApplicationServiceImpl extends AbstractBaseAppl
     }
 
     @Override
-    public SingleResponse<DataCompanySpotCheckVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanySpotCheckVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanySpotCheckDeleteCommandExecutor.execute(deleteCommand);
     }
 

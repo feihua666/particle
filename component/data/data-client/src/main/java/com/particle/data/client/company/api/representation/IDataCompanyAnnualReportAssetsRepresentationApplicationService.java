@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportAssetsPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportAssetsQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyAnnualReportAssetsExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyAnnualReportAssetsRepresentationApplicationService 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportAssetsVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyAnnualReportAssetsVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportAssetsVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyAnnualReportAssetsVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

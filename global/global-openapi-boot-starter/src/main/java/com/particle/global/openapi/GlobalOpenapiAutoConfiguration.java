@@ -53,7 +53,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @ComponentScan
 @Configuration(proxyBeanMethods = true)
 @EnableConfigurationProperties({GlobalOpenapiProperties.class})
-@ConditionalOnProperty(prefix = "particle.openapi", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.openapi", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalOpenapiAutoConfiguration {
 
 	public static final String global_openapi_scheduled_task_executor = "globalOpenapiScheduledTaskExecutor";

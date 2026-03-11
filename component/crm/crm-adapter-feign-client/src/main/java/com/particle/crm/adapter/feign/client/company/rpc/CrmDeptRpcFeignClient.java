@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2024-04-24 10:16:52
  */
-@FeignClient(name = "${particle.feign-client.name.crm:crm}",path = "/rpc/crm_dept")
+@FeignClient(name = "${particle.feign-client.crm.name:crm-start}", contextId = "crmDeptRpcFeignClient", url = "${particle.feign-client.crm.url:}", path = "/rpc/crm_dept")
 public interface CrmDeptRpcFeignClient {
 
 

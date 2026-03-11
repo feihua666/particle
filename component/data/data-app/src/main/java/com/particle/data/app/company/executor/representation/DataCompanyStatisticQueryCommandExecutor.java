@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyStatisticAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyStatisticQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyStatisticVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyStatisticDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyStatisticService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyStatisticPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyStatisticQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyStatisticVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyStatisticVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyStatisticDO byId = iDataCompanyStatisticService.getById(detailCommand.getId());
 		DataCompanyStatisticVO dataCompanyStatisticVO = DataCompanyStatisticAppStructMapping.instance.dataCompanyStatisticDOToDataCompanyStatisticVO(byId);
 		return SingleResponse.of(dataCompanyStatisticVO);
@@ -67,7 +66,7 @@ public class DataCompanyStatisticQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyStatisticVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyStatisticVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyStatisticDO byId = iDataCompanyStatisticService.getById(detailForUpdateCommand.getId());
 		DataCompanyStatisticVO dataCompanyStatisticVO = DataCompanyStatisticAppStructMapping.instance.dataCompanyStatisticDOToDataCompanyStatisticVO(byId);
 		return SingleResponse.of(dataCompanyStatisticVO);

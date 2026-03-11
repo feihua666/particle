@@ -2,7 +2,7 @@ package com.particle.user.app.identifier.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class UserIdentifierPwdQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param userIdentifierPwdQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> executeDetail(IdCommand userIdentifierPwdQueryDetailCommand) {
+	public SingleResponse<UserIdentifierPwdVO> executeDetail(CommonIdCommand userIdentifierPwdQueryDetailCommand) {
 		UserIdentifierPwdDO byId = iUserIdentifierPwdService.getById(userIdentifierPwdQueryDetailCommand.getId());
 		UserIdentifierPwdVO userIdentifierPwdVO = UserIdentifierPwdAppStructMapping.instance.userIdentifierPwdDOToUserIdentifierPwdVO(byId);
 		return SingleResponse.of(userIdentifierPwdVO);
@@ -67,7 +67,7 @@ public class UserIdentifierPwdQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param userIdentifierPwdQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierPwdVO> executeDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand) {
+	public SingleResponse<UserIdentifierPwdVO> executeDetailForUpdate(CommonIdCommand userIdentifierPwdQueryDetailForUpdateCommand) {
 		UserIdentifierPwdDO byId = iUserIdentifierPwdService.getById(userIdentifierPwdQueryDetailForUpdateCommand.getId());
 		UserIdentifierPwdVO userIdentifierPwdVO = UserIdentifierPwdAppStructMapping.instance.userIdentifierPwdDOToUserIdentifierPwdVO(byId);
 		return SingleResponse.of(userIdentifierPwdVO);

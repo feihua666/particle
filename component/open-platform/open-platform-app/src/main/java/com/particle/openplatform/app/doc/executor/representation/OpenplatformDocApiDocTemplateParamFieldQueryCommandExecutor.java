@@ -2,7 +2,7 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformDocApiDocTemplateParamFieldQueryCommandExecutor  extend
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformDocApiDocTemplateParamFieldDO byId = iOpenplatformDocApiDocTemplateParamFieldService.getById(detailCommand.getId());
 		OpenplatformDocApiDocTemplateParamFieldVO openplatformDocApiDocTemplateParamFieldVO = OpenplatformDocApiDocTemplateParamFieldAppStructMapping.instance.openplatformDocApiDocTemplateParamFieldDOToOpenplatformDocApiDocTemplateParamFieldVO(byId);
 		return SingleResponse.of(openplatformDocApiDocTemplateParamFieldVO);
@@ -67,7 +67,7 @@ public class OpenplatformDocApiDocTemplateParamFieldQueryCommandExecutor  extend
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformDocApiDocTemplateParamFieldVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformDocApiDocTemplateParamFieldDO byId = iOpenplatformDocApiDocTemplateParamFieldService.getById(detailForUpdateCommand.getId());
 		OpenplatformDocApiDocTemplateParamFieldVO openplatformDocApiDocTemplateParamFieldVO = OpenplatformDocApiDocTemplateParamFieldAppStructMapping.instance.openplatformDocApiDocTemplateParamFieldDOToOpenplatformDocApiDocTemplateParamFieldVO(byId);
 		return SingleResponse.of(openplatformDocApiDocTemplateParamFieldVO);

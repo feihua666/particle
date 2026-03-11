@@ -1,13 +1,12 @@
 package com.particle.role.adapter.feign.client.rpc;
 
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.client.dto.command.RoleCreateWithTenantIdCommand;
 import com.particle.role.client.dto.command.representation.*;
 import com.particle.role.client.dto.data.RoleVO;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author yw
  * @since 2022-11-25
  */
-@FeignClient(name = "${particle.feign-client.name.role:role}",path = "/rpc/role")
+@FeignClient(name = "${particle.feign-client.role.name:role-start}", contextId = "roleRpcFeignClient", url = "${particle.feign-client.role.url:}", path = "/rpc/role")
 public interface RoleRpcFeignClient {
 
 
@@ -39,7 +38,7 @@ public interface RoleRpcFeignClient {
      */
 
     @GetMapping("/listByUserId")
-    public MultiResponse<RoleVO> queryListByUserId(RoleQueryListByUserIdCommand roleQueryListByUserIdCommand);
+    public MultiResponse<RoleVO> queryListByUserId(@SpringQueryMap RoleQueryListByUserCommonIdCommand roleQueryListByUserIdCommand);
     /**
      * 根据用户id查询角色
      * @param roleQueryListByUserIdsCommand
@@ -47,7 +46,7 @@ public interface RoleRpcFeignClient {
      */
 
     @GetMapping("/listByUserIds")
-    public MultiResponse<RoleVO> queryListByUserIds(RoleQueryListByUserIdsCommand roleQueryListByUserIdsCommand);
+    public MultiResponse<RoleVO> queryListByUserIds(@SpringQueryMap RoleQueryListByUserIdsCommand roleQueryListByUserIdsCommand);
 
 
     /**
@@ -57,7 +56,7 @@ public interface RoleRpcFeignClient {
      */
 
     @GetMapping("/listByRoleId")
-    public SingleResponse<RoleVO> queryListByRoleId(RoleQueryListByRoleIdCommand roleQueryListByRoleIdCommand);
+    public SingleResponse<RoleVO> queryListByRoleId(@SpringQueryMap RoleQueryListByRoleCommonIdCommand roleQueryListByRoleIdCommand);
 
 
     /**
@@ -67,7 +66,7 @@ public interface RoleRpcFeignClient {
      */
 
     @GetMapping("/listByRoleIds")
-    public MultiResponse<RoleVO> queryListByRoleIds(RoleQueryListByRoleIdsCommand roleQueryListByRoleIdsCommand);
+    public MultiResponse<RoleVO> queryListByRoleIds(@SpringQueryMap RoleQueryListByRoleIdsCommand roleQueryListByRoleIdsCommand);
 
     /**
      * 列表查询角色
@@ -75,5 +74,5 @@ public interface RoleRpcFeignClient {
      * @return
      */
     @GetMapping("/list")
-    public MultiResponse<RoleVO> queryList(RoleQueryListCommand roleQueryListCommand);
+    public MultiResponse<RoleVO> queryList(@SpringQueryMap RoleQueryListCommand roleQueryListCommand);
 }

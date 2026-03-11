@@ -8,7 +8,7 @@ import cn.hutool.json.JSONUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.component.light.share.dict.FieldType;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiAppStructMapping;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiCreateCommand;
 import com.particle.openplatform.client.doc.dto.command.OpenplatformDocApiDocParamFieldCreateCommand;

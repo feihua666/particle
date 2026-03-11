@@ -30,4 +30,4 @@ CREATE TABLE `component_data_company_person` (
   UNIQUE KEY `id_no_md5` (`id_no_md5`) USING BTREE,
   UNIQUE KEY `id_no_sha256` (`id_no_sha256`) USING BTREE,
   UNIQUE KEY `id_no_sm3` (`id_no_sm3`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业个人表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业个人表';

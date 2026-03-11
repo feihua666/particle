@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDiscreditedJudgmentDebtorPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDiscreditedJudgmentDebtorQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyDiscreditedJudgmentDebtorExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyDiscreditedJudgmentDebtorRepresentationApplicationS
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

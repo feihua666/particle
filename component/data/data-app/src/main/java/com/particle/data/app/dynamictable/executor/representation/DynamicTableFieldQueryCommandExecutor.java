@@ -1,5 +1,6 @@
 package com.particle.data.app.dynamictable.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryCreateCommandExecutor;
 import com.particle.data.app.dynamictable.structmapping.DynamicTableFieldAppStructMapping;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableFieldQueryListCommand;
@@ -8,7 +9,6 @@ import com.particle.data.infrastructure.dynamictable.dos.DynamicTableDO;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldService;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableFieldPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.MultiResponse;
@@ -20,7 +20,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -65,7 +64,7 @@ public class DynamicTableFieldQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableFieldVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicTableFieldVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicTableFieldDO byId = iDynamicTableFieldService.getById(detailCommand.getId());
 		DynamicTableFieldVO dynamicTableFieldVO = DynamicTableFieldAppStructMapping.instance.dynamicTableFieldDOToDynamicTableFieldVO(byId);
 		return SingleResponse.of(dynamicTableFieldVO);
@@ -75,7 +74,7 @@ public class DynamicTableFieldQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableFieldVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicTableFieldVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicTableFieldDO byId = iDynamicTableFieldService.getById(detailForUpdateCommand.getId());
 		DynamicTableFieldVO dynamicTableFieldVO = DynamicTableFieldAppStructMapping.instance.dynamicTableFieldDOToDynamicTableFieldVO(byId);
 		return SingleResponse.of(dynamicTableFieldVO);

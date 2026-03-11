@@ -1,7 +1,7 @@
 package com.particle.componentadmin.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class AdminComponentDependencyRepresentationApplicationServiceImpl extend
     private AdminComponentDependencyQueryCommandExecutor adminComponentDependencyQueryCommandExecutor;
 
     @Override
-    public SingleResponse<AdminComponentDependencyVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<AdminComponentDependencyVO> queryDetail(CommonIdCommand detailCommand) {
         return adminComponentDependencyQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<AdminComponentDependencyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return adminComponentDependencyQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -48,14 +48,14 @@ public class AdminComponentDependencyRepresentationApplicationServiceImpl extend
     }
 
 	@Override
-	public MultiResponse<Long> queryDependComponentIdsByComponentId(IdCommand componentIdCommand) {
+	public MultiResponse<Long> queryDependComponentIdsByComponentId(CommonIdCommand componentCommonIdCommand) {
 
-		return adminComponentDependencyQueryCommandExecutor.queryDependComponentIdsByComponentId(componentIdCommand);
+		return adminComponentDependencyQueryCommandExecutor.queryDependComponentIdsByComponentId(componentCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryComponentIdsByDependComponentId(IdCommand dependComponentIdCommand) {
-		return adminComponentDependencyQueryCommandExecutor.queryComponentIdsByDependComponentId(dependComponentIdCommand);
+	public MultiResponse<Long> queryComponentIdsByDependComponentId(CommonIdCommand dependComponentCommonIdCommand) {
+		return adminComponentDependencyQueryCommandExecutor.queryComponentIdsByDependComponentId(dependComponentCommonIdCommand);
 	}
 
     @Autowired

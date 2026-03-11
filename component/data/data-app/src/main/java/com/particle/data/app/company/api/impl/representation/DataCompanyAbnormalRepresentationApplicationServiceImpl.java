@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyAbnormalRepresentationApplicationServiceImpl extends Abs
     private DataCompanyAbnormalExWarehouseCommandExecutor dataCompanyAbnormalExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyAbnormalVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyAbnormalVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyAbnormalQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyAbnormalVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyAbnormalVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyAbnormalQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

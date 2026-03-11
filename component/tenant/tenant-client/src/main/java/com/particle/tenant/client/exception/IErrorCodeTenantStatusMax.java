@@ -1,6 +1,6 @@
 package com.particle.tenant.client.exception;
 
-import com.particle.global.exception.code.IErrorCodeStatusMax;
+import com.particle.global.light.share.code.IErrorCodeStatusMax;
 
 /**
  * <p>

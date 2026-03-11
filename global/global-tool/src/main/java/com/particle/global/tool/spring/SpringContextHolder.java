@@ -14,8 +14,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 以静态变量保存Spring ApplicationContext,
- * 可在任何代码任何地方任何时候取出ApplicaitonContext.
+ * 以静态变量保存 Spring ApplicationContext,
+ * 可在任何代码任何地方任何时候取出 ApplicaitonContext.
+ * 参见 {@link com.particle.global.autoconfigure.GlobalAutoConfigureAutoConfiguration#springContextHolder()} 配置
  * @author yangwei
  * @since 2022-04-13 19:52
  */
@@ -117,7 +118,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 	 */
 	private static void assertContextInjected() {
 		if (applicationContext == null) {
-			throw new IllegalStateException("applicaitonContext is not be injected,please config SpringContextHolder in applicationContext.xml");
+			throw new IllegalStateException("applicationContext is not be injected,please config SpringContextHolder in applicationContext.xml");
 		}
 	}
 }

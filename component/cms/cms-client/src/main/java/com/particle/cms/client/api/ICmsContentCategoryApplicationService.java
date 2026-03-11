@@ -1,9 +1,8 @@
 package com.particle.cms.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsContentCategoryCreateCommand;
 import com.particle.cms.client.dto.command.CmsContentCategoryUpdateCommand;
 import com.particle.cms.client.dto.data.CmsContentCategoryVO;
@@ -28,7 +27,7 @@ public interface ICmsContentCategoryApplicationService extends IBaseApplicationS
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsContentCategoryVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsContentCategoryVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

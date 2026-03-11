@@ -7,9 +7,8 @@ import com.particle.data.infrastructure.dynamictable.mapper.DynamicTableFieldMap
 import com.particle.data.infrastructure.dynamictable.mapper.DynamicTableMapper;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldService;
 import com.particle.global.dto.basic.QueryCommand;
-import com.particle.global.exception.Assert;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.crud.IBaseServiceImpl;
 import com.particle.global.mybatis.plus.mapstruct.IBaseQueryCommandMapStruct;
 import com.particle.global.mybatis.plus.table.TableServivce;

@@ -1,0 +1,2 @@
+-- import classpath:db/data.audit.dict.sql
+-- import classpath:db/data.audit.func.sql

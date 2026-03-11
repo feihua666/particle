@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkTransferPersonAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkTransferPersonVO;
 import com.particle.data.domain.company.DataCompanyIprTrademarkTransferPerson;
 import com.particle.data.domain.company.DataCompanyIprTrademarkTransferPersonId;
 import com.particle.data.domain.company.gateway.DataCompanyIprTrademarkTransferPersonGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkTransferPersonService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkTransferPersonDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprTrademarkTransferPersonDeleteCommandExecutor  extends
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprTrademarkTransferPersonVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprTrademarkTransferPersonId dataCompanyIprTrademarkTransferPersonId = DataCompanyIprTrademarkTransferPersonId.of(deleteCommand.getId());
 		DataCompanyIprTrademarkTransferPerson byId = dataCompanyIprTrademarkTransferPersonGateway.getById(dataCompanyIprTrademarkTransferPersonId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

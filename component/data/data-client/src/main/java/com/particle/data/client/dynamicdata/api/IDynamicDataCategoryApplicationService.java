@@ -1,9 +1,8 @@
 package com.particle.data.client.dynamicdata.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataCategoryCreateCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataCategoryUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataCategoryVO;
@@ -28,7 +27,7 @@ public interface IDynamicDataCategoryApplicationService extends IBaseApplication
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DynamicDataCategoryVO> delete(IdCommand deleteCommand);
+	SingleResponse<DynamicDataCategoryVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -6,7 +6,7 @@ import com.particle.componentadmin.client.dto.data.AdminComponentVO;
 import com.particle.componentadmin.infrastructure.dos.AdminComponentDO;
 import com.particle.componentadmin.infrastructure.service.IAdminComponentService;
 import com.particle.componentadmin.client.dto.command.representation.AdminComponentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AdminComponentQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AdminComponentVO> executeDetail(CommonIdCommand detailCommand) {
 		AdminComponentDO byId = iAdminComponentService.getById(detailCommand.getId());
 		AdminComponentVO adminComponentVO = AdminComponentAppStructMapping.instance.adminComponentDOToAdminComponentVO(byId);
 		return SingleResponse.of(adminComponentVO);
@@ -67,7 +66,7 @@ public class AdminComponentQueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AdminComponentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AdminComponentDO byId = iAdminComponentService.getById(detailForUpdateCommand.getId());
 		AdminComponentVO adminComponentVO = AdminComponentAppStructMapping.instance.adminComponentDOToAdminComponentVO(byId);
 		return SingleResponse.of(adminComponentVO);

@@ -29,7 +29,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 @ComponentScan
 @EnableConfigurationProperties(DynamicCaptchaNotifyProperties.class)
-@ConditionalOnProperty(prefix = "particle.captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalCaptchaAutoConfiguration {
 
 	/**

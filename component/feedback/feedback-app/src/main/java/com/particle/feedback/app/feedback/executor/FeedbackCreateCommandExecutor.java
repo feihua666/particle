@@ -12,7 +12,7 @@ import com.particle.feedback.domain.feedback.FeedbackId;
 import com.particle.feedback.domain.feedback.gateway.FeedbackGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

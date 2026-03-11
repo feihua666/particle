@@ -1,7 +1,7 @@
 package com.particle.dataquery.client.provider.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderPageQueryCommand;
 import com.particle.dataquery.client.provider.dto.command.representation.DataQueryProviderQueryListCommand;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderVO;
@@ -24,14 +24,14 @@ public interface IDataQueryProviderRepresentationApplicationService extends IBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryProviderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataQueryProviderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryProviderVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataQueryProviderVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

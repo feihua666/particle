@@ -2,7 +2,7 @@ package com.particle.openplatform.app.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformAppOpenapiQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformAppOpenapiVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformAppOpenapiVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformAppOpenapiDO byId = iOpenplatformAppOpenapiService.getById(detailCommand.getId());
 		OpenplatformAppOpenapiVO openplatformAppOpenapiVO = OpenplatformAppOpenapiAppStructMapping.instance.openplatformAppOpenapiDOToOpenplatformAppOpenapiVO(byId);
 		return SingleResponse.of(openplatformAppOpenapiVO);
@@ -67,7 +67,7 @@ public class OpenplatformAppOpenapiQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformAppOpenapiVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformAppOpenapiVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformAppOpenapiDO byId = iOpenplatformAppOpenapiService.getById(detailForUpdateCommand.getId());
 		OpenplatformAppOpenapiVO openplatformAppOpenapiVO = OpenplatformAppOpenapiAppStructMapping.instance.openplatformAppOpenapiDOToOpenplatformAppOpenapiVO(byId);
 		return SingleResponse.of(openplatformAppOpenapiVO);

@@ -19,4 +19,4 @@ CREATE TABLE `component_user_login_device` (
   KEY `user_id__user_identifier_id` (`user_id`,`validate_at`),
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户登录设备表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户登录设备表';

@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyBasicExWarehouseQueryCommand;
-import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyBasicExWarehouseVO;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -11,7 +10,6 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.data.client.company.dto.command.representation.DataCompanyBasicPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyBasicQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyBasicVO;
-import jakarta.validation.Valid;
 
 /**
  * <p>
@@ -28,14 +26,14 @@ public interface IDataCompanyBasicRepresentationApplicationService extends IBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyBasicVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyBasicVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyBasicVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyBasicVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

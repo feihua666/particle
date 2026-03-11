@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAnnualReportEquityChangeAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportEquityChangeQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportEquityChangeVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportEquityChangeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportEquityChangeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportEquityChangePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportEquityChangeQueryCommandExecutor  extends Ab
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportEquityChangeDO byId = iDataCompanyAnnualReportEquityChangeService.getById(detailCommand.getId());
 		DataCompanyAnnualReportEquityChangeVO dataCompanyAnnualReportEquityChangeVO = DataCompanyAnnualReportEquityChangeAppStructMapping.instance.dataCompanyAnnualReportEquityChangeDOToDataCompanyAnnualReportEquityChangeVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportEquityChangeVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportEquityChangeQueryCommandExecutor  extends Ab
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportEquityChangeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportEquityChangeDO byId = iDataCompanyAnnualReportEquityChangeService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportEquityChangeVO dataCompanyAnnualReportEquityChangeVO = DataCompanyAnnualReportEquityChangeAppStructMapping.instance.dataCompanyAnnualReportEquityChangeDOToDataCompanyAnnualReportEquityChangeVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportEquityChangeVO);

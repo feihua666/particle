@@ -1,7 +1,7 @@
 package com.particle.report.client.reportapi.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.report.client.dto.command.ReportApiRefreshCacheCommand;
 import com.particle.report.client.reportapi.dto.command.ReportReportApiCreateCommand;
@@ -29,7 +29,7 @@ public interface IReportReportApiApplicationService extends IBaseApplicationServ
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<ReportReportApiVO> delete(IdCommand deleteCommand);
+	SingleResponse<ReportReportApiVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

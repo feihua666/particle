@@ -71,7 +71,9 @@ public class TenantUserUserGatewayImpl implements TenantUserUserGateway {
 		// 密码
 		UserIdentifierPwdCommand userIdentifierPwdCommand = new UserIdentifierPwdCommand();
 		userIdentifierPwdCommand.setPassword(password);
-		SingleResponse<UserVO> userVOSingleResponse = userRpcFeignClient.create(userCreateCommand, userIdentifierPwdCommand);
+		userCreateCommand.setIdentifierPwd(userIdentifierPwdCommand);
+
+		SingleResponse<UserVO> userVOSingleResponse = userRpcFeignClient.create(userCreateCommand);
 
 		return userVOSingleResponse.getData().getId();
 	}

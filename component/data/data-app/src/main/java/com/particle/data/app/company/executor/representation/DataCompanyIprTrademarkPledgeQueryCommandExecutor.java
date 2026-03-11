@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkPledgeAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkPledgeQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkPledgeVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkPledgeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkPledgeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkPledgePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprTrademarkPledgeQueryCommandExecutor  extends Abstract
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkPledgeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprTrademarkPledgeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprTrademarkPledgeDO byId = iDataCompanyIprTrademarkPledgeService.getById(detailCommand.getId());
 		DataCompanyIprTrademarkPledgeVO dataCompanyIprTrademarkPledgeVO = DataCompanyIprTrademarkPledgeAppStructMapping.instance.dataCompanyIprTrademarkPledgeDOToDataCompanyIprTrademarkPledgeVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkPledgeVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprTrademarkPledgeQueryCommandExecutor  extends Abstract
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkPledgeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprTrademarkPledgeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprTrademarkPledgeDO byId = iDataCompanyIprTrademarkPledgeService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprTrademarkPledgeVO dataCompanyIprTrademarkPledgeVO = DataCompanyIprTrademarkPledgeAppStructMapping.instance.dataCompanyIprTrademarkPledgeDOToDataCompanyIprTrademarkPledgeVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkPledgeVO);

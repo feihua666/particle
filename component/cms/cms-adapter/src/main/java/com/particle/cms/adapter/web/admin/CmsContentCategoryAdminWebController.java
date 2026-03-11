@@ -1,11 +1,11 @@
 package com.particle.cms.adapter.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.cms.client.api.ICmsContentCategoryApplicationService;
 import com.particle.cms.client.api.representation.ICmsContentCategoryRepresentationApplicationService;
 import com.particle.cms.client.dto.command.CmsContentCategoryCreateCommand;
 import com.particle.cms.client.dto.data.CmsContentCategoryVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.cms.client.dto.command.CmsContentCategoryUpdateCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentCategoryPageQueryCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentCategoryQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 内容分类后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class CmsContentCategoryAdminWebController extends AbstractBaseWebAdapter
     @Operation(summary = "删除内容分类")
     @DeleteMapping("/delete")
     @OpLog(name = "删除内容分类",module = OpLogConstants.Module.cms,type = OpLogConstants.Type.delete)
-    public SingleResponse<CmsContentCategoryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<CmsContentCategoryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iCmsContentCategoryApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class CmsContentCategoryAdminWebController extends AbstractBaseWebAdapter
     @PreAuthorize("hasAuthority('admin:web:cmsContentCategory:update')")
     @Operation(summary = "内容分类更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<CmsContentCategoryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<CmsContentCategoryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iCmsContentCategoryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:cmsContentCategory:detail')")
     @Operation(summary = "内容分类详情展示")
     @GetMapping("/detail")
-    public SingleResponse<CmsContentCategoryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<CmsContentCategoryVO> queryDetail(CommonIdCommand detailCommand){
         return iCmsContentCategoryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

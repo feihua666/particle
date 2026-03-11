@@ -1,7 +1,7 @@
 package com.particle.dataquery.app.dataapi.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.dataapi.structmapping.DataQueryDataApiAppStructMapping;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiCreateCommand;
 import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
@@ -10,7 +10,7 @@ import com.particle.dataquery.domain.dataapi.gateway.DataQueryDataApiGateway;
 import com.particle.dataquery.infrastructure.dataapi.dos.DataQueryDataApiDO;
 import com.particle.dataquery.infrastructure.dataapi.service.IDataQueryDataApiService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -57,11 +57,11 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 
 	/**
 	 * 复制一个新数据
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDataApiVO> copy(@Valid IdCommand idCommand) {
-		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(idCommand.getId(), item -> {
+	public SingleResponse<DataQueryDataApiVO> copy(@Valid CommonIdCommand commonIdCommand) {
+		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(commonIdCommand.getId(), item -> {
 			String copySuffix = "Copy";
 			item.setUrl(item.getUrl() + copySuffix);
 			item.setName(item.getName() + copySuffix);
@@ -80,11 +80,11 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 	}
 	/**
 	 * 复制一个新数据作为开发版本
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDataApiVO> copydev(@Valid IdCommand idCommand) {
-		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(idCommand.getId(), item -> {
+	public SingleResponse<DataQueryDataApiVO> copydev(@Valid CommonIdCommand commonIdCommand) {
+		DataQueryDataApiDO copy = iDataQueryDataApiService.copy(commonIdCommand.getId(), item -> {
 			String copySuffix = "Copydev";
 			item.setUrl(item.getUrl() + copySuffix);
 			item.setName(item.getName() + copySuffix);
@@ -92,7 +92,7 @@ public class DataQueryDataApiCreateCommandExecutor  extends AbstractBaseExecutor
 			// 开发配置相关
 			item.setIsPublished(false);
 			item.setIsMaster(false);
-			item.setMasterId(idCommand.getId());
+			item.setMasterId(commonIdCommand.getId());
 			item.setIsTestPassed(false);
 			return item;
 		});

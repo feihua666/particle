@@ -47,7 +47,7 @@ public class GlobalTransAutoConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	@ConfigurationProperties(prefix = "particle.trans")
+	@ConfigurationProperties(prefix = "particle.global.trans")
 	public TableNameResolver defaultTableNameResolver() {
 		return new TableNameResolver() {
 			private Map<String,String> table;

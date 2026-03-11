@@ -1,7 +1,7 @@
 package com.particle.func.adapter.web.front;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.api.IFuncApplicationService;
 import com.particle.func.client.api.representation.IFuncRepresentationApplicationService;
@@ -53,7 +53,7 @@ public class FuncFrontWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除菜单功能")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除菜单功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public SingleResponse<FuncVO> delete(@RequestBody IdCommand funcDeleteCommand){
+	public SingleResponse<FuncVO> delete(@RequestBody CommonIdCommand funcDeleteCommand){
 		return iFuncApplicationService.delete(funcDeleteCommand);
 	}
 
@@ -68,14 +68,14 @@ public class FuncFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:func:update')")
 	@Operation(summary = "菜单功能更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<FuncVO> queryDetailForUpdate(IdCommand funcQueryDetailForUpdateCommand){
+	public SingleResponse<FuncVO> queryDetailForUpdate(CommonIdCommand funcQueryDetailForUpdateCommand){
 		return iFuncRepresentationApplicationService.queryDetailForUpdate(funcQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:func:detail')")
 	@Operation(summary = "菜单功能详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncVO> queryDetail(IdCommand funcQueryDetailCommand){
+	public SingleResponse<FuncVO> queryDetail(CommonIdCommand funcQueryDetailCommand){
 		return iFuncRepresentationApplicationService.queryDetail(funcQueryDetailCommand);
 	}
 

@@ -11,6 +11,12 @@
 
     <artifactId>common-infrastructure</artifactId>
 
+    <description>
+        DDD 架构中的通用基础设施层模块，提供领域层与应用层所需的技术实现能力，
+        包括数据访问、缓存、事务、并发控制、审计日志等基础设施实现，
+        用于支撑业务运行，不定义业务规则与对外接口。
+    </description>
+
     <properties>
 
 

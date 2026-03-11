@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyIprPatentPartyCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentPartyDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentPartyUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentPartyCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentPartyUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyIprPatentPartyApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentPartyCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentPartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentPartyExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyIprPatentPartyApplicationServiceImpl extends AbstractBas
     }
 
     @Override
-    public SingleResponse<DataCompanyIprPatentPartyVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyIprPatentPartyVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyIprPatentPartyDeleteCommandExecutor.execute(deleteCommand);
     }
 

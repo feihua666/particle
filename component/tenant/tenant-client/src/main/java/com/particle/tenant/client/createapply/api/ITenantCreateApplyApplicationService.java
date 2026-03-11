@@ -1,7 +1,7 @@
 package com.particle.tenant.client.createapply.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyCreateCommand;
@@ -29,7 +29,7 @@ public interface ITenantCreateApplyApplicationService extends IBaseApplicationSe
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<TenantCreateApplyVO> delete(IdCommand deleteCommand);
+	SingleResponse<TenantCreateApplyVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

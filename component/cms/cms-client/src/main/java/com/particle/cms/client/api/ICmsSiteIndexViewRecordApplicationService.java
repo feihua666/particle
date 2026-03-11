@@ -1,9 +1,8 @@
 package com.particle.cms.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsSiteIndexViewRecordCreateCommand;
 import com.particle.cms.client.dto.command.CmsSiteIndexViewRecordUpdateCommand;
 import com.particle.cms.client.dto.data.CmsSiteIndexViewRecordVO;
@@ -28,7 +27,7 @@ public interface ICmsSiteIndexViewRecordApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsSiteIndexViewRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsSiteIndexViewRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(ReportApiForOpenapiController.API_REQUEST_MAPPING)
 public class ReportApiForOpenapiController extends AbstractBaseApiAdapter {
+	// 如果使用了 global-openapi-boot-starter 默认以 /openapi 开头的都会处理
 	public static final String API_REQUEST_MAPPING = "/openapi/re";
 	public static final String API_ENTRY = "";
 	public static final String API_ENTRY_PREFIX = API_REQUEST_MAPPING + API_ENTRY;

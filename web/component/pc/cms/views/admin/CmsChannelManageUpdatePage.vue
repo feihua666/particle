@@ -8,7 +8,8 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../api/admin/cmsChannelAdminApi"
 
-import {updatePageFormItems} from "../../components/admin/cmsChannelManage";
+import {useUpdatePageFormItems} from "../../components/admin/cmsChannelManage";
+import {remoteSelectRelatedCmsContentProps} from "../../components/cmsCompItem";
 
 
 // 声明属性
@@ -17,7 +18,8 @@ const props = defineProps({
   // 加载数据初始化参数,路由传参
   cmsChannelId: {
     type: String
-  }
+  },
+  ...remoteSelectRelatedCmsContentProps
 })
 // 属性
 const reactiveData = reactive({
@@ -31,7 +33,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    updatePageFormItems
+    useUpdatePageFormItems({props})
 )
 
 // 提交按钮属性

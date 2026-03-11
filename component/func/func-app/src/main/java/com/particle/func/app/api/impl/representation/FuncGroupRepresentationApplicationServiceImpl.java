@@ -1,7 +1,7 @@
 package com.particle.func.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.executor.representation.FuncGroupQueryCommandExecutor;
 import com.particle.func.client.api.representation.IFuncGroupRepresentationApplicationService;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
@@ -28,12 +28,12 @@ public class FuncGroupRepresentationApplicationServiceImpl extends AbstractBaseA
 	private FuncGroupQueryCommandExecutor funcGroupQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<FuncGroupVO> queryDetail(IdCommand funcGroupQueryDetailCommand) {
+	public SingleResponse<FuncGroupVO> queryDetail(CommonIdCommand funcGroupQueryDetailCommand) {
 		return funcGroupQueryCommandExecutor.executeDetail(funcGroupQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<FuncGroupVO> queryDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand) {
+	public SingleResponse<FuncGroupVO> queryDetailForUpdate(CommonIdCommand funcGroupQueryDetailForUpdateCommand) {
 		return funcGroupQueryCommandExecutor.executeDetailForUpdate(funcGroupQueryDetailForUpdateCommand);
 	}
 

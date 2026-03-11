@@ -1,12 +1,12 @@
 package com.particle.scheduler.app.datatask.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.scheduler.app.datatask.structmapping.SchedulerAsyncDataTaskAppStructMapping;
 import com.particle.scheduler.client.datatask.dto.command.representation.SchedulerAsyncDataTaskQueryListCommand;
 import com.particle.scheduler.client.datatask.dto.data.SchedulerAsyncDataTaskVO;
 import com.particle.scheduler.infrastructure.datatask.dos.SchedulerAsyncDataTaskDO;
 import com.particle.scheduler.infrastructure.datatask.service.ISchedulerAsyncDataTaskService;
 import com.particle.scheduler.client.datatask.dto.command.representation.SchedulerAsyncDataTaskPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class SchedulerAsyncDataTaskQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerAsyncDataTaskVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SchedulerAsyncDataTaskVO> executeDetail(CommonIdCommand detailCommand) {
 		SchedulerAsyncDataTaskDO byId = iSchedulerAsyncDataTaskService.getById(detailCommand.getId());
 		SchedulerAsyncDataTaskVO schedulerAsyncDataTaskVO = SchedulerAsyncDataTaskAppStructMapping.instance.schedulerAsyncDataTaskDOToSchedulerAsyncDataTaskVO(byId);
 		return SingleResponse.of(schedulerAsyncDataTaskVO);
@@ -67,7 +66,7 @@ public class SchedulerAsyncDataTaskQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerAsyncDataTaskVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SchedulerAsyncDataTaskVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SchedulerAsyncDataTaskDO byId = iSchedulerAsyncDataTaskService.getById(detailForUpdateCommand.getId());
 		SchedulerAsyncDataTaskVO schedulerAsyncDataTaskVO = SchedulerAsyncDataTaskAppStructMapping.instance.schedulerAsyncDataTaskDOToSchedulerAsyncDataTaskVO(byId);
 		return SingleResponse.of(schedulerAsyncDataTaskVO);

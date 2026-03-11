@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyAnnualReportWebsiteAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportWebsiteQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportWebsiteVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportWebsiteDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportWebsiteService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportWebsitePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportWebsiteQueryCommandExecutor  extends Abstrac
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportWebsiteVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportWebsiteVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportWebsiteDO byId = iDataCompanyAnnualReportWebsiteService.getById(detailCommand.getId());
 		DataCompanyAnnualReportWebsiteVO dataCompanyAnnualReportWebsiteVO = DataCompanyAnnualReportWebsiteAppStructMapping.instance.dataCompanyAnnualReportWebsiteDOToDataCompanyAnnualReportWebsiteVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportWebsiteVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportWebsiteQueryCommandExecutor  extends Abstrac
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportWebsiteVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportWebsiteVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportWebsiteDO byId = iDataCompanyAnnualReportWebsiteService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportWebsiteVO dataCompanyAnnualReportWebsiteVO = DataCompanyAnnualReportWebsiteAppStructMapping.instance.dataCompanyAnnualReportWebsiteDOToDataCompanyAnnualReportWebsiteVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportWebsiteVO);

@@ -11,7 +11,7 @@ export const userLoginRecordColumns = [
     },
     {
         prop: 'loginAt',
-        label: '登录时间',
+        label: '登录时间↓',
         showOverflowTooltip: true
     },
     {

@@ -1,7 +1,7 @@
 package com.particle.scheduler.app.temptask.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.app.temptask.executor.SchedulerTempTaskRunRecordLogCommandExecutor;
@@ -43,7 +43,7 @@ public class SchedulerTempTaskRunRecordLogApplicationServiceImpl extends Abstrac
     }
 
     @Override
-    public SingleResponse<SchedulerTempTaskRunRecordLogVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<SchedulerTempTaskRunRecordLogVO> delete(CommonIdCommand deleteCommand) {
         return schedulerTempTaskRunRecordLogDeleteCommandExecutor.execute(deleteCommand);
     }
 

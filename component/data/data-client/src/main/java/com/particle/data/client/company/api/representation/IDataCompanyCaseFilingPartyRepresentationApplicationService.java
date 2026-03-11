@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingPartyPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingPartyQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyCaseFilingPartyExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyCaseFilingPartyRepresentationApplicationService ext
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyCaseFilingPartyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyCaseFilingPartyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyCaseFilingPartyVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyCaseFilingPartyVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

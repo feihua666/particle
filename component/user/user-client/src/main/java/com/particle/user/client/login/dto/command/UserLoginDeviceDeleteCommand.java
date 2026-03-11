@@ -1,6 +1,6 @@
 package com.particle.user.client.login.dto.command;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 /**
@@ -13,5 +13,5 @@ import lombok.Data;
  */
 @Data
 @Schema
-public class UserLoginDeviceDeleteCommand extends IdCommand {
+public class UserLoginDeviceDeleteCommand extends CommonIdCommand {
 }

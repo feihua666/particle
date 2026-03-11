@@ -1,7 +1,7 @@
 package com.particle.scheduler.adapter.temptask.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -43,7 +43,7 @@ public class SchedulerTempTaskAdminWebController extends AbstractBaseWebAdapter 
     @Operation(summary = "删除任务计划临时任务")
     @DeleteMapping("/delete")
     @OpLog(name = "删除任务计划临时任务",module = OpLogConstants.Module.scheduler,type = OpLogConstants.Type.delete)
-    public SingleResponse<SchedulerTempTaskVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<SchedulerTempTaskVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iSchedulerTempTaskApplicationService.delete(deleteCommand);
     }
@@ -52,7 +52,7 @@ public class SchedulerTempTaskAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:schedulerTempTask:detail')")
     @Operation(summary = "任务计划临时任务详情展示")
     @GetMapping("/detail")
-    public SingleResponse<SchedulerTempTaskVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<SchedulerTempTaskVO> queryDetail(CommonIdCommand detailCommand){
         return iSchedulerTempTaskRepresentationApplicationService.queryDetail(detailCommand);
     }
 

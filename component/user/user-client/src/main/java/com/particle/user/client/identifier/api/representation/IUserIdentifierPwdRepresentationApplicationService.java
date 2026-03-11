@@ -1,7 +1,7 @@
 package com.particle.user.client.identifier.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface IUserIdentifierPwdRepresentationApplicationService extends IBas
 	 * @param userIdentifierPwdQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand);
+	SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(CommonIdCommand userIdentifierPwdQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param userIdentifierPwdQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<UserIdentifierPwdVO> queryDetail(IdCommand userIdentifierPwdQueryDetailCommand);
+	SingleResponse<UserIdentifierPwdVO> queryDetail(CommonIdCommand userIdentifierPwdQueryDetailCommand);
 
 	/**
 	 * 列表查询

@@ -2,7 +2,7 @@ package com.particle.oauth2authorization.app.client.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.oauth2authorization.app.client.structmapping.Oauth2RegisteredClientAppStructMapping;
 import com.particle.oauth2authorization.client.client.dto.command.Oauth2RegisteredClientCreateCommand;
 import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredClientVO;

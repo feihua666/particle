@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2024-08-09 14:19:59
  */
-@FeignClient(name = "${particle.feign-client.name.op-log:op-log}",path = "/rpc/op_log_error_content")
+@FeignClient(name = "${particle.feign-client.oplog.name:oplog-start}", contextId = "opLogErrorContentRpcFeignClient", url = "${particle.feign-client.oplog.url:}", path = "/rpc/op_log_error_content")
 public interface OpLogErrorContentRpcFeignClient {
 
 

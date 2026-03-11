@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.openapi.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class OpenplatformOpenapiRepresentationApplicationServiceImpl extends Abs
     private OpenplatformOpenapiQueryCommandExecutor openplatformOpenapiQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformOpenapiVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformOpenapiVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformOpenapiQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformOpenapiQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRepresentationApplicationServiceImpl extends Abs
     }
 
     @Override
-    public Response asyncBatchQueryAndExport(IdCommand openplatformOpenapiBatchQueryRecordId) {
+    public Response asyncBatchQueryAndExport(CommonIdCommand openplatformOpenapiBatchQueryRecordId) {
         openplatformOpenapiQueryCommandExecutor.asyncBatchQueryAndExport(openplatformOpenapiBatchQueryRecordId.getId());
         return Response.buildSuccess();
     }

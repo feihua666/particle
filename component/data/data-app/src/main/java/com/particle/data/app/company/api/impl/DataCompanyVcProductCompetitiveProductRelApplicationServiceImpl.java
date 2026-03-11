@@ -1,16 +1,15 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyVcProductCompetitiveProductRelApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcProductCompetitiveProductRelVO;
 
-import com.particle.data.app.company.executor.DataCompanyVcProductCompetitiveProductRelCommandExecutor;
 import com.particle.data.client.company.dto.command.CompanyVcProductAssignCompanyVcCompetitiveProductCommand;
 import com.particle.data.client.company.dto.command.CompanyVcCompetitiveProductAssignCompanyVcProductCommand;
 
@@ -53,7 +52,7 @@ public class DataCompanyVcProductCompetitiveProductRelApplicationServiceImpl ext
     }
 
     @Override
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -74,13 +73,13 @@ public class DataCompanyVcProductCompetitiveProductRelApplicationServiceImpl ext
     }
 
     @Override
-    public Response deleteByCompanyVcProductId(IdCommand idCommand){
-        return dataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor.deleteByCompanyVcProductId(idCommand);
+    public Response deleteByCompanyVcProductId(CommonIdCommand commonIdCommand){
+        return dataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor.deleteByCompanyVcProductId(commonIdCommand);
     }
 
     @Override
-    public Response deleteByCompanyVcCompetitiveProductId(IdCommand idCommand){
-        return dataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor.deleteByCompanyVcCompetitiveProductId(idCommand);
+    public Response deleteByCompanyVcCompetitiveProductId(CommonIdCommand commonIdCommand){
+        return dataCompanyVcProductCompetitiveProductRelDeleteCommandExecutor.deleteByCompanyVcCompetitiveProductId(commonIdCommand);
     }
 
     @Override

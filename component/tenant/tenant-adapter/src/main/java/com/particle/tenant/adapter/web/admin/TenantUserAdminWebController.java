@@ -1,14 +1,13 @@
 package com.particle.tenant.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.tenant.client.api.ITenantUserApplicationService;
 import com.particle.tenant.client.api.representation.ITenantUserRepresentationApplicationService;
 import com.particle.tenant.client.dto.command.TenantUserCreateCommand;
@@ -17,7 +16,6 @@ import com.particle.tenant.client.dto.command.representation.TenantUserPageQuery
 import com.particle.tenant.client.dto.command.representation.TenantUserQueryListCommand;
 import com.particle.tenant.client.dto.data.TenantUserVO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,7 +55,7 @@ public class TenantUserAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除租户用户")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户用户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantUserVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantUserVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTenantUserApplicationService.delete(deleteCommand);
 	}
 
@@ -72,14 +70,14 @@ public class TenantUserAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantUser:update')")
 	@Operation(summary = "租户用户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantUserVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantUserVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantUserRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUser:detail')")
 	@Operation(summary = "租户用户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantUserVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantUserVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantUserRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

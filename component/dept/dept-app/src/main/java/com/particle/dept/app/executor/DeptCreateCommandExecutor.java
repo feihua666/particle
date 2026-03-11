@@ -7,7 +7,7 @@ import com.particle.dept.client.dto.data.DeptVO;
 import com.particle.dept.domain.Dept;
 import com.particle.dept.domain.gateway.DeptGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

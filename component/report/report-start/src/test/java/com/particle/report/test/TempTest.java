@@ -110,7 +110,7 @@ public class TempTest {
 			String s = HttpClientTool.postJson(
 					"http://localhost:8080/admin/web/report_segment_template/copy",
 					JsonTool.toJsonStr(param),
-					HttpClientTool.ExtConfig.builder().build().addHeader("c-token-id", cTokenId));
+					HttpClientTool.ExtConfig.builder().build().addHeader("X-Token-Id", cTokenId));
 
 			System.out.println(s);
 

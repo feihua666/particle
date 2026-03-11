@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportForeignI
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportForeignInvestDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportForeignInvestService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportForeignInvestPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportForeignInvestQueryCommandExecutor  extends A
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportForeignInvestVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportForeignInvestVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportForeignInvestDO byId = iDataCompanyAnnualReportForeignInvestService.getById(detailCommand.getId());
 		DataCompanyAnnualReportForeignInvestVO dataCompanyAnnualReportForeignInvestVO = DataCompanyAnnualReportForeignInvestAppStructMapping.instance.dataCompanyAnnualReportForeignInvestDOToDataCompanyAnnualReportForeignInvestVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportForeignInvestVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportForeignInvestQueryCommandExecutor  extends A
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportForeignInvestVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportForeignInvestVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportForeignInvestDO byId = iDataCompanyAnnualReportForeignInvestService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportForeignInvestVO dataCompanyAnnualReportForeignInvestVO = DataCompanyAnnualReportForeignInvestAppStructMapping.instance.dataCompanyAnnualReportForeignInvestDOToDataCompanyAnnualReportForeignInvestVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportForeignInvestVO);

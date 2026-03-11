@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanySpotCheckRepresentationApplicationServiceImpl extends Ab
     private DataCompanySpotCheckExWarehouseCommandExecutor dataCompanySpotCheckExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanySpotCheckVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanySpotCheckVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanySpotCheckQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanySpotCheckVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanySpotCheckVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanySpotCheckQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.user.app.identifier.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class UserIdentifierPwdRepresentationApplicationServiceImpl extends Abstr
 	private UserIdentifierPwdQueryCommandExecutor userIdentifierPwdQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<UserIdentifierPwdVO> queryDetail(IdCommand userIdentifierPwdQueryDetailCommand) {
+	public SingleResponse<UserIdentifierPwdVO> queryDetail(CommonIdCommand userIdentifierPwdQueryDetailCommand) {
 		return userIdentifierPwdQueryCommandExecutor.executeDetail(userIdentifierPwdQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(IdCommand userIdentifierPwdQueryDetailForUpdateCommand) {
+	public SingleResponse<UserIdentifierPwdVO> queryDetailForUpdate(CommonIdCommand userIdentifierPwdQueryDetailForUpdateCommand) {
 		return userIdentifierPwdQueryCommandExecutor.executeDetailForUpdate(userIdentifierPwdQueryDetailForUpdateCommand);
 	}
 

@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyIprPatentApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprPatentVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyIprPatentVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

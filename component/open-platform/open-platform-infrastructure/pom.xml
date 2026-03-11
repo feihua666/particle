@@ -32,6 +32,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
             <optional>true</optional>
         </dependency>
         <!-- 查询字典使用 -->
@@ -46,6 +53,7 @@
             <artifactId>oauth2authorization-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 文件服务，主要使用是将批量查询结果上传到oss -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-oss-boot-starter</artifactId>

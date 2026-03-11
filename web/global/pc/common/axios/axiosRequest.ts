@@ -103,10 +103,16 @@ export interface Config{
  * 默认的创建 axios 实例的配置
  */
 const defaultConfig: Config = {
-    tokenKey: 'c-token-id',
+    tokenKey: 'X-Token-Id',
     userDefaultInstance: true,// 使用默认axios实例，否则创建新的实例
     baseURI: getUrl(), // 基础url
     timeout: 1000 * 120,// timeout 单位毫秒 默认 120s
+    /**
+    // 后端必须设置这两个响应头
+    Access-Control-Allow-Credentials: true  // 允许携带凭证
+    Access-Control-Allow-Origin: http://localhost:5173  // 必须是具体域名，不能是 *
+     */
+    withCredentials: true, // 允许携带cookie，控制浏览器在跨域请求时是否携带和接收凭证信息
     cancelDuplicateRequest: false, // 是否开启取消重复请求, 默认为 false
     loading: false, // 是否开启loading层效果, 默认为false
     reductDataFormat: false, // 是否开启简洁的数据结构响应, 默认为 false
@@ -284,10 +290,15 @@ export const interceptResponse = (axiosInstance, configOptions: Config) => {
                 // todo 接口正常返回额外处理
             }// end if response.config.responseType == 'json'
             loginUserStoreCache = loginUserStoreCache || useLoginUserStore()
-            let token = response.headers[configOptionsTemp.tokenKey] || ''
-            if (token){
+            let token = response.headers[configOptionsTemp.tokenKey] || response.headers[configOptionsTemp.tokenKey.toLowerCase()]
+            // 在使用 withCredentials 时，一般浏览器校验更严格，需要后端设置允许暴露的响应头，如果 token 为空，可能是跨域请求，后端未设置允许的响应头
+            if(token == undefined){
+                // 没有拿到请求头时，可能是跨域请求，后端未设置允许的响应头，也可能是后端bug,不做处理，如果本地已经设置过，会复用已设置的
+            }else{
+                // 设置 token
                 loginUserStoreCache.changeToken(token)
             }
+
 
             configOptionsTemp.showNoneSuccessMessage && httpNoneSuccessHandle(response,configOptionsTemp)
             return configOptionsTemp.reductDataFormat ? response.data : response
@@ -326,6 +337,7 @@ export const createAxios = (config: Config={}) => {
     }
     instance.defaults.baseURL = configOptions.baseURI
     instance.defaults.timeout = configOptions.timeout;
+    instance.defaults.withCredentials = configOptions.withCredentials
     // 拦截请求配置
     interceptRequest(instance, configOptions)
     // 拦截响应配置

@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -51,7 +51,7 @@ public class OpenplatformDocApiAdminWebController extends AbstractBaseWebAdapter
 	@Operation(summary = "删除开放接口文档接口")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiApplicationService.delete(deleteCommand);
 	}
 
@@ -66,14 +66,14 @@ public class OpenplatformDocApiAdminWebController extends AbstractBaseWebAdapter
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApi:update')")
 	@Operation(summary = "开放接口文档接口更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApi:detail')")
 	@Operation(summary = "开放接口文档接口详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

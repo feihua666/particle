@@ -1,5 +1,6 @@
 particle:
-  # 参见 com.particle.global.projectinfo.ProjectInfo
-  project-info:
-    author: 飞华
-    name: Particle
+  global:
+    # 参见 com.particle.global.projectinfo.ProjectInfo
+    project-info:
+      author: 飞华
+      name: Particle

@@ -32,7 +32,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
             <optional>true</optional>
+        </dependency>
+
+        <!-- 查询字典使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 内容审核使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>audit-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
         </dependency>
     </dependencies>
 

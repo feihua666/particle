@@ -8,12 +8,13 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.particle.common.constant.CommonConstants;
 import com.particle.component.light.share.dict.UserEffectiveAtTrigger;
+import com.particle.global.dto.login.UserIdentifierInfo;
 import com.particle.global.dto.response.Response;
 import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
 import com.particle.global.security.security.login.IAuthenticationResultService;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
-import com.particle.global.security.tenant.TenantTool;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.tool.login.LoginUserTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.log.TraceTool;
 import com.particle.global.tool.logical.TimeLogicTool;
@@ -76,13 +77,18 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 	public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication, Response response) throws IOException {
 		LoginUser loginUser = LoginUserTool.getLoginUser();
 		log.info("用户认证成功，更新用户 identifier 登录时间和ip，userId={}", loginUser.getId());
-		UserIdentifierDO identifier = (UserIdentifierDO) loginUser.getExt().get(IdentifierUserDetailsServiceImpl.user_ext_identifier_key);
+		UserIdentifierInfo identifier = (UserIdentifierInfo) loginUser.getIdentifierInfo();
 		// 更新上次登录时间和登录ip
 		identifier.setLastLoginAt(LocalDateTimeUtil.now());
-		identifier.setLastLoginIp(RequestTool.getClientIP(httpServletRequest));
+		identifier.setLastLoginIp(RequestTool.getClientRealIP(httpServletRequest));
 		// 减少登录时间，采用异步方式
 		commonDbTaskExecutor.execute(() -> {
-			iIdentifierService.updateById(identifier);
+			UserIdentifierDO userIdentifierDO = new UserIdentifierDO();
+			userIdentifierDO.setId(identifier.getId());
+			userIdentifierDO.setLastLoginAt(identifier.getLastLoginAt());
+			userIdentifierDO.setLastLoginIp(identifier.getLastLoginIp());
+
+			iIdentifierService.updateById(userIdentifierDO);
 		});
 
 		// 初始化apicount
@@ -131,7 +137,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 			return;
 		}
 		LocalDateTime now = LocalDateTime.now();
-		UserIdentifierDO userIdentifier = ((UserIdentifierDO) loginUser.getExt().get(IdentifierUserDetailsServiceImpl.user_ext_identifier_key));
+		UserIdentifierInfo userIdentifier = ((UserIdentifierInfo) loginUser.getIdentifierInfo());
 
 		String userAgentStr = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, "User-Agent");
 		UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
@@ -139,7 +145,7 @@ public class UserAuthenticationResultServiceImpl implements IAuthenticationResul
 		UserLoginRecordDO userLoginRecordDO = new UserLoginRecordDO();
 		userLoginRecordDO.setUserId(loginUser.getId());
 		userLoginRecordDO.setLoginAt(now);
-		userLoginRecordDO.setLoginIp(RequestTool.getClientIP(httpServletRequest));
+		userLoginRecordDO.setLoginIp(RequestTool.getClientRealIP(httpServletRequest));
 
 		String deviceId = JakartaServletUtil.getHeaderIgnoreCase(httpServletRequest, login_header_device_id);
 		userLoginRecordDO.setDeviceId(Optional.ofNullable(StrUtil.emptyToNull(deviceId)).orElse("none"));

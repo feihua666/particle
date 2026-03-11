@@ -4,7 +4,7 @@ import com.particle.data.app.dynamictable.executor.DynamicTableCreateCommandExec
 import com.particle.data.app.dynamictable.executor.DynamicTableDeleteCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableUpdateCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableDataDeleteCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableImportDataCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUpdateCommand;
@@ -51,7 +51,7 @@ public class DynamicTableApplicationServiceImpl extends AbstractBaseApplicationS
     }
 
     @Override
-    public SingleResponse<DynamicTableVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DynamicTableVO> delete(CommonIdCommand deleteCommand) {
         return dynamicTableDeleteCommandExecutor.execute(deleteCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.tenant.app.userinvite.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.app.userinvite.executor.TenantUserInviteCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class TenantUserInviteApplicationServiceImpl extends AbstractBaseApplicat
 	}
 
 	@Override
-	public SingleResponse<TenantUserInviteVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<TenantUserInviteVO> delete(CommonIdCommand deleteCommand) {
 		return tenantUserInviteDeleteCommandExecutor.execute(deleteCommand);
 	}
 

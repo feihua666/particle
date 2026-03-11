@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2023-05-23 18:18
  */
 @Data
-@ConfigurationProperties(prefix = "particle.notification")
+@ConfigurationProperties(prefix = "particle.global.notification")
 public class GlobalNotificationProperties {
 
 	/**

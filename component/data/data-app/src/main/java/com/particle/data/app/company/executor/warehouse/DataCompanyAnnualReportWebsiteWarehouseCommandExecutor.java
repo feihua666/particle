@@ -12,7 +12,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportWebsiteV
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportWebsiteExWarehouseVO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportWebsiteService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;

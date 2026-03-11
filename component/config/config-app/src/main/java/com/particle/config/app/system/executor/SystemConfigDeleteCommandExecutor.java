@@ -1,7 +1,7 @@
 package com.particle.config.app.system.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.app.system.structmapping.SystemConfigAppStructMapping;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
 import com.particle.config.domain.system.SystemConfig;
@@ -9,7 +9,7 @@ import com.particle.config.domain.system.SystemConfigId;
 import com.particle.config.domain.system.gateway.SystemConfigGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class SystemConfigDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<SystemConfigVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<SystemConfigVO> execute(@Valid CommonIdCommand deleteCommand) {
 		SystemConfigId systemConfigId = SystemConfigId.of(deleteCommand.getId());
 		SystemConfig byId = systemConfigGateway.getById(systemConfigId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

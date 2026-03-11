@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyPersonAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPersonQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyPersonVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyPersonDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyPersonService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyPersonPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyPersonQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyPersonVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyPersonVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyPersonDO byId = iDataCompanyPersonService.getById(detailCommand.getId());
 		DataCompanyPersonVO dataCompanyPersonVO = DataCompanyPersonAppStructMapping.instance.dataCompanyPersonDOToDataCompanyPersonVO(byId);
 		return SingleResponse.of(dataCompanyPersonVO);
@@ -67,7 +66,7 @@ public class DataCompanyPersonQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyPersonVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyPersonVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyPersonDO byId = iDataCompanyPersonService.getById(detailForUpdateCommand.getId());
 		DataCompanyPersonVO dataCompanyPersonVO = DataCompanyPersonAppStructMapping.instance.dataCompanyPersonDOToDataCompanyPersonVO(byId);
 		return SingleResponse.of(dataCompanyPersonVO);

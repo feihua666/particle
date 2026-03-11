@@ -3,6 +3,7 @@ package com.particle.dept.adapter.rpc;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.dept.adapter.feign.client.rpc.DeptTreeTransRpcFeignClient;
 import com.particle.dept.client.dto.data.DeptTreeTransVO;
 import com.particle.dept.infrastructure.dos.DeptDO;
 import com.particle.dept.infrastructure.dos.DeptTreeDO;
@@ -36,7 +37,7 @@ public class DeptTreeTransServiceImpl implements ITransService<DeptTreeTransVO,L
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DEPT_TREE_BY_ID);
+        return DeptTreeTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

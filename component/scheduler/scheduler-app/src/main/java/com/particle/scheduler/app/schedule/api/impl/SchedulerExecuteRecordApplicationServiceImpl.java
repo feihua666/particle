@@ -1,7 +1,7 @@
 package com.particle.scheduler.app.schedule.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.app.schedule.executor.SchedulerExecuteRecordCommandExecutor;
@@ -43,7 +43,7 @@ public class SchedulerExecuteRecordApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public SingleResponse<SchedulerExecuteRecordVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<SchedulerExecuteRecordVO> delete(CommonIdCommand deleteCommand) {
         return schedulerExecuteRecordDeleteCommandExecutor.execute(deleteCommand);
     }
 

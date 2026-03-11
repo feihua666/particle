@@ -38,4 +38,4 @@ CREATE TABLE `component_data_company_annual_report` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_company_id__year` (`company_id`,`year`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业年报表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业年报表';

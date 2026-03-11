@@ -1,7 +1,7 @@
 package com.particle.config.app.system.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.app.system.executor.SystemConfigCreateCommandExecutor;
 import com.particle.config.app.system.executor.SystemConfigDeleteCommandExecutor;
 import com.particle.config.app.system.executor.SystemConfigUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class SystemConfigApplicationServiceImpl extends AbstractBaseApplicationS
 	}
 
 	@Override
-	public SingleResponse<SystemConfigVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<SystemConfigVO> delete(CommonIdCommand deleteCommand) {
 		return systemConfigDeleteCommandExecutor.execute(deleteCommand);
 	}
 

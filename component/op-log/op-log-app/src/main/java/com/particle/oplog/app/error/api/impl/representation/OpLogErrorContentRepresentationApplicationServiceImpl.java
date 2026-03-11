@@ -1,7 +1,7 @@
 package com.particle.oplog.app.error.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.app.error.executor.representation.OpLogErrorContentQueryCommandExecutor;
@@ -24,12 +24,12 @@ public class OpLogErrorContentRepresentationApplicationServiceImpl extends Abstr
     private OpLogErrorContentQueryCommandExecutor opLogErrorContentQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpLogErrorContentVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpLogErrorContentVO> queryDetail(CommonIdCommand detailCommand) {
         return opLogErrorContentQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(IdCommand detailCommand) {
+    public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(CommonIdCommand detailCommand) {
         return opLogErrorContentQueryCommandExecutor.detailByOpLogErrorId(detailCommand);
     }
 

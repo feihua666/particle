@@ -1,9 +1,8 @@
 package com.particle.data.client.dynamicdata.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCreateCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
@@ -28,7 +27,7 @@ public interface IDynamicDataIndicatorApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DynamicDataIndicatorVO> delete(IdCommand deleteCommand);
+	SingleResponse<DynamicDataIndicatorVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

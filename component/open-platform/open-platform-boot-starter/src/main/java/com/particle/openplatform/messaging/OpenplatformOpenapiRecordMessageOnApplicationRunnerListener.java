@@ -1,6 +1,7 @@
 package com.particle.openplatform.messaging;
 
 import com.particle.global.bootstrap.boot.OnApplicationRunnerListener;
+import com.particle.global.tool.log.TraceTool;
 import com.particle.openplatform.app.messaging.OpenplatformOpenapiRecordMessageConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,13 @@ public class OpenplatformOpenapiRecordMessageOnApplicationRunnerListener impleme
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("openplatformOpenapiRecordMessage scheduleData start");
-        openplatformOpenapiRecordMessageConsumer.scheduleDeductAppQuota();
-        openplatformOpenapiRecordMessageConsumer.scheduleSaveAppOpenapiDayRtSummary();
+        Object scopedSpan = TraceTool.scopedSpanStart("openplatformOpenapiRecordMessage-scheduleData-start");
+        try {
+            log.info("openplatformOpenapiRecordMessage scheduleData start");
+            openplatformOpenapiRecordMessageConsumer.scheduleDeductAppQuota();
+            openplatformOpenapiRecordMessageConsumer.scheduleSaveAppOpenapiDayRtSummary();
+        } finally {
+            TraceTool.scopedSpanEnd(scopedSpan);
+        }
     }
 }

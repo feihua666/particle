@@ -1,10 +1,10 @@
 package com.particle.tracking.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tracking.app.structmapping.TrackingPageAppStructMapping;
 import com.particle.tracking.client.dto.data.TrackingPageVO;
 import com.particle.tracking.domain.TrackingPage;
@@ -34,7 +34,7 @@ public class TrackingPageDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<TrackingPageVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<TrackingPageVO> execute(@Valid CommonIdCommand deleteCommand) {
 		TrackingPageId trackingPageId = TrackingPageId.of(deleteCommand.getId());
 		TrackingPage byId = trackingPageGateway.getById(trackingPageId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

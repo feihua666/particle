@@ -1,7 +1,7 @@
 package com.particle.report.app.reportapi.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class ReportReportApiRepresentationApplicationServiceImpl extends Abstrac
     private ReportReportApiQueryCommandExecutor reportReportApiQueryCommandExecutor;
 
     @Override
-    public SingleResponse<ReportReportApiVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<ReportReportApiVO> queryDetail(CommonIdCommand detailCommand) {
         return reportReportApiQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<ReportReportApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<ReportReportApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return reportReportApiQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

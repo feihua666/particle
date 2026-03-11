@@ -4,7 +4,7 @@ import com.particle.data.app.dynamictable.executor.DynamicTableFieldCreateComman
 import com.particle.data.app.dynamictable.executor.DynamicTableFieldDeleteCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableFieldUpdateCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableFieldCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldUpdateCommand;
 import com.particle.data.client.dynamictable.api.IDynamicTableFieldApplicationService;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class DynamicTableFieldApplicationServiceImpl extends AbstractBaseApplica
     }
 
     @Override
-    public SingleResponse<DynamicTableFieldVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DynamicTableFieldVO> delete(CommonIdCommand deleteCommand) {
         return dynamicTableFieldDeleteCommandExecutor.execute(deleteCommand);
     }
 

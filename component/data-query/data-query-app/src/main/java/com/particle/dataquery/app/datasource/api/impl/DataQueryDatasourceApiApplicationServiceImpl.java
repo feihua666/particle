@@ -2,7 +2,7 @@ package com.particle.dataquery.app.datasource.api.impl;
 
 import cn.hutool.core.util.BooleanUtil;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.dataapi.executor.DataQueryDataApiCreateCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceApiCreateCommandExecutor;
 import com.particle.dataquery.app.datasource.executor.DataQueryDatasourceApiDeleteCommandExecutor;
@@ -66,28 +66,28 @@ public class DataQueryDatasourceApiApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public SingleResponse<DataQueryDatasourceApiVO> copy(IdCommand copyCommand) {
+	public SingleResponse<DataQueryDatasourceApiVO> copy(CommonIdCommand copyCommand) {
 		return dataQueryDatasourceApiCreateCommandExecutor.copy(copyCommand);
 	}
 	@Override
-	public SingleResponse<DataQueryDatasourceApiVO> copydev(IdCommand copyCommand) {
+	public SingleResponse<DataQueryDatasourceApiVO> copydev(CommonIdCommand copyCommand) {
 		return dataQueryDatasourceApiCreateCommandExecutor.copydev(copyCommand);
 	}
 
 	@Override
-	public SingleResponse<DataQueryDatasourceApiVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DataQueryDatasourceApiVO> delete(CommonIdCommand deleteCommand) {
 		return dataQueryDatasourceApiDeleteCommandExecutor.execute(deleteCommand);
 	}
 	@Override
-	public SingleResponse<String> deleteCache(IdCommand deleteCommand) {
+	public SingleResponse<String> deleteCache(CommonIdCommand deleteCommand) {
 		return dataQueryDatasourceApiDeleteCommandExecutor.deleteCache(deleteCommand);
 	}
 	@Override
-	public SingleResponse<String> refreshCache(IdCommand deleteCommand) {
+	public SingleResponse<String> refreshCache(CommonIdCommand deleteCommand) {
 		return dataQueryDatasourceApiUpdateCommandExecutor.refreshCache(deleteCommand);
 	}
 	@Override
-	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(IdCommand deleteCommand) {
+	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(CommonIdCommand deleteCommand) {
 		return dataQueryDatasourceApiUpdateCommandExecutor.devMergeToMaster(deleteCommand);
 	}
 

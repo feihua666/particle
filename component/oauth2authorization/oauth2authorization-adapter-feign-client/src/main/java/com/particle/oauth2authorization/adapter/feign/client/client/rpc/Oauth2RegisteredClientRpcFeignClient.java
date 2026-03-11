@@ -4,6 +4,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.oauth2authorization.client.client.dto.data.Oauth2RegisteredClientVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2023-07-25 17:03:38
  */
-@FeignClient(name = "${particle.feign-client.name.oauth2authorization:oauth2authorization}",path = "/rpc/oauth2_registered_client")
+@FeignClient(name = "${particle.feign-client.oauth2authorization.name:oauth2authorization-start}", contextId = "oauth2RegisteredClientRpcFeignClient", url = "${particle.feign-client.oauth2authorization.url:}", path = "/rpc/oauth2_registered_client")
 public interface Oauth2RegisteredClientRpcFeignClient {
 
 
     @GetMapping("/getByClientId")
-    public SingleResponse<Oauth2RegisteredClientVO> getByClientId(String clientId);
+    public SingleResponse<Oauth2RegisteredClientVO> getByClientId(@RequestParam String clientId);
 
 }

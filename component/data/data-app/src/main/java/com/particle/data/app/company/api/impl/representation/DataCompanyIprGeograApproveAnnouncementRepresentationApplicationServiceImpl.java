@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyIprGeograApproveAnnouncementRepresentationApplicationSer
     private DataCompanyIprGeograApproveAnnouncementExWarehouseCommandExecutor dataCompanyIprGeograApproveAnnouncementExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyIprGeograApproveAnnouncementQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyIprGeograApproveAnnouncementQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

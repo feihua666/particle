@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanySeriousIllegalAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanySeriousIllegalVO;
 import com.particle.data.domain.company.DataCompanySeriousIllegal;
 import com.particle.data.domain.company.DataCompanySeriousIllegalId;
 import com.particle.data.domain.company.gateway.DataCompanySeriousIllegalGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanySeriousIllegalService;
-import com.particle.data.infrastructure.company.dos.DataCompanySeriousIllegalDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanySeriousIllegalDeleteCommandExecutor  extends AbstractBas
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanySeriousIllegalVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanySeriousIllegalVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanySeriousIllegalId dataCompanySeriousIllegalId = DataCompanySeriousIllegalId.of(deleteCommand.getId());
 		DataCompanySeriousIllegal byId = dataCompanySeriousIllegalGateway.getById(dataCompanySeriousIllegalId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

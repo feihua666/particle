@@ -6,9 +6,11 @@ import com.particle.cms.client.dto.data.CmsSiteVO;
 import com.particle.cms.domain.CmsSite;
 import com.particle.cms.domain.CmsSiteId;
 import com.particle.cms.domain.gateway.CmsSiteGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.CommonPublicCommand;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
@@ -16,8 +18,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import jakarta.validation.Valid;
 
 /**
  * <p>
@@ -47,7 +47,25 @@ public class CmsSiteUpdateCommandExecutor  extends AbstractBaseExecutor {
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
+	/**
+	 * 执行 站点 发布指令
+	 * @param cmsSitePublicCommand
+	 * @return
+	 */
+	public SingleResponse<CmsSiteVO> publish(@Valid CommonPublicCommand cmsSitePublicCommand) {
+		CmsSite cmsSite = CmsSite.create(CmsSiteId.of(cmsSitePublicCommand.getId()));
+		if (cmsSitePublicCommand.getIsPublic()) {
+			cmsSite.publish();
+		}else {
+			cmsSite.unPublish();
+		}
 
+		boolean save = cmsSiteGateway.save(cmsSite);
+		if (save) {
+			return SingleResponse.of(CmsSiteAppStructMapping.instance.toCmsSiteVO(cmsSite));
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
 	/**
 	 * 根据站点更新指令创建站点模型
 	 * @param cmsSiteUpdateCommand

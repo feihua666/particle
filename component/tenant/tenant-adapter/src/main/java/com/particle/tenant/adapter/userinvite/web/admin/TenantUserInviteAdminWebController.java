@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.userinvite.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class TenantUserInviteAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除租户用户邀请")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户用户邀请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantUserInviteVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantUserInviteVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTenantUserInviteApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class TenantUserInviteAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInvite:update')")
 	@Operation(summary = "租户用户邀请更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantUserInviteVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantUserInviteVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantUserInviteRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantUserInvite:detail')")
 	@Operation(summary = "租户用户邀请详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantUserInviteVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantUserInviteVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantUserInviteRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

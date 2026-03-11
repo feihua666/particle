@@ -46,5 +46,11 @@
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- 添加时主要使用 LoginConstants.token -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

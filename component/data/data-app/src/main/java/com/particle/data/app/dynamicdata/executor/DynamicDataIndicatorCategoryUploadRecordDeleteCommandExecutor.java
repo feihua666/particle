@@ -1,21 +1,19 @@
 package com.particle.data.app.dynamicdata.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorCategoryUploadRecordAppStructMapping;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorCategoryUploadRecordVO;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicatorCategoryUploadRecord;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicatorCategoryUploadRecordId;
 import com.particle.data.domain.dynamicdata.gateway.DynamicDataIndicatorCategoryUploadRecordGateway;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorCategoryUploadRecordService;
-import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataIndicatorCategoryUploadRecordDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DynamicDataIndicatorCategoryUploadRecordDeleteCommandExecutor  exte
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryUploadRecordVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DynamicDataIndicatorCategoryUploadRecordId dynamicDataIndicatorCategoryUploadRecordId = DynamicDataIndicatorCategoryUploadRecordId.of(deleteCommand.getId());
 		DynamicDataIndicatorCategoryUploadRecord byId = dynamicDataIndicatorCategoryUploadRecordGateway.getById(dynamicDataIndicatorCategoryUploadRecordId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

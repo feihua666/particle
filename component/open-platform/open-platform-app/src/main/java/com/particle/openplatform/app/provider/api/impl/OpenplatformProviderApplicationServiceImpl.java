@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.provider.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.provider.executor.OpenplatformProviderCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class OpenplatformProviderApplicationServiceImpl extends AbstractBaseAppl
 	}
 
 	@Override
-	public SingleResponse<OpenplatformProviderVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformProviderVO> delete(CommonIdCommand deleteCommand) {
 		return openplatformProviderDeleteCommandExecutor.execute(deleteCommand);
 	}
 

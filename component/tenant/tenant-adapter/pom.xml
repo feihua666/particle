@@ -37,6 +37,11 @@
             <artifactId>tenant-adapter-feign-client</artifactId>
             <version>${particle.version}</version>
         </dependency>
-
+        <!-- 依赖全局安全，主要是在 TenantLoginController 使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

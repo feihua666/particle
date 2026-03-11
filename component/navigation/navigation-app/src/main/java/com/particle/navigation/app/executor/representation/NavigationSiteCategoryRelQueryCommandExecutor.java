@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +58,7 @@ public class NavigationSiteCategoryRelQueryCommandExecutor  extends AbstractBase
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteCategoryRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationSiteCategoryRelVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationSiteCategoryRelDO byId = iNavigationSiteCategoryRelService.getById(detailCommand.getId());
 		NavigationSiteCategoryRelVO navigationSiteCategoryRelVO = NavigationSiteCategoryRelAppStructMapping.instance.navigationSiteCategoryRelDOToNavigationSiteCategoryRelVO(byId);
 		return SingleResponse.of(navigationSiteCategoryRelVO);
@@ -68,7 +68,7 @@ public class NavigationSiteCategoryRelQueryCommandExecutor  extends AbstractBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteCategoryRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationSiteCategoryRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationSiteCategoryRelDO byId = iNavigationSiteCategoryRelService.getById(detailForUpdateCommand.getId());
 		NavigationSiteCategoryRelVO navigationSiteCategoryRelVO = NavigationSiteCategoryRelAppStructMapping.instance.navigationSiteCategoryRelDOToNavigationSiteCategoryRelVO(byId);
 		return SingleResponse.of(navigationSiteCategoryRelVO);
@@ -77,13 +77,13 @@ public class NavigationSiteCategoryRelQueryCommandExecutor  extends AbstractBase
 
 	/**
 	 * 查询导航网站已分配的导航分类ids
-	 * @param navigationSiteIdCommand
+	 * @param navigationSiteCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(@Valid IdCommand navigationSiteIdCommand) {
+	public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(@Valid CommonIdCommand navigationSiteCommonIdCommand) {
 
 		NavigationSiteCategoryRelQueryListCommand navigationSiteCategoryRelQueryListCommand = new NavigationSiteCategoryRelQueryListCommand();
-		navigationSiteCategoryRelQueryListCommand.setNavigationSiteId(navigationSiteIdCommand.getId());
+		navigationSiteCategoryRelQueryListCommand.setNavigationSiteId(navigationSiteCommonIdCommand.getId());
 		MultiResponse<NavigationSiteCategoryRelVO> navigationSiteCategoryRelVOMultiResponse = execute(navigationSiteCategoryRelQueryListCommand);
 		if(navigationSiteCategoryRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = navigationSiteCategoryRelVOMultiResponse.getData().stream().map(NavigationSiteCategoryRelVO::getNavigationCategoryId).collect(Collectors.toList());
@@ -93,13 +93,13 @@ public class NavigationSiteCategoryRelQueryCommandExecutor  extends AbstractBase
 	}
 	/**
 	 * 查询导航分类已分配的导航网站ids
-	 * @param navigationCategoryIdCommand
+	 * @param navigationCategoryCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryNavigationSiteIdsByNavigationCategoryId(@Valid IdCommand navigationCategoryIdCommand) {
+	public MultiResponse<Long> queryNavigationSiteIdsByNavigationCategoryId(@Valid CommonIdCommand navigationCategoryCommonIdCommand) {
 
 		NavigationSiteCategoryRelQueryListCommand navigationSiteCategoryRelQueryListCommand = new NavigationSiteCategoryRelQueryListCommand();
-		navigationSiteCategoryRelQueryListCommand.setNavigationCategoryId(navigationCategoryIdCommand.getId());
+		navigationSiteCategoryRelQueryListCommand.setNavigationCategoryId(navigationCategoryCommonIdCommand.getId());
 		MultiResponse<NavigationSiteCategoryRelVO> navigationSiteCategoryRelVOMultiResponse = execute(navigationSiteCategoryRelQueryListCommand);
 		if(navigationSiteCategoryRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = navigationSiteCategoryRelVOMultiResponse.getData().stream().map(NavigationSiteCategoryRelVO::getNavigationSiteId).collect(Collectors.toList());

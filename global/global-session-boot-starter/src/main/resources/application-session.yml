@@ -4,8 +4,10 @@ spring:
       # springboot3增加了校验不能设置为空了
       table-name: global_spring_session
 particle:
-  session:
-    jdbc:
-      type: mysql
-    # 默认使用header不使用cookie
-    session-id-resolver: header
+  global:
+    session:
+      jdbc:
+        type: mysql
+      # 默认使用all，可选值 cookie header all
+      # 在 cms 场景 需要 cookie支持，以支持预览
+      session-id-resolver: all

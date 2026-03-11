@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.openapi.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiLimitRuleCreateCommand;
 import com.particle.openplatform.client.openapi.dto.command.OpenplatformOpenapiLimitRuleUpdateCommand;
@@ -27,7 +27,7 @@ public interface IOpenplatformOpenapiLimitRuleApplicationService extends IBaseAp
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

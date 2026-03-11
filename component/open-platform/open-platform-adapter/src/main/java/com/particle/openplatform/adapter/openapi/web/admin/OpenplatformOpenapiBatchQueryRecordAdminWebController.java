@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -10,7 +10,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.openplatform.client.openapi.api.IOpenplatformOpenapiBatchQueryRecordApplicationService;
 import com.particle.openplatform.client.openapi.api.representation.IOpenplatformOpenapiBatchQueryRecordRepresentationApplicationService;
 import com.particle.openplatform.client.openapi.dto.command.representation.OpenplatformOpenapiBatchQueryRecordPageQueryCommand;
@@ -45,7 +45,7 @@ public class OpenplatformOpenapiBatchQueryRecordAdminWebController extends Abstr
     @Operation(summary = "删除开放接口批量查询记录")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放接口批量查询记录",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> delete(@RequestBody IdCommand deleteCommand, LoginUser loginUser){
+    public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> delete(@RequestBody CommonIdCommand deleteCommand, LoginUser loginUser){
         fillLoginUserIdIfNessary(deleteCommand, loginUser);
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiBatchQueryRecordApplicationService.delete(deleteCommand);
@@ -55,7 +55,7 @@ public class OpenplatformOpenapiBatchQueryRecordAdminWebController extends Abstr
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiBatchQueryRecord:detail')")
     @Operation(summary = "开放接口批量查询记录详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> queryDetail(IdCommand detailCommand, LoginUser loginUser){
+    public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> queryDetail(CommonIdCommand detailCommand, LoginUser loginUser){
         fillLoginUserIdIfNessary(detailCommand, loginUser);
         return iOpenplatformOpenapiBatchQueryRecordRepresentationApplicationService.queryDetail(detailCommand);
     }

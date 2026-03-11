@@ -4,7 +4,7 @@ import com.particle.cms.app.executor.CmsContentViewRecordCreateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentViewRecordDeleteCommandExecutor;
 import com.particle.cms.app.executor.CmsContentViewRecordUpdateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentViewRecordCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.cms.client.dto.command.CmsContentViewRecordUpdateCommand;
 import com.particle.cms.client.api.ICmsContentViewRecordApplicationService;
 import com.particle.cms.client.dto.command.CmsContentViewRecordCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class CmsContentViewRecordApplicationServiceImpl extends AbstractBaseAppl
     }
 
     @Override
-    public SingleResponse<CmsContentViewRecordVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<CmsContentViewRecordVO> delete(CommonIdCommand deleteCommand) {
         return cmsContentViewRecordDeleteCommandExecutor.execute(deleteCommand);
     }
 

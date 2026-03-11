@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.structmapping.DataScopeCustomDataRelAppStructMapping;
 import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
 import com.particle.dataconstraint.domain.DataScopeCustomDataRel;
@@ -12,7 +12,7 @@ import com.particle.dataconstraint.infrastructure.service.IDataScopeCustomDataRe
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,7 +37,7 @@ public class DataScopeCustomDataRelDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataScopeCustomDataRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataScopeCustomDataRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataScopeCustomDataRelId dataScopeCustomDataRelId = DataScopeCustomDataRelId.of(deleteCommand.getId());
 		DataScopeCustomDataRel byId = dataScopeCustomDataRelGateway.getById(dataScopeCustomDataRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -49,11 +49,11 @@ public class DataScopeCustomDataRelDeleteCommandExecutor  extends AbstractBaseEx
 	}
 	/**
 	 * 根据 dataScopeId 删除
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByDataScopeId(@Valid IdCommand dataScopeIdCommand) {
-		boolean result = iDataScopeCustomDataRelService.deleteByColumn(dataScopeIdCommand.getId(), DataScopeCustomDataRelDO::getDataScopeId);
+	public Response deleteByDataScopeId(@Valid CommonIdCommand dataScopeCommonIdCommand) {
+		boolean result = iDataScopeCustomDataRelService.deleteByColumn(dataScopeCommonIdCommand.getId(), DataScopeCustomDataRelDO::getDataScopeId);
 		return Response.buildSuccess();
 	}
 	/**

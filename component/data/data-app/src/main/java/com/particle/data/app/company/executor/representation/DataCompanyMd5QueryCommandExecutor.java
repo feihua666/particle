@@ -2,7 +2,7 @@ package com.particle.data.app.company.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyMd5AppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyMd5PageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyMd5QueryListCommand;
@@ -57,7 +57,7 @@ public class DataCompanyMd5QueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyMd5VO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyMd5VO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyMd5DO byId = iDataCompanyMd5Service.getById(detailCommand.getId());
 		DataCompanyMd5VO dataCompanyMd5VO = DataCompanyMd5AppStructMapping.instance.dataCompanyMd5DOToDataCompanyMd5VO(byId);
 		return SingleResponse.of(dataCompanyMd5VO);
@@ -67,7 +67,7 @@ public class DataCompanyMd5QueryCommandExecutor  extends AbstractBaseQueryExecut
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyMd5VO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyMd5VO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyMd5DO byId = iDataCompanyMd5Service.getById(detailForUpdateCommand.getId());
 		DataCompanyMd5VO dataCompanyMd5VO = DataCompanyMd5AppStructMapping.instance.dataCompanyMd5DOToDataCompanyMd5VO(byId);
 		return SingleResponse.of(dataCompanyMd5VO);

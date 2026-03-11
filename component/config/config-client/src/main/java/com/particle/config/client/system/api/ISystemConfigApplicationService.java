@@ -1,7 +1,7 @@
 package com.particle.config.client.system.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.client.system.dto.command.SystemConfigCreateCommand;
 import com.particle.config.client.system.dto.command.SystemConfigUpdateCommand;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
@@ -28,7 +28,7 @@ public interface ISystemConfigApplicationService extends IBaseApplicationService
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<SystemConfigVO> delete(IdCommand deleteCommand);
+	SingleResponse<SystemConfigVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

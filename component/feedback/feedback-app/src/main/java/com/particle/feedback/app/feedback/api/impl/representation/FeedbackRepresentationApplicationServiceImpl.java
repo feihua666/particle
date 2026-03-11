@@ -1,7 +1,7 @@
 package com.particle.feedback.app.feedback.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.feedback.executor.representation.FeedbackQueryCommandExecutor;
 import com.particle.feedback.client.feedback.api.representation.IFeedbackRepresentationApplicationService;
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackPageQueryCommand;
@@ -28,7 +28,7 @@ public class FeedbackRepresentationApplicationServiceImpl extends AbstractBaseAp
     private FeedbackQueryCommandExecutor feedbackQueryCommandExecutor;
 
     @Override
-    public SingleResponse<FeedbackVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<FeedbackVO> queryDetail(CommonIdCommand detailCommand) {
         return feedbackQueryCommandExecutor.executeDetail(detailCommand);
     }
 

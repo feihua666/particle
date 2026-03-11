@@ -7,7 +7,7 @@ import com.particle.feedback.client.reply.dto.data.FeedbackReplyAttachmentVO;
 import com.particle.feedback.domain.reply.FeedbackReplyAttachment;
 import com.particle.feedback.domain.reply.gateway.FeedbackReplyAttachmentGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

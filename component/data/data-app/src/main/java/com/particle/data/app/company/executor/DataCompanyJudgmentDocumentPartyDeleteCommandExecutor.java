@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyJudgmentDocumentPartyAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyJudgmentDocumentPartyVO;
 import com.particle.data.domain.company.DataCompanyJudgmentDocumentParty;
 import com.particle.data.domain.company.DataCompanyJudgmentDocumentPartyId;
 import com.particle.data.domain.company.gateway.DataCompanyJudgmentDocumentPartyGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyJudgmentDocumentPartyService;
-import com.particle.data.infrastructure.company.dos.DataCompanyJudgmentDocumentPartyDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyJudgmentDocumentPartyDeleteCommandExecutor  extends Abst
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDocumentPartyVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyJudgmentDocumentPartyVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyJudgmentDocumentPartyId dataCompanyJudgmentDocumentPartyId = DataCompanyJudgmentDocumentPartyId.of(deleteCommand.getId());
 		DataCompanyJudgmentDocumentParty byId = dataCompanyJudgmentDocumentPartyGateway.getById(dataCompanyJudgmentDocumentPartyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprPatentCertificateAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentCertificateQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentCertificateVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentCertificateDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentCertificateService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentCertificatePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentCertificateQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentCertificateVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentCertificateVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentCertificateDO byId = iDataCompanyIprPatentCertificateService.getById(detailCommand.getId());
 		DataCompanyIprPatentCertificateVO dataCompanyIprPatentCertificateVO = DataCompanyIprPatentCertificateAppStructMapping.instance.dataCompanyIprPatentCertificateDOToDataCompanyIprPatentCertificateVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentCertificateVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentCertificateQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentCertificateVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentCertificateVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentCertificateDO byId = iDataCompanyIprPatentCertificateService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentCertificateVO dataCompanyIprPatentCertificateVO = DataCompanyIprPatentCertificateAppStructMapping.instance.dataCompanyIprPatentCertificateDOToDataCompanyIprPatentCertificateVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentCertificateVO);

@@ -1,6 +1,6 @@
 package com.particle.user.client.dto.command;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.validation.props.PropValid;
 import com.particle.user.client.login.dto.command.LoginUserUpdateAvatarCommand;
 import com.particle.user.client.login.dto.command.LoginUserUpdateGenderCommand;
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @PropValid
 @Data
 @Schema
-public class UserUpdateInfoCommand extends IdCommand {
+public class UserUpdateInfoCommand extends CommonIdCommand {
 
     @Schema(description = "姓名，真实姓名")
     private String name;
@@ -82,7 +82,7 @@ public class UserUpdateInfoCommand extends IdCommand {
         return userUpdateInfoCommand;
     }
 
-    public static UserUpdateInfoCommand createByLoginUserUpdateAvatarCommand(LoginUserUpdateAvatarCommand avatarCommand,Long userId) {
+    public static UserUpdateInfoCommand createByLoginUserUpdateAvatarCommand(LoginUserUpdateAvatarCommand avatarCommand, Long userId) {
         UserUpdateInfoCommand userUpdateInfoCommand = create(userId);
         userUpdateInfoCommand.setAvatar(avatarCommand.getAvatar());
         return userUpdateInfoCommand;

@@ -166,7 +166,8 @@ public interface ScheduleInfrastructureStructMapping {
         jobDetailDTO.setDescription(jobDetail.getDescription());
         jobDetailDTO.setIsDurable(jobDetail.isDurable());
         jobDetailDTO.setIsPersistJobDataAfterExecution(jobDetail.isPersistJobDataAfterExecution());
-        jobDetailDTO.setIsConcurrentExectionDisallowed(jobDetail.isConcurrentExectionDisallowed());
+        // 新版本移除了该属性
+        // jobDetailDTO.setIsConcurrentExectionDisallowed(jobDetail.isConcurrentExectionDisallowed());
         jobDetailDTO.setIsRecovery(jobDetail.requestsRecovery());
         jobDetailDTO.setDataMap(jobDetail.getJobDataMap());
         return jobDetailDTO;

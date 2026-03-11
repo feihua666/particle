@@ -3,7 +3,6 @@ package com.particle.global.dto.basic;
 import com.particle.global.light.share.mybatis.anno.Ignore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.springdoc.core.annotations.ParameterObject;
 
 /**
  * <p>
@@ -15,7 +14,6 @@ import org.springdoc.core.annotations.ParameterObject;
  * @since 2022-04-20 14:44
  */
 @Data
-@ParameterObject
 public class QueryCommand extends Command{
 	private static final long serialVersionUID = 1L;
 	/**

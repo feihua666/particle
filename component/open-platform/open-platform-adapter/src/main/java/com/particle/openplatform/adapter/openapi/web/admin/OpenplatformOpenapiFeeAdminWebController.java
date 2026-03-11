@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformOpenapiFeeAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除开放平台开放接口费用")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口费用",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformOpenapiFeeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformOpenapiFeeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformOpenapiFeeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformOpenapiFeeAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiFee:update')")
 	@Operation(summary = "开放平台开放接口费用更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformOpenapiFeeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformOpenapiFeeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformOpenapiFeeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiFee:detail')")
 	@Operation(summary = "开放平台开放接口费用详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformOpenapiFeeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformOpenapiFeeVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformOpenapiFeeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

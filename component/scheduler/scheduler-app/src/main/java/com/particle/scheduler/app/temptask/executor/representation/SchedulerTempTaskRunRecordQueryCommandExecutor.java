@@ -2,7 +2,7 @@ package com.particle.scheduler.app.temptask.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class SchedulerTempTaskRunRecordQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskRunRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SchedulerTempTaskRunRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		SchedulerTempTaskRunRecordDO byId = iSchedulerTempTaskRunRecordService.getById(detailCommand.getId());
 		SchedulerTempTaskRunRecordVO schedulerTempTaskRunRecordVO = SchedulerTempTaskRunRecordAppStructMapping.instance.schedulerTempTaskRunRecordDOToSchedulerTempTaskRunRecordVO(byId);
 		return SingleResponse.of(schedulerTempTaskRunRecordVO);
@@ -67,7 +67,7 @@ public class SchedulerTempTaskRunRecordQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerTempTaskRunRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SchedulerTempTaskRunRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SchedulerTempTaskRunRecordDO byId = iSchedulerTempTaskRunRecordService.getById(detailForUpdateCommand.getId());
 		SchedulerTempTaskRunRecordVO schedulerTempTaskRunRecordVO = SchedulerTempTaskRunRecordAppStructMapping.instance.schedulerTempTaskRunRecordDOToSchedulerTempTaskRunRecordVO(byId);
 		return SingleResponse.of(schedulerTempTaskRunRecordVO);

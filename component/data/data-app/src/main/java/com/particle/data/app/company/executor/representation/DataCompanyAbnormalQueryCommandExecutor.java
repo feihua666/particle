@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAbnormalVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAbnormalDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAbnormalService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAbnormalPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAbnormalQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAbnormalVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAbnormalVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAbnormalDO byId = iDataCompanyAbnormalService.getById(detailCommand.getId());
 		DataCompanyAbnormalVO dataCompanyAbnormalVO = DataCompanyAbnormalAppStructMapping.instance.dataCompanyAbnormalDOToDataCompanyAbnormalVO(byId);
 		return SingleResponse.of(dataCompanyAbnormalVO);
@@ -67,7 +66,7 @@ public class DataCompanyAbnormalQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAbnormalVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAbnormalVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAbnormalDO byId = iDataCompanyAbnormalService.getById(detailForUpdateCommand.getId());
 		DataCompanyAbnormalVO dataCompanyAbnormalVO = DataCompanyAbnormalAppStructMapping.instance.dataCompanyAbnormalDOToDataCompanyAbnormalVO(byId);
 		return SingleResponse.of(dataCompanyAbnormalVO);

@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformDocApiDocRepresentationApplicationServiceImpl extends A
     private OpenplatformDocApiDocQueryCommandExecutor openplatformDocApiDocQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformDocApiDocVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformDocApiDocVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformDocApiDocQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformDocApiDocVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformDocApiDocVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformDocApiDocQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

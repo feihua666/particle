@@ -1,7 +1,7 @@
 package com.particle.oplog.app.error.executor.representation;
 
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.app.error.structmapping.OpLogErrorContentAppStructMapping;
 import com.particle.oplog.client.error.dto.data.OpLogErrorContentVO;
@@ -30,7 +30,7 @@ public class OpLogErrorContentQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpLogErrorContentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpLogErrorContentVO> executeDetail(CommonIdCommand detailCommand) {
 		OpLogErrorContentDO byId = iOpLogErrorContentService.getById(detailCommand.getId());
 		OpLogErrorContentVO opLogErrorContentVO = OpLogErrorContentAppStructMapping.instance.opLogErrorContentDOToOpLogErrorContentVO(byId);
 		return SingleResponse.of(opLogErrorContentVO);
@@ -40,7 +40,7 @@ public class OpLogErrorContentQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(IdCommand detailCommand) {
+	public SingleResponse<OpLogErrorContentVO> detailByOpLogErrorId(CommonIdCommand detailCommand) {
 		OpLogErrorContentDO byId = iOpLogErrorContentService.getByOpLogErrorId(detailCommand.getId());
 		OpLogErrorContentVO opLogErrorContentVO = OpLogErrorContentAppStructMapping.instance.opLogErrorContentDOToOpLogErrorContentVO(byId);
 		return SingleResponse.of(opLogErrorContentVO);

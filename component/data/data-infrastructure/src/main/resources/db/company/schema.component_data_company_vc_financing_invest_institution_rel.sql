@@ -14,4 +14,4 @@ CREATE TABLE `component_data_company_vc_financing_invest_institution_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `company_vc_invest_institution_id` (`company_vc_invest_institution_id`) USING BTREE,
   UNIQUE KEY `uni_company_vc_financing_id__company_vc_invest_institution_id` (`company_vc_financing_id`,`company_vc_invest_institution_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业融资投资机构关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业融资投资机构关系表';

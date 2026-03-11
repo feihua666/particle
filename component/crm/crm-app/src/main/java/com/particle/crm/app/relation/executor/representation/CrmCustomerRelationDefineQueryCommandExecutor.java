@@ -2,7 +2,7 @@ package com.particle.crm.app.relation.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.relation.structmapping.CrmCustomerRelationDefineAppStructMapping;
 import com.particle.crm.client.relation.dto.command.representation.CrmCustomerRelationDefinePageQueryCommand;
 import com.particle.crm.client.relation.dto.command.representation.CrmCustomerRelationDefineQueryListCommand;
@@ -57,7 +57,7 @@ public class CrmCustomerRelationDefineQueryCommandExecutor  extends AbstractBase
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerRelationDefineVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CrmCustomerRelationDefineVO> executeDetail(CommonIdCommand detailCommand) {
 		CrmCustomerRelationDefineDO byId = iCrmCustomerRelationDefineService.getById(detailCommand.getId());
 		CrmCustomerRelationDefineVO crmCustomerRelationDefineVO = CrmCustomerRelationDefineAppStructMapping.instance.crmCustomerRelationDefineDOToCrmCustomerRelationDefineVO(byId);
 		return SingleResponse.of(crmCustomerRelationDefineVO);
@@ -67,7 +67,7 @@ public class CrmCustomerRelationDefineQueryCommandExecutor  extends AbstractBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerRelationDefineVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CrmCustomerRelationDefineVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CrmCustomerRelationDefineDO byId = iCrmCustomerRelationDefineService.getById(detailForUpdateCommand.getId());
 		CrmCustomerRelationDefineVO crmCustomerRelationDefineVO = CrmCustomerRelationDefineAppStructMapping.instance.crmCustomerRelationDefineDOToCrmCustomerRelationDefineVO(byId);
 		return SingleResponse.of(crmCustomerRelationDefineVO);

@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprSoftwareCopyrightAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprSoftwareCopyrightQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprSoftwareCopyrightVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprSoftwareCopyrightDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprSoftwareCopyrightService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprSoftwareCopyrightPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprSoftwareCopyrightQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprSoftwareCopyrightVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprSoftwareCopyrightVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprSoftwareCopyrightDO byId = iDataCompanyIprSoftwareCopyrightService.getById(detailCommand.getId());
 		DataCompanyIprSoftwareCopyrightVO dataCompanyIprSoftwareCopyrightVO = DataCompanyIprSoftwareCopyrightAppStructMapping.instance.dataCompanyIprSoftwareCopyrightDOToDataCompanyIprSoftwareCopyrightVO(byId);
 		return SingleResponse.of(dataCompanyIprSoftwareCopyrightVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprSoftwareCopyrightQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprSoftwareCopyrightVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprSoftwareCopyrightVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprSoftwareCopyrightDO byId = iDataCompanyIprSoftwareCopyrightService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprSoftwareCopyrightVO dataCompanyIprSoftwareCopyrightVO = DataCompanyIprSoftwareCopyrightAppStructMapping.instance.dataCompanyIprSoftwareCopyrightDOToDataCompanyIprSoftwareCopyrightVO(byId);
 		return SingleResponse.of(dataCompanyIprSoftwareCopyrightVO);

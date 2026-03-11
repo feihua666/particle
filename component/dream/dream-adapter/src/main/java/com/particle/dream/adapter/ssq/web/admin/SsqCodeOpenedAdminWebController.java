@@ -1,7 +1,7 @@
 package com.particle.dream.adapter.ssq.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dream.client.ssq.api.ISsqCodeOpenedApplicationService;
 import com.particle.dream.client.ssq.api.representation.ISsqCodeOpenedRepresentationApplicationService;
@@ -44,7 +44,7 @@ public class SsqCodeOpenedAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:ssqCodeOpened:detail')")
 	@Operation(summary = "双色球开奖详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<SsqCodeOpenedVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<SsqCodeOpenedVO> queryDetail(CommonIdCommand detailCommand){
 		return iSsqCodeOpenedRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

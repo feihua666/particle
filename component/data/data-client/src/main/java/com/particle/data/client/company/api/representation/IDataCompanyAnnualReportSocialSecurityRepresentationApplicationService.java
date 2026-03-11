@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportSocialSecurityPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportSocialSecurityQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyAnnualReportSocialSecurityExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyAnnualReportSocialSecurityRepresentationApplication
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

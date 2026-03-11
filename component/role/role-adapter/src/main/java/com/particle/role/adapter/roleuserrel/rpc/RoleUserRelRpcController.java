@@ -1,8 +1,8 @@
 package com.particle.role.adapter.roleuserrel.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.common.client.dto.command.BatchIdCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -19,7 +19,6 @@ import com.particle.role.infrastructure.roleuserrel.service.IRoleUserRelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,8 +57,8 @@ public class RoleUserRelRpcController extends AbstractBaseRpcAdapter implements 
 
     @Operation(summary = "清空用户下的所有角色")
     @Override
-    public Response deleteByUserId(@RequestBody IdCommand userIdCommand) {
-        return iRoleUserRelApplicationService.deleteByUserId(userIdCommand);
+    public Response deleteByUserId(@RequestBody CommonIdCommand userCommonIdCommand) {
+        return iRoleUserRelApplicationService.deleteByUserId(userCommonIdCommand);
     }
     @Operation(summary = "列表查询角色用户关系")
     @Override
@@ -68,8 +67,8 @@ public class RoleUserRelRpcController extends AbstractBaseRpcAdapter implements 
     }
     @Operation(summary = "根据roleIds查询角色用户关系")
     @Override
-    public MultiResponse<RoleUserRelVO> queryListByRoleIds(BatchIdCommand batchIdCommand) {
-        List<RoleUserRelDO> roleUserRelDOS = roleUserRelService.getByRoleIds(batchIdCommand.getIds());
+    public MultiResponse<RoleUserRelVO> queryListByRoleIds(CommonBatchIdCommand commonBatchIdCommand) {
+        List<RoleUserRelDO> roleUserRelDOS = roleUserRelService.getByRoleIds(commonBatchIdCommand.getIds());
         List<RoleUserRelVO> roleUserRelVOS = RoleUserRelAppStructMapping.instance.roleUserRelDOsToRoleUserRelVOs(roleUserRelDOS);
 
         return MultiResponse.of(roleUserRelVOS);

@@ -1,7 +1,7 @@
 package com.particle.data.app.dynamicdata.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamictable.executor.DynamicTableFieldDeleteCommandExecutor;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorCategoryService;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableDO;
@@ -10,18 +10,16 @@ import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldS
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorAppStructMapping;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicator;
 import com.particle.data.domain.dynamicdata.DynamicDataIndicatorId;
 import com.particle.data.domain.dynamicdata.gateway.DynamicDataIndicatorGateway;
 import com.particle.data.infrastructure.dynamicdata.service.IDynamicDataIndicatorService;
-import com.particle.data.infrastructure.dynamicdata.dos.DynamicDataIndicatorDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -47,7 +45,7 @@ public class DynamicDataIndicatorDeleteCommandExecutor  extends AbstractBaseExec
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DynamicDataIndicatorVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DynamicDataIndicatorId dynamicDataIndicatorId = DynamicDataIndicatorId.of(deleteCommand.getId());
 		DynamicDataIndicator byId = dynamicDataIndicatorGateway.getById(dynamicDataIndicatorId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -60,7 +58,7 @@ public class DynamicDataIndicatorDeleteCommandExecutor  extends AbstractBaseExec
                 // 删除成功后，删除动态表格字段
                 DynamicTableDO dynamicTableDO = dynamicTableService.getByName(tableName);
                 DynamicTableFieldDO dynamicTableFieldDO = dynamicTableFieldService.getByDynamicTableIdAndName(dynamicTableDO.getId(), columnName);
-                dynamicTableFieldDeleteCommandExecutor.execute(IdCommand.create(dynamicTableFieldDO.getId()));
+                dynamicTableFieldDeleteCommandExecutor.execute(CommonIdCommand.create(dynamicTableFieldDO.getId()));
 
             }else{
                 dynamicDataIndicatorGateway.dropColumn(tableName, columnName);

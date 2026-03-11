@@ -1,6 +1,6 @@
 package com.particle.tenant.client.exception;
 
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 
 /**
  * <p>
@@ -44,7 +44,28 @@ public enum ErrorCodeTenantEnum implements IErrorCode {
 	/**
 	 * 用户登录时租户尚未生效
 	 */
-	tenant_not_expired_limit(40000020008L, "租户已超过使用期限");
+	tenant_not_expired_limit(40000020008L, "租户已超过使用期限"),
+
+	/**
+	 * 用户未设置租户
+	 */
+	tenant_user_not_in_tenant(40000020009L, "用户未设置租户"),
+
+
+	/**
+	 * 用户没有可用租户,一般用于用户归属租户数据不可用
+	 */
+	tenant_user_not_available_tenant(40000020010L, "用户没有可用租户"),
+
+	/**
+	 * 没有可用租户，一般用户租户数据不可用
+	 */
+	tenant_not_available_tenant(40000020011L, "没有可用租户"),
+
+	/**
+	 * 租户不存在
+	 */
+	tenant_not_exist(40000020012L, "租户不存在");
 
 	ErrorCodeTenantEnum(long status, String errMessage) {
 		this.status = status;

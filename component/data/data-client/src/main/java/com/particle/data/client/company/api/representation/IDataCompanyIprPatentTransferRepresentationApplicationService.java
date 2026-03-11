@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentTransferPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentTransferQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyIprPatentTransferExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyIprPatentTransferRepresentationApplicationService e
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprPatentTransferVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyIprPatentTransferVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprPatentTransferVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyIprPatentTransferVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

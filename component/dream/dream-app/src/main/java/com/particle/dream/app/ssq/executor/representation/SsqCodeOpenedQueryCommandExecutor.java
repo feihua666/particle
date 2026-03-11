@@ -2,7 +2,7 @@ package com.particle.dream.app.ssq.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dream.app.ssq.structmapping.SsqCodeOpenedAppStructMapping;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedPageQueryCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedQueryListCommand;
@@ -57,7 +57,7 @@ public class SsqCodeOpenedQueryCommandExecutor  extends AbstractBaseQueryExecuto
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SsqCodeOpenedVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SsqCodeOpenedVO> executeDetail(CommonIdCommand detailCommand) {
 		SsqCodeOpenedDO byId = iSsqCodeOpenedService.getById(detailCommand.getId());
 		SsqCodeOpenedVO ssqCodeOpenedVO = SsqCodeOpenedAppStructMapping.instance.ssqCodeOpenedDOToSsqCodeOpenedVO(byId);
 		return SingleResponse.of(ssqCodeOpenedVO);

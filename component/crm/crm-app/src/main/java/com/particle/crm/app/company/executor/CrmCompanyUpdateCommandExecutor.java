@@ -8,7 +8,7 @@ import com.particle.crm.domain.company.CrmCompany;
 import com.particle.crm.domain.company.CrmCompanyId;
 import com.particle.crm.domain.company.gateway.CrmCompanyGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -2,7 +2,7 @@ package com.particle.role.app.roledatascoperel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.roledatascoperel.structmapping.RoleDataScopeRelAppStructMapping;
 import com.particle.role.client.roledatascoperel.dto.command.RoleDataScopeRelCreateCommand;
 import com.particle.role.client.roledatascoperel.dto.data.RoleDataScopeRelVO;

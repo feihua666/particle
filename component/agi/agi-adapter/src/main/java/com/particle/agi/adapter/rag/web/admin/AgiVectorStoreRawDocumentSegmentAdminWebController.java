@@ -1,11 +1,11 @@
 package com.particle.agi.adapter.rag.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.agi.client.rag.api.IAgiVectorStoreRawDocumentSegmentApplicationService;
 import com.particle.agi.client.rag.api.representation.IAgiVectorStoreRawDocumentSegmentRepresentationApplicationService;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentCreateCommand;
 import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentSegmentVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentUpdateCommand;
 import com.particle.agi.client.rag.dto.command.representation.AgiVectorStoreRawDocumentSegmentPageQueryCommand;
 import com.particle.agi.client.rag.dto.command.representation.AgiVectorStoreRawDocumentSegmentQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,7 +57,7 @@ public class AgiVectorStoreRawDocumentSegmentAdminWebController extends Abstract
     @Operation(summary = "删除知识存储原始文档片段")
     @DeleteMapping("/delete")
     @OpLog(name = "删除知识存储原始文档片段",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAgiVectorStoreRawDocumentSegmentApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class AgiVectorStoreRawDocumentSegmentAdminWebController extends Abstract
     @PreAuthorize("hasAuthority('admin:web:agiVectorStoreRawDocumentSegment:update')")
     @Operation(summary = "知识存储原始文档片段更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iAgiVectorStoreRawDocumentSegmentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:agiVectorStoreRawDocumentSegment:detail')")
     @Operation(summary = "知识存储原始文档片段详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> queryDetail(CommonIdCommand detailCommand){
         return iAgiVectorStoreRawDocumentSegmentRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -104,14 +103,14 @@ public class AgiVectorStoreRawDocumentSegmentAdminWebController extends Abstract
 
     /**
      * 先尝试删除已经向量化的对应的id，再向量化
-     * @param idCommand
+     * @param commonIdCommand
      * @return
      */
     @PreAuthorize("hasAuthority('admin:web:agiVectorStoreRawDocumentSegment:embedding')")
     @Operation(summary = "嵌入知识存储原始文档片段")
     @PostMapping("/embedding")
     @OpLog(name = "嵌入知识存储原始文档片段",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.create)
-    public Response embedding(@RequestBody IdCommand idCommand){
-        return iAgiVectorStoreRawDocumentSegmentApplicationService.embedding(idCommand);
+    public Response embedding(@RequestBody CommonIdCommand commonIdCommand){
+        return iAgiVectorStoreRawDocumentSegmentApplicationService.embedding(commonIdCommand);
     }
 }

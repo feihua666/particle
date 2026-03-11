@@ -35,14 +35,20 @@ public class OpenapiAppQuotaLimitInfo extends DTO {
 	 */
 	private Integer limitFee;
 
+	/**
+	 * 归属租户id，主要是在任务计划场景中使用
+	 */
+	private Long tenantId;
+
 	public void updateValue(OpenapiAppQuotaLimitInfo limitInfo) {
 		this.limitRuleType = limitInfo == null ? null :limitInfo.getLimitRuleType();
 		this.limitCount = limitInfo == null ? null :limitInfo.getLimitCount();
 		this.limitFee = limitInfo == null ? null :limitInfo.getLimitFee();
 	}
-	public static OpenapiAppQuotaLimitInfo createForInit(String clientId) {
+	public static OpenapiAppQuotaLimitInfo createForInit(String clientId,Long tenantId) {
 		OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = new OpenapiAppQuotaLimitInfo();
 		openapiAppQuotaLimitInfo.clientId = clientId;
+		openapiAppQuotaLimitInfo.tenantId = tenantId;
 		return openapiAppQuotaLimitInfo;
 
 	}

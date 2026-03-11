@@ -2,6 +2,7 @@ package com.particle.crm.adapter.customer.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.crm.adapter.feign.client.customer.rpc.CrmCustomerTransRpcFeignClient;
 import com.particle.crm.client.customer.dto.data.CrmCustomerTransVO;
 import com.particle.crm.infrastructure.customer.dos.CrmCustomerDO;
 import com.particle.crm.infrastructure.customer.service.ICrmCustomerService;
@@ -29,7 +30,7 @@ public class CrmCustomerTransServiceImpl implements ITransService<CrmCustomerTra
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_CRM_CUSTOMER_BY_ID);
+        return CrmCustomerTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

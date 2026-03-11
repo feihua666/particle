@@ -2,7 +2,7 @@ package com.particle.usagecount.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.usagecount.app.structmapping.UsageCountConfigAppStructMapping;
 import com.particle.usagecount.client.dto.command.UsageCountConfigCreateCommand;
 import com.particle.usagecount.client.dto.data.UsageCountConfigVO;

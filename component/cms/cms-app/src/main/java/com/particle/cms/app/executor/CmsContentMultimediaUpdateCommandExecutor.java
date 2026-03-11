@@ -1,13 +1,19 @@
 package com.particle.cms.app.executor;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.cms.app.structmapping.CmsContentMultimediaAppStructMapping;
 import com.particle.cms.client.dto.command.CmsContentMultimediaUpdateCommand;
 import com.particle.cms.client.dto.data.CmsContentMultimediaVO;
+import com.particle.cms.domain.CmsContent;
+import com.particle.cms.domain.CmsContentId;
 import com.particle.cms.domain.CmsContentMultimedia;
 import com.particle.cms.domain.CmsContentMultimediaId;
+import com.particle.cms.domain.gateway.CmsContentGateway;
 import com.particle.cms.domain.gateway.CmsContentMultimediaGateway;
+import com.particle.cms.domain.service.ArticleStatisticsService;
+import com.particle.cms.domain.value.ArticleStats;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -32,7 +38,9 @@ import jakarta.validation.Valid;
 public class CmsContentMultimediaUpdateCommandExecutor  extends AbstractBaseExecutor {
 
 	private CmsContentMultimediaGateway cmsContentMultimediaGateway;
+	private ArticleStatisticsService articleStatisticsService;
 
+	private CmsContentGateway cmsContentGateway;
 	/**
 	 * 执行 内容多媒体 更新指令
 	 * @param cmsContentMultimediaUpdateCommand
@@ -43,6 +51,13 @@ public class CmsContentMultimediaUpdateCommandExecutor  extends AbstractBaseExec
 		cmsContentMultimedia.setUpdateControl(cmsContentMultimediaUpdateCommand);
 		boolean save = cmsContentMultimediaGateway.save(cmsContentMultimedia);
 		if (save) {
+			Boolean isUseArticleAnalyzer = cmsContentMultimediaUpdateCommand.getIsUseArticleAnalyzer();
+			if (isUseArticleAnalyzer !=  null && isUseArticleAnalyzer && StrUtil.isNotEmpty(cmsContentMultimediaUpdateCommand.getContent())) {
+				ArticleStats calculated = articleStatisticsService.calculate(cmsContentMultimediaUpdateCommand.getContent());
+				CmsContent cmsContent = cmsContentGateway.getById(CmsContentId.of(cmsContentMultimedia.getCmsContentId()));
+				cmsContent.updateStats(calculated);
+				cmsContentGateway.save(cmsContent);
+			}
 			return SingleResponse.of(CmsContentMultimediaAppStructMapping.instance.toCmsContentMultimediaVO(cmsContentMultimedia));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -84,5 +99,14 @@ public class CmsContentMultimediaUpdateCommandExecutor  extends AbstractBaseExec
 	@Autowired
 	public void setCmsContentMultimediaGateway(CmsContentMultimediaGateway cmsContentMultimediaGateway) {
 		this.cmsContentMultimediaGateway = cmsContentMultimediaGateway;
+	}
+
+	@Autowired
+	public void setArticleStatisticsService(ArticleStatisticsService articleStatisticsService) {
+		this.articleStatisticsService = articleStatisticsService;
+	}
+	@Autowired
+	public void setCmsContentGateway(CmsContentGateway cmsContentGateway) {
+		this.cmsContentGateway = cmsContentGateway;
 	}
 }

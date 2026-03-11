@@ -29,12 +29,6 @@ public class DataObjectTransRpcController extends AbstractBaseRpcAdapter impleme
 	@Autowired
 	private DataObjectTransServiceImpl dataObjectTransService;
 
-
-	@Override
-	public boolean supportBatch(String type) {
-		return dataObjectTransService.supportBatch(type);
-	}
-
 	@Override
 	public List<TransResult<DataObjectTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dataObjectTransService.transBatch(type, keys);

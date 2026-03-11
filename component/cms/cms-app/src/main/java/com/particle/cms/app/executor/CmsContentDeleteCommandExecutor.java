@@ -1,21 +1,19 @@
 package com.particle.cms.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.cms.app.structmapping.CmsContentAppStructMapping;
 import com.particle.cms.client.dto.data.CmsContentVO;
 import com.particle.cms.domain.CmsContent;
 import com.particle.cms.domain.CmsContentId;
 import com.particle.cms.domain.gateway.CmsContentGateway;
 import com.particle.cms.infrastructure.service.ICmsContentService;
-import com.particle.cms.infrastructure.dos.CmsContentDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class CmsContentDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<CmsContentVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<CmsContentVO> execute(@Valid CommonIdCommand deleteCommand) {
 		CmsContentId cmsContentId = CmsContentId.of(deleteCommand.getId());
 		CmsContent byId = cmsContentGateway.getById(cmsContentId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

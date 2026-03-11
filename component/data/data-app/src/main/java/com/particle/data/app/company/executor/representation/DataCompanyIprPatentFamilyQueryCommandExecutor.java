@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprPatentFamilyAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentFamilyQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentFamilyVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentFamilyDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentFamilyService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentFamilyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentFamilyQueryCommandExecutor  extends AbstractBas
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentFamilyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentFamilyVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentFamilyDO byId = iDataCompanyIprPatentFamilyService.getById(detailCommand.getId());
 		DataCompanyIprPatentFamilyVO dataCompanyIprPatentFamilyVO = DataCompanyIprPatentFamilyAppStructMapping.instance.dataCompanyIprPatentFamilyDOToDataCompanyIprPatentFamilyVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentFamilyVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentFamilyQueryCommandExecutor  extends AbstractBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentFamilyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentFamilyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentFamilyDO byId = iDataCompanyIprPatentFamilyService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentFamilyVO dataCompanyIprPatentFamilyVO = DataCompanyIprPatentFamilyAppStructMapping.instance.dataCompanyIprPatentFamilyDOToDataCompanyIprPatentFamilyVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentFamilyVO);

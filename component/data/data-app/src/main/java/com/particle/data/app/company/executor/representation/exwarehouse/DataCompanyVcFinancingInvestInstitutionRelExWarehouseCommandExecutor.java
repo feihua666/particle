@@ -7,7 +7,7 @@ import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyVcFinanc
 import com.particle.data.infrastructure.company.dos.DataCompanyVcFinancingInvestInstitutionRelDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcFinancingInvestInstitutionRelService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

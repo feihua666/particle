@@ -1,8 +1,7 @@
 package com.particle.role.adapter.feign.client.roleuserrel.rpc;
 
-import com.particle.common.client.dto.command.BatchIdCommand;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.common.client.dto.command.CommonBatchIdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -10,7 +9,6 @@ import com.particle.role.client.roleuserrel.dto.command.RoleUserRelWithTenantIdC
 import com.particle.role.client.roleuserrel.dto.command.UserAssignRoleCommand;
 import com.particle.role.client.roleuserrel.dto.command.representation.RoleUserRelQueryListCommand;
 import com.particle.role.client.roleuserrel.dto.data.RoleUserRelVO;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author yw
  * @since 2022-11-25
  */
-@FeignClient(name = "${particle.feign-client.name.roleUserRel:roleUserRel}",path = "/rpc/roleUserRel")
+@FeignClient(name = "${particle.feign-client.role.name:role-start}", contextId = "roleUserRelRpcFeignClient", url = "${particle.feign-client.role.url:}", path = "/rpc/roleUserRel")
 public interface RoleUserRelRpcFeignClient {
 
 	/**
@@ -48,12 +46,12 @@ public interface RoleUserRelRpcFeignClient {
     /**
      * 根据用户id删除
      *
-     * @param userIdCommand
+     * @param userCommonIdCommand
      * @return
      */
     @DeleteMapping("/deleteByUserId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Response deleteByUserId(@RequestBody IdCommand userIdCommand);
+    public Response deleteByUserId(@RequestBody CommonIdCommand userCommonIdCommand);
 
     /**
      * 列表查询角色用户关系
@@ -67,9 +65,9 @@ public interface RoleUserRelRpcFeignClient {
     /**
      * 根据角色ids列表查询角色用户关系
      *
-     * @param batchIdCommand
+     * @param commonBatchIdCommand
      * @return
      */
     @GetMapping("/listByRoleIds")
-    public MultiResponse<RoleUserRelVO> queryListByRoleIds(BatchIdCommand batchIdCommand);
+    public MultiResponse<RoleUserRelVO> queryListByRoleIds(CommonBatchIdCommand commonBatchIdCommand);
 }

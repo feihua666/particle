@@ -1,6 +1,7 @@
 package com.particle.global.openapi.api.limitrule;
 
 import cn.hutool.core.util.StrUtil;
+import com.particle.global.dto.basic.DTO;
 import com.particle.global.exception.ExceptionFactory;
 import com.particle.global.openapi.GlobalOpenapiAutoConfiguration;
 import com.particle.global.openapi.data.OpenapiAppQuotaLimitInfo;
@@ -9,7 +10,8 @@ import com.particle.global.openapi.enums.LimitRulePeriod;
 import com.particle.global.openapi.enums.LimitRuleTarget;
 import com.particle.global.openapi.enums.LimitRuleType;
 import com.particle.global.openapi.exception.ErrorCodeOpenapiEnum;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import com.particle.global.tool.tenant.TenantTool;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,11 +69,15 @@ public class GlobalOpenapiRequestLimitService {
         RequestLimitClientIdStatistic requestLimitClientIdStatistic = null;
         if (limitRuleTarget == LimitRuleTarget.client_id) {
             key += clientId + "_" + limitRulePeriod.name();
-            requestLimitClientIdStatistic = requestLimitClientIdStatisticMap.computeIfAbsent(key, (k) -> RequestLimitClientIdStatistic.createForInit(clientId, limitRulePeriod));
+            requestLimitClientIdStatistic = requestLimitClientIdStatisticMap.computeIfAbsent(key,
+                    (k) -> RequestLimitClientIdStatistic.createForInit(clientId, limitRulePeriod, TenantTool.getTenantId())
+            );
 
         } else if (limitRuleTarget == LimitRuleTarget.client_id_and_openapi) {
             key += clientId + "_" + apiCode + "_"  + limitRulePeriod.name();
-            requestLimitClientIdStatistic = requestLimitClientIdAndOpenapiStatisticMap.computeIfAbsent(key, (k) -> RequestLimitClientIdAndOpenapiStatistic.createForInit(clientId, apiCode, limitRulePeriod));
+            requestLimitClientIdStatistic = requestLimitClientIdAndOpenapiStatisticMap.computeIfAbsent(key,
+                    (k) -> RequestLimitClientIdAndOpenapiStatistic.createForInit(clientId, apiCode, limitRulePeriod, TenantTool.getTenantId())
+            );
         }
         if (limitRuleType == LimitRuleType.count_limit) {
             // 0 不限制
@@ -144,7 +150,9 @@ public class GlobalOpenapiRequestLimitService {
         if (StrUtil.isEmpty(clientId)) {
             return;
         }
-        OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = requestAppQuotaLimitClientIdMap.computeIfAbsent(clientId,k -> OpenapiAppQuotaLimitInfo.createForInit(clientId));
+        OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = requestAppQuotaLimitClientIdMap.computeIfAbsent(clientId,
+                k -> OpenapiAppQuotaLimitInfo.createForInit(clientId, TenantTool.getTenantId())
+        );
         if (openapiAppQuotaLimitInfo.getLimitRuleType() == null) {
             return;
         }
@@ -176,11 +184,14 @@ public class GlobalOpenapiRequestLimitService {
             long start = System.currentTimeMillis();
             requestLimitClientIdStatisticMap.forEach((k, v) -> {
                 try {
+                    TenantTool.setTenantId(v.getTenantId());
                     LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.limitRulePeriod.computeDateTime();
                     RequestLimitClientIdStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.clientId, limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
                     log.error("scheduleStatisticData requestLimitClientIdStatistic error", e);
+                }finally {
+                    TenantTool.clear();
                 }
             });
 
@@ -192,12 +203,14 @@ public class GlobalOpenapiRequestLimitService {
             long start = System.currentTimeMillis();
             requestLimitClientIdAndOpenapiStatisticMap.forEach((k, v) -> {
                 try {
+                    TenantTool.setTenantId(v.getTenantId());
                     LimitRulePeriod.LimitRulePeriodDateTime limitRulePeriodDateTime = v.getLimitRulePeriod().computeDateTime();
-                    ;
                     RequestLimitClientIdAndOpenapiStatistic statistic = globalOpenapiRequestLimitDataProvider.statistic(v.getClientId(),v.getOpenapiCode(), limitRulePeriodDateTime.getStartAt(), limitRulePeriodDateTime.getEndAt());
                     v.updateValue(statistic);
                 } catch (Exception e) {
                     log.error("scheduleStatisticData requestLimitClientIdAndOpenapiStatistic error", e);
+                }finally {
+                    TenantTool.clear();
                 }
             });
             log.debug("scheduleStatisticData requestLimitClientIdAndOpenapiStatistic end,duration={}ms", System.currentTimeMillis() - start);
@@ -214,8 +227,13 @@ public class GlobalOpenapiRequestLimitService {
             log.debug("scheduleAppQuotaLimitData start");
             long start = System.currentTimeMillis();
             requestAppQuotaLimitClientIdMap.forEach((k,v) -> {
-                OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = globalOpenapiRequestLimitDataProvider.getOpenapiAppQuotaLimitInfo(k);
-                v.updateValue(openapiAppQuotaLimitInfo);
+                try {
+                    TenantTool.setTenantId(v.getTenantId());
+                    OpenapiAppQuotaLimitInfo openapiAppQuotaLimitInfo = globalOpenapiRequestLimitDataProvider.getOpenapiAppQuotaLimitInfo(k);
+                    v.updateValue(openapiAppQuotaLimitInfo);
+                } finally {
+                    TenantTool.clear();
+                }
             });
             log.debug("scheduleAppQuotaLimitData end,duration={}ms", System.currentTimeMillis() - start);
 
@@ -225,7 +243,7 @@ public class GlobalOpenapiRequestLimitService {
      * 客户端id的请求限制统计
      */
     @Data
-    public static class RequestLimitClientIdStatistic {
+    public static class RequestLimitClientIdStatistic extends DTO {
         /**
          * 客户端id
          */
@@ -250,6 +268,10 @@ public class GlobalOpenapiRequestLimitService {
         private LimitRulePeriod limitRulePeriod;
 
         /**
+         * 归属租户id，主要是在任务计划场景中使用
+         */
+        private Long tenantId;
+        /**
          * 更新值,如果获取的统计数据为null，说明没有数据，或者手动删除了数据等原因
          * @param statistic
          */
@@ -259,10 +281,11 @@ public class GlobalOpenapiRequestLimitService {
             this.fee = statistic == null ? null : statistic.fee;
         }
 
-        public static RequestLimitClientIdStatistic createForInit(String clientId,LimitRulePeriod limitRulePeriod) {
+        public static RequestLimitClientIdStatistic createForInit(String clientId,LimitRulePeriod limitRulePeriod,Long tenantId) {
             RequestLimitClientIdStatistic requestLimitClientIdStatistic = new RequestLimitClientIdStatistic();
             requestLimitClientIdStatistic.clientId = clientId;
             requestLimitClientIdStatistic.limitRulePeriod = limitRulePeriod;
+            requestLimitClientIdStatistic.tenantId = tenantId;
             return requestLimitClientIdStatistic;
         }
 
@@ -289,11 +312,14 @@ public class GlobalOpenapiRequestLimitService {
          */
         private String openapiCode;
 
-        public static RequestLimitClientIdAndOpenapiStatistic createForInit(String clientId, String openapiCode, LimitRulePeriod limitRulePeriod) {
+        public static RequestLimitClientIdAndOpenapiStatistic createForInit(String clientId,
+                                                                            String openapiCode,
+                                                                            LimitRulePeriod limitRulePeriod,Long tenantId) {
             RequestLimitClientIdAndOpenapiStatistic requestLimitClientIdAndOpenapiStatistic = new RequestLimitClientIdAndOpenapiStatistic();
             requestLimitClientIdAndOpenapiStatistic.setClientId(clientId);
             requestLimitClientIdAndOpenapiStatistic.openapiCode = openapiCode;
             requestLimitClientIdAndOpenapiStatistic.setLimitRulePeriod(limitRulePeriod);
+            requestLimitClientIdAndOpenapiStatistic.setTenantId(tenantId);
             return requestLimitClientIdAndOpenapiStatistic;
         }
         public static RequestLimitClientIdAndOpenapiStatistic createForValue(String clientId, String openapiCode,

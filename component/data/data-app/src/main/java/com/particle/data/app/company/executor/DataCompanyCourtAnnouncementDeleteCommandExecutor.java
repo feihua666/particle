@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyCourtAnnouncementAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyCourtAnnouncementVO;
 import com.particle.data.domain.company.DataCompanyCourtAnnouncement;
 import com.particle.data.domain.company.DataCompanyCourtAnnouncementId;
 import com.particle.data.domain.company.gateway.DataCompanyCourtAnnouncementGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyCourtAnnouncementService;
-import com.particle.data.infrastructure.company.dos.DataCompanyCourtAnnouncementDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyCourtAnnouncementDeleteCommandExecutor  extends Abstract
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCourtAnnouncementVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyCourtAnnouncementVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyCourtAnnouncementId dataCompanyCourtAnnouncementId = DataCompanyCourtAnnouncementId.of(deleteCommand.getId());
 		DataCompanyCourtAnnouncement byId = dataCompanyCourtAnnouncementGateway.getById(dataCompanyCourtAnnouncementId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

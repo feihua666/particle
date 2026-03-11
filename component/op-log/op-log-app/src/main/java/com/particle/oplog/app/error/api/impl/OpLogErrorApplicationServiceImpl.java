@@ -1,7 +1,7 @@
 package com.particle.oplog.app.error.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.app.error.executor.OpLogErrorCommandExecutor;
@@ -39,7 +39,7 @@ public class OpLogErrorApplicationServiceImpl extends AbstractBaseApplicationSer
 	}
 
 	@Override
-	public SingleResponse<OpLogErrorVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpLogErrorVO> delete(CommonIdCommand deleteCommand) {
 		return opLogErrorDeleteCommandExecutor.execute(deleteCommand);
 	}
 

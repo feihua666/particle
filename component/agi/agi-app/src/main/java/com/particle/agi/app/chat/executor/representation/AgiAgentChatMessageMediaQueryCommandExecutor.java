@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageMediaVO;
 import com.particle.agi.infrastructure.chat.dos.AgiAgentChatMessageMediaDO;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatMessageMediaService;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessageMediaPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentChatMessageMediaQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageMediaVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentChatMessageMediaVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentChatMessageMediaDO byId = iAgiAgentChatMessageMediaService.getById(detailCommand.getId());
 		AgiAgentChatMessageMediaVO agiAgentChatMessageMediaVO = AgiAgentChatMessageMediaAppStructMapping.instance.agiAgentChatMessageMediaDOToAgiAgentChatMessageMediaVO(byId);
 		return SingleResponse.of(agiAgentChatMessageMediaVO);
@@ -67,7 +66,7 @@ public class AgiAgentChatMessageMediaQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageMediaVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentChatMessageMediaVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentChatMessageMediaDO byId = iAgiAgentChatMessageMediaService.getById(detailForUpdateCommand.getId());
 		AgiAgentChatMessageMediaVO agiAgentChatMessageMediaVO = AgiAgentChatMessageMediaAppStructMapping.instance.agiAgentChatMessageMediaDOToAgiAgentChatMessageMediaVO(byId);
 		return SingleResponse.of(agiAgentChatMessageMediaVO);

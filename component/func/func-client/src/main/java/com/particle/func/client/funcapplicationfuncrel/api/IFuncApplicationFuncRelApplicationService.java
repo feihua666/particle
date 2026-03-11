@@ -1,7 +1,7 @@
 package com.particle.func.client.funcapplicationfuncrel.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationAssignFuncCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncApplicationFuncRelCreateCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.FuncAssignFuncApplicationCommand;
@@ -30,7 +30,7 @@ public interface IFuncApplicationFuncRelApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<FuncApplicationFuncRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<FuncApplicationFuncRelVO> delete(CommonIdCommand deleteCommand);
 
 
 
@@ -50,14 +50,14 @@ public interface IFuncApplicationFuncRelApplicationService extends IBaseApplicat
 
 	/**
 	 * 根据功能id删除
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncId(IdCommand funcIdCommand);
+	public Response deleteByFuncId(CommonIdCommand funcCommonIdCommand);
 
 	/**
 	 * 根据功能应用id删除
-	 * @param funcApplicationIdCommand
+	 * @param funcApplicationCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncApplicationId(IdCommand funcApplicationIdCommand);}
+	public Response deleteByFuncApplicationId(CommonIdCommand funcApplicationCommonIdCommand);}

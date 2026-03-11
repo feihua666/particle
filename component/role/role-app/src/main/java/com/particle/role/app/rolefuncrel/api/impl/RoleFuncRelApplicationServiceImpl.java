@@ -1,7 +1,7 @@
 package com.particle.role.app.rolefuncrel.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -17,8 +17,6 @@ import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * <p>
@@ -45,7 +43,7 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public SingleResponse<RoleFuncRelVO> delete(IdCommand roleFuncRelDeleteCommand) {
+	public SingleResponse<RoleFuncRelVO> delete(CommonIdCommand roleFuncRelDeleteCommand) {
 		return roleFuncRelDeleteCommandExecutor.execute(roleFuncRelDeleteCommand);
 	}
 
@@ -65,13 +63,13 @@ public class RoleFuncRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public Response deleteByRoleId(IdCommand roleIdCommand) {
-		return roleFuncRelDeleteCommandExecutor.deleteByRoleId(roleIdCommand);
+	public Response deleteByRoleId(CommonIdCommand roleCommonIdCommand) {
+		return roleFuncRelDeleteCommandExecutor.deleteByRoleId(roleCommonIdCommand);
 	}
 
 	@Override
-	public Response deleteByFuncId(IdCommand funcIdCommand) {
-		return roleFuncRelDeleteCommandExecutor.deleteByFuncId(funcIdCommand);
+	public Response deleteByFuncId(CommonIdCommand funcCommonIdCommand) {
+		return roleFuncRelDeleteCommandExecutor.deleteByFuncId(funcCommonIdCommand);
 	}
 
 	@Autowired

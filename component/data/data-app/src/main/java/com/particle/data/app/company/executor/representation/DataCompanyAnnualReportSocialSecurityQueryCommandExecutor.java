@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportSocialSe
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportSocialSecurityDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportSocialSecurityService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportSocialSecurityPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportSocialSecurityQueryCommandExecutor  extends 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportSocialSecurityDO byId = iDataCompanyAnnualReportSocialSecurityService.getById(detailCommand.getId());
 		DataCompanyAnnualReportSocialSecurityVO dataCompanyAnnualReportSocialSecurityVO = DataCompanyAnnualReportSocialSecurityAppStructMapping.instance.dataCompanyAnnualReportSocialSecurityDOToDataCompanyAnnualReportSocialSecurityVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportSocialSecurityVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportSocialSecurityQueryCommandExecutor  extends 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportSocialSecurityDO byId = iDataCompanyAnnualReportSocialSecurityService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportSocialSecurityVO dataCompanyAnnualReportSocialSecurityVO = DataCompanyAnnualReportSocialSecurityAppStructMapping.instance.dataCompanyAnnualReportSocialSecurityDOToDataCompanyAnnualReportSocialSecurityVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportSocialSecurityVO);

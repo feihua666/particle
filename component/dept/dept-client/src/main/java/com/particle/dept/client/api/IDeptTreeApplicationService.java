@@ -1,7 +1,7 @@
 package com.particle.dept.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.client.dto.command.DeptTreeCreateCommand;
 import com.particle.dept.client.dto.command.DeptTreeUpdateCommand;
 import com.particle.dept.client.dto.data.DeptTreeVO;
@@ -28,7 +28,7 @@ public interface IDeptTreeApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeVO> delete(IdCommand deleteCommand);
+	SingleResponse<DeptTreeVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

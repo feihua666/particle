@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportDO byId = iDataCompanyAnnualReportService.getById(detailCommand.getId());
 		DataCompanyAnnualReportVO dataCompanyAnnualReportVO = DataCompanyAnnualReportAppStructMapping.instance.dataCompanyAnnualReportDOToDataCompanyAnnualReportVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportQueryCommandExecutor  extends AbstractBaseQu
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportDO byId = iDataCompanyAnnualReportService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportVO dataCompanyAnnualReportVO = DataCompanyAnnualReportAppStructMapping.instance.dataCompanyAnnualReportDOToDataCompanyAnnualReportVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportVO);

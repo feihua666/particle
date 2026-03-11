@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2023-04-26 18:11
  */
 @Data
-@ConfigurationProperties("particle.oss.aws")
+@ConfigurationProperties("particle.global.oss.aws")
 public class GlobalAwsOssProperties {
 
 	/**

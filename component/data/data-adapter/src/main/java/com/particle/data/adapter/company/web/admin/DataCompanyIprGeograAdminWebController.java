@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyIprGeograApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyIprGeograRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprGeograCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprGeograVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprGeograUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprGeograPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprGeograQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业知识产权地理标识后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyIprGeograAdminWebController extends AbstractBaseWebAdapt
     @Operation(summary = "删除企业知识产权地理标识")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业知识产权地理标识",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyIprGeograVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyIprGeograVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyIprGeograApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyIprGeograAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprGeogra:update')")
     @Operation(summary = "企业知识产权地理标识更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyIprGeograVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyIprGeograVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyIprGeograRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprGeogra:detail')")
     @Operation(summary = "企业知识产权地理标识详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyIprGeograVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyIprGeograVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyIprGeograRepresentationApplicationService.queryDetail(detailCommand);
     }
 

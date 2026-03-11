@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyDeliveryAnnouncement
 import com.particle.data.infrastructure.company.dos.DataCompanyDeliveryAnnouncementDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyDeliveryAnnouncementService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyDeliveryAnnouncementPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyDeliveryAnnouncementQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyDeliveryAnnouncementVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyDeliveryAnnouncementVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyDeliveryAnnouncementDO byId = iDataCompanyDeliveryAnnouncementService.getById(detailCommand.getId());
 		DataCompanyDeliveryAnnouncementVO dataCompanyDeliveryAnnouncementVO = DataCompanyDeliveryAnnouncementAppStructMapping.instance.dataCompanyDeliveryAnnouncementDOToDataCompanyDeliveryAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyDeliveryAnnouncementVO);
@@ -67,7 +66,7 @@ public class DataCompanyDeliveryAnnouncementQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyDeliveryAnnouncementVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyDeliveryAnnouncementVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyDeliveryAnnouncementDO byId = iDataCompanyDeliveryAnnouncementService.getById(detailForUpdateCommand.getId());
 		DataCompanyDeliveryAnnouncementVO dataCompanyDeliveryAnnouncementVO = DataCompanyDeliveryAnnouncementAppStructMapping.instance.dataCompanyDeliveryAnnouncementDOToDataCompanyDeliveryAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyDeliveryAnnouncementVO);

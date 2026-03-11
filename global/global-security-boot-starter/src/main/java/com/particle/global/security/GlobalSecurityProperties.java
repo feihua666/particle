@@ -17,7 +17,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = GlobalSecurityProperties.prefix)
 public class GlobalSecurityProperties {
 
-	public static final String prefix = "particle.security";
+	public static final String prefix = "particle.global.security";
 
 	/**
 	 * 强制不使用自定义登录页面
@@ -28,7 +28,7 @@ public class GlobalSecurityProperties {
 	/**
 	 * 强制在登录成功后在response中写token响应头
 	 * 这在使用cookie和header同时解析sessionId时，如果用户已经登录，但没有退出，重新登录，这时cookie默认是自带发送的，导致在登录时仍能获取后登录用户，在登录成功后响应头中没有token请求头
-	 * 如果单独使用header解析，没有问题，这里设置为false即可，本系统默认设置为false，因为默认使用的是header，参见：application-session.yml
+	 * 不管使用哪种方式，默认设置为true，登录后响应头中一定会有 token，参见：application-session.yml
 	 */
-	private Boolean forceWriteLoginHeaderToken = false;
+	private Boolean forceWriteLoginHeaderToken = true;
 }

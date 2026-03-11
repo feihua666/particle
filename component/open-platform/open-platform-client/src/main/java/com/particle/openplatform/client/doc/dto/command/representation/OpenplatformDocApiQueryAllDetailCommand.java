@@ -1,6 +1,6 @@
 package com.particle.openplatform.client.doc.dto.command.representation;
 
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -16,7 +16,7 @@ import lombok.Data;
 @OrderBy("seq")
 @Data
 @Schema
-public class OpenplatformDocApiQueryAllDetailCommand extends IdCommand {
+public class OpenplatformDocApiQueryAllDetailCommand extends CommonIdCommand {
 
     /**
      * 可以根据开放接口查询接口文档详情

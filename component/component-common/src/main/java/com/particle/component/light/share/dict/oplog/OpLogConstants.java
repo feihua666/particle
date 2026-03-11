@@ -69,8 +69,12 @@ public class OpLogConstants {
 		public static final String navigation = "navigation";
 		/** 人工智能模块 */
 		public static final String agi = "agi";
+
 		/** 内容管理模块 */
 		public static final String cms = "cms";
+
+		/** 审批模块 */
+		public static final String audit = "audit";
 
 		/** 未知模块 */
 		public static final String unknown = "unknown";

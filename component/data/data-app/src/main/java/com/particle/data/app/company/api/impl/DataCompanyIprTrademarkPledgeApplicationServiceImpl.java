@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyIprTrademarkPledgeCreat
 import com.particle.data.app.company.executor.DataCompanyIprTrademarkPledgeDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprTrademarkPledgeUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprTrademarkPledgeCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkPledgeUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyIprTrademarkPledgeApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkPledgeCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprTrademarkPledgeWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprTrademarkPledgeExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyIprTrademarkPledgeApplicationServiceImpl extends Abstrac
     }
 
     @Override
-    public SingleResponse<DataCompanyIprTrademarkPledgeVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyIprTrademarkPledgeVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyIprTrademarkPledgeDeleteCommandExecutor.execute(deleteCommand);
     }
 

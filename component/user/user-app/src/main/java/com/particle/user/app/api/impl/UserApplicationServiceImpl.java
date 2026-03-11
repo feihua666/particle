@@ -1,7 +1,7 @@
 package com.particle.user.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -43,7 +43,7 @@ public class UserApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<UserVO> delete(IdCommand userDeleteCommand) {
+	public SingleResponse<UserVO> delete(CommonIdCommand userDeleteCommand) {
 		return userDeleteCommandExecutor.execute(userDeleteCommand);
 	}
 

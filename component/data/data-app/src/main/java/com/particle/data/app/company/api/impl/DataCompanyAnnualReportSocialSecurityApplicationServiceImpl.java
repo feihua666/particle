@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportSocialSecurityCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportSocialSecurityCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportSocialSecurityDeleteCommandExecutor;
@@ -48,7 +48,7 @@ public class DataCompanyAnnualReportSocialSecurityApplicationServiceImpl extends
     }
 
     @Override
-    public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyAnnualReportSocialSecurityVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyAnnualReportSocialSecurityDeleteCommandExecutor.execute(deleteCommand);
     }
 

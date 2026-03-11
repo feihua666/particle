@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ComponentScan
-@ConditionalOnProperty(prefix = "particle.swagger", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.swagger", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalSwaggerAutoConfiguration {
 
 	@ConditionalOnClass(ProjectInfo.class)

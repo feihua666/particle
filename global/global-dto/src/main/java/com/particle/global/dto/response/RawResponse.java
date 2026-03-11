@@ -1,6 +1,6 @@
 package com.particle.global.dto.response;
 
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 
 /**
  * <p>

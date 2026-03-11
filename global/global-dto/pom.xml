@@ -17,25 +17,39 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-exception</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
 
-        <!-- 使用其传递依赖的注解，添加这个主要是为了在基类QueryCommand上添加一个@ParameterObject注解 -->
+        <!-- 仅使用注解 swagger 接口文档工具-->
         <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-swagger-boot-starter</artifactId>
-            <version>${particle.version}</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>${swagger-annotations-jakarta.version}</version>
+            <optional>true</optional>
         </dependency>
-
-        <!-- 依赖经量模块，主要是为了使用其 com.particle.global.light.share.mybatis.anno.Ignore -->
+        <!-- 仅使用注解 版本已在spring父级定义 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <!-- 仅使用注解，主要是使用 @JsonProperty -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 仅使用注解，主要是为了使用其 com.particle.global.light.share.mybatis.anno.Ignore -->
+        <!-- 使用 IErrorCode 接口，在响应对应中使用 -->
         <dependency>
             <groupId>com.particle</groupId>
             <artifactId>global-common</artifactId>
             <version>${particle.version}</version>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

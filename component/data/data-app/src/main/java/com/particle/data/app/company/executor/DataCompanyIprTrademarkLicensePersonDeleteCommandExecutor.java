@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkLicensePersonAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkLicensePersonVO;
 import com.particle.data.domain.company.DataCompanyIprTrademarkLicensePerson;
 import com.particle.data.domain.company.DataCompanyIprTrademarkLicensePersonId;
 import com.particle.data.domain.company.gateway.DataCompanyIprTrademarkLicensePersonGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkLicensePersonService;
-import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkLicensePersonDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyIprTrademarkLicensePersonDeleteCommandExecutor  extends 
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyIprTrademarkLicensePersonId dataCompanyIprTrademarkLicensePersonId = DataCompanyIprTrademarkLicensePersonId.of(deleteCommand.getId());
 		DataCompanyIprTrademarkLicensePerson byId = dataCompanyIprTrademarkLicensePersonGateway.getById(dataCompanyIprTrademarkLicensePersonId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

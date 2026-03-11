@@ -2,7 +2,7 @@ package com.particle.feedback.app.reply.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.app.reply.structmapping.FeedbackReplyAppStructMapping;
 import com.particle.feedback.client.reply.dto.command.representation.FeedbackReplyPageQueryCommand;
 import com.particle.feedback.client.reply.dto.command.representation.FeedbackReplyQueryListCommand;
@@ -57,7 +57,7 @@ public class FeedbackReplyQueryCommandExecutor  extends AbstractBaseQueryExecuto
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<FeedbackReplyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<FeedbackReplyVO> executeDetail(CommonIdCommand detailCommand) {
 		FeedbackReplyDO byId = iFeedbackReplyService.getById(detailCommand.getId());
 		FeedbackReplyVO feedbackReplyVO = FeedbackReplyAppStructMapping.instance.feedbackReplyDOToFeedbackReplyVO(byId);
 		return SingleResponse.of(feedbackReplyVO);

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-11-05 20:30:58
  */
-@FeignClient(name = "${particle.feign-client.name.data:data}",path = "/rpc/dynamic_data_indicator_category")
+@FeignClient(name = "${particle.feign-client.data.name:data-start}", contextId = "dynamicDataIndicatorCategoryRpcFeignClient", url = "${particle.feign-client.data.url:}", path = "/rpc/dynamic_data_indicator_category")
 public interface DynamicDataIndicatorCategoryRpcFeignClient {
 
 

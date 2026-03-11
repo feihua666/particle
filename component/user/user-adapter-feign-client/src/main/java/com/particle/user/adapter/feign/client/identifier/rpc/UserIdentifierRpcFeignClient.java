@@ -4,6 +4,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2022-11-25
  */
-@FeignClient(name = "${particle.feign-client.name.user:user}",path = "/rpc/user-identifier")
+@FeignClient(name = "${particle.feign-client.user.name:user-start}", contextId = "userIdentifierRpcFeignClient", url = "${particle.feign-client.user.url:}", path = "/rpc/user-identifier")
 public interface UserIdentifierRpcFeignClient {
 
 	/**
@@ -22,7 +23,7 @@ public interface UserIdentifierRpcFeignClient {
 	 * @return
 	 */
     @GetMapping("/getByIdentifier")
-	public SingleResponse<UserIdentifierVO> getByIdentifier(String identifier);
+	public SingleResponse<UserIdentifierVO> getByIdentifier(@RequestParam String identifier);
 
     /**
      * 根据用户id和登录标识类型获取
@@ -31,7 +32,7 @@ public interface UserIdentifierRpcFeignClient {
      * @return
      */
     @GetMapping("/getByUserIdAndType")
-	public SingleResponse<UserIdentifierVO> getByUserIdAndType(Long userId, Long identifierTypeDictId);
+	public SingleResponse<UserIdentifierVO> getByUserIdAndType(@RequestParam Long userId,@RequestParam Long identifierTypeDictId);
 
 
 }

@@ -7,7 +7,7 @@ import com.particle.agi.client.rag.api.IAgiVectorStoreRawDocumentApplicationServ
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentCreateCommand;
 import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentVO;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -40,17 +40,17 @@ public class AgiVectorStoreRawDocumentApplicationServiceImpl extends AbstractBas
     }
 
     @Override
-    public Response embedding(IdCommand idCommand) {
-        return agiVectorStoreRawDocumentCommandExecutor.embedding(idCommand);
+    public Response embedding(CommonIdCommand commonIdCommand) {
+        return agiVectorStoreRawDocumentCommandExecutor.embedding(commonIdCommand);
     }
 
     @Override
-    public Response reEmbedding(IdCommand idCommand) {
-        return agiVectorStoreRawDocumentCommandExecutor.reEmbedding(idCommand);
+    public Response reEmbedding(CommonIdCommand commonIdCommand) {
+        return agiVectorStoreRawDocumentCommandExecutor.reEmbedding(commonIdCommand);
     }
 
     @Override
-    public SingleResponse<AgiVectorStoreRawDocumentVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<AgiVectorStoreRawDocumentVO> delete(CommonIdCommand deleteCommand) {
         return agiVectorStoreRawDocumentDeleteCommandExecutor.execute(deleteCommand);
     }
 

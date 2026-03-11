@@ -1,11 +1,11 @@
 package com.particle.data.adapter.dynamicdata.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.dynamicdata.api.IDynamicDataIndicatorApplicationService;
 import com.particle.data.client.dynamicdata.api.representation.IDynamicDataIndicatorRepresentationApplicationService;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCreateCommand;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorUpdateCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorPageQueryCommand;
 import com.particle.data.client.dynamicdata.dto.command.representation.DynamicDataIndicatorQueryListCommand;
@@ -15,7 +15,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +26,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 动态数据指标后台管理pc或平板端前端适配器
@@ -59,7 +58,7 @@ public class DynamicDataIndicatorAdminWebController extends AbstractBaseWebAdapt
     @Operation(summary = "删除动态数据指标")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据指标",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicDataIndicatorVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicDataIndicatorVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicDataIndicatorApplicationService.delete(deleteCommand);
     }
@@ -76,14 +75,14 @@ public class DynamicDataIndicatorAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:dynamicDataIndicator:update')")
     @Operation(summary = "动态数据指标更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicDataIndicatorVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicDataIndicatorVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicDataIndicatorRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicDataIndicator:detail')")
     @Operation(summary = "动态数据指标详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicDataIndicatorVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicDataIndicatorVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicDataIndicatorRepresentationApplicationService.queryDetail(detailCommand);
     }
 

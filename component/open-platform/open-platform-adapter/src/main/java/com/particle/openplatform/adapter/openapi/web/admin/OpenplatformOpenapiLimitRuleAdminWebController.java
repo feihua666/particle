@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformOpenapiLimitRuleAdminWebController extends AbstractBase
     @Operation(summary = "删除开放平台开放接口限制规则")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台开放接口限制规则",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformOpenapiLimitRuleVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformOpenapiLimitRuleApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformOpenapiLimitRuleAdminWebController extends AbstractBase
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiLimitRule:update')")
     @Operation(summary = "开放平台开放接口限制规则更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformOpenapiLimitRuleVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformOpenapiLimitRuleVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformOpenapiLimitRuleRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformOpenapiLimitRule:detail')")
     @Operation(summary = "开放平台开放接口限制规则详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformOpenapiLimitRuleVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformOpenapiLimitRuleVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformOpenapiLimitRuleRepresentationApplicationService.queryDetail(detailCommand);
     }
 

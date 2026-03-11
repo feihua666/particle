@@ -1,6 +1,6 @@
 package com.particle.global.openapi.exception;
 
-import com.particle.global.exception.code.IErrorCodeStatusMax;
+import com.particle.global.light.share.code.IErrorCodeStatusMax;
 
 /**
  * <p>

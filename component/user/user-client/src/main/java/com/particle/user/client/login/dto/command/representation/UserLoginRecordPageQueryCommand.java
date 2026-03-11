@@ -1,6 +1,7 @@
 package com.particle.user.client.login.dto.command.representation;
 
 import com.particle.common.client.dto.command.AbstractBasePageQueryCommand;
+import com.particle.global.light.share.mybatis.anno.OrderBy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import lombok.Data;
  * @author yw
  * @since 2022-11-26
  */
+@OrderBy(value = "loginAt", asc = false)
 @Data
 @Schema
 public class UserLoginRecordPageQueryCommand extends AbstractBasePageQueryCommand {

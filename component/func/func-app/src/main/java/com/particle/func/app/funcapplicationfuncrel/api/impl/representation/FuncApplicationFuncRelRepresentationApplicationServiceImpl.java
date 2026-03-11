@@ -1,7 +1,7 @@
 package com.particle.func.app.funcapplicationfuncrel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.funcapplicationfuncrel.executor.representation.FuncApplicationFuncRelQueryCommandExecutor;
 import com.particle.func.client.funcapplicationfuncrel.api.representation.IFuncApplicationFuncRelRepresentationApplicationService;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelPageQueryCommand;
@@ -28,12 +28,12 @@ public class FuncApplicationFuncRelRepresentationApplicationServiceImpl extends 
     private FuncApplicationFuncRelQueryCommandExecutor funcApplicationFuncRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<FuncApplicationFuncRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<FuncApplicationFuncRelVO> queryDetail(CommonIdCommand detailCommand) {
         return funcApplicationFuncRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<FuncApplicationFuncRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<FuncApplicationFuncRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return funcApplicationFuncRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -43,13 +43,13 @@ public class FuncApplicationFuncRelRepresentationApplicationServiceImpl extends 
     }
 
     @Override
-    public MultiResponse<Long> queryFuncApplicationIdsByFuncId(IdCommand funcIdCommand) {
-        return funcApplicationFuncRelQueryCommandExecutor.queryFuncApplicationIdsByFuncId(funcIdCommand);
+    public MultiResponse<Long> queryFuncApplicationIdsByFuncId(CommonIdCommand funcCommonIdCommand) {
+        return funcApplicationFuncRelQueryCommandExecutor.queryFuncApplicationIdsByFuncId(funcCommonIdCommand);
     }
 
     @Override
-    public MultiResponse<Long> queryFuncIdsByFuncApplicationId(IdCommand funcApplicationIdCommand) {
-        return funcApplicationFuncRelQueryCommandExecutor.queryFuncIdsByFuncApplicationId(funcApplicationIdCommand);
+    public MultiResponse<Long> queryFuncIdsByFuncApplicationId(CommonIdCommand funcApplicationCommonIdCommand) {
+        return funcApplicationFuncRelQueryCommandExecutor.queryFuncIdsByFuncApplicationId(funcApplicationCommonIdCommand);
     }
 
     @Override

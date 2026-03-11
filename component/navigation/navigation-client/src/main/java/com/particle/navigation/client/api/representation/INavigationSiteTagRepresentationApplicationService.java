@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface INavigationSiteTagRepresentationApplicationService extends IBas
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSiteTagVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<NavigationSiteTagVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSiteTagVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<NavigationSiteTagVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

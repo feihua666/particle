@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyAbnormalApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyAbnormalRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAbnormalCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyAbnormalVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAbnormalUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAbnormalPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAbnormalQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业经营异常后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyAbnormalAdminWebController extends AbstractBaseWebAdapte
     @Operation(summary = "删除企业经营异常")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业经营异常",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyAbnormalVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyAbnormalVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyAbnormalApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyAbnormalAdminWebController extends AbstractBaseWebAdapte
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAbnormal:update')")
     @Operation(summary = "企业经营异常更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyAbnormalVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyAbnormalVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyAbnormalRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyAbnormal:detail')")
     @Operation(summary = "企业经营异常详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyAbnormalVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyAbnormalVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyAbnormalRepresentationApplicationService.queryDetail(detailCommand);
     }
 

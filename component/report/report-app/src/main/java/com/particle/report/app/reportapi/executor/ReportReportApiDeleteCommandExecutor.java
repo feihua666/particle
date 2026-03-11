@@ -1,10 +1,10 @@
 package com.particle.report.app.reportapi.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.report.app.reportapi.structmapping.ReportReportApiAppStructMapping;
 import com.particle.report.client.reportapi.dto.data.ReportReportApiVO;
 import com.particle.report.domain.reportapi.ReportReportApi;
@@ -34,7 +34,7 @@ public class ReportReportApiDeleteCommandExecutor  extends AbstractBaseExecutor 
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<ReportReportApiVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<ReportReportApiVO> execute(@Valid CommonIdCommand deleteCommand) {
 		ReportReportApiId reportReportApiId = ReportReportApiId.of(deleteCommand.getId());
 		ReportReportApi byId = reportReportApiGateway.getById(reportReportApiId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

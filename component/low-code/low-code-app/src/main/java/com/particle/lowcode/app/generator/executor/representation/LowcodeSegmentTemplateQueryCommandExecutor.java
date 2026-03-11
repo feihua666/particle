@@ -2,7 +2,7 @@ package com.particle.lowcode.app.generator.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class LowcodeSegmentTemplateQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeSegmentTemplateVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<LowcodeSegmentTemplateVO> executeDetail(CommonIdCommand detailCommand) {
 		LowcodeSegmentTemplateDO byId = iLowcodeSegmentTemplateService.getById(detailCommand.getId());
 		LowcodeSegmentTemplateVO lowcodeSegmentTemplateVO = LowcodeSegmentTemplateAppStructMapping.instance.lowcodeSegmentTemplateDOToLowcodeSegmentTemplateVO(byId);
 		return SingleResponse.of(lowcodeSegmentTemplateVO);
@@ -67,7 +67,7 @@ public class LowcodeSegmentTemplateQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeSegmentTemplateVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<LowcodeSegmentTemplateVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		LowcodeSegmentTemplateDO byId = iLowcodeSegmentTemplateService.getById(detailForUpdateCommand.getId());
 		LowcodeSegmentTemplateVO lowcodeSegmentTemplateVO = LowcodeSegmentTemplateAppStructMapping.instance.lowcodeSegmentTemplateDOToLowcodeSegmentTemplateVO(byId);
 		return SingleResponse.of(lowcodeSegmentTemplateVO);

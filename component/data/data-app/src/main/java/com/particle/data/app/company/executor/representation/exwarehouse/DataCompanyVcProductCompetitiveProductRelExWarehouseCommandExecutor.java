@@ -1,15 +1,13 @@
 package com.particle.data.app.company.executor.representation.exwarehouse;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.data.app.company.structmapping.DataCompanyVcProductCompetitiveProductRelAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyVcProductCompetitiveProductRelExWarehouseQueryCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyVcProductCompetitiveProductRelExWarehouseVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyVcProductCompetitiveProductRelDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyVcProductCompetitiveProductRelService;
-import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -23,7 +23,7 @@ import java.io.IOException;
 public class RequestBodyReadableFilter extends OncePerRequestFilter {
 
 	// 是否开启
-	@Value("${particle.web.filter.body-readable:#{true}}")
+	@Value("${particle.global.web.filter.body-readable:#{true}}")
 	private Boolean enable;
 
 	@Override

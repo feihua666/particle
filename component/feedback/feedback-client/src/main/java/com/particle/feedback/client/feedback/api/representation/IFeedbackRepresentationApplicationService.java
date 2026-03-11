@@ -1,7 +1,7 @@
 package com.particle.feedback.client.feedback.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackPageQueryCommand;
 import com.particle.feedback.client.feedback.dto.command.representation.FeedbackQueryListCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
@@ -24,7 +24,7 @@ public interface IFeedbackRepresentationApplicationService extends IBaseApplicat
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<FeedbackVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<FeedbackVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

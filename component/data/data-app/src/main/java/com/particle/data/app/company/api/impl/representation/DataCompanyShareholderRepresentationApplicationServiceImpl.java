@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.representation.DataCompanyShareholderQueryCommandExecutor;
 import com.particle.data.app.company.executor.representation.exwarehouse.DataCompanyShareholderExWarehouseCommandExecutor;
 import com.particle.data.client.company.api.representation.IDataCompanyShareholderRepresentationApplicationService;
@@ -32,12 +32,12 @@ public class DataCompanyShareholderRepresentationApplicationServiceImpl extends 
     private DataCompanyShareholderExWarehouseCommandExecutor dataCompanyShareholderExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyShareholderVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyShareholderVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyShareholderQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyShareholderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyShareholderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyShareholderQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

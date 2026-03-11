@@ -2,7 +2,7 @@ package com.particle.role.app.rolefuncrel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.role.app.rolefuncrel.structmapping.RoleFuncRelAppStructMapping;
 import com.particle.role.client.rolefuncrel.dto.command.RoleFuncRelCreateCommand;
 import com.particle.role.client.rolefuncrel.dto.data.RoleFuncRelVO;

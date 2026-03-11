@@ -2,7 +2,7 @@ package com.particle.func.app.application.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.application.structmapping.FuncApplicationAppStructMapping;
 import com.particle.func.client.application.dto.command.representation.FuncApplicationPageQueryCommand;
 import com.particle.func.client.application.dto.command.representation.FuncApplicationQueryListCommand;
@@ -57,7 +57,7 @@ public class FuncApplicationQueryCommandExecutor  extends AbstractBaseQueryExecu
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<FuncApplicationVO> executeDetail(CommonIdCommand detailCommand) {
 		FuncApplicationDO byId = iFuncApplicationService.getById(detailCommand.getId());
 		FuncApplicationVO funcApplicationVO = FuncApplicationAppStructMapping.instance.funcApplicationDOToFuncApplicationVO(byId);
 		return SingleResponse.of(funcApplicationVO);
@@ -67,7 +67,7 @@ public class FuncApplicationQueryCommandExecutor  extends AbstractBaseQueryExecu
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<FuncApplicationVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		FuncApplicationDO byId = iFuncApplicationService.getById(detailForUpdateCommand.getId());
 		FuncApplicationVO funcApplicationVO = FuncApplicationAppStructMapping.instance.funcApplicationDOToFuncApplicationVO(byId);
 		return SingleResponse.of(funcApplicationVO);

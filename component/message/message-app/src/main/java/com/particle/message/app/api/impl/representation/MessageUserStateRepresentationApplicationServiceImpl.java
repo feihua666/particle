@@ -1,7 +1,7 @@
 package com.particle.message.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class MessageUserStateRepresentationApplicationServiceImpl extends Abstra
     private MessageUserStateQueryCommandExecutor messageUserStateQueryCommandExecutor;
 
     @Override
-    public SingleResponse<MessageUserStateVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<MessageUserStateVO> queryDetail(CommonIdCommand detailCommand) {
         return messageUserStateQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<MessageUserStateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<MessageUserStateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return messageUserStateQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

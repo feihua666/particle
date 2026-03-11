@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class NavigationSiteTagRelRepresentationApplicationServiceImpl extends Ab
     private NavigationSiteTagRelQueryCommandExecutor navigationSiteTagRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<NavigationSiteTagRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<NavigationSiteTagRelVO> queryDetail(CommonIdCommand detailCommand) {
         return navigationSiteTagRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<NavigationSiteTagRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<NavigationSiteTagRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return navigationSiteTagRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -48,14 +48,14 @@ public class NavigationSiteTagRelRepresentationApplicationServiceImpl extends Ab
     }
 
 	@Override
-	public MultiResponse<Long> queryNavigationSiteTagIdsByNavigationSiteId(IdCommand navigationSiteIdCommand) {
+	public MultiResponse<Long> queryNavigationSiteTagIdsByNavigationSiteId(CommonIdCommand navigationSiteCommonIdCommand) {
 
-		return navigationSiteTagRelQueryCommandExecutor.queryNavigationSiteTagIdsByNavigationSiteId(navigationSiteIdCommand);
+		return navigationSiteTagRelQueryCommandExecutor.queryNavigationSiteTagIdsByNavigationSiteId(navigationSiteCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryNavigationSiteIdsByNavigationSiteTagId(IdCommand navigationSiteTagIdCommand) {
-		return navigationSiteTagRelQueryCommandExecutor.queryNavigationSiteIdsByNavigationSiteTagId(navigationSiteTagIdCommand);
+	public MultiResponse<Long> queryNavigationSiteIdsByNavigationSiteTagId(CommonIdCommand navigationSiteTagCommonIdCommand) {
+		return navigationSiteTagRelQueryCommandExecutor.queryNavigationSiteIdsByNavigationSiteTagId(navigationSiteTagCommonIdCommand);
 	}
 
     @Autowired

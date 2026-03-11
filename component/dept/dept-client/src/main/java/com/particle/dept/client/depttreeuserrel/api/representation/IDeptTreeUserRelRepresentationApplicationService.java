@@ -1,7 +1,7 @@
 package com.particle.dept.client.depttreeuserrel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.representation.DeptTreeUserRelPageQueryCommand;
 import com.particle.dept.client.depttreeuserrel.dto.command.representation.DeptTreeUserRelQueryListCommand;
 import com.particle.dept.client.depttreeuserrel.dto.data.DeptTreeUserRelVO;
@@ -24,14 +24,14 @@ public interface IDeptTreeUserRelRepresentationApplicationService extends IBaseA
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeUserRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DeptTreeUserRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DeptTreeUserRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DeptTreeUserRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

@@ -11,12 +11,19 @@
 
     <artifactId>common-adapter</artifactId>
 
+    <description>
+        DDD 架构中的通用适配层模块，负责定义系统对外接口形态，
+        承载 Web / RPC 等接口的请求接收、参数校验与协议转换，
+        将外部请求映射为应用层可理解的调用，不包含具体业务实现与技术基础设施逻辑。
+    </description>
+
     <properties>
 
 
     </properties>
 
     <dependencies>
+        <!-- adapter 主要以 controller web 方式提供服务 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -28,47 +35,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 仅使用 权限 注解 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
 
-        <!-- 接口文档 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-swagger-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- web全局异常处理 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-exception-handle-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <!-- web访问安全 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-security-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-web-filter-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-web-mvc-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-session-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
 
         <!-- 业务组件共享数据依赖 统一添加到这里，主要是应用其操作日志常量-->
         <dependency>
@@ -78,16 +50,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>

@@ -7,7 +7,7 @@ CREATE TABLE `component_report_segment_template` (
   `permissions` varchar(200) DEFAULT NULL COMMENT '模板权限码',
   `data_resolve_script` varchar(2000) DEFAULT NULL COMMENT '数据获取脚本，目前仅支持groovy脚本',
   `render_condition_script` varchar(2000) DEFAULT NULL COMMENT '渲染条件脚本，目前仅支持groovy脚本',
-  `compute_template` varchar(10000) DEFAULT NULL COMMENT '计算模板',
+  `compute_template` varchar(2000) DEFAULT NULL COMMENT '计算模板',
   `name_template` varchar(1000) DEFAULT NULL COMMENT '名称模板',
   `name_output_variable` varchar(255) DEFAULT NULL COMMENT '名称输出变量名',
   `content_template` mediumtext COMMENT '内容模板',
@@ -41,4 +41,4 @@ CREATE TABLE `component_report_segment_template` (
   KEY `reference_segment_template_id` (`reference_segment_template_id`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='报告片段模板表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='报告片段模板表';

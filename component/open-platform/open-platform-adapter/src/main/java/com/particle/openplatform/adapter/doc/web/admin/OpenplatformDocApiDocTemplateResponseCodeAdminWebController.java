@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformDocApiDocTemplateResponseCodeAdminWebController extends
 	@Operation(summary = "删除开放接口文档模板响应码")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档模板响应码",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocTemplateResponseCodeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformDocApiDocTemplateResponseCodeAdminWebController extends
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplateResponseCode:update')")
 	@Operation(summary = "开放接口文档模板响应码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocTemplateResponseCodeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplateResponseCode:detail')")
 	@Operation(summary = "开放接口文档模板响应码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateResponseCodeVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocTemplateResponseCodeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

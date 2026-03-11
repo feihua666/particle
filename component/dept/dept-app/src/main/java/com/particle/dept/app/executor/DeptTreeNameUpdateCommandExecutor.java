@@ -8,7 +8,7 @@ import com.particle.dept.domain.DeptTreeName;
 import com.particle.dept.domain.DeptTreeNameId;
 import com.particle.dept.domain.gateway.DeptTreeNameGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

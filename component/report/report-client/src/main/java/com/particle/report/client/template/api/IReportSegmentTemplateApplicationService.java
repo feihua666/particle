@@ -1,7 +1,7 @@
 package com.particle.report.client.template.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateCopyCommand;
 import com.particle.report.client.template.dto.command.ReportSegmentTemplateCreateCommand;
@@ -35,7 +35,7 @@ public interface IReportSegmentTemplateApplicationService extends IBaseApplicati
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<ReportSegmentTemplateVO> delete(IdCommand deleteCommand);
+	SingleResponse<ReportSegmentTemplateVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -46,9 +46,9 @@ public interface IReportSegmentTemplateApplicationService extends IBaseApplicati
 
 	/**
 	 * 刷新报告片段模板缓存
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<String> refreshCache(IdCommand idCommand);
+	public SingleResponse<String> refreshCache(CommonIdCommand commonIdCommand);
 
 }

@@ -1,7 +1,7 @@
 package com.particle.func.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupPageQueryCommand;
 import com.particle.func.client.dto.command.representation.FuncGroupQueryListCommand;
 import com.particle.func.client.dto.data.FuncGroupVO;
@@ -24,14 +24,14 @@ public interface IFuncGroupRepresentationApplicationService extends IBaseApplica
 	 * @param funcGroupQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<FuncGroupVO> queryDetailForUpdate(IdCommand funcGroupQueryDetailForUpdateCommand);
+	SingleResponse<FuncGroupVO> queryDetailForUpdate(CommonIdCommand funcGroupQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param funcGroupQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<FuncGroupVO> queryDetail(IdCommand funcGroupQueryDetailCommand);
+	SingleResponse<FuncGroupVO> queryDetail(CommonIdCommand funcGroupQueryDetailCommand);
 
 	/**
 	 * 列表查询

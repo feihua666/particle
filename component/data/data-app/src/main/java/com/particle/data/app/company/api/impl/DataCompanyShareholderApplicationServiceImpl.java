@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyShareholderCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyShareholderCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyShareholderDeleteCommandExecutor;
@@ -47,7 +47,7 @@ public class DataCompanyShareholderApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public SingleResponse<DataCompanyShareholderVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyShareholderVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyShareholderDeleteCommandExecutor.execute(deleteCommand);
     }
 

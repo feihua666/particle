@@ -1,7 +1,7 @@
 package com.particle.tenant.app.tenantfunc.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -9,7 +9,7 @@ import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.app.tenantfunc.executor.representation.TenantFuncQueryCommandExecutor;
 import com.particle.tenant.client.tenantfunc.api.representation.ITenantFuncRepresentationApplicationService;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
-import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantCommonId;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,12 @@ public class TenantFuncRepresentationApplicationServiceImpl extends AbstractBase
     private TenantFuncQueryCommandExecutor tenantFuncQueryCommandExecutor;
 
     @Override
-    public SingleResponse<TenantFuncVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<TenantFuncVO> queryDetail(CommonIdCommand detailCommand) {
         return tenantFuncQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<TenantFuncVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<TenantFuncVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return tenantFuncQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -44,7 +44,7 @@ public class TenantFuncRepresentationApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantIdCommand funcIdCommand) {
+    public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantCommonId funcIdCommand) {
         return tenantFuncQueryCommandExecutor.queryFuncIdsByTenantId(funcIdCommand);
     }
 

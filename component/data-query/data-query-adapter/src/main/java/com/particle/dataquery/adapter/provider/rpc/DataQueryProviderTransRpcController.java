@@ -29,13 +29,6 @@ public class DataQueryProviderTransRpcController extends AbstractBaseRpcAdapter 
 	@Autowired
 	private DataQueryProviderTransServiceImpl dataQueryProviderTransService;
 
-
-	@Override
-	public boolean supportBatch(String type) {
-		return dataQueryProviderTransService.supportBatch(type);
-	}
-
-
 	@Override
 	public List<TransResult<DataQueryProviderTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dataQueryProviderTransService.transBatch(type, keys);

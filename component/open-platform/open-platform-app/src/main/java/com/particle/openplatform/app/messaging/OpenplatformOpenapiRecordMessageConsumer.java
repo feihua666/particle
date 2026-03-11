@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.light.share.scheduler.SchedulerConstants;
 import com.particle.global.messaging.event.messaging.MessageConsumer;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.tenant.TenantTool;
 import com.particle.openplatform.domain.enums.OpenFlatformFeeReason;
 import com.particle.openplatform.domain.enums.OpenPlatformDeduplicateType;
 import com.particle.openplatform.domain.enums.OpenPlatformFeeType;
@@ -231,8 +232,14 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 				DeductAppQuota deductAppQuota = deductAppQuotaCache.get(openplatformAppId);
 				deductAppQuotaCache.put(openplatformAppId, DeductAppQuota.create());
 				longReentrantLockEntry.getValue().unlock();
-				deductAppQuota(openplatformAppId, deductAppQuota, 10);
-			}
+				OpenplatformAppDO byIdIgnoreTenantLimit = iOpenplatformAppService.getByIdIgnoreTenantLimit(openplatformAppId);
+                try {
+					TenantTool.setTenantId(byIdIgnoreTenantLimit.getTenantId());
+                    deductAppQuota(openplatformAppId, deductAppQuota, 10);
+                } finally {
+                    TenantTool.clear();
+                }
+            }
 
 			log.debug("openplatformOpenapiRecordMessage scheduleDeductAppQuota end,duration={}ms", System.currentTimeMillis() - start);
 		}, 2, 2, TimeUnit.SECONDS);
@@ -297,7 +304,7 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 		lastDeleteAppOpenapiDayRtSummaryLocalDate = localDate;
 		LambdaQueryWrapper<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO> lambdaQueryWrapper = Wrappers.<OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO>lambdaQuery()
 				.lt(OpenplatformOpenapiRecordAppOpenapiDayRtSummaryDO::getDayAt, localDate);
-		iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.remove(lambdaQueryWrapper);
+		iOpenplatformOpenapiRecordAppOpenapiDayRtSummaryService.removeIgnoreTenantLimit(lambdaQueryWrapper);
 	}
 	/**
 	 * 定时启动保存日汇总
@@ -316,7 +323,14 @@ public class OpenplatformOpenapiRecordMessageConsumer implements Consumer<Openpl
 				AppOpenapiDayRtSummary appOpenapiDayRtSummary = appOpenapiDayRtSummaryCache.get(appOpenapiDayRtSummaryKey);
 				appOpenapiDayRtSummaryCache.put(appOpenapiDayRtSummaryKey, AppOpenapiDayRtSummary.create(appOpenapiDayRtSummary.getAppId(),appOpenapiDayRtSummary.getCustomerId()));
 				longReentrantLockEntry.getValue().unlock();
-				saveAppOpenapiDayRtSummary(appOpenapiDayRtSummaryKey, appOpenapiDayRtSummary);
+				OpenplatformAppDO byIdIgnoreTenantLimit = iOpenplatformAppService.getByIdIgnoreTenantLimit(appOpenapiDayRtSummaryKey.getOpenplatformAppId());
+				try {
+					TenantTool.setTenantId(byIdIgnoreTenantLimit.getTenantId());
+					saveAppOpenapiDayRtSummary(appOpenapiDayRtSummaryKey, appOpenapiDayRtSummary);
+				} finally {
+					TenantTool.clear();
+				}
+
 			}
 
 			log.debug("openplatformOpenapiRecordMessage scheduleSaveAppOpenapiDayRtSummary end,duration={}ms", System.currentTimeMillis() - start);

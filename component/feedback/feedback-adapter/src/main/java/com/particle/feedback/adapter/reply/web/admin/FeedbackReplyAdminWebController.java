@@ -1,7 +1,7 @@
 package com.particle.feedback.adapter.reply.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.feedback.client.reply.api.IFeedbackReplyApplicationService;
 import com.particle.feedback.client.reply.api.representation.IFeedbackReplyRepresentationApplicationService;
@@ -13,7 +13,7 @@ import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +51,14 @@ public class FeedbackReplyAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除意见反馈回复")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除意见反馈回复",module = OpLogConstants.Module.feedback,type = OpLogConstants.Type.delete)
-	public SingleResponse<FeedbackReplyVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<FeedbackReplyVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iFeedbackReplyApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:feedbackReply:detail')")
 	@Operation(summary = "意见反馈回复详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FeedbackReplyVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<FeedbackReplyVO> queryDetail(CommonIdCommand detailCommand){
 		return iFeedbackReplyRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

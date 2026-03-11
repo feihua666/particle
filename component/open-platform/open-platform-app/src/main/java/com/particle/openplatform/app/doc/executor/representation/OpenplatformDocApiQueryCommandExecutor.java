@@ -4,11 +4,11 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.comparator.CompareUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.*;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiPageQueryCommand;
 import com.particle.openplatform.client.doc.dto.command.representation.OpenplatformDocApiQueryAllDetailCommand;
@@ -90,7 +90,7 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
      * @param detailCommand
      * @return
      */
-    public SingleResponse<OpenplatformDocApiVO> executeDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformDocApiVO> executeDetail(CommonIdCommand detailCommand) {
         OpenplatformDocApiDO byId = iOpenplatformDocApiService.getById(detailCommand.getId());
         OpenplatformDocApiVO openplatformDocApiVO = OpenplatformDocApiAppStructMapping.instance.openplatformDocApiDOToOpenplatformDocApiVO(byId);
         return SingleResponse.of(openplatformDocApiVO);
@@ -417,7 +417,7 @@ public class OpenplatformDocApiQueryCommandExecutor extends AbstractBaseQueryExe
      * @param detailForUpdateCommand
      * @return
      */
-    public SingleResponse<OpenplatformDocApiVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformDocApiVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         OpenplatformDocApiDO byId = iOpenplatformDocApiService.getById(detailForUpdateCommand.getId());
         OpenplatformDocApiVO openplatformDocApiVO = OpenplatformDocApiAppStructMapping.instance.openplatformDocApiDOToOpenplatformDocApiVO(byId);
         return SingleResponse.of(openplatformDocApiVO);

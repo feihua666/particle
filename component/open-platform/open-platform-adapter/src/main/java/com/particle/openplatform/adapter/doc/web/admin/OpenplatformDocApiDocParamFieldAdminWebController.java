@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -52,7 +52,7 @@ public class OpenplatformDocApiDocParamFieldAdminWebController extends AbstractB
 	@Operation(summary = "删除开放接口文档参数字段")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档参数字段",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocParamFieldApplicationService.delete(deleteCommand);
 	}
 
@@ -67,14 +67,14 @@ public class OpenplatformDocApiDocParamFieldAdminWebController extends AbstractB
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocParamField:update')")
 	@Operation(summary = "开放接口文档参数字段更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocParamFieldRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocParamField:detail')")
 	@Operation(summary = "开放接口文档参数字段详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocParamFieldRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

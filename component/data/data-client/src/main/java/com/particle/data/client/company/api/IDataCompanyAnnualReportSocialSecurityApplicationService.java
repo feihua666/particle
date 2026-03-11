@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportSocialSecurityCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportSocialSecurityUpdateCommand;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportSocialSecurityWarehouseCommand;
@@ -29,7 +29,7 @@ public interface IDataCompanyAnnualReportSocialSecurityApplicationService extend
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyAnnualReportSocialSecurityVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

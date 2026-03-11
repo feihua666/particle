@@ -1,16 +1,15 @@
 package com.particle.componentadmin.app.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.componentadmin.app.executor.AdminComponentDependencyCreateCommandExecutor;
 import com.particle.componentadmin.app.executor.AdminComponentDependencyDeleteCommandExecutor;
 import com.particle.componentadmin.app.executor.AdminComponentDependencyUpdateCommandExecutor;
 import com.particle.componentadmin.app.executor.AdminComponentDependencyCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.componentadmin.client.dto.command.AdminComponentDependencyUpdateCommand;
 import com.particle.componentadmin.client.api.IAdminComponentDependencyApplicationService;
 import com.particle.componentadmin.client.dto.command.AdminComponentDependencyCreateCommand;
 import com.particle.componentadmin.client.dto.data.AdminComponentDependencyVO;
 
-import com.particle.componentadmin.app.executor.AdminComponentDependencyCommandExecutor;
 import com.particle.componentadmin.client.dto.command.ComponentAssignDependComponentCommand;
 import com.particle.componentadmin.client.dto.command.DependComponentAssignComponentCommand;
 
@@ -49,7 +48,7 @@ public class AdminComponentDependencyApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public SingleResponse<AdminComponentDependencyVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<AdminComponentDependencyVO> delete(CommonIdCommand deleteCommand) {
         return adminComponentDependencyDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -70,13 +69,13 @@ public class AdminComponentDependencyApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public Response deleteByComponentId(IdCommand idCommand){
-        return adminComponentDependencyDeleteCommandExecutor.deleteByComponentId(idCommand);
+    public Response deleteByComponentId(CommonIdCommand commonIdCommand){
+        return adminComponentDependencyDeleteCommandExecutor.deleteByComponentId(commonIdCommand);
     }
 
     @Override
-    public Response deleteByDependComponentId(IdCommand idCommand){
-        return adminComponentDependencyDeleteCommandExecutor.deleteByDependComponentId(idCommand);
+    public Response deleteByDependComponentId(CommonIdCommand commonIdCommand){
+        return adminComponentDependencyDeleteCommandExecutor.deleteByDependComponentId(commonIdCommand);
     }
 
     @Autowired

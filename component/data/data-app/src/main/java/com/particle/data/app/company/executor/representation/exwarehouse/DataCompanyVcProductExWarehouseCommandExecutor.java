@@ -11,7 +11,7 @@ import com.particle.data.infrastructure.company.service.IDataCompanyVcProductCom
 import com.particle.data.infrastructure.company.service.IDataCompanyVcProductService;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

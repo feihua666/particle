@@ -1,7 +1,7 @@
 package com.particle.navigation.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.client.dto.command.NavigationSubmitCreateCommand;
@@ -28,7 +28,7 @@ public interface INavigationSubmitApplicationService extends IBaseApplicationSer
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<NavigationSubmitVO> delete(IdCommand deleteCommand);
+	SingleResponse<NavigationSubmitVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -39,8 +39,8 @@ public interface INavigationSubmitApplicationService extends IBaseApplicationSer
 
 	/**
 	 * 确认提交
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	Response sureSubmit(IdCommand idCommand);
+	Response sureSubmit(CommonIdCommand commonIdCommand);
 }

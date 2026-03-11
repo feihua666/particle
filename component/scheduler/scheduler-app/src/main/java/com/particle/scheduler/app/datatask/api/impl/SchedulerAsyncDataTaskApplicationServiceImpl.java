@@ -4,7 +4,7 @@ import com.particle.scheduler.app.datatask.executor.SchedulerAsyncDataTaskCreate
 import com.particle.scheduler.app.datatask.executor.SchedulerAsyncDataTaskDeleteCommandExecutor;
 import com.particle.scheduler.app.datatask.executor.SchedulerAsyncDataTaskUpdateCommandExecutor;
 import com.particle.scheduler.app.datatask.executor.SchedulerAsyncDataTaskCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.scheduler.client.datatask.dto.command.SchedulerAsyncDataTaskUpdateCommand;
 import com.particle.scheduler.client.datatask.api.ISchedulerAsyncDataTaskApplicationService;
 import com.particle.scheduler.client.datatask.dto.command.SchedulerAsyncDataTaskCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class SchedulerAsyncDataTaskApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public SingleResponse<SchedulerAsyncDataTaskVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<SchedulerAsyncDataTaskVO> delete(CommonIdCommand deleteCommand) {
         return schedulerAsyncDataTaskDeleteCommandExecutor.execute(deleteCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.dataquery.client.dataapi.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiCreateCommand;
 import com.particle.dataquery.client.dataapi.dto.command.DataQueryDataApiUpdateCommand;
 import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
@@ -28,35 +28,35 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	 * @param copyCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDataApiVO> copy(IdCommand copyCommand);
+	SingleResponse<DataQueryDataApiVO> copy(CommonIdCommand copyCommand);
 
 	/**
 	 * 复制开发版本
 	 * @param copyCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDataApiVO> copydev(IdCommand copyCommand);
+	SingleResponse<DataQueryDataApiVO> copydev(CommonIdCommand copyCommand);
 
 	/**
 	 * 删除领域对象
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDataApiVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataQueryDataApiVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 删除查询时缓存
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<String> deleteCache(IdCommand deleteCommand);
+	SingleResponse<String> deleteCache(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新缓存
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<String> refreshCache(IdCommand deleteCommand);
+	SingleResponse<String> refreshCache(CommonIdCommand deleteCommand);
 
 	/**
 	 * 刷新执行器供应商缓存
@@ -69,7 +69,7 @@ public interface IDataQueryDataApiApplicationService extends IBaseApplicationSer
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataQueryDataApiVO> devMergeToMaster(IdCommand deleteCommand);
+	SingleResponse<DataQueryDataApiVO> devMergeToMaster(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

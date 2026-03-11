@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2023-03-08 14:29:00
  */
-@FeignClient(name = "${particle.feign-client.name.data-query:data-query}",path = "/rpc/data_query_datasource")
+@FeignClient(name = "${particle.feign-client.dataquery.name:dataquery-start}", contextId = "dataQueryDatasourceRpcFeignClient", url = "${particle.feign-client.dataquery.url:}", path = "/rpc/data_query_datasource")
 public interface DataQueryDatasourceRpcFeignClient {
 
 

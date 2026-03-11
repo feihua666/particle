@@ -23,7 +23,7 @@ public class ResponseTraceIdFilter extends OncePerRequestFilter {
 	/**
 	 * 遵循header名称大写惯例
 	 */
-	private static String RESPONSE_TRACE_ID_KEY = "Trace-Id";
+	protected static String RESPONSE_TRACE_ID_KEY = "X-Trace-Id";
 
 
 	private Tracer tracer;

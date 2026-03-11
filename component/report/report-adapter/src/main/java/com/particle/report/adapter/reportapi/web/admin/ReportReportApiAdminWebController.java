@@ -1,7 +1,7 @@
 package com.particle.report.adapter.reportapi.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -51,7 +51,7 @@ public class ReportReportApiAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除报告接口")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除报告接口",module = OpLogConstants.Module.report,type = OpLogConstants.Type.delete)
-	public SingleResponse<ReportReportApiVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<ReportReportApiVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iReportReportApiApplicationService.delete(deleteCommand);
 	}
 
@@ -66,14 +66,14 @@ public class ReportReportApiAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:reportReportApi:update')")
 	@Operation(summary = "报告接口更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<ReportReportApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<ReportReportApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iReportReportApiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:reportReportApi:detail')")
 	@Operation(summary = "报告接口详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<ReportReportApiVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<ReportReportApiVO> queryDetail(CommonIdCommand detailCommand){
 		return iReportReportApiRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.bill.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.bill.dto.command.OpenplatformOpenapiRecordAppMonthBillCreateCommand;
@@ -28,7 +28,7 @@ public interface IOpenplatformOpenapiRecordAppMonthBillApplicationService extend
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

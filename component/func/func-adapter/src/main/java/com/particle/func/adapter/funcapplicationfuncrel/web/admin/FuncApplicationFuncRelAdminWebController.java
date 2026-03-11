@@ -1,7 +1,7 @@
 package com.particle.func.adapter.funcapplicationfuncrel.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.func.client.funcapplicationfuncrel.api.IFuncApplicationFuncRelApplicationService;
 import com.particle.func.client.funcapplicationfuncrel.api.representation.IFuncApplicationFuncRelRepresentationApplicationService;
@@ -53,14 +53,14 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除功能应用功能关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除功能应用功能关系",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public SingleResponse<FuncApplicationFuncRelVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<FuncApplicationFuncRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iFuncApplicationFuncRelApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:detail')")
 	@Operation(summary = "功能应用功能关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<FuncApplicationFuncRelVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<FuncApplicationFuncRelVO> queryDetail(CommonIdCommand detailCommand){
 		return iFuncApplicationFuncRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -93,8 +93,8 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:queryFuncApplicationIdsByFuncId')")
 	@GetMapping("/queryFuncApplicationIdsByFuncId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(IdCommand funcIdCommand) {
-		return iFuncApplicationFuncRelRepresentationApplicationService.queryFuncApplicationIdsByFuncId( funcIdCommand);
+	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(CommonIdCommand funcCommonIdCommand) {
+		return iFuncApplicationFuncRelRepresentationApplicationService.queryFuncApplicationIdsByFuncId(funcCommonIdCommand);
 	}
 
 	@Operation(summary = "清空功能下的所有功能应用")
@@ -102,8 +102,8 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@DeleteMapping("/deleteByFuncId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空功能下的所有功能应用",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public Response deleteByFuncId(@RequestBody IdCommand funcIdCommand) {
-		return iFuncApplicationFuncRelApplicationService.deleteByFuncId(funcIdCommand);
+	public Response deleteByFuncId(@RequestBody CommonIdCommand funcCommonIdCommand) {
+		return iFuncApplicationFuncRelApplicationService.deleteByFuncId(funcCommonIdCommand);
 	}
 
 
@@ -120,8 +120,8 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:funcApplicationFuncRel:queryFuncIdsByFuncApplicationId')")
 	@GetMapping("/queryFuncIdsByFuncApplicationId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryFuncIdsByFuncApplicationId( IdCommand funcApplicationIdCommand) {
-		return iFuncApplicationFuncRelRepresentationApplicationService.queryFuncIdsByFuncApplicationId( funcApplicationIdCommand);
+	public MultiResponse<Long> queryFuncIdsByFuncApplicationId( CommonIdCommand funcApplicationCommonIdCommand) {
+		return iFuncApplicationFuncRelRepresentationApplicationService.queryFuncIdsByFuncApplicationId(funcApplicationCommonIdCommand);
 
 	}
 
@@ -130,7 +130,7 @@ public class FuncApplicationFuncRelAdminWebController extends AbstractBaseWebAda
 	@DeleteMapping("/deleteByFuncApplicationId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空功能应用下的所有功能",module = OpLogConstants.Module.func,type = OpLogConstants.Type.delete)
-	public Response deleteByFuncApplicationId(@RequestBody IdCommand funcIdCommand) {
-		return iFuncApplicationFuncRelApplicationService.deleteByFuncApplicationId(funcIdCommand);
+	public Response deleteByFuncApplicationId(@RequestBody CommonIdCommand funcCommonIdCommand) {
+		return iFuncApplicationFuncRelApplicationService.deleteByFuncApplicationId(funcCommonIdCommand);
 	}
 }

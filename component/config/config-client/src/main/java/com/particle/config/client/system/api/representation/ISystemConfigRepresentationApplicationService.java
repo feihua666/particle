@@ -1,7 +1,7 @@
 package com.particle.config.client.system.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
 import com.particle.config.client.system.dto.command.representation.SystemConfigQueryListCommand;
 import com.particle.config.client.system.dto.data.SystemConfigVO;
@@ -24,14 +24,14 @@ public interface ISystemConfigRepresentationApplicationService extends IBaseAppl
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<SystemConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<SystemConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<SystemConfigVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<SystemConfigVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

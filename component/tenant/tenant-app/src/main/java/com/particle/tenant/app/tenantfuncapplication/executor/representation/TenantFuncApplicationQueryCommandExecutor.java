@@ -2,7 +2,7 @@ package com.particle.tenant.app.tenantfuncapplication.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +58,7 @@ public class TenantFuncApplicationQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TenantFuncApplicationVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<TenantFuncApplicationVO> executeDetail(CommonIdCommand detailCommand) {
 		TenantFuncApplicationDO byId = iTenantFuncApplicationService.getById(detailCommand.getId());
 		TenantFuncApplicationVO tenantFuncApplicationVO = TenantFuncApplicationAppStructMapping.instance.tenantFuncApplicationDOToTenantFuncApplicationVO(byId);
 		return SingleResponse.of(tenantFuncApplicationVO);
@@ -68,7 +68,7 @@ public class TenantFuncApplicationQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TenantFuncApplicationVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<TenantFuncApplicationVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		TenantFuncApplicationDO byId = iTenantFuncApplicationService.getById(detailForUpdateCommand.getId());
 		TenantFuncApplicationVO tenantFuncApplicationVO = TenantFuncApplicationAppStructMapping.instance.tenantFuncApplicationDOToTenantFuncApplicationVO(byId);
 		return SingleResponse.of(tenantFuncApplicationVO);
@@ -76,11 +76,11 @@ public class TenantFuncApplicationQueryCommandExecutor  extends AbstractBaseQuer
 
 	/**
 	 * 根据租户ID查询已分配的功能应用id
-	 * @param tenantIdCommand
+	 * @param tenantCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(IdCommand tenantIdCommand) {
-		List<TenantFuncApplicationDO> tenantFuncApplicationDOS = iTenantFuncApplicationService.listByColumn(tenantIdCommand.getId(), TenantFuncApplicationDO::getTenantId);
+	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(CommonIdCommand tenantCommonIdCommand) {
+		List<TenantFuncApplicationDO> tenantFuncApplicationDOS = iTenantFuncApplicationService.listByColumn(tenantCommonIdCommand.getId(), TenantFuncApplicationDO::getTenantId);
 		List<Long> collect = tenantFuncApplicationDOS.stream().map(TenantFuncApplicationDO::getFuncApplicationId).collect(Collectors.toList());
 		return MultiResponse.of(collect);
 	}

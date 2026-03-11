@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyCourtAnnouncementPartyC
 import com.particle.data.app.company.executor.DataCompanyCourtAnnouncementPartyDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyCourtAnnouncementPartyUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyCourtAnnouncementPartyCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyCourtAnnouncementPartyUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyCourtAnnouncementPartyApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyCourtAnnouncementPartyCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyCourtAnnouncementPartyWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCourtAnnouncementPartyExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyCourtAnnouncementPartyApplicationServiceImpl extends Abs
     }
 
     @Override
-    public SingleResponse<DataCompanyCourtAnnouncementPartyVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyCourtAnnouncementPartyVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyCourtAnnouncementPartyDeleteCommandExecutor.execute(deleteCommand);
     }
 

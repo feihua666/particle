@@ -3,6 +3,7 @@ package com.particle.openplatform.infrastructure.app.service;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import com.particle.openplatform.infrastructure.app.dos.OpenplatformAppDO;
 
 import java.util.List;
@@ -17,6 +18,16 @@ import java.util.List;
  */
 public interface IOpenplatformAppService extends IBaseService<OpenplatformAppDO> {
 
+
+    /**
+     * 忽略租户限制查询，根据 Id 查询
+     * @param id
+     * @return
+     */
+    default OpenplatformAppDO getByIdIgnoreTenantLimit(Long id) {
+        return CustomTenantLineHandler.executeIgnoreTenant(() -> getById(id));
+
+    }
     /**
      * 根据名称查询
      * @param name
@@ -49,8 +60,15 @@ public interface IOpenplatformAppService extends IBaseService<OpenplatformAppDO>
         Assert.notNull(appId,"appId 不能为空");
         return getOne(Wrappers.<OpenplatformAppDO>lambdaQuery().eq(OpenplatformAppDO::getAppId, appId));
     }
+    /**
+     * 忽略租户限制查询，根据appId查询
+     * @param appId
+     * @return
+     */
+    default OpenplatformAppDO getByAppIdIgnoreTenantLimit(String appId) {
+        return CustomTenantLineHandler.executeIgnoreTenant(() -> getByAppId(appId));
 
-
+    }
 
     /**
      * 根据appId查询多个

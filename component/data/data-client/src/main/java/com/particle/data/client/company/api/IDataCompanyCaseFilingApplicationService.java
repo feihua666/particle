@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyCaseFilingVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyCaseFilingApplicationService extends IBaseApplicati
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyCaseFilingVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyCaseFilingVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

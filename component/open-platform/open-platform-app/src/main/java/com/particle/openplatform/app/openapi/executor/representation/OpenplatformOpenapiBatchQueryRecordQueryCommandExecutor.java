@@ -2,7 +2,7 @@ package com.particle.openplatform.app.openapi.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiBatchQueryRecordQueryCommandExecutor  extends Ab
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiBatchQueryRecordDO byId = iOpenplatformOpenapiBatchQueryRecordService.getById(detailCommand.getId());
 		OpenplatformOpenapiBatchQueryRecordVO openplatformOpenapiBatchQueryRecordVO = OpenplatformOpenapiBatchQueryRecordAppStructMapping.instance.openplatformOpenapiBatchQueryRecordDOToOpenplatformOpenapiBatchQueryRecordVO(byId);
 		return SingleResponse.of(openplatformOpenapiBatchQueryRecordVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiBatchQueryRecordQueryCommandExecutor  extends Ab
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiBatchQueryRecordDO byId = iOpenplatformOpenapiBatchQueryRecordService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiBatchQueryRecordVO openplatformOpenapiBatchQueryRecordVO = OpenplatformOpenapiBatchQueryRecordAppStructMapping.instance.openplatformOpenapiBatchQueryRecordDOToOpenplatformOpenapiBatchQueryRecordVO(byId);
 		return SingleResponse.of(openplatformOpenapiBatchQueryRecordVO);

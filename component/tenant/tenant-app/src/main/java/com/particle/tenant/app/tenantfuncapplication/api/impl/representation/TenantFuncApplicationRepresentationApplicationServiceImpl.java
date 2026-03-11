@@ -1,7 +1,7 @@
 package com.particle.tenant.app.tenantfuncapplication.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class TenantFuncApplicationRepresentationApplicationServiceImpl extends A
     private TenantFuncApplicationQueryCommandExecutor tenantFuncApplicationQueryCommandExecutor;
 
     @Override
-    public SingleResponse<TenantFuncApplicationVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<TenantFuncApplicationVO> queryDetail(CommonIdCommand detailCommand) {
         return tenantFuncApplicationQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return tenantFuncApplicationQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -43,8 +43,8 @@ public class TenantFuncApplicationRepresentationApplicationServiceImpl extends A
     }
 
     @Override
-    public MultiResponse<Long> queryFuncApplicationIdsByTenantId(IdCommand tenantIdCommand) {
-        return tenantFuncApplicationQueryCommandExecutor.queryFuncApplicationIdsByTenantId(tenantIdCommand);
+    public MultiResponse<Long> queryFuncApplicationIdsByTenantId(CommonIdCommand tenantCommonIdCommand) {
+        return tenantFuncApplicationQueryCommandExecutor.queryFuncApplicationIdsByTenantId(tenantCommonIdCommand);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "particle.project-info.component")
+@ConfigurationProperties(prefix = "particle.global.project-info.component")
 public class ComponentProperties {
 
 	/**

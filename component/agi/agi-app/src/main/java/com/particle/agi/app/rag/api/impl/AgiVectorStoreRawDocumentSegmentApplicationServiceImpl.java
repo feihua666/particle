@@ -4,7 +4,7 @@ import com.particle.agi.app.rag.executor.AgiVectorStoreRawDocumentSegmentCreateC
 import com.particle.agi.app.rag.executor.AgiVectorStoreRawDocumentSegmentDeleteCommandExecutor;
 import com.particle.agi.app.rag.executor.AgiVectorStoreRawDocumentSegmentUpdateCommandExecutor;
 import com.particle.agi.app.rag.executor.AgiVectorStoreRawDocumentSegmentCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentUpdateCommand;
 import com.particle.agi.client.rag.api.IAgiVectorStoreRawDocumentSegmentApplicationService;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentCreateCommand;
@@ -46,12 +46,12 @@ public class AgiVectorStoreRawDocumentSegmentApplicationServiceImpl extends Abst
     }
 
     @Override
-    public Response embedding(IdCommand idCommand) {
-        return agiVectorStoreRawDocumentSegmentCommandExecutor.embedding(idCommand);
+    public Response embedding(CommonIdCommand commonIdCommand) {
+        return agiVectorStoreRawDocumentSegmentCommandExecutor.embedding(commonIdCommand);
     }
 
     @Override
-    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(CommonIdCommand deleteCommand) {
         return agiVectorStoreRawDocumentSegmentDeleteCommandExecutor.execute(deleteCommand);
     }
 

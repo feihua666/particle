@@ -1,7 +1,7 @@
 package com.particle.cms.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class CmsSiteRepresentationApplicationServiceImpl extends AbstractBaseApp
     private CmsSiteQueryCommandExecutor cmsSiteQueryCommandExecutor;
 
     @Override
-    public SingleResponse<CmsSiteVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<CmsSiteVO> queryDetail(CommonIdCommand detailCommand) {
         return cmsSiteQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<CmsSiteVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<CmsSiteVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return cmsSiteQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

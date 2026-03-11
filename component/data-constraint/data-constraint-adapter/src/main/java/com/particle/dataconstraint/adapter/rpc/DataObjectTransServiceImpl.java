@@ -2,6 +2,7 @@ package com.particle.dataconstraint.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.dataconstraint.adapter.feign.client.rpc.DataObjectTransRpcFeignClient;
 import com.particle.dataconstraint.client.dto.data.DataObjectTransVO;
 import com.particle.dataconstraint.infrastructure.dos.DataObjectDO;
 import com.particle.dataconstraint.infrastructure.service.IDataObjectService;
@@ -29,7 +30,7 @@ public class DataObjectTransServiceImpl implements ITransService<DataObjectTrans
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DATA_OBJECT_BY_ID);
+        return DataObjectTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

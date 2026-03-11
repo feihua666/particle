@@ -1,9 +1,8 @@
 package com.particle.cms.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsChannelViewRecordCreateCommand;
 import com.particle.cms.client.dto.command.CmsChannelViewRecordUpdateCommand;
 import com.particle.cms.client.dto.data.CmsChannelViewRecordVO;
@@ -28,7 +27,7 @@ public interface ICmsChannelViewRecordApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsChannelViewRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsChannelViewRecordVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

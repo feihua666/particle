@@ -1,7 +1,7 @@
 package com.particle.componentadmin.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class AdminComponentRepresentationApplicationServiceImpl extends Abstract
     private AdminComponentQueryCommandExecutor adminComponentQueryCommandExecutor;
 
     @Override
-    public SingleResponse<AdminComponentVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<AdminComponentVO> queryDetail(CommonIdCommand detailCommand) {
         return adminComponentQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<AdminComponentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<AdminComponentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return adminComponentQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

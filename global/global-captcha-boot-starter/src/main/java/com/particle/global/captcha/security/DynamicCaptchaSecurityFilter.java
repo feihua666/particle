@@ -29,7 +29,7 @@ import static com.particle.global.captcha.endpoint.CaptchaController.dynamic_suf
  */
 @Slf4j
 @Setter
-@ConfigurationProperties(prefix = "particle.dynamic-captcha.filter")
+@ConfigurationProperties(prefix = "particle.global.dynamic-captcha.filter")
 public class DynamicCaptchaSecurityFilter extends BaseCaptchaSecurityFilter {
 	/**
 	 * key为拦截的uri
@@ -40,7 +40,7 @@ public class DynamicCaptchaSecurityFilter extends BaseCaptchaSecurityFilter {
 	@SneakyThrows
     @Override
 	public CaptchaVerifyDTO mapCaptchaVerifyDTO(CaptchaVerifyCommand verifyCommand, HttpServletRequest httpServletRequest, String uri) {
-		String identifier = abtainIdentifier(httpServletRequest, uri);
+		String identifier = obtainIdentifier(httpServletRequest, uri);
 		// 验证key需要和 {@link com.particle.global.captcha.endpoint.CaptchaController.getDynamicCaptcha} 的 md5Hex 变量一致
 		String md5Hex = DigestUtil.md5Hex(verifyCommand.getCaptchaUniqueIdentifier() + dynamic_suffix + identifier);
 		verifyCommand.setCaptchaUniqueIdentifier(md5Hex);
@@ -71,7 +71,7 @@ public class DynamicCaptchaSecurityFilter extends BaseCaptchaSecurityFilter {
 	 * @return
 	 * @throws IOException
 	 */
-	private String abtainIdentifier(HttpServletRequest request, String uri) throws IOException {
+	private String obtainIdentifier(HttpServletRequest request, String uri) throws IOException {
 
 		String identifier = "";
 		if (uriIdentifier == null || uriIdentifier.isEmpty()) {

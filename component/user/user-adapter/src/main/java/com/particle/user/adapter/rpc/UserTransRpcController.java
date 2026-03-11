@@ -31,11 +31,6 @@ public class UserTransRpcController extends AbstractBaseRpcAdapter implements Us
 	private UserTransServiceImpl userTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return userTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<UserTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return userTransService.transBatch(type, keys);
 	}

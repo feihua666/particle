@@ -23,4 +23,4 @@ CREATE TABLE `component_openplatform_openapi_batch_query_record_detail` (
   KEY `execute_status_dict_id` (`execute_status_dict_id`),
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口批量查询记录明细表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='开放接口批量查询记录明细表';

@@ -29,7 +29,8 @@
 
 ```yaml
 particle:
-  captcha:
+  global:
+    captcha:
     # 验证码相关配置
 ```
 

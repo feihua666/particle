@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyMd5CreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyMd5UpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyMd5VO;
@@ -27,7 +27,7 @@ public interface IDataCompanyMd5ApplicationService extends IBaseApplicationServi
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyMd5VO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyMd5VO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -8,15 +8,12 @@ import com.particle.dataquery.infrastructure.datasource.gateway.impl.DatasourceA
 import com.particle.global.big.datasource.bigdatasource.api.BigDatasourceApi;
 import com.particle.global.big.datasource.bigdatasource.api.config.IBigDatasourceApiConfig;
 import com.particle.global.big.datasource.bigdatasource.executor.ExecutorInfrastructureListener;
-import com.particle.global.big.datasource.bigdatasource.impl.http.api.config.HttpBigDatasourceApiConfig;
-import com.particle.global.big.datasource.bigdatasource.impl.http.executor.HttpBigDatasourceApiExecutor;
 import com.particle.global.big.datasource.bigdatasource.impl.http.httpclient.impl.BigDatasourceHttpJoddClientImpl;
 import com.particle.global.openapi.api.GlobalOpenapiCollectPersistentService;
 import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.openapi.data.OpenapiCollectProviderDTO;
-import com.particle.global.security.security.login.LoginTool;
-import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.tool.login.LoginUserTool;
 import com.particle.global.tool.log.TraceTool;
 import org.springframework.beans.factory.annotation.Autowired;
 

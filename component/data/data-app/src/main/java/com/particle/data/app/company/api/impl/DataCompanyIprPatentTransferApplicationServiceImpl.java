@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyIprPatentTransferCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentTransferCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentTransferDeleteCommandExecutor;
@@ -48,7 +48,7 @@ public class DataCompanyIprPatentTransferApplicationServiceImpl extends Abstract
     }
 
     @Override
-    public SingleResponse<DataCompanyIprPatentTransferVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyIprPatentTransferVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyIprPatentTransferDeleteCommandExecutor.execute(deleteCommand);
     }
 

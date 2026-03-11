@@ -5,8 +5,6 @@ import com.particle.global.dto.response.Response;
 import com.particle.tools.client.dto.command.AddFieldCommand;
 import com.particle.tools.client.dto.command.AddWarehouseAndExWarehouseCommand;
 import com.particle.tools.client.dto.command.DeleteModelServiceCommand;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>

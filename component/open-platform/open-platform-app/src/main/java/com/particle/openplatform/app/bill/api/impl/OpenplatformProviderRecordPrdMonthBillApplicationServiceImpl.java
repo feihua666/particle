@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.bill.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.bill.executor.OpenplatformProviderRecordPrdMonthBillCommandExecutor;
@@ -43,7 +43,7 @@ public class OpenplatformProviderRecordPrdMonthBillApplicationServiceImpl extend
     }
 
     @Override
-    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> delete(CommonIdCommand deleteCommand) {
         return openplatformProviderRecordPrdMonthBillDeleteCommandExecutor.execute(deleteCommand);
     }
 

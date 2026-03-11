@@ -2,7 +2,8 @@ import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam} from "../../../../../common/api/api";
 
-let prefix = '/admin/web/role-user-rel'
+import {getApiPrefix} from "../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_ROLE) + '/admin/web/role-user-rel'
 /**
  * 添加用户角色
  * @param data

@@ -1,7 +1,7 @@
 package com.particle.func.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.executor.FuncCreateCommandExecutor;
 import com.particle.func.app.executor.FuncDeleteCommandExecutor;
 import com.particle.func.app.executor.FuncUpdateCommandExecutor;
@@ -42,13 +42,13 @@ public class FuncApplicationServiceImpl extends AbstractBaseApplicationServiceIm
 	}
 
 	@Override
-	public SingleResponse<FuncVO> copy(IdCommand copyCommand) {
+	public SingleResponse<FuncVO> copy(CommonIdCommand copyCommand) {
 		return funcCreateCommandExecutor.copy(copyCommand);
 	}
 
 	@Transactional
 	@Override
-	public SingleResponse<FuncVO> delete(IdCommand funcDeleteCommand) {
+	public SingleResponse<FuncVO> delete(CommonIdCommand funcDeleteCommand) {
 		return funcDeleteCommandExecutor.execute(funcDeleteCommand);
 	}
 

@@ -2,7 +2,7 @@ package com.particle.dataconstraint.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.structmapping.DataScopeCustomDataRelAppStructMapping;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataScopeCustomDataRelQueryListCommand;
@@ -58,7 +58,7 @@ public class DataScopeCustomDataRelQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataScopeCustomDataRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataScopeCustomDataRelVO> executeDetail(CommonIdCommand detailCommand) {
 		DataScopeCustomDataRelDO byId = iDataScopeCustomDataRelService.getById(detailCommand.getId());
 		DataScopeCustomDataRelVO dataScopeCustomDataRelVO = DataScopeCustomDataRelAppStructMapping.instance.dataScopeCustomDataRelDOToDataScopeCustomDataRelVO(byId);
 		return SingleResponse.of(dataScopeCustomDataRelVO);
@@ -68,7 +68,7 @@ public class DataScopeCustomDataRelQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataScopeCustomDataRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataScopeCustomDataRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataScopeCustomDataRelDO byId = iDataScopeCustomDataRelService.getById(detailForUpdateCommand.getId());
 		DataScopeCustomDataRelVO dataScopeCustomDataRelVO = DataScopeCustomDataRelAppStructMapping.instance.dataScopeCustomDataRelDOToDataScopeCustomDataRelVO(byId);
 		return SingleResponse.of(dataScopeCustomDataRelVO);
@@ -76,13 +76,13 @@ public class DataScopeCustomDataRelQueryCommandExecutor  extends AbstractBaseQue
 
 	/**
 	 * 查询数据范围已分配的自定义数据菜单ids
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(@Valid IdCommand dataScopeIdCommand) {
+	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(@Valid CommonIdCommand dataScopeCommonIdCommand) {
 
 		DataScopeCustomDataRelQueryListCommand dataScopeUserRelQueryListCommand = new DataScopeCustomDataRelQueryListCommand();
-		dataScopeUserRelQueryListCommand.setDataScopeId(dataScopeIdCommand.getId());
+		dataScopeUserRelQueryListCommand.setDataScopeId(dataScopeCommonIdCommand.getId());
 		MultiResponse<DataScopeCustomDataRelVO> dataScopeUserRelVOMultiResponse = execute(dataScopeUserRelQueryListCommand);
 		if(dataScopeUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = dataScopeUserRelVOMultiResponse.getData().stream().map(DataScopeCustomDataRelVO::getDataId).collect(Collectors.toList());

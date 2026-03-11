@@ -2,7 +2,7 @@ package com.particle.tenant.app.userinvite.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class TenantUserInviteQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TenantUserInviteVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<TenantUserInviteVO> executeDetail(CommonIdCommand detailCommand) {
 		TenantUserInviteDO byId = iTenantUserInviteService.getById(detailCommand.getId());
 		TenantUserInviteVO tenantUserInviteVO = TenantUserInviteAppStructMapping.instance.tenantUserInviteDOToTenantUserInviteVO(byId);
 		return SingleResponse.of(tenantUserInviteVO);
@@ -67,7 +67,7 @@ public class TenantUserInviteQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TenantUserInviteVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<TenantUserInviteVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		TenantUserInviteDO byId = iTenantUserInviteService.getById(detailForUpdateCommand.getId());
 		TenantUserInviteVO tenantUserInviteVO = TenantUserInviteAppStructMapping.instance.tenantUserInviteDOToTenantUserInviteVO(byId);
 		return SingleResponse.of(tenantUserInviteVO);

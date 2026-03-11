@@ -5,7 +5,7 @@ import com.particle.agi.client.chat.api.IAgiAgentChatMessageMediaApplicationServ
 import com.particle.agi.client.chat.api.representation.IAgiAgentChatMessageMediaRepresentationApplicationService;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageMediaCreateCommand;
 import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageMediaVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageMediaUpdateCommand;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessageMediaPageQueryCommand;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessageMediaQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 智能体对话消息媒体后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class AgiAgentChatMessageMediaAdminWebController extends AbstractBaseWebA
     @Operation(summary = "删除智能体对话消息媒体")
     @DeleteMapping("/delete")
     @OpLog(name = "删除智能体对话消息媒体",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-    public SingleResponse<AgiAgentChatMessageMediaVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AgiAgentChatMessageMediaVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAgiAgentChatMessageMediaApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class AgiAgentChatMessageMediaAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:agiAgentChatMessageMedia:update')")
     @Operation(summary = "智能体对话消息媒体更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<AgiAgentChatMessageMediaVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<AgiAgentChatMessageMediaVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iAgiAgentChatMessageMediaRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:agiAgentChatMessageMedia:detail')")
     @Operation(summary = "智能体对话消息媒体详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AgiAgentChatMessageMediaVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AgiAgentChatMessageMediaVO> queryDetail(CommonIdCommand detailCommand){
         return iAgiAgentChatMessageMediaRepresentationApplicationService.queryDetail(detailCommand);
     }
 

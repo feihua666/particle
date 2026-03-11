@@ -1,7 +1,7 @@
 package com.particle.agi.client.rag.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentCreateCommand;
@@ -25,17 +25,17 @@ public interface IAgiVectorStoreRawDocumentSegmentApplicationService extends IBa
 
 	/**
 	 * 嵌入文档片段
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	Response embedding(IdCommand idCommand);
+	Response embedding(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 删除领域对象
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(IdCommand deleteCommand);
+	SingleResponse<AgiVectorStoreRawDocumentSegmentVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

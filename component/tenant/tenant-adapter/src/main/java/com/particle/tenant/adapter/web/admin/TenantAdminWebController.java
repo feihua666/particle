@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -9,7 +9,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.tenant.client.api.ITenantApplicationService;
 import com.particle.tenant.client.api.representation.ITenantRepresentationApplicationService;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditPassCommand;
@@ -57,7 +57,7 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除租户")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_tenant_tenant, DataConstraintContext.Action.delete.name());
 		return iTenantApplicationService.delete(deleteCommand);
 	}
@@ -74,14 +74,14 @@ public class TenantAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenant:update')")
 	@Operation(summary = "租户更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenant:detail')")
 	@Operation(summary = "租户详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

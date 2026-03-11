@@ -1,7 +1,7 @@
 package com.particle.config.adapter.system.rpc;
 
 import com.particle.common.adapter.rpc.AbstractBaseRpcAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.adapter.feign.client.system.rpc.SystemConfigRpcFeignClient;
 import com.particle.config.app.system.structmapping.SystemConfigAppStructMapping;
 import com.particle.config.client.system.api.ISystemConfigApplicationService;
@@ -53,7 +53,7 @@ public class SystemConfigRpcController extends AbstractBaseRpcAdapter implements
 
 	@Operation(summary = "删除系统参数配置")
 	@DeleteMapping("/delete")
-	public SingleResponse<SystemConfigVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<SystemConfigVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iSystemConfigApplicationService.delete(deleteCommand);
 	}
 
@@ -65,13 +65,13 @@ public class SystemConfigRpcController extends AbstractBaseRpcAdapter implements
 
 	@Operation(summary = "系统参数配置更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<SystemConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<SystemConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iSystemConfigRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@Operation(summary = "系统参数配置详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<SystemConfigVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<SystemConfigVO> queryDetail(CommonIdCommand detailCommand){
 		return iSystemConfigRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -90,15 +90,15 @@ public class SystemConfigRpcController extends AbstractBaseRpcAdapter implements
 
 	@Operation(summary = "根据code查询系统配置")
 	@Override
-	public SingleResponse<SystemConfigVO> queryByCode(String code) {
-		SystemConfigDO byCode = iSystemConfigService.getByCode(code);
+	public SingleResponse<SystemConfigVO> queryByCode(String code,Boolean isDisabled) {
+		SystemConfigDO byCode = iSystemConfigService.getByCode(code, isDisabled);
 		return SingleResponse.of(SystemConfigAppStructMapping.instance.systemConfigDOToSystemConfigVO(byCode));
 	}
 
 	@Operation(summary = "根据tag查询系统配置")
 	@Override
-	public MultiResponse<SystemConfigVO> queryByTag(String tag) {
-		List<SystemConfigDO> byTag = iSystemConfigService.getByTag(tag);
+	public MultiResponse<SystemConfigVO> queryByTag(String tag,Boolean isDisabled) {
+		List<SystemConfigDO> byTag = iSystemConfigService.getByTag(tag, isDisabled);
 
 		List<SystemConfigVO> systemConfigVOS = SystemConfigAppStructMapping.instance.systemConfigDOsToSystemConfigVOs(byTag);
 		return MultiResponse.of(systemConfigVOS);

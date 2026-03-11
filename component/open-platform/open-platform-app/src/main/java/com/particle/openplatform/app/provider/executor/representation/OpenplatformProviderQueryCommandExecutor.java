@@ -7,7 +7,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -25,9 +25,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -92,7 +90,7 @@ public class OpenplatformProviderQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderDO byId = iOpenplatformProviderService.getById(detailCommand.getId());
 		OpenplatformProviderVO openplatformProviderVO = OpenplatformProviderAppStructMapping.instance.openplatformProviderDOToOpenplatformProviderVO(byId);
 		return SingleResponse.of(openplatformProviderVO);
@@ -102,7 +100,7 @@ public class OpenplatformProviderQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderDO byId = iOpenplatformProviderService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderVO openplatformProviderVO = OpenplatformProviderAppStructMapping.instance.openplatformProviderDOToOpenplatformProviderVO(byId);
 		return SingleResponse.of(openplatformProviderVO);

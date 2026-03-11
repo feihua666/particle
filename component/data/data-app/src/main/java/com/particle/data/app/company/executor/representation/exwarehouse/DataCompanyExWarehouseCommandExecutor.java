@@ -14,7 +14,7 @@ import com.particle.data.infrastructure.company.dos.DataCompanyMd5DO;
 import com.particle.data.infrastructure.company.service.IDataCompanyMd5Service;
 import com.particle.data.infrastructure.company.service.IDataCompanyService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.tool.str.StringTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

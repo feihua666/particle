@@ -2,7 +2,7 @@ package com.particle.dataquery.app.dataapi.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.dataapi.structmapping.DataQueryDataApiAppStructMapping;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiPageQueryCommand;
 import com.particle.dataquery.client.dataapi.dto.command.representation.DataQueryDataApiQueryListCommand;
@@ -57,7 +57,7 @@ public class DataQueryDataApiQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDataApiVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataQueryDataApiVO> executeDetail(CommonIdCommand detailCommand) {
 		DataQueryDataApiDO byId = iDataQueryDataApiService.getById(detailCommand.getId());
 		DataQueryDataApiVO dataQueryDataApiVO = DataQueryDataApiAppStructMapping.instance.dataQueryDataApiDOToDataQueryDataApiVO(byId);
 		return SingleResponse.of(dataQueryDataApiVO);
@@ -67,7 +67,7 @@ public class DataQueryDataApiQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDataApiVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataQueryDataApiVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataQueryDataApiDO byId = iDataQueryDataApiService.getById(detailForUpdateCommand.getId());
 		DataQueryDataApiVO dataQueryDataApiVO = DataQueryDataApiAppStructMapping.instance.dataQueryDataApiDOToDataQueryDataApiVO(byId);
 		return SingleResponse.of(dataQueryDataApiVO);

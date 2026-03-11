@@ -22,4 +22,4 @@ CREATE TABLE `component_data_company_ipr_geogra_approve_announcement` (
   UNIQUE KEY `uni_company_ipr_geogra_id__approve_public_no` (`company_ipr_geogra_id`,`approve_public_no`) USING BTREE,
   KEY `company_ipr_geogra_id` (`company_ipr_geogra_id`) USING BTREE,
   KEY `approve_public_no` (`approve_public_no`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权地理标识核准公告表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权地理标识核准公告表';

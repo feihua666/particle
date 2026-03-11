@@ -1,7 +1,7 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.navigation.client.dto.command.NavigationSiteCreateCommand;
 import com.particle.navigation.domain.NavigationSubmit;
@@ -33,11 +33,11 @@ public class NavigationSubmitCommandExecutor  extends AbstractBaseExecutor {
 
 	/**
 	 * 确认提交
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response sureSubmit(IdCommand idCommand) {
-		NavigationSubmit navigationSubmit = navigationSubmitGateway.getById(NavigationSubmitId.of(idCommand.getId()));
+	public Response sureSubmit(CommonIdCommand commonIdCommand) {
+		NavigationSubmit navigationSubmit = navigationSubmitGateway.getById(NavigationSubmitId.of(commonIdCommand.getId()));
 		String siteDataJson = navigationSubmit.getSiteDataJson();
 		NavigationSiteCreateCommand navigationSiteCreateCommand = NavigationSiteCreateCommand.createFromJson(siteDataJson);
 		navigationSiteCreateCommand.setIsPublished(true);

@@ -1,6 +1,7 @@
 package com.particle.global.session.auto;
 
 import com.particle.global.session.GlobalSessionProperties;
+import com.particle.global.session.SessionRepositoryConfiguration;
 import com.particle.global.swagger.SwaggerInfo;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
@@ -12,6 +13,7 @@ import org.springframework.boot.web.server.Cookie;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.session.web.http.CookieHttpSessionIdResolver;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
@@ -31,12 +33,14 @@ import java.util.List;
  */
 @EnableConfigurationProperties(GlobalSessionProperties.class)
 @Configuration(proxyBeanMethods = false)
+@Import(SessionRepositoryConfiguration.class)
 public class GlobalSessionAutoConfiguration {
 
 	/**
 	 * 支持 token 和 cookie两种方式
 	 * 默认如果不使用任何配置请求头和COOKIE名称都为:{@link SwaggerInfo#token}
 	 * 可通过 server.servlet.session.cookie.name 修改
+	 * 参考 {@link SessionAutoConfiguration.ServletSessionConfiguration#cookieSerializer(ServerProperties, ObjectProvider)}
 	 * @return
 	 */
 	@Bean
@@ -62,11 +66,15 @@ public class GlobalSessionAutoConfiguration {
 		 * 默认会在响应返回时添加响应头session 头信息，参见：{@link SessionRepositoryFilter.SessionRepositoryRequestWrapper#commitSession()}
 		 */
 		HeaderHttpSessionIdResolver headerHttpSessionIdResolver = new HeaderHttpSessionIdResolver(cookieSerializer.getCookieName());
+		/**
+		 * 旧的请求头支持,新的 请求头名称为：{@link SwaggerInfo#token}
+		 */
+		HeaderHttpSessionIdResolver oldHeaderHttpSessionIdResolver = new HeaderHttpSessionIdResolver("c-token-id");
 		List<HttpSessionIdResolver> httpSessionIdResolvers = null;
 		if (globalSessionProperties.getSessionIdResolver() == null || GlobalSessionProperties.SessionIdResolver.all.name().equals(globalSessionProperties.getSessionIdResolver())) {
-			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver, cookieHttpSessionIdResolver);
+			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver,oldHeaderHttpSessionIdResolver, cookieHttpSessionIdResolver);
 		}else if (GlobalSessionProperties.SessionIdResolver.header.name().equals(globalSessionProperties.getSessionIdResolver())) {
-			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver);
+			httpSessionIdResolvers = Arrays.asList(headerHttpSessionIdResolver,oldHeaderHttpSessionIdResolver);
 		}else if (GlobalSessionProperties.SessionIdResolver.cookie.name().equals(globalSessionProperties.getSessionIdResolver())) {
 			httpSessionIdResolvers = Arrays.asList(cookieHttpSessionIdResolver);
 		}

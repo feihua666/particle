@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.openapi.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.openapi.structmapping.OpenplatformOpenapiAppStructMapping;
 import com.particle.openplatform.client.openapi.dto.data.OpenplatformOpenapiVO;
 import com.particle.openplatform.domain.openapi.OpenplatformOpenapi;
@@ -34,7 +34,7 @@ public class OpenplatformOpenapiDeleteCommandExecutor  extends AbstractBaseExecu
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformOpenapiVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformOpenapiId openplatformOpenapiId = OpenplatformOpenapiId.of(deleteCommand.getId());
 		OpenplatformOpenapi byId = openplatformOpenapiGateway.getById(openplatformOpenapiId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

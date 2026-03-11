@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.doc.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -26,14 +26,14 @@ public interface IOpenplatformDocApiRepresentationApplicationService extends IBa
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformDocApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<OpenplatformDocApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformDocApiVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<OpenplatformDocApiVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 查询详情，包含完整接口文档

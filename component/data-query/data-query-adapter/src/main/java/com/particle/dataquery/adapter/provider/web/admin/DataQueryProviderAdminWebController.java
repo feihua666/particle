@@ -1,7 +1,7 @@
 package com.particle.dataquery.adapter.provider.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataquery.client.provider.api.IDataQueryProviderApplicationService;
 import com.particle.dataquery.client.provider.api.representation.IDataQueryProviderRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class DataQueryProviderAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "删除数据查询供应商")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除数据查询供应商",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
-	public SingleResponse<DataQueryProviderVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataQueryProviderVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryProviderApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class DataQueryProviderAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryProvider:update')")
 	@Operation(summary = "数据查询供应商更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DataQueryProviderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DataQueryProviderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDataQueryProviderRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryProvider:detail')")
 	@Operation(summary = "数据查询供应商详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DataQueryProviderVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DataQueryProviderVO> queryDetail(CommonIdCommand detailCommand){
 		return iDataQueryProviderRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

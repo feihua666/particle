@@ -1,7 +1,7 @@
 package com.particle.role.client.rolefuncrel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,7 +24,7 @@ public interface IRoleFuncRelRepresentationApplicationService extends IBaseAppli
 	 * @param roleFuncRelQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<RoleFuncRelVO> queryDetail(IdCommand roleFuncRelQueryDetailCommand);
+	SingleResponse<RoleFuncRelVO> queryDetail(CommonIdCommand roleFuncRelQueryDetailCommand);
 
 	/**
 	 * 列表查询
@@ -42,15 +42,15 @@ public interface IRoleFuncRelRepresentationApplicationService extends IBaseAppli
 
 	/**
 	 * 查询角色已分配的功能id
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByRoleId(IdCommand roleIdCommand);
+	public MultiResponse<Long> queryFuncIdsByRoleId(CommonIdCommand roleCommonIdCommand);
 
 	/**
 	 * 查询功能已分配的角色id
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByFuncId(IdCommand funcIdCommand);
+	public MultiResponse<Long> queryRoleIdsByFuncId(CommonIdCommand funcCommonIdCommand);
 }

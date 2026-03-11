@@ -1,12 +1,12 @@
 package com.particle.data.app.dynamictable.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamictable.structmapping.DynamicTableUploadRecordAppStructMapping;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableUploadRecordQueryListCommand;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableUploadRecordVO;
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableUploadRecordDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableUploadRecordService;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableUploadRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DynamicTableUploadRecordQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableUploadRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicTableUploadRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicTableUploadRecordDO byId = iDynamicTableUploadRecordService.getById(detailCommand.getId());
 		DynamicTableUploadRecordVO dynamicTableUploadRecordVO = DynamicTableUploadRecordAppStructMapping.instance.dynamicTableUploadRecordDOToDynamicTableUploadRecordVO(byId);
 		return SingleResponse.of(dynamicTableUploadRecordVO);
@@ -67,7 +66,7 @@ public class DynamicTableUploadRecordQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableUploadRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicTableUploadRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicTableUploadRecordDO byId = iDynamicTableUploadRecordService.getById(detailForUpdateCommand.getId());
 		DynamicTableUploadRecordVO dynamicTableUploadRecordVO = DynamicTableUploadRecordAppStructMapping.instance.dynamicTableUploadRecordDOToDynamicTableUploadRecordVO(byId);
 		return SingleResponse.of(dynamicTableUploadRecordVO);

@@ -1,7 +1,7 @@
 package com.particle.crm.app.relation.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineCreateCommandExecutor;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineDeleteCommandExecutor;
 import com.particle.crm.app.relation.executor.CrmCustomerRelationDefineUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class CrmCustomerRelationDefineApplicationServiceImpl extends AbstractBas
 	}
 
 	@Override
-	public SingleResponse<CrmCustomerRelationDefineVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<CrmCustomerRelationDefineVO> delete(CommonIdCommand deleteCommand) {
 		return crmCustomerRelationDefineDeleteCommandExecutor.execute(deleteCommand);
 	}
 

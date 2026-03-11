@@ -1,7 +1,7 @@
 package com.particle.config.app.system.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.config.app.system.executor.representation.SystemConfigQueryCommandExecutor;
 import com.particle.config.client.system.api.representation.ISystemConfigRepresentationApplicationService;
 import com.particle.config.client.system.dto.command.representation.SystemConfigPageQueryCommand;
@@ -28,12 +28,12 @@ public class SystemConfigRepresentationApplicationServiceImpl extends AbstractBa
     private SystemConfigQueryCommandExecutor systemConfigQueryCommandExecutor;
 
     @Override
-    public SingleResponse<SystemConfigVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<SystemConfigVO> queryDetail(CommonIdCommand detailCommand) {
         return systemConfigQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<SystemConfigVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<SystemConfigVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return systemConfigQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

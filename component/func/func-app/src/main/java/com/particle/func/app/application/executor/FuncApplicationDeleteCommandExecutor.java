@@ -1,7 +1,7 @@
 package com.particle.func.app.application.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.application.structmapping.FuncApplicationAppStructMapping;
 import com.particle.func.client.application.dto.data.FuncApplicationVO;
 import com.particle.func.domain.application.FuncApplication;
@@ -9,7 +9,7 @@ import com.particle.func.domain.application.FuncApplicationId;
 import com.particle.func.domain.application.gateway.FuncApplicationGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class FuncApplicationDeleteCommandExecutor  extends AbstractBaseExecutor 
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<FuncApplicationVO> execute(@Valid CommonIdCommand deleteCommand) {
 		FuncApplicationId funcApplicationId = FuncApplicationId.of(deleteCommand.getId());
 		FuncApplication byId = funcApplicationGateway.getById(funcApplicationId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

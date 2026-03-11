@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.openapi.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformOpenapiFeeRepresentationApplicationServiceImpl extends 
     private OpenplatformOpenapiFeeQueryCommandExecutor openplatformOpenapiFeeQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformOpenapiFeeVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformOpenapiFeeVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformOpenapiFeeQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformOpenapiFeeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformOpenapiFeeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformOpenapiFeeQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

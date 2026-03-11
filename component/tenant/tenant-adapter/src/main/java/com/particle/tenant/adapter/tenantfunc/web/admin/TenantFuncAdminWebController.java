@@ -1,7 +1,7 @@
 package com.particle.tenant.adapter.tenantfunc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -14,7 +14,7 @@ import com.particle.tenant.client.tenantfunc.dto.command.TenantAssignFuncCommand
 import com.particle.tenant.client.tenantfunc.dto.command.TenantFuncCreateCommand;
 import com.particle.tenant.client.tenantfunc.dto.command.TenantFuncUpdateCommand;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
-import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantCommonId;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,7 +54,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除租户功能菜单")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户功能菜单",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantFuncVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantFuncVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTenantFuncApplicationService.delete(deleteCommand);
 	}
 
@@ -69,14 +69,14 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:update')")
 	@Operation(summary = "租户功能菜单更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantFuncVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantFuncVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantFuncRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:detail')")
 	@Operation(summary = "租户功能菜单详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantFuncVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantFuncVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantFuncRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -115,7 +115,7 @@ public class TenantFuncAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:tenantFunc:queryFuncIdsByTenantId')")
 	@GetMapping("/queryFuncIdsByTenantId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantIdCommand funcIdCommand) {
+	public MultiResponse<Long> queryFuncIdsByTenantId(TenantFuncQueryFuncIdsByTenantCommonId funcIdCommand) {
 		return iTenantFuncRepresentationApplicationService.queryFuncIdsByTenantId( funcIdCommand);
 	}
 }

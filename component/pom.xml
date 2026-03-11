@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>area</module>
-        <module>test</module>
         <module>dict</module>
         <module>func</module>
         <module>user</module>
@@ -43,6 +42,8 @@
         <module>navigation</module>
         <module>agi</module>
         <module>cms</module>
+        <module>audit</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

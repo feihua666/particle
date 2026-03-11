@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyVcFinancingApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyVcFinancingWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyVcFinancingExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyVcFinancingApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public SingleResponse<DataCompanyVcFinancingVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyVcFinancingVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyVcFinancingDeleteCommandExecutor.execute(deleteCommand);
     }
 

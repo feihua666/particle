@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../api/admin/cmsContentAdminApi"
 
-import {updatePageFormItems} from "../../components/admin/cmsContentManage";
+import {useUpdatePageFormItems} from "../../components/admin/cmsContentManage";
 
 
 // 声明属性
@@ -31,7 +31,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    updatePageFormItems
+    useUpdatePageFormItems({isForAdd: false})
 )
 
 // 提交按钮属性
@@ -65,7 +65,7 @@ const submitMethodSuccess = () => {
           :submitAttrs="submitAttrs"
           :buttonsTeleportProps="$route.meta.formButtonsTeleportProps"
           inline
-          :layout="[3,3,1,1,2,2,2]"
+          :layout="[3]"
           :comps="formComps">
   </PtForm>
 

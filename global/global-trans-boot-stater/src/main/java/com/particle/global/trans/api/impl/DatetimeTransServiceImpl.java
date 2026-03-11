@@ -8,6 +8,8 @@ import com.particle.global.trans.result.TransResult;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 提供时间戳转日期格式
@@ -23,6 +25,16 @@ public class DatetimeTransServiceImpl implements ITransService<String,Object> {
     @Override
     public boolean support(String type) {
         return StrUtil.equalsAny(type, TRANS_DATE, TRANS_DATETIME);
+    }
+
+    @Override
+    public boolean supportBatch(String type) {
+        return false;
+    }
+
+    @Override
+    public List<TransResult<String, Object>> transBatch(String type, Set<Object> keys) {
+        return List.of();
     }
 
 

@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -54,7 +54,7 @@ public class NavigationSiteTagAdminWebController extends AbstractBaseWebAdapter 
     @Operation(summary = "删除导航网站标签")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航网站标签",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationSiteTagVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationSiteTagVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSiteTagApplicationService.delete(deleteCommand);
     }
@@ -71,14 +71,14 @@ public class NavigationSiteTagAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTag:update')")
     @Operation(summary = "导航网站标签更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationSiteTagVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationSiteTagVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationSiteTagRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationSiteTag:detail')")
     @Operation(summary = "导航网站标签详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationSiteTagVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationSiteTagVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationSiteTagRepresentationApplicationService.queryDetail(detailCommand);
     }
 

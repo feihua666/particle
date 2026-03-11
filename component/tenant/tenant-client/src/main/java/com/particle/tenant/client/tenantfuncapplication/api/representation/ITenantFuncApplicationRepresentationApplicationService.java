@@ -1,7 +1,7 @@
 package com.particle.tenant.client.tenantfuncapplication.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface ITenantFuncApplicationRepresentationApplicationService extends 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<TenantFuncApplicationVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<TenantFuncApplicationVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<TenantFuncApplicationVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -50,8 +50,8 @@ public interface ITenantFuncApplicationRepresentationApplicationService extends 
 
 	/**
 	 * 根据租户ID查询已分配的功能应用id
-	 * @param tenantIdCommand
+	 * @param tenantCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(IdCommand tenantIdCommand);
+	public MultiResponse<Long> queryFuncApplicationIdsByTenantId(CommonIdCommand tenantCommonIdCommand);
 }

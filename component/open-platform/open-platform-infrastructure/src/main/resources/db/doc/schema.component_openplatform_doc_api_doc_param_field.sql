@@ -52,4 +52,4 @@ CREATE TABLE `component_openplatform_doc_api_doc_param_field` (
   KEY `seq` (`seq`) USING BTREE,
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='开放接口文档参数字段表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='开放接口文档参数字段表';

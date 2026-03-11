@@ -5,7 +5,7 @@ import com.particle.data.client.company.api.IDataCompanyJudgmentDocumentApplicat
 import com.particle.data.client.company.api.representation.IDataCompanyJudgmentDocumentRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyJudgmentDocumentCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyJudgmentDocumentVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyJudgmentDocumentUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业裁判文书后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyJudgmentDocumentAdminWebController extends AbstractBaseW
     @Operation(summary = "删除企业裁判文书")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业裁判文书",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyJudgmentDocumentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyJudgmentDocumentApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyJudgmentDocumentAdminWebController extends AbstractBaseW
     @PreAuthorize("hasAuthority('admin:web:dataCompanyJudgmentDocument:update')")
     @Operation(summary = "企业裁判文书更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyJudgmentDocumentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyJudgmentDocumentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyJudgmentDocument:detail')")
     @Operation(summary = "企业裁判文书详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyJudgmentDocumentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyJudgmentDocumentRepresentationApplicationService.queryDetail(detailCommand);
     }
 

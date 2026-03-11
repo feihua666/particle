@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2023-04-28 09:54:58
  */
 @Data
-@ConfigurationProperties("particle.oss.local")
+@ConfigurationProperties("particle.global.oss.local")
 public class GlobalLocalOssProperties {
 
 	/**

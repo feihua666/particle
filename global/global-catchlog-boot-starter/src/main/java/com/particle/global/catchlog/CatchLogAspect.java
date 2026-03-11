@@ -3,7 +3,7 @@ package com.particle.global.catchlog;
 import cn.hutool.core.util.ClassUtil;
 import com.particle.global.exception.BaseException;
 import com.particle.global.exception.biz.BizException;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.exception.system.SystemException;
 import com.particle.global.tool.json.JsonTool;
 import lombok.Data;
@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @Aspect
 @Slf4j
-@ConfigurationProperties(prefix = "particle.catchlog")
+@ConfigurationProperties(prefix = "particle.global.catchlog")
 public class CatchLogAspect {
 
 	private boolean handleException;

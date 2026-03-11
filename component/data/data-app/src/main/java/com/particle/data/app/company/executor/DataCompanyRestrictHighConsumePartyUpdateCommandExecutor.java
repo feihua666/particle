@@ -8,7 +8,7 @@ import com.particle.data.domain.company.DataCompanyRestrictHighConsumeParty;
 import com.particle.data.domain.company.DataCompanyRestrictHighConsumePartyId;
 import com.particle.data.domain.company.gateway.DataCompanyRestrictHighConsumePartyGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

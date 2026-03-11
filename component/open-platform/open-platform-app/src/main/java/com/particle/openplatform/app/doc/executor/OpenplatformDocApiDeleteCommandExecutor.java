@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.doc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiAppStructMapping;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApi;
@@ -38,7 +38,7 @@ public class OpenplatformDocApiDeleteCommandExecutor  extends AbstractBaseExecut
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformDocApiId openplatformDocApiId = OpenplatformDocApiId.of(deleteCommand.getId());
 		OpenplatformDocApi byId = openplatformDocApiGateway.getById(openplatformDocApiId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -46,7 +46,7 @@ public class OpenplatformDocApiDeleteCommandExecutor  extends AbstractBaseExecut
 		if (delete) {
 			// 删除后，将文档内容也删除
 			OpenplatformDocApiDocDO openplatformDocApiDocDO = iOpenplatformDocApiDocService.getByOpenplatformDocApiId(openplatformDocApiId.getId());
-			openplatformDocApiDocDeleteCommandExecutor.execute(IdCommand.create(openplatformDocApiDocDO.getId()));
+			openplatformDocApiDocDeleteCommandExecutor.execute(CommonIdCommand.create(openplatformDocApiDocDO.getId()));
 			return SingleResponse.of(OpenplatformDocApiAppStructMapping.instance.toOpenplatformDocApiVO(byId));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.DELETE_ERROR);

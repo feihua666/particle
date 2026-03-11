@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -44,7 +44,7 @@ public class NavigationSubmitApplicationServiceImpl extends AbstractBaseApplicat
     }
 
     @Override
-    public SingleResponse<NavigationSubmitVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<NavigationSubmitVO> delete(CommonIdCommand deleteCommand) {
         return navigationSubmitDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -54,8 +54,8 @@ public class NavigationSubmitApplicationServiceImpl extends AbstractBaseApplicat
     }
 
     @Override
-    public Response sureSubmit(IdCommand idCommand) {
-        return navigationSubmitCommandExecutor.sureSubmit(idCommand);
+    public Response sureSubmit(CommonIdCommand commonIdCommand) {
+        return navigationSubmitCommandExecutor.sureSubmit(commonIdCommand);
     }
 
 

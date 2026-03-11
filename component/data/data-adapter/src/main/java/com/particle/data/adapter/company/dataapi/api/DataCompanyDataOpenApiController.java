@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(DataCompanyDataOpenApiController.API_REQUEST_MAPPING)
 public class DataCompanyDataOpenApiController extends AbstractBaseApiAdapter {
+    // 如果使用了 global-openapi-boot-starter 默认以 /openapi 开头的都会处理
     public static final String API_REQUEST_MAPPING = "/openapi/dc";
 
     @Autowired

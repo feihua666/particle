@@ -4,9 +4,12 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as cmsChannelCreateApi} from "../../api/admin/cmsChannelAdminApi"
-import {addPageFormItems} from "../../components/admin/cmsChannelManage";
+import {useAddPageFormItems} from "../../components/admin/cmsChannelManage";
 
-
+// 声明属性
+// 只要声名了属性 attrs 中就不会有该属性了
+const props = defineProps({
+})
 // 属性
 const reactiveData = reactive({
   // 表单初始查询第一页
@@ -16,7 +19,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    addPageFormItems
+    useAddPageFormItems({props})
 )
 
 // 提交按钮属性

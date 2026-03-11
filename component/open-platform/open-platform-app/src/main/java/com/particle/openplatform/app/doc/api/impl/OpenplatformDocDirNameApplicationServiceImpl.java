@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.app.doc.executor.OpenplatformDocDirNameCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class OpenplatformDocDirNameApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public SingleResponse<OpenplatformDocDirNameVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocDirNameVO> delete(CommonIdCommand deleteCommand) {
 		return openplatformDocDirNameDeleteCommandExecutor.execute(deleteCommand);
 	}
 

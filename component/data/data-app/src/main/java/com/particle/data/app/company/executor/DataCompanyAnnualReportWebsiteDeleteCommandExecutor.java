@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyAnnualReportWebsiteAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyAnnualReportWebsiteVO;
 import com.particle.data.domain.company.DataCompanyAnnualReportWebsite;
 import com.particle.data.domain.company.DataCompanyAnnualReportWebsiteId;
 import com.particle.data.domain.company.gateway.DataCompanyAnnualReportWebsiteGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportWebsiteService;
-import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportWebsiteDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyAnnualReportWebsiteDeleteCommandExecutor  extends Abstra
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportWebsiteVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyAnnualReportWebsiteVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyAnnualReportWebsiteId dataCompanyAnnualReportWebsiteId = DataCompanyAnnualReportWebsiteId.of(deleteCommand.getId());
 		DataCompanyAnnualReportWebsite byId = dataCompanyAnnualReportWebsiteGateway.getById(dataCompanyAnnualReportWebsiteId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

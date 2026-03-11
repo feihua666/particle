@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprGeograApproveAnnouncementAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprGeograApproveAnnouncementQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprGeograApproveAnnouncementVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprGeograApproveAnnouncementDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprGeograApproveAnnouncementService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprGeograApproveAnnouncementPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprGeograApproveAnnouncementQueryCommandExecutor  extend
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprGeograApproveAnnouncementDO byId = iDataCompanyIprGeograApproveAnnouncementService.getById(detailCommand.getId());
 		DataCompanyIprGeograApproveAnnouncementVO dataCompanyIprGeograApproveAnnouncementVO = DataCompanyIprGeograApproveAnnouncementAppStructMapping.instance.dataCompanyIprGeograApproveAnnouncementDOToDataCompanyIprGeograApproveAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyIprGeograApproveAnnouncementVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprGeograApproveAnnouncementQueryCommandExecutor  extend
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprGeograApproveAnnouncementVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprGeograApproveAnnouncementDO byId = iDataCompanyIprGeograApproveAnnouncementService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprGeograApproveAnnouncementVO dataCompanyIprGeograApproveAnnouncementVO = DataCompanyIprGeograApproveAnnouncementAppStructMapping.instance.dataCompanyIprGeograApproveAnnouncementDOToDataCompanyIprGeograApproveAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyIprGeograApproveAnnouncementVO);

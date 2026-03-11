@@ -21,6 +21,6 @@ import org.springframework.context.annotation.Import;
 		MongoMessageEventConfiguration.class,
 		CloudStreamConfiguration.class,
 		JdbcTemplateMessageEventConfiguration.class})
-@ConditionalOnProperty(prefix = "particle.message", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.message", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalMessageAutoConfiguration {
 }

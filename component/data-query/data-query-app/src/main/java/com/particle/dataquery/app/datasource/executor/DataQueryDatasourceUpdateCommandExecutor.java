@@ -11,7 +11,7 @@ import com.particle.dataquery.domain.datasource.DataQueryDatasourceId;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceGateway;
 import com.particle.dataquery.domain.datasource.gateway.bigdatasource.DataQueryDatasourceDynamicBigDatasourceGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

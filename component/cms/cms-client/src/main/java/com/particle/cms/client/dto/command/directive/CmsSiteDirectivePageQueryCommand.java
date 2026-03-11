@@ -22,9 +22,13 @@ public class CmsSiteDirectivePageQueryCommand extends CmsDirectivePageQueryComma
     private Boolean isPrimeSite;
 
 
+    @Schema(description = "是否发布")
+    private Boolean isPublic;
+
     public static CmsSiteDirectivePageQueryCommand create(CmsDirectivePageQueryCommand pageQueryCommand,
                                                           Long id,
-                                                          Boolean isPrimeSite) {
+                                                          Boolean isPrimeSite,
+                                                          Boolean isPublic) {
         CmsSiteDirectivePageQueryCommand cmsSiteDirectivePageQueryCommand = new CmsSiteDirectivePageQueryCommand();
         cmsSiteDirectivePageQueryCommand.setIsPage(pageQueryCommand.getIsPage());
         cmsSiteDirectivePageQueryCommand.setPageNo(pageQueryCommand.getPageNo());
@@ -34,6 +38,7 @@ public class CmsSiteDirectivePageQueryCommand extends CmsDirectivePageQueryComma
 
         cmsSiteDirectivePageQueryCommand.setId(id);
         cmsSiteDirectivePageQueryCommand.setIsPrimeSite(isPrimeSite);
+        cmsSiteDirectivePageQueryCommand.setIsPublic(isPublic);
         return cmsSiteDirectivePageQueryCommand;
     }
 }

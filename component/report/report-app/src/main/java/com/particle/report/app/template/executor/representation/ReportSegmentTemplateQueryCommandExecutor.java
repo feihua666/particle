@@ -2,7 +2,7 @@ package com.particle.report.app.template.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class ReportSegmentTemplateQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<ReportSegmentTemplateVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<ReportSegmentTemplateVO> executeDetail(CommonIdCommand detailCommand) {
 		ReportSegmentTemplateDO byId = iReportSegmentTemplateService.getById(detailCommand.getId());
 		ReportSegmentTemplateVO reportSegmentTemplateVO = ReportSegmentTemplateAppStructMapping.instance.reportSegmentTemplateDOToReportSegmentTemplateVO(byId);
 		return SingleResponse.of(reportSegmentTemplateVO);
@@ -67,7 +67,7 @@ public class ReportSegmentTemplateQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<ReportSegmentTemplateVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<ReportSegmentTemplateVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		ReportSegmentTemplateDO byId = iReportSegmentTemplateService.getById(detailForUpdateCommand.getId());
 		ReportSegmentTemplateVO reportSegmentTemplateVO = ReportSegmentTemplateAppStructMapping.instance.reportSegmentTemplateDOToReportSegmentTemplateVO(byId);
 		return SingleResponse.of(reportSegmentTemplateVO);

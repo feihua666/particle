@@ -26,4 +26,4 @@ CREATE TABLE `component_data_company_ipr_patent_family` (
   UNIQUE KEY `uni_company_ipr_patent_id__standard_apply_no` (`company_ipr_patent_id`,`standard_apply_no`) USING BTREE,
   UNIQUE KEY `uni_company_ipr_patent_id__public_no` (`company_ipr_patent_id`,`public_no`) USING BTREE,
   UNIQUE KEY `uni_company_ipr_patent_id__standard_public_no` (`company_ipr_patent_id`,`standard_public_no`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权专利同族信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权专利同族信息表';

@@ -2,7 +2,7 @@ package com.particle.tracking.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tracking.app.structmapping.TrackingPageAppStructMapping;
 import com.particle.tracking.client.dto.command.TrackingPageUpdateCommand;
 import com.particle.tracking.client.dto.data.TrackingPageVO;

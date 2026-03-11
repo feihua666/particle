@@ -1,11 +1,11 @@
 package com.particle.data.adapter.dynamictable.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.dynamictable.api.IDynamicTableUploadRecordApplicationService;
 import com.particle.data.client.dynamictable.api.representation.IDynamicTableUploadRecordRepresentationApplicationService;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordCreateCommand;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableUploadRecordVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordUpdateCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableUploadRecordPageQueryCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableUploadRecordQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 动态数据表格上传记录后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DynamicTableUploadRecordAdminWebController extends AbstractBaseWebA
     @Operation(summary = "删除动态数据表格上传记录")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据表格上传记录",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicTableUploadRecordVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicTableUploadRecordVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicTableUploadRecordApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DynamicTableUploadRecordAdminWebController extends AbstractBaseWebA
     @PreAuthorize("hasAuthority('admin:web:dynamicTableUploadRecord:update')")
     @Operation(summary = "动态数据表格上传记录更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicTableUploadRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicTableUploadRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicTableUploadRecordRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicTableUploadRecord:detail')")
     @Operation(summary = "动态数据表格上传记录详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicTableUploadRecordVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicTableUploadRecordVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicTableUploadRecordRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -106,7 +105,7 @@ public class DynamicTableUploadRecordAdminWebController extends AbstractBaseWebA
     @Operation(summary = "发布动态数据表格上传记录")
     @PutMapping("/publish")
     @OpLog(name = "发布动态数据表格上传记录",module = OpLogConstants.Module.data,type = OpLogConstants.Type.update)
-    public SingleResponse<DynamicTableUploadRecordVO> publish(@RequestBody IdCommand publishCommand){
+    public SingleResponse<DynamicTableUploadRecordVO> publish(@RequestBody CommonIdCommand publishCommand){
         publishCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.update.name());
         return iDynamicTableUploadRecordApplicationService.publish(publishCommand);
     }

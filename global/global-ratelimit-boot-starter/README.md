@@ -27,7 +27,8 @@
 
 ```yaml
 particle:
-  rate-limit:
+  global:
+   rate-limit:
     # 限流相关配置
 ```
 

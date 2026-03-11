@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author yangwei
  * @since 2023-07-24 13:36
  */
-@ConfigurationProperties(prefix = "particle.session")
+@ConfigurationProperties(prefix = "particle.global.session")
 @Data
 public class GlobalSessionProperties {
 

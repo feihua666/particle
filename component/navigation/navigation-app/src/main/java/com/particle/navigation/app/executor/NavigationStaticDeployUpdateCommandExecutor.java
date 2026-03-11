@@ -1,10 +1,10 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationStaticDeployAppStructMapping;
 import com.particle.navigation.client.dto.command.NavigationStaticDeployUpdateCommand;
 import com.particle.navigation.client.dto.data.NavigationStaticDeployVO;
@@ -38,12 +38,12 @@ public class NavigationStaticDeployUpdateCommandExecutor  extends AbstractBaseEx
 
 	/**
 	 * 执行部署时间更新
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @param deployAt
 	 * @return
 	 */
-	public Response updateLastDeployAt(IdCommand idCommand, LocalDateTime deployAt){
-		NavigationStaticDeploy navigationStaticDeploy = navigationStaticDeployGateway.getById(NavigationStaticDeployId.of(idCommand.getId()));
+	public Response updateLastDeployAt(CommonIdCommand commonIdCommand, LocalDateTime deployAt){
+		NavigationStaticDeploy navigationStaticDeploy = navigationStaticDeployGateway.getById(NavigationStaticDeployId.of(commonIdCommand.getId()));
 		navigationStaticDeploy.changeLastDeployAt(deployAt);
 		boolean save = navigationStaticDeployGateway.save(navigationStaticDeploy);
 		if (save) {

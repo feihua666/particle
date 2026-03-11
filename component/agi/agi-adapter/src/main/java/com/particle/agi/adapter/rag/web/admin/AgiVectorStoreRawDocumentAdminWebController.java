@@ -7,7 +7,7 @@ import com.particle.agi.client.rag.dto.command.representation.AgiVectorStoreRawD
 import com.particle.agi.client.rag.dto.command.representation.AgiVectorStoreRawDocumentQueryListCommand;
 import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class AgiVectorStoreRawDocumentAdminWebController extends AbstractBaseWeb
     @Operation(summary = "删除知识存储原始文档")
     @DeleteMapping("/delete")
     @OpLog(name = "删除知识存储原始文档",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-    public SingleResponse<AgiVectorStoreRawDocumentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AgiVectorStoreRawDocumentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAgiVectorStoreRawDocumentApplicationService.delete(deleteCommand);
     }
@@ -60,7 +60,7 @@ public class AgiVectorStoreRawDocumentAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:agiVectorStoreRawDocument:detail')")
     @Operation(summary = "知识存储原始文档详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AgiVectorStoreRawDocumentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AgiVectorStoreRawDocumentVO> queryDetail(CommonIdCommand detailCommand){
         return iAgiVectorStoreRawDocumentRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -84,14 +84,14 @@ public class AgiVectorStoreRawDocumentAdminWebController extends AbstractBaseWeb
     @Operation(summary = "嵌入未嵌入的片段")
     @PostMapping("/embedding")
     @OpLog(name = "嵌入未嵌入的片段",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.create)
-    public Response embedding(@RequestBody IdCommand idCommand){
-        return iAgiVectorStoreRawDocumentApplicationService.embedding(idCommand);
+    public Response embedding(@RequestBody CommonIdCommand commonIdCommand){
+        return iAgiVectorStoreRawDocumentApplicationService.embedding(commonIdCommand);
     }
     @PreAuthorize("hasAuthority('admin:web:agiVectorStoreRawDocument:reEmbedding')")
     @Operation(summary = "重新嵌入所有片段")
     @PostMapping("/reEmbedding")
     @OpLog(name = "重新嵌入所有片段",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.create)
-    public Response reEmbedding(@RequestBody IdCommand idCommand){
-        return iAgiVectorStoreRawDocumentApplicationService.reEmbedding(idCommand);
+    public Response reEmbedding(@RequestBody CommonIdCommand commonIdCommand){
+        return iAgiVectorStoreRawDocumentApplicationService.reEmbedding(commonIdCommand);
     }
 }

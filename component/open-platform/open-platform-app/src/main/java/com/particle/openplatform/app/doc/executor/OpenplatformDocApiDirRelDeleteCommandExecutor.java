@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.doc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocApiDirRelAppStructMapping;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocApiDirRelVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocApiDirRel;
@@ -34,7 +34,7 @@ public class OpenplatformDocApiDirRelDeleteCommandExecutor  extends AbstractBase
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDirRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiDirRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformDocApiDirRelId openplatformDocApiDirRelId = OpenplatformDocApiDirRelId.of(deleteCommand.getId());
 		OpenplatformDocApiDirRel byId = openplatformDocApiDirRelGateway.getById(openplatformDocApiDirRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

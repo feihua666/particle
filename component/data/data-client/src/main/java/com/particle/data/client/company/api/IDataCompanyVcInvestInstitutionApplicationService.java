@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyVcInvestInstitutionCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcInvestInstitutionUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcInvestInstitutionVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyVcInvestInstitutionApplicationService extends IBase
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcInvestInstitutionVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyVcInvestInstitutionVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

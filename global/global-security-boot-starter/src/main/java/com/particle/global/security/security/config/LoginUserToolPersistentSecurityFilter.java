@@ -4,14 +4,13 @@ import cn.hutool.core.lang.Filter;
 import cn.hutool.core.lang.mutable.MutablePair;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
+import com.particle.global.tool.login.LoginUserTool;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,8 +35,6 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 
 	@Setter
 	private List<SecurityFilterPersistentLoginUserReadyListener> securityFilterPersistentLoginUserReadyListenerList;
-	@Setter
-	private GrantedTenantResolveAndPersistentHelper grantedTenantResolveAndPersistentHelper;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -50,7 +47,7 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 			if (principal != null) {
 				if (!(principal instanceof String)) {
 					if (principal instanceof LoginUser) {
-						LoginUserTool.saveToSession((LoginUser) principal, ((HttpServletRequest) request));
+						LoginUserTool.saveToThreadContext((LoginUser) principal);
 						LoginUserTool.setAnonymous(false);
 					}
 					userInfo = principalToString(principal);
@@ -62,7 +59,6 @@ public class LoginUserToolPersistentSecurityFilter extends GenericFilterBean {
 					securityFilterPersistentLoginUserReadyListener.onLoginUserReady(request);
 				}
 			}
-			grantedTenantResolveAndPersistentHelper.resolveAndPersistentIfNotExist(request);
 			chain.doFilter(request, response);
 		} finally {
 			LoginUserTool.clear();

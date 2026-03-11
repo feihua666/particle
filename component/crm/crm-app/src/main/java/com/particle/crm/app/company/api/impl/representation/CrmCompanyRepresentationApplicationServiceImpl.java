@@ -1,7 +1,7 @@
 package com.particle.crm.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.company.executor.representation.CrmCompanyQueryCommandExecutor;
 import com.particle.crm.client.company.api.representation.ICrmCompanyRepresentationApplicationService;
 import com.particle.crm.client.company.dto.command.representation.CrmCompanyPageQueryCommand;
@@ -28,12 +28,12 @@ public class CrmCompanyRepresentationApplicationServiceImpl extends AbstractBase
     private CrmCompanyQueryCommandExecutor crmCompanyQueryCommandExecutor;
 
     @Override
-    public SingleResponse<CrmCompanyVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<CrmCompanyVO> queryDetail(CommonIdCommand detailCommand) {
         return crmCompanyQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<CrmCompanyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<CrmCompanyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return crmCompanyQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

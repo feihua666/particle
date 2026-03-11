@@ -6,7 +6,7 @@ import com.particle.componentadmin.client.dto.data.AdminComponentDependencyVO;
 import com.particle.componentadmin.domain.AdminComponentDependency;
 import com.particle.componentadmin.domain.gateway.AdminComponentDependencyGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

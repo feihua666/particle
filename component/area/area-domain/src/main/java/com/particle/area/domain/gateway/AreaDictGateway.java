@@ -11,5 +11,6 @@ import com.particle.common.domain.gateway.IGateway;
  * @since 2024-02-27 11:02:44
  */
 public interface AreaDictGateway extends IGateway {
+
 	Long getDictIdByGroupCodeAndItemValue(String groupCode, String value);
 }

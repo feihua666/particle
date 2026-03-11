@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2024-02-23 14:42:51
  */
-@FeignClient(name = "${particle.feign-client.name.feedback:feedback}",path = "/rpc/feedback")
+@FeignClient(name = "${particle.feign-client.feedback.name:feedback-start}", contextId = "feedbackRpcFeignClient", url = "${particle.feign-client.feedback.url:}", path = "/rpc/feedback")
 public interface FeedbackRpcFeignClient {
 
 

@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyAnnualReportAdministrativeLicenseCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyAnnualReportAdministrativeLicenseApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyAnnualReportAdministrativeLicenseCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyAnnualReportAdministrativeLicenseWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyAnnualReportAdministrativeLicenseExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyAnnualReportAdministrativeLicenseApplicationServiceImpl 
     }
 
     @Override
-    public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyAnnualReportAdministrativeLicenseVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyAnnualReportAdministrativeLicenseDeleteCommandExecutor.execute(deleteCommand);
     }
 

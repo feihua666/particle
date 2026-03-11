@@ -2,7 +2,7 @@ package com.particle.openplatform.app.providerrecord.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordParamQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordParamVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordParamVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordParamDO byId = iOpenplatformProviderRecordParamService.getById(detailCommand.getId());
 		OpenplatformProviderRecordParamVO openplatformProviderRecordParamVO = OpenplatformProviderRecordParamAppStructMapping.instance.openplatformProviderRecordParamDOToOpenplatformProviderRecordParamVO(byId);
 		return SingleResponse.of(openplatformProviderRecordParamVO);
@@ -67,7 +67,7 @@ public class OpenplatformProviderRecordParamQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordParamVO> detailByOpenplatformProviderRecordId(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordParamVO> detailByOpenplatformProviderRecordId(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordParamDO byId = iOpenplatformProviderRecordParamService.getByOpenplatformProviderRecordId(detailCommand.getId());
 		OpenplatformProviderRecordParamVO openplatformProviderRecordParamVO = OpenplatformProviderRecordParamAppStructMapping.instance.openplatformProviderRecordParamDOToOpenplatformProviderRecordParamVO(byId);
 		return SingleResponse.of(openplatformProviderRecordParamVO);
@@ -77,7 +77,7 @@ public class OpenplatformProviderRecordParamQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordParamVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderRecordParamVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderRecordParamDO byId = iOpenplatformProviderRecordParamService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderRecordParamVO openplatformProviderRecordParamVO = OpenplatformProviderRecordParamAppStructMapping.instance.openplatformProviderRecordParamDOToOpenplatformProviderRecordParamVO(byId);
 		return SingleResponse.of(openplatformProviderRecordParamVO);

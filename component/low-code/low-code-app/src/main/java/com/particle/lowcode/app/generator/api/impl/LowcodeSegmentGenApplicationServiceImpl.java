@@ -1,7 +1,7 @@
 package com.particle.lowcode.app.generator.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.app.generator.executor.*;
@@ -49,7 +49,7 @@ public class LowcodeSegmentGenApplicationServiceImpl extends AbstractBaseApplica
 	}
 
 	@Override
-	public SingleResponse<LowcodeSegmentGenVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<LowcodeSegmentGenVO> delete(CommonIdCommand deleteCommand) {
 		return lowcodeSegmentGenDeleteCommandExecutor.execute(deleteCommand);
 	}
 
@@ -59,7 +59,7 @@ public class LowcodeSegmentGenApplicationServiceImpl extends AbstractBaseApplica
 	}
 
 	@Override
-	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(IdCommand reloadCommand) {
+	public SingleResponse<LowcodeSegmentGenVO> reloadLowcodeModelJson(CommonIdCommand reloadCommand) {
 		return lowcodeSegmentGenReloadLowcodeModelJsonCommandExecutor.reloadLowcodeModelJson(reloadCommand);
 	}
 

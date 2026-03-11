@@ -1,13 +1,12 @@
 package com.particle.func.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.client.dto.command.FuncCreateCommand;
 import com.particle.func.client.dto.command.FuncMoveCommand;
 import com.particle.func.client.dto.command.FuncUpdateCommand;
 import com.particle.func.client.dto.data.FuncVO;
 import com.particle.global.dto.response.SingleResponse;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -30,14 +29,14 @@ public interface IFuncApplicationService extends IBaseApplicationService {
 	 * @param copyCommand
 	 * @return
 	 */
-	SingleResponse<FuncVO> copy(IdCommand copyCommand);
+	SingleResponse<FuncVO> copy(CommonIdCommand copyCommand);
 
 	/**
 	 * 删除领域对象
 	 * @param funcDeleteCommand
 	 * @return
 	 */
-	SingleResponse<FuncVO> delete(IdCommand funcDeleteCommand);
+	SingleResponse<FuncVO> delete(CommonIdCommand funcDeleteCommand);
 
 	/**
 	 * 更新领域对象

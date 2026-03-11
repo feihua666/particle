@@ -3,8 +3,8 @@ package com.particle.user.adapter.login;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.particle.global.mybatis.plus.config.GlobalMybatisExecutorsConfig;
-import com.particle.global.security.security.login.LoginUser;
-import com.particle.global.security.security.login.LoginUserTool;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.global.tool.login.LoginUserTool;
 import com.particle.global.security.security.login.SecurityFilterPersistentLoginUserReadyListener;
 import com.particle.user.infrastructure.login.dos.UserLoginRecordDO;
 import com.particle.user.infrastructure.login.service.IUserLoginRecordService;
@@ -92,7 +92,7 @@ public class UserSecurityFilterPersistentLoginUserReadyListener implements Secur
 	}
 
 	/**
-	 * 初始化apiCount
+	 * 初始化 apiCount
 	 * @param request
 	 */
 	public static void initApiCountToOne(HttpServletRequest request) {

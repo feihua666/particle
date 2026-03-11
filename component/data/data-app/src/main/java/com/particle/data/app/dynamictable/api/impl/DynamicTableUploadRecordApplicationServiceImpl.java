@@ -1,10 +1,10 @@
 package com.particle.data.app.dynamictable.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamictable.executor.DynamicTableUploadRecordCreateCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableUploadRecordDeleteCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableUploadRecordUpdateCommandExecutor;
 import com.particle.data.app.dynamictable.executor.DynamicTableUploadRecordCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordUpdateCommand;
 import com.particle.data.client.dynamictable.api.IDynamicTableUploadRecordApplicationService;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUploadRecordCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class DynamicTableUploadRecordApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public SingleResponse<DynamicTableUploadRecordVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DynamicTableUploadRecordVO> delete(CommonIdCommand deleteCommand) {
         return dynamicTableUploadRecordDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -56,7 +55,7 @@ public class DynamicTableUploadRecordApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public SingleResponse<DynamicTableUploadRecordVO> publish(IdCommand publishCommand) {
+    public SingleResponse<DynamicTableUploadRecordVO> publish(CommonIdCommand publishCommand) {
         return dynamicTableUploadRecordCommandExecutor.publish(publishCommand);
     }
 

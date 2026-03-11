@@ -8,6 +8,7 @@ import com.particle.tenant.client.dto.command.representation.TenantPageQueryComm
 import com.particle.tenant.client.dto.command.representation.TenantQueryListCommand;
 import com.particle.tenant.client.dto.data.TenantCurrentVO;
 import com.particle.tenant.client.dto.data.TenantLoginVO;
+import com.particle.tenant.client.dto.data.TenantRpcVO;
 import com.particle.tenant.client.dto.data.TenantVO;
 import com.particle.tenant.domain.Tenant;
 import com.particle.tenant.domain.TenantId;
@@ -51,6 +52,7 @@ public abstract class TenantAppStructMapping  implements IBaseQueryCommandMapStr
 	 */
 	public abstract TenantVO tenantDOToTenantVO(TenantDO tenantDO);
 	public abstract TenantCurrentVO tenantDOToTenantCurrentVO(TenantDO tenantDO);
+	public abstract TenantRpcVO tenantDOToTenantRpcVO(TenantDO tenantDO);
 
 	/**
 	 * 批量转换
@@ -58,6 +60,7 @@ public abstract class TenantAppStructMapping  implements IBaseQueryCommandMapStr
 	 * @return
 	 */
 	public abstract List<TenantVO> tenantDOsToTenantVOs(List<TenantDO> tenantDOs);
+	public abstract List<TenantRpcVO> tenantDOsToTenantRpcVOs(List<TenantDO> tenantDOs);
 
 	/**
 	 * 分页转换
@@ -66,6 +69,9 @@ public abstract class TenantAppStructMapping  implements IBaseQueryCommandMapStr
 	 */
 	public PageResponse<TenantVO> infrastructurePageToPageResponse(Page<TenantDO> page) {
 		return PageResponse.of(tenantDOsToTenantVOs(page.getRecords()), (int) page.getTotal(), (int) page.getSize(), (int) page.getCurrent());
+	}
+	public PageResponse<TenantRpcVO> infrastructurePageToRpcPageResponse(Page<TenantDO> page) {
+		return PageResponse.of(tenantDOsToTenantRpcVOs(page.getRecords()), (int) page.getTotal(), (int) page.getSize(), (int) page.getCurrent());
 	}
 
 

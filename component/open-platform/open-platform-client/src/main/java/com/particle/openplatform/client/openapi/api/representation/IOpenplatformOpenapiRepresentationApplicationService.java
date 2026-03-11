@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.openapi.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.Response;
@@ -26,14 +26,14 @@ public interface IOpenplatformOpenapiRepresentationApplicationService extends IB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<OpenplatformOpenapiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<OpenplatformOpenapiVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -70,7 +70,7 @@ public interface IOpenplatformOpenapiRepresentationApplicationService extends IB
 	 * @param openplatformOpenapiBatchQueryRecordId
 	 * @return
 	 */
-	public Response asyncBatchQueryAndExport(IdCommand openplatformOpenapiBatchQueryRecordId);
+	public Response asyncBatchQueryAndExport(CommonIdCommand openplatformOpenapiBatchQueryRecordId);
 	/**
 	 * 下载批量查询模板
 	 *

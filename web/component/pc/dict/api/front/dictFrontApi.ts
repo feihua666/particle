@@ -1,6 +1,7 @@
 import axios, {AxiosPromise} from 'axios'
+import getApiPrefix from "../../../../../common/api/apiPrefixConfig";
 
-let dictPrefix = '/front/web/dict'
+let dictPrefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_DICT) + '/front/web/dict'
 export interface DictItemsParam{
     // 字典组编码
     groupCode: string

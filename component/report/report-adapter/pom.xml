@@ -44,5 +44,13 @@
             <version>${particle.version}</version>
             <optional>true</optional>
         </dependency>
+
+        <!-- 依赖全局安全，使用 SecurityPermissionService 内部校验权限 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
 package com.particle.navigation.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class NavigationSiteAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除导航网站")
     @DeleteMapping("/delete")
     @OpLog(name = "删除导航网站",module = OpLogConstants.Module.navigation,type = OpLogConstants.Type.delete)
-    public SingleResponse<NavigationSiteVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<NavigationSiteVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iNavigationSiteApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class NavigationSiteAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:navigationSite:update')")
     @Operation(summary = "导航网站更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<NavigationSiteVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<NavigationSiteVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iNavigationSiteRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:navigationSite:detail')")
     @Operation(summary = "导航网站详情展示")
     @GetMapping("/detail")
-    public SingleResponse<NavigationSiteVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<NavigationSiteVO> queryDetail(CommonIdCommand detailCommand){
         return iNavigationSiteRepresentationApplicationService.queryDetail(detailCommand);
     }
 

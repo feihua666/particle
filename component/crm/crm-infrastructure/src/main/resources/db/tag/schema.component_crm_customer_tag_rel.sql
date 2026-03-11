@@ -16,4 +16,4 @@ CREATE TABLE `component_crm_customer_tag_rel` (
   KEY `crm_customer_tag_id` (`crm_customer_tag_id`),
   KEY `create_at` (`create_at`) USING BTREE,
   KEY `update_at` (`update_at`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户标签关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='客户标签关系表';

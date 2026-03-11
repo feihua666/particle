@@ -1,7 +1,7 @@
 package com.particle.message.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.message.client.dto.command.MessageTemplateCreateCommand;
 import com.particle.message.client.dto.command.MessageTemplateUpdateCommand;
@@ -28,7 +28,7 @@ public interface IMessageTemplateApplicationService extends IBaseApplicationServ
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<MessageTemplateVO> delete(IdCommand deleteCommand);
+	SingleResponse<MessageTemplateVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dict.app.executor.representation.DictQueryCommandExecutor;
 import com.particle.dict.app.structmapping.DictAppStructMapping;
 import com.particle.dict.client.api.representation.IDictRepresentationApplicationService;
@@ -49,12 +49,12 @@ public class DictRepresentationApplicationServiceImpl extends AbstractBaseApplic
 	private IDictService iDictService;
 
 	@Override
-	public SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand) {
+	public SingleResponse<DictVO> queryDetail(CommonIdCommand dictQueryDetailCommand) {
 		return dictQueryCommandExecutor.executeDetail(dictQueryDetailCommand);
 	}
 
 	@Override
-	public SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand) {
+	public SingleResponse<DictVO> queryDetailForUpdate(CommonIdCommand dictQueryDetailForUpdateCommand) {
 		return dictQueryCommandExecutor.executeDetailForUpdate(dictQueryDetailForUpdateCommand);
 	}
 

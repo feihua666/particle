@@ -1,7 +1,7 @@
 package com.particle.agi.app.chat.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class AgiAgentChatMessageToolRepresentationApplicationServiceImpl extends
     private AgiAgentChatMessageToolQueryCommandExecutor agiAgentChatMessageToolQueryCommandExecutor;
 
     @Override
-    public SingleResponse<AgiAgentChatMessageToolVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<AgiAgentChatMessageToolVO> queryDetail(CommonIdCommand detailCommand) {
         return agiAgentChatMessageToolQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<AgiAgentChatMessageToolVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<AgiAgentChatMessageToolVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return agiAgentChatMessageToolQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

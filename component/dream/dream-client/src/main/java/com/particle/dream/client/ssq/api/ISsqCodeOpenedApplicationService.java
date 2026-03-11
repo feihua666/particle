@@ -8,7 +8,6 @@ import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedPredictionParameterTu
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -37,7 +36,7 @@ public interface ISsqCodeOpenedApplicationService extends IBaseApplicationServic
 	 * @param predictionParameterTuningCommand
 	 * @return
 	 */
-	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(@RequestBody SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand);
+	public MultiResponse<SsqCodeOpenedPredictionParameterTuningRegionVO> predictionParameterTuning(SsqCodeOpenedPredictionParameterTuningCommand predictionParameterTuningCommand);
 
 	/**
 	 * 检查是否中奖

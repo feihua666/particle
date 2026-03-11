@@ -25,4 +25,4 @@ CREATE TABLE `component_data_company_serious_illegal` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
   UNIQUE KEY `uni_company_id__data_md5` (`company_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业严重违法表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业严重违法表';

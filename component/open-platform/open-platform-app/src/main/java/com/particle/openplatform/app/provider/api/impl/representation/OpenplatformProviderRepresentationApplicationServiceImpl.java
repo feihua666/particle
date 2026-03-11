@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.provider.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformProviderRepresentationApplicationServiceImpl extends Ab
     private OpenplatformProviderQueryCommandExecutor openplatformProviderQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformProviderVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformProviderVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformProviderQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformProviderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformProviderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformProviderQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

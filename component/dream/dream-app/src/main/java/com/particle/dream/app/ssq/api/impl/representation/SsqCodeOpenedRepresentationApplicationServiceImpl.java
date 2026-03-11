@@ -1,7 +1,7 @@
 package com.particle.dream.app.ssq.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dream.app.ssq.executor.representation.SsqCodeOpenedQueryCommandExecutor;
 import com.particle.dream.client.ssq.api.representation.ISsqCodeOpenedRepresentationApplicationService;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedPageQueryCommand;
@@ -28,7 +28,7 @@ public class SsqCodeOpenedRepresentationApplicationServiceImpl extends AbstractB
     private SsqCodeOpenedQueryCommandExecutor ssqCodeOpenedQueryCommandExecutor;
 
     @Override
-    public SingleResponse<SsqCodeOpenedVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<SsqCodeOpenedVO> queryDetail(CommonIdCommand detailCommand) {
         return ssqCodeOpenedQueryCommandExecutor.executeDetail(detailCommand);
     }
 

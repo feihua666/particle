@@ -77,9 +77,9 @@ public class TempTest {
         createCommand.setIsGroup(isGroup);
         createCommand.setIsItem(isItem);
         String body = JsonTool.toJsonStr(createCommand);
-        // c-token-id
+        // X-Token-Id
         // 	67dcde68-3a5f-453e-a915-94c1c8013d53
-        HttpClientTool.ExtConfig extConfig = HttpClientTool.ExtConfig.create().addHeader("c-token-id", "67dcde68-3a5f-453e-a915-94c1c8013d53");
+        HttpClientTool.ExtConfig extConfig = HttpClientTool.ExtConfig.create().addHeader("X-Token-Id", "67dcde68-3a5f-453e-a915-94c1c8013d53");
         String postedJson = HttpClientTool.postJson("http://localhost:8080/admin/web/dict/create", body, extConfig);
         JSONObject entries = JSONUtil.parseObj(postedJson);
         JSONObject data = entries.getJSONObject("data");

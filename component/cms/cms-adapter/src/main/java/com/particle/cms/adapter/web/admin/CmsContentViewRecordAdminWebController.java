@@ -1,11 +1,11 @@
 package com.particle.cms.adapter.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.cms.client.api.ICmsContentViewRecordApplicationService;
 import com.particle.cms.client.api.representation.ICmsContentViewRecordRepresentationApplicationService;
 import com.particle.cms.client.dto.command.CmsContentViewRecordCreateCommand;
 import com.particle.cms.client.dto.data.CmsContentViewRecordVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.cms.client.dto.command.CmsContentViewRecordUpdateCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentViewRecordPageQueryCommand;
 import com.particle.cms.client.dto.command.representation.CmsContentViewRecordQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 内容访问记录后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class CmsContentViewRecordAdminWebController extends AbstractBaseWebAdapt
     @Operation(summary = "删除内容访问记录")
     @DeleteMapping("/delete")
     @OpLog(name = "删除内容访问记录",module = OpLogConstants.Module.cms,type = OpLogConstants.Type.delete)
-    public SingleResponse<CmsContentViewRecordVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<CmsContentViewRecordVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iCmsContentViewRecordApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class CmsContentViewRecordAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:cmsContentViewRecord:update')")
     @Operation(summary = "内容访问记录更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<CmsContentViewRecordVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<CmsContentViewRecordVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iCmsContentViewRecordRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:cmsContentViewRecord:detail')")
     @Operation(summary = "内容访问记录详情展示")
     @GetMapping("/detail")
-    public SingleResponse<CmsContentViewRecordVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<CmsContentViewRecordVO> queryDetail(CommonIdCommand detailCommand){
         return iCmsContentViewRecordRepresentationApplicationService.queryDetail(detailCommand);
     }
 

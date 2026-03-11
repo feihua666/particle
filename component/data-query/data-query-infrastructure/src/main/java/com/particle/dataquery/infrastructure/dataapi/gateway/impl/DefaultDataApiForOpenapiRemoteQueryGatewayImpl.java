@@ -94,6 +94,7 @@ public class DefaultDataApiForOpenapiRemoteQueryGatewayImpl implements DataApiRe
 
 		/**
 		 * 开放接口的前缀
+		 * 参见 {@link com.particle.dataquery.adapter.dataapi.api.DataQueryDataApiForOpenapiController#API_REQUEST_MAPPING}
 		 */
 		private String urlPrefix = "/openapi/dq";
 

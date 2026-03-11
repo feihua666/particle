@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanySeriousIllegalApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanySeriousIllegalRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanySeriousIllegalCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanySeriousIllegalVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanySeriousIllegalUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanySeriousIllegalPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanySeriousIllegalQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业严重违法后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanySeriousIllegalAdminWebController extends AbstractBaseWeb
     @Operation(summary = "删除企业严重违法")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业严重违法",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanySeriousIllegalVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanySeriousIllegalVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanySeriousIllegalApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanySeriousIllegalAdminWebController extends AbstractBaseWeb
     @PreAuthorize("hasAuthority('admin:web:dataCompanySeriousIllegal:update')")
     @Operation(summary = "企业严重违法更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanySeriousIllegalVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanySeriousIllegalVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanySeriousIllegalRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanySeriousIllegal:detail')")
     @Operation(summary = "企业严重违法详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanySeriousIllegalVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanySeriousIllegalVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanySeriousIllegalRepresentationApplicationService.queryDetail(detailCommand);
     }
 

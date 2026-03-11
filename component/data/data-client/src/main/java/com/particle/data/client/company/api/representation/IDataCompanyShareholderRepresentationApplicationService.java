@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyShareholderPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyShareholderQueryListCommand;
 import com.particle.data.client.company.dto.command.representation.exwarehouse.DataCompanyShareholderExWarehouseQueryCommand;
@@ -26,14 +26,14 @@ public interface IDataCompanyShareholderRepresentationApplicationService extends
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyShareholderVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyShareholderVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyShareholderVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyShareholderVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

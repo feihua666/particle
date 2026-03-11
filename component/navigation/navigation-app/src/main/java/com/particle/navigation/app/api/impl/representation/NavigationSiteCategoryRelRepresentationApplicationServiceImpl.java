@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class NavigationSiteCategoryRelRepresentationApplicationServiceImpl exten
     private NavigationSiteCategoryRelQueryCommandExecutor navigationSiteCategoryRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<NavigationSiteCategoryRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<NavigationSiteCategoryRelVO> queryDetail(CommonIdCommand detailCommand) {
         return navigationSiteCategoryRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<NavigationSiteCategoryRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<NavigationSiteCategoryRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return navigationSiteCategoryRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -48,14 +48,14 @@ public class NavigationSiteCategoryRelRepresentationApplicationServiceImpl exten
     }
 
 	@Override
-	public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(IdCommand navigationSiteIdCommand) {
+	public MultiResponse<Long> queryNavigationCategoryIdsByNavigationSiteId(CommonIdCommand navigationSiteCommonIdCommand) {
 
-		return navigationSiteCategoryRelQueryCommandExecutor.queryNavigationCategoryIdsByNavigationSiteId(navigationSiteIdCommand);
+		return navigationSiteCategoryRelQueryCommandExecutor.queryNavigationCategoryIdsByNavigationSiteId(navigationSiteCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryNavigationSiteIdsByNavigationCategoryId(IdCommand navigationCategoryIdCommand) {
-		return navigationSiteCategoryRelQueryCommandExecutor.queryNavigationSiteIdsByNavigationCategoryId(navigationCategoryIdCommand);
+	public MultiResponse<Long> queryNavigationSiteIdsByNavigationCategoryId(CommonIdCommand navigationCategoryCommonIdCommand) {
+		return navigationSiteCategoryRelQueryCommandExecutor.queryNavigationSiteIdsByNavigationCategoryId(navigationCategoryCommonIdCommand);
 	}
 
     @Autowired

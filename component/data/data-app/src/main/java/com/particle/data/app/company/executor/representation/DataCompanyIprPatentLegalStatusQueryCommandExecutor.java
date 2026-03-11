@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprPatentLegalStatusAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentLegalStatusQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentLegalStatusVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentLegalStatusDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentLegalStatusService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentLegalStatusPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentLegalStatusQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentLegalStatusVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentLegalStatusVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentLegalStatusDO byId = iDataCompanyIprPatentLegalStatusService.getById(detailCommand.getId());
 		DataCompanyIprPatentLegalStatusVO dataCompanyIprPatentLegalStatusVO = DataCompanyIprPatentLegalStatusAppStructMapping.instance.dataCompanyIprPatentLegalStatusDOToDataCompanyIprPatentLegalStatusVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentLegalStatusVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentLegalStatusQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentLegalStatusVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentLegalStatusVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentLegalStatusDO byId = iDataCompanyIprPatentLegalStatusService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentLegalStatusVO dataCompanyIprPatentLegalStatusVO = DataCompanyIprPatentLegalStatusAppStructMapping.instance.dataCompanyIprPatentLegalStatusDOToDataCompanyIprPatentLegalStatusVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentLegalStatusVO);

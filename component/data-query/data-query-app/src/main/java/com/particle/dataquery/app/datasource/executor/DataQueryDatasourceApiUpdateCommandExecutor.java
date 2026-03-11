@@ -2,7 +2,7 @@ package com.particle.dataquery.app.datasource.executor;
 
 import cn.hutool.core.net.NetUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceApiUpdateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceApiVO;
@@ -12,7 +12,7 @@ import com.particle.dataquery.domain.datasource.DataQueryDatasourceApiId;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceApiGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -76,7 +76,7 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<String> refreshCache(@Valid IdCommand deleteCommand) {
+	public SingleResponse<String> refreshCache(@Valid CommonIdCommand deleteCommand) {
 		DataQueryDatasourceApiId dataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
 		DataQueryDatasourceApi byId = dataQueryDatasourceApiGateway.getById(dataQueryDatasourceApiId);
 
@@ -91,7 +91,7 @@ public class DataQueryDatasourceApiUpdateCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataQueryDatasourceApiVO> devMergeToMaster(@Valid CommonIdCommand deleteCommand) {
 		DataQueryDatasourceApiId devDataQueryDatasourceApiId = DataQueryDatasourceApiId.of(deleteCommand.getId());
 		DataQueryDatasourceApi devDataQueryDatasourceApi = dataQueryDatasourceApiGateway.getById(devDataQueryDatasourceApiId);
 

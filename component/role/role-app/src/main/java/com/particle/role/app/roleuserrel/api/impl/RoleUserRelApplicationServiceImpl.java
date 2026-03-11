@@ -1,7 +1,7 @@
 package com.particle.role.app.roleuserrel.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -48,7 +48,7 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
     }
 
     @Override
-	public SingleResponse<RoleUserRelVO> delete(IdCommand roleUserRelDeleteCommand) {
+	public SingleResponse<RoleUserRelVO> delete(CommonIdCommand roleUserRelDeleteCommand) {
 		return roleUserRelDeleteCommandExecutor.execute(roleUserRelDeleteCommand);
 	}
 
@@ -64,13 +64,13 @@ public class RoleUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public Response deleteByRoleId(IdCommand roleIdCommand) {
-		return roleUserRelDeleteCommandExecutor.deleteByRoleId(roleIdCommand);
+	public Response deleteByRoleId(CommonIdCommand roleCommonIdCommand) {
+		return roleUserRelDeleteCommandExecutor.deleteByRoleId(roleCommonIdCommand);
 	}
 
 	@Override
-	public Response deleteByUserId(IdCommand userIdCommand) {
-		return roleUserRelDeleteCommandExecutor.deleteByUserId(userIdCommand);
+	public Response deleteByUserId(CommonIdCommand userCommonIdCommand) {
+		return roleUserRelDeleteCommandExecutor.deleteByUserId(userCommonIdCommand);
 	}
 
 

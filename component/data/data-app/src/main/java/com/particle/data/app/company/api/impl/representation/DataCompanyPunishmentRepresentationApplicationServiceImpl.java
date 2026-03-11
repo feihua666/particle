@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -31,12 +31,12 @@ public class DataCompanyPunishmentRepresentationApplicationServiceImpl extends A
     private DataCompanyPunishmentQueryCommandExecutor dataCompanyPunishmentQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyPunishmentVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyPunishmentVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyPunishmentQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyPunishmentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyPunishmentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyPunishmentQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

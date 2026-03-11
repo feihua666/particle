@@ -58,4 +58,4 @@ CREATE TABLE `component_data_company_ipr_patent` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `apply_no` (`apply_no`) USING BTREE,
   UNIQUE KEY `public_no` (`public_no`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权专利表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权专利表';

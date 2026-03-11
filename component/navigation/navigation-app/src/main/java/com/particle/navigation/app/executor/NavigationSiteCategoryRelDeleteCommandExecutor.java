@@ -1,11 +1,11 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationSiteCategoryRelAppStructMapping;
 import com.particle.navigation.client.dto.data.NavigationSiteCategoryRelVO;
 import com.particle.navigation.domain.NavigationSiteCategoryRel;
@@ -38,7 +38,7 @@ public class NavigationSiteCategoryRelDeleteCommandExecutor  extends AbstractBas
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteCategoryRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<NavigationSiteCategoryRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		NavigationSiteCategoryRelId navigationSiteCategoryRelId = NavigationSiteCategoryRelId.of(deleteCommand.getId());
 		NavigationSiteCategoryRel byId = navigationSiteCategoryRelGateway.getById(navigationSiteCategoryRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class NavigationSiteCategoryRelDeleteCommandExecutor  extends AbstractBas
 
 	/**
 	 * 根据 navigationSiteId 删除
-	 * @param navigationSiteIdCommand
+	 * @param navigationSiteCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationSiteId(@Valid IdCommand navigationSiteIdCommand) {
-		boolean result = iNavigationSiteCategoryRelService.deleteByColumn(navigationSiteIdCommand.getId(), NavigationSiteCategoryRelDO::getNavigationSiteId);
+	public Response deleteByNavigationSiteId(@Valid CommonIdCommand navigationSiteCommonIdCommand) {
+		boolean result = iNavigationSiteCategoryRelService.deleteByColumn(navigationSiteCommonIdCommand.getId(), NavigationSiteCategoryRelDO::getNavigationSiteId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 navigationCategoryId 删除
-	 * @param navigationCategoryIdCommand
+	 * @param navigationCategoryCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByNavigationCategoryId(@Valid IdCommand navigationCategoryIdCommand) {
-		boolean result = iNavigationSiteCategoryRelService.deleteByColumn(navigationCategoryIdCommand.getId(), NavigationSiteCategoryRelDO::getNavigationCategoryId);
+	public Response deleteByNavigationCategoryId(@Valid CommonIdCommand navigationCategoryCommonIdCommand) {
+		boolean result = iNavigationSiteCategoryRelService.deleteByColumn(navigationCategoryCommonIdCommand.getId(), NavigationSiteCategoryRelDO::getNavigationCategoryId);
 		return Response.buildSuccess();
 	}
 

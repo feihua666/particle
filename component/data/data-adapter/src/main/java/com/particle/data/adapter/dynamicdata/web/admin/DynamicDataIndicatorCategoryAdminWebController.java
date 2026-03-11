@@ -21,15 +21,14 @@ import com.particle.data.client.dynamicdata.dto.command.*;
 import com.particle.data.client.dynamicdata.dto.command.representation.*;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorCategoryUploadRecordVO;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorCategoryVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
 import com.particle.data.client.dynamicdata.dto.data.DynamicDataIndicatorVO;
 import com.particle.global.document.template.GlobalDocumentTemplate;
 import com.particle.global.document.template.GlobalDocumentTemplateService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
-import com.particle.global.light.share.mybatis.anno.In;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.table.DynamicDO;
 import com.particle.global.oss.service.GlobalOssClientService;
 import com.particle.global.tool.document.excel.CustomExcelWriter;
@@ -113,7 +112,7 @@ public class DynamicDataIndicatorCategoryAdminWebController extends AbstractBase
     @Operation(summary = "删除动态数据指标分类")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据指标分类",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicDataIndicatorCategoryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicDataIndicatorCategoryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicDataIndicatorCategoryApplicationService.delete(deleteCommand);
     }
@@ -130,14 +129,14 @@ public class DynamicDataIndicatorCategoryAdminWebController extends AbstractBase
     @PreAuthorize("hasAuthority('admin:web:dynamicDataIndicatorCategory:update')")
     @Operation(summary = "动态数据指标分类更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicDataIndicatorCategoryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicDataIndicatorCategoryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicDataIndicatorCategoryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicDataIndicatorCategory:detail')")
     @Operation(summary = "动态数据指标分类详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicDataIndicatorCategoryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicDataIndicatorCategoryVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicDataIndicatorCategoryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

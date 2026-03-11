@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -26,14 +26,14 @@ public interface IDataCompanyVcProductCompetitiveProductRelRepresentationApplica
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -51,17 +51,17 @@ public interface IDataCompanyVcProductCompetitiveProductRelRepresentationApplica
 
 	/**
 	 * 查询企业融资产品表ID已分配的企业竞品id
-	 * @param companyVcProductIdCommand
+	 * @param companyVcProductCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(IdCommand companyVcProductIdCommand);
+	public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(CommonIdCommand companyVcProductCommonIdCommand);
 
 	/**
 	 * 查询企业竞品已分配的企业融资产品表IDid
-	 * @param companyVcCompetitiveProductIdCommand
+	 * @param companyVcCompetitiveProductCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(IdCommand companyVcCompetitiveProductIdCommand);
+	public MultiResponse<Long> queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(CommonIdCommand companyVcCompetitiveProductCommonIdCommand);
 
 	/**
 	 * 企业融资产品竞品关系出库

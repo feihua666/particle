@@ -1,12 +1,16 @@
 package com.particle.cms.app.executor;
 
+import cn.hutool.core.util.StrUtil;
 import com.particle.cms.app.structmapping.CmsContentAppStructMapping;
 import com.particle.cms.client.dto.command.CmsContentCreateCommand;
+import com.particle.cms.client.dto.command.CmsContentMultimediaCreateCommand;
 import com.particle.cms.client.dto.data.CmsContentVO;
 import com.particle.cms.domain.CmsContent;
 import com.particle.cms.domain.gateway.CmsContentGateway;
+import com.particle.cms.domain.service.ArticleStatisticsService;
+import com.particle.cms.domain.value.ArticleStats;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -31,6 +35,9 @@ import jakarta.validation.Valid;
 public class CmsContentCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	private CmsContentGateway cmsContentGateway;
+    private CmsContentMultimediaCreateCommandExecutor cmsContentMultimediaCreateCommandExecutor;
+
+	private ArticleStatisticsService articleStatisticsService;
 
 	/**
 	 * 执行内容添加指令
@@ -40,9 +47,26 @@ public class CmsContentCreateCommandExecutor  extends AbstractBaseExecutor {
 	public SingleResponse<CmsContentVO> execute(@Valid CmsContentCreateCommand cmsContentCreateCommand) {
 		CmsContent cmsContent = createByCmsContentCreateCommand(cmsContentCreateCommand);
 		cmsContent.initForAdd();
+		Boolean isUseArticleAnalyzer = cmsContentCreateCommand.getIsUseArticleAnalyzer();
+		if (isUseArticleAnalyzer !=  null && isUseArticleAnalyzer && StrUtil.isNotEmpty(cmsContentCreateCommand.getContentArticle())) {
+			ArticleStats calculated = articleStatisticsService.calculate(cmsContentCreateCommand.getContentArticle());
+			cmsContent.updateStats(calculated);
+		}
 		cmsContent.setAddControl(cmsContentCreateCommand);
 		boolean save = cmsContentGateway.save(cmsContent);
 		if (save) {
+            String contentArticle = cmsContentCreateCommand.getContentArticle();
+            if (StrUtil.isNotEmpty(contentArticle)) {
+                // 处理多媒体内容
+                CmsContentMultimediaCreateCommand cmsContentMultimediaCreateCommand = new CmsContentMultimediaCreateCommand();
+                cmsContentMultimediaCreateCommand.setCmsContentId(cmsContent.getId().getId());
+                cmsContentMultimediaCreateCommand.setCmsSiteId(cmsContent.getCmsSiteId());
+                cmsContentMultimediaCreateCommand.setContent(contentArticle);
+                cmsContentMultimediaCreateCommand.setSeq(1000);
+                cmsContentMultimediaCreateCommandExecutor.execute(cmsContentMultimediaCreateCommand);
+            }
+
+
 			return SingleResponse.of(CmsContentAppStructMapping.instance.toCmsContentVO(cmsContent));
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
@@ -78,5 +102,17 @@ public class CmsContentCreateCommandExecutor  extends AbstractBaseExecutor {
 	@Autowired
 	public void setCmsContentGateway(CmsContentGateway cmsContentGateway) {
 		this.cmsContentGateway = cmsContentGateway;
+	}
+    /**
+     * 注入使用set方法
+     * @param cmsContentMultimediaCreateCommandExecutor
+     */
+    @Autowired
+    public void setCmsContentMultimediaCreateCommandExecutor(CmsContentMultimediaCreateCommandExecutor cmsContentMultimediaCreateCommandExecutor) {
+        this.cmsContentMultimediaCreateCommandExecutor = cmsContentMultimediaCreateCommandExecutor;
+    }
+	@Autowired
+	public void setArticleStatisticsService(ArticleStatisticsService articleStatisticsService) {
+		this.articleStatisticsService = articleStatisticsService;
 	}
 }

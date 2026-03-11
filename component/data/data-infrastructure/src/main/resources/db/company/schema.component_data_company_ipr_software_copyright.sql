@@ -25,4 +25,4 @@ CREATE TABLE `component_data_company_ipr_software_copyright` (
   UNIQUE KEY `reg_no` (`reg_no`) USING BTREE,
   KEY `copyright_owner_company_id` (`copyright_owner_company_id`) USING BTREE,
   KEY `copyright_owner_company_person_id` (`copyright_owner_company_person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权软件著作表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权软件著作表';

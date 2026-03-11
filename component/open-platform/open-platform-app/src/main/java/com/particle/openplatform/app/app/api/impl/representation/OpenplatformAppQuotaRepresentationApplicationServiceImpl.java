@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformAppQuotaRepresentationApplicationServiceImpl extends Ab
     private OpenplatformAppQuotaQueryCommandExecutor openplatformAppQuotaQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformAppQuotaVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformAppQuotaVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformAppQuotaQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformAppQuotaVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformAppQuotaVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformAppQuotaQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

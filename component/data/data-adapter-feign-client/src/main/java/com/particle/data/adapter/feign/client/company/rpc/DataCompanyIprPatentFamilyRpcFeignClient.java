@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-04-05 16:40:43
  */
-@FeignClient(name = "${particle.feign-client.name.data:data}",path = "/rpc/data_company_ipr_patent_family")
+@FeignClient(name = "${particle.feign-client.data.name:data-start}", contextId = "dataCompanyIprPatentFamilyRpcFeignClient", url = "${particle.feign-client.data.url:}", path = "/rpc/data_company_ipr_patent_family")
 public interface DataCompanyIprPatentFamilyRpcFeignClient {
 
 

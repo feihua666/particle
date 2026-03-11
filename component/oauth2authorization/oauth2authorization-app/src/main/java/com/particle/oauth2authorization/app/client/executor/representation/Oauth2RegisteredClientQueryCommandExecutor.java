@@ -2,7 +2,7 @@ package com.particle.oauth2authorization.app.client.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class Oauth2RegisteredClientQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<Oauth2RegisteredClientVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<Oauth2RegisteredClientVO> executeDetail(CommonIdCommand detailCommand) {
 		Oauth2RegisteredClientDO byId = iOauth2RegisteredClientService.getById(detailCommand.getId());
 		Oauth2RegisteredClientVO oauth2RegisteredClientVO = Oauth2RegisteredClientAppStructMapping.instance.oauth2RegisteredClientDOToOauth2RegisteredClientVO(byId);
 		return SingleResponse.of(oauth2RegisteredClientVO);
@@ -67,7 +67,7 @@ public class Oauth2RegisteredClientQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<Oauth2RegisteredClientVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<Oauth2RegisteredClientVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		Oauth2RegisteredClientDO byId = iOauth2RegisteredClientService.getById(detailForUpdateCommand.getId());
 		Oauth2RegisteredClientVO oauth2RegisteredClientVO = Oauth2RegisteredClientAppStructMapping.instance.oauth2RegisteredClientDOToOauth2RegisteredClientVO(byId);
 		return SingleResponse.of(oauth2RegisteredClientVO);

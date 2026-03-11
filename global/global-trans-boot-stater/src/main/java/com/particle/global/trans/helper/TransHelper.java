@@ -50,7 +50,7 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 @Slf4j
 public class TransHelper {
 
-    private static final String transNotifyThresholdPlaceholder = "particle.notify.trans.threshold";
+    private static final String transNotifyThresholdPlaceholder = "particle.global.notify.trans.threshold";
 
 
     /**
@@ -935,6 +935,7 @@ public class TransHelper {
                         .filter(iTransServiceItem -> isBatch ? iTransServiceItem.supportBatch(type) : iTransServiceItem.support(type))
                         .findFirst().orElse(ITransService.emptyTransService);
             }
+            log.warn("No supported transService found for type: {}. Use emptyTransService instead.", type);
             return ITransService.emptyTransService;
         });
         return iTransService;

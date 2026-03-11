@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.openapirecord.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -41,14 +41,14 @@ public class OpenplatformOpenapiRecordParamAdminWebController extends AbstractBa
 	@Operation(summary = "删除开放平台开放接口调用记录参数")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台开放接口调用记录参数",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformOpenapiRecordParamApplicationService.delete(deleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordParam:detail')")
 	@Operation(summary = "开放平台开放接口调用记录参数详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformOpenapiRecordParamRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -56,7 +56,7 @@ public class OpenplatformOpenapiRecordParamAdminWebController extends AbstractBa
 	@PreAuthorize("hasAuthority('admin:web:openplatformOpenapiRecordParam:detail')")
 	@Operation(summary = "开放平台开放接口调用记录参数详情展示1")
 	@GetMapping("/detailByOpenplatformOpenapiRecordId")
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(IdCommand detailCommand){
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> detailByOpenplatformOpenapiRecordId(CommonIdCommand detailCommand){
 		return iOpenplatformOpenapiRecordParamRepresentationApplicationService.detailByOpenplatformOpenapiRecordId(detailCommand);
 	}
 

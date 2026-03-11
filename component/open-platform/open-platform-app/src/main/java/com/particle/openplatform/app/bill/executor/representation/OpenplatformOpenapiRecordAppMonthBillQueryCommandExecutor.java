@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiRecordAppMonthBillQueryCommandExecutor  extends 
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiRecordAppMonthBillDO byId = iOpenplatformOpenapiRecordAppMonthBillService.getById(detailCommand.getId());
 		OpenplatformOpenapiRecordAppMonthBillVO openplatformOpenapiRecordAppMonthBillVO = OpenplatformOpenapiRecordAppMonthBillAppStructMapping.instance.openplatformOpenapiRecordAppMonthBillDOToOpenplatformOpenapiRecordAppMonthBillVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordAppMonthBillVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiRecordAppMonthBillQueryCommandExecutor  extends 
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiRecordAppMonthBillDO byId = iOpenplatformOpenapiRecordAppMonthBillService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiRecordAppMonthBillVO openplatformOpenapiRecordAppMonthBillVO = OpenplatformOpenapiRecordAppMonthBillAppStructMapping.instance.openplatformOpenapiRecordAppMonthBillDOToOpenplatformOpenapiRecordAppMonthBillVO(byId);
 		return SingleResponse.of(openplatformOpenapiRecordAppMonthBillVO);

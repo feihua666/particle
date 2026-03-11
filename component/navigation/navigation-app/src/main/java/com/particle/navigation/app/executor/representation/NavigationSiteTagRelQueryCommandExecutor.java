@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +58,7 @@ public class NavigationSiteTagRelQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteTagRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationSiteTagRelVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationSiteTagRelDO byId = iNavigationSiteTagRelService.getById(detailCommand.getId());
 		NavigationSiteTagRelVO navigationSiteTagRelVO = NavigationSiteTagRelAppStructMapping.instance.navigationSiteTagRelDOToNavigationSiteTagRelVO(byId);
 		return SingleResponse.of(navigationSiteTagRelVO);
@@ -68,7 +68,7 @@ public class NavigationSiteTagRelQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationSiteTagRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationSiteTagRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationSiteTagRelDO byId = iNavigationSiteTagRelService.getById(detailForUpdateCommand.getId());
 		NavigationSiteTagRelVO navigationSiteTagRelVO = NavigationSiteTagRelAppStructMapping.instance.navigationSiteTagRelDOToNavigationSiteTagRelVO(byId);
 		return SingleResponse.of(navigationSiteTagRelVO);
@@ -77,13 +77,13 @@ public class NavigationSiteTagRelQueryCommandExecutor  extends AbstractBaseQuery
 
 	/**
 	 * 查询网站已分配的网站标签ids
-	 * @param navigationSiteIdCommand
+	 * @param navigationSiteCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryNavigationSiteTagIdsByNavigationSiteId(@Valid IdCommand navigationSiteIdCommand) {
+	public MultiResponse<Long> queryNavigationSiteTagIdsByNavigationSiteId(@Valid CommonIdCommand navigationSiteCommonIdCommand) {
 
 		NavigationSiteTagRelQueryListCommand navigationSiteTagRelQueryListCommand = new NavigationSiteTagRelQueryListCommand();
-		navigationSiteTagRelQueryListCommand.setNavigationSiteId(navigationSiteIdCommand.getId());
+		navigationSiteTagRelQueryListCommand.setNavigationSiteId(navigationSiteCommonIdCommand.getId());
 		MultiResponse<NavigationSiteTagRelVO> navigationSiteTagRelVOMultiResponse = execute(navigationSiteTagRelQueryListCommand);
 		if(navigationSiteTagRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = navigationSiteTagRelVOMultiResponse.getData().stream().map(NavigationSiteTagRelVO::getNavigationSiteTagId).collect(Collectors.toList());
@@ -93,13 +93,13 @@ public class NavigationSiteTagRelQueryCommandExecutor  extends AbstractBaseQuery
 	}
 	/**
 	 * 查询网站标签已分配的网站ids
-	 * @param navigationSiteTagIdCommand
+	 * @param navigationSiteTagCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryNavigationSiteIdsByNavigationSiteTagId(@Valid IdCommand navigationSiteTagIdCommand) {
+	public MultiResponse<Long> queryNavigationSiteIdsByNavigationSiteTagId(@Valid CommonIdCommand navigationSiteTagCommonIdCommand) {
 
 		NavigationSiteTagRelQueryListCommand navigationSiteTagRelQueryListCommand = new NavigationSiteTagRelQueryListCommand();
-		navigationSiteTagRelQueryListCommand.setNavigationSiteTagId(navigationSiteTagIdCommand.getId());
+		navigationSiteTagRelQueryListCommand.setNavigationSiteTagId(navigationSiteTagCommonIdCommand.getId());
 		MultiResponse<NavigationSiteTagRelVO> navigationSiteTagRelVOMultiResponse = execute(navigationSiteTagRelQueryListCommand);
 		if(navigationSiteTagRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = navigationSiteTagRelVOMultiResponse.getData().stream().map(NavigationSiteTagRelVO::getNavigationSiteId).collect(Collectors.toList());

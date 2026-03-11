@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.exception.ExceptionFactory;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.mybatis.plus.mapper.DynamicDOMapper;
 import com.particle.global.mybatis.plus.mapper.MysqlTableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +85,7 @@ public class TableServiceImpl implements TableServivce{
      * 数据库方言
      * 配置项参考：{@link DatabaseDialect}
      */
-    @Value("${particle.mybatis-plus.table-service.dialect:mysql}")
+    @Value("${particle.global.mybatis-plus.table-service.dialect:mysql}")
     private String dialect;
 
     private MysqlTableMapper mysqlTableMapper;

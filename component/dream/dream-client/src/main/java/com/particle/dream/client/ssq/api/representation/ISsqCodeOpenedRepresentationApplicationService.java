@@ -1,7 +1,7 @@
 package com.particle.dream.client.ssq.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedPageQueryCommand;
 import com.particle.dream.client.ssq.dto.command.representation.SsqCodeOpenedQueryListCommand;
 import com.particle.dream.client.ssq.dto.data.SsqCodeOpenedVO;
@@ -24,7 +24,7 @@ public interface ISsqCodeOpenedRepresentationApplicationService extends IBaseApp
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<SsqCodeOpenedVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<SsqCodeOpenedVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

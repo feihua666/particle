@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 
 import java.util.List;
 
@@ -68,7 +69,9 @@ public interface IDataQueryDatasourceService extends IBaseService<DataQueryDatas
     }
 
 
-
+    default List<DataQueryDatasourceDO> listIgnoreTenantLimit() {
+        return CustomTenantLineHandler.executeIgnoreTenant(() -> list());
+    }
 
 
 

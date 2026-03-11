@@ -1,9 +1,8 @@
 package com.particle.dataquery.adapter.datasource.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
-import com.particle.dataquery.client.dataapi.dto.data.DataQueryDataApiVO;
 import com.particle.dataquery.client.datasource.api.IDataQueryDatasourceApplicationService;
 import com.particle.dataquery.client.datasource.api.representation.IDataQueryDatasourceRepresentationApplicationService;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
@@ -52,7 +51,7 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@Operation(summary = "删除数据查询数据源")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除数据查询数据源",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.delete)
-	public SingleResponse<DataQueryDatasourceVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataQueryDatasourceVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDataQueryDatasourceApplicationService.delete(deleteCommand);
 	}
 
@@ -67,14 +66,14 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:update')")
 	@Operation(summary = "数据查询数据源更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DataQueryDatasourceVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DataQueryDatasourceVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDataQueryDatasourceRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataQueryDatasource:detail')")
 	@Operation(summary = "数据查询数据源详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DataQueryDatasourceVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DataQueryDatasourceVO> queryDetail(CommonIdCommand detailCommand){
 		return iDataQueryDatasourceRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -102,7 +101,7 @@ public class DataQueryDatasourceAdminWebController extends AbstractBaseWebAdapte
 	@Operation(summary = "数据查询数据源复制")
 	@PostMapping("/copy")
 	@OpLog(name = "数据查询数据源复制",module = OpLogConstants.Module.dataQuery,type = OpLogConstants.Type.create)
-	public SingleResponse<DataQueryDatasourceVO> copy(@RequestBody IdCommand copyCommand){
+	public SingleResponse<DataQueryDatasourceVO> copy(@RequestBody CommonIdCommand copyCommand){
 		return iDataQueryDatasourceApplicationService.copy(copyCommand);
 	}
 }

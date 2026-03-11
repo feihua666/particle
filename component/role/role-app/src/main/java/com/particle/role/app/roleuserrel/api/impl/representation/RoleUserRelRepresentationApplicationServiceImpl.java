@@ -1,7 +1,7 @@
 package com.particle.role.app.roleuserrel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -29,7 +29,7 @@ public class RoleUserRelRepresentationApplicationServiceImpl extends AbstractBas
 	private RoleUserRelQueryCommandExecutor roleUserRelQueryCommandExecutor;
 
 	@Override
-	public SingleResponse<RoleUserRelVO> queryDetail(IdCommand roleUserRelQueryDetailCommand) {
+	public SingleResponse<RoleUserRelVO> queryDetail(CommonIdCommand roleUserRelQueryDetailCommand) {
 		return roleUserRelQueryCommandExecutor.executeDetail(roleUserRelQueryDetailCommand);
 	}
 
@@ -39,18 +39,18 @@ public class RoleUserRelRepresentationApplicationServiceImpl extends AbstractBas
 	}
 
 	@Override
-	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand) {
-		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleId(roleIdCommand);
+	public MultiResponse<Long> queryUserIdsByRoleId(CommonIdCommand roleCommonIdCommand) {
+		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleId(roleCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(IdCommand roleTypeDictIdCommand) {
-		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleTypeDictIdAndRoleEnabled(roleTypeDictIdCommand);
+	public MultiResponse<Long> queryUserIdsByRoleTypeDictId(CommonIdCommand roleTypeDictCommonIdCommand) {
+		return roleUserRelQueryCommandExecutor.queryUserIdsByRoleTypeDictIdAndRoleEnabled(roleTypeDictCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryRoleIdsByUserId(IdCommand userIdCommand) {
-		return roleUserRelQueryCommandExecutor.queryRoleIdsByUserId(userIdCommand);
+	public MultiResponse<Long> queryRoleIdsByUserId(CommonIdCommand userCommonIdCommand) {
+		return roleUserRelQueryCommandExecutor.queryRoleIdsByUserId(userCommonIdCommand);
 	}
 
 	@Override

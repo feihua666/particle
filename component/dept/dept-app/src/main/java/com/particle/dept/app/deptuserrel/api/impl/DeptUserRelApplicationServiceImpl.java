@@ -1,7 +1,7 @@
 package com.particle.dept.app.deptuserrel.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.deptuserrel.executor.DeptUserRelCreateCommandExecutor;
 import com.particle.dept.app.deptuserrel.executor.DeptUserRelDeleteCommandExecutor;
 import com.particle.dept.app.deptuserrel.executor.DeptUserRelUpdateCommandExecutor;
@@ -41,7 +41,7 @@ public class DeptUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public SingleResponse<DeptUserRelVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<DeptUserRelVO> delete(CommonIdCommand deleteCommand) {
 		return deptUserRelDeleteCommandExecutor.execute(deleteCommand);
 	}
 
@@ -51,7 +51,7 @@ public class DeptUserRelApplicationServiceImpl extends AbstractBaseApplicationSe
 	}
 
 	@Override
-	public Response deleteByUserId(IdCommand deleteCommand) {
+	public Response deleteByUserId(CommonIdCommand deleteCommand) {
 		return deptUserRelDeleteCommandExecutor.deleteByUserId(deleteCommand);
 	}
 

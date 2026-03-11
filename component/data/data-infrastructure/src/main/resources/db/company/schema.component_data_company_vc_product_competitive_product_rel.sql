@@ -14,4 +14,4 @@ CREATE TABLE `component_data_company_vc_product_competitive_product_rel` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `company_vc_competitive_product_id` (`company_vc_competitive_product_id`) USING BTREE,
   UNIQUE KEY `uni_company_vc_product_id__company_vc_competitive_product_id` (`company_vc_product_id`,`company_vc_competitive_product_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业融资产品竞品关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业融资产品竞品关系表';

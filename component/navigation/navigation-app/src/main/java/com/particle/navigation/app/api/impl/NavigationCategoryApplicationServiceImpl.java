@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.navigation.app.executor.NavigationCategoryCommandExecutor;
@@ -43,7 +43,7 @@ public class NavigationCategoryApplicationServiceImpl extends AbstractBaseApplic
     }
 
     @Override
-    public SingleResponse<NavigationCategoryVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<NavigationCategoryVO> delete(CommonIdCommand deleteCommand) {
         return navigationCategoryDeleteCommandExecutor.execute(deleteCommand);
     }
 

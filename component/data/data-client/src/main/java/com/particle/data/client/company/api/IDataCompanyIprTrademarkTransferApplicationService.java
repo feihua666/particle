@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkTransferCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprTrademarkTransferUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkTransferVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyIprTrademarkTransferApplicationService extends IBas
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprTrademarkTransferVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyIprTrademarkTransferVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

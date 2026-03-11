@@ -3,21 +3,19 @@ package com.particle.agi.app.rag.executor;
 import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentSegmentDO;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentSegmentService;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.agi.app.rag.structmapping.AgiVectorStoreRawDocumentAppStructMapping;
 import com.particle.agi.client.rag.dto.data.AgiVectorStoreRawDocumentVO;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocument;
 import com.particle.agi.domain.rag.AgiVectorStoreRawDocumentId;
 import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentGateway;
 import com.particle.agi.infrastructure.rag.service.IAgiVectorStoreRawDocumentService;
-import com.particle.agi.infrastructure.rag.dos.AgiVectorStoreRawDocumentDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class AgiVectorStoreRawDocumentDeleteCommandExecutor  extends AbstractBas
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<AgiVectorStoreRawDocumentVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<AgiVectorStoreRawDocumentVO> execute(@Valid CommonIdCommand deleteCommand) {
 		AgiVectorStoreRawDocumentId agiVectorStoreRawDocumentId = AgiVectorStoreRawDocumentId.of(deleteCommand.getId());
 		AgiVectorStoreRawDocument byId = agiVectorStoreRawDocumentGateway.getById(agiVectorStoreRawDocumentId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -53,9 +51,9 @@ public class AgiVectorStoreRawDocumentDeleteCommandExecutor  extends AbstractBas
 			// 删除后将片段一并删除
 			List<AgiVectorStoreRawDocumentSegmentDO> byAgiVectorStoreRawDocumentId = iAgiVectorStoreRawDocumentSegmentService.getByAgiVectorStoreRawDocumentId(deleteCommand.getId());
 			for (AgiVectorStoreRawDocumentSegmentDO agiVectorStoreRawDocumentSegmentDO : byAgiVectorStoreRawDocumentId) {
-				IdCommand idCommand = new IdCommand();
-				idCommand.setId(agiVectorStoreRawDocumentSegmentDO.getId());
-				agiVectorStoreRawDocumentSegmentDeleteCommandExecutor.execute(idCommand);
+				CommonIdCommand commonIdCommand = new CommonIdCommand();
+				commonIdCommand.setId(agiVectorStoreRawDocumentSegmentDO.getId());
+				agiVectorStoreRawDocumentSegmentDeleteCommandExecutor.execute(commonIdCommand);
 			}
 			return SingleResponse.of(AgiVectorStoreRawDocumentAppStructMapping.instance.toAgiVectorStoreRawDocumentVO(byId));
 		}

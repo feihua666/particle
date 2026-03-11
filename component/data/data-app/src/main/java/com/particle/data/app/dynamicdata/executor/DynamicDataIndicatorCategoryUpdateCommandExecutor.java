@@ -13,7 +13,7 @@ import com.particle.data.domain.dynamicdata.gateway.DynamicDataIndicatorCategory
 import com.particle.data.infrastructure.dynamictable.dos.DynamicTableDO;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

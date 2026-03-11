@@ -1,7 +1,7 @@
 package com.particle.func.client.funcapplicationfuncrel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelPageQueryCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.command.representation.FuncApplicationFuncRelQueryListCommand;
 import com.particle.func.client.funcapplicationfuncrel.dto.data.FuncApplicationFuncRelVO;
@@ -24,14 +24,14 @@ public interface IFuncApplicationFuncRelRepresentationApplicationService extends
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<FuncApplicationFuncRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<FuncApplicationFuncRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<FuncApplicationFuncRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<FuncApplicationFuncRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -52,15 +52,15 @@ public interface IFuncApplicationFuncRelRepresentationApplicationService extends
 
 	/**
 	 * 查询功能应用已分配的功能id
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(IdCommand funcIdCommand);
+	public MultiResponse<Long> queryFuncApplicationIdsByFuncId(CommonIdCommand funcCommonIdCommand);
 
 	/**
 	 * 查询功能已分配的功能应用id
-	 * @param funcApplicationIdCommand
+	 * @param funcApplicationCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByFuncApplicationId(IdCommand funcApplicationIdCommand);
+	public MultiResponse<Long> queryFuncIdsByFuncApplicationId(CommonIdCommand funcApplicationCommonIdCommand);
 }

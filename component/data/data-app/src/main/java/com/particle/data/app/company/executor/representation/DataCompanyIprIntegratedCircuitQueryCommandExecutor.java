@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprIntegratedCircuit
 import com.particle.data.infrastructure.company.dos.DataCompanyIprIntegratedCircuitDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprIntegratedCircuitService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprIntegratedCircuitPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprIntegratedCircuitQueryCommandExecutor  extends Abstra
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprIntegratedCircuitVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprIntegratedCircuitVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprIntegratedCircuitDO byId = iDataCompanyIprIntegratedCircuitService.getById(detailCommand.getId());
 		DataCompanyIprIntegratedCircuitVO dataCompanyIprIntegratedCircuitVO = DataCompanyIprIntegratedCircuitAppStructMapping.instance.dataCompanyIprIntegratedCircuitDOToDataCompanyIprIntegratedCircuitVO(byId);
 		return SingleResponse.of(dataCompanyIprIntegratedCircuitVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprIntegratedCircuitQueryCommandExecutor  extends Abstra
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprIntegratedCircuitVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprIntegratedCircuitVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprIntegratedCircuitDO byId = iDataCompanyIprIntegratedCircuitService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprIntegratedCircuitVO dataCompanyIprIntegratedCircuitVO = DataCompanyIprIntegratedCircuitAppStructMapping.instance.dataCompanyIprIntegratedCircuitDOToDataCompanyIprIntegratedCircuitVO(byId);
 		return SingleResponse.of(dataCompanyIprIntegratedCircuitVO);

@@ -1,7 +1,7 @@
 package com.particle.componentadmin.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.componentadmin.client.dto.command.AdminComponentDependencyCreateCommand;
@@ -30,7 +30,7 @@ public interface IAdminComponentDependencyApplicationService extends IBaseApplic
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<AdminComponentDependencyVO> delete(IdCommand deleteCommand);
+	SingleResponse<AdminComponentDependencyVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -56,16 +56,16 @@ public interface IAdminComponentDependencyApplicationService extends IBaseApplic
 
 	/**
 	 * 根据源组件id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByComponentId(IdCommand idCommand);
+	public Response deleteByComponentId(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 根据依赖组件id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByDependComponentId(IdCommand idCommand);
+	public Response deleteByDependComponentId(CommonIdCommand commonIdCommand);
 
 }

@@ -21,4 +21,4 @@ CREATE TABLE `component_data_company_open_court_announcement_party` (
   KEY `party_company_id` (`party_company_id`) USING BTREE,
   KEY `party_company_person_id` (`party_company_person_id`) USING BTREE,
   UNIQUE KEY `uni_company_open_court_announcement_id__data_md5` (`company_open_court_announcement_id`,`data_md5`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业开庭公告当事人表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业开庭公告当事人表';

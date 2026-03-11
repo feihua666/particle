@@ -1,7 +1,7 @@
 package com.particle.message.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.message.client.dto.command.MessageUserStateCreateCommand;
 import com.particle.message.client.dto.command.MessageUserStateUpdateCommand;
@@ -28,7 +28,7 @@ public interface IMessageUserStateApplicationService extends IBaseApplicationSer
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<MessageUserStateVO> delete(IdCommand deleteCommand);
+	SingleResponse<MessageUserStateVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

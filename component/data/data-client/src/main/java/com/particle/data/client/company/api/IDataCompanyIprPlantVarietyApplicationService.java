@@ -1,9 +1,8 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyIprPlantVarietyCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPlantVarietyUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPlantVarietyVO;
@@ -30,7 +29,7 @@ public interface IDataCompanyIprPlantVarietyApplicationService extends IBaseAppl
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyIprPlantVarietyVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyIprPlantVarietyVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

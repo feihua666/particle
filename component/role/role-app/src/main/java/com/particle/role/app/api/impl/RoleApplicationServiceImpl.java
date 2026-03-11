@@ -1,7 +1,7 @@
 package com.particle.role.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.role.app.executor.RoleCreateCommandExecutor;
@@ -46,7 +46,7 @@ public class RoleApplicationServiceImpl extends AbstractBaseApplicationServiceIm
     }
 
     @Override
-	public SingleResponse<RoleVO> delete(IdCommand roleDeleteCommand) {
+	public SingleResponse<RoleVO> delete(CommonIdCommand roleDeleteCommand) {
 		return roleDeleteCommandExecutor.execute(roleDeleteCommand);
 	}
 

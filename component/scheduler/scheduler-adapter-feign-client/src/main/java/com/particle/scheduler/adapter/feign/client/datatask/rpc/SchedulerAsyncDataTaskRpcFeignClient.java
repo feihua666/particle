@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-05-22 18:05:42
  */
-@FeignClient(name = "${particle.feign-client.name.scheduler:scheduler}",path = "/rpc/scheduler_async_data_task")
+@FeignClient(name = "${particle.feign-client.scheduler.name:scheduler-start}", contextId = "schedulerAsyncDataTaskRpcFeignClient", url = "${particle.feign-client.scheduler.url:}", path = "/rpc/scheduler_async_data_task")
 public interface SchedulerAsyncDataTaskRpcFeignClient {
 
 

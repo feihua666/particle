@@ -1,7 +1,7 @@
 package com.particle.lowcode.app.generator.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.lowcode.app.generator.executor.LowcodeDatasourceCreateCommandExecutor;
@@ -40,7 +40,7 @@ public class LowcodeDatasourceApplicationServiceImpl extends AbstractBaseApplica
 	}
 
 	@Override
-	public SingleResponse<LowcodeDatasourceVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<LowcodeDatasourceVO> delete(CommonIdCommand deleteCommand) {
 		return lowcodeDatasourceDeleteCommandExecutor.execute(deleteCommand);
 	}
 

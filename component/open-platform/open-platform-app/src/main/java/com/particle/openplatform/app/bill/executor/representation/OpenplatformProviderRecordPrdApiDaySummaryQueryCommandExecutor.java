@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryQueryCommandExecutor  ext
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordPrdApiDaySummaryDO byId = iOpenplatformProviderRecordPrdApiDaySummaryService.getById(detailCommand.getId());
 		OpenplatformProviderRecordPrdApiDaySummaryVO openplatformProviderRecordPrdApiDaySummaryVO = OpenplatformProviderRecordPrdApiDaySummaryAppStructMapping.instance.openplatformProviderRecordPrdApiDaySummaryDOToOpenplatformProviderRecordPrdApiDaySummaryVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdApiDaySummaryVO);
@@ -67,7 +67,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryQueryCommandExecutor  ext
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderRecordPrdApiDaySummaryDO byId = iOpenplatformProviderRecordPrdApiDaySummaryService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderRecordPrdApiDaySummaryVO openplatformProviderRecordPrdApiDaySummaryVO = OpenplatformProviderRecordPrdApiDaySummaryAppStructMapping.instance.openplatformProviderRecordPrdApiDaySummaryDOToOpenplatformProviderRecordPrdApiDaySummaryVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdApiDaySummaryVO);

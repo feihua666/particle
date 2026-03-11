@@ -1,7 +1,7 @@
 package com.particle.global.big.datasource.bigdatasource.exception;
 
 import com.particle.global.exception.biz.BizException;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 
 import java.util.Map;
 

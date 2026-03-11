@@ -6,9 +6,11 @@ import com.particle.cms.client.dto.data.CmsChannelVO;
 import com.particle.cms.domain.CmsChannel;
 import com.particle.cms.domain.CmsChannelId;
 import com.particle.cms.domain.gateway.CmsChannelGateway;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
+import com.particle.common.client.dto.command.CommonPublicCommand;
+import com.particle.global.dto.response.SingleResponse;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
+import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
@@ -16,8 +18,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import jakarta.validation.Valid;
 
 /**
  * <p>
@@ -47,7 +47,25 @@ public class CmsChannelUpdateCommandExecutor  extends AbstractBaseExecutor {
 		}
 		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
 	}
+	/**
+	 * 执行 栏目 发布指令
+	 * @param cmsChannelPublicCommand
+	 * @return
+	 */
+	public SingleResponse<CmsChannelVO> publish(@Valid CommonPublicCommand cmsChannelPublicCommand) {
+		CmsChannel cmsChannel = CmsChannel.create(CmsChannelId.of(cmsChannelPublicCommand.getId()));
+		if (cmsChannelPublicCommand.getIsPublic()) {
+			cmsChannel.publish();
+		}else {
+			cmsChannel.unPublish();
+		}
 
+		boolean save = cmsChannelGateway.save(cmsChannel);
+		if (save) {
+			return SingleResponse.of(CmsChannelAppStructMapping.instance.toCmsChannelVO(cmsChannel));
+		}
+		return SingleResponse.buildFailure(ErrorCodeGlobalEnum.SAVE_ERROR);
+	}
 	/**
 	 * 根据栏目更新指令创建栏目模型
 	 * @param cmsChannelUpdateCommand

@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.doc.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -43,7 +43,7 @@ public class OpenplatformDocApiDocParamFieldApplicationServiceImpl extends Abstr
 
 
 	@Override
-	public SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocApiDocParamFieldVO> delete(CommonIdCommand deleteCommand) {
 		return openplatformDocApiDocParamFieldDeleteCommandExecutor.execute(deleteCommand);
 	}
 

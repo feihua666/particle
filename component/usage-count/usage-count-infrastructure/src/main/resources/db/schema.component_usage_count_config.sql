@@ -23,4 +23,4 @@ CREATE TABLE `component_usage_count_config` (
   KEY `limit_period_dict_id` (`limit_period_dict_id`),
   KEY `limit_rule_type_dict_id` (`limit_rule_type_dict_id`),
   KEY `usage_count_define_id` (`usage_count_define_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='使用次数配置表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='使用次数配置表';

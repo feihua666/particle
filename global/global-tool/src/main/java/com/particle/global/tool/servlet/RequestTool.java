@@ -36,9 +36,10 @@ import java.util.Map;
 public class RequestTool {
 
     /**
-     * 获得用户远程地址,ip地址
+     * 获得用户真实ip地址
+     * 需要配置nginx或者apache的proxy_set_header X-Real-IP $remote_addr;
      */
-    public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
+    public static String getClientRealIP(HttpServletRequest request, String... otherHeaderNames) {
         String remoteAddr = JakartaServletUtil.getClientIP(request,otherHeaderNames);
         if (StrUtil.isEmpty(remoteAddr)) {
             // 下面是自定义的获取ip的方法暂保留
@@ -77,6 +78,70 @@ public class RequestTool {
         return remoteAddr;
     }
 
+    /**
+     * 获取真实协议 (http/https)
+     */
+    public static String getRealScheme(HttpServletRequest request) {
+        String scheme = request.getHeader("X-Forwarded-Proto");
+        if (StrUtil.isEmpty(scheme)) {
+            scheme = request.getScheme();
+        }
+        return scheme;
+    }
+    /**
+     * 获取真实主机（不带端口）
+     */
+    public static String getRealHost(HttpServletRequest request) {
+        String host = request.getHeader("X-Forwarded-Host");
+        if (StrUtil.isEmpty(host)) {
+            host = request.getHeader("Host");
+        }
+        if (StrUtil.isEmpty(host)) {
+            host = request.getServerName();
+        }
+        // 如果 host 带端口，去掉端口
+        if (host.contains(":")) {
+            host = host.split(":")[0];
+        }
+        return host;
+    }
+    /**
+     * 获取真实端口
+     */
+    public static int getRealPort(HttpServletRequest request) {
+        String portStr = request.getHeader("X-Forwarded-Port");
+        int port = -1;
+        if (StrUtil.isNotEmpty(portStr)) {
+            try {
+                port = Integer.parseInt(portStr);
+            } catch (NumberFormatException e) {
+                log.warn("X-Forwarded-Port 格式错误: {}", portStr);
+            }
+        }
+        if (port <= 0) {
+            port = request.getServerPort();
+        }
+        return port;
+    }
+    /**
+     * 获取真实域名（host + 端口，可选包含协议）
+     */
+    public static String getRealDomain(HttpServletRequest request, boolean includeScheme, boolean includePort) {
+        String scheme = getRealScheme(request);
+        String host = getRealHost(request);
+        int port = getRealPort(request);
+
+        StringBuilder sb = new StringBuilder();
+        if (includeScheme) {
+            sb.append(scheme).append("://");
+        }
+        sb.append(host);
+        // 非标准端口显示端口
+        if (includePort && port != 80 && port != 443) {
+            sb.append(":").append(port);
+        }
+        return sb.toString();
+    }
     /**
      * 获取取cookie
      *

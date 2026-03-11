@@ -1,7 +1,7 @@
 package com.particle.message.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class MessageRepresentationApplicationServiceImpl extends AbstractBaseApp
     private MessageQueryCommandExecutor messageQueryCommandExecutor;
 
     @Override
-    public SingleResponse<MessageVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<MessageVO> queryDetail(CommonIdCommand detailCommand) {
         return messageQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<MessageVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<MessageVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return messageQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

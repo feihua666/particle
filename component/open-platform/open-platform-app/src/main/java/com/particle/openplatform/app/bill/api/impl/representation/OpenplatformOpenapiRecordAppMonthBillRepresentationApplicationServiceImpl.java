@@ -1,7 +1,7 @@
 package com.particle.openplatform.app.bill.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class OpenplatformOpenapiRecordAppMonthBillRepresentationApplicationServi
     private OpenplatformOpenapiRecordAppMonthBillQueryCommandExecutor openplatformOpenapiRecordAppMonthBillQueryCommandExecutor;
 
     @Override
-    public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> queryDetail(CommonIdCommand detailCommand) {
         return openplatformOpenapiRecordAppMonthBillQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<OpenplatformOpenapiRecordAppMonthBillVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return openplatformOpenapiRecordAppMonthBillQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

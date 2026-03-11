@@ -1,7 +1,7 @@
 package com.particle.dept.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.structmapping.DeptTreeAppStructMapping;
 import com.particle.dept.client.dto.data.DeptTreeVO;
 import com.particle.dept.domain.DeptTree;
@@ -9,7 +9,7 @@ import com.particle.dept.domain.DeptTreeId;
 import com.particle.dept.domain.gateway.DeptTreeGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class DeptTreeDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DeptTreeVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DeptTreeVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DeptTreeId deptTreeId = DeptTreeId.of(deleteCommand.getId());
 		DeptTree byId = deptTreeGateway.getById(deptTreeId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

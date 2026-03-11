@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
@@ -47,7 +47,7 @@ public class NavigationStaticDeployApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public SingleResponse<NavigationStaticDeployVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<NavigationStaticDeployVO> delete(CommonIdCommand deleteCommand) {
         return navigationStaticDeployDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -57,8 +57,8 @@ public class NavigationStaticDeployApplicationServiceImpl extends AbstractBaseAp
     }
 
     @Override
-    public Response updateLastDeployAt(IdCommand idCommand, LocalDateTime deployAt) {
-        return navigationStaticDeployUpdateCommandExecutor.updateLastDeployAt(idCommand,deployAt);
+    public Response updateLastDeployAt(CommonIdCommand commonIdCommand, LocalDateTime deployAt) {
+        return navigationStaticDeployUpdateCommandExecutor.updateLastDeployAt(commonIdCommand,deployAt);
     }
 
 

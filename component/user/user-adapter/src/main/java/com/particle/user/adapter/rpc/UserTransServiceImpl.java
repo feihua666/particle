@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
 import com.particle.global.trans.api.ITransService;
 import com.particle.global.trans.result.TransResult;
+import com.particle.user.adapter.feign.client.rpc.UserTransRpcFeignClient;
 import com.particle.user.client.dto.data.UserTransVO;
 import com.particle.user.domain.enums.UserAccountType;
 import com.particle.user.domain.gateway.UserDictGateway;
@@ -48,7 +49,7 @@ public class UserTransServiceImpl implements ITransService<UserTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_USER_BY_ID,TransConstants.TRANS_USER_INFO_BY_ID);
+        return UserTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

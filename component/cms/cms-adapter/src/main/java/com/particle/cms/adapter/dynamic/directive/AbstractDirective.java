@@ -2,12 +2,12 @@ package com.particle.cms.adapter.dynamic.directive;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.BooleanUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.cms.client.dto.command.directive.CmsDirectivePageQueryCommand;
 import com.particle.cms.client.api.ICmsDynamicApplicationService;
-import com.particle.cms.client.dto.data.CmsSiteVO;
-import com.particle.cms.client.dto.data.dynamic.CmsSiteTemplateModelVO;
+import com.particle.cms.client.dto.data.dynamic.CmsTemplateModelContext;
+import com.particle.cms.client.dto.data.dynamic.PaginationTemplateModelVO;
+import com.particle.global.dto.response.PageResponse;
 import freemarker.core.Environment;
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,7 @@ public abstract class AbstractDirective implements
     protected static final String param_channel_id = "channelId";
     protected static final String param_content_id = "contentId";
     protected static final String param_channel_parent_id = "parentId";
+    protected static final String param_channel_level = "level";
 
 
     // 迭代类型
@@ -47,10 +48,40 @@ public abstract class AbstractDirective implements
     protected static final String param_iterator_type_value_default = "default";
     protected static final String param_iterator_type_value_var = "var";
 
+
+    protected final static String data_list_var_name = "dataList";
+    protected final static String data_page_var_name = "dataPage";
+
+
     @Autowired
     protected ICmsDynamicApplicationService iCmsDynamicApplicationService;
 
+    private CmsTemplateModelContext modelContext;
 
+    /**
+     * 获取模板上下文
+     * @return
+     */
+    protected CmsTemplateModelContext getModelContext() {
+        if (modelContext == null) {
+            modelContext = CmsTemplateModelContext.create(true,CmsTemplateModelContext.Mode.publish);
+        }
+        return modelContext;
+    }
+    /**
+     * 获取是否公开条件
+     * @return
+     */
+    protected Boolean getIsPublicCondition() {
+        CmsTemplateModelContext.Mode mode = getModelContext().getMode();
+        Boolean isPublic = true;
+        if (mode == CmsTemplateModelContext.Mode.publish) {
+            isPublic = true;
+        } else if (mode == CmsTemplateModelContext.Mode.preview) {
+            isPublic = null;
+        }
+        return isPublic;
+    }
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         doExecute(env,params,loopVars,body);
@@ -76,6 +107,9 @@ public abstract class AbstractDirective implements
     protected Long getContentId(Map params){
         String contentIdStr = getParamStr(param_content_id,params);
         return StrUtil.isBlank(contentIdStr) ? null : Long.valueOf(contentIdStr);
+    }
+    protected Integer getLevel(Map params){
+        return getParamInt(param_channel_level,params);
     }
     protected Long getParentId(Map params){
         return getParamLong(param_channel_parent_id,params);
@@ -138,6 +172,19 @@ public abstract class AbstractDirective implements
         }
         return null;
     }
+    /**
+     * 获取指令中的参数，以字符形式返回
+     * @param paramName
+     * @param params
+     * @return
+     */
+    protected Boolean getParamBoolean(String paramName, Map params){
+        Object obj = params.get(paramName);
+        if (obj != null) {
+            return BooleanUtil.toBoolean(obj.toString());
+        }
+        return null;
+    }
 
     /**
      * 获取指令中的参数，以Long形式返回
@@ -148,6 +195,16 @@ public abstract class AbstractDirective implements
     protected Long getParamLong(String paramName, Map params) {
         String paramStr = getParamStr(paramName, params);
         return StrUtil.isBlank(paramStr) ? null : Long.valueOf(paramStr);
+    }
+    /**
+     * 获取指令中的参数，以Integer形式返回
+     * @param paramName
+     * @param params
+     * @return
+     */
+    protected Integer getParamInt(String paramName, Map params) {
+        String paramStr = getParamStr(paramName, params);
+        return StrUtil.isBlank(paramStr) ? null : Integer.valueOf(paramStr);
     }
 
     /**
@@ -187,17 +244,12 @@ public abstract class AbstractDirective implements
         boolean isPageBool = BooleanUtil.toBoolean(isPage);
         boolean isOrderByBool = BooleanUtil.toBoolean(isOrderBy);
 
-        CmsDirectivePageQueryCommand cmsDirectivePageQueryCommand = new CmsDirectivePageQueryCommand();
-        cmsDirectivePageQueryCommand.setIsPage(isPageBool);
-        if (StrUtil.isNotEmpty(pageNo)) {
-            cmsDirectivePageQueryCommand.setPageNo(NumberUtil.parseLong(pageNo));
-        }
-        if (StrUtil.isNotEmpty(pageSize)) {
-            cmsDirectivePageQueryCommand.setPageSize(NumberUtil.parseLong(pageSize));
-        }
+        CmsDirectivePageQueryCommand cmsDirectivePageQueryCommand = CmsDirectivePageQueryCommand.createNew(isPageBool,
+                pageNo,
+                pageSize,
+                isOrderByBool,
+                orderBy);
 
-        cmsDirectivePageQueryCommand.setIsOrderBy(isOrderByBool);
-        cmsDirectivePageQueryCommand.setOrderBy(orderBy);
         return cmsDirectivePageQueryCommand;
     }
 
@@ -209,13 +261,13 @@ public abstract class AbstractDirective implements
      * @param loopVars
      * @param body
      * @param dataList 数据列表
-     * @param varName 变量模式时的变量名
+     * @param pageResponse 分页信息
      * @param dataListItemMappingFunction 数据列表项映射函数
      * @throws TemplateException
      * @throws IOException
      */
     protected void bodyRender(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body,
-                              List dataList, String varName, Function dataListItemMappingFunction) throws TemplateException, IOException {
+                              List dataList, PageResponse pageResponse, Function dataListItemMappingFunction) throws TemplateException, IOException {
         if (CollectionUtil.isNotEmpty(dataList)) {
             String iteratorType = getIteratorType(params);
             // 迭代模式
@@ -240,17 +292,37 @@ public abstract class AbstractDirective implements
                     cmsSiteTemplateModelVO = dataListItemMappingFunction.apply(dataListItem);
                     cmsSiteTemplateModelVOs.add(cmsSiteTemplateModelVO);
                 }
-                TemplateModel items =  wrapTemplateModel(cmsSiteTemplateModelVOs);
-                env.setVariable(varName,items);
-                body.render(env.getOut());
-                //清除变量
-                env.setVariable(varName,null);
+                TemplateModel itemsTemplateModel =  wrapTemplateModel(cmsSiteTemplateModelVOs);
+                PaginationTemplateModelVO page = null;
+                if (pageResponse != null) {
+                    page = PaginationTemplateModelVO.create(pageResponse.getPageNo(),
+                            pageResponse.getPageSize(),
+                            pageResponse.getTotalPages(),
+                            pageResponse.getTotalCount());
+                }
+                TemplateModel pageTemplateModel =  wrapTemplateModel(page);
+
+
+                // 直接获取旧值，不存在时就是 null
+                TemplateModel dataListOldValue = env.getVariable(data_list_var_name);
+                TemplateModel dataPageOldValue = env.getVariable(data_page_var_name);
+
+                try {
+                    env.setVariable(data_list_var_name, itemsTemplateModel);
+                    env.setVariable(data_page_var_name, pageTemplateModel);
+                    body.render(env.getOut());
+                } finally {
+                    // 恢复旧值（null 或之前的值）
+                    env.setVariable(data_list_var_name, dataListOldValue);
+                    env.setVariable(data_page_var_name, dataPageOldValue);
+                }
             }else{
                 body.render(env.getOut());
             }
 
         }else{
-            body.render(env.getOut());
+            // 数据为空时，渲染body会导致模板异常，所以这里不渲染，body中的定义会找不到数据而报错
+            // body.render(env.getOut());
         }
     }
 }

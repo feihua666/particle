@@ -6,7 +6,7 @@ import com.particle.user.client.dto.data.UserExtraInfoVO;
 import com.particle.user.domain.UserExtraInfo;
 import com.particle.user.domain.gateway.UserExtraInfoGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

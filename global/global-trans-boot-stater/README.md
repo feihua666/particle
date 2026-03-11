@@ -24,7 +24,8 @@
 
 ```yaml
 particle:
-  trans:
+  global:
+    trans:
     # 翻译相关配置
 ```
 

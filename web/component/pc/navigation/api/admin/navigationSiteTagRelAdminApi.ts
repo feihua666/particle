@@ -2,48 +2,49 @@ import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../common/api/api";
 
-let navigationSiteTagRelPrefix = '/admin/web/navigation_site_tag_rel'
+import {getApiPrefix} from "../../../../../common/api/apiPrefixConfig";
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_NAVIGATION) + '/admin/web/navigation_site_tag_rel'
 /**
  * 添加导航网站标签关系
  * @param data
  */
 export const create = (data: anyObj): AxiosPromise => {
-    return axios.post(navigationSiteTagRelPrefix + '/create',data)
+    return axios.post(prefix + '/create',data)
 }
 /**
  * 删除导航网站标签关系
  * @param data
  */
 export const remove = (data: IdParam): AxiosPromise => {
-    return axios.delete(navigationSiteTagRelPrefix + '/delete',{data: data})
+    return axios.delete(prefix + '/delete',{data: data})
 }
 /**
  * 更新导航网站标签关系
  * @param data
  */
 export const update = (data: updateParam): AxiosPromise => {
-    return axios.put(navigationSiteTagRelPrefix + '/update',data)
+    return axios.put(prefix + '/update',data)
 }
 /**
  * 更新时使用，加载要更新的数据
  * @param data
  */
 export const detailForUpdate = (data: IdParam): AxiosPromise => {
-    return axios.get(navigationSiteTagRelPrefix + '/detail-for-update',{params: data})
+    return axios.get(prefix + '/detail-for-update',{params: data})
 }
 /**
  * 列表，没有分页，查询全部数据
  * @param data
  */
 export const list = (data: anyObj): AxiosPromise => {
-    return axios.get(navigationSiteTagRelPrefix + '/list',{params: data})
+    return axios.get(prefix + '/list',{params: data})
 }
 /**
  * 列表，分页
  * @param data
  */
 export const page = (data: anyObj): AxiosPromise => {
-    return axios.get(navigationSiteTagRelPrefix + '/page',{params: data})
+    return axios.get(prefix + '/page',{params: data})
 }
 
 export interface NavigationSiteAssignNavigationSiteTag{
@@ -57,21 +58,21 @@ export interface NavigationSiteAssignNavigationSiteTag{
  * @param data
  */
 export const navigationSiteAssignNavigationSiteTag = (data: NavigationSiteAssignNavigationSiteTag): AxiosPromise => {
-    return axios.post(navigationSiteTagRelPrefix + '/navigationSite/assign/navigationSiteTag',data)
+    return axios.post(prefix + '/navigationSite/assign/navigationSiteTag',data)
 }
 /**
  * 根据网站ID查询已分配的网站标签id
  * @param data
  */
 export const queryNavigationSiteTagIdsByNavigationSiteId = (data: IdParam): AxiosPromise => {
-    return axios.get(navigationSiteTagRelPrefix + '/queryNavigationSiteTagIdsByNavigationSiteId',{params: data})
+    return axios.get(prefix + '/queryNavigationSiteTagIdsByNavigationSiteId',{params: data})
 }
 /**
  * 清空网站下的所有网站标签
  * @param data
  */
 export const deleteByNavigationSiteId = (data: IdParam): AxiosPromise => {
-    return axios.delete(navigationSiteTagRelPrefix + '/deleteByNavigationSiteId',{data: data})
+    return axios.delete(prefix + '/deleteByNavigationSiteId',{data: data})
 }
 export interface NavigationSiteTagAssignNavigationSite{
     navigationSiteTagId: string,// 网站标签id
@@ -84,19 +85,19 @@ export interface NavigationSiteTagAssignNavigationSite{
  * @param data
  */
 export const navigationSiteTagAssignNavigationSite = (data: NavigationSiteTagAssignNavigationSite): AxiosPromise => {
-    return axios.post(navigationSiteTagRelPrefix + '/navigationSiteTag/assign/navigationSite',data)
+    return axios.post(prefix + '/navigationSiteTag/assign/navigationSite',data)
 }
 /**
  * 根据网站标签ID查询已分配的网站id
  * @param data
  */
 export const queryNavigationSiteIdsByNavigationSiteTagId = (data: IdParam): AxiosPromise => {
-    return axios.get(navigationSiteTagRelPrefix + '/queryNavigationSiteIdsByNavigationSiteTagId',{params: data})
+    return axios.get(prefix + '/queryNavigationSiteIdsByNavigationSiteTagId',{params: data})
 }
 /**
  * 清空网站标签下的所有网站
  * @param data
  */
 export const deleteByNavigationSiteTagId = (data: IdParam): AxiosPromise => {
-    return axios.delete(navigationSiteTagRelPrefix + '/deleteByNavigationSiteTagId',{data: data})
+    return axios.delete(prefix + '/deleteByNavigationSiteTagId',{data: data})
 }

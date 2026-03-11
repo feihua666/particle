@@ -1,13 +1,13 @@
 package com.particle.tenant.adapter.createapply.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.tenant.client.createapply.api.ITenantCreateApplyApplicationService;
 import com.particle.tenant.client.createapply.api.representation.ITenantCreateApplyRepresentationApplicationService;
 import com.particle.tenant.client.createapply.dto.command.TenantCreateApplyAuditCommand;
@@ -54,7 +54,7 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@Operation(summary = "删除租户创建申请")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除租户创建申请",module = OpLogConstants.Module.tenant,type = OpLogConstants.Type.delete)
-	public SingleResponse<TenantCreateApplyVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TenantCreateApplyVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTenantCreateApplyApplicationService.delete(deleteCommand);
 	}
 
@@ -69,14 +69,14 @@ public class TenantCreateApplyAdminWebController extends AbstractBaseWebAdapter 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:update')")
 	@Operation(summary = "租户创建申请更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TenantCreateApplyVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TenantCreateApplyVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTenantCreateApplyRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:tenantCreateApply:detail')")
 	@Operation(summary = "租户创建申请详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TenantCreateApplyVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TenantCreateApplyVO> queryDetail(CommonIdCommand detailCommand){
 		return iTenantCreateApplyRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

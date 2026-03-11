@@ -1,5 +1,8 @@
 import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../global/common/tools/ObjectTools";
+import getApiPrefix from "../../../../common/api/apiPrefixConfig";
+
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_FUNC)
 
 /**
  * 参见后台方法 com.particle.func.adapter.login.FuncLoginController.getList
@@ -18,11 +21,11 @@ export const loginUserFuncList = (data: loginUserFuncListParam): AxiosPromise =>
     if (!data) {
         data = {}
     }
-    return axios.get('/func/login/getList',{params: data})
+    return axios.get(prefix + '/func/login/getList',{params: data})
 }
 /**
  * 当前登录用户的应用
  */
 export const loginUserFuncApplicationList = (data: anyObj): AxiosPromise => {
-    return axios.get('/func/login/getFuncApplicationList',{params: data})
+    return axios.get(prefix + '/func/login/getFuncApplicationList',{params: data})
 }

@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.bill.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryAdminWebController exte
     @Operation(summary = "删除开放平台供应商接口月汇总")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台供应商接口月汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderRecordPrdApiMonthSummaryApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformProviderRecordPrdApiMonthSummaryAdminWebController exte
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiMonthSummary:update')")
     @Operation(summary = "开放平台供应商接口月汇总更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformProviderRecordPrdApiMonthSummaryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiMonthSummary:detail')")
     @Operation(summary = "开放平台供应商接口月汇总详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiMonthSummaryVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformProviderRecordPrdApiMonthSummaryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

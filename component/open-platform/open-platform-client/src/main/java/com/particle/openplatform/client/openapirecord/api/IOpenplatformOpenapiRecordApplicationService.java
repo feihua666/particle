@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.openapirecord.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpenapiRecordVO;
 
@@ -20,6 +20,6 @@ public interface IOpenplatformOpenapiRecordApplicationService extends IBaseAppli
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformOpenapiRecordVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformOpenapiRecordVO> delete(CommonIdCommand deleteCommand);
 
 }

@@ -6,7 +6,7 @@ import com.particle.agi.client.agent.dto.data.AgiAgentVO;
 import com.particle.agi.infrastructure.agent.dos.AgiAgentDO;
 import com.particle.agi.infrastructure.agent.service.IAgiAgentService;
 import com.particle.agi.client.agent.dto.command.representation.AgiAgentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentDO byId = iAgiAgentService.getById(detailCommand.getId());
 		AgiAgentVO agiAgentVO = AgiAgentAppStructMapping.instance.agiAgentDOToAgiAgentVO(byId);
 		return SingleResponse.of(agiAgentVO);
@@ -67,7 +66,7 @@ public class AgiAgentQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentDO byId = iAgiAgentService.getById(detailForUpdateCommand.getId());
 		AgiAgentVO agiAgentVO = AgiAgentAppStructMapping.instance.agiAgentDOToAgiAgentVO(byId);
 		return SingleResponse.of(agiAgentVO);

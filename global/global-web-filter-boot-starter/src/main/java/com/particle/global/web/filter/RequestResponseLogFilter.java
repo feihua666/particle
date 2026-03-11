@@ -48,12 +48,12 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
     /**
      * 是否打印请求日志
      */
-    @Value("${particle.web.filter.log.request:true}")
+    @Value("${particle.global.web.filter.log.request:true}")
     private boolean isLogRequest;
     /**
      * 是否打印响应日志
      */
-    @Value("${particle.web.filter.log.response:true}")
+    @Value("${particle.global.web.filter.log.response:true}")
     private boolean isLogResponse;
 
 
@@ -156,11 +156,13 @@ public class RequestResponseLogFilter extends AbstractRequestLoggingFilter {
      * @return
      */
     private boolean isMatchContentType(String contentType,List<String> whiteList){
-        boolean match = false;
         if (StrUtil.isEmpty(contentType)) {
-            return match;
+            return false;
         }
-        match = whiteList.stream().filter(item -> item.equalsIgnoreCase(contentType) || contentType.toLowerCase().contains(item)).count() > 0;
+        // 提取不带参数的 MIME type (去除 ;charset=UTF-8 等后缀)
+        String mimeType = contentType.split(";")[0].trim();
+
+        boolean match = whiteList.stream().filter(item -> item.equalsIgnoreCase(mimeType) || contentType.toLowerCase().contains(mimeType)).count() > 0;
 
         return match;
     }

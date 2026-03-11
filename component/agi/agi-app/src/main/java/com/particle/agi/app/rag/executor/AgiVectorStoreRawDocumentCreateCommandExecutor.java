@@ -1,6 +1,5 @@
 package com.particle.agi.app.rag.executor;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.particle.agi.app.rag.structmapping.AgiVectorStoreRawDocumentAppStructMapping;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentCreateCommand;
 import com.particle.agi.client.rag.dto.command.AgiVectorStoreRawDocumentSegmentCreateCommand;
@@ -12,7 +11,7 @@ import com.particle.agi.domain.rag.AgiVectorStoreRawDocument;
 import com.particle.agi.domain.rag.gateway.AgiVectorStoreRawDocumentGateway;
 import com.particle.agi.domain.values.AgiDocument;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

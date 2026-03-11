@@ -1,7 +1,7 @@
 package com.particle.scheduler.client.temptask.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskCreateCommand;
 import com.particle.scheduler.client.temptask.dto.command.SchedulerTempTaskUpdateCommand;
@@ -27,7 +27,7 @@ public interface ISchedulerTempTaskApplicationService extends IBaseApplicationSe
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<SchedulerTempTaskVO> delete(IdCommand deleteCommand);
+	SingleResponse<SchedulerTempTaskVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

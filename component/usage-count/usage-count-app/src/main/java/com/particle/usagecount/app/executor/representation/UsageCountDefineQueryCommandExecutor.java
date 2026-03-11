@@ -2,7 +2,7 @@ package com.particle.usagecount.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class UsageCountDefineQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<UsageCountDefineVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<UsageCountDefineVO> executeDetail(CommonIdCommand detailCommand) {
 		UsageCountDefineDO byId = iUsageCountDefineService.getById(detailCommand.getId());
 		UsageCountDefineVO usageCountDefineVO = UsageCountDefineAppStructMapping.instance.usageCountDefineDOToUsageCountDefineVO(byId);
 		return SingleResponse.of(usageCountDefineVO);
@@ -67,7 +67,7 @@ public class UsageCountDefineQueryCommandExecutor  extends AbstractBaseQueryExec
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<UsageCountDefineVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<UsageCountDefineVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		UsageCountDefineDO byId = iUsageCountDefineService.getById(detailForUpdateCommand.getId());
 		UsageCountDefineVO usageCountDefineVO = UsageCountDefineAppStructMapping.instance.usageCountDefineDOToUsageCountDefineVO(byId);
 		return SingleResponse.of(usageCountDefineVO);

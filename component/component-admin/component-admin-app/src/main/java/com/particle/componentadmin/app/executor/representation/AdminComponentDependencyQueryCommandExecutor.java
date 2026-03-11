@@ -1,12 +1,12 @@
 package com.particle.componentadmin.app.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.componentadmin.app.structmapping.AdminComponentDependencyAppStructMapping;
 import com.particle.componentadmin.client.dto.command.representation.AdminComponentDependencyQueryListCommand;
 import com.particle.componentadmin.client.dto.data.AdminComponentDependencyVO;
 import com.particle.componentadmin.infrastructure.dos.AdminComponentDependencyDO;
 import com.particle.componentadmin.infrastructure.service.IAdminComponentDependencyService;
 import com.particle.componentadmin.client.dto.command.representation.AdminComponentDependencyPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class AdminComponentDependencyQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentDependencyVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AdminComponentDependencyVO> executeDetail(CommonIdCommand detailCommand) {
 		AdminComponentDependencyDO byId = iAdminComponentDependencyService.getById(detailCommand.getId());
 		AdminComponentDependencyVO adminComponentDependencyVO = AdminComponentDependencyAppStructMapping.instance.adminComponentDependencyDOToAdminComponentDependencyVO(byId);
 		return SingleResponse.of(adminComponentDependencyVO);
@@ -67,7 +67,7 @@ public class AdminComponentDependencyQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentDependencyVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AdminComponentDependencyVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AdminComponentDependencyDO byId = iAdminComponentDependencyService.getById(detailForUpdateCommand.getId());
 		AdminComponentDependencyVO adminComponentDependencyVO = AdminComponentDependencyAppStructMapping.instance.adminComponentDependencyDOToAdminComponentDependencyVO(byId);
 		return SingleResponse.of(adminComponentDependencyVO);
@@ -76,13 +76,13 @@ public class AdminComponentDependencyQueryCommandExecutor  extends AbstractBaseQ
 
 	/**
 	 * 查询源组件已分配的依赖组件ids
-	 * @param componentIdCommand
+	 * @param componentCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryDependComponentIdsByComponentId(@Valid IdCommand componentIdCommand) {
+	public MultiResponse<Long> queryDependComponentIdsByComponentId(@Valid CommonIdCommand componentCommonIdCommand) {
 
 		AdminComponentDependencyQueryListCommand adminComponentDependencyQueryListCommand = new AdminComponentDependencyQueryListCommand();
-		adminComponentDependencyQueryListCommand.setComponentId(componentIdCommand.getId());
+		adminComponentDependencyQueryListCommand.setComponentId(componentCommonIdCommand.getId());
 		MultiResponse<AdminComponentDependencyVO> adminComponentDependencyVOMultiResponse = execute(adminComponentDependencyQueryListCommand);
 		if(adminComponentDependencyVOMultiResponse.isNotEmpty()){
 			List<Long> collect = adminComponentDependencyVOMultiResponse.getData().stream().map(AdminComponentDependencyVO::getDependComponentId).collect(Collectors.toList());
@@ -92,13 +92,13 @@ public class AdminComponentDependencyQueryCommandExecutor  extends AbstractBaseQ
 	}
 	/**
 	 * 查询依赖组件已分配的源组件ids
-	 * @param dependComponentIdCommand
+	 * @param dependComponentCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryComponentIdsByDependComponentId(@Valid IdCommand dependComponentIdCommand) {
+	public MultiResponse<Long> queryComponentIdsByDependComponentId(@Valid CommonIdCommand dependComponentCommonIdCommand) {
 
 		AdminComponentDependencyQueryListCommand adminComponentDependencyQueryListCommand = new AdminComponentDependencyQueryListCommand();
-		adminComponentDependencyQueryListCommand.setDependComponentId(dependComponentIdCommand.getId());
+		adminComponentDependencyQueryListCommand.setDependComponentId(dependComponentCommonIdCommand.getId());
 		MultiResponse<AdminComponentDependencyVO> adminComponentDependencyVOMultiResponse = execute(adminComponentDependencyQueryListCommand);
 		if(adminComponentDependencyVOMultiResponse.isNotEmpty()){
 			List<Long> collect = adminComponentDependencyVOMultiResponse.getData().stream().map(AdminComponentDependencyVO::getComponentId).collect(Collectors.toList());

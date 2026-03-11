@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformDocApiDocTemplateAdminWebController extends AbstractBas
 	@Operation(summary = "删除开放接口文档模板")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档模板",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocTemplateVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocTemplateApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformDocApiDocTemplateAdminWebController extends AbstractBas
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplate:update')")
 	@Operation(summary = "开放接口文档模板更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocTemplateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplate:detail')")
 	@Operation(summary = "开放接口文档模板详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocTemplateRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

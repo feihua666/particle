@@ -1,7 +1,7 @@
 package com.particle.global.security.security.voter;
 
 import cn.hutool.core.util.StrUtil;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.core.Authentication;

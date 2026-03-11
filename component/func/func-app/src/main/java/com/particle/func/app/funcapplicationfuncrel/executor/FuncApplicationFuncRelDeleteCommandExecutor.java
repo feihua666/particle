@@ -1,7 +1,7 @@
 package com.particle.func.app.funcapplicationfuncrel.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.funcapplicationfuncrel.structmapping.FuncApplicationFuncRelAppStructMapping;
 import com.particle.func.client.funcapplicationfuncrel.dto.data.FuncApplicationFuncRelVO;
 import com.particle.func.domain.funcapplicationfuncrel.FuncApplicationFuncRel;
@@ -12,7 +12,7 @@ import com.particle.func.infrastructure.funcapplicationfuncrel.service.IFuncAppl
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +39,7 @@ public class FuncApplicationFuncRelDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<FuncApplicationFuncRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<FuncApplicationFuncRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		FuncApplicationFuncRelId funcApplicationFuncRelId = FuncApplicationFuncRelId.of(deleteCommand.getId());
 		FuncApplicationFuncRel byId = funcApplicationFuncRelGateway.getById(funcApplicationFuncRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -53,20 +53,20 @@ public class FuncApplicationFuncRelDeleteCommandExecutor  extends AbstractBaseEx
 
 	/**
 	 * 根据 funcApplicationId 删除
-	 * @param funcApplicationIdCommand
+	 * @param funcApplicationCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncApplicationId(@Valid IdCommand funcApplicationIdCommand) {
-		boolean result = iFuncApplicationFuncRelService.deleteByColumn(funcApplicationIdCommand.getId(), FuncApplicationFuncRelDO::getFuncApplicationId);
+	public Response deleteByFuncApplicationId(@Valid CommonIdCommand funcApplicationCommonIdCommand) {
+		boolean result = iFuncApplicationFuncRelService.deleteByColumn(funcApplicationCommonIdCommand.getId(), FuncApplicationFuncRelDO::getFuncApplicationId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 funcId 删除
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByFuncId(@Valid IdCommand funcIdCommand) {
-		boolean result = iFuncApplicationFuncRelService.deleteByColumn(funcIdCommand.getId(), FuncApplicationFuncRelDO::getFuncId);
+	public Response deleteByFuncId(@Valid CommonIdCommand funcCommonIdCommand) {
+		boolean result = iFuncApplicationFuncRelService.deleteByColumn(funcCommonIdCommand.getId(), FuncApplicationFuncRelDO::getFuncId);
 		return Response.buildSuccess();
 	}
 

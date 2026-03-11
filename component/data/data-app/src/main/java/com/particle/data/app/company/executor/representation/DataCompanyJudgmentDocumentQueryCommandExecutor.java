@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyJudgmentDocumentAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyJudgmentDocumentVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyJudgmentDocumentDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyJudgmentDocumentService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyJudgmentDocumentQueryCommandExecutor  extends AbstractBa
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDocumentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyJudgmentDocumentVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyJudgmentDocumentDO byId = iDataCompanyJudgmentDocumentService.getById(detailCommand.getId());
 		DataCompanyJudgmentDocumentVO dataCompanyJudgmentDocumentVO = DataCompanyJudgmentDocumentAppStructMapping.instance.dataCompanyJudgmentDocumentDOToDataCompanyJudgmentDocumentVO(byId);
 		return SingleResponse.of(dataCompanyJudgmentDocumentVO);
@@ -67,7 +66,7 @@ public class DataCompanyJudgmentDocumentQueryCommandExecutor  extends AbstractBa
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDocumentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyJudgmentDocumentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyJudgmentDocumentDO byId = iDataCompanyJudgmentDocumentService.getById(detailForUpdateCommand.getId());
 		DataCompanyJudgmentDocumentVO dataCompanyJudgmentDocumentVO = DataCompanyJudgmentDocumentAppStructMapping.instance.dataCompanyJudgmentDocumentDOToDataCompanyJudgmentDocumentVO(byId);
 		return SingleResponse.of(dataCompanyJudgmentDocumentVO);

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-01-08 16:54:59
  */
-@FeignClient(name = "${particle.feign-client.name.agi:agi}",path = "/rpc/agi_vector_store_raw_document")
+@FeignClient(name = "${particle.feign-client.agi.name:agi-start}", contextId = "agiVectorStoreRawDocumentRpcFeignClient", url = "${particle.feign-client.agi.url:}", path = "/rpc/agi_vector_store_raw_document")
 public interface AgiVectorStoreRawDocumentRpcFeignClient {
 
 

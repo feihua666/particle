@@ -2,7 +2,7 @@ package com.particle.oplog.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpLogQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpLogVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpLogVO> executeDetail(CommonIdCommand detailCommand) {
 		OpLogDO byId = iOpLogService.getById(detailCommand.getId());
 		OpLogVO opLogVO = OpLogAppStructMapping.instance.opLogDOToOpLogVO(byId);
 		return SingleResponse.of(opLogVO);

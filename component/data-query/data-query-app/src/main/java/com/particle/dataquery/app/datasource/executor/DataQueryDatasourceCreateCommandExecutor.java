@@ -2,18 +2,16 @@ package com.particle.dataquery.app.datasource.executor;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceApiAppStructMapping;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataquery.app.datasource.structmapping.DataQueryDatasourceAppStructMapping;
 import com.particle.dataquery.client.datasource.dto.command.DataQueryDatasourceCreateCommand;
 import com.particle.dataquery.client.datasource.dto.data.DataQueryDatasourceVO;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.gateway.DataQueryDatasourceGateway;
-import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceApiDO;
 import com.particle.dataquery.infrastructure.datasource.dos.DataQueryDatasourceDO;
 import com.particle.dataquery.infrastructure.datasource.service.IDataQueryDatasourceService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -55,11 +53,11 @@ public class DataQueryDatasourceCreateCommandExecutor  extends AbstractBaseExecu
 
 	/**
 	 * 复制一个新数据
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<DataQueryDatasourceVO> copy(@Valid IdCommand idCommand) {
-		DataQueryDatasourceDO copy = iDataQueryDatasourceService.copy(idCommand.getId(), item -> {
+	public SingleResponse<DataQueryDatasourceVO> copy(@Valid CommonIdCommand commonIdCommand) {
+		DataQueryDatasourceDO copy = iDataQueryDatasourceService.copy(commonIdCommand.getId(), item -> {
 			String copySuffix = "Copy";
 			if (StrUtil.isNotEmpty(item.getCode())) {
 				item.setCode(item.getCode() + copySuffix);

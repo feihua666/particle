@@ -1,21 +1,19 @@
 package com.particle.data.app.company.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.company.structmapping.DataCompanyPersonAppStructMapping;
 import com.particle.data.client.company.dto.data.DataCompanyPersonVO;
 import com.particle.data.domain.company.DataCompanyPerson;
 import com.particle.data.domain.company.DataCompanyPersonId;
 import com.particle.data.domain.company.gateway.DataCompanyPersonGateway;
 import com.particle.data.infrastructure.company.service.IDataCompanyPersonService;
-import com.particle.data.infrastructure.company.dos.DataCompanyPersonDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class DataCompanyPersonDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyPersonVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DataCompanyPersonVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DataCompanyPersonId dataCompanyPersonId = DataCompanyPersonId.of(deleteCommand.getId());
 		DataCompanyPerson byId = dataCompanyPersonGateway.getById(dataCompanyPersonId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

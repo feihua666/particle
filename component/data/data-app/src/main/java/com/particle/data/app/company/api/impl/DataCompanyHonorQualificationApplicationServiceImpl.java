@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyHonorQualificationCreat
 import com.particle.data.app.company.executor.DataCompanyHonorQualificationDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyHonorQualificationUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyHonorQualificationCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyHonorQualificationUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyHonorQualificationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyHonorQualificationCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyHonorQualificationWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyHonorQualificationExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyHonorQualificationApplicationServiceImpl extends Abstrac
     }
 
     @Override
-    public SingleResponse<DataCompanyHonorQualificationVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyHonorQualificationVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyHonorQualificationDeleteCommandExecutor.execute(deleteCommand);
     }
 

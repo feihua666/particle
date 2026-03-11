@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class NavigationCategoryQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationCategoryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationCategoryVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationCategoryDO byId = iNavigationCategoryService.getById(detailCommand.getId());
 		NavigationCategoryVO navigationCategoryVO = NavigationCategoryAppStructMapping.instance.navigationCategoryDOToNavigationCategoryVO(byId);
 		return SingleResponse.of(navigationCategoryVO);
@@ -67,7 +67,7 @@ public class NavigationCategoryQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationCategoryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationCategoryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationCategoryDO byId = iNavigationCategoryService.getById(detailForUpdateCommand.getId());
 		NavigationCategoryVO navigationCategoryVO = NavigationCategoryAppStructMapping.instance.navigationCategoryDOToNavigationCategoryVO(byId);
 		return SingleResponse.of(navigationCategoryVO);

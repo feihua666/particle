@@ -1,23 +1,21 @@
 package com.particle.cms.adapter.dynamic.directive;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.cms.client.dto.command.directive.CmsDirectivePageQueryCommand;
 import com.particle.cms.client.dto.command.directive.CmsSiteDirectivePageQueryCommand;
 import com.particle.cms.client.dto.data.CmsSiteVO;
 import com.particle.cms.client.dto.data.dynamic.CmsSiteTemplateModelVO;
+import com.particle.cms.client.dto.data.dynamic.CmsTemplateModelContext;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import freemarker.core.Environment;
-import freemarker.template.SimpleNumber;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +31,6 @@ public class SiteListDirective extends AbstractDirective {
      * 站点指令支持属性
      */
     protected static final String param_site_isPrimeSite = "isPrimeSite";
-    // 用于迭代变量使用的变量名
-    private final static String varName = "siteList";
 
     /**
      *
@@ -55,21 +51,25 @@ public class SiteListDirective extends AbstractDirective {
             isPrimeSiteBool = BooleanUtil.toBoolean(isPrimeSite);
         }
         if (body != null) {
+            CmsTemplateModelContext modelContext = getModelContext();
+            Boolean isPublicCondition = getIsPublicCondition();
+
             CmsDirectivePageQueryCommand pageQueryCommand = getPageQueryCommand(params);
             CmsSiteDirectivePageQueryCommand cmsSiteDirectivePageQueryCommand = CmsSiteDirectivePageQueryCommand.create(pageQueryCommand,
-                    siteId,isPrimeSiteBool);
+                    siteId,isPrimeSiteBool,isPublicCondition);
             List<CmsSiteVO> cmsSiteVOs = null;
+            PageResponse pageResponse = null;
             if (pageQueryCommand.getIsPage()) {
                 PageResponse<CmsSiteVO> cmsSiteVOPageResponse = iCmsDynamicApplicationService.pageQuerySite(cmsSiteDirectivePageQueryCommand);
+                pageResponse = cmsSiteVOPageResponse;
                 cmsSiteVOs = cmsSiteVOPageResponse.getData();
             }else{
                 MultiResponse<CmsSiteVO> cmsSiteVOMultiResponse = iCmsDynamicApplicationService.queryListSite(cmsSiteDirectivePageQueryCommand);
                 cmsSiteVOs = cmsSiteVOMultiResponse.getData();
             }
 
-            bodyRender(env, params, loopVars, body, cmsSiteVOs,
-                    varName,
-                    cmsSiteVO -> CmsSiteTemplateModelVO.createByCmsSiteVO((CmsSiteVO) cmsSiteVO)
+            bodyRender(env, params, loopVars, body, cmsSiteVOs,pageResponse,
+                    cmsSiteVO -> CmsSiteTemplateModelVO.createByCmsSiteVO((CmsSiteVO) cmsSiteVO,modelContext)
             );
         }
     }

@@ -6,4 +6,4 @@
 -- import classpath:db/schema.component_cms_content_view_record.sql
 -- import classpath:db/schema.component_cms_site.sql
 -- import classpath:db/schema.component_cms_site_index_view_record.sql
--- import classpath:db/schema.component_cms_template_content.sql
+-- import classpath:db/schema.component_cms_template.sql

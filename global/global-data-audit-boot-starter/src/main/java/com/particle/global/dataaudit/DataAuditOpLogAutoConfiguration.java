@@ -21,7 +21,7 @@ import org.springframework.core.annotation.Order;
  * @since 2023-05-05 14:43
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(prefix = "particle.dataaudit.oplog", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.dataaudit.oplog", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableAspectJAutoProxy
 public class DataAuditOpLogAutoConfiguration {
 

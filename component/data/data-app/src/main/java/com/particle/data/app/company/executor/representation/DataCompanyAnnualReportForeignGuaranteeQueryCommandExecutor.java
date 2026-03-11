@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportForeignG
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportForeignGuaranteeDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportForeignGuaranteeService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportForeignGuaranteePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportForeignGuaranteeQueryCommandExecutor  extend
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportForeignGuaranteeDO byId = iDataCompanyAnnualReportForeignGuaranteeService.getById(detailCommand.getId());
 		DataCompanyAnnualReportForeignGuaranteeVO dataCompanyAnnualReportForeignGuaranteeVO = DataCompanyAnnualReportForeignGuaranteeAppStructMapping.instance.dataCompanyAnnualReportForeignGuaranteeDOToDataCompanyAnnualReportForeignGuaranteeVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportForeignGuaranteeVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportForeignGuaranteeQueryCommandExecutor  extend
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportForeignGuaranteeVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportForeignGuaranteeDO byId = iDataCompanyAnnualReportForeignGuaranteeService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportForeignGuaranteeVO dataCompanyAnnualReportForeignGuaranteeVO = DataCompanyAnnualReportForeignGuaranteeAppStructMapping.instance.dataCompanyAnnualReportForeignGuaranteeDOToDataCompanyAnnualReportForeignGuaranteeVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportForeignGuaranteeVO);

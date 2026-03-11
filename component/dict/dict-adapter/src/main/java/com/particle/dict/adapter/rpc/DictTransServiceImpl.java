@@ -2,6 +2,7 @@ package com.particle.dict.adapter.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.dict.adapter.feign.client.rpc.DictTransRpcFeignClient;
 import com.particle.dict.client.dto.data.DictTransVO;
 import com.particle.dict.infrastructure.dos.DictDO;
 import com.particle.dict.infrastructure.service.IDictService;
@@ -29,7 +30,7 @@ public class DictTransServiceImpl implements ITransService<DictTransVO,Long> {
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DICT_BY_ID);
+        return DictTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

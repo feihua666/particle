@@ -85,7 +85,8 @@ public class CmsContentMultimediaCreateCommand extends AbstractBaseCommand {
 
 
 
-
+    @Schema(description = "是否使用文章分析来统计")
+    private Boolean isUseArticleAnalyzer;
 
 
 

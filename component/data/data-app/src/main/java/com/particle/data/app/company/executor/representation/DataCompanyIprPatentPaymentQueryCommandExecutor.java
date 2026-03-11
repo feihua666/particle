@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprPatentPaymentVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentPaymentDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentPaymentService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentPaymentPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentPaymentQueryCommandExecutor  extends AbstractBa
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentPaymentVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentPaymentVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentPaymentDO byId = iDataCompanyIprPatentPaymentService.getById(detailCommand.getId());
 		DataCompanyIprPatentPaymentVO dataCompanyIprPatentPaymentVO = DataCompanyIprPatentPaymentAppStructMapping.instance.dataCompanyIprPatentPaymentDOToDataCompanyIprPatentPaymentVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentPaymentVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentPaymentQueryCommandExecutor  extends AbstractBa
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentPaymentVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentPaymentVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentPaymentDO byId = iDataCompanyIprPatentPaymentService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentPaymentVO dataCompanyIprPatentPaymentVO = DataCompanyIprPatentPaymentAppStructMapping.instance.dataCompanyIprPatentPaymentDOToDataCompanyIprPatentPaymentVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentPaymentVO);

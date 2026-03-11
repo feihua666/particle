@@ -1,7 +1,7 @@
 package com.particle.data.client.dynamictable.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableDataDeleteCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableImportDataCommand;
 import com.particle.global.dto.response.SingleResponse;
@@ -9,7 +9,6 @@ import com.particle.global.dto.response.Response;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableCreateCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableUpdateCommand;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableVO;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public interface IDynamicTableApplicationService extends IBaseApplicationService
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DynamicTableVO> delete(IdCommand deleteCommand);
+	SingleResponse<DynamicTableVO> delete(CommonIdCommand deleteCommand);
 
 
 	/**

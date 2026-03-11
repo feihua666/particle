@@ -1,7 +1,7 @@
 package com.particle.dept.app.deptuserrel.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dept.app.deptuserrel.executor.representation.DeptUserRelQueryCommandExecutor;
 import com.particle.dept.client.deptuserrel.api.representation.IDeptUserRelRepresentationApplicationService;
 import com.particle.dept.client.deptuserrel.dto.command.representation.DeptUserRelPageQueryCommand;
@@ -28,12 +28,12 @@ public class DeptUserRelRepresentationApplicationServiceImpl extends AbstractBas
     private DeptUserRelQueryCommandExecutor deptUserRelQueryCommandExecutor;
 
     @Override
-    public SingleResponse<DeptUserRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DeptUserRelVO> queryDetail(CommonIdCommand detailCommand) {
         return deptUserRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DeptUserRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DeptUserRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return deptUserRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

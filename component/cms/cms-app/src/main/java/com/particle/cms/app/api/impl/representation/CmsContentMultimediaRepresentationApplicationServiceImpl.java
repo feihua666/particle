@@ -1,7 +1,7 @@
 package com.particle.cms.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class CmsContentMultimediaRepresentationApplicationServiceImpl extends Ab
     private CmsContentMultimediaQueryCommandExecutor cmsContentMultimediaQueryCommandExecutor;
 
     @Override
-    public SingleResponse<CmsContentMultimediaVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<CmsContentMultimediaVO> queryDetail(CommonIdCommand detailCommand) {
         return cmsContentMultimediaQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<CmsContentMultimediaVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<CmsContentMultimediaVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return cmsContentMultimediaQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

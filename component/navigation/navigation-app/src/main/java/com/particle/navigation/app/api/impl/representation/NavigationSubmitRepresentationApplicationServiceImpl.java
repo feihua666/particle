@@ -1,7 +1,7 @@
 package com.particle.navigation.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,12 +28,12 @@ public class NavigationSubmitRepresentationApplicationServiceImpl extends Abstra
     private NavigationSubmitQueryCommandExecutor navigationSubmitQueryCommandExecutor;
 
     @Override
-    public SingleResponse<NavigationSubmitVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<NavigationSubmitVO> queryDetail(CommonIdCommand detailCommand) {
         return navigationSubmitQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<NavigationSubmitVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<NavigationSubmitVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return navigationSubmitQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

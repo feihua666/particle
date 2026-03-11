@@ -1,10 +1,10 @@
 package com.particle.componentadmin.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.componentadmin.app.structmapping.AdminComponentDependencyAppStructMapping;
 import com.particle.componentadmin.client.dto.data.AdminComponentDependencyVO;
 import com.particle.componentadmin.domain.AdminComponentDependency;
@@ -38,7 +38,7 @@ public class AdminComponentDependencyDeleteCommandExecutor  extends AbstractBase
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentDependencyVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<AdminComponentDependencyVO> execute(@Valid CommonIdCommand deleteCommand) {
 		AdminComponentDependencyId adminComponentDependencyId = AdminComponentDependencyId.of(deleteCommand.getId());
 		AdminComponentDependency byId = adminComponentDependencyGateway.getById(adminComponentDependencyId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);
@@ -51,20 +51,20 @@ public class AdminComponentDependencyDeleteCommandExecutor  extends AbstractBase
 
 	/**
 	 * 根据 componentId 删除
-	 * @param componentIdCommand
+	 * @param componentCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByComponentId(@Valid IdCommand componentIdCommand) {
-		boolean result = iAdminComponentDependencyService.deleteByColumn(componentIdCommand.getId(), AdminComponentDependencyDO::getComponentId);
+	public Response deleteByComponentId(@Valid CommonIdCommand componentCommonIdCommand) {
+		boolean result = iAdminComponentDependencyService.deleteByColumn(componentCommonIdCommand.getId(), AdminComponentDependencyDO::getComponentId);
 		return Response.buildSuccess();
 	}
 	/**
 	 * 根据 dependComponentId 删除
-	 * @param dependComponentIdCommand
+	 * @param dependComponentCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByDependComponentId(@Valid IdCommand dependComponentIdCommand) {
-		boolean result = iAdminComponentDependencyService.deleteByColumn(dependComponentIdCommand.getId(), AdminComponentDependencyDO::getDependComponentId);
+	public Response deleteByDependComponentId(@Valid CommonIdCommand dependComponentCommonIdCommand) {
+		boolean result = iAdminComponentDependencyService.deleteByColumn(dependComponentCommonIdCommand.getId(), AdminComponentDependencyDO::getDependComponentId);
 		return Response.buildSuccess();
 	}
 

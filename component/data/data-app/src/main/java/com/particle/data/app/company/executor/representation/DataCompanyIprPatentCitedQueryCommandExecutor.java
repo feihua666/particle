@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyIprPatentCitedVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprPatentCitedDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprPatentCitedService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentCitedPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprPatentCitedQueryCommandExecutor  extends AbstractBase
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentCitedVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprPatentCitedVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprPatentCitedDO byId = iDataCompanyIprPatentCitedService.getById(detailCommand.getId());
 		DataCompanyIprPatentCitedVO dataCompanyIprPatentCitedVO = DataCompanyIprPatentCitedAppStructMapping.instance.dataCompanyIprPatentCitedDOToDataCompanyIprPatentCitedVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentCitedVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprPatentCitedQueryCommandExecutor  extends AbstractBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprPatentCitedVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprPatentCitedVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprPatentCitedDO byId = iDataCompanyIprPatentCitedService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprPatentCitedVO dataCompanyIprPatentCitedVO = DataCompanyIprPatentCitedAppStructMapping.instance.dataCompanyIprPatentCitedDOToDataCompanyIprPatentCitedVO(byId);
 		return SingleResponse.of(dataCompanyIprPatentCitedVO);

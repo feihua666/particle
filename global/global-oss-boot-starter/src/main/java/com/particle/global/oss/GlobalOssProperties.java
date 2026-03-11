@@ -20,7 +20,7 @@ import static com.particle.global.oss.service.DefaultGlobalOssClientServiceImpl.
  * @since 2023-04-27 23:05
  */
 @Data
-@ConfigurationProperties("particle.oss")
+@ConfigurationProperties("particle.global.oss")
 public class GlobalOssProperties {
 	/**
 	 * 默认的 client key

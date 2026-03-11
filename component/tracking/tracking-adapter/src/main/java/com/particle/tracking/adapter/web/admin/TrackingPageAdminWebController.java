@@ -1,7 +1,7 @@
 package com.particle.tracking.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class TrackingPageAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除埋点页面")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除埋点页面",module = OpLogConstants.Module.tracking,type = OpLogConstants.Type.delete)
-	public SingleResponse<TrackingPageVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<TrackingPageVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iTrackingPageApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class TrackingPageAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:trackingPage:update')")
 	@Operation(summary = "埋点页面更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<TrackingPageVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<TrackingPageVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iTrackingPageRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:trackingPage:detail')")
 	@Operation(summary = "埋点页面详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<TrackingPageVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<TrackingPageVO> queryDetail(CommonIdCommand detailCommand){
 		return iTrackingPageRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-12-30 13:22:06
  */
-@FeignClient(name = "${particle.feign-client.name.component-admin:component-admin}",path = "/rpc/admin_component_dependency")
+@FeignClient(name = "${particle.feign-client.component-admin.name:component-admin-start}", contextId = "adminComponentDependencyRpcFeignClient", url = "${particle.feign-client.component-admin.url:}", path = "/rpc/admin_component_dependency")
 public interface AdminComponentDependencyRpcFeignClient {
 
 

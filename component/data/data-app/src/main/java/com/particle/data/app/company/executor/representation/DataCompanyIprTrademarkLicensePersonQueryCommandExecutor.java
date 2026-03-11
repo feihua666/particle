@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyIprTrademarkLicensePersonAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkLicensePersonQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprTrademarkLicensePersonVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyIprTrademarkLicensePersonDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyIprTrademarkLicensePersonService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprTrademarkLicensePersonPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyIprTrademarkLicensePersonQueryCommandExecutor  extends A
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyIprTrademarkLicensePersonDO byId = iDataCompanyIprTrademarkLicensePersonService.getById(detailCommand.getId());
 		DataCompanyIprTrademarkLicensePersonVO dataCompanyIprTrademarkLicensePersonVO = DataCompanyIprTrademarkLicensePersonAppStructMapping.instance.dataCompanyIprTrademarkLicensePersonDOToDataCompanyIprTrademarkLicensePersonVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkLicensePersonVO);
@@ -67,7 +66,7 @@ public class DataCompanyIprTrademarkLicensePersonQueryCommandExecutor  extends A
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyIprTrademarkLicensePersonVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyIprTrademarkLicensePersonDO byId = iDataCompanyIprTrademarkLicensePersonService.getById(detailForUpdateCommand.getId());
 		DataCompanyIprTrademarkLicensePersonVO dataCompanyIprTrademarkLicensePersonVO = DataCompanyIprTrademarkLicensePersonAppStructMapping.instance.dataCompanyIprTrademarkLicensePersonDOToDataCompanyIprTrademarkLicensePersonVO(byId);
 		return SingleResponse.of(dataCompanyIprTrademarkLicensePersonVO);

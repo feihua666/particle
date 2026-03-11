@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageVO;
 import com.particle.agi.infrastructure.chat.dos.AgiAgentChatMessageDO;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatMessageService;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessagePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentChatMessageQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentChatMessageVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentChatMessageDO byId = iAgiAgentChatMessageService.getById(detailCommand.getId());
 		AgiAgentChatMessageVO agiAgentChatMessageVO = AgiAgentChatMessageAppStructMapping.instance.agiAgentChatMessageDOToAgiAgentChatMessageVO(byId);
 		return SingleResponse.of(agiAgentChatMessageVO);
@@ -67,7 +66,7 @@ public class AgiAgentChatMessageQueryCommandExecutor  extends AbstractBaseQueryE
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentChatMessageVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentChatMessageDO byId = iAgiAgentChatMessageService.getById(detailForUpdateCommand.getId());
 		AgiAgentChatMessageVO agiAgentChatMessageVO = AgiAgentChatMessageAppStructMapping.instance.agiAgentChatMessageDOToAgiAgentChatMessageVO(byId);
 		return SingleResponse.of(agiAgentChatMessageVO);

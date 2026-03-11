@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.doc.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.doc.structmapping.OpenplatformDocDirNameAppStructMapping;
 import com.particle.openplatform.client.doc.dto.data.OpenplatformDocDirNameVO;
 import com.particle.openplatform.domain.doc.OpenplatformDocDirName;
@@ -34,7 +34,7 @@ public class OpenplatformDocDirNameDeleteCommandExecutor  extends AbstractBaseEx
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocDirNameVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformDocDirNameVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformDocDirNameId openplatformDocDirNameId = OpenplatformDocDirNameId.of(deleteCommand.getId());
 		OpenplatformDocDirName byId = openplatformDocDirNameGateway.getById(openplatformDocDirNameId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

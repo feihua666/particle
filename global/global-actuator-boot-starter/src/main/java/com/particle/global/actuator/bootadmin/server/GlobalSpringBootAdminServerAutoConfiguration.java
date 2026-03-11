@@ -23,6 +23,6 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 @Configuration(proxyBeanMethods = false)
 @EnableAdminServer
 @ConditionalOnClass(EnableAdminServer.class)
-@ConditionalOnProperty(prefix = "particle.actuator.bootadmin.server", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.actuator.bootadmin.server", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class GlobalSpringBootAdminServerAutoConfiguration {
 }

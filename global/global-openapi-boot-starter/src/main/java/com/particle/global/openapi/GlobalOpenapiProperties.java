@@ -18,7 +18,7 @@ import java.util.Set;
  * @since 2023-08-01 14:45
  */
 @Data
-@ConfigurationProperties(prefix = "particle.openapi")
+@ConfigurationProperties(prefix = "particle.global.openapi")
 public class GlobalOpenapiProperties {
 	/**
 	 * 将哪些额外 url 纳入开放接口

@@ -3,7 +3,7 @@ package com.particle.global.openapi.api.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.particle.global.openapi.api.AbstractGlobalOpenapi;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.Set;
 
@@ -28,8 +28,8 @@ public class DefaultOpenApiGlobal extends AbstractGlobalOpenapi {
 
 	@Override
 	public boolean support(HttpServletRequest request) {
-		for (AntPathRequestMatcher antPathRequestMatcher : antPathRequestMatchers) {
-			boolean matches = antPathRequestMatcher.matches(request);
+		for (RequestMatcher requestMatcher : requestMatchers) {
+			boolean matches = requestMatcher.matches(request);
 			if (matches) {
 				return matches;
 			}

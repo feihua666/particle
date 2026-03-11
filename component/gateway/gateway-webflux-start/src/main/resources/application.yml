@@ -1,0 +1,269 @@
+spring:
+  application:
+    # 应用名称
+    name: gateway-webflux-start
+  profiles:
+    include:
+      - log4j2
+      - actuator
+      - boot-admin-client-local
+      - boot-admin-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    openfeign:
+      client:
+        config:
+          default:
+            # 开启 feign client 调用日志日志，需要设置日志级别为 debug，参见：feign.slf4j.Slf4jLogger
+            loggerLevel: FULL
+    gateway:
+      # 路由配置 - 按各业务组件 start 模块配置
+      server:
+        webflux:
+          # 服务发现配置
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            # ========== 基础服务 ==========
+            # 字典服务 (8010)
+            - id: dict-route
+              uri: lb://dict-start
+              predicates:
+                - Path=/dict-start/**
+              filters:
+                - StripPrefix=1
+
+            # 区域服务 (8011)
+            - id: area-route
+              uri: lb://area-start
+              predicates:
+                - Path=/area-start/**
+              filters:
+                - StripPrefix=1
+
+            # AGI 服务 (8012)
+            - id: agi-route
+              uri: lb://agi-start
+              predicates:
+                - Path=/agi-start/**
+              filters:
+                - StripPrefix=1
+
+            # 审计服务 (8013)
+            - id: audit-route
+              uri: lb://audit-start
+              predicates:
+                - Path=/audit-start/**
+              filters:
+                - StripPrefix=1
+
+            # CMS 内容管理 (8014)
+            - id: cms-route
+              uri: lb://cms-start
+              predicates:
+                - Path=/cms-start/**
+              filters:
+                - StripPrefix=1
+
+            # 组件管理 (8015)
+            - id: component-admin-route
+              uri: lb://component-admin-start
+              predicates:
+                - Path=/component-admin-start/**
+              filters:
+                - StripPrefix=1
+
+            # 配置管理 (8016)
+            - id: config-route
+              uri: lb://config-start
+              predicates:
+                - Path=/config-start/**
+              filters:
+                - StripPrefix=1
+
+            # CRM 客户管理 (8017)
+            - id: crm-route
+              uri: lb://crm-start
+              predicates:
+                - Path=/crm-start/**
+              filters:
+                - StripPrefix=1
+
+            # 数据管理 (8018)
+            - id: data-route
+              uri: lb://data-start
+              predicates:
+                - Path=/data-start/**
+              filters:
+                - StripPrefix=1
+
+            # 数据约束/权限 (8019)
+            - id: data-constraint-route
+              uri: lb://data-constraint-start
+              predicates:
+                - Path=/data-constraint-start/**
+              filters:
+                - StripPrefix=1
+
+            # 数据查询 (8020)
+            - id: data-query-route
+              uri: lb://data-query-start
+              predicates:
+                - Path=/data-query-start/**
+              filters:
+                - StripPrefix=1
+
+            # 部门管理 (8021)
+            - id: dept-route
+              uri: lb://dept-start
+              predicates:
+                - Path=/dept-start/**
+              filters:
+                - StripPrefix=1
+
+            # Dream 服务 (8022)
+            - id: dream-route
+              uri: lb://dream-start
+              predicates:
+                - Path=/dream-start/**
+              filters:
+                - StripPrefix=1
+
+            # 意见反馈 (8023)
+            - id: feedback-route
+              uri: lb://feedback-start
+              predicates:
+                - Path=/feedback-start/**
+              filters:
+                - StripPrefix=1
+
+            # 功能菜单 (8024)
+            - id: func-route
+              uri: lb://func-start
+              predicates:
+                - Path=/func-start/**
+              filters:
+                - StripPrefix=1
+
+            # 低代码平台 (8025)
+            - id: low-code-route
+              uri: lb://low-code-start
+              predicates:
+                - Path=/low-code-start/**
+              filters:
+                - StripPrefix=1
+
+            # 消息管理 (8026)
+            - id: message-route
+              uri: lb://message-start
+              predicates:
+                - Path=/message-start/**
+              filters:
+                - StripPrefix=1
+
+            # 导航管理 (8027)
+            - id: navigation-route
+              uri: lb://navigation-start
+              predicates:
+                - Path=/navigation-start/**
+              filters:
+                - StripPrefix=1
+
+            # OAuth2 授权 (8028)
+            - id: oauth2authorization-route
+              uri: lb://oauth2authorization-start
+              predicates:
+                - Path=/oauth2authorization-start/**
+              filters:
+                - StripPrefix=1
+
+            # 操作日志 (8029)
+            - id: op-log-route
+              uri: lb://op-log-start
+              predicates:
+                - Path=/op-log-start/**
+              filters:
+                - StripPrefix=1
+
+            # 开放平台 (8030)
+            - id: open-platform-route
+              uri: lb://open-platform-start
+              predicates:
+                - Path=/open-platform-start/**
+              filters:
+                - StripPrefix=1
+
+            # 报告管理 (8031)
+            - id: report-route
+              uri: lb://report-start
+              predicates:
+                - Path=/report-start/**
+              filters:
+                - StripPrefix=1
+
+            # 角色管理 (8032)
+            - id: role-route
+              uri: lb://role-start
+              predicates:
+                - Path=/role-start/**
+              filters:
+                - StripPrefix=1
+
+            # 任务计划 (8033)
+            - id: scheduler-route
+              uri: lb://scheduler-start
+              predicates:
+                - Path=/scheduler-start/**
+              filters:
+                - StripPrefix=1
+
+            # 租户管理 (8034)
+            - id: tenant-route
+              uri: lb://tenant-start
+              predicates:
+                - Path=/tenant-start/**
+              filters:
+                - StripPrefix=1
+
+            # 工具组件 (8035)
+            - id: tools-route
+              uri: lb://tools-start
+              predicates:
+                - Path=/tools-start/**
+              filters:
+                - StripPrefix=1
+
+            # 埋点记录 (8036)
+            - id: tracking-route
+              uri: lb://tracking-start
+              predicates:
+                - Path=/tracking-start/**
+              filters:
+                - StripPrefix=1
+
+            # 使用次数统计 (8037)
+            - id: usage-count-route
+              uri: lb://usage-count-start
+              predicates:
+                - Path=/usage-count-start/**
+              filters:
+                - StripPrefix=1
+
+            # 用户管理 (8038)
+            - id: user-route
+              uri: lb://user-start
+              predicates:
+                - Path=/user-start/**
+              filters:
+                - StripPrefix=1
+server:
+  port: 8051
+  servlet:
+    encoding:
+      # 在接收请求和返回数据，强制 utf-8 编码
+      # encoding 配置默认为 utf-8 编码 参见：org.springframework.boot.web.servlet.server.Encoding.DEFAULT_CHARSET
+      force: true

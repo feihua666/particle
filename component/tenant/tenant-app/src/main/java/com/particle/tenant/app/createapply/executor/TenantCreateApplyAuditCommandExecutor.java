@@ -8,7 +8,7 @@ import cn.hutool.json.JSONUtil;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.tenant.app.createapply.structmapping.TenantCreateApplyAppStructMapping;
 import com.particle.tenant.app.executor.TenantCreateCommandExecutor;
 import com.particle.tenant.app.executor.TenantUserCreateCommandExecutor;

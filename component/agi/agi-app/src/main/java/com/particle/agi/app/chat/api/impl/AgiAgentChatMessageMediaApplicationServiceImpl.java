@@ -4,7 +4,7 @@ import com.particle.agi.app.chat.executor.AgiAgentChatMessageMediaCreateCommandE
 import com.particle.agi.app.chat.executor.AgiAgentChatMessageMediaDeleteCommandExecutor;
 import com.particle.agi.app.chat.executor.AgiAgentChatMessageMediaUpdateCommandExecutor;
 import com.particle.agi.app.chat.executor.AgiAgentChatMessageMediaCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageMediaUpdateCommand;
 import com.particle.agi.client.chat.api.IAgiAgentChatMessageMediaApplicationService;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageMediaCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class AgiAgentChatMessageMediaApplicationServiceImpl extends AbstractBase
     }
 
     @Override
-    public SingleResponse<AgiAgentChatMessageMediaVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<AgiAgentChatMessageMediaVO> delete(CommonIdCommand deleteCommand) {
         return agiAgentChatMessageMediaDeleteCommandExecutor.execute(deleteCommand);
     }
 

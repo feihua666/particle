@@ -1,7 +1,7 @@
 package com.particle.crm.app.tag.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.tag.structmapping.CrmCustomerTagRelAppStructMapping;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagRelVO;
 import com.particle.crm.domain.tag.CrmCustomerTagRel;
@@ -9,7 +9,7 @@ import com.particle.crm.domain.tag.CrmCustomerTagRelId;
 import com.particle.crm.domain.tag.gateway.CrmCustomerTagRelGateway;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class CrmCustomerTagRelDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<CrmCustomerTagRelVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<CrmCustomerTagRelVO> execute(@Valid CommonIdCommand deleteCommand) {
 		CrmCustomerTagRelId crmCustomerTagRelId = CrmCustomerTagRelId.of(deleteCommand.getId());
 		CrmCustomerTagRel byId = crmCustomerTagRelGateway.getById(crmCustomerTagRelId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

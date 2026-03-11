@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportAssetsVO
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportAssetsDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportAssetsService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportAssetsPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportAssetsQueryCommandExecutor  extends Abstract
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportAssetsVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportAssetsVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportAssetsDO byId = iDataCompanyAnnualReportAssetsService.getById(detailCommand.getId());
 		DataCompanyAnnualReportAssetsVO dataCompanyAnnualReportAssetsVO = DataCompanyAnnualReportAssetsAppStructMapping.instance.dataCompanyAnnualReportAssetsDOToDataCompanyAnnualReportAssetsVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportAssetsVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportAssetsQueryCommandExecutor  extends Abstract
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportAssetsVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportAssetsVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportAssetsDO byId = iDataCompanyAnnualReportAssetsService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportAssetsVO dataCompanyAnnualReportAssetsVO = DataCompanyAnnualReportAssetsAppStructMapping.instance.dataCompanyAnnualReportAssetsDOToDataCompanyAnnualReportAssetsVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportAssetsVO);

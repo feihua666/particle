@@ -22,5 +22,11 @@
             <artifactId>global-tool</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 使用 error code -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-common</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
     </dependencies>
 </project>

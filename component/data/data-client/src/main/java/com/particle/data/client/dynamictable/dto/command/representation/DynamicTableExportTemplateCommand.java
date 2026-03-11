@@ -1,7 +1,6 @@
 package com.particle.data.client.dynamictable.dto.command.representation;
 
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.light.share.mybatis.anno.Like;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ import java.util.List;
  */
 @Data
 @Schema
-public class DynamicTableExportTemplateCommand extends IdCommand {
+public class DynamicTableExportTemplateCommand extends CommonIdCommand {
 
     @Schema(description = "指定字段id，不指定默认全部")
     private List<Long> dynamicTableFieldIds;

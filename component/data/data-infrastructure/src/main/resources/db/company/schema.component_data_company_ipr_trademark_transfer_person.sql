@@ -18,4 +18,4 @@ CREATE TABLE `component_data_company_ipr_trademark_transfer_person` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `uni_company_ipr_trademark_transfer_id__data_md5` (`company_ipr_trademark_transfer_id`,`data_md5`) USING BTREE,
   KEY `company_ipr_trademark_transfer_id` (`company_ipr_trademark_transfer_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权商标转让人表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权商标转让人表';

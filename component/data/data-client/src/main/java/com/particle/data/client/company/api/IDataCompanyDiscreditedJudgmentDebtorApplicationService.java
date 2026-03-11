@@ -1,16 +1,14 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyDiscreditedJudgmentDebtorCreateCommand;
 import com.particle.data.client.company.dto.command.DataCompanyDiscreditedJudgmentDebtorUpdateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyDiscreditedJudgmentDebtorVO;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyDiscreditedJudgmentDebtorWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyDiscreditedJudgmentDebtorExWarehouseVO;
-import com.particle.data.client.company.dto.command.warehouse.DataCompanyDiscreditedJudgmentDebtorWarehouseCommand;
-import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyDiscreditedJudgmentDebtorExWarehouseVO;
+
 /**
  * <p>
  * 企业失信被执行人 应用门面服务类
@@ -32,7 +30,7 @@ public interface IDataCompanyDiscreditedJudgmentDebtorApplicationService extends
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyDiscreditedJudgmentDebtorVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyIprPatentCertificateApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyIprPatentCertificateRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentCertificateCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyIprPatentCertificateVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentCertificateUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentCertificatePageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyIprPatentCertificateQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业知识产权专利证书信息后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyIprPatentCertificateAdminWebController extends AbstractB
     @Operation(summary = "删除企业知识产权专利证书信息")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业知识产权专利证书信息",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyIprPatentCertificateVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyIprPatentCertificateVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyIprPatentCertificateApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyIprPatentCertificateAdminWebController extends AbstractB
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprPatentCertificate:update')")
     @Operation(summary = "企业知识产权专利证书信息更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyIprPatentCertificateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyIprPatentCertificateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyIprPatentCertificateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyIprPatentCertificate:detail')")
     @Operation(summary = "企业知识产权专利证书信息详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyIprPatentCertificateVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyIprPatentCertificateVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyIprPatentCertificateRepresentationApplicationService.queryDetail(detailCommand);
     }
 

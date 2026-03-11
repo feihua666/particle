@@ -25,11 +25,13 @@ import java.util.Optional;
 @Component
 public class SnowflakeIdTool implements InitializingBean {
 
-	private static final String workerIdKey = "particle.snowflake.worker-id";
+	private static final String prefix = "particle.global.snowflake.";
+
+	private static final String workerIdKey = prefix + "worker-id";
 	private static final String workerIdKeyWithDefault = "${" + workerIdKey + ":#{null}}";
-	private static final String dataCenterIdKey = "particle.snowflake.data-center-id";
+	private static final String dataCenterIdKey = prefix + "data-center-id";
 	private static final String dataCenterIdKeyWidthDefault = "${" + dataCenterIdKey + ":#{null}}";
-	private static final String userRandomKey = "particle.snowflake.use-random";
+	private static final String userRandomKey = prefix + "use-random";
 	private static final String userRandomKeyWidthDefault = "${" + userRandomKey + ":false}";
 
 	private static volatile Snowflake snowflake;

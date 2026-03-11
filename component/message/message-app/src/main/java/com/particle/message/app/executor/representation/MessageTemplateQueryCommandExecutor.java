@@ -2,7 +2,7 @@ package com.particle.message.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class MessageTemplateQueryCommandExecutor  extends AbstractBaseQueryExecu
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<MessageTemplateVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<MessageTemplateVO> executeDetail(CommonIdCommand detailCommand) {
 		MessageTemplateDO byId = iMessageTemplateService.getById(detailCommand.getId());
 		MessageTemplateVO messageTemplateVO = MessageTemplateAppStructMapping.instance.messageTemplateDOToMessageTemplateVO(byId);
 		return SingleResponse.of(messageTemplateVO);
@@ -67,7 +67,7 @@ public class MessageTemplateQueryCommandExecutor  extends AbstractBaseQueryExecu
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<MessageTemplateVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<MessageTemplateVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		MessageTemplateDO byId = iMessageTemplateService.getById(detailForUpdateCommand.getId());
 		MessageTemplateVO messageTemplateVO = MessageTemplateAppStructMapping.instance.messageTemplateDOToMessageTemplateVO(byId);
 		return SingleResponse.of(messageTemplateVO);

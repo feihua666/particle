@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyCourtAnnouncementAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCourtAnnouncementQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyCourtAnnouncementVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyCourtAnnouncementDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyCourtAnnouncementService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCourtAnnouncementPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyCourtAnnouncementQueryCommandExecutor  extends AbstractB
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCourtAnnouncementVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyCourtAnnouncementVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyCourtAnnouncementDO byId = iDataCompanyCourtAnnouncementService.getById(detailCommand.getId());
 		DataCompanyCourtAnnouncementVO dataCompanyCourtAnnouncementVO = DataCompanyCourtAnnouncementAppStructMapping.instance.dataCompanyCourtAnnouncementDOToDataCompanyCourtAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyCourtAnnouncementVO);
@@ -67,7 +66,7 @@ public class DataCompanyCourtAnnouncementQueryCommandExecutor  extends AbstractB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCourtAnnouncementVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyCourtAnnouncementVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyCourtAnnouncementDO byId = iDataCompanyCourtAnnouncementService.getById(detailForUpdateCommand.getId());
 		DataCompanyCourtAnnouncementVO dataCompanyCourtAnnouncementVO = DataCompanyCourtAnnouncementAppStructMapping.instance.dataCompanyCourtAnnouncementDOToDataCompanyCourtAnnouncementVO(byId);
 		return SingleResponse.of(dataCompanyCourtAnnouncementVO);

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.particle.config.infrastructure.system.dos.SystemConfigDO;
 import com.particle.global.exception.Assert;
 import com.particle.global.mybatis.plus.crud.IBaseService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ public interface ISystemConfigService extends IBaseService<SystemConfigDO> {
      * @param code
      * @return
      */
-    default SystemConfigDO getByCode(String code) {
+    default SystemConfigDO getByCode(String code, Boolean isDisabled) {
         Assert.notNull(code,"code 不能为空");
-        return getOne(Wrappers.<SystemConfigDO>lambdaQuery().eq(SystemConfigDO::getCode, code));
+        return getOne(Wrappers.<SystemConfigDO>lambdaQuery().eq(SystemConfigDO::getCode, code).eq(isDisabled!= null,SystemConfigDO::getIsDisabled, isDisabled));
     }
 
 
@@ -34,9 +35,9 @@ public interface ISystemConfigService extends IBaseService<SystemConfigDO> {
      * @param codes
      * @return
      */
-    default List<SystemConfigDO> getByCodes(List<String> codes) {
+    default List<SystemConfigDO> getByCodes(List<String> codes,Boolean isDisabled) {
         Assert.notEmpty(codes,"codes 不能为空");
-        return list(Wrappers.<SystemConfigDO>lambdaQuery().in(SystemConfigDO::getCode, codes));
+        return list(Wrappers.<SystemConfigDO>lambdaQuery().in(SystemConfigDO::getCode, codes).eq(isDisabled!= null,SystemConfigDO::getIsDisabled, isDisabled));
     }
 
 
@@ -45,9 +46,9 @@ public interface ISystemConfigService extends IBaseService<SystemConfigDO> {
      * @param tag
      * @return
      */
-    default List<SystemConfigDO> getByTag(String tag) {
+    default List<SystemConfigDO> getByTag(String tag,Boolean isDisabled) {
         Assert.notEmpty(tag,"tag 不能为空");
-        return list(Wrappers.<SystemConfigDO>lambdaQuery().eq(SystemConfigDO::getTag, tag));
+        return list(Wrappers.<SystemConfigDO>lambdaQuery().eq(SystemConfigDO::getTag, tag).eq(isDisabled!= null,SystemConfigDO::getIsDisabled, isDisabled));
     }
 
 

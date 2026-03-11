@@ -1,11 +1,11 @@
 package com.particle.data.adapter.dynamictable.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.dynamictable.api.IDynamicTableFieldApplicationService;
 import com.particle.data.client.dynamictable.api.representation.IDynamicTableFieldRepresentationApplicationService;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldCreateCommand;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableFieldVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamictable.dto.command.DynamicTableFieldUpdateCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableFieldPageQueryCommand;
 import com.particle.data.client.dynamictable.dto.command.representation.DynamicTableFieldQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 动态数据表格字段后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DynamicTableFieldAdminWebController extends AbstractBaseWebAdapter 
     @Operation(summary = "删除动态数据表格字段")
     @DeleteMapping("/delete")
     @OpLog(name = "删除动态数据表格字段",module = OpLogConstants.Module.data,type = OpLogConstants.Type.delete)
-    public SingleResponse<DynamicTableFieldVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DynamicTableFieldVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDynamicTableFieldApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DynamicTableFieldAdminWebController extends AbstractBaseWebAdapter 
     @PreAuthorize("hasAuthority('admin:web:dynamicTableField:update')")
     @Operation(summary = "动态数据表格字段更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DynamicTableFieldVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DynamicTableFieldVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDynamicTableFieldRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dynamicTableField:detail')")
     @Operation(summary = "动态数据表格字段详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DynamicTableFieldVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DynamicTableFieldVO> queryDetail(CommonIdCommand detailCommand){
         return iDynamicTableFieldRepresentationApplicationService.queryDetail(detailCommand);
     }
 

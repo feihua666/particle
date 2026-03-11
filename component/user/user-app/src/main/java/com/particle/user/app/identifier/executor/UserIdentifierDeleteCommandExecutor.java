@@ -1,10 +1,10 @@
 package com.particle.user.app.identifier.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
 import com.particle.user.client.identifier.dto.data.UserIdentifierVO;
 import com.particle.user.domain.identifier.UserIdentifier;
@@ -34,7 +34,7 @@ public class UserIdentifierDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param userIdentifierDeleteCommand
 	 * @return
 	 */
-	public SingleResponse<UserIdentifierVO> execute(@Valid IdCommand userIdentifierDeleteCommand) {
+	public SingleResponse<UserIdentifierVO> execute(@Valid CommonIdCommand userIdentifierDeleteCommand) {
 		UserIdentifierId userIdentifierId = UserIdentifierId.of(userIdentifierDeleteCommand.getId());
 		UserIdentifier byId = userIdentifierGateway.getById(userIdentifierId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

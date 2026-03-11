@@ -4,14 +4,14 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.particle.global.dto.response.Response;
 import com.particle.global.exception.BaseException;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 import com.particle.global.openapi.GlobalOpenapiProperties;
 import com.particle.global.openapi.api.OpenApi;
 import com.particle.global.openapi.api.OpenapiHelper;
 import com.particle.global.openapi.collect.OpenapiCollectTool;
 import com.particle.global.openapi.collect.OpenapiContext;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
-import com.particle.global.security.security.PermissionService;
+import com.particle.global.security.security.SecurityPermissionService;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.servlet.RequestTool;
 import jakarta.servlet.FilterChain;
@@ -78,7 +78,7 @@ public class GlobalOpenApiFilter extends OncePerRequestFilter {
 				request.setAttribute(openapiContextRequestKey,OpenapiCollectTool.getContext());
 				OpenapiContext context = OpenapiCollectTool.getContext();
 				if (context != null) {
-					context.setThrowable(throwable);
+					context.setThrowable(e);
 				}
 				IErrorCode errorCode = ((BaseException) e).getError();
 				Response responseData = Response.buildFailure(errorCode);
@@ -109,7 +109,7 @@ public class GlobalOpenApiFilter extends OncePerRequestFilter {
 					}
 				}
 
-				PermissionService.clear();
+				SecurityPermissionService.clear();
 				OpenapiCollectTool.clear();
 			}
 

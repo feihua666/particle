@@ -30,11 +30,48 @@
 - [role](./role/README.md) - 角色管理组件
 - [scheduler](./scheduler/README.md) - 任务计划管理组件
 - [tenant](./tenant/README.md) - 租户管理组件
-- [test](./test/README.md) - 测试组件
 - [tools](./tools/README.md) - 工具组件
 - [tracking](./tracking/README.md) - 埋点记录组件
 - [usage-count](./usage-count/README.md) - 使用次数组件
 - [user](./user/README.md) - 用户管理组件
+
+## 端口列表说明
+
+每个业务组件模块都包含一个以 `-start` 结尾的启动模块，这些模块运行在不同的端口上：
+
+| 端口号 | 组件名称 | 启动模块 |
+|--------|---------|----------|
+| 8010 | dict | dict-start |
+| 8011 | area | area-start |
+| 8012 | agi | agi-start |
+| 8013 | audit | audit-start |
+| 8014 | cms | cms-start |
+| 8015 | component-admin | component-admin-start |
+| 8016 | config | config-start |
+| 8017 | crm | crm-start |
+| 8018 | data | data-start |
+| 8019 | data-constraint | data-constraint-start |
+| 8020 | data-query | data-query-start |
+| 8021 | dept | dept-start |
+| 8022 | dream | dream-start |
+| 8023 | feedback | feedback-start |
+| 8024 | func | func-start |
+| 8025 | low-code | low-code-start |
+| 8026 | message | message-start |
+| 8027 | navigation | navigation-start |
+| 8028 | oauth2authorization | oauth2authorization-start |
+| 8029 | op-log | op-log-start |
+| 8030 | open-platform | open-platform-start |
+| 8031 | report | report-start |
+| 8032 | role | role-start |
+| 8033 | scheduler | scheduler-start |
+| 8034 | tenant | tenant-start |
+| 8035 | tools | tools-start |
+| 8036 | tracking | tracking-start |
+| 8037 | usage-count | usage-count-start |
+| 8038 | user | user-start |
+| 8050 | gateway-webmvc | gateway-webmvc-start |
+| 8051 | gateway-webflux | gateway-webflux-start |
 
 ## 设计理念
 

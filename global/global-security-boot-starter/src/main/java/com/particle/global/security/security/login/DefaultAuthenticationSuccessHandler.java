@@ -5,11 +5,13 @@ import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.security.GlobalSecurityProperties;
 import com.particle.global.security.security.ApplicationContextForSecurityHelper;
 import com.particle.global.swagger.SwaggerInfo;
 import com.particle.global.tool.json.JsonTool;
+import com.particle.global.tool.login.LoginUserTool;
 import com.particle.global.tool.servlet.RequestTool;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -61,6 +63,8 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
                         .map(Session::getCookie)
                         .map(Session.Cookie::getName).orElse(SwaggerInfo.token);
                 httpServletResponse.setHeader(tokenName, session.getId());
+                // 兼容一下旧的请求头兼容
+                httpServletResponse.setHeader("c-token-id", session.getId());
             }
         }
 
@@ -68,7 +72,7 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
         Object principal = authentication.getPrincipal();
         if (principal instanceof LoginUser) {
             ((LoginUser) principal).setPassword(null);
-            LoginUserTool.saveToSession((LoginUser) principal,httpServletRequest);
+            LoginUserTool.saveToThreadContext((LoginUser) principal);
         }
         SingleResponse<Object> singleResponse = SingleResponse.of(principal);
 

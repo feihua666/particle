@@ -1,10 +1,10 @@
 package com.particle.navigation.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.navigation.app.structmapping.NavigationFriendshipLinkAppStructMapping;
 import com.particle.navigation.client.dto.data.NavigationFriendshipLinkVO;
 import com.particle.navigation.domain.NavigationFriendshipLink;
@@ -36,7 +36,7 @@ public class NavigationFriendshipLinkDeleteCommandExecutor  extends AbstractBase
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationFriendshipLinkVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<NavigationFriendshipLinkVO> execute(@Valid CommonIdCommand deleteCommand) {
 		NavigationFriendshipLinkId navigationFriendshipLinkId = NavigationFriendshipLinkId.of(deleteCommand.getId());
 		NavigationFriendshipLink byId = navigationFriendshipLinkGateway.getById(navigationFriendshipLinkId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

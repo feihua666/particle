@@ -2,7 +2,7 @@ package com.particle.openplatform.app.bill.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformProviderRecordPrdMonthBillQueryCommandExecutor  extends
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformProviderRecordPrdMonthBillDO byId = iOpenplatformProviderRecordPrdMonthBillService.getById(detailCommand.getId());
 		OpenplatformProviderRecordPrdMonthBillVO openplatformProviderRecordPrdMonthBillVO = OpenplatformProviderRecordPrdMonthBillAppStructMapping.instance.openplatformProviderRecordPrdMonthBillDOToOpenplatformProviderRecordPrdMonthBillVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdMonthBillVO);
@@ -67,7 +67,7 @@ public class OpenplatformProviderRecordPrdMonthBillQueryCommandExecutor  extends
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformProviderRecordPrdMonthBillVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformProviderRecordPrdMonthBillDO byId = iOpenplatformProviderRecordPrdMonthBillService.getById(detailForUpdateCommand.getId());
 		OpenplatformProviderRecordPrdMonthBillVO openplatformProviderRecordPrdMonthBillVO = OpenplatformProviderRecordPrdMonthBillAppStructMapping.instance.openplatformProviderRecordPrdMonthBillDOToOpenplatformProviderRecordPrdMonthBillVO(byId);
 		return SingleResponse.of(openplatformProviderRecordPrdMonthBillVO);

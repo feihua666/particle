@@ -2,7 +2,7 @@ package com.particle.lowcode.app.generator.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class LowcodeSegmentGenQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeSegmentGenVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<LowcodeSegmentGenVO> executeDetail(CommonIdCommand detailCommand) {
 		LowcodeSegmentGenDO byId = iLowcodeSegmentGenService.getById(detailCommand.getId());
 		LowcodeSegmentGenVO lowcodeSegmentGenVO = LowcodeSegmentGenAppStructMapping.instance.lowcodeSegmentGenDOToLowcodeSegmentGenVO(byId);
 		return SingleResponse.of(lowcodeSegmentGenVO);
@@ -67,7 +67,7 @@ public class LowcodeSegmentGenQueryCommandExecutor  extends AbstractBaseQueryExe
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<LowcodeSegmentGenVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<LowcodeSegmentGenVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		LowcodeSegmentGenDO byId = iLowcodeSegmentGenService.getById(detailForUpdateCommand.getId());
 		LowcodeSegmentGenVO lowcodeSegmentGenVO = LowcodeSegmentGenAppStructMapping.instance.lowcodeSegmentGenDOToLowcodeSegmentGenVO(byId);
 		return SingleResponse.of(lowcodeSegmentGenVO);

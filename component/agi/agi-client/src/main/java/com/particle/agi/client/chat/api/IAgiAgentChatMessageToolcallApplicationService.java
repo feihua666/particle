@@ -1,9 +1,8 @@
 package com.particle.agi.client.chat.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageToolcallCreateCommand;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatMessageToolcallUpdateCommand;
 import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageToolcallVO;
@@ -28,7 +27,7 @@ public interface IAgiAgentChatMessageToolcallApplicationService extends IBaseApp
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<AgiAgentChatMessageToolcallVO> delete(IdCommand deleteCommand);
+	SingleResponse<AgiAgentChatMessageToolcallVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

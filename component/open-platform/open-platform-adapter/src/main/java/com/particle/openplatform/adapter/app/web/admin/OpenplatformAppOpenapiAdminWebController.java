@@ -3,7 +3,7 @@ package com.particle.openplatform.adapter.app.web.admin;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.net.NetUtil;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -68,7 +68,7 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除开放平台应用与开放接口配置")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放平台应用与开放接口配置",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformAppOpenapiVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformAppOpenapiVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformAppOpenapiApplicationService.delete(deleteCommand);
 	}
 
@@ -83,14 +83,14 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:openplatformAppOpenapi:update')")
 	@Operation(summary = "开放平台应用与开放接口配置更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformAppOpenapiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformAppOpenapiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformAppOpenapiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformAppOpenapi:detail')")
 	@Operation(summary = "开放平台应用与开放接口配置详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformAppOpenapiVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformAppOpenapiVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformAppOpenapiRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -112,7 +112,7 @@ public class OpenplatformAppOpenapiAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "刷新开放平台应用配置的单个开放接口信息缓存")
 	@PutMapping("/refreshCache")
 	@OpLog(name = "刷新开放平台应用配置的单个开放接口信息缓存",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.update)
-	public SingleResponse<String> refreshCache(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<String> refreshCache(@RequestBody CommonIdCommand deleteCommand){
 		SingleResponse<OpenplatformAppOpenapiVO> openplatformAppOpenapiVOSingleResponse = iOpenplatformAppOpenapiRepresentationApplicationService.queryDetail(deleteCommand);
 		OpenplatformAppDO openplatformAppDO = iOpenplatformAppService.getById(openplatformAppOpenapiVOSingleResponse.getData().getOpenplatformAppId());
 		OpenplatformOpenapiDO openplatformOpenapiDO = iOpenplatformOpenapiService.getById(openplatformAppOpenapiVOSingleResponse.getData().getOpenplatformOpenapiId());

@@ -1,5 +1,5 @@
 <script setup name="Pagination">
-import {inject} from 'vue'
+import {inject, computed} from 'vue'
 import {hasPermissionConfig, permissionProps} from './permission'
 import {disabledConfig, disabledProps} from './disabled'
 
@@ -7,17 +7,18 @@ import {disabledConfig, disabledProps} from './disabled'
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
   currentPage: {
-    type: Number,
-    default: 1
+    type: [Number,String],
+    default: 1,
   },
   pageSize: {
-    type: Number,
-    default: 10
+    type: [Number,String],
+    default: 10,
   },
   total: {
-    type: Number,
-    default: 0
+    type: [Number,String],
+    default: 0,
   },
+  // 分页大小 'large' | 'default' | 'small'
   size: {
     type: String,
   },
@@ -35,6 +36,12 @@ const injectPermissions = inject('permissions', [])
 const hasPermission = hasPermissionConfig({props,injectPermissions,noPermissionSimpleText: `「此」分页操作`})
 
 const hasDisabled = disabledConfig({props,hasPermission})
+
+// 类型转换计算属性
+const convertedCurrentPage = computed(() => Number(props.currentPage))
+const convertedPageSize = computed(() => Number(props.pageSize))
+const convertedTotal = computed(() => Number(props.total))
+
 // 事件
 const emit = defineEmits(['sizeChange','currentChange'])
 
@@ -59,11 +66,11 @@ const currentChange = (val)=>{
       :size="size"
       @size-change="sizeChange"
       @current-change="currentChange"
-      :current-page="currentPage"
+      :current-page="convertedCurrentPage"
       :page-sizes="[10, 20, 50, 100, 200, 500]"
-      :page-size="pageSize"
+      :page-size="convertedPageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
+      :total="convertedTotal"
       :disabled="hasDisabled.disabled"
       :title="hasDisabled.disabledReason"
       style="text-align: right;">

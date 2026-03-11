@@ -30,14 +30,9 @@ public class DictTransRpcController extends AbstractBaseRpcAdapter implements Di
 	private DictTransServiceImpl dictTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return dictTransService.supportBatch(type);
-	}
-
-
-	@Override
 	public List<TransResult<DictTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return dictTransService.transBatch(type, keys);
 	}
+
 
 }

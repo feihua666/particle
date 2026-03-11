@@ -5,7 +5,7 @@ import com.particle.agi.client.chat.api.IAgiAgentChatApplicationService;
 import com.particle.agi.client.chat.api.representation.IAgiAgentChatRepresentationApplicationService;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatCreateCommand;
 import com.particle.agi.client.chat.dto.data.AgiAgentChatVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.agi.client.chat.dto.command.AgiAgentChatUpdateCommand;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatPageQueryCommand;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 智能体对话后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class AgiAgentChatAdminWebController extends AbstractBaseWebAdapter {
     @Operation(summary = "删除智能体对话")
     @DeleteMapping("/delete")
     @OpLog(name = "删除智能体对话",module = OpLogConstants.Module.agi,type = OpLogConstants.Type.delete)
-    public SingleResponse<AgiAgentChatVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<AgiAgentChatVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iAgiAgentChatApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class AgiAgentChatAdminWebController extends AbstractBaseWebAdapter {
     @PreAuthorize("hasAuthority('admin:web:agiAgentChat:update')")
     @Operation(summary = "智能体对话更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<AgiAgentChatVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<AgiAgentChatVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iAgiAgentChatRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:agiAgentChat:detail')")
     @Operation(summary = "智能体对话详情展示")
     @GetMapping("/detail")
-    public SingleResponse<AgiAgentChatVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<AgiAgentChatVO> queryDetail(CommonIdCommand detailCommand){
         return iAgiAgentChatRepresentationApplicationService.queryDetail(detailCommand);
     }
 

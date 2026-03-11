@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyJudgmentDebtorVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyJudgmentDebtorDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyJudgmentDebtorService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDebtorPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyJudgmentDebtorQueryCommandExecutor  extends AbstractBase
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDebtorVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyJudgmentDebtorVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyJudgmentDebtorDO byId = iDataCompanyJudgmentDebtorService.getById(detailCommand.getId());
 		DataCompanyJudgmentDebtorVO dataCompanyJudgmentDebtorVO = DataCompanyJudgmentDebtorAppStructMapping.instance.dataCompanyJudgmentDebtorDOToDataCompanyJudgmentDebtorVO(byId);
 		return SingleResponse.of(dataCompanyJudgmentDebtorVO);
@@ -67,7 +66,7 @@ public class DataCompanyJudgmentDebtorQueryCommandExecutor  extends AbstractBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyJudgmentDebtorVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyJudgmentDebtorVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyJudgmentDebtorDO byId = iDataCompanyJudgmentDebtorService.getById(detailForUpdateCommand.getId());
 		DataCompanyJudgmentDebtorVO dataCompanyJudgmentDebtorVO = DataCompanyJudgmentDebtorAppStructMapping.instance.dataCompanyJudgmentDebtorDOToDataCompanyJudgmentDebtorVO(byId);
 		return SingleResponse.of(dataCompanyJudgmentDebtorVO);

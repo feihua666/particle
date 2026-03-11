@@ -1,7 +1,7 @@
 package com.particle.openplatform.client.app.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppQuotaCreateCommand;
 import com.particle.openplatform.client.app.dto.command.OpenplatformAppQuotaUpdateCommand;
@@ -27,7 +27,7 @@ public interface IOpenplatformAppQuotaApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpenplatformAppQuotaVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpenplatformAppQuotaVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

@@ -4,7 +4,7 @@ import com.particle.cms.app.executor.CmsContentCategoryCreateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentCategoryDeleteCommandExecutor;
 import com.particle.cms.app.executor.CmsContentCategoryUpdateCommandExecutor;
 import com.particle.cms.app.executor.CmsContentCategoryCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.cms.client.dto.command.CmsContentCategoryUpdateCommand;
 import com.particle.cms.client.api.ICmsContentCategoryApplicationService;
 import com.particle.cms.client.dto.command.CmsContentCategoryCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
@@ -46,7 +45,7 @@ public class CmsContentCategoryApplicationServiceImpl extends AbstractBaseApplic
     }
 
     @Override
-    public SingleResponse<CmsContentCategoryVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<CmsContentCategoryVO> delete(CommonIdCommand deleteCommand) {
         return cmsContentCategoryDeleteCommandExecutor.execute(deleteCommand);
     }
 

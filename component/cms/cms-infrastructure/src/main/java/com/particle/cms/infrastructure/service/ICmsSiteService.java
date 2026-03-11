@@ -37,7 +37,7 @@ public interface ICmsSiteService extends IBaseService<CmsSiteDO> {
         Assert.notEmpty(codes,"codes 不能为空");
         return list(Wrappers.<CmsSiteDO>lambdaQuery().in(CmsSiteDO::getCode, codes));
     }
-            
+
 
     /**
      * 根据站点名称查询
@@ -60,7 +60,7 @@ public interface ICmsSiteService extends IBaseService<CmsSiteDO> {
         Assert.notEmpty(names,"names 不能为空");
         return list(Wrappers.<CmsSiteDO>lambdaQuery().in(CmsSiteDO::getName, names));
     }
-            
+
 
     /**
      * 根据站点域名查询
@@ -83,21 +83,24 @@ public interface ICmsSiteService extends IBaseService<CmsSiteDO> {
         Assert.notEmpty(domains,"domains 不能为空");
         return list(Wrappers.<CmsSiteDO>lambdaQuery().in(CmsSiteDO::getDomain, domains));
     }
-            
 
+    /**
+     * 根据站点 id 和 isPublic 查询
+     * @param id
+     * @return
+     */
+    default CmsSiteDO getByIdAndIsPublic(Long id, Boolean isPublic) {
+        Assert.notNull(id,"id 不能为空");
+        return getOne(Wrappers.<CmsSiteDO>lambdaQuery().eq(CmsSiteDO::getId, id).eq(isPublic != null,CmsSiteDO::getIsPublic, isPublic));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 根据站点 ids 和 isPublic 查询
+     * @param ids
+     * @return
+     */
+    default List<CmsSiteDO> listByIdsAndIsPublic(List<Long> ids, Boolean isPublic) {
+        Assert.notEmpty(ids,"ids 不能为空");
+        return list(Wrappers.<CmsSiteDO>lambdaQuery().in(CmsSiteDO::getId, ids).eq(isPublic != null,CmsSiteDO::getIsPublic, isPublic));
+    }
 }

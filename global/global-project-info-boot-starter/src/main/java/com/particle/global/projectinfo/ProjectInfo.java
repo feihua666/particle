@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "particle.project-info")
+@ConfigurationProperties(prefix = "particle.global.project-info")
 public class ProjectInfo implements InitializingBean {
 
 	private List<ProjectInfoInitializeListener> projectInfoInitializeListeners;

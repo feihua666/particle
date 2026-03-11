@@ -53,7 +53,7 @@ import static com.baomidou.mybatisplus.core.toolkit.PluginUtils.realTarget;
 @Slf4j
 public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 
-	private static final String slowSqlNotifyThresholdValueKey = "particle.notify.slowSql.threshold";
+	private static final String slowSqlNotifyThresholdValueKey = "particle.global.notify.slowSql.threshold";
     // 参数同 log4j2 配置 pattern中 %c{1.}
     private static final NameAbbreviator abbreviator = NameAbbreviator.getAbbreviator("1.");
 
@@ -65,7 +65,7 @@ public class MetricsAndSlowSqlMybatisInterceptor implements Interceptor {
 	/**
 	 * 打印完整sql
 	 */
-	@Value("${particle.logSqlEnable:true}")
+	@Value("${particle.global.logSqlEnable:true}")
 	private boolean logSqlEnable = true;
 
 	@Override

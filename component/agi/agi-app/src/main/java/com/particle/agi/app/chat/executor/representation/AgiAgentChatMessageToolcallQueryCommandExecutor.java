@@ -6,7 +6,7 @@ import com.particle.agi.client.chat.dto.data.AgiAgentChatMessageToolcallVO;
 import com.particle.agi.infrastructure.chat.dos.AgiAgentChatMessageToolcallDO;
 import com.particle.agi.infrastructure.chat.service.IAgiAgentChatMessageToolcallService;
 import com.particle.agi.client.chat.dto.command.representation.AgiAgentChatMessageToolcallPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class AgiAgentChatMessageToolcallQueryCommandExecutor  extends AbstractBa
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageToolcallVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<AgiAgentChatMessageToolcallVO> executeDetail(CommonIdCommand detailCommand) {
 		AgiAgentChatMessageToolcallDO byId = iAgiAgentChatMessageToolcallService.getById(detailCommand.getId());
 		AgiAgentChatMessageToolcallVO agiAgentChatMessageToolcallVO = AgiAgentChatMessageToolcallAppStructMapping.instance.agiAgentChatMessageToolcallDOToAgiAgentChatMessageToolcallVO(byId);
 		return SingleResponse.of(agiAgentChatMessageToolcallVO);
@@ -67,7 +66,7 @@ public class AgiAgentChatMessageToolcallQueryCommandExecutor  extends AbstractBa
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<AgiAgentChatMessageToolcallVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<AgiAgentChatMessageToolcallVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		AgiAgentChatMessageToolcallDO byId = iAgiAgentChatMessageToolcallService.getById(detailForUpdateCommand.getId());
 		AgiAgentChatMessageToolcallVO agiAgentChatMessageToolcallVO = AgiAgentChatMessageToolcallAppStructMapping.instance.agiAgentChatMessageToolcallDOToAgiAgentChatMessageToolcallVO(byId);
 		return SingleResponse.of(agiAgentChatMessageToolcallVO);

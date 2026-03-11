@@ -2,7 +2,7 @@ package com.particle.openplatform.app.provider.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.provider.structmapping.OpenplatformProviderApiAppStructMapping;
 import com.particle.openplatform.client.provider.dto.command.OpenplatformProviderApiUpdateCommand;
 import com.particle.openplatform.client.provider.dto.data.OpenplatformProviderApiVO;

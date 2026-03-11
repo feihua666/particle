@@ -1,7 +1,7 @@
 package com.particle.role.adapter.roleuserrel.web.front;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -55,14 +55,14 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除角色用户关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除角色用户关系",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public SingleResponse<RoleUserRelVO> delete(@RequestBody IdCommand roleUserRelDeleteCommand){
+	public SingleResponse<RoleUserRelVO> delete(@RequestBody CommonIdCommand roleUserRelDeleteCommand){
 		return iRoleUserRelApplicationService.delete(roleUserRelDeleteCommand);
 	}
 
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:detail')")
 	@Operation(summary = "角色用户关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<RoleUserRelVO> queryDetail(IdCommand roleUserRelQueryDetailCommand){
+	public SingleResponse<RoleUserRelVO> queryDetail(CommonIdCommand roleUserRelQueryDetailCommand){
 		return iRoleUserRelRepresentationApplicationService.queryDetail(roleUserRelQueryDetailCommand);
 	}
 
@@ -93,8 +93,8 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:queryUserIdsByRoleId')")
 	@GetMapping("/queryUserIdsByRoleId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryUserIdsByRoleId(IdCommand roleIdCommand) {
-		return iRoleUserRelRepresentationApplicationService.queryUserIdsByRoleId( roleIdCommand);
+	public MultiResponse<Long> queryUserIdsByRoleId(CommonIdCommand roleCommonIdCommand) {
+		return iRoleUserRelRepresentationApplicationService.queryUserIdsByRoleId(roleCommonIdCommand);
 	}
 
 	@Operation(summary = "清空角色下的所有用户")
@@ -102,8 +102,8 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/deleteByRoleId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空角色下的所有用户",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public Response deleteByRoleId(@RequestBody IdCommand roleIdCommand) {
-		return iRoleUserRelApplicationService.deleteByRoleId(roleIdCommand);
+	public Response deleteByRoleId(@RequestBody CommonIdCommand roleCommonIdCommand) {
+		return iRoleUserRelApplicationService.deleteByRoleId(roleCommonIdCommand);
 	}
 
 
@@ -120,8 +120,8 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('front:web:roleUserRel:queryRoleIdsByUserId')")
 	@GetMapping("/queryRoleIdsByUserId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryRoleIdsByUserId( IdCommand userIdCommand) {
-		return iRoleUserRelRepresentationApplicationService.queryRoleIdsByUserId( userIdCommand);
+	public MultiResponse<Long> queryRoleIdsByUserId( CommonIdCommand userCommonIdCommand) {
+		return iRoleUserRelRepresentationApplicationService.queryRoleIdsByUserId(userCommonIdCommand);
 
 	}
 
@@ -130,7 +130,7 @@ public class RoleUserRelFrontWebController extends AbstractBaseWebAdapter {
 	@DeleteMapping("/deleteByUserId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空用户下的所有角色",module = OpLogConstants.Module.role,type = OpLogConstants.Type.delete)
-	public Response deleteByUserId(@RequestBody IdCommand roleIdCommand) {
-		return iRoleUserRelApplicationService.deleteByUserId(roleIdCommand);
+	public Response deleteByUserId(@RequestBody CommonIdCommand roleCommonIdCommand) {
+		return iRoleUserRelApplicationService.deleteByUserId(roleCommonIdCommand);
 	}
 }

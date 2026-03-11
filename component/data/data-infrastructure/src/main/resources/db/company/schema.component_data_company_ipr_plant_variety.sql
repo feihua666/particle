@@ -38,4 +38,4 @@ CREATE TABLE `component_data_company_ipr_plant_variety` (
   UNIQUE KEY `public_no` (`public_no`) USING BTREE,
   KEY `applicant_name_company_id` (`applicant_name_company_id`) USING BTREE,
   KEY `applicant_name_company_person_id` (`applicant_name_company_person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业知识产权植物新品种表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业知识产权植物新品种表';

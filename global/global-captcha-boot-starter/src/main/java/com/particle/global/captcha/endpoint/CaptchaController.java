@@ -10,7 +10,7 @@ import com.particle.global.captcha.gen.CaptchaGenResultDTO;
 import com.particle.global.captcha.verify.CaptchaVerifyDTO;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

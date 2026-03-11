@@ -2,6 +2,7 @@
 
  import com.particle.global.oss.service.GlobalOssClientService;
  import com.particle.global.projectinfo.ProjectInfo;
+ import com.particle.global.security.security.SecurityPermissionService;
  import com.particle.global.swagger.ApplicationContexSwaggertHelper;
  import com.particle.global.swagger.SwaggerInfo;
  import com.particle.global.swagger.factory.SwaggerFactory;
@@ -13,6 +14,7 @@
  import org.mybatis.spring.annotation.MapperScan;
  import org.springdoc.core.models.GroupedOpenApi;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
  import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.ComponentScan;
@@ -31,7 +33,10 @@
  */
 @ComponentScan
 @Configuration(proxyBeanMethods = false)
-@MapperScan({"com.particle.report.infrastructure.template.mapper","com.particle.report.infrastructure.reportapi.mapper"})
+@MapperScan({
+        "com.particle.report.infrastructure.template.mapper",
+        "com.particle.report.infrastructure.reportapi.mapper"
+})
 public class ReportAutoConfiguration {
 
 
@@ -55,16 +60,22 @@ public class ReportAutoConfiguration {
                 .build());
     }
 
-    /**
-     * 配置一个默认的基于登录用户的权限校验器
-     * @return
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    public IReportSegmentTemplatePermissionCheckService reportSegmentTemplatePermissionCheckService(){
-        return new SecurityPermissionReportSegmentTemplatePermissionCheckServiceImpl();
-    }
 
+    @Configuration
+    @ConditionalOnClass(SecurityPermissionService.class)
+    public static class SecurityDependConfig {
+
+        /**
+         * 配置一个默认的基于登录用户的权限校验器
+         * @return
+         */
+        @ConditionalOnMissingBean
+        @ConditionalOnBean(SecurityPermissionService.class)
+        @Bean
+        public IReportSegmentTemplatePermissionCheckService reportSegmentTemplatePermissionCheckService(){
+            return new SecurityPermissionReportSegmentTemplatePermissionCheckServiceImpl();
+        }
+    }
     /**
      * 提供将报告如果为本地文件，上传到oss中
      * @return

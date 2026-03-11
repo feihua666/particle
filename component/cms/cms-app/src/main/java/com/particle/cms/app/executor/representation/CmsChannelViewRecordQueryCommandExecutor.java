@@ -6,7 +6,7 @@ import com.particle.cms.client.dto.data.CmsChannelViewRecordVO;
 import com.particle.cms.infrastructure.dos.CmsChannelViewRecordDO;
 import com.particle.cms.infrastructure.service.ICmsChannelViewRecordService;
 import com.particle.cms.client.dto.command.representation.CmsChannelViewRecordPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class CmsChannelViewRecordQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<CmsChannelViewRecordVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<CmsChannelViewRecordVO> executeDetail(CommonIdCommand detailCommand) {
 		CmsChannelViewRecordDO byId = iCmsChannelViewRecordService.getById(detailCommand.getId());
 		CmsChannelViewRecordVO cmsChannelViewRecordVO = CmsChannelViewRecordAppStructMapping.instance.cmsChannelViewRecordDOToCmsChannelViewRecordVO(byId);
 		return SingleResponse.of(cmsChannelViewRecordVO);
@@ -67,7 +66,7 @@ public class CmsChannelViewRecordQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<CmsChannelViewRecordVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<CmsChannelViewRecordVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		CmsChannelViewRecordDO byId = iCmsChannelViewRecordService.getById(detailForUpdateCommand.getId());
 		CmsChannelViewRecordVO cmsChannelViewRecordVO = CmsChannelViewRecordAppStructMapping.instance.cmsChannelViewRecordDOToCmsChannelViewRecordVO(byId);
 		return SingleResponse.of(cmsChannelViewRecordVO);

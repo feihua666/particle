@@ -1,7 +1,7 @@
 package com.particle.func.app.funcapplicationfuncrel.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.funcapplicationfuncrel.executor.FuncApplicationFuncRelCommandExecutor;
 import com.particle.func.app.funcapplicationfuncrel.executor.FuncApplicationFuncRelCreateCommandExecutor;
 import com.particle.func.app.funcapplicationfuncrel.executor.FuncApplicationFuncRelDeleteCommandExecutor;
@@ -42,7 +42,7 @@ public class FuncApplicationFuncRelApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public SingleResponse<FuncApplicationFuncRelVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<FuncApplicationFuncRelVO> delete(CommonIdCommand deleteCommand) {
 		return funcApplicationFuncRelDeleteCommandExecutor.execute(deleteCommand);
 	}
 
@@ -57,13 +57,13 @@ public class FuncApplicationFuncRelApplicationServiceImpl extends AbstractBaseAp
 	}
 
 	@Override
-	public Response deleteByFuncId(IdCommand funcIdCommand) {
-		return funcApplicationFuncRelDeleteCommandExecutor.deleteByFuncId(funcIdCommand);
+	public Response deleteByFuncId(CommonIdCommand funcCommonIdCommand) {
+		return funcApplicationFuncRelDeleteCommandExecutor.deleteByFuncId(funcCommonIdCommand);
 	}
 
 	@Override
-	public Response deleteByFuncApplicationId(IdCommand funcApplicationIdCommand) {
-		return funcApplicationFuncRelDeleteCommandExecutor.deleteByFuncApplicationId(funcApplicationIdCommand);
+	public Response deleteByFuncApplicationId(CommonIdCommand funcApplicationCommonIdCommand) {
+		return funcApplicationFuncRelDeleteCommandExecutor.deleteByFuncApplicationId(funcApplicationCommonIdCommand);
 	}
 
 	@Autowired

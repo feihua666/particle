@@ -8,7 +8,7 @@ import com.particle.area.client.dto.command.representation.AreaPageQueryCommand;
 import com.particle.area.client.dto.command.representation.AreaQueryListCommand;
 import com.particle.area.client.dto.data.AreaVO;
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除区域")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除区域",module = OpLogConstants.Module.area,type = OpLogConstants.Type.delete)
-	public SingleResponse<AreaVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<AreaVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_area_area,DataConstraintContext.Action.delete.name());
 		return iAreaApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class AreaAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:area:update')")
 	@Operation(summary = "区域更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<AreaVO> queryDetailForUpdate(IdCommand areaQueryDetailForUpdateCommand){
+	public SingleResponse<AreaVO> queryDetailForUpdate(CommonIdCommand areaQueryDetailForUpdateCommand){
 		return iAreaRepresentationApplicationService.queryDetailForUpdate(areaQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:area:detail')")
 	@Operation(summary = "区域详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<AreaVO> queryDetail(IdCommand areaQueryDetailCommand){
+	public SingleResponse<AreaVO> queryDetail(CommonIdCommand areaQueryDetailCommand){
 		return iAreaRepresentationApplicationService.queryDetail(areaQueryDetailCommand);
 	}
 

@@ -1,10 +1,10 @@
 package com.particle.data.app.dynamicdata.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryDeleteCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryUpdateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryDataDeleteCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryImportDataCommand;
 import com.particle.data.client.dynamicdata.dto.command.DynamicDataIndicatorCategoryUpdateCommand;
@@ -51,7 +51,7 @@ public class DynamicDataIndicatorCategoryApplicationServiceImpl extends Abstract
     }
 
     @Override
-    public SingleResponse<DynamicDataIndicatorCategoryVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DynamicDataIndicatorCategoryVO> delete(CommonIdCommand deleteCommand) {
         return dynamicDataIndicatorCategoryDeleteCommandExecutor.execute(deleteCommand);
     }
 

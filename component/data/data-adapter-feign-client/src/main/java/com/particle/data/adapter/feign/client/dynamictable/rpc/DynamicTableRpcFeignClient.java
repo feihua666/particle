@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2025-11-05 20:29:35
  */
-@FeignClient(name = "${particle.feign-client.name.data:data}",path = "/rpc/dynamic_table")
+@FeignClient(name = "${particle.feign-client.data.name:data-start}", contextId = "dynamicTableRpcFeignClient", url = "${particle.feign-client.data.url:}", path = "/rpc/dynamic_table")
 public interface DynamicTableRpcFeignClient {
 
 

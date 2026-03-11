@@ -1,7 +1,7 @@
 package com.particle.crm.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.client.company.dto.command.CrmDeptCreateCommand;
 import com.particle.crm.client.company.dto.command.CrmDeptUpdateCommand;
 import com.particle.crm.client.company.dto.data.CrmDeptVO;
@@ -28,7 +28,7 @@ public interface ICrmDeptApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CrmDeptVO> delete(IdCommand deleteCommand);
+	SingleResponse<CrmDeptVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

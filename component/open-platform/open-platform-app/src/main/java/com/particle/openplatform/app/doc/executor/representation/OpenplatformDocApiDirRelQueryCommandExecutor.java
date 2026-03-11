@@ -2,7 +2,7 @@ package com.particle.openplatform.app.doc.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformDocApiDirRelQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDirRelVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformDocApiDirRelVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformDocApiDirRelDO byId = iOpenplatformDocApiDirRelService.getById(detailCommand.getId());
 		OpenplatformDocApiDirRelVO openplatformDocApiDirRelVO = OpenplatformDocApiDirRelAppStructMapping.instance.openplatformDocApiDirRelDOToOpenplatformDocApiDirRelVO(byId);
 		return SingleResponse.of(openplatformDocApiDirRelVO);
@@ -67,7 +67,7 @@ public class OpenplatformDocApiDirRelQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformDocApiDirRelVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformDocApiDirRelVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformDocApiDirRelDO byId = iOpenplatformDocApiDirRelService.getById(detailForUpdateCommand.getId());
 		OpenplatformDocApiDirRelVO openplatformDocApiDirRelVO = OpenplatformDocApiDirRelAppStructMapping.instance.openplatformDocApiDirRelDOToOpenplatformDocApiDirRelVO(byId);
 		return SingleResponse.of(openplatformDocApiDirRelVO);

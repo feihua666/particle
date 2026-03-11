@@ -4,7 +4,7 @@ import com.particle.data.app.company.executor.DataCompanyCaseFilingCreateCommand
 import com.particle.data.app.company.executor.DataCompanyCaseFilingDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyCaseFilingUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyCaseFilingCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyCaseFilingApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyCaseFilingCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyCaseFilingWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyCaseFilingExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyCaseFilingApplicationServiceImpl extends AbstractBaseApp
     }
 
     @Override
-    public SingleResponse<DataCompanyCaseFilingVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyCaseFilingVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyCaseFilingDeleteCommandExecutor.execute(deleteCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.func.client.application.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.client.application.dto.command.FuncApplicationCreateCommand;
 import com.particle.func.client.application.dto.command.FuncApplicationUpdateCommand;
 import com.particle.func.client.application.dto.data.FuncApplicationVO;
@@ -28,7 +28,7 @@ public interface IFuncApplicationApplicationService extends IBaseApplicationServ
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<FuncApplicationVO> delete(IdCommand deleteCommand);
+	SingleResponse<FuncApplicationVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

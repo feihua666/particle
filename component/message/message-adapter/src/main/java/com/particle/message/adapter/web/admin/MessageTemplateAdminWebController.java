@@ -1,7 +1,7 @@
 package com.particle.message.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除消息模板")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除消息模板",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
-	public SingleResponse<MessageTemplateVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<MessageTemplateVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_message_message_template, DataConstraintContext.Action.delete.name());
 		return iMessageTemplateApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class MessageTemplateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageTemplate:update')")
 	@Operation(summary = "消息模板更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<MessageTemplateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<MessageTemplateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iMessageTemplateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:messageTemplate:detail')")
 	@Operation(summary = "消息模板详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<MessageTemplateVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<MessageTemplateVO> queryDetail(CommonIdCommand detailCommand){
 		return iMessageTemplateRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

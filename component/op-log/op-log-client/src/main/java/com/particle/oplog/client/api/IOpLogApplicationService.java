@@ -1,7 +1,7 @@
 package com.particle.oplog.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.oplog.client.dto.command.OpLogCreateCommand;
 import com.particle.oplog.client.dto.data.OpLogVO;
@@ -27,6 +27,6 @@ public interface IOpLogApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<OpLogVO> delete(IdCommand deleteCommand);
+	SingleResponse<OpLogVO> delete(CommonIdCommand deleteCommand);
 
 }

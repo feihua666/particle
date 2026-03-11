@@ -1,21 +1,19 @@
 package com.particle.componentadmin.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.componentadmin.app.structmapping.AdminComponentAppStructMapping;
 import com.particle.componentadmin.client.dto.data.AdminComponentVO;
 import com.particle.componentadmin.domain.AdminComponent;
 import com.particle.componentadmin.domain.AdminComponentId;
 import com.particle.componentadmin.domain.gateway.AdminComponentGateway;
 import com.particle.componentadmin.infrastructure.service.IAdminComponentService;
-import com.particle.componentadmin.infrastructure.dos.AdminComponentDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -38,7 +36,7 @@ public class AdminComponentDeleteCommandExecutor  extends AbstractBaseExecutor {
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<AdminComponentVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<AdminComponentVO> execute(@Valid CommonIdCommand deleteCommand) {
 		AdminComponentId adminComponentId = AdminComponentId.of(deleteCommand.getId());
 		AdminComponent byId = adminComponentGateway.getById(adminComponentId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

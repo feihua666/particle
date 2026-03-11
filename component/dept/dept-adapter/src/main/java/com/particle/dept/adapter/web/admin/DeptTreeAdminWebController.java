@@ -1,7 +1,7 @@
 package com.particle.dept.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dept.client.api.IDeptTreeApplicationService;
 import com.particle.dept.client.api.representation.IDeptTreeRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class DeptTreeAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除部门树")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除部门树",module = OpLogConstants.Module.dept,type = OpLogConstants.Type.delete)
-	public SingleResponse<DeptTreeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DeptTreeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDeptTreeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class DeptTreeAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:deptTree:update')")
 	@Operation(summary = "部门树更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DeptTreeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DeptTreeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDeptTreeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:deptTree:detail')")
 	@Operation(summary = "部门树详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DeptTreeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DeptTreeVO> queryDetail(CommonIdCommand detailCommand){
 		return iDeptTreeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

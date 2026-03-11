@@ -4,6 +4,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.util.TimeZone;
 
@@ -19,7 +21,12 @@ import static java.util.TimeZone.getTimeZone;
  * @since 2022-07-18 22:54:08
  */
 @Slf4j
+// 经尝试，该注解必须添加到启动类上，否则启动报错
+// common-infrastructure 依赖了 global-cache-boot-starter，该依赖中定义了缓存注解，需要添加该注解
+@EnableCaching
 @SpringBootApplication
+// 无远程调用模块，可以不添加该注解
+// @EnableFeignClients()
 public class DictApplication {
 
 	public static void main(String[] args) {

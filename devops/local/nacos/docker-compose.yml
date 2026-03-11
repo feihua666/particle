@@ -2,7 +2,7 @@
 version: '3'
 services:
   nacos:
-    image: 'nacos/nacos-server:latest'
+    image: 'nacos/nacos-server:v3.1.1'
     container_name: 'particle-nacos'
     networks:
       - particle-nacos-net
@@ -11,17 +11,27 @@ services:
     environment:
       MODE: 'standalone'
       SPRING_DATASOURCE_PLATFORM: 'mysql'
-      MYSQL_SERVICE_HOST: 'db.grape.com'
-      MYSQL_SERVICE_DB_NAME: 'grape_nacos'
+      MYSQL_SERVICE_HOST: 'host.docker.internal'
+      MYSQL_SERVICE_DB_NAME: 'particle_nacos'
       MYSQL_SERVICE_PORT: '3306'
+      # Nacos 用于生成JWT Token的密钥，使用长度大于32字符的字符串，再经过Base64编码。
+      # 原始密钥 NacosAuthKey2024SecureTokenGenerator32PlusBase64Encoded
+      NACOS_AUTH_TOKEN: 'TmFjb3NBdXRoS2V5MjAyNFNlY3VyZVRva2VuR2VuZXJhdG9yMzJQbHVzQmFzZTY0RW5jb2RlZA=='
+      # Nacos Server端之间 Inner API的身份标识的Key，必填。
+      NACOS_AUTH_IDENTITY_KEY: 'nacos'
+      # Nacos Server端之间 Inner API的身份标识的Value，必填。
+      NACOS_AUTH_IDENTITY_VALUE: 'nacos'
     ports:
+      # Nacos HTTP API 端口，用于Nacos AdminAPI及HTTP OpenAPI的访问
       - "8848:8848"
-      - "9555:9555"
-    volumes:
-      # 挂载数据目录到主机上
-      # 主要是添加mysql8jar包
-      - .:/home/nacos/plugins/mysql/
-      - ./custom.properties:/home/nacos/init.d/custom.properties
+      # Nacos控制台端口，访问Nacos控制台及Nacos控制台的API
+      - "8080:8080"
+      # 客户端gRPC请求服务端端口，用于客户端向服务端发起连接和请求
+      - "9848:9848"
+      # 服务端gRPC请求服务端端口，用于服务间同步等
+      #- "9849:9849"
+      # Jraft请求服务端端口，用于处理服务端间的Raft相关请求
+      #- "7848:7848"
 networks:
   particle-nacos-net:
     driver: bridge

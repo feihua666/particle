@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.app.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformAppQuotaAdminWebController extends AbstractBaseWebAdapt
     @Operation(summary = "删除开放平台应用额度")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台应用额度",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformAppQuotaVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformAppQuotaVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformAppQuotaApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformAppQuotaAdminWebController extends AbstractBaseWebAdapt
     @PreAuthorize("hasAuthority('admin:web:openplatformAppQuota:update')")
     @Operation(summary = "开放平台应用额度更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformAppQuotaVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformAppQuotaVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformAppQuotaRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformAppQuota:detail')")
     @Operation(summary = "开放平台应用额度详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformAppQuotaVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformAppQuotaVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformAppQuotaRepresentationApplicationService.queryDetail(detailCommand);
     }
 

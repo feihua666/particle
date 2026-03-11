@@ -9,7 +9,7 @@ import com.particle.data.infrastructure.company.dos.DataCompanyPunishmentDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyPunishmentService;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.particle.oplog.app.error.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpLogErrorQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpLogErrorVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpLogErrorVO> executeDetail(CommonIdCommand detailCommand) {
 		OpLogErrorDO byId = iOpLogErrorService.getById(detailCommand.getId());
 		OpLogErrorVO opLogErrorVO = OpLogErrorAppStructMapping.instance.opLogErrorDOToOpLogErrorVO(byId);
 		return SingleResponse.of(opLogErrorVO);

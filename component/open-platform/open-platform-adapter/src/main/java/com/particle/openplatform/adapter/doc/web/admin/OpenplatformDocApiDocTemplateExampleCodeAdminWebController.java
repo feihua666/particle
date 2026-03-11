@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformDocApiDocTemplateExampleCodeAdminWebController extends 
 	@Operation(summary = "删除开放接口文档模板示例代码")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档模板示例代码",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocTemplateExampleCodeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformDocApiDocTemplateExampleCodeAdminWebController extends 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplateExampleCode:update')")
 	@Operation(summary = "开放接口文档模板示例代码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocTemplateExampleCodeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocTemplateExampleCode:detail')")
 	@Operation(summary = "开放接口文档模板示例代码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocTemplateExampleCodeVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocTemplateExampleCodeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.bill.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformProviderRecordPrdApiDaySummaryAdminWebController extend
     @Operation(summary = "删除开放平台供应商接口日汇总")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台供应商接口日汇总",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderRecordPrdApiDaySummaryApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformProviderRecordPrdApiDaySummaryAdminWebController extend
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiDaySummary:update')")
     @Operation(summary = "开放平台供应商接口日汇总更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformProviderRecordPrdApiDaySummaryRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderRecordPrdApiDaySummary:detail')")
     @Operation(summary = "开放平台供应商接口日汇总详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformProviderRecordPrdApiDaySummaryVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformProviderRecordPrdApiDaySummaryRepresentationApplicationService.queryDetail(detailCommand);
     }
 

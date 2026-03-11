@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyEndCaseVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyEndCaseDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyEndCaseService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyEndCasePageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyEndCaseQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyEndCaseVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyEndCaseVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyEndCaseDO byId = iDataCompanyEndCaseService.getById(detailCommand.getId());
 		DataCompanyEndCaseVO dataCompanyEndCaseVO = DataCompanyEndCaseAppStructMapping.instance.dataCompanyEndCaseDOToDataCompanyEndCaseVO(byId);
 		return SingleResponse.of(dataCompanyEndCaseVO);
@@ -67,7 +66,7 @@ public class DataCompanyEndCaseQueryCommandExecutor  extends AbstractBaseQueryEx
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyEndCaseVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyEndCaseVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyEndCaseDO byId = iDataCompanyEndCaseService.getById(detailForUpdateCommand.getId());
 		DataCompanyEndCaseVO dataCompanyEndCaseVO = DataCompanyEndCaseAppStructMapping.instance.dataCompanyEndCaseDOToDataCompanyEndCaseVO(byId);
 		return SingleResponse.of(dataCompanyEndCaseVO);

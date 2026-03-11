@@ -1,7 +1,7 @@
 package com.particle.usagecount.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.usagecount.client.dto.command.UsageCountConfigCreateCommand;
 import com.particle.usagecount.client.dto.command.UsageCountConfigUpdateCommand;
@@ -28,7 +28,7 @@ public interface IUsageCountConfigApplicationService extends IBaseApplicationSer
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<UsageCountConfigVO> delete(IdCommand deleteCommand);
+	SingleResponse<UsageCountConfigVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

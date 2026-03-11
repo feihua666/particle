@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author yw
  * @since 2023-04-12 14:19:42
  */
-@FeignClient(name = "${particle.feign-client.name.dept:dept}",path = "/rpc/dept")
+@FeignClient(name = "${particle.feign-client.dept.name:dept-start}", contextId = "deptRpcFeignClient", url = "${particle.feign-client.dept.url:}", path = "/rpc/dept")
 public interface DeptRpcFeignClient {
 
     /**

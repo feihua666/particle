@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.doc.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
 import com.particle.global.dto.response.MultiResponse;
@@ -50,7 +50,7 @@ public class OpenplatformDocApiDocExampleCodeAdminWebController extends Abstract
 	@Operation(summary = "删除开放接口文档示例代码")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除开放接口文档示例代码",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iOpenplatformDocApiDocExampleCodeApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class OpenplatformDocApiDocExampleCodeAdminWebController extends Abstract
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocExampleCode:update')")
 	@Operation(summary = "开放接口文档示例代码更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iOpenplatformDocApiDocExampleCodeRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:openplatformDocApiDocExampleCode:detail')")
 	@Operation(summary = "开放接口文档示例代码详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<OpenplatformDocApiDocExampleCodeVO> queryDetail(CommonIdCommand detailCommand){
 		return iOpenplatformDocApiDocExampleCodeRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

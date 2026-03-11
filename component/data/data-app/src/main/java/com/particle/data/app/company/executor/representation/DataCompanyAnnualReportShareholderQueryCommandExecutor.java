@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyAnnualReportSharehol
 import com.particle.data.infrastructure.company.dos.DataCompanyAnnualReportShareholderDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyAnnualReportShareholderService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyAnnualReportShareholderPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyAnnualReportShareholderQueryCommandExecutor  extends Abs
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportShareholderVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyAnnualReportShareholderVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyAnnualReportShareholderDO byId = iDataCompanyAnnualReportShareholderService.getById(detailCommand.getId());
 		DataCompanyAnnualReportShareholderVO dataCompanyAnnualReportShareholderVO = DataCompanyAnnualReportShareholderAppStructMapping.instance.dataCompanyAnnualReportShareholderDOToDataCompanyAnnualReportShareholderVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportShareholderVO);
@@ -67,7 +66,7 @@ public class DataCompanyAnnualReportShareholderQueryCommandExecutor  extends Abs
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyAnnualReportShareholderVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyAnnualReportShareholderVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyAnnualReportShareholderDO byId = iDataCompanyAnnualReportShareholderService.getById(detailForUpdateCommand.getId());
 		DataCompanyAnnualReportShareholderVO dataCompanyAnnualReportShareholderVO = DataCompanyAnnualReportShareholderAppStructMapping.instance.dataCompanyAnnualReportShareholderDOToDataCompanyAnnualReportShareholderVO(byId);
 		return SingleResponse.of(dataCompanyAnnualReportShareholderVO);

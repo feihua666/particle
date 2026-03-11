@@ -17,4 +17,4 @@ CREATE TABLE `component_data_company_prime_staff` (
   UNIQUE KEY `unique_company_id__staff_name` (`company_id`,`staff_name`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
   KEY `staff_company_person_id` (`staff_company_person_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='企业主要人员表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='企业主要人员表';

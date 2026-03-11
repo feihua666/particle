@@ -1,16 +1,15 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyVcFinancingInvestInstitutionRelApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyVcFinancingInvestInstitutionRelCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestInstitutionRelVO;
 
-import com.particle.data.app.company.executor.DataCompanyVcFinancingInvestInstitutionRelCommandExecutor;
 import com.particle.data.client.company.dto.command.CompanyVcFinancingAssignCompanyVcInvestInstitutionCommand;
 import com.particle.data.client.company.dto.command.CompanyVcInvestInstitutionAssignCompanyVcFinancingCommand;
 
@@ -53,7 +52,7 @@ public class DataCompanyVcFinancingInvestInstitutionRelApplicationServiceImpl ex
     }
 
     @Override
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor.execute(deleteCommand);
     }
 
@@ -74,13 +73,13 @@ public class DataCompanyVcFinancingInvestInstitutionRelApplicationServiceImpl ex
     }
 
     @Override
-    public Response deleteByCompanyVcFinancingId(IdCommand idCommand){
-        return dataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor.deleteByCompanyVcFinancingId(idCommand);
+    public Response deleteByCompanyVcFinancingId(CommonIdCommand commonIdCommand){
+        return dataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor.deleteByCompanyVcFinancingId(commonIdCommand);
     }
 
     @Override
-    public Response deleteByCompanyVcInvestInstitutionId(IdCommand idCommand){
-        return dataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor.deleteByCompanyVcInvestInstitutionId(idCommand);
+    public Response deleteByCompanyVcInvestInstitutionId(CommonIdCommand commonIdCommand){
+        return dataCompanyVcFinancingInvestInstitutionRelDeleteCommandExecutor.deleteByCompanyVcInvestInstitutionId(commonIdCommand);
     }
 
     @Override

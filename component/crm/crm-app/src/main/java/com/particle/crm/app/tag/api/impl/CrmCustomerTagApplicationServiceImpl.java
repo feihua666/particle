@@ -1,7 +1,7 @@
 package com.particle.crm.app.tag.api.impl;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.app.tag.executor.CrmCustomerTagCreateCommandExecutor;
 import com.particle.crm.app.tag.executor.CrmCustomerTagDeleteCommandExecutor;
 import com.particle.crm.app.tag.executor.CrmCustomerTagUpdateCommandExecutor;
@@ -40,7 +40,7 @@ public class CrmCustomerTagApplicationServiceImpl extends AbstractBaseApplicatio
 	}
 
 	@Override
-	public SingleResponse<CrmCustomerTagVO> delete(IdCommand deleteCommand) {
+	public SingleResponse<CrmCustomerTagVO> delete(CommonIdCommand deleteCommand) {
 		return crmCustomerTagDeleteCommandExecutor.execute(deleteCommand);
 	}
 

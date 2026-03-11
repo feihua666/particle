@@ -11,6 +11,12 @@
 
     <artifactId>common-app</artifactId>
 
+    <description>
+        DDD 架构中的通用应用层模块，负责编排和协调领域层能力，
+        对外提供可复用的应用服务与用例接口，
+        用于承接适配层的调用请求，不包含具体技术实现与基础设施细节。
+    </description>
+
     <properties>
 
 
@@ -45,16 +51,5 @@
             <version>${particle.version}</version>
         </dependency>
     </dependencies>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+
 </project>

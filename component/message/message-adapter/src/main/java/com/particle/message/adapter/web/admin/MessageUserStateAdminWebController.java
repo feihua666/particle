@@ -1,7 +1,7 @@
 package com.particle.message.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除用户消息读取状态")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户消息读取状态",module = OpLogConstants.Module.message,type = OpLogConstants.Type.delete)
-	public SingleResponse<MessageUserStateVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<MessageUserStateVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_message_message_user_state, DataConstraintContext.Action.delete.name());
 		return iMessageUserStateApplicationService.delete(deleteCommand);
 	}
@@ -69,14 +69,14 @@ public class MessageUserStateAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:messageUserState:update')")
 	@Operation(summary = "用户消息读取状态更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<MessageUserStateVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<MessageUserStateVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iMessageUserStateRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:messageUserState:detail')")
 	@Operation(summary = "用户消息读取状态详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<MessageUserStateVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<MessageUserStateVO> queryDetail(CommonIdCommand detailCommand){
 		return iMessageUserStateRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

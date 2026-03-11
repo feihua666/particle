@@ -1,7 +1,7 @@
 package com.particle.openplatform.adapter.provider.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -52,7 +52,7 @@ public class OpenplatformProviderApiAdminWebController extends AbstractBaseWebAd
     @Operation(summary = "删除开放平台供应商接口")
     @DeleteMapping("/delete")
     @OpLog(name = "删除开放平台供应商接口",module = OpLogConstants.Module.openPlatform,type = OpLogConstants.Type.delete)
-    public SingleResponse<OpenplatformProviderApiVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<OpenplatformProviderApiVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iOpenplatformProviderApiApplicationService.delete(deleteCommand);
     }
@@ -69,14 +69,14 @@ public class OpenplatformProviderApiAdminWebController extends AbstractBaseWebAd
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderApi:update')")
     @Operation(summary = "开放平台供应商接口更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<OpenplatformProviderApiVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<OpenplatformProviderApiVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iOpenplatformProviderApiRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:openplatformProviderApi:detail')")
     @Operation(summary = "开放平台供应商接口详情展示")
     @GetMapping("/detail")
-    public SingleResponse<OpenplatformProviderApiVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<OpenplatformProviderApiVO> queryDetail(CommonIdCommand detailCommand){
         return iOpenplatformProviderApiRepresentationApplicationService.queryDetail(detailCommand);
     }
 

@@ -1,7 +1,7 @@
 package com.particle.role.client.roledatascoperel.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -24,14 +24,14 @@ public interface IRoleDataScopeRelRepresentationApplicationService extends IBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<RoleDataScopeRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<RoleDataScopeRelVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<RoleDataScopeRelVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询
@@ -49,15 +49,15 @@ public interface IRoleDataScopeRelRepresentationApplicationService extends IBase
 
 	/**
 	 * 查询角色已分配的数据范围id
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryDataScopeIdsByRoleId(IdCommand roleIdCommand);
+	public MultiResponse<Long> queryDataScopeIdsByRoleId(CommonIdCommand roleCommonIdCommand);
 
 	/**
 	 * 查询数据范围已分配的角色id
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByDataScopeId(IdCommand dataScopeIdCommand);
+	public MultiResponse<Long> queryRoleIdsByDataScopeId(CommonIdCommand dataScopeCommonIdCommand);
 }

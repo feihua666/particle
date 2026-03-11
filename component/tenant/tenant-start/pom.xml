@@ -60,6 +60,85 @@
             <artifactId>component-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 监控相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-actuator-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 版本已在 spring-boot-starter-parent 中定义 -->
+        <!-- 主要实现在 feign 调用时传递 traceId 信息 -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+        </dependency>
+        <!-- 使用jdbc存储session 这样可以使用多实例部署，如果不使用jdbc session可以删除该依赖，并修改配置 spring.session.store-type=none 或不配置-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- 通知相关 支持 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-notification-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>role-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 实现feign-client接口 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>func-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ********** 一般在启动模块添加 *********** 开始 -->
+        <!-- web全局异常处理 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-exception-handle-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- web访问安全 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-security-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-filter-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-web-mvc-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-session-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- 接口文档 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- ********** 一般在启动模块添加 *********** 结束 -->
     </dependencies>
     <build>
         <plugins>
@@ -76,10 +155,10 @@
                 </executions>
             </plugin>
                 <!-- git提交信息，在多个模块构建时比较慢注释了，在启动项目上添加即可 -->
-<!--            <plugin>
+            <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
 </project>

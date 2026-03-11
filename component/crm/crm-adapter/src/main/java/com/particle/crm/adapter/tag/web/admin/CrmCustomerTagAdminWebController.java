@@ -1,7 +1,7 @@
 package com.particle.crm.adapter.tag.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.crm.client.tag.api.ICrmCustomerTagApplicationService;
 import com.particle.crm.client.tag.api.representation.ICrmCustomerTagRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class CrmCustomerTagAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除客户标签")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除客户标签",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
-	public SingleResponse<CrmCustomerTagVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<CrmCustomerTagVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iCrmCustomerTagApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class CrmCustomerTagAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerTag:update')")
 	@Operation(summary = "客户标签更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<CrmCustomerTagVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<CrmCustomerTagVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iCrmCustomerTagRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerTag:detail')")
 	@Operation(summary = "客户标签详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<CrmCustomerTagVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<CrmCustomerTagVO> queryDetail(CommonIdCommand detailCommand){
 		return iCrmCustomerTagRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

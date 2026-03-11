@@ -1,7 +1,7 @@
 package com.particle.dict.client.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dict.client.dto.command.representation.DictItemsQueryListCommand;
 import com.particle.dict.client.dto.command.representation.DictPageQueryCommand;
 import com.particle.dict.client.dto.command.representation.DictQueryListCommand;
@@ -25,14 +25,14 @@ public interface IDictRepresentationApplicationService extends IBaseApplicationS
 	 * @param dictQueryDetailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<DictVO> queryDetailForUpdate(IdCommand dictQueryDetailForUpdateCommand);
+	SingleResponse<DictVO> queryDetailForUpdate(CommonIdCommand dictQueryDetailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param dictQueryDetailCommand
 	 * @return
 	 */
-	SingleResponse<DictVO> queryDetail(IdCommand dictQueryDetailCommand);
+	SingleResponse<DictVO> queryDetail(CommonIdCommand dictQueryDetailCommand);
 
 	/**
 	 * 列表查询

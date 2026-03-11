@@ -27,8 +27,9 @@ Amazon Simple Storage Service（Amazon S3，Amazon 简便存储服务）是 AWS 
 
 ```yaml
 particle:
-  oss:
-    # OSS 配置
+  global:
+    oss:
+      # OSS 配置
 ```
 
 ### 核心组件

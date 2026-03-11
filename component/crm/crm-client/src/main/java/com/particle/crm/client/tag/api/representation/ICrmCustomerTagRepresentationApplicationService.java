@@ -1,7 +1,7 @@
 package com.particle.crm.client.tag.api.representation;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagPageQueryCommand;
 import com.particle.crm.client.tag.dto.command.representation.CrmCustomerTagQueryListCommand;
 import com.particle.crm.client.tag.dto.data.CrmCustomerTagVO;
@@ -24,14 +24,14 @@ public interface ICrmCustomerTagRepresentationApplicationService extends IBaseAp
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerTagVO> queryDetailForUpdate(IdCommand detailForUpdateCommand);
+	SingleResponse<CrmCustomerTagVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand);
 
 	/**
 	 * 查询详情，仅展示详情使用
 	 * @param detailCommand
 	 * @return
 	 */
-	SingleResponse<CrmCustomerTagVO> queryDetail(IdCommand detailCommand);
+	SingleResponse<CrmCustomerTagVO> queryDetail(CommonIdCommand detailCommand);
 
 	/**
 	 * 列表查询

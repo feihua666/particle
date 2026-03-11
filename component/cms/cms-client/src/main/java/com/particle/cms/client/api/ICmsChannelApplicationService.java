@@ -1,12 +1,12 @@
 package com.particle.cms.client.api;
 
-import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
-import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.cms.client.dto.command.CmsChannelCreateCommand;
 import com.particle.cms.client.dto.command.CmsChannelUpdateCommand;
 import com.particle.cms.client.dto.data.CmsChannelVO;
+import com.particle.common.client.api.IBaseApplicationService;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.common.client.dto.command.CommonPublicCommand;
+import com.particle.global.dto.response.SingleResponse;
 /**
  * <p>
  * 栏目 应用门面服务类
@@ -28,7 +28,7 @@ public interface ICmsChannelApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<CmsChannelVO> delete(IdCommand deleteCommand);
+	SingleResponse<CmsChannelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -36,4 +36,11 @@ public interface ICmsChannelApplicationService extends IBaseApplicationService {
 	 * @return
 	 */
 	SingleResponse<CmsChannelVO> update(CmsChannelUpdateCommand cmsChannelUpdateCommand);
+
+	/**
+	 * 发布栏目或取消发布
+	 * @param cmsChannelPublicCommand
+	 * @return
+	 */
+	SingleResponse<CmsChannelVO> publish(CommonPublicCommand cmsChannelPublicCommand);
 }

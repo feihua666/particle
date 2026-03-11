@@ -1,9 +1,8 @@
 package com.particle.scheduler.client.datatask.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.dto.response.Response;
 import com.particle.scheduler.client.datatask.dto.command.SchedulerJobDataTaskCreateCommand;
 import com.particle.scheduler.client.datatask.dto.command.SchedulerJobDataTaskUpdateCommand;
 import com.particle.scheduler.client.datatask.dto.data.SchedulerJobDataTaskVO;
@@ -28,7 +27,7 @@ public interface ISchedulerJobDataTaskApplicationService extends IBaseApplicatio
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<SchedulerJobDataTaskVO> delete(IdCommand deleteCommand);
+	SingleResponse<SchedulerJobDataTaskVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象

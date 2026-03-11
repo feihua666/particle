@@ -1,12 +1,12 @@
 package com.particle.data.app.company.executor.representation;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.structmapping.DataCompanyCaseFilingAppStructMapping;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingQueryListCommand;
 import com.particle.data.client.company.dto.data.DataCompanyCaseFilingVO;
 import com.particle.data.infrastructure.company.dos.DataCompanyCaseFilingDO;
 import com.particle.data.infrastructure.company.service.IDataCompanyCaseFilingService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyCaseFilingPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanyCaseFilingQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCaseFilingVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanyCaseFilingVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanyCaseFilingDO byId = iDataCompanyCaseFilingService.getById(detailCommand.getId());
 		DataCompanyCaseFilingVO dataCompanyCaseFilingVO = DataCompanyCaseFilingAppStructMapping.instance.dataCompanyCaseFilingDOToDataCompanyCaseFilingVO(byId);
 		return SingleResponse.of(dataCompanyCaseFilingVO);
@@ -67,7 +66,7 @@ public class DataCompanyCaseFilingQueryCommandExecutor  extends AbstractBaseQuer
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanyCaseFilingVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanyCaseFilingVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanyCaseFilingDO byId = iDataCompanyCaseFilingService.getById(detailForUpdateCommand.getId());
 		DataCompanyCaseFilingVO dataCompanyCaseFilingVO = DataCompanyCaseFilingAppStructMapping.instance.dataCompanyCaseFilingDOToDataCompanyCaseFilingVO(byId);
 		return SingleResponse.of(dataCompanyCaseFilingVO);

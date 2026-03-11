@@ -1,7 +1,7 @@
 package com.particle.dataconstraint.adapter.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.dataconstraint.client.api.IDataScopeCustomDataRelApplicationService;
 import com.particle.dataconstraint.client.api.representation.IDataScopeCustomDataRelRepresentationApplicationService;
@@ -53,7 +53,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@Operation(summary = "删除数据范围自定义数据关系")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除数据范围自定义数据关系",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
-	public SingleResponse<DataScopeCustomDataRelVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<DataScopeCustomDataRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iDataScopeCustomDataRelApplicationService.delete(deleteCommand);
 	}
 
@@ -68,14 +68,14 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:update')")
 	@Operation(summary = "数据范围自定义数据关系更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<DataScopeCustomDataRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iDataScopeCustomDataRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:detail')")
 	@Operation(summary = "数据范围自定义数据关系详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<DataScopeCustomDataRelVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<DataScopeCustomDataRelVO> queryDetail(CommonIdCommand detailCommand){
 		return iDataScopeCustomDataRelRepresentationApplicationService.queryDetail(detailCommand);
 	}
 
@@ -106,8 +106,8 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@PreAuthorize("hasAuthority('admin:web:dataScopeCustomDataRel:queryCustomDataIdsByDataScopeId')")
 	@GetMapping("/queryCustomDataIdsByDataScopeId")
 	@ResponseStatus(HttpStatus.OK)
-	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(IdCommand dataScopeIdCommand) {
-		return iDataScopeCustomDataRelRepresentationApplicationService.queryCustomDataIdsByDataScopeId( dataScopeIdCommand);
+	public MultiResponse<Long> queryCustomDataIdsByDataScopeId(CommonIdCommand dataScopeCommonIdCommand) {
+		return iDataScopeCustomDataRelRepresentationApplicationService.queryCustomDataIdsByDataScopeId(dataScopeCommonIdCommand);
 	}
 
 	@Operation(summary = "清空数据范围下的所有自定义数据")
@@ -115,7 +115,7 @@ public class DataScopeCustomDataRelAdminWebController extends AbstractBaseWebAda
 	@DeleteMapping("/deleteByDataScopeId")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@OpLog(name = "清空数据范围下的所有自定义数据",module = OpLogConstants.Module.dataconstraint,type = OpLogConstants.Type.delete)
-	public Response deleteByDataScopeId(@RequestBody IdCommand dataScopeIdCommand) {
-		return iDataScopeCustomDataRelApplicationService.deleteByDataScopeId(dataScopeIdCommand);
+	public Response deleteByDataScopeId(@RequestBody CommonIdCommand dataScopeCommonIdCommand) {
+		return iDataScopeCustomDataRelApplicationService.deleteByDataScopeId(dataScopeCommonIdCommand);
 	}
 }

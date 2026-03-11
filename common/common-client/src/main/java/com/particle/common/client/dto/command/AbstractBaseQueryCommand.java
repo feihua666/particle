@@ -1,6 +1,7 @@
 package com.particle.common.client.dto.command;
 
 import com.particle.global.dto.basic.QueryCommand;
+import org.springdoc.core.annotations.ParameterObject;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.particle.global.dto.basic.QueryCommand;
  * @author yangwei
  * @since 2022-04-20 09:29
  */
+@ParameterObject
 public abstract class AbstractBaseQueryCommand extends QueryCommand {
 	private static final long serialVersionUID = 1L;
 }

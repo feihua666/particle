@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class NavigationStaticDeployQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationStaticDeployVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationStaticDeployVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationStaticDeployDO byId = iNavigationStaticDeployService.getById(detailCommand.getId());
 		NavigationStaticDeployVO navigationStaticDeployVO = NavigationStaticDeployAppStructMapping.instance.navigationStaticDeployDOToNavigationStaticDeployVO(byId);
 		return SingleResponse.of(navigationStaticDeployVO);
@@ -67,7 +67,7 @@ public class NavigationStaticDeployQueryCommandExecutor  extends AbstractBaseQue
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationStaticDeployVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationStaticDeployVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationStaticDeployDO byId = iNavigationStaticDeployService.getById(detailForUpdateCommand.getId());
 		NavigationStaticDeployVO navigationStaticDeployVO = NavigationStaticDeployAppStructMapping.instance.navigationStaticDeployDOToNavigationStaticDeployVO(byId);
 		return SingleResponse.of(navigationStaticDeployVO);

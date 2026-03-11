@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanyVcFinancingInvestIns
 import com.particle.data.domain.company.DataCompanyVcFinancingInvestInstitutionRel;
 import com.particle.data.domain.company.gateway.DataCompanyVcFinancingInvestInstitutionRelGateway;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.common.app.executor.AbstractBaseExecutor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

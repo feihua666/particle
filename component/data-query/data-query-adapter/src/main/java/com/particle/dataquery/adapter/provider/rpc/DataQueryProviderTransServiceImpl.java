@@ -2,6 +2,7 @@ package com.particle.dataquery.adapter.provider.rpc;
 
 import cn.hutool.core.util.StrUtil;
 import com.particle.component.light.share.trans.TransConstants;
+import com.particle.dataquery.adapter.feign.client.provider.rpc.DataQueryProviderTransRpcFeignClient;
 import com.particle.dataquery.client.provider.dto.data.DataQueryProviderTransVO;
 import com.particle.dataquery.infrastructure.provider.dos.DataQueryProviderDO;
 import com.particle.dataquery.infrastructure.provider.service.IDataQueryProviderService;
@@ -29,7 +30,7 @@ public class DataQueryProviderTransServiceImpl implements ITransService<DataQuer
 
     @Override
     public boolean support(String type) {
-        return StrUtil.containsAny(type, TransConstants.TRANS_DATAQUERY_PROVIDER_BY_USER_ID);
+        return DataQueryProviderTransRpcFeignClient.supportCommon(type);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.particle.global.web.mvc.advice;
 
 import com.particle.global.dto.basic.VO;
 import com.particle.global.dto.response.*;
-import com.particle.global.exception.code.IErrorCode;
+import com.particle.global.light.share.code.IErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;

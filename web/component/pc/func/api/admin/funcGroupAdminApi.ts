@@ -1,8 +1,9 @@
 import axios, {AxiosPromise} from 'axios'
 import {anyObj} from "../../../../../global/common/tools/ObjectTools";
 import {IdParam, updateParam} from "../../../../../common/api/api";
+import getApiPrefix from "../../../../../common/api/apiPrefixConfig";
 
-let prefix = '/admin/web/func-group'
+let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_FUNC) + '/admin/web/func-group'
 /**
  * 添加功能组
  * @param data

@@ -1,10 +1,10 @@
 package com.particle.data.app.company.api.impl;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.DataCompanyIprPatentCertificateCreateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentCertificateDeleteCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentCertificateUpdateCommandExecutor;
 import com.particle.data.app.company.executor.DataCompanyIprPatentCertificateCommandExecutor;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentCertificateUpdateCommand;
 import com.particle.data.client.company.api.IDataCompanyIprPatentCertificateApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyIprPatentCertificateCreateCommand;
@@ -16,7 +16,6 @@ import com.particle.common.app.AbstractBaseApplicationServiceImpl;
 import com.particle.global.catchlog.CatchAndLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.particle.global.dto.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 import com.particle.data.client.company.dto.command.warehouse.DataCompanyIprPatentCertificateWarehouseCommand;
 import com.particle.data.client.company.dto.data.exwarehouse.DataCompanyIprPatentCertificateExWarehouseVO;
@@ -50,7 +49,7 @@ public class DataCompanyIprPatentCertificateApplicationServiceImpl extends Abstr
     }
 
     @Override
-    public SingleResponse<DataCompanyIprPatentCertificateVO> delete(IdCommand deleteCommand) {
+    public SingleResponse<DataCompanyIprPatentCertificateVO> delete(CommonIdCommand deleteCommand) {
         return dataCompanyIprPatentCertificateDeleteCommandExecutor.execute(deleteCommand);
     }
 

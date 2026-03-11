@@ -2,7 +2,7 @@ package com.particle.role.app.rolefuncrel.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -58,7 +58,7 @@ public class RoleFuncRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	 * @param roleFuncRelQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<RoleFuncRelVO> executeDetail(IdCommand roleFuncRelQueryDetailCommand) {
+	public SingleResponse<RoleFuncRelVO> executeDetail(CommonIdCommand roleFuncRelQueryDetailCommand) {
 		RoleFuncRelDO byId = iRoleFuncRelService.getById(roleFuncRelQueryDetailCommand.getId());
 		RoleFuncRelVO roleFuncRelVO = RoleFuncRelAppStructMapping.instance.roleFuncRelDOToRoleFuncRelVO(byId);
 		return SingleResponse.of(roleFuncRelVO);
@@ -66,13 +66,13 @@ public class RoleFuncRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 
 	/**
 	 * 查询角色已分配的功能菜单ids
-	 * @param roleIdCommand
+	 * @param roleCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByRoleId(@Valid IdCommand roleIdCommand) {
+	public MultiResponse<Long> queryFuncIdsByRoleId(@Valid CommonIdCommand roleCommonIdCommand) {
 
 		RoleFuncRelQueryListCommand roleUserRelQueryListCommand = new RoleFuncRelQueryListCommand();
-		roleUserRelQueryListCommand.setRoleId(roleIdCommand.getId());
+		roleUserRelQueryListCommand.setRoleId(roleCommonIdCommand.getId());
 		MultiResponse<RoleFuncRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
 		if(roleUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleFuncRelVO::getFuncId).collect(Collectors.toList());
@@ -82,13 +82,13 @@ public class RoleFuncRelQueryCommandExecutor  extends AbstractBaseQueryExecutor 
 	}
 	/**
 	 * 查询功能已分配的角色ids
-	 * @param funcIdCommand
+	 * @param funcCommonIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryRoleIdsByFuncId(@Valid IdCommand funcIdCommand) {
+	public MultiResponse<Long> queryRoleIdsByFuncId(@Valid CommonIdCommand funcCommonIdCommand) {
 
 		RoleFuncRelQueryListCommand roleUserRelQueryListCommand = new RoleFuncRelQueryListCommand();
-		roleUserRelQueryListCommand.setFuncId(funcIdCommand.getId());
+		roleUserRelQueryListCommand.setFuncId(funcCommonIdCommand.getId());
 		MultiResponse<RoleFuncRelVO> roleUserRelVOMultiResponse = execute(roleUserRelQueryListCommand);
 		if(roleUserRelVOMultiResponse.isNotEmpty()){
 			List<Long> collect = roleUserRelVOMultiResponse.getData().stream().map(RoleFuncRelVO::getRoleId).collect(Collectors.toList());

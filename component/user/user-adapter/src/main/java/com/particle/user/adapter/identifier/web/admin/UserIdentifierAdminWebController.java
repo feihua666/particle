@@ -1,7 +1,7 @@
 package com.particle.user.adapter.identifier.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dataaudit.op.OpLog;
@@ -69,7 +69,7 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@Operation(summary = "删除用户登录标识")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除用户登录标识",module = OpLogConstants.Module.user,type = OpLogConstants.Type.delete)
-	public SingleResponse<UserIdentifierVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<UserIdentifierVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		deleteCommand.dcdo(DataConstraintConstants.data_object_user_identifier, DataConstraintContext.Action.delete.name());
 		return iUserIdentifierApplicationService.delete(deleteCommand);
 	}
@@ -86,14 +86,14 @@ public class UserIdentifierAdminWebController extends AbstractBaseWebAdapter {
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:update')")
 	@Operation(summary = "用户登录标识更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(IdCommand userIdentifierQueryDetailForUpdateCommand){
+	public SingleResponse<UserIdentifierVO> queryDetailForUpdate(CommonIdCommand userIdentifierQueryDetailForUpdateCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetailForUpdate(userIdentifierQueryDetailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:userIdentifier:detail')")
 	@Operation(summary = "用户登录标识详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<UserIdentifierVO> queryDetail(IdCommand userIdentifierQueryDetailCommand){
+	public SingleResponse<UserIdentifierVO> queryDetail(CommonIdCommand userIdentifierQueryDetailCommand){
 		return iUserIdentifierRepresentationApplicationService.queryDetail(userIdentifierQueryDetailCommand);
 	}
 

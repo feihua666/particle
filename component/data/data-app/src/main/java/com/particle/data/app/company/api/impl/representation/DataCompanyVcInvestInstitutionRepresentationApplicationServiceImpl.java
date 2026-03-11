@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyVcInvestInstitutionRepresentationApplicationServiceImpl 
     private DataCompanyVcInvestInstitutionExWarehouseCommandExecutor dataCompanyVcInvestInstitutionExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyVcInvestInstitutionVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyVcInvestInstitutionVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyVcInvestInstitutionQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyVcInvestInstitutionVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyVcInvestInstitutionVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyVcInvestInstitutionQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

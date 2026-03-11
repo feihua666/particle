@@ -2,7 +2,7 @@ package com.particle.user.adapter.identifier.login;
 
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.security.security.login.LoginUser;
+import com.particle.global.dto.login.LoginUser;
 import com.particle.user.app.identifier.structmapping.UserIdentifierAppStructMapping;
 import com.particle.user.client.identifier.api.IUserIdentifierApplicationService;
 import com.particle.user.client.identifier.dto.command.UserIdentifierCreateCommand;

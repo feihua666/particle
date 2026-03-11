@@ -2,7 +2,7 @@ package com.particle.navigation.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class NavigationFriendshipLinkQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationFriendshipLinkVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<NavigationFriendshipLinkVO> executeDetail(CommonIdCommand detailCommand) {
 		NavigationFriendshipLinkDO byId = iNavigationFriendshipLinkService.getById(detailCommand.getId());
 		NavigationFriendshipLinkVO navigationFriendshipLinkVO = NavigationFriendshipLinkAppStructMapping.instance.navigationFriendshipLinkDOToNavigationFriendshipLinkVO(byId);
 		return SingleResponse.of(navigationFriendshipLinkVO);
@@ -67,7 +67,7 @@ public class NavigationFriendshipLinkQueryCommandExecutor  extends AbstractBaseQ
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<NavigationFriendshipLinkVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<NavigationFriendshipLinkVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		NavigationFriendshipLinkDO byId = iNavigationFriendshipLinkService.getById(detailForUpdateCommand.getId());
 		NavigationFriendshipLinkVO navigationFriendshipLinkVO = NavigationFriendshipLinkAppStructMapping.instance.navigationFriendshipLinkDOToNavigationFriendshipLinkVO(byId);
 		return SingleResponse.of(navigationFriendshipLinkVO);

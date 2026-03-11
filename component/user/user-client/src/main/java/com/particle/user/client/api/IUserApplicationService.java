@@ -1,7 +1,7 @@
 package com.particle.user.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.user.client.dto.command.UserCreateCommand;
@@ -31,7 +31,7 @@ public interface IUserApplicationService extends IBaseApplicationService {
 	 * @param userDeleteCommand
 	 * @return
 	 */
-	SingleResponse<UserVO> delete(IdCommand userDeleteCommand);
+	SingleResponse<UserVO> delete(CommonIdCommand userDeleteCommand);
 
 	/**
 	 * 更新领域对象

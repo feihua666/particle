@@ -6,7 +6,7 @@ import com.particle.scheduler.client.datatask.dto.data.SchedulerJobDataTaskVO;
 import com.particle.scheduler.infrastructure.datatask.dos.SchedulerJobDataTaskDO;
 import com.particle.scheduler.infrastructure.datatask.service.ISchedulerJobDataTaskService;
 import com.particle.scheduler.client.datatask.dto.command.representation.SchedulerJobDataTaskPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class SchedulerJobDataTaskQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerJobDataTaskVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<SchedulerJobDataTaskVO> executeDetail(CommonIdCommand detailCommand) {
 		SchedulerJobDataTaskDO byId = iSchedulerJobDataTaskService.getById(detailCommand.getId());
 		SchedulerJobDataTaskVO schedulerJobDataTaskVO = SchedulerJobDataTaskAppStructMapping.instance.schedulerJobDataTaskDOToSchedulerJobDataTaskVO(byId);
 		return SingleResponse.of(schedulerJobDataTaskVO);
@@ -67,7 +66,7 @@ public class SchedulerJobDataTaskQueryCommandExecutor  extends AbstractBaseQuery
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<SchedulerJobDataTaskVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<SchedulerJobDataTaskVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		SchedulerJobDataTaskDO byId = iSchedulerJobDataTaskService.getById(detailForUpdateCommand.getId());
 		SchedulerJobDataTaskVO schedulerJobDataTaskVO = SchedulerJobDataTaskAppStructMapping.instance.schedulerJobDataTaskDOToSchedulerJobDataTaskVO(byId);
 		return SingleResponse.of(schedulerJobDataTaskVO);

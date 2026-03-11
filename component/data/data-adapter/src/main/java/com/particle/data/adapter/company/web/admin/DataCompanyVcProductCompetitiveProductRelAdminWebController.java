@@ -5,7 +5,7 @@ import com.particle.data.client.company.api.IDataCompanyVcProductCompetitiveProd
 import com.particle.data.client.company.api.representation.IDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyVcProductCompetitiveProductRelVO;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcProductCompetitiveProductRelPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyVcProductCompetitiveProductRelQueryListCommand;
@@ -60,7 +60,7 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @Operation(summary = "删除企业融资产品竞品关系")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业融资产品竞品关系",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyVcProductCompetitiveProductRelApplicationService.delete(deleteCommand);
     }
@@ -77,14 +77,14 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcProductCompetitiveProductRel:update')")
     @Operation(summary = "企业融资产品竞品关系更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcProductCompetitiveProductRel:detail')")
     @Operation(summary = "企业融资产品竞品关系详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryDetail(detailCommand);
     }
 
@@ -103,7 +103,7 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
         dataCompanyVcProductCompetitiveProductRelPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
         return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.pageQuery(dataCompanyVcProductCompetitiveProductRelPageQueryCommand);
     }
-    
+
     @Operation(summary = "企业融资产品表ID分配企业竞品")
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcProductCompetitiveProductRel:companyVcProductAssignCompanyVcCompetitiveProduct')")
     @PostMapping("/companyVcProduct/assign/companyVcCompetitiveProduct")
@@ -117,8 +117,8 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcProductCompetitiveProductRel:queryCompanyVcCompetitiveProductIdsByCompanyVcProductId')")
     @GetMapping("/queryCompanyVcCompetitiveProductIdsByCompanyVcProductId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(IdCommand idCommand) {
-        return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryCompanyVcCompetitiveProductIdsByCompanyVcProductId( idCommand);
+    public MultiResponse<Long> queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryCompanyVcCompetitiveProductIdsByCompanyVcProductId(commonIdCommand);
     }
 
     @Operation(summary = "清空企业融资产品表ID下的所有企业竞品")
@@ -126,8 +126,8 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @DeleteMapping("/deleteByCompanyVcProductId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空企业融资产品表ID下的所有企业竞品",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByCompanyVcProductId(@RequestBody IdCommand idCommand) {
-        return iDataCompanyVcProductCompetitiveProductRelApplicationService.deleteByCompanyVcProductId(idCommand);
+    public Response deleteByCompanyVcProductId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcProductCompetitiveProductRelApplicationService.deleteByCompanyVcProductId(commonIdCommand);
     }
 
 
@@ -144,8 +144,8 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @PreAuthorize("hasAuthority('admin:web:dataCompanyVcProductCompetitiveProductRel:queryCompanyVcProductIdsByCompanyVcCompetitiveProductId')")
     @GetMapping("/queryCompanyVcProductIdsByCompanyVcCompetitiveProductId")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponse<Long> queryByCompanyVcCompetitiveProductId(IdCommand idCommand) {
-        return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryCompanyVcProductIdsByCompanyVcCompetitiveProductId( idCommand);
+    public MultiResponse<Long> queryByCompanyVcCompetitiveProductId(CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcProductCompetitiveProductRelRepresentationApplicationService.queryCompanyVcProductIdsByCompanyVcCompetitiveProductId(commonIdCommand);
 
     }
 
@@ -154,8 +154,8 @@ public class DataCompanyVcProductCompetitiveProductRelAdminWebController extends
     @DeleteMapping("/deleteByCompanyVcCompetitiveProductId")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @OpLog(name = "清空企业竞品下的所有企业融资产品表ID",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public Response deleteByCompanyVcCompetitiveProductId(@RequestBody IdCommand idCommand) {
-        return iDataCompanyVcProductCompetitiveProductRelApplicationService.deleteByCompanyVcCompetitiveProductId(idCommand);
+    public Response deleteByCompanyVcCompetitiveProductId(@RequestBody CommonIdCommand commonIdCommand) {
+        return iDataCompanyVcProductCompetitiveProductRelApplicationService.deleteByCompanyVcCompetitiveProductId(commonIdCommand);
     }
 
 }

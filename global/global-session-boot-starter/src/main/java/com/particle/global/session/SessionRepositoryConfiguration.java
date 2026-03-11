@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 /**
  * <p>
  * 默认简单map方式内存存储
- * springboot3不再支持spring.session.store-type配置，也就是说系统中只能有一个存储方式，这里使用particle前端继续支持
+ * springboot3 不再支持 spring.session.store-type 配置，也就是说系统中只能有一个存储方式，这里使用 particle 前端继续支持
  * </p>
  *
  * @author yangwei
@@ -49,7 +49,7 @@ public class SessionRepositoryConfiguration {
 	 */
 	@Configuration(proxyBeanMethods = false)
 	@EnableSpringHttpSession
-	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "none",matchIfMissing = true)
+	@ConditionalOnProperty(prefix = "particle.global.session",name = "store-type",havingValue = "none",matchIfMissing = true)
 	@ConditionalOnMissingBean(SessionRepository.class)
 	@ConditionalOnClass(EnableSpringHttpSession.class)
 	static class SessionRepositoryMapConfiguration{
@@ -81,7 +81,7 @@ public class SessionRepositoryConfiguration {
 	 */
 	@Configuration(proxyBeanMethods = false)
 	//@EnableRedisHttpSession
-	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "redis")
+	@ConditionalOnProperty(prefix = "particle.global.session",name = "store-type",havingValue = "redis")
 	@ConditionalOnClass(EnableRedisHttpSession.class)
 	static class SessionRepositoryRedisConfiguration{
 		public SessionRepositoryRedisConfiguration() {
@@ -94,7 +94,7 @@ public class SessionRepositoryConfiguration {
 	 */
 	@Configuration(proxyBeanMethods = false)
 	//@EnableJdbcHttpSession
-	@ConditionalOnProperty(prefix = "particle.session",name = "store-type",havingValue = "jdbc")
+	@ConditionalOnProperty(prefix = "particle.global.session",name = "store-type",havingValue = "jdbc")
 	@ConditionalOnClass(EnableJdbcHttpSession.class)
 	static class SessionRepositoryJdbcConfiguration{
 		public SessionRepositoryJdbcConfiguration() {

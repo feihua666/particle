@@ -1,7 +1,7 @@
 package com.particle.feedback.client.feedback.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.feedback.client.feedback.dto.command.FeedbackCreateCommand;
 import com.particle.feedback.client.feedback.dto.command.FeedbackManualHandleCommand;
 import com.particle.feedback.client.feedback.dto.data.FeedbackVO;
@@ -34,6 +34,6 @@ public interface IFeedbackApplicationService extends IBaseApplicationService {
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<FeedbackVO> delete(IdCommand deleteCommand);
+	SingleResponse<FeedbackVO> delete(CommonIdCommand deleteCommand);
 
 }

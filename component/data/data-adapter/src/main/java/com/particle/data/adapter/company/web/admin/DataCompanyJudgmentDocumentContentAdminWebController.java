@@ -1,11 +1,11 @@
 package com.particle.data.adapter.company.web.admin;
 
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
 import com.particle.data.client.company.api.IDataCompanyJudgmentDocumentContentApplicationService;
 import com.particle.data.client.company.api.representation.IDataCompanyJudgmentDocumentContentRepresentationApplicationService;
 import com.particle.data.client.company.dto.command.DataCompanyJudgmentDocumentContentCreateCommand;
 import com.particle.data.client.company.dto.data.DataCompanyJudgmentDocumentContentVO;
-import com.particle.common.client.dto.command.IdCommand;
 import com.particle.data.client.company.dto.command.DataCompanyJudgmentDocumentContentUpdateCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentContentPageQueryCommand;
 import com.particle.data.client.company.dto.command.representation.DataCompanyJudgmentDocumentContentQueryListCommand;
@@ -14,7 +14,6 @@ import com.particle.global.dto.response.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,7 @@ import com.particle.global.dto.dataconstraint.DataConstraintContext;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
-import com.particle.global.dto.response.Response;
+
 /**
  * <p>
  * 企业裁判文书内容后台管理pc或平板端前端适配器
@@ -58,7 +57,7 @@ public class DataCompanyJudgmentDocumentContentAdminWebController extends Abstra
     @Operation(summary = "删除企业裁判文书内容")
     @DeleteMapping("/delete")
     @OpLog(name = "删除企业裁判文书内容",module = OpLogConstants.Module.unknown,type = OpLogConstants.Type.delete)
-    public SingleResponse<DataCompanyJudgmentDocumentContentVO> delete(@RequestBody IdCommand deleteCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentContentVO> delete(@RequestBody CommonIdCommand deleteCommand){
         deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
         return iDataCompanyJudgmentDocumentContentApplicationService.delete(deleteCommand);
     }
@@ -75,14 +74,14 @@ public class DataCompanyJudgmentDocumentContentAdminWebController extends Abstra
     @PreAuthorize("hasAuthority('admin:web:dataCompanyJudgmentDocumentContent:update')")
     @Operation(summary = "企业裁判文书内容更新详情")
     @GetMapping("/detail-for-update")
-    public SingleResponse<DataCompanyJudgmentDocumentContentVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentContentVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
         return iDataCompanyJudgmentDocumentContentRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
     }
 
     @PreAuthorize("hasAuthority('admin:web:dataCompanyJudgmentDocumentContent:detail')")
     @Operation(summary = "企业裁判文书内容详情展示")
     @GetMapping("/detail")
-    public SingleResponse<DataCompanyJudgmentDocumentContentVO> queryDetail(IdCommand detailCommand){
+    public SingleResponse<DataCompanyJudgmentDocumentContentVO> queryDetail(CommonIdCommand detailCommand){
         return iDataCompanyJudgmentDocumentContentRepresentationApplicationService.queryDetail(detailCommand);
     }
 

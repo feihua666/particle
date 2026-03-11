@@ -2,7 +2,7 @@ package com.particle.dataconstraint.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.app.structmapping.DataObjectAppStructMapping;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectPageQueryCommand;
 import com.particle.dataconstraint.client.dto.command.representation.DataObjectQueryListCommand;
@@ -57,7 +57,7 @@ public class DataObjectQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataObjectVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataObjectVO> executeDetail(CommonIdCommand detailCommand) {
 		DataObjectDO byId = iDataObjectService.getById(detailCommand.getId());
 		DataObjectVO dataObjectVO = DataObjectAppStructMapping.instance.dataObjectDOToDataObjectVO(byId);
 		return SingleResponse.of(dataObjectVO);
@@ -67,7 +67,7 @@ public class DataObjectQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataObjectVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataObjectVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataObjectDO byId = iDataObjectService.getById(detailForUpdateCommand.getId());
 		DataObjectVO dataObjectVO = DataObjectAppStructMapping.instance.dataObjectDOToDataObjectVO(byId);
 		return SingleResponse.of(dataObjectVO);

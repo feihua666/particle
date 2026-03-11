@@ -1,7 +1,7 @@
 package com.particle.crm.adapter.relation.web.admin;
 
 import com.particle.common.adapter.web.AbstractBaseWebAdapter;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.component.light.share.dict.oplog.OpLogConstants;
 import com.particle.crm.client.relation.api.ICrmCustomerRelationDefineApplicationService;
 import com.particle.crm.client.relation.api.representation.ICrmCustomerRelationDefineRepresentationApplicationService;
@@ -50,7 +50,7 @@ public class CrmCustomerRelationDefineAdminWebController extends AbstractBaseWeb
 	@Operation(summary = "删除客户关系定义")
 	@DeleteMapping("/delete")
 	@OpLog(name = "删除客户关系定义",module = OpLogConstants.Module.crm,type = OpLogConstants.Type.delete)
-	public SingleResponse<CrmCustomerRelationDefineVO> delete(@RequestBody IdCommand deleteCommand){
+	public SingleResponse<CrmCustomerRelationDefineVO> delete(@RequestBody CommonIdCommand deleteCommand){
 		return iCrmCustomerRelationDefineApplicationService.delete(deleteCommand);
 	}
 
@@ -65,14 +65,14 @@ public class CrmCustomerRelationDefineAdminWebController extends AbstractBaseWeb
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerRelationDefine:update')")
 	@Operation(summary = "客户关系定义更新详情")
 	@GetMapping("/detail-for-update")
-	public SingleResponse<CrmCustomerRelationDefineVO> queryDetailForUpdate(IdCommand detailForUpdateCommand){
+	public SingleResponse<CrmCustomerRelationDefineVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
 		return iCrmCustomerRelationDefineRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
 	}
 
 	@PreAuthorize("hasAuthority('admin:web:crmCustomerRelationDefine:detail')")
 	@Operation(summary = "客户关系定义详情展示")
 	@GetMapping("/detail")
-	public SingleResponse<CrmCustomerRelationDefineVO> queryDetail(IdCommand detailCommand){
+	public SingleResponse<CrmCustomerRelationDefineVO> queryDetail(CommonIdCommand detailCommand){
 		return iCrmCustomerRelationDefineRepresentationApplicationService.queryDetail(detailCommand);
 	}
 

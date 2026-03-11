@@ -1,7 +1,7 @@
 package com.particle.data.client.company.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.dto.response.Response;
 import com.particle.data.client.company.dto.command.DataCompanyVcProductCompetitiveProductRelCreateCommand;
@@ -32,7 +32,7 @@ public interface IDataCompanyVcProductCompetitiveProductRelApplicationService ex
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataCompanyVcProductCompetitiveProductRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -58,17 +58,17 @@ public interface IDataCompanyVcProductCompetitiveProductRelApplicationService ex
 
 	/**
 	 * 根据企业融资产品表IDid删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcProductId(IdCommand idCommand);
+	public Response deleteByCompanyVcProductId(CommonIdCommand commonIdCommand);
 
 	/**
 	 * 根据企业竞品id删除
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public Response deleteByCompanyVcCompetitiveProductId(IdCommand idCommand);
+	public Response deleteByCompanyVcCompetitiveProductId(CommonIdCommand commonIdCommand);
 
 
 	/**

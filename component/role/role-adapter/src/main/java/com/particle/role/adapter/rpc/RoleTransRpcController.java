@@ -30,11 +30,6 @@ public class RoleTransRpcController extends AbstractBaseRpcAdapter implements Ro
 	private RoleTransServiceImpl roleTransService;
 
 	@Override
-	public boolean supportBatch(String type) {
-		return roleTransService.supportBatch(type);
-	}
-
-	@Override
 	public List<TransResult<RoleTransVO, Long>> transBatch(String type, Set<Long> keys) {
 		return roleTransService.transBatch(type, keys);
 	}

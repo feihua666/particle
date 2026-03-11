@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -32,12 +32,12 @@ public class DataCompanyVcFinancingInvestInstitutionRelRepresentationApplication
     private DataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor dataCompanyVcFinancingInvestInstitutionRelExWarehouseCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyVcFinancingInvestInstitutionRelVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 
@@ -52,14 +52,14 @@ public class DataCompanyVcFinancingInvestInstitutionRelRepresentationApplication
     }
 
 	@Override
-	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(IdCommand companyVcFinancingIdCommand) {
+	public MultiResponse<Long> queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(CommonIdCommand companyVcFinancingCommonIdCommand) {
 
-		return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(companyVcFinancingIdCommand);
+		return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.queryCompanyVcInvestInstitutionIdsByCompanyVcFinancingId(companyVcFinancingCommonIdCommand);
 	}
 
 	@Override
-	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(IdCommand companyVcInvestInstitutionIdCommand) {
-		return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(companyVcInvestInstitutionIdCommand);
+	public MultiResponse<Long> queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(CommonIdCommand companyVcInvestInstitutionCommonIdCommand) {
+		return dataCompanyVcFinancingInvestInstitutionRelQueryCommandExecutor.queryCompanyVcFinancingIdsByCompanyVcInvestInstitutionId(companyVcInvestInstitutionCommonIdCommand);
 	}
 
     @Override

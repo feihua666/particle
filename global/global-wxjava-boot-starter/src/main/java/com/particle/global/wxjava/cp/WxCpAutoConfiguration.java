@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import(WxCpConfiguration.class)
 @EnableConfigurationProperties(WxCpProperties.class)
-@ConditionalOnProperty(prefix = "particle.wxcp", name = "enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "particle.global.wxcp", name = "enabled", havingValue = "true", matchIfMissing = false)
 public class WxCpAutoConfiguration {
 
 	@Bean

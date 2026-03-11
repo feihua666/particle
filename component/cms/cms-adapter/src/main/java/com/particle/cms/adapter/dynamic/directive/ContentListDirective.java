@@ -2,22 +2,20 @@ package com.particle.cms.adapter.dynamic.directive;
 
 import com.particle.cms.client.dto.command.directive.CmsContentDirectivePageQueryCommand;
 import com.particle.cms.client.dto.command.directive.CmsDirectivePageQueryCommand;
-import com.particle.cms.client.dto.data.CmsContentMultimediaVO;
 import com.particle.cms.client.dto.data.CmsContentVO;
-import com.particle.cms.client.dto.data.dynamic.CmsContentMultimediaTemplateModelVO;
-import com.particle.cms.client.dto.data.dynamic.CmsContentTemplateModelVO;
+import com.particle.cms.client.dto.data.dynamic.*;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by yangwei
@@ -28,11 +26,15 @@ public class ContentListDirective extends AbstractDirective {
 
 
     /**
-     * 站点指令支持属性
+     * 内容指令支持属性
      */
     protected static final String param_content_categoryId = "categoryId";
+    protected static final String param_content_is_include_multimedia = "isIncludeMultimedia";
+    protected static final String param_content_is_channel_id_null = "isChannelIdNull";
 
-    private final static String varName = "contentList";
+    @Autowired
+    protected DirectiveHelper directiveHelper;
+
     /**
      *
      * @param env
@@ -48,47 +50,49 @@ public class ContentListDirective extends AbstractDirective {
         Long siteId = getSiteId(params);
         Long channelId = getChannelId(params);
         Long contentId = getContentId(params);
-        Long categoryId = getParamLong(param_content_categoryId,params);
+        Long categoryId = getParamLong(param_content_categoryId, params);
+        Boolean isIncludeMultimedia = getParamBoolean(param_content_is_include_multimedia, params);
+        Boolean isChannelIdNull = getParamBoolean(param_content_is_channel_id_null, params);
+        if (isChannelIdNull != null && isChannelIdNull) {
+            channelId = null;
+        }
 
         if (body != null) {
+
+            CmsTemplateModelContext modelContext = getModelContext();
+            Boolean isPublicCondition = getIsPublicCondition();
+            // 查询数据
             CmsDirectivePageQueryCommand pageQueryCommand = getPageQueryCommand(params);
-            CmsContentDirectivePageQueryCommand cmsContentDirectivePageQueryCommand = CmsContentDirectivePageQueryCommand.create(pageQueryCommand,
-                    contentId,siteId,channelId,categoryId);
+            CmsContentDirectivePageQueryCommand cmsContentDirectivePageQueryCommand =
+                    CmsContentDirectivePageQueryCommand.create(pageQueryCommand,
+                            contentId,
+                            siteId,
+                            channelId,
+                            isChannelIdNull, categoryId, null,isPublicCondition);
             List<CmsContentVO> cmsContentVOs = null;
+            PageResponse pageResponse = null;
             if (pageQueryCommand.getIsPage()) {
                 PageResponse<CmsContentVO> cmsContentVOPageResponse = iCmsDynamicApplicationService.pageQueryContent(cmsContentDirectivePageQueryCommand);
+                pageResponse = cmsContentVOPageResponse;
                 cmsContentVOs = cmsContentVOPageResponse.getData();
-            }else{
+            } else {
                 MultiResponse<CmsContentVO> cmsContentVOMultiResponse = iCmsDynamicApplicationService.queryListContent(cmsContentDirectivePageQueryCommand);
                 cmsContentVOs = cmsContentVOMultiResponse.getData();
             }
+            // 将查询到的数据 找到对应的 site 和 channel
+            DirectiveHelper.CmsContentVosDependMaps cmsContentVosDependMaps = directiveHelper.getCmsContentVosDependMaps(cmsContentVOs, isIncludeMultimedia, modelContext,isPublicCondition);
 
-            bodyRender(env, params, loopVars, body, cmsContentVOs,
-                    varName,
-                    cmsContentVO -> cmsContentMapping((CmsContentVO) cmsContentVO)
+            bodyRender(env, params, loopVars, body, cmsContentVOs, pageResponse,
+                    cmsContentVO ->
+                    {
+                        CmsContentVO contentVO = (CmsContentVO) cmsContentVO;
+                        return directiveHelper.cmsContentVOToCmsContentTemplateModelVOMapping(contentVO,
+                                cmsContentVosDependMaps.getCmsSiteVOMap().get(contentVO.getCmsSiteId()),
+                                contentVO.getCmsChannelId() == null ? null : cmsContentVosDependMaps.getCmsChannelVOMap().get(contentVO.getCmsChannelId()),
+                                cmsContentVosDependMaps.getCmsContentMultimediaVOMap(), modelContext);
+                    }
             );
         }
     }
 
-    /**
-     * 映射结果，添加内容多媒体
-     * @param cmsContentVO
-     * @return
-     */
-    private CmsContentTemplateModelVO cmsContentMapping(CmsContentVO cmsContentVO) {
-        CmsContentTemplateModelVO cmsContentTemplateModelVO = CmsContentTemplateModelVO.createByCmsContentVO(cmsContentVO);
-        if (cmsContentVO != null) {
-            Long contentVOId = cmsContentVO.getId();
-            MultiResponse<CmsContentMultimediaVO> cmsContentMultimediaVOMultiResponse = iCmsDynamicApplicationService.listContentMultimediaByContentId(contentVOId);
-            List<CmsContentMultimediaVO> contentMultimediaVOS = cmsContentMultimediaVOMultiResponse.getData();
-            if (contentMultimediaVOS != null) {
-                List<CmsContentMultimediaTemplateModelVO> contentMultimediaTemplateModelVOS = contentMultimediaVOS
-                        .stream()
-                        .map(cmsContentMultimediaVO -> CmsContentMultimediaTemplateModelVO.createByCmsContentMultimediaVO(cmsContentMultimediaVO))
-                        .collect(Collectors.toList());
-                cmsContentTemplateModelVO.setContentMultimedias(contentMultimediaTemplateModelVOS);
-            }
-        }
-        return cmsContentTemplateModelVO;
-    }
 }

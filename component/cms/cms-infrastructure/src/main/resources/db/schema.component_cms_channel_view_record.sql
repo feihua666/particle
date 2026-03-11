@@ -18,4 +18,4 @@ CREATE TABLE `component_cms_channel_view_record` (
   KEY `cms_channel_id` (`cms_channel_id`) USING BTREE,
   KEY `device_id` (`device_id`) USING BTREE,
   KEY `ip` (`ip`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='栏目访问记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='栏目访问记录表';

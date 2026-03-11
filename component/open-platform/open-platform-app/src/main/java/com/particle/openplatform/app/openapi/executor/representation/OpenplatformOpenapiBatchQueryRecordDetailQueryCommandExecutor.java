@@ -2,7 +2,7 @@ package com.particle.openplatform.app.openapi.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailQueryCommandExecutor  exte
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> executeDetail(CommonIdCommand detailCommand) {
 		OpenplatformOpenapiBatchQueryRecordDetailDO byId = iOpenplatformOpenapiBatchQueryRecordDetailService.getById(detailCommand.getId());
 		OpenplatformOpenapiBatchQueryRecordDetailVO openplatformOpenapiBatchQueryRecordDetailVO = OpenplatformOpenapiBatchQueryRecordDetailAppStructMapping.instance.openplatformOpenapiBatchQueryRecordDetailDOToOpenplatformOpenapiBatchQueryRecordDetailVO(byId);
 		return SingleResponse.of(openplatformOpenapiBatchQueryRecordDetailVO);
@@ -67,7 +67,7 @@ public class OpenplatformOpenapiBatchQueryRecordDetailQueryCommandExecutor  exte
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<OpenplatformOpenapiBatchQueryRecordDetailVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		OpenplatformOpenapiBatchQueryRecordDetailDO byId = iOpenplatformOpenapiBatchQueryRecordDetailService.getById(detailForUpdateCommand.getId());
 		OpenplatformOpenapiBatchQueryRecordDetailVO openplatformOpenapiBatchQueryRecordDetailVO = OpenplatformOpenapiBatchQueryRecordDetailAppStructMapping.instance.openplatformOpenapiBatchQueryRecordDetailDOToOpenplatformOpenapiBatchQueryRecordDetailVO(byId);
 		return SingleResponse.of(openplatformOpenapiBatchQueryRecordDetailVO);

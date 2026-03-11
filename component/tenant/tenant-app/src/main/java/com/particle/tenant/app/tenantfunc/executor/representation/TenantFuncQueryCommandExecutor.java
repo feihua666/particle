@@ -3,13 +3,13 @@ package com.particle.tenant.app.tenantfunc.executor.representation;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.tenant.app.tenantfunc.structmapping.TenantFuncAppStructMapping;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncPageQueryCommand;
-import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantIdCommand;
+import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryFuncIdsByTenantCommonId;
 import com.particle.tenant.client.tenantfunc.dto.command.representation.TenantFuncQueryListCommand;
 import com.particle.tenant.client.tenantfunc.dto.data.TenantFuncVO;
 import com.particle.tenant.domain.gateway.TenantFuncFuncGateway;
@@ -63,7 +63,7 @@ public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<TenantFuncVO> executeDetail(@Valid IdCommand detailCommand) {
+	public SingleResponse<TenantFuncVO> executeDetail(@Valid CommonIdCommand detailCommand) {
 		TenantFuncDO byId = iTenantFuncService.getById(detailCommand.getId());
 		TenantFuncVO tenantFuncVO = TenantFuncAppStructMapping.instance.tenantFuncDOToTenantFuncVO(byId);
 		return SingleResponse.of(tenantFuncVO);
@@ -73,7 +73,7 @@ public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<TenantFuncVO> executeDetailForUpdate(@Valid IdCommand detailForUpdateCommand) {
+	public SingleResponse<TenantFuncVO> executeDetailForUpdate(@Valid CommonIdCommand detailForUpdateCommand) {
 		TenantFuncDO byId = iTenantFuncService.getById(detailForUpdateCommand.getId());
 		TenantFuncVO tenantFuncVO = TenantFuncAppStructMapping.instance.tenantFuncDOToTenantFuncVO(byId);
 		return SingleResponse.of(tenantFuncVO);
@@ -84,7 +84,7 @@ public class TenantFuncQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param tenantIdCommand
 	 * @return
 	 */
-	public MultiResponse<Long> queryFuncIdsByTenantId(@Valid TenantFuncQueryFuncIdsByTenantIdCommand tenantIdCommand) {
+	public MultiResponse<Long> queryFuncIdsByTenantId(@Valid TenantFuncQueryFuncIdsByTenantCommonId tenantIdCommand) {
 		List<Long> funcIdsByFuncApplicationId = Collections.emptyList();
 		if (tenantIdCommand.getFuncApplicationId() != null) {
 			funcIdsByFuncApplicationId = tenantFuncFuncGateway.getFuncIdsByFuncApplicationId(tenantIdCommand.getFuncApplicationId());

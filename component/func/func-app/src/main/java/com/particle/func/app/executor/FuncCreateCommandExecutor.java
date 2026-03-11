@@ -1,7 +1,7 @@
 package com.particle.func.app.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.func.app.structmapping.FuncAppStructMapping;
 import com.particle.func.client.dto.command.FuncCreateCommand;
 import com.particle.func.client.dto.data.FuncVO;
@@ -10,7 +10,7 @@ import com.particle.func.domain.gateway.FuncGateway;
 import com.particle.func.infrastructure.dos.FuncDO;
 import com.particle.func.infrastructure.service.IFuncService;
 import com.particle.global.dto.response.SingleResponse;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -54,11 +54,11 @@ public class FuncCreateCommandExecutor  extends AbstractBaseExecutor {
 
 	/**
 	 * 复制
-	 * @param idCommand
+	 * @param commonIdCommand
 	 * @return
 	 */
-	public SingleResponse<FuncVO> copy(@Valid IdCommand idCommand) {
-		FuncDO copy = iFuncService.copy(idCommand.getId(), item -> {
+	public SingleResponse<FuncVO> copy(@Valid CommonIdCommand commonIdCommand) {
+		FuncDO copy = iFuncService.copy(commonIdCommand.getId(), item -> {
 			String copySuffix = "Copy";
 			item.setCode(item.getCode() + copySuffix);
 			item.setName(item.getName() + copySuffix);

@@ -1,7 +1,7 @@
 package com.particle.tracking.app.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.catchlog.CatchAndLog;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
@@ -28,7 +28,7 @@ public class TrackingPageRecordRepresentationApplicationServiceImpl extends Abst
     private TrackingPageRecordQueryCommandExecutor trackingPageRecordQueryCommandExecutor;
 
     @Override
-    public SingleResponse<TrackingPageRecordVO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<TrackingPageRecordVO> queryDetail(CommonIdCommand detailCommand) {
         return trackingPageRecordQueryCommandExecutor.executeDetail(detailCommand);
     }
 

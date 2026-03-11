@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author yw
  * @since 2024-05-16 09:47:01
  */
-@FeignClient(name = "${particle.feign-client.name.dream:dream}",path = "/rpc/ssq_code")
+@FeignClient(name = "${particle.feign-client.dream.name:dream-start}", contextId = "ssqCodeRpcFeignClient", url = "${particle.feign-client.dream.url:}", path = "/rpc/ssq_code")
 public interface SsqCodeRpcFeignClient {
 
 

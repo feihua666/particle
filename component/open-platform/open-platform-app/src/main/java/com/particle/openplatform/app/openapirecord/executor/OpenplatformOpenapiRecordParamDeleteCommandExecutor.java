@@ -1,10 +1,10 @@
 package com.particle.openplatform.app.openapirecord.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.openplatform.app.openapirecord.structmapping.OpenplatformOpenapiRecordParamAppStructMapping;
 import com.particle.openplatform.client.openapirecord.dto.data.OpenplatformOpenapiRecordParamVO;
 import com.particle.openplatform.domain.openapirecord.OpenplatformOpenapiRecordParam;
@@ -34,7 +34,7 @@ public class OpenplatformOpenapiRecordParamDeleteCommandExecutor  extends Abstra
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<OpenplatformOpenapiRecordParamVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<OpenplatformOpenapiRecordParamVO> execute(@Valid CommonIdCommand deleteCommand) {
 		OpenplatformOpenapiRecordParamId openplatformOpenapiRecordParamId = OpenplatformOpenapiRecordParamId.of(deleteCommand.getId());
 		OpenplatformOpenapiRecordParam byId = openplatformOpenapiRecordParamGateway.getById(openplatformOpenapiRecordParamId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

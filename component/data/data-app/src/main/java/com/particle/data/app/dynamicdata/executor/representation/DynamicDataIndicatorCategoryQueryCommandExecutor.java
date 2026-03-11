@@ -2,7 +2,7 @@ package com.particle.data.app.dynamicdata.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCategoryCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.executor.DynamicDataIndicatorCreateCommandExecutor;
 import com.particle.data.app.dynamicdata.structmapping.DynamicDataIndicatorCategoryAppStructMapping;
@@ -72,7 +72,7 @@ public class DynamicDataIndicatorCategoryQueryCommandExecutor  extends AbstractB
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryVO> executeDetail(CommonIdCommand detailCommand) {
 		DynamicDataIndicatorCategoryDO byId = iDynamicDataIndicatorCategoryService.getById(detailCommand.getId());
 		DynamicDataIndicatorCategoryVO dynamicDataIndicatorCategoryVO = DynamicDataIndicatorCategoryAppStructMapping.instance.dynamicDataIndicatorCategoryDOToDynamicDataIndicatorCategoryVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorCategoryVO);
@@ -82,7 +82,7 @@ public class DynamicDataIndicatorCategoryQueryCommandExecutor  extends AbstractB
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicDataIndicatorCategoryVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DynamicDataIndicatorCategoryVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DynamicDataIndicatorCategoryDO byId = iDynamicDataIndicatorCategoryService.getById(detailForUpdateCommand.getId());
 		DynamicDataIndicatorCategoryVO dynamicDataIndicatorCategoryVO = DynamicDataIndicatorCategoryAppStructMapping.instance.dynamicDataIndicatorCategoryDOToDynamicDataIndicatorCategoryVO(byId);
 		return SingleResponse.of(dynamicDataIndicatorCategoryVO);

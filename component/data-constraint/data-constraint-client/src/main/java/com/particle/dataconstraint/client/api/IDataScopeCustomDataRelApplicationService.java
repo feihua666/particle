@@ -1,14 +1,13 @@
 package com.particle.dataconstraint.client.api;
 
 import com.particle.common.client.api.IBaseApplicationService;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeAssignCustomDataCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeCustomDataRelCreateCommand;
 import com.particle.dataconstraint.client.dto.command.DataScopeCustomDataRelUpdateCommand;
 import com.particle.dataconstraint.client.dto.data.DataScopeCustomDataRelVO;
 import com.particle.global.dto.response.Response;
 import com.particle.global.dto.response.SingleResponse;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -31,7 +30,7 @@ public interface IDataScopeCustomDataRelApplicationService extends IBaseApplicat
 	 * @param deleteCommand
 	 * @return
 	 */
-	SingleResponse<DataScopeCustomDataRelVO> delete(IdCommand deleteCommand);
+	SingleResponse<DataScopeCustomDataRelVO> delete(CommonIdCommand deleteCommand);
 
 	/**
 	 * 更新领域对象
@@ -49,8 +48,8 @@ public interface IDataScopeCustomDataRelApplicationService extends IBaseApplicat
 
 	/**
 	 * 根据数据范围id删除
-	 * @param dataScopeIdCommand
+	 * @param dataScopeCommonIdCommand
 	 * @return
 	 */
-	public Response deleteByDataScopeId(@RequestBody IdCommand dataScopeIdCommand);
+	public Response deleteByDataScopeId(CommonIdCommand dataScopeCommonIdCommand);
 }

@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({GlobalOssProperties.class})
-@ConditionalOnProperty(prefix = "particle.oss", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "particle.global.oss", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ComponentScan
 public class GlobalOssAutoConfiguration {
 

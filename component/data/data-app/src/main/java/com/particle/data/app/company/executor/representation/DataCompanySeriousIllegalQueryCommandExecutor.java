@@ -6,7 +6,7 @@ import com.particle.data.client.company.dto.data.DataCompanySeriousIllegalVO;
 import com.particle.data.infrastructure.company.dos.DataCompanySeriousIllegalDO;
 import com.particle.data.infrastructure.company.service.IDataCompanySeriousIllegalService;
 import com.particle.data.client.company.dto.command.representation.DataCompanySeriousIllegalPageQueryCommand;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
 import com.particle.global.dto.response.MultiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.global.dto.response.SingleResponse;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -57,7 +56,7 @@ public class DataCompanySeriousIllegalQueryCommandExecutor  extends AbstractBase
 	 * @param detailCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanySeriousIllegalVO> executeDetail(IdCommand detailCommand) {
+	public SingleResponse<DataCompanySeriousIllegalVO> executeDetail(CommonIdCommand detailCommand) {
 		DataCompanySeriousIllegalDO byId = iDataCompanySeriousIllegalService.getById(detailCommand.getId());
 		DataCompanySeriousIllegalVO dataCompanySeriousIllegalVO = DataCompanySeriousIllegalAppStructMapping.instance.dataCompanySeriousIllegalDOToDataCompanySeriousIllegalVO(byId);
 		return SingleResponse.of(dataCompanySeriousIllegalVO);
@@ -67,7 +66,7 @@ public class DataCompanySeriousIllegalQueryCommandExecutor  extends AbstractBase
 	 * @param detailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<DataCompanySeriousIllegalVO> executeDetailForUpdate(IdCommand detailForUpdateCommand) {
+	public SingleResponse<DataCompanySeriousIllegalVO> executeDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
 		DataCompanySeriousIllegalDO byId = iDataCompanySeriousIllegalService.getById(detailForUpdateCommand.getId());
 		DataCompanySeriousIllegalVO dataCompanySeriousIllegalVO = DataCompanySeriousIllegalAppStructMapping.instance.dataCompanySeriousIllegalDOToDataCompanySeriousIllegalVO(byId);
 		return SingleResponse.of(dataCompanySeriousIllegalVO);

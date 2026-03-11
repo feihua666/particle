@@ -1,22 +1,20 @@
 package com.particle.data.app.dynamictable.executor;
 
 import com.particle.common.app.executor.AbstractBaseExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableService;
 import com.particle.global.dto.response.SingleResponse;
 import com.particle.global.exception.Assert;
-import com.particle.global.exception.code.ErrorCodeGlobalEnum;
+import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.data.app.dynamictable.structmapping.DynamicTableFieldAppStructMapping;
 import com.particle.data.client.dynamictable.dto.data.DynamicTableFieldVO;
 import com.particle.data.domain.dynamictable.DynamicTableField;
 import com.particle.data.domain.dynamictable.DynamicTableFieldId;
 import com.particle.data.domain.dynamictable.gateway.DynamicTableFieldGateway;
 import com.particle.data.infrastructure.dynamictable.service.IDynamicTableFieldService;
-import com.particle.data.infrastructure.dynamictable.dos.DynamicTableFieldDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import com.particle.global.dto.response.Response;
 import jakarta.validation.Valid;
 
 /**
@@ -39,7 +37,7 @@ public class DynamicTableFieldDeleteCommandExecutor  extends AbstractBaseExecuto
 	 * @param deleteCommand
 	 * @return
 	 */
-	public SingleResponse<DynamicTableFieldVO> execute(@Valid IdCommand deleteCommand) {
+	public SingleResponse<DynamicTableFieldVO> execute(@Valid CommonIdCommand deleteCommand) {
 		DynamicTableFieldId dynamicTableFieldId = DynamicTableFieldId.of(deleteCommand.getId());
 		DynamicTableField byId = dynamicTableFieldGateway.getById(dynamicTableFieldId);
 		Assert.notNull(byId,ErrorCodeGlobalEnum.DATA_NOT_FOUND);

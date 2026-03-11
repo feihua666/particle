@@ -1,7 +1,7 @@
 package com.particle.data.app.company.api.impl.representation;
 
 import com.particle.common.app.AbstractBaseApplicationServiceImpl;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.data.app.company.executor.representation.DataCompanyMd5QueryCommandExecutor;
 import com.particle.data.client.company.api.representation.IDataCompanyMd5RepresentationApplicationService;
 import com.particle.data.client.company.dto.command.representation.DataCompanyMd5PageQueryCommand;
@@ -28,12 +28,12 @@ public class DataCompanyMd5RepresentationApplicationServiceImpl extends Abstract
     private DataCompanyMd5QueryCommandExecutor dataCompanyMd5QueryCommandExecutor;
 
     @Override
-    public SingleResponse<DataCompanyMd5VO> queryDetail(IdCommand detailCommand) {
+    public SingleResponse<DataCompanyMd5VO> queryDetail(CommonIdCommand detailCommand) {
         return dataCompanyMd5QueryCommandExecutor.executeDetail(detailCommand);
     }
 
     @Override
-    public SingleResponse<DataCompanyMd5VO> queryDetailForUpdate(IdCommand detailForUpdateCommand) {
+    public SingleResponse<DataCompanyMd5VO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand) {
         return dataCompanyMd5QueryCommandExecutor.executeDetailForUpdate(detailForUpdateCommand);
     }
 

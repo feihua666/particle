@@ -2,7 +2,7 @@ package com.particle.role.app.executor.representation;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.particle.common.app.executor.query.AbstractBaseQueryExecutor;
-import com.particle.common.client.dto.command.IdCommand;
+import com.particle.common.client.dto.command.CommonIdCommand;
 import com.particle.global.dto.response.MultiResponse;
 import com.particle.global.dto.response.PageResponse;
 import com.particle.global.dto.response.SingleResponse;
@@ -57,7 +57,7 @@ public class RoleQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param roleQueryDetailCommand
 	 * @return
 	 */
-	public SingleResponse<RoleVO> executeDetail(IdCommand roleQueryDetailCommand) {
+	public SingleResponse<RoleVO> executeDetail(CommonIdCommand roleQueryDetailCommand) {
 		RoleDO byId = iRoleService.getById(roleQueryDetailCommand.getId());
 		RoleVO roleVO = RoleAppStructMapping.instance.roleDOToRoleVO(byId);
 		return SingleResponse.of(roleVO);
@@ -67,7 +67,7 @@ public class RoleQueryCommandExecutor  extends AbstractBaseQueryExecutor {
 	 * @param roleQueryDetailForUpdateCommand
 	 * @return
 	 */
-	public SingleResponse<RoleVO> executeDetailForUpdate(IdCommand roleQueryDetailForUpdateCommand) {
+	public SingleResponse<RoleVO> executeDetailForUpdate(CommonIdCommand roleQueryDetailForUpdateCommand) {
 		RoleDO byId = iRoleService.getById(roleQueryDetailForUpdateCommand.getId());
 		RoleVO roleVO = RoleAppStructMapping.instance.roleDOToRoleVO(byId);
 		return SingleResponse.of(roleVO);
