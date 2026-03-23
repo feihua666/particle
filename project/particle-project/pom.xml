@@ -20,6 +20,7 @@
         <module>particle-project-domain</module>
         <module>particle-project-infrastructure</module>
         <module>particle-project-start</module>
+        <module>particle-project-lite-start</module>
     </modules>
 
     <properties>

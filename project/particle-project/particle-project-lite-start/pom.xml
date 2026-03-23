@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>particle-project</artifactId>
         <groupId>com.particle</groupId>
+        <artifactId>particle-project</artifactId>
         <version>6.0.1-beta-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>particle-project-start</artifactId>
+    <artifactId>particle-project-lite-start</artifactId>
 
     <properties>
 
@@ -17,7 +17,6 @@
     </properties>
 
     <dependencies>
-
         <!-- 业务模块 开始 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -49,36 +48,10 @@
             <artifactId>role-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>low-code-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>component-autoconfigure-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>tools-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>data-query-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
             <artifactId>tenant-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>dept-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
         <!-- 操作日志及数据审计功能支持 -->
@@ -89,95 +62,13 @@
         </dependency>
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>tracking-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>message-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>oauth2authorization-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>open-platform-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>report-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>usage-count-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>feedback-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>crm-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>dream-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>config-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
             <artifactId>data-constraint-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+        <!-- 组件适配组件，用于适配组件与组件之间的解耦配置类生效 -->
         <dependency>
             <groupId>com.particle</groupId>
-            <artifactId>data-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>scheduler-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>navigation-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>agi-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>cms-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>component-admin-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>audit-boot-starter</artifactId>
+            <artifactId>component-autoconfigure-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
         <!-- 业务模块 结束 -->
@@ -212,6 +103,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <!-- 验证码支持 -->
         <dependency>
             <groupId>com.particle</groupId>
@@ -224,6 +116,7 @@
             <artifactId>global-oss-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
+
 
         <!-- 文档相关 支持 主要用来下载模板-->
         <dependency>

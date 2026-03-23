@@ -38,11 +38,6 @@ public enum Oauth2AuthorizationAuthorizationGrantType implements IDictItem {
 	client_credentials(AuthorizationGrantType.CLIENT_CREDENTIALS)
 	,
 	/**
-	 * password
-	 */
-	password(AuthorizationGrantType.PASSWORD)
-	,
-	/**
 	 * urn:ietf:params:oauth:grant-type:jwt-bearer
 	 */
 	urn__ietf__params__oauth__grant_type__jwt_bearer(AuthorizationGrantType.JWT_BEARER)

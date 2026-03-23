@@ -4,6 +4,7 @@ import com.particle.global.captcha.DefaultCaptchaServiceImpl;
 import com.particle.global.captcha.ICaptchaService;
 import com.particle.global.captcha.gen.DefaultCaptchaGenServiceImpl;
 import com.particle.global.captcha.gen.ICaptchaGenService;
+import com.particle.global.captcha.security.DefaultCaptchaSecurityChecker;
 import com.particle.global.captcha.store.HttpSessionStoreServiceImpl;
 import com.particle.global.captcha.store.ICaptchaStoreService;
 import com.particle.global.captcha.store.JdbcStoreServiceImpl;
@@ -67,5 +68,12 @@ public class CaptchaConfig {
 		public ICaptchaStoreService jdbcCaptchaStoreService(NamedParameterJdbcTemplate jdbcTemplate) {
 			return new JdbcStoreServiceImpl(jdbcTemplate);
 		}
+	}
+
+
+	@Bean
+	@ConditionalOnMissingBean
+	public DefaultCaptchaSecurityChecker defaultCaptchaSecurityChecker(){
+		return new DefaultCaptchaSecurityChecker();
 	}
 }

@@ -1,4 +1,4 @@
-package com.particle.particleproject;
+package com.particle.particleprojectlite;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -32,16 +32,17 @@ import static java.util.TimeZone.getTimeZone;
 // neo4j默认引入包就会自动配置，并未提供停用的功能，这里排除掉，如果需要再添加上即可
 // elasticsearch默认引入包就会自动配置，且actuator也自动装配进行建康检查打印异常（但并不影响启动）并未提供停用的功能，这里排除掉，如果需要再添加上即可
 @SpringBootApplication(exclude = {Neo4jAutoConfiguration.class, ElasticsearchRestClientAutoConfiguration.class})
-public class ParticleProjectApplication {
+public class ParticleProjectLiteApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ParticleProjectApplication.class, args);
+		SpringApplication.run(ParticleProjectLiteApplication.class, args);
 
 		log.info("===============================================");
-		log.info("{} stated", ParticleProjectApplication.class.getSimpleName());
+		log.info("{} stated", ParticleProjectLiteApplication.class.getSimpleName());
 		log.info("===============================================");
 	}
 	@PostConstruct
 	void started() {
 		TimeZone.setDefault(getTimeZone(of("Asia/Shanghai")));
 	}
+
 }
