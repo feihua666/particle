@@ -7,7 +7,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <!-- 截止到目前（2023-12-07）该版本（2.7.18）是springboot支持的jdk1.8的最高版本 -->
         <!-- 升级spring3.x版本 -->
-        <version>3.5.11</version>
+        <version>3.5.12</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.particle</groupId>
