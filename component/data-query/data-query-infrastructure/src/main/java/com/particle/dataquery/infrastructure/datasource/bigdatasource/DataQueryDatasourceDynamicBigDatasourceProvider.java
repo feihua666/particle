@@ -1,5 +1,6 @@
 package com.particle.dataquery.infrastructure.datasource.bigdatasource;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
 import com.particle.dataquery.domain.datasource.DataQueryDatasource;
 import com.particle.dataquery.domain.datasource.enums.DataQueryDatasourceType;
@@ -28,6 +29,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.jdbc.config.JdbcBig
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.Neo4jBigDatasource;
 import com.particle.global.big.datasource.bigdatasource.impl.neo4j.config.Neo4jBigDatasourceConfig;
 import com.particle.global.domain.ApplicationContextHelper;
+import com.particle.global.mybatis.plus.tenant.CustomTenantLineHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -97,7 +96,10 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 			return MapUtil.empty();
 		}
 
-		List<DataQueryDatasourceDO> list = iDataQueryDatasourceService.list();
+		// 这里忽略租户，一般是项目启动的时候初始化数据源，应该是所有的租户数据
+		List<DataQueryDatasourceDO> list = CustomTenantLineHandler.executeIgnoreTenant(() -> {
+			return iDataQueryDatasourceService.list();
+		});
 		if (list.isEmpty()) {
 			return MapUtil.empty();
 		}
@@ -115,7 +117,15 @@ public class DataQueryDatasourceDynamicBigDatasourceProvider extends AbstractDyn
 
 		// 已经禁用的供应商下面的数据源都不加载
 		List<Long> providerIds = list.stream().map(DataQueryDatasourceDO::getDataQueryProviderId).distinct().collect(Collectors.toList());
-		List<DataQueryProviderDO> dataQueryProviderDOS = iDataQueryProviderService.listByIds(providerIds);
+        if (CollectionUtil.isEmpty(providerIds)) {
+			return Collections.emptyMap();
+        }
+		// 这里忽略租户，一般是项目启动的时候初始化数据源，应该是所有的租户数据
+		// 注意，可能项目启动的时候没有初始化数据源，在动态调用时会自动加载，可能已经有租户了，但这里没有考虑，但是根据id获取的供应商，不影响
+		List<DataQueryProviderDO> dataQueryProviderDOS = CustomTenantLineHandler.executeIgnoreTenant(() -> {
+			return iDataQueryProviderService.listByIds(providerIds);
+		});
+
 		Map<Long, DataQueryProviderDO> providerIdMap = dataQueryProviderDOS.stream().collect(Collectors.toMap(DataQueryProviderDO::getId, Function.identity()));
 
 		List<DataQueryDatasource> dataQueryDatasources = list.stream()

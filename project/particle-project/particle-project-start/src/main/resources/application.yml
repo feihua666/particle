@@ -161,7 +161,7 @@ spring:
       request-timeout: 15m
 
 server:
-  port: 8080
+  port: 8008
   servlet:
     encoding:
       # 在接收请求和返回数据，强制 utf-8 编码
