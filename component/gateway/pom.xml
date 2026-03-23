@@ -5,7 +5,7 @@
     <parent>
         <artifactId>component</artifactId>
         <groupId>com.particle</groupId>
-        <version>7.0.0-beta</version>
+        <version>7.0.1-beta-SNAPSHOT</version>
     </parent>
     <modules>
         <module>gateway-webmvc-start</module>
