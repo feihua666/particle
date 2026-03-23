@@ -1,11 +1,58 @@
 # Changelog
 
+## 7.0.0-beta (2026-03-23)
+### 新特性
+
+* 【agi】添加 AGI 业务组件，主要实现 AI 知识库的存储，智能体的构建
+* 【global-ai-boot-starter】添加全局 AI 模块，以增加对 AI 的支持
+* 【global-crawler-boot-starter】添加爬虫全局组件工具类
+* 【cms】添加 CMS 内容管理模块，完成后端管理
+* 【data】数据业务组件添加动态数据表格和指标体系相关数据管理，方便数据导入和查看
+* 【scheduler】任务计划业务组件添加数据任务支持
+* 【open-platform】开放平台增加供应商配置，以为 app 接口配置指定供应商；调用规则限制增加 IP 白名单和黑名单功能
+* 【dict】字典添加三方 mapping 映射字段及功能，以方便映射三方的字典；字典项添加关联字典组编码字段；字典添加批量添加功能；字典模块添加 is_item 字段，以支持字典组和字典项共存的情况
+* 【user】用户查询支持账号查询、角色名称查询；用户修改时支持修改账号信息，支持修改角色分配关系
+* 【role】角色业务组件角色添加角色类型，以标识角色作为程序判断使用
+* 【gateway】支持微服务部署，新增 Gateway 微服务网关模块，前端统一 API 前缀配置
+* 【audit】新增 Audit 审计组件
+* 【global-dag-boot-starter】新增 DAG 流程引擎
+* 【particle-project-lite-start】添加 particle-project-lite-start 启动模块，主要以最小化启动，目前里面只保留了最少的功能
+* [spring-boot] Spring Boot 升级到 3.5.11
+* [swagger] Swagger 升级到 2.8.9
+* [spring-ai] Spring AI 相关升级到 1.0.0
+* [particle-demo] 原 particle-demo 修改为 particle-project，包括前端项目；包名由 particledemo 改为 particleproject
+### bug 修复
+
+* 【oauth2authorization】删除 Oauth2AuthorizationAuthorizationGrantType.password 变量，因为 org.springframework.security.oauth2.core.AuthorizationGrantType.PASSWORD 已标记为过期
+* 【open-platform】开放接口支持供应商调用记录添加接口名称字段、用户 id 字段和单独消息保存
+* 【global-datasource-boot-starter】大数据源 HTTP 添加重试逻辑；大数据源支持缓存配置
+* 【global-cache-boot-starter】全局缓存组件添加 JDBC 存储缓存，以支持三方数据临时缓存
+* 【data-query】数据查询业务组件数据源接口添加缓存配置
+* 【user】用户编辑如果传了 identifiers 判断错误问题处理
+* 【global-web-mvc-boot-starter】响应头添加 trace-id 问题处理；静态资源由 500 改为 404
+* 【global-trans-boot-stater】将翻译预警时间由 200 调整为 500
+* 【open-platform】开放平台调用记录计费增加系统级的判断，如果响应状态码大于等于 400 将不计费（不可配置）
+* 【global-oss-boot-starter】OSS 上传完善，主要是阿里云 OSS 不支持对象 key 前缀为斜杠
+### 其它
+
+* [dependency] 将项目中后端可选依赖从 scope provided 改为 optional true
+* [feign] 远程调用相关完善，包含 request body 请求参数和组件自动配置
+* [component-admin] 组件管理模块完善，初始化相关数据
+* [data] 数据业务组件完善，统一更新不必填，因为在入库时只入需要的字段
+* [global-tool] 项目工具 tools 添加删除模型服务功能，主要针对在设计时冗余的模型服务进行删除
+* [axios] Axios 请求配置优化，支持跨域认证
+* [CMS] CMS 组件功能增强
+* [particle-project] particle-project 前端打包
+* [jdk] 从 Java 1.8 升级为 Java 17，并修改兼容性问题
+* [文档] 项目 README 文档完善
+
+
 ## 4.0.1-beta (2024-12-06)
 ### 新特性
 
 * 【navigation】导航业务组件添加
 * 【global-freemarker-boot-starter】freemarker模板全局组件添加，旨提供统一的配置，目前添加是为了支持 navigation 业务组件
-* 【particle-demo】vue版本升级，同步elementplus版本升级，调整前端样式，前端logo支持在环境变量中使用
+* [particle-demo] vue 版本升级，同步 elementplus 版本升级，调整前端样式，前端 logo 支持在环境变量中使用
 * 【open-platform】开放平台调用记录的日实时汇总添加开关配置，在不需要时可关闭
 * 【user】调整登录页面，支持动态验证码登
 * 【data-query】调整前端页面，支持部分模糊查询字段，如：配置字段可以模糊查询，以方便查询里面的引用情况
@@ -72,7 +119,7 @@
 ## 2.1.0-beta (2023-10-31)
 ### 新特性
 
-* 【前端】支持组件内容变更监听
+* [前端] 支持组件内容变更监听
 * 【report】新增支持开放接口配置、支持上传到oss及其它迎合报告业务组件的配套修
 * 【global-oss-boot-starter】支持程序传参控制是否拼接endpoint
 * 【global-exception-handle-boot-starter】修改全局异常捕获，尝试解析原始异常是否为BizException

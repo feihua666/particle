@@ -13,7 +13,7 @@ JAVA_HOME=$JAVA_HOME
 CUSTOM_JAVA_HOME=
 
 # 应用名称，应用jar名称
-APP_NAME=particle-project-start-6.0.1-beta-SNAPSHOT.jar
+APP_NAME=particle-project-start-7.0.0-beta.jar
 # 获取脚本所在目录的绝对路径，无论你从哪个目录运行这个脚本，它都会输出脚本所在的目录的绝对路径
 SCRIPT_DIR=$(cd `dirname $0`; pwd)
 # 应用所在目录，这里默认将脚本和应用放在同一个目录下

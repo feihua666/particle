@@ -21,7 +21,7 @@ DAG（有向无环图）工作流系统全局启动器，为Particle框架提供
 <dependency>
     <groupId>com.particle</groupId>
     <artifactId>global-dag-boot-starter</artifactId>
-    <version>6.0.1-beta-SNAPSHOT</version>
+    <version>7.0.0-beta</version>
 </dependency>
 ```
 
