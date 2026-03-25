@@ -160,7 +160,7 @@ public class CmsContentVO extends AbstractBaseIdVO {
 	private Integer alsoAsChannelSeq;
 
 	@Schema(description = "是否在列表中展示")
-	private String isShowInList;
+	private Boolean isShowInList;
 
     @Schema(description = "排序")
     private Integer seq;

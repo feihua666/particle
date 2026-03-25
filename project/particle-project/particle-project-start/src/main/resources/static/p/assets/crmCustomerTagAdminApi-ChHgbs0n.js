@@ -1,0 +1,1 @@
+import{k as e,l as a}from"./index-hoSqX29d.js";let r=a("/crm-start")+"/admin/web/crm_customer_tag";const p=t=>e.post(r+"/create",t),o=t=>e.delete(r+"/delete",{data:t}),n=t=>e.put(r+"/update",t),c=t=>e.get(r+"/detail-for-update",{params:t}),u=t=>e.get(r+"/list",{params:t}),d=t=>e.get(r+"/page",{params:t});export{p as c,c as d,u as l,d as p,o as r,n as u};

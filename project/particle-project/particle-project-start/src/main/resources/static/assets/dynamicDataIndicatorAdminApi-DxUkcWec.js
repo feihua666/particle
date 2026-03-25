@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CHHAI2sC.js";let a=r()+"/admin/web/dynamic_data_indicator";const i=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),p=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),o=e=>t.get(a+"/listWithDynamicTableField",{params:e}),c=e=>t.get(a+"/page",{params:e});export{i as c,d,o as l,c as p,n as r,p as u};

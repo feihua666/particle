@@ -1,0 +1,1 @@
+import{k as t,l as a}from"./index-hoSqX29d.js";let r=a("/role-start")+"/admin/web/role";const o=e=>t.post(r+"/create",e),p=e=>t.delete(r+"/delete",{data:e}),n=e=>t.put(r+"/update",e),l=e=>t.get(r+"/detail-for-update",{params:e}),u=e=>t.get(r+"/list",{params:e}),d=e=>t.get(r+"/page",{params:e});export{o as c,l as d,u as l,d as p,p as r,n as u};

@@ -1,1 +1,0 @@
-import{k as t,l as r}from"./index-CJSXDm6g.js";let a=r()+"/admin/web/lowcode-model-item";const s=e=>t.post(a+"/create",e),p=e=>t.delete(a+"/delete",{data:e}),d=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/page",{params:e});export{s as c,n as d,u as p,p as r,d as u};

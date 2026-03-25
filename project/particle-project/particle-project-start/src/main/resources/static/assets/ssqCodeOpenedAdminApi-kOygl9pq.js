@@ -1,1 +1,0 @@
-import{k as e,l as a}from"./index-CJSXDm6g.js";let o=a()+"/admin/web/ssq_code_opened";const s=t=>e.post(o+"/allCodeInit",t,{timeout:10*60*1e3}),i=t=>e.put(o+"/allCodeStop",t),n=t=>e.get(o+"/list",{params:t,timeout:10*60*1e3}),p=t=>e.get(o+"/page",{params:t,timeout:10*60*1e3}),l=t=>e.post(o+"/predictionParameterTuning",t,{timeout:10*60*1e3});export{s as a,i as b,l as c,n as l,p};

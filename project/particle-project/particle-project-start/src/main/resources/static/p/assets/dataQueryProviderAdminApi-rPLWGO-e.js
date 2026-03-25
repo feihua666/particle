@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-hoSqX29d.js";let a=r("/data-query-start")+"/admin/web/data_query_provider";const p=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),d=e=>t.put(a+"/update",e),n=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/list",{params:e}),i=e=>t.get(a+"/page",{params:e});export{p as c,n as d,u as l,i as p,o as r,d as u};

@@ -1,0 +1,1 @@
+import{k as e,l as s}from"./index-CHHAI2sC.js";let a=s()+"/admin/web/openplatform_openapi_record_app_month_bill";const r=t=>e.delete(a+"/delete",{data:t}),o=t=>e.put(a+"/update",t),i=t=>e.get(a+"/detail-for-update",{params:t}),n=t=>e.get(a+"/page",{params:t}),l=t=>e.post(a+"/lastMonthStatistic",t),c=t=>e.post(a+"/thisMonthStatistic",t);export{i as d,l,n as p,r,c as t,o as u};

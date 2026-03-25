@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CHHAI2sC.js";let a=r()+"/admin/web/openplatform_doc_dir_name";const p=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),n=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),i=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{p as c,d,i as l,u as p,o as r,n as u};

@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CHHAI2sC.js";let a=r()+"/admin/web/func_application";const p=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),i=e=>t.get(a+"/detail-for-update",{params:e}),c=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{p as c,i as d,c as l,u as p,n as r,o as u};

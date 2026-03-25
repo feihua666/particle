@@ -1,1 +1,0 @@
-import{k as t,l as r}from"./index-CJSXDm6g.js";let a=r()+"/admin/web/tenant_create_apply";const s=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),u=e=>t.get(a+"/detail-for-update",{params:e}),d=e=>t.get(a+"/page",{params:e}),c=e=>t.put(a+"/audit",e);export{c as a,s as c,u as d,d as p,n as r,o as u};

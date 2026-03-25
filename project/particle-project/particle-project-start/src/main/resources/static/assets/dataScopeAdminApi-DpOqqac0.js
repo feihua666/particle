@@ -1,0 +1,1 @@
+import{k as e,l as s}from"./index-CHHAI2sC.js";let a=s()+"/admin/web/data_scope";const o=t=>e.post(a+"/create",t),n=t=>e.delete(a+"/delete",{data:t}),u=t=>e.put(a+"/update",t),c=t=>e.get(a+"/detail-for-update",{params:t}),d=t=>e.get(a+"/list",{params:t}),i=t=>e.get(a+"/page",{params:t}),l=(t,r)=>e.get(t,{params:r});export{l as a,o as c,c as d,d as l,i as p,n as r,u};

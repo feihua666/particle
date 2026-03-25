@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CHHAI2sC.js";let a=r()+"/admin/web/openplatform_openapi_limit_rule";const p=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),n=e=>t.put(a+"/update",e),i=e=>t.get(a+"/detail-for-update",{params:e}),l=e=>t.get(a+"/list",{params:e}),u=e=>t.get(a+"/page",{params:e});export{p as c,i as d,l,u as p,o as r,n as u};

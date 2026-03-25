@@ -390,6 +390,21 @@ export const useAddPageFormItems = ({ isForAdd = true }) => {
         },
         {
             field: {
+                name: 'alsoAsChannelSeq',
+                value: 1
+            },
+            element: {
+                comp: 'el-input-number',
+                formItemProps: {
+                    label: '作为栏目使用时的排序'
+                },
+                compProps: {
+                    clearable: true,
+                }
+            }
+        },
+        {
+            field: {
                 name: 'isShowInList',
                 value: true
             },

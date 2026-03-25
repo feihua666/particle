@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-hoSqX29d.js";let a=r("/component-admin-start")+"/admin/web/admin_component";const n=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),p=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),i=e=>t.get(a+"/list",{params:e}),c=e=>t.get(a+"/page",{params:e});export{n as c,d,i as l,c as p,o as r,p as u};

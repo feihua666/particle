@@ -1,0 +1,1 @@
+import{k as e,l as r}from"./index-hoSqX29d.js";let a=r("/oauth2authorization-start")+"/admin/web/oauth2_registered_client";const o=t=>e.post(a+"/create",t),p=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),i=t=>e.get(a+"/detail-for-update",{params:t}),u=t=>e.get(a+"/list",{params:t}),d=t=>e.get(a+"/page",{params:t});export{o as c,i as d,u as l,d as p,p as r,n as u};

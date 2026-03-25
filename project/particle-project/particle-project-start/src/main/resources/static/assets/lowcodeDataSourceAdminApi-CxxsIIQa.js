@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-CHHAI2sC.js";let a=r()+"/admin/web/lowcode-datasource";const o=e=>t.post(a+"/create",e),p=e=>t.delete(a+"/delete",{data:e}),n=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/list",{params:e}),c=e=>t.get(a+"/page",{params:e});export{o as c,d,u as l,c as p,p as r,n as u};

@@ -1,0 +1,1 @@
+import{k as e,l as r}from"./index-hoSqX29d.js";let a=r("/navigation-start")+"/admin/web/navigation_category";const n=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),p=t=>e.put(a+"/update",t),i=t=>e.get(a+"/detail-for-update",{params:t}),u=t=>e.get(a+"/list",{params:t}),c=t=>e.get(a+"/page",{params:t});export{n as c,i as d,u as l,c as p,o as r,p as u};

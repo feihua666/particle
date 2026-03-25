@@ -1,0 +1,1 @@
+import{k as e,l as r}from"./index-hoSqX29d.js";let a=r("/data-start")+"/admin/web/dynamic_data_category";const p=t=>e.post(a+"/create",t),o=t=>e.delete(a+"/delete",{data:t}),n=t=>e.put(a+"/update",t),d=t=>e.get(a+"/detail-for-update",{params:t}),c=t=>e.get(a+"/list",{params:t}),i=t=>e.get(a+"/page",{params:t});export{p as c,d,c as l,i as p,o as r,n as u};

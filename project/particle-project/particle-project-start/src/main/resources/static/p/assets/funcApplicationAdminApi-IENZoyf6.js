@@ -1,0 +1,1 @@
+import{k as e,l as r}from"./index-hoSqX29d.js";let a=r("/func-start")+"/admin/web/func_application";const p=t=>e.post(a+"/create",t),n=t=>e.delete(a+"/delete",{data:t}),o=t=>e.put(a+"/update",t),c=t=>e.get(a+"/detail-for-update",{params:t}),i=t=>e.get(a+"/list",{params:t}),u=t=>e.get(a+"/page",{params:t});export{p as c,c as d,i as l,u as p,n as r,o as u};

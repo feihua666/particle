@@ -1,0 +1,1 @@
+import{k as t,l as s}from"./index-hoSqX29d.js";let r=s("/scheduler-start")+"/admin/web/scheduler_temp_task";const p=e=>t.delete(r+"/delete",{data:e}),l=e=>t.get(r+"/list",{params:e}),i=e=>t.get(r+"/page",{params:e});export{l,i as p,p as r};

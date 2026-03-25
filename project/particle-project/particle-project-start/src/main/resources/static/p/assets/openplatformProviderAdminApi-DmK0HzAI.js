@@ -1,0 +1,1 @@
+import{k as t,l as a}from"./index-hoSqX29d.js";let r=a("/open-platform-start")+"/admin/web/openplatform_provider";const p=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),n=e=>t.put(r+"/update",e),d=e=>t.get(r+"/detail-for-update",{params:e}),i=e=>t.get(r+"/list",{params:e}),l=e=>t.get(r+"/page",{params:e});export{p as c,d,i as l,l as p,o as r,n as u};

@@ -214,7 +214,7 @@ public class CmsContentDO extends BaseDO {
 	/**
 	 * 是否在列表中展示
 	 */
-	private String isShowInList;
+	private Boolean isShowInList;
 
     /**
     * 排序,默认按该字段升序排序

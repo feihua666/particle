@@ -1,1 +1,0 @@
-import{k as t,l as r}from"./index-CJSXDm6g.js";let a=r()+"/admin/web/navigation_site_tag";const p=e=>t.post(a+"/create",e),n=e=>t.delete(a+"/delete",{data:e}),o=e=>t.put(a+"/update",e),i=e=>t.get(a+"/detail-for-update",{params:e}),u=e=>t.get(a+"/list",{params:e}),d=e=>t.get(a+"/page",{params:e});export{p as c,i as d,u as l,d as p,n as r,o as u};

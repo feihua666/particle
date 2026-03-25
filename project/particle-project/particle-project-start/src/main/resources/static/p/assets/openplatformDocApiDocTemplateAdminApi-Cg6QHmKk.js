@@ -1,0 +1,1 @@
+import{k as t,l as r}from"./index-hoSqX29d.js";let a=r("/open-platform-start")+"/admin/web/openplatform_doc_api_doc_template";const s=e=>t.post(a+"/create",e),o=e=>t.delete(a+"/delete",{data:e}),n=e=>t.put(a+"/update",e),d=e=>t.get(a+"/detail-for-update",{params:e}),l=e=>t.get(a+"/list",{params:e}),c=e=>t.get(a+"/page",{params:e});export{s as c,d,l,c as p,o as r,n as u};

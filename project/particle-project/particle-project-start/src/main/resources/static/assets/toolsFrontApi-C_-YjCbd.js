@@ -1,1 +1,0 @@
-import{k as t,l as n}from"./index-CJSXDm6g.js";let r=n();const o=e=>t.get(r+"/front/web/cron/cronRunTimes",{params:e}),a=e=>t.post(r+"/front/web/particle/addField",e),i=e=>t.post(r+"/front/web/particle/deleteModelService",e),p=e=>t.post(r+"/front/web/particle/batchGenIds",e),c=e=>t.post(r+"/front/web/json/parseMultipleLine",e);export{a,p as b,o as c,i as d,c as p};

@@ -1,0 +1,1 @@
+import{k as e,l as r}from"./index-hoSqX29d.js";let a=r("/tenant-start")+"/admin/web/tenant_create_apply";const p=t=>e.post(a+"/create",t),n=t=>e.delete(a+"/delete",{data:t}),o=t=>e.put(a+"/update",t),u=t=>e.get(a+"/detail-for-update",{params:t}),d=t=>e.get(a+"/page",{params:t}),c=t=>e.put(a+"/audit",t);export{c as a,p as c,u as d,d as p,n as r,o as u};

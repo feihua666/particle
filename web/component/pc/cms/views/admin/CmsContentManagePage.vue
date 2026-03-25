@@ -143,7 +143,11 @@ const reactiveData = reactive({
         return cellValue ? '是' : '否'
       }
     },
-        {
+    {
+      prop: 'alsoAsChannelSeq',
+      label: '作为栏目使用时的排序',
+    },
+    {
       prop: 'isShowInList',
       label: '列表展示',
       formatter: (row, column, cellValue, index) => {

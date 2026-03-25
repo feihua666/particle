@@ -1,0 +1,1 @@
+import{k as t,l as a}from"./index-CHHAI2sC.js";let r=a()+"/admin/web/oauth2_registered_client";const p=e=>t.post(r+"/create",e),o=e=>t.delete(r+"/delete",{data:e}),n=e=>t.put(r+"/update",e),i=e=>t.get(r+"/detail-for-update",{params:e}),u=e=>t.get(r+"/list",{params:e}),d=e=>t.get(r+"/page",{params:e});export{p as c,i as d,u as l,d as p,o as r,n as u};

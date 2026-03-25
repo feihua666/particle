@@ -1,1 +1,0 @@
-import{k as r,l as a}from"./index-CJSXDm6g.js";let t=a()+"/admin/web/agi_vector_store_raw_document";const n=e=>r.post(t+"/create",e),o=e=>r.delete(t+"/delete",{data:e}),d=e=>r.get(t+"/page",{params:e}),i=e=>r.post(t+"/embedding",e),p=e=>r.post(t+"/reEmbedding",e);export{o as a,n as c,i as e,d as p,p as r};
