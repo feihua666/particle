@@ -1,6 +1,17 @@
 # Changelog
 
-## 7.0.1-beta-SNAPSHOT (2026-03-23)
+## 7.0.1-beta (2026-03-25)
+### 新特性
+
+* 暂无
+### bug 修复
+
+* 【cms】修复 CMS 内容添加前端缺少作为栏目排序字段缺少问题
+### 其它
+
+* [particle-project] particle-project 前端打包
+
+## 7.0.0-beta (2026-03-23)
 ### 新特性
 
 * 【agi】添加 AGI 业务组件，主要实现 AI 知识库的存储，智能体的构建
@@ -45,7 +56,6 @@
 * [particle-project] particle-project 前端打包
 * [jdk] 从 Java 1.8 升级为 Java 17，并修改兼容性问题
 * [文档] 项目 README 文档完善
-
 
 ## 4.0.1-beta (2024-12-06)
 ### 新特性
