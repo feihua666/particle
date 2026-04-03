@@ -1,6 +1,6 @@
 {
   "name": "particle-project",
-  "version": "7.0.2-beta-SNAPSHOT",
+  "version": "7.0.2-beta",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
