@@ -23,6 +23,9 @@ public class DynamicDataIndicatorQueryListCommand extends AbstractBaseQueryComma
     private Long dynamicDataCategoryId;
 
 
+    @Schema(description = "动态数据分类类型")
+    private Long dynamicDataCategoryTypeDictId;
+
     @Schema(description = "动态数据指标分类id")
     private Long dynamicDataIndicatorCategoryId;
 

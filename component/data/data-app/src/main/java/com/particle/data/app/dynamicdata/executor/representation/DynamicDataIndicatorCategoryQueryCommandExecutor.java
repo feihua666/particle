@@ -118,7 +118,7 @@ public class DynamicDataIndicatorCategoryQueryCommandExecutor  extends AbstractB
             objectPage.setSearchCount(true);
             objectPage.setCurrent(dynamicDataIndicatorCategoryDataPageQueryCommand.getPageNo());
             objectPage.setSize(dynamicDataIndicatorCategoryDataPageQueryCommand.getPageSize());
-            Page<Map<String, Object>> mapListPage = tableServivce.selectPage(tableName, columnNames,isPublic,batchId, objectPage);
+            Page<Map<String, Object>> mapListPage = tableServivce.selectPage(tableName, columnNames,isPublic,batchId,null, objectPage);
             return PageResponse.of(mapListPage.getRecords(), (int) mapListPage.getTotal(), (int) mapListPage.getSize(), (int) mapListPage.getCurrent());
         }
     }

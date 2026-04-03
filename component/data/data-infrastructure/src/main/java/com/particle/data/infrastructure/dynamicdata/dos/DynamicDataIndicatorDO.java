@@ -20,6 +20,8 @@ import lombok.experimental.Accessors;
 @TableName("component_data_dynamic_data_indicator")
 public class DynamicDataIndicatorDO extends BaseDO {
 
+    public static final String COLUMN_DYNAMIC_DATA_INDICATOR_CATEGORY_ID = "dynamic_data_indicator_category_id";
+
     /**
     * 动态数据分类id
     */

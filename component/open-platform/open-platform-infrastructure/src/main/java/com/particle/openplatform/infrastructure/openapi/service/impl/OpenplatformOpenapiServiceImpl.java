@@ -93,7 +93,7 @@ public class OpenplatformOpenapiServiceImpl extends IBaseServiceImpl<Openplatfor
 					+ openplatformAppOpenapiDOTableNameCache + ".openplatform_app_id = ";
 
 		}
-		String finalSql = openplatformAppOpenapiDOTableNameCache + openplatformAppId;
+		String finalSql = getQueryWrapperopenplatformAppIdExistSqlCache + openplatformAppId;
 
 		queryWrapper.exists(openplatformAppId != null, finalSql);
 

@@ -1,9 +1,11 @@
 package com.particle.global.mybatis.plus.table;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * <p>
@@ -70,11 +72,14 @@ public interface TableServivce {
     /**
      * 查询数据
      * @param tableName
-     * @param columnNames
+     * @param columnNames 要查询的数据库中的字段列表
+     * @param queryWrapperFunction 仅用来查询拼接查询条件
      * @param page
      * @return
      */
-    Page<Map<String, Object>> selectPage(String tableName, List<String> columnNames,Boolean isPublic,Long batchId, Page page) ;
+    Page<Map<String, Object>> selectPage(String tableName, List<String> columnNames,
+                                         Boolean isPublic, Long batchId,
+                                         Function< QueryWrapper<DynamicDO>,QueryWrapper<DynamicDO>> queryWrapperFunction, Page page) ;
 
     /**
      * 根据id查询数据

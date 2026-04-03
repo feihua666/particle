@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -190,13 +191,18 @@ public class TableServiceImpl implements TableServivce{
     }
 
     @Override
-    public Page<Map<String, Object>> selectPage(String tableName, List<String> columnNames,Boolean isPublic,Long batchId, Page page) {
+    public Page<Map<String, Object>> selectPage(String tableName, List<String> columnNames,
+                                                Boolean isPublic, Long batchId,
+                                                Function< QueryWrapper<DynamicDO>,QueryWrapper<DynamicDO>> queryWrapperFunction, Page page) {
         List<String> newColumnNames = wrapColumnNamesForSelect(columnNames);
         QueryWrapper<DynamicDO> queryWrapper = Wrappers.<DynamicDO>query()
                 .select(newColumnNames)
                 .eq(isPublic != null, DynamicDO.COLUMN_IS_PUBLIC, isPublic)
                 .eq(batchId != null, DynamicDO.COLUMN_BATCH_ID, batchId)
                 ;
+        if (queryWrapperFunction != null) {
+            queryWrapper = queryWrapperFunction.apply(queryWrapper);
+        }
         try {
             CustomDynamicTableNameHandler.setDynamicTableName(DynamicDO.table_name, tableName);
             Page<Map<String, Object>> selectPage = dynamicDOMapper.selectMapsPage(page, queryWrapper);

@@ -98,6 +98,7 @@ public class DynamicTableQueryCommandExecutor  extends AbstractBaseQueryExecutor
                 columnNames,
                 dynamicTableDataPageQueryCommand.getIsPublic(),
                 dynamicTableDataPageQueryCommand.getBatchId(),
+				null,
                 objectPage);
         return PageResponse.of(mapListPage.getRecords(), (int) mapListPage.getTotal(), (int) mapListPage.getSize(), (int) mapListPage.getCurrent());
     }

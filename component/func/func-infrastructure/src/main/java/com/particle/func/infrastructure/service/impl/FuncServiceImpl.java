@@ -104,7 +104,7 @@ public class FuncServiceImpl extends IBaseServiceImpl<FuncMapper, FuncDO> implem
 					+ funcApplicationFuncRelDOTableNameCache + ".func_application_id = ";
 
 		}
-		String finalSql = funcApplicationFuncRelDOTableNameCache + funcApplicationId;
+		String finalSql = getQueryWrapperFuncApplicationIdExistSqlCache + funcApplicationId;
 
 		queryWrapper.exists(funcApplicationId != null, finalSql);
 
