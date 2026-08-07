@@ -70,8 +70,7 @@ public class UsageCountFilter extends OncePerRequestFilter {
 	}
 
 	protected void outJson(HttpServletResponse httpServletResponse,Response response,int httpStatus)  throws IOException{
-		MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
-		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(response, jackson2HttpMessageConverter.getObjectMapper());
+		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(response, JsonTool.getObjectMapper());
 		httpServletResponse.setStatus(httpStatus);
 		httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		PrintWriter out = httpServletResponse.getWriter();

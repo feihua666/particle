@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.particle</groupId>
+        <artifactId>global</artifactId>
+        <version>7.0.3-beta-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>global-workflow-boot-starter</artifactId>
+    <packaging>jar</packaging>
+    <name>global-workflow-boot-starter</name>
+    <description>工作流系统全局启动器 - 提供可视化工作流编排能力</description>
+
+    <dependencies>
+        <!-- 为了方便引入，直接引入web编译 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Particle Global Tool -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-tool</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- Particle Global DTO -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dto</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-swagger-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-project-info-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- Particle Global DAG Boot Starter - 核心执行引擎 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-dag-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <!-- Particle Global Test -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-test</artifactId>
+            <version>${particle.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+</project>

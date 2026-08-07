@@ -3,7 +3,7 @@
  */
 
 import {isPromise} from "../../common/tools/PromiseTools"
-import {DataMethodPage, DataMethodPageQuery, dataMethodProps, reactiveDataMethodData} from './dataMethod'
+import {type DataMethodPage, type DataMethodPageQuery, dataMethodProps, reactiveDataMethodData} from './dataMethod'
 
 
 /**
@@ -38,7 +38,7 @@ export interface ReactiveDataMethodRemoteData{
     dataMethodRemoteData: Array<any>,
     // 加载数据时loading
     dataMethodRemoteLocalLoading: boolean
-    dataMethodRemotePage: DataMethodPage,
+    dataMethodRemotePage: DataMethodPage |  null,
     dataMethodRemotePageQuery: DataMethodPageQuery,
     dataMethodRemoteLoaded: boolean
 }

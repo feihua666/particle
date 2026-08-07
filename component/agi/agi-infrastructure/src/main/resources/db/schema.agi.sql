@@ -6,3 +6,5 @@
 -- import classpath:db/chat/schema.component_agi_agent_chat_message_media.sql
 -- import classpath:db/chat/schema.component_agi_agent_chat_message_toolcall.sql
 -- import classpath:db/chat/schema.component_agi_agent_chat_message_tool.sql
+-- import classpath:db/model/schema.component_agi_model.sql
+-- import classpath:db/model/schema.component_agi_model_provider.sql

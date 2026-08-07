@@ -1,0 +1,5 @@
+-- import classpath:db/definition/schema.component_workflow_definition.sql
+-- import classpath:db/definition/schema.component_workflow_definition_history.sql
+-- import classpath:db/definition/schema.component_workflow_project.sql
+-- import classpath:db/execution/schema.component_workflow_execution.sql
+-- import classpath:db/execution/schema.component_workflow_execution_node.sql

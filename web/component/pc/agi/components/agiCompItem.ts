@@ -1,5 +1,5 @@
 import {page as agiVectorStoreRawDocumentPageApi} from "../api/rag/admin/agiVectorStoreRawDocumentAdminApi";
-
+import {list as agiModelProviderListApi} from "../api/model/admin/agiModelProviderAdminApi";
 export const remoteSelectAgiVectorStoreRawDocumentProps = {
     // 加载数据初始化参数,路由传参
     agiVectorStoreRawDocumentId: {
@@ -71,3 +71,22 @@ export const useRemoteSelectAgiVectorStoreRawDocumentCompItem = ({props,
     }
 }
 
+export const useSelectAgiModelProviderCompItem = ({fieldName= 'agiModelProviderId',required=false,label= '模型提供商'})=>{
+    return         {
+        field: {
+            name: fieldName
+        },
+        element: {
+            comp: 'PtSelect',
+            formItemProps: {
+                label: label,
+                required: required
+            },
+            compProps: {
+                clearable: true,
+                // 加载数据
+                dataMethod: () => { return agiModelProviderListApi({})},
+            }
+        }
+    }
+}

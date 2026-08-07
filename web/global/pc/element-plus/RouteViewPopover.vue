@@ -98,7 +98,10 @@ const getRouteMetaName = () => {
   if (route.meta) {
     r = route.meta.name
   }
-  return r
+  if (route.query.__dt) {
+    r += ' 当前数据：' + route.query.__dt
+  }
+  return r;
 }
 </script>
 <template>

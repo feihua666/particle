@@ -1,9 +1,9 @@
 /**
  * 登录用户
  */
-import {ref} from '@nm/vue'
-import {defineStore} from '@nm/pinia'
-import {anyObj, isEmpty} from '../tools/ObjectTools'
+import {ref} from 'vue'
+import {defineStore} from 'pinia'
+import {type anyObj, isEmpty} from '../tools/ObjectTools'
 import {get, getRaw, set, setRaw} from '../tools/StorageTools'
 
 export interface LoginUserStore{
@@ -21,7 +21,7 @@ export interface LoginUserStore{
     loadFromLocal: () => void,
 }
 
-export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => {
+export const useLoginUserStore = defineStore('loginUser', () => {
 
     const loginUserLocalKey = 'loginUserLocalKey'
     const loginUserTokenKey = 'loginUserTokenKey'
@@ -41,7 +41,7 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
     const refreshToken = ref('')
 
     // 改变是否登录的方法
-    function changeHasLogin(value):void {
+    function changeHasLogin(value: boolean):void {
         hasLogin.value = value || false
         if(hasLogin.value == false){
             loginUser.value = {}
@@ -49,7 +49,7 @@ export const useLoginUserStore = defineStore<LoginUserStore>('loginUser', () => 
         }
     }
     // 改变是否登录的方法
-    function changeLoginUser(user):void {
+    function changeLoginUser(user: anyObj):void {
         loginUser.value = user || {}
         hasLogin.value = !isEmpty(loginUser.value)
         set(loginUserLocalKey,loginUser.value)

@@ -124,12 +124,6 @@
             <artifactId>global-document-boot-starter</artifactId>
             <version>${particle.version}</version>
         </dependency>
-        <!-- 开放接口相关 支持 -->
-        <dependency>
-            <groupId>com.particle</groupId>
-            <artifactId>global-openapi-boot-starter</artifactId>
-            <version>${particle.version}</version>
-        </dependency>
         <!-- 监控相关 支持 -->
         <dependency>
             <groupId>com.particle</groupId>

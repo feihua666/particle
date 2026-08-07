@@ -1,5 +1,5 @@
-import axios, {AxiosPromise} from 'axios'
-import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
+import axios, {type AxiosPromise} from 'axios'
+import type {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import getApiPrefix from "../../../../../../common/api/apiPrefixConfig";
 
 let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_OPEN_PLATFORM) + '/front/web/openplatform_app'

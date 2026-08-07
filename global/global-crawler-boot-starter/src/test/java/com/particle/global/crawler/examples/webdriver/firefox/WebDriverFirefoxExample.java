@@ -1,7 +1,7 @@
 package com.particle.global.crawler.examples.webdriver.firefox;
 
-import com.particle.global.crawler.test.Test;
-import com.particle.global.crawler.tool.CrawlerWebDriverTool;
+import com.particle.global.crawler.constants.CrawlTestConstants;
+import com.particle.global.crawler.webdriver.CrawlerWebDriverTool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -33,7 +33,7 @@ public class WebDriverFirefoxExample {
         // copy 有问题，如果复制的文件是一个软链接，那么复制的时候会出错，建议手动复制
         // cp -R "/Users/yw/Library/Application Support/Firefox/Profiles/6q05cfzp.default-release-1" "/Users/yw/temp/selenium-firefox"
         // FileUtil.copy(realProfileDir, profileDir, true);
-        String userAgent = Test.firefoxAgent;
+        String userAgent = CrawlTestConstants.firefoxAgent;
         // firefox 的 profile 太大 导致内存溢出，先注释掉，不添加
         // FirefoxProfile profile = profile(userDataDir + profileDir,userAgent);
         FirefoxProfile profile = profile(null,userAgent);

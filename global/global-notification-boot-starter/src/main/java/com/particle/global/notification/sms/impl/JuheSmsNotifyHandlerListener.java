@@ -58,7 +58,7 @@ public class JuheSmsNotifyHandlerListener implements ISmsNotifyHandlerListener {
 			String result = HttpClientTool.postForm(
 					url,
 					params,
-					HttpClientTool.ExtConfig.builder().proxyConfig(smsAccount.getProxy()).build()
+					HttpClientTool.ExtConfig.create().withProxy(smsAccount.getProxy())
 			);
 			log.info("juhe sms send. result={}",result);
 		} catch (IOException | URISyntaxException | ParseException e) {

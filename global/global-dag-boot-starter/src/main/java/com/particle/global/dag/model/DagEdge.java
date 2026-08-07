@@ -1,18 +1,18 @@
 package com.particle.global.dag.model;
 
 import lombok.Data;
-import lombok.Builder;
+
+import java.util.Map;
 
 /**
  * <p>
- * DAG边模型，表示DAG中两个节点之间的依赖关系
+ * DAG 边定义模型，表示 DAG 中两个节点之间的依赖关系
  * </p>
  *
  * @author Claude
  * @since 2026-01-09 10:22:40
  */
 @Data
-@Builder
 public class DagEdge {
 
     /**
@@ -48,19 +48,17 @@ public class DagEdge {
     /**
      * 边的配置信息，包含边级别的配置参数
      */
-    private java.util.Map<String, Object> config;
+    private Map<String, Object> config;
 
-    // 无参构造函数
-    public DagEdge() {}
+    /**
+     * 源端口名 — 对应上游节点的 outputPort.name
+     * 引擎根据此字段从 context 中取上游节点的特定端口值
+     */
+    private String fromPort;
 
-    // 全参构造函数
-    public DagEdge(String id, String fromNodeId, String toNodeId, String type, String condition, int weight, java.util.Map<String, Object> config) {
-        this.id = id;
-        this.fromNodeId = fromNodeId;
-        this.toNodeId = toNodeId;
-        this.type = type;
-        this.condition = condition;
-        this.weight = weight;
-        this.config = config;
-    }
+    /**
+     * 目标端口名 — 对应下游节点的 inputPort.name
+     * 引擎根据此字段将值注入到下游节点的 inputMap 中
+     */
+    private String toPort;
 }

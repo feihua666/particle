@@ -63,7 +63,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let idUpdateData = {id: row.id,roleId: row.roleId,roleName: row.roleName}
   let dataScopeAssignRoleRouteQuery = {dataScopeId: row.dataScopeId,dataScopeName: row.dataScopeName,dataObjectId: row.dataObjectId}
   let deleteByDataScopeIdRouteQuery = {dataScopeId: row.dataScopeId,dataScopeName: row.dataScopeName}

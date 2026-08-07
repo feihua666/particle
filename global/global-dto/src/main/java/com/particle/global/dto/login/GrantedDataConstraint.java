@@ -3,7 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,7 +18,6 @@ import java.util.List;
  * @since 2022-11-28 09:54
  */
 @Data
-@Builder
 @Schema(description = "授权的角色对应的数据范围")
 public class GrantedDataConstraint extends DTO {
 
@@ -28,6 +27,12 @@ public class GrantedDataConstraint extends DTO {
 	@Schema(description = "数据范围")
 	private GrantedDataScope grantedDataScope;
 
+	public static GrantedDataConstraint create(GrantedDataObject grantedDataObject, GrantedDataScope grantedDataScope) {
+		GrantedDataConstraint grantedDataConstraint = new GrantedDataConstraint();
+		grantedDataConstraint.setGrantedDataObject(grantedDataObject);
+		grantedDataConstraint.setGrantedDataScope(grantedDataScope);
+		return grantedDataConstraint;
+	}
 
 	@Data
 	public static class GrantedDataObject extends DTO{

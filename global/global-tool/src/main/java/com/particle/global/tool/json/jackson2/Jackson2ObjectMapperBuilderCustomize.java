@@ -1,0 +1,103 @@
+package com.particle.global.tool.json.jackson2;
+
+import cn.hutool.json.JSONNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.std.NullSerializer;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.particle.global.tool.calendar.CalendarTool;
+import com.particle.global.tool.obj.NullObj;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * <p>
+ * 全局jackson配置，从原 global-mvc-boot-starter 迁移过来，方便统一创建静态的 ObjectMapper
+ * </p>
+ *
+ * @author yangwei
+ * @since 2026/5/13 09:14
+ */
+public class Jackson2ObjectMapperBuilderCustomize {
+
+    public static void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder,List<com.fasterxml.jackson.databind.Module> modules) {
+
+        //DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES 相当于配置，JSON串含有未知字段时，反序列化依旧可以成功
+        jacksonObjectMapperBuilder.failOnUnknownProperties(false);
+        //针对于Date类型，文本格式化
+        jacksonObjectMapperBuilder.dateFormat(new CustomDateFormat());
+        //序列化时的命名策略——驼峰命名法
+        jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE);
+        //针对于JDK新时间类。序列化时带有T的问题，自定义格式化字符串
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        LocalDateTimeSerializer localDateTimeSerializer = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern( CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+        javaTimeModule.addSerializer(localDateTimeSerializer);
+        LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern( CalendarTool.DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+        javaTimeModule.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
+
+        if (modules == null) {
+            modules = new ArrayList<>();
+        }
+        modules.add(javaTimeModule);
+        modules.add(new ParameterNamesModule());
+
+        //默认关闭，将char[]数组序列化为String类型。若开启后序列化为JSON数组。
+        jacksonObjectMapperBuilder.featuresToEnable(SerializationFeature.WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS);
+        // 启动jsonView,可以实现针对不同的视图返回不同的json
+        jacksonObjectMapperBuilder.defaultViewInclusion(true);
+
+        //默认开启，若map的value为null，则不对map条目进行序列化。
+        // 推荐使用：
+        jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.ALWAYS);
+        //jacksonObjectMapperBuilder.featuresToDisable(SerializationFeature.WRITE_NULL_MAP_VALUES);
+
+        //默认开启，将Date类型序列化为数字时间戳(毫秒表示)。关闭后，序列化为文本表现形式(2019-10-23T01:58:58.308+0000)
+        //若设置时间格式化。那么均输出格式化的时间类型。
+        jacksonObjectMapperBuilder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        //默认关闭。打开后BigDecimal序列化为文本。(已弃用)，推荐使用JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN配置
+        // jacksonObjectMapperBuilder.featuresToEnable(SerializationFeature.WRITE_BIGDECIMAL_AS_PLAIN);
+        //默认关闭，即使用BigDecimal.toString()序列化。开启后，使用BigDecimal.toPlainString序列化，不输出科学计数法的值。
+        jacksonObjectMapperBuilder.featuresToEnable(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN);
+
+        /**
+         * JsonGenerator.Feature的相关参数（JSON生成器）
+         */
+
+        //默认关闭，即序列化Number类型及子类为{"amount1":1.1}。开启后，序列化为String类型，即{"amount1":"1.1"}
+        //jacksonObjectMapperBuilder.featuresToEnable(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS);
+
+        /******
+         *  反序列化
+         */
+        //默认关闭，当JSON字段为""(EMPTY_STRING)时，解析为普通的POJO对象抛出异常。开启后，该POJO的属性值为null。
+        jacksonObjectMapperBuilder.featuresToEnable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+
+
+        /**
+         * 序列换成json时,将所有的long变成string
+         * 因为js中得数字类型不能包含所有的java long值
+         */
+        jacksonObjectMapperBuilder.serializerByType(Long.class, ToStringSerializer.instance);
+        jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
+        // hutool在将json字符串转为map时，如果有空值会转为JSONNull，这里直接转为null
+        jacksonObjectMapperBuilder.serializerByType(JSONNull.class, NullSerializer.instance);
+        // 在数据响应中返回NullObj时，序列化问题
+        jacksonObjectMapperBuilder.serializerByType(NullObj.class, NullSerializer.instance);
+
+
+        jacksonObjectMapperBuilder.modules(modules);
+
+    }
+}

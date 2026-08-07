@@ -3,7 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +17,6 @@ import java.io.Serializable;
  * @since 2022-11-28 09:54
  */
 @Data
-@Builder
 @Schema(description = "授权的权限")
 public class GrantedPermission  extends DTO {
 	/**
@@ -70,8 +69,8 @@ public class GrantedPermission  extends DTO {
 	 * @param source
 	 * @return
 	 */
-	public static GrantedPermissionBuilder create(Source source){
-		return GrantedPermission.builder().source(source.name());
+	public static GrantedPermission create(Source source,String permission){
+		return create(null,permission,null,null,source,null);
 	}
 
 	public static GrantedPermission create(Long id,
@@ -81,13 +80,13 @@ public class GrantedPermission  extends DTO {
 										   Source source,
 										   Long sourceId
 										   ) {
-		return GrantedPermission.create(source)
-				.sourceId(sourceId)
-				.id(id)
-				.permission(permission)
-				.name(name)
-				//	类型暂不添加
-				.type(type)
-				.build();
+		GrantedPermission grantedPermission = new GrantedPermission();
+		grantedPermission.id = id;
+		grantedPermission.permission = permission;
+		grantedPermission.name = name;
+		grantedPermission.type = type;
+		grantedPermission.source = source.name();
+		grantedPermission.sourceId = sourceId;
+		return grantedPermission;
 	}
 }

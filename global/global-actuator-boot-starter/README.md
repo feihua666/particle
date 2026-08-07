@@ -35,10 +35,11 @@
 1. 禁用 Spring Boot Admin 服务端：
    ```yaml
    particle:
-     actuator:
-       bootadmin:
-         server:
-           enabled: false
+     global:
+       actuator:
+         bootadmin:
+           server:
+             enabled: false
    ```
 
 2. 禁用 Spring Boot Admin 客户端：

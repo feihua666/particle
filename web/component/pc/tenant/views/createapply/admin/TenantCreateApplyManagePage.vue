@@ -138,7 +138,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let editIdData = {id: row.id, applyUserId: row.applyUserId, applyUserNickname: row.applyUserNickname}
 
   let isAuditPass = row.auditStatusDictValue == 'audit_pass'

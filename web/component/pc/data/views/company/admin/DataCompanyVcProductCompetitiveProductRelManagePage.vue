@@ -54,7 +54,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.companyVcProductName}
+  let idData = {id: row.id,...dt}
   let companyVcCompetitiveProductAssignCompanyVcProductRouteQuery = {companyVcCompetitiveProductId: row.companyVcCompetitiveProductId,companyVcCompetitiveProductName: row.companyVcCompetitiveProductName}
   let deleteByCompanyVcCompetitiveProductIdRouteQuery = {companyVcCompetitiveProductId: row.companyVcCompetitiveProductId,companyVcCompetitiveProductName: row.companyVcCompetitiveProductName}
 
@@ -128,7 +129,7 @@ const getTableRowButtons = ({row, column, $index}) => {
            default-expand-all
            :dataMethod="doDataCompanyVcProductCompetitiveProductRelPageApi"
            @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
-           
+
            :paginationProps="tablePaginationProps"
            :columns="reactiveData.tableColumns">
 

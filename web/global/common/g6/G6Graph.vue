@@ -5,15 +5,15 @@
  * G6 v5 版本
  */
 import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue';
-import { Graph, GraphData, BaseNodeConfig, BaseEdgeConfig, GraphOptions } from '@antv/g6';
-
+import { Graph} from '@antv/g6';
+import type { GraphData, NodeData, EdgeData, GraphOptions } from '@antv/g6';
 // 定义组件属性
 interface Props {
   width?: string;
   height?: string;
   data?: {
-    nodes: BaseNodeConfig[];
-    edges: BaseEdgeConfig[];
+    nodes: NodeData[];
+    edges: EdgeData[];
   };
   layout?: {
     type: string;

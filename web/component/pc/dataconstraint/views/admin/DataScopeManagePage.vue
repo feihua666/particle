@@ -107,7 +107,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let dataScopeAssignCustomDataRouteQuery = {dataScopeId: row.id,dataScopeName: row.name,dataObjectId: row.dataObjectId}
   let tableRowButtons: Array<any> = [
     {

@@ -72,7 +72,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let editIdData = {id: row.id,agiVectorStoreRawDocumentId: row.agiVectorStoreRawDocumentId,agiVectorStoreRawDocumentName:row.agiVectorStoreRawDocumentName}
 
   let tableRowButtons = [
@@ -91,7 +92,7 @@ const getTableRowButtons = ({row, column, $index}) => {
       disabledReason: row.isEmbedded ? '未嵌入的片段才可以嵌入' : undefined,
       permission: 'admin:web:agiVectorStoreRawDocumentSegment:embedding',
       methodConfirmText: `确定要嵌入吗？将尝试删除已嵌入的向量并重新嵌入`,
-      // 删除操作
+      // 嵌入操作
       method(){
         return agiVectorStoreRawDocumentSegmentEmbeddingApi({id: row.id}).then(res => {
           // 删除成功后刷新一下表格

@@ -26,7 +26,8 @@
 
 ```yaml
 particle:
-  notification:
+  global:
+    notification:
     # 通知相关配置
 ```
 

@@ -1,17 +1,9 @@
 <script setup name="DictConfig" lang="ts">
 import {nextTick, onMounted, reactive, ref} from 'vue'
 import {v4 as uuidv4} from 'uuid';
-import {ElMessage} from 'element-plus'
+import {showMsg} from "../../../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 const selfFormRef = ref(null)
 /**
  * 字典配置项

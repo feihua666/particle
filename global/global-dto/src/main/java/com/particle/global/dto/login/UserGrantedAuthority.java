@@ -1,7 +1,7 @@
 package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
-import lombok.Builder;
+
 import lombok.Data;
 
 /**
@@ -44,7 +44,7 @@ public class UserGrantedAuthority extends DTO {
 	 */
 	public static UserGrantedAuthority userGrantedAuthority = create(
 			null,
-			GrantedPermission.create(GrantedPermission.Source.sys).permission(GrantedPermission.userGrantedPermissionCode).build()
+			GrantedPermission.create(GrantedPermission.Source.sys,GrantedPermission.userGrantedPermissionCode)
 	);
 
     /**

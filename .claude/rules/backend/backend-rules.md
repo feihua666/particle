@@ -34,7 +34,7 @@ particle/
 ## 代码简化
 - 统一 pojo 类使用 Lombok 注解简化代码
     - 强制使用 `@Data` 代替 getter/setter
-    - 适当使用 `@Builder` 实现建造者模式（如有需要）
+    - 禁止使用 `@Builder` 实现建造者模式
     - 禁止使用 `@NoArgsConstructor` / `@AllArgsConstructor` 生成构造函数
 
 ## 日志规范

@@ -1,8 +1,6 @@
 package com.particle.global.trans.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -14,9 +12,14 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@NoArgsConstructor // 缓存时需要
-@AllArgsConstructor
 public class TransResult<R,K> implements Serializable {
+
+    // 添加两个参数要构造函数
+    public TransResult(R transValue, K key) {
+        this.transValue = transValue;
+        this.key = key;
+    }
+
     /**
      * 翻译的结果值
      */
@@ -27,4 +30,7 @@ public class TransResult<R,K> implements Serializable {
     private K key;
 
 
+    public static <R,K> TransResult<R,K> create(R transValue, K key){
+        return new TransResult<>(transValue,key);
+    }
 }

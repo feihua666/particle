@@ -4,17 +4,9 @@ import {getIdentifierPwd} from "../../../api/userLoginApi";
 import {userIdentifierPwdForLoginColumns} from "../../userIdentifierPwdCompItem"
 import LoginUserIdentifierUpdatePassword from '../LoginUserIdentifierUpdatePassword.vue'
 import {ref} from "vue";
-import {ElMessage} from 'element-plus'
+import {showMsg} from "../../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 // 弹窗引用
 const updatePasswordDialogVisible = ref(false)
 // 表格引用
@@ -34,7 +26,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let tableRowButtons = [
     {
       txt: '修改密码',

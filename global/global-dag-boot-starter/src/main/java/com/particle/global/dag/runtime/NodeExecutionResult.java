@@ -1,12 +1,14 @@
 package com.particle.global.dag.runtime;
 
+import com.particle.global.dag.model.NodeOutput;
+
 /**
  * <p>
  * 节点执行结果
  * </p>
  * <p>
- * 用于表示节点执行的成功或失败状态，以及相应的输出或错误信息。
- * 执行器可以通过此类返回详细的执行结果，引擎根据结果决定后续处理逻辑。
+ * 用于表示节点执行的成功或失败状态，以及相应的端口化输出或错误信息。
+ * 执行器通过此类返回 NodeOutput，引擎按端口逐个存入 context。
  * </p>
  *
  * @author Claude
@@ -20,9 +22,9 @@ public class NodeExecutionResult {
     private final boolean success;
 
     /**
-     * 执行输出结果，执行失败时为null
+     * 执行输出结果（端口化），执行失败时为null
      */
-    private final Object output;
+    private final NodeOutput output;
 
     /**
      * 执行失败时的异常信息，执行成功时为null
@@ -33,10 +35,10 @@ public class NodeExecutionResult {
      * 私有构造函数，使用静态工厂方法创建实例
      *
      * @param success 执行是否成功
-     * @param output 执行输出结果
-     * @param error 执行失败时的异常信息
+     * @param output  执行输出结果
+     * @param error   执行失败时的异常信息
      */
-    private NodeExecutionResult(boolean success, Object output, Throwable error) {
+    private NodeExecutionResult(boolean success, NodeOutput output, Throwable error) {
         this.success = success;
         this.output = output;
         this.error = error;
@@ -45,10 +47,10 @@ public class NodeExecutionResult {
     /**
      * 创建成功的执行结果
      *
-     * @param output 执行输出结果，可以为null
+     * @param output 端口化执行输出结果，可以为null
      * @return 成功的执行结果
      */
-    public static NodeExecutionResult success(Object output) {
+    public static NodeExecutionResult success(NodeOutput output) {
         return new NodeExecutionResult(true, output, null);
     }
 
@@ -74,9 +76,9 @@ public class NodeExecutionResult {
     /**
      * 获取执行输出结果
      *
-     * @return 执行输出结果，如果执行失败则返回null
+     * @return 端口化执行输出结果，如果执行失败则返回null
      */
-    public Object getOutput() {
+    public NodeOutput getOutput() {
         return output;
     }
 

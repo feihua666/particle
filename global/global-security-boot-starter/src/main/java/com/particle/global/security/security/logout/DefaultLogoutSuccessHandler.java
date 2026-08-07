@@ -39,8 +39,7 @@ public class DefaultLogoutSuccessHandler extends DefaultAbstractLogoutSuccessHan
 		PrintWriter out = response.getWriter();
 		Response responseResult = Response.buildSuccess();
 
-		MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
-		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, jackson2HttpMessageConverter.getObjectMapper());
+		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, JsonTool.getObjectMapper());
 		out.write(toJsonStrForHttp);
 		out.flush();
 		IoUtil.close(out);

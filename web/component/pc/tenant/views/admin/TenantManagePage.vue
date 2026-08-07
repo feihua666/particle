@@ -149,8 +149,9 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
-  let tenantIdData = {tenantId: row.id,masterUserId: row.masterUserId,masterUserNickname: row.masterUserNickname}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
+  let tenantIdData = {tenantId: row.id,masterUserId: row.masterUserId,masterUserNickname: row.masterUserNickname,...dt}
   let tableRowButtons = [
     {
       txt: '编辑',

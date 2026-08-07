@@ -1,5 +1,5 @@
-import axios, { AxiosPromise} from 'axios'
-import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
+import axios, {type AxiosPromise} from 'axios'
+import type {anyObj} from "../../../../../../global/common/tools/ObjectTools";
 import {IdParam} from "../../../../../../common/api/api";
 
 import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";

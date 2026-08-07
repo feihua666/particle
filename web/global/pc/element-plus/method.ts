@@ -5,17 +5,10 @@
 import {isPromise} from "../../common/tools/PromiseTools"
 import {isFunction} from "../../common/tools/FunctionTools"
 import {isString} from "../../common/tools/StringTools"
-import {ElMessage, ElMessageBox} from 'element-plus'
+import {showMsg} from "./ElmessageTools";
+import { ElMessageBox} from 'element-plus'
 
-let alert = (message,type='success')=>{
-    ElMessage({
-        showClose: true,
-        message: message,
-        type: type,
-        showIcon: true,
-        grouping: true
-    })
-}
+let alert = showMsg
 
 /**
  * 数据加载相关，封装组件时用

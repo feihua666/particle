@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>crawler</artifactId>
+        <groupId>com.particle</groupId>
+        <version>7.0.3-beta-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>crawler-infrastructure</artifactId>
+
+    <properties>
+
+
+    </properties>
+    <dependencies>
+        <!-- 通用基础设施 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>common-infrastructure</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- 领域模型 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>crawler-domain</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <!-- 查询字典使用 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>dict-adapter-feign-client</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+        <!-- global-crawler 依赖 -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-crawler-boot-starter</artifactId>
+            <version>${particle.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

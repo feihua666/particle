@@ -8,11 +8,14 @@ import com.particle.global.exception.biz.AssertException;
 import com.particle.global.exception.biz.BizException;
 import com.particle.global.exception.biz.InvalidDataVersionException;
 import com.particle.global.exception.biz.NoDataPrivilegeException;
+import com.particle.global.exception.handle.controller.GlobalRestErrorController;
 import com.particle.global.light.share.code.ErrorCodeGlobalEnum;
 import com.particle.global.light.share.code.IErrorCode;
 import com.particle.global.exception.system.SystemException;
 import com.particle.global.notification.notify.NotifyParam;
 import com.particle.global.notification.notify.NotifyTool;
+import com.particle.global.tool.servlet.RequestTool;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -21,6 +24,7 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -39,6 +43,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.sql.SQLSyntaxErrorException;
@@ -58,6 +63,10 @@ import java.util.Optional;
 @Slf4j
 @Order
 public class GlobalExceptionAdvice {
+
+
+    @Value("${server.error.path:${error.path:/error}}")
+    private String errorPath;
 
     @Autowired(required = false)
     private List<GlobalMvcExceptionListener> globalMvcExceptionListeners;
@@ -341,10 +350,25 @@ public class GlobalExceptionAdvice {
         String propertyName = ((PathImpl) ((ConstraintViolationImpl) next).getPropertyPath()).getLeafNode().asString();
         return createRM(ErrorCodeGlobalEnum.BAD_REQUEST_ERROR, message, propertyName, ex);
     }
+
+    /**
+     * springboot 3.x 默认找不到资源时会抛异常，这里会将静态页面和接口请求统一处理
+     * 请求不是ajax时，统一去{@link GlobalRestErrorController} 中处理
+     * @param request
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(NoResourceFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Response handleNoResourceFoundException(HttpServletRequest request, NoResourceFoundException ex) {
-        return createRM(ErrorCodeGlobalEnum.STATIC_RESOURCE_NOT_FOUND,ex.getMessage(), request.getRequestURI(), ex);
+    public Object handleNoResourceFoundException(HttpServletRequest request, NoResourceFoundException ex) {
+        boolean ajaxRequest = RequestTool.isAjaxRequest(request);
+        if (ajaxRequest) {
+            return createRM(ErrorCodeGlobalEnum.STATIC_RESOURCE_NOT_FOUND,ex.getMessage(), request.getRequestURI(), ex);
+        }
+        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE,HttpStatus.NOT_FOUND.value());
+        // 使用动态获取的 error 路径进行转发
+        return new ModelAndView("forward:" + errorPath);
+
     }
     /**
      * 其它不可预知的异常，通常定义为系统异常
@@ -366,6 +390,15 @@ public class GlobalExceptionAdvice {
      */
     public ResponseEntity<Response> handleException(HttpServletRequest request, Exception ex,Integer status) {
 
+        /**
+         * 通过 {@link GlobalRestErrorController} 中有调用，这里兼容一下
+         */
+        if (ex instanceof NoResourceFoundException) {
+            int httpStatus = status == null ? ErrorCodeGlobalEnum.STATIC_RESOURCE_NOT_FOUND.getHttpStatus() : status;
+            Response rm = createRM(ErrorCodeGlobalEnum.STATIC_RESOURCE_NOT_FOUND,ex.getMessage(), request.getRequestURI(), ex);
+            return ResponseEntity.status(httpStatus)
+                    .body(rm);
+        }
         // 兼容一下内部 BizException
         ResponseEntity<Response> responseResponseEntity = handleCauseBizException(request, ex, 5);
         if (responseResponseEntity != null) {

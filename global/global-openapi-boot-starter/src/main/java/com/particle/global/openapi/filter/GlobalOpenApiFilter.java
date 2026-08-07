@@ -136,8 +136,7 @@ public class GlobalOpenApiFilter extends OncePerRequestFilter {
 		httpServletResponse.setContentType("application/json;charset=utf-8");
 		httpServletResponse.setStatus(errorCode.getHttpStatus());
 		PrintWriter out = httpServletResponse.getWriter();
-		MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
-		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, jackson2HttpMessageConverter.getObjectMapper());
+		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(responseResult, JsonTool.getObjectMapper());
 
 		out.write(toJsonStrForHttp);
 

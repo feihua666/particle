@@ -1,6 +1,6 @@
-import {ElMessage} from 'element-plus'
 import {nextTick} from "vue"
 import {getItems} from "../../../../dict/api/front/dictFrontApi";
+import {showMsg} from "../../../../../../global/pc/element-plus/ElmessageTools";
 
 /**
  * key和后端类对应：com.particle.global.ai.enums.AIDocumentType
@@ -19,15 +19,7 @@ const documentTypeExtensionMapping = {
 const getDocumentTypeByExtension = (extension) => {
   return Object.keys(documentTypeExtensionMapping).find(key => documentTypeExtensionMapping[key].includes(extension))
 }
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 export const pageFormItems = [
       {
         field: {

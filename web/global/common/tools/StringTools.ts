@@ -1,5 +1,5 @@
 import {isArray} from './ArrayTools'
-import {anyObj} from "./ObjectTools";
+import type {anyObj} from "./ObjectTools";
 
 /**
  * 判断是否为字符串

@@ -1,0 +1,106 @@
+package com.particle.workflow.adapter.definition.web.admin;
+
+import com.particle.component.light.share.dataconstraint.DataConstraintConstants;
+import com.particle.global.dto.login.LoginUser;
+import com.particle.workflow.client.definition.api.IWorkflowProjectApplicationService;
+import com.particle.workflow.client.definition.api.representation.IWorkflowProjectRepresentationApplicationService;
+import com.particle.workflow.client.definition.dto.command.WorkflowProjectCreateCommand;
+import com.particle.workflow.client.definition.dto.data.WorkflowProjectVO;
+import com.particle.common.client.dto.command.CommonIdCommand;
+import com.particle.workflow.client.definition.dto.command.WorkflowProjectUpdateCommand;
+import com.particle.workflow.client.definition.dto.command.representation.WorkflowProjectPageQueryCommand;
+import com.particle.workflow.client.definition.dto.command.representation.WorkflowProjectQueryListCommand;
+import com.particle.common.adapter.web.AbstractBaseWebAdapter;
+import com.particle.global.dto.response.SingleResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import com.particle.global.dataaudit.op.OpLog;
+import com.particle.global.dto.dataconstraint.DataConstraintContext;
+import com.particle.component.light.share.dict.oplog.OpLogConstants;
+import com.particle.global.dto.response.MultiResponse;
+import com.particle.global.dto.response.PageResponse;
+import com.particle.global.dto.response.Response;
+/**
+ * <p>
+ * 工作流项目后台管理pc或平板端前端适配器
+ * 主要用于pc或平板端后台管理
+ * </p>
+ *
+ * @author yw
+ * @since 2026-04-28 09:55:12
+ */
+@Tag(name = "工作流项目pc或平板端后台管理相关接口")
+@RestController
+@RequestMapping("/admin/web/workflow_project")
+public class WorkflowProjectAdminWebController extends AbstractBaseWebAdapter {
+
+    @Autowired
+    private IWorkflowProjectApplicationService iWorkflowProjectApplicationService;
+    @Autowired
+    private IWorkflowProjectRepresentationApplicationService iWorkflowProjectRepresentationApplicationService;
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:create')")
+    @Operation(summary = "添加工作流项目")
+    @PostMapping("/create")
+    @OpLog(name = "添加工作流项目",module = OpLogConstants.Module.workflow,type = OpLogConstants.Type.create)
+    public SingleResponse<WorkflowProjectVO> create(@RequestBody WorkflowProjectCreateCommand workflowProjectCreateCommand, LoginUser loginUser){
+        workflowProjectCreateCommand.luid(loginUser.getId());
+        return iWorkflowProjectApplicationService.create(workflowProjectCreateCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:delete')")
+    @Operation(summary = "删除工作流项目")
+    @DeleteMapping("/delete")
+    @OpLog(name = "删除工作流项目",module = OpLogConstants.Module.workflow,type = OpLogConstants.Type.delete)
+    public SingleResponse<WorkflowProjectVO> delete(@RequestBody CommonIdCommand deleteCommand){
+        deleteCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.delete.name());
+        return iWorkflowProjectApplicationService.delete(deleteCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:update')")
+    @Operation(summary = "更新工作流项目")
+    @PutMapping("/update")
+    @OpLog(name = "更新工作流项目",module = OpLogConstants.Module.workflow,type = OpLogConstants.Type.update)
+    public SingleResponse<WorkflowProjectVO> update(@RequestBody WorkflowProjectUpdateCommand workflowProjectUpdateCommand){
+        workflowProjectUpdateCommand.dcdo(DataConstraintConstants.data_object_null, DataConstraintContext.Action.update.name());
+        return iWorkflowProjectApplicationService.update(workflowProjectUpdateCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:update')")
+    @Operation(summary = "工作流项目更新详情")
+    @GetMapping("/detail-for-update")
+    public SingleResponse<WorkflowProjectVO> queryDetailForUpdate(CommonIdCommand detailForUpdateCommand){
+        return iWorkflowProjectRepresentationApplicationService.queryDetailForUpdate(detailForUpdateCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:detail')")
+    @Operation(summary = "工作流项目详情展示")
+    @GetMapping("/detail")
+    public SingleResponse<WorkflowProjectVO> queryDetail(CommonIdCommand detailCommand){
+        return iWorkflowProjectRepresentationApplicationService.queryDetail(detailCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:queryList')")
+    @Operation(summary = "列表查询工作流项目")
+    @GetMapping("/list")
+    public MultiResponse<WorkflowProjectVO> queryList(WorkflowProjectQueryListCommand workflowProjectQueryListCommand){
+        workflowProjectQueryListCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
+        return iWorkflowProjectRepresentationApplicationService.queryList(workflowProjectQueryListCommand);
+    }
+
+    @PreAuthorize("hasAuthority('admin:web:workflowProject:pageQuery')")
+    @Operation(summary = "分页查询工作流项目")
+    @GetMapping("/page")
+    public PageResponse<WorkflowProjectVO> pageQueryList(WorkflowProjectPageQueryCommand workflowProjectPageQueryCommand){
+        workflowProjectPageQueryCommand.dcdo(DataConstraintConstants.data_object_null,DataConstraintContext.Action.query.name());
+        return iWorkflowProjectRepresentationApplicationService.pageQuery(workflowProjectPageQueryCommand);
+    }
+}

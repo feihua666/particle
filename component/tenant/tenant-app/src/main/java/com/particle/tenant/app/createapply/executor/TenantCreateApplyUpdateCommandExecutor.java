@@ -48,9 +48,7 @@ public class TenantCreateApplyUpdateCommandExecutor extends AbstractBaseExecutor
 	public SingleResponse<TenantCreateApplyVO> execute(@Valid TenantCreateApplyUpdateCommand tenantCreateApplyUpdateCommand) {
 		TenantCreateApply tenantCreateApply = createByTenantCreateApplyUpdateCommand(tenantCreateApplyUpdateCommand);
 		if (tenantCreateApplyUpdateCommand.getExtJsonObj() != null) {
-			MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
-
-			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyUpdateCommand.getExtJsonObj(), jackson2HttpMessageConverter.getObjectMapper()));
+			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyUpdateCommand.getExtJsonObj(), JsonTool.getObjectMapper()));
 		}
 		// 依赖用户选择，如果没有填写不计算天数
 		//tenantCreateApply.changeEffectiveAtNowIfNull();

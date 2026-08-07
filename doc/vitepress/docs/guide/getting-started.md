@@ -151,12 +151,12 @@ spring:
       datasource:
         master:
           # 数据库连接地址如：jdbc:mysql://localhost/particle_test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
-          url: ${particle.datasource.master.url}?${particle.datasource.mysql.url-query}
+          url: ${particle.global.datasource.master.url}?${particle.global.datasource.mysql.url-query}
           # 数据库连接用户名
           username: root
           # 数据库连接密码
           password: rootroot
-          driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+          driver-class-name: ${particle.global.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
 ```
 
 #### 项目启动

@@ -44,9 +44,7 @@ public class TenantCreateApplyCreateCommandExecutor  extends AbstractBaseExecuto
 		tenantCreateApply.initIsSendMobileNotice();
 		tenantCreateApply.initIsSendMobileNotice();
 		if (tenantCreateApplyCreateCommand.getExtJsonObj() != null) {
-			MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
-
-			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyCreateCommand.getExtJsonObj(),jackson2HttpMessageConverter.getObjectMapper()));
+			tenantCreateApply.changeExtJson(JsonTool.toJsonStrForHttp(tenantCreateApplyCreateCommand.getExtJsonObj(),JsonTool.getObjectMapper()));
 		}
 		/**
 		 * 默认为未审核

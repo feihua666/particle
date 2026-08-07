@@ -2,7 +2,6 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
  * @since 2026/3/4 21:04
  */
 @Data
-@Builder
 @Schema(description = "登录标识信息")
 public class UserIdentifierInfo extends DTO {
 
@@ -72,20 +70,20 @@ public class UserIdentifierInfo extends DTO {
                                             String groupFlag,
                                             LocalDateTime lastLoginAt,
                                             String lastLoginIp){
-        return UserIdentifierInfo.builder()
-                .id(id)
-                .userId(userId)
-                .identifier(identifier)
-                .identityTypeDictId(identityTypeDictId)
-                .isLock(isLock)
-                .lockReason(lockReason)
-                .unionId(unionId)
-                .isExpired(isExpired)
-                .expiredReason(expiredReason)
-                .expireAt(expireAt)
-                .groupFlag(groupFlag)
-                .lastLoginAt(lastLoginAt)
-                .lastLoginIp(lastLoginIp)
-                .build();
+        UserIdentifierInfo userIdentifierInfo = new UserIdentifierInfo();
+        userIdentifierInfo.id = id;
+        userIdentifierInfo.userId = userId;
+        userIdentifierInfo.identifier = identifier;
+        userIdentifierInfo.identityTypeDictId = identityTypeDictId;
+        userIdentifierInfo.isLock = isLock;
+        userIdentifierInfo.lockReason = lockReason;
+        userIdentifierInfo.unionId = unionId;
+        userIdentifierInfo.isExpired = isExpired;
+        userIdentifierInfo.expiredReason = expiredReason;
+        userIdentifierInfo.expireAt = expireAt;
+        userIdentifierInfo.groupFlag = groupFlag;
+        userIdentifierInfo.lastLoginAt = lastLoginAt;
+        userIdentifierInfo.lastLoginIp = lastLoginIp;
+        return userIdentifierInfo;
     }
 }

@@ -3,7 +3,6 @@
  * 数据范围分配自定义数据页面
  */
 import {reactive, ref} from 'vue'
-import {ElMessage} from 'element-plus'
 import {
   dataScopeAssignCustomData as dataScopeAssignCustomDataApi,
   queryCustomDataIdsByDataScopeId
@@ -11,16 +10,9 @@ import {
 import {remoteSelectDataScopeProps, useRemoteSelectDataScopeCompItem} from "../../components/dataconstraintCompItem";
 import {detail as dataObjectDetailApi} from "../../api/admin/dataObjectAdminApi";
 import {customData} from "../../api/admin/dataScopeAdminApi";
+import {showMsg} from "../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

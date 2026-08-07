@@ -28,6 +28,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 引入web 方便依赖测试 -->
+        <!-- ，添加是将 global-web-mvc-starter 中 jackson 配置迁移到了 jsontool中方便全局使用一套配置，但在 crawler测试时找不到 Jackson2ObjectMapperBuilder 类，这里统一添加 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除默认的logback，使用log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <!-- 主要用于实体生成数据 https://github.com/jsonzou/jmockdata -->
         <dependency>
             <groupId>com.github.jsonzou</groupId>

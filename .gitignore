@@ -33,11 +33,16 @@ build/
 .vscode/
 
 ### custom ###
+arthas-output
 logs/
 ${sys:LOG_FILE}
-${sys:LOG_FILE}/
-/${sys:LOG_PATH}/
+### 以下在测试 爬虫时自动生成，排除一下，/global/global-crawler-boot-starter
+node_modules
+src/main/java/package.json
+src/main/java/package-lock.json
 ### mac ###
 .DS_Store
-**/.DS_Store
-.DS_Store?
+### custom ai ###
+.workbuddy/
+.qwen/
+.claude/settings.local.json

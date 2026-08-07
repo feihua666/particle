@@ -6,16 +6,10 @@ import {onMounted, reactive, ref} from 'vue'
 
 import PtBaiduMap from './BaiduMap.vue'
 import PtForm from '../../element-plus/Form.vue'
-import {ElMessage} from 'element-plus'
+import {showMsg} from "../../element-plus/ElmessageTools";
 
-let alert = (message)=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: 'error',
-    showIcon: true,
-    grouping: true
-  })
+let alertError = (message)=>{
+  showMsg(message,'error')
 }
 const baiduMapRef = ref(null)
 // 声明属性
@@ -128,7 +122,7 @@ const markStr = (str) => {
       reactiveData.formLocation.longitude = point.lng
       reactiveData.formLocation.latitude = point.lat
     }else {
-      alert('您选择的地址没有解析到结果')
+      alertError('您选择的地址没有解析到结果')
     }
   })
 }

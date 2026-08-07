@@ -1,4 +1,4 @@
-import axios, {AxiosPromise} from 'axios'
+import axios, {type AxiosPromise} from 'axios'
 import {
     getDownloadPrefixUrl as getDownloadPrefixUrlRequest,
     getFaviconUrl as getFaviconUrlRequest,

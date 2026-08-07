@@ -4,7 +4,7 @@ import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import com.particle.global.crawler.test.Test;
+import com.particle.global.crawler.constants.CrawlTestConstants;
 import com.particle.global.crawler.playwright.CrawlerPlaywrightTool;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +26,7 @@ public class PlaywrightFirefoxExample {
         Playwright playwright = CrawlerPlaywrightTool.create();
         // 临时启动时路径
         String userDataDir = "/Users/yw/temp/playwright-firefox";
-        String userAgent = Test.chromeAgent;
+        String userAgent = CrawlTestConstants.chromeAgent;
         try {
             BrowserType.LaunchPersistentContextOptions options = CrawlerPlaywrightTool.newLaunchPersistentContextOptions();
             options.setUserAgent(userAgent);

@@ -4,7 +4,7 @@ import {defineConfig, loadEnv} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
-
+import { compilerSfcFs } from './compilerSfcFs'
 const aliasItem = (find) =>{
   return  {
     find: find,
@@ -21,7 +21,14 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
   const env = loadEnv(mode, process.cwd())
   return {
     base: env.VITE_BUILD_BASE || './',
-    plugins: [vue(), vueJsx(),vueDevTools()],
+    plugins: [
+        vue({
+          script: {
+            fs: compilerSfcFs
+          }
+        }),
+      vueJsx(),
+      vueDevTools()],
     resolve: {
       alias: [
         {
@@ -54,6 +61,11 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
         aliasItem('marked-highlight'),
         aliasItem('prismjs'),
         aliasItem('@antv/g6'),
+        aliasItem('@vue-flow/core'),
+        aliasItem('@vue-flow/background'),
+        aliasItem('@vue-flow/controls'),
+        aliasItem('@vue-flow/minimap'),
+        aliasItem('@vue-flow/node-resizer'),
       ]
     },
     server: {

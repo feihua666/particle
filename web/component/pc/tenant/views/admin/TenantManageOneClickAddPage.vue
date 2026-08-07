@@ -9,6 +9,7 @@ import TenantCreateApplyFuncApplication
   from '../../components/createapply/admin/funcapplication/TenantCreateApplyFuncApplication.vue'
 import {useOneClickAddPageFormItems} from "../../components/createapply/admin/tenantCreateApplyManage";
 import {oneClickCreate} from "../../api/admin/tenantAdminApi";
+import {showMsg} from "../../../../../global/pc/element-plus/ElmessageTools";
 
 const funcApplicationDialogVisible = ref(false)
 const tenantCreateApplyFuncApplicationRef = ref(null)
@@ -46,13 +47,7 @@ const submitMethodSuccess = () => {
 }
 
 let alertError = (message)=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: 'error',
-    showIcon: true,
-    grouping: true
-  })
+  showMsg(message,'error')
 }
 // 传递已选中数据时不能使用form.extJsonObj,会引起副作用依赖循环，这里单独加一个
 const extJsonObjTemp = ref({})

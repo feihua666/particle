@@ -30,9 +30,9 @@ export const browser = {
             iPad: u.indexOf('iPad') > -1, //是否iPad
             webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
             weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
-            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+            qq: !!u.match(/\sQQ/i) //是否QQ
         }
         return r
     }(),
-    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+    language: navigator.language.toLowerCase()
 }

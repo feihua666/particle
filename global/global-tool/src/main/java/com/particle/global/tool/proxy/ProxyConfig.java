@@ -59,6 +59,37 @@ public class ProxyConfig implements InitializingBean, Serializable {
 	 */
 	private String proxyType;
 
+	/**
+	 * 合并配置（当前配置优先）
+	 */
+	public ProxyConfig merge(ProxyConfig defaults) {
+		if (defaults == null) {
+			return this;
+		}
+		if (this.useProxy == null) {
+			this.useProxy = defaults.useProxy;
+		}
+		if (this.proxyAddress == null) {
+			this.proxyAddress = defaults.proxyAddress;
+		}
+		if (this.proxyPort == null) {
+			this.proxyPort = defaults.proxyPort;
+		}
+		if (this.proxyUsername == null) {
+			this.proxyUsername = defaults.proxyUsername;
+		}
+		if (this.proxyPassword == null) {
+			this.proxyPassword = defaults.proxyPassword;
+		}
+		if (this.asDefault == null) {
+			this.asDefault = defaults.asDefault;
+		}
+		if (this.proxyType == null) {
+			this.proxyType = defaults.proxyType;
+		}
+		return this;
+	}
+
 	// spring 初始化
 	@Override
 	public void afterPropertiesSet() throws Exception {

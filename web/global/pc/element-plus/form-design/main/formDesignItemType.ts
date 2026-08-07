@@ -1,7 +1,7 @@
 /**
  * 表单设计数据基础类型
  */
-import {anyObj} from "../../../../common/tools/ObjectTools";
+import type {anyObj} from "../../../../common/tools/ObjectTools";
 
 export interface PropsHandler{
     toForm?: (propsValue) => any

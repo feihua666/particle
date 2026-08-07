@@ -9,7 +9,7 @@ import com.particle.global.big.datasource.bigdatasource.impl.elasticsearch.enums
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import com.particle.global.tool.template.TemplateTool;
-import lombok.Builder;
+
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.elasticsearch.client.RestClient;
@@ -186,7 +186,6 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 	 * 渲染结果
 	 */
 	@Data
-	@Builder
 	public static class RenderResult{
 
 		/**
@@ -214,13 +213,17 @@ public class ElasticsearchBigDatasourceApiConfig extends AbstractBigDatasourceAp
 		private String strCountTemplateResult;
 
 		public static RenderResult createByResult(Object result) {
-			return RenderResult.builder().result(result).build();
+			RenderResult renderResult = new RenderResult();
+			renderResult.result = result;
+			return renderResult;
 		}
-		public static RenderResult createByStrTemplateResultAndStrCountTemplateResult(String strTemplateResult,String strCountTemplateResult) {
-			return RenderResult.builder()
-					.strTemplateResult(strTemplateResult)
-					.strCountTemplateResult(strCountTemplateResult)
-					.build();
+		public static RenderResult createByStrTemplateResultAndStrCountTemplateResult(String strTemplateResult,
+																					  String strCountTemplateResult) {
+
+			RenderResult renderResult = new RenderResult();
+			renderResult.strTemplateResult = strTemplateResult;
+			renderResult.strCountTemplateResult = strCountTemplateResult;
+			return renderResult;
 		}
 	}
 }

@@ -76,6 +76,12 @@ public class OpLogConstants {
 		/** 审批模块 */
 		public static final String audit = "audit";
 
+		/** 工作流模块 */
+		public static final String workflow = "workflow";
+
+		/** 爬虫模块 */
+		public static final String crawler = "crawler";
+
 		/** 未知模块 */
 		public static final String unknown = "unknown";
 

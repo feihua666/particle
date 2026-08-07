@@ -11,16 +11,9 @@ import {
 
 import {ElMessage} from 'element-plus'
 import {inParamTypeHandler, paramType} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
+import {showMsg} from "../../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

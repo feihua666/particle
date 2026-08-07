@@ -8,7 +8,6 @@ import {useCascaderOpenapiByOpenplatformAppIdCompItem,} from "../../../component
 import {useSelectAppForCurrentUserCompItem} from "../../../components/openplatformAppCompItem";
 
 import {downloadFileByData, extractContentType, extractFileName} from "../../../../../../global/common/tools/FileTools";
-import {ElMessage} from 'element-plus'
 import {tableColumns} from "../../../components/openapi/admin/openplatformOpenapiBatchQueryRecordManage";
 import {detail} from "../../../api/openapi/admin/openplatformOpenapiBatchQueryRecordAdminApi";
 import {removeAll, replace} from "../../../../../../global/common/tools/ArrayTools";
@@ -17,16 +16,9 @@ import {
   extractDownloadFileNameByUrl,
   getFinalDownloadUrl
 } from "../../../../../../global/common/api/globalApi";
+import {showMsg} from "../../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 
 // form 引用
 const formRef = ref(null)
@@ -232,7 +224,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let recordIdData = {openplatformOpenapiBatchQueryRecordId: row.id}
 
   let tableRowButtons = [

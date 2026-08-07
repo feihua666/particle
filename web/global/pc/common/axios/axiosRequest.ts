@@ -3,7 +3,7 @@ import {ElMessage, ElNotification} from '@nm/element-plus'
 import {isFunction} from '../../../common/tools/FunctionTools'
 // 用户未登录时使用
 import {useLoginUserStore} from '../../../common/security/loginUserStore.js'
-import {anyObj} from "../../../common/tools/ObjectTools";
+import type {anyObj} from "../../../common/tools/ObjectTools";
 import {getRaw} from "../../../common/tools/StorageTools";
 import {concatPaths} from "../../../common/tools/PathTools";
 // store 变量缓存

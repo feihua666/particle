@@ -33,7 +33,7 @@ public class JdbcCacheConfig {
         /**
          * jdbc缓存管理器
          * @param jdbcTemplate
-         * @param objectMapper 该参数用于序列化，默认使用springboot的ObjectMapper，主要是springmvc中使用的，
+         * @param objectMapper 该参数用于序列化，默认使用 springboot 的 ObjectMapper，主要是 springmvc 中使用的，
          *                     相关配置已在 {@link com.particle.global.web.mvc.http.jackson2.CustomJackson2ObjectMapperBuilderCustomizer} 中配置了
          * @return
          */

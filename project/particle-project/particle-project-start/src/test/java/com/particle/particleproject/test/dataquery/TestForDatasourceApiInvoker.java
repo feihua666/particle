@@ -121,6 +121,6 @@ public class TestForDatasourceApiInvoker {
      * @return
      */
     private HttpClientTool.ExtConfig config() {
-        return HttpClientTool.ExtConfig.builder().build().addHeader("X-Token-Id", cTokenId);
+        return HttpClientTool.ExtConfig.create().addHeader("X-Token-Id", cTokenId);
     }
 }

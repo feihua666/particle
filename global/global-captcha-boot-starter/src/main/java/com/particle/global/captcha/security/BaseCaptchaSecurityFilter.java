@@ -148,8 +148,7 @@ public class BaseCaptchaSecurityFilter extends OncePerRequestFilter {
 
 		PrintWriter out = response.getWriter();
 		SingleResponse singleResponse = SingleResponse.buildFailure(ErrorCodeGlobalEnum.CAPTCHA_ERROR);
-		MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
-		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(singleResponse, jackson2HttpMessageConverter.getObjectMapper());
+		String toJsonStrForHttp = JsonTool.toJsonStrForHttp(singleResponse, JsonTool.getObjectMapper());
 		out.write(toJsonStrForHttp);
 		out.flush();
 		IoUtil.close(out);

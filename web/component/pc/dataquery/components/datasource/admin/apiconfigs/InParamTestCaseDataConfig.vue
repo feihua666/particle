@@ -1,6 +1,6 @@
 <script setup name="InParamTestCaseDataConfig" lang="ts">
 import {nextTick, onMounted, reactive, ref, watch} from 'vue'
-import {anyObj} from "../../../../../../../global/common/tools/ObjectTools";
+import type {anyObj} from "../../../../../../../global/common/tools/ObjectTools";
 
 /**
  * 用例项

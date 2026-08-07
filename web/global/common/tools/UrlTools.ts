@@ -1,4 +1,4 @@
-import {anyObj} from "./ObjectTools";
+import type {anyObj} from "./ObjectTools";
 
 export function getUrlParam (name: string, url: string): string {
     //构造一个含有目标参数的正则表达式对象

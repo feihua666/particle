@@ -105,10 +105,7 @@ public class SecurityRoleDataConstraintServiceImpl implements SecurityRoleDataCo
 
         }
 
-
-        return GrantedDataConstraint.builder()
-                .grantedDataObject(grantedDataObject)
-                .grantedDataScope(grantedDataScope).build();
+        return GrantedDataConstraint.create(grantedDataObject,grantedDataScope);
     }
 
     @Autowired

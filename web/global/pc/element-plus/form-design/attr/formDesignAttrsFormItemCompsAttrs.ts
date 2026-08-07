@@ -1,4 +1,4 @@
-import {FormDesignItemType} from "../main/formDesignItemType";
+import {type FormDesignItemType} from "../main/formDesignItemType";
 import {formChange, initForm} from "./FormDesignAttrs";
 import {hasOwnProps} from "../../../../common/tools/ObjectTools";
 import {codeToStrCode, strCodeTocode} from "../tools";

@@ -1,0 +1,168 @@
+<script setup name="AgiAiModelManagePage" lang="ts">
+/**
+ * AI模型管理页面
+ */
+import {reactive, ref} from 'vue'
+import { page as agiAiModelPageApi, remove as agiAiModelRemoveApi} from "../../../api/model/admin/agiAiModelAdminApi"
+import {pageFormItems} from "../../../components/model/admin/agiAiModelManage";
+
+
+const tableRef = ref(null)
+
+// 属性
+const reactiveData = reactive({
+  // 表单初始查询第一页
+  form: {
+  },
+  formComps: pageFormItems,
+  tableColumns: [
+    {
+      prop: 'code',
+      label: '模型编码',
+    },
+    {
+      prop: 'name',
+      label: '模型名称',
+    },
+    {
+      prop: 'typeDictName',
+      label: '模型类型',
+    },
+    {
+      prop: 'maxTokens',
+      label: '最大 Token 数',
+    },
+    {
+      prop: 'defaultTemperature',
+      label: '默认温度值',
+    },
+    {
+      prop: 'defaultTopP',
+      label: '默认Top P值',
+    },
+    {
+      prop: 'isDisabled',
+      label: '是否禁用',
+      width: 80,
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? '禁用' : '启用'
+        return r
+      }
+    },
+    {
+      prop: 'isDefault',
+      label: '是否默认',
+      width: 80,
+      formatter: (row, column, cellValue, index) => {
+        let r = cellValue ? '禁用' : '启用'
+        return r
+      }
+    },
+    {
+      prop: 'agiModelProviderName',
+      label: '模型提供商名称',
+    },
+    {
+      prop: 'seq',
+      label: '排序',
+    },
+    {
+      prop: 'remark',
+      label: '描述',
+      showOverflowTooltip: true,
+    },
+  ],
+
+})
+
+// 提交按钮属性
+const submitAttrs = ref({
+  buttonText: '查询',
+  loading: false,
+  permission: 'admin:web:agiAiModel:pageQuery'
+})
+// 查询按钮
+const submitMethod = ():void => {
+  tableRef.value.refreshData()
+}
+// 分页数据查询
+const doAgiAiModelPageApi = ({pageQuery}: {param: object,pageQuery: {pageNo: number,pageSize: number}}) => {
+  return agiAiModelPageApi({...reactiveData.form,...pageQuery})
+}
+const tablePaginationProps = {
+  permission: submitAttrs.value.permission
+}
+// 表格操作按钮
+const getTableRowButtons = ({row, column, $index}) => {
+  if($index < 0){
+    return []
+  }
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
+
+  let tableRowButtons = [
+    {
+      txt: '编辑',
+      text: true,
+      permission: 'admin:web:agiAiModel:update',
+      // 跳转到编辑
+      route: {path: '/admin/AgiAiModelManageUpdate',query: idData}
+    },
+    {
+      txt: '删除',
+      text: true,
+      permission: 'admin:web:agiAiModel:delete',
+      methodConfirmText: `确定要删除 ${row.name} 吗？`,
+      // 删除操作
+      method(){
+        return agiAiModelRemoveApi({id: row.id}).then(res => {
+          // 删除成功后刷新一下表格
+          submitMethod()
+          return Promise.resolve(res)
+        })
+      }
+    }
+  ]
+
+  return tableRowButtons
+}
+</script>
+<template>
+  <!-- 查询表单 -->
+  <PtForm :form="reactiveData.form"
+          :method="submitMethod"
+          defaultButtonsShow="submit,reset"
+          :submitAttrs="submitAttrs"
+          inline
+          :comps="reactiveData.formComps">
+    <template #buttons>
+      <PtButton permission="admin:web:agiAiModel:create" route="/admin/AgiAiModelManageAdd">添加</PtButton>
+    </template>
+  </PtForm>
+<!-- 指定 dataMethod，默认加载数据 -->
+  <PtTable ref="tableRef"
+           default-expand-all
+           :dataMethod="doAgiAiModelPageApi"
+           @dataMethodDataLoading="(loading) => submitAttrs.loading=loading"
+
+           :paginationProps="tablePaginationProps"
+           :columns="reactiveData.tableColumns">
+
+    <!--  操作按钮  -->
+    <template #defaultAppend>
+      <el-table-column label="操作" width="180">
+        <template #default="{row, column, $index}">
+          <PtButtonGroup :options="getTableRowButtons({row, column, $index})">
+          </PtButtonGroup>
+        </template>
+      </el-table-column>
+    </template>
+  </PtTable>
+<!-- 子级路由 -->
+  <PtRouteViewPopover :level="3"></PtRouteViewPopover>
+</template>
+
+
+<style scoped>
+
+</style>

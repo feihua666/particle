@@ -24,7 +24,7 @@ const dialogVisible = ref(false)
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({
-  // 上传地址，如果不传默认按 axiosRequest.ts 中的get url
+  // 上传地址，如果不传默认按 axiosRequest.ts 中的get getUploadUrl
   action: String,
   // 值绑定
   modelValue: [Array],

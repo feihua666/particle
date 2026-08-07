@@ -1,0 +1,8 @@
+-- import classpath:db/definition/schema.component_crawler_project.sql
+-- import classpath:db/definition/schema.component_crawler_definition.sql
+-- import classpath:db/definition/schema.component_crawler_definition_history.sql
+-- import classpath:db/execution/schema.component_crawler_execution.sql
+-- import classpath:db/execution/schema.schema.component_crawler_data_store.sql
+-- import classpath:db/execution/schema.component_crawler_data_store_content.sql
+-- import classpath:db/execution/schema.component_crawler_raw_store.sql
+-- import classpath:db/execution/schema.component_crawler_raw_store_content.sql

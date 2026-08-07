@@ -3,7 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,7 +18,6 @@ import java.io.Serializable;
  * @since 2023-04-14 11:19:19
  */
 @Data
-@Builder
 @Schema(description = "授权的租户")
 public class GrantedTenant extends DTO {
 
@@ -52,14 +51,15 @@ public class GrantedTenant extends DTO {
 									   String tenantLogoJson,
 									   String configJson,
 									   Boolean isFormal) {
-		return GrantedTenant.builder().id(id)
-				.code(code)
-				.name(name)
-				.tenantThemeJson(tenantThemeJson)
-				.tenantDefaultRouteJson(tenantDefaultRouteJson)
-				.tenantLogoJson(tenantLogoJson)
-				.configJson(configJson)
-				.isFormal(isFormal)
-				.build();
+		GrantedTenant grantedTenant = new GrantedTenant();
+		grantedTenant.id = id;
+		grantedTenant.code = code;
+		grantedTenant.name = name;
+		grantedTenant.tenantThemeJson = tenantThemeJson;
+		grantedTenant.tenantDefaultRouteJson = tenantDefaultRouteJson;
+		grantedTenant.tenantLogoJson = tenantLogoJson;
+		grantedTenant.configJson = configJson;
+		grantedTenant.isFormal = isFormal;
+		return grantedTenant;
 	}
 }

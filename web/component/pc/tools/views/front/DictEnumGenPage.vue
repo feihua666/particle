@@ -131,7 +131,7 @@ const submitMethodSuccess = () => {
           :comps="formComps">
   </PtForm>
 
-  <el-input v-model="reactiveData.result" type="textarea" rows="20" placeholder="生成结果这里显示"></el-input>
+  <el-input v-model="reactiveData.result" type="textarea" :rows="20" placeholder="生成结果这里显示"></el-input>
 </template>
 
 

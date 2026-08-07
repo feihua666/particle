@@ -1,4 +1,4 @@
-import {FormDesignItemType} from "../main/formDesignItemType";
+import {type FormDesignItemType} from "../main/formDesignItemType";
 import {formDesignCompsAttrs} from "./formDesignCompsAttrs";
 import {formDesignCompsInputAttrs} from "./compsattr/formDesignCompsInputAttrs";
 import {formDesignCompsInputNumberAttrs} from "./compsattr/formDesignCompsInputNumberAttrs";

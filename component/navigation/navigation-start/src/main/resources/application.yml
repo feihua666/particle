@@ -20,10 +20,10 @@ spring:
       strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       datasource:
         master:
-          url: jdbc:mysql://localhost/particle_test?${particle.datasource.mysql.url-query}
+          url: jdbc:mysql://localhost/particle_test?${particle.global.datasource.mysql.url-query}
           username: root
           password: rootroot
-          driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+          driver-class-name: ${particle.global.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
   # 注意，这里的配置是spring的但实现已经自定义，参考 global-datasource-boot-starter 组件 sqlinit 包实现
   sql:
     init:

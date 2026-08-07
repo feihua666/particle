@@ -99,8 +99,9 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
-  let updateIdData = {id: row.id,cmsContentId:  row.cmsContentId,cmsContentTitle: row.cmsContentTitle}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
+  let updateIdData = {id: row.id,cmsContentId:  row.cmsContentId,cmsContentTitle: row.cmsContentTitle,...dt}
 
   let tableRowButtons = [
     {

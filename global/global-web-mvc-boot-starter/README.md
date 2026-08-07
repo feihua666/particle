@@ -24,9 +24,13 @@
 
 ```yaml
 particle:
-  web:
-    mvc:
-      # MVC相关配置
+  global:
+    web:
+      mvc:
+        resource404PathPatterns:
+          # 将 doc.html 映射为404
+          - /doc.html
+        # MVC相关配置
 ```
 
 ### 核心组件

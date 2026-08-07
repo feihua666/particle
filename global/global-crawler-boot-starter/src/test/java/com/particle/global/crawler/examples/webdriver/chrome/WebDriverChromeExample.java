@@ -1,6 +1,6 @@
 package com.particle.global.crawler.examples.webdriver.chrome;
 
-import com.particle.global.crawler.tool.CrawlerWebDriverTool;
+import com.particle.global.crawler.webdriver.CrawlerWebDriverTool;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -34,7 +34,7 @@ public class WebDriverChromeExample {
         // FileUtil.copy(realUserDataDir,userDataDir,true);
 
         // user agent 如果不设置，会使用默认的，默认的一般是真实的
-        // String userAgent = Test.chromeAgent;
+        // String userAgent = CrawlTestConstants.chromeAgent;
         String userAgent = null;
 
         ChromeOptions options = options(userDataDir,profileDir,userAgent);

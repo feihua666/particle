@@ -12,7 +12,7 @@ import LoginPageTemplate from './template/login/LoginPageTemplate.vue'
 import EntryTemplate from './template/EntryTemplate.vue'
 import LexicalEditor from './lexicalEditor/LexicalEditor.vue'
 import LexicalEditorChatInput from './lexicalEditor/LexicalEditorChatInput.vue'
-
+import WorkflowEditor from "./vueflowWorkflow/WorkflowEditor.vue";
 let prefix = "Pt"
 let map = {
     BaiduMap,
@@ -28,6 +28,7 @@ let map = {
     TinymceEditor,
     LexicalEditor,
     LexicalEditorChatInput,
+    WorkflowEditor,
 }
 export default {
     install: function (app, options) {

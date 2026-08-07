@@ -7,9 +7,22 @@ DAG（有向无环图）工作流系统全局启动器，为Particle框架提供
 - **DAG执行引擎**：支持复杂的有向无环图工作流执行
 - **并发执行**：支持节点的并发执行，提高执行效率
 - **依赖管理**：自动处理节点间的依赖关系
+- **AI 模型调用**：内置 AI 节点执行器，支持多模型动态调用
+- **条件分支**：支持 Groovy/SpEL 表达式条件评估
 - **可扩展性**：支持自定义节点类型和执行器
 - **监控日志**：完整的执行监控和日志记录
 - **配置管理**：灵活的配置管理机制
+
+## 内置节点类型
+
+| 节点类型 | 执行器 | 说明 |
+|---------|--------|------|
+| `HTTP` | `HttpRequestNodeExecutor` | 执行 HTTP 请求 |
+| `GROOVY_SCRIPT` | `GroovyScriptNodeExecutor` | 执行 Groovy 脚本 |
+| `DELAY` | `DelayNodeExecutor` | 延迟等待 |
+| `TRANSFORM` | `DataProcessNodeExecutor` | 数据转换/过滤 |
+| `DATABASE` | `DatabaseNodeExecutor` | 数据库操作 |
+| `AI` | `AiNodeExecutor` | AI 模型调用 |
 
 ## 快速开始
 
@@ -27,35 +40,23 @@ DAG（有向无环图）工作流系统全局启动器，为Particle框架提供
 
 ### 2. 自定义节点执行器
 
-实现`DagNodeExecutor`接口创建自定义节点：
+实现`NodeExecutor`接口创建自定义节点：
 
 ```java
 @Component
-public class HttpNodeExecutor implements DagNodeExecutor {
+public class MyNodeExecutor implements NodeExecutor {
 
     @Override
-    public NodeResult execute(NodeContext nodeContext) {
-        // 实现节点执行逻辑
-        NodeResult result = new NodeResult();
-        result.setNodeId(nodeContext.getNodeId());
-        result.setStartTime(java.time.LocalDateTime.now());
-
-        try {
-            // 执行业务逻辑
-            result.setStatus(NodeResult.ExecutionStatus.SUCCESS);
-        } catch (Exception e) {
-            result.setStatus(NodeResult.ExecutionStatus.FAILED);
-            result.setErrorMessage(e.getMessage());
-        } finally {
-            result.setEndTime(java.time.LocalDateTime.now());
-        }
-
-        return result;
+    public boolean supports(DagNode node) {
+        return "MY_TYPE".equals(node.getType());
     }
 
     @Override
-    public String getNodeType() {
-        return "http"; // 节点类型标识
+    public NodeExecutionResult execute(DagNode node, ExecutionContext context) {
+        // 实现节点执行逻辑
+        Map<String, Object> output = new HashMap<>();
+        output.put("result", "success");
+        return NodeExecutionResult.success(output);
     }
 }
 ```
@@ -69,20 +70,27 @@ dagDefinition.setId("my-dag");
 dagDefinition.setName("My DAG Example");
 
 // 创建节点
-List<NodeDefinition> nodes = new ArrayList<>();
-NodeDefinition node1 = new NodeDefinition();
-node1.setId("node-1");
-node1.setName("HTTP Node");
-node1.setType("http"); // 对应自定义执行器的类型
-nodes.add(node1);
+List<DagNode> nodes = new ArrayList<>();
+
+// AI 节点示例
+DagNode aiNode = new DagNode();
+aiNode.setId("ai-node-1");
+aiNode.setName("AI Processing");
+aiNode.setType("AI");
+Map<String, Object> config = new HashMap<>();
+config.put("modelId", 1L);  // 模型ID
+config.put("promptTemplate", "请分析以下内容：{{input}}");
+aiNode.setConfig(config);
+nodes.add(aiNode);
 
 dagDefinition.setNodes(nodes);
 
 // 创建边（定义节点依赖关系）
-List<EdgeDefinition> edges = new ArrayList<>();
-EdgeDefinition edge = new EdgeDefinition();
-edge.setSourceNodeId("node-1");
-edge.setTargetNodeId("node-2");
+List<DagEdge> edges = new ArrayList<>();
+DagEdge edge = new DagEdge();
+edge.setId("edge-1");
+edge.setFromNodeId("ai-node-1");
+edge.setToNodeId("next-node");
 edges.add(edge);
 
 dagDefinition.setEdges(edges);
@@ -95,84 +103,148 @@ dagDefinition.setEdges(edges);
 private DagEngine dagEngine;
 
 // 创建执行上下文
-DagContext dagContext = new DagContext();
-dagContext.setExecutionId("execution-1");
-dagContext.setDagDefinition(dagDefinition);
+ExecutionContext context = new ExecutionContext();
 
 // 执行DAG
-DagResult result = dagEngine.execute(dagContext);
+ExecutionHandle handle = dagEngine.execute(dagDefinition, context);
+
+// 等待结果
+ExecutionResult result = handle.awaitResult();
 ```
+
+## AI 节点使用示例
+
+### 配置模型
+
+首先需要在业务模块（如 `component/agi`）中配置模型提供商和模型：
+
+```java
+// 实现 ModelConfigGateway 接口
+@Component
+public class AgiModelConfigGatewayImpl implements ModelConfigGateway {
+    
+    @Override
+    public AiModelConfig getModelConfig(Long modelId) {
+        // 从数据库查询模型配置
+        // ...
+        return AiModelConfig.builder()
+            .modelId(modelId)
+            .providerCode("dashscope")
+            .modelCode("qwen-plus")
+            .build();
+    }
+}
+```
+
+### 在 DAG 中使用 AI 节点
+
+```java
+// 创建 AI 节点
+DagNode aiNode = new DagNode();
+aiNode.setId("ai-node-1");
+aiNode.setName("智能分析");
+aiNode.setType("AI");
+
+// 配置节点
+Map<String, Object> config = new HashMap<>();
+config.put("modelId", 1L);  // 必填：模型ID
+config.put("promptTemplate", 
+    "请分析以下数据并给出结论：\n" +
+    "数据：{{inputData}}\n" +
+    "要求：{{requirement}}");
+config.put("temperature", 0.7);  // 可选：覆盖默认温度
+config.put("maxTokens", 2000);   // 可选：覆盖最大 token 数
+aiNode.setConfig(config);
+
+// 执行上下文传入变量
+ExecutionContext context = new ExecutionContext();
+context.getVariables().put("inputData", "今日销售额 100 万元");
+context.getVariables().put("requirement", "简要分析趋势");
+
+// 执行
+ExecutionHandle handle = dagEngine.execute(dagDefinition, context);
+ExecutionResult result = handle.awaitResult();
+
+// 获取 AI 输出
+Map<String, Object> nodeOutput = context.getNodeExecutions()
+    .get("ai-node-1")
+    .getOutput();
+String aiResult = (String) nodeOutput.get("result");
+```
+
+### Prompt 模板语法
+
+支持 `{{variableName}}` 格式的变量替换：
+
+```
+{{variableName}}  ← 从执行上下文 variables 中替换
+```
+
+执行时会从 `ExecutionContext.variables` 中查找对应的值并替换。
 
 ## 核心组件
 
 ### DagEngine
 DAG执行引擎，负责执行整个工作流。
 
-### DagNodeExecutor
+### NodeExecutor
 节点执行器接口，定义节点执行的标准。
 
-### DagDefinitionParser
-DAG定义解析器，支持JSON等格式的DAG定义解析。
+### ExecutionPlanner
+执行规划器，支持激进（并行最大化）和串行两种策略。
 
-### NodeRegistry
-节点注册中心，管理不同类型的节点执行器。
+### ExecutionContext
+执行上下文，用于节点间数据传递和状态管理。
 
-### DagMonitor
-DAG监控器，提供执行过程的监控能力。
-
-### DagLogManager
-DAG日志管理器，提供完整的日志记录功能。
+### ExecutionHandle
+执行句柄，提供 pause/resume/stop/awaitResult 等控制方法。
 
 ## 配置属性
 
 可以在`application.properties`中配置：
 
 ```properties
-# 默认DAG超时时间（毫秒）
+# DAG 引擎配置
 particle.dag.default.timeout=3600000
-
-# 默认重试次数
-particle.dag.default.retry-count=3
-
-# 默认最大并发数
 particle.dag.default.max-concurrency=10
-
-# 默认错误处理策略
-particle.dag.default.error-handling-strategy=fail-fast
-
-# 默认日志级别
-particle.dag.default.log-level=INFO
+particle.dag.default.fault-tolerant=true
 ```
 
 ## 使用示例
 
 参考测试包中的示例代码：
 
-- `DagUsageExample`：DAG使用示例
-- `HttpNodeExecutor`：HTTP节点执行器示例
-- `DataProcessNodeExecutor`：数据处理节点执行器示例
 - `DagEngineIntegrationTest`：集成测试示例
+- `DefaultNodeExecutorsTest`：内置执行器测试
+- `GroovyConditionEvaluatorTest`：条件评估器测试
 
 ## 架构设计
 
-- **模型层**：DagDefinition、NodeDefinition等模型类
-- **引擎层**：DagEngine核心执行引擎
-- **注册层**：NodeRegistry节点注册管理
-- **解析层**：DagDefinitionParser定义解析
-- **监控层**：DagMonitor和DagLogManager监控日志
-- **配置层**：DagConfigurationManager配置管理
+```
+model/              # 领域模型（DagDefinition, DagNode, DagEdge）
+  ↓
+plan/               # 执行规划（ExecutionPlanner, PlanningStrategy）
+  ↓
+engine/             # 执行引擎（DagEngine, ExecutionHandle）
+  ↓
+runtime/            # 运行时（ExecutionContext, NodeExecutor）
+  ├── executor/     #   节点执行器体系
+  └── condition/    #   条件评估器
+```
 
-## 扩展性
+## 依赖说明
 
-系统设计具有良好的扩展性：
-- 可以轻松添加新的节点类型
-- 支持不同的DAG定义格式
-- 可以自定义监控和日志策略
-- 支持自定义配置管理
+| 依赖 | 说明 |
+|------|------|
+| `global-ai-boot-starter` | 可选：使用 AI 节点时需要引入 |
+| `spring-expression` | 可选：使用 SpEL 条件表达式 |
+| `groovy-all` | 可选：使用 Groovy 脚本 |
+| `spring-jdbc` | 可选：使用数据库节点 |
 
 ## 注意事项
 
-- 确保节点类型在NodeRegistry中正确注册
-- DAG定义中避免循环依赖
+- 确保节点类型有对应的执行器注册
+- DAG 定义中避免循环依赖
 - 合理设置超时和重试策略
-- 监控长时间运行的DAG执行
+- 使用 AI 节点时需要实现 `ModelConfigGateway` 接口
+- 监控长时间运行的 DAG 执行

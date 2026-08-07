@@ -1,0 +1,18 @@
+{
+  "extends": "./project/particle-project/tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "typeRoots": [
+      "./project/particle-project/node_modules/@types",
+      "./project/particle-project/node_modules"
+    ],
+    "paths": {
+      "*": ["./project/particle-project/node_modules/*"]
+    }
+  },
+  "include": [
+    "./common/**/*",
+    "./component/**/*",
+    "./global/**/*"
+  ]
+}

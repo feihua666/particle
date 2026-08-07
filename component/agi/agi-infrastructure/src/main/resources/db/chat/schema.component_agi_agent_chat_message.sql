@@ -7,7 +7,7 @@ CREATE TABLE `component_agi_agent_chat_message` (
   `chat_id` varchar(100) NOT NULL COMMENT '对话id，唯一',
   `user_id` bigint DEFAULT NULL COMMENT '用户id，是哪个用户的对话',
   `message_type` varchar(150) NOT NULL COMMENT '消息类型，用来标识是谁的消息如：user、assistant、system',
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin COMMENT '消息内容',
+  `content` longtext COMMENT '消息内容',
   `metadata_json` varchar(2000) DEFAULT NULL COMMENT '元数据信息json',
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `version` int NOT NULL COMMENT '乐观锁字段',

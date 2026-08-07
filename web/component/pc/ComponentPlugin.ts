@@ -22,6 +22,10 @@ import ConfigPlugin from './config/ConfigPlugin'
 import DataConstraintPlugin from './dataconstraint/DataConstraintPlugin'
 import AgiPlugin from './agi/AgiPlugin'
 import CmsPlugin from './cms/CmsPlugin'
+import DataPlugin from './data/DataPlugin'
+import ComponentadminPlugin from './componentadmin/ComponentadminPlugin'
+import AuditPlugin from './audit/AuditPlugin'
+import WorkflowPlugin from './workflow/WorkflowPlugin'
 
 export default {
     install: function (app, options) {
@@ -49,5 +53,9 @@ export default {
         DataConstraintPlugin.install(app,options)
         AgiPlugin.install(app,options)
         CmsPlugin.install(app,options)
+        DataPlugin.install(app,options)
+        ComponentadminPlugin.install(app,options)
+        AuditPlugin.install(app,options)
+        WorkflowPlugin.install(app,options)
     }
 }

@@ -271,4 +271,34 @@ public class TransTableNameConstants {
     public static final String component_admin_component = "component_admin_component";
 
 
+	/**
+	 * 工作流项目表
+	 */
+	public static final String component_workflow_project = "component_workflow_project";
+	/**
+	 * 工作流定义表
+	 */
+	public static final String component_workflow_definition = "component_workflow_definition";
+
+	/**
+	 * 工作流定义历史表
+	 */
+	public static final String component_workflow_definition_history = "component_workflow_definition_history";
+
+
+
+	/**
+	 * 爬虫项目表
+	 */
+	public static final String component_crawler_project = "component_crawler_project";
+	/**
+	 * 爬虫定义表
+	 */
+	public static final String component_crawler_definition = "component_crawler_definition";
+
+	/**
+	 * 爬虫定义历史表
+	 */
+	public static final String component_crawler_definition_history = "component_crawler_definition_history";
+
 }

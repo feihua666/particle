@@ -1,6 +1,5 @@
 package com.particle.global.tool.condition;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -71,11 +70,14 @@ public class BooleanTool {
 	/**
 	 * 布尔条件
 	 */
-	@AllArgsConstructor
 	@Getter
 	public static class BooleanCondition{
-		private boolean bool;
+		public BooleanCondition(boolean bool, String msg) {
+			this.bool = bool;
+			this.msg = msg;
+		}
 
+		private boolean bool;
 		private String msg;
 	}
 

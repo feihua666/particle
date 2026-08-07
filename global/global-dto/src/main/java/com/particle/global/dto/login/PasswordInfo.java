@@ -3,7 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * @since 2023-05-30 16:25:32
  */
 @Data
-@Builder
 @Schema(description = "密码信息")
 public class PasswordInfo extends DTO {
 
@@ -56,15 +55,17 @@ public class PasswordInfo extends DTO {
 									  LocalDateTime pwdModifiedAt,
 									  Integer complexity
 								  ) {
-		return PasswordInfo.builder().id(id)
-				.identifierId(identifierId)
-				.isExpired(isExpired)
-				.expiredReason(expiredReason)
-				.expireAt(expireAt)
-				.isNeedUpdate(isNeedUpdate)
-				.needUpdateMessage(needUpdateMessage)
-				.pwdModifiedAt(pwdModifiedAt)
-				.complexity(complexity)
-				.build();
+
+		PasswordInfo passwordInfo = new PasswordInfo();
+		passwordInfo.setId(id);
+		passwordInfo.setIdentifierId(identifierId);
+		passwordInfo.setIsExpired(isExpired);
+		passwordInfo.setExpiredReason(expiredReason);
+		passwordInfo.setExpireAt(expireAt);
+		passwordInfo.setIsNeedUpdate(isNeedUpdate);
+		passwordInfo.setNeedUpdateMessage(needUpdateMessage);
+		passwordInfo.setPwdModifiedAt(pwdModifiedAt);
+		passwordInfo.setComplexity(complexity);
+		return passwordInfo;
 	}
 }

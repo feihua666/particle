@@ -2,8 +2,8 @@
  * 动态创建引入外部脚本
  * @param url
  */
-export function loadScript(url){
-    var script = document.createElement('script')
+export function loadScript(url: string){
+    let script = document.createElement('script')
     script.type = 'text/javascript'
     script.src = url
     document.body.appendChild(script)
@@ -14,9 +14,9 @@ export function loadScript(url){
  * 动态创建页面内脚本
  * @param code
  */
-export function loadScriptCode(code){
-    var codeNode = document.createTextNode(code)
-    var script = document.createElement('script')
+export function loadScriptCode(code: string){
+    let codeNode = document.createTextNode(code)
+    let script = document.createElement('script')
     script.type = 'text/javascript'
     try{
         script.appendChild(codeNode)
@@ -32,12 +32,12 @@ export function loadScriptCode(code){
  * 动态引入外部样式
  * @param url
  */
-export function loadStyle(url){
-    var link = document.createElement('link')
+export function loadStyle(url: string){
+    let link = document.createElement('link')
     link.rel = 'stylesheet'
     link.type = 'text/css'
     link.href = url
-    var head = document.getElementsByTagName('head')[0]
+    let head = document.getElementsByTagName('head')[0]
     head.appendChild(link)
 }
 
@@ -45,16 +45,9 @@ export function loadStyle(url){
  * 动态创建页面内样式
  * @param css
  */
-export function loadStyleString(css){
-    var style = document.createElement('style')
-    style.type = 'text/css'
-    try{
-        style.appendChild(document.createTextNode(css))
-    }catch(ex){
-        // 也是为了兼容IE，估计以后也用不上了
-        style.styleSheet.cssText = css
-    }
-    var head = document.getElementsByTagName('head')[0]
+export function loadStyleString(css: string){
+    let style = document.createElement('style')
+    style.appendChild(document.createTextNode(css))
+    let head = document.getElementsByTagName('head')[0]
     head.appendChild(style)
-    // 内部创建的样式，也同样可以使用head.removeChild 进行删除
 }

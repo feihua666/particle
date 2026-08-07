@@ -27,6 +27,8 @@ import CmsRoutes from "./cms/CmsRoutes";
 import DataRoutes from "./data/DataRoutes";
 import ComponentadminRoutes from "./componentadmin/ComponentadminRoutes";
 import AuditRoutes from "./audit/AuditRoutes";
+import WorkflowRoutes from "./workflow/WorkflowRoutes";
+import CrawlerRoutes from "./crawler/CrawlerRoutes.ts";
 
 let ComponentRoutes = []
     .concat(FuncRoutes)
@@ -58,4 +60,6 @@ let ComponentRoutes = []
     .concat(DataRoutes)
     .concat(ComponentadminRoutes)
     .concat(AuditRoutes)
+    .concat(WorkflowRoutes)
+    .concat(CrawlerRoutes)
 export default ComponentRoutes

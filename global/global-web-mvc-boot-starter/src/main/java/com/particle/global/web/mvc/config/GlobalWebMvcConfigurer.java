@@ -2,13 +2,16 @@ package com.particle.global.web.mvc.config;
 
 import com.particle.global.web.mvc.LoginUserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -25,8 +28,10 @@ import java.util.Objects;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@ConfigurationProperties(prefix = "particle.global.web.mvc")
 public class GlobalWebMvcConfigurer implements WebMvcConfigurer {
 
+	private List<String> resource404PathPatterns;
 	/**
 	 * 该converter是在 {@org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration#mappingJackson2HttpMessageConverter(com.fasterxml.jackson.databind.ObjectMapper)} 中注入的
 	 */
@@ -90,5 +95,21 @@ public class GlobalWebMvcConfigurer implements WebMvcConfigurer {
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 		resolvers.add(new LoginUserArgumentResolver());
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		WebMvcConfigurer.super.addResourceHandlers(registry);
+		// 创建一个新的资源处理器，将 /doc.html 映射到一个不存在的路径
+		// 这样当请求 /doc.html 时，因为找不到对应资源，就会返回 404
+		if (resource404PathPatterns != null && !resource404PathPatterns.isEmpty()) {
+			registry.addResourceHandler(resource404PathPatterns.toArray(new String[0]))
+					.addResourceLocations("classpath:/resource404__/");
+		}
+
+	}
+
+	public void setResource404PathPatterns(List<String> resource404PathPatterns) {
+		this.resource404PathPatterns = resource404PathPatterns;
 	}
 }

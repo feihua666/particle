@@ -97,8 +97,8 @@ public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthen
      * @throws IOException
      */
     protected void outJson(HttpServletResponse httpServletResponse,SingleResponse<Object> singleResponse)  throws IOException{
-        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = ApplicationContextForSecurityHelper.getBean(MappingJackson2HttpMessageConverter.class);
-        String toJsonStrForHttp = JsonTool.toJsonStrForHttp(singleResponse, jackson2HttpMessageConverter.getObjectMapper(), DefaultAuthenticationSuccessHandler.class);
+
+        String toJsonStrForHttp = JsonTool.toJsonStrForHttp(singleResponse, JsonTool.getObjectMapper(), DefaultAuthenticationSuccessHandler.class);
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter out = httpServletResponse.getWriter();
         out.write(toJsonStrForHttp);

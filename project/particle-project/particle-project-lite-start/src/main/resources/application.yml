@@ -22,18 +22,18 @@ spring:
       datasource:
         master:
           # 数据库连接地址如：jdbc:mysql://localhost/particle_test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
-          url: ${particle.datasource.master.url}?${particle.datasource.mysql.url-query}
+          url: ${particle.global.datasource.master.url}?${particle.global.datasource.mysql.url-query}
           # 数据库连接用户名
           username: root
           # 数据库连接密码
           password: rootroot
-          driver-class-name: ${particle.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
+          driver-class-name: ${particle.global.datasource.mysql.driver} # 3.2.0开始支持SPI可省略此配置
         # postgresql 主要用于ai存储向量
 #        masterPg:
-#          url: jdbc:postgresql://localhost/particle_test?${particle.datasource.postgresql.url-query:}
+#          url: jdbc:postgresql://localhost/particle_test?${particle.global.datasource.postgresql.url-query:}
 #          username: postgres
 #          password: postgrespostgres
-#          driver-class-name: ${particle.datasource.postgresql.driver}
+#          driver-class-name: ${particle.global.datasource.postgresql.driver}
 
   # 注意，这里的配置是spring的但实现已经自定义，参考 global-datasource-boot-starter 组件 sqlinit 包实现
   sql:
@@ -45,6 +45,9 @@ spring:
         - classpath:db/schema.func.sql
         - classpath:db/schema.user.sql
         - classpath:db/schema.role.sql
+        # 两个消息事件表是全局消息表，必须得有
+        - classpath:db/schema.global_message_event.sql
+        - classpath:db/schema.global_message_event_consume_record.sql
         - classpath:db/schema.tenant.sql
         - classpath:db/schema.op-log.sql
         - classpath:db/schema.global_spring_session.sql

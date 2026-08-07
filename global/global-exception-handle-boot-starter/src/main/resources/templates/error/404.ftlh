@@ -60,5 +60,6 @@
         请检查URL是否正确，或返回首页。
     </div>
 </div>
+<!--404.ftlh in global-exception templates/error-->
 </body>
 </html>

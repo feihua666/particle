@@ -9,7 +9,7 @@ import com.particle.global.mybatis.plus.mybatis.DynamicSqlSourceHelperTool;
 import com.particle.global.tool.script.GroovyTool;
 import com.particle.global.tool.template.TemplateRenderDataWrap;
 import com.particle.global.tool.template.TemplateTool;
-import lombok.Builder;
+
 import lombok.Data;
 import lombok.SneakyThrows;
 
@@ -123,7 +123,6 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 	 * 渲染结果
 	 */
 	@Data
-	@Builder
 	public static class RenderResult{
 
 		/**
@@ -136,10 +135,14 @@ public class JdbcBigDatasourceApiConfig extends AbstractBigDatasourceApiConfig {
 		private String strTemplateResult;
 
 		public static RenderResult createByResult(Object result) {
-			return RenderResult.builder().result(result).build();
+			RenderResult renderResult = new RenderResult();
+			renderResult.result = result;
+			return renderResult;
 		}
 		public static RenderResult createByStrTemplateResult(String strTemplateResult) {
-			return RenderResult.builder().strTemplateResult(strTemplateResult).build();
+			RenderResult renderResult = new RenderResult();
+			renderResult.strTemplateResult = strTemplateResult;
+			return renderResult;
 		}
 	}
 }

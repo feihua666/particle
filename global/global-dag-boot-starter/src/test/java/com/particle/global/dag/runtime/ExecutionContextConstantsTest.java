@@ -17,7 +17,6 @@ public class ExecutionContextConstantsTest {
     @Test
     public void testConstantsValues() {
         assertEquals("_executed", ExecutionContextConstants.EXECUTED_SUFFIX);
-        assertEquals("_result", ExecutionContextConstants.RESULT_SUFFIX);
         assertEquals("_skipped", ExecutionContextConstants.SKIPPED_SUFFIX);
     }
 
@@ -25,9 +24,7 @@ public class ExecutionContextConstantsTest {
     public void testGetNodeVariableNames() {
         String nodeId = "testNode";
 
-        assertEquals("testNode", ExecutionContextConstants.getNodeOutputVariableName(nodeId));
         assertEquals("testNode_executed", ExecutionContextConstants.getNodeExecutedVariableName(nodeId));
-        assertEquals("testNode_result", ExecutionContextConstants.getNodeResultVariableName(nodeId));
         assertEquals("testNode_skipped", ExecutionContextConstants.getNodeSkippedVariableName(nodeId));
     }
 
@@ -36,7 +33,6 @@ public class ExecutionContextConstantsTest {
         String nodeId = "node-with.special.chars_123";
 
         assertEquals("node-with.special.chars_123_executed", ExecutionContextConstants.getNodeExecutedVariableName(nodeId));
-        assertEquals("node-with.special.chars_123_result", ExecutionContextConstants.getNodeResultVariableName(nodeId));
         assertEquals("node-with.special.chars_123_skipped", ExecutionContextConstants.getNodeSkippedVariableName(nodeId));
     }
 
@@ -45,7 +41,6 @@ public class ExecutionContextConstantsTest {
         // Test with null node ID - should not throw exception
         assertDoesNotThrow(() -> {
             ExecutionContextConstants.getNodeExecutedVariableName(null);
-            ExecutionContextConstants.getNodeResultVariableName(null);
             ExecutionContextConstants.getNodeSkippedVariableName(null);
         });
     }

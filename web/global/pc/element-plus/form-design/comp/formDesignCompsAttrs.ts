@@ -1,7 +1,7 @@
 /**
  * 表单项组件通用属性
  */
-import {FormDesignItemType} from "../main/formDesignItemType";
+import {type FormDesignItemType} from "../main/formDesignItemType";
 import {formChange, initForm} from "../attr/FormDesignAttrs";
 
 /**

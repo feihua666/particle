@@ -60,5 +60,6 @@
         请检查URL是否正确，确认您访问的页面是否已发布或返回首页。
     </div>
 </div>
+<!--404.ftlh in cms-adapter templates/cms/global/404-->
 </body>
 </html>

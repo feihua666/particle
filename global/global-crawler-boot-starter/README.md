@@ -1,77 +1,33 @@
 # 全局爬虫组件
 
-全局爬虫组件提供网络爬虫相关依赖和工具，基于 Selenium WebDriver 和 Playwright 实现，支持 Chrome、Firefox 等多种浏览器自动化。
+全局爬虫组件提供现代化的爬虫架构，基于 Action-Pipeline-Driver 设计模式，支持多引擎驱动和链式 DSL 构建。
 
 ## 功能特性
 
-1. **浏览器自动化**：基于 Selenium WebDriver 和 Playwright 实现浏览器自动化操作
-2. **多浏览器支持**：支持 Chrome、Firefox 等多种浏览器
-3. **驱动管理**：集成 WebDriverManager 实现驱动自动下载和管理
-4. **反检测机制**：提供基础的反自动化检测隐藏技术
-5. **测试工具**：提供简单易用的测试用例模板
+1. **Pipeline 构建器**：提供流式 API 链式构建爬虫流程
+2. **多引擎支持**：支持 HTTP（Jsoup）、Playwright、Selenium 三种驱动
+3. **Action 插件化**：所有操作抽象为 Action，支持自定义扩展
+4. **智能 Driver 工厂**：根据配置自动创建对应驱动实例
+5. **完整浏览器控制**：支持点击、输入、按键、滚动、悬停等操作
+6. **灵活数据提取**：支持文本、HTML、属性、列表、标题提取
 
-## 核心组件
+## 核心概念
 
-### WebDriver 支持
-- ChromeDriver 支持
-- FirefoxDriver 支持
-- 浏览器选项配置工具
+### 调用链
 
-### Playwright 支持
-- Firefox 浏览器自动化
-- 无头和有头模式支持
-- JavaScript 执行和页面操作
-- 页面元素选择和数据提取
-
-### 驱动管理
-- WebDriverManager 自动驱动下载
-
-### 反检测工具
-- WebDriver 属性隐藏
-- User-Agent 设置
-- 浏览器指纹伪装
-
-## 配置选项
-
-### Chrome 驱动配置
-
-使用 [SimpleChromeTest.java](src/test/java/com/particle/global/crawler/test/webdriver/chrome/SimpleChromeTest.java) 测试时，需要下载驱动并配置驱动路径：
-
-1. 打开下载地址找到对应平台版本和安装的 Chrome 版本，下载对应版本驱动
-2. 下载地址：https://googlechromelabs.github.io/chrome-for-testing
-
-配置示例：
-```java
-System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+```
+PipelineBuilder → CrawlPipeline → CrawlRuntime → RuntimeContext → Driver → ActionResult
 ```
 
-### Firefox 驱动配置
+### 三层架构
 
-使用 CrawlerFirefoxTest 测试时，需要下载驱动并配置驱动路径：
+1. **Pipeline 层**：通过 PipelineBuilder 链式构建 Action 序列
+2. **Runtime 层**：CrawlRuntime 执行 Pipeline，管理运行时上下文
+3. **Driver 层**：根据配置创建 HTTP/Playwright/Selenium 驱动
 
-1. 打开下载地址，找到火狐对应的版本，下载对应驱动
-2. 下载地址：https://github.com/mozilla/geckodriver/releases
+## 快速开始
 
-配置示例：
-```java
-System.setProperty("webdriver.gecko.driver", "/path/to/geckodriver");
-```
-
-### Playwright 配置
-
-Playwright 需要安装浏览器驱动，可以通过以下命令安装：
-
-```bash
-# 安装所有支持的浏览器
-mvn exec:java -e -D exec.mainClass="com.microsoft.playwright.cli.Playwright" -D exec.args="install"
-
-# 或者只安装 Firefox
-mvn exec:java -e -D exec.mainClass="com.microsoft.playwright.cli.Playwright" -D exec.args="install firefox"
-```
-
-## 使用方法
-
-### 添加依赖
+### 1. 添加依赖
 
 ```xml
 <dependency>
@@ -80,46 +36,251 @@ mvn exec:java -e -D exec.mainClass="com.microsoft.playwright.cli.Playwright" -D 
 </dependency>
 ```
 
-### 简单使用示例
+### 2. 使用示例
+
+#### 方式一：使用 PipelineBuilder（推荐）
 
 ```java
-// 设置驱动路径
-System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+// 简单爬虫
+CrawlPipeline pipeline = PipelineBuilder.create("新闻爬虫")
+    .open("https://news.ycombinator.com")
+    .extractText(".titleline a", "titles")
+    .build();
 
-// 配置浏览器选项
-ChromeOptions options = new ChromeOptions();
-options.addArguments("--no-sandbox");
-options.addArguments("--disable-dev-shm-usage");
+List<ActionResult> results = crawlRuntime.execute(pipeline);
+List<String> titles = results.get(1).getData();
 
-// 创建 WebDriver 实例
-WebDriver driver = new ChromeDriver(options);
-
-// 访问网页
-driver.get("https://www.example.com");
-
-// 关闭浏览器
-driver.quit();
+// 复杂爬虫
+CrawlPipeline pipeline = PipelineBuilder.create("商品爬虫")
+    .open("https://example.com/products")
+    .click(".next-page")
+    .scrollToBottom()
+    .extractList(".product-item", as -> {
+        as.text("title", ".name");
+        as.attr("image", ".img", "src");
+        as.href("link", ".detail-link");
+    })
+    .enter("#search-input")  // 在输入框按回车
+    .delay(1000)
+    .close()
+    .build();
 ```
 
-### Playwright 使用示例
+#### 方式二：直接使用 Driver
 
 ```java
-try (Playwright playwright = Playwright.create()) {
-    Browser browser = playwright.firefox().launch(new BrowserType.LaunchOptions()
-            .setHeadless(false));
-    Page page = browser.newPage();
-    page.navigate("https://example.com");
-    System.out.println(page.title());
-    browser.close();
+// HTTP 驱动（静态页面）
+HttpDriver driver = new HttpDriver();
+driver.open("https://example.com");
+List<String> titles = driver.extractText(".title");
+String pageTitle = driver.getTitle();
+
+// Playwright 驱动（动态页面）
+PlaywrightOptions options = new PlaywrightOptions();
+options.setIsHeadless(false);
+options.setBrowserType(BrowserType.CHROME);
+CrawlDriver driver = DriverFactory.create(DriverType.PLAYWRIGHT, runtimeOptions);
+driver.open("https://example.com");
+driver.click(".button");
+driver.pressKey("Enter");  // 按回车键
+List<String> texts = driver.extractText(".content");
+driver.close();
+```
+
+## 架构设计
+
+### 核心组件
+
+- **PipelineBuilder**：链式 DSL 构建器，提供流畅的 API
+- **CrawlPipeline**：封装的 Action 序列
+- **CrawlRuntime**：统一运行时入口，执行 Pipeline
+- **RuntimeContext**：运行时上下文，管理变量和状态
+- **DriverFactory**：无状态工厂，根据类型创建驱动
+- **CrawlDriver**：驱动接口（HTTP、Playwright、Selenium）
+- **CrawlAction**：动作接口（浏览器操作、数据提取、流程控制）
+
+### 设计原则
+
+1. **链式构建**：PipelineBuilder 提供流式 API，代码可读性强
+2. **驱动解耦**：DriverFactory 无状态设计，按需创建驱动实例
+3. **能力分离**：Action 按功能分类（Browser/Extract/Flow）
+4. **Starter 定位**：作为 Spring Boot Starter 嵌入使用
+
+### Action 类型
+
+#### Browser Actions（浏览器操作）
+- `BrowserOpenAction` - 打开页面
+- `BrowserClickAction` - 点击元素
+- `BrowserInputAction` - 输入文本
+- `BrowserHoverAction` - 鼠标悬停
+- `BrowserScrollAction` - 滚动页面
+- `BrowserWaitAction` - 等待
+- `BrowserPressKeyAction` - 按下键盘按键
+- `BrowserEnterAction` - 在元素上按回车
+- `BrowserNewPageAction` - 新建标签页
+- `BrowserClosePageAction` - 关闭标签页
+- `BrowserCloseAction` - 关闭浏览器
+
+#### Extract Actions（数据提取）
+- `ExtractTextAction` - 提取文本
+- `ExtractHtmlAction` - 提取 HTML
+- `ExtractAttrAction` - 提取属性
+- `ExtractListAction` - 提取列表
+- `ExtractTitleAction` - 提取页面标题
+
+#### Flow Actions（流程控制）
+- `DelayAction` - 延迟执行
+- `RetryAction` - 重试机制
+
+## PipelineBuilder API
+
+### 浏览器操作
+
+```java
+PipelineBuilder.create()
+    .open("https://example.com")           // 打开页面
+    .click(".button")                       // 点击元素
+    .click(".button", 5000)                 // 点击元素（指定超时）
+    .input("#username", "admin")            // 输入文本
+    .hover(".menu")                         // 鼠标悬停
+    .scroll(500)                            // 滚动像素
+    .scrollToBottom()                       // 滚动到底部
+    .enter("#search")                       // 在元素上按回车
+    .pressKey("Tab")                        // 按下指定按键
+    .delay(1000)                            // 延迟1秒
+    .close()                                // 关闭浏览器
+```
+
+### 数据提取
+
+```java
+PipelineBuilder.create()
+    .extractText(".title")                  // 提取文本
+    .extractText(".title", "myTitle")       // 提取文本并存储到变量
+    .extractHtml(".content")                // 提取 HTML
+    .extractAttr("a.link", "href")          // 提取属性
+    .extractAttr("img", "src", "images")    // 提取属性并存储
+    .extractTitle()                         // 提取页面标题
+    .extractTitle("pageTitle")              // 提取标题并存储
+    .extractList(".item", item -> {         // 提取列表
+        item.text("name", ".name");
+        item.attr("link", "a", "href");
+        item.src("image", "img");
+    })
+```
+
+## 驱动配置
+
+### Playwright 配置
+
+```java
+PlaywrightOptions options = new PlaywrightOptions();
+options.setBrowserType(BrowserType.CHROME);     // CHROME/FIREFOX/WEBKIT/EDGE
+options.setIsHeadless(true);                     // 无头模式
+options.setTimeout(30000);                       // 超时时间
+options.setExecutablePath("/path/to/chrome");   // 本地浏览器路径
+options.setUserDataDir("/path/to/userdata");    // 用户数据目录（持久化）
+options.setBrowsersPath("/path/to/browsers");   // 浏览器缓存目录
+options.setIsStealth(true);                      // 启用反检测
+```
+
+### Selenium 配置
+
+```java
+SeleniumOptions options = new SeleniumOptions();
+options.setBrowserType(BrowserType.CHROME);
+options.setIsHeadless(true);
+options.setIsDisableGpu(true);                   // 禁用 GPU
+options.setIsDisableExtensions(true);            // 禁用扩展
+options.setExecutablePath("/path/to/chrome");
+options.setUserDataDir("/path/to/userdata");
+```
+
+### HTTP 配置
+
+```java
+HttpConfig config = new HttpConfig();
+config.setTimeout(30000);
+config.setUserAgent("Mozilla/5.0...");
+config.setIsFollowRedirects(true);
+```
+
+## 扩展示例
+
+### 自定义 Action
+
+```java
+public class CustomScreenshotAction implements CrawlAction {
+    
+    private String filePath;
+    
+    public CustomScreenshotAction(String filePath) {
+        this.filePath = filePath;
+    }
+    
+    @Override
+    public ActionType type() {
+        return ActionType.CUSTOM;
+    }
+    
+    @Override
+    public ActionResult execute(RuntimeContext context) {
+        try {
+            CrawlDriver driver = context.getDriver();
+            if (driver instanceof PlaywrightDriver) {
+                ((PlaywrightDriver) driver).screenshotTo(filePath);
+                return ActionResult.success().setMessage("截图保存: " + filePath);
+            }
+            return ActionResult.fail("当前驱动不支持截图");
+        } catch (Exception e) {
+            return ActionResult.fail(e);
+        }
+    }
 }
+
+// 使用
+PipelineBuilder.create()
+    .open("https://example.com")
+    .add(new CustomScreenshotAction("/tmp/screenshot.png"))
+    .build();
 ```
 
-## 自动配置
+## 注意事项
 
-模块通过 Maven 依赖自动引入 Selenium WebDriver、WebDriverManager 和 Playwright，无需额外配置即可使用。
+- Playwright 首次使用会自动下载浏览器驱动，可配置跳过下载并使用本地浏览器
+- HTTP Driver 不支持 JavaScript 渲染的动态页面
+- Selenium 中的 WEBKIT 映射为 Safari 浏览器
+- 使用持久化模式（userDataDir）可以保持登录状态和会话
+- 反检测功能（isStealth）仅对 Playwright 有效
+- Pipeline 执行完成后需要手动关闭浏览器（调用 close Action）
 
-## 依赖组件
+## 常见问题
 
-- Selenium Java: https://www.selenium.dev
-- WebDriverManager: https://github.com/bonigarcia/webdrivermanager
-- Playwright: https://playwright.dev/java
+### 1. Playwright 浏览器下载慢？
+
+配置本地浏览器路径或设置 browsersPath：
+
+```java
+options.setExecutablePath("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
+System.setProperty("playwright.browsers.path", "/custom/path");
+```
+
+### 2. 如何保持登录状态？
+
+使用持久化用户数据目录：
+
+```java
+options.setUserDataDir("/path/to/chrome-profile");
+```
+
+### 3. 如何处理动态加载内容？
+
+使用浏览器驱动并添加等待：
+
+```java
+PipelineBuilder.create()
+    .open("https://example.com")
+    .waitFor(2000)  // 等待2秒
+    .extractText(".dynamic-content")
+    .build();
+```

@@ -1,4 +1,4 @@
-import axios, {AxiosPromise} from 'axios'
+import axios, {type AxiosPromise} from 'axios'
 import getApiPrefix from "../../../../../common/api/apiPrefixConfig";
 
 let dictPrefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_DICT) + '/front/web/dict'

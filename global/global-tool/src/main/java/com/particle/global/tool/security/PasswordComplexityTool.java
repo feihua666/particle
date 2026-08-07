@@ -1,9 +1,7 @@
 package com.particle.global.tool.security;
 
 import cn.hutool.core.util.ReUtil;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -30,16 +28,12 @@ public class PasswordComplexityTool {
 
     @Setter
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class PasswordComplexity{
         private int complexityLevel;
         private String evaluate;
     }
     @Setter
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class PasswordComplexityResult{
         private int complexityLevel;
         private List<PasswordComplexity> passwordComplexities;

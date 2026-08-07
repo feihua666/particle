@@ -1,7 +1,7 @@
 package com.particle.global.tool.template;
 
 import cn.hutool.script.ScriptUtil;
-import lombok.Builder;
+
 import lombok.Data;
 
 import javax.script.*;
@@ -39,7 +39,7 @@ public class GroovyScriptEngineTest {
 		Compilable compilable = ((Compilable) groovyEngine);
 		CompiledScript compile = compilable.compile("testobj.changeName(sss);def result = testobj.name;result;testobj.create('eeeee','ddddddd')");
 		Bindings bindings = groovyEngine.createBindings();
-		bindings.put("testobj", TestObj.builder().build());
+		bindings.put("testobj", new TestObj());
 		bindings.put("sss", "sssssssssss");
 
 		System.out.println(compile.eval(bindings));
@@ -61,14 +61,13 @@ public class GroovyScriptEngineTest {
 	public static void createBindingsTestobj(ScriptEngine groovyEngine, String prefix) {
 		Bindings bindings = groovyEngine.createBindings();
 
-		bindings.put(prefix + "obj", TestObj.builder().build());
+		bindings.put(prefix + "obj", new TestObj());
 		// binding 重置设置之后，以前的就没有了
 		groovyEngine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
 
 	}
 
 	@Data
-	@Builder
 	public static class TestObj{
 		private String name;
 		private String value;
@@ -78,7 +77,10 @@ public class GroovyScriptEngineTest {
 		}
 
 		public TestObj create(String name, String value) {
-			return TestObj.builder().name(name).value(value).build();
+			TestObj testObj = new TestObj();
+			testObj.name = name;
+			testObj.value = value;
+			return testObj;
 		}
 	}
 }

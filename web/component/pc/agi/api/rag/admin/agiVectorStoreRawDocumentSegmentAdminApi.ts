@@ -1,6 +1,6 @@
-import axios, { AxiosPromise} from 'axios'
-import {anyObj} from "../../../../../../global/common/tools/ObjectTools";
-import {IdParam, updateParam} from "../../../../../../common/api/api";
+import axios, {type AxiosPromise} from 'axios'
+import type {anyObj} from "../../../../../../global/common/tools/ObjectTools";
+import type {IdParam, updateParam} from "../../../../../../common/api/api";
 
 import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
 let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_AGI) + '/admin/web/agi_vector_store_raw_document_segment'

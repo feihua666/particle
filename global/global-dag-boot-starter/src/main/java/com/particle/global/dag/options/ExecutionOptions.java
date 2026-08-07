@@ -1,15 +1,22 @@
 package com.particle.global.dag.options;
 
+import com.google.common.collect.Lists;
+import com.particle.global.dag.constants.NodeRoleConstants;
+import com.particle.global.dag.constants.NodeTypeConstants;
+
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
- * <p>
  * DAG 执行选项
+ * <p>
+ * 控制执行范围（全量/局部/重试）和容错行为。
+ * 并行执行由 dag 引擎根据 DAG 拓扑自动决定，不需要配置。
  * </p>
  *
- * @author Claude
+ * @author particle
  * @since 2026-01-09 10:22:40
  */
 public class ExecutionOptions {
@@ -38,71 +45,48 @@ public class ExecutionOptions {
     private final boolean skipSuccessful;
 
     /**
-     * 是否启用容错执行
+     * 是否启用容错执行（节点失败后继续执行后续节点）
      */
     private final boolean faultTolerant;
 
     /**
-     * 是否启用并行执行
+     * 停止节点 ID （执行到该节点完成后停止）
+     * null 表示不限制，执行到 DAG 尾部
      */
-    private final boolean parallel;
-
+    private final String stopAfterNodeId;
     /**
-     * 是否启用条件执行
+     * 跳过指定角色的节点
      */
-    private final boolean conditional;
+    private final List<String> skippedNodeRoles = Lists.newArrayList(NodeRoleConstants.CONSTANT_OUTPUT);
 
     private ExecutionOptions(Set<String> startNodeIds,
                              boolean skipUpstream,
                              boolean retryFailedOnly,
                              boolean skipSuccessful,
                              boolean faultTolerant,
-                             boolean parallel,
-                             boolean conditional) {
+                             String stopAfterNodeId) {
         this.startNodeIds = startNodeIds != null ? new HashSet<>(startNodeIds) : new HashSet<>();
         this.skipUpstream = skipUpstream;
         this.retryFailedOnly = retryFailedOnly;
         this.skipSuccessful = skipSuccessful;
         this.faultTolerant = faultTolerant;
-        this.parallel = parallel;
-        this.conditional = conditional;
+        this.stopAfterNodeId = stopAfterNodeId;
     }
 
-    private ExecutionOptions(Set<String> startNodeIds,
-                             boolean skipUpstream) {
-        this(startNodeIds, skipUpstream, false, false, false, false, false);
-    }
-
-    /* -------------------- 工厂方法 -------------------- */
+    // ==================== 工厂方法 ====================
 
     /**
      * 全量执行（从 DAG root 开始）
      */
     public static ExecutionOptions full() {
-        return new ExecutionOptions(
-                Collections.emptySet(),
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-        );
+        return new ExecutionOptions(Collections.emptySet(), false, false, false, false, null);
     }
 
     /**
      * 从指定节点开始执行
      */
     public static ExecutionOptions partial(Set<String> startNodeIds) {
-        return new ExecutionOptions(
-                startNodeIds,
-                true,
-                false,
-                false,
-                false,
-                false,
-                false
-        );
+        return new ExecutionOptions(startNodeIds, true, false, false, false, null);
     }
 
     /**
@@ -116,30 +100,34 @@ public class ExecutionOptions {
      * 重试失败节点
      */
     public static ExecutionOptions retryFailed() {
-        return new ExecutionOptions(
-                Collections.emptySet(),
-                false,
-                true,
-                false,
-                false,
-                false,
-                false
-        );
+        return new ExecutionOptions(Collections.emptySet(), false, true, false, false, null);
     }
 
     /**
      * 跳过成功节点执行
      */
     public static ExecutionOptions skipSuccessful() {
-        return new ExecutionOptions(
-                Collections.emptySet(),
-                false,
-                false,
-                true,
-                false,
-                false,
-                false
-        );
+        return new ExecutionOptions(Collections.emptySet(), false, false, true, false, null);
+    }
+
+    /**
+     * 执行到此节点为止（包含该节点，执行完成后停止）
+     */
+    public static ExecutionOptions upTo(String stopAfterNodeId) {
+        return new ExecutionOptions(Collections.emptySet(), false, false, false, false, stopAfterNodeId);
+    }
+
+    /**
+     * 从指定节点开始，执行到指定节点为止（包含两端）
+     * <p>
+     * 等价于 partial(startNodeId) + upTo(endNodeId) 的组合。
+     * </p>
+     *
+     * @param startNodeId 起始节点ID（从此节点开始执行）
+     * @param endNodeId   结束节点ID（执行到该节点后停止）
+     */
+    public static ExecutionOptions fromTo(String startNodeId, String endNodeId) {
+        return new ExecutionOptions(Set.of(startNodeId), true, false, false, false, endNodeId);
     }
 
     /**
@@ -148,71 +136,39 @@ public class ExecutionOptions {
     public static ExecutionOptions custom(Set<String> startNodeIds,
                                          boolean skipUpstream,
                                          boolean retryFailedOnly,
-                                         boolean skipSuccessful) {
-        return custom(startNodeIds, skipUpstream, retryFailedOnly, skipSuccessful, false, false, false);
-    }
-
-    /**
-     * 自定义执行选项（完整参数）
-     */
-    public static ExecutionOptions custom(Set<String> startNodeIds,
-                                         boolean skipUpstream,
-                                         boolean retryFailedOnly,
                                          boolean skipSuccessful,
                                          boolean faultTolerant,
-                                         boolean parallel,
-                                         boolean conditional) {
-        return new ExecutionOptions(
-                startNodeIds != null ? new HashSet<>(startNodeIds) : Collections.emptySet(),
-                skipUpstream,
-                retryFailedOnly,
-                skipSuccessful,
-                faultTolerant,
-                parallel,
-                conditional
-        );
+                                         String stopAfterNodeId) {
+        return new ExecutionOptions(startNodeIds, skipUpstream, retryFailedOnly, skipSuccessful, faultTolerant, stopAfterNodeId);
     }
 
-    /* -------------------- Getter -------------------- */
+    // ==================== Getter ====================
 
-    /**
-     * 获取起始节点ID集合
-     * @return 起始节点ID集合
-     */
     public Set<String> getStartNodeIds() {
         return Collections.unmodifiableSet(startNodeIds);
     }
 
-    /**
-     * 是否只重试失败的节点
-     * @return 是否只重试失败的节点
-     */
+    public boolean isSkipUpstream() {
+        return skipUpstream;
+    }
+
     public boolean isRetryFailedOnly() {
         return retryFailedOnly;
     }
 
-    /**
-     * 是否跳过已成功的节点
-     * @return 是否跳过已成功的节点
-     */
     public boolean isSkipSuccessful() {
         return skipSuccessful;
     }
 
-    /**
-     * 是否启用容错执行
-     * @return 是否启用容错执行
-     */
     public boolean isFaultTolerant() {
         return faultTolerant;
     }
 
-    /**
-     * 是否启用并行执行
-     * @return 是否启用并行执行
-     */
-    public boolean isParallel() {
-        return parallel;
+    public String getStopAfterNodeId() {
+        return stopAfterNodeId;
     }
 
+    public List<String> getSkippedNodeRoles() {
+        return skippedNodeRoles;
+    }
 }

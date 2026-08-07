@@ -1,4 +1,4 @@
-import axios, {AxiosPromise} from 'axios'
+import axios, {type AxiosPromise} from 'axios'
 import {IdParam} from "../../../../../../common/api/api";
 
 import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";

@@ -1,0 +1,26 @@
+{
+  "name": "particle-userscript",
+  "private": true,
+  "version": "0.0.4",
+  "type": "module",
+  "scripts": {
+    "dev:doubao": "vite --mode doubao",
+    "dev:deepseek": "vite --mode deepseek",
+    "build:doubao": "vite build --mode doubao",
+    "build:deepseek": "vite build --mode deepseek"
+  },
+  "dependencies": {
+    "@varlet/touch-emulator": "^3.15.1",
+    "@varlet/ui": "^3.15.1",
+    "dompurify": "^3.4.3",
+    "marked": "^18.0.3",
+    "marked-highlight": "^2.2.4",
+    "prismjs": "^1.30.0",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.6",
+    "vite": "^7.3.2",
+    "vite-plugin-monkey": "^7.1.9"
+  }
+}

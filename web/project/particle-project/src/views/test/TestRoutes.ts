@@ -7,6 +7,8 @@ import TestTinymceEditor from "./TestTinymceEditor.vue";
 import TestRealtimeRenderMarkdown from "./TestRealtimeRenderMarkdown.vue";
 import TestG6Graph from "./TestG6Graph.vue";
 import TestParticle from "./TestParticle.vue";
+import TestVueFlowGraph from "./TestVueFlowGraph.vue";
+import TestWorkflowEditor from "./TestWorkflowEditor.vue";
 
 let TestRoutes = [
     {
@@ -105,6 +107,28 @@ let TestRoutes = [
             root: true,
             code: 'testParticle',
             name: '测试 particle 自定义的组件',
+            keepAlive: true
+        }
+    },
+    {
+        path: '/testVueFlowGraph',
+        name: 'testVueFlowGraph',
+        component: TestVueFlowGraph,
+        meta: {
+            root: true,
+            code: 'testVueFlowGraph',
+            name: '测试 vueFlow 图编辑',
+            keepAlive: true
+        }
+    },
+    {
+        path: '/testWorkflowEditor',
+        name: 'testWorkflowEditor',
+        component: TestWorkflowEditor,
+        meta: {
+            root: true,
+            code: 'testWorkflowEditor',
+            name: '测试 partile 工作流编辑器',
             keepAlive: true
         }
     },

@@ -1,6 +1,6 @@
 package com.particle.global.crawler.examples.webdriver;
 
-import com.particle.global.crawler.tool.CrawlerWebDriverTool;
+import com.particle.global.crawler.webdriver.CrawlerWebDriverTool;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;

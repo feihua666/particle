@@ -44,6 +44,8 @@
         <module>cms</module>
         <module>audit</module>
         <module>gateway</module>
+        <module>workflow</module>
+        <module>crawler</module>
     </modules>
 
     <properties>

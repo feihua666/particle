@@ -1,0 +1,27 @@
+package com.particle.crawler.domain.definition;
+
+import com.particle.common.domain.id.Id;
+
+/**
+ * <p>
+ * 爬虫定义历史 领域模型id
+ * </p>
+ *
+ * @author yw
+ * @since 2026-05-11 11:22:55
+ */
+public class CrawlerDefinitionHistoryId extends Id {
+
+	public CrawlerDefinitionHistoryId(Long id) {
+		super(id);
+	}
+
+	/**
+	 * 基本数据类型 id 转 爬虫定义历史 领域模型id
+	 * @param id
+	 * @return
+	 */
+	public static CrawlerDefinitionHistoryId of(Long id){
+		return new CrawlerDefinitionHistoryId(id);
+	}
+}

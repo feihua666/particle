@@ -1,0 +1,33 @@
+-- 建表语句sql
+DROP TABLE IF EXISTS component_agi_ai_model;
+CREATE TABLE `component_agi_ai_model` (
+  `id` bigint NOT NULL COMMENT '主键ID',
+  `code` varchar(50) NOT NULL COMMENT '模型编码,如：（gpt-4o, qwen-plus, qwen2:7b）',
+  `name` varchar(100) NOT NULL COMMENT '模型显示名称',
+  `type_dict_id` bigint NOT NULL COMMENT '模型类型,如：（chat-对话, embedding-嵌入, image-图像, rerank-重排）',
+  `max_tokens` int DEFAULT NULL COMMENT '最大 Token 数',
+  `default_temperature` decimal(3,2) DEFAULT NULL COMMENT '默认温度值（0.00-2.00）',
+  `default_top_p` decimal(3,2) DEFAULT NULL COMMENT '默认 Top P 值',
+  `is_disabled` tinyint(1) NOT NULL COMMENT '是否禁用',
+  `is_default` tinyint(1) NOT NULL COMMENT '是否为默认模型',
+  `extra_config_json` mediumtext COMMENT '扩展配置，如：（JSON格式，如超时时间、重试次数等）',
+  `agi_model_provider_id` bigint NOT NULL COMMENT '所属提供商ID',
+  `seq` int NOT NULL COMMENT '排序,默认按该字段升序排序',
+  `remark` varchar(255) DEFAULT NULL COMMENT '描述',
+  `version` int NOT NULL COMMENT '乐观锁字段',
+  `tenant_id` bigint DEFAULT NULL COMMENT '租户id',
+  `create_at` datetime NOT NULL COMMENT '创建时间的时间戳',
+  `create_by` bigint DEFAULT NULL COMMENT '创建人',
+  `update_at` datetime DEFAULT NULL COMMENT '修改时间的时间戳',
+  `update_by` bigint DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `uk_agi_model_provider_id_code` (`agi_model_provider_id`,`code`) USING BTREE,
+  KEY `name` (`name`) USING BTREE,
+  KEY `type_dict_id` (`type_dict_id`) USING BTREE,
+  KEY `is_disabled` (`is_disabled`) USING BTREE,
+  KEY `agi_model_provider_id` (`agi_model_provider_id`) USING BTREE,
+  KEY `seq` (`seq`) USING BTREE,
+  KEY `version` (`version`) USING BTREE,
+  KEY `create_at` (`create_at`) USING BTREE,
+  KEY `update_at` (`update_at`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='AI模型表';

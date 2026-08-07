@@ -30,6 +30,7 @@
         "com.particle.agi.infrastructure.rag.mapper",
         "com.particle.agi.infrastructure.agent.mapper",
         "com.particle.agi.infrastructure.chat.mapper",
+        "com.particle.agi.infrastructure.model.mapper",
 })
 public class AgiAutoConfiguration {
 

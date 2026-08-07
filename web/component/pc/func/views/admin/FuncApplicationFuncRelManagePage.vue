@@ -57,7 +57,8 @@ const getTableRowButtons = ({row, column, $index}) => {
   if($index < 0){
     return []
   }
-  let idData = {id: row.id}
+    let dt = {__dt: row.name}
+  let idData = {id: row.id,...dt}
   let funcAssignFuncApplicationRouteQuery = {funcId: row.funcId,funcName: row.funcName}
   let deleteByFuncIdRouteQuery = {funcId: row.funcId,funcName: row.funcName}
   let funcApplicationAssignFuncRouteQuery = {funcApplicationId: row.funcApplicationId,funcApplicationName: row.funcApplicationName}

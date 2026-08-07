@@ -3,12 +3,13 @@ package com.particle.global.dag;
 import com.particle.global.dag.engine.DagEngine;
 import com.particle.global.dag.engine.DefaultDagEngine;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
- * DAG引擎自动配置类
+ * DAG 引擎自动配置类
  * </p>
  *
  * @author Claude
@@ -18,11 +19,11 @@ import org.springframework.context.annotation.Configuration;
 public class GlobalDAGAutoConfiguration {
 
     /**
-     * DAG引擎Bean
-     * @return DAG引擎实例
+     * DAG 引擎 Bean
+     * @return DAG 引擎实例
      */
-    // @Bean
-    // @ConditionalOnBean
+    @Bean
+    @ConditionalOnMissingBean
     public DagEngine dagEngine() {
         return new DefaultDagEngine();
     }

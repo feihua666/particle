@@ -2,7 +2,6 @@ package com.particle.global.mybatis.plus.fill;
 
 import com.particle.global.dto.basic.DO;
 import com.particle.global.dto.basic.TreeDO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +15,14 @@ import java.util.List;
  */
 @Setter
 @Getter
-@AllArgsConstructor
 public class MpFillConfig {
+    // 添加构造函数
+    public MpFillConfig(String property, Object value, boolean insert, boolean update) {
+        this.property = property;
+        this.value = value;
+        this.insert = insert;
+        this.update = update;
+    }
     private String property;
     private Object value;
     private boolean insert;

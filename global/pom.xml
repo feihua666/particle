@@ -55,6 +55,7 @@
         <module>global-freemarker-boot-starter</module>
         <module>global-ai-boot-starter</module>
         <module>global-crawler-boot-starter</module>
+        <module>global-workflow-boot-starter</module>
 
 
     </modules>

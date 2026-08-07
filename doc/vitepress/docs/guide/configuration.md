@@ -74,10 +74,10 @@ spring:
       strict: false                # 严格匹配数据源
       datasource:
         master:
-          url: ${particle.datasource.master.url}?${particle.datasource.mysql.url-query}
+          url: ${particle.global.datasource.master.url}?${particle.global.datasource.mysql.url-query}
           username: root
           password: rootroot
-          driver-class-name: ${particle.datasource.mysql.driver}
+          driver-class-name: ${particle.global.datasource.mysql.driver}
 ```
 
 ### 数据库初始化配置

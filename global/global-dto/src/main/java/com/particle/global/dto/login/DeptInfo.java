@@ -3,7 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +17,6 @@ import java.io.Serializable;
  * @since 2023-05-30 16:25:32
  */
 @Data
-@Builder
 @Schema(description = "部门信息")
 public class DeptInfo extends DTO {
 
@@ -61,16 +60,17 @@ public class DeptInfo extends DTO {
 								  Long parentId,
 								  Integer level
 								  ) {
-		return DeptInfo.builder().id(id)
-				.code(code)
-				.name(name)
-				.typeDictId(typeDictId)
-				.typeDictValue(typeDictValue)
-				.masterUserId(masterUserId)
-				.isVirtual(isVirtual)
-				.isComp(isComp)
-				.parentId(parentId)
-				.level(level)
-				.build();
+		DeptInfo deptInfo = new DeptInfo();
+		deptInfo.setId(id);
+		deptInfo.setCode(code);
+		deptInfo.setName(name);
+		deptInfo.setTypeDictId(typeDictId);
+		deptInfo.setTypeDictValue(typeDictValue);
+		deptInfo.setMasterUserId(masterUserId);
+		deptInfo.setIsVirtual(isVirtual);
+		deptInfo.setIsComp(isComp);
+		deptInfo.setParentId(parentId);
+		deptInfo.setLevel(level);
+		return deptInfo;
 	}
 }

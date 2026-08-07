@@ -1,4 +1,4 @@
-import {anyObj, clone} from "../../../../../../global/common/tools/ObjectTools";
+import {type anyObj, clone} from "../../../../../../global/common/tools/ObjectTools";
 
 const clientAuthenticationMethodsFieldName = 'clientAuthenticationMethods'
 const authorizationGrantTypesFieldName = 'authorizationGrantTypes'

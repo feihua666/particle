@@ -24,7 +24,6 @@ import com.github.xiaoymin.knife4j.spring.configuration.Knife4jProperties;
 import com.github.xiaoymin.knife4j.spring.configuration.Knife4jSetting;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.OpenAPI;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
@@ -46,8 +45,12 @@ import java.util.stream.Collectors;
  * 2022/12/11 22:40
  */
 @Slf4j
-@AllArgsConstructor
 public class Knife4jOpenApiCustomizer implements GlobalOpenApiCustomizer {
+
+    public Knife4jOpenApiCustomizer(Knife4jProperties knife4jProperties, SpringDocConfigProperties properties) {
+        this.knife4jProperties = knife4jProperties;
+        this.properties = properties;
+    }
 
     final Knife4jProperties knife4jProperties;
     final SpringDocConfigProperties properties;

@@ -71,5 +71,13 @@
             <artifactId>spring-jdbc</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- Particle Global AI Boot Starter (Optional) - for AiNodeExecutor -->
+        <dependency>
+            <groupId>com.particle</groupId>
+            <artifactId>global-ai-boot-starter</artifactId>
+            <version>${particle.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

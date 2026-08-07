@@ -6,18 +6,10 @@ import {reactive, ref} from 'vue'
 import {create as dictCreateApi} from "../../api/admin/dictAdminApi"
 import {batchAddPageFormItems} from "../../components/admin/dictManage";
 import {clone} from "../../../../../global/common/tools/ObjectTools";
-import {ElMessage} from 'element-plus'
 import {isString} from "../../../../../global/common/tools/StringTools";
+import {showMsg} from "../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了
 const props = defineProps({

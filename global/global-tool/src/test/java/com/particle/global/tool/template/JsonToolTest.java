@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.obj.NullObj;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,6 @@ public class JsonToolTest {
 		System.out.println(JsonTool.isJsonStrEmpty("[]"));
 		System.out.println(JsonTool.isJsonStrEmpty("[   ]"));
 		System.out.println(JsonTool.isJsonStrEmpty("[ 22  ]"));
-
 		Map<String, Object> map = new HashMap<>();
 		map.put("aaa", null);
 		map.put("bbb", NullObj.NULL);

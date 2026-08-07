@@ -6,6 +6,7 @@ import {isString} from "../../common/tools/StringTools"
 import {exist, isArray} from "../../common/tools/ArrayTools"
 import {isFunction} from "../../common/tools/FunctionTools"
 import {ElMessage} from 'element-plus'
+import {showMsg} from "./ElmessageTools";
 
 /**
  * 权限属性，封装组件时用
@@ -105,13 +106,7 @@ export const hasPermissionConfig = ({props,injectPermissions,noPermissionSimpleT
             }
         }
         let alert = ()=>{
-            ElMessage({
-                    showClose: true,
-                    message: noPermissionText,
-                    type: 'error',
-                    showIcon: true,
-                    grouping: true
-                })
+            showMsg(noPermissionText,'error')
             }
         return {
             enable,

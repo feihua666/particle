@@ -9,19 +9,11 @@ import {
   detail as dataQueryDataApiDetailApi,
 } from "../../../api/dataapi/admin/dataQueryDataApiAdminApi.ts"
 
-import {ElMessage} from 'element-plus'
 import {inParamTypeHandler} from "../../../components/datasource/admin/dataQueryDatasourceApiManage";
 import {detail as dataQueryDatasourceApiDetailApi} from "../../../api/datasource/admin/dataQueryDatasourceApiAdminApi";
+import {showMsg} from "../../../../../../global/pc/element-plus/ElmessageTools";
 
-let alert = (message,type='success')=>{
-  ElMessage({
-    showClose: true,
-    message: message,
-    type: type,
-    showIcon: true,
-    grouping: true
-  })
-}
+let alert = showMsg
 
 // 声明属性
 // 只要声名了属性 attrs 中就不会有该属性了

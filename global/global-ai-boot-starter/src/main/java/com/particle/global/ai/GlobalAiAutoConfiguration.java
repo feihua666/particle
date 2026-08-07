@@ -1,5 +1,9 @@
 package com.particle.global.ai;
 
+import com.particle.global.ai.gateway.AiModelRegistry;
+import com.particle.global.ai.gateway.AiModelRouterService;
+import com.particle.global.ai.gateway.ModelConfigGateway;
+import com.particle.global.ai.strategy.AiModelInvocationStrategy;
 import com.particle.global.projectinfo.ProjectInfo;
 import com.particle.global.swagger.ApplicationContexSwaggertHelper;
 import com.particle.global.swagger.SwaggerInfo;
@@ -8,6 +12,7 @@ import io.micrometer.observation.ObservationRegistry;
 import io.milvus.client.MilvusServiceClient;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.vectorstore.milvus.autoconfigure.MilvusVectorStoreProperties;
 import org.springframework.ai.embedding.BatchingStrategy;
 import org.springframework.ai.embedding.EmbeddingModel;
@@ -66,5 +71,52 @@ public class GlobalAiAutoConfiguration {
                 .observationRegistry(observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP))
                 .customObservationConvention(customObservationConvention.getIfAvailable(() -> null))
                 .build();
+    }
+
+    /**
+     * AI 模型注册表
+     * 自动收集所有 ChatModel Bean 并注册到注册表
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AiModelRegistry aiModelRegistry(
+            ObjectProvider<List<ChatModel>> chatModelsProvider,
+            ObjectProvider<List<AiModelInvocationStrategy>> strategiesProvider,
+            ObjectProvider<ChatModel> defaultChatModelProvider) {
+        
+        AiModelRegistry registry = new AiModelRegistry();
+        
+        // 注册所有 ChatModel
+        if (chatModelsProvider.getIfAvailable() != null) {
+            for (ChatModel chatModel : chatModelsProvider.getIfAvailable()) {
+                // 从 Bean 名称或自定义注解中提取 providerCode 和 modelCode
+                // 这里使用默认策略，具体实现由业务模块完善
+                String beanName = chatModel.getClass().getSimpleName();
+                registry.registerChatModel("default:" + beanName, chatModel);
+            }
+        }
+        
+        // 注册所有策略
+        if (strategiesProvider.getIfAvailable() != null) {
+            for (AiModelInvocationStrategy strategy : strategiesProvider.getIfAvailable()) {
+                registry.registerStrategy(strategy);
+            }
+        }
+        
+        // 设置默认 ChatModel
+        if (defaultChatModelProvider.getIfAvailable() != null) {
+            registry.setDefaultChatModel(defaultChatModelProvider.getIfAvailable());
+        }
+        
+        return registry;
+    }
+
+    /**
+     * AI 模型路由服务
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AiModelRouterService aiModelRouterService(AiModelRegistry aiModelRegistry) {
+        return new AiModelRouterService(aiModelRegistry);
     }
 }

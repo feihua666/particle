@@ -39,6 +39,7 @@ import Breadcrumb from './backend/Breadcrumb.vue'
 import FormButton from './FormButton.vue'
 import TableFormButton from './TableFormButton.vue'
 import * as ElStyleTools from './ElStyleTools'
+import * as ElmessageTools from './ElmessageTools'
 
 let prefix = 'Pt'
 let map = {
@@ -89,5 +90,6 @@ export default {
             app.component(prefix + mapKey,map[mapKey])
         }
         app.config.globalProperties.ptElStyleTools = ElStyleTools
+        app.config.globalProperties.ptElmessageTools = ElmessageTools
     }
 }

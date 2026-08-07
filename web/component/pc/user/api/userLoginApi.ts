@@ -1,6 +1,6 @@
-import axios, {AxiosPromise} from 'axios'
-import {anyObj} from "../../../../global/common/tools/ObjectTools";
-import {IdParam} from "../../../../common/api/api";
+import axios, {type AxiosPromise} from 'axios'
+import type {anyObj} from "../../../../global/common/tools/ObjectTools";
+import type {IdParam} from "../../../../common/api/api";
 import {getApiPrefix} from "../../../../common/api/apiPrefixConfig";
 
 let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_USER)

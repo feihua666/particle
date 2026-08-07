@@ -130,5 +130,15 @@ const UserRoutes = [
             keepAlive: true
         },
     },
+    {
+        path: '/front/TemplateRendererPage',
+        component: () => import('./views/front/TemplateRendererPage.vue'),
+        meta: {
+            root: true,
+            code:'TemplateRendererPage',
+            name: '模板渲染器',
+            keepAlive: true
+        },
+    },
 ]
 export default UserRoutes

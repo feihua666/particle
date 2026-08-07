@@ -1,9 +1,11 @@
 import AllToolsPlugin from "./tools/AllToolsPlugin.ts"
 import G6Graph from "./g6/G6Graph.vue";
+import VueFlowGraph from "./vueflow/VueFlowGraph.vue";
 
 let prefix = "Pt"
 let map = {
     G6Graph,
+    VueFlowGraph,
 }
 export default {
     install: function (app, options) {

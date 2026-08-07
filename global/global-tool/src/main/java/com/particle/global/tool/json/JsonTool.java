@@ -6,8 +6,12 @@ import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.particle.global.tool.calendar.CalendarTool;
+import com.particle.global.tool.json.jackson2.Jackson2ObjectMapperBuilderCustomize;
+import com.particle.global.tool.spring.SpringContextHolder;
+import groovy.util.logging.Slf4j;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.Collection;
 
@@ -19,6 +23,8 @@ import java.util.Collection;
  * @author yangwei
  * @since 2022-04-13 19:52
  */
+@lombok.extern.slf4j.Slf4j
+@Slf4j
 public class JsonTool {
 
 	public static JSONConfig jsonConfig = null;
@@ -30,6 +36,27 @@ public class JsonTool {
 				.setIgnoreNullValue(false);
 
 	}
+
+	private static volatile ObjectMapper objectMapper;
+
+	public static ObjectMapper getObjectMapper() {
+		if (objectMapper == null) {
+			synchronized (JsonTool.class) {
+				if (objectMapper == null) {
+					try {
+						objectMapper = SpringContextHolder.getBean(ObjectMapper.class);
+					} catch (Exception e) {
+						log.warn("get objectMapper from spring error. build new one instead");
+						Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder = new Jackson2ObjectMapperBuilder();
+						Jackson2ObjectMapperBuilderCustomize.customize(jackson2ObjectMapperBuilder,null);
+						objectMapper = jackson2ObjectMapperBuilder.createXmlMapper(false).build();
+					}
+				}
+			}
+		}
+		return objectMapper;
+	}
+
 	/**
 	 * 转化为json
 	 * @param object

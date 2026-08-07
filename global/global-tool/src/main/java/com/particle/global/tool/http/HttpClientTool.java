@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.particle.global.tool.io.IoStreamTool;
 import com.particle.global.tool.json.JsonTool;
 import com.particle.global.tool.proxy.ProxyConfig;
-import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -393,7 +392,6 @@ public class HttpClientTool{
     }
 
     @Data
-    @Builder
     public static class ExtConfig{
 
         /**
@@ -459,7 +457,7 @@ public class HttpClientTool{
             return JsonTool.toJsonStr(this);
         }
         public static ExtConfig create() {
-            return ExtConfig.builder().build();
+            return new ExtConfig();
         }
     }
 }

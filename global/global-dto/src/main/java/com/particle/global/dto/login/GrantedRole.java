@@ -3,10 +3,7 @@ package com.particle.global.dto.login;
 
 import com.particle.global.dto.basic.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -17,7 +14,6 @@ import java.io.Serializable;
  * @since 2022-11-28 09:54
  */
 @Data
-@Builder
 @Schema(description = "授权的角色")
 public class GrantedRole  extends DTO {
 
@@ -33,11 +29,15 @@ public class GrantedRole  extends DTO {
 	@Schema(description = "是否超级管理员")
 	private Boolean isSuperadmin;
 
-	public static GrantedRole create(Long id, String code, String name,Boolean isSuperadmin) {
-		return GrantedRole.builder().id(id)
-				.code(code)
-				.name(name)
-				.isSuperadmin(isSuperadmin)
-				.build();
+	public static GrantedRole create(Long id,
+									 String code,
+									 String name,
+									 Boolean isSuperadmin) {
+		GrantedRole grantedRole = new GrantedRole();
+		grantedRole.id = id;
+		grantedRole.code = code;
+		grantedRole.name = name;
+		grantedRole.isSuperadmin = isSuperadmin;
+		return grantedRole;
 	}
 }

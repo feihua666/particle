@@ -9,7 +9,6 @@ import com.particle.global.ratelimit.RateLimitInterceptService;
 import com.particle.global.ratelimit.RateLimiterNamedWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -421,9 +420,14 @@ public class DefaultConfigableRateLimitInterceptServiceImpl implements RateLimit
 	 * 匹配的结果
 	 */
 	@Getter
-	@AllArgsConstructor
 	private static class MatchResult{
 		public static String SEPERATOR = "|";
+		// 添加构造函数
+		private MatchResult(String matchedReg, String matchedExtract) {
+			this.matchedReg = matchedReg;
+			this.matchedExtract = matchedExtract;
+		}
+
 		/**
 		 * 匹配的正则
 		 */

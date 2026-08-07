@@ -45,12 +45,11 @@ public class JsonController extends AbstractBaseWebAdapter {
     @PostMapping("/parseMultipleLine")
     @ResponseStatus(HttpStatus.OK)
     public MultiResponse<String> parse(@RequestBody @Validated JsonParseMultipleLineCommand form) {
-        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = SpringContextHolder.getBean(MappingJackson2HttpMessageConverter.class);
         List<String> result = new ArrayList<>(form.getJsonStrs().size());
         for (String jsonStr : form.getJsonStrs()) {
             Object o = parseJson(jsonStr);
 
-            String toJsonStrForHttp = JsonTool.toJsonStrForHttp(o, jackson2HttpMessageConverter.getObjectMapper());
+            String toJsonStrForHttp = JsonTool.toJsonStrForHttp(o, JsonTool.getObjectMapper());
             result.add(toJsonStrForHttp);
         }
 
