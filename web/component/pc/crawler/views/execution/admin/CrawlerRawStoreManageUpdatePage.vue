@@ -8,7 +8,7 @@ import {
   detailForUpdate as detailForUpdateApi
 } from "../../../api/execution/admin/crawlerRawStoreAdminApi"
 
-import {updatePageFormItems} from "../../../components/execution/admin/crawlerRawStoreManage";
+//import {updatePageFormItems} from "../../../components/execution/admin/crawlerRawStoreManage";
 
 
 // 声明属性
@@ -31,7 +31,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    updatePageFormItems
+    //updatePageFormItems
 )
 
 // 提交按钮属性

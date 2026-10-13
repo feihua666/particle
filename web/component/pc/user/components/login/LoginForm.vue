@@ -12,7 +12,12 @@ const props = defineProps({
   useCaptcha:{
     type: Boolean,
     default: true
-  }
+  },
+  // 是否启动验证码登录
+    useVerificationCodeLogin:{
+      type: Boolean,
+      default: true
+    },
 })
 </script>
 <template>
@@ -20,7 +25,7 @@ const props = defineProps({
     <el-tab-pane label="账号密码登录">
       <AccountLoginForm :loginSuccess="loginSuccess" :useCaptcha="useCaptcha"></AccountLoginForm>
     </el-tab-pane>
-    <el-tab-pane label="验证码登录">
+    <el-tab-pane label="验证码登录" v-if="useVerificationCodeLogin">
       <VerificationCodeLoginForm :loginSuccess="loginSuccess" :useCaptcha="useCaptcha"></VerificationCodeLoginForm>
     </el-tab-pane>
   </el-tabs>

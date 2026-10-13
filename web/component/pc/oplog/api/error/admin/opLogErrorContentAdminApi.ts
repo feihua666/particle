@@ -1,5 +1,5 @@
 import axios, {type AxiosPromise} from 'axios'
-import {IdParam} from "../../../../../../common/api/api";
+import type {IdParam} from "../../../../../../common/api/api";
 
 import {getApiPrefix} from "../../../../../../common/api/apiPrefixConfig";
 let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_OP_LOG) + '/admin/web/op_log_error_content'

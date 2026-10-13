@@ -4,7 +4,7 @@
  */
 import {reactive ,ref} from 'vue'
 import {create as crawlerRawStoreCreateApi} from "../../../api/execution/admin/crawlerRawStoreAdminApi"
-import {addPageFormItems} from "../../../components/execution/admin/crawlerRawStoreManage";
+//import {addPageFormItems} from "../../../components/execution/admin/crawlerRawStoreManage";
 
 
 // 属性
@@ -16,7 +16,7 @@ const reactiveData = reactive({
 })
 // 表单项
 const formComps = ref(
-    addPageFormItems
+    //addPageFormItems
 )
 
 // 提交按钮属性

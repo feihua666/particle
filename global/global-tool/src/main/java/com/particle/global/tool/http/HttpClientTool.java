@@ -51,25 +51,30 @@ public class HttpClientTool{
     /**
      * 建立链接超时时间,毫秒
      * 连接建立时间，三次握手完成时间
+     * 本类用于连接池中，单次请求不能覆盖
      */
     public static final int CONN_TIMEOUT = 5000;
     public static final Timeout CONN_OF_TIMEOUT = Timeout.ofMilliseconds(CONN_TIMEOUT);
     /**
      * 从池中获取链接超时时间,毫秒
-     * 和网络无关，这是httpClient池化技术的超时时间
+     * 和网络无关，这是 httpClient 池化技术的超时时间
+     * 本类用于连接池中，单次请求不能覆盖
      */
     public static final int CONN_REQUEST_TIMEOUT = 5000;
     public static final Timeout CONN_OF_REQUEST_TIMEOUT = Timeout.ofMilliseconds(CONN_REQUEST_TIMEOUT);
     /**
      * 响应超时时间，毫秒,httpclient5已不支持单个请求设置socketTimeout
      * 响应超时，即服务器处理请求的时间，超过此时间会抛出异常
+     * 如果不指定系统默认为null
      */
     public static final int REPSONSE_TIMEOUT = 5000;
     public static final Timeout REPSONSE_OF_TIMEOUT = Timeout.ofMilliseconds(REPSONSE_TIMEOUT);
 
     /**
      * 读取超时时间，毫秒，httpclient5 在设置连接池管理器中设置 socketTimout
-     * 数据传输过程中数据包之间间隔的最大时间也可以理解为READ_TIMEOUT
+     * 数据传输过程中数据包之间间隔的最大时间也可以理解为 READ_TIMEOUT
+     * 本类用于连接池中，单次请求不能覆盖
+     * 如果不指定系统默认 3分钟 {@link SocketConfig#DEFAULT_SOCKET_TIMEOUT}
      */
     public static final int SOCKET_TIMEOUT = 5000;
     public static final Timeout SOCKET_OF_TIMEOUT = Timeout.ofMilliseconds(SOCKET_TIMEOUT);
@@ -87,19 +92,20 @@ public class HttpClientTool{
                     PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
                     cm.setMaxTotal(128);
                     cm.setDefaultMaxPerRoute(128);
+                    // 关于 SOCKET_OF_TIMEOUT， HttpClient5 内部会优先使用 ConnectionConfig 的配置来设置 Socket，如果 ConnectionConfig 没有设置，才会使用 SocketConfig。
                     ConnectionConfig connectionConfig = ConnectionConfig.custom()
                             .setConnectTimeout(CONN_OF_TIMEOUT)
-                            .setSocketTimeout(SOCKET_OF_TIMEOUT)
+                            // .setSocketTimeout(SOCKET_OF_TIMEOUT)
                             .build();
                     SocketConfig socketConfig = SocketConfig.custom()
-                            .setSoTimeout(SOCKET_OF_TIMEOUT) // 设置Socket超时时间
+                            .setSoTimeout(SOCKET_OF_TIMEOUT)
                             .build();
                     cm.setDefaultSocketConfig(socketConfig);
                     cm.setDefaultConnectionConfig(connectionConfig);
 
                     RequestConfig requestConfig = RequestConfig.custom()
                             .setConnectionRequestTimeout(CONN_OF_REQUEST_TIMEOUT)
-                            .setResponseTimeout(REPSONSE_OF_TIMEOUT)
+                            .setResponseTimeout(RESPONSE_OF_TIMEOUT)
                             .build();
                     CLIENT = HttpClients.custom()
                             .setConnectionManager(cm)
@@ -338,7 +344,7 @@ public class HttpClientTool{
             }
             // 超时时间处理
 
-            if (extConfig.getConnTimeout() != null || extConfig.getConnRequestTimeout() != null || extConfig.getSocketTimeout() != null) {
+            if (extConfig.getConnTimeout() != null || extConfig.getConnRequestTimeout() != null || extConfig.getResponseTimeout() != null) {
                 RequestConfig.Builder custom = null;
                 if (requestConfig == null) {
                     custom = RequestConfig.custom();
@@ -351,9 +357,7 @@ public class HttpClientTool{
                 if (extConfig.getConnRequestTimeout() != null) {
                     custom.setConnectionRequestTimeout(Timeout.ofMilliseconds(extConfig.getConnRequestTimeout()));
                 }
-                if (extConfig.getSocketTimeout() != null) {
-                    custom.setResponseTimeout(Timeout.ofMilliseconds(extConfig.getSocketTimeout()));
-                }
+
                 if (extConfig.getResponseTimeout() != null) {
                     custom.setResponseTimeout(Timeout.ofMilliseconds(extConfig.getResponseTimeout()));
                 }
@@ -419,6 +423,7 @@ public class HttpClientTool{
 
         /**
          * 连接超时时间，ms
+         * 三次握手时间
          */
         private Integer connTimeout;
         /**
@@ -429,10 +434,6 @@ public class HttpClientTool{
          * 响应超时时间，ms
          */
         private Integer responseTimeout;
-        /**
-         * 读取超时时间，ms，注意httpclient5已不支持单独请求设置socketTimout，这里保留是只有在设置httpclient时可以设置，所以想在单次请求中支持，必须先建议一个新的httpclient，但这样是耗资源的
-         */
-        private Integer socketTimeout;
 
 
         public ExtConfig withProxy(String proxyId, Integer proxyPort) throws URISyntaxException {

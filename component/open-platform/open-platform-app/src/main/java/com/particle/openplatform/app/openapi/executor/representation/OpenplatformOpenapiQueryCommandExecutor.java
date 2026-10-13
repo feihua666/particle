@@ -1028,7 +1028,6 @@ public class OpenplatformOpenapiQueryCommandExecutor  extends AbstractBaseQueryE
 							 HttpContentType requestContentType) {
 		HttpClientTool.ExtConfig extConfig = HttpClientTool.ExtConfig.create();
 		extConfig.setResponseTimeout(10 * 60 * 1000);
-		extConfig.setSocketTimeout(10 * 60 * 1000);
 
 		// 根据请求体类型分别请求
 		// post json

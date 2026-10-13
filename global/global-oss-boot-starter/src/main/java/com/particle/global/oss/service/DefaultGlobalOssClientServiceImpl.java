@@ -50,9 +50,15 @@ public class DefaultGlobalOssClientServiceImpl implements GlobalOssClientService
 		globalOssClientWrapper.getGlobalOssClient().putObject(globalOssClientWrapper.getBucketName(),objectName,inputStream,contentType);
 		String resolvedClient = resolveClient(client);
 		// 添加客户端标识为以后下载提供客户端路由
-		objectName = objectName + "?c=" + resolvedClient;
+		if (globalOssProperties.getAddClientQueryParam()) {
+			objectName = objectName + "?c=" + resolvedClient;
+		}
+
 		if ((concatEndPoint != null && concatEndPoint) || (concatEndPoint == null && globalOssProperties.getConcatEndpoint())) {
 			return NetPathTool.concat(globalOssClientWrapper.getEndpoint(),objectName);
+		}
+		if (globalOssProperties.getConcatBeginSlash()) {
+			objectName = NetPathTool.ensureBeginSlash(objectName);
 		}
 		return objectName;
 	}

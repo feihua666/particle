@@ -1,6 +1,6 @@
 import axios, {type AxiosPromise} from 'axios'
 import type {anyObj} from "../../../../../global/common/tools/ObjectTools";
-import {IdParam} from "../../../../../common/api/api";
+import type {IdParam} from "../../../../../common/api/api";
 
 import {getApiPrefix} from "../../../../../common/api/apiPrefixConfig";
 let prefix = getApiPrefix(import.meta.env.VITE_API_PREFIX_ROLE) + '/admin/web/role-user-rel'

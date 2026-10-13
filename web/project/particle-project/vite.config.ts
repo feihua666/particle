@@ -40,6 +40,7 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
           replacement:  fileURLToPath(new URL('./node_modules', import.meta.url))
         },
         aliasItem('vue'),
+        aliasItem('pinia'),
         aliasItem('element-plus'),
         aliasItem('vue-router'),
         aliasItem('ace-builds'),

@@ -32,6 +32,14 @@ public class GlobalOssProperties {
 	 */
 	private Boolean concatEndpoint = false;
 	/**
+	 * 上传成功后，是否拼接 客户端标识，在末尾添加参数 如：?c=testLocal
+	 */
+	private Boolean addClientQueryParam = true;
+	/**
+	 * 上传成功后，是否拼接 以 / 开头
+	 */
+	private Boolean concatBeginSlash = false;
+	/**
 	 * aws客户端配置
 	 * key = client key
 	 */
