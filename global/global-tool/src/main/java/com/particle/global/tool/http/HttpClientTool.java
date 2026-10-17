@@ -105,7 +105,7 @@ public class HttpClientTool{
 
                     RequestConfig requestConfig = RequestConfig.custom()
                             .setConnectionRequestTimeout(CONN_OF_REQUEST_TIMEOUT)
-                            .setResponseTimeout(RESPONSE_OF_TIMEOUT)
+                            .setResponseTimeout(REPSONSE_OF_TIMEOUT)
                             .build();
                     CLIENT = HttpClients.custom()
                             .setConnectionManager(cm)
